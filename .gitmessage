@@ -1,0 +1,45 @@
+# <type>(<scope>): <subject>
+#
+# <body>
+#
+# tags:
+# refs:
+#
+# ────────────────────────────────────────────────────────────
+# TYPE must be one of:
+#   feat     - New feature or capability
+#   fix      - Bug fix
+#   security - Security patch or hardening
+#   docs     - Documentation only
+#   style    - Formatting, whitespace (no logic change)
+#   refactor - Code restructure (no behavior change)
+#   perf     - Performance improvement
+#   test     - Adding or updating tests
+#   build    - Build system or dependencies
+#   ci       - CI/CD configuration
+#   chore    - Maintenance tasks
+#   revert   - Reverting previous commit
+#
+# SCOPE is optional: module, component, or area affected
+#   Examples: auth, api, ui, db, config, deps
+#
+# SUBJECT should be:
+#   - Imperative mood ("add" not "added")
+#   - No period at end
+#   - Max 72 characters
+#
+# BODY should explain WHY, not WHAT (the diff shows what)
+#
+# TAGS (comma-separated): security, breaking, dependency, performance
+# REFS: #123, PROJ-456
+#
+# BREAKING CHANGE: Add "!" after type or include "BREAKING CHANGE:" in body
+#   Example: feat(api)!: change response format
+#
+# ────────────────────────────────────────────────────────────
+# To use this template globally:
+#   git config --global commit.template /path/to/.gitmessage
+#
+# To use for this repo only:
+#   git config commit.template .gitmessage
+# ────────────────────────────────────────────────────────────

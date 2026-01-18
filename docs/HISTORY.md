@@ -4,6 +4,21 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-18
 
+### Commit Convention Guide (D2)
+- Created `docs/COMMIT_CONVENTION.md` - Full guide for conventional commits
+  - Commit message format specification
+  - Type definitions with analytics impact
+  - Special tags (security, breaking, dependency)
+  - Examples for each commit type
+  - Quick reference and checklist
+- Created `.gitmessage` - Commit message template
+  - Use with `git config commit.template .gitmessage`
+- Created `hooks/commit-msg` - Validation hook
+  - Validates conventional commit format
+  - Checks subject length (max 72 chars)
+  - Warns about non-imperative mood
+- Created `hooks/setup.sh` - Hook installation script
+
 ### Git Analytics Reporting System
 - Created `scripts/extract.js` - Node.js extraction script
   - Parses git log with commit metadata and stats

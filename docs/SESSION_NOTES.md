@@ -4,29 +4,29 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Current State
 
-- Git Analytics Reporting System implemented (MVP complete)
-- Extraction script works and tested on this repository
-- Dashboard ready with all visualizations
+- Git Analytics Reporting System MVP complete (D1, D4)
+- Commit Convention Guide complete (D2)
+- Multi-repo aggregation not yet implemented (D3)
 
 ## Last Completed
 
-- Created `scripts/extract.js` - Full extraction script with:
-  - Git log parsing with commit metadata
-  - Diff stats extraction (additions, deletions, files)
-  - Conventional commit parsing + keyword fallback detection
-  - Tag and reference extraction from commit bodies
-  - Contributor aggregation
-  - File change frequency tracking
-  - JSON output to structured folder
-- Created `scripts/extract.sh` - Shell wrapper
-- Created `dashboard/index.html` - Static dashboard with:
-  - Timeline tab (daily commit chart, commit list)
-  - Progress tab (monthly volume, cumulative growth, feat vs fix trends)
-  - Contributors tab (commits by author, lines by author)
-  - Security tab (security-tagged commits)
-  - Types tab (pie chart, percentage breakdown)
-- Updated USER_GUIDE.md with usage documentation
-- Tested extraction on this repository successfully
+### D2 - Commit Convention Guide
+- `docs/COMMIT_CONVENTION.md` - Full guide with:
+  - Commit format specification (type, scope, subject, body, tags, refs)
+  - Type definitions with analytics impact
+  - Special tags (security, breaking, dependency)
+  - Examples for all commit types
+  - Quick reference and checklist
+- `.gitmessage` - Git commit template
+- `hooks/commit-msg` - Validation hook script
+- `hooks/setup.sh` - Installation script
+
+### D1 - Extraction Script (Previous)
+- `scripts/extract.js` - Full extraction script
+- `scripts/extract.sh` - Shell wrapper
+
+### D4 - Static Report Page (Previous)
+- `dashboard/index.html` - Analytics dashboard with all views
 
 ## In Progress
 
@@ -34,15 +34,13 @@ None
 
 ## Next Steps
 
-Potential enhancements (per spec):
-- Phase 2: Multi-repo aggregation (combined timeline, cross-repo metrics)
-- Phase 3: Filtered views for external reports, date range selection, PDF export
-- GitHub Actions automation option
-- Author identity mapping (merge multiple emails per person)
+Remaining from spec:
+- **D3 - Aggregation Script** - Multi-repo combining, author identity mapping
+- Schema alignment (repo_id, author_id normalization)
+- Dashboard filters (type, author, date range)
 
 ## Notes
 
-- Extraction outputs to `reports/{repo-name}/` folder
-- Dashboard auto-loads from `reports/` or accepts file upload
-- Commit type detection uses conventional commits first, then keyword patterns
-- Security commits tracked by type='security' or tags containing 'security'
+- Commit convention follows Conventional Commits v1.0.0 spec
+- Hook validates format but allows bypass with `--no-verify`
+- Template configured per-repo with `git config commit.template .gitmessage`
