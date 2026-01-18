@@ -4,6 +4,18 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-18
 
+### Dashboard Filters
+- Added filter bar to Timeline tab in `dashboard/index.html`:
+  - Type dropdown - filter commits by type (feat, fix, etc.)
+  - Author dropdown - filter commits by contributor
+  - Repo dropdown - filter by repository (auto-hides for single-repo data)
+  - Date range picker - filter by from/to dates
+  - Clear Filters button to reset all filters
+- Filters apply to both timeline chart and commit list
+- Added commit counter showing "Showing X of Y commits"
+- Updated `docs/USER_GUIDE.md` with filter documentation
+- Updated `docs/TODO.md` to mark filters as complete
+
 ### D3 - Aggregation Script
 - Created `scripts/aggregate.js` - Multi-repository aggregation
   - Combines data from multiple repository extractions

@@ -4,6 +4,12 @@ Items to be addressed, ordered by priority.
 
 ## Completed
 
+### Dashboard Filters (Done)
+- [x] Add type filter to timeline view
+- [x] Add author filter to timeline view
+- [x] Add date range picker
+- [x] Add repo selector for aggregated view
+
 ### D3 - Aggregation Script (Done)
 Multi-repo combining with author identity mapping:
 - [x] Create `scripts/aggregate.js` to combine multiple repo outputs
@@ -21,12 +27,9 @@ Align with technical spec schema:
 - [ ] Add `security_events` array to summary.json
 - [ ] Wrap commits array in `{ "commits": [...] }` object
 
-### Dashboard Enhancements
-- [ ] Add type filter to timeline view
-- [ ] Add author filter to timeline view
-- [ ] Add date range picker
-- [ ] Support loading multiple repo data files
-- [ ] Add repo selector for aggregated view
+### Dashboard - Multiple Data Files
+- [ ] Support loading multiple repo data files simultaneously
+- [ ] File picker for multiple selection
 
 ## Low Priority / Ideas
 
@@ -43,4 +46,4 @@ Align with technical spec schema:
 
 ---
 
-*Last updated: Session 3 - After D3 aggregation script implementation*
+*Last updated: Session 3 - After dashboard filters implementation*

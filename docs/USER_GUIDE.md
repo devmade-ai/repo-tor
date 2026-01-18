@@ -28,22 +28,39 @@ Four cards at the top provide quick metrics:
 
 Shows **when** commits happened and **what** was recently committed.
 
+**Filters**
+
+The filter bar allows you to narrow down commits:
+
+| Filter | Description |
+|--------|-------------|
+| **Type** | Show only commits of a specific type (feat, fix, etc.) |
+| **Author** | Show only commits from a specific contributor |
+| **Repo** | Show only commits from a specific repository (aggregated data only) |
+| **From/To** | Show commits within a date range |
+
+- Filters apply to both the chart and commit list
+- The "Showing X of Y commits" counter updates as you filter
+- Click "Clear Filters" to reset all filters
+
 **Commit Timeline Chart**
 - Bar chart showing commits per day
 - Taller bars = more activity that day
 - Gaps indicate periods of inactivity
+- Chart updates when filters are applied
 
 **What to look for:**
 - Consistent activity vs sporadic bursts
 - Unusual spikes (release pushes, deadline crunches)
 - Quiet periods (holidays, blocked work)
+- Filter by author to see individual contribution patterns
 
 **Recent Commits List**
-- Shows the 50 most recent commits
+- Shows up to 50 commits matching current filters
 - Each commit displays:
   - **Type badge** (color-coded)
   - **Subject** - The commit message summary
-  - **Metadata** - SHA, author, date
+  - **Metadata** - SHA, author, date, repo (if aggregated)
   - **Tags** - Security, breaking, etc. (if present)
   - **Line changes** - Green (+) additions, red (-) deletions
 

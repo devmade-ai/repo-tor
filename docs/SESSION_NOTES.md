@@ -7,40 +7,38 @@ Current state and context for AI assistants to pick up where the last session le
 - Git Analytics Reporting System MVP complete (D1, D2, D4)
 - Commit Convention Guide complete (D2)
 - Multi-repo aggregation complete (D3)
+- Dashboard filters complete (type, author, date range, repo)
 - Documentation split into User Guide (UI/interpretation) and Admin Guide (setup/extraction)
 
 ## Last Completed
 
-### D3 - Aggregation Script
-- `scripts/aggregate.js` - Combines multiple repo data files into single aggregated output
-  - Accepts multiple repo directories as input
-  - Optional author identity mapping via `--author-map=` flag
-  - Adds `repo_id` to each commit for tracking source
-  - Recalculates contributors with cross-repo stats
-  - Generates aggregated summary with per-repo breakdown
-- `config/author-map.example.json` - Example author mapping configuration
-- `config/author-map.schema.json` - JSON schema for validation
-- Updated `scripts/extract.js` to include `repo_id` in metadata and commits
-- Updated ADMIN_GUIDE.md with aggregation documentation
-- Updated USER_GUIDE.md with multi-repository view section
+### Dashboard Filters
+- Added filter bar to Timeline tab with:
+  - Type dropdown (filter by commit type)
+  - Author dropdown (filter by contributor email)
+  - Repo dropdown (only shows for aggregated data with multiple repos)
+  - Date range picker (from/to date inputs)
+  - Clear Filters button to reset all
+- Filters apply to both the timeline chart and commit list
+- Added "Showing X of Y commits" counter
+- Updated USER_GUIDE.md with filter documentation
 
-### Documentation Reorganization (Previous)
-- Split documentation into two focused guides:
-  - `docs/USER_GUIDE.md` - Dashboard UI walkthrough, chart interpretation, metric analysis
-  - `docs/ADMIN_GUIDE.md` - Installation, data extraction, aggregation, commit hooks, hosting
+### D3 - Aggregation Script (Previous)
+- `scripts/aggregate.js` - Multi-repo data combining
+- `config/author-map.example.json` - Author identity mapping
+- `scripts/extract.js` - Added `repo_id` to output
 
 ### D2 - Commit Convention Guide
 - `docs/COMMIT_CONVENTION.md` - Full commit format guide
 - `.gitmessage` - Git commit template
 - `hooks/commit-msg` - Validation hook script
-- `hooks/setup.sh` - Installation script
 
 ### D1 - Extraction Script
 - `scripts/extract.js` - Full extraction script with repo_id support
 - `scripts/extract.sh` - Shell wrapper
 
 ### D4 - Static Report Page
-- `dashboard/index.html` - Analytics dashboard with all views
+- `dashboard/index.html` - Analytics dashboard with filters
 
 ## In Progress
 
@@ -50,12 +48,12 @@ None
 
 Remaining items (medium/low priority):
 - Schema alignment (author_id normalization, is_conventional boolean)
-- Dashboard filters (type, author, date range)
-- Dashboard multi-repo selector
+- Multiple data file loading
+- Export to PDF
+- Dark mode
 
 ## Notes
 
-- Commit convention follows Conventional Commits v1.0.0 spec
-- Hook validates format but allows bypass with `--no-verify`
-- Aggregation script works with existing data.json files
-- Author mapping is optional - without it, contributors are grouped by email
+- Filters only apply to Timeline tab (chart + list)
+- Repo filter auto-hides for single-repo data
+- Progress/Contributors/Security/Types tabs show unfiltered aggregate data
