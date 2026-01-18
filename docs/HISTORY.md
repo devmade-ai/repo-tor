@@ -4,6 +4,15 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-18
 
+### Mobile Timeline Improvements
+- Improved filter bar layout with responsive grid (2-col mobile, 3-col tablet, flex desktop)
+- Stacked filter labels above inputs for better touch targets
+- Reduced chart height on mobile (`h-48` vs `h-64`)
+- Redesigned commit list items with responsive layout:
+  - Commit message wraps on mobile, truncates on desktop
+  - Metadata flows with dot separators on mobile, full text on desktop
+  - Line counts (+/-) show inline on desktop, below metadata on mobile
+
 ### Mobile Tab Fix
 - Fixed dashboard tabs overflowing on mobile screens
 - Added `overflow-x-auto` for horizontal scrolling

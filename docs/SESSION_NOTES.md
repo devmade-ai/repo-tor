@@ -15,6 +15,14 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Mobile Timeline Fix (2026-01-18)
+
+- Improved filter bar layout: 2-column grid on mobile, 3-column on tablet, flex on desktop
+- Changed filter labels to above inputs (stacked) for better mobile UX
+- Reduced chart height on mobile (`h-48` vs `h-64` on desktop)
+- Redesigned commit list items: message wraps on mobile, metadata flows naturally
+- Line counts (+/-) show inline on desktop, below metadata on mobile
+
 ### Mobile Tab Fix (2026-01-18)
 
 - Fixed dashboard tabs overflowing on mobile screens
