@@ -10,5 +10,6 @@ Log of significant changes to code and documentation.
 - Added .gitignore entry for Claude Code local settings
 - Created docs/ folder with: SESSION_NOTES.md, TODO.md, HISTORY.md, USER_ACTIONS.md
 - Added USER_TESTING.md and USER_GUIDE.md
+- Added USER_GUIDE.md and USER_TESTING.md to CLAUDE.md checklists
 
 ---
