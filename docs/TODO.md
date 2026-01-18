@@ -4,16 +4,43 @@ Items to be addressed, ordered by priority.
 
 ## High Priority
 
-None currently.
+### D3 - Aggregation Script
+Multi-repo combining with author identity mapping:
+- [ ] Create `scripts/aggregate.js` to combine multiple repo outputs
+- [ ] Implement `config/author-map.json` for identity normalization
+- [ ] Generate `aggregated/summary.json` with cross-repo metrics
+- [ ] Add `repo_id` field to commits for aggregation support
 
 ## Medium Priority
 
-None currently.
+### Schema Alignment
+Align with technical spec schema:
+- [ ] Add `repo_id` (kebab-case) to metadata
+- [ ] Change `author` object to `author_id` referencing metadata
+- [ ] Add `is_conventional` boolean (currently `parseMethod`)
+- [ ] Add `security_events` array to summary.json
+- [ ] Wrap commits array in `{ "commits": [...] }` object
+
+### Dashboard Enhancements
+- [ ] Add type filter to timeline view
+- [ ] Add author filter to timeline view
+- [ ] Add date range picker
+- [ ] Support loading multiple repo data files
+- [ ] Add repo selector for aggregated view
 
 ## Low Priority / Ideas
 
-<!-- Add ideas and improvements here so they persist between sessions -->
+### Could Have (from spec)
+- [ ] Export to PDF functionality
+- [ ] Pre-commit hook for conventional commits (prepare-commit-msg)
+- [ ] GitHub Action for automated extraction on push
+
+### Future Enhancements
+- [ ] Merge commit filtering option (exclude from stats)
+- [ ] Virtualized rendering for large commit lists (500+)
+- [ ] Dark mode for dashboard
+- [ ] PWA offline support
 
 ---
 
-*Last updated: Session 1*
+*Last updated: Session 2 - After D1, D2, D4 completion*

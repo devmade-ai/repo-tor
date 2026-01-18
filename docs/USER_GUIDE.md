@@ -130,4 +130,32 @@ The dashboard is a static HTML file. Options:
 - Serve with any static file server
 - Host on GitHub Pages with the data.json files
 
+## Commit Convention
+
+For best results with type detection, use conventional commits. See [COMMIT_CONVENTION.md](./COMMIT_CONVENTION.md) for the full guide.
+
+### Quick Setup
+
+```bash
+# Install git hooks for commit validation
+./hooks/setup.sh
+```
+
+This will:
+1. Install the commit-msg validation hook
+2. Configure the commit message template
+
+### Commit Format
+
+```
+type(scope): subject
+
+body
+
+tags: security, breaking
+refs: #123
+```
+
+**Types:** `feat`, `fix`, `security`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
+
 ---
