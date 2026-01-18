@@ -4,6 +4,13 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-18
 
+### Dashboard Auto-Load Fix
+- Copied `data.json` to `dashboard/` folder for GitHub Pages auto-load
+- Previously, relative path `../reports/repo-tor/data.json` didn't resolve on GitHub Pages
+- Now dashboard auto-loads sample data immediately without file picker
+- Added live dashboard URL to `docs/USER_GUIDE.md` and `docs/ADMIN_GUIDE.md`
+- Live dashboard: https://devmade-ai.github.io/repo-tor/
+
 ### Schema Alignment
 - Updated `scripts/extract.js` with new schema:
   - Added `author_id` field to commits (references metadata.authors)

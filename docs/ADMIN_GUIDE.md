@@ -297,6 +297,8 @@ You can also trigger a deployment manually:
 
 **Access URL:** `https://{username}.github.io/{repo}/`
 
+**Live demo:** https://devmade-ai.github.io/repo-tor/
+
 ### Option 4: Any Static Host
 
 Upload `dashboard/index.html` and your `data.json` files to:

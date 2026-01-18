@@ -1,6 +1,147 @@
 {
   "commits": [
     {
+      "sha": "febe08a",
+      "fullSha": "febe08ade0073264900c10d119b65c14965ac726",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T22:24:22+00:00",
+      "commitDate": "2026-01-18T22:24:22+00:00",
+      "subject": "docs: add live dashboard URL to guides",
+      "body": "",
+      "type": "docs",
+      "scope": null,
+      "title": "add live dashboard URL to guides",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 4,
+        "deletions": 0
+      },
+      "files": [
+        "docs/ADMIN_GUIDE.md",
+        "docs/USER_GUIDE.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "82227d0",
+      "fullSha": "82227d0850936e175dc1576f0401766a72c94afa",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T22:21:22+00:00",
+      "commitDate": "2026-01-18T22:21:22+00:00",
+      "subject": "chore: add sample data to dashboard for auto-load",
+      "body": "Copy data.json to dashboard directory so GitHub Pages deployment\ncan auto-load the sample data without manual file selection.",
+      "type": "chore",
+      "scope": null,
+      "title": "add sample data to dashboard for auto-load",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1192,
+        "deletions": 0
+      },
+      "files": [
+        "dashboard/data.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "7efe257",
+      "fullSha": "7efe2574825e23736a657361aab4469c0ab3a344",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-19T00:12:35+02:00",
+      "commitDate": "2026-01-19T00:12:35+02:00",
+      "subject": "Merge pull request #2 from devmade-ai/claude/update-docs-kubk3",
+      "body": "docs: split documentation into user guide and admin guide",
+      "type": "docs",
+      "scope": null,
+      "title": "Merge pull request #2 from devmade-ai/claude/update-docs-kubk3",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#2"
+      ],
+      "stats": {
+        "filesChanged": 20,
+        "additions": 4105,
+        "deletions": 215
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "41f048b",
+      "fullSha": "41f048ba7f867f40b00964f8c700cd1f6565c8de",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T22:11:11+00:00",
+      "commitDate": "2026-01-18T22:11:11+00:00",
+      "subject": "feat: implement schema alignment and multiple file loading",
+      "body": "Schema Alignment:\n- Add author_id field to commits (references metadata.authors)\n- Replace parseMethod with is_conventional boolean\n- Add authors map to metadata.json for author lookup\n- Add security_events array to summary.json\n- Wrap commits.json in { \"commits\": [...] } object\n- Update aggregate.js to match new schema\n\nDashboard - Multiple Data Files:\n- File picker accepts multiple files (HTML5 multiple attribute)\n- Client-side combineDataFiles() function merges data\n- Combines commits, contributors, files from multiple repos\n- Merges authors from metadata of all files\n- Shows repo filter when multiple repos loaded\n\nUpdated documentation:\n- USER_GUIDE.md: Added Loading Data section with multi-file instructions\n- TODO.md: Marked medium priority items as complete\n- SESSION_NOTES.md: Updated current state\n- HISTORY.md: Added schema alignment and multi-file entries",
+      "type": "feat",
+      "scope": null,
+      "title": "implement schema alignment and multiple file loading",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 13,
+        "additions": 1342,
+        "deletions": 891
+      },
+      "files": [
+        "dashboard/index.html",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_GUIDE.md",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json",
+        "scripts/aggregate.js",
+        "scripts/extract.js"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
       "sha": "2fc026d",
       "fullSha": "2fc026da0b27d8475d2d7bd2d61e1563ddab4a8b",
       "author_id": "noreply@anthropic.com",
