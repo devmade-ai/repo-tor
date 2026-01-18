@@ -15,6 +15,13 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Mobile Tab Fix (2026-01-18)
+
+- Fixed dashboard tabs overflowing on mobile screens
+- Added horizontal scroll with hidden scrollbar for clean appearance
+- Applied `whitespace-nowrap` to prevent tab text wrapping
+- Used negative margin trick (`-mx-4 px-4`) for edge-to-edge scrolling on mobile
+
 ### GitHub Pages Deployment Fix (2026-01-19)
 
 - Fixed `data.json` not loading on live site

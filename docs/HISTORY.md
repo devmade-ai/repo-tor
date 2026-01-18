@@ -2,6 +2,16 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-18
+
+### Mobile Tab Fix
+- Fixed dashboard tabs overflowing on mobile screens
+- Added `overflow-x-auto` for horizontal scrolling
+- Added `whitespace-nowrap` to all tab buttons
+- Used negative margin (`-mx-4 px-4`) for edge-to-edge scroll area on mobile
+- Added CSS class `.scrollbar-hide` to hide scrollbar while maintaining scroll functionality
+- Touch scrolling enabled via `-webkit-overflow-scrolling: touch`
+
 ## 2026-01-19
 
 ### GitHub Pages Deployment Fix
