@@ -2,6 +2,15 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-19
+
+### GitHub Pages Deployment Fix
+
+- Fixed `data.json` not loading on live GitHub Pages site
+- Issue: `deploy.yml` copied `dashboard/index.html` but not `dashboard/data.json`
+- Fix: Added step to copy `dashboard/data.json` to `_site/data.json`
+- Now `fetch('data.json')` resolves correctly on the deployed site
+
 ## 2026-01-18
 
 ### Dashboard Auto-Load Fix

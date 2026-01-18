@@ -35,7 +35,9 @@ jobs:
           mkdir -p _site
           # Copy dashboard as index.html (main page)
           cp dashboard/index.html _site/index.html
-          # Copy sample data if present
+          # Copy sample data.json for auto-load
+          [ -f "dashboard/data.json" ] && cp dashboard/data.json _site/data.json || true
+          # Copy reports folder if present
           [ -d "reports" ] && cp -r reports _site/ || true
 
       - name: Upload artifact

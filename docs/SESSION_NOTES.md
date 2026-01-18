@@ -15,6 +15,12 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### GitHub Pages Deployment Fix (2026-01-19)
+
+- Fixed `data.json` not loading on live site
+- Issue: `deploy.yml` copied index.html but not data.json
+- Fix: Added copy step for `dashboard/data.json` to deployment workflow
+
 ### Dashboard Auto-Load Fix
 - Copied data.json to dashboard/ folder for GitHub Pages auto-load
 - Previously, relative path `../reports/repo-tor/data.json` didn't work on GitHub Pages
