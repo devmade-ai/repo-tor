@@ -11,10 +11,78 @@
       "origin/claude/update-docs-kubk3",
       "origin/main"
     ],
-    "extractedAt": "2026-01-18T21:51:59.546Z",
+    "extractedAt": "2026-01-18T22:00:50.112Z",
     "repoPath": "/home/user/repo-tor"
   },
   "commits": [
+    {
+      "sha": "0db4ed3",
+      "fullSha": "0db4ed38e4824f7e997455b06d0ea6aaedc01f10",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T21:55:22+00:00",
+      "commitDate": "2026-01-18T21:55:22+00:00",
+      "subject": "chore: fix gitignore comment wording",
+      "body": "",
+      "type": "chore",
+      "scope": null,
+      "title": "fix gitignore comment wording",
+      "parseMethod": "conventional",
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        ".gitignore"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "d173a5b",
+      "fullSha": "d173a5b680bfa1de1697f63a28ad74f25aa99f3d",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T21:53:29+00:00",
+      "commitDate": "2026-01-18T21:53:29+00:00",
+      "subject": "chore: add extracted sample data for dashboard",
+      "body": "Run extraction on this repository to provide sample data:\n- 18 commits from 3 contributors\n- Type breakdown: feat, docs, test, other, ci\n- Data available at reports/repo-tor/data.json\n\nUpdated .gitignore to allow sample data while ignoring other reports.",
+      "type": "chore",
+      "scope": null,
+      "title": "add extracted sample data for dashboard",
+      "parseMethod": "conventional",
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 1919,
+        "deletions": 2
+      },
+      "files": [
+        ".gitignore",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json"
+      ],
+      "repo_id": "repo-tor"
+    },
     {
       "sha": "5dc1aba",
       "fullSha": "5dc1abadd7075300924db2b3a66a47eb766644ff",
@@ -627,12 +695,13 @@
       "names": [
         "Claude"
       ],
-      "commits": 9,
-      "additions": 3359,
-      "deletions": 272,
+      "commits": 11,
+      "additions": 5279,
+      "deletions": 275,
       "firstCommit": "2026-01-18T20:29:03+00:00",
-      "lastCommit": "2026-01-18T21:48:23+00:00",
+      "lastCommit": "2026-01-18T21:55:22+00:00",
       "types": {
+        "chore": 2,
         "ci": 1,
         "feat": 3,
         "docs": 5
@@ -724,6 +793,20 @@
       ]
     },
     {
+      "path": ".gitignore",
+      "changeCount": 5,
+      "commitTypes": {
+        "chore": 2,
+        "feat": 2,
+        "other": 1
+      },
+      "authors": [
+        "noreply@anthropic.com",
+        "jacotheron87@gmail.com",
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
       "path": "CLAUDE.md",
       "changeCount": 5,
       "commitTypes": {
@@ -756,19 +839,6 @@
       },
       "authors": [
         "noreply@anthropic.com",
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": ".gitignore",
-      "changeCount": 3,
-      "commitTypes": {
-        "feat": 2,
-        "other": 1
-      },
-      "authors": [
-        "noreply@anthropic.com",
-        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com"
       ]
     },
@@ -812,6 +882,66 @@
       },
       "authors": [
         "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "path": "reports/repo-tor/commits.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "reports/repo-tor/contributors.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "reports/repo-tor/data.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "reports/repo-tor/files.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "reports/repo-tor/metadata.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "reports/repo-tor/summary.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
       ]
     },
     {
@@ -926,12 +1056,13 @@
     }
   ],
   "summary": {
-    "totalCommits": 18,
+    "totalCommits": 20,
     "totalContributors": 3,
-    "totalAdditions": 5457,
-    "totalDeletions": 309,
-    "netLinesChanged": 5148,
+    "totalAdditions": 7377,
+    "totalDeletions": 312,
+    "netLinesChanged": 7065,
     "typeBreakdown": {
+      "chore": 2,
       "ci": 1,
       "feat": 8,
       "docs": 5,
@@ -940,8 +1071,9 @@
     },
     "monthlyCommits": {
       "2026-01": {
-        "total": 18,
+        "total": 20,
         "types": {
+          "chore": 2,
           "ci": 1,
           "feat": 8,
           "docs": 5,
@@ -953,7 +1085,7 @@
     "securityCommitCount": 1,
     "dateRange": {
       "earliest": "2026-01-18T21:53:16+02:00",
-      "latest": "2026-01-18T21:48:23+00:00"
+      "latest": "2026-01-18T21:55:22+00:00"
     }
   }
 }

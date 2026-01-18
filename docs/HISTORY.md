@@ -4,6 +4,12 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-18
 
+### Data Extraction
+- Ran extraction on this repository using `scripts/extract.js`
+- Captured 20 commits from 3 contributors across all branches
+- Committed extracted data to `reports/repo-tor/`
+- Updated `.gitignore` to keep repo-tor data while ignoring other extractions
+
 ### GitHub Pages Deployment
 - Created `.github/workflows/deploy.yml` - Automated deployment workflow
   - Triggers on push to main/master branches
