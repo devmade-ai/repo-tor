@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Author Map",
+  "description": "Configuration for mapping multiple email addresses to canonical author identities",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "authors": {
+      "type": "object",
+      "description": "Map of author IDs to their identity configuration",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Canonical display name for this author"
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "email"
+            },
+            "description": "List of email addresses associated with this author"
+          }
+        },
+        "required": ["name", "emails"]
+      }
+    }
+  },
+  "required": ["authors"]
+}

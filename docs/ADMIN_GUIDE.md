@@ -94,6 +94,85 @@ reports/
     ...
 ```
 
+## Multi-Repository Aggregation
+
+Combine data from multiple repositories into a single view.
+
+### Basic Aggregation
+
+```bash
+# Aggregate all repos in reports/
+node scripts/aggregate.js reports/*
+
+# Aggregate specific repos
+node scripts/aggregate.js reports/repo-a reports/repo-b
+
+# Specify output directory
+node scripts/aggregate.js reports/* --output=combined
+```
+
+### Output
+
+Aggregated data is written to the output directory:
+
+```
+aggregated/
+  metadata.json      # Aggregation info, repo list
+  commits.json       # All commits with repo_id
+  contributors.json  # Combined contributors across repos
+  files.json         # Files by repo
+  summary.json       # Cross-repo metrics
+  data.json          # Combined file for dashboard
+```
+
+### Author Identity Mapping
+
+When the same person uses different emails across repositories, use an author map to normalize identities:
+
+1. Copy the example configuration:
+   ```bash
+   cp config/author-map.example.json config/author-map.json
+   ```
+
+2. Edit `config/author-map.json`:
+   ```json
+   {
+     "authors": {
+       "john-doe": {
+         "name": "John Doe",
+         "emails": [
+           "john@company.com",
+           "john.doe@gmail.com",
+           "jdoe@old-company.com"
+         ]
+       }
+     }
+   }
+   ```
+
+3. Run aggregation with the author map:
+   ```bash
+   node scripts/aggregate.js reports/* --author-map=config/author-map.json
+   ```
+
+Contributors will be grouped by their canonical identity, with:
+- `author_id` - The normalized identifier (e.g., "john-doe")
+- `primaryName` - The canonical display name
+- `emails` - All email addresses associated with this author
+- `repos` - List of repositories they contributed to
+
+### Aggregated Metrics
+
+The aggregated summary includes:
+
+| Metric | Description |
+|--------|-------------|
+| `totalRepos` | Number of repositories combined |
+| `totalCommits` | Sum of commits across all repos |
+| `totalContributors` | Unique contributors (normalized if using author map) |
+| `repoBreakdown` | Commit counts per repository |
+| `monthlyCommits.repos` | Monthly breakdown by repository |
+
 ## Commit Type Detection
 
 The extraction script detects commit types using two methods:

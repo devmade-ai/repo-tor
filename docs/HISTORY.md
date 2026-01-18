@@ -4,6 +4,24 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-18
 
+### D3 - Aggregation Script
+- Created `scripts/aggregate.js` - Multi-repository aggregation
+  - Combines data from multiple repository extractions
+  - Adds `repo_id` to track commit source
+  - Supports optional author identity mapping
+  - Generates cross-repo contributor statistics
+  - Produces aggregated summary with per-repo breakdown
+- Created `config/author-map.example.json` - Example configuration
+  - Maps multiple email addresses to canonical author identity
+  - Enables consistent contributor tracking across repos
+- Created `config/author-map.schema.json` - JSON schema for validation
+- Updated `scripts/extract.js` to include `repo_id`:
+  - Added `repo_id` (kebab-case) to metadata
+  - Added `repo_id` to each commit for aggregation support
+- Updated `docs/ADMIN_GUIDE.md` with aggregation documentation
+- Updated `docs/USER_GUIDE.md` with multi-repository view section
+- Updated `docs/TODO.md` to mark D3 as complete
+
 ### Documentation Reorganization
 - Split documentation into separate user and admin guides:
   - `docs/USER_GUIDE.md` - Refocused on dashboard UI and interpretation

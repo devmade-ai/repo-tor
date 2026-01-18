@@ -2,20 +2,20 @@
 
 Items to be addressed, ordered by priority.
 
-## High Priority
+## Completed
 
-### D3 - Aggregation Script
+### D3 - Aggregation Script (Done)
 Multi-repo combining with author identity mapping:
-- [ ] Create `scripts/aggregate.js` to combine multiple repo outputs
-- [ ] Implement `config/author-map.json` for identity normalization
-- [ ] Generate `aggregated/summary.json` with cross-repo metrics
-- [ ] Add `repo_id` field to commits for aggregation support
+- [x] Create `scripts/aggregate.js` to combine multiple repo outputs
+- [x] Implement `config/author-map.json` for identity normalization
+- [x] Generate `aggregated/summary.json` with cross-repo metrics
+- [x] Add `repo_id` field to commits for aggregation support
 
 ## Medium Priority
 
 ### Schema Alignment
 Align with technical spec schema:
-- [ ] Add `repo_id` (kebab-case) to metadata
+- [x] Add `repo_id` (kebab-case) to metadata
 - [ ] Change `author` object to `author_id` referencing metadata
 - [ ] Add `is_conventional` boolean (currently `parseMethod`)
 - [ ] Add `security_events` array to summary.json
@@ -43,4 +43,4 @@ Align with technical spec schema:
 
 ---
 
-*Last updated: Session 3 - After documentation reorganization (USER_GUIDE / ADMIN_GUIDE split)*
+*Last updated: Session 3 - After D3 aggregation script implementation*

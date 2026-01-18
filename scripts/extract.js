@@ -322,13 +322,22 @@ function extractFileStats(commits) {
     .sort((a, b) => b.changeCount - a.changeCount);
 }
 
+function toKebabCase(str) {
+  return str
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 function generateMetadata() {
   const repoName = path.basename(repoPath);
+  const repoId = toKebabCase(repoName);
   const remoteUrl = git('config --get remote.origin.url') || 'local';
   const currentBranch = git('rev-parse --abbrev-ref HEAD');
   const branches = git('branch -a --format="%(refname:short)"').split('\n').filter(Boolean);
 
   return {
+    repo_id: repoId,
     repository: repoName,
     remoteUrl: remoteUrl,
     currentBranch: currentBranch,
@@ -398,6 +407,12 @@ function main() {
   // Extract all data
   const metadata = generateMetadata();
   const commits = extractCommits();
+
+  // Add repo_id to each commit for aggregation support
+  for (const commit of commits) {
+    commit.repo_id = metadata.repo_id;
+  }
+
   const contributors = extractContributors(commits);
   const files = extractFileStats(commits);
   const summary = generateSummary(commits, contributors);
