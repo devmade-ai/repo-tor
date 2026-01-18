@@ -277,12 +277,25 @@ npx serve dashboard
 # Then open http://localhost:8000
 ```
 
-### Option 3: GitHub Pages
+### Option 3: GitHub Pages (Automated)
+
+This repository includes a GitHub Actions workflow for automatic deployment.
+
+**Setup (one-time):**
 
 1. Push the repository to GitHub
-2. Enable GitHub Pages in repository settings
-3. Set source to the branch containing the dashboard
-4. Access at `https://{username}.github.io/{repo}/dashboard/`
+2. Go to repository **Settings** > **Pages**
+3. Under "Build and deployment", set **Source** to **GitHub Actions**
+4. The dashboard will deploy automatically on push to `main` or `master`
+
+**Manual deployment:**
+
+You can also trigger a deployment manually:
+1. Go to repository **Actions** tab
+2. Select "Deploy to GitHub Pages" workflow
+3. Click "Run workflow"
+
+**Access URL:** `https://{username}.github.io/{repo}/`
 
 ### Option 4: Any Static Host
 

@@ -4,6 +4,14 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-18
 
+### GitHub Pages Deployment
+- Created `.github/workflows/deploy.yml` - Automated deployment workflow
+  - Triggers on push to main/master branches
+  - Supports manual trigger via workflow_dispatch
+  - Deploys dashboard to GitHub Pages
+  - Copies reports folder if present
+- Updated `docs/ADMIN_GUIDE.md` with GitHub Pages setup instructions
+
 ### Dashboard Filters
 - Added filter bar to Timeline tab in `dashboard/index.html`:
   - Type dropdown - filter commits by type (feat, fix, etc.)

@@ -4,6 +4,9 @@ Items to be addressed, ordered by priority.
 
 ## Completed
 
+### GitHub Pages Deployment (Done)
+- [x] GitHub Actions workflow for automated deployment
+
 ### Dashboard Filters (Done)
 - [x] Add type filter to timeline view
 - [x] Add author filter to timeline view
@@ -36,7 +39,7 @@ Align with technical spec schema:
 ### Could Have (from spec)
 - [ ] Export to PDF functionality
 - [ ] Pre-commit hook for conventional commits (prepare-commit-msg)
-- [ ] GitHub Action for automated extraction on push
+- [ ] GitHub Action for automated extraction on push (separate from deployment)
 
 ### Future Enhancements
 - [ ] Merge commit filtering option (exclude from stats)

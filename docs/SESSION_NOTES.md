@@ -8,9 +8,16 @@ Current state and context for AI assistants to pick up where the last session le
 - Commit Convention Guide complete (D2)
 - Multi-repo aggregation complete (D3)
 - Dashboard filters complete (type, author, date range, repo)
+- GitHub Pages deployment workflow configured
 - Documentation split into User Guide (UI/interpretation) and Admin Guide (setup/extraction)
 
 ## Last Completed
+
+### GitHub Pages Deployment
+- Created `.github/workflows/deploy.yml` for automated deployment
+- Deploys `dashboard/index.html` to GitHub Pages on push to main/master
+- Supports manual trigger via Actions tab
+- Updated ADMIN_GUIDE.md with setup instructions
 
 ### Dashboard Filters
 - Added filter bar to Timeline tab with:
