@@ -13,7 +13,9 @@ Current state and context for AI assistants to pick up where the last session le
 - Initial repo setup
 - Added CLAUDE.md with AI assistant guidelines
 - Created .claude/settings.local.json (gitignored)
-- Created documentation structure (SESSION_NOTES.md, TODO.md, HISTORY.md, docs/USER_ACTIONS.md)
+- Created docs/ folder with all documentation:
+  - SESSION_NOTES.md, TODO.md, HISTORY.md
+  - USER_ACTIONS.md, USER_TESTING.md, USER_GUIDE.md
 
 ## In Progress
 
