@@ -76,6 +76,16 @@
             border-color: #3b82f6;
             box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
         }
+
+        /* Hide scrollbar for mobile tabs */
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -118,46 +128,46 @@
             </div>
 
             <!-- Navigation Tabs -->
-            <div class="flex border-b border-gray-200 mb-6">
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600" data-tab="timeline">Timeline</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="progress">Progress</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="contributors">Contributors</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="security">Security</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="types">By Type</button>
+            <div class="flex border-b border-gray-200 mb-6 overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600 whitespace-nowrap" data-tab="timeline">Timeline</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="progress">Progress</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="contributors">Contributors</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="security">Security</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="types">By Type</button>
             </div>
 
             <!-- Tab Content -->
             <div id="tab-timeline" class="tab-content">
                 <!-- Filters -->
                 <div class="card mb-6">
-                    <div class="flex flex-wrap items-center gap-4">
-                        <div class="flex items-center gap-2">
-                            <label class="text-sm text-gray-600">Type:</label>
-                            <select id="filter-type" class="filter-select">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-wrap items-end gap-3 lg:gap-4">
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs text-gray-500">Type</label>
+                            <select id="filter-type" class="filter-select w-full">
                                 <option value="">All Types</option>
                             </select>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <label class="text-sm text-gray-600">Author:</label>
-                            <select id="filter-author" class="filter-select">
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs text-gray-500">Author</label>
+                            <select id="filter-author" class="filter-select w-full">
                                 <option value="">All Authors</option>
                             </select>
                         </div>
-                        <div class="flex items-center gap-2" id="repo-filter-container" style="display: none;">
-                            <label class="text-sm text-gray-600">Repo:</label>
-                            <select id="filter-repo" class="filter-select">
+                        <div class="flex flex-col gap-1" id="repo-filter-container" style="display: none;">
+                            <label class="text-xs text-gray-500">Repo</label>
+                            <select id="filter-repo" class="filter-select w-full">
                                 <option value="">All Repos</option>
                             </select>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <label class="text-sm text-gray-600">From:</label>
-                            <input type="date" id="filter-date-from" class="filter-input">
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs text-gray-500">From</label>
+                            <input type="date" id="filter-date-from" class="filter-input w-full">
                         </div>
-                        <div class="flex items-center gap-2">
-                            <label class="text-sm text-gray-600">To:</label>
-                            <input type="date" id="filter-date-to" class="filter-input">
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs text-gray-500">To</label>
+                            <input type="date" id="filter-date-to" class="filter-input w-full">
                         </div>
-                        <button id="clear-filters" class="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded">
+                        <button id="clear-filters" class="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded border border-gray-200 col-span-2 sm:col-span-1">
                             Clear Filters
                         </button>
                     </div>
@@ -165,7 +175,7 @@
 
                 <div class="card mb-6">
                     <h2 class="text-lg font-semibold mb-4">Commit Timeline</h2>
-                    <div class="h-64">
+                    <div class="h-48 md:h-64">
                         <canvas id="timeline-chart"></canvas>
                     </div>
                 </div>
@@ -482,15 +492,15 @@
                 byDate[date].push(commit);
             });
 
-            const dates = Object.keys(byDate).sort();
+            const dates = Object.keys(byDate).sort().reverse(); // Newest at top
             const counts = dates.map(d => byDate[d].length);
 
-            // Timeline Chart
+            // Timeline Chart (horizontal bar)
             if (charts.timeline) charts.timeline.destroy();
             charts.timeline = new Chart(document.getElementById('timeline-chart'), {
                 type: 'bar',
                 data: {
-                    labels: dates,
+                    labels: dates.map(d => d.substring(5)), // MM-DD format
                     datasets: [{
                         label: 'Commits',
                         data: counts,
@@ -501,18 +511,16 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    indexAxis: 'y',
                     plugins: { legend: { display: false } },
                     scales: {
-                        x: {
+                        y: {
                             ticks: {
-                                maxTicksLimit: 15,
-                                callback: function(val, index) {
-                                    const label = this.getLabelForValue(val);
-                                    return label.substring(5); // MM-DD
-                                }
+                                autoSkip: true,
+                                maxTicksLimit: 12
                             }
                         },
-                        y: { beginAtZero: true }
+                        x: { beginAtZero: true }
                     }
                 }
             });
@@ -523,20 +531,32 @@
 
             // Commit List
             const listHtml = filteredCommits.slice(0, 50).map(commit => `
-                <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                    <span class="tag type-${commit.type}">${commit.type}</span>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900 truncate">${escapeHtml(commit.subject)}</p>
-                        <p class="text-xs text-gray-500">
-                            ${commit.sha} by ${escapeHtml(getAuthorName(commit))} on ${formatDate(commit.timestamp)}
-                            ${commit.repo_id ? `<span class="text-gray-400">in ${commit.repo_id}</span>` : ''}
-                            ${(commit.tags || []).length > 0 ? commit.tags.map(t => `<span class="tag tag-${t}">${t}</span>`).join(' ') : ''}
-                        </p>
+                <div class="p-3 bg-gray-50 rounded-lg">
+                    <div class="flex items-start gap-2 sm:gap-3">
+                        <span class="tag type-${commit.type} shrink-0">${commit.type}</span>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-gray-900 break-words sm:truncate">${escapeHtml(commit.subject)}</p>
+                        </div>
+                        <span class="text-xs text-gray-400 shrink-0 hidden sm:inline">
+                            <span class="text-green-600">+${commit.stats?.additions || 0}</span>
+                            <span class="text-red-600">-${commit.stats?.deletions || 0}</span>
+                        </span>
                     </div>
-                    <span class="text-xs text-gray-400">
-                        <span class="text-green-600">+${commit.stats?.additions || 0}</span>
-                        <span class="text-red-600">-${commit.stats?.deletions || 0}</span>
-                    </span>
+                    <div class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-500">
+                        <span class="font-mono">${commit.sha}</span>
+                        <span class="hidden sm:inline">by</span>
+                        <span class="sm:hidden">·</span>
+                        <span>${escapeHtml(getAuthorName(commit))}</span>
+                        <span class="hidden sm:inline">on</span>
+                        <span class="sm:hidden">·</span>
+                        <span>${formatDate(commit.timestamp)}</span>
+                        ${commit.repo_id ? `<span class="text-gray-400">in ${commit.repo_id}</span>` : ''}
+                        <span class="sm:hidden text-gray-400">
+                            <span class="text-green-600">+${commit.stats?.additions || 0}</span>
+                            <span class="text-red-600">-${commit.stats?.deletions || 0}</span>
+                        </span>
+                        ${(commit.tags || []).length > 0 ? commit.tags.map(t => `<span class="tag tag-${t}">${t}</span>`).join(' ') : ''}
+                    </div>
                 </div>
             `).join('');
             document.getElementById('commit-list').innerHTML = listHtml || '<p class="text-gray-500">No commits match the current filters</p>';

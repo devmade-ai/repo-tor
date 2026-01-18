@@ -15,6 +15,27 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Timeline Horizontal Bar Chart (2026-01-18)
+
+- Changed timeline from vertical columns to horizontal bar chart
+- Newest dates at top, oldest at bottom
+- Better for mobile - date labels have more room, vertical scroll is natural
+
+### Mobile Timeline Fix (2026-01-18)
+
+- Improved filter bar layout: 2-column grid on mobile, 3-column on tablet, flex on desktop
+- Changed filter labels to above inputs (stacked) for better mobile UX
+- Reduced chart height on mobile (`h-48` vs `h-64` on desktop)
+- Redesigned commit list items: message wraps on mobile, metadata flows naturally
+- Line counts (+/-) show inline on desktop, below metadata on mobile
+
+### Mobile Tab Fix (2026-01-18)
+
+- Fixed dashboard tabs overflowing on mobile screens
+- Added horizontal scroll with hidden scrollbar for clean appearance
+- Applied `whitespace-nowrap` to prevent tab text wrapping
+- Used negative margin trick (`-mx-4 px-4`) for edge-to-edge scrolling on mobile
+
 ### GitHub Pages Deployment Fix (2026-01-19)
 
 - Fixed `data.json` not loading on live site

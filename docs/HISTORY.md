@@ -2,6 +2,30 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-18
+
+### Timeline Horizontal Bar Chart
+- Changed timeline chart from vertical columns to horizontal bars
+- Dates on Y-axis (newest at top), commit counts on X-axis
+- Better mobile experience - more room for date labels, natural vertical scroll
+
+### Mobile Timeline Improvements
+- Improved filter bar layout with responsive grid (2-col mobile, 3-col tablet, flex desktop)
+- Stacked filter labels above inputs for better touch targets
+- Reduced chart height on mobile (`h-48` vs `h-64`)
+- Redesigned commit list items with responsive layout:
+  - Commit message wraps on mobile, truncates on desktop
+  - Metadata flows with dot separators on mobile, full text on desktop
+  - Line counts (+/-) show inline on desktop, below metadata on mobile
+
+### Mobile Tab Fix
+- Fixed dashboard tabs overflowing on mobile screens
+- Added `overflow-x-auto` for horizontal scrolling
+- Added `whitespace-nowrap` to all tab buttons
+- Used negative margin (`-mx-4 px-4`) for edge-to-edge scroll area on mobile
+- Added CSS class `.scrollbar-hide` to hide scrollbar while maintaining scroll functionality
+- Touch scrolling enabled via `-webkit-overflow-scrolling: touch`
+
 ## 2026-01-19
 
 ### GitHub Pages Deployment Fix
