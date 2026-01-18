@@ -15,6 +15,12 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Timeline Horizontal Bar Chart (2026-01-18)
+
+- Changed timeline from vertical columns to horizontal bar chart
+- Newest dates at top, oldest at bottom
+- Better for mobile - date labels have more room, vertical scroll is natural
+
 ### Mobile Timeline Fix (2026-01-18)
 
 - Improved filter bar layout: 2-column grid on mobile, 3-column on tablet, flex on desktop

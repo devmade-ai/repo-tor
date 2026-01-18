@@ -4,6 +4,11 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-18
 
+### Timeline Horizontal Bar Chart
+- Changed timeline chart from vertical columns to horizontal bars
+- Dates on Y-axis (newest at top), commit counts on X-axis
+- Better mobile experience - more room for date labels, natural vertical scroll
+
 ### Mobile Timeline Improvements
 - Improved filter bar layout with responsive grid (2-col mobile, 3-col tablet, flex desktop)
 - Stacked filter labels above inputs for better touch targets

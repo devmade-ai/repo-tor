@@ -492,15 +492,15 @@
                 byDate[date].push(commit);
             });
 
-            const dates = Object.keys(byDate).sort();
+            const dates = Object.keys(byDate).sort().reverse(); // Newest at top
             const counts = dates.map(d => byDate[d].length);
 
-            // Timeline Chart
+            // Timeline Chart (horizontal bar)
             if (charts.timeline) charts.timeline.destroy();
             charts.timeline = new Chart(document.getElementById('timeline-chart'), {
                 type: 'bar',
                 data: {
-                    labels: dates,
+                    labels: dates.map(d => d.substring(5)), // MM-DD format
                     datasets: [{
                         label: 'Commits',
                         data: counts,
@@ -511,18 +511,16 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    indexAxis: 'y',
                     plugins: { legend: { display: false } },
                     scales: {
-                        x: {
+                        y: {
                             ticks: {
-                                maxTicksLimit: 15,
-                                callback: function(val, index) {
-                                    const label = this.getLabelForValue(val);
-                                    return label.substring(5); // MM-DD
-                                }
+                                autoSkip: true,
+                                maxTicksLimit: 12
                             }
                         },
-                        y: { beginAtZero: true }
+                        x: { beginAtZero: true }
                     }
                 }
             });
