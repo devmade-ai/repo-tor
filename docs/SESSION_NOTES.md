@@ -9,26 +9,21 @@ Current state and context for AI assistants to pick up where the last session le
 - GitHub Pages deployment workflow configured
 - Schema alignment complete (author_id, is_conventional, security_events)
 - Multiple data file loading complete
-- Extracted data committed for this repository (21 commits, 3 contributors)
+- Sample data auto-loads on GitHub Pages (data.json in dashboard folder)
+- Live dashboard: https://devmade-ai.github.io/repo-tor/
 - Documentation split into User Guide (UI/interpretation) and Admin Guide (setup/extraction)
 
 ## Last Completed
 
-### Schema Alignment
-- Changed `parseMethod` to `is_conventional` boolean in commits
-- Added `author_id` field to commits (references metadata.authors)
-- Added `authors` map to metadata.json for author lookup
-- Added `security_events` array to summary.json
-- Wrapped commits.json in `{ "commits": [...] }` object
-- Updated aggregate.js to match new schema
-
-### Dashboard - Multiple Data Files
-- File picker now accepts multiple files (`multiple` attribute)
-- Client-side combining of data from multiple repos
-- Combined data shows repo filter for cross-repo viewing
-- Authors merged from metadata of all files
+### Dashboard Auto-Load Fix
+- Copied data.json to dashboard/ folder for GitHub Pages auto-load
+- Previously, relative path `../reports/repo-tor/data.json` didn't work on GitHub Pages
+- Now `fetch('data.json')` succeeds immediately
+- Added live dashboard URL to USER_GUIDE.md and ADMIN_GUIDE.md
 
 ### Previous Completions
+- Schema alignment (author_id, is_conventional, security_events)
+- Dashboard multiple data file loading
 - Dashboard filters (type, author, repo, date range)
 - GitHub Pages deployment workflow
 - D3 - Aggregation Script with author identity mapping
@@ -56,4 +51,5 @@ Remaining items (low priority):
 - Repo filter auto-hides for single-repo data
 - Dashboard auto-resolves author names from metadata.authors using author_id
 - commits.json is wrapped in object for consistency with other JSON files
-- This repo's data (`reports/repo-tor/`) is committed for dashboard demo
+- Sample data in `dashboard/data.json` for GitHub Pages auto-load
+- Full extraction also stored in `reports/repo-tor/` for reference
