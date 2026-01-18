@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Analytics Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .type-feat { background-color: #10b981; color: white; }
+        .type-fix { background-color: #ef4444; color: white; }
+        .type-docs { background-color: #3b82f6; color: white; }
+        .type-refactor { background-color: #8b5cf6; color: white; }
+        .type-test { background-color: #f59e0b; color: white; }
+        .type-chore { background-color: #6b7280; color: white; }
+        .type-security { background-color: #dc2626; color: white; }
+        .type-perf { background-color: #06b6d4; color: white; }
+        .type-ci { background-color: #64748b; color: white; }
+        .type-build { background-color: #78716c; color: white; }
+        .type-other { background-color: #9ca3af; color: white; }
+        .type-style { background-color: #ec4899; color: white; }
+        .type-revert { background-color: #f97316; color: white; }
+
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .timeline-dot:hover {
+            transform: scale(1.5);
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .tag-security { background-color: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .tag-breaking { background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
+        .tag-dependency { background-color: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div id="app" class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- Header -->
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900" id="repo-name">Git Analytics Dashboard</h1>
+            <p class="text-gray-500 mt-1" id="repo-subtitle">Loading data...</p>
+        </header>
+
+        <!-- Data Loader -->
+        <div id="loader" class="card text-center py-12">
+            <p class="text-gray-500">Select a data file to load:</p>
+            <input type="file" id="file-input" accept=".json" class="mt-4 text-sm">
+            <p class="text-sm text-gray-400 mt-4">Or place your data.json in the same directory as this file</p>
+        </div>
+
+        <!-- Dashboard Content (hidden until data loads) -->
+        <div id="dashboard" class="hidden">
+            <!-- Summary Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="card">
+                    <p class="text-sm text-gray-500 uppercase tracking-wide">Commits</p>
+                    <p class="text-3xl font-bold text-gray-900" id="stat-commits">0</p>
+                </div>
+                <div class="card">
+                    <p class="text-sm text-gray-500 uppercase tracking-wide">Contributors</p>
+                    <p class="text-3xl font-bold text-gray-900" id="stat-contributors">0</p>
+                </div>
+                <div class="card">
+                    <p class="text-sm text-gray-500 uppercase tracking-wide">Lines Added</p>
+                    <p class="text-3xl font-bold text-green-600" id="stat-additions">0</p>
+                </div>
+                <div class="card">
+                    <p class="text-sm text-gray-500 uppercase tracking-wide">Lines Removed</p>
+                    <p class="text-3xl font-bold text-red-600" id="stat-deletions">0</p>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="flex border-b border-gray-200 mb-6">
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600" data-tab="timeline">Timeline</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="progress">Progress</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="contributors">Contributors</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="security">Security</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700" data-tab="types">By Type</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div id="tab-timeline" class="tab-content">
+                <div class="card mb-6">
+                    <h2 class="text-lg font-semibold mb-4">Commit Timeline</h2>
+                    <div class="h-64">
+                        <canvas id="timeline-chart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2 class="text-lg font-semibold mb-4">Recent Commits</h2>
+                    <div id="commit-list" class="space-y-3 max-h-96 overflow-y-auto"></div>
+                </div>
+            </div>
+
+            <div id="tab-progress" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Monthly Commit Volume</h2>
+                        <div class="h-64">
+                            <canvas id="monthly-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Cumulative Growth (Lines of Code)</h2>
+                        <div class="h-64">
+                            <canvas id="growth-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-6">
+                    <h2 class="text-lg font-semibold mb-4">Feature vs Bug Fix Trend</h2>
+                    <div class="h-64">
+                        <canvas id="feat-fix-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-contributors" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Commits by Contributor</h2>
+                        <div class="h-64">
+                            <canvas id="contributors-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Lines Changed by Contributor</h2>
+                        <div class="h-64">
+                            <canvas id="contributors-lines-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-6">
+                    <h2 class="text-lg font-semibold mb-4">Contributor Details</h2>
+                    <div id="contributor-list" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <div id="tab-security" class="tab-content hidden">
+                <div class="card mb-6">
+                    <h2 class="text-lg font-semibold mb-4">Security-Related Commits</h2>
+                    <p class="text-sm text-gray-500 mb-4">Commits tagged with security, or containing security-related keywords</p>
+                    <div id="security-count" class="text-4xl font-bold text-red-600 mb-4">0</div>
+                    <div id="security-list" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <div id="tab-types" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Commits by Type</h2>
+                        <div class="h-64">
+                            <canvas id="types-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Type Breakdown</h2>
+                        <div id="type-breakdown" class="space-y-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // === Global State ===
+        let data = null;
+        let charts = {};
+
+        // === Color Mapping ===
+        const TYPE_COLORS = {
+            feat: '#10b981',
+            fix: '#ef4444',
+            docs: '#3b82f6',
+            refactor: '#8b5cf6',
+            test: '#f59e0b',
+            chore: '#6b7280',
+            security: '#dc2626',
+            perf: '#06b6d4',
+            ci: '#64748b',
+            build: '#78716c',
+            style: '#ec4899',
+            revert: '#f97316',
+            other: '#9ca3af'
+        };
+
+        // === Data Loading ===
+        async function loadData(jsonData) {
+            data = jsonData;
+            document.getElementById('loader').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+
+            // Update header
+            document.getElementById('repo-name').textContent = data.metadata.repository;
+            document.getElementById('repo-subtitle').textContent =
+                `${data.summary.totalCommits} commits from ${data.summary.totalContributors} contributors | ` +
+                `${formatDate(data.summary.dateRange.earliest)} - ${formatDate(data.summary.dateRange.latest)}`;
+
+            // Update stats
+            document.getElementById('stat-commits').textContent = data.summary.totalCommits.toLocaleString();
+            document.getElementById('stat-contributors').textContent = data.summary.totalContributors;
+            document.getElementById('stat-additions').textContent = formatNumber(data.summary.totalAdditions);
+            document.getElementById('stat-deletions').textContent = formatNumber(data.summary.totalDeletions);
+
+            // Render all views
+            renderTimeline();
+            renderProgress();
+            renderContributors();
+            renderSecurity();
+            renderTypes();
+        }
+
+        function formatDate(isoString) {
+            if (!isoString) return 'N/A';
+            return new Date(isoString).toLocaleDateString('en-US', {
+                year: 'numeric', month: 'short', day: 'numeric'
+            });
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+
+        // === Timeline Tab ===
+        function renderTimeline() {
+            // Aggregate commits by date
+            const byDate = {};
+            data.commits.forEach(commit => {
+                const date = commit.timestamp.substring(0, 10);
+                if (!byDate[date]) byDate[date] = [];
+                byDate[date].push(commit);
+            });
+
+            const dates = Object.keys(byDate).sort();
+            const counts = dates.map(d => byDate[d].length);
+
+            // Timeline Chart
+            if (charts.timeline) charts.timeline.destroy();
+            charts.timeline = new Chart(document.getElementById('timeline-chart'), {
+                type: 'bar',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Commits',
+                        data: counts,
+                        backgroundColor: '#3b82f6',
+                        borderRadius: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: {
+                            ticks: {
+                                maxTicksLimit: 15,
+                                callback: function(val, index) {
+                                    const label = this.getLabelForValue(val);
+                                    return label.substring(5); // MM-DD
+                                }
+                            }
+                        },
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // Commit List
+            const listHtml = data.commits.slice(0, 50).map(commit => `
+                <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                    <span class="tag type-${commit.type}">${commit.type}</span>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate">${escapeHtml(commit.subject)}</p>
+                        <p class="text-xs text-gray-500">
+                            ${commit.sha} by ${escapeHtml(commit.author.name)} on ${formatDate(commit.timestamp)}
+                            ${commit.tags.length > 0 ? commit.tags.map(t => `<span class="tag tag-${t}">${t}</span>`).join(' ') : ''}
+                        </p>
+                    </div>
+                    <span class="text-xs text-gray-400">
+                        <span class="text-green-600">+${commit.stats.additions}</span>
+                        <span class="text-red-600">-${commit.stats.deletions}</span>
+                    </span>
+                </div>
+            `).join('');
+            document.getElementById('commit-list').innerHTML = listHtml || '<p class="text-gray-500">No commits</p>';
+        }
+
+        // === Progress Tab ===
+        function renderProgress() {
+            const months = Object.keys(data.summary.monthlyCommits).sort();
+            const monthlyTotals = months.map(m => data.summary.monthlyCommits[m].total);
+
+            // Monthly Commits Chart
+            if (charts.monthly) charts.monthly.destroy();
+            charts.monthly = new Chart(document.getElementById('monthly-chart'), {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'Commits',
+                        data: monthlyTotals,
+                        backgroundColor: '#3b82f6'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Cumulative Growth Chart
+            const sortedCommits = [...data.commits].sort((a, b) =>
+                new Date(a.timestamp) - new Date(b.timestamp)
+            );
+
+            let cumulative = 0;
+            const growthData = [];
+            const growthLabels = [];
+
+            sortedCommits.forEach((commit, i) => {
+                cumulative += commit.stats.additions - commit.stats.deletions;
+                if (i % Math.max(1, Math.floor(sortedCommits.length / 50)) === 0) {
+                    growthLabels.push(commit.timestamp.substring(0, 10));
+                    growthData.push(cumulative);
+                }
+            });
+
+            if (charts.growth) charts.growth.destroy();
+            charts.growth = new Chart(document.getElementById('growth-chart'), {
+                type: 'line',
+                data: {
+                    labels: growthLabels,
+                    datasets: [{
+                        label: 'Net Lines',
+                        data: growthData,
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { maxTicksLimit: 10 } }
+                    }
+                }
+            });
+
+            // Feature vs Bug Fix Trend
+            const featData = months.map(m => data.summary.monthlyCommits[m].types.feat || 0);
+            const fixData = months.map(m => data.summary.monthlyCommits[m].types.fix || 0);
+
+            if (charts.featFix) charts.featFix.destroy();
+            charts.featFix = new Chart(document.getElementById('feat-fix-chart'), {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [
+                        {
+                            label: 'Features',
+                            data: featData,
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Bug Fixes',
+                            data: fixData,
+                            borderColor: '#ef4444',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        // === Contributors Tab ===
+        function renderContributors() {
+            const top10 = data.contributors.slice(0, 10);
+            const names = top10.map(c => c.primaryName);
+            const commits = top10.map(c => c.commits);
+            const lines = top10.map(c => c.additions + c.deletions);
+
+            // Commits by Contributor
+            if (charts.contributors) charts.contributors.destroy();
+            charts.contributors = new Chart(document.getElementById('contributors-chart'), {
+                type: 'bar',
+                data: {
+                    labels: names,
+                    datasets: [{
+                        label: 'Commits',
+                        data: commits,
+                        backgroundColor: '#8b5cf6'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Lines by Contributor
+            if (charts.contributorsLines) charts.contributorsLines.destroy();
+            charts.contributorsLines = new Chart(document.getElementById('contributors-lines-chart'), {
+                type: 'bar',
+                data: {
+                    labels: names,
+                    datasets: [{
+                        label: 'Lines Changed',
+                        data: lines,
+                        backgroundColor: '#f59e0b'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Contributor List
+            const listHtml = data.contributors.map(c => `
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div>
+                        <p class="font-medium text-gray-900">${escapeHtml(c.primaryName)}</p>
+                        <p class="text-xs text-gray-500">${escapeHtml(c.email)}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm font-semibold">${c.commits} commits</p>
+                        <p class="text-xs text-gray-500">
+                            <span class="text-green-600">+${formatNumber(c.additions)}</span>
+                            <span class="text-red-600">-${formatNumber(c.deletions)}</span>
+                        </p>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('contributor-list').innerHTML = listHtml;
+        }
+
+        // === Security Tab ===
+        function renderSecurity() {
+            const securityCommits = data.commits.filter(c =>
+                c.type === 'security' || c.tags.includes('security')
+            );
+
+            document.getElementById('security-count').textContent = securityCommits.length;
+
+            const listHtml = securityCommits.length > 0
+                ? securityCommits.map(commit => `
+                    <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <div class="flex items-start gap-3">
+                            <span class="tag type-security">security</span>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">${escapeHtml(commit.subject)}</p>
+                                <p class="text-sm text-gray-600 mt-1">${escapeHtml(commit.body).substring(0, 200) || 'No description'}</p>
+                                <p class="text-xs text-gray-500 mt-2">
+                                    ${commit.sha} by ${escapeHtml(commit.author.name)} on ${formatDate(commit.timestamp)}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')
+                : '<p class="text-gray-500 text-center py-8">No security-related commits found</p>';
+
+            document.getElementById('security-list').innerHTML = listHtml;
+        }
+
+        // === Types Tab ===
+        function renderTypes() {
+            const types = Object.keys(data.summary.typeBreakdown);
+            const counts = types.map(t => data.summary.typeBreakdown[t]);
+            const colors = types.map(t => TYPE_COLORS[t] || TYPE_COLORS.other);
+
+            // Types Pie Chart
+            if (charts.types) charts.types.destroy();
+            charts.types = new Chart(document.getElementById('types-chart'), {
+                type: 'doughnut',
+                data: {
+                    labels: types,
+                    datasets: [{
+                        data: counts,
+                        backgroundColor: colors
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right' }
+                    }
+                }
+            });
+
+            // Type Breakdown List
+            const total = counts.reduce((a, b) => a + b, 0);
+            const sortedTypes = types.map((t, i) => ({ type: t, count: counts[i] }))
+                .sort((a, b) => b.count - a.count);
+
+            const breakdownHtml = sortedTypes.map(({ type, count }) => `
+                <div class="flex items-center gap-3">
+                    <span class="tag type-${type}">${type}</span>
+                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                        <div class="h-2 rounded-full" style="width: ${(count / total * 100).toFixed(1)}%; background-color: ${TYPE_COLORS[type] || TYPE_COLORS.other}"></div>
+                    </div>
+                    <span class="text-sm text-gray-600">${count} (${(count / total * 100).toFixed(1)}%)</span>
+                </div>
+            `).join('');
+            document.getElementById('type-breakdown').innerHTML = breakdownHtml;
+        }
+
+        // === Tab Navigation ===
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update button styles
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('border-blue-500', 'text-blue-600');
+                    b.classList.add('border-transparent', 'text-gray-500');
+                });
+                btn.classList.remove('border-transparent', 'text-gray-500');
+                btn.classList.add('border-blue-500', 'text-blue-600');
+
+                // Show/hide tabs
+                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+                document.getElementById(`tab-${btn.dataset.tab}`).classList.remove('hidden');
+            });
+        });
+
+        // === File Input Handler ===
+        document.getElementById('file-input').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            try {
+                const text = await file.text();
+                const jsonData = JSON.parse(text);
+                loadData(jsonData);
+            } catch (error) {
+                alert('Error loading file: ' + error.message);
+            }
+        });
+
+        // === Auto-load data.json if present ===
+        async function tryAutoLoad() {
+            try {
+                // Try to load from same directory
+                const response = await fetch('data.json');
+                if (response.ok) {
+                    const jsonData = await response.json();
+                    loadData(jsonData);
+                }
+            } catch (e) {
+                // Try reports folder
+                try {
+                    const response = await fetch('../reports/repo-tor/data.json');
+                    if (response.ok) {
+                        const jsonData = await response.json();
+                        loadData(jsonData);
+                    }
+                } catch (e2) {
+                    // No auto-load available
+                }
+            }
+        }
+
+        // === Utilities ===
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initialize
+        tryAutoLoad();
+    </script>
+</body>
+</html>
