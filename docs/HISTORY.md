@@ -4,6 +4,23 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-18
 
+### Documentation Reorganization
+- Split documentation into separate user and admin guides:
+  - `docs/USER_GUIDE.md` - Refocused on dashboard UI and interpretation
+    - Dashboard overview and summary cards
+    - Each tab explained with "what to look for" guidance
+    - Commit type color coding and meanings
+    - Overall health interpretation patterns
+    - Tips for effective use
+  - `docs/ADMIN_GUIDE.md` - New guide for setup and operations
+    - Prerequisites and installation
+    - Data extraction commands and output structure
+    - Commit type detection explanation
+    - Hook setup instructions
+    - Hosting options (local, server, GitHub Pages)
+    - Troubleshooting section
+- Updated README.md with links to both guides
+
 ### Commit Convention Guide (D2)
 - Created `docs/COMMIT_CONVENTION.md` - Full guide for conventional commits
   - Commit message format specification

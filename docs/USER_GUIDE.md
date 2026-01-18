@@ -1,161 +1,200 @@
 # User Guide
 
-Git Analytics Reporting System - Extract and visualize commit history from any git repository.
+Understanding and interpreting the Git Analytics Dashboard.
 
-## Getting Started
+## Dashboard Overview
 
-### Prerequisites
-- Node.js (v14 or higher)
-- Git repository to analyze
+When you load a data file, the dashboard displays analytics for that repository. The header shows the repository name, total commits, contributor count, and date range covered.
 
-### Quick Start
+### Summary Cards
 
-1. **Extract data from a repository:**
-   ```bash
-   # From the repo-tor directory, analyze the current repo
-   node scripts/extract.js . --output=reports
+Four cards at the top provide quick metrics:
 
-   # Or analyze any other repository
-   node scripts/extract.js /path/to/other/repo --output=reports
-   ```
+| Card | What It Shows | What It Means |
+|------|--------------|---------------|
+| **Commits** | Total number of commits | Overall activity level |
+| **Contributors** | Unique contributors | Team size / involvement |
+| **Lines Added** | Total lines added across all commits | Code growth |
+| **Lines Removed** | Total lines removed across all commits | Code churn / cleanup |
 
-2. **View the dashboard:**
-   - Open `dashboard/index.html` in a web browser
-   - The dashboard will auto-load data from `reports/` if available
-   - Or use the file picker to load any `data.json` file
+**Interpreting the numbers:**
+- High additions with low deletions = growing codebase
+- Roughly equal additions/deletions = refactoring or maintenance phase
+- Lines removed > added = cleanup, simplification, or debt reduction
 
-### Using the Shell Wrapper
+## Dashboard Tabs
 
-```bash
-# Make script executable (one time)
-chmod +x scripts/extract.sh
+### Timeline Tab
 
-# Extract current repository
-./scripts/extract.sh
+Shows **when** commits happened and **what** was recently committed.
 
-# Extract specific repository to custom location
-./scripts/extract.sh /path/to/repo ./my-reports
-```
+**Commit Timeline Chart**
+- Bar chart showing commits per day
+- Taller bars = more activity that day
+- Gaps indicate periods of inactivity
 
-## Features
+**What to look for:**
+- Consistent activity vs sporadic bursts
+- Unusual spikes (release pushes, deadline crunches)
+- Quiet periods (holidays, blocked work)
 
-### Data Extraction
+**Recent Commits List**
+- Shows the 50 most recent commits
+- Each commit displays:
+  - **Type badge** (color-coded)
+  - **Subject** - The commit message summary
+  - **Metadata** - SHA, author, date
+  - **Tags** - Security, breaking, etc. (if present)
+  - **Line changes** - Green (+) additions, red (-) deletions
 
-The extraction script parses git history and generates:
+### Progress Tab
 
-| File | Description |
-|------|-------------|
-| `metadata.json` | Repository info (name, branches, URL) |
-| `commits.json` | All commits with parsed metadata |
-| `contributors.json` | Aggregated contributor statistics |
-| `files.json` | File change frequency analysis |
-| `summary.json` | Aggregated metrics and breakdown |
-| `data.json` | Combined file for dashboard |
+Shows **how** the project is evolving over time.
 
-### Commit Type Detection
+**Monthly Commit Volume**
+- Bar chart of commits per month
+- Shows overall development pace
+- Useful for identifying trends (ramping up, slowing down)
 
-The system uses two detection methods:
+**What to look for:**
+- Upward trend = increasing activity
+- Downward trend = maintenance mode or reduced resources
+- Seasonal patterns = release cycles, budget years
 
-1. **Conventional Commits** (if used):
-   ```
-   feat(auth): add OAuth login
-   fix(api): handle timeout errors
-   security: patch XSS vulnerability
-   ```
+**Cumulative Growth (Lines of Code)**
+- Line chart showing net lines over time (additions minus deletions)
+- Represents codebase size evolution
 
-2. **Keyword Detection** (fallback):
-   - `feat`: add, create, implement, new
-   - `fix`: fix, bug, patch, resolve
-   - `security`: security, vulnerability, CVE, XSS
-   - `docs`: doc, documentation, readme
-   - `refactor`: refactor, restructure, cleanup
-   - `test`: test, spec, coverage
-   - `chore`: chore, maintenance, update, upgrade
-   - `perf`: performance, optimize, speed
-   - And more...
+**What to look for:**
+- Steady upward slope = consistent growth
+- Steep increases = major feature additions
+- Flat or declining = refactoring, removing code, or low activity
+- Sudden drops = large deletions (removed modules, cleanup)
 
-### Dashboard Views
+**Feature vs Bug Fix Trend**
+- Two overlapping line charts:
+  - **Green** = Features (`feat` commits)
+  - **Red** = Bug fixes (`fix` commits)
+- Shows monthly counts of each type
 
-| Tab | Description |
-|-----|-------------|
-| **Timeline** | Daily commit activity chart + recent commits list |
-| **Progress** | Monthly volume, cumulative growth, feature vs bug trends |
-| **Contributors** | Commits and lines changed by author |
-| **Security** | Security-tagged commits highlighted |
-| **By Type** | Commit type distribution (pie chart + breakdown) |
+**What to look for:**
+- Features > fixes = growth phase, adding capabilities
+- Fixes > features = stabilization phase, quality focus
+- Parallel lines = balanced development
+- Fix spikes after feature spikes = common pattern (new code has bugs)
+- Sustained high fixes = potential quality issues
 
-## Output Structure
+### Contributors Tab
 
-```
-reports/
-  {repo-name}/
-    metadata.json
-    commits.json
-    contributors.json
-    files.json
-    summary.json
-    data.json      # Combined data for dashboard
-```
+Shows **who** is contributing and **how much**.
 
-## FAQ
+**Commits by Contributor**
+- Horizontal bar chart of commit counts
+- Shows top 10 contributors
+- Indicates activity distribution
 
-### How do I analyze multiple repositories?
+**Lines Changed by Contributor**
+- Horizontal bar chart of total lines touched (additions + deletions)
+- Different perspective than commit count
 
-Run the extraction script for each repo - they'll be stored in separate folders:
-```bash
-node scripts/extract.js /path/to/repo-a --output=reports
-node scripts/extract.js /path/to/repo-b --output=reports
-```
+**Why both matter:**
+- High commits + low lines = many small changes (docs, config, small fixes)
+- Low commits + high lines = large feature work, major refactors
+- Balanced = typical development work
 
-### How do I improve type detection accuracy?
+**Contributor Details**
+- Full list of all contributors
+- Shows name, email, commit count, and line changes
 
-Use conventional commit format in your commit messages:
-```
-type(scope): subject
+**What to look for:**
+- Bus factor: Is work concentrated in one person?
+- Engagement: Are all team members contributing?
+- Specialists: Who works on what (by examining their commits)?
 
-body
+### Security Tab
 
-tags: security, breaking
-refs: #123
-```
+Shows commits related to **security**.
 
-### Can I use this with private repositories?
+**Security Count**
+- Total number of security-related commits
+- Includes commits with:
+  - Type `security`
+  - Tag `security`
+  - Security-related keywords in the message
 
-Yes - the extraction runs locally using git, so any repository you have access to can be analyzed.
+**Security Commits List**
+- Detailed view of each security commit
+- Shows full subject, body excerpt, author, and date
 
-### How do I host the dashboard?
+**What to look for:**
+- Zero security commits isn't necessarily good (are you looking?)
+- Clustered security commits = audit or vulnerability response
+- Regular security commits = proactive security culture
+- Review the commit bodies for severity context
 
-The dashboard is a static HTML file. Options:
-- Open directly in browser (file://)
-- Serve with any static file server
-- Host on GitHub Pages with the data.json files
+### By Type Tab
 
-## Commit Convention
+Shows the **composition** of work done.
 
-For best results with type detection, use conventional commits. See [COMMIT_CONVENTION.md](./COMMIT_CONVENTION.md) for the full guide.
+**Commits by Type (Doughnut Chart)**
+- Visual breakdown of commit types
+- Larger slices = more commits of that type
 
-### Quick Setup
+**Type Breakdown**
+- Percentage bar for each type
+- Sorted by count (highest first)
 
-```bash
-# Install git hooks for commit validation
-./hooks/setup.sh
-```
+**Commit Types Explained:**
 
-This will:
-1. Install the commit-msg validation hook
-2. Configure the commit message template
+| Type | Color | Meaning |
+|------|-------|---------|
+| `feat` | Green | New features or capabilities |
+| `fix` | Red | Bug fixes |
+| `security` | Dark Red | Security patches or hardening |
+| `docs` | Blue | Documentation changes |
+| `refactor` | Purple | Code restructuring (no behavior change) |
+| `test` | Orange | Test additions or updates |
+| `chore` | Gray | Maintenance, dependencies |
+| `perf` | Cyan | Performance improvements |
+| `style` | Pink | Formatting, whitespace |
+| `build` | Brown | Build system changes |
+| `ci` | Slate | CI/CD configuration |
+| `revert` | Orange | Reverted commits |
+| `other` | Light Gray | Unclassified |
 
-### Commit Format
+**What to look for:**
+- Healthy mix: feat + fix + test + docs
+- Heavy `fix` ratio: May indicate quality issues
+- No `test` commits: Testing might be lacking
+- Lots of `chore`: Dependency maintenance overhead
+- High `other`: Commit messages may need better formatting
 
-```
-type(scope): subject
+## Interpreting Overall Health
 
-body
+Use these patterns to assess repository health:
 
-tags: security, breaking
-refs: #123
-```
+| Signal | Good | Concerning |
+|--------|------|-----------|
+| Activity | Consistent commits | Long gaps or sporadic bursts |
+| Growth | Steady cumulative growth | Stagnant or declining |
+| Balance | Mix of feat/fix/test | Dominated by one type |
+| Distribution | Multiple active contributors | Single contributor dominance |
+| Security | Present and reviewed | None or clustered incidents |
 
-**Types:** `feat`, `fix`, `security`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
+## Tips for Using the Dashboard
+
+1. **Compare over time** - Load data from different dates to see trends
+2. **Focus on ratios** - Absolute numbers matter less than proportions
+3. **Consider context** - A "fix" spike after launch is normal
+4. **Look for patterns** - Repeated issues suggest systemic problems
+5. **Use with other data** - Combine with issue trackers, reviews, etc.
+
+## Loading Data
+
+- **File picker**: Click "Choose File" to select a `data.json` file
+- **Auto-load**: Place `data.json` in the same folder as the dashboard
+- The dashboard accepts files generated by the extraction script
 
 ---
+
+*For setup and data extraction instructions, see [ADMIN_GUIDE.md](./ADMIN_GUIDE.md).*
