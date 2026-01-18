@@ -2,16 +2,16 @@
   "metadata": {
     "repo_id": "repo-tor",
     "repository": "repo-tor",
-    "remoteUrl": "http://local_proxy@127.0.0.1:48807/git/devmade-ai/repo-tor",
-    "currentBranch": "claude/analyze-sample-data-time-ZWmOs",
+    "remoteUrl": "http://local_proxy@127.0.0.1:22591/git/devmade-ai/repo-tor",
+    "currentBranch": "claude/rerun-extraction-dashboard-M1m0i",
     "branches": [
-      "claude/analyze-sample-data-time-ZWmOs",
       "claude/git-analytics-reporting-ebvnR",
-      "origin/claude/analyze-sample-data-time-ZWmOs",
+      "claude/rerun-extraction-dashboard-M1m0i",
       "origin/claude/git-analytics-reporting-ebvnR",
+      "origin/claude/rerun-extraction-dashboard-M1m0i",
       "origin/main"
     ],
-    "extractedAt": "2026-01-18T22:27:53.130Z",
+    "extractedAt": "2026-01-18T23:41:40.395Z",
     "repoPath": "/home/user/repo-tor",
     "authors": {
       "noreply@anthropic.com": {
@@ -38,6 +38,246 @@
     }
   },
   "commits": [
+    {
+      "sha": "9539fcb",
+      "fullSha": "9539fcbc633f04baf501ebb1dd04d2fe31ba3a65",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-19T00:55:18+02:00",
+      "commitDate": "2026-01-19T00:55:18+02:00",
+      "subject": "Merge pull request #4 from devmade-ai/claude/fix-dashboard-mobile-tabs-pRUVw",
+      "body": "fix: make dashboard tabs mobile-friendly with horizontal scroll",
+      "type": "fix",
+      "scope": null,
+      "title": "Merge pull request #4 from devmade-ai/claude/fix-dashboard-mobile-tabs-pRUVw",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 112,
+        "deletions": 47
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "709f212",
+      "fullSha": "709f2129126c80d8e4c405ee11bb0fa43aa735b2",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T22:53:34+00:00",
+      "commitDate": "2026-01-18T22:53:34+00:00",
+      "subject": "feat: change timeline to horizontal bar chart",
+      "body": "- Switched from vertical columns to horizontal bars\n- Newest dates at top for natural reading\n- Better mobile UX with more room for date labels",
+      "type": "feat",
+      "scope": null,
+      "title": "change timeline to horizontal bar chart",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 19,
+        "deletions": 10
+      },
+      "files": [
+        "dashboard/index.html",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "6be558d",
+      "fullSha": "6be558dc324e61c8f92b82306836fed8eef637be",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T22:49:21+00:00",
+      "commitDate": "2026-01-18T22:49:21+00:00",
+      "subject": "fix: improve timeline layout for mobile devices",
+      "body": "- Filter bar: responsive grid (2-col mobile, 3-col tablet, flex desktop)\n- Stacked filter labels above inputs for better touch targets\n- Shorter chart height on mobile (h-48 vs h-64)\n- Commit list: message wraps on mobile, metadata flows with separators\n- Line counts show inline on desktop, below metadata on mobile",
+      "type": "fix",
+      "scope": null,
+      "title": "improve timeline layout for mobile devices",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 60,
+        "deletions": 31
+      },
+      "files": [
+        "dashboard/index.html",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "5c0d4f7",
+      "fullSha": "5c0d4f7af5742ec9ee9684f83d618ec961fe847c",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T22:46:10+00:00",
+      "commitDate": "2026-01-18T22:46:10+00:00",
+      "subject": "fix: make dashboard tabs mobile-friendly with horizontal scroll",
+      "body": "Added overflow-x-auto and hidden scrollbar for clean horizontal\nscrolling on mobile devices. Applied whitespace-nowrap to prevent\ntab text wrapping and used negative margin for edge-to-edge scroll.",
+      "type": "fix",
+      "scope": null,
+      "title": "make dashboard tabs mobile-friendly with horizontal scroll",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 33,
+        "deletions": 6
+      },
+      "files": [
+        "dashboard/index.html",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "e79566e",
+      "fullSha": "e79566e9abf39e69857dade06755ba725dad098d",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-19T00:37:49+02:00",
+      "commitDate": "2026-01-19T00:37:49+02:00",
+      "subject": "fix: include data.json in GitHub Pages deployment",
+      "body": "The deploy workflow was copying dashboard/index.html but not\ndashboard/data.json, causing 404 errors on the live site when\nthe dashboard tried to auto-load data.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "type": "fix",
+      "scope": null,
+      "title": "include data.json in GitHub Pages deployment",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 18,
+        "deletions": 1
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "d6bc084",
+      "fullSha": "d6bc08468762d40cf028d5b231ac4408a0fddb02",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-19T00:30:16+02:00",
+      "commitDate": "2026-01-19T00:30:16+02:00",
+      "subject": "Merge pull request #3 from devmade-ai/claude/analyze-sample-data-time-ZWmOs",
+      "body": "chore: add sample data to dashboard for auto-load",
+      "type": "other",
+      "scope": null,
+      "title": "Merge pull request #3 from devmade-ai/claude/analyze-sample-data-time-ZWmOs",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 1820,
+        "deletions": 147
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "3eb8b8b",
+      "fullSha": "3eb8b8b038ceaa79a15b7fc409ccffdbd28ff0df",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T22:28:28+00:00",
+      "commitDate": "2026-01-18T22:28:28+00:00",
+      "subject": "docs: update docs and re-extract data with latest commits",
+      "body": "- Update SESSION_NOTES.md with current state and live URL\n- Update HISTORY.md with dashboard auto-load fix entry\n- Re-run extraction (now 25 commits, 3 contributors)\n- Update dashboard/data.json with fresh extraction",
+      "type": "docs",
+      "scope": null,
+      "title": "update docs and re-extract data with latest commits",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 690,
+        "deletions": 213
+      },
+      "files": [
+        "dashboard/data.json",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json"
+      ],
+      "repo_id": "repo-tor"
+    },
     {
       "sha": "febe08a",
       "fullSha": "febe08ade0073264900c10d119b65c14965ac726",
@@ -920,15 +1160,16 @@
       "names": [
         "Claude"
       ],
-      "commits": 15,
-      "additions": 8155,
-      "deletions": 1232,
+      "commits": 19,
+      "additions": 8957,
+      "deletions": 1492,
       "firstCommit": "2026-01-18T20:29:03+00:00",
-      "lastCommit": "2026-01-18T22:24:22+00:00",
+      "lastCommit": "2026-01-18T22:53:34+00:00",
       "types": {
-        "docs": 7,
+        "feat": 5,
+        "fix": 2,
+        "docs": 8,
         "chore": 3,
-        "feat": 4,
         "ci": 1
       },
       "primaryName": "Claude"
@@ -939,12 +1180,13 @@
       "names": [
         "jacotheron87"
       ],
-      "commits": 7,
-      "additions": 198,
-      "deletions": 14,
+      "commits": 8,
+      "additions": 216,
+      "deletions": 15,
       "firstCommit": "2026-01-18T22:03:07+02:00",
-      "lastCommit": "2026-01-18T22:18:42+02:00",
+      "lastCommit": "2026-01-19T00:37:49+02:00",
       "types": {
+        "fix": 1,
         "feat": 5,
         "test": 2
       },
@@ -956,14 +1198,15 @@
       "names": [
         "devmade-ai"
       ],
-      "commits": 3,
-      "additions": 6005,
-      "deletions": 238,
+      "commits": 5,
+      "additions": 7937,
+      "deletions": 432,
       "firstCommit": "2026-01-18T21:53:16+02:00",
-      "lastCommit": "2026-01-19T00:12:35+02:00",
+      "lastCommit": "2026-01-19T00:55:18+02:00",
       "types": {
-        "docs": 1,
-        "other": 2
+        "fix": 1,
+        "other": 3,
+        "docs": 1
       },
       "primaryName": "devmade-ai"
     }
@@ -971,10 +1214,11 @@
   "files": [
     {
       "path": "docs/HISTORY.md",
-      "changeCount": 11,
+      "changeCount": 16,
       "commitTypes": {
-        "feat": 7,
-        "docs": 3,
+        "feat": 8,
+        "fix": 3,
+        "docs": 4,
         "ci": 1
       },
       "authors": [
@@ -984,10 +1228,11 @@
     },
     {
       "path": "docs/SESSION_NOTES.md",
-      "changeCount": 10,
+      "changeCount": 15,
       "commitTypes": {
-        "feat": 6,
-        "docs": 3,
+        "feat": 7,
+        "fix": 3,
+        "docs": 4,
         "ci": 1
       },
       "authors": [
@@ -1021,6 +1266,17 @@
       ]
     },
     {
+      "path": "dashboard/index.html",
+      "changeCount": 6,
+      "commitTypes": {
+        "feat": 4,
+        "fix": 2
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
       "path": ".gitignore",
       "changeCount": 5,
       "commitTypes": {
@@ -1047,33 +1303,11 @@
       ]
     },
     {
-      "path": "docs/ADMIN_GUIDE.md",
+      "path": "reports/repo-tor/commits.json",
       "changeCount": 4,
       "commitTypes": {
         "docs": 2,
-        "ci": 1,
-        "feat": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "path": "dashboard/index.html",
-      "changeCount": 3,
-      "commitTypes": {
-        "feat": 3
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "path": "reports/repo-tor/commits.json",
-      "changeCount": 3,
-      "commitTypes": {
         "feat": 1,
-        "docs": 1,
         "chore": 1
       },
       "authors": [
@@ -1082,10 +1316,10 @@
     },
     {
       "path": "reports/repo-tor/contributors.json",
-      "changeCount": 3,
+      "changeCount": 4,
       "commitTypes": {
+        "docs": 2,
         "feat": 1,
-        "docs": 1,
         "chore": 1
       },
       "authors": [
@@ -1094,10 +1328,10 @@
     },
     {
       "path": "reports/repo-tor/data.json",
-      "changeCount": 3,
+      "changeCount": 4,
       "commitTypes": {
+        "docs": 2,
         "feat": 1,
-        "docs": 1,
         "chore": 1
       },
       "authors": [
@@ -1106,10 +1340,10 @@
     },
     {
       "path": "reports/repo-tor/files.json",
-      "changeCount": 3,
+      "changeCount": 4,
       "commitTypes": {
+        "docs": 2,
         "feat": 1,
-        "docs": 1,
         "chore": 1
       },
       "authors": [
@@ -1118,10 +1352,10 @@
     },
     {
       "path": "reports/repo-tor/metadata.json",
-      "changeCount": 3,
+      "changeCount": 4,
       "commitTypes": {
+        "docs": 2,
         "feat": 1,
-        "docs": 1,
         "chore": 1
       },
       "authors": [
@@ -1130,11 +1364,23 @@
     },
     {
       "path": "reports/repo-tor/summary.json",
-      "changeCount": 3,
+      "changeCount": 4,
       "commitTypes": {
+        "docs": 2,
         "feat": 1,
-        "docs": 1,
         "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "docs/ADMIN_GUIDE.md",
+      "changeCount": 4,
+      "commitTypes": {
+        "docs": 2,
+        "ci": 1,
+        "feat": 1
       },
       "authors": [
         "noreply@anthropic.com"
@@ -1160,6 +1406,29 @@
       "authors": [
         "noreply@anthropic.com",
         "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": ".github/workflows/deploy.yml",
+      "changeCount": 2,
+      "commitTypes": {
+        "fix": 1,
+        "ci": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "dashboard/data.json",
+      "changeCount": 2,
+      "commitTypes": {
+        "docs": 1,
+        "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
       ]
     },
     {
@@ -1192,26 +1461,6 @@
       },
       "authors": [
         "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "path": "dashboard/data.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "path": ".github/workflows/deploy.yml",
-      "changeCount": 1,
-      "commitTypes": {
-        "ci": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
       ]
     },
     {
@@ -1306,28 +1555,30 @@
     }
   ],
   "summary": {
-    "totalCommits": 25,
+    "totalCommits": 32,
     "totalContributors": 3,
-    "totalAdditions": 14358,
-    "totalDeletions": 1484,
-    "netLinesChanged": 12874,
+    "totalAdditions": 17110,
+    "totalDeletions": 1939,
+    "netLinesChanged": 15171,
     "typeBreakdown": {
-      "docs": 8,
+      "fix": 4,
+      "feat": 10,
+      "other": 3,
+      "docs": 9,
       "chore": 3,
-      "feat": 9,
       "ci": 1,
-      "other": 2,
       "test": 2
     },
     "monthlyCommits": {
       "2026-01": {
-        "total": 25,
+        "total": 32,
         "types": {
-          "docs": 8,
+          "fix": 4,
+          "feat": 10,
+          "other": 3,
+          "docs": 9,
           "chore": 3,
-          "feat": 9,
           "ci": 1,
-          "other": 2,
           "test": 2
         }
       }
@@ -1344,7 +1595,7 @@
     ],
     "dateRange": {
       "earliest": "2026-01-18T21:53:16+02:00",
-      "latest": "2026-01-18T22:24:22+00:00"
+      "latest": "2026-01-19T00:55:18+02:00"
     }
   }
 }
