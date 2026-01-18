@@ -1,0 +1,73 @@
+#!/bin/bash
+#
+# Git commit-msg hook for validating conventional commit format
+#
+# Installation:
+#   cp hooks/commit-msg .git/hooks/commit-msg
+#   chmod +x .git/hooks/commit-msg
+#
+# Or use the setup script:
+#   ./hooks/setup.sh
+
+COMMIT_MSG_FILE="$1"
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Remove comments (lines starting with #)
+COMMIT_MSG_CLEAN=$(echo "$COMMIT_MSG" | grep -v "^#" | head -1)
+
+# Conventional commit pattern
+# type(scope)!: subject OR type!: subject OR type(scope): subject OR type: subject
+PATTERN="^(feat|fix|security|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-zA-Z0-9_-]+\))?(!)?: .{1,72}$"
+
+# Check if first line matches pattern
+if ! echo "$COMMIT_MSG_CLEAN" | grep -qE "$PATTERN"; then
+    echo ""
+    echo "ERROR: Commit message does not follow conventional commit format."
+    echo ""
+    echo "Expected format: type(scope): subject"
+    echo ""
+    echo "Your message: $COMMIT_MSG_CLEAN"
+    echo ""
+    echo "Valid types: feat, fix, security, docs, style, refactor, perf, test, build, ci, chore, revert"
+    echo ""
+    echo "Examples:"
+    echo "  feat(auth): add OAuth2 login support"
+    echo "  fix(api): handle timeout errors"
+    echo "  docs: update README"
+    echo "  chore(deps): upgrade lodash"
+    echo ""
+    echo "For breaking changes, add '!' after type:"
+    echo "  feat(api)!: change response format"
+    echo ""
+    echo "See docs/COMMIT_CONVENTION.md for full guide."
+    echo ""
+    exit 1
+fi
+
+# Check subject length (already part of regex, but provide clearer error)
+SUBJECT_LENGTH=$(echo "$COMMIT_MSG_CLEAN" | wc -c)
+if [ "$SUBJECT_LENGTH" -gt 73 ]; then
+    echo ""
+    echo "ERROR: Commit subject exceeds 72 characters ($SUBJECT_LENGTH chars)"
+    echo ""
+    echo "Your message: $COMMIT_MSG_CLEAN"
+    echo ""
+    echo "Please shorten the subject line."
+    echo ""
+    exit 1
+fi
+
+# Warn about imperative mood (common mistakes)
+SUBJECT=$(echo "$COMMIT_MSG_CLEAN" | sed 's/^[^:]*: //')
+if echo "$SUBJECT" | grep -qiE "^(added|adding|fixed|fixing|updated|updating|removed|removing|changed|changing) "; then
+    echo ""
+    echo "WARNING: Subject should use imperative mood."
+    echo ""
+    echo "Instead of: '$SUBJECT'"
+    echo "Consider:   '$(echo "$SUBJECT" | sed -E 's/^(added|fixed|updated|removed|changed)/add/i; s/^(adding|fixing|updating|removing|changing)/add/i')'"
+    echo ""
+    echo "(Proceeding anyway - this is just a suggestion)"
+    echo ""
+fi
+
+exit 0

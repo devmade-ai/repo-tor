@@ -1,3 +1,23 @@
+# Git Analytics Reporting System
+
+## Project Overview
+
+**Purpose:** Extract git history from repositories and generate visual analytics reports.
+
+**Target Users:** Development teams wanting insights into commit patterns, contributor activity, and code evolution.
+
+**Key Components:**
+- `scripts/extract.js` - Extracts git log data into structured JSON
+- `dashboard/index.html` - Static HTML dashboard with Chart.js visualizations
+- `hooks/commit-msg` - Validates conventional commit format
+- `docs/COMMIT_CONVENTION.md` - Team guide for commit messages
+
+**Current State:** MVP complete (D1, D2, D4). See `docs/SESSION_NOTES.md` for details.
+
+**Remaining Work:** D3 (multi-repo aggregation), dashboard filters. See `docs/TODO.md`.
+
+---
+
 # My Preferences
 
 ## Process
