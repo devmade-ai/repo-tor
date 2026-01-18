@@ -43,4 +43,4 @@ Align with technical spec schema:
 
 ---
 
-*Last updated: Session 2 - After D1, D2, D4 completion*
+*Last updated: Session 3 - After documentation reorganization (USER_GUIDE / ADMIN_GUIDE split)*
