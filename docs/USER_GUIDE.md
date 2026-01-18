@@ -2,6 +2,8 @@
 
 Understanding and interpreting the Git Analytics Dashboard.
 
+**Live dashboard:** https://devmade-ai.github.io/repo-tor/
+
 ## Loading Data
 
 ### Single Repository
