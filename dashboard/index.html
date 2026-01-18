@@ -50,6 +50,32 @@
         .tag-security { background-color: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
         .tag-breaking { background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
         .tag-dependency { background-color: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+
+        .filter-select {
+            padding: 0.375rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            background-color: white;
+            min-width: 120px;
+        }
+        .filter-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .filter-input {
+            padding: 0.375rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+        .filter-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -62,9 +88,10 @@
 
         <!-- Data Loader -->
         <div id="loader" class="card text-center py-12">
-            <p class="text-gray-500">Select a data file to load:</p>
-            <input type="file" id="file-input" accept=".json" class="mt-4 text-sm">
-            <p class="text-sm text-gray-400 mt-4">Or place your data.json in the same directory as this file</p>
+            <p class="text-gray-500">Select data file(s) to load:</p>
+            <input type="file" id="file-input" accept=".json" multiple class="mt-4 text-sm">
+            <p class="text-sm text-gray-400 mt-2">Select multiple files to combine data from different repositories</p>
+            <p class="text-sm text-gray-400 mt-1">Or place your data.json in the same directory as this file</p>
         </div>
 
         <!-- Dashboard Content (hidden until data loads) -->
@@ -74,6 +101,7 @@
                 <div class="card">
                     <p class="text-sm text-gray-500 uppercase tracking-wide">Commits</p>
                     <p class="text-3xl font-bold text-gray-900" id="stat-commits">0</p>
+                    <p class="text-xs text-gray-400" id="stat-commits-filtered"></p>
                 </div>
                 <div class="card">
                     <p class="text-sm text-gray-500 uppercase tracking-wide">Contributors</p>
@@ -100,6 +128,41 @@
 
             <!-- Tab Content -->
             <div id="tab-timeline" class="tab-content">
+                <!-- Filters -->
+                <div class="card mb-6">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm text-gray-600">Type:</label>
+                            <select id="filter-type" class="filter-select">
+                                <option value="">All Types</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm text-gray-600">Author:</label>
+                            <select id="filter-author" class="filter-select">
+                                <option value="">All Authors</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2" id="repo-filter-container" style="display: none;">
+                            <label class="text-sm text-gray-600">Repo:</label>
+                            <select id="filter-repo" class="filter-select">
+                                <option value="">All Repos</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm text-gray-600">From:</label>
+                            <input type="date" id="filter-date-from" class="filter-input">
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm text-gray-600">To:</label>
+                            <input type="date" id="filter-date-to" class="filter-input">
+                        </div>
+                        <button id="clear-filters" class="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded">
+                            Clear Filters
+                        </button>
+                    </div>
+                </div>
+
                 <div class="card mb-6">
                     <h2 class="text-lg font-semibold mb-4">Commit Timeline</h2>
                     <div class="h-64">
@@ -107,7 +170,10 @@
                     </div>
                 </div>
                 <div class="card">
-                    <h2 class="text-lg font-semibold mb-4">Recent Commits</h2>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-semibold">Recent Commits</h2>
+                        <span id="commit-count" class="text-sm text-gray-500"></span>
+                    </div>
                     <div id="commit-list" class="space-y-3 max-h-96 overflow-y-auto"></div>
                 </div>
             </div>
@@ -186,6 +252,13 @@
         // === Global State ===
         let data = null;
         let charts = {};
+        let filters = {
+            type: '',
+            author: '',
+            repo: '',
+            dateFrom: '',
+            dateTo: ''
+        };
 
         // === Color Mapping ===
         const TYPE_COLORS = {
@@ -204,6 +277,156 @@
             other: '#9ca3af'
         };
 
+        // === Author Resolution ===
+        function getAuthorName(commit) {
+            // Try to resolve from metadata.authors using author_id
+            if (commit.author_id && data.metadata?.authors?.[commit.author_id]) {
+                return data.metadata.authors[commit.author_id].name;
+            }
+            // Fall back to embedded author object
+            return commit.author?.name || commit.author_id || 'Unknown';
+        }
+
+        function getAuthorEmail(commit) {
+            // Try to resolve from metadata.authors using author_id
+            if (commit.author_id && data.metadata?.authors?.[commit.author_id]) {
+                return data.metadata.authors[commit.author_id].email;
+            }
+            // Fall back to embedded author object or author_id
+            return commit.author?.email || commit.author_id || 'unknown';
+        }
+
+        // === Filter Functions ===
+        function getFilteredCommits() {
+            if (!data || !data.commits) return [];
+
+            return data.commits.filter(commit => {
+                // Type filter
+                if (filters.type && commit.type !== filters.type) return false;
+
+                // Author filter - check both author_id and author.email
+                if (filters.author) {
+                    const authorEmail = getAuthorEmail(commit);
+                    if (authorEmail !== filters.author) return false;
+                }
+
+                // Repo filter
+                if (filters.repo && commit.repo_id !== filters.repo) return false;
+
+                // Date range filter
+                if (filters.dateFrom) {
+                    const commitDate = commit.timestamp?.substring(0, 10);
+                    if (commitDate < filters.dateFrom) return false;
+                }
+                if (filters.dateTo) {
+                    const commitDate = commit.timestamp?.substring(0, 10);
+                    if (commitDate > filters.dateTo) return false;
+                }
+
+                return true;
+            });
+        }
+
+        function populateFilters() {
+            // Type filter
+            const typeSelect = document.getElementById('filter-type');
+            const types = [...new Set(data.commits.map(c => c.type))].sort();
+            typeSelect.innerHTML = '<option value="">All Types</option>' +
+                types.map(t => `<option value="${t}">${t}</option>`).join('');
+
+            // Author filter - use author resolution
+            const authorSelect = document.getElementById('filter-author');
+            const authorMap = {};
+            data.commits.forEach(c => {
+                const email = getAuthorEmail(c);
+                const name = getAuthorName(c);
+                if (email && !authorMap[email]) {
+                    authorMap[email] = name;
+                }
+            });
+            const authors = Object.keys(authorMap).sort();
+            authorSelect.innerHTML = '<option value="">All Authors</option>' +
+                authors.map(email => `<option value="${email}">${escapeHtml(authorMap[email] || email)}</option>`).join('');
+
+            // Repo filter (only show if aggregated data)
+            const repos = [...new Set(data.commits.map(c => c.repo_id).filter(Boolean))];
+            const repoContainer = document.getElementById('repo-filter-container');
+            if (repos.length > 1) {
+                repoContainer.style.display = 'flex';
+                const repoSelect = document.getElementById('filter-repo');
+                repoSelect.innerHTML = '<option value="">All Repos</option>' +
+                    repos.sort().map(r => `<option value="${r}">${r}</option>`).join('');
+            } else {
+                repoContainer.style.display = 'none';
+            }
+
+            // Date range defaults
+            if (data.summary?.dateRange) {
+                const fromInput = document.getElementById('filter-date-from');
+                const toInput = document.getElementById('filter-date-to');
+                if (data.summary.dateRange.earliest) {
+                    fromInput.min = data.summary.dateRange.earliest.substring(0, 10);
+                }
+                if (data.summary.dateRange.latest) {
+                    toInput.max = data.summary.dateRange.latest.substring(0, 10);
+                }
+            }
+        }
+
+        function setupFilterListeners() {
+            document.getElementById('filter-type').addEventListener('change', (e) => {
+                filters.type = e.target.value;
+                applyFilters();
+            });
+
+            document.getElementById('filter-author').addEventListener('change', (e) => {
+                filters.author = e.target.value;
+                applyFilters();
+            });
+
+            document.getElementById('filter-repo').addEventListener('change', (e) => {
+                filters.repo = e.target.value;
+                applyFilters();
+            });
+
+            document.getElementById('filter-date-from').addEventListener('change', (e) => {
+                filters.dateFrom = e.target.value;
+                applyFilters();
+            });
+
+            document.getElementById('filter-date-to').addEventListener('change', (e) => {
+                filters.dateTo = e.target.value;
+                applyFilters();
+            });
+
+            document.getElementById('clear-filters').addEventListener('click', () => {
+                filters = { type: '', author: '', repo: '', dateFrom: '', dateTo: '' };
+                document.getElementById('filter-type').value = '';
+                document.getElementById('filter-author').value = '';
+                document.getElementById('filter-repo').value = '';
+                document.getElementById('filter-date-from').value = '';
+                document.getElementById('filter-date-to').value = '';
+                applyFilters();
+            });
+        }
+
+        function applyFilters() {
+            renderTimeline();
+            updateFilteredStats();
+        }
+
+        function updateFilteredStats() {
+            const filtered = getFilteredCommits();
+            const total = data.commits.length;
+            const filteredEl = document.getElementById('stat-commits-filtered');
+
+            if (filtered.length !== total) {
+                filteredEl.textContent = `(${filtered.length} shown)`;
+            } else {
+                filteredEl.textContent = '';
+            }
+        }
+
         // === Data Loading ===
         async function loadData(jsonData) {
             data = jsonData;
@@ -221,6 +444,10 @@
             document.getElementById('stat-contributors').textContent = data.summary.totalContributors;
             document.getElementById('stat-additions').textContent = formatNumber(data.summary.totalAdditions);
             document.getElementById('stat-deletions').textContent = formatNumber(data.summary.totalDeletions);
+
+            // Populate and setup filters
+            populateFilters();
+            setupFilterListeners();
 
             // Render all views
             renderTimeline();
@@ -245,9 +472,11 @@
 
         // === Timeline Tab ===
         function renderTimeline() {
+            const filteredCommits = getFilteredCommits();
+
             // Aggregate commits by date
             const byDate = {};
-            data.commits.forEach(commit => {
+            filteredCommits.forEach(commit => {
                 const date = commit.timestamp.substring(0, 10);
                 if (!byDate[date]) byDate[date] = [];
                 byDate[date].push(commit);
@@ -288,24 +517,29 @@
                 }
             });
 
+            // Update commit count
+            document.getElementById('commit-count').textContent =
+                `Showing ${Math.min(filteredCommits.length, 50)} of ${filteredCommits.length} commits`;
+
             // Commit List
-            const listHtml = data.commits.slice(0, 50).map(commit => `
+            const listHtml = filteredCommits.slice(0, 50).map(commit => `
                 <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
                     <span class="tag type-${commit.type}">${commit.type}</span>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-medium text-gray-900 truncate">${escapeHtml(commit.subject)}</p>
                         <p class="text-xs text-gray-500">
-                            ${commit.sha} by ${escapeHtml(commit.author.name)} on ${formatDate(commit.timestamp)}
-                            ${commit.tags.length > 0 ? commit.tags.map(t => `<span class="tag tag-${t}">${t}</span>`).join(' ') : ''}
+                            ${commit.sha} by ${escapeHtml(getAuthorName(commit))} on ${formatDate(commit.timestamp)}
+                            ${commit.repo_id ? `<span class="text-gray-400">in ${commit.repo_id}</span>` : ''}
+                            ${(commit.tags || []).length > 0 ? commit.tags.map(t => `<span class="tag tag-${t}">${t}</span>`).join(' ') : ''}
                         </p>
                     </div>
                     <span class="text-xs text-gray-400">
-                        <span class="text-green-600">+${commit.stats.additions}</span>
-                        <span class="text-red-600">-${commit.stats.deletions}</span>
+                        <span class="text-green-600">+${commit.stats?.additions || 0}</span>
+                        <span class="text-red-600">-${commit.stats?.deletions || 0}</span>
                     </span>
                 </div>
             `).join('');
-            document.getElementById('commit-list').innerHTML = listHtml || '<p class="text-gray-500">No commits</p>';
+            document.getElementById('commit-list').innerHTML = listHtml || '<p class="text-gray-500">No commits match the current filters</p>';
         }
 
         // === Progress Tab ===
@@ -460,7 +694,7 @@
                 <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div>
                         <p class="font-medium text-gray-900">${escapeHtml(c.primaryName)}</p>
-                        <p class="text-xs text-gray-500">${escapeHtml(c.email)}</p>
+                        <p class="text-xs text-gray-500">${escapeHtml(c.email)}${c.repos ? ` (${c.repos.length} repos)` : ''}</p>
                     </div>
                     <div class="text-right">
                         <p class="text-sm font-semibold">${c.commits} commits</p>
@@ -476,9 +710,17 @@
 
         // === Security Tab ===
         function renderSecurity() {
-            const securityCommits = data.commits.filter(c =>
-                c.type === 'security' || c.tags.includes('security')
-            );
+            // Use security_events from summary if available, otherwise compute
+            let securityCommits;
+            if (data.summary?.security_events?.length > 0) {
+                // Map security_events back to full commits for display
+                const securityShas = new Set(data.summary.security_events.map(e => e.sha));
+                securityCommits = data.commits.filter(c => securityShas.has(c.sha));
+            } else {
+                securityCommits = data.commits.filter(c =>
+                    c.type === 'security' || (c.tags || []).includes('security')
+                );
+            }
 
             document.getElementById('security-count').textContent = securityCommits.length;
 
@@ -489,9 +731,10 @@
                             <span class="tag type-security">security</span>
                             <div class="flex-1">
                                 <p class="font-medium text-gray-900">${escapeHtml(commit.subject)}</p>
-                                <p class="text-sm text-gray-600 mt-1">${escapeHtml(commit.body).substring(0, 200) || 'No description'}</p>
+                                <p class="text-sm text-gray-600 mt-1">${escapeHtml(commit.body || '').substring(0, 200) || 'No description'}</p>
                                 <p class="text-xs text-gray-500 mt-2">
-                                    ${commit.sha} by ${escapeHtml(commit.author.name)} on ${formatDate(commit.timestamp)}
+                                    ${commit.sha} by ${escapeHtml(getAuthorName(commit))} on ${formatDate(commit.timestamp)}
+                                    ${commit.repo_id ? `in ${commit.repo_id}` : ''}
                                 </p>
                             </div>
                         </div>
@@ -564,17 +807,141 @@
 
         // === File Input Handler ===
         document.getElementById('file-input').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
+            const files = e.target.files;
+            if (!files || files.length === 0) return;
 
             try {
-                const text = await file.text();
-                const jsonData = JSON.parse(text);
-                loadData(jsonData);
+                if (files.length === 1) {
+                    // Single file - load directly
+                    const text = await files[0].text();
+                    const jsonData = JSON.parse(text);
+                    loadData(jsonData);
+                } else {
+                    // Multiple files - combine them
+                    const allData = [];
+                    for (const file of files) {
+                        const text = await file.text();
+                        const jsonData = JSON.parse(text);
+                        allData.push(jsonData);
+                    }
+                    const combined = combineDataFiles(allData);
+                    loadData(combined);
+                }
             } catch (error) {
-                alert('Error loading file: ' + error.message);
+                alert('Error loading file(s): ' + error.message);
             }
         });
+
+        // === Combine Multiple Data Files ===
+        function combineDataFiles(dataFiles) {
+            const allCommits = [];
+            const allContributors = new Map();
+            const allFiles = new Map();
+            const repos = [];
+
+            let totalAdditions = 0;
+            let totalDeletions = 0;
+            const typeBreakdown = {};
+            const monthlyCommits = {};
+            const allAuthors = {};
+
+            for (const data of dataFiles) {
+                const repoId = data.metadata?.repo_id || data.metadata?.repository || 'unknown';
+                repos.push(repoId);
+
+                // Merge authors from metadata
+                if (data.metadata?.authors) {
+                    Object.assign(allAuthors, data.metadata.authors);
+                }
+
+                // Process commits
+                for (const commit of data.commits || []) {
+                    const enrichedCommit = { ...commit, repo_id: commit.repo_id || repoId };
+                    allCommits.push(enrichedCommit);
+
+                    // Type breakdown
+                    typeBreakdown[commit.type] = (typeBreakdown[commit.type] || 0) + 1;
+
+                    // Monthly
+                    const month = commit.timestamp?.substring(0, 7);
+                    if (month) {
+                        if (!monthlyCommits[month]) monthlyCommits[month] = { total: 0, types: {} };
+                        monthlyCommits[month].total++;
+                        monthlyCommits[month].types[commit.type] = (monthlyCommits[month].types[commit.type] || 0) + 1;
+                    }
+
+                    totalAdditions += commit.stats?.additions || 0;
+                    totalDeletions += commit.stats?.deletions || 0;
+                }
+
+                // Process contributors
+                for (const contributor of data.contributors || []) {
+                    const key = contributor.author_id || contributor.email?.toLowerCase();
+                    if (!allContributors.has(key)) {
+                        allContributors.set(key, {
+                            ...contributor,
+                            repos: new Set([repoId])
+                        });
+                    } else {
+                        const existing = allContributors.get(key);
+                        existing.commits += contributor.commits;
+                        existing.additions += contributor.additions;
+                        existing.deletions += contributor.deletions;
+                        existing.repos.add(repoId);
+                        for (const [type, count] of Object.entries(contributor.types || {})) {
+                            existing.types[type] = (existing.types[type] || 0) + count;
+                        }
+                    }
+                }
+
+                // Process files
+                for (const file of data.files || []) {
+                    const key = `${repoId}:${file.path}`;
+                    if (!allFiles.has(key)) {
+                        allFiles.set(key, { ...file, repo_id: repoId });
+                    }
+                }
+            }
+
+            // Sort commits by timestamp
+            allCommits.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            // Convert contributors
+            const contributors = Array.from(allContributors.values())
+                .map(c => ({
+                    ...c,
+                    repos: Array.from(c.repos),
+                    repoCount: c.repos.size
+                }))
+                .sort((a, b) => b.commits - a.commits);
+
+            // Get date range
+            const timestamps = allCommits.map(c => c.timestamp).filter(Boolean).sort();
+
+            return {
+                metadata: {
+                    repository: `Combined (${repos.length} repos)`,
+                    repos,
+                    authors: allAuthors
+                },
+                commits: allCommits,
+                contributors,
+                files: Array.from(allFiles.values()),
+                summary: {
+                    totalCommits: allCommits.length,
+                    totalContributors: contributors.length,
+                    totalAdditions,
+                    totalDeletions,
+                    netLinesChanged: totalAdditions - totalDeletions,
+                    typeBreakdown,
+                    monthlyCommits,
+                    dateRange: {
+                        earliest: timestamps[0] || null,
+                        latest: timestamps[timestamps.length - 1] || null
+                    }
+                }
+            };
+        }
 
         // === Auto-load data.json if present ===
         async function tryAutoLoad() {

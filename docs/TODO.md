@@ -2,38 +2,47 @@
 
 Items to be addressed, ordered by priority.
 
-## High Priority
+## Completed
 
-### D3 - Aggregation Script
+### Data Extraction (Done)
+- [x] Extracted this repository's git data (20 commits, 3 contributors)
+- [x] Committed to `reports/repo-tor/` for dashboard
+
+### GitHub Pages Deployment (Done)
+- [x] GitHub Actions workflow for automated deployment
+
+### Dashboard Filters (Done)
+- [x] Add type filter to timeline view
+- [x] Add author filter to timeline view
+- [x] Add date range picker
+- [x] Add repo selector for aggregated view
+
+### D3 - Aggregation Script (Done)
 Multi-repo combining with author identity mapping:
-- [ ] Create `scripts/aggregate.js` to combine multiple repo outputs
-- [ ] Implement `config/author-map.json` for identity normalization
-- [ ] Generate `aggregated/summary.json` with cross-repo metrics
-- [ ] Add `repo_id` field to commits for aggregation support
+- [x] Create `scripts/aggregate.js` to combine multiple repo outputs
+- [x] Implement `config/author-map.json` for identity normalization
+- [x] Generate `aggregated/summary.json` with cross-repo metrics
+- [x] Add `repo_id` field to commits for aggregation support
 
-## Medium Priority
-
-### Schema Alignment
+### Schema Alignment (Done)
 Align with technical spec schema:
-- [ ] Add `repo_id` (kebab-case) to metadata
-- [ ] Change `author` object to `author_id` referencing metadata
-- [ ] Add `is_conventional` boolean (currently `parseMethod`)
-- [ ] Add `security_events` array to summary.json
-- [ ] Wrap commits array in `{ "commits": [...] }` object
+- [x] Add `repo_id` (kebab-case) to metadata
+- [x] Change `author` object to `author_id` referencing metadata
+- [x] Add `is_conventional` boolean (replaces `parseMethod`)
+- [x] Add `security_events` array to summary.json
+- [x] Wrap commits array in `{ "commits": [...] }` object
 
-### Dashboard Enhancements
-- [ ] Add type filter to timeline view
-- [ ] Add author filter to timeline view
-- [ ] Add date range picker
-- [ ] Support loading multiple repo data files
-- [ ] Add repo selector for aggregated view
+### Dashboard - Multiple Data Files (Done)
+- [x] Support loading multiple repo data files simultaneously
+- [x] File picker for multiple selection
+- [x] Client-side combining of data from multiple repos
 
 ## Low Priority / Ideas
 
 ### Could Have (from spec)
 - [ ] Export to PDF functionality
 - [ ] Pre-commit hook for conventional commits (prepare-commit-msg)
-- [ ] GitHub Action for automated extraction on push
+- [ ] GitHub Action for automated extraction on push (separate from deployment)
 
 ### Future Enhancements
 - [ ] Merge commit filtering option (exclude from stats)
@@ -43,4 +52,4 @@ Align with technical spec schema:
 
 ---
 
-*Last updated: Session 2 - After D1, D2, D4 completion*
+*Last updated: Session 4 - After schema alignment and multiple file support*

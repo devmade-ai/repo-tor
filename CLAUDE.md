@@ -48,9 +48,10 @@
 
 ### After Each Significant Task
 - [ ] Update docs/SESSION_NOTES.md with current state
-- [ ] Update docs/USER_GUIDE.md if user-facing behavior changed
+- [ ] Update docs/USER_GUIDE.md if dashboard UI or interpretation changed
+- [ ] Update docs/ADMIN_GUIDE.md if setup, extraction, or configuration changed
 - [ ] Update docs/USER_TESTING.md if new test scenarios needed
-- [ ] Update other relevant docs (CALCULATIONS.md, BUSINESS_GUIDE.md, etc.)
+- [ ] Update other relevant docs (COMMIT_CONVENTION.md, etc.)
 - [ ] Add entry to docs/HISTORY.md if code/docs changed
 - [ ] Commit changes (code + docs together)
 

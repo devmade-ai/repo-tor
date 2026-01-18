@@ -4,29 +4,37 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Current State
 
-- Git Analytics Reporting System MVP complete (D1, D4)
-- Commit Convention Guide complete (D2)
-- Multi-repo aggregation not yet implemented (D3)
+- Git Analytics Reporting System complete (D1, D2, D3, D4)
+- Dashboard filters complete (type, author, date range, repo)
+- GitHub Pages deployment workflow configured
+- Schema alignment complete (author_id, is_conventional, security_events)
+- Multiple data file loading complete
+- Extracted data committed for this repository (21 commits, 3 contributors)
+- Documentation split into User Guide (UI/interpretation) and Admin Guide (setup/extraction)
 
 ## Last Completed
 
-### D2 - Commit Convention Guide
-- `docs/COMMIT_CONVENTION.md` - Full guide with:
-  - Commit format specification (type, scope, subject, body, tags, refs)
-  - Type definitions with analytics impact
-  - Special tags (security, breaking, dependency)
-  - Examples for all commit types
-  - Quick reference and checklist
-- `.gitmessage` - Git commit template
-- `hooks/commit-msg` - Validation hook script
-- `hooks/setup.sh` - Installation script
+### Schema Alignment
+- Changed `parseMethod` to `is_conventional` boolean in commits
+- Added `author_id` field to commits (references metadata.authors)
+- Added `authors` map to metadata.json for author lookup
+- Added `security_events` array to summary.json
+- Wrapped commits.json in `{ "commits": [...] }` object
+- Updated aggregate.js to match new schema
 
-### D1 - Extraction Script (Previous)
-- `scripts/extract.js` - Full extraction script
-- `scripts/extract.sh` - Shell wrapper
+### Dashboard - Multiple Data Files
+- File picker now accepts multiple files (`multiple` attribute)
+- Client-side combining of data from multiple repos
+- Combined data shows repo filter for cross-repo viewing
+- Authors merged from metadata of all files
 
-### D4 - Static Report Page (Previous)
-- `dashboard/index.html` - Analytics dashboard with all views
+### Previous Completions
+- Dashboard filters (type, author, repo, date range)
+- GitHub Pages deployment workflow
+- D3 - Aggregation Script with author identity mapping
+- D2 - Commit Convention Guide
+- D1 - Extraction Script
+- D4 - Static Report Page
 
 ## In Progress
 
@@ -34,13 +42,18 @@ None
 
 ## Next Steps
 
-Remaining from spec:
-- **D3 - Aggregation Script** - Multi-repo combining, author identity mapping
-- Schema alignment (repo_id, author_id normalization)
-- Dashboard filters (type, author, date range)
+Remaining items (low priority):
+- Export to PDF
+- Pre-commit hook for conventional commits
+- GitHub Action for automated extraction
+- Dark mode
+- PWA offline support
 
 ## Notes
 
-- Commit convention follows Conventional Commits v1.0.0 spec
-- Hook validates format but allows bypass with `--no-verify`
-- Template configured per-repo with `git config commit.template .gitmessage`
+- Extraction uses `git log --all` to capture all branches
+- Filters only apply to Timeline tab (chart + list)
+- Repo filter auto-hides for single-repo data
+- Dashboard auto-resolves author names from metadata.authors using author_id
+- commits.json is wrapped in object for consistency with other JSON files
+- This repo's data (`reports/repo-tor/`) is committed for dashboard demo

@@ -1,161 +1,253 @@
 # User Guide
 
-Git Analytics Reporting System - Extract and visualize commit history from any git repository.
+Understanding and interpreting the Git Analytics Dashboard.
 
-## Getting Started
+## Loading Data
 
-### Prerequisites
-- Node.js (v14 or higher)
-- Git repository to analyze
+### Single Repository
+Click the file picker and select a single `data.json` file to load analytics for one repository.
 
-### Quick Start
+### Multiple Repositories
+To view combined analytics across multiple repositories:
 
-1. **Extract data from a repository:**
-   ```bash
-   # From the repo-tor directory, analyze the current repo
-   node scripts/extract.js . --output=reports
+1. Click the file picker
+2. Hold Ctrl (Windows/Linux) or Cmd (Mac) and select multiple `data.json` files
+3. The dashboard will automatically combine the data
 
-   # Or analyze any other repository
-   node scripts/extract.js /path/to/other/repo --output=reports
-   ```
+When multiple files are loaded:
+- Header shows "Combined (N repos)"
+- Commits from all repos are merged and sorted by date
+- Contributors are aggregated (same email = same person)
+- The Repo filter appears to filter by specific repository
+- Summary cards show totals across all repositories
 
-2. **View the dashboard:**
-   - Open `dashboard/index.html` in a web browser
-   - The dashboard will auto-load data from `reports/` if available
-   - Or use the file picker to load any `data.json` file
+**Tip:** Use the server-side aggregation script (`scripts/aggregate.js`) for better author identity mapping when the same person uses different emails across repositories.
 
-### Using the Shell Wrapper
+## Dashboard Overview
 
-```bash
-# Make script executable (one time)
-chmod +x scripts/extract.sh
+When you load a data file, the dashboard displays analytics for that repository. The header shows the repository name, total commits, contributor count, and date range covered.
 
-# Extract current repository
-./scripts/extract.sh
+### Summary Cards
 
-# Extract specific repository to custom location
-./scripts/extract.sh /path/to/repo ./my-reports
-```
+Four cards at the top provide quick metrics:
 
-## Features
+| Card | What It Shows | What It Means |
+|------|--------------|---------------|
+| **Commits** | Total number of commits | Overall activity level |
+| **Contributors** | Unique contributors | Team size / involvement |
+| **Lines Added** | Total lines added across all commits | Code growth |
+| **Lines Removed** | Total lines removed across all commits | Code churn / cleanup |
 
-### Data Extraction
+**Interpreting the numbers:**
+- High additions with low deletions = growing codebase
+- Roughly equal additions/deletions = refactoring or maintenance phase
+- Lines removed > added = cleanup, simplification, or debt reduction
 
-The extraction script parses git history and generates:
+## Dashboard Tabs
 
-| File | Description |
-|------|-------------|
-| `metadata.json` | Repository info (name, branches, URL) |
-| `commits.json` | All commits with parsed metadata |
-| `contributors.json` | Aggregated contributor statistics |
-| `files.json` | File change frequency analysis |
-| `summary.json` | Aggregated metrics and breakdown |
-| `data.json` | Combined file for dashboard |
+### Timeline Tab
 
-### Commit Type Detection
+Shows **when** commits happened and **what** was recently committed.
 
-The system uses two detection methods:
+**Filters**
 
-1. **Conventional Commits** (if used):
-   ```
-   feat(auth): add OAuth login
-   fix(api): handle timeout errors
-   security: patch XSS vulnerability
-   ```
+The filter bar allows you to narrow down commits:
 
-2. **Keyword Detection** (fallback):
-   - `feat`: add, create, implement, new
-   - `fix`: fix, bug, patch, resolve
-   - `security`: security, vulnerability, CVE, XSS
-   - `docs`: doc, documentation, readme
-   - `refactor`: refactor, restructure, cleanup
-   - `test`: test, spec, coverage
-   - `chore`: chore, maintenance, update, upgrade
-   - `perf`: performance, optimize, speed
-   - And more...
+| Filter | Description |
+|--------|-------------|
+| **Type** | Show only commits of a specific type (feat, fix, etc.) |
+| **Author** | Show only commits from a specific contributor |
+| **Repo** | Show only commits from a specific repository (aggregated data only) |
+| **From/To** | Show commits within a date range |
 
-### Dashboard Views
+- Filters apply to both the chart and commit list
+- The "Showing X of Y commits" counter updates as you filter
+- Click "Clear Filters" to reset all filters
 
-| Tab | Description |
-|-----|-------------|
-| **Timeline** | Daily commit activity chart + recent commits list |
-| **Progress** | Monthly volume, cumulative growth, feature vs bug trends |
-| **Contributors** | Commits and lines changed by author |
-| **Security** | Security-tagged commits highlighted |
-| **By Type** | Commit type distribution (pie chart + breakdown) |
+**Commit Timeline Chart**
+- Bar chart showing commits per day
+- Taller bars = more activity that day
+- Gaps indicate periods of inactivity
+- Chart updates when filters are applied
 
-## Output Structure
+**What to look for:**
+- Consistent activity vs sporadic bursts
+- Unusual spikes (release pushes, deadline crunches)
+- Quiet periods (holidays, blocked work)
+- Filter by author to see individual contribution patterns
 
-```
-reports/
-  {repo-name}/
-    metadata.json
-    commits.json
-    contributors.json
-    files.json
-    summary.json
-    data.json      # Combined data for dashboard
-```
+**Recent Commits List**
+- Shows up to 50 commits matching current filters
+- Each commit displays:
+  - **Type badge** (color-coded)
+  - **Subject** - The commit message summary
+  - **Metadata** - SHA, author, date, repo (if aggregated)
+  - **Tags** - Security, breaking, etc. (if present)
+  - **Line changes** - Green (+) additions, red (-) deletions
 
-## FAQ
+### Progress Tab
 
-### How do I analyze multiple repositories?
+Shows **how** the project is evolving over time.
 
-Run the extraction script for each repo - they'll be stored in separate folders:
-```bash
-node scripts/extract.js /path/to/repo-a --output=reports
-node scripts/extract.js /path/to/repo-b --output=reports
-```
+**Monthly Commit Volume**
+- Bar chart of commits per month
+- Shows overall development pace
+- Useful for identifying trends (ramping up, slowing down)
 
-### How do I improve type detection accuracy?
+**What to look for:**
+- Upward trend = increasing activity
+- Downward trend = maintenance mode or reduced resources
+- Seasonal patterns = release cycles, budget years
 
-Use conventional commit format in your commit messages:
-```
-type(scope): subject
+**Cumulative Growth (Lines of Code)**
+- Line chart showing net lines over time (additions minus deletions)
+- Represents codebase size evolution
 
-body
+**What to look for:**
+- Steady upward slope = consistent growth
+- Steep increases = major feature additions
+- Flat or declining = refactoring, removing code, or low activity
+- Sudden drops = large deletions (removed modules, cleanup)
 
-tags: security, breaking
-refs: #123
-```
+**Feature vs Bug Fix Trend**
+- Two overlapping line charts:
+  - **Green** = Features (`feat` commits)
+  - **Red** = Bug fixes (`fix` commits)
+- Shows monthly counts of each type
 
-### Can I use this with private repositories?
+**What to look for:**
+- Features > fixes = growth phase, adding capabilities
+- Fixes > features = stabilization phase, quality focus
+- Parallel lines = balanced development
+- Fix spikes after feature spikes = common pattern (new code has bugs)
+- Sustained high fixes = potential quality issues
 
-Yes - the extraction runs locally using git, so any repository you have access to can be analyzed.
+### Contributors Tab
 
-### How do I host the dashboard?
+Shows **who** is contributing and **how much**.
 
-The dashboard is a static HTML file. Options:
-- Open directly in browser (file://)
-- Serve with any static file server
-- Host on GitHub Pages with the data.json files
+**Commits by Contributor**
+- Horizontal bar chart of commit counts
+- Shows top 10 contributors
+- Indicates activity distribution
 
-## Commit Convention
+**Lines Changed by Contributor**
+- Horizontal bar chart of total lines touched (additions + deletions)
+- Different perspective than commit count
 
-For best results with type detection, use conventional commits. See [COMMIT_CONVENTION.md](./COMMIT_CONVENTION.md) for the full guide.
+**Why both matter:**
+- High commits + low lines = many small changes (docs, config, small fixes)
+- Low commits + high lines = large feature work, major refactors
+- Balanced = typical development work
 
-### Quick Setup
+**Contributor Details**
+- Full list of all contributors
+- Shows name, email, commit count, and line changes
 
-```bash
-# Install git hooks for commit validation
-./hooks/setup.sh
-```
+**What to look for:**
+- Bus factor: Is work concentrated in one person?
+- Engagement: Are all team members contributing?
+- Specialists: Who works on what (by examining their commits)?
 
-This will:
-1. Install the commit-msg validation hook
-2. Configure the commit message template
+### Security Tab
 
-### Commit Format
+Shows commits related to **security**.
 
-```
-type(scope): subject
+**Security Count**
+- Total number of security-related commits
+- Includes commits with:
+  - Type `security`
+  - Tag `security`
+  - Security-related keywords in the message
 
-body
+**Security Commits List**
+- Detailed view of each security commit
+- Shows full subject, body excerpt, author, and date
 
-tags: security, breaking
-refs: #123
-```
+**What to look for:**
+- Zero security commits isn't necessarily good (are you looking?)
+- Clustered security commits = audit or vulnerability response
+- Regular security commits = proactive security culture
+- Review the commit bodies for severity context
 
-**Types:** `feat`, `fix`, `security`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
+### By Type Tab
+
+Shows the **composition** of work done.
+
+**Commits by Type (Doughnut Chart)**
+- Visual breakdown of commit types
+- Larger slices = more commits of that type
+
+**Type Breakdown**
+- Percentage bar for each type
+- Sorted by count (highest first)
+
+**Commit Types Explained:**
+
+| Type | Color | Meaning |
+|------|-------|---------|
+| `feat` | Green | New features or capabilities |
+| `fix` | Red | Bug fixes |
+| `security` | Dark Red | Security patches or hardening |
+| `docs` | Blue | Documentation changes |
+| `refactor` | Purple | Code restructuring (no behavior change) |
+| `test` | Orange | Test additions or updates |
+| `chore` | Gray | Maintenance, dependencies |
+| `perf` | Cyan | Performance improvements |
+| `style` | Pink | Formatting, whitespace |
+| `build` | Brown | Build system changes |
+| `ci` | Slate | CI/CD configuration |
+| `revert` | Orange | Reverted commits |
+| `other` | Light Gray | Unclassified |
+
+**What to look for:**
+- Healthy mix: feat + fix + test + docs
+- Heavy `fix` ratio: May indicate quality issues
+- No `test` commits: Testing might be lacking
+- Lots of `chore`: Dependency maintenance overhead
+- High `other`: Commit messages may need better formatting
+
+## Interpreting Overall Health
+
+Use these patterns to assess repository health:
+
+| Signal | Good | Concerning |
+|--------|------|-----------|
+| Activity | Consistent commits | Long gaps or sporadic bursts |
+| Growth | Steady cumulative growth | Stagnant or declining |
+| Balance | Mix of feat/fix/test | Dominated by one type |
+| Distribution | Multiple active contributors | Single contributor dominance |
+| Security | Present and reviewed | None or clustered incidents |
+
+## Tips for Using the Dashboard
+
+1. **Compare over time** - Load data from different dates to see trends
+2. **Focus on ratios** - Absolute numbers matter less than proportions
+3. **Consider context** - A "fix" spike after launch is normal
+4. **Look for patterns** - Repeated issues suggest systemic problems
+5. **Use with other data** - Combine with issue trackers, reviews, etc.
+
+## Loading Data
+
+- **File picker**: Click "Choose File" to select a `data.json` file
+- **Auto-load**: Place `data.json` in the same folder as the dashboard
+- The dashboard accepts files generated by the extraction or aggregation scripts
+
+## Multi-Repository View
+
+When loading aggregated data (from multiple repositories), the dashboard shows combined metrics:
+
+- **Header** displays "Aggregated (N repos)" instead of a single repo name
+- **Commits** show a `repo_id` indicating which repository each came from
+- **Contributors** may show the same person across multiple repos (if author mapping was used)
+- **Summary** includes per-repository breakdown
+
+**Interpreting aggregated data:**
+- Compare activity levels across repositories
+- Identify contributors who work across multiple repos
+- Spot repos that may need more attention (low activity, high fix ratio)
+- See organization-wide commit patterns and trends
 
 ---
+
+*For setup and data extraction instructions, see [ADMIN_GUIDE.md](./ADMIN_GUIDE.md).*

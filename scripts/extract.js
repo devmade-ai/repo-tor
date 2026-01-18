@@ -74,7 +74,7 @@ function parseCommitType(subject) {
         scope: scope || null,
         breaking: !!breaking,
         title: title,
-        parseMethod: 'conventional'
+        is_conventional: true
       };
     }
   }
@@ -87,7 +87,7 @@ function parseCommitType(subject) {
         scope: null,
         breaking: false,
         title: subject,
-        parseMethod: 'keyword'
+        is_conventional: false
       };
     }
   }
@@ -98,7 +98,7 @@ function parseCommitType(subject) {
     scope: null,
     breaking: false,
     title: subject,
-    parseMethod: 'none'
+    is_conventional: false
   };
 }
 
@@ -199,6 +199,7 @@ function extractCommits() {
     commits.push({
       sha: shortHash,
       fullSha: hash,
+      author_id: authorEmail.toLowerCase(),
       author: {
         name: authorName,
         email: authorEmail
@@ -214,7 +215,7 @@ function extractCommits() {
       type: parsed.type,
       scope: parsed.scope,
       title: parsed.title,
-      parseMethod: parsed.parseMethod,
+      is_conventional: parsed.is_conventional,
       tags: tags,
       references: references
     });
@@ -258,6 +259,7 @@ function extractContributors(commits) {
 
     if (!contributorMap.has(key)) {
       contributorMap.set(key, {
+        author_id: key,
         email: commit.author.email,
         names: new Set([commit.author.name]),
         commits: 0,
@@ -291,6 +293,18 @@ function extractContributors(commits) {
   })).sort((a, b) => b.commits - a.commits);
 }
 
+function buildAuthorsMap(contributors) {
+  const authors = {};
+  for (const contributor of contributors) {
+    authors[contributor.author_id] = {
+      name: contributor.primaryName,
+      email: contributor.email,
+      emails: [contributor.email]
+    };
+  }
+  return authors;
+}
+
 function extractFileStats(commits) {
   console.log('Calculating file statistics...');
 
@@ -322,13 +336,22 @@ function extractFileStats(commits) {
     .sort((a, b) => b.changeCount - a.changeCount);
 }
 
+function toKebabCase(str) {
+  return str
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 function generateMetadata() {
   const repoName = path.basename(repoPath);
+  const repoId = toKebabCase(repoName);
   const remoteUrl = git('config --get remote.origin.url') || 'local';
   const currentBranch = git('rev-parse --abbrev-ref HEAD');
   const branches = git('branch -a --format="%(refname:short)"').split('\n').filter(Boolean);
 
   return {
+    repo_id: repoId,
     repository: repoName,
     remoteUrl: remoteUrl,
     currentBranch: currentBranch,
@@ -361,10 +384,18 @@ function generateSummary(commits, contributors) {
     totalDeletions += commit.stats.deletions;
   }
 
-  // Security commits
+  // Security commits with details
   const securityCommits = commits.filter(c =>
     c.type === 'security' || c.tags.includes('security')
   );
+
+  const security_events = securityCommits.map(c => ({
+    sha: c.sha,
+    subject: c.subject,
+    timestamp: c.timestamp,
+    author_id: c.author_id,
+    repo_id: c.repo_id
+  }));
 
   return {
     totalCommits: commits.length,
@@ -375,6 +406,7 @@ function generateSummary(commits, contributors) {
     typeBreakdown,
     monthlyCommits,
     securityCommitCount: securityCommits.length,
+    security_events,
     dateRange: {
       earliest: commits.length > 0 ? commits[commits.length - 1].timestamp : null,
       latest: commits.length > 0 ? commits[0].timestamp : null
@@ -398,9 +430,19 @@ function main() {
   // Extract all data
   const metadata = generateMetadata();
   const commits = extractCommits();
+
+  // Add repo_id to each commit for aggregation support
+  for (const commit of commits) {
+    commit.repo_id = metadata.repo_id;
+  }
+
   const contributors = extractContributors(commits);
   const files = extractFileStats(commits);
   const summary = generateSummary(commits, contributors);
+
+  // Build authors map and add to metadata
+  const authors = buildAuthorsMap(contributors);
+  metadata.authors = authors;
 
   // Create output directory
   const repoOutputDir = path.join(outputDir, metadata.repository);
@@ -414,7 +456,7 @@ function main() {
   };
 
   writeJson('metadata.json', metadata);
-  writeJson('commits.json', commits);
+  writeJson('commits.json', { commits });
   writeJson('contributors.json', contributors);
   writeJson('files.json', files);
   writeJson('summary.json', summary);

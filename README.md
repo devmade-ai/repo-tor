@@ -28,7 +28,8 @@ open dashboard/index.html
 
 ## Documentation
 
-- [User Guide](docs/USER_GUIDE.md) - Full usage instructions
+- [User Guide](docs/USER_GUIDE.md) - Dashboard UI and metric interpretation
+- [Admin Guide](docs/ADMIN_GUIDE.md) - Setup, extraction, and configuration
 - [Commit Convention](docs/COMMIT_CONVENTION.md) - Commit message format guide
 - [Testing Guide](docs/USER_TESTING.md) - Test scenarios
 
