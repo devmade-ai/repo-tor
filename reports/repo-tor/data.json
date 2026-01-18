@@ -11,13 +11,77 @@
       "origin/claude/update-docs-kubk3",
       "origin/main"
     ],
-    "extractedAt": "2026-01-18T22:00:50.112Z",
-    "repoPath": "/home/user/repo-tor"
+    "extractedAt": "2026-01-18T22:09:21.548Z",
+    "repoPath": "/home/user/repo-tor",
+    "authors": {
+      "noreply@anthropic.com": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com",
+        "emails": [
+          "noreply@anthropic.com"
+        ]
+      },
+      "jacotheron87@gmail.com": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com",
+        "emails": [
+          "jacotheron87@gmail.com"
+        ]
+      },
+      "devmade.ai@gmail.com": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com",
+        "emails": [
+          "devmade.ai@gmail.com"
+        ]
+      }
+    }
   },
   "commits": [
     {
+      "sha": "2fc026d",
+      "fullSha": "2fc026da0b27d8475d2d7bd2d61e1563ddab4a8b",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T22:02:15+00:00",
+      "commitDate": "2026-01-18T22:02:15+00:00",
+      "subject": "docs: update all documentation and re-extract data",
+      "body": "Re-ran extraction to capture all 20 commits (was 18):\n- reports/repo-tor/ now includes latest commits\n- Extraction uses git log --all for all branches\n\nUpdated documentation:\n- SESSION_NOTES.md: Current state with extraction details\n- TODO.md: Added data extraction to completed items\n- HISTORY.md: Added data extraction entry",
+      "type": "docs",
+      "scope": null,
+      "title": "update all documentation and re-extract data",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 338,
+        "deletions": 66
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
       "sha": "0db4ed3",
       "fullSha": "0db4ed38e4824f7e997455b06d0ea6aaedc01f10",
+      "author_id": "noreply@anthropic.com",
       "author": {
         "name": "Claude",
         "email": "noreply@anthropic.com"
@@ -33,7 +97,7 @@
       "type": "chore",
       "scope": null,
       "title": "fix gitignore comment wording",
-      "parseMethod": "conventional",
+      "is_conventional": true,
       "tags": [],
       "references": [],
       "stats": {
@@ -49,6 +113,7 @@
     {
       "sha": "d173a5b",
       "fullSha": "d173a5b680bfa1de1697f63a28ad74f25aa99f3d",
+      "author_id": "noreply@anthropic.com",
       "author": {
         "name": "Claude",
         "email": "noreply@anthropic.com"
@@ -64,7 +129,7 @@
       "type": "chore",
       "scope": null,
       "title": "add extracted sample data for dashboard",
-      "parseMethod": "conventional",
+      "is_conventional": true,
       "tags": [],
       "references": [],
       "stats": {
@@ -86,6 +151,7 @@
     {
       "sha": "5dc1aba",
       "fullSha": "5dc1abadd7075300924db2b3a66a47eb766644ff",
+      "author_id": "noreply@anthropic.com",
       "author": {
         "name": "Claude",
         "email": "noreply@anthropic.com"
@@ -101,7 +167,7 @@
       "type": "ci",
       "scope": null,
       "title": "add GitHub Pages deployment workflow",
-      "parseMethod": "conventional",
+      "is_conventional": true,
       "tags": [],
       "references": [],
       "stats": {
@@ -121,6 +187,7 @@
     {
       "sha": "8744117",
       "fullSha": "87441177901141f9ba34df9be78bd73a308366ff",
+      "author_id": "noreply@anthropic.com",
       "author": {
         "name": "Claude",
         "email": "noreply@anthropic.com"
@@ -136,7 +203,7 @@
       "type": "feat",
       "scope": "dashboard",
       "title": "add filters for type, author, date range, and repo",
-      "parseMethod": "conventional",
+      "is_conventional": true,
       "tags": [],
       "references": [],
       "stats": {
@@ -156,6 +223,7 @@
     {
       "sha": "f3cb991",
       "fullSha": "f3cb9911136c964506a473ba5c6658b4964d6a37",
+      "author_id": "noreply@anthropic.com",
       "author": {
         "name": "Claude",
         "email": "noreply@anthropic.com"
@@ -171,7 +239,7 @@
       "type": "feat",
       "scope": "D3",
       "title": "add multi-repository aggregation script",
-      "parseMethod": "conventional",
+      "is_conventional": true,
       "tags": [],
       "references": [],
       "stats": {
@@ -195,6 +263,7 @@
     {
       "sha": "2f1df27",
       "fullSha": "2f1df279af1428ea54401e6a7422fb06695204dd",
+      "author_id": "noreply@anthropic.com",
       "author": {
         "name": "Claude",
         "email": "noreply@anthropic.com"
@@ -210,7 +279,7 @@
       "type": "docs",
       "scope": null,
       "title": "update CLAUDE.md checklist and TODO.md timestamp",
-      "parseMethod": "conventional",
+      "is_conventional": true,
       "tags": [],
       "references": [],
       "stats": {
@@ -227,6 +296,7 @@
     {
       "sha": "bbacc75",
       "fullSha": "bbacc75db0b777ffee8271a1b58a18d5dbd76e9b",
+      "author_id": "noreply@anthropic.com",
       "author": {
         "name": "Claude",
         "email": "noreply@anthropic.com"
@@ -242,7 +312,7 @@
       "type": "docs",
       "scope": null,
       "title": "split documentation into user guide and admin guide",
-      "parseMethod": "conventional",
+      "is_conventional": true,
       "tags": [],
       "references": [],
       "stats": {
@@ -262,6 +332,7 @@
     {
       "sha": "9a4494b",
       "fullSha": "9a4494b88f8fb6ac68362c9868b334565f772aea",
+      "author_id": "devmade.ai@gmail.com",
       "author": {
         "name": "devmade-ai",
         "email": "devmade.ai@gmail.com"
@@ -277,7 +348,7 @@
       "type": "other",
       "scope": null,
       "title": "Merge pull request #1 from devmade-ai/claude/git-analytics-reporting-ebvnR",
-      "parseMethod": "none",
+      "is_conventional": false,
       "tags": [],
       "references": [
         "#1"
@@ -293,6 +364,7 @@
     {
       "sha": "d2852aa",
       "fullSha": "d2852aaaab8c4c5c73aae055842eac54a4b16176",
+      "author_id": "noreply@anthropic.com",
       "author": {
         "name": "Claude",
         "email": "noreply@anthropic.com"
@@ -308,7 +380,7 @@
       "type": "docs",
       "scope": null,
       "title": "update README and CLAUDE.md with project context",
-      "parseMethod": "conventional",
+      "is_conventional": true,
       "tags": [],
       "references": [],
       "stats": {
@@ -325,6 +397,7 @@
     {
       "sha": "e714d22",
       "fullSha": "e714d220479b5b8f156b4635c2207ae54ad25c09",
+      "author_id": "noreply@anthropic.com",
       "author": {
         "name": "Claude",
         "email": "noreply@anthropic.com"
@@ -340,7 +413,7 @@
       "type": "docs",
       "scope": null,
       "title": "complete documentation for all features",
-      "parseMethod": "conventional",
+      "is_conventional": true,
       "tags": [],
       "references": [],
       "stats": {
@@ -358,6 +431,7 @@
     {
       "sha": "9e2ca25",
       "fullSha": "9e2ca252a7354f7c1d61ff9fd2f7bbab6b77f71b",
+      "author_id": "noreply@anthropic.com",
       "author": {
         "name": "Claude",
         "email": "noreply@anthropic.com"
@@ -373,7 +447,7 @@
       "type": "docs",
       "scope": null,
       "title": "add commit convention guide and validation hooks",
-      "parseMethod": "conventional",
+      "is_conventional": true,
       "tags": [],
       "references": [],
       "stats": {
@@ -394,6 +468,7 @@
     {
       "sha": "4057c14",
       "fullSha": "4057c14a32a88f574c6d1c5f39dacf16159d755a",
+      "author_id": "noreply@anthropic.com",
       "author": {
         "name": "Claude",
         "email": "noreply@anthropic.com"
@@ -409,7 +484,7 @@
       "type": "feat",
       "scope": null,
       "title": "Add Git Analytics Reporting System",
-      "parseMethod": "keyword",
+      "is_conventional": false,
       "tags": [
         "security"
       ],
@@ -433,6 +508,7 @@
     {
       "sha": "bdef1a0",
       "fullSha": "bdef1a027ca1cf1411293a07cfdb45ab8531efc7",
+      "author_id": "jacotheron87@gmail.com",
       "author": {
         "name": "jacotheron87",
         "email": "jacotheron87@gmail.com"
@@ -448,7 +524,7 @@
       "type": "feat",
       "scope": null,
       "title": "Add USER_GUIDE.md and USER_TESTING.md to checklists",
-      "parseMethod": "keyword",
+      "is_conventional": false,
       "tags": [],
       "references": [],
       "stats": {
@@ -465,6 +541,7 @@
     {
       "sha": "95dc604",
       "fullSha": "95dc6046d6c98f20d2602dedb58cd0a21d7df5ac",
+      "author_id": "jacotheron87@gmail.com",
       "author": {
         "name": "jacotheron87",
         "email": "jacotheron87@gmail.com"
@@ -480,7 +557,7 @@
       "type": "feat",
       "scope": null,
       "title": "Add USER_TESTING.md and USER_GUIDE.md",
-      "parseMethod": "keyword",
+      "is_conventional": false,
       "tags": [],
       "references": [],
       "stats": {
@@ -499,6 +576,7 @@
     {
       "sha": "6151e82",
       "fullSha": "6151e828edc3ded9f605c2e4e00ac672249c721c",
+      "author_id": "jacotheron87@gmail.com",
       "author": {
         "name": "jacotheron87",
         "email": "jacotheron87@gmail.com"
@@ -514,7 +592,7 @@
       "type": "feat",
       "scope": null,
       "title": "Add documentation structure in docs/ folder",
-      "parseMethod": "keyword",
+      "is_conventional": false,
       "tags": [],
       "references": [],
       "stats": {
@@ -534,6 +612,7 @@
     {
       "sha": "0259c03",
       "fullSha": "0259c03c5dbce4a49153791fc029ed8c11100d8f",
+      "author_id": "jacotheron87@gmail.com",
       "author": {
         "name": "jacotheron87",
         "email": "jacotheron87@gmail.com"
@@ -549,7 +628,7 @@
       "type": "feat",
       "scope": null,
       "title": "Add Claude Code local settings to .gitignore",
-      "parseMethod": "keyword",
+      "is_conventional": false,
       "tags": [],
       "references": [],
       "stats": {
@@ -565,6 +644,7 @@
     {
       "sha": "edbc8a3",
       "fullSha": "edbc8a3ded70fe8e0cd4444112521a06aa273382",
+      "author_id": "jacotheron87@gmail.com",
       "author": {
         "name": "jacotheron87",
         "email": "jacotheron87@gmail.com"
@@ -580,7 +660,7 @@
       "type": "feat",
       "scope": null,
       "title": "Add CLAUDE.md with AI assistant preferences and checklists",
-      "parseMethod": "keyword",
+      "is_conventional": false,
       "tags": [],
       "references": [],
       "stats": {
@@ -596,6 +676,7 @@
     {
       "sha": "049b9fa",
       "fullSha": "049b9fa7de116f8211ec494a6dbc5d223770e9fb",
+      "author_id": "jacotheron87@gmail.com",
       "author": {
         "name": "jacotheron87",
         "email": "jacotheron87@gmail.com"
@@ -611,7 +692,7 @@
       "type": "test",
       "scope": null,
       "title": "Remove test file",
-      "parseMethod": "keyword",
+      "is_conventional": false,
       "tags": [],
       "references": [],
       "stats": {
@@ -627,6 +708,7 @@
     {
       "sha": "708da3f",
       "fullSha": "708da3f8e79ba45c80bcb7854052096d7f73c270",
+      "author_id": "jacotheron87@gmail.com",
       "author": {
         "name": "jacotheron87",
         "email": "jacotheron87@gmail.com"
@@ -642,7 +724,7 @@
       "type": "test",
       "scope": null,
       "title": "Test commit to verify push access",
-      "parseMethod": "keyword",
+      "is_conventional": false,
       "tags": [],
       "references": [],
       "stats": {
@@ -658,6 +740,7 @@
     {
       "sha": "6fd38d8",
       "fullSha": "6fd38d8a2d805eae85f28f305a8ad4926bf0a327",
+      "author_id": "devmade.ai@gmail.com",
       "author": {
         "name": "devmade-ai",
         "email": "devmade.ai@gmail.com"
@@ -673,7 +756,7 @@
       "type": "other",
       "scope": null,
       "title": "Initial commit",
-      "parseMethod": "none",
+      "is_conventional": false,
       "tags": [],
       "references": [],
       "stats": {
@@ -691,24 +774,26 @@
   ],
   "contributors": [
     {
+      "author_id": "noreply@anthropic.com",
       "email": "noreply@anthropic.com",
       "names": [
         "Claude"
       ],
-      "commits": 11,
-      "additions": 5279,
-      "deletions": 275,
+      "commits": 12,
+      "additions": 5617,
+      "deletions": 341,
       "firstCommit": "2026-01-18T20:29:03+00:00",
-      "lastCommit": "2026-01-18T21:55:22+00:00",
+      "lastCommit": "2026-01-18T22:02:15+00:00",
       "types": {
+        "docs": 6,
         "chore": 2,
         "ci": 1,
-        "feat": 3,
-        "docs": 5
+        "feat": 3
       },
       "primaryName": "Claude"
     },
     {
+      "author_id": "jacotheron87@gmail.com",
       "email": "jacotheron87@gmail.com",
       "names": [
         "jacotheron87"
@@ -725,6 +810,7 @@
       "primaryName": "jacotheron87"
     },
     {
+      "author_id": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
       "names": [
         "devmade-ai"
@@ -743,11 +829,11 @@
   "files": [
     {
       "path": "docs/HISTORY.md",
-      "changeCount": 9,
+      "changeCount": 10,
       "commitTypes": {
+        "docs": 3,
         "ci": 1,
-        "feat": 6,
-        "docs": 2
+        "feat": 6
       },
       "authors": [
         "noreply@anthropic.com",
@@ -756,11 +842,11 @@
     },
     {
       "path": "docs/SESSION_NOTES.md",
-      "changeCount": 8,
+      "changeCount": 9,
       "commitTypes": {
+        "docs": 3,
         "ci": 1,
-        "feat": 5,
-        "docs": 2
+        "feat": 5
       },
       "authors": [
         "noreply@anthropic.com",
@@ -769,11 +855,11 @@
     },
     {
       "path": "docs/TODO.md",
-      "changeCount": 6,
+      "changeCount": 7,
       "commitTypes": {
+        "docs": 3,
         "ci": 1,
-        "feat": 3,
-        "docs": 2
+        "feat": 3
       },
       "authors": [
         "noreply@anthropic.com",
@@ -843,6 +929,72 @@
       ]
     },
     {
+      "path": "reports/repo-tor/commits.json",
+      "changeCount": 2,
+      "commitTypes": {
+        "docs": 1,
+        "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "reports/repo-tor/contributors.json",
+      "changeCount": 2,
+      "commitTypes": {
+        "docs": 1,
+        "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "reports/repo-tor/data.json",
+      "changeCount": 2,
+      "commitTypes": {
+        "docs": 1,
+        "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "reports/repo-tor/files.json",
+      "changeCount": 2,
+      "commitTypes": {
+        "docs": 1,
+        "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "reports/repo-tor/metadata.json",
+      "changeCount": 2,
+      "commitTypes": {
+        "docs": 1,
+        "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "reports/repo-tor/summary.json",
+      "changeCount": 2,
+      "commitTypes": {
+        "docs": 1,
+        "chore": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
       "path": "dashboard/index.html",
       "changeCount": 2,
       "commitTypes": {
@@ -882,66 +1034,6 @@
       },
       "authors": [
         "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "path": "reports/repo-tor/commits.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "path": "reports/repo-tor/contributors.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "path": "reports/repo-tor/data.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "path": "reports/repo-tor/files.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "path": "reports/repo-tor/metadata.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "path": "reports/repo-tor/summary.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
       ]
     },
     {
@@ -1056,36 +1148,45 @@
     }
   ],
   "summary": {
-    "totalCommits": 20,
+    "totalCommits": 21,
     "totalContributors": 3,
-    "totalAdditions": 7377,
-    "totalDeletions": 312,
-    "netLinesChanged": 7065,
+    "totalAdditions": 7715,
+    "totalDeletions": 378,
+    "netLinesChanged": 7337,
     "typeBreakdown": {
+      "docs": 6,
       "chore": 2,
       "ci": 1,
       "feat": 8,
-      "docs": 5,
       "other": 2,
       "test": 2
     },
     "monthlyCommits": {
       "2026-01": {
-        "total": 20,
+        "total": 21,
         "types": {
+          "docs": 6,
           "chore": 2,
           "ci": 1,
           "feat": 8,
-          "docs": 5,
           "other": 2,
           "test": 2
         }
       }
     },
     "securityCommitCount": 1,
+    "security_events": [
+      {
+        "sha": "4057c14",
+        "subject": "Add Git Analytics Reporting System",
+        "timestamp": "2026-01-18T20:29:03+00:00",
+        "author_id": "noreply@anthropic.com",
+        "repo_id": "repo-tor"
+      }
+    ],
     "dateRange": {
       "earliest": "2026-01-18T21:53:16+02:00",
-      "latest": "2026-01-18T21:55:22+00:00"
+      "latest": "2026-01-18T22:02:15+00:00"
     }
   }
 }

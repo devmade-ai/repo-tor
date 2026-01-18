@@ -146,25 +146,30 @@ function aggregateData(repoDataList, authorMap) {
         repo_id: repoId
       };
 
-      // Resolve author identity
-      const authorId = resolveAuthorId(commit.author?.email, authorMap);
-      if (authorId) {
-        enrichedCommit.author_id = authorId;
-        enrichedCommit.author_canonical = resolveAuthorName(authorId, authorMap);
+      // Ensure author_id exists (from new schema or derived from email)
+      if (!enrichedCommit.author_id && commit.author?.email) {
+        enrichedCommit.author_id = commit.author.email.toLowerCase();
+      }
+
+      // Resolve author identity from author map (overrides default)
+      const mappedAuthorId = resolveAuthorId(commit.author?.email, authorMap);
+      if (mappedAuthorId) {
+        enrichedCommit.author_id = mappedAuthorId;
+        enrichedCommit.author_canonical = resolveAuthorName(mappedAuthorId, authorMap);
       }
 
       allCommits.push(enrichedCommit);
 
       // Aggregate contributor stats
-      const contributorKey = authorId || commit.author?.email?.toLowerCase() || 'unknown';
+      const contributorKey = mappedAuthorId || commit.author?.email?.toLowerCase() || 'unknown';
 
       if (!contributorMap.has(contributorKey)) {
         contributorMap.set(contributorKey, {
-          author_id: authorId,
+          author_id: mappedAuthorId || commit.author?.email?.toLowerCase(),
           email: commit.author?.email,
           emails: new Set([commit.author?.email]),
           names: new Set([commit.author?.name]),
-          canonicalName: resolveAuthorName(authorId, authorMap),
+          canonicalName: resolveAuthorName(mappedAuthorId, authorMap),
           commits: 0,
           additions: 0,
           deletions: 0,
@@ -285,10 +290,18 @@ function generateSummary(aggregated, repoDataList) {
     totalDeletions += commit.stats?.deletions || 0;
   }
 
-  // Security commits across all repos
+  // Security commits across all repos with details
   const securityCommits = commits.filter(c =>
     c.type === 'security' || (c.tags || []).includes('security')
   );
+
+  const security_events = securityCommits.map(c => ({
+    sha: c.sha,
+    subject: c.subject,
+    timestamp: c.timestamp,
+    author_id: c.author_id,
+    repo_id: c.repo_id
+  }));
 
   // Date range across all repos
   const timestamps = commits
@@ -307,6 +320,7 @@ function generateSummary(aggregated, repoDataList) {
     repoBreakdown,
     monthlyCommits,
     securityCommitCount: securityCommits.length,
+    security_events,
     dateRange: {
       earliest: timestamps[0] || null,
       latest: timestamps[timestamps.length - 1] || null
@@ -344,12 +358,23 @@ function main() {
   const aggregated = aggregateData(repoDataList, authorMap);
   const summary = generateSummary(aggregated, repoDataList);
 
+  // Build authors map from contributors
+  const authors = {};
+  for (const contributor of aggregated.contributors) {
+    authors[contributor.author_id] = {
+      name: contributor.primaryName,
+      email: contributor.email,
+      emails: contributor.emails
+    };
+  }
+
   // Create metadata
   const metadata = {
     aggregatedAt: new Date().toISOString(),
     repoCount: repoDataList.length,
     repos: summary.repos.map(r => r.repoId),
-    authorMapUsed: !!authorMapPath
+    authorMapUsed: !!authorMapPath,
+    authors
   };
 
   // Create output directory
@@ -363,7 +388,7 @@ function main() {
   };
 
   writeJson('metadata.json', metadata);
-  writeJson('commits.json', aggregated.commits);
+  writeJson('commits.json', { commits: aggregated.commits });
   writeJson('contributors.json', aggregated.contributors);
   writeJson('files.json', aggregated.files);
   writeJson('summary.json', summary);

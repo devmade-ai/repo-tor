@@ -24,19 +24,18 @@ Multi-repo combining with author identity mapping:
 - [x] Generate `aggregated/summary.json` with cross-repo metrics
 - [x] Add `repo_id` field to commits for aggregation support
 
-## Medium Priority
-
-### Schema Alignment
+### Schema Alignment (Done)
 Align with technical spec schema:
 - [x] Add `repo_id` (kebab-case) to metadata
-- [ ] Change `author` object to `author_id` referencing metadata
-- [ ] Add `is_conventional` boolean (currently `parseMethod`)
-- [ ] Add `security_events` array to summary.json
-- [ ] Wrap commits array in `{ "commits": [...] }` object
+- [x] Change `author` object to `author_id` referencing metadata
+- [x] Add `is_conventional` boolean (replaces `parseMethod`)
+- [x] Add `security_events` array to summary.json
+- [x] Wrap commits array in `{ "commits": [...] }` object
 
-### Dashboard - Multiple Data Files
-- [ ] Support loading multiple repo data files simultaneously
-- [ ] File picker for multiple selection
+### Dashboard - Multiple Data Files (Done)
+- [x] Support loading multiple repo data files simultaneously
+- [x] File picker for multiple selection
+- [x] Client-side combining of data from multiple repos
 
 ## Low Priority / Ideas
 
@@ -53,4 +52,4 @@ Align with technical spec schema:
 
 ---
 
-*Last updated: Session 3 - After data extraction and documentation update*
+*Last updated: Session 4 - After schema alignment and multiple file support*

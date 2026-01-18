@@ -4,9 +4,30 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-18
 
+### Schema Alignment
+- Updated `scripts/extract.js` with new schema:
+  - Added `author_id` field to commits (references metadata.authors)
+  - Changed `parseMethod` to `is_conventional` boolean
+  - Added `authors` map to metadata.json for author lookup
+  - Added `security_events` array to summary.json with commit details
+  - Wrapped commits.json in `{ "commits": [...] }` object
+- Updated `scripts/aggregate.js` to match new schema
+- Updated `dashboard/index.html`:
+  - Added author resolution from metadata.authors
+  - Uses security_events from summary when available
+
+### Dashboard - Multiple Data Files
+- Added multi-file support to `dashboard/index.html`:
+  - File picker accepts multiple files (HTML5 `multiple` attribute)
+  - Client-side `combineDataFiles()` function merges data
+  - Combines commits, contributors, files from multiple repos
+  - Merges authors from metadata of all files
+  - Shows repo filter when multiple repos loaded
+- Updated `docs/USER_GUIDE.md` with multiple file instructions
+
 ### Data Extraction
 - Ran extraction on this repository using `scripts/extract.js`
-- Captured 20 commits from 3 contributors across all branches
+- Captured 21 commits from 3 contributors across all branches
 - Committed extracted data to `reports/repo-tor/`
 - Updated `.gitignore` to keep repo-tor data while ignoring other extractions
 

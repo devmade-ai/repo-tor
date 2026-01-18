@@ -2,6 +2,27 @@
 
 Understanding and interpreting the Git Analytics Dashboard.
 
+## Loading Data
+
+### Single Repository
+Click the file picker and select a single `data.json` file to load analytics for one repository.
+
+### Multiple Repositories
+To view combined analytics across multiple repositories:
+
+1. Click the file picker
+2. Hold Ctrl (Windows/Linux) or Cmd (Mac) and select multiple `data.json` files
+3. The dashboard will automatically combine the data
+
+When multiple files are loaded:
+- Header shows "Combined (N repos)"
+- Commits from all repos are merged and sorted by date
+- Contributors are aggregated (same email = same person)
+- The Repo filter appears to filter by specific repository
+- Summary cards show totals across all repositories
+
+**Tip:** Use the server-side aggregation script (`scripts/aggregate.js`) for better author identity mapping when the same person uses different emails across repositories.
+
 ## Dashboard Overview
 
 When you load a data file, the dashboard displays analytics for that repository. The header shows the repository name, total commits, contributor count, and date range covered.
