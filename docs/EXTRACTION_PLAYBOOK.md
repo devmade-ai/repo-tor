@@ -66,6 +66,108 @@ Based on files changed and tag count:
 | 4 | 7-10 files AND multiple tags |
 | 5 | 10+ files AND 3+ tags |
 
+## Tagging Guidelines
+
+Rules for consistent tag assignment across sessions.
+
+### Core Principles
+
+1. **Evidence-based** - Only assign tags supported by the commit message content
+2. **Minimal set** - Use fewest tags that accurately describe the work (typically 1-2)
+3. **Primary intent** - Focus on what the commit primarily accomplishes
+4. **Conventional prefix wins** - If message has `feat:`, `fix:`, etc., use that as primary tag
+
+### Tag Priority Order
+
+When a commit could match multiple tags, prefer in this order:
+
+1. `security` - Always tag if security-related (can combine with others)
+2. `bugfix` - Fixing broken behavior takes priority
+3. `feature` - New user-facing functionality
+4. `performance` - Optimization work
+5. `refactor` - Restructuring without behavior change
+6. `test` - Test-only changes
+7. `docs` - Documentation-only changes
+8. `config` - Build/tooling changes
+9. `dependency` - Package updates
+10. `style` - Formatting only
+11. `cleanup` - Catch-all for tidying
+
+### Decision Rules
+
+**refactor vs cleanup:**
+- `refactor` = Restructuring code (renaming, extracting functions, reorganizing)
+- `cleanup` = Removing dead code, deleting unused files, organizing imports
+
+**refactor vs feature:**
+- If behavior changes for the user → `feature`
+- If only internal structure changes → `refactor`
+
+**config vs feature:**
+- `config` = CI/CD, build scripts, linter rules, tooling
+- `feature` = App configuration that affects user behavior
+
+**bugfix vs feature:**
+- `bugfix` = Something was broken and is now fixed
+- `feature` = Something didn't exist and now does
+
+**When to use multiple tags:**
+- `feature` + `test` = New feature with tests in same commit
+- `feature` + `security` = Security feature (auth, encryption)
+- `bugfix` + `security` = Security vulnerability fix
+- `refactor` + `performance` = Refactor that improves performance
+
+### Examples
+
+| Commit Message | Tags | Reasoning |
+|----------------|------|-----------|
+| `feat: add user login page` | `feature` | Clear conventional prefix |
+| `fix: resolve crash on startup` | `bugfix` | Clear conventional prefix |
+| `Add dark mode toggle` | `feature` | New functionality, no prefix |
+| `Fix typo in README` | `docs` | Documentation change |
+| `Update dependencies` | `dependency` | Package updates |
+| `Refactor auth module` | `refactor` | Restructuring, no behavior change |
+| `Remove unused helper functions` | `cleanup` | Deleting dead code |
+| `feat: add password hashing` | `feature`, `security` | Security-related feature |
+| `fix: patch XSS vulnerability` | `bugfix`, `security` | Security fix |
+| `Add unit tests for UserService` | `test` | Test-only commit |
+| `Format code with prettier` | `style` | Formatting only |
+| `Optimize database queries` | `performance` | Speed improvement |
+| `Update webpack config` | `config` | Build tooling |
+| `feat: add search with tests` | `feature`, `test` | Feature + tests together |
+
+### Edge Cases
+
+**Vague messages** (e.g., "update code", "fix stuff", "changes"):
+- Look at files changed if available
+- Default to `cleanup` if truly ambiguous
+- Never guess - use the most conservative tag
+
+**Merge commits:**
+- Tag as `cleanup` unless message indicates otherwise
+- Skip if it's just "Merge branch X into Y"
+
+**Initial commits:**
+- Tag as `feature` (establishing the codebase)
+
+**Version bumps** (e.g., "v1.2.3", "bump version"):
+- Tag as `config`
+
+**Reverts:**
+- Match the tag of what was reverted (revert a bugfix → `bugfix`)
+
+**Multi-purpose commits** (doing too many things):
+- Assign up to 3 most relevant tags
+- Increase complexity score
+
+### What NOT to Do
+
+- Don't tag based on file extensions alone (`.test.js` doesn't mean `test` tag)
+- Don't assign more than 3 tags to a single commit
+- Don't use `feature` for internal refactoring
+- Don't use `bugfix` for new functionality that was missing
+- Don't guess when uncertain - use conservative tags
+
 ### Step 4: Update Data Files
 
 Write results to:
@@ -135,4 +237,4 @@ git push
 
 ---
 
-*Last updated: 2026-01-19 - Updated for @data persona*
+*Last updated: 2026-01-19 - Added tagging guidelines for consistency*
