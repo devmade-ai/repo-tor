@@ -192,6 +192,32 @@ None
 
 ## Last Completed
 
+### Heatmap, Dark Mode, and Filter Persistence (2026-01-19)
+
+Added three quality-of-life features:
+
+**1. Activity Heatmap (Timing Tab)**
+- 24×7 grid showing commits by hour (Y-axis) and day of week (X-axis)
+- Color intensity indicates commit density (5 levels)
+- Hover shows exact count for each cell
+- Reorders days Monday-first for business context
+- Updates with timezone toggle (Local/UTC)
+- Legend shows intensity scale
+
+**2. Dark Mode**
+- Toggle button in header (moon/sun icons)
+- Respects system preference on first load
+- Persists to localStorage
+- CSS variables for theming
+- Chart.js colors update dynamically
+- All UI elements have dark variants
+
+**3. Filter Persistence**
+- Saves to localStorage: filters, active tab, period, timezone
+- Restores state on page load
+- URL params override localStorage (shareable links take priority)
+- State saved on any filter/tab/setting change
+
 ### Summary Tab and Tag Display Fixes (2026-01-19)
 
 Fixed two bugs in the dashboard:

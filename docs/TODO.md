@@ -29,7 +29,7 @@ Items ordered by priority based on [Discovery Session](DISCOVERY_SESSION.md) (20
 
 **Stretch:**
 
-- [ ] Commit Time Heatmap - Hour vs day-of-week grid
+- [x] Commit Time Heatmap - Hour vs day-of-week grid
 - [ ] Developer Activity Patterns - Per-author time breakdowns
 
 ---
@@ -89,14 +89,14 @@ Items ordered by priority based on [Discovery Session](DISCOVERY_SESSION.md) (20
 
 ### Visual Polish
 
-- [ ] Dark Mode
+- [x] Dark Mode
 - [ ] Color palette refinement
 - [ ] Loading states
 
 ### Infrastructure
 
-- [ ] Global filter state across tabs
-- [ ] Filter persistence (localStorage)
+- [x] Global filter state across tabs
+- [x] Filter persistence (localStorage)
 - [ ] Private repo sanitization mode
 
 ### Research / Future
@@ -107,4 +107,4 @@ Items ordered by priority based on [Discovery Session](DISCOVERY_SESSION.md) (20
 
 ---
 
-*Last updated: 2026-01-19 - Reorganized based on Discovery Session findings*
+*Last updated: 2026-01-19 - Added heatmap, dark mode, filter persistence*

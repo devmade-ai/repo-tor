@@ -217,6 +217,23 @@ Shows **when** work happens - time of day and day of week patterns.
 - **Timezone selector** - Switch between Local (browser) and UTC time display
 - Charts update dynamically when you change the timezone
 
+**Activity Heatmap**
+- 24×7 grid showing commits by hour (Y-axis) and day of week (X-axis)
+- Color intensity indicates commit density:
+  - Light gray = 0 commits
+  - Light blue to dark blue = low to high commit count
+- Hover over any cell to see exact commit count
+- Days ordered Monday-first for business context
+
+**What to look for in the heatmap:**
+| Pattern | What It May Indicate |
+|---------|---------------------|
+| Hot spots 9-12, 14-17 | Traditional work hours focus |
+| Evening hot spots | Remote workers or global team |
+| Weekend hot spots | Crunch time or personal projects |
+| Uniform heat | 24/7 operations or global distribution |
+| Single day concentration | Deployment days or meeting-free focus days |
+
 **Commits by Hour of Day**
 - Bar chart showing commit distribution across 24 hours (0-23)
 - **Blue bars** = Work hours (8:00-17:00)
@@ -342,6 +359,30 @@ Click the **Export PDF** button to download a PDF report of the current view.
 3. Click Export PDF
 4. Share the PDF with stakeholders
 
+## Dark Mode
+
+Click the **moon/sun icon** in the header to toggle between light and dark themes.
+
+- **Auto-detection**: On first visit, the dashboard respects your system preference (`prefers-color-scheme`)
+- **Persistence**: Your choice is saved to localStorage and remembered on future visits
+- **Instant switch**: All charts and UI elements update immediately
+
+## Settings Persistence
+
+The dashboard automatically saves your settings to browser localStorage:
+
+**What's saved:**
+- Active tab (Summary, Timeline, etc.)
+- Filter values (tag, author, repo, date range)
+- Summary period (week/month/quarter)
+- Timezone (Local/UTC)
+- Dark mode preference
+
+**Behavior:**
+- Settings restore automatically when you revisit the dashboard
+- URL parameters override saved settings (shareable links take priority)
+- Clear browser data to reset all settings
+
 ## Tips for Using the Dashboard
 
 1. **Compare over time** - Load data from different dates to see trends
@@ -351,6 +392,7 @@ Click the **Export PDF** button to download a PDF report of the current view.
 5. **Use with other data** - Combine with issue trackers, reviews, etc.
 6. **Use shareable links** - Bookmark specific filtered views for quick access
 7. **Export for meetings** - Generate PDFs for stakeholders who don't use the dashboard
+8. **Use dark mode** - Easier on the eyes for extended analysis sessions
 
 ## Loading Data
 

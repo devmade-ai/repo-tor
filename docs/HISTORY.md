@@ -2,6 +2,48 @@
 
 Log of significant changes to code and documentation.
 
+### Activity Heatmap
+
+Added commit time heatmap to the Timing tab:
+
+- **24×7 grid visualization** - Hours (0-23) on Y-axis, days (Mon-Sun) on X-axis
+- **Color intensity** - 5 levels from gray (0) to dark blue (most commits)
+- **Interactive cells** - Hover shows exact commit count for each hour/day slot
+- **Timezone aware** - Updates when Local/UTC toggle changes
+- **Monday-first ordering** - Business-friendly day sequence
+- **Responsive** - Scrollable on mobile, full-width on desktop
+- **Legend** - Visual scale explaining color intensity
+
+### Dark Mode
+
+Implemented full dark mode support:
+
+- **Theme toggle** - Moon/sun button in header
+- **System preference** - Auto-detects `prefers-color-scheme: dark` on first visit
+- **Persistence** - Saves preference to localStorage
+- **CSS variables** - Clean theming with `--bg-primary`, `--text-primary`, etc.
+- **Chart.js integration** - Charts re-render with appropriate colors
+- **Comprehensive coverage** - All cards, badges, inputs, heatmap cells styled
+- **Instant switch** - No page reload needed, applied via class toggle on `<html>`
+
+### Filter Persistence
+
+Added localStorage persistence for dashboard state:
+
+- **What's saved:**
+  - Filter values (tag, author, repo, date range)
+  - Active tab
+  - Summary period (week/month/quarter)
+  - Timezone (local/utc)
+- **Load behavior:**
+  - Restores on page load if no URL params present
+  - URL params take priority (for shareable links)
+- **Save triggers:**
+  - Any filter change
+  - Tab switch
+  - Period or timezone change
+- **Implementation:** Single `dashboardState` key in localStorage
+
 ## 2026-01-18
 
 ### Timeline Horizontal Bar Chart
