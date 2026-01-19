@@ -34,7 +34,26 @@ For each repository, run git log extraction to get:
 - Files changed count
 - Lines added/deleted
 
+**IMPORTANT:** Record the total commit count before processing:
+```
+git rev-list --count HEAD
+```
+
 ### Step 3: Analyze Each Commit
+
+**Process EVERY commit. No skipping.**
+
+For each commit (one by one, in order):
+
+1. Read the full commit message
+2. Assign tags based on the guidelines below
+3. Calculate complexity
+4. Record to output
+
+**Verification checklist:**
+- [ ] Total commits extracted = `git rev-list --count HEAD`
+- [ ] Every commit has at least one tag assigned
+- [ ] No commits were summarized or batched together
 
 For each commit, AI analyzes the commit message to determine:
 
@@ -179,9 +198,12 @@ Write results to:
 
 Provide user with:
 
+- **Commit count verification:** "Processed X of Y commits" (must match)
 - Number of commits processed per repo
 - New commits since last extraction (if applicable)
 - Any errors or issues encountered
+
+**If counts don't match, STOP and report which commits were missed.**
 
 ### Step 6: User Action
 
