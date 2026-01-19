@@ -144,6 +144,22 @@ Refocused the tool's metrics and data model around three core dimensions:
 
 None
 
+## Last Completed
+
+### Summary Tab and Tag Display Fixes (2026-01-19)
+
+Fixed two bugs in the dashboard:
+
+1. **Summary tab showing zeros** - The Executive Summary was showing 0 for all metrics
+   - Root cause: `getPeriodDates()` set `currentEnd` to midnight, excluding commits after midnight
+   - Fix: Added `endOfDay()` helper to set end times to 23:59:59.999
+   - Now correctly includes all commits from the current day
+
+2. **Tag display order inconsistency** - Pie chart and breakdown list showed different tag order
+   - Root cause: Chart used encounter order, list sorted by count
+   - Fix: Sort tags by count before rendering the chart
+   - Both views now show tags in consistent order (highest count first)
+
 ### All Repos Re-extracted (2026-01-19)
 
 Ran `scripts/update-all.sh` to regenerate data for all 4 repos with tag-based format:

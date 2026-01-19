@@ -1048,9 +1048,15 @@
                 });
             });
 
-            const tags = Object.keys(tagBreakdown);
-            const counts = tags.map(t => tagBreakdown[t]);
+            // Sort tags by count (descending) for consistent display
+            const sortedTags = Object.entries(tagBreakdown)
+                .map(([tag, count]) => ({ tag, count }))
+                .sort((a, b) => b.count - a.count);
+
+            const tags = sortedTags.map(t => t.tag);
+            const counts = sortedTags.map(t => t.count);
             const colors = tags.map(t => getTagColor(t));
+            const total = counts.reduce((a, b) => a + b, 0);
 
             // Tags Pie Chart
             if (charts.tags) charts.tags.destroy();
@@ -1071,11 +1077,6 @@
                     }
                 }
             });
-
-            // Tag Breakdown List
-            const total = counts.reduce((a, b) => a + b, 0);
-            const sortedTags = tags.map((t, i) => ({ tag: t, count: counts[i] }))
-                .sort((a, b) => b.count - a.count);
 
             const breakdownHtml = sortedTags.map(({ tag, count }) => `
                 <div class="flex items-center gap-3">
@@ -1222,28 +1223,36 @@
             const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             let currentStart, currentEnd, previousStart, previousEnd;
 
+            // Helper to set time to end of day (23:59:59.999)
+            function endOfDay(date) {
+                const d = new Date(date);
+                d.setHours(23, 59, 59, 999);
+                return d;
+            }
+
             if (period === 'week') {
                 // Get Monday of this week
                 const dayOfWeek = today.getDay();
                 const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
                 currentStart = new Date(today);
                 currentStart.setDate(today.getDate() + mondayOffset);
-                currentEnd = new Date(today);
+                currentEnd = endOfDay(today);
                 previousStart = new Date(currentStart);
                 previousStart.setDate(previousStart.getDate() - 7);
                 previousEnd = new Date(currentStart);
                 previousEnd.setDate(previousEnd.getDate() - 1);
+                previousEnd = endOfDay(previousEnd);
             } else if (period === 'month') {
                 currentStart = new Date(today.getFullYear(), today.getMonth(), 1);
-                currentEnd = new Date(today);
+                currentEnd = endOfDay(today);
                 previousStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-                previousEnd = new Date(today.getFullYear(), today.getMonth(), 0);
+                previousEnd = endOfDay(new Date(today.getFullYear(), today.getMonth(), 0));
             } else { // quarter
                 const quarter = Math.floor(today.getMonth() / 3);
                 currentStart = new Date(today.getFullYear(), quarter * 3, 1);
-                currentEnd = new Date(today);
+                currentEnd = endOfDay(today);
                 previousStart = new Date(today.getFullYear(), (quarter - 1) * 3, 1);
-                previousEnd = new Date(today.getFullYear(), quarter * 3, 0);
+                previousEnd = endOfDay(new Date(today.getFullYear(), quarter * 3, 0));
             }
 
             return {
