@@ -73,13 +73,13 @@ Rules for consistent tag assignment across sessions.
 ### Core Principles
 
 1. **Evidence-based** - Only assign tags supported by the commit message content
-2. **Minimal set** - Use fewest tags that accurately describe the work (typically 1-2)
-3. **Primary intent** - Focus on what the commit primarily accomplishes
-4. **Conventional prefix wins** - If message has `feat:`, `fix:`, etc., use that as primary tag
+2. **Consistent** - Same commit message should always produce the same tags
+3. **Complete** - Assign ALL tags that accurately describe the work
+4. **Conventional prefix wins** - If message has `feat:`, `fix:`, etc., that's always the primary tag
 
 ### Tag Priority Order
 
-When a commit could match multiple tags, prefer in this order:
+Order tags in the array by importance (first = primary). Use this order:
 
 1. `security` - Always tag if security-related (can combine with others)
 2. `bugfix` - Fixing broken behavior takes priority
@@ -157,16 +157,16 @@ When a commit could match multiple tags, prefer in this order:
 - Match the tag of what was reverted (revert a bugfix → `bugfix`)
 
 **Multi-purpose commits** (doing too many things):
-- Assign up to 3 most relevant tags
-- Increase complexity score
+- Assign all relevant tags
+- Complexity score increases with tag count (see complexity table)
 
 ### What NOT to Do
 
 - Don't tag based on file extensions alone (`.test.js` doesn't mean `test` tag)
-- Don't assign more than 3 tags to a single commit
 - Don't use `feature` for internal refactoring
 - Don't use `bugfix` for new functionality that was missing
-- Don't guess when uncertain - use conservative tags
+- Don't invent tags not in the tag list
+- Don't skip tags that clearly apply - be complete
 
 ### Step 4: Update Data Files
 
