@@ -240,111 +240,160 @@ git push
 
 ## Tagging Guidelines
 
-Rules for consistent tag assignment.
+AI reads the full commit message (subject + body) and assigns ALL tags that apply.
+Multiple tags per commit is expected and encouraged.
 
-### Tags (multiple allowed)
+### Tags by Category
 
-| Tag | Description |
-|-----|-------------|
-| `feature` | New functionality added |
-| `bugfix` | Bug or error corrected |
-| `refactor` | Code restructured without behavior change |
-| `docs` | Documentation changes |
-| `test` | Test additions or modifications |
-| `config` | Configuration, build, or tooling changes |
-| `style` | Formatting, whitespace, naming (no logic change) |
-| `cleanup` | Removing dead code, organizing files |
-| `security` | Security-related changes |
-| `performance` | Performance improvements |
-| `dependency` | Dependency updates |
+**User-Facing Work:**
+| Tag | What work was done |
+|-----|-------------------|
+| `feature` | Built something new for users |
+| `enhancement` | Improved existing functionality |
+| `bugfix` | Fixed broken behavior |
+| `hotfix` | Urgent production fix |
+| `ui` | Visual/interface changes |
+| `ux` | User experience flow improvements |
+| `accessibility` | Accessibility (a11y) improvements |
+| `i18n` | Internationalization support |
+| `localization` | Translations |
 
-### Tag Priority Order
+**Code Changes:**
+| Tag | What work was done |
+|-----|-------------------|
+| `refactor` | Restructured code |
+| `simplify` | Reduced complexity |
+| `removal` | Deleted dead code/files |
+| `deprecation` | Marked something as deprecated |
+| `migration` | Migrated to new approach/library |
+| `naming` | Renamed variables/functions/files |
+| `types` | Type definitions/annotations |
 
-Order tags by importance (first = primary):
+**Performance:**
+| Tag | What work was done |
+|-----|-------------------|
+| `performance` | Speed improvements |
+| `memory` | Memory optimization |
+| `caching` | Added/improved caching |
 
-1. `security` - Always first if security-related
-2. `bugfix` - Fixing broken behavior
-3. `feature` - New user-facing functionality
-4. `performance` - Optimization work
-5. `refactor` - Restructuring without behavior change
-6. `test` - Test-only changes
-7. `docs` - Documentation-only changes
-8. `config` - Build/tooling changes
-9. `dependency` - Package updates
-10. `style` - Formatting only
-11. `cleanup` - Catch-all for tidying
+**Security:**
+| Tag | What work was done |
+|-----|-------------------|
+| `security` | General security work |
+| `auth` | Authentication changes |
+| `authorization` | Permissions/access control |
+| `vulnerability` | Fixed security vulnerability |
+| `sanitization` | Input validation |
 
-### Decision Rules
+**Testing:**
+| Tag | What work was done |
+|-----|-------------------|
+| `test-unit` | Unit tests |
+| `test-integration` | Integration tests |
+| `test-e2e` | End-to-end tests |
+| `test-fix` | Fixed broken tests |
+| `coverage` | Improved test coverage |
+| `mocks` | Test mocks/fixtures |
 
-**refactor vs cleanup:**
-- `refactor` = Restructuring code (renaming, extracting functions)
-- `cleanup` = Removing dead code, deleting unused files
+**Documentation:**
+| Tag | What work was done |
+|-----|-------------------|
+| `docs` | Documentation files (README, guides) |
+| `changelog` | Changelog/history updates |
+| `comments` | Code comments |
+| `api-docs` | API documentation |
+| `examples` | Code examples/samples |
 
-**refactor vs feature:**
-- Behavior changes for user → `feature`
-- Only internal structure changes → `refactor`
+**Infrastructure:**
+| Tag | What work was done |
+|-----|-------------------|
+| `ci` | CI pipelines |
+| `cd` | Deployment automation |
+| `docker` | Containerization |
+| `monitoring` | Logging/observability |
+| `hosting` | Hosting/server config |
 
-**config vs feature:**
-- `config` = CI/CD, build scripts, linter rules
-- `feature` = App configuration affecting user behavior
+**Build & Config:**
+| Tag | What work was done |
+|-----|-------------------|
+| `build` | Build system |
+| `bundler` | Bundler config (webpack, vite) |
+| `config` | App configuration |
+| `env` | Environment variables |
+| `lint` | Linter rules |
+| `formatter` | Code formatter config |
 
-**bugfix vs feature:**
-- `bugfix` = Something was broken, now fixed
-- `feature` = Something didn't exist, now does
+**Dependencies:**
+| Tag | What work was done |
+|-----|-------------------|
+| `dependency-add` | Added new dependency |
+| `dependency-update` | Upgraded dependency |
+| `dependency-remove` | Removed dependency |
+| `dependency-security` | Security patch for dependency |
 
-**Conventional prefix wins:**
-- `feat:` → `feature`
-- `fix:` → `bugfix`
-- `docs:` → `docs`
-- `test:` → `test`
-- `chore:` → `config` or `cleanup` based on content
-- `refactor:` → `refactor`
-- `style:` → `style`
-- `perf:` → `performance`
+**Database:**
+| Tag | What work was done |
+|-----|-------------------|
+| `database` | Database changes |
+| `schema` | Schema changes |
+| `data-migration` | Data migration |
+| `seed` | Seed/fixture data |
+
+**API:**
+| Tag | What work was done |
+|-----|-------------------|
+| `api` | API changes |
+| `api-breaking` | Breaking API change |
+| `endpoint` | New/modified endpoint |
+
+**Git/Process:**
+| Tag | What work was done |
+|-----|-------------------|
+| `merge` | Merge commit |
+| `revert` | Reverted previous change |
+| `release` | Version bump/release |
+| `init` | Initial project setup |
+
+**Code Style:**
+| Tag | What work was done |
+|-----|-------------------|
+| `style` | Formatting changes |
+| `imports` | Organized imports |
+| `whitespace` | Whitespace only changes |
+
+**Error Handling:**
+| Tag | What work was done |
+|-----|-------------------|
+| `error-handling` | Improved error handling |
+| `logging` | Added/improved logging |
+| `validation` | Input validation |
 
 ### Complexity Score (1-5)
 
-Based on files changed and tag count:
+Based on scope and impact of changes:
 
-| Score | Criteria |
-|-------|----------|
-| 1 | Single file, single tag |
-| 2 | 2-3 files OR 2 tags |
-| 3 | 4-6 files OR 3+ tags |
-| 4 | 7-10 files AND multiple tags |
-| 5 | 10+ files AND 3+ tags |
+| Score | Description |
+|-------|-------------|
+| 1 | Trivial - single file, minor change |
+| 2 | Small - few files, straightforward change |
+| 3 | Medium - multiple files, moderate complexity |
+| 4 | Large - many files, significant changes |
+| 5 | Major - extensive changes, high complexity |
 
 ### Examples
 
-| Commit Message | Tags | Reasoning |
-|----------------|------|-----------|
-| `feat: add user login page` | `feature` | Conventional prefix |
-| `fix: resolve crash on startup` | `bugfix` | Conventional prefix |
-| `Add dark mode toggle` | `feature` | New functionality |
-| `Fix typo in README` | `docs` | Documentation change |
-| `Update dependencies` | `dependency` | Package updates |
-| `Refactor auth module` | `refactor` | Restructuring |
-| `Remove unused helpers` | `cleanup` | Deleting dead code |
-| `feat: add password hashing` | `feature`, `security` | Security feature |
-| `fix: patch XSS vulnerability` | `bugfix`, `security` | Security fix |
-
-### Edge Cases
-
-**Vague messages** ("update code", "fix stuff"):
-- Default to `cleanup` if truly ambiguous
-- Never guess - use conservative tag
-
-**Merge commits:**
-- Tag as `cleanup` unless message indicates otherwise
-
-**Initial commits:**
-- Tag as `feature` (establishing codebase)
-
-**Version bumps:**
-- Tag as `config`
-
-**Reverts:**
-- Match tag of what was reverted
+| Commit Subject | Body Summary | Tags |
+|----------------|--------------|------|
+| "Add dark mode toggle" | New toggle in settings, persists to localStorage | `feature`, `ui` |
+| "Fix crash on startup" | Null check was missing | `bugfix` |
+| "Fix XSS vulnerability in login" | Sanitize user input | `bugfix`, `vulnerability`, `sanitization` |
+| "Refactor auth module" | Extract JWT logic, add types | `refactor`, `types` |
+| "Update session notes" | Document today's changes | `docs` |
+| "Add comments explaining auth flow" | Why comments in auth.js | `comments` |
+| "Merge pull request #42" | (administrative) | `merge` |
+| "Upgrade React to v19" | Breaking changes addressed | `dependency-update`, `migration` |
+| "Add user API endpoint" | New /api/users route | `feature`, `endpoint`, `api` |
+| "Optimize image loading" | Lazy load, reduce bundle | `performance`, `ux` |
 
 ---
 
@@ -384,4 +433,4 @@ Based on files changed and tag count:
 
 ---
 
-*Last updated: 2026-01-19 - Batch files for tracking (reports/batches/ → processed/batches/)*
+*Last updated: 2026-01-19 - Comprehensive 55+ tag list for granular commit analysis*
