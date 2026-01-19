@@ -47,6 +47,50 @@ Four cards at the top provide quick metrics:
 
 ## Dashboard Tabs
 
+### Summary Tab (Executive View)
+
+The **default tab** designed for executives and managers who need quick, high-level insights.
+
+**Period Comparison**
+- Use the dropdown to compare: This Week vs Last Week, This Month vs Last Month, This Quarter vs Last Quarter
+- All metrics update dynamically when you change the period
+
+**Quick Stats Cards**
+
+| Card | What It Shows |
+|------|--------------|
+| **Commits** | Total commits in selected period with trend vs previous |
+| **Active Contributors** | Unique contributors with trend |
+| **Features** | Commits tagged as features with trend |
+| **Bug Fixes** | Commits tagged as bugfix with trend |
+
+Trend indicators:
+- **↑ Green** = Increase vs previous period (good for commits/features)
+- **↓ Red** = Decrease vs previous period
+- Percentage shows relative change
+
+**Work Breakdown**
+- Doughnut chart showing top 5 tag categories for the period
+- Quick visual of where effort is being spent
+
+**Key Highlights**
+- **Top Contributor** - Most active person in the period
+- **Busiest Day** - Day with most commits
+- **Most Active Repo** - (For aggregated data) Which project saw most activity
+- **After-Hours Work** - Percentage of commits outside 8am-5pm
+
+**Activity Snapshot**
+- **Avg commits/day** - Daily productivity indicator
+- **After-hours** - Count of commits outside work hours
+- **Weekend** - Count of Saturday/Sunday commits
+- **Holiday** - Count of commits on SA public holidays
+
+**What to look for:**
+- Green trends = growing activity and productivity
+- High after-hours/weekend = potential burnout or deadline pressure
+- Balanced features vs fixes = healthy development cycle
+- One dominant contributor = bus factor risk
+
 ### Timeline Tab
 
 Shows **when** commits happened and **what** was recently committed.

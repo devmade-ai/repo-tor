@@ -28,6 +28,34 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-19
 
+### Executive Summary View
+
+Added new "Summary" tab as the default view for executive quick scanning:
+
+- **Period comparison** - Select week/month/quarter to compare against previous period
+- **Quick stats cards** with trend indicators:
+  - Commits with ↑/↓ percentage vs previous period
+  - Active contributors count
+  - Features count
+  - Bug fixes count
+- **Work breakdown chart** - Doughnut chart showing top 5 tag categories
+- **Key highlights** - Auto-generated insights:
+  - Top contributor for the period
+  - Busiest day
+  - Most active repo (for aggregated data)
+  - After-hours work percentage
+- **Activity snapshot** - At-a-glance metrics:
+  - Average commits per day
+  - After-hours commit count
+  - Weekend commit count
+  - Holiday commit count
+
+Implementation:
+- Summary tab positioned first for quick executive access
+- Dynamic period calculations for week/month/quarter
+- Trend indicators show green (↑) for increases, red (↓) for decreases
+- Integrates with work pattern helpers for after-hours/weekend/holiday stats
+
 ### Work Pattern Styling
 
 Added visual indicators for after-hours, weekend, and holiday commits:
