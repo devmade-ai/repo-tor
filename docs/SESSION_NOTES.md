@@ -136,6 +136,20 @@ Refocused the tool's metrics and data model around three core dimensions:
 
 None
 
+### All Repos Re-extracted (2026-01-19)
+
+Ran `scripts/update-all.sh` to regenerate data for all 4 repos with tag-based format:
+
+| Repository | Commits | Contributors | Files |
+|------------|---------|--------------|-------|
+| model-pear | 302 | 4 | 228 |
+| social-ad-creator | 156 | 3 | 82 |
+| repo-tor | 61 | 3 | 59 |
+| chatty-chart | 42 | 4 | 9 |
+| **Total** | **561** | **4** | **378** |
+
+All data now uses new schema with `tags[]` and `complexity` fields. Foundation phase complete.
+
 ## Last Completed
 
 ### Executive Summary View (2026-01-19)

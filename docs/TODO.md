@@ -15,7 +15,7 @@ Items ordered by priority based on [Discovery Session](DISCOVERY_SESSION.md) (20
 - [x] Extract Script Update
 - [x] Dashboard Tag Support
 - [x] Aggregation Update
-- [ ] **Re-extract All Repos** - Run `scripts/update-all.sh` to regenerate all repo data
+- [x] **Re-extract All Repos** - Run `scripts/update-all.sh` to regenerate all repo data
 
 ---
 
