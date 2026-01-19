@@ -2,6 +2,34 @@
 
 Log of significant changes to code and documentation.
 
+### Manifest-Based Incremental Processing
+
+Implemented SHA-based tracking for reliable incremental processing ("feed the chicken"):
+
+**Problem:** Batch file numbers shift when new commits are added, making it impossible to safely resume processing after a merge/extraction cycle.
+
+**Solution:** Track processed commits by SHA, not batch number:
+- `processed/<repo>/manifest.json` - Source of truth for which commits have been processed
+- `scripts/pending.js` - Compares manifest SHAs against fresh extraction, generates pending batches
+- `scripts/manifest-update.js` - Updates manifest after each batch approval
+
+**How it works:**
+1. `pending.js` reads manifest to get list of processed SHAs
+2. Compares against `reports/<repo>/commits.json` to find unprocessed commits
+3. Generates `pending/<repo>/batches/` with only unprocessed commits
+4. After approval, `manifest-update.js` adds new SHAs to manifest
+5. Safe to add new commits between sessions - they'll appear in next pending batch
+
+**Files added:**
+- `scripts/pending.js` - Pending batch generator
+- `scripts/manifest-update.js` - Manifest updater
+- `processed/*/manifest.json` - Per-repo manifests (4 files)
+
+**Files updated:**
+- `docs/EXTRACTION_PLAYBOOK.md` - Updated "Feed the Chicken" workflow
+- `.gitignore` - Added `pending/` directory
+- `docs/SESSION_NOTES.md` - Updated progress and key files
+
 ### Schema Update: Urgency and Impact Dimensions
 
 Added two new dimensions for commit analysis beyond tags and complexity:
