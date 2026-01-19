@@ -1010,16 +1010,11 @@
 
         // === Summary Stats ===
         function updateSummaryStats() {
-            // Files changed - count unique files across all commits
-            const allFiles = new Set();
-            data.commits.forEach(c => {
-                if (c.files) {
-                    c.files.forEach(f => allFiles.add(f.path || f));
-                }
-            });
-            const totalFiles = data.files?.length || allFiles.size || 0;
-            document.getElementById('stat-files').textContent = totalFiles.toLocaleString();
-            document.getElementById('stat-files-sub').textContent = `across ${data.summary.totalCommits} changes`;
+            // Files changed - sum of all file changes across commits (not unique files)
+            const totalFileChanges = data.commits.reduce((sum, c) => sum + (c.filesChanged || 0), 0);
+            const uniqueFiles = data.files?.length || 0;
+            document.getElementById('stat-files').textContent = totalFileChanges.toLocaleString();
+            document.getElementById('stat-files-sub').textContent = uniqueFiles > 0 ? `${uniqueFiles} unique files` : `across ${data.summary.totalCommits} commits`;
 
             // Average complexity
             const complexities = data.commits.map(c => c.complexity).filter(c => c != null);
