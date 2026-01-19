@@ -226,6 +226,20 @@ Updated `scripts/aggregate.js` for tag-aware aggregation:
 - Fix: Added step to copy `dashboard/data.json` to `_site/data.json`
 - Now `fetch('data.json')` resolves correctly on the deployed site
 
+### Summary Tab and Tag Display Fixes
+
+Fixed two bugs in the dashboard:
+
+1. **Summary tab showing zeros** - Date range comparison was excluding current day's commits
+   - Issue: `currentEnd` was set to midnight (00:00:00) causing commits made after midnight to be excluded
+   - Fix: Added `endOfDay()` helper that sets time to 23:59:59.999
+   - Affects: Summary tab quick stats, work breakdown chart, key highlights, activity snapshot
+
+2. **Tag display order inconsistency** - Pie chart and breakdown list showed tags in different order
+   - Issue: Pie chart showed tags in encounter order, list showed them sorted by count
+   - Fix: Sort tags by count before rendering the chart so both views are consistent
+   - Highest count tag now appears first in both the pie chart legend and the breakdown list
+
 ## 2026-01-18
 
 ### Dashboard Auto-Load Fix
