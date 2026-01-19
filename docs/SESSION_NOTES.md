@@ -136,7 +136,79 @@ Refocused the tool's metrics and data model around three core dimensions:
 
 None
 
-## Last Session Work
+## Last Completed
+
+### Executive Summary View (2026-01-19)
+
+Implemented Priority 3 executive summary tab for high-level quick scanning:
+
+**Features added:**
+- **Summary tab** as first tab (quick executive access)
+- **Period comparison selector** - Week/Month/Quarter vs previous period
+- **Quick stats cards** with trend indicators:
+  - Commits (↑/↓ % vs previous period)
+  - Active contributors
+  - Features count
+  - Bug fixes count
+- **Work breakdown chart** - Doughnut chart of top 5 tags
+- **Key highlights section**:
+  - Top contributor
+  - Busiest day
+  - Most active repo (if aggregated)
+  - After-hours work percentage
+- **Activity snapshot** - Avg commits/day, after-hours, weekend, holiday counts
+
+**Implementation:**
+- Added `getPeriodDates()` for week/month/quarter calculations
+- Added `getCommitsInRange()` to filter commits by date
+- Added `getTrendHtml()` for trend indicator rendering
+- Added `renderSummary()` function
+- Added `setupSummaryPeriodToggle()` event listener
+
+### Work Pattern Styling (2026-01-19)
+
+Implemented Priority 2 work pattern visual distinction:
+
+**Features added:**
+- **Work pattern badges** on commit list items:
+  - "After Hours" badge (amber) - commits before 8am or after 5pm
+  - "Weekend" badge (indigo) - commits on Saturday/Sunday
+  - "Holiday" badge (pink) - commits on SA public holidays
+- **SA public holidays data** - All fixed holidays plus Easter-based moveable feasts
+  - Includes Sunday→Monday observance rule
+  - Covers years 2020-2030
+- **Legend/key** in Timeline tab explaining badge meanings
+- **Helper functions** - `getWorkPattern()`, `getWorkPatternBadges()`
+
+**Implementation:**
+- Added CSS styles for `.badge-after-hours`, `.badge-weekend`, `.badge-holiday`
+- Added `SA_HOLIDAYS` constant with fixed and Easter-based holidays
+- Added `buildHolidaySet()` to pre-compute holiday dates
+- Added `getWorkPattern()` returning isAfterHours, isWeekend, isHoliday
+- Added `getWorkPatternBadges()` to generate HTML badge elements
+- Updated commit list rendering to include work pattern badges
+
+### Timestamp Views (Timing Tab) (2026-01-19)
+
+Implemented Priority 1 timestamp views with new "Timing" tab:
+
+**Features added:**
+- **Commits by Hour chart** - Bar chart showing distribution across 24 hours (0-23)
+  - Work hours (8-17) shown in blue, after-hours in gray
+  - Tooltip shows "Work hours" or "After hours" context
+- **Commits by Day of Week chart** - Bar chart showing Mon-Sun distribution
+  - Weekdays shown in blue, weekends in gray
+  - Days ordered Monday-first (Mon-Sun)
+- **Timezone toggle** - Switch between Local and UTC display
+  - Charts update dynamically when timezone changes
+
+**Implementation:**
+- Added new "Timing" tab after "By Tag"
+- Added `useUTC` global state and `getCommitDateTime()` helper
+- Added `renderTiming()` function with both charts
+- Added `setupTimezoneToggle()` for timezone switching
+
+## Previous Session Work
 
 ### Phase 1 & 4: Extraction and Aggregation Tag Support (2026-01-19) - COMPLETE
 

@@ -47,6 +47,50 @@ Four cards at the top provide quick metrics:
 
 ## Dashboard Tabs
 
+### Summary Tab (Executive View)
+
+The **default tab** designed for executives and managers who need quick, high-level insights.
+
+**Period Comparison**
+- Use the dropdown to compare: This Week vs Last Week, This Month vs Last Month, This Quarter vs Last Quarter
+- All metrics update dynamically when you change the period
+
+**Quick Stats Cards**
+
+| Card | What It Shows |
+|------|--------------|
+| **Commits** | Total commits in selected period with trend vs previous |
+| **Active Contributors** | Unique contributors with trend |
+| **Features** | Commits tagged as features with trend |
+| **Bug Fixes** | Commits tagged as bugfix with trend |
+
+Trend indicators:
+- **↑ Green** = Increase vs previous period (good for commits/features)
+- **↓ Red** = Decrease vs previous period
+- Percentage shows relative change
+
+**Work Breakdown**
+- Doughnut chart showing top 5 tag categories for the period
+- Quick visual of where effort is being spent
+
+**Key Highlights**
+- **Top Contributor** - Most active person in the period
+- **Busiest Day** - Day with most commits
+- **Most Active Repo** - (For aggregated data) Which project saw most activity
+- **After-Hours Work** - Percentage of commits outside 8am-5pm
+
+**Activity Snapshot**
+- **Avg commits/day** - Daily productivity indicator
+- **After-hours** - Count of commits outside work hours
+- **Weekend** - Count of Saturday/Sunday commits
+- **Holiday** - Count of commits on SA public holidays
+
+**What to look for:**
+- Green trends = growing activity and productivity
+- High after-hours/weekend = potential burnout or deadline pressure
+- Balanced features vs fixes = healthy development cycle
+- One dominant contributor = bus factor risk
+
 ### Timeline Tab
 
 Shows **when** commits happened and **what** was recently committed.
@@ -85,6 +129,24 @@ The filter bar allows you to narrow down commits:
   - **Subject** - The commit message summary
   - **Metadata** - SHA, author, date, repo (if aggregated)
   - **Line changes** - Green (+) additions, red (-) deletions
+  - **Work pattern badges** - Indicators for when the commit was made
+
+**Work Pattern Badges**
+
+Commits made outside normal work hours show visual indicators:
+
+| Badge | Color | Meaning |
+|-------|-------|---------|
+| `AFTER HOURS` | Amber | Committed before 8:00 or after 17:00 |
+| `WEEKEND` | Indigo | Committed on Saturday or Sunday |
+| `HOLIDAY` | Pink | Committed on a South African public holiday |
+
+The legend in the filter bar explains these badges. A commit can have multiple badges (e.g., "After Hours" + "Weekend" if committed late on a Saturday).
+
+**What to look for:**
+- Consistent after-hours badges = potential burnout or distributed team
+- Weekend clusters = deadline pressure or passion projects
+- Holiday badges = emergency fixes or dedicated contributors
 
 ### Progress Tab
 
@@ -170,6 +232,47 @@ Shows commits related to **security**.
 - Clustered security commits = audit or vulnerability response
 - Regular security commits = proactive security culture
 - Review the commit bodies for severity context
+
+### Timing Tab
+
+Shows **when** work happens - time of day and day of week patterns.
+
+**Header Controls**
+- **Timezone selector** - Switch between Local (browser) and UTC time display
+- Charts update dynamically when you change the timezone
+
+**Commits by Hour of Day**
+- Bar chart showing commit distribution across 24 hours (0-23)
+- **Blue bars** = Work hours (8:00-17:00)
+- **Gray bars** = After hours (before 8:00 or after 17:00)
+- Hover for "Work hours" or "After hours" tooltip
+
+**What to look for:**
+- Peak activity hours: When is the team most productive?
+- After-hours work: Is there significant work outside business hours?
+- Time zone spread: For distributed teams, are commits spread across hours?
+- Concentrated vs distributed: Focused sprints vs steady work?
+
+**Commits by Day of Week**
+- Bar chart showing commit distribution across Mon-Sun
+- **Blue bars** = Weekdays (Monday-Friday)
+- **Gray bars** = Weekends (Saturday-Sunday)
+- Days ordered Monday-first for business context
+
+**What to look for:**
+- Weekend work: Are people working on weekends regularly?
+- Mid-week peaks: Tuesday-Thursday often have highest activity
+- Monday/Friday patterns: Slow starts or wrap-up days?
+- Work-life balance signals: High weekend activity may indicate deadline pressure
+
+**Interpreting patterns:**
+| Pattern | What It May Indicate |
+|---------|---------------------|
+| Most commits 9-17 | Typical office hours team |
+| Evening spike (18-22) | Remote/flexible workers or side projects |
+| Uniform distribution | Globally distributed team |
+| Weekend heavy | Deadline crunch or startup culture |
+| Friday low | Team winds down for the week |
 
 ### By Tag Tab
 

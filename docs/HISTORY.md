@@ -28,6 +28,71 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-19
 
+### Executive Summary View
+
+Added new "Summary" tab as the default view for executive quick scanning:
+
+- **Period comparison** - Select week/month/quarter to compare against previous period
+- **Quick stats cards** with trend indicators:
+  - Commits with ↑/↓ percentage vs previous period
+  - Active contributors count
+  - Features count
+  - Bug fixes count
+- **Work breakdown chart** - Doughnut chart showing top 5 tag categories
+- **Key highlights** - Auto-generated insights:
+  - Top contributor for the period
+  - Busiest day
+  - Most active repo (for aggregated data)
+  - After-hours work percentage
+- **Activity snapshot** - At-a-glance metrics:
+  - Average commits per day
+  - After-hours commit count
+  - Weekend commit count
+  - Holiday commit count
+
+Implementation:
+- Summary tab positioned first for quick executive access
+- Dynamic period calculations for week/month/quarter
+- Trend indicators show green (↑) for increases, red (↓) for decreases
+- Integrates with work pattern helpers for after-hours/weekend/holiday stats
+
+### Work Pattern Styling
+
+Added visual indicators for after-hours, weekend, and holiday commits:
+
+- **Commit list badges** - Each commit shows applicable work pattern indicators:
+  - "After Hours" (amber) - commits before 8:00 or after 17:00
+  - "Weekend" (indigo) - commits on Saturday or Sunday
+  - "Holiday" (pink) - commits on South African public holidays
+- **SA public holidays** - Complete holiday data for 2020-2030:
+  - 10 fixed holidays (New Year's, Freedom Day, Christmas, etc.)
+  - Easter-based moveable feasts (Good Friday, Family Day)
+  - Sunday→Monday observance rule applied
+- **Legend/key** - Added to Timeline tab filter card explaining badge meanings
+- **Helper functions** - `getWorkPattern()`, `getWorkPatternBadges()` for reuse
+
+### Timestamp Views (Timing Tab)
+
+Added new "Timing" tab to dashboard for visualizing when work happens:
+
+- **Commits by Hour chart** - Bar chart showing distribution across 24 hours (0-23)
+  - Work hours (8:00-17:00) displayed in blue
+  - After-hours displayed in gray
+  - Tooltip shows "Work hours" or "After hours" context
+- **Commits by Day of Week chart** - Bar chart showing Mon-Sun distribution
+  - Weekdays (Mon-Fri) displayed in blue
+  - Weekends (Sat-Sun) displayed in gray
+  - Days ordered Monday-first for business context
+- **Timezone toggle** - Switch between Local and UTC time display
+  - Charts dynamically update when timezone changes
+  - Default is local browser timezone
+
+Implementation details:
+- Added `useUTC` global state variable
+- Added `getCommitDateTime()` helper for consistent date handling
+- Added `renderTiming()` function to render both charts
+- Added `setupTimezoneToggle()` event listener
+
 ### Discovery Framework Validation
 
 Applied the Discovery Framework to validate our solution against user needs:
