@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "aggregatedAt": "2026-01-19T00:11:44.254Z",
+    "aggregatedAt": "2026-01-19T00:19:15.146Z",
     "repoCount": 3,
     "repos": [
       "social-ad-creator",
@@ -41,6 +41,226 @@
     "repository": "Aggregated (3 repos)"
   },
   "commits": [
+    {
+      "sha": "9389600",
+      "fullSha": "9389600a7e7e840a32ced6d28d484ac8235e5ea8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T00:17:34+00:00",
+      "commitDate": "2026-01-19T00:17:34+00:00",
+      "subject": "feat: add multi-repo management with config and update script",
+      "body": "- Created config/repos.json to track repository URLs\n- Created scripts/update-all.sh to automate extraction/aggregation\n- Updated ADMIN_GUIDE.md with managed repos workflow\n- Simplified .gitignore: track all reports/, ignore .repo-cache/\n- Updated SESSION_NOTES.md and HISTORY.md\n\nRepos can now be added to config once and re-extracted anytime\nby running: ./scripts/update-all.sh",
+      "type": "feat",
+      "scope": null,
+      "title": "add multi-repo management with config and update script",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 252,
+        "deletions": 6
+      },
+      "files": [
+        ".gitignore",
+        "config/repos.json",
+        "docs/ADMIN_GUIDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/update-all.sh"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "273c700",
+      "fullSha": "273c70001da0382d1fafd67ce0f5cb9c32331135",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T00:12:03+00:00",
+      "commitDate": "2026-01-19T00:12:03+00:00",
+      "subject": "feat: aggregate all repos for dashboard auto-load",
+      "body": "Combined data from 3 repos into dashboard/data.json:\n- social-ad-creator: 156 commits\n- model-pear: 302 commits\n- repo-tor: 32 commits\n\nDashboard will now auto-load all repo data on open.",
+      "type": "feat",
+      "scope": null,
+      "title": "aggregate all repos for dashboard auto-load",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 40797,
+        "deletions": 257
+      },
+      "files": [
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "38b4f7f",
+      "fullSha": "38b4f7fd0e51bca4829da955aa0ede1063c45e97",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T00:08:37+00:00",
+      "commitDate": "2026-01-19T00:08:37+00:00",
+      "subject": "feat: add model-pear repo analytics",
+      "body": "Extracted git data for devmade-ai/model-pear:\n- 302 commits\n- 4 contributors\n- 228 files tracked",
+      "type": "feat",
+      "scope": null,
+      "title": "add model-pear repo analytics",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 26135,
+        "deletions": 0
+      },
+      "files": [
+        ".gitignore",
+        "reports/model-pear/commits.json",
+        "reports/model-pear/contributors.json",
+        "reports/model-pear/data.json",
+        "reports/model-pear/files.json",
+        "reports/model-pear/metadata.json",
+        "reports/model-pear/summary.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "9da691c",
+      "fullSha": "9da691c11e03b9e8f8be617eb2506b2c3f4ff59d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T00:05:11+00:00",
+      "commitDate": "2026-01-19T00:05:11+00:00",
+      "subject": "feat: add social-ad-creator repo analytics",
+      "body": "Extracted git data for devmade-ai/social-ad-creator:\n- 156 commits\n- 3 contributors\n- 82 files tracked",
+      "type": "feat",
+      "scope": null,
+      "title": "add social-ad-creator repo analytics",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 12782,
+        "deletions": 1
+      },
+      "files": [
+        ".gitignore",
+        "reports/social-ad-creator/commits.json",
+        "reports/social-ad-creator/contributors.json",
+        "reports/social-ad-creator/data.json",
+        "reports/social-ad-creator/files.json",
+        "reports/social-ad-creator/metadata.json",
+        "reports/social-ad-creator/summary.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b28e781",
+      "fullSha": "b28e7812894477ad2237167f01dbf874843ad890",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-19T01:44:05+02:00",
+      "commitDate": "2026-01-19T01:44:05+02:00",
+      "subject": "Merge pull request #5 from devmade-ai/claude/rerun-extraction-dashboard-M1m0i",
+      "body": "chore: update extracted git analytics data",
+      "type": "other",
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/rerun-extraction-dashboard-M1m0i",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 1020,
+        "deletions": 267
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "2dd178b",
+      "fullSha": "2dd178b1260e0c35ee15ecca4a62c31ef9f4a96d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-18T23:42:10+00:00",
+      "commitDate": "2026-01-18T23:42:10+00:00",
+      "subject": "chore: update extracted git analytics data",
+      "body": "Re-ran extraction script to capture latest commits (32 total).\nUpdated dashboard/data.json for GitHub Pages.",
+      "type": "chore",
+      "scope": null,
+      "title": "update extracted git analytics data",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 1020,
+        "deletions": 267
+      },
+      "files": [
+        "dashboard/data.json",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json"
+      ],
+      "repo_id": "repo-tor"
+    },
     {
       "sha": "9539fcb",
       "fullSha": "9539fcbc633f04baf501ebb1dd04d2fe31ba3a65",
@@ -16784,21 +17004,21 @@
         "repo-tor"
       ],
       "repoCount": 3,
-      "commits": 150,
-      "additions": 113162,
-      "deletions": 75568,
+      "commits": 156,
+      "additions": 195168,
+      "deletions": 76366,
       "types": {
-        "other": 89,
-        "feat": 12,
+        "other": 90,
+        "feat": 16,
         "fix": 34,
         "refactor": 5,
         "ci": 1,
         "docs": 7,
         "test": 1,
-        "chore": 1
+        "chore": 2
       },
       "firstCommit": "2025-12-25T14:09:06+02:00",
-      "lastCommit": "2026-01-19T00:55:18+02:00"
+      "lastCommit": "2026-01-19T01:44:05+02:00"
     },
     {
       "author_id": "jacotheron87@gmail.com",
@@ -17100,6 +17320,22 @@
     {
       "repo_id": "repo-tor",
       "path": "docs/HISTORY.md",
+      "changeCount": 17,
+      "commitTypes": {
+        "feat": 9,
+        "fix": 3,
+        "docs": 4,
+        "ci": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com",
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "docs/SESSION_NOTES.md",
       "changeCount": 16,
       "commitTypes": {
         "feat": 8,
@@ -17108,6 +17344,7 @@
         "ci": 1
       },
       "authors": [
+        "devmade.ai@gmail.com",
         "noreply@anthropic.com",
         "jacotheron87@gmail.com"
       ]
@@ -17169,21 +17406,6 @@
       },
       "authors": [
         "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "docs/SESSION_NOTES.md",
-      "changeCount": 15,
-      "commitTypes": {
-        "feat": 7,
-        "fix": 3,
-        "docs": 4,
-        "ci": 1
-      },
-      "authors": [
-        "noreply@anthropic.com",
-        "jacotheron87@gmail.com"
       ]
     },
     {
@@ -17325,6 +17547,21 @@
       "authors": [
         "noreply@anthropic.com",
         "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": ".gitignore",
+      "changeCount": 8,
+      "commitTypes": {
+        "feat": 5,
+        "chore": 2,
+        "other": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com",
+        "jacotheron87@gmail.com"
       ]
     },
     {
@@ -17644,17 +17881,100 @@
     },
     {
       "repo_id": "repo-tor",
-      "path": ".gitignore",
+      "path": "docs/ADMIN_GUIDE.md",
+      "changeCount": 5,
+      "commitTypes": {
+        "feat": 2,
+        "docs": 2,
+        "ci": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/repo-tor/commits.json",
       "changeCount": 5,
       "commitTypes": {
         "chore": 2,
-        "feat": 2,
-        "other": 1
+        "docs": 2,
+        "feat": 1
       },
       "authors": [
-        "noreply@anthropic.com",
-        "jacotheron87@gmail.com",
-        "devmade.ai@gmail.com"
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/repo-tor/contributors.json",
+      "changeCount": 5,
+      "commitTypes": {
+        "chore": 2,
+        "docs": 2,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/repo-tor/data.json",
+      "changeCount": 5,
+      "commitTypes": {
+        "chore": 2,
+        "docs": 2,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/repo-tor/files.json",
+      "changeCount": 5,
+      "commitTypes": {
+        "chore": 2,
+        "docs": 2,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/repo-tor/metadata.json",
+      "changeCount": 5,
+      "commitTypes": {
+        "chore": 2,
+        "docs": 2,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/repo-tor/summary.json",
+      "changeCount": 5,
+      "commitTypes": {
+        "chore": 2,
+        "docs": 2,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
       ]
     },
     {
@@ -18067,92 +18387,15 @@
     },
     {
       "repo_id": "repo-tor",
-      "path": "reports/repo-tor/commits.json",
+      "path": "dashboard/data.json",
       "changeCount": 4,
       "commitTypes": {
-        "docs": 2,
         "feat": 1,
-        "chore": 1
+        "chore": 2,
+        "docs": 1
       },
       "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "reports/repo-tor/contributors.json",
-      "changeCount": 4,
-      "commitTypes": {
-        "docs": 2,
-        "feat": 1,
-        "chore": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "reports/repo-tor/data.json",
-      "changeCount": 4,
-      "commitTypes": {
-        "docs": 2,
-        "feat": 1,
-        "chore": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "reports/repo-tor/files.json",
-      "changeCount": 4,
-      "commitTypes": {
-        "docs": 2,
-        "feat": 1,
-        "chore": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "reports/repo-tor/metadata.json",
-      "changeCount": 4,
-      "commitTypes": {
-        "docs": 2,
-        "feat": 1,
-        "chore": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "reports/repo-tor/summary.json",
-      "changeCount": 4,
-      "commitTypes": {
-        "docs": 2,
-        "feat": 1,
-        "chore": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "docs/ADMIN_GUIDE.md",
-      "changeCount": 4,
-      "commitTypes": {
-        "docs": 2,
-        "ci": 1,
-        "feat": 1
-      },
-      "authors": [
+        "devmade.ai@gmail.com",
         "noreply@anthropic.com"
       ]
     },
@@ -19679,18 +19922,6 @@
     },
     {
       "repo_id": "repo-tor",
-      "path": "dashboard/data.json",
-      "changeCount": 2,
-      "commitTypes": {
-        "docs": 1,
-        "chore": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
       "path": "scripts/aggregate.js",
       "changeCount": 2,
       "commitTypes": {
@@ -20815,6 +21046,215 @@
     },
     {
       "repo_id": "repo-tor",
+      "path": "config/repos.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "scripts/update-all.sh",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "dashboard/commits.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "dashboard/contributors.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "dashboard/files.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "dashboard/metadata.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "dashboard/summary.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/model-pear/commits.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/model-pear/contributors.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/model-pear/data.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/model-pear/files.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/model-pear/metadata.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/model-pear/summary.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/social-ad-creator/commits.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/social-ad-creator/contributors.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/social-ad-creator/data.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/social-ad-creator/files.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/social-ad-creator/metadata.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/social-ad-creator/summary.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
       "path": "config/author-map.example.json",
       "changeCount": 1,
       "commitTypes": {
@@ -20915,43 +21355,43 @@
   ],
   "summary": {
     "totalRepos": 3,
-    "totalCommits": 490,
+    "totalCommits": 496,
     "totalContributors": 4,
-    "totalAdditions": 236874,
-    "totalDeletions": 158596,
-    "netLinesChanged": 78278,
+    "totalAdditions": 318880,
+    "totalDeletions": 159394,
+    "netLinesChanged": 159486,
     "typeBreakdown": {
+      "feat": 157,
+      "other": 143,
+      "chore": 22,
       "fix": 80,
-      "feat": 153,
-      "other": 142,
       "docs": 75,
-      "chore": 21,
       "ci": 3,
       "test": 4,
       "refactor": 11,
       "perf": 1
     },
     "repoBreakdown": {
-      "repo-tor": 32,
+      "repo-tor": 38,
       "social-ad-creator": 156,
       "model-pear": 302
     },
     "monthlyCommits": {
       "2026-01": {
-        "total": 445,
+        "total": 451,
         "types": {
+          "feat": 141,
+          "other": 123,
+          "chore": 22,
           "fix": 74,
-          "feat": 137,
-          "other": 122,
           "docs": 75,
-          "chore": 21,
           "ci": 3,
           "test": 4,
           "refactor": 8,
           "perf": 1
         },
         "repos": {
-          "repo-tor": 32,
+          "repo-tor": 38,
           "social-ad-creator": 156,
           "model-pear": 257
         }
@@ -21030,7 +21470,7 @@
     ],
     "dateRange": {
       "earliest": "2025-12-25T12:20:42+00:00",
-      "latest": "2026-01-19T00:55:18+02:00"
+      "latest": "2026-01-19T01:44:05+02:00"
     },
     "repos": [
       {
@@ -21058,12 +21498,12 @@
       {
         "repoId": "repo-tor",
         "repository": "repo-tor",
-        "remoteUrl": "http://local_proxy@127.0.0.1:22591/git/devmade-ai/repo-tor",
-        "commitCount": 32,
+        "remoteUrl": "https://github.com/devmade-ai/repo-tor.git",
+        "commitCount": 38,
         "contributorCount": 3,
         "dateRange": {
           "earliest": "2026-01-18T21:53:16+02:00",
-          "latest": "2026-01-19T00:55:18+02:00"
+          "latest": "2026-01-19T00:17:34+00:00"
         }
       }
     ]

@@ -1,6 +1,226 @@
 {
   "commits": [
     {
+      "sha": "9389600",
+      "fullSha": "9389600a7e7e840a32ced6d28d484ac8235e5ea8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T00:17:34+00:00",
+      "commitDate": "2026-01-19T00:17:34+00:00",
+      "subject": "feat: add multi-repo management with config and update script",
+      "body": "- Created config/repos.json to track repository URLs\n- Created scripts/update-all.sh to automate extraction/aggregation\n- Updated ADMIN_GUIDE.md with managed repos workflow\n- Simplified .gitignore: track all reports/, ignore .repo-cache/\n- Updated SESSION_NOTES.md and HISTORY.md\n\nRepos can now be added to config once and re-extracted anytime\nby running: ./scripts/update-all.sh",
+      "type": "feat",
+      "scope": null,
+      "title": "add multi-repo management with config and update script",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 252,
+        "deletions": 6
+      },
+      "files": [
+        ".gitignore",
+        "config/repos.json",
+        "docs/ADMIN_GUIDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/update-all.sh"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "273c700",
+      "fullSha": "273c70001da0382d1fafd67ce0f5cb9c32331135",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T00:12:03+00:00",
+      "commitDate": "2026-01-19T00:12:03+00:00",
+      "subject": "feat: aggregate all repos for dashboard auto-load",
+      "body": "Combined data from 3 repos into dashboard/data.json:\n- social-ad-creator: 156 commits\n- model-pear: 302 commits\n- repo-tor: 32 commits\n\nDashboard will now auto-load all repo data on open.",
+      "type": "feat",
+      "scope": null,
+      "title": "aggregate all repos for dashboard auto-load",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 40797,
+        "deletions": 257
+      },
+      "files": [
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "38b4f7f",
+      "fullSha": "38b4f7fd0e51bca4829da955aa0ede1063c45e97",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T00:08:37+00:00",
+      "commitDate": "2026-01-19T00:08:37+00:00",
+      "subject": "feat: add model-pear repo analytics",
+      "body": "Extracted git data for devmade-ai/model-pear:\n- 302 commits\n- 4 contributors\n- 228 files tracked",
+      "type": "feat",
+      "scope": null,
+      "title": "add model-pear repo analytics",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 26135,
+        "deletions": 0
+      },
+      "files": [
+        ".gitignore",
+        "reports/model-pear/commits.json",
+        "reports/model-pear/contributors.json",
+        "reports/model-pear/data.json",
+        "reports/model-pear/files.json",
+        "reports/model-pear/metadata.json",
+        "reports/model-pear/summary.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "9da691c",
+      "fullSha": "9da691c11e03b9e8f8be617eb2506b2c3f4ff59d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T00:05:11+00:00",
+      "commitDate": "2026-01-19T00:05:11+00:00",
+      "subject": "feat: add social-ad-creator repo analytics",
+      "body": "Extracted git data for devmade-ai/social-ad-creator:\n- 156 commits\n- 3 contributors\n- 82 files tracked",
+      "type": "feat",
+      "scope": null,
+      "title": "add social-ad-creator repo analytics",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 12782,
+        "deletions": 1
+      },
+      "files": [
+        ".gitignore",
+        "reports/social-ad-creator/commits.json",
+        "reports/social-ad-creator/contributors.json",
+        "reports/social-ad-creator/data.json",
+        "reports/social-ad-creator/files.json",
+        "reports/social-ad-creator/metadata.json",
+        "reports/social-ad-creator/summary.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b28e781",
+      "fullSha": "b28e7812894477ad2237167f01dbf874843ad890",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-19T01:44:05+02:00",
+      "commitDate": "2026-01-19T01:44:05+02:00",
+      "subject": "Merge pull request #5 from devmade-ai/claude/rerun-extraction-dashboard-M1m0i",
+      "body": "chore: update extracted git analytics data",
+      "type": "other",
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/rerun-extraction-dashboard-M1m0i",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 1020,
+        "deletions": 267
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "2dd178b",
+      "fullSha": "2dd178b1260e0c35ee15ecca4a62c31ef9f4a96d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-18T23:42:10+00:00",
+      "commitDate": "2026-01-18T23:42:10+00:00",
+      "subject": "chore: update extracted git analytics data",
+      "body": "Re-ran extraction script to capture latest commits (32 total).\nUpdated dashboard/data.json for GitHub Pages.",
+      "type": "chore",
+      "scope": null,
+      "title": "update extracted git analytics data",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 1020,
+        "deletions": 267
+      },
+      "files": [
+        "dashboard/data.json",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
       "sha": "9539fcb",
       "fullSha": "9539fcbc633f04baf501ebb1dd04d2fe31ba3a65",
       "author_id": "devmade.ai@gmail.com",
