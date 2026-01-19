@@ -92,11 +92,16 @@ None
 
 ## Next Steps
 
-Remaining items (low priority):
+**High Priority (newly added):**
+1. **Timestamp Views & Developer Insights** - Heatmaps, activity patterns, commit type trends
+2. **Filter Persistence** - Global filters across tabs, URL params, localStorage
+3. **Visual Design & Dark Mode** - Dark theme, color refinement, polish
+4. **Private Repo Security** - Sanitization, anonymization, local-only mode
+
+**Low Priority:**
 - Export to PDF
 - Pre-commit hook for conventional commits
 - GitHub Action for automated extraction
-- Dark mode
 - PWA offline support
 
 ## Notes
