@@ -2,6 +2,34 @@
 
 Log of significant changes to code and documentation.
 
+### Activity Timeline Chart
+
+Added visual timeline to the Timeline tab:
+
+- **Bar chart** showing commits by date across all projects
+- **Multi-repo support** - Stacked bars color-coded by repository
+- **Filter-responsive** - Updates when applying tag/author/repo/date filters
+- **Date range** - Shows last 60 dates with activity
+- **Adaptive labels** - Shows date labels intelligently based on data density
+
+### Rolling Period Comparison
+
+Changed period comparison from calendar-based to rolling:
+
+- **Last 7 Days** - Rolling 7-day window (replaces "This Week")
+- **Last 30 Days** - Rolling 30-day window (replaces "This Month")
+- **More intuitive** - Users checking recent activity get predictable ranges
+- **Consistent trends** - Comparison periods are always equal length
+
+### Mobile Layout Fixes
+
+Improved responsive layout for small screens:
+
+- **Executive Summary header** - Stacks title and dropdown on mobile
+- **Timing tab header** - Stacks title and timezone selector on mobile
+- **Work Hours Settings** - Stacks title and time selectors on mobile
+- **Shorter dropdown labels** - "Last 7 Days" instead of verbose text
+
 ### Developer Activity Patterns
 
 Added per-contributor timing analysis to the Timing tab:
