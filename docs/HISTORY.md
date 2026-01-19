@@ -2,6 +2,32 @@
 
 Log of significant changes to code and documentation.
 
+### Schema Update: Urgency and Impact Dimensions
+
+Added two new dimensions for commit analysis beyond tags and complexity:
+
+**Urgency (1-5)** - How critical was the change? Reactive vs planned work:
+- 1 = Planned (scheduled work, no time pressure)
+- 2 = Normal (regular development pace)
+- 3 = Elevated (needs attention soon)
+- 4 = Urgent (high priority, blocking work)
+- 5 = Critical (production down, security vulnerability)
+
+**Impact** - Who/what is affected by the change:
+- `internal` - Only affects developers (tests, refactoring, docs)
+- `user-facing` - Directly affects end users (UI, features, bug fixes)
+- `infrastructure` - Affects deployment/operations (CI/CD, Docker, monitoring)
+- `api` - Affects external integrations (endpoints, breaking changes)
+
+**Value for users:**
+- Dev Managers: See ratio of planned vs reactive work over time
+- Executives: Operational health metric — high urgency % = problems
+- Both: Understand where effort goes (internal vs user-facing vs infrastructure)
+
+**Files updated:**
+- `docs/EXTRACTION_PLAYBOOK.md` - Added urgency/impact guidelines, examples, schema
+- `docs/SESSION_NOTES.md` - Updated workflow description
+
 ### New Extraction Architecture
 
 Redesigned the extraction system for efficiency and persistence:

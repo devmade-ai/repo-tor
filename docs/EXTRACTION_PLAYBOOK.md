@@ -9,7 +9,7 @@ Step-by-step instructions for AI-driven data extraction and analysis.
 Two-stage process with persistent storage of AI-analyzed commits:
 
 1. **Extract** raw git data (ephemeral)
-2. **AI analyzes** each commit message and assigns tags + complexity
+2. **AI analyzes** each commit message and assigns tags, complexity, urgency, and impact
 3. **Store** in `processed/` folder (persistent, source of truth)
 4. **Aggregate** to dashboard (generated from processed)
 
@@ -44,7 +44,7 @@ Body:
 - Update help documentation to reflect UI changes
 
 Tags: refactor, bugfix, performance, docs
-Complexity: 4
+Complexity: 4 | Urgency: 3 | Impact: user-facing
 ---
 [2/10] def456
 ...
@@ -174,6 +174,8 @@ ls processed/<repo>/batches/ # Completed batches
 **Verification per repo:**
 - [ ] Every commit has at least one tag
 - [ ] Every commit has complexity 1-5
+- [ ] Every commit has urgency 1-5
+- [ ] Every commit has impact (internal/user-facing/infrastructure/api)
 - [ ] Tags reflect FULL message content (subject + body)
 - [ ] Same number of batch files in processed/ as reports/
 
@@ -400,20 +402,59 @@ Based on scope and impact of changes:
 | 4 | Large - many files, significant changes |
 | 5 | Major - extensive changes, high complexity |
 
+### Urgency Score (1-5)
+
+Based on how critical the change was — reactive vs proactive work:
+
+| Score | Level | Description | Signals |
+|-------|-------|-------------|---------|
+| 1 | **Planned** | Scheduled work, no time pressure | Feature roadmap, refactoring, tech debt cleanup |
+| 2 | **Normal** | Regular development pace | Standard bug fixes, improvements, maintenance |
+| 3 | **Elevated** | Needs attention soon | Bug affecting some users, approaching deadline |
+| 4 | **Urgent** | High priority, blocking work | Breaking functionality, blocking other devs |
+| 5 | **Critical** | Drop everything | Production down, security vulnerability, hotfix |
+
+**Indicators to look for:**
+- Keywords: "urgent", "hotfix", "critical", "ASAP", "emergency", "breaking"
+- Tags: `hotfix`, `vulnerability`, `security` suggest higher urgency
+- Time context: Weekend/after-hours commits may indicate urgency
+- Severity words: "crash", "down", "broken", "blocking"
+
+**Default:** Most commits are urgency 2 (normal development pace)
+
+### Impact Category
+
+Based on who/what is affected by the change:
+
+| Impact | Description | Examples |
+|--------|-------------|----------|
+| `internal` | Only affects developers, no user impact | Tests, refactoring, docs, tooling, CI/CD, code comments |
+| `user-facing` | Directly affects end users | UI changes, features, bug fixes users experience, UX |
+| `infrastructure` | Affects deployment, hosting, operations | CI/CD, Docker, monitoring, hosting config, env vars |
+| `api` | Affects external integrations or contracts | API endpoints, breaking changes, webhooks |
+
+**Guidelines:**
+- A commit can only have ONE impact category (choose the primary)
+- If a commit touches both user-facing and internal (e.g., feature + tests), choose `user-facing`
+- `merge` commits are typically `internal` unless the PR description indicates otherwise
+- Documentation about user features is `user-facing`; dev docs are `internal`
+
 ### Examples
 
-| Commit Subject | Body Summary | Tags |
-|----------------|--------------|------|
-| "Add dark mode toggle" | New toggle in settings, persists to localStorage | `feature`, `ui` |
-| "Fix crash on startup" | Null check was missing | `bugfix` |
-| "Fix XSS vulnerability in login" | Sanitize user input | `bugfix`, `vulnerability`, `sanitization` |
-| "Refactor auth module" | Extract JWT logic, add types | `refactor`, `types` |
-| "Update session notes" | Document today's changes | `docs` |
-| "Add comments explaining auth flow" | Why comments in auth.js | `comments` |
-| "Merge pull request #42" | (administrative) | `merge` |
-| "Upgrade React to v19" | Breaking changes addressed | `dependency-update`, `migration` |
-| "Add user API endpoint" | New /api/users route | `feature`, `endpoint`, `api` |
-| "Optimize image loading" | Lazy load, reduce bundle | `performance`, `ux` |
+| Commit Subject | Tags | Complexity | Urgency | Impact |
+|----------------|------|------------|---------|--------|
+| "Add dark mode toggle" | `feature`, `ui` | 2 | 1 | user-facing |
+| "Fix crash on startup" | `bugfix` | 2 | 4 | user-facing |
+| "Fix XSS vulnerability in login" | `bugfix`, `vulnerability`, `sanitization` | 3 | 5 | user-facing |
+| "Refactor auth module" | `refactor`, `types` | 3 | 1 | internal |
+| "Update session notes" | `docs` | 1 | 2 | internal |
+| "Add comments explaining auth flow" | `comments` | 1 | 1 | internal |
+| "Merge pull request #42" | `merge` | 1 | 2 | internal |
+| "Upgrade React to v19" | `dependency-update`, `migration` | 4 | 2 | internal |
+| "Add user API endpoint" | `feature`, `endpoint`, `api` | 3 | 2 | api |
+| "Optimize image loading" | `performance`, `ux` | 2 | 2 | user-facing |
+| "HOTFIX: Production DB timeout" | `hotfix`, `database`, `performance` | 2 | 5 | infrastructure |
+| "Add GitHub Actions workflow" | `ci` | 2 | 1 | infrastructure |
 
 ---
 
@@ -429,11 +470,19 @@ Based on scope and impact of changes:
   "message": "Add user authentication flow",
   "tags": ["feature", "security"],
   "complexity": 3,
+  "urgency": 2,
+  "impact": "user-facing",
   "files_changed": 5,
   "lines_added": 120,
   "lines_deleted": 15
 }
 ```
+
+**Field descriptions:**
+- `tags` - Array of strings from the tag list (multiple allowed)
+- `complexity` - Integer 1-5 (scope/difficulty of change)
+- `urgency` - Integer 1-5 (how critical was this change)
+- `impact` - One of: `internal`, `user-facing`, `infrastructure`, `api`
 
 ### Metadata Object
 
@@ -453,4 +502,4 @@ Based on scope and impact of changes:
 
 ---
 
-*Last updated: 2026-01-19 - Comprehensive 55+ tag list for granular commit analysis*
+*Last updated: 2026-01-19 - Added urgency (1-5) and impact (internal/user-facing/infrastructure/api) dimensions*

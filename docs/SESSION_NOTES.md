@@ -6,16 +6,16 @@ Current state for AI assistants to continue work.
 
 **Dashboard:** Complete and deployed at https://devmade-ai.github.io/repo-tor/
 
-**Extraction System:** Ready but not yet run. See `@data` workflow below.
+**Extraction System:** Fresh extraction complete, AI analysis pending. Schema updated with urgency + impact dimensions.
 
 ### Tracked Repos (config/repos.json)
-| Repo | Est. Commits |
-|------|-------------|
-| chatty-chart | ~42 |
-| repo-tor | ~96 |
-| social-ad-creator | ~156 |
-| model-pear | ~302 |
-| **Total** | **~596** |
+| Repo | Commits |
+|------|---------|
+| chatty-chart | 42 |
+| repo-tor | 104 |
+| social-ad-creator | 156 |
+| model-pear | 302 |
+| **Total** | **604** |
 
 ## @data Extraction Workflow
 
@@ -29,7 +29,11 @@ The extraction system uses human-in-the-loop AI analysis. Full details in `docs/
 
 **How it works:**
 1. Extract script creates `reports/<repo>/batches/batch-NNN.json` files (10 commits each)
-2. AI reads each batch, proposes tags + complexity for each commit
+2. AI reads each batch, proposes for each commit:
+   - **Tags** (multiple) - What type of work
+   - **Complexity** (1-5) - How big/difficult
+   - **Urgency** (1-5) - How critical (reactive vs planned)
+   - **Impact** (internal/user-facing/infrastructure/api) - Who is affected
 3. User reviews and approves (or corrects)
 4. Approved batch saved to `processed/<repo>/batches/batch-NNN.json`
 5. Progress = compare files in reports/batches/ vs processed/batches/
@@ -41,14 +45,15 @@ The extraction system uses human-in-the-loop AI analysis. Full details in `docs/
 
 ### Current Progress
 
-| Repo | Batches | Processed |
-|------|---------|-----------|
-| chatty-chart | 5 | 0 |
-| repo-tor | 10 | 0 |
-| social-ad-creator | 16 | 0 |
-| model-pear | 31 | 0 |
+| Repo | Commits | Batches | Processed |
+|------|---------|---------|-----------|
+| chatty-chart | 42 | 5 | 0 |
+| repo-tor | 104 | 11 | 0 |
+| social-ad-creator | 156 | 16 | 0 |
+| model-pear | 302 | 31 | 0 |
+| **Total** | **604** | **63** | **0** |
 
-**Status:** Ready to start. Run `@data hatch the chicken` to begin.
+**Status:** Fresh extraction complete. Run `@data hatch the chicken` to continue AI analysis.
 
 ## Key Files
 
@@ -61,11 +66,18 @@ The extraction system uses human-in-the-loop AI analysis. Full details in `docs/
 | `scripts/aggregate.js` | Combines processed data for dashboard |
 | `scripts/update-all.sh` | Runs extraction for all repos |
 
-## Tags
+## Analysis Dimensions
 
-55+ tags across 14 categories. See `docs/EXTRACTION_PLAYBOOK.md` for full list.
+Each commit gets assigned:
 
-**Categories:** User-Facing, Code Changes, Performance, Security, Testing, Documentation, Infrastructure, Build & Config, Dependencies, Database, API, Git/Process, Code Style, Error Handling
+| Dimension | Values | Purpose |
+|-----------|--------|---------|
+| **Tags** | 55+ options | What type of work |
+| **Complexity** | 1-5 | How big/difficult |
+| **Urgency** | 1-5 | Reactive vs planned work |
+| **Impact** | internal, user-facing, infrastructure, api | Who is affected |
+
+See `docs/EXTRACTION_PLAYBOOK.md` for full tag list and guidelines.
 
 ## Notes
 
