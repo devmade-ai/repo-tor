@@ -26,7 +26,7 @@
       "origin/claude/restore-autoscroll-visualization-24ETg",
       "origin/main"
     ],
-    "extractedAt": "2026-01-19T06:39:15.122Z",
+    "extractedAt": "2026-01-19T11:51:47.284Z",
     "repoPath": "/home/user/repo-tor/.repo-cache/chatty-chart",
     "authors": {
       "noreply@anthropic.com": {
@@ -76,11 +76,13 @@
       "commitDate": "2025-12-29T23:57:04+02:00",
       "subject": "Merge pull request #19 from illuminAI-select/claude/restore-autoscroll-visualization-24ETg",
       "body": "Restore auto-scroll to visualization after fixing freeze issue",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Merge pull request #19 from illuminAI-select/claude/restore-autoscroll-visualization-24ETg",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#19"
       ],
@@ -108,11 +110,13 @@
       "commitDate": "2025-12-29T21:55:47+00:00",
       "subject": "Restore auto-scroll to visualization after fixing freeze issue",
       "body": "The page freeze when clicking \"Update Visualization\" was caused by CSS\ntransitions on 10,000 squares (fixed in commit cfd34da), not by the\nscrollIntoView call that was removed in commit 55a33c8.\n\nNow that the actual performance issue is resolved, we can safely restore\nthe auto-scroll functionality for better UX. When users click \"Update\nVisualization\" (especially from the sidebar button), the page smoothly\nscrolls to show the visualization at the top.\n\nChanges:\n- Restore scrollIntoView call in reshuffle() function (app.js:424-428)\n- Update claude.md documentation to note auto-scroll feature\n- No performance impact since CSS transitions remain removed",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Restore auto-scroll to visualization after fixing freeze issue",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -141,11 +145,13 @@
       "commitDate": "2025-12-29T23:44:39+02:00",
       "subject": "Merge pull request #18 from illuminAI-select/claude/fix-visualization-freeze-ZHt5T",
       "body": "Fix visualization freeze by removing CSS transition",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Merge pull request #18 from illuminAI-select/claude/fix-visualization-freeze-ZHt5T",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#18"
       ],
@@ -173,11 +179,13 @@
       "commitDate": "2025-12-29T21:43:48+00:00",
       "subject": "Fix visualization freeze by removing CSS transition",
       "body": "The page was freezing when clicking \"Update Visualization\" buttons due to\nCSS transitions on 10,000 squares being animated simultaneously. This\noverwhelmed the browser's rendering engine.\n\nChanges:\n- Remove transition from .square class in styles.css (line 521)\n- Update claude.md to document the performance issue\n- Remove outdated animation improvement suggestion from docs\n\nThe visualization now updates instantly without freezing, providing better\nUX as users can see the new distribution immediately rather than waiting\nfor a 0.4s fade animation.",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Fix visualization freeze by removing CSS transition",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -206,11 +214,13 @@
       "commitDate": "2025-12-29T23:32:36+02:00",
       "subject": "Merge pull request #17 from illuminAI-select/claude/fix-button-placement-performance-g4BRt",
       "body": "Fix button placement and performance issues",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Merge pull request #17 from illuminAI-select/claude/fix-button-placement-performance-g4BRt",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#17"
       ],
@@ -238,11 +248,13 @@
       "commitDate": "2025-12-29T21:31:43+00:00",
       "subject": "Fix button placement and performance issues",
       "body": "- Move \"Update Visualization\" button below the image as a standalone element instead of overlaying it\n- Remove absolute positioning and update CSS for better visual hierarchy\n- Fix page freeze on visualization update by removing scrollIntoView call\n- Optimize DOM manipulation using classList.toggle instead of building separate arrays\n- Update help documentation to reflect UI changes and improved performance\n- Add responsive styling for the new button placement\n\nPerformance improvements:\n- Removed automatic scrolling that competed with DOM updates\n- Simplified class toggling logic reducing operations from 3 loops to 1\n- Eliminates janky behavior when clicking Update Visualization",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Fix button placement and performance issues",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -272,11 +284,13 @@
       "commitDate": "2025-12-29T19:37:28+02:00",
       "subject": "Merge pull request #16 from illuminAI-select/claude/add-visualization-button-UpVtJ",
       "body": "Add update visualization button below image",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Merge pull request #16 from illuminAI-select/claude/add-visualization-button-UpVtJ",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#16"
       ],
@@ -304,11 +318,13 @@
       "commitDate": "2025-12-29T17:36:33+00:00",
       "subject": "Add update visualization button below image",
       "body": "Added a centered \"Update Visualization\" button positioned at the bottom of the visualization container. The button features the app's signature purple gradient styling and is fully responsive across all device sizes.",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Add update visualization button below image",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -337,11 +353,13 @@
       "commitDate": "2025-12-27T21:25:55+02:00",
       "subject": "Merge pull request #15 from illuminAI-select/claude/reorganize-help-ui-4Ntg0",
       "body": "Reorganize help UI and improve channel interaction",
-      "type": "refactor",
+      "tags": [
+        "refactor"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Merge pull request #15 from illuminAI-select/claude/reorganize-help-ui-4Ntg0",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#15"
       ],
@@ -369,11 +387,13 @@
       "commitDate": "2025-12-27T19:19:36+00:00",
       "subject": "Reorganize help UI and improve channel interaction",
       "body": "- Move help button from main content area to top of sidebar\n- Improve help button styling with gradient background and better alignment\n- Fix help modal closing behavior with proper event handling\n- Make inactive channels collapsed by default on initial load\n- Auto-expand channels when activated, auto-collapse when deactivated\n- Enhance visual appeal with improved spacing and transitions",
-      "type": "refactor",
+      "tags": [
+        "refactor"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Reorganize help UI and improve channel interaction",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -403,11 +423,13 @@
       "commitDate": "2025-12-27T21:07:54+02:00",
       "subject": "Merge pull request #14 from illuminAI-select/claude/add-help-documentation-B6aGi",
       "body": "Add comprehensive help documentation with modal",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Merge pull request #14 from illuminAI-select/claude/add-help-documentation-B6aGi",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#14"
       ],
@@ -435,11 +457,13 @@
       "commitDate": "2025-12-27T19:06:57+00:00",
       "subject": "Add comprehensive help documentation with modal",
       "body": "Implemented an interactive help modal to guide users through the application:\n- Added help button with icon in the main header\n- Created detailed modal with sections covering:\n  * What is Chatty Chart and visualization explanation\n  * Getting started guide with step-by-step instructions\n  * Channel controls documentation\n  * Quick actions reference\n  * Important notes and constraints\n  * Use cases for the tool\n- Styled modal with responsive design and smooth animations\n- Implemented JavaScript handlers for open/close interactions\n- Added keyboard support (ESC to close) and click-outside-to-close\n- Ensured accessibility with ARIA labels and semantic HTML\n- Mobile-optimized layout with proper responsive breakpoints\n\nThis addresses the need for in-app help to explain what the tool does and how to use it effectively.",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Add comprehensive help documentation with modal",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -469,11 +493,13 @@
       "commitDate": "2025-12-27T21:01:34+02:00",
       "subject": "Merge pull request #13 from illuminAI-select/claude/collapsible-sections-volume-split-Zf22c",
       "body": "Add collapsible sections and automatic volume splitting",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Merge pull request #13 from illuminAI-select/claude/collapsible-sections-volume-split-Zf22c",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#13"
       ],
@@ -501,11 +527,13 @@
       "commitDate": "2025-12-27T18:58:24+00:00",
       "subject": "Add collapsible sections and automatic volume splitting",
       "body": "Implemented the following features:\n- Collapsible channel sections with toggle button\n- Initial load shows only 'calls' channel active at 100% volume\n- Automatic volume splitting between unlocked and active channels\n- Volume splitting triggers on both lock events and active status changes\n\nThe automatic volume splitting ensures percentages always add up to 100%\nby distributing available percentage equally among unlocked, active channels.",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Add collapsible sections and automatic volume splitting",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -534,11 +562,13 @@
       "commitDate": "2025-12-25T11:27:23+02:00",
       "subject": "Merge pull request #12 from illuminAI-select/claude/fix-visualization-reveal-OCfEd",
       "body": "Fix visualization reveal logic - invert covered/visible behavior",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #12 from illuminAI-select/claude/fix-visualization-reveal-OCfEd",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#12"
       ],
@@ -566,11 +596,13 @@
       "commitDate": "2025-12-25T09:26:28+00:00",
       "subject": "Fix visualization reveal logic - invert covered/visible behavior",
       "body": "The visualization was backwards: squares that should be visible (analyzed) were being covered instead. Fixed by inverting the logic so that 'analyzed' squares are revealed (not covered) and the remaining squares are covered (hidden).",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Fix visualization reveal logic - invert covered/visible behavior",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -598,11 +630,13 @@
       "commitDate": "2025-12-25T11:19:41+02:00",
       "subject": "Merge pull request #11 from illuminAI-select/claude/reorganize-visualization-layout-MtOZT",
       "body": "Reorganize layout: swap columns, reverse overlay, add auto-scroll",
-      "type": "refactor",
+      "tags": [
+        "refactor"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Merge pull request #11 from illuminAI-select/claude/reorganize-visualization-layout-MtOZT",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#11"
       ],
@@ -630,11 +664,13 @@
       "commitDate": "2025-12-25T09:18:38+00:00",
       "subject": "Reorganize layout: swap columns, reverse overlay, add auto-scroll",
       "body": "- Swap visualization and input columns so visualization appears first (left on desktop)\n- Remove initial black overlay - visualization now starts fully visible\n- Reverse overlay behavior - analyzed data now covers the image instead of revealing it\n- Add auto-scroll to top when visualization updates for better UX\n- Rename CSS class from 'transparent' to 'covered' to reflect new behavior",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Reorganize layout: swap columns, reverse overlay, add auto-scroll",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -664,11 +700,13 @@
       "commitDate": "2025-12-25T05:50:48+02:00",
       "subject": "Merge pull request #10 from illuminAI-select/claude/analyze-project-purpose-jJRDX",
       "body": "Analyze project purpose and use case",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Merge pull request #10 from illuminAI-select/claude/analyze-project-purpose-jJRDX",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#10"
       ],
@@ -696,11 +734,13 @@
       "commitDate": "2025-12-25T03:49:31+00:00",
       "subject": "Update messaging to emphasize sales/education purpose",
       "body": "Transform project messaging to focus on client education about missing\nanalytics opportunities, especially in audio/call channels.\n\nKey changes:\n- Reposition as sales tool showing hidden value in unanalyzed data\n- Add \"The Problem\" section highlighting 95% of call data is invisible\n- Update all UI labels to be client-focused and business-oriented\n- Include use cases for sales presentations and ROI demonstrations\n- Add guide for using tool in client meetings\n\nThis better reflects the tool's purpose: visually demonstrating to\nclients what they're missing by not doing comprehensive analytics.",
-      "type": "chore",
+      "tags": [
+        "other"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Update messaging to emphasize sales/education purpose",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -730,11 +770,13 @@
       "commitDate": "2025-12-25T05:35:53+02:00",
       "subject": "Merge pull request #9 from illuminAI-select/claude/replace-image-DjgQI",
       "body": "Replace current image with new one",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Merge pull request #9 from illuminAI-select/claude/replace-image-DjgQI",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#9"
       ],
@@ -762,11 +804,13 @@
       "commitDate": "2025-12-25T03:34:10+00:00",
       "subject": "Replace customer service image with analytics iceberg visualization",
       "body": "- Add analytics-iceberg.png showing communication channels and data analytics\n- Remove old FinServ customer service image\n- Update image reference in index.html\n- Update README.md to reflect new image name",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "Replace customer service image with analytics iceberg visualization",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -797,11 +841,13 @@
       "commitDate": "2025-12-25T05:31:08+02:00",
       "subject": "image upload",
       "body": "",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "image upload",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -829,11 +875,13 @@
       "commitDate": "2025-12-24T23:57:00+02:00",
       "subject": "Merge pull request #8 from illuminAI-select/claude/optimize-mobile-visibility-fa2yZ",
       "body": "Optimize mobile performance for visibility preset updates",
-      "type": "perf",
+      "tags": [
+        "performance"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Merge pull request #8 from illuminAI-select/claude/optimize-mobile-visibility-fa2yZ",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#8"
       ],
@@ -861,11 +909,13 @@
       "commitDate": "2025-12-24T21:56:08+00:00",
       "subject": "Optimize mobile performance for visibility preset updates",
       "body": "Performance improvements:\n- Replace Set-based random selection with efficient Fisher-Yates shuffle\n- Add debouncing (300ms) to prevent rapid successive updates\n- Batch DOM updates using requestAnimationFrame for smoother rendering\n- Only modify squares that need class changes (avoid unnecessary reflows)\n- Add loading state to prevent simultaneous update conflicts\n- Auto-trigger visualization update after preset selection\n\nThese optimizations significantly reduce resource usage on mobile devices\nwhen using quick visibility presets.",
-      "type": "chore",
+      "tags": [
+        "performance"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Optimize mobile performance for visibility preset updates",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -894,11 +944,13 @@
       "commitDate": "2025-12-24T23:42:06+02:00",
       "subject": "Merge pull request #7 from illuminAI-select/claude/improve-input-ux-k5fvi",
       "body": "Improve input UX with clearer wording and mobile-friendly controls",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Merge pull request #7 from illuminAI-select/claude/improve-input-ux-k5fvi",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#7"
       ],
@@ -926,11 +978,13 @@
       "commitDate": "2025-12-24T21:41:03+00:00",
       "subject": "Improve input UX with clearer wording and mobile-friendly controls",
       "body": "- Replace technical jargon with user-friendly labels\n  - \"Communication Channel Inputs\" → \"Adjust Your Channels\"\n  - \"Analyzed %\" → \"Visibility\"\n  - \"Enabled\" → \"Active\"\n  - \"Reshuffle\" → \"Update Visualization\"\n  - \"Distribute Remaining %\" → \"Auto-Balance Channels\"\n\n- Add helpful contextual descriptions throughout the UI\n  - Main help text explaining what the tool does\n  - Section explanations for preset buttons\n  - Inline help text for each control (\"% of total data\", \"How much you can see\")\n\n- Improve mobile touch interaction\n  - Add +/- stepper buttons for easier value adjustment on mobile\n  - Replace cramped sliders with touch-friendly number inputs\n  - Keep sliders visible on desktop only\n  - Larger touch targets (44x44px minimum)\n\n- Enhance visual hierarchy and layout\n  - Better structured control rows with clear labels\n  - Lock icon (🔒) instead of checkbox for locking channels\n  - Separated sections with descriptive headings\n  - Improved spacing and typography\n\nThis makes the interface intuitive for users without context while maintaining all functionality.",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Improve input UX with clearer wording and mobile-friendly controls",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -960,11 +1014,13 @@
       "commitDate": "2025-12-24T23:19:17+02:00",
       "subject": "Merge pull request #6 from illuminAI-select/claude/mobile-responsive-restructure-OTCPC",
       "body": "Restructure project with mobile-first responsive design",
-      "type": "refactor",
+      "tags": [
+        "refactor"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "Merge pull request #6 from illuminAI-select/claude/mobile-responsive-restructure-OTCPC",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#6"
       ],
@@ -992,11 +1048,13 @@
       "commitDate": "2025-12-24T21:17:35+00:00",
       "subject": "Restructure project with mobile-first responsive design",
       "body": "- Implemented industry-standard project structure with assets folders\n- Separated concerns: external CSS and JavaScript files\n- Enhanced mobile responsiveness with mobile-first approach\n- Added proper touch targets (44px minimum) for mobile devices\n- Improved responsive breakpoints: 480px, 768px, 1024px, 1280px\n- Optimized layout to stack on mobile, side-by-side on desktop\n- Added semantic HTML5 elements and accessibility attributes\n- Updated README with project structure and features documentation\n\nThe index.html remains in root for GitHub Pages compatibility.",
-      "type": "refactor",
+      "tags": [
+        "refactor"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "Restructure project with mobile-first responsive design",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -1028,11 +1086,13 @@
       "commitDate": "2025-12-24T23:05:33+02:00",
       "subject": "Merge pull request #5 from illuminAI-select/claude/fix-ui-styling-4wVj7",
       "body": "Fix UI styling issues",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #5 from illuminAI-select/claude/fix-ui-styling-4wVj7",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#5"
       ],
@@ -1060,11 +1120,13 @@
       "commitDate": "2025-12-24T21:04:24+00:00",
       "subject": "Fix UI styling issues",
       "body": "- Add dark background to input fields for better text readability\n- Make black overlay fully opaque (remove transparency)\n- Align visualization column to top instead of center",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Fix UI styling issues",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1092,11 +1154,13 @@
       "commitDate": "2025-12-24T22:58:55+02:00",
       "subject": "Merge pull request #4 from illuminAI-select/claude/dark-theme-611Uu",
       "body": "Implement dark theme design",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #4 from illuminAI-select/claude/dark-theme-611Uu",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#4"
       ],
@@ -1126,11 +1190,13 @@
       "commitDate": "2025-12-24T20:56:22+00:00",
       "subject": "Implement dark theme design",
       "body": "Dark theme updates:\n- Convert all color variables to dark palette\n- Background: Deep slate (#0f172a)\n- Surface: Dark slate (#1e293b, #334155)\n- Text: Light slate (#f1f5f9, #94a3b8)\n- Primary: Vibrant purple gradient (#7c3aed → #a855f7)\n- Update all shadows for better visibility on dark backgrounds\n- Adjust channel group gradients for dark mode\n- Update content area gradient\n- Enhance input focus states with purple glow\n- Update reset button styling for dark theme\n- Improve range slider contrast",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Implement dark theme design",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#0",
         "#1",
@@ -1164,11 +1230,13 @@
       "commitDate": "2025-12-24T22:53:28+02:00",
       "subject": "Merge pull request #3 from illuminAI-select/claude/mobile-improvements-611Uu",
       "body": "Improve mobile responsiveness with enhanced touch targets",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #3 from illuminAI-select/claude/mobile-improvements-611Uu",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#3"
       ],
@@ -1196,11 +1264,13 @@
       "commitDate": "2025-12-24T20:35:24+00:00",
       "subject": "Improve mobile responsiveness with enhanced touch targets",
       "body": "Mobile improvements:\n- Add comprehensive mobile styles for screens ≤800px\n- Implement 44px minimum touch targets for all interactive elements\n- Set font-size: 16px on inputs to prevent iOS zoom\n- Increase slider thumb size to 24px for easier touch\n- Increase checkbox touch area to 44x44px\n- Improve button touch targets (min 48px height)\n- Switch preset buttons to 2-column layout on mobile\n- Adjust spacing and padding for mobile screens\n- Add extra small device support (≤480px)\n- Optimize visualization container for mobile viewports\n- Remove border-right on mobile sidebar, add border-bottom\n- Allow body height to be auto on mobile for better scrolling",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Improve mobile responsiveness with enhanced touch targets",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1228,11 +1298,13 @@
       "commitDate": "2025-12-24T22:26:58+02:00",
       "subject": "Merge pull request #2 from illuminAI-select/claude/add-claude-md-611Uu",
       "body": "Modernize UI with contemporary design system",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #2 from illuminAI-select/claude/add-claude-md-611Uu",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#2"
       ],
@@ -1260,11 +1332,13 @@
       "commitDate": "2025-12-24T20:20:17+00:00",
       "subject": "Modernize UI with contemporary design system",
       "body": "Design improvements:\n- Add CSS custom properties for consistent theming\n- Implement purple gradient color scheme (#667eea → #764ba2)\n- Use modern system font stack\n- Add card-based design with subtle shadows and hover effects\n- Create gradient text headings\n- Implement custom-styled range sliders with gradient thumbs\n- Add focus states with glow effects\n- Enhance buttons with lift animations\n- Add gradient background to content area\n- Improve spacing, typography, and visual hierarchy\n- Smooth transitions with cubic-bezier easing",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Modernize UI with contemporary design system",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#667",
         "#764"
@@ -1295,11 +1369,13 @@
       "commitDate": "2025-12-24T22:15:01+02:00",
       "subject": "Merge pull request #1 from illuminAI-select/claude/add-claude-md-611Uu",
       "body": "Add comprehensive claude.md documentation",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #1 from illuminAI-select/claude/add-claude-md-611Uu",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#1"
       ],
@@ -1327,11 +1403,13 @@
       "commitDate": "2025-12-24T20:13:25+00:00",
       "subject": "Add comprehensive claude.md documentation",
       "body": "- Document project overview and purpose\n- Describe technology stack and architecture\n- Explain all features and interactive controls\n- Detail code organization and structure\n- Include development considerations and use cases",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Add comprehensive claude.md documentation",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1359,11 +1437,13 @@
       "commitDate": "2025-06-16T11:08:44+02:00",
       "subject": "Add files via upload",
       "body": "",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Add files via upload",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1391,11 +1471,13 @@
       "commitDate": "2025-06-16T11:07:54+02:00",
       "subject": "Create index.html",
       "body": "",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Create index.html",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1423,11 +1505,13 @@
       "commitDate": "2025-06-16T11:03:48+02:00",
       "subject": "Initial commit",
       "body": "",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Initial commit",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -1453,12 +1537,12 @@
       "deletions": 936,
       "firstCommit": "2025-12-24T20:13:25+00:00",
       "lastCommit": "2025-12-29T21:55:47+00:00",
-      "types": {
-        "fix": 5,
-        "feat": 6,
+      "tagCounts": {
+        "bugfix": 5,
+        "feature": 6,
         "refactor": 2,
-        "chore": 2,
-        "other": 4
+        "other": 5,
+        "performance": 1
       },
       "primaryName": "Claude"
     },
@@ -1473,12 +1557,12 @@
       "deletions": 252,
       "firstCommit": "2025-12-24T22:15:01+02:00",
       "lastCommit": "2025-12-29T23:57:04+02:00",
-      "types": {
+      "tagCounts": {
         "other": 3,
-        "fix": 2,
-        "feat": 4,
+        "bugfix": 2,
+        "feature": 4,
         "refactor": 1,
-        "perf": 1
+        "performance": 1
       },
       "primaryName": "devmade-ai"
     },
@@ -1493,11 +1577,11 @@
       "deletions": 616,
       "firstCommit": "2025-06-16T11:03:48+02:00",
       "lastCommit": "2025-12-25T05:31:08+02:00",
-      "types": {
+      "tagCounts": {
         "other": 4,
         "refactor": 1,
-        "fix": 1,
-        "feat": 2
+        "bugfix": 1,
+        "feature": 2
       },
       "primaryName": "illuminAI-select"
     },
@@ -1512,8 +1596,8 @@
       "deletions": 68,
       "firstCommit": "2025-12-25T05:35:53+02:00",
       "lastCommit": "2025-12-25T11:27:23+02:00",
-      "types": {
-        "fix": 1,
+      "tagCounts": {
+        "bugfix": 1,
         "refactor": 1,
         "other": 2
       },
@@ -1524,12 +1608,12 @@
     {
       "path": "index.html",
       "changeCount": 16,
-      "commitTypes": {
-        "fix": 2,
-        "feat": 5,
+      "tagCounts": {
+        "bugfix": 2,
+        "feature": 5,
         "refactor": 2,
-        "chore": 2,
-        "other": 5
+        "other": 6,
+        "performance": 1
       },
       "authors": [
         "noreply@anthropic.com",
@@ -1539,12 +1623,12 @@
     {
       "path": "assets/js/app.js",
       "changeCount": 11,
-      "commitTypes": {
-        "fix": 3,
+      "tagCounts": {
+        "bugfix": 3,
         "refactor": 2,
-        "feat": 3,
-        "chore": 2,
-        "other": 1
+        "feature": 3,
+        "other": 2,
+        "performance": 1
       },
       "authors": [
         "noreply@anthropic.com"
@@ -1553,9 +1637,9 @@
     {
       "path": "assets/css/styles.css",
       "changeCount": 9,
-      "commitTypes": {
-        "fix": 2,
-        "feat": 4,
+      "tagCounts": {
+        "bugfix": 2,
+        "feature": 4,
         "refactor": 2,
         "other": 1
       },
@@ -1566,9 +1650,8 @@
     {
       "path": "README.md",
       "changeCount": 4,
-      "commitTypes": {
-        "chore": 1,
-        "other": 2,
+      "tagCounts": {
+        "other": 3,
         "refactor": 1
       },
       "authors": [
@@ -1579,9 +1662,9 @@
     {
       "path": "claude.md",
       "changeCount": 3,
-      "commitTypes": {
-        "fix": 2,
-        "feat": 1
+      "tagCounts": {
+        "bugfix": 2,
+        "feature": 1
       },
       "authors": [
         "noreply@anthropic.com"
@@ -1590,7 +1673,7 @@
     {
       "path": "assets/images/FinServ - Customer Service & Account Support.png",
       "changeCount": 2,
-      "commitTypes": {
+      "tagCounts": {
         "other": 1,
         "refactor": 1
       },
@@ -1601,7 +1684,7 @@
     {
       "path": "assets/images/analytics-iceberg.png",
       "changeCount": 2,
-      "commitTypes": {
+      "tagCounts": {
         "other": 2
       },
       "authors": [
@@ -1612,8 +1695,8 @@
     {
       "path": "FinServ - Customer Service & Account Support.png",
       "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
+      "tagCounts": {
+        "feature": 1
       },
       "authors": [
         "illuminai.select@gmail.com"
@@ -1622,7 +1705,7 @@
     {
       "path": "LICENSE",
       "changeCount": 1,
-      "commitTypes": {
+      "tagCounts": {
         "other": 1
       },
       "authors": [
@@ -1636,30 +1719,35 @@
     "totalAdditions": 5909,
     "totalDeletions": 1872,
     "netLinesChanged": 4037,
-    "typeBreakdown": {
-      "other": 13,
-      "fix": 9,
-      "feat": 12,
+    "tagBreakdown": {
+      "other": 14,
+      "bugfix": 9,
+      "feature": 12,
       "refactor": 5,
-      "chore": 2,
-      "perf": 1
+      "performance": 2
+    },
+    "complexityBreakdown": {
+      "1": 15,
+      "2": 24,
+      "3": 3,
+      "4": 0,
+      "5": 0
     },
     "monthlyCommits": {
       "2025-12": {
         "total": 39,
-        "types": {
-          "other": 12,
-          "fix": 9,
-          "feat": 10,
+        "tags": {
+          "other": 13,
+          "bugfix": 9,
+          "feature": 10,
           "refactor": 5,
-          "chore": 2,
-          "perf": 1
+          "performance": 2
         }
       },
       "2025-06": {
         "total": 3,
-        "types": {
-          "feat": 2,
+        "tags": {
+          "feature": 2,
           "other": 1
         }
       }

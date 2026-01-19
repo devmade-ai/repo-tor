@@ -6,11 +6,21 @@
     "currentBranch": "main",
     "branches": [
       "main",
-      "origin/HEAD",
+      "origin",
+      "origin/claude/add-chatty-chart-repo-RxuLQ",
+      "origin/claude/add-todo-timestamp-views-9u4BW",
+      "origin/claude/admin-multi-repo-setup-7go0s",
+      "origin/claude/analyze-sample-data-time-ZWmOs",
+      "origin/claude/fix-dashboard-mobile-tabs-pRUVw",
+      "origin/claude/git-analytics-reporting-ebvnR",
+      "origin/claude/remove-duplicate-contributors-w8iLi",
+      "origin/claude/rerun-extraction-dashboard-M1m0i",
+      "origin/claude/start-todos-feature-ykdyO",
+      "origin/claude/update-docs-kubk3",
       "origin/main"
     ],
-    "extractedAt": "2026-01-19T09:07:36.806Z",
-    "repoPath": "/Users/jacotheron/Documents/GitHub/repo-tor",
+    "extractedAt": "2026-01-19T11:51:44.348Z",
+    "repoPath": "/home/user/repo-tor/.repo-cache/repo-tor",
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade-ai",
@@ -36,6 +46,243 @@
     }
   },
   "commits": [
+    {
+      "sha": "d2d120e",
+      "fullSha": "d2d120e12e17dff30f055febad2748866b125943",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-19T12:51:22+02:00",
+      "commitDate": "2026-01-19T12:51:22+02:00",
+      "subject": "Merge pull request #10 from devmade-ai/claude/start-todos-feature-ykdyO",
+      "body": "feat: add Timing tab with hour and day-of-week charts",
+      "tags": [
+        "other"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Merge pull request #10 from devmade-ai/claude/start-todos-feature-ykdyO",
+      "is_conventional": false,
+      "references": [
+        "#10"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 840,
+        "deletions": 20
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "f283ebc",
+      "fullSha": "f283ebc0fa5a4cfbe3868c46162000ce16408089",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T10:41:27+00:00",
+      "commitDate": "2026-01-19T10:41:27+00:00",
+      "subject": "feat: add Executive Summary tab with period comparison",
+      "body": "Add new Summary tab as default view for executive quick scanning:\n- Period selector (week/month/quarter vs previous)\n- Quick stats cards with trend indicators (↑/↓ %)\n- Work breakdown doughnut chart\n- Key highlights (top contributor, busiest day, etc.)\n- Activity snapshot (avg/day, after-hours, weekend, holiday)",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "add Executive Summary tab with period comparison",
+      "is_conventional": true,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 401,
+        "deletions": 6
+      },
+      "files": [
+        "dashboard/index.html",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_GUIDE.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "e4fc6a4",
+      "fullSha": "e4fc6a4f4ef788b667069d5c876190e8db85ad98",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T10:37:33+00:00",
+      "commitDate": "2026-01-19T10:37:33+00:00",
+      "subject": "feat: add work pattern styling with SA holidays",
+      "body": "Add visual indicators for commits made outside normal work hours:\n- After Hours badge (amber) for commits before 8am or after 5pm\n- Weekend badge (indigo) for Saturday/Sunday commits\n- Holiday badge (pink) for SA public holidays\n- Legend in Timeline tab explaining badge meanings",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "add work pattern styling with SA holidays",
+      "is_conventional": true,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 186,
+        "deletions": 9
+      },
+      "files": [
+        "dashboard/index.html",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_GUIDE.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "04e3bb5",
+      "fullSha": "04e3bb587215b149fcffd9a6275f316ec8744ec4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T10:32:09+00:00",
+      "commitDate": "2026-01-19T10:32:09+00:00",
+      "subject": "feat: add Timing tab with hour and day-of-week charts",
+      "body": "Add new Timing tab to dashboard visualizing when work happens:\n- Commits by Hour chart (0-23) with work hours highlighting\n- Commits by Day of Week chart (Mon-Sun) with weekend distinction\n- Timezone toggle (Local/UTC) for time display preferences",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "add Timing tab with hour and day-of-week charts",
+      "is_conventional": true,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 253,
+        "deletions": 5
+      },
+      "files": [
+        "dashboard/index.html",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_GUIDE.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "ee18bf4",
+      "fullSha": "ee18bf44aea4f908e85c35c06cf63079073c5e70",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-19T12:24:33+02:00",
+      "commitDate": "2026-01-19T12:24:33+02:00",
+      "subject": "docs: add discovery framework validation session",
+      "body": "Applied Discovery Framework to validate solution against user needs:\n- Identified two distinct audiences (Executive vs Dev Manager)\n- Key gap: timestamp visualization (when work happens)\n- Key gap: audience-specific views (exec needs summary)\n- Reorganized TODO.md around discovered priorities\n\nNew files:\n- docs/DISCOVERY_SESSION.md - full session documentation\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "add discovery framework validation session",
+      "is_conventional": true,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 381,
+        "deletions": 110
+      },
+      "files": [
+        "docs/DISCOVERY_SESSION.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "05c6081",
+      "fullSha": "05c60810a19e37aeb29be9fdf89a5f3305232b9e",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-19T11:13:46+02:00",
+      "commitDate": "2026-01-19T11:13:46+02:00",
+      "subject": "feat: implement tag-based extraction with complexity scoring",
+      "body": "Phase 1 - extract.js:\n- Add CONVENTIONAL_TO_TAG mapping (feat→feature, fix→bugfix, etc.)\n- parseCommitMessage() returns tags[] array instead of single type\n- Add calculateComplexity() function (1-5 scale)\n- Summary outputs tagBreakdown and complexityBreakdown\n- Contributors/files track tagCounts instead of types\n\nPhase 4 - aggregate.js:\n- Tag-aware aggregation with tagCounts\n- Summary outputs tagBreakdown and complexityBreakdown\n- Monthly aggregation tracks tags per month\n\nData regenerated for repo-tor with new format.\nDocs updated (USER_GUIDE, HISTORY, SESSION_NOTES, TODO).\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "implement tag-based extraction with complexity scoring",
+      "is_conventional": true,
+      "references": [],
+      "stats": {
+        "filesChanged": 19,
+        "additions": 3478,
+        "deletions": 43835
+      },
+      "files": [
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json",
+        "docs/DISCOVERY_FRAMEWORK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_GUIDE.md",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json",
+        "scripts/aggregate.js",
+        "scripts/extract.js"
+      ],
+      "repo_id": "repo-tor"
+    },
     {
       "sha": "8e0f37a",
       "fullSha": "8e0f37a4192f1871be9afb09815023b396dfbecc",
@@ -2129,18 +2376,18 @@
       "names": [
         "devmade-ai"
       ],
-      "commits": 26,
-      "additions": 200054,
-      "deletions": 10287,
+      "commits": 30,
+      "additions": 201734,
+      "deletions": 10327,
       "firstCommit": "2026-01-18T21:53:16+02:00",
-      "lastCommit": "2026-01-19T08:52:49+02:00",
+      "lastCommit": "2026-01-19T12:51:22+02:00",
       "tagCounts": {
-        "feature": 6,
+        "other": 6,
+        "feature": 9,
         "docs": 7,
         "cleanup": 6,
         "security": 1,
-        "bugfix": 2,
-        "other": 5
+        "bugfix": 2
       },
       "primaryName": "devmade-ai"
     },
@@ -2172,14 +2419,14 @@
       "names": [
         "jacotheron87"
       ],
-      "commits": 10,
-      "additions": 634,
-      "deletions": 168,
+      "commits": 12,
+      "additions": 4493,
+      "deletions": 44113,
       "firstCommit": "2026-01-18T22:03:07+02:00",
-      "lastCommit": "2026-01-19T11:00:52+02:00",
+      "lastCommit": "2026-01-19T12:24:33+02:00",
       "tagCounts": {
-        "feature": 6,
-        "docs": 1,
+        "docs": 2,
+        "feature": 7,
         "bugfix": 1,
         "test": 3
       },
@@ -2189,10 +2436,10 @@
   "files": [
     {
       "path": "docs/HISTORY.md",
-      "changeCount": 26,
+      "changeCount": 31,
       "tagCounts": {
-        "feature": 10,
-        "docs": 10,
+        "feature": 14,
+        "docs": 11,
         "security": 2,
         "cleanup": 1,
         "bugfix": 4,
@@ -2200,132 +2447,168 @@
         "test": 1
       },
       "authors": [
-        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com",
+        "jacotheron87@gmail.com",
         "noreply@anthropic.com"
       ]
     },
     {
       "path": "docs/SESSION_NOTES.md",
-      "changeCount": 25,
+      "changeCount": 30,
       "tagCounts": {
-        "feature": 9,
-        "docs": 10,
+        "feature": 13,
+        "docs": 11,
         "security": 2,
         "cleanup": 1,
         "bugfix": 4,
         "config": 1
       },
       "authors": [
-        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com",
+        "jacotheron87@gmail.com",
         "noreply@anthropic.com"
       ]
     },
     {
       "path": "docs/TODO.md",
-      "changeCount": 14,
+      "changeCount": 19,
       "tagCounts": {
-        "docs": 9,
+        "feature": 8,
+        "docs": 10,
         "security": 1,
-        "feature": 4,
         "config": 1,
         "test": 1
       },
       "authors": [
-        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com",
+        "jacotheron87@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "docs/USER_GUIDE.md",
+      "changeCount": 12,
+      "tagCounts": {
+        "feature": 9,
+        "docs": 3,
+        "test": 1,
+        "security": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "jacotheron87@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "dashboard/index.html",
+      "changeCount": 10,
+      "tagCounts": {
+        "feature": 8,
+        "bugfix": 2,
+        "security": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "jacotheron87@gmail.com",
         "noreply@anthropic.com"
       ]
     },
     {
       "path": "dashboard/data.json",
-      "changeCount": 9,
+      "changeCount": 10,
       "tagCounts": {
+        "feature": 2,
         "cleanup": 6,
         "bugfix": 1,
-        "feature": 1,
         "docs": 1
       },
       "authors": [
+        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com",
         "noreply@anthropic.com"
       ]
     },
     {
       "path": "reports/repo-tor/commits.json",
-      "changeCount": 9,
+      "changeCount": 10,
       "tagCounts": {
+        "feature": 2,
         "cleanup": 6,
-        "docs": 2,
-        "feature": 1
+        "docs": 2
       },
       "authors": [
+        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com",
         "noreply@anthropic.com"
       ]
     },
     {
       "path": "reports/repo-tor/contributors.json",
-      "changeCount": 9,
+      "changeCount": 10,
       "tagCounts": {
+        "feature": 2,
         "cleanup": 6,
-        "docs": 2,
-        "feature": 1
+        "docs": 2
       },
       "authors": [
+        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com",
         "noreply@anthropic.com"
       ]
     },
     {
       "path": "reports/repo-tor/data.json",
-      "changeCount": 9,
+      "changeCount": 10,
       "tagCounts": {
+        "feature": 2,
         "cleanup": 6,
-        "docs": 2,
-        "feature": 1
+        "docs": 2
       },
       "authors": [
+        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com",
         "noreply@anthropic.com"
       ]
     },
     {
       "path": "reports/repo-tor/files.json",
-      "changeCount": 9,
+      "changeCount": 10,
       "tagCounts": {
+        "feature": 2,
         "cleanup": 6,
-        "docs": 2,
-        "feature": 1
+        "docs": 2
       },
       "authors": [
+        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com",
         "noreply@anthropic.com"
       ]
     },
     {
       "path": "reports/repo-tor/metadata.json",
-      "changeCount": 9,
+      "changeCount": 10,
       "tagCounts": {
+        "feature": 2,
         "cleanup": 6,
-        "docs": 2,
-        "feature": 1
+        "docs": 2
       },
       "authors": [
+        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com",
         "noreply@anthropic.com"
       ]
     },
     {
       "path": "reports/repo-tor/summary.json",
-      "changeCount": 9,
+      "changeCount": 10,
       "tagCounts": {
+        "feature": 2,
         "cleanup": 6,
-        "docs": 2,
-        "feature": 1
+        "docs": 2
       },
       "authors": [
+        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com",
         "noreply@anthropic.com"
       ]
@@ -2346,30 +2629,68 @@
       ]
     },
     {
-      "path": "docs/USER_GUIDE.md",
-      "changeCount": 8,
-      "tagCounts": {
-        "docs": 3,
-        "feature": 5,
-        "test": 1,
-        "security": 1
-      },
-      "authors": [
-        "noreply@anthropic.com",
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "path": "dashboard/index.html",
+      "path": "dashboard/commits.json",
       "changeCount": 7,
       "tagCounts": {
-        "feature": 5,
-        "bugfix": 2,
-        "security": 1
+        "feature": 2,
+        "cleanup": 4,
+        "bugfix": 1
       },
       "authors": [
         "jacotheron87@gmail.com",
-        "noreply@anthropic.com"
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "dashboard/contributors.json",
+      "changeCount": 7,
+      "tagCounts": {
+        "feature": 2,
+        "cleanup": 4,
+        "bugfix": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com",
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "dashboard/files.json",
+      "changeCount": 7,
+      "tagCounts": {
+        "feature": 2,
+        "cleanup": 4,
+        "bugfix": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com",
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "dashboard/metadata.json",
+      "changeCount": 7,
+      "tagCounts": {
+        "feature": 2,
+        "cleanup": 4,
+        "bugfix": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com",
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "dashboard/summary.json",
+      "changeCount": 7,
+      "tagCounts": {
+        "feature": 2,
+        "cleanup": 4,
+        "bugfix": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com",
+        "devmade.ai@gmail.com"
       ]
     },
     {
@@ -2383,66 +2704,6 @@
       "authors": [
         "jacotheron87@gmail.com",
         "noreply@anthropic.com"
-      ]
-    },
-    {
-      "path": "dashboard/commits.json",
-      "changeCount": 6,
-      "tagCounts": {
-        "cleanup": 4,
-        "bugfix": 1,
-        "feature": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": "dashboard/contributors.json",
-      "changeCount": 6,
-      "tagCounts": {
-        "cleanup": 4,
-        "bugfix": 1,
-        "feature": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": "dashboard/files.json",
-      "changeCount": 6,
-      "tagCounts": {
-        "cleanup": 4,
-        "bugfix": 1,
-        "feature": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": "dashboard/metadata.json",
-      "changeCount": 6,
-      "tagCounts": {
-        "cleanup": 4,
-        "bugfix": 1,
-        "feature": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": "dashboard/summary.json",
-      "changeCount": 6,
-      "tagCounts": {
-        "cleanup": 4,
-        "bugfix": 1,
-        "feature": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
       ]
     },
     {
@@ -2504,12 +2765,24 @@
     },
     {
       "path": "scripts/extract.js",
-      "changeCount": 3,
+      "changeCount": 4,
       "tagCounts": {
-        "feature": 3,
+        "feature": 4,
         "security": 1
       },
       "authors": [
+        "jacotheron87@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "scripts/aggregate.js",
+      "changeCount": 3,
+      "tagCounts": {
+        "feature": 3
+      },
+      "authors": [
+        "jacotheron87@gmail.com",
         "noreply@anthropic.com"
       ]
     },
@@ -2580,16 +2853,6 @@
       ]
     },
     {
-      "path": "scripts/aggregate.js",
-      "changeCount": 2,
-      "tagCounts": {
-        "feature": 2
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
       "path": "docs/USER_TESTING.md",
       "changeCount": 2,
       "tagCounts": {
@@ -2607,6 +2870,26 @@
       "changeCount": 2,
       "tagCounts": {
         "test": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "path": "docs/DISCOVERY_SESSION.md",
+      "changeCount": 1,
+      "tagCounts": {
+        "docs": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "path": "docs/DISCOVERY_FRAMEWORK.md",
+      "changeCount": 1,
+      "tagCounts": {
+        "feature": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -2845,38 +3128,38 @@
     }
   ],
   "summary": {
-    "totalCommits": 55,
+    "totalCommits": 61,
     "totalContributors": 3,
-    "totalAdditions": 209645,
-    "totalDeletions": 11947,
-    "netLinesChanged": 197698,
+    "totalAdditions": 215184,
+    "totalDeletions": 55932,
+    "netLinesChanged": 159252,
     "tagBreakdown": {
-      "feature": 17,
-      "docs": 16,
+      "other": 6,
+      "feature": 21,
+      "docs": 17,
       "cleanup": 9,
       "security": 2,
       "bugfix": 5,
-      "other": 5,
       "config": 1,
       "test": 4
     },
     "complexityBreakdown": {
       "1": 7,
       "2": 17,
-      "3": 30,
+      "3": 36,
       "4": 1,
       "5": 0
     },
     "monthlyCommits": {
       "2026-01": {
-        "total": 55,
+        "total": 61,
         "tags": {
-          "feature": 17,
-          "docs": 16,
+          "other": 6,
+          "feature": 21,
+          "docs": 17,
           "cleanup": 9,
           "security": 2,
           "bugfix": 5,
-          "other": 5,
           "config": 1,
           "test": 4
         }
@@ -2901,7 +3184,7 @@
     ],
     "dateRange": {
       "earliest": "2026-01-18T21:53:16+02:00",
-      "latest": "2026-01-19T11:00:52+02:00"
+      "latest": "2026-01-19T12:51:22+02:00"
     }
   }
 }
