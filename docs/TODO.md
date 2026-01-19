@@ -102,6 +102,40 @@ Handle repository lifecycle changes gracefully:
 - [ ] **Repo Archive Detection** - Handle archived/deleted repos gracefully in update-all.sh
 - [ ] **Repo URL Redirect** - Detect GitHub redirects when repo is renamed and update config
 
+## Research / Investigation
+
+### Device/Platform Attribution
+Investigate splitting contributions by committer name patterns to distinguish work contexts:
+- [ ] **Mobile vs Desktop Detection** - Identify commits from mobile devices (e.g., "Author (mobile)" vs "Author")
+- [ ] **Committer Name Mapping** - Config to map name variations to same author with device tag
+- [ ] **Combined/Split Views** - Option to view contributions merged or separated by device
+- [ ] **Use Cases** - Document when this is useful (e.g., tracking mobile hotfixes vs planned desktop work)
+
+### AI-Powered Commit Categorization
+Investigate using Claude Code to intelligently categorize commits:
+- [ ] **Semantic Analysis** - Let AI read commit message + diff to understand intent
+- [ ] **Auto-Tagging** - Generate relevant tags beyond conventional commit types
+- [ ] **Confidence Scores** - Indicate how confident the categorization is
+- [ ] **Human Override** - Allow manual correction of AI-assigned tags
+- [ ] **Batch Processing** - Efficient way to process large commit histories
+- [ ] **Cost/Performance** - Evaluate API costs and processing time for large repos
+
+### Multi-Tag Commit Model
+Rethink the single-type-per-commit assumption:
+- [ ] **Multiple Tags per Commit** - One commit can be feat + refactor + docs
+- [ ] **Tag Hierarchy** - Primary vs secondary tags, or weighted importance
+- [ ] **Schema Changes** - Update data model: `type` → `tags[]` with weights
+- [ ] **Dashboard Updates** - Charts that handle multi-tagged commits (avoid double-counting or use fractional attribution)
+- [ ] **Backward Compatibility** - Support old single-type data alongside new multi-tag
+
+### Tag-Centric Reporting (vs Commit Counts)
+Shift focus from "how many commits" to "what was accomplished":
+- [ ] **Tag-Based Metrics** - Report on tags/categories rather than raw commit counts
+- [ ] **Effort Weighting** - Not all commits are equal; consider lines changed, complexity
+- [ ] **Accomplishment View** - "Features delivered" vs "commits made"
+- [ ] **Activity vs Output** - Distinguish between being busy and being productive
+- [ ] **Team Insights** - Who contributes to what areas, not just who commits most
+
 ## Low Priority / Ideas
 
 ### Could Have (from spec)
@@ -116,4 +150,4 @@ Handle repository lifecycle changes gracefully:
 
 ---
 
-*Last updated: 2026-01-19 - Added hour/day views, work pattern distinction (work hours, weekends, holidays), filters, design, privacy, repo management*
+*Last updated: 2026-01-19 - Added research items: device attribution, AI categorization, multi-tag model, tag-centric reporting*

@@ -100,6 +100,12 @@ None
 5. **Private Repo Security** - Sanitization, anonymization, local-only mode
 6. **Repository Management** - Repo rename handling, aliases, migration, archive detection
 
+**Research / Investigation:**
+- Device/platform attribution (mobile vs desktop by committer name)
+- AI-powered commit categorization (Claude reads messages + diffs)
+- Multi-tag commit model (one commit = multiple tags)
+- Tag-centric reporting (focus on accomplishments, not commit counts)
+
 **Low Priority:**
 - Export to PDF
 - Pre-commit hook for conventional commits

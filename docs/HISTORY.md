@@ -38,6 +38,12 @@ Added high-priority TODO items for next phase of development:
 - **Private Repository Security** - Sanitization mode, anonymization options, content filtering, local-only mode documentation
 - **Repository Management** - Repo rename handling, alias support, migration tools, archive detection
 
+New Research/Investigation section:
+- **Device/Platform Attribution** - Split contributions by committer name (mobile vs desktop)
+- **AI-Powered Commit Categorization** - Use Claude to read messages + diffs and intelligently tag
+- **Multi-Tag Commit Model** - Rethink single-type assumption; one commit can have multiple tags
+- **Tag-Centric Reporting** - Shift from commit counts to accomplishment-based metrics
+
 ### Added chatty-chart Repository
 
 - Added `illuminAI-select/chatty-chart` to tracked repositories
