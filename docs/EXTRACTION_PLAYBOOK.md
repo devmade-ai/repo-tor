@@ -76,11 +76,18 @@ reports/                      # Raw extracted data (ephemeral)
 
 processed/                    # AI-analyzed data (committed to git)
   <repo-name>/
+    manifest.json             # Tracks processed SHAs (source of truth)
     batches/                  # Approved batches copied here
       batch-001.json          # Approved with AI tags
       batch-002.json
       ...
     metadata.json
+
+pending/                      # Generated unprocessed commits (ephemeral)
+  <repo-name>/
+    batches/                  # Only commits NOT in manifest
+      batch-001.json
+      ...
 
 config/
   repos.json                  # Tracked repositories
@@ -90,10 +97,11 @@ dashboard/
   data.json                   # Aggregated from processed/
 ```
 
-**Progress tracking:**
-- Compare `reports/<repo>/batches/` vs `processed/<repo>/batches/`
-- If `batch-005.json` exists in processed/, it's done
-- Next batch = first batch file NOT in processed/
+**Progress tracking via manifest:**
+- Each repo has `processed/<repo>/manifest.json` with array of processed SHAs
+- Run `node scripts/pending.js` to generate pending batches
+- Pending batches contain ONLY commits not in the manifest
+- This works regardless of batch boundary shifts from new commits
 
 **What's committed to git:**
 - `processed/*/batches/*.json` - AI-analyzed commits (source of truth)
@@ -201,62 +209,77 @@ git push
 
 Use when: Adding new commits OR resuming interrupted processing.
 
-### Step 1: Check Current State
-
-For each repository, read `processed/<repo>/checkpoint.json`:
-- If `processed_count < total_count`: Resume from checkpoint
-- If no checkpoint: Check for new commits since last extraction
-
-### Step 2: Extract Fresh Data
+### Step 1: Extract Fresh Data
 
 ```bash
 scripts/update-all.sh
 ```
 
-### Step 3: Find Unprocessed Commits
+This extracts ALL commits from each repo into `reports/`.
 
-For each repository:
+### Step 2: Generate Pending Batches
 
-1. Load existing `processed/<repo>/commits.json` (if exists)
-2. Get set of processed commit SHAs
-3. Compare against freshly extracted commits
-4. Identify commits NOT in processed (these need analysis)
+```bash
+node scripts/pending.js
+```
 
-### Step 4: AI Analyze with Human Review
+This script:
+1. Reads `processed/<repo>/manifest.json` to get already-processed SHAs
+2. Compares against freshly extracted commits in `reports/`
+3. Generates `pending/<repo>/batches/` with ONLY unprocessed commits
 
-Process batch files one at a time:
+**Output shows:**
+```
+social-ad-creator: 66/156 pending (7 batches)
+model-pear: 302/302 pending (31 batches)
+Total: 368 pending commits in 38 batches
+```
+
+### Step 3: AI Analyze Pending Batches (Human Review)
+
+Process pending batch files one at a time:
 
 **Per batch file:**
-1. Find next unprocessed batch (in reports/ but not in processed/)
-2. AI proposes tags + complexity for each commit
+1. Read from `pending/<repo>/batches/batch-NNN.json`
+2. AI proposes tags + complexity + urgency + impact for each commit
 3. Present to user for review
 4. User approves or corrects
-5. Save approved batch to `processed/<repo>/batches/`
-6. Commit changes
+5. Save approved batch to `processed/<repo>/batches/` (append to existing)
+6. Update manifest: `node scripts/manifest-update.js <repo> <batch-file>`
+7. Commit changes
+
+**User commands:**
+- `approve` - Save batch, update manifest, continue to next
+- `#N tag1, tag2` - Correct tags for commit N, re-present
+- `stop` - End session (progress saved via manifest)
 
 **Stop when:**
-- All batch files processed, OR
-- User says "stop" (progress saved at last approved batch)
+- All pending batches processed, OR
+- User says "stop" (progress saved in manifest)
 
-**Verification:**
-- [ ] Only new batches were analyzed
-- [ ] Existing batches unchanged
-- [ ] Tags reflect full message content
-- [ ] Batch counts match between reports/ and processed/
-
-### Step 5: Re-aggregate to Dashboard
+### Step 4: Re-aggregate to Dashboard
 
 ```bash
 node scripts/aggregate.js
 ```
 
-### Step 6: Commit Changes
+### Step 5: Commit Changes
 
 ```bash
 git add processed/ dashboard/
 git commit -m "chore: feed the chicken - X new commits"
 git push
 ```
+
+### Key Differences from "Hatch"
+
+| Aspect | Hatch the Chicken | Feed the Chicken |
+|--------|-------------------|------------------|
+| Starting point | Delete everything | Keep existing processed/ |
+| Batch source | `reports/` batches | `pending/` batches |
+| Tracks progress | Batch file existence | manifest.json SHAs |
+| Handles new commits | N/A (full reset) | Only processes new ones |
+| Resume after merge | Start over | Continues seamlessly |
 
 ---
 
