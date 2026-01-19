@@ -22,12 +22,38 @@ Two-stage process with persistent storage of AI-analyzed commits:
 
 ## Batch Processing Strategy
 
-Processing commits in batches with checkpoints for resilience:
+Human-in-the-loop review ensures quality tagging.
 
 ### Batch Size
-- Process **50 commits per batch** (balance between progress and context limits)
-- After each batch: write to `processed/`, commit changes
-- If session ends mid-processing, work is saved
+- Process **10 commits per batch**
+- AI presents analysis, **user reviews and approves**
+- After approval: write to `processed/`, update checkpoint
+- If session ends, work is saved at last approved batch
+
+### Review Format
+
+For each batch, AI presents commits like this:
+
+```
+[1/10] abc123
+Subject: Fix button placement and performance issues
+Body:
+- Move "Update Visualization" button below the image
+- Fix page freeze on visualization update by removing scrollIntoView
+- Optimize DOM manipulation using classList.toggle
+- Update help documentation to reflect UI changes
+
+Tags: refactor, bugfix, performance, docs
+Complexity: 4
+---
+[2/10] def456
+...
+```
+
+User responds:
+- **"approve"** - Save all 10 and continue to next batch
+- **"#3 should be feature not refactor"** - AI corrects and re-presents
+- **"stop"** - Save progress and end session
 
 ### Checkpoint System
 Each repo tracks progress via `processed/<repo>/checkpoint.json`:
@@ -41,16 +67,11 @@ Each repo tracks progress via `processed/<repo>/checkpoint.json`:
 }
 ```
 
-### Resume Logic
-1. Read `checkpoint.json` for each repo
-2. If `processed_count < total_count`, continue from checkpoint
-3. Skip commits already in `commits.json`
-4. Process next batch, update checkpoint, commit
-
 ### Benefits
-- **Resilient**: Session interruptions don't lose work
+- **Accurate**: Human review catches AI mistakes
+- **Multi-tag**: AI reads full message, assigns ALL relevant tags
+- **Resilient**: Progress saved after each approved batch
 - **Incremental**: Can stop and continue anytime
-- **Traceable**: Know exactly where processing left off
 
 ## File Structure
 
@@ -99,36 +120,32 @@ scripts/update-all.sh
 
 This puts raw repo data in `.repo-cache/`.
 
-### Step 3: AI Analyze Each Repository (Batched)
+### Step 3: AI Analyze Each Repository (Human Review)
 
-For each repository, process in batches of 50 commits:
+For each repository, process 10 commits at a time with user approval:
 
 **Per batch:**
-1. Read next 50 unprocessed commits
-2. For each commit:
-   - Read the full commit message
-   - Assign tags based on guidelines below
-   - Calculate complexity score
-3. Append to `processed/<repo-name>/commits.json`
-4. Update `processed/<repo-name>/checkpoint.json`
-5. Commit changes: `git commit -m "chore: process <repo> batch N/M"`
+1. Read next 10 unprocessed commits (subject + body)
+2. AI analyzes each commit and proposes:
+   - Tags (multiple allowed, based on full message content)
+   - Complexity score (1-5)
+3. Present to user in review format (see above)
+4. User approves or requests corrections
+5. On approval: save to `processed/<repo>/commits.json`
+6. Update checkpoint, commit: `git commit -m "chore: process <repo> batch N"`
 
-**Repeat until all commits processed.**
+**User commands:**
+- `approve` - Accept batch, continue to next 10
+- `#N tag1, tag2` - Correct tags for commit N
+- `stop` - Save progress and end
 
-**Checkpoint file format:**
-```json
-{
-  "last_processed_sha": "<sha of last commit in batch>",
-  "processed_count": 50,
-  "total_count": 302,
-  "last_updated": "2026-01-19T15:30:00Z"
-}
-```
+**Repeat until all commits processed or user stops.**
 
 **Verification per repo:**
 - [ ] Every commit has at least one tag
 - [ ] Every commit has complexity 1-5
-- [ ] `checkpoint.json` shows `processed_count == total_count`
+- [ ] Tags reflect FULL message content (subject + body)
+- [ ] `checkpoint.json` shows current progress
 
 ### Step 4: Aggregate to Dashboard
 
@@ -173,24 +190,26 @@ For each repository:
 3. Compare against freshly extracted commits
 4. Identify commits NOT in processed (these need analysis)
 
-### Step 4: AI Analyze in Batches
+### Step 4: AI Analyze with Human Review
 
-Process 50 commits per batch:
+Process 10 commits per batch with user approval:
 
 **Per batch:**
-1. Read next 50 unprocessed commits
-2. For each commit: assign tags + complexity
-3. Append to `processed/<repo>/commits.json`
-4. Update `processed/<repo>/checkpoint.json`
-5. Commit: `git commit -m "chore: feed <repo> batch N"`
+1. Read next 10 unprocessed commits (subject + body)
+2. AI proposes tags + complexity for each
+3. Present to user for review
+4. User approves or corrects
+5. Save to `processed/<repo>/commits.json`
+6. Update checkpoint, commit changes
 
 **Stop when:**
-- All commits processed, OR
-- User requests to stop (work is saved at last checkpoint)
+- All new commits processed, OR
+- User says "stop" (work saved at last approved batch)
 
 **Verification:**
 - [ ] Only new commits were analyzed
 - [ ] Existing commits unchanged
+- [ ] Tags reflect full message content
 - [ ] Checkpoint reflects current progress
 
 ### Step 5: Re-aggregate to Dashboard
@@ -355,4 +374,4 @@ Based on files changed and tag count:
 
 ---
 
-*Last updated: 2026-01-19 - Added checkpoint-based batch processing for resilience*
+*Last updated: 2026-01-19 - Human-in-the-loop review with 10 commits per batch*
