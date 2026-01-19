@@ -462,7 +462,7 @@
             <div id="tab-summary" class="tab-content">
                 <!-- Period Selector -->
                 <div class="card mb-6">
-                    <div class="flex items-center justify-between">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                         <div>
                             <h2 class="text-lg font-semibold">Executive Summary</h2>
                             <p class="text-xs text-gray-500">High-level overview for quick scanning</p>
@@ -470,9 +470,9 @@
                         <div class="flex items-center gap-2">
                             <label class="text-xs text-gray-500">Compare:</label>
                             <select id="summary-period" class="filter-select text-sm">
-                                <option value="week">This Week vs Last Week</option>
-                                <option value="month">This Month vs Last Month</option>
-                                <option value="quarter">This Quarter vs Last Quarter</option>
+                                <option value="7days">Last 7 Days</option>
+                                <option value="30days">Last 30 Days</option>
+                                <option value="quarter">This Quarter</option>
                             </select>
                         </div>
                     </div>
@@ -570,6 +570,15 @@
                     </div>
                 </div>
 
+                <!-- Activity Timeline Chart -->
+                <div class="card mb-6">
+                    <h2 class="text-lg font-semibold mb-4">Activity Timeline</h2>
+                    <p class="text-xs text-gray-500 -mt-2 mb-4">Commits by date across all projects</p>
+                    <div class="h-48 md:h-64">
+                        <canvas id="activity-timeline-chart"></canvas>
+                    </div>
+                </div>
+
                 <div class="card">
                     <div class="flex items-center justify-between mb-4">
                         <h2 class="text-lg font-semibold">Changes</h2>
@@ -639,7 +648,7 @@
 
             <div id="tab-timing" class="tab-content hidden">
                 <div class="card mb-6">
-                    <div class="flex items-center justify-between mb-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                         <div>
                             <h2 class="text-lg font-semibold">When Work Happens</h2>
                             <p class="text-xs text-gray-500">Commit distribution by time of day and day of week</p>
@@ -700,7 +709,7 @@
 
                 <!-- Work Hours Settings -->
                 <div class="card mt-6">
-                    <div class="flex items-center justify-between">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                         <div>
                             <h2 class="text-lg font-semibold">Work Hours Settings</h2>
                             <p class="text-xs text-gray-500">Customize what counts as "work hours"</p>
@@ -1315,6 +1324,9 @@
             document.getElementById('commit-count').textContent =
                 `Showing ${Math.min(filteredCommits.length, 100)} of ${filteredCommits.length}`;
 
+            // Render activity timeline chart
+            renderActivityTimeline(filteredCommits);
+
             // Commit List - show tags, complexity, work patterns (no +/- lines)
             const listHtml = filteredCommits.slice(0, 100).map(commit => {
                 const tags = getCommitTags(commit);
@@ -1348,6 +1360,102 @@
                 </div>
             `}).join('');
             document.getElementById('commit-list').innerHTML = listHtml || '<p class="text-gray-500">No changes match the current filters</p>';
+        }
+
+        function renderActivityTimeline(commits) {
+            // Group commits by date
+            const commitsByDate = {};
+            const repoColors = {};
+            const repos = [...new Set(commits.map(c => c.repo_id).filter(Boolean))];
+
+            // Assign colors to repos
+            const repoColorPalette = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444', '#06b6d4'];
+            repos.forEach((repo, i) => {
+                repoColors[repo] = repoColorPalette[i % repoColorPalette.length];
+            });
+
+            commits.forEach(commit => {
+                const dateStr = commit.timestamp?.substring(0, 10);
+                if (!dateStr) return;
+                if (!commitsByDate[dateStr]) {
+                    commitsByDate[dateStr] = { total: 0, byRepo: {} };
+                }
+                commitsByDate[dateStr].total++;
+                if (commit.repo_id) {
+                    commitsByDate[dateStr].byRepo[commit.repo_id] = (commitsByDate[dateStr].byRepo[commit.repo_id] || 0) + 1;
+                }
+            });
+
+            // Sort dates and limit to reasonable range (last 60 dates with activity)
+            const sortedDates = Object.keys(commitsByDate).sort().slice(-60);
+
+            if (sortedDates.length === 0) {
+                if (charts.activityTimeline) charts.activityTimeline.destroy();
+                return;
+            }
+
+            // Build datasets
+            let datasets;
+            if (repos.length > 1) {
+                // Multi-repo: stacked bar chart by repo
+                datasets = repos.map(repo => ({
+                    label: repo,
+                    data: sortedDates.map(d => commitsByDate[d]?.byRepo[repo] || 0),
+                    backgroundColor: repoColors[repo],
+                    borderRadius: 2
+                }));
+            } else {
+                // Single repo: simple bar chart
+                datasets = [{
+                    label: 'Commits',
+                    data: sortedDates.map(d => commitsByDate[d]?.total || 0),
+                    backgroundColor: '#3b82f6',
+                    borderRadius: 2
+                }];
+            }
+
+            // Format date labels (show month/day for readability)
+            const labels = sortedDates.map(d => {
+                const date = new Date(d);
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            });
+
+            if (charts.activityTimeline) charts.activityTimeline.destroy();
+            charts.activityTimeline = new Chart(document.getElementById('activity-timeline-chart'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: repos.length > 1,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: repos.length > 1,
+                            ticks: {
+                                maxRotation: 45,
+                                callback: function(value, index) {
+                                    // Show fewer labels on smaller datasets
+                                    const step = Math.ceil(sortedDates.length / 15);
+                                    return index % step === 0 ? this.getLabelForValue(value) : '';
+                                }
+                            }
+                        },
+                        y: {
+                            stacked: repos.length > 1,
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        }
+                    }
+                }
+            });
         }
 
         // === Progress Tab ===
@@ -1906,7 +2014,7 @@
         }
 
         // === Executive Summary Tab ===
-        let summaryPeriod = 'week';
+        let summaryPeriod = '7days';
 
         function getPeriodDates(period) {
             const now = new Date();
@@ -1920,23 +2028,28 @@
                 return d;
             }
 
-            if (period === 'week') {
-                // Get Monday of this week
-                const dayOfWeek = today.getDay();
-                const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+            if (period === '7days') {
+                // Rolling last 7 days (including today)
                 currentStart = new Date(today);
-                currentStart.setDate(today.getDate() + mondayOffset);
+                currentStart.setDate(today.getDate() - 6);
                 currentEnd = endOfDay(today);
+                // Previous 7 days before that
                 previousStart = new Date(currentStart);
                 previousStart.setDate(previousStart.getDate() - 7);
                 previousEnd = new Date(currentStart);
                 previousEnd.setDate(previousEnd.getDate() - 1);
                 previousEnd = endOfDay(previousEnd);
-            } else if (period === 'month') {
-                currentStart = new Date(today.getFullYear(), today.getMonth(), 1);
+            } else if (period === '30days') {
+                // Rolling last 30 days (including today)
+                currentStart = new Date(today);
+                currentStart.setDate(today.getDate() - 29);
                 currentEnd = endOfDay(today);
-                previousStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-                previousEnd = endOfDay(new Date(today.getFullYear(), today.getMonth(), 0));
+                // Previous 30 days before that
+                previousStart = new Date(currentStart);
+                previousStart.setDate(previousStart.getDate() - 30);
+                previousEnd = new Date(currentStart);
+                previousEnd.setDate(previousEnd.getDate() - 1);
+                previousEnd = endOfDay(previousEnd);
             } else { // quarter
                 const quarter = Math.floor(today.getMonth() / 3);
                 currentStart = new Date(today.getFullYear(), quarter * 3, 1);
@@ -1976,8 +2089,8 @@
 
         function renderSummary() {
             const periods = getPeriodDates(summaryPeriod);
-            const periodLabel = summaryPeriod === 'week' ? 'last week'
-                : summaryPeriod === 'month' ? 'last month' : 'last quarter';
+            const periodLabel = summaryPeriod === '7days' ? 'previous 7 days'
+                : summaryPeriod === '30days' ? 'previous 30 days' : 'last quarter';
 
             const currentCommits = getCommitsInRange(data.commits, periods.current.start, periods.current.end);
             const previousCommits = getCommitsInRange(data.commits, periods.previous.start, periods.previous.end);
@@ -2399,7 +2512,7 @@
                 dateFrom: params.get('from') || '',
                 dateTo: params.get('to') || '',
                 tab: params.get('tab') || 'summary',
-                period: params.get('period') || 'week',
+                period: params.get('period') || '7days',
                 tz: params.get('tz') || 'local'
             };
         }
@@ -2420,7 +2533,7 @@
             if (filters.dateTo) params.set('to', filters.dateTo);
 
             // Add summary period if on summary tab
-            if (activeTab === 'summary' && summaryPeriod !== 'week') {
+            if (activeTab === 'summary' && summaryPeriod !== '7days') {
                 params.set('period', summaryPeriod);
             }
 

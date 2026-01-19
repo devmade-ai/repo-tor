@@ -21,6 +21,27 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Mobile Fixes and Timeline Chart (2026-01-19)
+
+Fixed mobile layout issues and added activity timeline:
+
+**1. Activity Timeline Chart**
+- Added bar chart to Timeline tab showing commits by date
+- For multi-repo data: stacked bar chart with repos color-coded
+- Shows last 60 dates with activity
+- Updates with filters (tag, author, repo, date range)
+
+**2. Period Comparison Labels**
+- Changed from "This Week/Month" to "Last 7 Days/Last 30 Days"
+- Now uses rolling periods instead of calendar-based
+- More intuitive for users checking recent activity
+
+**3. Mobile Layout Improvements**
+- Executive Summary header now stacks on mobile
+- Timing tab header now stacks on mobile
+- Work Hours Settings now stacks on mobile
+- Shorter dropdown labels for mobile ("Last 7 Days" vs verbose)
+
 ### Polish and Infrastructure Sprint (2026-01-19)
 
 Completed all remaining lower-priority items:
