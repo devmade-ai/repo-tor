@@ -195,9 +195,25 @@ Order tags in the array by importance (first = primary). Use this order:
 
 Update the extracted files with AI-assigned tags and complexity:
 
+**Aggregated dashboard files:**
 - `dashboard/commits.json` - Add tags[] and complexity to each commit
 - `dashboard/data.json` - Update with tagged commits
 - `dashboard/summary.json` - Recalculate tagBreakdown and complexityBreakdown
+
+**Per-repo report files:**
+- `reports/<repo>/commits.json` - Tag each repo's commits individually
+- `reports/<repo>/data.json` - Update with tagged commits
+
+This can be done efficiently using `scripts/tag-commits.js`:
+```bash
+# Tag aggregated dashboard
+node scripts/tag-commits.js dashboard/commits.json
+
+# Tag per-repo files
+for repo in reports/*/; do
+  node scripts/tag-commits.js "${repo}commits.json"
+done
+```
 
 ### Step 5: Report Summary
 
