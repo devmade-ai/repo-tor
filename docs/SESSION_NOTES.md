@@ -241,7 +241,18 @@ Refocused the tool's metrics and data model around three core dimensions:
 
 ## In Progress
 
-None
+### Hatch the Chicken (partial - 2026-01-19)
+
+Started full extraction with AI analysis. Progress:
+
+| Repo | Commits | Status |
+|------|---------|--------|
+| chatty-chart | 42 | ✅ Done |
+| repo-tor | 91 | ✅ Done |
+| social-ad-creator | 156 | ⏳ Pending |
+| model-pear | 302 | ⏳ Pending |
+
+**To continue:** Run `@data hatch the chicken` to finish remaining repos.
 
 ## Latest Change
 
