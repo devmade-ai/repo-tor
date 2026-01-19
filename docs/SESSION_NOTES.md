@@ -21,6 +21,22 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Metrics Overhaul (2026-01-19)
+
+Replaced vanity metrics with meaningful work metrics per discovery findings:
+
+**Summary Cards:**
+- Lines Added → Files Changed
+- Lines Removed → Avg Complexity
+- Commits → Top Work Type
+
+**Executive Summary:**
+- Commits → Features Built
+- Contributors → Bugs Fixed
+- Added Complexity + Files Touched with trends
+
+The dashboard now focuses on what matters: type of work, complexity, and scope rather than meaningless line counts.
+
 ### Export and Share Features (2026-01-19)
 
 Implemented Priority 4: Export/Share capabilities:

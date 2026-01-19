@@ -226,6 +226,30 @@ Updated `scripts/aggregate.js` for tag-aware aggregation:
 - Fix: Added step to copy `dashboard/data.json` to `_site/data.json`
 - Now `fetch('data.json')` resolves correctly on the deployed site
 
+### Metrics Overhaul - Focus on What Matters
+
+Replaced vanity metrics (commits, lines of code) with meaningful work metrics:
+
+**Main Summary Cards (top of dashboard):**
+- ~~Lines Added~~ → **Files Changed** (scope of work)
+- ~~Lines Removed~~ → **Avg Complexity** (1-5 scale)
+- ~~Commits~~ → **Top Work Type** (primary focus)
+- Contributors (kept)
+
+**Executive Summary Tab:**
+- ~~Commits count~~ → **Features Built** (what was delivered)
+- ~~Active Contributors~~ → **Bugs Fixed** (quality work)
+- Added **Avg Complexity** with trend
+- Added **Files Touched** with trend
+
+**PDF Export:**
+- Updated to show new metrics instead of lines added/removed
+
+**Rationale:** Lines of code and commit counts are vanity metrics that don't reflect actual work value. The new metrics focus on:
+- What kind of work (tags/types)
+- How complex the changes are
+- How much of the codebase was affected
+
 ### Export and Share Features (Priority 4)
 
 Added PDF export and shareable links to the dashboard:

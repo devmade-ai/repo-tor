@@ -212,21 +212,23 @@
             <!-- Summary Cards -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div class="card">
-                    <p class="text-sm text-gray-500 uppercase tracking-wide">Commits</p>
-                    <p class="text-3xl font-bold text-gray-900" id="stat-commits">0</p>
-                    <p class="text-xs text-gray-400" id="stat-commits-filtered"></p>
+                    <p class="text-sm text-gray-500 uppercase tracking-wide">Files Changed</p>
+                    <p class="text-3xl font-bold text-gray-900" id="stat-files">0</p>
+                    <p class="text-xs text-gray-400" id="stat-files-sub"></p>
+                </div>
+                <div class="card">
+                    <p class="text-sm text-gray-500 uppercase tracking-wide">Avg Complexity</p>
+                    <p class="text-3xl font-bold text-gray-900" id="stat-complexity">-</p>
+                    <p class="text-xs text-gray-400" id="stat-complexity-sub"></p>
+                </div>
+                <div class="card">
+                    <p class="text-sm text-gray-500 uppercase tracking-wide">Top Work Type</p>
+                    <p class="text-2xl font-bold text-gray-900" id="stat-top-tag">-</p>
+                    <p class="text-xs text-gray-400" id="stat-top-tag-sub"></p>
                 </div>
                 <div class="card">
                     <p class="text-sm text-gray-500 uppercase tracking-wide">Contributors</p>
                     <p class="text-3xl font-bold text-gray-900" id="stat-contributors">0</p>
-                </div>
-                <div class="card">
-                    <p class="text-sm text-gray-500 uppercase tracking-wide">Lines Added</p>
-                    <p class="text-3xl font-bold text-green-600" id="stat-additions">0</p>
-                </div>
-                <div class="card">
-                    <p class="text-sm text-gray-500 uppercase tracking-wide">Lines Removed</p>
-                    <p class="text-3xl font-bold text-red-600" id="stat-deletions">0</p>
                 </div>
             </div>
 
@@ -264,24 +266,24 @@
                 <!-- Quick Stats with Trends -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                     <div class="card">
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Commits</p>
-                        <p class="text-3xl font-bold text-gray-900" id="summary-commits">0</p>
-                        <p class="text-sm mt-1" id="summary-commits-trend"></p>
-                    </div>
-                    <div class="card">
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Active Contributors</p>
-                        <p class="text-3xl font-bold text-gray-900" id="summary-contributors">0</p>
-                        <p class="text-sm mt-1" id="summary-contributors-trend"></p>
-                    </div>
-                    <div class="card">
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Features</p>
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Features Built</p>
                         <p class="text-3xl font-bold text-green-600" id="summary-features">0</p>
                         <p class="text-sm mt-1" id="summary-features-trend"></p>
                     </div>
                     <div class="card">
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Bug Fixes</p>
-                        <p class="text-3xl font-bold text-red-600" id="summary-fixes">0</p>
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Bugs Fixed</p>
+                        <p class="text-3xl font-bold text-amber-600" id="summary-fixes">0</p>
                         <p class="text-sm mt-1" id="summary-fixes-trend"></p>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Avg Complexity</p>
+                        <p class="text-3xl font-bold text-gray-900" id="summary-complexity">-</p>
+                        <p class="text-sm mt-1" id="summary-complexity-trend"></p>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Files Touched</p>
+                        <p class="text-3xl font-bold text-gray-900" id="summary-files">0</p>
+                        <p class="text-sm mt-1" id="summary-files-trend"></p>
                     </div>
                 </div>
 
@@ -630,6 +632,52 @@
             return commit.author?.email || commit.author_id || 'unknown';
         }
 
+        // === Summary Stats ===
+        function updateSummaryStats() {
+            // Files changed - count unique files across all commits
+            const allFiles = new Set();
+            data.commits.forEach(c => {
+                if (c.files) {
+                    c.files.forEach(f => allFiles.add(f.path || f));
+                }
+            });
+            const totalFiles = data.files?.length || allFiles.size || 0;
+            document.getElementById('stat-files').textContent = totalFiles.toLocaleString();
+            document.getElementById('stat-files-sub').textContent = `across ${data.summary.totalCommits} changes`;
+
+            // Average complexity
+            const complexities = data.commits.map(c => c.complexity).filter(c => c != null);
+            if (complexities.length > 0) {
+                const avgComplexity = (complexities.reduce((a, b) => a + b, 0) / complexities.length).toFixed(1);
+                document.getElementById('stat-complexity').textContent = avgComplexity;
+                // Complexity distribution
+                const high = complexities.filter(c => c >= 4).length;
+                const low = complexities.filter(c => c <= 2).length;
+                document.getElementById('stat-complexity-sub').textContent = `${high} complex, ${low} simple`;
+            } else {
+                document.getElementById('stat-complexity').textContent = '-';
+                document.getElementById('stat-complexity-sub').textContent = 'not available';
+            }
+
+            // Top work type (most common tag)
+            const tagCounts = {};
+            data.commits.forEach(c => {
+                getCommitTags(c).forEach(tag => {
+                    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+                });
+            });
+            const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+            if (sortedTags.length > 0) {
+                const [topTag, topCount] = sortedTags[0];
+                const pct = Math.round((topCount / data.commits.length) * 100);
+                document.getElementById('stat-top-tag').textContent = topTag;
+                document.getElementById('stat-top-tag-sub').textContent = `${pct}% of changes`;
+            }
+
+            // Contributors
+            document.getElementById('stat-contributors').textContent = data.summary.totalContributors;
+        }
+
         // === Filter Functions ===
         function getFilteredCommits() {
             if (!data || !data.commits) return [];
@@ -776,11 +824,8 @@
                 `${data.summary.totalCommits} commits from ${data.summary.totalContributors} contributors | ` +
                 `${formatDate(data.summary.dateRange.earliest)} - ${formatDate(data.summary.dateRange.latest)}`;
 
-            // Update stats
-            document.getElementById('stat-commits').textContent = data.summary.totalCommits.toLocaleString();
-            document.getElementById('stat-contributors').textContent = data.summary.totalContributors;
-            document.getElementById('stat-additions').textContent = formatNumber(data.summary.totalAdditions);
-            document.getElementById('stat-deletions').textContent = formatNumber(data.summary.totalDeletions);
+            // Update stats - focus on meaningful metrics
+            updateSummaryStats();
 
             // Populate and setup filters
             populateFilters();
@@ -1382,9 +1427,6 @@
             const previousCommits = getCommitsInRange(data.commits, periods.previous.start, periods.previous.end);
 
             // Count metrics for current period
-            const currentContributors = new Set(currentCommits.map(c => c.author_id || c.author?.email)).size;
-            const previousContributors = new Set(previousCommits.map(c => c.author_id || c.author?.email)).size;
-
             const countTag = (commits, tag) => commits.filter(c =>
                 getCommitTags(c).includes(tag)
             ).length;
@@ -1394,18 +1436,41 @@
             const currentFixes = countTag(currentCommits, 'bugfix');
             const previousFixes = countTag(previousCommits, 'bugfix');
 
-            // Update stats
-            document.getElementById('summary-commits').textContent = currentCommits.length;
-            document.getElementById('summary-commits-trend').innerHTML = getTrendHtml(currentCommits.length, previousCommits.length, periodLabel);
+            // Complexity metrics
+            const getAvgComplexity = (commits) => {
+                const complexities = commits.map(c => c.complexity).filter(c => c != null);
+                return complexities.length > 0
+                    ? (complexities.reduce((a, b) => a + b, 0) / complexities.length)
+                    : 0;
+            };
+            const currentComplexity = getAvgComplexity(currentCommits);
+            const previousComplexity = getAvgComplexity(previousCommits);
 
-            document.getElementById('summary-contributors').textContent = currentContributors;
-            document.getElementById('summary-contributors-trend').innerHTML = getTrendHtml(currentContributors, previousContributors, periodLabel);
+            // Files touched
+            const getFilesCount = (commits) => {
+                const files = new Set();
+                commits.forEach(c => {
+                    if (c.files) c.files.forEach(f => files.add(f.path || f));
+                });
+                return files.size;
+            };
+            const currentFiles = getFilesCount(currentCommits);
+            const previousFiles = getFilesCount(previousCommits);
 
+            // Update stats - focus on what matters
             document.getElementById('summary-features').textContent = currentFeatures;
             document.getElementById('summary-features-trend').innerHTML = getTrendHtml(currentFeatures, previousFeatures, periodLabel);
 
             document.getElementById('summary-fixes').textContent = currentFixes;
             document.getElementById('summary-fixes-trend').innerHTML = getTrendHtml(currentFixes, previousFixes, periodLabel);
+
+            document.getElementById('summary-complexity').textContent = currentComplexity > 0 ? currentComplexity.toFixed(1) : '-';
+            document.getElementById('summary-complexity-trend').innerHTML = currentComplexity > 0
+                ? getTrendHtml(Math.round(currentComplexity * 10), Math.round(previousComplexity * 10), periodLabel)
+                : '<span class="text-gray-400">No data</span>';
+
+            document.getElementById('summary-files').textContent = currentFiles;
+            document.getElementById('summary-files-trend').innerHTML = getTrendHtml(currentFiles, previousFiles, periodLabel);
 
             // Work breakdown chart
             const tagCounts = {};
@@ -1891,20 +1956,20 @@
                 stats.innerHTML = `
                     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
                         <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
-                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Commits</p>
-                            <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-commits').textContent}</p>
+                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Files Changed</p>
+                            <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-files').textContent}</p>
+                        </div>
+                        <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
+                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Avg Complexity</p>
+                            <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-complexity').textContent}</p>
+                        </div>
+                        <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
+                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Top Work Type</p>
+                            <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-top-tag').textContent}</p>
                         </div>
                         <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
                             <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Contributors</p>
                             <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-contributors').textContent}</p>
-                        </div>
-                        <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
-                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Lines Added</p>
-                            <p style="font-size: 24px; font-weight: bold; color: #16a34a;">${document.getElementById('stat-additions').textContent}</p>
-                        </div>
-                        <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
-                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Lines Removed</p>
-                            <p style="font-size: 24px; font-weight: bold; color: #dc2626;">${document.getElementById('stat-deletions').textContent}</p>
                         </div>
                     </div>
                 `;

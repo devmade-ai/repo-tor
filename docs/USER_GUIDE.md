@@ -31,19 +31,20 @@ When you load a data file, the dashboard displays analytics for that repository.
 
 ### Summary Cards
 
-Four cards at the top provide quick metrics:
+Four cards at the top provide meaningful metrics about the work being done:
 
 | Card | What It Shows | What It Means |
 |------|--------------|---------------|
-| **Commits** | Total number of commits | Overall activity level |
+| **Files Changed** | Total unique files modified | Scope of changes across codebase |
+| **Avg Complexity** | Average complexity score (1-5) | How involved the changes are |
+| **Top Work Type** | Most common tag/type of work | Primary focus of development |
 | **Contributors** | Unique contributors | Team size / involvement |
-| **Lines Added** | Total lines added across all commits | Code growth |
-| **Lines Removed** | Total lines removed across all commits | Code churn / cleanup |
 
 **Interpreting the numbers:**
-- High additions with low deletions = growing codebase
-- Roughly equal additions/deletions = refactoring or maintenance phase
-- Lines removed > added = cleanup, simplification, or debt reduction
+- High complexity = significant structural changes, major features
+- Low complexity = small fixes, config changes, simple updates
+- Top work type shows what the team is primarily focused on
+- Files changed indicates breadth of impact across the codebase
 
 ## Dashboard Tabs
 
@@ -59,15 +60,20 @@ The **default tab** designed for executives and managers who need quick, high-le
 
 | Card | What It Shows |
 |------|--------------|
-| **Commits** | Total commits in selected period with trend vs previous |
-| **Active Contributors** | Unique contributors with trend |
-| **Features** | Commits tagged as features with trend |
-| **Bug Fixes** | Commits tagged as bugfix with trend |
+| **Features Built** | New features added in the period with trend |
+| **Bugs Fixed** | Bug fixes completed with trend |
+| **Avg Complexity** | Average complexity of changes with trend |
+| **Files Touched** | Unique files modified with trend |
 
 Trend indicators:
-- **↑ Green** = Increase vs previous period (good for commits/features)
+- **↑ Green** = Increase vs previous period
 - **↓ Red** = Decrease vs previous period
 - Percentage shows relative change
+
+**What to focus on:**
+- Features vs fixes ratio indicates development vs maintenance mode
+- Complexity trending up may signal larger architectural changes
+- Files touched shows breadth of work across the codebase
 
 **Work Breakdown**
 - Doughnut chart showing top 5 tag categories for the period
