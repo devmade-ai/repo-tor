@@ -252,32 +252,43 @@ Started full extraction with AI analysis. Progress:
 | social-ad-creator | 156 | ⏳ Pending |
 | model-pear | 302 | ⏳ Pending |
 
-**To continue:** Run `@data hatch the chicken` to finish remaining repos.
+**To continue:** Run `@data feed the chicken` to continue from checkpoint.
 
 ## Latest Change
 
-### New Extraction Architecture (2026-01-19)
+### Checkpoint-Based Batch Processing (2026-01-19)
 
-Redesigned the extraction system with two triggers and persistent AI-analyzed data:
+Added checkpoint system to EXTRACTION_PLAYBOOK.md for resilient batch processing:
 
-**New architecture:**
-- `processed/` folder is source of truth (AI-analyzed commits, committed to git)
-- `reports/` folder removed (was ephemeral anyway)
-- Dashboard data generated from `processed/`
-- Deleted `scripts/tag-commits.js` (AI analyzes directly, no script)
+**Key changes:**
+- Process in batches of 50 commits
+- `checkpoint.json` tracks progress per repo (last SHA, count)
+- Commit after each batch - session interruptions don't lose work
+- "feed the chicken" resumes from checkpoint if incomplete
 
-**Two triggers:**
-| Trigger | Action |
-|---------|--------|
-| "hatch the chicken" | Full reset - delete all, AI analyzes ALL commits |
-| "feed the chicken" | Incremental - AI analyzes only NEW commits |
-
-**Flow:**
+**Checkpoint file format:**
+```json
+{
+  "last_processed_sha": "abc123",
+  "processed_count": 50,
+  "total_count": 302,
+  "last_updated": "2026-01-19T15:30:00Z"
+}
 ```
-repos → extract (ephemeral) → AI tag per repo → processed/ (persistent) → aggregate → dashboard
-```
 
-**Key benefit:** Incremental processing - don't redo all 586 commits, only process new ones.
+**Benefits:**
+- Resilient: Can stop/resume anytime
+- Incremental: Only process what's needed
+- Traceable: Know exactly where processing left off
+
+### Previous: New Extraction Architecture (2026-01-19)
+
+Two-trigger system with persistent AI-analyzed data:
+
+- `processed/` folder is source of truth (committed to git)
+- "hatch the chicken" = full reset, process ALL commits
+- "feed the chicken" = incremental, process NEW commits only
+- Deleted `scripts/tag-commits.js` (AI analyzes directly)
 
 ## Last Completed
 

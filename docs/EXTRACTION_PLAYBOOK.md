@@ -20,6 +20,38 @@ Two-stage process with persistent storage of AI-analyzed commits:
 | **"hatch the chicken"** | Full reset - delete everything, extract all repos, AI analyzes ALL commits, save to `processed/`, aggregate to dashboard |
 | **"feed the chicken"** | Incremental - extract repos, AI analyzes only NEW commits (not in `processed/`), update `processed/`, re-aggregate |
 
+## Batch Processing Strategy
+
+Processing commits in batches with checkpoints for resilience:
+
+### Batch Size
+- Process **50 commits per batch** (balance between progress and context limits)
+- After each batch: write to `processed/`, commit changes
+- If session ends mid-processing, work is saved
+
+### Checkpoint System
+Each repo tracks progress via `processed/<repo>/checkpoint.json`:
+
+```json
+{
+  "last_processed_sha": "abc123def456",
+  "processed_count": 150,
+  "total_count": 302,
+  "last_updated": "2026-01-19T15:30:00Z"
+}
+```
+
+### Resume Logic
+1. Read `checkpoint.json` for each repo
+2. If `processed_count < total_count`, continue from checkpoint
+3. Skip commits already in `commits.json`
+4. Process next batch, update checkpoint, commit
+
+### Benefits
+- **Resilient**: Session interruptions don't lose work
+- **Incremental**: Can stop and continue anytime
+- **Traceable**: Know exactly where processing left off
+
 ## File Structure
 
 ```
@@ -27,6 +59,7 @@ processed/                    # Source of truth (committed to git)
   <repo-name>/
     commits.json              # AI-analyzed commits
     metadata.json             # Repo metadata
+    checkpoint.json           # Progress tracker for batch processing
 config/
   repos.json                  # Tracked repositories
   author-map.json             # Author identity mapping
@@ -66,21 +99,36 @@ scripts/update-all.sh
 
 This puts raw repo data in `.repo-cache/`.
 
-### Step 3: AI Analyze Each Repository
+### Step 3: AI Analyze Each Repository (Batched)
 
-For each repository, process ALL commits:
+For each repository, process in batches of 50 commits:
 
-1. Read commits from the extracted data
+**Per batch:**
+1. Read next 50 unprocessed commits
 2. For each commit:
    - Read the full commit message
    - Assign tags based on guidelines below
    - Calculate complexity score
-3. Save to `processed/<repo-name>/commits.json`
+3. Append to `processed/<repo-name>/commits.json`
+4. Update `processed/<repo-name>/checkpoint.json`
+5. Commit changes: `git commit -m "chore: process <repo> batch N/M"`
 
-**Verification:**
+**Repeat until all commits processed.**
+
+**Checkpoint file format:**
+```json
+{
+  "last_processed_sha": "<sha of last commit in batch>",
+  "processed_count": 50,
+  "total_count": 302,
+  "last_updated": "2026-01-19T15:30:00Z"
+}
+```
+
+**Verification per repo:**
 - [ ] Every commit has at least one tag
 - [ ] Every commit has complexity 1-5
-- [ ] Total commits processed matches total in repo
+- [ ] `checkpoint.json` shows `processed_count == total_count`
 
 ### Step 4: Aggregate to Dashboard
 
@@ -102,44 +150,56 @@ git push
 
 ## Feed the Chicken (Incremental)
 
-Use when: Adding new commits to existing processed data.
+Use when: Adding new commits OR resuming interrupted processing.
 
-### Step 1: Extract Fresh Data
+### Step 1: Check Current State
+
+For each repository, read `processed/<repo>/checkpoint.json`:
+- If `processed_count < total_count`: Resume from checkpoint
+- If no checkpoint: Check for new commits since last extraction
+
+### Step 2: Extract Fresh Data
 
 ```bash
 scripts/update-all.sh
 ```
 
-### Step 2: Find New Commits
+### Step 3: Find Unprocessed Commits
 
 For each repository:
 
-1. Load existing `processed/<repo>/commits.json`
-2. Get list of processed commit hashes
+1. Load existing `processed/<repo>/commits.json` (if exists)
+2. Get set of processed commit SHAs
 3. Compare against freshly extracted commits
-4. Identify commits NOT in processed (these are new)
+4. Identify commits NOT in processed (these need analysis)
 
-### Step 3: AI Analyze New Commits Only
+### Step 4: AI Analyze in Batches
 
-For each NEW commit:
+Process 50 commits per batch:
 
-1. Read the full commit message
-2. Assign tags based on guidelines below
-3. Calculate complexity score
-4. Append to `processed/<repo>/commits.json`
+**Per batch:**
+1. Read next 50 unprocessed commits
+2. For each commit: assign tags + complexity
+3. Append to `processed/<repo>/commits.json`
+4. Update `processed/<repo>/checkpoint.json`
+5. Commit: `git commit -m "chore: feed <repo> batch N"`
+
+**Stop when:**
+- All commits processed, OR
+- User requests to stop (work is saved at last checkpoint)
 
 **Verification:**
 - [ ] Only new commits were analyzed
 - [ ] Existing commits unchanged
-- [ ] New commits have tags and complexity
+- [ ] Checkpoint reflects current progress
 
-### Step 4: Re-aggregate to Dashboard
+### Step 5: Re-aggregate to Dashboard
 
 ```bash
 node scripts/aggregate.js
 ```
 
-### Step 5: Commit Changes
+### Step 6: Commit Changes
 
 ```bash
 git add processed/ dashboard/
@@ -295,4 +355,4 @@ Based on files changed and tag count:
 
 ---
 
-*Last updated: 2026-01-19 - New architecture with processed/ folder and two triggers*
+*Last updated: 2026-01-19 - Added checkpoint-based batch processing for resilience*
