@@ -226,6 +226,42 @@ Updated `scripts/aggregate.js` for tag-aware aggregation:
 - Fix: Added step to copy `dashboard/data.json` to `_site/data.json`
 - Now `fetch('data.json')` resolves correctly on the deployed site
 
+### Dashboard Cleanup - Remove Vanity Elements
+
+Removed all vanity metrics and charts from the dashboard:
+
+**Progress Tab:**
+- Removed: Monthly Commit Volume chart
+- Removed: Cumulative Growth (Lines of Code) chart
+- Added: Complexity Over Time chart (avg complexity by month)
+- Kept: Feature vs Bug Fix Trend
+
+**Contributors Tab - Complete Rework:**
+- Removed: Commits by Contributor chart
+- Removed: Lines Changed by Contributor chart
+- Removed: Contributor Details list (showed commits + lines)
+- Added: "Who Does What" - work type breakdown per contributor
+- Added: Complexity by Contributor chart
+
+**Timeline Tab:**
+- Removed: Commit Timeline chart (just showed daily counts)
+- Removed: +/- lines display from commit list
+- Added: Complexity badge (1-5) on each commit
+- Increased visible commits from 50 to 100
+
+**Summary Tab Highlights:**
+- Removed: "Top Contributor" (vanity)
+- Removed: "Busiest Day" (vanity)
+- Added: "Complex Changes" (high vs simple count)
+- Added: "Quality Work" (refactors + tests count)
+- Kept: "Most Active Repo" (for aggregated data)
+- Kept: "Off-Hours Work" (burnout indicator)
+
+**Summary Tab Activity Snapshot:**
+- Removed: "Avg commits/day" (vanity)
+- Added: "Complex" count
+- Kept: After-hours, Weekend, Holiday (burnout indicators)
+
 ### Metrics Overhaul - Focus on What Matters
 
 Replaced vanity metrics (commits, lines of code) with meaningful work metrics:

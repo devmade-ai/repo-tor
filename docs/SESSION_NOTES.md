@@ -21,21 +21,27 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Dashboard Vanity Cleanup (2026-01-19)
+
+Audited every UI element and removed all vanity metrics:
+
+**Removed:**
+- Monthly Commit Volume chart, Cumulative Lines chart
+- Commits by Contributor, Lines by Contributor charts
+- Commit Timeline chart, +/- lines on commits
+- "Top Contributor", "Busiest Day", "Avg commits/day"
+
+**Added/Reworked:**
+- Complexity Over Time chart (Progress tab)
+- Who Does What - work types per contributor
+- Complexity by Contributor chart
+- Complexity badge on commits
+- "Complex Changes" and "Quality Work" highlights
+
 ### Metrics Overhaul (2026-01-19)
 
-Replaced vanity metrics with meaningful work metrics per discovery findings:
-
-**Summary Cards:**
-- Lines Added → Files Changed
-- Lines Removed → Avg Complexity
-- Commits → Top Work Type
-
-**Executive Summary:**
-- Commits → Features Built
-- Contributors → Bugs Fixed
-- Added Complexity + Files Touched with trends
-
-The dashboard now focuses on what matters: type of work, complexity, and scope rather than meaningless line counts.
+Summary cards now show: Files Changed, Avg Complexity, Top Work Type, Contributors
+Executive summary shows: Features Built, Bugs Fixed, Complexity, Files Touched
 
 ### Export and Share Features (2026-01-19)
 

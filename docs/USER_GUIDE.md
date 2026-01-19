@@ -112,29 +112,17 @@ The filter bar allows you to narrow down commits:
 | **Repo** | Show only commits from a specific repository (aggregated data only) |
 | **From/To** | Show commits within a date range |
 
-- Filters apply to both the chart and commit list
-- The "Showing X of Y commits" counter updates as you filter
+- Filters apply to the changes list
+- The counter shows how many changes match current filters
 - Click "Clear Filters" to reset all filters
 
-**Commit Timeline Chart**
-- Bar chart showing commits per day
-- Taller bars = more activity that day
-- Gaps indicate periods of inactivity
-- Chart updates when filters are applied
-
-**What to look for:**
-- Consistent activity vs sporadic bursts
-- Unusual spikes (release pushes, deadline crunches)
-- Quiet periods (holidays, blocked work)
-- Filter by author to see individual contribution patterns
-
-**Recent Commits List**
-- Shows up to 50 commits matching current filters
-- Each commit displays:
+**Changes List**
+- Shows up to 100 changes matching current filters
+- Each change displays:
   - **Tag badges** (color-coded, up to 3 shown with +N overflow)
   - **Subject** - The commit message summary
-  - **Metadata** - SHA, author, date, repo (if aggregated)
-  - **Line changes** - Green (+) additions, red (-) deletions
+  - **Complexity** - Score from 1-5 (purple = high, blue = medium, gray = low)
+  - **Metadata** - Author, date, repo (if aggregated)
   - **Work pattern badges** - Indicators for when the commit was made
 
 **Work Pattern Badges**
@@ -156,67 +144,49 @@ The legend in the filter bar explains these badges. A commit can have multiple b
 
 ### Progress Tab
 
-Shows **how** the project is evolving over time.
+Shows **how** work is evolving over time.
 
-**Monthly Commit Volume**
-- Bar chart of commits per month
-- Shows overall development pace
-- Useful for identifying trends (ramping up, slowing down)
-
-**What to look for:**
-- Upward trend = increasing activity
-- Downward trend = maintenance mode or reduced resources
-- Seasonal patterns = release cycles, budget years
-
-**Cumulative Growth (Lines of Code)**
-- Line chart showing net lines over time (additions minus deletions)
-- Represents codebase size evolution
-
-**What to look for:**
-- Steady upward slope = consistent growth
-- Steep increases = major feature additions
-- Flat or declining = refactoring, removing code, or low activity
-- Sudden drops = large deletions (removed modules, cleanup)
-
-**Feature vs Bug Fix Trend**
-- Two overlapping line charts:
-  - **Green** = Features (`feature` tag)
-  - **Red** = Bug fixes (`bugfix` tag)
-- Shows monthly counts of each tag
+**Work Type Trend**
+- Two overlapping line charts showing features vs bug fixes by month
+- **Green** = Features (`feature` tag)
+- **Red** = Bug fixes (`bugfix` tag)
 
 **What to look for:**
 - Features > fixes = growth phase, adding capabilities
 - Fixes > features = stabilization phase, quality focus
-- Parallel lines = balanced development
 - Fix spikes after feature spikes = common pattern (new code has bugs)
-- Sustained high fixes = potential quality issues
+
+**Complexity Over Time**
+- Line chart showing average complexity (1-5 scale) by month
+- Purple line with filled area
+
+**What to look for:**
+- Rising complexity = larger architectural changes
+- Falling complexity = simpler maintenance work
+- Spikes = major refactoring or feature work
 
 ### Contributors Tab
 
-Shows **who** is contributing and **how much**.
+Shows **who does what kind of work**.
 
-**Commits by Contributor**
-- Horizontal bar chart of commit counts
-- Shows top 10 contributors
-- Indicates activity distribution
-
-**Lines Changed by Contributor**
-- Horizontal bar chart of total lines touched (additions + deletions)
-- Different perspective than commit count
-
-**Why both matter:**
-- High commits + low lines = many small changes (docs, config, small fixes)
-- Low commits + high lines = large feature work, major refactors
-- Balanced = typical development work
-
-**Contributor Details**
-- Full list of all contributors
-- Shows name, email, commit count, and line changes
+**Who Does What**
+- Work type breakdown per contributor
+- Shows percentage bars for each tag type (feature, bugfix, refactor, etc.)
+- Top 8 contributors displayed
 
 **What to look for:**
-- Bus factor: Is work concentrated in one person?
-- Engagement: Are all team members contributing?
-- Specialists: Who works on what (by examining their commits)?
+- Who focuses on features vs fixes
+- Specialists vs generalists
+- Distribution of quality work (refactors, tests)
+
+**Complexity by Contributor**
+- Horizontal bar chart showing average complexity per person
+- Purple = high complexity, Blue = medium, Gray = low
+
+**What to look for:**
+- Who handles complex vs simple changes
+- Complexity distribution across team
+- Potential overload on one person for complex work
 
 ### Security Tab
 

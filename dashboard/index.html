@@ -355,62 +355,44 @@
                     </div>
                 </div>
 
-                <div class="card mb-6">
-                    <h2 class="text-lg font-semibold mb-4">Commit Timeline</h2>
-                    <div class="h-48 md:h-64">
-                        <canvas id="timeline-chart"></canvas>
-                    </div>
-                </div>
                 <div class="card">
                     <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-lg font-semibold">Recent Commits</h2>
+                        <h2 class="text-lg font-semibold">Changes</h2>
                         <span id="commit-count" class="text-sm text-gray-500"></span>
                     </div>
-                    <div id="commit-list" class="space-y-3 max-h-96 overflow-y-auto"></div>
+                    <div id="commit-list" class="space-y-3 max-h-[600px] overflow-y-auto"></div>
                 </div>
             </div>
 
             <div id="tab-progress" class="tab-content hidden">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Monthly Commit Volume</h2>
-                        <div class="h-64">
-                            <canvas id="monthly-chart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Cumulative Growth (Lines of Code)</h2>
-                        <div class="h-64">
-                            <canvas id="growth-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mt-6">
-                    <h2 class="text-lg font-semibold mb-4">Feature vs Bug Fix Trend</h2>
+                <div class="card mb-6">
+                    <h2 class="text-lg font-semibold mb-4">Work Type Trend</h2>
+                    <p class="text-xs text-gray-500 -mt-2 mb-4">Features vs bug fixes over time</p>
                     <div class="h-64">
                         <canvas id="feat-fix-chart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2 class="text-lg font-semibold mb-4">Complexity Over Time</h2>
+                    <p class="text-xs text-gray-500 -mt-2 mb-4">Average complexity by month</p>
+                    <div class="h-64">
+                        <canvas id="complexity-trend-chart"></canvas>
                     </div>
                 </div>
             </div>
 
             <div id="tab-contributors" class="tab-content hidden">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Commits by Contributor</h2>
-                        <div class="h-64">
-                            <canvas id="contributors-chart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Lines Changed by Contributor</h2>
-                        <div class="h-64">
-                            <canvas id="contributors-lines-chart"></canvas>
-                        </div>
-                    </div>
+                <div class="card mb-6">
+                    <h2 class="text-lg font-semibold mb-4">Who Does What</h2>
+                    <p class="text-xs text-gray-500 -mt-2 mb-4">Work type distribution by contributor</p>
+                    <div id="contributor-work-types" class="space-y-4"></div>
                 </div>
-                <div class="card mt-6">
-                    <h2 class="text-lg font-semibold mb-4">Contributor Details</h2>
-                    <div id="contributor-list" class="space-y-3"></div>
+                <div class="card">
+                    <h2 class="text-lg font-semibold mb-4">Complexity by Contributor</h2>
+                    <p class="text-xs text-gray-500 -mt-2 mb-4">Who handles complex vs simple changes</p>
+                    <div class="h-64">
+                        <canvas id="contributor-complexity-chart"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -871,59 +853,21 @@
         function renderTimeline() {
             const filteredCommits = getFilteredCommits();
 
-            // Aggregate commits by date
-            const byDate = {};
-            filteredCommits.forEach(commit => {
-                const date = commit.timestamp.substring(0, 10);
-                if (!byDate[date]) byDate[date] = [];
-                byDate[date].push(commit);
-            });
-
-            const dates = Object.keys(byDate).sort().reverse(); // Newest at top
-            const counts = dates.map(d => byDate[d].length);
-
-            // Timeline Chart (horizontal bar)
-            if (charts.timeline) charts.timeline.destroy();
-            charts.timeline = new Chart(document.getElementById('timeline-chart'), {
-                type: 'bar',
-                data: {
-                    labels: dates.map(d => d.substring(5)), // MM-DD format
-                    datasets: [{
-                        label: 'Commits',
-                        data: counts,
-                        backgroundColor: '#3b82f6',
-                        borderRadius: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: {
-                            ticks: {
-                                autoSkip: true,
-                                maxTicksLimit: 12
-                            }
-                        },
-                        x: { beginAtZero: true }
-                    }
-                }
-            });
-
-            // Update commit count
+            // Update count
             document.getElementById('commit-count').textContent =
-                `Showing ${Math.min(filteredCommits.length, 50)} of ${filteredCommits.length} commits`;
+                `Showing ${Math.min(filteredCommits.length, 100)} of ${filteredCommits.length}`;
 
-            // Commit List
-            const listHtml = filteredCommits.slice(0, 50).map(commit => {
+            // Commit List - show tags, complexity, work patterns (no +/- lines)
+            const listHtml = filteredCommits.slice(0, 100).map(commit => {
                 const tags = getCommitTags(commit);
                 const tagBadges = tags.slice(0, 3).map(t =>
                     `<span class="tag ${getTagClass(t)} shrink-0">${t}</span>`
                 ).join(' ');
                 const extraTags = tags.length > 3 ? `<span class="tag tag-other shrink-0">+${tags.length - 3}</span>` : '';
                 const workPatternBadges = getWorkPatternBadges(commit);
+                const complexityBadge = commit.complexity != null
+                    ? `<span class="text-xs px-1.5 py-0.5 rounded ${commit.complexity >= 4 ? 'bg-purple-100 text-purple-700' : commit.complexity >= 2 ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}">${commit.complexity}/5</span>`
+                    : '';
 
                 return `
                 <div class="p-3 bg-gray-50 rounded-lg">
@@ -934,105 +878,39 @@
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-medium text-gray-900 break-words sm:truncate">${escapeHtml(commit.subject)}</p>
                         </div>
-                        <span class="text-xs text-gray-400 shrink-0 hidden sm:inline">
-                            <span class="text-green-600">+${commit.stats?.additions || 0}</span>
-                            <span class="text-red-600">-${commit.stats?.deletions || 0}</span>
-                        </span>
+                        ${complexityBadge}
                     </div>
                     <div class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-500">
-                        <span class="font-mono">${commit.sha}</span>
-                        <span class="hidden sm:inline">by</span>
-                        <span class="sm:hidden">·</span>
                         <span>${escapeHtml(getAuthorName(commit))}</span>
-                        <span class="hidden sm:inline">on</span>
-                        <span class="sm:hidden">·</span>
+                        <span>·</span>
                         <span>${formatDate(commit.timestamp)}</span>
-                        ${commit.repo_id ? `<span class="text-gray-400">in ${commit.repo_id}</span>` : ''}
+                        ${commit.repo_id ? `<span class="text-gray-400">· ${commit.repo_id}</span>` : ''}
                         ${workPatternBadges ? `<span class="ml-1">${workPatternBadges}</span>` : ''}
-                        <span class="sm:hidden text-gray-400">
-                            <span class="text-green-600">+${commit.stats?.additions || 0}</span>
-                            <span class="text-red-600">-${commit.stats?.deletions || 0}</span>
-                        </span>
                     </div>
                 </div>
             `}).join('');
-            document.getElementById('commit-list').innerHTML = listHtml || '<p class="text-gray-500">No commits match the current filters</p>';
+            document.getElementById('commit-list').innerHTML = listHtml || '<p class="text-gray-500">No changes match the current filters</p>';
         }
 
         // === Progress Tab ===
         function renderProgress() {
             const months = Object.keys(data.summary.monthlyCommits).sort();
-            const monthlyTotals = months.map(m => data.summary.monthlyCommits[m].total);
-
-            // Monthly Commits Chart
-            if (charts.monthly) charts.monthly.destroy();
-            charts.monthly = new Chart(document.getElementById('monthly-chart'), {
-                type: 'bar',
-                data: {
-                    labels: months,
-                    datasets: [{
-                        label: 'Commits',
-                        data: monthlyTotals,
-                        backgroundColor: '#3b82f6'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            // Cumulative Growth Chart
-            const sortedCommits = [...data.commits].sort((a, b) =>
-                new Date(a.timestamp) - new Date(b.timestamp)
-            );
-
-            let cumulative = 0;
-            const growthData = [];
-            const growthLabels = [];
-
-            sortedCommits.forEach((commit, i) => {
-                cumulative += commit.stats.additions - commit.stats.deletions;
-                if (i % Math.max(1, Math.floor(sortedCommits.length / 50)) === 0) {
-                    growthLabels.push(commit.timestamp.substring(0, 10));
-                    growthData.push(cumulative);
-                }
-            });
-
-            if (charts.growth) charts.growth.destroy();
-            charts.growth = new Chart(document.getElementById('growth-chart'), {
-                type: 'line',
-                data: {
-                    labels: growthLabels,
-                    datasets: [{
-                        label: 'Net Lines',
-                        data: growthData,
-                        borderColor: '#10b981',
-                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                        fill: true,
-                        tension: 0.3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { ticks: { maxTicksLimit: 10 } }
-                    }
-                }
-            });
 
             // Feature vs Bug Fix Trend
             const monthlyTagCounts = {};
+            const monthlyComplexity = {};
             data.commits.forEach(commit => {
                 const month = commit.timestamp?.substring(0, 7);
                 if (!month) return;
                 if (!monthlyTagCounts[month]) monthlyTagCounts[month] = { feature: 0, bugfix: 0 };
+                if (!monthlyComplexity[month]) monthlyComplexity[month] = { total: 0, count: 0 };
                 const tags = getCommitTags(commit);
                 if (tags.includes('feature')) monthlyTagCounts[month].feature++;
                 if (tags.includes('bugfix')) monthlyTagCounts[month].bugfix++;
+                if (commit.complexity != null) {
+                    monthlyComplexity[month].total += commit.complexity;
+                    monthlyComplexity[month].count++;
+                }
             });
             const featData = months.map(m => monthlyTagCounts[m]?.feature || 0);
             const fixData = months.map(m => monthlyTagCounts[m]?.bugfix || 0);
@@ -1066,72 +944,127 @@
                     maintainAspectRatio: false
                 }
             });
+
+            // Complexity Over Time
+            const complexityData = months.map(m => {
+                const mc = monthlyComplexity[m];
+                return mc && mc.count > 0 ? (mc.total / mc.count) : null;
+            });
+
+            if (charts.complexityTrend) charts.complexityTrend.destroy();
+            charts.complexityTrend = new Chart(document.getElementById('complexity-trend-chart'), {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'Avg Complexity',
+                        data: complexityData,
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        spanGaps: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            min: 1,
+                            max: 5,
+                            ticks: { stepSize: 1 }
+                        }
+                    }
+                }
+            });
         }
 
         // === Contributors Tab ===
         function renderContributors() {
-            const top10 = data.contributors.slice(0, 10);
-            const names = top10.map(c => c.primaryName);
-            const commits = top10.map(c => c.commits);
-            const lines = top10.map(c => c.additions + c.deletions);
+            // Build per-contributor stats from commits
+            const contributorStats = {};
+            data.commits.forEach(commit => {
+                const email = getAuthorEmail(commit);
+                const name = getAuthorName(commit);
+                if (!contributorStats[email]) {
+                    contributorStats[email] = {
+                        name,
+                        email,
+                        tags: {},
+                        complexities: []
+                    };
+                }
+                getCommitTags(commit).forEach(tag => {
+                    contributorStats[email].tags[tag] = (contributorStats[email].tags[tag] || 0) + 1;
+                });
+                if (commit.complexity != null) {
+                    contributorStats[email].complexities.push(commit.complexity);
+                }
+            });
 
-            // Commits by Contributor
-            if (charts.contributors) charts.contributors.destroy();
-            charts.contributors = new Chart(document.getElementById('contributors-chart'), {
+            // Sort by total changes
+            const sorted = Object.values(contributorStats).sort((a, b) => {
+                const aTotal = Object.values(a.tags).reduce((s, v) => s + v, 0);
+                const bTotal = Object.values(b.tags).reduce((s, v) => s + v, 0);
+                return bTotal - aTotal;
+            });
+
+            // Who Does What - work type breakdown per contributor
+            const workTypesHtml = sorted.slice(0, 8).map(c => {
+                const totalTags = Object.values(c.tags).reduce((s, v) => s + v, 0);
+                const tagBars = Object.entries(c.tags)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5)
+                    .map(([tag, count]) => {
+                        const pct = Math.round((count / totalTags) * 100);
+                        return `<div class="flex items-center gap-2">
+                            <span class="tag tag-${tag} text-xs">${tag}</span>
+                            <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                <div class="h-2 rounded-full" style="width: ${pct}%; background-color: ${getTagColor(tag)}"></div>
+                            </div>
+                            <span class="text-xs text-gray-500 w-8">${pct}%</span>
+                        </div>`;
+                    }).join('');
+                return `
+                    <div class="p-3 bg-gray-50 rounded-lg">
+                        <p class="font-medium text-gray-900 mb-2">${escapeHtml(c.name)}</p>
+                        <div class="space-y-1">${tagBars}</div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('contributor-work-types').innerHTML = workTypesHtml || '<p class="text-gray-500">No contributor data</p>';
+
+            // Complexity by Contributor chart
+            const top8 = sorted.slice(0, 8);
+            const names = top8.map(c => c.name);
+            const avgComplexities = top8.map(c => {
+                if (c.complexities.length === 0) return 0;
+                return c.complexities.reduce((a, b) => a + b, 0) / c.complexities.length;
+            });
+
+            if (charts.contributorComplexity) charts.contributorComplexity.destroy();
+            charts.contributorComplexity = new Chart(document.getElementById('contributor-complexity-chart'), {
                 type: 'bar',
                 data: {
                     labels: names,
                     datasets: [{
-                        label: 'Commits',
-                        data: commits,
-                        backgroundColor: '#8b5cf6'
+                        label: 'Avg Complexity',
+                        data: avgComplexities,
+                        backgroundColor: avgComplexities.map(c => c >= 3.5 ? '#8b5cf6' : c >= 2.5 ? '#3b82f6' : '#94a3b8')
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     indexAxis: 'y',
-                    plugins: { legend: { display: false } }
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { min: 0, max: 5, ticks: { stepSize: 1 } }
+                    }
                 }
             });
-
-            // Lines by Contributor
-            if (charts.contributorsLines) charts.contributorsLines.destroy();
-            charts.contributorsLines = new Chart(document.getElementById('contributors-lines-chart'), {
-                type: 'bar',
-                data: {
-                    labels: names,
-                    datasets: [{
-                        label: 'Lines Changed',
-                        data: lines,
-                        backgroundColor: '#f59e0b'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            // Contributor List
-            const listHtml = data.contributors.map(c => `
-                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                    <div>
-                        <p class="font-medium text-gray-900">${escapeHtml(c.primaryName)}</p>
-                        <p class="text-xs text-gray-500">${escapeHtml(c.email)}${c.repos ? ` (${c.repos.length} repos)` : ''}</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-sm font-semibold">${c.commits} commits</p>
-                        <p class="text-xs text-gray-500">
-                            <span class="text-green-600">+${formatNumber(c.additions)}</span>
-                            <span class="text-red-600">-${formatNumber(c.deletions)}</span>
-                        </p>
-                    </div>
-                </div>
-            `).join('');
-            document.getElementById('contributor-list').innerHTML = listHtml;
         }
 
         // === Security Tab ===
@@ -1500,36 +1433,17 @@
                 }
             });
 
-            // Key highlights
+            // Key highlights - focus on meaningful insights
             const highlights = [];
 
-            // Most active contributor
-            const contributorCounts = {};
-            currentCommits.forEach(c => {
-                const author = getAuthorName(c);
-                contributorCounts[author] = (contributorCounts[author] || 0) + 1;
-            });
-            const topContributor = Object.entries(contributorCounts).sort((a, b) => b[1] - a[1])[0];
-            if (topContributor) {
+            // Complexity breakdown
+            const complexChanges = currentCommits.filter(c => c.complexity >= 4).length;
+            const simpleChanges = currentCommits.filter(c => c.complexity != null && c.complexity <= 2).length;
+            if (complexChanges > 0 || simpleChanges > 0) {
                 highlights.push({
-                    icon: '👤',
-                    label: 'Top Contributor',
-                    value: `${topContributor[0]} (${topContributor[1]} commits)`
-                });
-            }
-
-            // Busiest day
-            const dayCounts = {};
-            currentCommits.forEach(c => {
-                const day = c.timestamp.substring(0, 10);
-                dayCounts[day] = (dayCounts[day] || 0) + 1;
-            });
-            const busiestDay = Object.entries(dayCounts).sort((a, b) => b[1] - a[1])[0];
-            if (busiestDay) {
-                highlights.push({
-                    icon: '📅',
-                    label: 'Busiest Day',
-                    value: `${formatDate(busiestDay[0])} (${busiestDay[1]} commits)`
+                    label: 'Complex Changes',
+                    value: `${complexChanges} high complexity`,
+                    subvalue: `${simpleChanges} simple`
                 });
             }
 
@@ -1543,46 +1457,53 @@
             const repos = Object.keys(repoCounts);
             if (repos.length > 1) {
                 const topRepo = Object.entries(repoCounts).sort((a, b) => b[1] - a[1])[0];
+                const topPct = Math.round((topRepo[1] / currentCommits.length) * 100);
                 highlights.push({
-                    icon: '📁',
                     label: 'Most Active Repo',
-                    value: `${topRepo[0]} (${topRepo[1]} commits)`
+                    value: topRepo[0],
+                    subvalue: `${topPct}% of work`
                 });
             }
 
-            // After-hours percentage
+            // Work pattern summary
             const afterHoursCount = currentCommits.filter(c => getWorkPattern(c).isAfterHours).length;
+            const weekendCount = currentCommits.filter(c => getWorkPattern(c).isWeekend).length;
             const afterHoursPct = currentCommits.length > 0
                 ? Math.round((afterHoursCount / currentCommits.length) * 100)
                 : 0;
-            highlights.push({
-                icon: '🌙',
-                label: 'After-Hours Work',
-                value: `${afterHoursPct}% of commits`
-            });
+            if (afterHoursPct > 0 || weekendCount > 0) {
+                highlights.push({
+                    label: 'Off-Hours Work',
+                    value: `${afterHoursPct}% after hours`,
+                    subvalue: `${weekendCount} weekend`
+                });
+            }
 
-            document.getElementById('summary-highlights').innerHTML = highlights.map(h => `
-                <div class="flex items-center gap-3 p-2 bg-gray-50 rounded">
-                    <span class="text-xl">${h.icon}</span>
-                    <div>
-                        <p class="text-xs text-gray-500">${h.label}</p>
-                        <p class="text-sm font-medium">${h.value}</p>
+            // Refactoring ratio
+            const refactorCount = currentCommits.filter(c => getCommitTags(c).includes('refactor')).length;
+            const testCount = currentCommits.filter(c => getCommitTags(c).includes('test')).length;
+            if (refactorCount > 0 || testCount > 0) {
+                highlights.push({
+                    label: 'Quality Work',
+                    value: `${refactorCount} refactors`,
+                    subvalue: `${testCount} tests`
+                });
+            }
+
+            document.getElementById('summary-highlights').innerHTML = highlights.length > 0
+                ? highlights.map(h => `
+                    <div class="p-3 bg-gray-50 rounded">
+                        <p class="text-xs text-gray-500 mb-1">${h.label}</p>
+                        <p class="text-sm font-semibold text-gray-900">${h.value}</p>
+                        ${h.subvalue ? `<p class="text-xs text-gray-500">${h.subvalue}</p>` : ''}
                     </div>
-                </div>
-            `).join('');
+                `).join('')
+                : '<p class="text-gray-500 text-sm">No activity in this period</p>';
 
-            // Activity snapshot
-            const weekendCount = currentCommits.filter(c => getWorkPattern(c).isWeekend).length;
+            // Activity snapshot - work pattern indicators (useful for burnout detection)
             const holidayCount = currentCommits.filter(c => getWorkPattern(c).isHoliday).length;
-            const avgPerDay = currentCommits.length > 0
-                ? (currentCommits.length / Math.max(1, Object.keys(dayCounts).length)).toFixed(1)
-                : 0;
 
             document.getElementById('summary-activity').innerHTML = `
-                <div class="text-center p-3 bg-blue-50 rounded">
-                    <p class="text-2xl font-bold text-blue-600">${avgPerDay}</p>
-                    <p class="text-xs text-gray-500">Avg commits/day</p>
-                </div>
                 <div class="text-center p-3 bg-amber-50 rounded">
                     <p class="text-2xl font-bold text-amber-600">${afterHoursCount}</p>
                     <p class="text-xs text-gray-500">After-hours</p>
@@ -1594,6 +1515,10 @@
                 <div class="text-center p-3 bg-pink-50 rounded">
                     <p class="text-2xl font-bold text-pink-600">${holidayCount}</p>
                     <p class="text-xs text-gray-500">Holiday</p>
+                </div>
+                <div class="text-center p-3 bg-purple-50 rounded">
+                    <p class="text-2xl font-bold text-purple-600">${complexChanges}</p>
+                    <p class="text-xs text-gray-500">Complex</p>
                 </div>
             `;
         }

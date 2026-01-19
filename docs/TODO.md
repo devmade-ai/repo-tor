@@ -81,13 +81,11 @@ Items ordered by priority based on [Discovery Session](DISCOVERY_SESSION.md) (20
 
 ## Lower Priority
 
-### Tag & Complexity Views
+### Tag & Complexity Views - DONE
 
-*Partially addressed - can filter, but could be clearer*
-
-- [ ] Developer Tag Distribution - Who does fixes vs features
-- [ ] Complexity by Author - Who handles complex changes
-- [ ] Complexity by Time - When are complex commits made
+- [x] Developer Tag Distribution - Who does fixes vs features (Contributors tab: "Who Does What")
+- [x] Complexity by Author - Who handles complex changes (Contributors tab: Complexity chart)
+- [x] Complexity by Time - When are complex commits made (Progress tab: Complexity Over Time)
 
 ### Visual Polish
 
