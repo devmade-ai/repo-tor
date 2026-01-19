@@ -9,11 +9,25 @@ Current state and context for AI assistants to pick up where the last session le
 - GitHub Pages deployment workflow configured
 - Schema alignment complete (author_id, is_conventional, security_events)
 - Multiple data file loading complete
-- Sample data auto-loads on GitHub Pages (data.json in dashboard folder)
+- Multi-repo management via `config/repos.json` and `scripts/update-all.sh`
 - Live dashboard: https://devmade-ai.github.io/repo-tor/
 - Documentation split into User Guide (UI/interpretation) and Admin Guide (setup/extraction)
 
+### Tracked Repos (config/repos.json)
+- social-ad-creator (156 commits, 3 contributors)
+- model-pear (302 commits, 4 contributors)
+- repo-tor (32 commits, 3 contributors)
+
 ## Last Completed
+
+### Multi-Repo Admin Setup (2026-01-19)
+
+- Created `config/repos.json` to track repository URLs
+- Created `scripts/update-all.sh` to automate extraction and aggregation
+- Added social-ad-creator and model-pear repos
+- Aggregated all 3 repos into dashboard/data.json (490 total commits)
+- Updated ADMIN_GUIDE.md with managed repos workflow
+- Simplified .gitignore: track all reports/, ignore .repo-cache/
 
 ### Timeline Horizontal Bar Chart (2026-01-18)
 

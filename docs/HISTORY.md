@@ -28,6 +28,22 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-19
 
+### Multi-Repo Admin Setup
+
+- Created `config/repos.json` - Central config file tracking repository URLs
+  - Stores name, URL, and date added for each repo
+  - Enables reproducible extraction without re-providing URLs
+- Created `scripts/update-all.sh` - Automated update script
+  - Reads repos from `config/repos.json`
+  - Clones new repos to `.repo-cache/` (gitignored)
+  - Pulls updates for existing repos
+  - Runs extraction on each repo
+  - Aggregates all data into `dashboard/data.json`
+  - Supports `--fresh` flag to re-clone everything
+- Added repos: social-ad-creator (156 commits), model-pear (302 commits)
+- Updated `docs/ADMIN_GUIDE.md` with managed repos workflow
+- Simplified `.gitignore`: track all `reports/`, ignore `.repo-cache/`
+
 ### GitHub Pages Deployment Fix
 
 - Fixed `data.json` not loading on live GitHub Pages site
