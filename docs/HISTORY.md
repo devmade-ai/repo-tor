@@ -28,6 +28,14 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-19
 
+### Cache-Busting for Data Files
+
+Added automatic cache-busting to prevent browsers from serving stale data.json:
+
+- Modified deploy.yml to append git commit hash as query parameter
+- Transforms `fetch('data.json')` to `fetch('data.json?v=abc123')` during deployment
+- Ensures users always get the latest data after each deployment
+
 ### Executive Summary View
 
 Added new "Summary" tab as the default view for executive quick scanning:

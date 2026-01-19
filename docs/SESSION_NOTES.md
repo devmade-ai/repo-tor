@@ -21,6 +21,14 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Cache-Busting Fix (2026-01-19)
+
+Added automatic cache-busting to GitHub Pages deployment to prevent browsers from serving stale data:
+
+- Modified `.github/workflows/deploy.yml` to append git commit hash as query parameter
+- `fetch('data.json')` becomes `fetch('data.json?v=COMMIT_HASH')` during deployment
+- Fixes issue where users saw outdated repo counts (1 instead of 4)
+
 ### Discovery Framework Validation (2026-01-19)
 
 Applied the Discovery Framework to validate our solution:
