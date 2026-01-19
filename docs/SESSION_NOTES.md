@@ -94,7 +94,7 @@ None
 
 **High Priority (newly added):**
 1. **Timestamp Views & Developer Insights** - Commits by hour, commits by day of week, heatmaps, activity patterns
-2. **Weekend & Holiday Visual Distinction** - Weekends + SA public holidays styled differently across ALL views
+2. **Work Pattern Visual Distinction** - Work hours (8-5) vs after-hours, weekends, SA holidays - styled across ALL views
 3. **Filter Persistence** - Global filters across tabs, URL params, localStorage
 4. **Visual Design & Dark Mode** - Dark theme, color refinement, polish
 5. **Private Repo Security** - Sanitization, anonymization, local-only mode

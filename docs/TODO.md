@@ -50,15 +50,25 @@ New analytics views focused on when developers commit and patterns in their work
 - [ ] **Developer Commit Type Distribution** - Which authors do more fixes vs features?
 - [ ] **Time Zone Awareness** - Display times in user's local timezone with optional UTC toggle
 
-### Weekend & Holiday Visual Distinction
+### Work Pattern Visual Distinction
 Apply consistent visual styling across ALL tabs and views to distinguish work patterns:
+
+**Time of Day:**
+- [ ] **Work Hours Highlighting** - Visually differentiate commits during work hours (8:00-17:00) vs after-hours
+- [ ] **After-Hours Styling** - Different color/indicator for commits outside 8-5 window
+- [ ] **Hour Charts Integration** - Work hours band highlighted in commits-by-hour view
+
+**Days:**
 - [ ] **Weekend Highlighting** - Visually differentiate Saturday/Sunday in all date-based views
 - [ ] **South African Public Holidays** - Load and display ZA holidays with distinct styling
 - [ ] **Holiday Data Source** - Config file or API for SA public holidays (updateable yearly)
-- [ ] **Legend/Key** - Clear indicator explaining weekend vs holiday vs workday colors
+
+**Cross-Cutting:**
+- [ ] **Legend/Key** - Clear indicator explaining work hours, after-hours, weekend, holiday colors
 - [ ] **Timeline Integration** - Apply to existing Timeline tab (chart bars, commit list dates)
-- [ ] **Heatmap Integration** - Apply to new heatmap view (weekend columns styled differently)
-- [ ] **Commit List Badges** - Show "Weekend" or "Holiday" badge on relevant commits
+- [ ] **Heatmap Integration** - Work hours rows + weekend columns styled differently
+- [ ] **Commit List Badges** - Show "After Hours", "Weekend", or "Holiday" badge on relevant commits
+- [ ] **Configurable Hours** - Allow customizing work hours (default 8-17)
 
 ### Filter Persistence & Cross-Tab Behavior
 Make filters consistent and persistent across all views:
@@ -106,4 +116,4 @@ Handle repository lifecycle changes gracefully:
 
 ---
 
-*Last updated: 2026-01-19 - Added hour/day views, weekend & SA holiday distinction, filter persistence, design, privacy, repo management*
+*Last updated: 2026-01-19 - Added hour/day views, work pattern distinction (work hours, weekends, holidays), filters, design, privacy, repo management*
