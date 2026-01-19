@@ -241,47 +241,54 @@ Refocused the tool's metrics and data model around three core dimensions:
 
 ## In Progress
 
-None
+### Hatch the Chicken (partial - 2026-01-19)
+
+Started full extraction with AI analysis. Progress:
+
+| Repo | Commits | Status |
+|------|---------|--------|
+| chatty-chart | 42 | ✅ Done |
+| repo-tor | 91 | ✅ Done |
+| social-ad-creator | 156 | ⏳ Pending |
+| model-pear | 302 | ⏳ Pending |
+
+**To continue:** Run `@data feed the chicken` to continue from checkpoint.
 
 ## Latest Change
 
-### Two-Stage Extraction Process (2026-01-19)
+### Checkpoint-Based Batch Processing (2026-01-19)
 
-Refactored extraction to separate raw data extraction from tagging:
+Added checkpoint system to EXTRACTION_PLAYBOOK.md for resilient batch processing:
 
-**Stage 1: Scripts extract raw data**
-- `scripts/extract.js` - Outputs commits with `tags: []` (empty)
-- `scripts/aggregate.js` - Passes through empty tags
+**Key changes:**
+- Process in batches of 50 commits
+- `checkpoint.json` tracks progress per repo (last SHA, count)
+- Commit after each batch - session interruptions don't lose work
+- "feed the chicken" resumes from checkpoint if incomplete
 
-**Stage 2: Tagging**
-- `scripts/tag-commits.js` - Applies consistent tagging rules
-- Codifies EXTRACTION_PLAYBOOK.md guidelines
-- Tags both aggregated dashboard files AND per-repo reports
-
-**Workflow:**
-```bash
-# Run extraction
-scripts/update-all.sh
-
-# Tag dashboard
-node scripts/tag-commits.js dashboard/commits.json
-
-# Tag per-repo files
-for repo in reports/*/; do
-  node scripts/tag-commits.js "${repo}commits.json"
-done
+**Checkpoint file format:**
+```json
+{
+  "last_processed_sha": "abc123",
+  "processed_count": 50,
+  "total_count": 302,
+  "last_updated": "2026-01-19T15:30:00Z"
+}
 ```
 
-**Current data:** 586 commits tagged across 4 repos
+**Benefits:**
+- Resilient: Can stop/resume anytime
+- Incremental: Only process what's needed
+- Traceable: Know exactly where processing left off
 
-### Added Persona Triggers (2026-01-19)
+### Previous: New Extraction Architecture (2026-01-19)
 
-Added two personas to CLAUDE.md for clearer communication:
+Two-trigger system with persistent AI-analyzed data:
 
-- **@coder** (default) - For development work (code, bugs, features, architecture)
-- **@data** - For data extraction/processing (playbooks, reports, aggregation)
-
-"feed the chicken" is now a command within the @data persona.
+- `processed/` folder is source of truth (committed to git)
+- "hatch the chicken" = full reset, process ALL commits
+- "feed the chicken" = incremental, process NEW commits only
+- Deleted `scripts/tag-commits.js` (AI analyzes directly)
 
 ## Last Completed
 
