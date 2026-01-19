@@ -10,6 +10,8 @@ type(scope): subject
 body
 
 tags: tag1, tag2, tag3
+urgency: 1-5
+impact: internal|user-facing|infrastructure|api
 refs: #123, PROJ-456
 ```
 
@@ -53,6 +55,18 @@ tags: feature, ui, ux
 ```
 
 Always ask: "What work was done in this commit?" Then apply ALL relevant tags.
+
+### Optional: Metadata Footers
+
+For richer analytics, add urgency and impact:
+
+```
+tags: bugfix, performance
+urgency: 4
+impact: user-facing
+```
+
+These help track reactive vs planned work and where effort goes.
 
 ## Commit Types (First Line)
 
@@ -178,6 +192,8 @@ Users requested dark mode for reduced eye strain.
 Adds toggle in settings, persists to localStorage.
 
 tags: feature, ui, ux, config
+urgency: 1
+impact: user-facing
 ```
 
 ### Bug fix with security implications
@@ -187,6 +203,8 @@ fix(auth): sanitize user input in login form
 Prevents XSS attack via username field.
 
 tags: bugfix, security, vulnerability, sanitization
+urgency: 5
+impact: user-facing
 ```
 
 ### Refactor with test updates
@@ -197,6 +215,8 @@ Centralizes validation logic for all endpoints.
 Updated tests to use new middleware.
 
 tags: refactor, simplify, test-fix
+urgency: 1
+impact: internal
 ```
 
 ### Documentation update
@@ -207,6 +227,7 @@ Added human-in-the-loop review workflow.
 Documented 55+ tags for commit analysis.
 
 tags: docs, examples
+impact: internal
 ```
 
 ### Dependency upgrade
@@ -217,6 +238,8 @@ Updated all components for new API.
 Fixed breaking changes in hooks.
 
 tags: dependency-update, migration, refactor
+complexity: 4
+impact: internal
 ```
 
 ### Performance fix
@@ -227,20 +250,17 @@ Charts now use virtual scrolling for large datasets.
 Reduces initial render time by 60%.
 
 tags: performance, ux, refactor
+urgency: 3
+impact: user-facing
 ```
 
-## Complexity Indicator (Optional)
+## Metadata Indicators (Optional)
 
-For significant changes, add complexity (1-5) to help future analysis:
+For richer analytics, add these optional footers to your commits.
 
-```
-feat(auth): implement OAuth2 flow
+### Complexity (1-5)
 
-Full OAuth2 implementation with token refresh.
-
-tags: feature, auth, security, api
-complexity: 4
-```
+How big/difficult was this change?
 
 | Score | Description |
 |-------|-------------|
@@ -250,43 +270,92 @@ complexity: 4
 | 4 | Large - many files, significant |
 | 5 | Major - extensive, high complexity |
 
+### Urgency (1-5)
+
+How critical was this change? Reactive vs planned work.
+
+| Score | Level | When to Use |
+|-------|-------|-------------|
+| 1 | Planned | Scheduled work, no time pressure |
+| 2 | Normal | Regular development pace (default) |
+| 3 | Elevated | Needs attention soon, affecting some users |
+| 4 | Urgent | High priority, blocking work |
+| 5 | Critical | Production down, security vulnerability |
+
+**Tip:** Most commits are urgency 2. Only increase for time-sensitive work.
+
+### Impact
+
+Who/what is affected by this change?
+
+| Value | When to Use |
+|-------|-------------|
+| `internal` | Only affects developers (tests, refactoring, docs, tooling) |
+| `user-facing` | Directly affects end users (UI, features, bug fixes) |
+| `infrastructure` | Affects deployment/operations (CI/CD, Docker, monitoring) |
+| `api` | Affects external integrations (endpoints, breaking changes) |
+
+### Full Example
+
+```
+feat(auth): implement OAuth2 flow
+
+Full OAuth2 implementation with token refresh.
+Replaces legacy session-based auth.
+
+tags: feature, auth, security, api, migration
+complexity: 4
+urgency: 2
+impact: user-facing
+```
+
 ## Quick Reference
 
 ```
-# Feature
+# Feature (planned work)
 feat(scope): add new capability
 
 tags: feature, ui
+impact: user-facing
 
-# Bug fix
+# Bug fix (normal priority)
 fix(scope): correct specific behavior
 
 tags: bugfix
+impact: user-facing
 
-# Security fix
+# Security fix (critical!)
 fix(auth): patch vulnerability
 
 tags: bugfix, security, vulnerability
+urgency: 5
+impact: user-facing
 
-# Documentation
+# Production hotfix
+fix(api): restore service after timeout
+
+tags: hotfix, bugfix, performance
+urgency: 5
+impact: infrastructure
+
+# Documentation (internal)
 docs: update guides
 
 tags: docs
+impact: internal
 
-# Refactor with tests
+# Refactor (planned, internal)
 refactor(scope): improve structure
 
-tags: refactor, simplify, test-unit
+tags: refactor, simplify
+urgency: 1
+impact: internal
 
-# Dependency update
-chore(deps): upgrade library
-
-tags: dependency-update
-
-# Multiple concerns
+# API endpoint (affects integrations)
 feat(api): add endpoint with validation
 
 tags: feature, endpoint, api, validation
+impact: api
 ```
 
 ## Commit Checklist
@@ -301,6 +370,11 @@ Before committing:
 - [ ] Breaking changes marked with `!` and `BREAKING CHANGE:`
 - [ ] Issue refs included when applicable
 
+**Optional but recommended:**
+- [ ] `urgency:` added for time-sensitive work (3-5)
+- [ ] `impact:` specified (internal/user-facing/infrastructure/api)
+- [ ] `complexity:` added for significant changes (3-5)
+
 ---
 
-*Tags align with `docs/EXTRACTION_PLAYBOOK.md` for consistent AI analysis*
+*All metadata aligns with `docs/EXTRACTION_PLAYBOOK.md` for consistent AI analysis*
