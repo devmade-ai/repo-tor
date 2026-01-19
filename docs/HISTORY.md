@@ -44,6 +44,26 @@ New Research/Investigation section:
 - **Multi-Tag Commit Model** - Rethink single-type assumption; one commit can have multiple tags
 - **Tag-Centric Reporting** - Shift from commit counts to accomplishment-based metrics
 
+### Direction Shift: Tag-Based Analytics
+
+Refocused tool around three core metrics:
+
+- **When** - Timestamp analytics (hour, day, work hours, weekends, holidays)
+- **What** - AI-analyzed tags from commit messages (multiple per commit)
+- **Complexity** - Score based on files changed + tag count (scale 1-5)
+
+Created:
+
+- `docs/EXTRACTION_PLAYBOOK.md` - AI-driven extraction process, triggered by "feed the chicken"
+- Updated CLAUDE.md with trigger phrase section
+- Reorganized TODO.md around new direction (removed completed items, added Foundation section)
+
+Key decisions:
+
+- AI analyzes each commit message (replaces regex parsing)
+- Schema: `type` → `tags[]`, add `complexity` field
+- User triggers, AI executes, user commits/pushes
+
 ### Added chatty-chart Repository
 
 - Added `illuminAI-select/chatty-chart` to tracked repositories

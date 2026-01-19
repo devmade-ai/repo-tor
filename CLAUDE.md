@@ -7,6 +7,7 @@
 **Target Users:** Development teams wanting insights into commit patterns, contributor activity, and code evolution.
 
 **Key Components:**
+
 - `scripts/extract.js` - Extracts git log data into structured JSON
 - `dashboard/index.html` - Static HTML dashboard with Chart.js visualizations
 - `hooks/commit-msg` - Validates conventional commit format
@@ -14,18 +15,20 @@
 
 **Current State:** MVP complete (D1, D2, D4). See `docs/SESSION_NOTES.md` for details.
 
-**Remaining Work:** D3 (multi-repo aggregation), dashboard filters. See `docs/TODO.md`.
+**Remaining Work:** Tag-based analytics, complexity scoring, timestamp views. See `docs/TODO.md`.
 
 ---
 
 # My Preferences
 
 ## Process
+
 1. **Read these preferences first**
 2. **Gather context from documentation** (CLAUDE.md, relevant docs/)
 3. **Then proceed with the task**
 
 ## Principles
+
 1. **User-first design** - Align with how real people will use the tool (top priority)
 2. **Simplicity** - Simple flow, clear guidance, non-overwhelming visuals, accurate interpretation
 3. **Document WHY** - Explain decisions and how they align with tool goals
@@ -41,12 +44,15 @@
 ## AI Checklists
 
 ### At Session Start
+
 - [ ] Read CLAUDE.md (this file)
 - [ ] Read docs/SESSION_NOTES.md for current state and context
 - [ ] Check docs/TODO.md for pending items
 - [ ] Understand what was last done before starting new work
 
 ### After Each Significant Task
+
+- [ ] Remove completed items from docs/TODO.md (tracked in HISTORY.md)
 - [ ] Update docs/SESSION_NOTES.md with current state
 - [ ] Update docs/USER_GUIDE.md if dashboard UI or interpretation changed
 - [ ] Update docs/ADMIN_GUIDE.md if setup, extraction, or configuration changed
@@ -56,23 +62,30 @@
 - [ ] Commit changes (code + docs together)
 
 ### Before Each Commit
+
 - [ ] Relevant docs updated for changes in this commit
 - [ ] docs/HISTORY.md entry added (if significant change)
 - [ ] docs/SESSION_NOTES.md reflects current state
 - [ ] Commit message is clear and descriptive
 
 ### Before Each Push
+
 - [ ] All commits include their related doc updates
 - [ ] docs/SESSION_NOTES.md is current (in case session ends)
 - [ ] No work-in-progress that would be lost
 
 ### Before Compact
+
 - [ ] docs/SESSION_NOTES.md updated with full context needed to continue after summary:
   - What's being worked on?
   - Current state of the work?
   - What's left to do?
   - Any decisions or blockers?
   - Key details that shouldn't be lost in the summary
+
+## Trigger Phrases
+
+- **"feed the chicken"** - Run data extraction playbook (see `docs/EXTRACTION_PLAYBOOK.md`)
 
 ## AI Notes
 

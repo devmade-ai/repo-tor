@@ -21,6 +21,29 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Direction Shift: Tag-Based Analytics (2026-01-19)
+
+Refocused the tool's metrics and data model around three core dimensions:
+
+1. **When** - Timestamp focus (hour, day, work hours vs after-hours, weekends, holidays)
+2. **What** - AI-analyzed tags from commit messages (multiple tags per commit)
+3. **Complexity** - Score based on files changed + tag count
+
+**Created:**
+
+- `docs/EXTRACTION_PLAYBOOK.md` - Step-by-step extraction process, triggered by "feed the chicken"
+- Updated CLAUDE.md with trigger phrase reference
+- Reorganized TODO.md around new direction (Foundation → Timestamp → Tags → Complexity → Polish)
+
+**Key Decisions:**
+
+- AI analyzes each commit message (not regex/pattern matching)
+- Schema changes: `type` → `tags[]`, add `complexity` field
+- Complexity formula: files changed + tag count (scale 1-5)
+- User triggers extraction, AI executes, user commits/pushes
+
+**Next:** Implement Foundation items (schema migration, extract.js update, dashboard tag support)
+
 ### Added chatty-chart Repository (2026-01-19)
 
 - Added `https://github.com/illuminAI-select/chatty-chart.git` to tracked repos
