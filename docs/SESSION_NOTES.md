@@ -97,6 +97,7 @@ None
 2. **Filter Persistence** - Global filters across tabs, URL params, localStorage
 3. **Visual Design & Dark Mode** - Dark theme, color refinement, polish
 4. **Private Repo Security** - Sanitization, anonymization, local-only mode
+5. **Repository Management** - Repo rename handling, aliases, migration, archive detection
 
 **Low Priority:**
 - Export to PDF
