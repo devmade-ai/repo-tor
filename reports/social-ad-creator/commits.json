@@ -17,12 +17,13 @@
       "subject": "Merge pull request #34 from devmade-ai/claude/verify-preview-constraints-Pace8",
       "body": "Fix export text wrapping mismatch with preview",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #34 from devmade-ai/claude/verify-preview-constraints-Pace8",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#34"
       ],
@@ -51,13 +52,13 @@
       "subject": "Update docs for Media tab Image Cell/Overlay and Layout tab alignment",
       "body": "- USER_GUIDE.md: Added Image Cell and Image Overlay sections to Media tab,\n  updated Layout tab to show context-aware Text Alignment behavior\n- TESTING_GUIDE.md: Added M6 (Image Cell), M7 (Image Overlay) tests,\n  updated L3-L5 for new section/cell/global alignment selection,\n  expanded regression checklist",
       "tags": [
-        "docs",
-        "test"
+        "docs"
       ],
       "complexity": 2,
       "scope": null,
       "title": "Update docs for Media tab Image Cell/Overlay and Layout tab alignment",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -93,6 +94,7 @@
       "scope": null,
       "title": "Update documentation for session changes",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -129,6 +131,7 @@
       "scope": null,
       "title": "Fix Image Overlay to use global overlay system (same as templates)",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -164,6 +167,7 @@
       "scope": null,
       "title": "Add Image Overlay section to Media tab",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -193,12 +197,13 @@
       "subject": "Simplify layout UI: move Image Cell to Media, integrate alignment",
       "body": "- Move Image Cell selector from Layout tab to Media tab (Background Image section)\n- Remove separate Cell Assignment section from Layout tab\n- Add new Text Alignment section that responds to structure selection:\n  - Section selected: applies alignment to all cells in that row/column\n  - Cell selected: applies alignment to just that cell\n  - Nothing selected: applies global alignment\n- Reduces from 3 grids to 1 main structure grid\n- Clearer relationship between selection and controls",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 2,
       "scope": null,
       "title": "Simplify layout UI: move Image Cell to Media, integrate alignment",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -235,6 +240,7 @@
       "scope": null,
       "title": "Fix cell grid selectors not scaling with row/column count",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -269,6 +275,7 @@
       "scope": null,
       "title": "Add export overlay to show progress to user",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -298,12 +305,13 @@
       "subject": "Hide canvas during export to prevent visible flash",
       "body": "Set opacity to 0 while capturing at full scale, then restore.\nThis prevents users from seeing the canvas briefly jump to full size.",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Hide canvas during export to prevent visible flash",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -338,6 +346,7 @@
       "scope": null,
       "title": "Fix export text wrapping mismatch with preview",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -366,12 +375,13 @@
       "subject": "Merge pull request #33 from devmade-ai/claude/add-layout-constraints-PLI5N",
       "body": "Add dynamic size constraints for layout sections and cells",
       "tags": [
-        "feature"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Merge pull request #33 from devmade-ai/claude/add-layout-constraints-PLI5N",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#33"
       ],
@@ -406,6 +416,7 @@
       "scope": null,
       "title": "Add dynamic size constraints for layout sections and cells",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -434,12 +445,13 @@
       "subject": "Merge pull request #32 from devmade-ai/claude/review-todo-items-GerLK",
       "body": "Remove legacy components and update documentation",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #32 from devmade-ai/claude/review-todo-items-GerLK",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#32"
       ],
@@ -474,6 +486,7 @@
       "scope": null,
       "title": "Clarify that AI automatically maintains documentation",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -508,6 +521,7 @@
       "scope": null,
       "title": "Add 'When to read' to all documentation entries in CLAUDE.md",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -536,12 +550,14 @@
       "subject": "Add user guide and testing guide, update README",
       "body": "Documentation overhaul:\n- Create docs/USER_GUIDE.md with tab-by-tab feature documentation\n- Create docs/TESTING_GUIDE.md with 20+ manual test scenarios\n- Update README.md to reflect current workflow-based UI\n- Update CLAUDE.md with USER_GUIDE and TESTING_GUIDE references\n- Update HISTORY.md and SESSION_NOTES.md",
       "tags": [
-        "feature"
+        "feature",
+        "test"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Add user guide and testing guide, update README",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 6,
@@ -581,6 +597,7 @@
       "scope": null,
       "title": "Remove legacy components and update documentation",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 11,
@@ -619,12 +636,13 @@
       "subject": "Merge pull request #31 from devmade-ai/claude/fix-text-alignment-reset-3Zhog",
       "body": "Add Auto button to reset text alignment to cell default",
       "tags": [
-        "bugfix"
+        "cleanup"
       ],
-      "complexity": 2,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #31 from devmade-ai/claude/fix-text-alignment-reset-3Zhog",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#31"
       ],
@@ -653,12 +671,13 @@
       "subject": "Fix text alignment fallback by adding textAlign to defaultTextLayer",
       "body": "The defaultTextLayer was missing textAlign, which could cause issues\nwith the fallback chain when a text layer was missing or incomplete.\nNow explicitly sets textAlign: null to ensure proper fallback behavior.",
       "tags": [
-        "feature"
+        "bugfix"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Fix text alignment fallback by adding textAlign to defaultTextLayer",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -693,6 +712,7 @@
       "scope": null,
       "title": "Add Auto button to reset text alignment to cell default",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -721,12 +741,13 @@
       "subject": "Merge pull request #30 from devmade-ai/claude/check-project-status-8mg0y",
       "body": "Refactor UI to workflow-based tabs",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #30 from devmade-ai/claude/check-project-status-8mg0y",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#30"
       ],
@@ -761,6 +782,7 @@
       "scope": null,
       "title": "Add cleanup tasks and legacy component notes",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -796,6 +818,7 @@
       "scope": null,
       "title": "Refactor UI to workflow-based tabs",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 10,
@@ -833,12 +856,13 @@
       "subject": "Merge pull request #29 from devmade-ai/claude/refactor-layout-tabs-gjlh9",
       "body": "Update CLAUDE.md to accurately reflect current codebase",
       "tags": [
-        "refactor"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #29 from devmade-ai/claude/refactor-layout-tabs-gjlh9",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#29"
       ],
@@ -873,6 +897,7 @@
       "scope": null,
       "title": "Add UI refactor plan for workflow-based tabs",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -908,6 +933,7 @@
       "scope": null,
       "title": "Clarify preset naming across documentation",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -943,6 +969,7 @@
       "scope": null,
       "title": "Update documentation to reflect current state",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -973,12 +1000,13 @@
       "subject": "Update CLAUDE.md to accurately reflect current codebase",
       "body": "- Add Current Tab Structure section (Image, Layout, Text, Theme, Fonts)\n- Fix Layout sub-tabs order to match code (Structure, Placement, Overlay, Spacing, Presets)\n- Update Architecture with all actual components (StylePresetSelector, ErrorBoundary, useDarkMode)\n- Correct component descriptions to match implementation",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Update CLAUDE.md to accurately reflect current codebase",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1007,12 +1035,13 @@
       "subject": "Merge pull request #28 from devmade-ai/claude/fix-responsive-placement-hZps4",
       "body": "Fix responsive placement selectors and adapt to layout changes",
       "tags": [
-        "bugfix"
+        "cleanup"
       ],
-      "complexity": 2,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #28 from devmade-ai/claude/fix-responsive-placement-hZps4",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#28"
       ],
@@ -1041,12 +1070,13 @@
       "subject": "Update session notes",
       "body": "",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Update session notes",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1081,6 +1111,7 @@
       "scope": null,
       "title": "Fix responsive placement selectors and adapt to layout changes",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1109,12 +1140,13 @@
       "subject": "Merge pull request #27 from devmade-ai/claude/fix-multiline-inputs-81xM3",
       "body": "Fix multiline text display for all text elements",
       "tags": [
-        "bugfix"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Merge pull request #27 from devmade-ai/claude/fix-multiline-inputs-81xM3",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#27"
       ],
@@ -1149,6 +1181,7 @@
       "scope": null,
       "title": "Fix multiline text display for all text elements",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1177,12 +1210,13 @@
       "subject": "Merge pull request #26 from devmade-ai/claude/alignment-cell-vs-text-wH2ET",
       "body": "Add per-text-element horizontal alignment",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #26 from devmade-ai/claude/alignment-cell-vs-text-wH2ET",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#26"
       ],
@@ -1211,12 +1245,13 @@
       "subject": "Make all text inputs multiline for flexibility",
       "body": "",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Make all text inputs multiline for flexibility",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1251,6 +1286,7 @@
       "scope": null,
       "title": "Add alignment controls to Text tab",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1285,6 +1321,7 @@
       "scope": null,
       "title": "Add per-text-element horizontal alignment",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -1316,12 +1353,13 @@
       "subject": "Merge pull request #25 from devmade-ai/claude/add-overlay-options-RdHFw",
       "body": "Add expanded overlay options for better layout support",
       "tags": [
-        "feature"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #25 from devmade-ai/claude/add-overlay-options-RdHFw",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#25"
       ],
@@ -1350,12 +1388,13 @@
       "subject": "Enable overlay stacking: global + cell overlays layer together",
       "body": "- Global overlay (Image tab) always applies to image cells\n- Cell overlay (Layout > Overlay) stacks on top as additional layer\n- Allows combining effects like vignette + gradient for rich visuals\n- getCellOverlay no longer falls back to global (handled separately)\n- Fixed non-image cell check for enabled: false",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Enable overlay stacking: global + cell overlays layer together",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1390,6 +1429,7 @@
       "scope": null,
       "title": "Fix per-cell overlay not applying to image cells",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1418,12 +1458,13 @@
       "subject": "Update CLAUDE.md with expanded overlay options",
       "body": "",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Update CLAUDE.md with expanded overlay options",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1458,6 +1499,7 @@
       "scope": null,
       "title": "Add expanded overlay options for better layout support",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -1487,12 +1529,13 @@
       "subject": "Merge pull request #24 from devmade-ai/claude/revert-last-change-UuPgh",
       "body": "Revert \"Merge pull request #23 from devmade-ai/claude/improve-style-presets-HBcmL\"",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 2,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #24 from devmade-ai/claude/revert-last-change-UuPgh",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#24",
         "#23"
@@ -1522,12 +1565,13 @@
       "subject": "Revert \"Merge pull request #23 from devmade-ai/claude/improve-style-presets-HBcmL\"",
       "body": "This reverts commit 2aa96d2cf05f88311f6a374c27d020c7b59a7169, reversing\nchanges made to 7870916b076b660b69242a5683181df21dbc8aaf.",
       "tags": [
-        "other"
+        "style"
       ],
       "complexity": 2,
       "scope": null,
       "title": "Revert \"Merge pull request #23 from devmade-ai/claude/improve-style-presets-HBcmL\"",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#23"
       ],
@@ -1560,12 +1604,13 @@
       "subject": "Merge pull request #23 from devmade-ai/claude/improve-style-presets-HBcmL",
       "body": "Improve style presets with neutral color text defaults",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 2,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #23 from devmade-ai/claude/improve-style-presets-HBcmL",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#23"
       ],
@@ -1594,12 +1639,13 @@
       "subject": "Improve style presets with neutral color text defaults",
       "body": "- Add textColors support to style preset settings for per-element color control\n- Update applyStylePreset to apply text colors when selecting a preset\n- Improve all existing presets with carefully chosen neutral text colors:\n  - Dark backgrounds use white/off-white titles, light-gray body, gray footnotes\n  - Light backgrounds use off-black titles, dark-gray body, gray footnotes\n- Add 8 new presets: Midnight Blue, Pure Monochrome, Champagne Glow,\n  Terracotta Warmth, Fresh Mint, Lavender Dream, Vintage Cream, Feature Grid\n- Add 2 High Contrast presets: Stark Contrast, Inverted Bold\n- Add new \"High Contrast\" category\n- Update overlay colors to use neutrals for more consistent results\n\nTotal: 24 style presets across 9 categories, each with complete text color definitions.",
       "tags": [
-        "other"
+        "style"
       ],
       "complexity": 2,
       "scope": null,
       "title": "Improve style presets with neutral color text defaults",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -1630,12 +1676,13 @@
       "subject": "Merge pull request #22 from devmade-ai/claude/revert-last-change-40c4e",
       "body": "Revert \"Merge pull request #21 from devmade-ai/claude/improve-text-overlays-s62S5\"",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #22 from devmade-ai/claude/revert-last-change-40c4e",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#22",
         "#21"
@@ -1665,12 +1712,13 @@
       "subject": "Revert \"Merge pull request #21 from devmade-ai/claude/improve-text-overlays-s62S5\"",
       "body": "This reverts commit e5113a0f5d533d1c0cb038bd09cfd34596c1df90, reversing\nchanges made to 7d3f4423ced20711d7731ad24afbc91dccab263e.",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Revert \"Merge pull request #21 from devmade-ai/claude/improve-text-overlays-s62S5\"",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#21"
       ],
@@ -1704,12 +1752,13 @@
       "subject": "Merge pull request #21 from devmade-ai/claude/improve-text-overlays-s62S5",
       "body": "Add preset-based color schemes for improved text overlay defaults",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #21 from devmade-ai/claude/improve-text-overlays-s62S5",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#21"
       ],
@@ -1744,6 +1793,7 @@
       "scope": null,
       "title": "Add preset-based color schemes for improved text overlay defaults",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -1775,12 +1825,13 @@
       "subject": "Merge pull request #20 from devmade-ai/claude/fix-overflow-issue-cN5Xw",
       "body": "Fix color picker overflow on mobile",
       "tags": [
-        "bugfix"
+        "cleanup"
       ],
-      "complexity": 2,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #20 from devmade-ai/claude/fix-overflow-issue-cN5Xw",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#20"
       ],
@@ -1815,6 +1866,7 @@
       "scope": null,
       "title": "Fix color picker overflow on mobile",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -1844,12 +1896,13 @@
       "subject": "Merge pull request #19 from devmade-ai/claude/add-neutral-colors-369vk",
       "body": "Add neutral colors for text and overlays",
       "tags": [
-        "feature"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #19 from devmade-ai/claude/add-neutral-colors-369vk",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#19"
       ],
@@ -1884,6 +1937,7 @@
       "scope": null,
       "title": "Add neutral colors for text and overlays",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 7,
@@ -1918,12 +1972,13 @@
       "subject": "Improve grayscale control with slider and preset independence",
       "body": "- Change grayscale from boolean to percentage (0-100%)\n- Add quick toggle in Settings section (On/Off)\n- Add fine-tune slider in Filters section (0-100%)\n- Presets no longer override user's grayscale setting\n- Update all preset configs to use numeric values\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Improve grayscale control with slider and preset independence",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -1962,6 +2017,7 @@
       "scope": null,
       "title": "Add horizontal position control for images",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -1998,6 +2054,7 @@
       "scope": null,
       "title": "Update documentation structure",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -2034,6 +2091,7 @@
       "scope": null,
       "title": "Replace sample images with new landscape images",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 20,
@@ -2087,6 +2145,7 @@
       "scope": null,
       "title": "Add contextual micro-tips to overlay controls",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -2116,12 +2175,13 @@
       "subject": "Merge pull request #18 from devmade-ai/claude/dark-mode-design-tokens-dQlrq",
       "body": "Add Inter as the UI font",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #18 from devmade-ai/claude/dark-mode-design-tokens-dQlrq",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#18"
       ],
@@ -2156,6 +2216,7 @@
       "scope": null,
       "title": "Add dark mode with toggle and system preference detection",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 10,
@@ -2199,6 +2260,7 @@
       "scope": null,
       "title": "Add Inter as the UI font",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -2228,12 +2290,13 @@
       "subject": "Merge pull request #17 from devmade-ai/claude/ui-progressive-disclosure-colors-aPVYO",
       "body": "Consolidate accent colors to blue-only palette",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 2,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #17 from devmade-ai/claude/ui-progressive-disclosure-colors-aPVYO",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#17"
       ],
@@ -2262,12 +2325,13 @@
       "subject": "Consolidate accent colors to blue-only palette",
       "body": "Replaced purple and amber accent colors with blue throughout the UI\nfor a more cohesive, professional look. Color system now uses:\n- Blue: primary actions, selection states, active UI\n- Green: visibility/enabled states (semantic)\n- Red: destructive actions and errors (semantic)\n\nChanges:\n- LayoutSelector: purple→blue for structure editing, cell selection\n- LayoutSelector: amber→blue for text group assignments\n- ImageUploader: amber→red for error messages (semantic correction)",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 2,
       "scope": null,
       "title": "Consolidate accent colors to blue-only palette",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -2297,12 +2361,13 @@
       "subject": "Merge pull request #16 from devmade-ai/claude/improve-app-design-OHXzc",
       "body": "Improve overall app visual design and polish",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #16 from devmade-ai/claude/improve-app-design-OHXzc",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#16"
       ],
@@ -2331,12 +2396,13 @@
       "subject": "Improve overall app visual design and polish",
       "body": "- Increase text sizes for better readability (text-xs -> text-sm)\n- Add consistent rounded corners (rounded-lg -> rounded-xl)\n- Improve spacing with more breathing room between elements\n- Add soft shadows and depth to panels and cards\n- Update button styles with better hover/active states\n- Add smooth transitions for interactive elements\n- Style range inputs with custom track and thumb\n- Add custom scrollbar styling\n- Use subtle gradients for backgrounds\n- Make header sticky with backdrop blur\n- Add progress bar animation for export\n- Consistent styling across all components\n\nAll changes maintain mobile-friendliness with responsive sizing.",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Improve overall app visual design and polish",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 11,
@@ -2375,12 +2441,13 @@
       "subject": "Fix undo/redo for add/remove row operations",
       "body": "addSection and removeSection were mutating existing objects instead of\ncreating new ones, corrupting the undo history. Now uses .map() with\nspread operator to ensure immutability.\n\nAlso added high-priority TODO for text placement selector updates.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
       "tags": [
-        "feature"
+        "bugfix"
       ],
       "complexity": 2,
       "scope": null,
       "title": "Fix undo/redo for add/remove row operations",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -2410,12 +2477,13 @@
       "subject": "Show active sub-tab name as Layout section header",
       "body": "Since Layout sub-tabs now use icon-only buttons, dynamically display\nthe active sub-tab name (Structure, Placement, Overlay, Spacing, Presets)\ninstead of static \"Layout\" header for better clarity.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Show active sub-tab name as Layout section header",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -2450,6 +2518,7 @@
       "scope": null,
       "title": "Fix style presets using old textGroups format",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -2481,12 +2550,13 @@
       "subject": "Replace Layout sub-tab text labels with SVG icons",
       "body": "Tabs were too narrow for text labels like \"Placement\" and \"Structure\".\nNow uses custom SVG icons with hover tooltips for a cleaner, more compact UI.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Replace Layout sub-tab text labels with SVG icons",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -2521,6 +2591,7 @@
       "scope": null,
       "title": "Add over-engineered alignment mistake to AI_MISTAKES.md",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -2555,6 +2626,7 @@
       "scope": null,
       "title": "Improve documentation system and add user guide",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -2592,6 +2664,7 @@
       "scope": null,
       "title": "Improve documentation guidelines for AI sessions",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -2627,6 +2700,7 @@
       "scope": null,
       "title": "Remove max-height from left sidebar card",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -2661,6 +2735,7 @@
       "scope": null,
       "title": "Fix left sidebar card not stretching to full height",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -2689,12 +2764,13 @@
       "subject": "Style left sidebar as card and increase width",
       "body": "- Convert sidebar from plain background to card styling (rounded, border, shadow)\n- Increase width from 320px to 384px on desktop\n- Make card stretch to fill available height with internal scrolling\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
       "tags": [
-        "other"
+        "style"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Style left sidebar as card and increase width",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -2729,6 +2805,7 @@
       "scope": null,
       "title": "Improve Layout sub-tabs spacing and add scroll indicator",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -2757,12 +2834,13 @@
       "subject": "Move Presets subtab to last position and improve mobile overflow",
       "body": "- Reorder Layout subtabs: Structure, Placement, Overlay, Spacing, Presets\n- Default to Structure tab instead of Presets\n- Add horizontal scroll with min-width for mobile devices\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Move Presets subtab to last position and improve mobile overflow",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -2791,12 +2869,13 @@
       "subject": "Restore layout presets and placement tab features",
       "body": "- Fix layout presets: convert textGroups to textCells format\n- Restore Presets tab with category filters (All, Suggested, etc.)\n- Restore per-cell alignment controls in Placement tab\n- Restore text element visibility toggle and color picker\n- Add applyLayoutPreset function to useAdState\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Restore layout presets and placement tab features",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 6,
@@ -2836,6 +2915,7 @@
       "scope": null,
       "title": "Fix cells container not expanding in small grids",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -2864,12 +2944,13 @@
       "subject": "Update CLAUDE.md title",
       "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Update CLAUDE.md title",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -2904,6 +2985,7 @@
       "scope": null,
       "title": "Fix cell grid rendering for fullbleed and small sizes",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -2932,12 +3014,13 @@
       "subject": "Merge pull request #15 from devmade-ai/claude/revert-cell-alignment-LcSMq",
       "body": "Revert per-group alignment to cell-level alignment",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #15 from devmade-ai/claude/revert-cell-alignment-LcSMq",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#15"
       ],
@@ -2972,6 +3055,7 @@
       "scope": null,
       "title": "Fix cell grid display for fullbleed and small sizes",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -3006,6 +3090,7 @@
       "scope": null,
       "title": "Add per-element text cell placement with consistent UI",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 6,
@@ -3039,12 +3124,13 @@
       "subject": "Revert per-group alignment to cell-level alignment",
       "body": "Per-group alignment caused text elements to overlap because each group\nwas rendered in its own absolutely positioned container. This change\nreverts to cell-level alignment where all text groups in a cell share\na single alignment container, allowing text to flow naturally.\n\n- Simplified textGroups state to only store cell assignment (no alignment)\n- Removed per-group alignment controls from Placement tab\n- Updated AdCanvas to render all groups in single container per cell",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Revert per-group alignment to cell-level alignment",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -3077,12 +3163,13 @@
       "subject": "Merge pull request #14 from devmade-ai/claude/text-element-selectors-7j8r1",
       "body": "Add per-group cell selectors and alignment in Placement tab",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #14 from devmade-ai/claude/text-element-selectors-7j8r1",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#14"
       ],
@@ -3117,6 +3204,7 @@
       "scope": null,
       "title": "Add clear documentation requirements and update docs for current session",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -3153,6 +3241,7 @@
       "scope": null,
       "title": "Unify cell grid components and remove fullbleed special-casing",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -3188,6 +3277,7 @@
       "scope": null,
       "title": "Add per-group cell selectors and alignment in Placement tab",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -3220,12 +3310,13 @@
       "subject": "Merge pull request #13 from devmade-ai/claude/add-layout-presets-Faxjc",
       "body": "Add global style presets for one-click professional looks",
       "tags": [
-        "feature"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #13 from devmade-ai/claude/add-layout-presets-Faxjc",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#13"
       ],
@@ -3254,12 +3345,13 @@
       "subject": "Enlarge and center cell selector grids in Layout tabs",
       "body": "- Add size prop to CellGrid and StructureGrid (normal=180px, large=280px)\n- Apply size=\"large\" to main cell selectors in Structure, Placement, Overlay, and Spacing tabs\n- Center grids with flex justify-center containers\n- Center labels to match\n- Keep small size for inline image cell selector in Placement tab",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Enlarge and center cell selector grids in Layout tabs",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -3294,6 +3386,7 @@
       "scope": null,
       "title": "Add global style presets for one-click professional looks",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -3326,12 +3419,13 @@
       "subject": "Merge pull request #12 from devmade-ai/claude/fix-select-cell-display-dOy0G",
       "body": "Add consistent cell selector to Placement tab",
       "tags": [
-        "bugfix"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Merge pull request #12 from devmade-ai/claude/fix-select-cell-display-dOy0G",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#12"
       ],
@@ -3360,12 +3454,13 @@
       "subject": "Align Structure tab UI with other layout sub-tabs",
       "body": "- Update StructureGrid to use dynamic aspectRatio prop (matches CellGrid)\n- Add consistent \"Select Cell\" label format\n- Add selection indicator matching Placement/Overlay/Spacing tabs\n- Use platformAspectRatio for consistent grid sizing across all tabs",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Align Structure tab UI with other layout sub-tabs",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -3400,6 +3495,7 @@
       "scope": null,
       "title": "Add consistent cell selector to Placement tab",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -3430,10 +3526,11 @@
       "tags": [
         "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #11 from devmade-ai/claude/cleanup-todos-ZlUa9",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#11"
       ],
@@ -3468,6 +3565,7 @@
       "scope": null,
       "title": "Optimize re-renders with React.memo",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 7,
@@ -3502,12 +3600,13 @@
       "subject": "Add error boundaries for graceful error handling",
       "body": "- Create reusable ErrorBoundary component with friendly UI\n- Wrap all major sections: Image, Text, Layout, Theme, Fonts\n- Wrap AdCanvas preview and ExportButtons\n- Each boundary shows contextual error message with retry button\n- Errors are logged to console for debugging",
       "tags": [
-        "feature"
+        "bugfix"
       ],
       "complexity": 2,
       "scope": null,
       "title": "Add error boundaries for graceful error handling",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -3538,12 +3637,13 @@
       "subject": "Change padding from percentage to fixed px units",
       "body": "- Default padding now 20px instead of 5%\n- Slider range 0-60px with 4px steps\n- Consistent padding regardless of cell size\n- Updated useAdState, AdCanvas, and LayoutSelector",
       "tags": [
-        "bugfix"
+        "cleanup"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Change padding from percentage to fixed px units",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -3581,6 +3681,7 @@
       "scope": null,
       "title": "Add typography controls: bold, italic, and letter spacing",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -3612,12 +3713,13 @@
       "subject": "Overhaul Image tab UX - cleaner flow and collapsible sections",
       "body": "- Reorganize section order: Upload → Remove → Settings → Effects → Logo\n- Add collapsible Section component with sensible defaults\n  - Settings: open by default\n  - Style Presets, Filters, Overlay: collapsed by default\n  - Logo: collapsed unless logo exists\n- Move Remove button immediately after upload area (was buried after Quick Layout)\n- Remove Quick Layout presets from Image tab (belongs in Layout tab)\n- Remove unused layout-related props from ImageUploader\n- Clean up imports (removed layout preset dependencies)",
       "tags": [
-        "dependency"
+        "cleanup"
       ],
       "complexity": 2,
       "scope": null,
       "title": "Overhaul Image tab UX - cleaner flow and collapsible sections",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -3648,12 +3750,13 @@
       "subject": "Clean up TODO.md - mark implemented items, simplify scope",
       "body": "- Mark completed: smart layout suggestions, keyboard shortcuts, export loading states\n- Remove advanced text customization items (keeping only bold/italic/letter-spacing)\n- Clarify Image tab UX issues as priority item with clear problem description\n- Consolidate completed features, remove duplicates",
       "tags": [
-        "feature"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Clean up TODO.md - mark implemented items, simplify scope",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -3682,12 +3785,13 @@
       "subject": "Merge pull request #10 from devmade-ai/claude/improve-todo-layout-CKPEx",
       "body": "Add Image tab improvements to TODO list",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #10 from devmade-ai/claude/improve-todo-layout-CKPEx",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#10"
       ],
@@ -3722,6 +3826,7 @@
       "scope": null,
       "title": "Implement Phase 4 placement tab enhancements",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -3758,6 +3863,7 @@
       "scope": null,
       "title": "Implement Phase 3 UX polish",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -3793,6 +3899,7 @@
       "scope": null,
       "title": "Implement Phase 2 tab simplifications",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -3830,6 +3937,7 @@
       "scope": null,
       "title": "Implement Phase 1 UX improvements",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -3868,6 +3976,7 @@
       "scope": null,
       "title": "Add cell selector aspect ratio matching to TODO",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -3902,6 +4011,7 @@
       "scope": null,
       "title": "Add Text tab simplification and Placement enhancements to TODO",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -3936,6 +4046,7 @@
       "scope": null,
       "title": "Add Layout tab UX improvements to TODO list",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -3970,6 +4081,7 @@
       "scope": null,
       "title": "Add Image tab improvements to TODO list",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -3998,12 +4110,13 @@
       "subject": "Update SESSION_NOTES.md - mark sample images complete",
       "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Update SESSION_NOTES.md - mark sample images complete",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -4032,12 +4145,13 @@
       "subject": "Add 9 sample images and fix path resolution",
       "body": "- Add devMade branded sample images to public/samples/\n- Update sampleImages.js with all 9 images (.jpg format)\n- Fix BASE_URL path resolution for production deployment\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
       "tags": [
-        "feature"
+        "bugfix"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Add 9 sample images and fix path resolution",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 11,
@@ -4076,12 +4190,13 @@
       "subject": "Merge pull request #9 from devmade-ai/claude/plan-next-priorities-V2UdC",
       "body": "Add sample images feature for quick testing",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #9 from devmade-ai/claude/plan-next-priorities-V2UdC",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#9"
       ],
@@ -4116,6 +4231,7 @@
       "scope": null,
       "title": "Add image presets, filters, per-cell overlays, padding, and merge media tabs",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 8,
@@ -4157,6 +4273,7 @@
       "scope": null,
       "title": "Add sample images feature for quick testing",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -4188,12 +4305,13 @@
       "subject": "Merge pull request #8 from devmade-ai/claude/improve-layout-tab-74Et0",
       "body": "Redesign Layout tab with sub-tabs and unified cell selector",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #8 from devmade-ai/claude/improve-layout-tab-74Et0",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#8"
       ],
@@ -4228,6 +4346,7 @@
       "scope": null,
       "title": "Add Text tab sub-tabs, expand themes, and update documentation",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -4266,6 +4385,7 @@
       "scope": null,
       "title": "Make preview canvas responsive and update documentation",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -4297,12 +4417,13 @@
       "subject": "Improve Structure sub-tab with contextual cell/section selection",
       "body": "- Add StructureGrid component with clickable section labels (R1, R2... or C1, C2...)\n- Click section label to edit row/column: height/width slider + subdivision count\n- Click cell in subdivided section to edit that cell's width/height\n- Click same element again to deselect (toggle behavior)\n- Shows only relevant control for current selection:\n  - Section selected: height/width + split count + delete option\n  - Cell selected: width/height + \"Edit Parent\" button\n  - Nothing selected: overview + \"Add Row/Column\" button\n- Purple highlighting for selected elements, lighter purple for sibling cells\n- Cells show their size percentage when subdivided",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Improve Structure sub-tab with contextual cell/section selection",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -4331,12 +4452,13 @@
       "subject": "Redesign Layout tab with sub-tabs and unified cell selector",
       "body": "- Add sub-tabs: Presets, Structure, Alignment, Placement\n- Create reusable CellGrid component for consistent cell selection\n- Presets tab: quick layout type + preset selection with image position\n- Structure tab: fine-tune rows/columns, sizes, subdivisions\n- Alignment tab: click cell to edit (none = all cells), H/V alignment\n- Placement tab: click cell then assign text groups with quick buttons\n- Purple highlight for selected editing cell, blue for image cell\n- Reduces visual clutter by organizing controls by purpose",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Redesign Layout tab with sub-tabs and unified cell selector",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -4365,12 +4487,13 @@
       "subject": "Merge pull request #7 from devmade-ai/claude/new-layout-framework-OVqiZ",
       "body": "Enhance layout controls with quick presets and improved UX",
       "tags": [
-        "feature"
+        "cleanup"
       ],
-      "complexity": 2,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #7 from devmade-ai/claude/new-layout-framework-OVqiZ",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#7"
       ],
@@ -4399,12 +4522,13 @@
       "subject": "Enhance layout controls with quick presets and improved UX",
       "body": "- Add quick layout preset picker to Image tab showing suggested layouts\n- Allow up to 3 subdivisions per section (was limited to 2)\n- Implement proportional auto-balancing when adjusting section sizes\n- Default preset category to \"Suggested\" instead of \"All\"\n- Add +/- controls for subdivision count with visual feedback",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 2,
       "scope": null,
       "title": "Enhance layout controls with quick presets and improved UX",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -4435,12 +4559,13 @@
       "subject": "Merge pull request #6 from devmade-ai/claude/evaluate-grid-layout-4GX3n",
       "body": "Implement nested grid layout system with resizable cells",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #6 from devmade-ai/claude/evaluate-grid-layout-4GX3n",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#6"
       ],
@@ -4469,13 +4594,13 @@
       "subject": "Implement nested grid layout system with resizable cells",
       "body": "Replace the old row/column split system with a new nested grid approach:\n- Primary split (rows or columns) with optional subdivisions per section\n- Each section has customizable size percentages\n- Image goes in a single cell (no spanning complexity)\n- Visual cell picker in UI shows layout structure clearly\n\nNew features:\n- Add/remove sections dynamically\n- Toggle subdivisions per section (split button)\n- Resize sections and subdivisions with sliders\n- New \"Grid\" category with 4 preset layouts using nested cells\n- Click-to-select image cell in visual preview\n\nBreaking change: Layout state structure changed from splitType/sections/imageCells\nto type/structure/imageCell format.",
       "tags": [
-        "feature",
-        "breaking"
+        "feature"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Implement nested grid layout system with resizable cells",
       "is_conventional": false,
+      "has_breaking_change": true,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -4507,12 +4632,13 @@
       "subject": "Merge pull request #5 from devmade-ai/claude/fix-github-actions-deploy-W7p1T",
       "body": "Fix GitHub Actions deployment timeout issues",
       "tags": [
-        "bugfix"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Merge pull request #5 from devmade-ai/claude/fix-github-actions-deploy-W7p1T",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#5"
       ],
@@ -4547,6 +4673,7 @@
       "scope": null,
       "title": "Fix GitHub Actions deployment timeout issues",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -4575,12 +4702,13 @@
       "subject": "Merge pull request #4 from devmade-ai/claude/add-sample-input-text-3lhJU",
       "body": "Add sample text to all text input fields",
       "tags": [
-        "feature"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Merge pull request #4 from devmade-ai/claude/add-sample-input-text-3lhJU",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#4"
       ],
@@ -4615,6 +4743,7 @@
       "scope": null,
       "title": "Add sample text to all text input fields",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -4643,12 +4772,13 @@
       "subject": "Merge pull request #3 from devmade-ai/claude/investigate-missing-changes-MwZPB",
       "body": "Add GitHub Actions workflow for automatic deployment",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Merge pull request #3 from devmade-ai/claude/investigate-missing-changes-MwZPB",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#3"
       ],
@@ -4683,6 +4813,7 @@
       "scope": null,
       "title": "Add GitHub Actions workflow for automatic deployment",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -4711,12 +4842,13 @@
       "subject": "Merge pull request #2 from devmade-ai/claude/improve-layouts-quickstart-7y33c",
       "body": "Enhance layout system with expanded presets and improved UX",
       "tags": [
-        "other"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #2 from devmade-ai/claude/improve-layouts-quickstart-7y33c",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#2"
       ],
@@ -4745,12 +4877,13 @@
       "subject": "Enhance layout system with expanded presets and improved UX",
       "body": "- Expand layout presets from 6 to 17 (hero variants, two-thirds splits,\n  accent strips, banners, center focus, image sandwich)\n- Add visual SVG preview icons replacing Unicode symbols\n- Organize presets into categories (All, Suggested, Image Focus,\n  Text Focus, Balanced) with tab navigation\n- Implement smart layout suggestions based on image aspect ratio\n  and platform type\n- Add quick actions: Flip (swap sides), Rotate (columns <-> rows),\n  Reset (default layout)\n- Improve preset naming for clarity\n- Collapse fine-tune controls by default for cleaner UI",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Enhance layout system with expanded presets and improved UX",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -4782,12 +4915,13 @@
       "subject": "Updates",
       "body": "",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Updates",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -4826,6 +4960,7 @@
       "scope": null,
       "title": "Add undo/redo functionality",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -4863,6 +4998,7 @@
       "scope": null,
       "title": "Add principle for documenting user actions",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#11"
       ],
@@ -4894,12 +5030,13 @@
       "subject": "Updates",
       "body": "",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Updates",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -4937,6 +5074,7 @@
       "scope": null,
       "title": "Add layout presets for quick start",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -4972,6 +5110,7 @@
       "scope": null,
       "title": "Fix image duplication in split layouts",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 8,
@@ -5007,12 +5146,13 @@
       "subject": "Updates",
       "body": "",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Updates",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -5051,6 +5191,7 @@
       "scope": null,
       "title": "Fix image duplication in split layouts",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -5079,12 +5220,13 @@
       "subject": "Updates",
       "body": "",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Updates",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -5123,6 +5265,7 @@
       "scope": null,
       "title": "Fix layout bugs, logo drag-drop, and text overlay issues",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -5161,6 +5304,7 @@
       "scope": null,
       "title": "Add flexible layout system, logo upload, and font size controls",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 11,
@@ -5199,12 +5343,13 @@
       "subject": "Updates",
       "body": "",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 2,
       "scope": null,
       "title": "Updates",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -5234,12 +5379,13 @@
       "subject": "Merge pull request #1 from devmade-ai/claude/reorganize-tabs-text-options-UpIbw",
       "body": "Reorganize tabs, show all text elements, add more fonts",
       "tags": [
-        "refactor"
+        "cleanup"
       ],
-      "complexity": 3,
+      "complexity": 1,
       "scope": null,
       "title": "Merge pull request #1 from devmade-ai/claude/reorganize-tabs-text-options-UpIbw",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [
         "#1"
       ],
@@ -5274,6 +5420,7 @@
       "scope": null,
       "title": "Reorganize tabs, show all text elements, add more fonts",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -5306,12 +5453,13 @@
       "subject": "Updates",
       "body": "",
       "tags": [
-        "other"
+        "cleanup"
       ],
       "complexity": 3,
       "scope": null,
       "title": "Updates",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -5349,6 +5497,7 @@
       "scope": null,
       "title": "Add grayscale option for images",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -5386,6 +5535,7 @@
       "scope": null,
       "title": "Add HISTORY.md and update README with GitHub Pages deployment",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -5421,6 +5571,7 @@
       "scope": null,
       "title": "Fix export capturing scaled preview instead of full-size canvas",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -5456,6 +5607,7 @@
       "scope": null,
       "title": "Fix text layer state errors and Google Fonts export issue",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -5492,6 +5644,7 @@
       "scope": null,
       "title": "Add overlay to all layouts and expand text layers",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -5530,6 +5683,7 @@
       "scope": null,
       "title": "Add Social Ad Creator implementation",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 30,
@@ -5587,12 +5741,13 @@
       "subject": "Initial commit",
       "body": "",
       "tags": [
-        "other"
+        "feature"
       ],
       "complexity": 1,
       "scope": null,
       "title": "Initial commit",
       "is_conventional": false,
+      "has_breaking_change": false,
       "references": [],
       "stats": {
         "filesChanged": 1,

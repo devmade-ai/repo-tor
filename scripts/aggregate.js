@@ -5,6 +5,9 @@
  * Combines data from multiple repositories into a single aggregated dataset.
  * Supports author identity mapping for normalizing contributors across repos.
  *
+ * NOTE: This script aggregates RAW data. Tags and complexity fields will be
+ * empty/null until AI populates them via the @data persona (see EXTRACTION_PLAYBOOK.md).
+ *
  * Usage:
  *   node aggregate.js reports/repo-a reports/repo-b --output=aggregated
  *   node aggregate.js reports/* --author-map=config/author-map.json
@@ -188,8 +191,8 @@ function aggregateData(repoDataList, authorMap) {
       contributor.additions += commit.stats?.additions || 0;
       contributor.deletions += commit.stats?.deletions || 0;
 
-      // Count each tag occurrence
-      const tags = commit.tags || ['other'];
+      // Count each tag occurrence (will be empty until AI populates)
+      const tags = commit.tags || [];
       for (const tag of tags) {
         contributor.tagCounts[tag] = (contributor.tagCounts[tag] || 0) + 1;
       }
@@ -269,22 +272,26 @@ function generateSummary(aggregated, repoDataList) {
   const { commits, contributors, repoMetadata } = aggregated;
 
   const tagBreakdown = {};
-  const complexityBreakdown = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+  const complexityBreakdown = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, null: 0 };
   const monthlyCommits = {};
   const repoBreakdown = {};
   let totalAdditions = 0;
   let totalDeletions = 0;
 
   for (const commit of commits) {
-    // Tag breakdown (count each tag)
-    const tags = commit.tags || ['other'];
+    // Tag breakdown (count each tag) - will be empty until AI populates
+    const tags = commit.tags || [];
     for (const tag of tags) {
       tagBreakdown[tag] = (tagBreakdown[tag] || 0) + 1;
     }
 
-    // Complexity breakdown
-    const complexity = commit.complexity || 1;
-    complexityBreakdown[complexity] = (complexityBreakdown[complexity] || 0) + 1;
+    // Complexity breakdown - will be null until AI calculates
+    const complexity = commit.complexity;
+    if (complexity !== null && complexityBreakdown[complexity] !== undefined) {
+      complexityBreakdown[complexity]++;
+    } else {
+      complexityBreakdown[null]++;
+    }
 
     // Monthly aggregation
     const month = commit.timestamp?.substring(0, 7) || 'unknown';
@@ -305,7 +312,7 @@ function generateSummary(aggregated, repoDataList) {
     totalDeletions += commit.stats?.deletions || 0;
   }
 
-  // Security commits across all repos with details
+  // Security commits across all repos - will be empty until AI tags
   const securityCommits = commits.filter(c => (c.tags || []).includes('security'));
 
   const security_events = securityCommits.map(c => ({
