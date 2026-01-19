@@ -41,12 +41,24 @@ Align with technical spec schema:
 
 ### Timestamp Views & Developer Insights
 New analytics views focused on when developers commit and patterns in their work:
+- [ ] **Commits by Hour** - Bar chart showing commit distribution across 24 hours (0-23)
+- [ ] **Commits by Day of Week** - Bar chart showing Mon-Sun commit distribution
 - [ ] **Commit Time Heatmap** - Hour-of-day vs day-of-week grid showing commit density
 - [ ] **Developer Activity Patterns** - Per-author breakdown of when they commit (morning/afternoon/evening/night)
 - [ ] **Commit Type by Time** - Do certain commit types (fix vs feat) happen at certain times?
 - [ ] **Weekly/Monthly Trends** - Commit volume over time, broken down by type
 - [ ] **Developer Commit Type Distribution** - Which authors do more fixes vs features?
 - [ ] **Time Zone Awareness** - Display times in user's local timezone with optional UTC toggle
+
+### Weekend & Holiday Visual Distinction
+Apply consistent visual styling across ALL tabs and views to distinguish work patterns:
+- [ ] **Weekend Highlighting** - Visually differentiate Saturday/Sunday in all date-based views
+- [ ] **South African Public Holidays** - Load and display ZA holidays with distinct styling
+- [ ] **Holiday Data Source** - Config file or API for SA public holidays (updateable yearly)
+- [ ] **Legend/Key** - Clear indicator explaining weekend vs holiday vs workday colors
+- [ ] **Timeline Integration** - Apply to existing Timeline tab (chart bars, commit list dates)
+- [ ] **Heatmap Integration** - Apply to new heatmap view (weekend columns styled differently)
+- [ ] **Commit List Badges** - Show "Weekend" or "Holiday" badge on relevant commits
 
 ### Filter Persistence & Cross-Tab Behavior
 Make filters consistent and persistent across all views:
@@ -94,4 +106,4 @@ Handle repository lifecycle changes gracefully:
 
 ---
 
-*Last updated: 2026-01-19 - Added timestamp views, filter persistence, design, privacy, and repo management items*
+*Last updated: 2026-01-19 - Added hour/day views, weekend & SA holiday distinction, filter persistence, design, privacy, repo management*

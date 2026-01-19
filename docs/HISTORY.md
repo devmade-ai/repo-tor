@@ -31,7 +31,8 @@ Log of significant changes to code and documentation.
 ### Feature Roadmap Planning
 
 Added high-priority TODO items for next phase of development:
-- **Timestamp Views & Developer Insights** - Commit time heatmaps, developer activity patterns, commit type trends by time, weekly/monthly breakdowns
+- **Timestamp Views & Developer Insights** - Commits by hour (0-23), commits by day of week (Mon-Sun), heatmaps, developer activity patterns, commit type trends
+- **Weekend & Holiday Visual Distinction** - Weekends and South African public holidays visually different across ALL tabs/views
 - **Filter Persistence & Cross-Tab Behavior** - Global filter state across all tabs, URL params for shareable links, localStorage for session persistence
 - **Visual Design & Dark Mode** - Full dark theme with system preference detection, color palette refinement, typography improvements
 - **Private Repository Security** - Sanitization mode, anonymization options, content filtering, local-only mode documentation
