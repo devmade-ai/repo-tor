@@ -16,10 +16,56 @@ Current state and context for AI assistants to pick up where the last session le
 ### Tracked Repos (config/repos.json)
 - social-ad-creator (156 commits, 3 contributors)
 - model-pear (302 commits, 4 contributors)
-- repo-tor (43 commits, 3 contributors)
+- repo-tor (70 commits, 3 contributors)
 - chatty-chart (42 commits, 4 contributors)
 
 ## Last Completed
+
+### Dashboard Vanity Cleanup (2026-01-19)
+
+Audited every UI element and removed all vanity metrics:
+
+**Removed:**
+- Monthly Commit Volume chart, Cumulative Lines chart
+- Commits by Contributor, Lines by Contributor charts
+- Commit Timeline chart, +/- lines on commits
+- "Top Contributor", "Busiest Day", "Avg commits/day"
+
+**Added/Reworked:**
+- Complexity Over Time chart (Progress tab)
+- Who Does What - work types per contributor
+- Complexity by Contributor chart
+- Complexity badge on commits
+- "Complex Changes" and "Quality Work" highlights
+
+### Metrics Overhaul (2026-01-19)
+
+Summary cards now show: Files Changed, Avg Complexity, Top Work Type, Contributors
+Executive summary shows: Features Built, Bugs Fixed, Complexity, Files Touched
+
+### Export and Share Features (2026-01-19)
+
+Implemented Priority 4: Export/Share capabilities:
+
+**PDF Export:**
+- Added html2pdf.js library for client-side PDF generation
+- Export button in header generates PDF of current tab
+- Includes header, summary stats, and all chart content
+- Landscape A4 format with loading spinner feedback
+
+**Shareable Links:**
+- Share button copies current view URL to clipboard
+- URL params encode: tab, filters, period, timezone
+- Auto-applies URL state when page loads
+- Toast notifications for user feedback
+
+**UI:**
+- Header buttons: Share (secondary) and Export PDF (primary)
+- Buttons hidden until data loads
+- Responsive: icons-only on mobile, full text on desktop
+- Toast notification system for confirmations
+
+Priority 4 is now complete. All major priorities (1-4) from the Discovery Session have been implemented.
 
 ### Cache-Busting Fix (2026-01-19)
 
@@ -168,9 +214,9 @@ Ran `scripts/update-all.sh` to regenerate data for all 4 repos with tag-based fo
 |------------|---------|--------------|-------|
 | model-pear | 302 | 4 | 228 |
 | social-ad-creator | 156 | 3 | 82 |
-| repo-tor | 61 | 3 | 59 |
+| repo-tor | 70 | 3 | 59 |
 | chatty-chart | 42 | 4 | 9 |
-| **Total** | **561** | **4** | **378** |
+| **Total** | **570** | **4** | **378** |
 
 All data now uses new schema with `tags[]` and `complexity` fields. Foundation phase complete.
 
@@ -284,18 +330,24 @@ Updated extraction and aggregation scripts for new tag-based model:
 
 ## Next Steps
 
-**Based on Discovery Session (see [TODO.md](TODO.md) for details):**
+**All Discovery Session priorities complete!**
 
-1. **Priority 1: Timestamp Views** - Commits by hour (0-23), commits by day of week
-2. **Priority 2: Work Pattern Styling** - After hours vs 8-5, weekends, SA holidays across all views
-3. **Priority 3: Executive Summary View** - High-level tab for quick scanning
-4. **Priority 4: PDF Export** - Shareable reports
+1. ~~Priority 1: Timestamp Views~~ - DONE
+2. ~~Priority 2: Work Pattern Styling~~ - DONE
+3. ~~Priority 3: Executive Summary View~~ - DONE
+4. ~~Priority 4: Export/Share~~ - DONE
 
-**Lower Priority:**
+**Remaining items (see [TODO.md](TODO.md)):**
 
+Stretch goals:
+- Commit time heatmap (hour vs day grid)
+- Developer activity patterns
+- Configurable work hours
+
+Lower priority:
 - Tag & complexity breakdown views
 - Dark mode, visual polish
-- Filter persistence (global state, URL params)
+- Filter persistence (global state across tabs)
 - Private repo sanitization
 
 ## Notes

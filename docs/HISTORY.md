@@ -226,6 +226,96 @@ Updated `scripts/aggregate.js` for tag-aware aggregation:
 - Fix: Added step to copy `dashboard/data.json` to `_site/data.json`
 - Now `fetch('data.json')` resolves correctly on the deployed site
 
+### Dashboard Cleanup - Remove Vanity Elements
+
+Removed all vanity metrics and charts from the dashboard:
+
+**Progress Tab:**
+- Removed: Monthly Commit Volume chart
+- Removed: Cumulative Growth (Lines of Code) chart
+- Added: Complexity Over Time chart (avg complexity by month)
+- Kept: Feature vs Bug Fix Trend
+
+**Contributors Tab - Complete Rework:**
+- Removed: Commits by Contributor chart
+- Removed: Lines Changed by Contributor chart
+- Removed: Contributor Details list (showed commits + lines)
+- Added: "Who Does What" - work type breakdown per contributor
+- Added: Complexity by Contributor chart
+
+**Timeline Tab:**
+- Removed: Commit Timeline chart (just showed daily counts)
+- Removed: +/- lines display from commit list
+- Added: Complexity badge (1-5) on each commit
+- Increased visible commits from 50 to 100
+
+**Summary Tab Highlights:**
+- Removed: "Top Contributor" (vanity)
+- Removed: "Busiest Day" (vanity)
+- Added: "Complex Changes" (high vs simple count)
+- Added: "Quality Work" (refactors + tests count)
+- Kept: "Most Active Repo" (for aggregated data)
+- Kept: "Off-Hours Work" (burnout indicator)
+
+**Summary Tab Activity Snapshot:**
+- Removed: "Avg commits/day" (vanity)
+- Added: "Complex" count
+- Kept: After-hours, Weekend, Holiday (burnout indicators)
+
+### Metrics Overhaul - Focus on What Matters
+
+Replaced vanity metrics (commits, lines of code) with meaningful work metrics:
+
+**Main Summary Cards (top of dashboard):**
+- ~~Lines Added~~ → **Files Changed** (scope of work)
+- ~~Lines Removed~~ → **Avg Complexity** (1-5 scale)
+- ~~Commits~~ → **Top Work Type** (primary focus)
+- Contributors (kept)
+
+**Executive Summary Tab:**
+- ~~Commits count~~ → **Features Built** (what was delivered)
+- ~~Active Contributors~~ → **Bugs Fixed** (quality work)
+- Added **Avg Complexity** with trend
+- Added **Files Touched** with trend
+
+**PDF Export:**
+- Updated to show new metrics instead of lines added/removed
+
+**Rationale:** Lines of code and commit counts are vanity metrics that don't reflect actual work value. The new metrics focus on:
+- What kind of work (tags/types)
+- How complex the changes are
+- How much of the codebase was affected
+
+### Export and Share Features (Priority 4)
+
+Added PDF export and shareable links to the dashboard:
+
+**PDF Export:**
+- Button in header to generate PDF report
+- Exports current tab with all charts and statistics
+- Includes header with repo name, date range, timestamp
+- Shows "Filtered view" indicator when filters active
+- Uses html2pdf.js library for client-side generation
+- Landscape A4 format for optimal chart display
+- Loading spinner during generation
+
+**Shareable Links:**
+- Button to copy current view URL to clipboard
+- Encodes in URL parameters:
+  - Current tab (summary, timeline, timing, etc.)
+  - Filter state (tag, author, repo, date range)
+  - Summary period (week/month/quarter)
+  - Timezone setting (local/utc)
+- Auto-applies URL state on page load
+- Toast notification confirms copy success
+
+**UI additions:**
+- Share and Export PDF buttons in dashboard header
+- Buttons hide until data loads
+- Responsive layout (icons-only on mobile)
+- Toast notification system for feedback
+- Print styles for clean output
+
 ### Summary Tab and Tag Display Fixes
 
 Fixed two bugs in the dashboard:

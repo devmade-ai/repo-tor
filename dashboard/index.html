@@ -6,6 +6,7 @@
     <title>Git Analytics Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         /* Tag classes */
         .tag-feature { background-color: #10b981; color: white; }
@@ -111,14 +112,91 @@
             background-color: #fce7f3;
             color: #9d174d;
         }
+
+        /* Export/Share buttons */
+        .btn-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+        .btn-secondary {
+            background-color: white;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+        .btn-secondary:hover {
+            background-color: #f9fafb;
+        }
+        .btn-icon svg {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background-color: #1f2937;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(1rem);
+            transition: all 0.3s ease;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Print styles for PDF */
+        @media print {
+            body { background: white !important; }
+            .no-print { display: none !important; }
+            .card { box-shadow: none !important; border: 1px solid #e5e7eb; }
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
     <div id="app" class="container mx-auto px-4 py-8 max-w-7xl">
         <!-- Header -->
         <header class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900" id="repo-name">Git Analytics Dashboard</h1>
-            <p class="text-gray-500 mt-1" id="repo-subtitle">Loading data...</p>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900" id="repo-name">Git Analytics Dashboard</h1>
+                    <p class="text-gray-500 mt-1" id="repo-subtitle">Loading data...</p>
+                </div>
+                <div id="export-buttons" class="hidden flex gap-2 no-print">
+                    <button id="btn-share" class="btn-icon btn-secondary" title="Copy shareable link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                        </svg>
+                        <span class="hidden sm:inline">Share</span>
+                    </button>
+                    <button id="btn-export-pdf" class="btn-icon btn-primary" title="Export as PDF">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                        </svg>
+                        <span class="hidden sm:inline">Export PDF</span>
+                    </button>
+                </div>
+            </div>
         </header>
 
         <!-- Data Loader -->
@@ -134,21 +212,23 @@
             <!-- Summary Cards -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div class="card">
-                    <p class="text-sm text-gray-500 uppercase tracking-wide">Commits</p>
-                    <p class="text-3xl font-bold text-gray-900" id="stat-commits">0</p>
-                    <p class="text-xs text-gray-400" id="stat-commits-filtered"></p>
+                    <p class="text-sm text-gray-500 uppercase tracking-wide">Files Changed</p>
+                    <p class="text-3xl font-bold text-gray-900" id="stat-files">0</p>
+                    <p class="text-xs text-gray-400" id="stat-files-sub"></p>
+                </div>
+                <div class="card">
+                    <p class="text-sm text-gray-500 uppercase tracking-wide">Avg Complexity</p>
+                    <p class="text-3xl font-bold text-gray-900" id="stat-complexity">-</p>
+                    <p class="text-xs text-gray-400" id="stat-complexity-sub"></p>
+                </div>
+                <div class="card">
+                    <p class="text-sm text-gray-500 uppercase tracking-wide">Top Work Type</p>
+                    <p class="text-2xl font-bold text-gray-900" id="stat-top-tag">-</p>
+                    <p class="text-xs text-gray-400" id="stat-top-tag-sub"></p>
                 </div>
                 <div class="card">
                     <p class="text-sm text-gray-500 uppercase tracking-wide">Contributors</p>
                     <p class="text-3xl font-bold text-gray-900" id="stat-contributors">0</p>
-                </div>
-                <div class="card">
-                    <p class="text-sm text-gray-500 uppercase tracking-wide">Lines Added</p>
-                    <p class="text-3xl font-bold text-green-600" id="stat-additions">0</p>
-                </div>
-                <div class="card">
-                    <p class="text-sm text-gray-500 uppercase tracking-wide">Lines Removed</p>
-                    <p class="text-3xl font-bold text-red-600" id="stat-deletions">0</p>
                 </div>
             </div>
 
@@ -186,24 +266,24 @@
                 <!-- Quick Stats with Trends -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                     <div class="card">
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Commits</p>
-                        <p class="text-3xl font-bold text-gray-900" id="summary-commits">0</p>
-                        <p class="text-sm mt-1" id="summary-commits-trend"></p>
-                    </div>
-                    <div class="card">
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Active Contributors</p>
-                        <p class="text-3xl font-bold text-gray-900" id="summary-contributors">0</p>
-                        <p class="text-sm mt-1" id="summary-contributors-trend"></p>
-                    </div>
-                    <div class="card">
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Features</p>
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Features Built</p>
                         <p class="text-3xl font-bold text-green-600" id="summary-features">0</p>
                         <p class="text-sm mt-1" id="summary-features-trend"></p>
                     </div>
                     <div class="card">
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Bug Fixes</p>
-                        <p class="text-3xl font-bold text-red-600" id="summary-fixes">0</p>
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Bugs Fixed</p>
+                        <p class="text-3xl font-bold text-amber-600" id="summary-fixes">0</p>
                         <p class="text-sm mt-1" id="summary-fixes-trend"></p>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Avg Complexity</p>
+                        <p class="text-3xl font-bold text-gray-900" id="summary-complexity">-</p>
+                        <p class="text-sm mt-1" id="summary-complexity-trend"></p>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Files Touched</p>
+                        <p class="text-3xl font-bold text-gray-900" id="summary-files">0</p>
+                        <p class="text-sm mt-1" id="summary-files-trend"></p>
                     </div>
                 </div>
 
@@ -275,62 +355,44 @@
                     </div>
                 </div>
 
-                <div class="card mb-6">
-                    <h2 class="text-lg font-semibold mb-4">Commit Timeline</h2>
-                    <div class="h-48 md:h-64">
-                        <canvas id="timeline-chart"></canvas>
-                    </div>
-                </div>
                 <div class="card">
                     <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-lg font-semibold">Recent Commits</h2>
+                        <h2 class="text-lg font-semibold">Changes</h2>
                         <span id="commit-count" class="text-sm text-gray-500"></span>
                     </div>
-                    <div id="commit-list" class="space-y-3 max-h-96 overflow-y-auto"></div>
+                    <div id="commit-list" class="space-y-3 max-h-[600px] overflow-y-auto"></div>
                 </div>
             </div>
 
             <div id="tab-progress" class="tab-content hidden">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Monthly Commit Volume</h2>
-                        <div class="h-64">
-                            <canvas id="monthly-chart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Cumulative Growth (Lines of Code)</h2>
-                        <div class="h-64">
-                            <canvas id="growth-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mt-6">
-                    <h2 class="text-lg font-semibold mb-4">Feature vs Bug Fix Trend</h2>
+                <div class="card mb-6">
+                    <h2 class="text-lg font-semibold mb-4">Work Type Trend</h2>
+                    <p class="text-xs text-gray-500 -mt-2 mb-4">Features vs bug fixes over time</p>
                     <div class="h-64">
                         <canvas id="feat-fix-chart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2 class="text-lg font-semibold mb-4">Complexity Over Time</h2>
+                    <p class="text-xs text-gray-500 -mt-2 mb-4">Average complexity by month</p>
+                    <div class="h-64">
+                        <canvas id="complexity-trend-chart"></canvas>
                     </div>
                 </div>
             </div>
 
             <div id="tab-contributors" class="tab-content hidden">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Commits by Contributor</h2>
-                        <div class="h-64">
-                            <canvas id="contributors-chart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Lines Changed by Contributor</h2>
-                        <div class="h-64">
-                            <canvas id="contributors-lines-chart"></canvas>
-                        </div>
-                    </div>
+                <div class="card mb-6">
+                    <h2 class="text-lg font-semibold mb-4">Who Does What</h2>
+                    <p class="text-xs text-gray-500 -mt-2 mb-4">Work type distribution by contributor</p>
+                    <div id="contributor-work-types" class="space-y-4"></div>
                 </div>
-                <div class="card mt-6">
-                    <h2 class="text-lg font-semibold mb-4">Contributor Details</h2>
-                    <div id="contributor-list" class="space-y-3"></div>
+                <div class="card">
+                    <h2 class="text-lg font-semibold mb-4">Complexity by Contributor</h2>
+                    <p class="text-xs text-gray-500 -mt-2 mb-4">Who handles complex vs simple changes</p>
+                    <div class="h-64">
+                        <canvas id="contributor-complexity-chart"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -552,6 +614,52 @@
             return commit.author?.email || commit.author_id || 'unknown';
         }
 
+        // === Summary Stats ===
+        function updateSummaryStats() {
+            // Files changed - count unique files across all commits
+            const allFiles = new Set();
+            data.commits.forEach(c => {
+                if (c.files) {
+                    c.files.forEach(f => allFiles.add(f.path || f));
+                }
+            });
+            const totalFiles = data.files?.length || allFiles.size || 0;
+            document.getElementById('stat-files').textContent = totalFiles.toLocaleString();
+            document.getElementById('stat-files-sub').textContent = `across ${data.summary.totalCommits} changes`;
+
+            // Average complexity
+            const complexities = data.commits.map(c => c.complexity).filter(c => c != null);
+            if (complexities.length > 0) {
+                const avgComplexity = (complexities.reduce((a, b) => a + b, 0) / complexities.length).toFixed(1);
+                document.getElementById('stat-complexity').textContent = avgComplexity;
+                // Complexity distribution
+                const high = complexities.filter(c => c >= 4).length;
+                const low = complexities.filter(c => c <= 2).length;
+                document.getElementById('stat-complexity-sub').textContent = `${high} complex, ${low} simple`;
+            } else {
+                document.getElementById('stat-complexity').textContent = '-';
+                document.getElementById('stat-complexity-sub').textContent = 'not available';
+            }
+
+            // Top work type (most common tag)
+            const tagCounts = {};
+            data.commits.forEach(c => {
+                getCommitTags(c).forEach(tag => {
+                    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+                });
+            });
+            const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+            if (sortedTags.length > 0) {
+                const [topTag, topCount] = sortedTags[0];
+                const pct = Math.round((topCount / data.commits.length) * 100);
+                document.getElementById('stat-top-tag').textContent = topTag;
+                document.getElementById('stat-top-tag-sub').textContent = `${pct}% of changes`;
+            }
+
+            // Contributors
+            document.getElementById('stat-contributors').textContent = data.summary.totalContributors;
+        }
+
         // === Filter Functions ===
         function getFilteredCommits() {
             if (!data || !data.commits) return [];
@@ -698,15 +806,18 @@
                 `${data.summary.totalCommits} commits from ${data.summary.totalContributors} contributors | ` +
                 `${formatDate(data.summary.dateRange.earliest)} - ${formatDate(data.summary.dateRange.latest)}`;
 
-            // Update stats
-            document.getElementById('stat-commits').textContent = data.summary.totalCommits.toLocaleString();
-            document.getElementById('stat-contributors').textContent = data.summary.totalContributors;
-            document.getElementById('stat-additions').textContent = formatNumber(data.summary.totalAdditions);
-            document.getElementById('stat-deletions').textContent = formatNumber(data.summary.totalDeletions);
+            // Update stats - focus on meaningful metrics
+            updateSummaryStats();
 
             // Populate and setup filters
             populateFilters();
             setupFilterListeners();
+
+            // Setup export/share buttons
+            setupExportButtons();
+
+            // Apply URL state (filters, tab, etc.) if present
+            applyUrlState();
 
             // Render all views
             renderSummary();
@@ -718,6 +829,11 @@
             renderTiming();
             setupSummaryPeriodToggle();
             setupTimezoneToggle();
+
+            // Apply filters from URL after render
+            if (hasActiveFilters()) {
+                applyFilters();
+            }
         }
 
         function formatDate(isoString) {
@@ -737,59 +853,21 @@
         function renderTimeline() {
             const filteredCommits = getFilteredCommits();
 
-            // Aggregate commits by date
-            const byDate = {};
-            filteredCommits.forEach(commit => {
-                const date = commit.timestamp.substring(0, 10);
-                if (!byDate[date]) byDate[date] = [];
-                byDate[date].push(commit);
-            });
-
-            const dates = Object.keys(byDate).sort().reverse(); // Newest at top
-            const counts = dates.map(d => byDate[d].length);
-
-            // Timeline Chart (horizontal bar)
-            if (charts.timeline) charts.timeline.destroy();
-            charts.timeline = new Chart(document.getElementById('timeline-chart'), {
-                type: 'bar',
-                data: {
-                    labels: dates.map(d => d.substring(5)), // MM-DD format
-                    datasets: [{
-                        label: 'Commits',
-                        data: counts,
-                        backgroundColor: '#3b82f6',
-                        borderRadius: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: {
-                            ticks: {
-                                autoSkip: true,
-                                maxTicksLimit: 12
-                            }
-                        },
-                        x: { beginAtZero: true }
-                    }
-                }
-            });
-
-            // Update commit count
+            // Update count
             document.getElementById('commit-count').textContent =
-                `Showing ${Math.min(filteredCommits.length, 50)} of ${filteredCommits.length} commits`;
+                `Showing ${Math.min(filteredCommits.length, 100)} of ${filteredCommits.length}`;
 
-            // Commit List
-            const listHtml = filteredCommits.slice(0, 50).map(commit => {
+            // Commit List - show tags, complexity, work patterns (no +/- lines)
+            const listHtml = filteredCommits.slice(0, 100).map(commit => {
                 const tags = getCommitTags(commit);
                 const tagBadges = tags.slice(0, 3).map(t =>
                     `<span class="tag ${getTagClass(t)} shrink-0">${t}</span>`
                 ).join(' ');
                 const extraTags = tags.length > 3 ? `<span class="tag tag-other shrink-0">+${tags.length - 3}</span>` : '';
                 const workPatternBadges = getWorkPatternBadges(commit);
+                const complexityBadge = commit.complexity != null
+                    ? `<span class="text-xs px-1.5 py-0.5 rounded ${commit.complexity >= 4 ? 'bg-purple-100 text-purple-700' : commit.complexity >= 2 ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}">${commit.complexity}/5</span>`
+                    : '';
 
                 return `
                 <div class="p-3 bg-gray-50 rounded-lg">
@@ -800,105 +878,39 @@
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-medium text-gray-900 break-words sm:truncate">${escapeHtml(commit.subject)}</p>
                         </div>
-                        <span class="text-xs text-gray-400 shrink-0 hidden sm:inline">
-                            <span class="text-green-600">+${commit.stats?.additions || 0}</span>
-                            <span class="text-red-600">-${commit.stats?.deletions || 0}</span>
-                        </span>
+                        ${complexityBadge}
                     </div>
                     <div class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-500">
-                        <span class="font-mono">${commit.sha}</span>
-                        <span class="hidden sm:inline">by</span>
-                        <span class="sm:hidden">·</span>
                         <span>${escapeHtml(getAuthorName(commit))}</span>
-                        <span class="hidden sm:inline">on</span>
-                        <span class="sm:hidden">·</span>
+                        <span>·</span>
                         <span>${formatDate(commit.timestamp)}</span>
-                        ${commit.repo_id ? `<span class="text-gray-400">in ${commit.repo_id}</span>` : ''}
+                        ${commit.repo_id ? `<span class="text-gray-400">· ${commit.repo_id}</span>` : ''}
                         ${workPatternBadges ? `<span class="ml-1">${workPatternBadges}</span>` : ''}
-                        <span class="sm:hidden text-gray-400">
-                            <span class="text-green-600">+${commit.stats?.additions || 0}</span>
-                            <span class="text-red-600">-${commit.stats?.deletions || 0}</span>
-                        </span>
                     </div>
                 </div>
             `}).join('');
-            document.getElementById('commit-list').innerHTML = listHtml || '<p class="text-gray-500">No commits match the current filters</p>';
+            document.getElementById('commit-list').innerHTML = listHtml || '<p class="text-gray-500">No changes match the current filters</p>';
         }
 
         // === Progress Tab ===
         function renderProgress() {
             const months = Object.keys(data.summary.monthlyCommits).sort();
-            const monthlyTotals = months.map(m => data.summary.monthlyCommits[m].total);
-
-            // Monthly Commits Chart
-            if (charts.monthly) charts.monthly.destroy();
-            charts.monthly = new Chart(document.getElementById('monthly-chart'), {
-                type: 'bar',
-                data: {
-                    labels: months,
-                    datasets: [{
-                        label: 'Commits',
-                        data: monthlyTotals,
-                        backgroundColor: '#3b82f6'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            // Cumulative Growth Chart
-            const sortedCommits = [...data.commits].sort((a, b) =>
-                new Date(a.timestamp) - new Date(b.timestamp)
-            );
-
-            let cumulative = 0;
-            const growthData = [];
-            const growthLabels = [];
-
-            sortedCommits.forEach((commit, i) => {
-                cumulative += commit.stats.additions - commit.stats.deletions;
-                if (i % Math.max(1, Math.floor(sortedCommits.length / 50)) === 0) {
-                    growthLabels.push(commit.timestamp.substring(0, 10));
-                    growthData.push(cumulative);
-                }
-            });
-
-            if (charts.growth) charts.growth.destroy();
-            charts.growth = new Chart(document.getElementById('growth-chart'), {
-                type: 'line',
-                data: {
-                    labels: growthLabels,
-                    datasets: [{
-                        label: 'Net Lines',
-                        data: growthData,
-                        borderColor: '#10b981',
-                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                        fill: true,
-                        tension: 0.3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { ticks: { maxTicksLimit: 10 } }
-                    }
-                }
-            });
 
             // Feature vs Bug Fix Trend
             const monthlyTagCounts = {};
+            const monthlyComplexity = {};
             data.commits.forEach(commit => {
                 const month = commit.timestamp?.substring(0, 7);
                 if (!month) return;
                 if (!monthlyTagCounts[month]) monthlyTagCounts[month] = { feature: 0, bugfix: 0 };
+                if (!monthlyComplexity[month]) monthlyComplexity[month] = { total: 0, count: 0 };
                 const tags = getCommitTags(commit);
                 if (tags.includes('feature')) monthlyTagCounts[month].feature++;
                 if (tags.includes('bugfix')) monthlyTagCounts[month].bugfix++;
+                if (commit.complexity != null) {
+                    monthlyComplexity[month].total += commit.complexity;
+                    monthlyComplexity[month].count++;
+                }
             });
             const featData = months.map(m => monthlyTagCounts[m]?.feature || 0);
             const fixData = months.map(m => monthlyTagCounts[m]?.bugfix || 0);
@@ -932,72 +944,127 @@
                     maintainAspectRatio: false
                 }
             });
+
+            // Complexity Over Time
+            const complexityData = months.map(m => {
+                const mc = monthlyComplexity[m];
+                return mc && mc.count > 0 ? (mc.total / mc.count) : null;
+            });
+
+            if (charts.complexityTrend) charts.complexityTrend.destroy();
+            charts.complexityTrend = new Chart(document.getElementById('complexity-trend-chart'), {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: 'Avg Complexity',
+                        data: complexityData,
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        spanGaps: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            min: 1,
+                            max: 5,
+                            ticks: { stepSize: 1 }
+                        }
+                    }
+                }
+            });
         }
 
         // === Contributors Tab ===
         function renderContributors() {
-            const top10 = data.contributors.slice(0, 10);
-            const names = top10.map(c => c.primaryName);
-            const commits = top10.map(c => c.commits);
-            const lines = top10.map(c => c.additions + c.deletions);
+            // Build per-contributor stats from commits
+            const contributorStats = {};
+            data.commits.forEach(commit => {
+                const email = getAuthorEmail(commit);
+                const name = getAuthorName(commit);
+                if (!contributorStats[email]) {
+                    contributorStats[email] = {
+                        name,
+                        email,
+                        tags: {},
+                        complexities: []
+                    };
+                }
+                getCommitTags(commit).forEach(tag => {
+                    contributorStats[email].tags[tag] = (contributorStats[email].tags[tag] || 0) + 1;
+                });
+                if (commit.complexity != null) {
+                    contributorStats[email].complexities.push(commit.complexity);
+                }
+            });
 
-            // Commits by Contributor
-            if (charts.contributors) charts.contributors.destroy();
-            charts.contributors = new Chart(document.getElementById('contributors-chart'), {
+            // Sort by total changes
+            const sorted = Object.values(contributorStats).sort((a, b) => {
+                const aTotal = Object.values(a.tags).reduce((s, v) => s + v, 0);
+                const bTotal = Object.values(b.tags).reduce((s, v) => s + v, 0);
+                return bTotal - aTotal;
+            });
+
+            // Who Does What - work type breakdown per contributor
+            const workTypesHtml = sorted.slice(0, 8).map(c => {
+                const totalTags = Object.values(c.tags).reduce((s, v) => s + v, 0);
+                const tagBars = Object.entries(c.tags)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 5)
+                    .map(([tag, count]) => {
+                        const pct = Math.round((count / totalTags) * 100);
+                        return `<div class="flex items-center gap-2">
+                            <span class="tag tag-${tag} text-xs">${tag}</span>
+                            <div class="flex-1 bg-gray-200 rounded-full h-2">
+                                <div class="h-2 rounded-full" style="width: ${pct}%; background-color: ${getTagColor(tag)}"></div>
+                            </div>
+                            <span class="text-xs text-gray-500 w-8">${pct}%</span>
+                        </div>`;
+                    }).join('');
+                return `
+                    <div class="p-3 bg-gray-50 rounded-lg">
+                        <p class="font-medium text-gray-900 mb-2">${escapeHtml(c.name)}</p>
+                        <div class="space-y-1">${tagBars}</div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('contributor-work-types').innerHTML = workTypesHtml || '<p class="text-gray-500">No contributor data</p>';
+
+            // Complexity by Contributor chart
+            const top8 = sorted.slice(0, 8);
+            const names = top8.map(c => c.name);
+            const avgComplexities = top8.map(c => {
+                if (c.complexities.length === 0) return 0;
+                return c.complexities.reduce((a, b) => a + b, 0) / c.complexities.length;
+            });
+
+            if (charts.contributorComplexity) charts.contributorComplexity.destroy();
+            charts.contributorComplexity = new Chart(document.getElementById('contributor-complexity-chart'), {
                 type: 'bar',
                 data: {
                     labels: names,
                     datasets: [{
-                        label: 'Commits',
-                        data: commits,
-                        backgroundColor: '#8b5cf6'
+                        label: 'Avg Complexity',
+                        data: avgComplexities,
+                        backgroundColor: avgComplexities.map(c => c >= 3.5 ? '#8b5cf6' : c >= 2.5 ? '#3b82f6' : '#94a3b8')
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     indexAxis: 'y',
-                    plugins: { legend: { display: false } }
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { min: 0, max: 5, ticks: { stepSize: 1 } }
+                    }
                 }
             });
-
-            // Lines by Contributor
-            if (charts.contributorsLines) charts.contributorsLines.destroy();
-            charts.contributorsLines = new Chart(document.getElementById('contributors-lines-chart'), {
-                type: 'bar',
-                data: {
-                    labels: names,
-                    datasets: [{
-                        label: 'Lines Changed',
-                        data: lines,
-                        backgroundColor: '#f59e0b'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            // Contributor List
-            const listHtml = data.contributors.map(c => `
-                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                    <div>
-                        <p class="font-medium text-gray-900">${escapeHtml(c.primaryName)}</p>
-                        <p class="text-xs text-gray-500">${escapeHtml(c.email)}${c.repos ? ` (${c.repos.length} repos)` : ''}</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-sm font-semibold">${c.commits} commits</p>
-                        <p class="text-xs text-gray-500">
-                            <span class="text-green-600">+${formatNumber(c.additions)}</span>
-                            <span class="text-red-600">-${formatNumber(c.deletions)}</span>
-                        </p>
-                    </div>
-                </div>
-            `).join('');
-            document.getElementById('contributor-list').innerHTML = listHtml;
         }
 
         // === Security Tab ===
@@ -1293,9 +1360,6 @@
             const previousCommits = getCommitsInRange(data.commits, periods.previous.start, periods.previous.end);
 
             // Count metrics for current period
-            const currentContributors = new Set(currentCommits.map(c => c.author_id || c.author?.email)).size;
-            const previousContributors = new Set(previousCommits.map(c => c.author_id || c.author?.email)).size;
-
             const countTag = (commits, tag) => commits.filter(c =>
                 getCommitTags(c).includes(tag)
             ).length;
@@ -1305,18 +1369,41 @@
             const currentFixes = countTag(currentCommits, 'bugfix');
             const previousFixes = countTag(previousCommits, 'bugfix');
 
-            // Update stats
-            document.getElementById('summary-commits').textContent = currentCommits.length;
-            document.getElementById('summary-commits-trend').innerHTML = getTrendHtml(currentCommits.length, previousCommits.length, periodLabel);
+            // Complexity metrics
+            const getAvgComplexity = (commits) => {
+                const complexities = commits.map(c => c.complexity).filter(c => c != null);
+                return complexities.length > 0
+                    ? (complexities.reduce((a, b) => a + b, 0) / complexities.length)
+                    : 0;
+            };
+            const currentComplexity = getAvgComplexity(currentCommits);
+            const previousComplexity = getAvgComplexity(previousCommits);
 
-            document.getElementById('summary-contributors').textContent = currentContributors;
-            document.getElementById('summary-contributors-trend').innerHTML = getTrendHtml(currentContributors, previousContributors, periodLabel);
+            // Files touched
+            const getFilesCount = (commits) => {
+                const files = new Set();
+                commits.forEach(c => {
+                    if (c.files) c.files.forEach(f => files.add(f.path || f));
+                });
+                return files.size;
+            };
+            const currentFiles = getFilesCount(currentCommits);
+            const previousFiles = getFilesCount(previousCommits);
 
+            // Update stats - focus on what matters
             document.getElementById('summary-features').textContent = currentFeatures;
             document.getElementById('summary-features-trend').innerHTML = getTrendHtml(currentFeatures, previousFeatures, periodLabel);
 
             document.getElementById('summary-fixes').textContent = currentFixes;
             document.getElementById('summary-fixes-trend').innerHTML = getTrendHtml(currentFixes, previousFixes, periodLabel);
+
+            document.getElementById('summary-complexity').textContent = currentComplexity > 0 ? currentComplexity.toFixed(1) : '-';
+            document.getElementById('summary-complexity-trend').innerHTML = currentComplexity > 0
+                ? getTrendHtml(Math.round(currentComplexity * 10), Math.round(previousComplexity * 10), periodLabel)
+                : '<span class="text-gray-400">No data</span>';
+
+            document.getElementById('summary-files').textContent = currentFiles;
+            document.getElementById('summary-files-trend').innerHTML = getTrendHtml(currentFiles, previousFiles, periodLabel);
 
             // Work breakdown chart
             const tagCounts = {};
@@ -1346,36 +1433,17 @@
                 }
             });
 
-            // Key highlights
+            // Key highlights - focus on meaningful insights
             const highlights = [];
 
-            // Most active contributor
-            const contributorCounts = {};
-            currentCommits.forEach(c => {
-                const author = getAuthorName(c);
-                contributorCounts[author] = (contributorCounts[author] || 0) + 1;
-            });
-            const topContributor = Object.entries(contributorCounts).sort((a, b) => b[1] - a[1])[0];
-            if (topContributor) {
+            // Complexity breakdown
+            const complexChanges = currentCommits.filter(c => c.complexity >= 4).length;
+            const simpleChanges = currentCommits.filter(c => c.complexity != null && c.complexity <= 2).length;
+            if (complexChanges > 0 || simpleChanges > 0) {
                 highlights.push({
-                    icon: '👤',
-                    label: 'Top Contributor',
-                    value: `${topContributor[0]} (${topContributor[1]} commits)`
-                });
-            }
-
-            // Busiest day
-            const dayCounts = {};
-            currentCommits.forEach(c => {
-                const day = c.timestamp.substring(0, 10);
-                dayCounts[day] = (dayCounts[day] || 0) + 1;
-            });
-            const busiestDay = Object.entries(dayCounts).sort((a, b) => b[1] - a[1])[0];
-            if (busiestDay) {
-                highlights.push({
-                    icon: '📅',
-                    label: 'Busiest Day',
-                    value: `${formatDate(busiestDay[0])} (${busiestDay[1]} commits)`
+                    label: 'Complex Changes',
+                    value: `${complexChanges} high complexity`,
+                    subvalue: `${simpleChanges} simple`
                 });
             }
 
@@ -1389,46 +1457,53 @@
             const repos = Object.keys(repoCounts);
             if (repos.length > 1) {
                 const topRepo = Object.entries(repoCounts).sort((a, b) => b[1] - a[1])[0];
+                const topPct = Math.round((topRepo[1] / currentCommits.length) * 100);
                 highlights.push({
-                    icon: '📁',
                     label: 'Most Active Repo',
-                    value: `${topRepo[0]} (${topRepo[1]} commits)`
+                    value: topRepo[0],
+                    subvalue: `${topPct}% of work`
                 });
             }
 
-            // After-hours percentage
+            // Work pattern summary
             const afterHoursCount = currentCommits.filter(c => getWorkPattern(c).isAfterHours).length;
+            const weekendCount = currentCommits.filter(c => getWorkPattern(c).isWeekend).length;
             const afterHoursPct = currentCommits.length > 0
                 ? Math.round((afterHoursCount / currentCommits.length) * 100)
                 : 0;
-            highlights.push({
-                icon: '🌙',
-                label: 'After-Hours Work',
-                value: `${afterHoursPct}% of commits`
-            });
+            if (afterHoursPct > 0 || weekendCount > 0) {
+                highlights.push({
+                    label: 'Off-Hours Work',
+                    value: `${afterHoursPct}% after hours`,
+                    subvalue: `${weekendCount} weekend`
+                });
+            }
 
-            document.getElementById('summary-highlights').innerHTML = highlights.map(h => `
-                <div class="flex items-center gap-3 p-2 bg-gray-50 rounded">
-                    <span class="text-xl">${h.icon}</span>
-                    <div>
-                        <p class="text-xs text-gray-500">${h.label}</p>
-                        <p class="text-sm font-medium">${h.value}</p>
+            // Refactoring ratio
+            const refactorCount = currentCommits.filter(c => getCommitTags(c).includes('refactor')).length;
+            const testCount = currentCommits.filter(c => getCommitTags(c).includes('test')).length;
+            if (refactorCount > 0 || testCount > 0) {
+                highlights.push({
+                    label: 'Quality Work',
+                    value: `${refactorCount} refactors`,
+                    subvalue: `${testCount} tests`
+                });
+            }
+
+            document.getElementById('summary-highlights').innerHTML = highlights.length > 0
+                ? highlights.map(h => `
+                    <div class="p-3 bg-gray-50 rounded">
+                        <p class="text-xs text-gray-500 mb-1">${h.label}</p>
+                        <p class="text-sm font-semibold text-gray-900">${h.value}</p>
+                        ${h.subvalue ? `<p class="text-xs text-gray-500">${h.subvalue}</p>` : ''}
                     </div>
-                </div>
-            `).join('');
+                `).join('')
+                : '<p class="text-gray-500 text-sm">No activity in this period</p>';
 
-            // Activity snapshot
-            const weekendCount = currentCommits.filter(c => getWorkPattern(c).isWeekend).length;
+            // Activity snapshot - work pattern indicators (useful for burnout detection)
             const holidayCount = currentCommits.filter(c => getWorkPattern(c).isHoliday).length;
-            const avgPerDay = currentCommits.length > 0
-                ? (currentCommits.length / Math.max(1, Object.keys(dayCounts).length)).toFixed(1)
-                : 0;
 
             document.getElementById('summary-activity').innerHTML = `
-                <div class="text-center p-3 bg-blue-50 rounded">
-                    <p class="text-2xl font-bold text-blue-600">${avgPerDay}</p>
-                    <p class="text-xs text-gray-500">Avg commits/day</p>
-                </div>
                 <div class="text-center p-3 bg-amber-50 rounded">
                     <p class="text-2xl font-bold text-amber-600">${afterHoursCount}</p>
                     <p class="text-xs text-gray-500">After-hours</p>
@@ -1440,6 +1515,10 @@
                 <div class="text-center p-3 bg-pink-50 rounded">
                     <p class="text-2xl font-bold text-pink-600">${holidayCount}</p>
                     <p class="text-xs text-gray-500">Holiday</p>
+                </div>
+                <div class="text-center p-3 bg-purple-50 rounded">
+                    <p class="text-2xl font-bold text-purple-600">${complexChanges}</p>
+                    <p class="text-xs text-gray-500">Complex</p>
                 </div>
             `;
         }
@@ -1640,6 +1719,248 @@
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
+        }
+
+        // === Toast Notification ===
+        function showToast(message, duration = 3000) {
+            // Remove existing toast
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
+        // === URL State Management (Shareable Links) ===
+        function getStateFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                tag: params.get('tag') || '',
+                author: params.get('author') || '',
+                repo: params.get('repo') || '',
+                dateFrom: params.get('from') || '',
+                dateTo: params.get('to') || '',
+                tab: params.get('tab') || 'summary',
+                period: params.get('period') || 'week',
+                tz: params.get('tz') || 'local'
+            };
+        }
+
+        function buildShareableUrl() {
+            const url = new URL(window.location.href.split('?')[0]);
+            const params = new URLSearchParams();
+
+            // Add current tab
+            const activeTab = document.querySelector('.tab-btn.border-blue-500')?.dataset.tab || 'summary';
+            if (activeTab !== 'summary') params.set('tab', activeTab);
+
+            // Add filters (only if set)
+            if (filters.tag) params.set('tag', filters.tag);
+            if (filters.author) params.set('author', filters.author);
+            if (filters.repo) params.set('repo', filters.repo);
+            if (filters.dateFrom) params.set('from', filters.dateFrom);
+            if (filters.dateTo) params.set('to', filters.dateTo);
+
+            // Add summary period if on summary tab
+            if (activeTab === 'summary' && summaryPeriod !== 'week') {
+                params.set('period', summaryPeriod);
+            }
+
+            // Add timezone if on timing tab and not local
+            if (activeTab === 'timing' && useUTC) {
+                params.set('tz', 'utc');
+            }
+
+            const paramStr = params.toString();
+            return paramStr ? `${url}?${paramStr}` : url.toString();
+        }
+
+        function applyUrlState() {
+            const state = getStateFromUrl();
+
+            // Apply filters
+            filters.tag = state.tag;
+            filters.author = state.author;
+            filters.repo = state.repo;
+            filters.dateFrom = state.dateFrom;
+            filters.dateTo = state.dateTo;
+
+            // Update filter UI
+            document.getElementById('filter-tag').value = state.tag;
+            document.getElementById('filter-author').value = state.author;
+            document.getElementById('filter-repo').value = state.repo;
+            document.getElementById('filter-date-from').value = state.dateFrom;
+            document.getElementById('filter-date-to').value = state.dateTo;
+
+            // Apply summary period
+            if (state.period) {
+                summaryPeriod = state.period;
+                document.getElementById('summary-period').value = state.period;
+            }
+
+            // Apply timezone
+            if (state.tz === 'utc') {
+                useUTC = true;
+                document.getElementById('timezone-select').value = 'utc';
+            }
+
+            // Switch to specified tab
+            if (state.tab) {
+                const tabBtn = document.querySelector(`.tab-btn[data-tab="${state.tab}"]`);
+                if (tabBtn) tabBtn.click();
+            }
+        }
+
+        function copyShareableLink() {
+            const url = buildShareableUrl();
+            navigator.clipboard.writeText(url).then(() => {
+                showToast('Link copied to clipboard!');
+            }).catch(() => {
+                // Fallback for older browsers
+                const input = document.createElement('input');
+                input.value = url;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('Link copied to clipboard!');
+            });
+        }
+
+        // === PDF Export ===
+        async function exportToPdf() {
+            const exportBtn = document.getElementById('btn-export-pdf');
+            const originalText = exportBtn.innerHTML;
+            exportBtn.innerHTML = `
+                <svg class="animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                </svg>
+                <span class="hidden sm:inline">Generating...</span>
+            `;
+            exportBtn.disabled = true;
+
+            try {
+                // Get current active tab
+                const activeTab = document.querySelector('.tab-btn.border-blue-500')?.dataset.tab || 'summary';
+                const tabContent = document.getElementById(`tab-${activeTab}`);
+
+                // Create a container for PDF content
+                const pdfContent = document.createElement('div');
+                pdfContent.style.cssText = 'background: white; padding: 20px; max-width: 1000px;';
+
+                // Add header
+                const header = document.createElement('div');
+                header.innerHTML = `
+                    <h1 style="font-size: 24px; font-weight: bold; color: #111827; margin-bottom: 8px;">
+                        ${document.getElementById('repo-name').textContent}
+                    </h1>
+                    <p style="color: #6b7280; font-size: 14px; margin-bottom: 16px;">
+                        ${document.getElementById('repo-subtitle').textContent}
+                    </p>
+                    <p style="color: #9ca3af; font-size: 12px; margin-bottom: 24px;">
+                        Generated: ${new Date().toLocaleString()} | Tab: ${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
+                        ${hasActiveFilters() ? ' | Filtered view' : ''}
+                    </p>
+                `;
+                pdfContent.appendChild(header);
+
+                // Add summary stats
+                const stats = document.createElement('div');
+                stats.innerHTML = `
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
+                        <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
+                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Files Changed</p>
+                            <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-files').textContent}</p>
+                        </div>
+                        <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
+                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Avg Complexity</p>
+                            <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-complexity').textContent}</p>
+                        </div>
+                        <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
+                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Top Work Type</p>
+                            <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-top-tag').textContent}</p>
+                        </div>
+                        <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
+                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Contributors</p>
+                            <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-contributors').textContent}</p>
+                        </div>
+                    </div>
+                `;
+                pdfContent.appendChild(stats);
+
+                // Clone the current tab content
+                const contentClone = tabContent.cloneNode(true);
+                contentClone.classList.remove('hidden');
+                // Remove any interactive elements
+                contentClone.querySelectorAll('select, button, input').forEach(el => {
+                    if (el.tagName === 'SELECT') {
+                        const span = document.createElement('span');
+                        span.textContent = el.options[el.selectedIndex]?.text || '';
+                        span.style.cssText = 'font-weight: 500;';
+                        el.replaceWith(span);
+                    } else if (el.tagName === 'BUTTON') {
+                        el.remove();
+                    }
+                });
+                pdfContent.appendChild(contentClone);
+
+                // Temporarily add to DOM for rendering
+                pdfContent.style.position = 'absolute';
+                pdfContent.style.left = '-9999px';
+                document.body.appendChild(pdfContent);
+
+                // Generate PDF
+                const opt = {
+                    margin: [10, 10, 10, 10],
+                    filename: `git-analytics-${activeTab}-${new Date().toISOString().split('T')[0]}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false
+                    },
+                    jsPDF: {
+                        unit: 'mm',
+                        format: 'a4',
+                        orientation: 'landscape'
+                    }
+                };
+
+                await html2pdf().set(opt).from(pdfContent).save();
+
+                // Cleanup
+                document.body.removeChild(pdfContent);
+                showToast('PDF exported successfully!');
+            } catch (error) {
+                console.error('PDF export error:', error);
+                showToast('Export failed. Please try again.');
+            } finally {
+                exportBtn.innerHTML = originalText;
+                exportBtn.disabled = false;
+            }
+        }
+
+        function hasActiveFilters() {
+            return filters.tag || filters.author || filters.repo || filters.dateFrom || filters.dateTo;
+        }
+
+        // Setup export/share button handlers
+        function setupExportButtons() {
+            document.getElementById('export-buttons').classList.remove('hidden');
+            document.getElementById('btn-share').addEventListener('click', copyShareableLink);
+            document.getElementById('btn-export-pdf').addEventListener('click', exportToPdf);
         }
 
         // Initialize

@@ -70,24 +70,22 @@ Items ordered by priority based on [Discovery Session](DISCOVERY_SESSION.md) (20
 
 ---
 
-## Priority 4: Export / Share
+## Priority 4: Export / Share - COMPLETE
 
 *Discovered need: "Could be extracted and sent in a specific format"*
 
-- [ ] **PDF Export** - Generate shareable PDF report
-- [ ] **Shareable Links** - URL with filter state encoded
+- [x] **PDF Export** - Generate shareable PDF report
+- [x] **Shareable Links** - URL with filter state encoded
 
 ---
 
 ## Lower Priority
 
-### Tag & Complexity Views
+### Tag & Complexity Views - DONE
 
-*Partially addressed - can filter, but could be clearer*
-
-- [ ] Developer Tag Distribution - Who does fixes vs features
-- [ ] Complexity by Author - Who handles complex changes
-- [ ] Complexity by Time - When are complex commits made
+- [x] Developer Tag Distribution - Who does fixes vs features (Contributors tab: "Who Does What")
+- [x] Complexity by Author - Who handles complex changes (Contributors tab: Complexity chart)
+- [x] Complexity by Time - When are complex commits made (Progress tab: Complexity Over Time)
 
 ### Visual Polish
 

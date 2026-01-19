@@ -31,19 +31,20 @@ When you load a data file, the dashboard displays analytics for that repository.
 
 ### Summary Cards
 
-Four cards at the top provide quick metrics:
+Four cards at the top provide meaningful metrics about the work being done:
 
 | Card | What It Shows | What It Means |
 |------|--------------|---------------|
-| **Commits** | Total number of commits | Overall activity level |
+| **Files Changed** | Total unique files modified | Scope of changes across codebase |
+| **Avg Complexity** | Average complexity score (1-5) | How involved the changes are |
+| **Top Work Type** | Most common tag/type of work | Primary focus of development |
 | **Contributors** | Unique contributors | Team size / involvement |
-| **Lines Added** | Total lines added across all commits | Code growth |
-| **Lines Removed** | Total lines removed across all commits | Code churn / cleanup |
 
 **Interpreting the numbers:**
-- High additions with low deletions = growing codebase
-- Roughly equal additions/deletions = refactoring or maintenance phase
-- Lines removed > added = cleanup, simplification, or debt reduction
+- High complexity = significant structural changes, major features
+- Low complexity = small fixes, config changes, simple updates
+- Top work type shows what the team is primarily focused on
+- Files changed indicates breadth of impact across the codebase
 
 ## Dashboard Tabs
 
@@ -59,15 +60,20 @@ The **default tab** designed for executives and managers who need quick, high-le
 
 | Card | What It Shows |
 |------|--------------|
-| **Commits** | Total commits in selected period with trend vs previous |
-| **Active Contributors** | Unique contributors with trend |
-| **Features** | Commits tagged as features with trend |
-| **Bug Fixes** | Commits tagged as bugfix with trend |
+| **Features Built** | New features added in the period with trend |
+| **Bugs Fixed** | Bug fixes completed with trend |
+| **Avg Complexity** | Average complexity of changes with trend |
+| **Files Touched** | Unique files modified with trend |
 
 Trend indicators:
-- **↑ Green** = Increase vs previous period (good for commits/features)
+- **↑ Green** = Increase vs previous period
 - **↓ Red** = Decrease vs previous period
 - Percentage shows relative change
+
+**What to focus on:**
+- Features vs fixes ratio indicates development vs maintenance mode
+- Complexity trending up may signal larger architectural changes
+- Files touched shows breadth of work across the codebase
 
 **Work Breakdown**
 - Doughnut chart showing top 5 tag categories for the period
@@ -106,29 +112,17 @@ The filter bar allows you to narrow down commits:
 | **Repo** | Show only commits from a specific repository (aggregated data only) |
 | **From/To** | Show commits within a date range |
 
-- Filters apply to both the chart and commit list
-- The "Showing X of Y commits" counter updates as you filter
+- Filters apply to the changes list
+- The counter shows how many changes match current filters
 - Click "Clear Filters" to reset all filters
 
-**Commit Timeline Chart**
-- Bar chart showing commits per day
-- Taller bars = more activity that day
-- Gaps indicate periods of inactivity
-- Chart updates when filters are applied
-
-**What to look for:**
-- Consistent activity vs sporadic bursts
-- Unusual spikes (release pushes, deadline crunches)
-- Quiet periods (holidays, blocked work)
-- Filter by author to see individual contribution patterns
-
-**Recent Commits List**
-- Shows up to 50 commits matching current filters
-- Each commit displays:
+**Changes List**
+- Shows up to 100 changes matching current filters
+- Each change displays:
   - **Tag badges** (color-coded, up to 3 shown with +N overflow)
   - **Subject** - The commit message summary
-  - **Metadata** - SHA, author, date, repo (if aggregated)
-  - **Line changes** - Green (+) additions, red (-) deletions
+  - **Complexity** - Score from 1-5 (purple = high, blue = medium, gray = low)
+  - **Metadata** - Author, date, repo (if aggregated)
   - **Work pattern badges** - Indicators for when the commit was made
 
 **Work Pattern Badges**
@@ -150,67 +144,49 @@ The legend in the filter bar explains these badges. A commit can have multiple b
 
 ### Progress Tab
 
-Shows **how** the project is evolving over time.
+Shows **how** work is evolving over time.
 
-**Monthly Commit Volume**
-- Bar chart of commits per month
-- Shows overall development pace
-- Useful for identifying trends (ramping up, slowing down)
-
-**What to look for:**
-- Upward trend = increasing activity
-- Downward trend = maintenance mode or reduced resources
-- Seasonal patterns = release cycles, budget years
-
-**Cumulative Growth (Lines of Code)**
-- Line chart showing net lines over time (additions minus deletions)
-- Represents codebase size evolution
-
-**What to look for:**
-- Steady upward slope = consistent growth
-- Steep increases = major feature additions
-- Flat or declining = refactoring, removing code, or low activity
-- Sudden drops = large deletions (removed modules, cleanup)
-
-**Feature vs Bug Fix Trend**
-- Two overlapping line charts:
-  - **Green** = Features (`feature` tag)
-  - **Red** = Bug fixes (`bugfix` tag)
-- Shows monthly counts of each tag
+**Work Type Trend**
+- Two overlapping line charts showing features vs bug fixes by month
+- **Green** = Features (`feature` tag)
+- **Red** = Bug fixes (`bugfix` tag)
 
 **What to look for:**
 - Features > fixes = growth phase, adding capabilities
 - Fixes > features = stabilization phase, quality focus
-- Parallel lines = balanced development
 - Fix spikes after feature spikes = common pattern (new code has bugs)
-- Sustained high fixes = potential quality issues
+
+**Complexity Over Time**
+- Line chart showing average complexity (1-5 scale) by month
+- Purple line with filled area
+
+**What to look for:**
+- Rising complexity = larger architectural changes
+- Falling complexity = simpler maintenance work
+- Spikes = major refactoring or feature work
 
 ### Contributors Tab
 
-Shows **who** is contributing and **how much**.
+Shows **who does what kind of work**.
 
-**Commits by Contributor**
-- Horizontal bar chart of commit counts
-- Shows top 10 contributors
-- Indicates activity distribution
-
-**Lines Changed by Contributor**
-- Horizontal bar chart of total lines touched (additions + deletions)
-- Different perspective than commit count
-
-**Why both matter:**
-- High commits + low lines = many small changes (docs, config, small fixes)
-- Low commits + high lines = large feature work, major refactors
-- Balanced = typical development work
-
-**Contributor Details**
-- Full list of all contributors
-- Shows name, email, commit count, and line changes
+**Who Does What**
+- Work type breakdown per contributor
+- Shows percentage bars for each tag type (feature, bugfix, refactor, etc.)
+- Top 8 contributors displayed
 
 **What to look for:**
-- Bus factor: Is work concentrated in one person?
-- Engagement: Are all team members contributing?
-- Specialists: Who works on what (by examining their commits)?
+- Who focuses on features vs fixes
+- Specialists vs generalists
+- Distribution of quality work (refactors, tests)
+
+**Complexity by Contributor**
+- Horizontal bar chart showing average complexity per person
+- Purple = high complexity, Blue = medium, Gray = low
+
+**What to look for:**
+- Who handles complex vs simple changes
+- Complexity distribution across team
+- Potential overload on one person for complex work
 
 ### Security Tab
 
@@ -324,6 +300,48 @@ Use these patterns to assess repository health:
 | Distribution | Multiple active contributors | Single contributor dominance |
 | Security | Present and reviewed | None or clustered incidents |
 
+## Export and Sharing
+
+### Share Link
+
+Click the **Share** button in the header to copy a shareable URL to your clipboard.
+
+**What gets captured in the link:**
+- Current tab (Summary, Timeline, etc.)
+- Active filters (tag, author, repo, date range)
+- Summary period selection (week/month/quarter)
+- Timezone setting (Local/UTC)
+
+**Use cases:**
+- Send a colleague a direct link to a specific view
+- Bookmark filtered views for quick access
+- Share findings with your team
+
+**Note:** The link encodes the current filter state. Recipients will see the same filtered view when they open the link.
+
+### PDF Export
+
+Click the **Export PDF** button to download a PDF report of the current view.
+
+**What gets exported:**
+- Current tab content with all charts
+- Summary statistics cards
+- Header with repository name and date range
+- Timestamp showing when the report was generated
+- "Filtered view" indicator if filters are active
+
+**Tips:**
+- Navigate to the tab you want to export before clicking Export
+- Apply filters first to export a focused view
+- PDF uses landscape A4 format for better chart visibility
+- The export captures the current state of all charts
+
+**Recommended workflow for executive reports:**
+1. Switch to Summary tab
+2. Select the period (week/month/quarter)
+3. Click Export PDF
+4. Share the PDF with stakeholders
+
 ## Tips for Using the Dashboard
 
 1. **Compare over time** - Load data from different dates to see trends
@@ -331,6 +349,8 @@ Use these patterns to assess repository health:
 3. **Consider context** - A "fix" spike after launch is normal
 4. **Look for patterns** - Repeated issues suggest systemic problems
 5. **Use with other data** - Combine with issue trackers, reviews, etc.
+6. **Use shareable links** - Bookmark specific filtered views for quick access
+7. **Export for meetings** - Generate PDFs for stakeholders who don't use the dashboard
 
 ## Loading Data
 
