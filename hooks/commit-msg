@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Git commit-msg hook for validating conventional commit format
+# and encouraging multi-tag usage (aligned with EXTRACTION_PLAYBOOK.md)
 #
 # Installation:
 #   cp hooks/commit-msg .git/hooks/commit-msg
@@ -13,22 +14,23 @@ COMMIT_MSG_FILE="$1"
 COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
 
 # Remove comments (lines starting with #)
-COMMIT_MSG_CLEAN=$(echo "$COMMIT_MSG" | grep -v "^#" | head -1)
+COMMIT_MSG_CLEAN=$(echo "$COMMIT_MSG" | grep -v "^#")
+FIRST_LINE=$(echo "$COMMIT_MSG_CLEAN" | head -1)
 
 # Conventional commit pattern
 # type(scope)!: subject OR type!: subject OR type(scope): subject OR type: subject
-PATTERN="^(feat|fix|security|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-zA-Z0-9_-]+\))?(!)?: .{1,72}$"
+PATTERN="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-zA-Z0-9_-]+\))?(!)?: .{1,72}$"
 
 # Check if first line matches pattern
-if ! echo "$COMMIT_MSG_CLEAN" | grep -qE "$PATTERN"; then
+if ! echo "$FIRST_LINE" | grep -qE "$PATTERN"; then
     echo ""
     echo "ERROR: Commit message does not follow conventional commit format."
     echo ""
     echo "Expected format: type(scope): subject"
     echo ""
-    echo "Your message: $COMMIT_MSG_CLEAN"
+    echo "Your message: $FIRST_LINE"
     echo ""
-    echo "Valid types: feat, fix, security, docs, style, refactor, perf, test, build, ci, chore, revert"
+    echo "Valid types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
     echo ""
     echo "Examples:"
     echo "  feat(auth): add OAuth2 login support"
@@ -36,21 +38,18 @@ if ! echo "$COMMIT_MSG_CLEAN" | grep -qE "$PATTERN"; then
     echo "  docs: update README"
     echo "  chore(deps): upgrade lodash"
     echo ""
-    echo "For breaking changes, add '!' after type:"
-    echo "  feat(api)!: change response format"
-    echo ""
     echo "See docs/COMMIT_CONVENTION.md for full guide."
     echo ""
     exit 1
 fi
 
 # Check subject length (already part of regex, but provide clearer error)
-SUBJECT_LENGTH=$(echo "$COMMIT_MSG_CLEAN" | wc -c)
+SUBJECT_LENGTH=$(echo "$FIRST_LINE" | wc -c)
 if [ "$SUBJECT_LENGTH" -gt 73 ]; then
     echo ""
     echo "ERROR: Commit subject exceeds 72 characters ($SUBJECT_LENGTH chars)"
     echo ""
-    echo "Your message: $COMMIT_MSG_CLEAN"
+    echo "Your message: $FIRST_LINE"
     echo ""
     echo "Please shorten the subject line."
     echo ""
@@ -58,7 +57,7 @@ if [ "$SUBJECT_LENGTH" -gt 73 ]; then
 fi
 
 # Warn about imperative mood (common mistakes)
-SUBJECT=$(echo "$COMMIT_MSG_CLEAN" | sed 's/^[^:]*: //')
+SUBJECT=$(echo "$FIRST_LINE" | sed 's/^[^:]*: //')
 if echo "$SUBJECT" | grep -qiE "^(added|adding|fixed|fixing|updated|updating|removed|removing|changed|changing) "; then
     echo ""
     echo "WARNING: Subject should use imperative mood."
@@ -67,6 +66,19 @@ if echo "$SUBJECT" | grep -qiE "^(added|adding|fixed|fixing|updated|updating|rem
     echo "Consider:   '$(echo "$SUBJECT" | sed -E 's/^(added|fixed|updated|removed|changed)/add/i; s/^(adding|fixing|updating|removing|changing)/add/i')'"
     echo ""
     echo "(Proceeding anyway - this is just a suggestion)"
+    echo ""
+fi
+
+# Check for tags footer (warn if missing, don't block)
+if ! echo "$COMMIT_MSG_CLEAN" | grep -qiE "^tags:"; then
+    echo ""
+    echo "TIP: Add a 'tags:' line with multiple tags for better analytics."
+    echo ""
+    echo "Example footer:"
+    echo "  tags: feature, ui, ux"
+    echo ""
+    echo "See docs/EXTRACTION_PLAYBOOK.md for 55+ available tags."
+    echo "(Proceeding without tags - this is optional but recommended)"
     echo ""
 fi
 

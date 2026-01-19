@@ -2,15 +2,6 @@
 
 This guide defines the commit message format for consistent, analyzable git history.
 
-## Why Conventional Commits?
-
-Structured commit messages enable:
-- **Automated changelog generation**
-- **Semantic versioning decisions**
-- **Meaningful analytics reports** (feature velocity, bug rates, security posture)
-- **Easier code review** (type gives immediate context)
-- **Better searchability** in git history
-
 ## Commit Message Format
 
 ```
@@ -18,7 +9,7 @@ type(scope): subject
 
 body
 
-tags: tag1, tag2
+tags: tag1, tag2, tag3
 refs: #123, PROJ-456
 ```
 
@@ -30,7 +21,7 @@ type(scope): subject
 
 | Part | Required | Description |
 |------|----------|-------------|
-| `type` | Yes | Category of change (see types below) |
+| `type` | Yes | General category (see types below) |
 | `scope` | No | Module, component, or area affected |
 | `subject` | Yes | Imperative description (max 72 chars) |
 
@@ -53,121 +44,211 @@ Users requested dark mode for reduced eye strain during night usage.
 This adds a toggle in settings that persists to localStorage.
 ```
 
-### Optional: Footer
+### Required: Tags Footer
+
+**Use multiple tags from the playbook's 55+ tag list.** This enables consistent tagging between manual commits and AI analysis.
 
 ```
-tags: security, breaking
-refs: #123, PROJ-456
+tags: feature, ui, ux
 ```
 
-- `tags:` - Labels for categorization (security, breaking, dependency, performance)
-- `refs:` - Issue/ticket references
+Always ask: "What work was done in this commit?" Then apply ALL relevant tags.
 
-## Commit Types
+## Commit Types (First Line)
 
-| Type | When to Use | Analytics Impact |
-|------|-------------|------------------|
-| `feat` | New feature or capability | Progress reports, feature velocity |
-| `fix` | Bug fix | Bug rate tracking, quality metrics |
-| `security` | Security patch or hardening | Security posture report |
-| `docs` | Documentation only | Documentation coverage |
-| `style` | Formatting, whitespace (no logic) | Excluded from most metrics |
-| `refactor` | Code restructure (no behavior change) | Technical debt indicators |
-| `perf` | Performance improvement | Performance tracking |
-| `test` | Adding or updating tests | Test coverage proxy |
-| `build` | Build system or dependencies | Build health |
-| `ci` | CI/CD configuration | Pipeline health |
-| `chore` | Maintenance tasks | Overhead tracking |
-| `revert` | Reverting previous commit | Stability indicators |
+General categories for the subject line:
 
-## Special Tags
+| Type | When to Use |
+|------|-------------|
+| `feat` | New feature or capability |
+| `fix` | Bug fix |
+| `docs` | Documentation changes |
+| `refactor` | Code restructure |
+| `test` | Test changes |
+| `chore` | Maintenance, deps, config |
+| `perf` | Performance improvement |
+| `style` | Formatting only |
+| `ci` | CI/CD changes |
+| `revert` | Reverting previous commit |
 
-Add these to the `tags:` line when applicable:
+## Tags (Footer) - Use Multiple!
 
-| Tag | When to Use |
-|-----|-------------|
-| `security` | Any security-related change (even if type is `fix`) |
-| `breaking` | Breaking change requiring migration |
-| `dependency` | Dependency update |
-| `performance` | Performance-impacting change |
+Tags provide detailed categorization. **Always assign ALL that apply.**
+
+See `docs/EXTRACTION_PLAYBOOK.md` for the complete 55+ tag list. Key tags:
+
+### User-Facing Work
+| Tag | What work was done |
+|-----|-------------------|
+| `feature` | Built something new for users |
+| `enhancement` | Improved existing functionality |
+| `bugfix` | Fixed broken behavior |
+| `hotfix` | Urgent production fix |
+| `ui` | Visual/interface changes |
+| `ux` | User experience improvements |
+
+### Code Changes
+| Tag | What work was done |
+|-----|-------------------|
+| `refactor` | Restructured code |
+| `simplify` | Reduced complexity |
+| `removal` | Deleted dead code/files |
+| `migration` | Migrated to new approach |
+| `naming` | Renamed things |
+| `types` | Type definitions |
+
+### Performance
+| Tag | What work was done |
+|-----|-------------------|
+| `performance` | Speed improvements |
+| `memory` | Memory optimization |
+| `caching` | Caching improvements |
+
+### Security
+| Tag | What work was done |
+|-----|-------------------|
+| `security` | General security work |
+| `auth` | Authentication changes |
+| `vulnerability` | Fixed vulnerability |
+| `sanitization` | Input validation |
+
+### Testing
+| Tag | What work was done |
+|-----|-------------------|
+| `test-unit` | Unit tests |
+| `test-integration` | Integration tests |
+| `test-e2e` | End-to-end tests |
+| `test-fix` | Fixed broken tests |
+
+### Documentation
+| Tag | What work was done |
+|-----|-------------------|
+| `docs` | Documentation files |
+| `changelog` | Changelog updates |
+| `comments` | Code comments |
+| `examples` | Code examples |
+
+### Infrastructure
+| Tag | What work was done |
+|-----|-------------------|
+| `ci` | CI pipelines |
+| `cd` | Deployment automation |
+| `docker` | Containerization |
+| `monitoring` | Logging/observability |
+
+### Build & Config
+| Tag | What work was done |
+|-----|-------------------|
+| `build` | Build system |
+| `config` | App configuration |
+| `lint` | Linter rules |
+
+### Dependencies
+| Tag | What work was done |
+|-----|-------------------|
+| `dependency-add` | Added dependency |
+| `dependency-update` | Upgraded dependency |
+| `dependency-remove` | Removed dependency |
+
+### Git/Process
+| Tag | What work was done |
+|-----|-------------------|
+| `merge` | Merge commit |
+| `revert` | Reverted change |
+| `release` | Version bump |
 
 ## Breaking Changes
 
-For breaking changes, either:
-
-1. Add `!` after the type:
-   ```
-   feat(api)!: change response format to JSON:API spec
-   ```
-
-2. Or add `BREAKING CHANGE:` in the body:
-   ```
-   feat(api): change response format
-
-   BREAKING CHANGE: Response now uses JSON:API spec.
-   Clients must update their parsing logic.
-   ```
-
-## Examples by Type
-
-### Features
+Add `!` after the type:
 ```
-feat(cart): add quantity selector to cart items
-feat(search): implement fuzzy search for products
-feat: add user preference export functionality
+feat(api)!: change response format to JSON:API spec
+
+BREAKING CHANGE: Response now uses JSON:API spec.
+
+tags: api, api-breaking, migration
 ```
 
-### Bug Fixes
+## Examples with Multiple Tags
+
+### Feature with UI work
 ```
-fix(checkout): prevent double-submit on slow connections
-fix(auth): handle expired tokens gracefully
-fix: resolve memory leak in image gallery
+feat(dashboard): add dark mode toggle
+
+Users requested dark mode for reduced eye strain.
+Adds toggle in settings, persists to localStorage.
+
+tags: feature, ui, ux, config
 ```
 
-### Security
+### Bug fix with security implications
 ```
-security(auth): patch session fixation vulnerability
-security: sanitize user input in search queries
-fix(upload): validate file types server-side
+fix(auth): sanitize user input in login form
 
-tags: security
-```
+Prevents XSS attack via username field.
 
-### Documentation
-```
-docs(api): add authentication examples
-docs: update changelog for v2.0
-docs(readme): add troubleshooting section
+tags: bugfix, security, vulnerability, sanitization
 ```
 
-### Refactoring
+### Refactor with test updates
 ```
 refactor(api): extract validation into middleware
-refactor: simplify date formatting logic
-refactor(tests): use factory pattern for fixtures
+
+Centralizes validation logic for all endpoints.
+Updated tests to use new middleware.
+
+tags: refactor, simplify, test-fix
 ```
 
-### Chores
+### Documentation update
 ```
-chore(deps): upgrade React to 18.2
-chore: update .gitignore for IDE files
-chore(ci): add Node 20 to test matrix
+docs: update extraction playbook with batch processing
+
+Added human-in-the-loop review workflow.
+Documented 55+ tags for commit analysis.
+
+tags: docs, examples
 ```
 
-## Scope Suggestions
+### Dependency upgrade
+```
+chore(deps): upgrade React to v19
 
-Use consistent scope names across your project:
+Updated all components for new API.
+Fixed breaking changes in hooks.
 
-| Scope | Description |
+tags: dependency-update, migration, refactor
+```
+
+### Performance fix
+```
+perf(dashboard): optimize chart rendering
+
+Charts now use virtual scrolling for large datasets.
+Reduces initial render time by 60%.
+
+tags: performance, ux, refactor
+```
+
+## Complexity Indicator (Optional)
+
+For significant changes, add complexity (1-5) to help future analysis:
+
+```
+feat(auth): implement OAuth2 flow
+
+Full OAuth2 implementation with token refresh.
+
+tags: feature, auth, security, api
+complexity: 4
+```
+
+| Score | Description |
 |-------|-------------|
-| `api` | API endpoints, requests |
-| `auth` | Authentication, authorization |
-| `ui` | User interface components |
-| `db` | Database, migrations |
-| `config` | Configuration files |
-| `deps` | Dependencies |
-| `ci` | CI/CD pipelines |
-| `tests` | Test infrastructure |
+| 1 | Trivial - single file, minor change |
+| 2 | Small - few files, straightforward |
+| 3 | Medium - multiple files, moderate |
+| 4 | Large - many files, significant |
+| 5 | Major - extensive, high complexity |
 
 ## Quick Reference
 
@@ -175,46 +256,51 @@ Use consistent scope names across your project:
 # Feature
 feat(scope): add new capability
 
+tags: feature, ui
+
 # Bug fix
 fix(scope): correct specific behavior
 
-# Security
-security: address vulnerability
+tags: bugfix
+
+# Security fix
+fix(auth): patch vulnerability
+
+tags: bugfix, security, vulnerability
 
 # Documentation
-docs: update documentation
+docs: update guides
 
-# Refactor
-refactor(scope): improve code structure
+tags: docs
 
-# Test
-test(scope): add test coverage
+# Refactor with tests
+refactor(scope): improve structure
 
-# Chore
-chore(scope): maintenance task
+tags: refactor, simplify, test-unit
 
-# With breaking change
-feat(api)!: breaking change description
+# Dependency update
+chore(deps): upgrade library
 
-# With tags and refs
-fix(auth): description
+tags: dependency-update
 
-tags: security
-refs: #123
+# Multiple concerns
+feat(api): add endpoint with validation
+
+tags: feature, endpoint, api, validation
 ```
 
-## Commit Message Checklist
+## Commit Checklist
 
-Before committing, verify:
+Before committing:
 
-- [ ] Type accurately describes the change category
-- [ ] Subject is imperative mood ("add" not "added" or "adds")
+- [ ] Type accurately describes the general category
+- [ ] Subject is imperative mood ("add" not "added")
 - [ ] Subject is under 72 characters
-- [ ] Body explains WHY, not just WHAT (for non-trivial changes)
-- [ ] Security-related changes have `security` type or tag
-- [ ] Breaking changes are marked with `!` or `BREAKING CHANGE:`
-- [ ] Issue references are included when applicable
+- [ ] Body explains WHY (for non-trivial changes)
+- [ ] `tags:` line includes ALL relevant tags (use multiple!)
+- [ ] Breaking changes marked with `!` and `BREAKING CHANGE:`
+- [ ] Issue refs included when applicable
 
 ---
 
-*This convention is based on [Conventional Commits](https://www.conventionalcommits.org/) v1.0.0*
+*Tags align with `docs/EXTRACTION_PLAYBOOK.md` for consistent AI analysis*
