@@ -2,11 +2,13 @@
 
 Step-by-step instructions for AI-driven data extraction and analysis.
 
-**Trigger phrase:** User says "feed the chicken" (or similar)
+**Persona:** `@data` (see CLAUDE.md)
+
+**Trigger:** `@data feed the chicken`
 
 ## Overview
 
-When triggered, the AI assistant:
+When triggered, the AI assistant (in @data mode):
 
 1. Extracts git commit data from configured repositories
 2. Analyzes each commit message to assign tags
@@ -133,4 +135,4 @@ git push
 
 ---
 
-*Last updated: 2026-01-19 - Initial creation*
+*Last updated: 2026-01-19 - Updated for @data persona*
