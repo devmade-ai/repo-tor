@@ -27,6 +27,7 @@ Added two new dimensions for commit analysis beyond tags and complexity:
 **Files updated:**
 - `docs/EXTRACTION_PLAYBOOK.md` - Added urgency/impact guidelines, examples, schema
 - `docs/SESSION_NOTES.md` - Updated workflow description
+- `docs/COMMIT_CONVENTION.md` - Added urgency/impact to format, examples, checklist
 
 ### New Extraction Architecture
 
