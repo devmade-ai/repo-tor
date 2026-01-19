@@ -16,7 +16,7 @@ Current state and context for AI assistants to pick up where the last session le
 ### Tracked Repos (config/repos.json)
 - social-ad-creator (156 commits, 3 contributors)
 - model-pear (302 commits, 4 contributors)
-- repo-tor (43 commits, 3 contributors)
+- repo-tor (70 commits, 3 contributors)
 - chatty-chart (42 commits, 4 contributors)
 
 ## Last Completed
@@ -214,9 +214,9 @@ Ran `scripts/update-all.sh` to regenerate data for all 4 repos with tag-based fo
 |------------|---------|--------------|-------|
 | model-pear | 302 | 4 | 228 |
 | social-ad-creator | 156 | 3 | 82 |
-| repo-tor | 61 | 3 | 59 |
+| repo-tor | 70 | 3 | 59 |
 | chatty-chart | 42 | 4 | 9 |
-| **Total** | **561** | **4** | **378** |
+| **Total** | **570** | **4** | **378** |
 
 All data now uses new schema with `tags[]` and `complexity` fields. Foundation phase complete.
 
