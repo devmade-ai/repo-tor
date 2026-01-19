@@ -20,8 +20,7 @@ Gemfile.lock
 # Claude Code local settings
 .claude/settings.local.json
 
-# Generated analytics reports (tracked repos for dashboard)
-reports/*
-!reports/repo-tor/
-!reports/social-ad-creator/
-!reports/model-pear/
+# Cloned repo cache (used by update-all.sh)
+.repo-cache/
+
+# Note: reports/ is tracked - contains extracted data for dashboard

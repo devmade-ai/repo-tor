@@ -2,6 +2,81 @@
 
 Setup, configuration, and data extraction for the Git Analytics Reporting System.
 
+## Quick Start: Managed Repos
+
+The easiest way to track multiple repositories is using the config file:
+
+### 1. Add repos to config
+
+Edit `config/repos.json`:
+
+```json
+{
+  "repos": [
+    {
+      "name": "my-app",
+      "url": "https://github.com/myorg/my-app.git",
+      "added": "2026-01-19"
+    },
+    {
+      "name": "my-api",
+      "url": "https://github.com/myorg/my-api.git",
+      "added": "2026-01-19"
+    }
+  ]
+}
+```
+
+### 2. Run the update script
+
+```bash
+./scripts/update-all.sh
+```
+
+This will:
+- Clone any new repos (cached in `.repo-cache/`)
+- Pull updates for existing repos
+- Extract git data from each
+- Aggregate all data into `dashboard/data.json`
+
+### 3. Commit and push
+
+```bash
+git add reports/ dashboard/ config/repos.json
+git commit -m "chore: update extracted data"
+git push
+```
+
+The dashboard will auto-load the aggregated data on GitHub Pages.
+
+### Refreshing data
+
+Just run the script again:
+
+```bash
+./scripts/update-all.sh        # Update existing repos
+./scripts/update-all.sh --fresh # Re-clone everything from scratch
+```
+
+### Using Claude Code (AI Assistant)
+
+If you're using Claude Code, you can simply provide repo URLs and ask it to add them:
+
+```
+"Add this repo: https://github.com/myorg/my-repo.git"
+```
+
+Claude will:
+1. Clone the repo
+2. Run extraction
+3. Update `config/repos.json`
+4. Re-aggregate all data
+5. Commit and push
+
+For future updates, just ask: "Update all repo data"
+
+---
+
 ## Prerequisites
 
 - **Node.js** v14 or higher
