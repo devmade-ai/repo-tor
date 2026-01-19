@@ -85,13 +85,11 @@
 
 ## Personas
 
-I operate in two modes. Use the trigger phrase to switch focus:
+Default mode is development. Use `@data` to switch when needed.
 
-### @coder
+### @coder (default)
 
-**Trigger:** Start message with `@coder`
-
-**Focus:** Development work
+**Focus:** Development work — no trigger needed, this is the default
 
 - Writing/modifying code (scripts, dashboard, hooks)
 - Bug fixes and feature implementation
