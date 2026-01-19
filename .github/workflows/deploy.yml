@@ -33,8 +33,12 @@ jobs:
       - name: Prepare deployment folder
         run: |
           mkdir -p _site
+          # Get git commit hash for cache-busting
+          COMMIT_HASH=$(git rev-parse --short HEAD)
           # Copy dashboard as index.html (main page)
           cp dashboard/index.html _site/index.html
+          # Add cache-busting version to data.json fetch
+          sed -i "s|fetch('data.json')|fetch('data.json?v=${COMMIT_HASH}')|g" _site/index.html
           # Copy sample data.json for auto-load
           [ -f "dashboard/data.json" ] && cp dashboard/data.json _site/data.json || true
           # Copy reports folder if present
