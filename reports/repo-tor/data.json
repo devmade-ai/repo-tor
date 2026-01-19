@@ -16,6 +16,7 @@
       "origin/claude/fix-project-list-display-1RCBF",
       "origin/claude/fix-summary-by-tag-2NyWg",
       "origin/claude/git-analytics-reporting-ebvnR",
+      "origin/claude/hatch-chicken-data-I8cBO",
       "origin/claude/mobile-fixes-timeline-8bNJi",
       "origin/claude/plan-next-priorities-8klm9",
       "origin/claude/plan-next-priorities-DSZEr",
@@ -28,7 +29,7 @@
       "origin/claude/update-docs-kubk3",
       "origin/main"
     ],
-    "extractedAt": "2026-01-19T22:00:03.589Z",
+    "extractedAt": "2026-01-19T22:18:51.441Z",
     "repoPath": "/home/user/repo-tor/.repo-cache/repo-tor",
     "authors": {
       "devmade.ai@gmail.com": {
@@ -55,6 +56,162 @@
     }
   },
   "commits": [
+    {
+      "sha": "62a6842",
+      "fullSha": "62a6842906adcbd0b534cd9e5fc64907d0a38ea7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-20T00:16:56+02:00",
+      "commitDate": "2026-01-20T00:16:56+02:00",
+      "subject": "Merge pull request #20 from devmade-ai/claude/hatch-chicken-data-I8cBO",
+      "body": "chore: hatch the chicken - fresh extraction of all repos",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "Merge pull request #20 from devmade-ai/claude/hatch-chicken-data-I8cBO",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#20"
+      ],
+      "stats": {
+        "filesChanged": 26,
+        "additions": 8300,
+        "deletions": 11575
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "6cbac27",
+      "fullSha": "6cbac270341ddf29cdafe7f20778ddd7e581cac2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:14:06+00:00",
+      "commitDate": "2026-01-19T22:14:06+00:00",
+      "subject": "docs: align commit convention with urgency and impact dimensions",
+      "body": "Updated COMMIT_CONVENTION.md to match the extraction playbook schema:\n\n- Added urgency/impact to commit message format\n- New \"Optional: Metadata Footers\" section explaining usage\n- Expanded \"Metadata Indicators\" section with urgency and impact tables\n- Updated all examples to demonstrate the new fields\n- Added optional items to commit checklist\n\nEnsures manual commits can include the same metadata that AI analysis assigns.",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "align commit convention with urgency and impact dimensions",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 97,
+        "deletions": 22
+      },
+      "files": [
+        "docs/COMMIT_CONVENTION.md",
+        "docs/HISTORY.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "f9c0e18",
+      "fullSha": "f9c0e1801d009e84f4380159f8afb0701ce0f474",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:11:01+00:00",
+      "commitDate": "2026-01-19T22:11:01+00:00",
+      "subject": "feat: add urgency and impact dimensions to commit analysis schema",
+      "body": "Two new dimensions for richer commit insights:\n\nUrgency (1-5): How critical was the change?\n- Captures reactive vs planned work patterns\n- Helps identify operational health (high urgency = problems)\n\nImpact (internal/user-facing/infrastructure/api): Who is affected?\n- Shows where effort goes\n- Distinguishes building vs maintaining vs supporting\n\nUpdated EXTRACTION_PLAYBOOK.md with guidelines, examples, and schema.",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "add urgency and impact dimensions to commit analysis schema",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 121,
+        "deletions": 34
+      },
+      "files": [
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "6097c7e",
+      "fullSha": "6097c7ef57f0f9e540787270c8928c2618f53c88",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:01:16+00:00",
+      "commitDate": "2026-01-19T22:01:16+00:00",
+      "subject": "chore: hatch the chicken - fresh extraction of all repos",
+      "body": "Full reset and re-extraction of git data for all 4 repositories:\n- chatty-chart: 42 commits (5 batches)\n- repo-tor: 104 commits (11 batches)\n- social-ad-creator: 156 commits (16 batches)\n- model-pear: 302 commits (31 batches)\n\nTotal: 604 commits across 63 batches ready for AI analysis.",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "hatch the chicken - fresh extraction of all repos",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 22,
+        "additions": 8082,
+        "deletions": 11519
+      },
+      "files": [
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json",
+        "processed/chatty-chart/commits.json",
+        "processed/repo-tor/commits.json",
+        "reports/chatty-chart/data.json",
+        "reports/chatty-chart/metadata.json",
+        "reports/model-pear/commits.json",
+        "reports/model-pear/data.json",
+        "reports/model-pear/metadata.json",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json",
+        "reports/social-ad-creator/commits.json",
+        "reports/social-ad-creator/data.json",
+        "reports/social-ad-creator/metadata.json"
+      ],
+      "repo_id": "repo-tor"
+    },
     {
       "sha": "46b971d",
       "fullSha": "46b971d3d8b15e398c2437ec202f9db19c841905",
@@ -3887,11 +4044,11 @@
       "names": [
         "devmade-ai"
       ],
-      "commits": 73,
-      "additions": 349764,
-      "deletions": 52453,
+      "commits": 77,
+      "additions": 366364,
+      "deletions": 75603,
       "firstCommit": "2026-01-18T21:53:16+02:00",
-      "lastCommit": "2026-01-19T23:57:13+02:00",
+      "lastCommit": "2026-01-20T00:16:56+02:00",
       "tagCounts": {},
       "primaryName": "devmade-ai"
     },
@@ -3927,7 +4084,7 @@
   "files": [
     {
       "path": "docs/SESSION_NOTES.md",
-      "changeCount": 46,
+      "changeCount": 47,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -3937,7 +4094,7 @@
     },
     {
       "path": "docs/HISTORY.md",
-      "changeCount": 41,
+      "changeCount": 43,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -3977,7 +4134,7 @@
     },
     {
       "path": "reports/repo-tor/commits.json",
-      "changeCount": 15,
+      "changeCount": 16,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -3987,7 +4144,7 @@
     },
     {
       "path": "reports/repo-tor/data.json",
-      "changeCount": 15,
+      "changeCount": 16,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -3997,7 +4154,7 @@
     },
     {
       "path": "dashboard/data.json",
-      "changeCount": 14,
+      "changeCount": 15,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -4007,7 +4164,7 @@
     },
     {
       "path": "reports/repo-tor/contributors.json",
-      "changeCount": 14,
+      "changeCount": 15,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -4017,7 +4174,7 @@
     },
     {
       "path": "reports/repo-tor/files.json",
-      "changeCount": 14,
+      "changeCount": 15,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -4027,7 +4184,7 @@
     },
     {
       "path": "reports/repo-tor/metadata.json",
-      "changeCount": 14,
+      "changeCount": 15,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -4037,7 +4194,7 @@
     },
     {
       "path": "reports/repo-tor/summary.json",
-      "changeCount": 14,
+      "changeCount": 15,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -4047,7 +4204,7 @@
     },
     {
       "path": "docs/EXTRACTION_PLAYBOOK.md",
-      "changeCount": 13,
+      "changeCount": 14,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -4056,7 +4213,7 @@
     },
     {
       "path": "dashboard/commits.json",
-      "changeCount": 11,
+      "changeCount": 12,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -4065,7 +4222,7 @@
     },
     {
       "path": "dashboard/contributors.json",
-      "changeCount": 11,
+      "changeCount": 12,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -4074,7 +4231,7 @@
     },
     {
       "path": "dashboard/files.json",
-      "changeCount": 11,
+      "changeCount": 12,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -4083,7 +4240,7 @@
     },
     {
       "path": "dashboard/metadata.json",
-      "changeCount": 11,
+      "changeCount": 12,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -4092,7 +4249,7 @@
     },
     {
       "path": "dashboard/summary.json",
-      "changeCount": 11,
+      "changeCount": 12,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
@@ -4101,7 +4258,7 @@
     },
     {
       "path": "reports/model-pear/data.json",
-      "changeCount": 10,
+      "changeCount": 11,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com"
@@ -4109,7 +4266,31 @@
     },
     {
       "path": "reports/social-ad-creator/data.json",
+      "changeCount": 11,
+      "tagCounts": {},
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "reports/model-pear/metadata.json",
       "changeCount": 10,
+      "tagCounts": {},
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "reports/social-ad-creator/metadata.json",
+      "changeCount": 10,
+      "tagCounts": {},
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "reports/chatty-chart/data.json",
+      "changeCount": 9,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com"
@@ -4136,32 +4317,8 @@
       ]
     },
     {
-      "path": "reports/model-pear/metadata.json",
-      "changeCount": 9,
-      "tagCounts": {},
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": "reports/social-ad-creator/metadata.json",
-      "changeCount": 9,
-      "tagCounts": {},
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": "reports/chatty-chart/data.json",
-      "changeCount": 8,
-      "tagCounts": {},
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
       "path": "reports/chatty-chart/metadata.json",
-      "changeCount": 7,
+      "changeCount": 8,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com"
@@ -4175,6 +4332,22 @@
         "devmade.ai@gmail.com",
         "jacotheron87@gmail.com",
         "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "reports/model-pear/commits.json",
+      "changeCount": 5,
+      "tagCounts": {},
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "reports/social-ad-creator/commits.json",
+      "changeCount": 5,
+      "tagCounts": {},
+      "authors": [
+        "devmade.ai@gmail.com"
       ]
     },
     {
@@ -4195,28 +4368,21 @@
       ]
     },
     {
-      "path": "reports/model-pear/commits.json",
-      "changeCount": 4,
-      "tagCounts": {},
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": "reports/social-ad-creator/commits.json",
-      "changeCount": 4,
-      "tagCounts": {},
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
       "path": "scripts/aggregate.js",
       "changeCount": 4,
       "tagCounts": {},
       "authors": [
         "devmade.ai@gmail.com",
         "jacotheron87@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "docs/COMMIT_CONVENTION.md",
+      "changeCount": 3,
+      "tagCounts": {},
+      "authors": [
+        "devmade.ai@gmail.com",
         "noreply@anthropic.com"
       ]
     },
@@ -4312,12 +4478,19 @@
       ]
     },
     {
-      "path": "docs/COMMIT_CONVENTION.md",
+      "path": "processed/chatty-chart/commits.json",
       "changeCount": 2,
       "tagCounts": {},
       "authors": [
-        "devmade.ai@gmail.com",
-        "noreply@anthropic.com"
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "processed/repo-tor/commits.json",
+      "changeCount": 2,
+      "tagCounts": {},
+      "authors": [
+        "devmade.ai@gmail.com"
       ]
     },
     {
@@ -4411,22 +4584,6 @@
       ]
     },
     {
-      "path": "processed/repo-tor/commits.json",
-      "changeCount": 1,
-      "tagCounts": {},
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": "processed/chatty-chart/commits.json",
-      "changeCount": 1,
-      "tagCounts": {},
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
       "path": "docs/DISCOVERY_SESSION.md",
       "changeCount": 1,
       "tagCounts": {},
@@ -4508,11 +4665,11 @@
     }
   ],
   "summary": {
-    "totalCommits": 104,
+    "totalCommits": 108,
     "totalContributors": 3,
-    "totalAdditions": 363214,
-    "totalDeletions": 98058,
-    "netLinesChanged": 265156,
+    "totalAdditions": 379814,
+    "totalDeletions": 121208,
+    "netLinesChanged": 258606,
     "tagBreakdown": {},
     "complexityBreakdown": {
       "1": 0,
@@ -4520,11 +4677,11 @@
       "3": 0,
       "4": 0,
       "5": 0,
-      "null": 104
+      "null": 108
     },
     "monthlyCommits": {
       "2026-01": {
-        "total": 104,
+        "total": 108,
         "tags": {}
       }
     },
@@ -4532,7 +4689,7 @@
     "security_events": [],
     "dateRange": {
       "earliest": "2026-01-18T21:53:16+02:00",
-      "latest": "2026-01-19T23:57:13+02:00"
+      "latest": "2026-01-20T00:16:56+02:00"
     }
   }
 }
