@@ -55,18 +55,6 @@ User responds:
 - **"#3 should be feature not refactor"** - AI corrects and re-presents
 - **"stop"** - Save progress and end session
 
-### Checkpoint System
-Each repo tracks progress via `processed/<repo>/checkpoint.json`:
-
-```json
-{
-  "last_processed_sha": "abc123def456",
-  "processed_count": 150,
-  "total_count": 302,
-  "last_updated": "2026-01-19T15:30:00Z"
-}
-```
-
 ### Benefits
 - **Accurate**: Human review catches AI mistakes
 - **Multi-tag**: AI reads full message, assigns ALL relevant tags
@@ -76,22 +64,36 @@ Each repo tracks progress via `processed/<repo>/checkpoint.json`:
 ## File Structure
 
 ```
-processed/                    # Source of truth (committed to git)
+reports/                      # Raw extracted data (ephemeral)
   <repo-name>/
-    commits.json              # AI-analyzed commits
-    metadata.json             # Repo metadata
-    checkpoint.json           # Progress tracker for batch processing
+    commits.json              # All commits (raw, no AI tags)
+    batches/                  # Split into files of 10 for AI review
+      batch-001.json          # Commits 1-10
+      batch-002.json          # Commits 11-20
+      ...
+    metadata.json
+    data.json
+
+processed/                    # AI-analyzed data (committed to git)
+  <repo-name>/
+    batches/                  # Approved batches copied here
+      batch-001.json          # Approved with AI tags
+      batch-002.json
+      ...
+    metadata.json
+
 config/
   repos.json                  # Tracked repositories
   author-map.json             # Author identity mapping
+
 dashboard/
-  commits.json                # Aggregated (generated from processed/)
-  data.json                   # Combined data for dashboard
-  summary.json                # Aggregated summary
-.repo-cache/                  # Cloned repos (gitignored)
+  data.json                   # Aggregated from processed/
 ```
 
-**Note:** The old `reports/` folder is no longer used. All persistent data lives in `processed/`.
+**Progress tracking:**
+- Compare `reports/<repo>/batches/` vs `processed/<repo>/batches/`
+- If `batch-005.json` exists in processed/, it's done
+- Next batch = first batch file NOT in processed/
 
 ---
 
@@ -122,30 +124,38 @@ This puts raw repo data in `.repo-cache/`.
 
 ### Step 3: AI Analyze Each Repository (Human Review)
 
-For each repository, process 10 commits at a time with user approval:
+For each repository, process batch files one at a time:
 
-**Per batch:**
-1. Read next 10 unprocessed commits (subject + body)
-2. AI analyzes each commit and proposes:
+**Per batch file:**
+1. Find next batch: first `batch-NNN.json` in `reports/<repo>/batches/` NOT in `processed/<repo>/batches/`
+2. Read the batch file (10 commits with subject + body)
+3. AI analyzes each commit and proposes:
    - Tags (multiple allowed, based on full message content)
    - Complexity score (1-5)
-3. Present to user in review format (see above)
-4. User approves or requests corrections
-5. On approval: save to `processed/<repo>/commits.json`
-6. Update checkpoint, commit: `git commit -m "chore: process <repo> batch N"`
+4. Present to user in review format (see above)
+5. User approves or requests corrections
+6. On approval: copy batch file to `processed/<repo>/batches/batch-NNN.json` (with AI tags added)
+7. Commit: `git commit -m "chore: process <repo> batch NNN"`
 
 **User commands:**
-- `approve` - Accept batch, continue to next 10
-- `#N tag1, tag2` - Correct tags for commit N
-- `stop` - Save progress and end
+- `approve` - Save batch to processed/, continue to next
+- `#N tag1, tag2` - Correct tags for commit N, re-present
+- `stop` - End session (progress is saved)
 
-**Repeat until all commits processed or user stops.**
+**Repeat until all batch files processed or user stops.**
+
+**Progress check:**
+```bash
+# See what's done vs pending
+ls reports/<repo>/batches/   # All batches
+ls processed/<repo>/batches/ # Completed batches
+```
 
 **Verification per repo:**
 - [ ] Every commit has at least one tag
 - [ ] Every commit has complexity 1-5
 - [ ] Tags reflect FULL message content (subject + body)
-- [ ] `checkpoint.json` shows current progress
+- [ ] Same number of batch files in processed/ as reports/
 
 ### Step 4: Aggregate to Dashboard
 
@@ -192,25 +202,25 @@ For each repository:
 
 ### Step 4: AI Analyze with Human Review
 
-Process 10 commits per batch with user approval:
+Process batch files one at a time:
 
-**Per batch:**
-1. Read next 10 unprocessed commits (subject + body)
-2. AI proposes tags + complexity for each
+**Per batch file:**
+1. Find next unprocessed batch (in reports/ but not in processed/)
+2. AI proposes tags + complexity for each commit
 3. Present to user for review
 4. User approves or corrects
-5. Save to `processed/<repo>/commits.json`
-6. Update checkpoint, commit changes
+5. Save approved batch to `processed/<repo>/batches/`
+6. Commit changes
 
 **Stop when:**
-- All new commits processed, OR
-- User says "stop" (work saved at last approved batch)
+- All batch files processed, OR
+- User says "stop" (progress saved at last approved batch)
 
 **Verification:**
-- [ ] Only new commits were analyzed
-- [ ] Existing commits unchanged
+- [ ] Only new batches were analyzed
+- [ ] Existing batches unchanged
 - [ ] Tags reflect full message content
-- [ ] Checkpoint reflects current progress
+- [ ] Batch counts match between reports/ and processed/
 
 ### Step 5: Re-aggregate to Dashboard
 
@@ -374,4 +384,4 @@ Based on files changed and tag count:
 
 ---
 
-*Last updated: 2026-01-19 - Human-in-the-loop review with 10 commits per batch*
+*Last updated: 2026-01-19 - Batch files for tracking (reports/batches/ → processed/batches/)*
