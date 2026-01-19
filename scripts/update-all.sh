@@ -105,7 +105,15 @@ echo "Step 3: Aggregating data for dashboard"
 echo "-------------------------------------------"
 
 # Build the aggregate command with all report paths
-node "$SCRIPT_DIR/aggregate.js" $REPORT_PATHS --output="$DASHBOARD_DIR" 2>&1 | sed 's/^/  /'
+# Include author-map if it exists (merges duplicate contributors)
+AUTHOR_MAP_FLAG=""
+AUTHOR_MAP_FILE="$ROOT_DIR/config/author-map.json"
+if [[ -f "$AUTHOR_MAP_FILE" ]]; then
+    AUTHOR_MAP_FLAG="--author-map=$AUTHOR_MAP_FILE"
+    echo "  Using author map: $AUTHOR_MAP_FILE"
+fi
+
+node "$SCRIPT_DIR/aggregate.js" $REPORT_PATHS $AUTHOR_MAP_FLAG --output="$DASHBOARD_DIR" 2>&1 | sed 's/^/  /'
 
 echo ""
 echo "=========================================="

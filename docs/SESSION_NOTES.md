@@ -20,6 +20,12 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Duplicate Contributor Fix (2026-01-19)
+
+- Created `config/author-map.json` to merge jacotheron87's two email addresses
+- Re-aggregated data with `--author-map=config/author-map.json`
+- Contributors chart now shows 3 contributors (not 4)
+
 ### Multi-Repo Admin Setup (2026-01-19)
 
 - Created `config/repos.json` to track repository URLs

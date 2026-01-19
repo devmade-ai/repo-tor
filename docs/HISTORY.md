@@ -28,6 +28,16 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-19
 
+### Duplicate Contributor Fix
+
+- Created `config/author-map.json` to merge duplicate contributor entries
+- Issue: jacotheron87 appeared twice due to different email addresses:
+  - `jacotheron87@gmail.com` (51 commits)
+  - `34473836+jacotheron87@users.noreply.github.com` (1 commit via GitHub web)
+- Solution: Added author mapping to merge both emails under single identity
+- Re-aggregated data with `--author-map` flag
+- Contributors reduced from 4 to 3 (correct count)
+
 ### Multi-Repo Admin Setup
 
 - Created `config/repos.json` - Central config file tracking repository URLs
