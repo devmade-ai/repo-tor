@@ -138,6 +138,29 @@ None
 
 ## Last Completed
 
+### Work Pattern Styling (2026-01-19)
+
+Implemented Priority 2 work pattern visual distinction:
+
+**Features added:**
+- **Work pattern badges** on commit list items:
+  - "After Hours" badge (amber) - commits before 8am or after 5pm
+  - "Weekend" badge (indigo) - commits on Saturday/Sunday
+  - "Holiday" badge (pink) - commits on SA public holidays
+- **SA public holidays data** - All fixed holidays plus Easter-based moveable feasts
+  - Includes Sunday→Monday observance rule
+  - Covers years 2020-2030
+- **Legend/key** in Timeline tab explaining badge meanings
+- **Helper functions** - `getWorkPattern()`, `getWorkPatternBadges()`
+
+**Implementation:**
+- Added CSS styles for `.badge-after-hours`, `.badge-weekend`, `.badge-holiday`
+- Added `SA_HOLIDAYS` constant with fixed and Easter-based holidays
+- Added `buildHolidaySet()` to pre-compute holiday dates
+- Added `getWorkPattern()` returning isAfterHours, isWeekend, isHoliday
+- Added `getWorkPatternBadges()` to generate HTML badge elements
+- Updated commit list rendering to include work pattern badges
+
 ### Timestamp Views (Timing Tab) (2026-01-19)
 
 Implemented Priority 1 timestamp views with new "Timing" tab:

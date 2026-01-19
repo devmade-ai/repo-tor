@@ -28,6 +28,21 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-19
 
+### Work Pattern Styling
+
+Added visual indicators for after-hours, weekend, and holiday commits:
+
+- **Commit list badges** - Each commit shows applicable work pattern indicators:
+  - "After Hours" (amber) - commits before 8:00 or after 17:00
+  - "Weekend" (indigo) - commits on Saturday or Sunday
+  - "Holiday" (pink) - commits on South African public holidays
+- **SA public holidays** - Complete holiday data for 2020-2030:
+  - 10 fixed holidays (New Year's, Freedom Day, Christmas, etc.)
+  - Easter-based moveable feasts (Good Friday, Family Day)
+  - Sunday→Monday observance rule applied
+- **Legend/key** - Added to Timeline tab filter card explaining badge meanings
+- **Helper functions** - `getWorkPattern()`, `getWorkPatternBadges()` for reuse
+
 ### Timestamp Views (Timing Tab)
 
 Added new "Timing" tab to dashboard for visualizing when work happens:

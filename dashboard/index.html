@@ -86,6 +86,31 @@
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
+
+        /* Work pattern badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.625rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+        .badge-after-hours {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        .badge-weekend {
+            background-color: #e0e7ff;
+            color: #3730a3;
+        }
+        .badge-holiday {
+            background-color: #fce7f3;
+            color: #9d174d;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -171,6 +196,16 @@
                         <button id="clear-filters" class="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded border border-gray-200 col-span-2 sm:col-span-1">
                             Clear Filters
                         </button>
+                    </div>
+                    <!-- Work Pattern Legend -->
+                    <div class="mt-3 pt-3 border-t border-gray-100 flex flex-wrap items-center gap-3 text-xs text-gray-500">
+                        <span>Work patterns:</span>
+                        <span class="badge badge-after-hours">After Hours</span>
+                        <span class="text-gray-400">before 8am or after 5pm</span>
+                        <span class="badge badge-weekend">Weekend</span>
+                        <span class="text-gray-400">Sat/Sun</span>
+                        <span class="badge badge-holiday">Holiday</span>
+                        <span class="text-gray-400">SA public holidays</span>
                     </div>
                 </div>
 
@@ -307,6 +342,90 @@
             dateTo: ''
         };
         let useUTC = false;
+
+        // === South African Public Holidays ===
+        // Format: 'YYYY-MM-DD' for fixed dates, calculated for moveable feasts
+        const SA_HOLIDAYS = {
+            // Fixed holidays (apply every year)
+            fixed: [
+                { month: 1, day: 1, name: "New Year's Day" },
+                { month: 3, day: 21, name: "Human Rights Day" },
+                { month: 4, day: 27, name: "Freedom Day" },
+                { month: 5, day: 1, name: "Workers' Day" },
+                { month: 6, day: 16, name: "Youth Day" },
+                { month: 8, day: 9, name: "National Women's Day" },
+                { month: 9, day: 24, name: "Heritage Day" },
+                { month: 12, day: 16, name: "Day of Reconciliation" },
+                { month: 12, day: 25, name: "Christmas Day" },
+                { month: 12, day: 26, name: "Day of Goodwill" }
+            ],
+            // Easter-based holidays (Good Friday, Family Day) - pre-calculated for 2024-2027
+            easter: {
+                2024: { goodFriday: '2024-03-29', familyDay: '2024-04-01' },
+                2025: { goodFriday: '2025-04-18', familyDay: '2025-04-21' },
+                2026: { goodFriday: '2026-04-03', familyDay: '2026-04-06' },
+                2027: { goodFriday: '2027-03-26', familyDay: '2027-03-29' }
+            }
+        };
+
+        // Build holiday lookup set for quick checking
+        function buildHolidaySet() {
+            const holidays = new Set();
+            // Add fixed holidays for years 2020-2030
+            for (let year = 2020; year <= 2030; year++) {
+                SA_HOLIDAYS.fixed.forEach(h => {
+                    const dateStr = `${year}-${String(h.month).padStart(2, '0')}-${String(h.day).padStart(2, '0')}`;
+                    holidays.add(dateStr);
+                    // If holiday falls on Sunday, Monday is observed
+                    const date = new Date(year, h.month - 1, h.day);
+                    if (date.getDay() === 0) {
+                        const monday = new Date(date);
+                        monday.setDate(monday.getDate() + 1);
+                        holidays.add(monday.toISOString().substring(0, 10));
+                    }
+                });
+            }
+            // Add Easter-based holidays
+            Object.values(SA_HOLIDAYS.easter).forEach(e => {
+                holidays.add(e.goodFriday);
+                holidays.add(e.familyDay);
+            });
+            return holidays;
+        }
+        const holidaySet = buildHolidaySet();
+
+        // === Work Pattern Helpers ===
+        function getWorkPattern(commit) {
+            const date = new Date(commit.timestamp);
+            const hour = useUTC ? date.getUTCHours() : date.getHours();
+            const dayOfWeek = useUTC ? date.getUTCDay() : date.getDay();
+            const dateStr = commit.timestamp.substring(0, 10);
+
+            return {
+                isAfterHours: hour < 8 || hour >= 17,
+                isWeekend: dayOfWeek === 0 || dayOfWeek === 6,
+                isHoliday: holidaySet.has(dateStr),
+                hour,
+                dayOfWeek,
+                dateStr
+            };
+        }
+
+        function getWorkPatternBadges(commit) {
+            const pattern = getWorkPattern(commit);
+            const badges = [];
+
+            if (pattern.isHoliday) {
+                badges.push('<span class="badge badge-holiday">Holiday</span>');
+            }
+            if (pattern.isWeekend) {
+                badges.push('<span class="badge badge-weekend">Weekend</span>');
+            } else if (pattern.isAfterHours) {
+                badges.push('<span class="badge badge-after-hours">After Hours</span>');
+            }
+
+            return badges.join(' ');
+        }
 
         // === Tag Colors ===
         const TAG_COLORS = {
@@ -602,6 +721,7 @@
                     `<span class="tag ${getTagClass(t)} shrink-0">${t}</span>`
                 ).join(' ');
                 const extraTags = tags.length > 3 ? `<span class="tag tag-other shrink-0">+${tags.length - 3}</span>` : '';
+                const workPatternBadges = getWorkPatternBadges(commit);
 
                 return `
                 <div class="p-3 bg-gray-50 rounded-lg">
@@ -626,6 +746,7 @@
                         <span class="sm:hidden">·</span>
                         <span>${formatDate(commit.timestamp)}</span>
                         ${commit.repo_id ? `<span class="text-gray-400">in ${commit.repo_id}</span>` : ''}
+                        ${workPatternBadges ? `<span class="ml-1">${workPatternBadges}</span>` : ''}
                         <span class="sm:hidden text-gray-400">
                             <span class="text-green-600">+${commit.stats?.additions || 0}</span>
                             <span class="text-red-600">-${commit.stats?.deletions || 0}</span>

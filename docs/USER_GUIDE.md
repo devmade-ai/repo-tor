@@ -85,6 +85,24 @@ The filter bar allows you to narrow down commits:
   - **Subject** - The commit message summary
   - **Metadata** - SHA, author, date, repo (if aggregated)
   - **Line changes** - Green (+) additions, red (-) deletions
+  - **Work pattern badges** - Indicators for when the commit was made
+
+**Work Pattern Badges**
+
+Commits made outside normal work hours show visual indicators:
+
+| Badge | Color | Meaning |
+|-------|-------|---------|
+| `AFTER HOURS` | Amber | Committed before 8:00 or after 17:00 |
+| `WEEKEND` | Indigo | Committed on Saturday or Sunday |
+| `HOLIDAY` | Pink | Committed on a South African public holiday |
+
+The legend in the filter bar explains these badges. A commit can have multiple badges (e.g., "After Hours" + "Weekend" if committed late on a Saturday).
+
+**What to look for:**
+- Consistent after-hours badges = potential burnout or distributed team
+- Weekend clusters = deadline pressure or passion projects
+- Holiday badges = emergency fixes or dedicated contributors
 
 ### Progress Tab
 
