@@ -21,6 +21,30 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Export and Share Features (2026-01-19)
+
+Implemented Priority 4: Export/Share capabilities:
+
+**PDF Export:**
+- Added html2pdf.js library for client-side PDF generation
+- Export button in header generates PDF of current tab
+- Includes header, summary stats, and all chart content
+- Landscape A4 format with loading spinner feedback
+
+**Shareable Links:**
+- Share button copies current view URL to clipboard
+- URL params encode: tab, filters, period, timezone
+- Auto-applies URL state when page loads
+- Toast notifications for user feedback
+
+**UI:**
+- Header buttons: Share (secondary) and Export PDF (primary)
+- Buttons hidden until data loads
+- Responsive: icons-only on mobile, full text on desktop
+- Toast notification system for confirmations
+
+Priority 4 is now complete. All major priorities (1-4) from the Discovery Session have been implemented.
+
 ### Cache-Busting Fix (2026-01-19)
 
 Added automatic cache-busting to GitHub Pages deployment to prevent browsers from serving stale data:
@@ -284,18 +308,24 @@ Updated extraction and aggregation scripts for new tag-based model:
 
 ## Next Steps
 
-**Based on Discovery Session (see [TODO.md](TODO.md) for details):**
+**All Discovery Session priorities complete!**
 
-1. **Priority 1: Timestamp Views** - Commits by hour (0-23), commits by day of week
-2. **Priority 2: Work Pattern Styling** - After hours vs 8-5, weekends, SA holidays across all views
-3. **Priority 3: Executive Summary View** - High-level tab for quick scanning
-4. **Priority 4: PDF Export** - Shareable reports
+1. ~~Priority 1: Timestamp Views~~ - DONE
+2. ~~Priority 2: Work Pattern Styling~~ - DONE
+3. ~~Priority 3: Executive Summary View~~ - DONE
+4. ~~Priority 4: Export/Share~~ - DONE
 
-**Lower Priority:**
+**Remaining items (see [TODO.md](TODO.md)):**
 
+Stretch goals:
+- Commit time heatmap (hour vs day grid)
+- Developer activity patterns
+- Configurable work hours
+
+Lower priority:
 - Tag & complexity breakdown views
 - Dark mode, visual polish
-- Filter persistence (global state, URL params)
+- Filter persistence (global state across tabs)
 - Private repo sanitization
 
 ## Notes

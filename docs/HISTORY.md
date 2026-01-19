@@ -226,6 +226,36 @@ Updated `scripts/aggregate.js` for tag-aware aggregation:
 - Fix: Added step to copy `dashboard/data.json` to `_site/data.json`
 - Now `fetch('data.json')` resolves correctly on the deployed site
 
+### Export and Share Features (Priority 4)
+
+Added PDF export and shareable links to the dashboard:
+
+**PDF Export:**
+- Button in header to generate PDF report
+- Exports current tab with all charts and statistics
+- Includes header with repo name, date range, timestamp
+- Shows "Filtered view" indicator when filters active
+- Uses html2pdf.js library for client-side generation
+- Landscape A4 format for optimal chart display
+- Loading spinner during generation
+
+**Shareable Links:**
+- Button to copy current view URL to clipboard
+- Encodes in URL parameters:
+  - Current tab (summary, timeline, timing, etc.)
+  - Filter state (tag, author, repo, date range)
+  - Summary period (week/month/quarter)
+  - Timezone setting (local/utc)
+- Auto-applies URL state on page load
+- Toast notification confirms copy success
+
+**UI additions:**
+- Share and Export PDF buttons in dashboard header
+- Buttons hide until data loads
+- Responsive layout (icons-only on mobile)
+- Toast notification system for feedback
+- Print styles for clean output
+
 ### Summary Tab and Tag Display Fixes
 
 Fixed two bugs in the dashboard:

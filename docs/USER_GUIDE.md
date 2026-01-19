@@ -324,6 +324,48 @@ Use these patterns to assess repository health:
 | Distribution | Multiple active contributors | Single contributor dominance |
 | Security | Present and reviewed | None or clustered incidents |
 
+## Export and Sharing
+
+### Share Link
+
+Click the **Share** button in the header to copy a shareable URL to your clipboard.
+
+**What gets captured in the link:**
+- Current tab (Summary, Timeline, etc.)
+- Active filters (tag, author, repo, date range)
+- Summary period selection (week/month/quarter)
+- Timezone setting (Local/UTC)
+
+**Use cases:**
+- Send a colleague a direct link to a specific view
+- Bookmark filtered views for quick access
+- Share findings with your team
+
+**Note:** The link encodes the current filter state. Recipients will see the same filtered view when they open the link.
+
+### PDF Export
+
+Click the **Export PDF** button to download a PDF report of the current view.
+
+**What gets exported:**
+- Current tab content with all charts
+- Summary statistics cards
+- Header with repository name and date range
+- Timestamp showing when the report was generated
+- "Filtered view" indicator if filters are active
+
+**Tips:**
+- Navigate to the tab you want to export before clicking Export
+- Apply filters first to export a focused view
+- PDF uses landscape A4 format for better chart visibility
+- The export captures the current state of all charts
+
+**Recommended workflow for executive reports:**
+1. Switch to Summary tab
+2. Select the period (week/month/quarter)
+3. Click Export PDF
+4. Share the PDF with stakeholders
+
 ## Tips for Using the Dashboard
 
 1. **Compare over time** - Load data from different dates to see trends
@@ -331,6 +373,8 @@ Use these patterns to assess repository health:
 3. **Consider context** - A "fix" spike after launch is normal
 4. **Look for patterns** - Repeated issues suggest systemic problems
 5. **Use with other data** - Combine with issue trackers, reviews, etc.
+6. **Use shareable links** - Bookmark specific filtered views for quick access
+7. **Export for meetings** - Generate PDFs for stakeholders who don't use the dashboard
 
 ## Loading Data
 
