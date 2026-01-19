@@ -111,7 +111,25 @@ Refocused the tool's metrics and data model around three core dimensions:
 
 ## In Progress
 
-None
+### Phase 2: Dashboard Tag Support (2026-01-19)
+
+Implementing multi-tag support in the dashboard:
+
+**Completed:**
+
+- Added `getCommitTags()` helper function (backward compatible)
+- Added TAG_COLORS and TYPE_TO_TAG mappings
+- Updated filter from "Type" to "Tag" (matches any tag)
+- Updated commit list to show all tags (up to 3 + overflow indicator)
+- Renamed "By Type" tab to "By Tag" tab
+- Updated Progress tab Feature vs Bug Fix to use tag-based counting
+- Updated `combineDataFiles()` to build tagBreakdown
+
+**Remaining:**
+
+- Phase 1: Add complexity calculation to extract.js
+- Phase 4: Update aggregate.js for tag-aware aggregation
+- Test dashboard with existing data
 
 ## Next Steps
 

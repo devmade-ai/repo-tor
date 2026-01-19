@@ -64,6 +64,20 @@ Key decisions:
 - Schema: `type` → `tags[]`, add `complexity` field
 - User triggers, AI executes, user commits/pushes
 
+### Dashboard Multi-Tag Support (Phase 2)
+
+Implemented backward-compatible multi-tag support in the dashboard:
+
+- Added `getCommitTags()` helper - uses `tags[]` if present, falls back to mapping `type` to tag
+- Added TAG_COLORS and TYPE_TO_TAG mappings for new tag vocabulary
+- Filter renamed from "Type" to "Tag" - matches commits with any matching tag
+- Commit list shows all tags (up to 3 with "+N" overflow indicator)
+- "By Type" tab renamed to "By Tag" - counts each tag occurrence
+- Progress tab Feature vs Bug Fix now tag-aware (checks both old and new tag names)
+- `combineDataFiles()` builds tagBreakdown alongside typeBreakdown
+
+Dashboard is backward compatible: old data (single `type`) works, new data (`tags[]`) also works.
+
 ### Added chatty-chart Repository
 
 - Added `illuminAI-select/chatty-chart` to tracked repositories

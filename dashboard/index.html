@@ -7,19 +7,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .type-feat { background-color: #10b981; color: white; }
-        .type-fix { background-color: #ef4444; color: white; }
-        .type-docs { background-color: #3b82f6; color: white; }
-        .type-refactor { background-color: #8b5cf6; color: white; }
-        .type-test { background-color: #f59e0b; color: white; }
-        .type-chore { background-color: #6b7280; color: white; }
-        .type-security { background-color: #dc2626; color: white; }
-        .type-perf { background-color: #06b6d4; color: white; }
-        .type-ci { background-color: #64748b; color: white; }
-        .type-build { background-color: #78716c; color: white; }
-        .type-other { background-color: #9ca3af; color: white; }
-        .type-style { background-color: #ec4899; color: white; }
-        .type-revert { background-color: #f97316; color: white; }
+        /* Tag classes */
+        .tag-feature { background-color: #10b981; color: white; }
+        .tag-bugfix { background-color: #ef4444; color: white; }
+        .tag-refactor { background-color: #8b5cf6; color: white; }
+        .tag-docs { background-color: #3b82f6; color: white; }
+        .tag-test { background-color: #f59e0b; color: white; }
+        .tag-config { background-color: #64748b; color: white; }
+        .tag-style { background-color: #ec4899; color: white; }
+        .tag-cleanup { background-color: #6b7280; color: white; }
+        .tag-security { background-color: #dc2626; color: white; }
+        .tag-performance { background-color: #06b6d4; color: white; }
+        .tag-dependency { background-color: #84cc16; color: white; }
+        .tag-other { background-color: #9ca3af; color: white; }
 
         .timeline-dot {
             width: 12px;
@@ -133,7 +133,7 @@
                 <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="progress">Progress</button>
                 <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="contributors">Contributors</button>
                 <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="security">Security</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="types">By Type</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="tags">By Tag</button>
             </div>
 
             <!-- Tab Content -->
@@ -142,9 +142,9 @@
                 <div class="card mb-6">
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-wrap items-end gap-3 lg:gap-4">
                         <div class="flex flex-col gap-1">
-                            <label class="text-xs text-gray-500">Type</label>
-                            <select id="filter-type" class="filter-select w-full">
-                                <option value="">All Types</option>
+                            <label class="text-xs text-gray-500">Tag</label>
+                            <select id="filter-tag" class="filter-select w-full">
+                                <option value="">All Tags</option>
                             </select>
                         </div>
                         <div class="flex flex-col gap-1">
@@ -241,17 +241,19 @@
                 </div>
             </div>
 
-            <div id="tab-types" class="tab-content hidden">
+            <div id="tab-tags" class="tab-content hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Commits by Type</h2>
+                        <h2 class="text-lg font-semibold mb-4">Commits by Tag</h2>
+                        <p class="text-xs text-gray-500 -mt-2 mb-4">A commit can have multiple tags</p>
                         <div class="h-64">
-                            <canvas id="types-chart"></canvas>
+                            <canvas id="tags-chart"></canvas>
                         </div>
                     </div>
                     <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Type Breakdown</h2>
-                        <div id="type-breakdown" class="space-y-2"></div>
+                        <h2 class="text-lg font-semibold mb-4">Tag Breakdown</h2>
+                        <p class="text-xs text-gray-500 -mt-2 mb-4">Tag occurrences (total may exceed commit count)</p>
+                        <div id="tag-breakdown" class="space-y-2"></div>
                     </div>
                 </div>
             </div>
@@ -263,29 +265,52 @@
         let data = null;
         let charts = {};
         let filters = {
-            type: '',
+            tag: '',
             author: '',
             repo: '',
             dateFrom: '',
             dateTo: ''
         };
 
-        // === Color Mapping ===
-        const TYPE_COLORS = {
-            feat: '#10b981',
-            fix: '#ef4444',
-            docs: '#3b82f6',
+        // === Tag Colors ===
+        const TAG_COLORS = {
+            feature: '#10b981',
+            bugfix: '#ef4444',
             refactor: '#8b5cf6',
+            docs: '#3b82f6',
             test: '#f59e0b',
-            chore: '#6b7280',
-            security: '#dc2626',
-            perf: '#06b6d4',
-            ci: '#64748b',
-            build: '#78716c',
+            config: '#64748b',
             style: '#ec4899',
-            revert: '#f97316',
+            cleanup: '#6b7280',
+            security: '#dc2626',
+            performance: '#06b6d4',
+            dependency: '#84cc16',
             other: '#9ca3af'
         };
+
+        // === Tag Helper Functions ===
+        function getCommitTags(commit) {
+            if (commit.tags && commit.tags.length > 0) {
+                return commit.tags;
+            }
+            return ['other'];
+        }
+
+        function getAllTags(commits) {
+            const tagSet = new Set();
+            commits.forEach(c => {
+                getCommitTags(c).forEach(tag => tagSet.add(tag));
+            });
+            return [...tagSet].sort();
+        }
+
+        function getTagColor(tag) {
+            return TAG_COLORS[tag] || TAG_COLORS.other;
+        }
+
+        function getTagClass(tag) {
+            return TAG_COLORS[tag] ? `tag-${tag}` : 'tag-other';
+        }
 
         // === Author Resolution ===
         function getAuthorName(commit) {
@@ -311,8 +336,11 @@
             if (!data || !data.commits) return [];
 
             return data.commits.filter(commit => {
-                // Type filter
-                if (filters.type && commit.type !== filters.type) return false;
+                // Tag filter - check if any of commit's tags match
+                if (filters.tag) {
+                    const commitTags = getCommitTags(commit);
+                    if (!commitTags.includes(filters.tag)) return false;
+                }
 
                 // Author filter - check both author_id and author.email
                 if (filters.author) {
@@ -338,11 +366,11 @@
         }
 
         function populateFilters() {
-            // Type filter
-            const typeSelect = document.getElementById('filter-type');
-            const types = [...new Set(data.commits.map(c => c.type))].sort();
-            typeSelect.innerHTML = '<option value="">All Types</option>' +
-                types.map(t => `<option value="${t}">${t}</option>`).join('');
+            // Tag filter
+            const tagSelect = document.getElementById('filter-tag');
+            const tags = getAllTags(data.commits);
+            tagSelect.innerHTML = '<option value="">All Tags</option>' +
+                tags.map(t => `<option value="${t}">${t}</option>`).join('');
 
             // Author filter - use author resolution
             const authorSelect = document.getElementById('filter-author');
@@ -384,8 +412,8 @@
         }
 
         function setupFilterListeners() {
-            document.getElementById('filter-type').addEventListener('change', (e) => {
-                filters.type = e.target.value;
+            document.getElementById('filter-tag').addEventListener('change', (e) => {
+                filters.tag = e.target.value;
                 applyFilters();
             });
 
@@ -410,8 +438,8 @@
             });
 
             document.getElementById('clear-filters').addEventListener('click', () => {
-                filters = { type: '', author: '', repo: '', dateFrom: '', dateTo: '' };
-                document.getElementById('filter-type').value = '';
+                filters = { tag: '', author: '', repo: '', dateFrom: '', dateTo: '' };
+                document.getElementById('filter-tag').value = '';
                 document.getElementById('filter-author').value = '';
                 document.getElementById('filter-repo').value = '';
                 document.getElementById('filter-date-from').value = '';
@@ -464,7 +492,7 @@
             renderProgress();
             renderContributors();
             renderSecurity();
-            renderTypes();
+            renderTags();
         }
 
         function formatDate(isoString) {
@@ -530,10 +558,19 @@
                 `Showing ${Math.min(filteredCommits.length, 50)} of ${filteredCommits.length} commits`;
 
             // Commit List
-            const listHtml = filteredCommits.slice(0, 50).map(commit => `
+            const listHtml = filteredCommits.slice(0, 50).map(commit => {
+                const tags = getCommitTags(commit);
+                const tagBadges = tags.slice(0, 3).map(t =>
+                    `<span class="tag ${getTagClass(t)} shrink-0">${t}</span>`
+                ).join(' ');
+                const extraTags = tags.length > 3 ? `<span class="tag tag-other shrink-0">+${tags.length - 3}</span>` : '';
+
+                return `
                 <div class="p-3 bg-gray-50 rounded-lg">
                     <div class="flex items-start gap-2 sm:gap-3">
-                        <span class="tag type-${commit.type} shrink-0">${commit.type}</span>
+                        <div class="flex flex-wrap gap-1 shrink-0">
+                            ${tagBadges}${extraTags}
+                        </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-medium text-gray-900 break-words sm:truncate">${escapeHtml(commit.subject)}</p>
                         </div>
@@ -555,10 +592,9 @@
                             <span class="text-green-600">+${commit.stats?.additions || 0}</span>
                             <span class="text-red-600">-${commit.stats?.deletions || 0}</span>
                         </span>
-                        ${(commit.tags || []).length > 0 ? commit.tags.map(t => `<span class="tag tag-${t}">${t}</span>`).join(' ') : ''}
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
             document.getElementById('commit-list').innerHTML = listHtml || '<p class="text-gray-500">No commits match the current filters</p>';
         }
 
@@ -628,8 +664,17 @@
             });
 
             // Feature vs Bug Fix Trend
-            const featData = months.map(m => data.summary.monthlyCommits[m].types.feat || 0);
-            const fixData = months.map(m => data.summary.monthlyCommits[m].types.fix || 0);
+            const monthlyTagCounts = {};
+            data.commits.forEach(commit => {
+                const month = commit.timestamp?.substring(0, 7);
+                if (!month) return;
+                if (!monthlyTagCounts[month]) monthlyTagCounts[month] = { feature: 0, bugfix: 0 };
+                const tags = getCommitTags(commit);
+                if (tags.includes('feature')) monthlyTagCounts[month].feature++;
+                if (tags.includes('bugfix')) monthlyTagCounts[month].bugfix++;
+            });
+            const featData = months.map(m => monthlyTagCounts[m]?.feature || 0);
+            const fixData = months.map(m => monthlyTagCounts[m]?.bugfix || 0);
 
             if (charts.featFix) charts.featFix.destroy();
             charts.featFix = new Chart(document.getElementById('feat-fix-chart'), {
@@ -748,7 +793,7 @@
                 ? securityCommits.map(commit => `
                     <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
                         <div class="flex items-start gap-3">
-                            <span class="tag type-security">security</span>
+                            <span class="tag tag-security">security</span>
                             <div class="flex-1">
                                 <p class="font-medium text-gray-900">${escapeHtml(commit.subject)}</p>
                                 <p class="text-sm text-gray-600 mt-1">${escapeHtml(commit.body || '').substring(0, 200) || 'No description'}</p>
@@ -765,18 +810,27 @@
             document.getElementById('security-list').innerHTML = listHtml;
         }
 
-        // === Types Tab ===
-        function renderTypes() {
-            const types = Object.keys(data.summary.typeBreakdown);
-            const counts = types.map(t => data.summary.typeBreakdown[t]);
-            const colors = types.map(t => TYPE_COLORS[t] || TYPE_COLORS.other);
+        // === Tags Tab ===
+        function renderTags() {
+            // Build tag breakdown from commits (counting each tag occurrence)
+            const tagBreakdown = {};
+            data.commits.forEach(commit => {
+                const tags = getCommitTags(commit);
+                tags.forEach(tag => {
+                    tagBreakdown[tag] = (tagBreakdown[tag] || 0) + 1;
+                });
+            });
 
-            // Types Pie Chart
-            if (charts.types) charts.types.destroy();
-            charts.types = new Chart(document.getElementById('types-chart'), {
+            const tags = Object.keys(tagBreakdown);
+            const counts = tags.map(t => tagBreakdown[t]);
+            const colors = tags.map(t => getTagColor(t));
+
+            // Tags Pie Chart
+            if (charts.tags) charts.tags.destroy();
+            charts.tags = new Chart(document.getElementById('tags-chart'), {
                 type: 'doughnut',
                 data: {
-                    labels: types,
+                    labels: tags,
                     datasets: [{
                         data: counts,
                         backgroundColor: colors
@@ -791,21 +845,21 @@
                 }
             });
 
-            // Type Breakdown List
+            // Tag Breakdown List
             const total = counts.reduce((a, b) => a + b, 0);
-            const sortedTypes = types.map((t, i) => ({ type: t, count: counts[i] }))
+            const sortedTags = tags.map((t, i) => ({ tag: t, count: counts[i] }))
                 .sort((a, b) => b.count - a.count);
 
-            const breakdownHtml = sortedTypes.map(({ type, count }) => `
+            const breakdownHtml = sortedTags.map(({ tag, count }) => `
                 <div class="flex items-center gap-3">
-                    <span class="tag type-${type}">${type}</span>
+                    <span class="tag ${getTagClass(tag)}">${tag}</span>
                     <div class="flex-1 bg-gray-200 rounded-full h-2">
-                        <div class="h-2 rounded-full" style="width: ${(count / total * 100).toFixed(1)}%; background-color: ${TYPE_COLORS[type] || TYPE_COLORS.other}"></div>
+                        <div class="h-2 rounded-full" style="width: ${(count / total * 100).toFixed(1)}%; background-color: ${getTagColor(tag)}"></div>
                     </div>
                     <span class="text-sm text-gray-600">${count} (${(count / total * 100).toFixed(1)}%)</span>
                 </div>
             `).join('');
-            document.getElementById('type-breakdown').innerHTML = breakdownHtml;
+            document.getElementById('tag-breakdown').innerHTML = breakdownHtml;
         }
 
         // === Tab Navigation ===
@@ -861,7 +915,7 @@
 
             let totalAdditions = 0;
             let totalDeletions = 0;
-            const typeBreakdown = {};
+            const tagBreakdown = {};
             const monthlyCommits = {};
             const allAuthors = {};
 
@@ -879,15 +933,20 @@
                     const enrichedCommit = { ...commit, repo_id: commit.repo_id || repoId };
                     allCommits.push(enrichedCommit);
 
-                    // Type breakdown
-                    typeBreakdown[commit.type] = (typeBreakdown[commit.type] || 0) + 1;
+                    // Tag breakdown
+                    const tags = getCommitTags(commit);
+                    tags.forEach(tag => {
+                        tagBreakdown[tag] = (tagBreakdown[tag] || 0) + 1;
+                    });
 
                     // Monthly
                     const month = commit.timestamp?.substring(0, 7);
                     if (month) {
-                        if (!monthlyCommits[month]) monthlyCommits[month] = { total: 0, types: {} };
+                        if (!monthlyCommits[month]) monthlyCommits[month] = { total: 0, tags: {} };
                         monthlyCommits[month].total++;
-                        monthlyCommits[month].types[commit.type] = (monthlyCommits[month].types[commit.type] || 0) + 1;
+                        tags.forEach(tag => {
+                            monthlyCommits[month].tags[tag] = (monthlyCommits[month].tags[tag] || 0) + 1;
+                        });
                     }
 
                     totalAdditions += commit.stats?.additions || 0;
@@ -953,7 +1012,7 @@
                     totalAdditions,
                     totalDeletions,
                     netLinesChanged: totalAdditions - totalDeletions,
-                    typeBreakdown,
+                    tagBreakdown,
                     monthlyCommits,
                     dateRange: {
                         earliest: timestamps[0] || null,
