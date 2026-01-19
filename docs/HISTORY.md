@@ -2,6 +2,15 @@
 
 Log of significant changes to code and documentation.
 
+### AI Persona Triggers
+
+Added two personas to CLAUDE.md for focused interactions:
+
+- **@coder** - Trigger with `@coder` at message start. Focus: development work (writing code, bug fixes, features, refactoring, architecture)
+- **@data** - Trigger with `@data` at message start. Focus: data extraction and processing (playbooks, reports, aggregation)
+
+The existing "feed the chicken" command is now part of the @data persona.
+
 ### Activity Timeline Chart
 
 Added visual timeline to the Timeline tab:

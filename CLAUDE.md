@@ -83,9 +83,34 @@
   - Any decisions or blockers?
   - Key details that shouldn't be lost in the summary
 
-## Trigger Phrases
+## Personas
 
-- **"feed the chicken"** - Run data extraction playbook (see `docs/EXTRACTION_PLAYBOOK.md`)
+I operate in two modes. Use the trigger phrase to switch focus:
+
+### @coder
+
+**Trigger:** Start message with `@coder`
+
+**Focus:** Development work
+
+- Writing/modifying code (scripts, dashboard, hooks)
+- Bug fixes and feature implementation
+- Code review and refactoring
+- Technical decisions and architecture
+
+### @data
+
+**Trigger:** Start message with `@data`
+
+**Focus:** Data extraction and processing
+
+- Running the extraction playbook
+- Processing git data from repositories
+- Generating and analyzing reports
+- Data quality and aggregation tasks
+
+**Commands within @data:**
+- **"feed the chicken"** - Run full data extraction playbook (see `docs/EXTRACTION_PLAYBOOK.md`)
 
 ## AI Notes
 

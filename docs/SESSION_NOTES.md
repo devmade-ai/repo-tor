@@ -243,6 +243,17 @@ Refocused the tool's metrics and data model around three core dimensions:
 
 None
 
+## Latest Change
+
+### Added Persona Triggers (2026-01-19)
+
+Added two personas to CLAUDE.md for clearer communication:
+
+- **@coder** - For development work (code, bugs, features, architecture)
+- **@data** - For data extraction/processing (playbooks, reports, aggregation)
+
+"feed the chicken" is now a command within the @data persona.
+
 ## Last Completed
 
 ### Heatmap, Dark Mode, and Filter Persistence (2026-01-19)
