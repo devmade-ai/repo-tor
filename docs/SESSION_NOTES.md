@@ -16,9 +16,17 @@ Current state and context for AI assistants to pick up where the last session le
 ### Tracked Repos (config/repos.json)
 - social-ad-creator (156 commits, 3 contributors)
 - model-pear (302 commits, 4 contributors)
-- repo-tor (32 commits, 3 contributors)
+- repo-tor (43 commits, 3 contributors)
+- chatty-chart (42 commits, 4 contributors)
 
 ## Last Completed
+
+### Added chatty-chart Repository (2026-01-19)
+
+- Added `https://github.com/illuminAI-select/chatty-chart.git` to tracked repos
+- Updated `config/repos.json` with new entry
+- Ran extraction: 42 commits, 4 contributors, 9 files
+- Re-aggregated dashboard data: now 543 total commits across 4 repos
 
 ### Duplicate Contributor Fix (2026-01-19)
 
