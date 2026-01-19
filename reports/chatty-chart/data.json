@@ -1,0 +1,1674 @@
+{
+  "metadata": {
+    "repo_id": "chatty-chart",
+    "repository": "chatty-chart",
+    "remoteUrl": "https://github.com/illuminAI-select/chatty-chart.git",
+    "currentBranch": "main",
+    "branches": [
+      "main",
+      "origin",
+      "origin/claude/add-help-documentation-B6aGi",
+      "origin/claude/add-visualization-button-UpVtJ",
+      "origin/claude/analyze-project-purpose-jJRDX",
+      "origin/claude/collapsible-sections-volume-split-Zf22c",
+      "origin/claude/dark-theme-611Uu",
+      "origin/claude/fix-button-placement-performance-g4BRt",
+      "origin/claude/fix-ui-styling-4wVj7",
+      "origin/claude/fix-visualization-freeze-ZHt5T",
+      "origin/claude/fix-visualization-reveal-OCfEd",
+      "origin/claude/improve-input-ux-k5fvi",
+      "origin/claude/mobile-improvements-611Uu",
+      "origin/claude/mobile-responsive-restructure-OTCPC",
+      "origin/claude/optimize-mobile-visibility-fa2yZ",
+      "origin/claude/reorganize-help-ui-4Ntg0",
+      "origin/claude/reorganize-visualization-layout-MtOZT",
+      "origin/claude/replace-image-DjgQI",
+      "origin/claude/restore-autoscroll-visualization-24ETg",
+      "origin/main"
+    ],
+    "extractedAt": "2026-01-19T00:41:34.455Z",
+    "repoPath": "/home/user/repo-tor/.repo-cache/chatty-chart",
+    "authors": {
+      "noreply@anthropic.com": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com",
+        "emails": [
+          "noreply@anthropic.com"
+        ]
+      },
+      "devmade.ai@gmail.com": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com",
+        "emails": [
+          "devmade.ai@gmail.com"
+        ]
+      },
+      "illuminai.select@gmail.com": {
+        "name": "illuminAI-select",
+        "email": "illuminai.select@gmail.com",
+        "emails": [
+          "illuminai.select@gmail.com"
+        ]
+      },
+      "34473836+jacotheron87@users.noreply.github.com": {
+        "name": "jacotheron87",
+        "email": "34473836+jacotheron87@users.noreply.github.com",
+        "emails": [
+          "34473836+jacotheron87@users.noreply.github.com"
+        ]
+      }
+    }
+  },
+  "commits": [
+    {
+      "sha": "fea759f",
+      "fullSha": "fea759f3f09c2a1fba89a694b7dc02574e265240",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-29T23:57:04+02:00",
+      "commitDate": "2025-12-29T23:57:04+02:00",
+      "subject": "Merge pull request #19 from illuminAI-select/claude/restore-autoscroll-visualization-24ETg",
+      "body": "Restore auto-scroll to visualization after fixing freeze issue",
+      "type": "other",
+      "scope": null,
+      "title": "Merge pull request #19 from illuminAI-select/claude/restore-autoscroll-visualization-24ETg",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#19"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 7,
+        "deletions": 0
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "59ce555",
+      "fullSha": "59ce55565fd1c07c77dfdabff628d56630996d55",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-29T21:55:47+00:00",
+      "commitDate": "2025-12-29T21:55:47+00:00",
+      "subject": "Restore auto-scroll to visualization after fixing freeze issue",
+      "body": "The page freeze when clicking \"Update Visualization\" was caused by CSS\ntransitions on 10,000 squares (fixed in commit cfd34da), not by the\nscrollIntoView call that was removed in commit 55a33c8.\n\nNow that the actual performance issue is resolved, we can safely restore\nthe auto-scroll functionality for better UX. When users click \"Update\nVisualization\" (especially from the sidebar button), the page smoothly\nscrolls to show the visualization at the top.\n\nChanges:\n- Restore scrollIntoView call in reshuffle() function (app.js:424-428)\n- Update claude.md documentation to note auto-scroll feature\n- No performance impact since CSS transitions remain removed",
+      "type": "fix",
+      "scope": null,
+      "title": "Restore auto-scroll to visualization after fixing freeze issue",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 7,
+        "deletions": 0
+      },
+      "files": [
+        "assets/js/app.js",
+        "claude.md"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "7e3ad0f",
+      "fullSha": "7e3ad0fa76ea0e2a07f415c6a90ef45b7e2b0796",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-29T23:44:39+02:00",
+      "commitDate": "2025-12-29T23:44:39+02:00",
+      "subject": "Merge pull request #18 from illuminAI-select/claude/fix-visualization-freeze-ZHt5T",
+      "body": "Fix visualization freeze by removing CSS transition",
+      "type": "fix",
+      "scope": null,
+      "title": "Merge pull request #18 from illuminAI-select/claude/fix-visualization-freeze-ZHt5T",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#18"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 1,
+        "deletions": 3
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "cfd34da",
+      "fullSha": "cfd34dad5e672e4c6a93182247411fb4114c1bd3",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-29T21:43:48+00:00",
+      "commitDate": "2025-12-29T21:43:48+00:00",
+      "subject": "Fix visualization freeze by removing CSS transition",
+      "body": "The page was freezing when clicking \"Update Visualization\" buttons due to\nCSS transitions on 10,000 squares being animated simultaneously. This\noverwhelmed the browser's rendering engine.\n\nChanges:\n- Remove transition from .square class in styles.css (line 521)\n- Update claude.md to document the performance issue\n- Remove outdated animation improvement suggestion from docs\n\nThe visualization now updates instantly without freezing, providing better\nUX as users can see the new distribution immediately rather than waiting\nfor a 0.4s fade animation.",
+      "type": "fix",
+      "scope": null,
+      "title": "Fix visualization freeze by removing CSS transition",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 1,
+        "deletions": 3
+      },
+      "files": [
+        "assets/css/styles.css",
+        "claude.md"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "65f9490",
+      "fullSha": "65f9490a134498348dc424522688fba3c3c9a787",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-29T23:32:36+02:00",
+      "commitDate": "2025-12-29T23:32:36+02:00",
+      "subject": "Merge pull request #17 from illuminAI-select/claude/fix-button-placement-performance-g4BRt",
+      "body": "Fix button placement and performance issues",
+      "type": "fix",
+      "scope": null,
+      "title": "Merge pull request #17 from illuminAI-select/claude/fix-button-placement-performance-g4BRt",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#17"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 25,
+        "deletions": 48
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "55a33c8",
+      "fullSha": "55a33c8cff60339699fddc24b5501a5f39ad1c50",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-29T21:31:43+00:00",
+      "commitDate": "2025-12-29T21:31:43+00:00",
+      "subject": "Fix button placement and performance issues",
+      "body": "- Move \"Update Visualization\" button below the image as a standalone element instead of overlaying it\n- Remove absolute positioning and update CSS for better visual hierarchy\n- Fix page freeze on visualization update by removing scrollIntoView call\n- Optimize DOM manipulation using classList.toggle instead of building separate arrays\n- Update help documentation to reflect UI changes and improved performance\n- Add responsive styling for the new button placement\n\nPerformance improvements:\n- Removed automatic scrolling that competed with DOM updates\n- Simplified class toggling logic reducing operations from 3 loops to 1\n- Eliminates janky behavior when clicking Update Visualization",
+      "type": "fix",
+      "scope": null,
+      "title": "Fix button placement and performance issues",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 25,
+        "deletions": 48
+      },
+      "files": [
+        "assets/css/styles.css",
+        "assets/js/app.js",
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "81d6bfd",
+      "fullSha": "81d6bfdb34b4a39be22829ad462a7685d889fdbc",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-29T19:37:28+02:00",
+      "commitDate": "2025-12-29T19:37:28+02:00",
+      "subject": "Merge pull request #16 from illuminAI-select/claude/add-visualization-button-UpVtJ",
+      "body": "Add update visualization button below image",
+      "type": "feat",
+      "scope": null,
+      "title": "Merge pull request #16 from illuminAI-select/claude/add-visualization-button-UpVtJ",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#16"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 45,
+        "deletions": 0
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "44c6403",
+      "fullSha": "44c64038568ddc24f50fd8abd4caffd5b8ced749",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-29T17:36:33+00:00",
+      "commitDate": "2025-12-29T17:36:33+00:00",
+      "subject": "Add update visualization button below image",
+      "body": "Added a centered \"Update Visualization\" button positioned at the bottom of the visualization container. The button features the app's signature purple gradient styling and is fully responsive across all device sizes.",
+      "type": "feat",
+      "scope": null,
+      "title": "Add update visualization button below image",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 45,
+        "deletions": 0
+      },
+      "files": [
+        "assets/css/styles.css",
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "11d98b7",
+      "fullSha": "11d98b7f21c9f2985d6c71873651e98f7b0ba16d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-27T21:25:55+02:00",
+      "commitDate": "2025-12-27T21:25:55+02:00",
+      "subject": "Merge pull request #15 from illuminAI-select/claude/reorganize-help-ui-4Ntg0",
+      "body": "Reorganize help UI and improve channel interaction",
+      "type": "refactor",
+      "scope": null,
+      "title": "Merge pull request #15 from illuminAI-select/claude/reorganize-help-ui-4Ntg0",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#15"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 76,
+        "deletions": 46
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "eea7ca8",
+      "fullSha": "eea7ca891d70b8461f6af40a426f0b3781ef7c8d",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-27T19:19:36+00:00",
+      "commitDate": "2025-12-27T19:19:36+00:00",
+      "subject": "Reorganize help UI and improve channel interaction",
+      "body": "- Move help button from main content area to top of sidebar\n- Improve help button styling with gradient background and better alignment\n- Fix help modal closing behavior with proper event handling\n- Make inactive channels collapsed by default on initial load\n- Auto-expand channels when activated, auto-collapse when deactivated\n- Enhance visual appeal with improved spacing and transitions",
+      "type": "refactor",
+      "scope": null,
+      "title": "Reorganize help UI and improve channel interaction",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 76,
+        "deletions": 46
+      },
+      "files": [
+        "assets/css/styles.css",
+        "assets/js/app.js",
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "ac51301",
+      "fullSha": "ac51301cbe76e29ff6af5163e25ca57db5887485",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-27T21:07:54+02:00",
+      "commitDate": "2025-12-27T21:07:54+02:00",
+      "subject": "Merge pull request #14 from illuminAI-select/claude/add-help-documentation-B6aGi",
+      "body": "Add comprehensive help documentation with modal",
+      "type": "feat",
+      "scope": null,
+      "title": "Merge pull request #14 from illuminAI-select/claude/add-help-documentation-B6aGi",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#14"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 404,
+        "deletions": 2
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "342d78f",
+      "fullSha": "342d78f023e529ce8ba9ed9bffc91e3c15efc08e",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-27T19:06:57+00:00",
+      "commitDate": "2025-12-27T19:06:57+00:00",
+      "subject": "Add comprehensive help documentation with modal",
+      "body": "Implemented an interactive help modal to guide users through the application:\n- Added help button with icon in the main header\n- Created detailed modal with sections covering:\n  * What is Chatty Chart and visualization explanation\n  * Getting started guide with step-by-step instructions\n  * Channel controls documentation\n  * Quick actions reference\n  * Important notes and constraints\n  * Use cases for the tool\n- Styled modal with responsive design and smooth animations\n- Implemented JavaScript handlers for open/close interactions\n- Added keyboard support (ESC to close) and click-outside-to-close\n- Ensured accessibility with ARIA labels and semantic HTML\n- Mobile-optimized layout with proper responsive breakpoints\n\nThis addresses the need for in-app help to explain what the tool does and how to use it effectively.",
+      "type": "feat",
+      "scope": null,
+      "title": "Add comprehensive help documentation with modal",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 404,
+        "deletions": 2
+      },
+      "files": [
+        "assets/css/styles.css",
+        "assets/js/app.js",
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "39b8abd",
+      "fullSha": "39b8abd206580d68448d898947443532a115470b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-27T21:01:34+02:00",
+      "commitDate": "2025-12-27T21:01:34+02:00",
+      "subject": "Merge pull request #13 from illuminAI-select/claude/collapsible-sections-volume-split-Zf22c",
+      "body": "Add collapsible sections and automatic volume splitting",
+      "type": "other",
+      "scope": null,
+      "title": "Merge pull request #13 from illuminAI-select/claude/collapsible-sections-volume-split-Zf22c",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#13"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 165,
+        "deletions": 27
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "c0372cb",
+      "fullSha": "c0372cb74eabad62a8f0db62376bd18c97f41c21",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-27T18:58:24+00:00",
+      "commitDate": "2025-12-27T18:58:24+00:00",
+      "subject": "Add collapsible sections and automatic volume splitting",
+      "body": "Implemented the following features:\n- Collapsible channel sections with toggle button\n- Initial load shows only 'calls' channel active at 100% volume\n- Automatic volume splitting between unlocked and active channels\n- Volume splitting triggers on both lock events and active status changes\n\nThe automatic volume splitting ensures percentages always add up to 100%\nby distributing available percentage equally among unlocked, active channels.",
+      "type": "feat",
+      "scope": null,
+      "title": "Add collapsible sections and automatic volume splitting",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 165,
+        "deletions": 27
+      },
+      "files": [
+        "assets/css/styles.css",
+        "assets/js/app.js"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "c11d7a9",
+      "fullSha": "c11d7a99137d23908feb57d3eef2ec9d474ec9c3",
+      "author_id": "34473836+jacotheron87@users.noreply.github.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "34473836+jacotheron87@users.noreply.github.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T11:27:23+02:00",
+      "commitDate": "2025-12-25T11:27:23+02:00",
+      "subject": "Merge pull request #12 from illuminAI-select/claude/fix-visualization-reveal-OCfEd",
+      "body": "Fix visualization reveal logic - invert covered/visible behavior",
+      "type": "fix",
+      "scope": null,
+      "title": "Merge pull request #12 from illuminAI-select/claude/fix-visualization-reveal-OCfEd",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#12"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 9,
+        "deletions": 7
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "9d43411",
+      "fullSha": "9d4341196c1ba75b2adbbfa0edf365bc0d5edf85",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T09:26:28+00:00",
+      "commitDate": "2025-12-25T09:26:28+00:00",
+      "subject": "Fix visualization reveal logic - invert covered/visible behavior",
+      "body": "The visualization was backwards: squares that should be visible (analyzed) were being covered instead. Fixed by inverting the logic so that 'analyzed' squares are revealed (not covered) and the remaining squares are covered (hidden).",
+      "type": "fix",
+      "scope": null,
+      "title": "Fix visualization reveal logic - invert covered/visible behavior",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 9,
+        "deletions": 7
+      },
+      "files": [
+        "assets/js/app.js"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "7abb500",
+      "fullSha": "7abb50028c7d366cd51c1d5d8b6f57ec8394e00f",
+      "author_id": "34473836+jacotheron87@users.noreply.github.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "34473836+jacotheron87@users.noreply.github.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T11:19:41+02:00",
+      "commitDate": "2025-12-25T11:19:41+02:00",
+      "subject": "Merge pull request #11 from illuminAI-select/claude/reorganize-visualization-layout-MtOZT",
+      "body": "Reorganize layout: swap columns, reverse overlay, add auto-scroll",
+      "type": "refactor",
+      "scope": null,
+      "title": "Merge pull request #11 from illuminAI-select/claude/reorganize-visualization-layout-MtOZT",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#11"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 32,
+        "deletions": 26
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "5e1ecc2",
+      "fullSha": "5e1ecc25c9ff98be171c222da8cd08d01591a3db",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T09:18:38+00:00",
+      "commitDate": "2025-12-25T09:18:38+00:00",
+      "subject": "Reorganize layout: swap columns, reverse overlay, add auto-scroll",
+      "body": "- Swap visualization and input columns so visualization appears first (left on desktop)\n- Remove initial black overlay - visualization now starts fully visible\n- Reverse overlay behavior - analyzed data now covers the image instead of revealing it\n- Add auto-scroll to top when visualization updates for better UX\n- Rename CSS class from 'transparent' to 'covered' to reflect new behavior",
+      "type": "feat",
+      "scope": null,
+      "title": "Reorganize layout: swap columns, reverse overlay, add auto-scroll",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 32,
+        "deletions": 26
+      },
+      "files": [
+        "assets/css/styles.css",
+        "assets/js/app.js",
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "f79903e",
+      "fullSha": "f79903e768167113489cb91a8447f9ce4ea63f92",
+      "author_id": "34473836+jacotheron87@users.noreply.github.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "34473836+jacotheron87@users.noreply.github.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T05:50:48+02:00",
+      "commitDate": "2025-12-25T05:50:48+02:00",
+      "subject": "Merge pull request #10 from illuminAI-select/claude/analyze-project-purpose-jJRDX",
+      "body": "Analyze project purpose and use case",
+      "type": "other",
+      "scope": null,
+      "title": "Merge pull request #10 from illuminAI-select/claude/analyze-project-purpose-jJRDX",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#10"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 48,
+        "deletions": 32
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "b3aef0d",
+      "fullSha": "b3aef0da6aaf98c5807c9e1d2f2de96e4494d5bf",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T03:49:31+00:00",
+      "commitDate": "2025-12-25T03:49:31+00:00",
+      "subject": "Update messaging to emphasize sales/education purpose",
+      "body": "Transform project messaging to focus on client education about missing\nanalytics opportunities, especially in audio/call channels.\n\nKey changes:\n- Reposition as sales tool showing hidden value in unanalyzed data\n- Add \"The Problem\" section highlighting 95% of call data is invisible\n- Update all UI labels to be client-focused and business-oriented\n- Include use cases for sales presentations and ROI demonstrations\n- Add guide for using tool in client meetings\n\nThis better reflects the tool's purpose: visually demonstrating to\nclients what they're missing by not doing comprehensive analytics.",
+      "type": "chore",
+      "scope": null,
+      "title": "Update messaging to emphasize sales/education purpose",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 48,
+        "deletions": 32
+      },
+      "files": [
+        "README.md",
+        "assets/js/app.js",
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "a9de08e",
+      "fullSha": "a9de08eaf627fc4e9f01f5b86329fafabf534f79",
+      "author_id": "34473836+jacotheron87@users.noreply.github.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "34473836+jacotheron87@users.noreply.github.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T05:35:53+02:00",
+      "commitDate": "2025-12-25T05:35:53+02:00",
+      "subject": "Merge pull request #9 from illuminAI-select/claude/replace-image-DjgQI",
+      "body": "Replace current image with new one",
+      "type": "other",
+      "scope": null,
+      "title": "Merge pull request #9 from illuminAI-select/claude/replace-image-DjgQI",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#9"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 3,
+        "deletions": 3
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "a90977d",
+      "fullSha": "a90977d17bba15b4bede1d7f5782c2926f3f5847",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T03:34:10+00:00",
+      "commitDate": "2025-12-25T03:34:10+00:00",
+      "subject": "Replace customer service image with analytics iceberg visualization",
+      "body": "- Add analytics-iceberg.png showing communication channels and data analytics\n- Remove old FinServ customer service image\n- Update image reference in index.html\n- Update README.md to reflect new image name",
+      "type": "other",
+      "scope": null,
+      "title": "Replace customer service image with analytics iceberg visualization",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 3,
+        "deletions": 3
+      },
+      "files": [
+        "README.md",
+        "assets/images/FinServ - Customer Service & Account Support.png",
+        "assets/images/analytics-iceberg.png",
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "1bd2407",
+      "fullSha": "1bd2407edbd71d88066d14cc4b736bab5d85357d",
+      "author_id": "illuminai.select@gmail.com",
+      "author": {
+        "name": "illuminAI-select",
+        "email": "illuminai.select@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T05:31:08+02:00",
+      "commitDate": "2025-12-25T05:31:08+02:00",
+      "subject": "image upload",
+      "body": "",
+      "type": "other",
+      "scope": null,
+      "title": "image upload",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 0
+      },
+      "files": [
+        "assets/images/analytics-iceberg.png"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "b76f5b0",
+      "fullSha": "b76f5b0e2f936494a3da9c3e3a40cfb0c393609e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-24T23:57:00+02:00",
+      "commitDate": "2025-12-24T23:57:00+02:00",
+      "subject": "Merge pull request #8 from illuminAI-select/claude/optimize-mobile-visibility-fa2yZ",
+      "body": "Optimize mobile performance for visibility preset updates",
+      "type": "perf",
+      "scope": null,
+      "title": "Merge pull request #8 from illuminAI-select/claude/optimize-mobile-visibility-fa2yZ",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#8"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 106,
+        "deletions": 38
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "a3864d5",
+      "fullSha": "a3864d5613ffe740261e43726cb30b8ab21f0f63",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-24T21:56:08+00:00",
+      "commitDate": "2025-12-24T21:56:08+00:00",
+      "subject": "Optimize mobile performance for visibility preset updates",
+      "body": "Performance improvements:\n- Replace Set-based random selection with efficient Fisher-Yates shuffle\n- Add debouncing (300ms) to prevent rapid successive updates\n- Batch DOM updates using requestAnimationFrame for smoother rendering\n- Only modify squares that need class changes (avoid unnecessary reflows)\n- Add loading state to prevent simultaneous update conflicts\n- Auto-trigger visualization update after preset selection\n\nThese optimizations significantly reduce resource usage on mobile devices\nwhen using quick visibility presets.",
+      "type": "chore",
+      "scope": null,
+      "title": "Optimize mobile performance for visibility preset updates",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 106,
+        "deletions": 38
+      },
+      "files": [
+        "assets/js/app.js",
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "fc74c6c",
+      "fullSha": "fc74c6c1de6ea5f5f7fd9a5f4b95f344cfe9c602",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-24T23:42:06+02:00",
+      "commitDate": "2025-12-24T23:42:06+02:00",
+      "subject": "Merge pull request #7 from illuminAI-select/claude/improve-input-ux-k5fvi",
+      "body": "Improve input UX with clearer wording and mobile-friendly controls",
+      "type": "other",
+      "scope": null,
+      "title": "Merge pull request #7 from illuminAI-select/claude/improve-input-ux-k5fvi",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#7"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 273,
+        "deletions": 52
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "b27387f",
+      "fullSha": "b27387f32d7ae9ea83cc2df4641c0b0bc4e06402",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-24T21:41:03+00:00",
+      "commitDate": "2025-12-24T21:41:03+00:00",
+      "subject": "Improve input UX with clearer wording and mobile-friendly controls",
+      "body": "- Replace technical jargon with user-friendly labels\n  - \"Communication Channel Inputs\" → \"Adjust Your Channels\"\n  - \"Analyzed %\" → \"Visibility\"\n  - \"Enabled\" → \"Active\"\n  - \"Reshuffle\" → \"Update Visualization\"\n  - \"Distribute Remaining %\" → \"Auto-Balance Channels\"\n\n- Add helpful contextual descriptions throughout the UI\n  - Main help text explaining what the tool does\n  - Section explanations for preset buttons\n  - Inline help text for each control (\"% of total data\", \"How much you can see\")\n\n- Improve mobile touch interaction\n  - Add +/- stepper buttons for easier value adjustment on mobile\n  - Replace cramped sliders with touch-friendly number inputs\n  - Keep sliders visible on desktop only\n  - Larger touch targets (44x44px minimum)\n\n- Enhance visual hierarchy and layout\n  - Better structured control rows with clear labels\n  - Lock icon (🔒) instead of checkbox for locking channels\n  - Separated sections with descriptive headings\n  - Improved spacing and typography\n\nThis makes the interface intuitive for users without context while maintaining all functionality.",
+      "type": "other",
+      "scope": null,
+      "title": "Improve input UX with clearer wording and mobile-friendly controls",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 273,
+        "deletions": 52
+      },
+      "files": [
+        "assets/css/styles.css",
+        "assets/js/app.js",
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "385741a",
+      "fullSha": "385741aa64860a23bb2f858ed64c2752ccdad5e0",
+      "author_id": "illuminai.select@gmail.com",
+      "author": {
+        "name": "illuminAI-select",
+        "email": "illuminai.select@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-24T23:19:17+02:00",
+      "commitDate": "2025-12-24T23:19:17+02:00",
+      "subject": "Merge pull request #6 from illuminAI-select/claude/mobile-responsive-restructure-OTCPC",
+      "body": "Restructure project with mobile-first responsive design",
+      "type": "refactor",
+      "scope": null,
+      "title": "Merge pull request #6 from illuminAI-select/claude/mobile-responsive-restructure-OTCPC",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 805,
+        "deletions": 596
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "7130d88",
+      "fullSha": "7130d8835fe2146fefec3d920e5aa445854d2153",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-24T21:17:35+00:00",
+      "commitDate": "2025-12-24T21:17:35+00:00",
+      "subject": "Restructure project with mobile-first responsive design",
+      "body": "- Implemented industry-standard project structure with assets folders\n- Separated concerns: external CSS and JavaScript files\n- Enhanced mobile responsiveness with mobile-first approach\n- Added proper touch targets (44px minimum) for mobile devices\n- Improved responsive breakpoints: 480px, 768px, 1024px, 1280px\n- Optimized layout to stack on mobile, side-by-side on desktop\n- Added semantic HTML5 elements and accessibility attributes\n- Updated README with project structure and features documentation\n\nThe index.html remains in root for GitHub Pages compatibility.",
+      "type": "refactor",
+      "scope": null,
+      "title": "Restructure project with mobile-first responsive design",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 805,
+        "deletions": 596
+      },
+      "files": [
+        "README.md",
+        "assets/css/styles.css",
+        "assets/images/FinServ - Customer Service & Account Support.png",
+        "assets/js/app.js",
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "152740e",
+      "fullSha": "152740e3e185d13a9f4fa670d336539ae6d87300",
+      "author_id": "illuminai.select@gmail.com",
+      "author": {
+        "name": "illuminAI-select",
+        "email": "illuminai.select@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-24T23:05:33+02:00",
+      "commitDate": "2025-12-24T23:05:33+02:00",
+      "subject": "Merge pull request #5 from illuminAI-select/claude/fix-ui-styling-4wVj7",
+      "body": "Fix UI styling issues",
+      "type": "fix",
+      "scope": null,
+      "title": "Merge pull request #5 from illuminAI-select/claude/fix-ui-styling-4wVj7",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 2
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "6538c0b",
+      "fullSha": "6538c0ba384f444c377740ef3e88c80b963bb71d",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-24T21:04:24+00:00",
+      "commitDate": "2025-12-24T21:04:24+00:00",
+      "subject": "Fix UI styling issues",
+      "body": "- Add dark background to input fields for better text readability\n- Make black overlay fully opaque (remove transparency)\n- Align visualization column to top instead of center",
+      "type": "fix",
+      "scope": null,
+      "title": "Fix UI styling issues",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 2
+      },
+      "files": [
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "5131086",
+      "fullSha": "51310861617ec6c7de99da914bb971e53880a34f",
+      "author_id": "illuminai.select@gmail.com",
+      "author": {
+        "name": "illuminAI-select",
+        "email": "illuminai.select@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-24T22:58:55+02:00",
+      "commitDate": "2025-12-24T22:58:55+02:00",
+      "subject": "Merge pull request #4 from illuminAI-select/claude/dark-theme-611Uu",
+      "body": "Implement dark theme design",
+      "type": "other",
+      "scope": null,
+      "title": "Merge pull request #4 from illuminAI-select/claude/dark-theme-611Uu",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 19,
+        "deletions": 18
+      },
+      "files": [
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "2ac41ed",
+      "fullSha": "2ac41edc01207d32577ab4048105aebff7fd04fb",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-24T20:56:22+00:00",
+      "commitDate": "2025-12-24T20:56:22+00:00",
+      "subject": "Implement dark theme design",
+      "body": "Dark theme updates:\n- Convert all color variables to dark palette\n- Background: Deep slate (#0f172a)\n- Surface: Dark slate (#1e293b, #334155)\n- Text: Light slate (#f1f5f9, #94a3b8)\n- Primary: Vibrant purple gradient (#7c3aed → #a855f7)\n- Update all shadows for better visibility on dark backgrounds\n- Adjust channel group gradients for dark mode\n- Update content area gradient\n- Enhance input focus states with purple glow\n- Update reset button styling for dark theme\n- Improve range slider contrast",
+      "type": "feat",
+      "scope": null,
+      "title": "Implement dark theme design",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#0",
+        "#1",
+        "#334155",
+        "#94",
+        "#7"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 19,
+        "deletions": 18
+      },
+      "files": [
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "21a0dc2",
+      "fullSha": "21a0dc200822b8313fd1becca671530e3c89686f",
+      "author_id": "illuminai.select@gmail.com",
+      "author": {
+        "name": "illuminAI-select",
+        "email": "illuminai.select@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-24T22:53:28+02:00",
+      "commitDate": "2025-12-24T22:53:28+02:00",
+      "subject": "Merge pull request #3 from illuminAI-select/claude/mobile-improvements-611Uu",
+      "body": "Improve mobile responsiveness with enhanced touch targets",
+      "type": "other",
+      "scope": null,
+      "title": "Merge pull request #3 from illuminAI-select/claude/mobile-improvements-611Uu",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 122,
+        "deletions": 0
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "80605b8",
+      "fullSha": "80605b884d523347b80d4b6b24f448cb6b8bc074",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-24T20:35:24+00:00",
+      "commitDate": "2025-12-24T20:35:24+00:00",
+      "subject": "Improve mobile responsiveness with enhanced touch targets",
+      "body": "Mobile improvements:\n- Add comprehensive mobile styles for screens ≤800px\n- Implement 44px minimum touch targets for all interactive elements\n- Set font-size: 16px on inputs to prevent iOS zoom\n- Increase slider thumb size to 24px for easier touch\n- Increase checkbox touch area to 44x44px\n- Improve button touch targets (min 48px height)\n- Switch preset buttons to 2-column layout on mobile\n- Adjust spacing and padding for mobile screens\n- Add extra small device support (≤480px)\n- Optimize visualization container for mobile viewports\n- Remove border-right on mobile sidebar, add border-bottom\n- Allow body height to be auto on mobile for better scrolling",
+      "type": "other",
+      "scope": null,
+      "title": "Improve mobile responsiveness with enhanced touch targets",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 122,
+        "deletions": 0
+      },
+      "files": [
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "b22a2c5",
+      "fullSha": "b22a2c58ce754609e1c9fae6a6cb5cad18b67b64",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-24T22:26:58+02:00",
+      "commitDate": "2025-12-24T22:26:58+02:00",
+      "subject": "Merge pull request #2 from illuminAI-select/claude/add-claude-md-611Uu",
+      "body": "Modernize UI with contemporary design system",
+      "type": "feat",
+      "scope": null,
+      "title": "Merge pull request #2 from illuminAI-select/claude/add-claude-md-611Uu",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#2"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 151,
+        "deletions": 36
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "1174a01",
+      "fullSha": "1174a01182daa0dee103f4d881b256cc1e7d5e2f",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-24T20:20:17+00:00",
+      "commitDate": "2025-12-24T20:20:17+00:00",
+      "subject": "Modernize UI with contemporary design system",
+      "body": "Design improvements:\n- Add CSS custom properties for consistent theming\n- Implement purple gradient color scheme (#667eea → #764ba2)\n- Use modern system font stack\n- Add card-based design with subtle shadows and hover effects\n- Create gradient text headings\n- Implement custom-styled range sliders with gradient thumbs\n- Add focus states with glow effects\n- Enhance buttons with lift animations\n- Add gradient background to content area\n- Improve spacing, typography, and visual hierarchy\n- Smooth transitions with cubic-bezier easing",
+      "type": "other",
+      "scope": null,
+      "title": "Modernize UI with contemporary design system",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#667",
+        "#764"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 151,
+        "deletions": 36
+      },
+      "files": [
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "759b929",
+      "fullSha": "759b929c8a53b0f4e097f84adc5f498f3e966c32",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-24T22:15:01+02:00",
+      "commitDate": "2025-12-24T22:15:01+02:00",
+      "subject": "Merge pull request #1 from illuminAI-select/claude/add-claude-md-611Uu",
+      "body": "Add comprehensive claude.md documentation",
+      "type": "feat",
+      "scope": null,
+      "title": "Merge pull request #1 from illuminAI-select/claude/add-claude-md-611Uu",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#1"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 146,
+        "deletions": 0
+      },
+      "files": [],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "2b7f741",
+      "fullSha": "2b7f7411e1d18f6b26d381af15e55c77ebd96ffd",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-24T20:13:25+00:00",
+      "commitDate": "2025-12-24T20:13:25+00:00",
+      "subject": "Add comprehensive claude.md documentation",
+      "body": "- Document project overview and purpose\n- Describe technology stack and architecture\n- Explain all features and interactive controls\n- Detail code organization and structure\n- Include development considerations and use cases",
+      "type": "feat",
+      "scope": null,
+      "title": "Add comprehensive claude.md documentation",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 146,
+        "deletions": 0
+      },
+      "files": [
+        "claude.md"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "fd42669",
+      "fullSha": "fd42669a79b6c7a5d117c97473c31fdae253a1ed",
+      "author_id": "illuminai.select@gmail.com",
+      "author": {
+        "name": "illuminAI-select",
+        "email": "illuminai.select@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-06-16T11:08:44+02:00",
+      "commitDate": "2025-06-16T11:08:44+02:00",
+      "subject": "Add files via upload",
+      "body": "",
+      "type": "feat",
+      "scope": null,
+      "title": "Add files via upload",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 0
+      },
+      "files": [
+        "FinServ - Customer Service & Account Support.png"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "e20be4f",
+      "fullSha": "e20be4f8fa4a359ecae7d6fb74253b52f63da4fa",
+      "author_id": "illuminai.select@gmail.com",
+      "author": {
+        "name": "illuminAI-select",
+        "email": "illuminai.select@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-06-16T11:07:54+02:00",
+      "commitDate": "2025-06-16T11:07:54+02:00",
+      "subject": "Create index.html",
+      "body": "",
+      "type": "feat",
+      "scope": null,
+      "title": "Create index.html",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 367,
+        "deletions": 0
+      },
+      "files": [
+        "index.html"
+      ],
+      "repo_id": "chatty-chart"
+    },
+    {
+      "sha": "f5090f0",
+      "fullSha": "f5090f0edec8ce5afb2cf67a78b324731f3005c9",
+      "author_id": "illuminai.select@gmail.com",
+      "author": {
+        "name": "illuminAI-select",
+        "email": "illuminai.select@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-06-16T11:03:48+02:00",
+      "commitDate": "2025-06-16T11:03:48+02:00",
+      "subject": "Initial commit",
+      "body": "",
+      "type": "other",
+      "scope": null,
+      "title": "Initial commit",
+      "is_conventional": false,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 662,
+        "deletions": 0
+      },
+      "files": [
+        "LICENSE",
+        "README.md"
+      ],
+      "repo_id": "chatty-chart"
+    }
+  ],
+  "contributors": [
+    {
+      "author_id": "noreply@anthropic.com",
+      "email": "noreply@anthropic.com",
+      "names": [
+        "Claude"
+      ],
+      "commits": 19,
+      "additions": 2440,
+      "deletions": 936,
+      "firstCommit": "2025-12-24T20:13:25+00:00",
+      "lastCommit": "2025-12-29T21:55:47+00:00",
+      "types": {
+        "fix": 5,
+        "feat": 6,
+        "refactor": 2,
+        "chore": 2,
+        "other": 4
+      },
+      "primaryName": "Claude"
+    },
+    {
+      "author_id": "devmade.ai@gmail.com",
+      "email": "devmade.ai@gmail.com",
+      "names": [
+        "devmade-ai"
+      ],
+      "commits": 11,
+      "additions": 1399,
+      "deletions": 252,
+      "firstCommit": "2025-12-24T22:15:01+02:00",
+      "lastCommit": "2025-12-29T23:57:04+02:00",
+      "types": {
+        "other": 3,
+        "fix": 2,
+        "feat": 4,
+        "refactor": 1,
+        "perf": 1
+      },
+      "primaryName": "devmade-ai"
+    },
+    {
+      "author_id": "illuminai.select@gmail.com",
+      "email": "illuminai.select@gmail.com",
+      "names": [
+        "illuminAI-select"
+      ],
+      "commits": 8,
+      "additions": 1978,
+      "deletions": 616,
+      "firstCommit": "2025-06-16T11:03:48+02:00",
+      "lastCommit": "2025-12-25T05:31:08+02:00",
+      "types": {
+        "other": 4,
+        "refactor": 1,
+        "fix": 1,
+        "feat": 2
+      },
+      "primaryName": "illuminAI-select"
+    },
+    {
+      "author_id": "34473836+jacotheron87@users.noreply.github.com",
+      "email": "34473836+jacotheron87@users.noreply.github.com",
+      "names": [
+        "jacotheron87"
+      ],
+      "commits": 4,
+      "additions": 92,
+      "deletions": 68,
+      "firstCommit": "2025-12-25T05:35:53+02:00",
+      "lastCommit": "2025-12-25T11:27:23+02:00",
+      "types": {
+        "fix": 1,
+        "refactor": 1,
+        "other": 2
+      },
+      "primaryName": "jacotheron87"
+    }
+  ],
+  "files": [
+    {
+      "path": "index.html",
+      "changeCount": 16,
+      "commitTypes": {
+        "fix": 2,
+        "feat": 5,
+        "refactor": 2,
+        "chore": 2,
+        "other": 5
+      },
+      "authors": [
+        "noreply@anthropic.com",
+        "illuminai.select@gmail.com"
+      ]
+    },
+    {
+      "path": "assets/js/app.js",
+      "changeCount": 11,
+      "commitTypes": {
+        "fix": 3,
+        "refactor": 2,
+        "feat": 3,
+        "chore": 2,
+        "other": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "assets/css/styles.css",
+      "changeCount": 9,
+      "commitTypes": {
+        "fix": 2,
+        "feat": 4,
+        "refactor": 2,
+        "other": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "README.md",
+      "changeCount": 4,
+      "commitTypes": {
+        "chore": 1,
+        "other": 2,
+        "refactor": 1
+      },
+      "authors": [
+        "noreply@anthropic.com",
+        "illuminai.select@gmail.com"
+      ]
+    },
+    {
+      "path": "claude.md",
+      "changeCount": 3,
+      "commitTypes": {
+        "fix": 2,
+        "feat": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "assets/images/FinServ - Customer Service & Account Support.png",
+      "changeCount": 2,
+      "commitTypes": {
+        "other": 1,
+        "refactor": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "assets/images/analytics-iceberg.png",
+      "changeCount": 2,
+      "commitTypes": {
+        "other": 2
+      },
+      "authors": [
+        "noreply@anthropic.com",
+        "illuminai.select@gmail.com"
+      ]
+    },
+    {
+      "path": "FinServ - Customer Service & Account Support.png",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "illuminai.select@gmail.com"
+      ]
+    },
+    {
+      "path": "LICENSE",
+      "changeCount": 1,
+      "commitTypes": {
+        "other": 1
+      },
+      "authors": [
+        "illuminai.select@gmail.com"
+      ]
+    }
+  ],
+  "summary": {
+    "totalCommits": 42,
+    "totalContributors": 4,
+    "totalAdditions": 5909,
+    "totalDeletions": 1872,
+    "netLinesChanged": 4037,
+    "typeBreakdown": {
+      "other": 13,
+      "fix": 9,
+      "feat": 12,
+      "refactor": 5,
+      "chore": 2,
+      "perf": 1
+    },
+    "monthlyCommits": {
+      "2025-12": {
+        "total": 39,
+        "types": {
+          "other": 12,
+          "fix": 9,
+          "feat": 10,
+          "refactor": 5,
+          "chore": 2,
+          "perf": 1
+        }
+      },
+      "2025-06": {
+        "total": 3,
+        "types": {
+          "feat": 2,
+          "other": 1
+        }
+      }
+    },
+    "securityCommitCount": 0,
+    "security_events": [],
+    "dateRange": {
+      "earliest": "2025-06-16T11:03:48+02:00",
+      "latest": "2025-12-29T23:57:04+02:00"
+    }
+  }
+}

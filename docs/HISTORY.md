@@ -28,6 +28,13 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-19
 
+### Added chatty-chart Repository
+
+- Added `illuminAI-select/chatty-chart` to tracked repositories
+- Repository stats: 42 commits, 4 contributors, 9 files tracked
+- Total dashboard now shows 543 commits across 4 repositories
+- Updated `config/repos.json` and re-aggregated all data
+
 ### Duplicate Contributor Fix
 
 - Created `config/author-map.json` to merge duplicate contributor entries
