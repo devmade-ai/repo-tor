@@ -108,7 +108,10 @@ Default mode is development. Use `@data` to switch when needed.
 - Data quality and aggregation tasks
 
 **Commands within @data:**
-- **"feed the chicken"** - Run full data extraction playbook (see `docs/EXTRACTION_PLAYBOOK.md`)
+- **"hatch the chicken"** - Full reset: delete everything, AI analyzes ALL commits from scratch
+- **"feed the chicken"** - Incremental: AI analyzes only NEW commits not yet processed
+
+See `docs/EXTRACTION_PLAYBOOK.md` for details.
 
 ## AI Notes
 

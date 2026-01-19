@@ -245,43 +245,28 @@ None
 
 ## Latest Change
 
-### Two-Stage Extraction Process (2026-01-19)
+### New Extraction Architecture (2026-01-19)
 
-Refactored extraction to separate raw data extraction from tagging:
+Redesigned the extraction system with two triggers and persistent AI-analyzed data:
 
-**Stage 1: Scripts extract raw data**
-- `scripts/extract.js` - Outputs commits with `tags: []` (empty)
-- `scripts/aggregate.js` - Passes through empty tags
+**New architecture:**
+- `processed/` folder is source of truth (AI-analyzed commits, committed to git)
+- `reports/` folder removed (was ephemeral anyway)
+- Dashboard data generated from `processed/`
+- Deleted `scripts/tag-commits.js` (AI analyzes directly, no script)
 
-**Stage 2: Tagging**
-- `scripts/tag-commits.js` - Applies consistent tagging rules
-- Codifies EXTRACTION_PLAYBOOK.md guidelines
-- Tags both aggregated dashboard files AND per-repo reports
+**Two triggers:**
+| Trigger | Action |
+|---------|--------|
+| "hatch the chicken" | Full reset - delete all, AI analyzes ALL commits |
+| "feed the chicken" | Incremental - AI analyzes only NEW commits |
 
-**Workflow:**
-```bash
-# Run extraction
-scripts/update-all.sh
-
-# Tag dashboard
-node scripts/tag-commits.js dashboard/commits.json
-
-# Tag per-repo files
-for repo in reports/*/; do
-  node scripts/tag-commits.js "${repo}commits.json"
-done
+**Flow:**
+```
+repos → extract (ephemeral) → AI tag per repo → processed/ (persistent) → aggregate → dashboard
 ```
 
-**Current data:** 586 commits tagged across 4 repos
-
-### Added Persona Triggers (2026-01-19)
-
-Added two personas to CLAUDE.md for clearer communication:
-
-- **@coder** (default) - For development work (code, bugs, features, architecture)
-- **@data** - For data extraction/processing (playbooks, reports, aggregation)
-
-"feed the chicken" is now a command within the @data persona.
+**Key benefit:** Incremental processing - don't redo all 586 commits, only process new ones.
 
 ## Last Completed
 

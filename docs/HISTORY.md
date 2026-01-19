@@ -2,6 +2,26 @@
 
 Log of significant changes to code and documentation.
 
+### New Extraction Architecture
+
+Redesigned the extraction system for efficiency and persistence:
+
+**Two triggers:**
+- **"hatch the chicken"** - Full reset: delete everything, AI analyzes ALL commits from scratch
+- **"feed the chicken"** - Incremental: AI analyzes only NEW commits not yet processed
+
+**New file structure:**
+- `processed/<repo>/commits.json` - Source of truth (AI-analyzed commits, committed to git)
+- `reports/` folder removed (was ephemeral)
+- Dashboard data generated from `processed/`
+
+**Changes:**
+- Deleted `scripts/tag-commits.js` (AI analyzes commits directly instead of script)
+- Rewrote `docs/EXTRACTION_PLAYBOOK.md` with new architecture
+- Updated `CLAUDE.md` with both trigger commands
+
+**Key benefit:** Don't redo all commits each time. Process incrementally - only analyze new commits.
+
 ### AI Persona Triggers
 
 Added two personas to CLAUDE.md for focused interactions:

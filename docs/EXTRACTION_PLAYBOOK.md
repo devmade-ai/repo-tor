@@ -4,64 +4,156 @@ Step-by-step instructions for AI-driven data extraction and analysis.
 
 **Persona:** `@data` (see CLAUDE.md)
 
-**Trigger:** `@data feed the chicken`
-
 ## Overview
 
-Two-stage process:
+Two-stage process with persistent storage of AI-analyzed commits:
 
-1. **Script extracts** raw git data (commits, stats, files) with empty tags
+1. **Extract** raw git data (ephemeral)
 2. **AI analyzes** each commit message and assigns tags + complexity
+3. **Store** in `processed/` folder (persistent, source of truth)
+4. **Aggregate** to dashboard (generated from processed)
 
-When triggered, the AI assistant (in @data mode):
+## Triggers
 
-1. Runs extraction scripts to get raw commit data
-2. Reads each commit message individually
-3. Assigns tags based on guidelines below
-4. Calculates complexity scores
-5. Updates data files with tags and complexity
-6. Reports summary to user
-7. User commits and pushes changes
+| Trigger | Action |
+|---------|--------|
+| **"hatch the chicken"** | Full reset - delete everything, extract all repos, AI analyzes ALL commits, save to `processed/`, aggregate to dashboard |
+| **"feed the chicken"** | Incremental - extract repos, AI analyzes only NEW commits (not in `processed/`), update `processed/`, re-aggregate |
 
-## Process
+## File Structure
 
-### Step 1: Run Extraction Script
-
-Run `scripts/update-all.sh` which:
-- Reads `config/repos.json` for repository list
-- Clones/updates repos to `.repo-cache/`
-- Runs `scripts/extract.js` on each repo (extracts raw data, empty tags)
-- Runs `scripts/aggregate.js` to combine data
-
-Output: `dashboard/commits.json` with all commits, `tags: []` empty.
-
-### Step 2: Record Commit Counts
-
-**IMPORTANT:** Record total commits for verification:
-```bash
-jq '.commits | length' dashboard/commits.json
+```
+processed/                    # Source of truth (committed to git)
+  <repo-name>/
+    commits.json              # AI-analyzed commits
+    metadata.json             # Repo metadata
+config/
+  repos.json                  # Tracked repositories
+  author-map.json             # Author identity mapping
+dashboard/
+  commits.json                # Aggregated (generated from processed/)
+  data.json                   # Combined data for dashboard
+  summary.json                # Aggregated summary
+.repo-cache/                  # Cloned repos (gitignored)
 ```
 
-### Step 3: Analyze Each Commit
+**Note:** The old `reports/` folder is no longer used. All persistent data lives in `processed/`.
 
-**Process EVERY commit. No skipping.**
+---
 
-For each commit (one by one, in order):
+## Hatch the Chicken (Full Reset)
 
-1. Read the full commit message (subject + body)
-2. Assign tags based on the guidelines below
-3. Calculate complexity based on files changed + tag count
-4. Update the commit in the data file
+Use when: Starting fresh, schema changes, or need to reprocess everything.
 
-**Verification checklist:**
-- [ ] Every commit has at least one tag assigned
-- [ ] Every commit has complexity 1-5 (not null)
-- [ ] No commits were skipped or batched together
-- [ ] Total processed = total in file
+### Step 1: Clean Slate
 
-For each commit, AI analyzes the commit message to determine:
+```bash
+# Delete existing processed data
+rm -rf processed/
 
-**Tags** (multiple allowed):
+# Delete dashboard aggregated data
+rm -f dashboard/commits.json dashboard/data.json dashboard/summary.json
+```
+
+### Step 2: Extract Each Repository
+
+For each repo in `config/repos.json`:
+
+```bash
+# Clone/update repo
+scripts/update-all.sh
+```
+
+This puts raw repo data in `.repo-cache/`.
+
+### Step 3: AI Analyze Each Repository
+
+For each repository, process ALL commits:
+
+1. Read commits from the extracted data
+2. For each commit:
+   - Read the full commit message
+   - Assign tags based on guidelines below
+   - Calculate complexity score
+3. Save to `processed/<repo-name>/commits.json`
+
+**Verification:**
+- [ ] Every commit has at least one tag
+- [ ] Every commit has complexity 1-5
+- [ ] Total commits processed matches total in repo
+
+### Step 4: Aggregate to Dashboard
+
+Combine all `processed/` data into dashboard files:
+
+```bash
+node scripts/aggregate.js
+```
+
+### Step 5: Commit Changes
+
+```bash
+git add processed/ dashboard/
+git commit -m "chore: hatch the chicken - full extraction"
+git push
+```
+
+---
+
+## Feed the Chicken (Incremental)
+
+Use when: Adding new commits to existing processed data.
+
+### Step 1: Extract Fresh Data
+
+```bash
+scripts/update-all.sh
+```
+
+### Step 2: Find New Commits
+
+For each repository:
+
+1. Load existing `processed/<repo>/commits.json`
+2. Get list of processed commit hashes
+3. Compare against freshly extracted commits
+4. Identify commits NOT in processed (these are new)
+
+### Step 3: AI Analyze New Commits Only
+
+For each NEW commit:
+
+1. Read the full commit message
+2. Assign tags based on guidelines below
+3. Calculate complexity score
+4. Append to `processed/<repo>/commits.json`
+
+**Verification:**
+- [ ] Only new commits were analyzed
+- [ ] Existing commits unchanged
+- [ ] New commits have tags and complexity
+
+### Step 4: Re-aggregate to Dashboard
+
+```bash
+node scripts/aggregate.js
+```
+
+### Step 5: Commit Changes
+
+```bash
+git add processed/ dashboard/
+git commit -m "chore: feed the chicken - X new commits"
+git push
+```
+
+---
+
+## Tagging Guidelines
+
+Rules for consistent tag assignment.
+
+### Tags (multiple allowed)
 
 | Tag | Description |
 |-----|-------------|
@@ -77,35 +169,12 @@ For each commit, AI analyzes the commit message to determine:
 | `performance` | Performance improvements |
 | `dependency` | Dependency updates |
 
-**Complexity** (scale 1-5):
-
-Based on files changed and tag count:
-
-| Score | Criteria |
-|-------|----------|
-| 1 | Single file, single tag |
-| 2 | 2-3 files OR 2 tags |
-| 3 | 4-6 files OR 3+ tags |
-| 4 | 7-10 files AND multiple tags |
-| 5 | 10+ files AND 3+ tags |
-
-## Tagging Guidelines
-
-Rules for consistent tag assignment across sessions.
-
-### Core Principles
-
-1. **Evidence-based** - Only assign tags supported by the commit message content
-2. **Consistent** - Same commit message should always produce the same tags
-3. **Complete** - Assign ALL tags that accurately describe the work
-4. **Conventional prefix wins** - If message has `feat:`, `fix:`, etc., that's always the primary tag
-
 ### Tag Priority Order
 
-Order tags in the array by importance (first = primary). Use this order:
+Order tags by importance (first = primary):
 
-1. `security` - Always tag if security-related (can combine with others)
-2. `bugfix` - Fixing broken behavior takes priority
+1. `security` - Always first if security-related
+2. `bugfix` - Fixing broken behavior
 3. `feature` - New user-facing functionality
 4. `performance` - Optimization work
 5. `refactor` - Restructuring without behavior change
@@ -119,122 +188,76 @@ Order tags in the array by importance (first = primary). Use this order:
 ### Decision Rules
 
 **refactor vs cleanup:**
-- `refactor` = Restructuring code (renaming, extracting functions, reorganizing)
-- `cleanup` = Removing dead code, deleting unused files, organizing imports
+- `refactor` = Restructuring code (renaming, extracting functions)
+- `cleanup` = Removing dead code, deleting unused files
 
 **refactor vs feature:**
-- If behavior changes for the user → `feature`
-- If only internal structure changes → `refactor`
+- Behavior changes for user → `feature`
+- Only internal structure changes → `refactor`
 
 **config vs feature:**
-- `config` = CI/CD, build scripts, linter rules, tooling
-- `feature` = App configuration that affects user behavior
+- `config` = CI/CD, build scripts, linter rules
+- `feature` = App configuration affecting user behavior
 
 **bugfix vs feature:**
-- `bugfix` = Something was broken and is now fixed
-- `feature` = Something didn't exist and now does
+- `bugfix` = Something was broken, now fixed
+- `feature` = Something didn't exist, now does
 
-**When to use multiple tags:**
-- `feature` + `test` = New feature with tests in same commit
-- `feature` + `security` = Security feature (auth, encryption)
-- `bugfix` + `security` = Security vulnerability fix
-- `refactor` + `performance` = Refactor that improves performance
+**Conventional prefix wins:**
+- `feat:` → `feature`
+- `fix:` → `bugfix`
+- `docs:` → `docs`
+- `test:` → `test`
+- `chore:` → `config` or `cleanup` based on content
+- `refactor:` → `refactor`
+- `style:` → `style`
+- `perf:` → `performance`
+
+### Complexity Score (1-5)
+
+Based on files changed and tag count:
+
+| Score | Criteria |
+|-------|----------|
+| 1 | Single file, single tag |
+| 2 | 2-3 files OR 2 tags |
+| 3 | 4-6 files OR 3+ tags |
+| 4 | 7-10 files AND multiple tags |
+| 5 | 10+ files AND 3+ tags |
 
 ### Examples
 
 | Commit Message | Tags | Reasoning |
 |----------------|------|-----------|
-| `feat: add user login page` | `feature` | Clear conventional prefix |
-| `fix: resolve crash on startup` | `bugfix` | Clear conventional prefix |
-| `Add dark mode toggle` | `feature` | New functionality, no prefix |
+| `feat: add user login page` | `feature` | Conventional prefix |
+| `fix: resolve crash on startup` | `bugfix` | Conventional prefix |
+| `Add dark mode toggle` | `feature` | New functionality |
 | `Fix typo in README` | `docs` | Documentation change |
 | `Update dependencies` | `dependency` | Package updates |
-| `Refactor auth module` | `refactor` | Restructuring, no behavior change |
-| `Remove unused helper functions` | `cleanup` | Deleting dead code |
-| `feat: add password hashing` | `feature`, `security` | Security-related feature |
+| `Refactor auth module` | `refactor` | Restructuring |
+| `Remove unused helpers` | `cleanup` | Deleting dead code |
+| `feat: add password hashing` | `feature`, `security` | Security feature |
 | `fix: patch XSS vulnerability` | `bugfix`, `security` | Security fix |
-| `Add unit tests for UserService` | `test` | Test-only commit |
-| `Format code with prettier` | `style` | Formatting only |
-| `Optimize database queries` | `performance` | Speed improvement |
-| `Update webpack config` | `config` | Build tooling |
-| `feat: add search with tests` | `feature`, `test` | Feature + tests together |
 
 ### Edge Cases
 
-**Vague messages** (e.g., "update code", "fix stuff", "changes"):
-- Look at files changed if available
+**Vague messages** ("update code", "fix stuff"):
 - Default to `cleanup` if truly ambiguous
-- Never guess - use the most conservative tag
+- Never guess - use conservative tag
 
 **Merge commits:**
 - Tag as `cleanup` unless message indicates otherwise
-- Skip if it's just "Merge branch X into Y"
 
 **Initial commits:**
-- Tag as `feature` (establishing the codebase)
+- Tag as `feature` (establishing codebase)
 
-**Version bumps** (e.g., "v1.2.3", "bump version"):
+**Version bumps:**
 - Tag as `config`
 
 **Reverts:**
-- Match the tag of what was reverted (revert a bugfix → `bugfix`)
+- Match tag of what was reverted
 
-**Multi-purpose commits** (doing too many things):
-- Assign all relevant tags
-- Complexity score increases with tag count (see complexity table)
-
-### What NOT to Do
-
-- Don't tag based on file extensions alone (`.test.js` doesn't mean `test` tag)
-- Don't use `feature` for internal refactoring
-- Don't use `bugfix` for new functionality that was missing
-- Don't invent tags not in the tag list
-- Don't skip tags that clearly apply - be complete
-
-### Step 4: Update Data Files
-
-Update the extracted files with AI-assigned tags and complexity:
-
-**Aggregated dashboard files:**
-- `dashboard/commits.json` - Add tags[] and complexity to each commit
-- `dashboard/data.json` - Update with tagged commits
-- `dashboard/summary.json` - Recalculate tagBreakdown and complexityBreakdown
-
-**Per-repo report files:**
-- `reports/<repo>/commits.json` - Tag each repo's commits individually
-- `reports/<repo>/data.json` - Update with tagged commits
-
-This can be done efficiently using `scripts/tag-commits.js`:
-```bash
-# Tag aggregated dashboard
-node scripts/tag-commits.js dashboard/commits.json
-
-# Tag per-repo files
-for repo in reports/*/; do
-  node scripts/tag-commits.js "${repo}commits.json"
-done
-```
-
-### Step 5: Report Summary
-
-Provide user with:
-
-- **Commit count verification:** "Processed X of Y commits" (must match)
-- Number of commits processed per repo
-- New commits since last extraction (if applicable)
-- Any errors or issues encountered
-
-**If counts don't match, STOP and report which commits were missed.**
-
-### Step 6: User Action
-
-User reviews changes and:
-
-```bash
-git add .
-git commit -m "chore: update extracted data"
-git push
-```
+---
 
 ## Data Schema
 
@@ -270,15 +293,6 @@ git push
 }
 ```
 
-## Notes
-
-- **Two-stage process:** Scripts extract raw data, AI analyzes and tags
-- Tags are determined by AI analysis of commit message content (not regex)
-- A commit can have multiple tags (e.g., a feature that also includes tests)
-- Complexity is calculated by AI based on files changed + tag count
-- `is_conventional` field indicates if message follows conventional commit format
-- `has_breaking_change` flag helps AI identify breaking changes
-
 ---
 
-*Last updated: 2026-01-19 - Separated script extraction from AI tagging*
+*Last updated: 2026-01-19 - New architecture with processed/ folder and two triggers*
