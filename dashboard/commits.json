@@ -1,6 +1,126 @@
 {
   "commits": [
     {
+      "sha": "1d15f41",
+      "fullSha": "1d15f419f81b1b6352280c372761617563b2d1c2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T00:28:21+00:00",
+      "commitDate": "2026-01-19T00:28:21+00:00",
+      "subject": "fix: merge duplicate contributor entries using author-map",
+      "body": "- Created config/author-map.json to merge jacotheron87's two emails\n  (jacotheron87@gmail.com and GitHub noreply address)\n- Re-aggregated data, reducing contributors from 4 to 3\n- Updated update-all.sh to auto-use author-map if present",
+      "type": "fix",
+      "scope": null,
+      "title": "merge duplicate contributor entries using author-map",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 1602,
+        "deletions": 1517
+      },
+      "files": [
+        "config/author-map.json",
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/update-all.sh"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b316fef",
+      "fullSha": "b316fef84733c515e04dc49d28f796f8cd4496af",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-19T02:20:39+02:00",
+      "commitDate": "2026-01-19T02:20:39+02:00",
+      "subject": "Merge pull request #6 from devmade-ai/claude/admin-multi-repo-setup-7go0s",
+      "body": "feat: add social-ad-creator repo analytics",
+      "type": "other",
+      "scope": null,
+      "title": "Merge pull request #6 from devmade-ai/claude/admin-multi-repo-setup-7go0s",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 30,
+        "additions": 81854,
+        "deletions": 418
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "9c3bd2d",
+      "fullSha": "9c3bd2d1d436596ce9f577378afed8cb6bc6f7af",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T00:19:42+00:00",
+      "commitDate": "2026-01-19T00:19:42+00:00",
+      "subject": "chore: update extracted git analytics data",
+      "body": "Ran scripts/update-all.sh to refresh all repo data:\n- social-ad-creator: 156 commits\n- model-pear: 302 commits\n- repo-tor: 38 commits (updated with recent session commits)\n\nTotal: 496 commits across 3 repos",
+      "type": "chore",
+      "scope": null,
+      "title": "update extracted git analytics data",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 16,
+        "additions": 2238,
+        "deletions": 504
+      },
+      "files": [
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json",
+        "reports/model-pear/data.json",
+        "reports/model-pear/metadata.json",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json",
+        "reports/social-ad-creator/data.json",
+        "reports/social-ad-creator/metadata.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
       "sha": "9389600",
       "fullSha": "9389600a7e7e840a32ced6d28d484ac8235e5ea8",
       "author_id": "devmade.ai@gmail.com",

@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "aggregatedAt": "2026-01-19T00:27:28.318Z",
+    "aggregatedAt": "2026-01-19T00:31:14.041Z",
     "repoCount": 3,
     "repos": [
+      "social-ad-creator",
       "model-pear",
-      "repo-tor",
-      "social-ad-creator"
+      "repo-tor"
     ],
     "authorMapUsed": true,
     "authors": {
@@ -25,16 +25,136 @@
       },
       "jacotheron87": {
         "name": "jacotheron87",
-        "email": "34473836+jacotheron87@users.noreply.github.com",
+        "email": "jacotheron87@gmail.com",
         "emails": [
-          "34473836+jacotheron87@users.noreply.github.com",
-          "jacotheron87@gmail.com"
+          "jacotheron87@gmail.com",
+          "34473836+jacotheron87@users.noreply.github.com"
         ]
       }
     },
     "repository": "Aggregated (3 repos)"
   },
   "commits": [
+    {
+      "sha": "1d15f41",
+      "fullSha": "1d15f419f81b1b6352280c372761617563b2d1c2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T00:28:21+00:00",
+      "commitDate": "2026-01-19T00:28:21+00:00",
+      "subject": "fix: merge duplicate contributor entries using author-map",
+      "body": "- Created config/author-map.json to merge jacotheron87's two emails\n  (jacotheron87@gmail.com and GitHub noreply address)\n- Re-aggregated data, reducing contributors from 4 to 3\n- Updated update-all.sh to auto-use author-map if present",
+      "type": "fix",
+      "scope": null,
+      "title": "merge duplicate contributor entries using author-map",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 1602,
+        "deletions": 1517
+      },
+      "files": [
+        "config/author-map.json",
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/update-all.sh"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b316fef",
+      "fullSha": "b316fef84733c515e04dc49d28f796f8cd4496af",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-19T02:20:39+02:00",
+      "commitDate": "2026-01-19T02:20:39+02:00",
+      "subject": "Merge pull request #6 from devmade-ai/claude/admin-multi-repo-setup-7go0s",
+      "body": "feat: add social-ad-creator repo analytics",
+      "type": "other",
+      "scope": null,
+      "title": "Merge pull request #6 from devmade-ai/claude/admin-multi-repo-setup-7go0s",
+      "is_conventional": false,
+      "tags": [],
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 30,
+        "additions": 81854,
+        "deletions": 418
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "9c3bd2d",
+      "fullSha": "9c3bd2d1d436596ce9f577378afed8cb6bc6f7af",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T00:19:42+00:00",
+      "commitDate": "2026-01-19T00:19:42+00:00",
+      "subject": "chore: update extracted git analytics data",
+      "body": "Ran scripts/update-all.sh to refresh all repo data:\n- social-ad-creator: 156 commits\n- model-pear: 302 commits\n- repo-tor: 38 commits (updated with recent session commits)\n\nTotal: 496 commits across 3 repos",
+      "type": "chore",
+      "scope": null,
+      "title": "update extracted git analytics data",
+      "is_conventional": true,
+      "tags": [],
+      "references": [],
+      "stats": {
+        "filesChanged": 16,
+        "additions": 2238,
+        "deletions": 504
+      },
+      "files": [
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json",
+        "reports/model-pear/data.json",
+        "reports/model-pear/metadata.json",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json",
+        "reports/social-ad-creator/data.json",
+        "reports/social-ad-creator/metadata.json"
+      ],
+      "repo_id": "repo-tor"
+    },
     {
       "sha": "9389600",
       "fullSha": "9389600a7e7e840a32ced6d28d484ac8235e5ea8",
@@ -17012,9 +17132,9 @@
         "noreply@anthropic.com"
       ],
       "repos": [
+        "social-ad-creator",
         "model-pear",
-        "repo-tor",
-        "social-ad-creator"
+        "repo-tor"
       ],
       "repoCount": 3,
       "commits": 288,
@@ -17022,14 +17142,14 @@
       "deletions": 80559,
       "types": {
         "docs": 66,
-        "feat": 119,
         "fix": 35,
-        "refactor": 6,
-        "test": 1,
-        "chore": 12,
+        "feat": 119,
         "other": 46,
-        "ci": 2,
-        "perf": 1
+        "refactor": 6,
+        "chore": 12,
+        "perf": 1,
+        "test": 1,
+        "ci": 2
       },
       "firstCommit": "2025-12-25T12:20:42+00:00",
       "lastCommit": "2026-01-18T22:53:34+00:00"
@@ -17045,26 +17165,26 @@
         "devmade.ai@gmail.com"
       ],
       "repos": [
+        "social-ad-creator",
         "model-pear",
-        "repo-tor",
-        "social-ad-creator"
+        "repo-tor"
       ],
       "repoCount": 3,
-      "commits": 156,
-      "additions": 195168,
-      "deletions": 76366,
+      "commits": 159,
+      "additions": 280862,
+      "deletions": 78805,
       "types": {
-        "other": 90,
-        "fix": 34,
+        "other": 91,
+        "feat": 16,
+        "fix": 35,
+        "refactor": 5,
         "ci": 1,
         "docs": 7,
         "test": 1,
-        "feat": 16,
-        "chore": 2,
-        "refactor": 5
+        "chore": 3
       },
       "firstCommit": "2025-12-25T14:09:06+02:00",
-      "lastCommit": "2026-01-19T01:44:05+02:00"
+      "lastCommit": "2026-01-19T02:20:39+02:00"
     },
     {
       "author_id": "jacotheron87",
@@ -17072,27 +17192,27 @@
       "names": [
         "jacotheron87"
       ],
-      "email": "34473836+jacotheron87@users.noreply.github.com",
+      "email": "jacotheron87@gmail.com",
       "emails": [
-        "34473836+jacotheron87@users.noreply.github.com",
-        "jacotheron87@gmail.com"
+        "jacotheron87@gmail.com",
+        "34473836+jacotheron87@users.noreply.github.com"
       ],
       "repos": [
+        "social-ad-creator",
         "model-pear",
-        "repo-tor",
-        "social-ad-creator"
+        "repo-tor"
       ],
       "repoCount": 3,
       "commits": 52,
       "additions": 10004,
       "deletions": 2469,
       "types": {
-        "feat": 22,
-        "fix": 11,
-        "test": 2,
         "other": 7,
+        "feat": 22,
         "docs": 2,
-        "chore": 8
+        "fix": 11,
+        "chore": 8,
+        "test": 2
       },
       "firstCommit": "2026-01-05T20:46:59+02:00",
       "lastCommit": "2026-01-19T00:37:49+02:00"
@@ -17272,6 +17392,20 @@
       ]
     },
     {
+      "repo_id": "social-ad-creator",
+      "path": "src/components/AdCanvas.jsx",
+      "changeCount": 22,
+      "commitTypes": {
+        "feat": 13,
+        "fix": 6,
+        "other": 3
+      },
+      "authors": [
+        "noreply@anthropic.com",
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
       "repo_id": "model-pear",
       "path": "README.md",
       "changeCount": 22,
@@ -17284,20 +17418,6 @@
       },
       "authors": [
         "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/components/AdCanvas.jsx",
-      "changeCount": 22,
-      "commitTypes": {
-        "feat": 13,
-        "fix": 6,
-        "other": 3
-      },
-      "authors": [
-        "noreply@anthropic.com",
-        "jacotheron87@gmail.com"
       ]
     },
     {
@@ -17344,10 +17464,10 @@
     {
       "repo_id": "repo-tor",
       "path": "docs/HISTORY.md",
-      "changeCount": 17,
+      "changeCount": 18,
       "commitTypes": {
+        "fix": 4,
         "feat": 9,
-        "fix": 3,
         "docs": 4,
         "ci": 1
       },
@@ -17360,15 +17480,31 @@
     {
       "repo_id": "repo-tor",
       "path": "docs/SESSION_NOTES.md",
-      "changeCount": 16,
+      "changeCount": 17,
       "commitTypes": {
+        "fix": 4,
         "feat": 8,
-        "fix": 3,
         "docs": 4,
         "ci": 1
       },
       "authors": [
         "devmade.ai@gmail.com",
+        "noreply@anthropic.com",
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/components/TextEditor.jsx",
+      "changeCount": 15,
+      "commitTypes": {
+        "docs": 1,
+        "other": 2,
+        "feat": 9,
+        "fix": 2,
+        "perf": 1
+      },
+      "authors": [
         "noreply@anthropic.com",
         "jacotheron87@gmail.com"
       ]
@@ -17414,22 +17550,6 @@
       },
       "authors": [
         "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/components/TextEditor.jsx",
-      "changeCount": 15,
-      "commitTypes": {
-        "docs": 1,
-        "other": 2,
-        "feat": 9,
-        "fix": 2,
-        "perf": 1
-      },
-      "authors": [
-        "noreply@anthropic.com",
-        "jacotheron87@gmail.com"
       ]
     },
     {
@@ -17498,6 +17618,19 @@
         "other": 2,
         "fix": 3,
         "perf": 1
+      },
+      "authors": [
+        "noreply@anthropic.com",
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "index.html",
+      "changeCount": 8,
+      "commitTypes": {
+        "feat": 2,
+        "chore": 6
       },
       "authors": [
         "noreply@anthropic.com",
@@ -17604,19 +17737,6 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "index.html",
-      "changeCount": 8,
-      "commitTypes": {
-        "feat": 2,
-        "chore": 6
-      },
-      "authors": [
-        "noreply@anthropic.com",
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
       "path": "README.md",
       "changeCount": 7,
       "commitTypes": {
@@ -17628,6 +17748,19 @@
         "noreply@anthropic.com",
         "jacotheron87@gmail.com",
         "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/config/layoutPresets.js",
+      "changeCount": 6,
+      "commitTypes": {
+        "other": 3,
+        "feat": 3
+      },
+      "authors": [
+        "noreply@anthropic.com",
+        "jacotheron87@gmail.com"
       ]
     },
     {
@@ -17728,6 +17861,105 @@
     },
     {
       "repo_id": "repo-tor",
+      "path": "dashboard/data.json",
+      "changeCount": 6,
+      "commitTypes": {
+        "fix": 1,
+        "chore": 3,
+        "feat": 1,
+        "docs": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/repo-tor/commits.json",
+      "changeCount": 6,
+      "commitTypes": {
+        "chore": 3,
+        "docs": 2,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/repo-tor/contributors.json",
+      "changeCount": 6,
+      "commitTypes": {
+        "chore": 3,
+        "docs": 2,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/repo-tor/data.json",
+      "changeCount": 6,
+      "commitTypes": {
+        "chore": 3,
+        "docs": 2,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/repo-tor/files.json",
+      "changeCount": 6,
+      "commitTypes": {
+        "chore": 3,
+        "docs": 2,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/repo-tor/metadata.json",
+      "changeCount": 6,
+      "commitTypes": {
+        "chore": 3,
+        "docs": 2,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/repo-tor/summary.json",
+      "changeCount": 6,
+      "commitTypes": {
+        "chore": 3,
+        "docs": 2,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
       "path": "dashboard/index.html",
       "changeCount": 6,
       "commitTypes": {
@@ -17740,11 +17972,40 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "src/config/layoutPresets.js",
-      "changeCount": 6,
+      "path": "src/components/FontSelector.jsx",
+      "changeCount": 5,
+      "commitTypes": {
+        "docs": 1,
+        "feat": 2,
+        "other": 1,
+        "perf": 1
+      },
+      "authors": [
+        "noreply@anthropic.com",
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/config/layouts.js",
+      "changeCount": 5,
+      "commitTypes": {
+        "feat": 4,
+        "other": 1
+      },
+      "authors": [
+        "noreply@anthropic.com",
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/config/stylePresets.js",
+      "changeCount": 5,
       "commitTypes": {
         "other": 3,
-        "feat": 3
+        "fix": 1,
+        "feat": 1
       },
       "authors": [
         "noreply@anthropic.com",
@@ -17877,90 +18138,6 @@
     },
     {
       "repo_id": "repo-tor",
-      "path": "reports/repo-tor/commits.json",
-      "changeCount": 5,
-      "commitTypes": {
-        "chore": 2,
-        "docs": 2,
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com",
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "reports/repo-tor/contributors.json",
-      "changeCount": 5,
-      "commitTypes": {
-        "chore": 2,
-        "docs": 2,
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com",
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "reports/repo-tor/data.json",
-      "changeCount": 5,
-      "commitTypes": {
-        "chore": 2,
-        "docs": 2,
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com",
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "reports/repo-tor/files.json",
-      "changeCount": 5,
-      "commitTypes": {
-        "chore": 2,
-        "docs": 2,
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com",
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "reports/repo-tor/metadata.json",
-      "changeCount": 5,
-      "commitTypes": {
-        "chore": 2,
-        "docs": 2,
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com",
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "reports/repo-tor/summary.json",
-      "changeCount": 5,
-      "commitTypes": {
-        "chore": 2,
-        "docs": 2,
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com",
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
       "path": "CLAUDE.md",
       "changeCount": 5,
       "commitTypes": {
@@ -17974,10 +18151,65 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "src/components/FontSelector.jsx",
-      "changeCount": 5,
+      "path": "src/components/MediaTab.jsx",
+      "changeCount": 4,
+      "commitTypes": {
+        "fix": 1,
+        "feat": 1,
+        "other": 1,
+        "refactor": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/components/LayoutTab.jsx",
+      "changeCount": 4,
+      "commitTypes": {
+        "other": 1,
+        "fix": 1,
+        "feat": 1,
+        "refactor": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/components/StylePresetSelector.jsx",
+      "changeCount": 4,
       "commitTypes": {
         "docs": 1,
+        "feat": 2,
+        "other": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/components/ThemePicker.jsx",
+      "changeCount": 4,
+      "commitTypes": {
+        "docs": 1,
+        "other": 1,
+        "perf": 1,
+        "feat": 1
+      },
+      "authors": [
+        "noreply@anthropic.com",
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/components/PlatformPreview.jsx",
+      "changeCount": 4,
+      "commitTypes": {
         "feat": 2,
         "other": 1,
         "perf": 1
@@ -17989,25 +18221,11 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "src/config/layouts.js",
-      "changeCount": 5,
+      "path": "tailwind.config.js",
+      "changeCount": 4,
       "commitTypes": {
-        "feat": 4,
+        "feat": 3,
         "other": 1
-      },
-      "authors": [
-        "noreply@anthropic.com",
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/config/stylePresets.js",
-      "changeCount": 5,
-      "commitTypes": {
-        "other": 3,
-        "fix": 1,
-        "feat": 1
       },
       "authors": [
         "noreply@anthropic.com",
@@ -18327,69 +18545,11 @@
       ]
     },
     {
-      "repo_id": "repo-tor",
-      "path": "dashboard/data.json",
-      "changeCount": 4,
-      "commitTypes": {
-        "feat": 1,
-        "chore": 2,
-        "docs": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com",
-        "noreply@anthropic.com"
-      ]
-    },
-    {
       "repo_id": "social-ad-creator",
-      "path": "src/components/MediaTab.jsx",
-      "changeCount": 4,
+      "path": "src/config/themes.js",
+      "changeCount": 3,
       "commitTypes": {
-        "fix": 1,
-        "feat": 1,
-        "other": 1,
-        "refactor": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/components/LayoutTab.jsx",
-      "changeCount": 4,
-      "commitTypes": {
-        "other": 1,
-        "fix": 1,
-        "feat": 1,
-        "refactor": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/components/StylePresetSelector.jsx",
-      "changeCount": 4,
-      "commitTypes": {
-        "docs": 1,
-        "feat": 2,
-        "other": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/components/ThemePicker.jsx",
-      "changeCount": 4,
-      "commitTypes": {
-        "docs": 1,
-        "other": 1,
-        "perf": 1,
-        "feat": 1
+        "feat": 3
       },
       "authors": [
         "noreply@anthropic.com",
@@ -18398,12 +18558,23 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "src/components/PlatformPreview.jsx",
-      "changeCount": 4,
+      "path": "src/config/sampleImages.js",
+      "changeCount": 3,
+      "commitTypes": {
+        "feat": 3
+      },
+      "authors": [
+        "jacotheron87@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/index.css",
+      "changeCount": 3,
       "commitTypes": {
         "feat": 2,
-        "other": 1,
-        "perf": 1
+        "other": 1
       },
       "authors": [
         "noreply@anthropic.com",
@@ -18412,14 +18583,25 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "tailwind.config.js",
-      "changeCount": 4,
+      "path": "docs/AI_MISTAKES.md",
+      "changeCount": 3,
       "commitTypes": {
-        "feat": 3,
-        "other": 1
+        "fix": 1,
+        "feat": 2
       },
       "authors": [
-        "noreply@anthropic.com",
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "HISTORY.md",
+      "changeCount": 3,
+      "commitTypes": {
+        "fix": 1,
+        "feat": 2
+      },
+      "authors": [
         "jacotheron87@gmail.com"
       ]
     },
@@ -18602,6 +18784,71 @@
     },
     {
       "repo_id": "repo-tor",
+      "path": "dashboard/commits.json",
+      "changeCount": 3,
+      "commitTypes": {
+        "fix": 1,
+        "chore": 1,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "dashboard/contributors.json",
+      "changeCount": 3,
+      "commitTypes": {
+        "fix": 1,
+        "chore": 1,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "dashboard/files.json",
+      "changeCount": 3,
+      "commitTypes": {
+        "fix": 1,
+        "chore": 1,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "dashboard/metadata.json",
+      "changeCount": 3,
+      "commitTypes": {
+        "fix": 1,
+        "chore": 1,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "dashboard/summary.json",
+      "changeCount": 3,
+      "commitTypes": {
+        "fix": 1,
+        "chore": 1,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
       "path": "scripts/extract.js",
       "changeCount": 3,
       "commitTypes": {
@@ -18626,35 +18873,157 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "src/config/themes.js",
-      "changeCount": 3,
+      "path": "docs/TESTING_GUIDE.md",
+      "changeCount": 2,
       "commitTypes": {
-        "feat": 3
+        "docs": 1,
+        "feat": 1
       },
       "authors": [
-        "noreply@anthropic.com",
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/config/sampleImages.js",
-      "changeCount": 3,
-      "commitTypes": {
-        "feat": 3
-      },
-      "authors": [
-        "jacotheron87@gmail.com",
         "noreply@anthropic.com"
       ]
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "src/index.css",
-      "changeCount": 3,
+      "path": "docs/USER_GUIDE.md",
+      "changeCount": 2,
       "commitTypes": {
-        "feat": 2,
-        "other": 1
+        "docs": 1,
+        "feat": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "docs/REFACTOR_PLAN.md",
+      "changeCount": 2,
+      "commitTypes": {
+        "docs": 1,
+        "feat": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/components/ContentTab.jsx",
+      "changeCount": 2,
+      "commitTypes": {
+        "feat": 1,
+        "refactor": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "public/samples/ai-growth.jpg",
+      "changeCount": 2,
+      "commitTypes": {
+        "feat": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "public/samples/brain-ideas.jpg",
+      "changeCount": 2,
+      "commitTypes": {
+        "feat": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "public/samples/circuit-spiral.jpg",
+      "changeCount": 2,
+      "commitTypes": {
+        "feat": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "public/samples/circuit-tree.jpg",
+      "changeCount": 2,
+      "commitTypes": {
+        "feat": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "public/samples/dm-badge.jpg",
+      "changeCount": 2,
+      "commitTypes": {
+        "feat": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "public/samples/dm-cube.jpg",
+      "changeCount": 2,
+      "commitTypes": {
+        "feat": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "public/samples/dm-rocket.jpg",
+      "changeCount": 2,
+      "commitTypes": {
+        "feat": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "public/samples/globe-tech.jpg",
+      "changeCount": 2,
+      "commitTypes": {
+        "feat": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "public/samples/tree-cube.jpg",
+      "changeCount": 2,
+      "commitTypes": {
+        "feat": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/config/platforms.js",
+      "changeCount": 2,
+      "commitTypes": {
+        "feat": 2
       },
       "authors": [
         "noreply@anthropic.com",
@@ -18663,11 +19032,22 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "docs/AI_MISTAKES.md",
-      "changeCount": 3,
+      "path": ".github/workflows/deploy.yml",
+      "changeCount": 2,
       "commitTypes": {
         "fix": 1,
-        "feat": 2
+        "feat": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "assets/index-B4N59-U8.css",
+      "changeCount": 2,
+      "commitTypes": {
+        "chore": 2
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -18675,11 +19055,113 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "HISTORY.md",
-      "changeCount": 3,
+      "path": "assets/index-CQsQAsuw.js",
+      "changeCount": 2,
+      "commitTypes": {
+        "chore": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "assets/index-DMvB4pb7.js",
+      "changeCount": 2,
+      "commitTypes": {
+        "chore": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/components/OverlayControls.jsx",
+      "changeCount": 2,
       "commitTypes": {
         "fix": 1,
+        "feat": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "assets/index-DdudQRRr.js",
+      "changeCount": 2,
+      "commitTypes": {
+        "chore": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "assets/index-aJQZzt1E.css",
+      "changeCount": 2,
+      "commitTypes": {
+        "chore": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "assets/index-N_CfFsk6.css",
+      "changeCount": 2,
+      "commitTypes": {
+        "chore": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "assets/index-VpzsYrtB.js",
+      "changeCount": 2,
+      "commitTypes": {
+        "chore": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/components/LogoUploader.jsx",
+      "changeCount": 2,
+      "commitTypes": {
+        "fix": 1,
+        "feat": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/config/fonts.js",
+      "changeCount": 2,
+      "commitTypes": {
         "feat": 2
+      },
+      "authors": [
+        "noreply@anthropic.com",
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": ".gitignore",
+      "changeCount": 2,
+      "commitTypes": {
+        "chore": 1,
+        "feat": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -19637,6 +20119,66 @@
     },
     {
       "repo_id": "repo-tor",
+      "path": "scripts/update-all.sh",
+      "changeCount": 2,
+      "commitTypes": {
+        "fix": 1,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/model-pear/data.json",
+      "changeCount": 2,
+      "commitTypes": {
+        "chore": 1,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/model-pear/metadata.json",
+      "changeCount": 2,
+      "commitTypes": {
+        "chore": 1,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/social-ad-creator/data.json",
+      "changeCount": 2,
+      "commitTypes": {
+        "chore": 1,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
+      "path": "reports/social-ad-creator/metadata.json",
+      "changeCount": 2,
+      "commitTypes": {
+        "chore": 1,
+        "feat": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
       "path": ".github/workflows/deploy.yml",
       "changeCount": 2,
       "commitTypes": {
@@ -19685,46 +20227,9 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "docs/TESTING_GUIDE.md",
-      "changeCount": 2,
+      "path": "src/components/CollapsibleSection.jsx",
+      "changeCount": 1,
       "commitTypes": {
-        "docs": 1,
-        "feat": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "docs/USER_GUIDE.md",
-      "changeCount": 2,
-      "commitTypes": {
-        "docs": 1,
-        "feat": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "docs/REFACTOR_PLAN.md",
-      "changeCount": 2,
-      "commitTypes": {
-        "docs": 1,
-        "feat": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/components/ContentTab.jsx",
-      "changeCount": 2,
-      "commitTypes": {
-        "feat": 1,
         "refactor": 1
       },
       "authors": [
@@ -19733,10 +20238,32 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "public/samples/ai-growth.jpg",
-      "changeCount": 2,
+      "path": "src/components/StyleTab.jsx",
+      "changeCount": 1,
       "commitTypes": {
-        "feat": 2
+        "refactor": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/components/TemplatesTab.jsx",
+      "changeCount": 1,
+      "commitTypes": {
+        "refactor": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "public/samples/sample-01.jpg",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -19744,10 +20271,10 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "public/samples/brain-ideas.jpg",
-      "changeCount": 2,
+      "path": "public/samples/sample-02.jpg",
+      "changeCount": 1,
       "commitTypes": {
-        "feat": 2
+        "feat": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -19755,10 +20282,10 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "public/samples/circuit-spiral.jpg",
-      "changeCount": 2,
+      "path": "public/samples/sample-03.jpg",
+      "changeCount": 1,
       "commitTypes": {
-        "feat": 2
+        "feat": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -19766,10 +20293,10 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "public/samples/circuit-tree.jpg",
-      "changeCount": 2,
+      "path": "public/samples/sample-04.jpg",
+      "changeCount": 1,
       "commitTypes": {
-        "feat": 2
+        "feat": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -19777,10 +20304,10 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "public/samples/dm-badge.jpg",
-      "changeCount": 2,
+      "path": "public/samples/sample-05.jpg",
+      "changeCount": 1,
       "commitTypes": {
-        "feat": 2
+        "feat": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -19788,10 +20315,10 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "public/samples/dm-cube.jpg",
-      "changeCount": 2,
+      "path": "public/samples/sample-06.png",
+      "changeCount": 1,
       "commitTypes": {
-        "feat": 2
+        "feat": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -19799,10 +20326,10 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "public/samples/dm-rocket.jpg",
-      "changeCount": 2,
+      "path": "public/samples/sample-07.png",
+      "changeCount": 1,
       "commitTypes": {
-        "feat": 2
+        "feat": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -19810,10 +20337,10 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "public/samples/globe-tech.jpg",
-      "changeCount": 2,
+      "path": "public/samples/sample-08.png",
+      "changeCount": 1,
       "commitTypes": {
-        "feat": 2
+        "feat": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -19821,10 +20348,10 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "public/samples/tree-cube.jpg",
-      "changeCount": 2,
+      "path": "public/samples/sample-09.png",
+      "changeCount": 1,
       "commitTypes": {
-        "feat": 2
+        "feat": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -19832,22 +20359,20 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "src/config/platforms.js",
-      "changeCount": 2,
+      "path": "public/samples/sample-10.png",
+      "changeCount": 1,
       "commitTypes": {
-        "feat": 2
+        "feat": 1
       },
       "authors": [
-        "noreply@anthropic.com",
         "jacotheron87@gmail.com"
       ]
     },
     {
       "repo_id": "social-ad-creator",
-      "path": ".github/workflows/deploy.yml",
-      "changeCount": 2,
+      "path": "src/hooks/useDarkMode.js",
+      "changeCount": 1,
       "commitTypes": {
-        "fix": 1,
         "feat": 1
       },
       "authors": [
@@ -19856,10 +20381,21 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "assets/index-B4N59-U8.css",
-      "changeCount": 2,
+      "path": "src/components/ErrorBoundary.jsx",
+      "changeCount": 1,
       "commitTypes": {
-        "chore": 2
+        "feat": 1
+      },
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "assets/index-Cpm0ONP9.js",
+      "changeCount": 1,
+      "commitTypes": {
+        "chore": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -19867,10 +20403,10 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "assets/index-CQsQAsuw.js",
-      "changeCount": 2,
+      "path": "assets/index-DnSGYvYM.css",
+      "changeCount": 1,
       "commitTypes": {
-        "chore": 2
+        "chore": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -19878,21 +20414,9 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "assets/index-DMvB4pb7.js",
-      "changeCount": 2,
+      "path": "src/hooks/useHistory.js",
+      "changeCount": 1,
       "commitTypes": {
-        "chore": 2
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/components/OverlayControls.jsx",
-      "changeCount": 2,
-      "commitTypes": {
-        "fix": 1,
         "feat": 1
       },
       "authors": [
@@ -19901,54 +20425,9 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "assets/index-DdudQRRr.js",
-      "changeCount": 2,
+      "path": "docs/USER_ACTIONS.md",
+      "changeCount": 1,
       "commitTypes": {
-        "chore": 2
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "assets/index-aJQZzt1E.css",
-      "changeCount": 2,
-      "commitTypes": {
-        "chore": 2
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "assets/index-N_CfFsk6.css",
-      "changeCount": 2,
-      "commitTypes": {
-        "chore": 2
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "assets/index-VpzsYrtB.js",
-      "changeCount": 2,
-      "commitTypes": {
-        "chore": 2
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/components/LogoUploader.jsx",
-      "changeCount": 2,
-      "commitTypes": {
-        "fix": 1,
         "feat": 1
       },
       "authors": [
@@ -19957,22 +20436,97 @@
     },
     {
       "repo_id": "social-ad-creator",
-      "path": "src/config/fonts.js",
-      "changeCount": 2,
+      "path": "assets/index-CShrdZPn.css",
+      "changeCount": 1,
       "commitTypes": {
-        "feat": 2
+        "chore": 1
       },
       "authors": [
-        "noreply@anthropic.com",
         "jacotheron87@gmail.com"
       ]
     },
     {
       "repo_id": "social-ad-creator",
-      "path": ".gitignore",
-      "changeCount": 2,
+      "path": "assets/index-BInRX0-j.js",
+      "changeCount": 1,
       "commitTypes": {
-        "chore": 1,
+        "chore": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "eslint.config.js",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "package-lock.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "package.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "postcss.config.js",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/main.jsx",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "src/utils/export.js",
+      "changeCount": 1,
+      "commitTypes": {
+        "feat": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "social-ad-creator",
+      "path": "vite.config.js",
+      "changeCount": 1,
+      "commitTypes": {
         "feat": 1
       },
       "authors": [
@@ -20762,73 +21316,18 @@
     },
     {
       "repo_id": "repo-tor",
+      "path": "config/author-map.json",
+      "changeCount": 1,
+      "commitTypes": {
+        "fix": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "repo_id": "repo-tor",
       "path": "config/repos.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "scripts/update-all.sh",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "dashboard/commits.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "dashboard/contributors.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "dashboard/files.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "dashboard/metadata.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "dashboard/summary.json",
       "changeCount": 1,
       "commitTypes": {
         "feat": 1
@@ -20861,29 +21360,7 @@
     },
     {
       "repo_id": "repo-tor",
-      "path": "reports/model-pear/data.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
       "path": "reports/model-pear/files.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "reports/model-pear/metadata.json",
       "changeCount": 1,
       "commitTypes": {
         "feat": 1
@@ -20927,29 +21404,7 @@
     },
     {
       "repo_id": "repo-tor",
-      "path": "reports/social-ad-creator/data.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
       "path": "reports/social-ad-creator/files.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "repo-tor",
-      "path": "reports/social-ad-creator/metadata.json",
       "changeCount": 1,
       "commitTypes": {
         "feat": 1
@@ -21067,328 +21522,20 @@
       "authors": [
         "devmade.ai@gmail.com"
       ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/components/CollapsibleSection.jsx",
-      "changeCount": 1,
-      "commitTypes": {
-        "refactor": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/components/StyleTab.jsx",
-      "changeCount": 1,
-      "commitTypes": {
-        "refactor": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/components/TemplatesTab.jsx",
-      "changeCount": 1,
-      "commitTypes": {
-        "refactor": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "public/samples/sample-01.jpg",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "public/samples/sample-02.jpg",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "public/samples/sample-03.jpg",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "public/samples/sample-04.jpg",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "public/samples/sample-05.jpg",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "public/samples/sample-06.png",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "public/samples/sample-07.png",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "public/samples/sample-08.png",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "public/samples/sample-09.png",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "public/samples/sample-10.png",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/hooks/useDarkMode.js",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/components/ErrorBoundary.jsx",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "noreply@anthropic.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "assets/index-Cpm0ONP9.js",
-      "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "assets/index-DnSGYvYM.css",
-      "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/hooks/useHistory.js",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "docs/USER_ACTIONS.md",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "assets/index-CShrdZPn.css",
-      "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "assets/index-BInRX0-j.js",
-      "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "eslint.config.js",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "package-lock.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "package.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "postcss.config.js",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/main.jsx",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "src/utils/export.js",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "repo_id": "social-ad-creator",
-      "path": "vite.config.js",
-      "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
-      },
-      "authors": [
-        "jacotheron87@gmail.com"
-      ]
     }
   ],
   "summary": {
     "totalRepos": 3,
-    "totalCommits": 496,
+    "totalCommits": 499,
     "totalContributors": 3,
-    "totalAdditions": 318880,
-    "totalDeletions": 159394,
-    "netLinesChanged": 159486,
+    "totalAdditions": 404574,
+    "totalDeletions": 161833,
+    "netLinesChanged": 242741,
     "typeBreakdown": {
+      "fix": 81,
+      "other": 144,
+      "chore": 23,
       "feat": 157,
-      "other": 143,
-      "chore": 22,
-      "fix": 80,
       "docs": 75,
       "ci": 3,
       "test": 4,
@@ -21396,18 +21543,18 @@
       "perf": 1
     },
     "repoBreakdown": {
-      "repo-tor": 38,
+      "repo-tor": 41,
       "social-ad-creator": 156,
       "model-pear": 302
     },
     "monthlyCommits": {
       "2026-01": {
-        "total": 451,
+        "total": 454,
         "types": {
+          "fix": 75,
+          "other": 124,
+          "chore": 23,
           "feat": 141,
-          "other": 123,
-          "chore": 22,
-          "fix": 74,
           "docs": 75,
           "ci": 3,
           "test": 4,
@@ -21415,7 +21562,7 @@
           "perf": 1
         },
         "repos": {
-          "repo-tor": 38,
+          "repo-tor": 41,
           "social-ad-creator": 156,
           "model-pear": 257
         }
@@ -21494,9 +21641,20 @@
     ],
     "dateRange": {
       "earliest": "2025-12-25T12:20:42+00:00",
-      "latest": "2026-01-19T01:44:05+02:00"
+      "latest": "2026-01-19T02:20:39+02:00"
     },
     "repos": [
+      {
+        "repoId": "social-ad-creator",
+        "repository": "social-ad-creator",
+        "remoteUrl": "https://github.com/devmade-ai/social-ad-creator.git",
+        "commitCount": 156,
+        "contributorCount": 3,
+        "dateRange": {
+          "earliest": "2026-01-10T12:01:03+02:00",
+          "latest": "2026-01-18T21:03:08+02:00"
+        }
+      },
       {
         "repoId": "model-pear",
         "repository": "model-pear",
@@ -21512,22 +21670,11 @@
         "repoId": "repo-tor",
         "repository": "repo-tor",
         "remoteUrl": "https://github.com/devmade-ai/repo-tor.git",
-        "commitCount": 38,
+        "commitCount": 41,
         "contributorCount": 3,
         "dateRange": {
           "earliest": "2026-01-18T21:53:16+02:00",
-          "latest": "2026-01-19T00:17:34+00:00"
-        }
-      },
-      {
-        "repoId": "social-ad-creator",
-        "repository": "social-ad-creator",
-        "remoteUrl": "https://github.com/devmade-ai/social-ad-creator.git",
-        "commitCount": 156,
-        "contributorCount": 3,
-        "dateRange": {
-          "earliest": "2026-01-10T12:01:03+02:00",
-          "latest": "2026-01-18T21:03:08+02:00"
+          "latest": "2026-01-19T00:28:21+00:00"
         }
       }
     ]
