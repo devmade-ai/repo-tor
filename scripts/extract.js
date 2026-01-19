@@ -5,46 +5,15 @@
  * Extracts commit data from a git repository and outputs structured JSON
  * for the analytics dashboard.
  *
+ * NOTE: This script extracts RAW data only. Tags and complexity are left
+ * empty for AI analysis via the @data persona (see EXTRACTION_PLAYBOOK.md).
+ *
  * Usage: node extract.js [repo-path] [--output=reports/]
  */
 
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-
-// === Configuration ===
-
-// New tag vocabulary (maps from conventional commit types)
-const CONVENTIONAL_TO_TAG = {
-  'feat': 'feature',
-  'fix': 'bugfix',
-  'docs': 'docs',
-  'style': 'style',
-  'refactor': 'refactor',
-  'perf': 'performance',
-  'test': 'test',
-  'build': 'config',
-  'ci': 'config',
-  'chore': 'cleanup',
-  'revert': 'cleanup',
-  'security': 'security'
-};
-
-const CONVENTIONAL_TYPES = Object.keys(CONVENTIONAL_TO_TAG);
-
-// Keyword patterns map to new tag vocabulary
-const KEYWORD_PATTERNS = {
-  feature: /\b(add|adds|added|adding|new|create|creates|created|implement|implements|implemented)\b/i,
-  bugfix: /\b(fix|fixes|fixed|fixing|bug|bugs|patch|patches|patched|resolve|resolves|resolved)\b/i,
-  security: /\b(security|secure|vulnerability|vulnerabilities|cve|xss|csrf|injection|auth|authentication)\b/i,
-  docs: /\b(doc|docs|documentation|readme|guide|comment|comments)\b/i,
-  refactor: /\b(refactor|refactors|refactored|refactoring|restructure|reorganize)\b/i,
-  test: /\b(test|tests|testing|spec|specs|coverage)\b/i,
-  cleanup: /\b(chore|chores|maintenance|maintain|cleanup|clean\s*up|remove|delete)\b/i,
-  performance: /\b(perf|performance|optimize|optimizes|optimized|optimization|speed|faster)\b/i,
-  config: /\b(ci|cd|pipeline|workflow|github\s*action|travis|jenkins|circleci|build|builds|webpack|rollup|bundle|compile|compiles|config|configure|configuration)\b/i,
-  dependency: /\b(dependency|dependencies|npm|yarn|package\.json|upgrade|upgrades|bump|bumps|update.*dep|dep.*update)\b/i,
-};
 
 // === Argument Parsing ===
 const args = process.argv.slice(2);
@@ -77,80 +46,28 @@ function git(command, options = {}) {
 }
 
 // === Commit Message Parsing ===
+// Extracts metadata only - tags are assigned by AI (see EXTRACTION_PLAYBOOK.md)
 function parseCommitMessage(subject, body) {
   const result = {
-    tags: [],
+    tags: [],           // Empty - AI will populate
     scope: null,
     breaking: false,
     title: subject,
     is_conventional: false
   };
 
-  // Try conventional commit format: type(scope): subject
+  // Check for conventional commit format: type(scope): subject
   const conventionalMatch = subject.match(/^(\w+)(?:\(([^)]+)\))?(!)?:\s*(.+)$/);
 
   if (conventionalMatch) {
     const [, type, scope, breaking, title] = conventionalMatch;
-    const lowerType = type.toLowerCase();
-    if (CONVENTIONAL_TYPES.includes(lowerType)) {
-      const tag = CONVENTIONAL_TO_TAG[lowerType];
-      result.tags.push(tag);
-      result.scope = scope || null;
-      result.breaking = !!breaking;
-      result.title = title;
-      result.is_conventional = true;
-    }
-  }
-
-  // If no conventional commit found, try keyword detection
-  if (result.tags.length === 0) {
-    for (const [tag, pattern] of Object.entries(KEYWORD_PATTERNS)) {
-      if (pattern.test(subject)) {
-        result.tags.push(tag);
-        break; // Only add first matching tag from subject
-      }
-    }
-  }
-
-  // Check body for additional tags (security, dependency patterns)
-  const fullText = subject + '\n' + body;
-
-  // Security detection
-  if (/\b(security|cve|vulnerability|xss|csrf|injection)\b/i.test(fullText)) {
-    if (!result.tags.includes('security')) result.tags.push('security');
-  }
-
-  // Dependency detection
-  if (/\b(dependency|dependencies|npm|yarn|package\.json)\b/i.test(body)) {
-    if (!result.tags.includes('dependency')) result.tags.push('dependency');
-  }
-
-  // Test detection in body
-  if (/\b(add.*test|test.*added|new.*test|test.*coverage)\b/i.test(body)) {
-    if (!result.tags.includes('test')) result.tags.push('test');
-  }
-
-  // Default to 'other' if no tags found
-  if (result.tags.length === 0) {
-    result.tags.push('other');
+    result.scope = scope || null;
+    result.breaking = !!breaking;
+    result.title = title;
+    result.is_conventional = true;
   }
 
   return result;
-}
-
-// Calculate complexity based on files changed and tag count
-function calculateComplexity(filesChanged, tagCount) {
-  // Score 1: Single file, single tag
-  // Score 2: 2-3 files OR 2 tags
-  // Score 3: 4-6 files OR 3+ tags
-  // Score 4: 7-10 files AND multiple tags
-  // Score 5: 10+ files AND 3+ tags
-
-  if (filesChanged >= 10 && tagCount >= 3) return 5;
-  if (filesChanged >= 7 && tagCount >= 2) return 4;
-  if (filesChanged >= 4 || tagCount >= 3) return 3;
-  if (filesChanged >= 2 || tagCount >= 2) return 2;
-  return 1;
 }
 
 function extractBreakingChange(body) {
@@ -223,11 +140,7 @@ function extractCommits() {
     const references = extractReferences(subject + '\n' + body);
 
     // Check for breaking change in body
-    if (extractBreakingChange(body) || parsed.breaking) {
-      if (!parsed.tags.includes('breaking')) {
-        parsed.tags.push('breaking');
-      }
-    }
+    const hasBreakingChange = extractBreakingChange(body) || parsed.breaking;
 
     commits.push({
       sha: shortHash,
@@ -245,11 +158,12 @@ function extractCommits() {
       commitDate: commitDate,
       subject: subject,
       body: body,
-      tags: parsed.tags,
-      complexity: 1, // Placeholder - calculated after stats are extracted
+      tags: [],              // Empty - AI will populate via @data persona
+      complexity: null,      // Null - AI will calculate after tagging
       scope: parsed.scope,
       title: parsed.title,
       is_conventional: parsed.is_conventional,
+      has_breaking_change: hasBreakingChange,  // Flag for AI to consider
       references: references
     });
   }
@@ -279,8 +193,7 @@ function extractCommits() {
     const filesOutput = git(`show ${commit.fullSha} --name-only --format=''`);
     commit.files = filesOutput.split('\n').filter(Boolean);
 
-    // Calculate complexity based on files changed and tag count
-    commit.complexity = calculateComplexity(filesChanged, commit.tags.length);
+    // Note: complexity is calculated by AI after tagging (see EXTRACTION_PLAYBOOK.md)
   }
 
   return commits;
@@ -314,8 +227,8 @@ function extractContributors(commits) {
     contributor.additions += commit.stats.additions;
     contributor.deletions += commit.stats.deletions;
 
-    // Count each tag occurrence
-    for (const tag of commit.tags) {
+    // Count each tag occurrence (will be empty until AI populates)
+    for (const tag of commit.tags || []) {
       contributor.tagCounts[tag] = (contributor.tagCounts[tag] || 0) + 1;
     }
 
@@ -365,8 +278,8 @@ function extractFileStats(commits) {
       const fileStats = fileMap.get(file);
       fileStats.changeCount++;
 
-      // Count each tag occurrence for this file
-      for (const tag of commit.tags) {
+      // Count each tag occurrence for this file (will be empty until AI populates)
+      for (const tag of commit.tags || []) {
         fileStats.tagCounts[tag] = (fileStats.tagCounts[tag] || 0) + 1;
       }
 
@@ -409,19 +322,24 @@ function generateMetadata() {
 
 function generateSummary(commits, contributors) {
   const tagBreakdown = {};
-  const complexityBreakdown = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+  const complexityBreakdown = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, null: 0 };
   const monthlyCommits = {};
   let totalAdditions = 0;
   let totalDeletions = 0;
 
   for (const commit of commits) {
-    // Tag breakdown (count each tag)
-    for (const tag of commit.tags) {
+    // Tag breakdown (count each tag) - will be empty until AI populates
+    for (const tag of commit.tags || []) {
       tagBreakdown[tag] = (tagBreakdown[tag] || 0) + 1;
     }
 
-    // Complexity breakdown
-    complexityBreakdown[commit.complexity] = (complexityBreakdown[commit.complexity] || 0) + 1;
+    // Complexity breakdown - will be null until AI calculates
+    const complexity = commit.complexity;
+    if (complexity !== null && complexityBreakdown[complexity] !== undefined) {
+      complexityBreakdown[complexity]++;
+    } else {
+      complexityBreakdown[null]++;
+    }
 
     // Monthly aggregation
     const month = commit.timestamp.substring(0, 7); // YYYY-MM
@@ -429,7 +347,7 @@ function generateSummary(commits, contributors) {
       monthlyCommits[month] = { total: 0, tags: {} };
     }
     monthlyCommits[month].total++;
-    for (const tag of commit.tags) {
+    for (const tag of commit.tags || []) {
       monthlyCommits[month].tags[tag] = (monthlyCommits[month].tags[tag] || 0) + 1;
     }
 
@@ -438,8 +356,8 @@ function generateSummary(commits, contributors) {
     totalDeletions += commit.stats.deletions;
   }
 
-  // Security commits with details
-  const securityCommits = commits.filter(c => c.tags.includes('security'));
+  // Security commits with details - will be empty until AI tags
+  const securityCommits = commits.filter(c => (c.tags || []).includes('security'));
 
   const security_events = securityCommits.map(c => ({
     sha: c.sha,

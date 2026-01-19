@@ -8,35 +8,38 @@ Step-by-step instructions for AI-driven data extraction and analysis.
 
 ## Overview
 
+Two-stage process:
+
+1. **Script extracts** raw git data (commits, stats, files) with empty tags
+2. **AI analyzes** each commit message and assigns tags + complexity
+
 When triggered, the AI assistant (in @data mode):
 
-1. Extracts git commit data from configured repositories
-2. Analyzes each commit message to assign tags
-3. Calculates complexity scores
-4. Updates data files
-5. Reports summary to user
-6. User commits and pushes changes
+1. Runs extraction scripts to get raw commit data
+2. Reads each commit message individually
+3. Assigns tags based on guidelines below
+4. Calculates complexity scores
+5. Updates data files with tags and complexity
+6. Reports summary to user
+7. User commits and pushes changes
 
 ## Process
 
-### Step 1: Check Configuration
+### Step 1: Run Extraction Script
 
-Read `config/repos.json` to get list of repositories to extract.
+Run `scripts/update-all.sh` which:
+- Reads `config/repos.json` for repository list
+- Clones/updates repos to `.repo-cache/`
+- Runs `scripts/extract.js` on each repo (extracts raw data, empty tags)
+- Runs `scripts/aggregate.js` to combine data
 
-### Step 2: Extract Git Data
+Output: `dashboard/commits.json` with all commits, `tags: []` empty.
 
-For each repository, run git log extraction to get:
+### Step 2: Record Commit Counts
 
-- Commit hash
-- Author (name, email)
-- Timestamp (ISO 8601)
-- Commit message (subject + body)
-- Files changed count
-- Lines added/deleted
-
-**IMPORTANT:** Record the total commit count before processing:
-```
-git rev-list --count HEAD
+**IMPORTANT:** Record total commits for verification:
+```bash
+jq '.commits | length' dashboard/commits.json
 ```
 
 ### Step 3: Analyze Each Commit
@@ -45,15 +48,16 @@ git rev-list --count HEAD
 
 For each commit (one by one, in order):
 
-1. Read the full commit message
+1. Read the full commit message (subject + body)
 2. Assign tags based on the guidelines below
-3. Calculate complexity
-4. Record to output
+3. Calculate complexity based on files changed + tag count
+4. Update the commit in the data file
 
 **Verification checklist:**
-- [ ] Total commits extracted = `git rev-list --count HEAD`
 - [ ] Every commit has at least one tag assigned
-- [ ] No commits were summarized or batched together
+- [ ] Every commit has complexity 1-5 (not null)
+- [ ] No commits were skipped or batched together
+- [ ] Total processed = total in file
 
 For each commit, AI analyzes the commit message to determine:
 
@@ -189,10 +193,11 @@ Order tags in the array by importance (first = primary). Use this order:
 
 ### Step 4: Update Data Files
 
-Write results to:
+Update the extracted files with AI-assigned tags and complexity:
 
-- `reports/{repo-id}/commits.json` - Per-repo commit data
-- `dashboard/data.json` - Aggregated data for dashboard
+- `dashboard/commits.json` - Add tags[] and complexity to each commit
+- `dashboard/data.json` - Update with tagged commits
+- `dashboard/summary.json` - Recalculate tagBreakdown and complexityBreakdown
 
 ### Step 5: Report Summary
 
@@ -251,12 +256,13 @@ git push
 
 ## Notes
 
-- Tags are determined by AI analysis of commit message content, not just conventional commit prefixes
+- **Two-stage process:** Scripts extract raw data, AI analyzes and tags
+- Tags are determined by AI analysis of commit message content (not regex)
 - A commit can have multiple tags (e.g., a feature that also includes tests)
-- Complexity is a heuristic - refine the formula based on experience
-- Existing `is_conventional` field can be kept for backward compatibility
-- The `type` field is deprecated in favor of `tags[]`
+- Complexity is calculated by AI based on files changed + tag count
+- `is_conventional` field indicates if message follows conventional commit format
+- `has_breaking_change` flag helps AI identify breaking changes
 
 ---
 
-*Last updated: 2026-01-19 - Added tagging guidelines for consistency*
+*Last updated: 2026-01-19 - Separated script extraction from AI tagging*
