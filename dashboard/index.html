@@ -134,6 +134,7 @@
                 <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="contributors">Contributors</button>
                 <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="security">Security</button>
                 <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="tags">By Tag</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="timing">Timing</button>
             </div>
 
             <!-- Tab Content -->
@@ -257,6 +258,40 @@
                     </div>
                 </div>
             </div>
+
+            <div id="tab-timing" class="tab-content hidden">
+                <div class="card mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h2 class="text-lg font-semibold">When Work Happens</h2>
+                            <p class="text-xs text-gray-500">Commit distribution by time of day and day of week</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label class="text-xs text-gray-500">Timezone:</label>
+                            <select id="timezone-select" class="filter-select text-sm">
+                                <option value="local">Local</option>
+                                <option value="utc">UTC</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Commits by Hour of Day</h2>
+                        <p class="text-xs text-gray-500 -mt-2 mb-4">Distribution across 24 hours (0-23)</p>
+                        <div class="h-64">
+                            <canvas id="hour-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Commits by Day of Week</h2>
+                        <p class="text-xs text-gray-500 -mt-2 mb-4">Distribution across weekdays</p>
+                        <div class="h-64">
+                            <canvas id="day-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -271,6 +306,7 @@
             dateFrom: '',
             dateTo: ''
         };
+        let useUTC = false;
 
         // === Tag Colors ===
         const TAG_COLORS = {
@@ -493,6 +529,8 @@
             renderContributors();
             renderSecurity();
             renderTags();
+            renderTiming();
+            setupTimezoneToggle();
         }
 
         function formatDate(isoString) {
@@ -860,6 +898,131 @@
                 </div>
             `).join('');
             document.getElementById('tag-breakdown').innerHTML = breakdownHtml;
+        }
+
+        // === Timing Tab ===
+        const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const DAY_NAMES_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+        function getCommitDateTime(commit) {
+            const date = new Date(commit.timestamp);
+            if (useUTC) {
+                return {
+                    hour: date.getUTCHours(),
+                    dayOfWeek: date.getUTCDay()
+                };
+            }
+            return {
+                hour: date.getHours(),
+                dayOfWeek: date.getDay()
+            };
+        }
+
+        function renderTiming() {
+            // Aggregate commits by hour (0-23)
+            const byHour = new Array(24).fill(0);
+            // Aggregate commits by day of week (0=Sun, 6=Sat)
+            const byDay = new Array(7).fill(0);
+
+            data.commits.forEach(commit => {
+                const { hour, dayOfWeek } = getCommitDateTime(commit);
+                byHour[hour]++;
+                byDay[dayOfWeek]++;
+            });
+
+            // Hour Chart
+            const hourLabels = Array.from({ length: 24 }, (_, i) =>
+                i.toString().padStart(2, '0') + ':00'
+            );
+
+            if (charts.hour) charts.hour.destroy();
+            charts.hour = new Chart(document.getElementById('hour-chart'), {
+                type: 'bar',
+                data: {
+                    labels: hourLabels,
+                    datasets: [{
+                        label: 'Commits',
+                        data: byHour,
+                        backgroundColor: byHour.map((_, i) =>
+                            (i >= 8 && i < 17) ? '#3b82f6' : '#94a3b8'
+                        ),
+                        borderRadius: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                afterLabel: (ctx) => {
+                                    const hour = ctx.dataIndex;
+                                    if (hour >= 8 && hour < 17) return 'Work hours';
+                                    return 'After hours';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                maxRotation: 45,
+                                callback: function(value, index) {
+                                    // Show every 3rd label to reduce clutter
+                                    return index % 3 === 0 ? this.getLabelForValue(value) : '';
+                                }
+                            }
+                        },
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // Day of Week Chart - reorder to start with Monday
+            const mondayFirstOrder = [1, 2, 3, 4, 5, 6, 0]; // Mon-Sun
+            const dayLabels = mondayFirstOrder.map(i => DAY_NAMES_SHORT[i]);
+            const dayData = mondayFirstOrder.map(i => byDay[i]);
+
+            if (charts.day) charts.day.destroy();
+            charts.day = new Chart(document.getElementById('day-chart'), {
+                type: 'bar',
+                data: {
+                    labels: dayLabels,
+                    datasets: [{
+                        label: 'Commits',
+                        data: dayData,
+                        backgroundColor: dayData.map((_, i) =>
+                            (i < 5) ? '#3b82f6' : '#94a3b8'  // Mon-Fri blue, Sat-Sun gray
+                        ),
+                        borderRadius: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                afterLabel: (ctx) => {
+                                    return ctx.dataIndex < 5 ? 'Weekday' : 'Weekend';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        function setupTimezoneToggle() {
+            document.getElementById('timezone-select').addEventListener('change', (e) => {
+                useUTC = e.target.value === 'utc';
+                renderTiming();
+            });
         }
 
         // === Tab Navigation ===

@@ -28,6 +28,28 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-19
 
+### Timestamp Views (Timing Tab)
+
+Added new "Timing" tab to dashboard for visualizing when work happens:
+
+- **Commits by Hour chart** - Bar chart showing distribution across 24 hours (0-23)
+  - Work hours (8:00-17:00) displayed in blue
+  - After-hours displayed in gray
+  - Tooltip shows "Work hours" or "After hours" context
+- **Commits by Day of Week chart** - Bar chart showing Mon-Sun distribution
+  - Weekdays (Mon-Fri) displayed in blue
+  - Weekends (Sat-Sun) displayed in gray
+  - Days ordered Monday-first for business context
+- **Timezone toggle** - Switch between Local and UTC time display
+  - Charts dynamically update when timezone changes
+  - Default is local browser timezone
+
+Implementation details:
+- Added `useUTC` global state variable
+- Added `getCommitDateTime()` helper for consistent date handling
+- Added `renderTiming()` function to render both charts
+- Added `setupTimezoneToggle()` event listener
+
 ### Discovery Framework Validation
 
 Applied the Discovery Framework to validate our solution against user needs:

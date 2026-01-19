@@ -171,6 +171,47 @@ Shows commits related to **security**.
 - Regular security commits = proactive security culture
 - Review the commit bodies for severity context
 
+### Timing Tab
+
+Shows **when** work happens - time of day and day of week patterns.
+
+**Header Controls**
+- **Timezone selector** - Switch between Local (browser) and UTC time display
+- Charts update dynamically when you change the timezone
+
+**Commits by Hour of Day**
+- Bar chart showing commit distribution across 24 hours (0-23)
+- **Blue bars** = Work hours (8:00-17:00)
+- **Gray bars** = After hours (before 8:00 or after 17:00)
+- Hover for "Work hours" or "After hours" tooltip
+
+**What to look for:**
+- Peak activity hours: When is the team most productive?
+- After-hours work: Is there significant work outside business hours?
+- Time zone spread: For distributed teams, are commits spread across hours?
+- Concentrated vs distributed: Focused sprints vs steady work?
+
+**Commits by Day of Week**
+- Bar chart showing commit distribution across Mon-Sun
+- **Blue bars** = Weekdays (Monday-Friday)
+- **Gray bars** = Weekends (Saturday-Sunday)
+- Days ordered Monday-first for business context
+
+**What to look for:**
+- Weekend work: Are people working on weekends regularly?
+- Mid-week peaks: Tuesday-Thursday often have highest activity
+- Monday/Friday patterns: Slow starts or wrap-up days?
+- Work-life balance signals: High weekend activity may indicate deadline pressure
+
+**Interpreting patterns:**
+| Pattern | What It May Indicate |
+|---------|---------------------|
+| Most commits 9-17 | Typical office hours team |
+| Evening spike (18-22) | Remote/flexible workers or side projects |
+| Uniform distribution | Globally distributed team |
+| Weekend heavy | Deadline crunch or startup culture |
+| Friday low | Team winds down for the week |
+
 ### By Tag Tab
 
 Shows the **composition** of work done.

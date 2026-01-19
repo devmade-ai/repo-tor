@@ -19,13 +19,13 @@ Items ordered by priority based on [Discovery Session](DISCOVERY_SESSION.md) (20
 
 ---
 
-## Priority 1: Timestamp Views (When)
+## Priority 1: Timestamp Views (When) - COMPLETE
 
 *Core discovered need: "What time of day is work being done, which days of the week"*
 
-- [ ] **Commits by Hour** - Bar chart showing distribution across 24 hours (0-23)
-- [ ] **Commits by Day of Week** - Bar chart showing Mon-Sun distribution
-- [ ] **Time Zone Awareness** - Display in user's local timezone with optional UTC toggle
+- [x] **Commits by Hour** - Bar chart showing distribution across 24 hours (0-23)
+- [x] **Commits by Day of Week** - Bar chart showing Mon-Sun distribution
+- [x] **Time Zone Awareness** - Display in user's local timezone with optional UTC toggle
 
 **Stretch:**
 

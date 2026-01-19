@@ -136,7 +136,29 @@ Refocused the tool's metrics and data model around three core dimensions:
 
 None
 
-## Last Session Work
+## Last Completed
+
+### Timestamp Views (Timing Tab) (2026-01-19)
+
+Implemented Priority 1 timestamp views with new "Timing" tab:
+
+**Features added:**
+- **Commits by Hour chart** - Bar chart showing distribution across 24 hours (0-23)
+  - Work hours (8-17) shown in blue, after-hours in gray
+  - Tooltip shows "Work hours" or "After hours" context
+- **Commits by Day of Week chart** - Bar chart showing Mon-Sun distribution
+  - Weekdays shown in blue, weekends in gray
+  - Days ordered Monday-first (Mon-Sun)
+- **Timezone toggle** - Switch between Local and UTC display
+  - Charts update dynamically when timezone changes
+
+**Implementation:**
+- Added new "Timing" tab after "By Tag"
+- Added `useUTC` global state and `getCommitDateTime()` helper
+- Added `renderTiming()` function with both charts
+- Added `setupTimezoneToggle()` for timezone switching
+
+## Previous Session Work
 
 ### Phase 1 & 4: Extraction and Aggregation Tag Support (2026-01-19) - COMPLETE
 
