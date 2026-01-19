@@ -245,11 +245,40 @@ None
 
 ## Latest Change
 
+### Two-Stage Extraction Process (2026-01-19)
+
+Refactored extraction to separate raw data extraction from tagging:
+
+**Stage 1: Scripts extract raw data**
+- `scripts/extract.js` - Outputs commits with `tags: []` (empty)
+- `scripts/aggregate.js` - Passes through empty tags
+
+**Stage 2: Tagging**
+- `scripts/tag-commits.js` - Applies consistent tagging rules
+- Codifies EXTRACTION_PLAYBOOK.md guidelines
+- Tags both aggregated dashboard files AND per-repo reports
+
+**Workflow:**
+```bash
+# Run extraction
+scripts/update-all.sh
+
+# Tag dashboard
+node scripts/tag-commits.js dashboard/commits.json
+
+# Tag per-repo files
+for repo in reports/*/; do
+  node scripts/tag-commits.js "${repo}commits.json"
+done
+```
+
+**Current data:** 586 commits tagged across 4 repos
+
 ### Added Persona Triggers (2026-01-19)
 
 Added two personas to CLAUDE.md for clearer communication:
 
-- **@coder** - For development work (code, bugs, features, architecture)
+- **@coder** (default) - For development work (code, bugs, features, architecture)
 - **@data** - For data extraction/processing (playbooks, reports, aggregation)
 
 "feed the chicken" is now a command within the @data persona.
