@@ -28,6 +28,22 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-19
 
+### Feature Roadmap Planning
+
+Added high-priority TODO items for next phase of development:
+- **Timestamp Views & Developer Insights** - Commits by hour (0-23), commits by day of week (Mon-Sun), heatmaps, developer activity patterns, commit type trends
+- **Work Pattern Visual Distinction** - Work hours (8-5) vs after-hours, weekends, SA public holidays - all visually different across ALL tabs/views
+- **Filter Persistence & Cross-Tab Behavior** - Global filter state across all tabs, URL params for shareable links, localStorage for session persistence
+- **Visual Design & Dark Mode** - Full dark theme with system preference detection, color palette refinement, typography improvements
+- **Private Repository Security** - Sanitization mode, anonymization options, content filtering, local-only mode documentation
+- **Repository Management** - Repo rename handling, alias support, migration tools, archive detection
+
+New Research/Investigation section:
+- **Device/Platform Attribution** - Split contributions by committer name (mobile vs desktop)
+- **AI-Powered Commit Categorization** - Use Claude to read messages + diffs and intelligently tag
+- **Multi-Tag Commit Model** - Rethink single-type assumption; one commit can have multiple tags
+- **Tag-Centric Reporting** - Shift from commit counts to accomplishment-based metrics
+
 ### Added chatty-chart Repository
 
 - Added `illuminAI-select/chatty-chart` to tracked repositories

@@ -92,11 +92,24 @@ None
 
 ## Next Steps
 
-Remaining items (low priority):
+**High Priority (newly added):**
+1. **Timestamp Views & Developer Insights** - Commits by hour, commits by day of week, heatmaps, activity patterns
+2. **Work Pattern Visual Distinction** - Work hours (8-5) vs after-hours, weekends, SA holidays - styled across ALL views
+3. **Filter Persistence** - Global filters across tabs, URL params, localStorage
+4. **Visual Design & Dark Mode** - Dark theme, color refinement, polish
+5. **Private Repo Security** - Sanitization, anonymization, local-only mode
+6. **Repository Management** - Repo rename handling, aliases, migration, archive detection
+
+**Research / Investigation:**
+- Device/platform attribution (mobile vs desktop by committer name)
+- AI-powered commit categorization (Claude reads messages + diffs)
+- Multi-tag commit model (one commit = multiple tags)
+- Tag-centric reporting (focus on accomplishments, not commit counts)
+
+**Low Priority:**
 - Export to PDF
 - Pre-commit hook for conventional commits
 - GitHub Action for automated extraction
-- Dark mode
 - PWA offline support
 
 ## Notes
