@@ -217,6 +217,23 @@ Shows **when** work happens - time of day and day of week patterns.
 - **Timezone selector** - Switch between Local (browser) and UTC time display
 - Charts update dynamically when you change the timezone
 
+**Activity Heatmap**
+- 24×7 grid showing commits by hour (Y-axis) and day of week (X-axis)
+- Color intensity indicates commit density:
+  - Light gray = 0 commits
+  - Light blue to dark blue = low to high commit count
+- Hover over any cell to see exact commit count
+- Days ordered Monday-first for business context
+
+**What to look for in the heatmap:**
+| Pattern | What It May Indicate |
+|---------|---------------------|
+| Hot spots 9-12, 14-17 | Traditional work hours focus |
+| Evening hot spots | Remote workers or global team |
+| Weekend hot spots | Crunch time or personal projects |
+| Uniform heat | 24/7 operations or global distribution |
+| Single day concentration | Deployment days or meeting-free focus days |
+
 **Commits by Hour of Day**
 - Bar chart showing commit distribution across 24 hours (0-23)
 - **Blue bars** = Work hours (8:00-17:00)
@@ -249,6 +266,20 @@ Shows **when** work happens - time of day and day of week patterns.
 | Uniform distribution | Globally distributed team |
 | Weekend heavy | Deadline crunch or startup culture |
 | Friday low | Team winds down for the week |
+
+**Developer Activity Patterns**
+- Shows timing breakdown for top 6 contributors
+- Each contributor card displays:
+  - **Peak Hour** - Most common commit time
+  - **Peak Day** - Most common day of week
+  - **Work Hours %** - Percentage of commits during configured hours
+  - **Weekends %** - Percentage on Saturday/Sunday
+- Color indicators: Green (healthy), Amber (moderate), Red (concern)
+
+**What to look for:**
+- Low work hours % may indicate flexible schedules or timezone differences
+- High weekend % may signal burnout or crunch time
+- Compare patterns across team members for consistency
 
 ### By Tag Tab
 
@@ -342,6 +373,63 @@ Click the **Export PDF** button to download a PDF report of the current view.
 3. Click Export PDF
 4. Share the PDF with stakeholders
 
+## Dark Mode
+
+Click the **moon/sun icon** in the header to toggle between light and dark themes.
+
+- **Auto-detection**: On first visit, the dashboard respects your system preference (`prefers-color-scheme`)
+- **Persistence**: Your choice is saved to localStorage and remembered on future visits
+- **Instant switch**: All charts and UI elements update immediately
+
+## Private Mode (Sanitization)
+
+Click the **eye icon** in the header to toggle private mode for sensitive repositories.
+
+**When enabled:**
+- Author names become anonymous (Developer A, Developer B, etc.)
+- Commit messages are hidden or sanitized
+- Conventional commit prefixes are preserved (e.g., "feat: [message hidden]")
+- Security tab hides commit body details
+
+**Use cases:**
+- Sharing dashboards without exposing proprietary information
+- Presenting to external stakeholders
+- Compliance with privacy requirements
+
+## Configurable Work Hours
+
+Customize what counts as "work hours" in the Timing tab:
+
+1. Navigate to the **Timing** tab
+2. Find the **Work Hours Settings** card at the bottom
+3. Select your preferred start and end times
+
+**Effects:**
+- Hour chart colors update (blue = work hours, gray = after hours)
+- Work pattern badges recalculate
+- Developer activity patterns update
+- Summary statistics adjust
+
+**Default:** 8:00 - 17:00
+
+## Settings Persistence
+
+The dashboard automatically saves your settings to browser localStorage:
+
+**What's saved:**
+- Active tab (Summary, Timeline, etc.)
+- Filter values (tag, author, repo, date range)
+- Summary period (week/month/quarter)
+- Timezone (Local/UTC)
+- Work hours (start/end)
+- Dark mode preference
+- Private mode preference
+
+**Behavior:**
+- Settings restore automatically when you revisit the dashboard
+- URL parameters override saved settings (shareable links take priority)
+- Clear browser data to reset all settings
+
 ## Tips for Using the Dashboard
 
 1. **Compare over time** - Load data from different dates to see trends
@@ -351,6 +439,7 @@ Click the **Export PDF** button to download a PDF report of the current view.
 5. **Use with other data** - Combine with issue trackers, reviews, etc.
 6. **Use shareable links** - Bookmark specific filtered views for quick access
 7. **Export for meetings** - Generate PDFs for stakeholders who don't use the dashboard
+8. **Use dark mode** - Easier on the eyes for extended analysis sessions
 
 ## Loading Data
 

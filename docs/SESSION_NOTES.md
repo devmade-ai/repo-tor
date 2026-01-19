@@ -21,6 +21,38 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Polish and Infrastructure Sprint (2026-01-19)
+
+Completed all remaining lower-priority items:
+
+**1. Developer Activity Patterns (Timing Tab)**
+- Shows per-contributor timing breakdown
+- Displays: peak hour, peak day, work hours %, weekend %
+- Color-coded indicators (green/amber/red) for work-life balance
+- Top 6 contributors shown
+
+**2. Configurable Work Hours**
+- Added start/end time selectors in Timing tab
+- Default: 8:00-17:00
+- All views update dynamically (charts, badges, patterns)
+- Settings persist to localStorage
+
+**3. Loading States**
+- Added loading spinner for auto-load
+- Spinner shown while fetching data.json
+- Clean fallback to file picker if no data found
+
+**4. Color Palette Refinement**
+- Removed duplicate CSS tag definitions
+- Cleaned up inconsistent styles
+
+**5. Private Repo Sanitization Mode**
+- Eye toggle button in header
+- Anonymizes author names (Developer A, B, C...)
+- Hides/sanitizes commit messages
+- Persists to localStorage
+- Toast notification on toggle
+
 ### Dashboard Vanity Cleanup (2026-01-19)
 
 Audited every UI element and removed all vanity metrics:
@@ -191,6 +223,32 @@ Refocused the tool's metrics and data model around three core dimensions:
 None
 
 ## Last Completed
+
+### Heatmap, Dark Mode, and Filter Persistence (2026-01-19)
+
+Added three quality-of-life features:
+
+**1. Activity Heatmap (Timing Tab)**
+- 24×7 grid showing commits by hour (Y-axis) and day of week (X-axis)
+- Color intensity indicates commit density (5 levels)
+- Hover shows exact count for each cell
+- Reorders days Monday-first for business context
+- Updates with timezone toggle (Local/UTC)
+- Legend shows intensity scale
+
+**2. Dark Mode**
+- Toggle button in header (moon/sun icons)
+- Respects system preference on first load
+- Persists to localStorage
+- CSS variables for theming
+- Chart.js colors update dynamically
+- All UI elements have dark variants
+
+**3. Filter Persistence**
+- Saves to localStorage: filters, active tab, period, timezone
+- Restores state on page load
+- URL params override localStorage (shareable links take priority)
+- State saved on any filter/tab/setting change
 
 ### Summary Tab and Tag Display Fixes (2026-01-19)
 

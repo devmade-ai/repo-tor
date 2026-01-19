@@ -2,6 +2,96 @@
 
 Log of significant changes to code and documentation.
 
+### Developer Activity Patterns
+
+Added per-contributor timing analysis to the Timing tab:
+
+- **Per-author breakdown** - Shows timing patterns for top 6 contributors
+- **Key metrics per person:**
+  - Peak Hour - most common commit time
+  - Peak Day - most common commit day
+  - Work Hours % - percentage during configured work hours
+  - Weekends % - percentage on Saturday/Sunday
+- **Color-coded indicators** - Green (healthy), amber (moderate), red (concern)
+- **Responds to configurable work hours**
+
+### Configurable Work Hours
+
+Added ability to customize what counts as "work hours":
+
+- **Start/end time selectors** - Added to Timing tab
+- **Range:** 6:00-10:00 start, 16:00-20:00 end
+- **Default:** 8:00-17:00
+- **Updates dynamically:**
+  - Hour chart coloring
+  - Work pattern badges
+  - Developer activity patterns
+  - Summary statistics
+- **Persists to localStorage**
+
+### Loading States
+
+Added loading feedback during data fetch:
+
+- **Loading spinner** - Animated spinner during auto-load
+- **Status message** - "Loading dashboard data..."
+- **Graceful fallback** - Shows file picker if no data found
+- **CSS animations** - Skeleton loading and spin animations
+
+### Private Repo Sanitization Mode
+
+Added privacy mode for sensitive repositories:
+
+- **Eye toggle button** - In header, next to theme toggle
+- **Author anonymization** - Names become "Developer A", "Developer B", etc.
+- **Message hiding** - Commit subjects sanitized to "[message hidden]"
+- **Conventional commits** - Preserves type prefix (e.g., "feat: [message hidden]")
+- **Security tab** - Hides commit body details
+- **Persistence** - Saved to localStorage
+- **Toast notification** - Confirms mode toggle
+
+### Activity Heatmap
+
+Added commit time heatmap to the Timing tab:
+
+- **24×7 grid visualization** - Hours (0-23) on Y-axis, days (Mon-Sun) on X-axis
+- **Color intensity** - 5 levels from gray (0) to dark blue (most commits)
+- **Interactive cells** - Hover shows exact commit count for each hour/day slot
+- **Timezone aware** - Updates when Local/UTC toggle changes
+- **Monday-first ordering** - Business-friendly day sequence
+- **Responsive** - Scrollable on mobile, full-width on desktop
+- **Legend** - Visual scale explaining color intensity
+
+### Dark Mode
+
+Implemented full dark mode support:
+
+- **Theme toggle** - Moon/sun button in header
+- **System preference** - Auto-detects `prefers-color-scheme: dark` on first visit
+- **Persistence** - Saves preference to localStorage
+- **CSS variables** - Clean theming with `--bg-primary`, `--text-primary`, etc.
+- **Chart.js integration** - Charts re-render with appropriate colors
+- **Comprehensive coverage** - All cards, badges, inputs, heatmap cells styled
+- **Instant switch** - No page reload needed, applied via class toggle on `<html>`
+
+### Filter Persistence
+
+Added localStorage persistence for dashboard state:
+
+- **What's saved:**
+  - Filter values (tag, author, repo, date range)
+  - Active tab
+  - Summary period (week/month/quarter)
+  - Timezone (local/utc)
+- **Load behavior:**
+  - Restores on page load if no URL params present
+  - URL params take priority (for shareable links)
+- **Save triggers:**
+  - Any filter change
+  - Tab switch
+  - Period or timezone change
+- **Implementation:** Single `dashboardState` key in localStorage
+
 ## 2026-01-18
 
 ### Timeline Horizontal Bar Chart

@@ -29,8 +29,8 @@ Items ordered by priority based on [Discovery Session](DISCOVERY_SESSION.md) (20
 
 **Stretch:**
 
-- [ ] Commit Time Heatmap - Hour vs day-of-week grid
-- [ ] Developer Activity Patterns - Per-author time breakdowns
+- [x] Commit Time Heatmap - Hour vs day-of-week grid
+- [x] Developer Activity Patterns - Per-author time breakdowns
 
 ---
 
@@ -50,7 +50,7 @@ Items ordered by priority based on [Discovery Session](DISCOVERY_SESSION.md) (20
 
 - [x] Apply to Timeline tab (commit list badges)
 - [x] Apply to Timing tab (hour/day charts with color distinction)
-- [ ] Configurable work hours (default 8-17) - stretch goal
+- [x] Configurable work hours (default 8-17)
 
 ---
 
@@ -87,17 +87,17 @@ Items ordered by priority based on [Discovery Session](DISCOVERY_SESSION.md) (20
 - [x] Complexity by Author - Who handles complex changes (Contributors tab: Complexity chart)
 - [x] Complexity by Time - When are complex commits made (Progress tab: Complexity Over Time)
 
-### Visual Polish
+### Visual Polish - DONE
 
-- [ ] Dark Mode
-- [ ] Color palette refinement
-- [ ] Loading states
+- [x] Dark Mode
+- [x] Color palette refinement
+- [x] Loading states
 
-### Infrastructure
+### Infrastructure - DONE
 
-- [ ] Global filter state across tabs
-- [ ] Filter persistence (localStorage)
-- [ ] Private repo sanitization mode
+- [x] Global filter state across tabs
+- [x] Filter persistence (localStorage)
+- [x] Private repo sanitization mode
 
 ### Research / Future
 
@@ -107,4 +107,4 @@ Items ordered by priority based on [Discovery Session](DISCOVERY_SESSION.md) (20
 
 ---
 
-*Last updated: 2026-01-19 - Reorganized based on Discovery Session findings*
+*Last updated: 2026-01-19 - Completed all polish and infrastructure items*

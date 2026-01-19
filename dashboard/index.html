@@ -8,6 +8,37 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
+        /* CSS Variables for theming */
+        :root {
+            --bg-primary: #f3f4f6;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f9fafb;
+            --bg-hover: #f3f4f6;
+            --text-primary: #111827;
+            --text-secondary: #374151;
+            --text-tertiary: #6b7280;
+            --text-muted: #9ca3af;
+            --border-color: #e5e7eb;
+            --border-light: #f3f4f6;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            --chart-grid: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark {
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --bg-hover: #374151;
+            --text-primary: #f9fafb;
+            --text-secondary: #e5e7eb;
+            --text-tertiary: #9ca3af;
+            --text-muted: #6b7280;
+            --border-color: #374151;
+            --border-light: #1f2937;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3);
+            --chart-grid: rgba(255, 255, 255, 0.1);
+        }
+
         /* Tag classes */
         .tag-feature { background-color: #10b981; color: white; }
         .tag-bugfix { background-color: #ef4444; color: white; }
@@ -34,9 +65,9 @@
         }
 
         .card {
-            background: white;
+            background: var(--bg-secondary);
             border-radius: 0.75rem;
-            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            box-shadow: var(--shadow);
             padding: 1.5rem;
         }
 
@@ -48,16 +79,16 @@
             font-weight: 500;
         }
 
-        .tag-security { background-color: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        /* Special alert-style tags */
         .tag-breaking { background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
-        .tag-dependency { background-color: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
 
         .filter-select {
             padding: 0.375rem 0.75rem;
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--border-color);
             border-radius: 0.375rem;
             font-size: 0.875rem;
-            background-color: white;
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
             min-width: 120px;
         }
         .filter-select:focus {
@@ -68,9 +99,11 @@
 
         .filter-input {
             padding: 0.375rem 0.75rem;
-            border: 1px solid #d1d5db;
+            border: 1px solid var(--border-color);
             border-radius: 0.375rem;
             font-size: 0.875rem;
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
         }
         .filter-input:focus {
             outline: none;
@@ -133,12 +166,12 @@
             background-color: #2563eb;
         }
         .btn-secondary {
-            background-color: white;
-            color: #374151;
-            border: 1px solid #d1d5db;
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
         }
         .btn-secondary:hover {
-            background-color: #f9fafb;
+            background-color: var(--bg-hover);
         }
         .btn-icon svg {
             width: 1rem;
@@ -160,9 +193,31 @@
             transform: translateY(1rem);
             transition: all 0.3s ease;
         }
+        .dark .toast {
+            background-color: #f9fafb;
+            color: #111827;
+        }
         .toast.show {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Dark mode toggle button */
+        .btn-theme {
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            background: transparent;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .btn-theme:hover {
+            background-color: var(--bg-hover);
+            color: var(--text-primary);
+        }
+        .btn-theme svg {
+            width: 1.25rem;
+            height: 1.25rem;
         }
 
         /* Print styles for PDF */
@@ -170,6 +225,143 @@
             body { background: white !important; }
             .no-print { display: none !important; }
             .card { box-shadow: none !important; border: 1px solid #e5e7eb; }
+        }
+
+        /* Heatmap styles */
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: 50px repeat(7, 1fr);
+            gap: 2px;
+            min-width: 400px;
+        }
+        .heatmap-cell {
+            aspect-ratio: 1;
+            min-width: 28px;
+            min-height: 28px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #374151;
+            cursor: default;
+            transition: transform 0.1s;
+        }
+        .heatmap-cell:hover {
+            transform: scale(1.1);
+            z-index: 1;
+        }
+        .heatmap-label {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            font-size: 11px;
+            color: #6b7280;
+        }
+        .heatmap-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 500;
+            color: #374151;
+        }
+        /* Heatmap intensity levels */
+        .heatmap-0 { background-color: #f3f4f6; }
+        .heatmap-1 { background-color: #dbeafe; }
+        .heatmap-2 { background-color: #93c5fd; }
+        .heatmap-3 { background-color: #3b82f6; color: white; }
+        .heatmap-4 { background-color: #1d4ed8; color: white; }
+
+        .dark .heatmap-0 { background-color: #374151; }
+        .dark .heatmap-1 { background-color: #1e3a5f; }
+        .dark .heatmap-2 { background-color: #1e40af; }
+        .dark .heatmap-3 { background-color: #2563eb; color: white; }
+        .dark .heatmap-4 { background-color: #3b82f6; color: white; }
+
+        .heatmap-cell {
+            color: var(--text-secondary);
+        }
+        .heatmap-label {
+            color: var(--text-tertiary);
+        }
+        .heatmap-header {
+            color: var(--text-secondary);
+        }
+
+        /* Dark mode color overrides */
+        .dark .bg-gray-50 { background-color: var(--bg-tertiary) !important; }
+        .dark .bg-gray-100 { background-color: var(--bg-primary) !important; }
+        .dark .text-gray-900 { color: var(--text-primary) !important; }
+        .dark .text-gray-700 { color: var(--text-secondary) !important; }
+        .dark .text-gray-600 { color: var(--text-secondary) !important; }
+        .dark .text-gray-500 { color: var(--text-tertiary) !important; }
+        .dark .text-gray-400 { color: var(--text-muted) !important; }
+        .dark .border-gray-200 { border-color: var(--border-color) !important; }
+        .dark .border-gray-100 { border-color: var(--border-light) !important; }
+        .dark .hover\:text-gray-900:hover { color: var(--text-primary) !important; }
+        .dark .hover\:text-gray-700:hover { color: var(--text-secondary) !important; }
+        .dark .hover\:bg-gray-100:hover { background-color: var(--bg-hover) !important; }
+
+        /* Dark mode summary card backgrounds */
+        .dark .bg-amber-50 { background-color: rgba(251, 191, 36, 0.1) !important; }
+        .dark .bg-indigo-50 { background-color: rgba(99, 102, 241, 0.1) !important; }
+        .dark .bg-pink-50 { background-color: rgba(236, 72, 153, 0.1) !important; }
+        .dark .bg-purple-50 { background-color: rgba(139, 92, 246, 0.1) !important; }
+        .dark .bg-red-50 { background-color: rgba(239, 68, 68, 0.1) !important; }
+
+        /* Dark mode badges */
+        .dark .badge-after-hours {
+            background-color: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+        .dark .badge-weekend {
+            background-color: rgba(99, 102, 241, 0.2);
+            color: #818cf8;
+        }
+        .dark .badge-holiday {
+            background-color: rgba(236, 72, 153, 0.2);
+            color: #f472b6;
+        }
+
+        /* Loading states */
+        .loading-spinner {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--bg-secondary);
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.75rem;
+            z-index: 10;
+        }
+        .card-loading {
+            position: relative;
+            min-height: 100px;
+        }
+        .skeleton {
+            background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-hover) 50%, var(--bg-tertiary) 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 0.25rem;
+        }
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
     </style>
 </head>
@@ -182,7 +374,24 @@
                     <h1 class="text-3xl font-bold text-gray-900" id="repo-name">Git Analytics Dashboard</h1>
                     <p class="text-gray-500 mt-1" id="repo-subtitle">Loading data...</p>
                 </div>
-                <div id="export-buttons" class="hidden flex gap-2 no-print">
+                <div id="export-buttons" class="hidden flex items-center gap-2 no-print">
+                    <button id="btn-sanitize" class="btn-theme" title="Toggle private mode (hide names/messages)">
+                        <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.64 0 8.577 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.64 0-8.577-3.007-9.963-7.178z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <svg id="icon-eye-slash" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                        </svg>
+                    </button>
+                    <button id="btn-theme" class="btn-theme" title="Toggle dark mode">
+                        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                        </svg>
+                        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                        </svg>
+                    </button>
                     <button id="btn-share" class="btn-icon btn-secondary" title="Copy shareable link">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
@@ -201,10 +410,16 @@
 
         <!-- Data Loader -->
         <div id="loader" class="card text-center py-12">
-            <p class="text-gray-500">Select data file(s) to load:</p>
-            <input type="file" id="file-input" accept=".json" multiple class="mt-4 text-sm">
-            <p class="text-sm text-gray-400 mt-2">Select multiple files to combine data from different repositories</p>
-            <p class="text-sm text-gray-400 mt-1">Or place your data.json in the same directory as this file</p>
+            <div id="loader-content">
+                <p class="text-gray-500">Select data file(s) to load:</p>
+                <input type="file" id="file-input" accept=".json" multiple class="mt-4 text-sm">
+                <p class="text-sm text-gray-400 mt-2">Select multiple files to combine data from different repositories</p>
+                <p class="text-sm text-gray-400 mt-1">Or place your data.json in the same directory as this file</p>
+            </div>
+            <div id="loader-spinner" class="hidden">
+                <div class="loading-spinner mb-3"></div>
+                <p class="text-gray-500">Loading dashboard data...</p>
+            </div>
         </div>
 
         <!-- Dashboard Content (hidden until data loads) -->
@@ -438,6 +653,27 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Heatmap -->
+                <div class="card mb-6">
+                    <h2 class="text-lg font-semibold mb-4">Activity Heatmap</h2>
+                    <p class="text-xs text-gray-500 -mt-2 mb-4">Commits by hour and day of week (darker = more commits)</p>
+                    <div id="heatmap-container" class="overflow-x-auto">
+                        <div id="heatmap" class="heatmap-grid"></div>
+                    </div>
+                    <div class="flex items-center justify-center gap-2 mt-4 text-xs text-gray-500">
+                        <span>Less</span>
+                        <div class="flex gap-0.5">
+                            <div class="w-4 h-4 rounded heatmap-0"></div>
+                            <div class="w-4 h-4 rounded heatmap-1"></div>
+                            <div class="w-4 h-4 rounded heatmap-2"></div>
+                            <div class="w-4 h-4 rounded heatmap-3"></div>
+                            <div class="w-4 h-4 rounded heatmap-4"></div>
+                        </div>
+                        <span>More</span>
+                    </div>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="card">
                         <h2 class="text-lg font-semibold mb-4">Commits by Hour of Day</h2>
@@ -451,6 +687,45 @@
                         <p class="text-xs text-gray-500 -mt-2 mb-4">Distribution across weekdays</p>
                         <div class="h-64">
                             <canvas id="day-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Developer Activity Patterns -->
+                <div class="card mt-6">
+                    <h2 class="text-lg font-semibold mb-4">Developer Activity Patterns</h2>
+                    <p class="text-xs text-gray-500 -mt-2 mb-4">When each contributor typically commits</p>
+                    <div id="developer-patterns" class="space-y-4"></div>
+                </div>
+
+                <!-- Work Hours Settings -->
+                <div class="card mt-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-lg font-semibold">Work Hours Settings</h2>
+                            <p class="text-xs text-gray-500">Customize what counts as "work hours"</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-2">
+                                <label class="text-xs text-gray-500">Start:</label>
+                                <select id="work-hour-start" class="filter-select text-sm">
+                                    <option value="6">6:00</option>
+                                    <option value="7">7:00</option>
+                                    <option value="8" selected>8:00</option>
+                                    <option value="9">9:00</option>
+                                    <option value="10">10:00</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <label class="text-xs text-gray-500">End:</label>
+                                <select id="work-hour-end" class="filter-select text-sm">
+                                    <option value="16">16:00</option>
+                                    <option value="17" selected>17:00</option>
+                                    <option value="18">18:00</option>
+                                    <option value="19">19:00</option>
+                                    <option value="20">20:00</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -470,6 +745,112 @@
             dateTo: ''
         };
         let useUTC = false;
+        let isDarkMode = false;
+        let workHourStart = 8;
+        let workHourEnd = 17;
+        let isSanitized = false;
+        const anonymousNames = ['Developer A', 'Developer B', 'Developer C', 'Developer D', 'Developer E', 'Developer F', 'Developer G', 'Developer H'];
+        const authorAnonMap = new Map();
+
+        // === Dark Mode ===
+        function initDarkMode() {
+            // Check localStorage first, then system preference
+            const stored = localStorage.getItem('darkMode');
+            if (stored !== null) {
+                isDarkMode = stored === 'true';
+            } else {
+                isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            applyDarkMode();
+        }
+
+        function applyDarkMode() {
+            document.documentElement.classList.toggle('dark', isDarkMode);
+            document.getElementById('icon-sun').classList.toggle('hidden', !isDarkMode);
+            document.getElementById('icon-moon').classList.toggle('hidden', isDarkMode);
+
+            // Update Chart.js defaults for dark mode
+            if (isDarkMode) {
+                Chart.defaults.color = '#9ca3af';
+                Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+            } else {
+                Chart.defaults.color = '#6b7280';
+                Chart.defaults.borderColor = 'rgba(0, 0, 0, 0.1)';
+            }
+
+            // Re-render charts if data is loaded
+            if (data) {
+                renderProgress();
+                renderContributors();
+                renderTags();
+                renderTiming();
+                renderSummary();
+            }
+        }
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            localStorage.setItem('darkMode', isDarkMode);
+            applyDarkMode();
+        }
+
+        // === Sanitization Mode ===
+        function initSanitizeMode() {
+            isSanitized = localStorage.getItem('sanitized') === 'true';
+            applySanitizeMode();
+        }
+
+        function applySanitizeMode() {
+            document.getElementById('icon-eye').classList.toggle('hidden', isSanitized);
+            document.getElementById('icon-eye-slash').classList.toggle('hidden', !isSanitized);
+
+            // Re-render views if data is loaded
+            if (data) {
+                renderTimeline();
+                renderContributors();
+                renderTiming();
+                renderSummary();
+            }
+        }
+
+        function toggleSanitizeMode() {
+            isSanitized = !isSanitized;
+            localStorage.setItem('sanitized', isSanitized);
+            applySanitizeMode();
+            showToast(isSanitized ? 'Private mode enabled' : 'Private mode disabled');
+        }
+
+        function getAnonymousName(email) {
+            if (!authorAnonMap.has(email)) {
+                const index = authorAnonMap.size % anonymousNames.length;
+                authorAnonMap.set(email, anonymousNames[index]);
+            }
+            return authorAnonMap.get(email);
+        }
+
+        function sanitizeName(name, email) {
+            if (!isSanitized) return name;
+            return getAnonymousName(email);
+        }
+
+        function sanitizeMessage(message) {
+            if (!isSanitized) return message;
+            // Show only the type prefix if conventional commit, otherwise generic
+            const match = message.match(/^(feat|fix|docs|style|refactor|test|chore|ci|build|perf|security)(\(.+?\))?:/i);
+            if (match) {
+                return match[0] + ' [message hidden]';
+            }
+            return '[Commit message hidden]';
+        }
+
+        // Initialize dark mode immediately (before DOM loads to prevent flash)
+        (function() {
+            const stored = localStorage.getItem('darkMode');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (stored === 'true' || (stored === null && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
 
         // === South African Public Holidays ===
         // Format: 'YYYY-MM-DD' for fixed dates, calculated for moveable feasts
@@ -530,7 +911,7 @@
             const dateStr = commit.timestamp.substring(0, 10);
 
             return {
-                isAfterHours: hour < 8 || hour >= 17,
+                isAfterHours: hour < workHourStart || hour >= workHourEnd,
                 isWeekend: dayOfWeek === 0 || dayOfWeek === 6,
                 isHoliday: holidaySet.has(dateStr),
                 hour,
@@ -597,12 +978,16 @@
 
         // === Author Resolution ===
         function getAuthorName(commit) {
+            let name;
             // Try to resolve from metadata.authors using author_id
             if (commit.author_id && data.metadata?.authors?.[commit.author_id]) {
-                return data.metadata.authors[commit.author_id].name;
+                name = data.metadata.authors[commit.author_id].name;
+            } else {
+                // Fall back to embedded author object
+                name = commit.author?.name || commit.author_id || 'Unknown';
             }
-            // Fall back to embedded author object
-            return commit.author?.name || commit.author_id || 'Unknown';
+            const email = getAuthorEmail(commit);
+            return sanitizeName(name, email);
         }
 
         function getAuthorEmail(commit) {
@@ -780,6 +1165,72 @@
         function applyFilters() {
             renderTimeline();
             updateFilteredStats();
+            saveFiltersToStorage();
+        }
+
+        // === Filter Persistence ===
+        function saveFiltersToStorage() {
+            const state = {
+                filters,
+                summaryPeriod,
+                useUTC,
+                workHourStart,
+                workHourEnd,
+                activeTab: document.querySelector('.tab-btn.border-blue-500')?.dataset.tab || 'summary'
+            };
+            localStorage.setItem('dashboardState', JSON.stringify(state));
+        }
+
+        function loadFiltersFromStorage() {
+            try {
+                const stored = localStorage.getItem('dashboardState');
+                if (!stored) return false;
+
+                const state = JSON.parse(stored);
+
+                // Restore filters
+                if (state.filters) {
+                    filters = { ...filters, ...state.filters };
+                    document.getElementById('filter-tag').value = filters.tag;
+                    document.getElementById('filter-author').value = filters.author;
+                    document.getElementById('filter-repo').value = filters.repo;
+                    document.getElementById('filter-date-from').value = filters.dateFrom;
+                    document.getElementById('filter-date-to').value = filters.dateTo;
+                }
+
+                // Restore summary period
+                if (state.summaryPeriod) {
+                    summaryPeriod = state.summaryPeriod;
+                    document.getElementById('summary-period').value = summaryPeriod;
+                }
+
+                // Restore timezone
+                if (state.useUTC !== undefined) {
+                    useUTC = state.useUTC;
+                    document.getElementById('timezone-select').value = useUTC ? 'utc' : 'local';
+                }
+
+                // Restore work hours
+                if (state.workHourStart !== undefined) {
+                    workHourStart = state.workHourStart;
+                    document.getElementById('work-hour-start').value = workHourStart;
+                }
+                if (state.workHourEnd !== undefined) {
+                    workHourEnd = state.workHourEnd;
+                    document.getElementById('work-hour-end').value = workHourEnd;
+                }
+
+                // Restore active tab
+                if (state.activeTab) {
+                    const tabBtn = document.querySelector(`.tab-btn[data-tab="${state.activeTab}"]`);
+                    if (tabBtn) tabBtn.click();
+                }
+
+                return true;
+            } catch (e) {
+                console.warn('Failed to restore dashboard state:', e);
+                return false;
+            }
         }
 
         function updateFilteredStats() {
@@ -816,6 +1267,12 @@
             // Setup export/share buttons
             setupExportButtons();
 
+            // Load saved state from localStorage (URL params will override)
+            const hasUrlParams = window.location.search.length > 1;
+            if (!hasUrlParams) {
+                loadFiltersFromStorage();
+            }
+
             // Apply URL state (filters, tab, etc.) if present
             applyUrlState();
 
@@ -829,6 +1286,7 @@
             renderTiming();
             setupSummaryPeriodToggle();
             setupTimezoneToggle();
+            setupWorkHoursToggle();
 
             // Apply filters from URL after render
             if (hasActiveFilters()) {
@@ -876,7 +1334,7 @@
                             ${tagBadges}${extraTags}
                         </div>
                         <div class="flex-1 min-w-0">
-                            <p class="text-sm font-medium text-gray-900 break-words sm:truncate">${escapeHtml(commit.subject)}</p>
+                            <p class="text-sm font-medium text-gray-900 break-words sm:truncate">${escapeHtml(sanitizeMessage(commit.subject))}</p>
                         </div>
                         ${complexityBadge}
                     </div>
@@ -1089,8 +1547,8 @@
                         <div class="flex items-start gap-3">
                             <span class="tag tag-security">security</span>
                             <div class="flex-1">
-                                <p class="font-medium text-gray-900">${escapeHtml(commit.subject)}</p>
-                                <p class="text-sm text-gray-600 mt-1">${escapeHtml(commit.body || '').substring(0, 200) || 'No description'}</p>
+                                <p class="font-medium text-gray-900">${escapeHtml(sanitizeMessage(commit.subject))}</p>
+                                <p class="text-sm text-gray-600 mt-1">${isSanitized ? '[Details hidden]' : (escapeHtml(commit.body || '').substring(0, 200) || 'No description')}</p>
                                 <p class="text-xs text-gray-500 mt-2">
                                     ${commit.sha} by ${escapeHtml(getAuthorName(commit))} on ${formatDate(commit.timestamp)}
                                     ${commit.repo_id ? `in ${commit.repo_id}` : ''}
@@ -1176,6 +1634,9 @@
         }
 
         function renderTiming() {
+            // Render the heatmap first
+            renderHeatmap();
+
             // Aggregate commits by hour (0-23)
             const byHour = new Array(24).fill(0);
             // Aggregate commits by day of week (0=Sun, 6=Sat)
@@ -1201,7 +1662,7 @@
                         label: 'Commits',
                         data: byHour,
                         backgroundColor: byHour.map((_, i) =>
-                            (i >= 8 && i < 17) ? '#3b82f6' : '#94a3b8'
+                            (i >= workHourStart && i < workHourEnd) ? '#3b82f6' : '#94a3b8'
                         ),
                         borderRadius: 2
                     }]
@@ -1215,7 +1676,7 @@
                             callbacks: {
                                 afterLabel: (ctx) => {
                                     const hour = ctx.dataIndex;
-                                    if (hour >= 8 && hour < 17) return 'Work hours';
+                                    if (hour >= workHourStart && hour < workHourEnd) return 'Work hours';
                                     return 'After hours';
                                 }
                             }
@@ -1273,13 +1734,175 @@
                     }
                 }
             });
+
+            // Render developer activity patterns
+            renderDeveloperPatterns();
+        }
+
+        function renderHeatmap() {
+            // Build 24x7 matrix (hours x days)
+            const matrix = Array.from({ length: 24 }, () => new Array(7).fill(0));
+
+            data.commits.forEach(commit => {
+                const { hour, dayOfWeek } = getCommitDateTime(commit);
+                matrix[hour][dayOfWeek]++;
+            });
+
+            // Find max for intensity scaling
+            const maxCount = Math.max(...matrix.flat(), 1);
+
+            // Get intensity level (0-4)
+            const getIntensity = (count) => {
+                if (count === 0) return 0;
+                const ratio = count / maxCount;
+                if (ratio <= 0.25) return 1;
+                if (ratio <= 0.5) return 2;
+                if (ratio <= 0.75) return 3;
+                return 4;
+            };
+
+            // Reorder to Monday-first
+            const dayOrder = [1, 2, 3, 4, 5, 6, 0]; // Mon-Sun
+            const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+            // Build HTML
+            let html = '';
+
+            // Header row (empty corner + day names)
+            html += '<div class="heatmap-label"></div>';
+            dayLabels.forEach(day => {
+                html += `<div class="heatmap-header">${day}</div>`;
+            });
+
+            // Data rows (hour label + cells)
+            for (let hour = 0; hour < 24; hour++) {
+                // Hour label (show every 3 hours)
+                const hourLabel = hour % 3 === 0 ? `${hour.toString().padStart(2, '0')}:00` : '';
+                html += `<div class="heatmap-label">${hourLabel}</div>`;
+
+                // Day cells
+                dayOrder.forEach((dayIdx, i) => {
+                    const count = matrix[hour][dayIdx];
+                    const intensity = getIntensity(count);
+                    const isWorkHours = hour >= 8 && hour < 17;
+                    const isWeekday = i < 5;
+                    const tooltip = `${dayLabels[i]} ${hour}:00 - ${count} commit${count !== 1 ? 's' : ''}`;
+
+                    html += `<div class="heatmap-cell heatmap-${intensity}" title="${tooltip}">${count || ''}</div>`;
+                });
+            }
+
+            document.getElementById('heatmap').innerHTML = html;
         }
 
         function setupTimezoneToggle() {
             document.getElementById('timezone-select').addEventListener('change', (e) => {
                 useUTC = e.target.value === 'utc';
                 renderTiming();
+                saveFiltersToStorage();
             });
+        }
+
+        function setupWorkHoursToggle() {
+            document.getElementById('work-hour-start').addEventListener('change', (e) => {
+                workHourStart = parseInt(e.target.value);
+                renderTiming();
+                renderTimeline();
+                renderSummary();
+                saveFiltersToStorage();
+            });
+            document.getElementById('work-hour-end').addEventListener('change', (e) => {
+                workHourEnd = parseInt(e.target.value);
+                renderTiming();
+                renderTimeline();
+                renderSummary();
+                saveFiltersToStorage();
+            });
+        }
+
+        function renderDeveloperPatterns() {
+            // Get per-author timing data
+            const authorPatterns = {};
+
+            data.commits.forEach(commit => {
+                const email = getAuthorEmail(commit);
+                const name = getAuthorName(commit);
+                const { hour, dayOfWeek } = getCommitDateTime(commit);
+
+                if (!authorPatterns[email]) {
+                    authorPatterns[email] = {
+                        name,
+                        email,
+                        commitCount: 0,
+                        byHour: new Array(24).fill(0),
+                        byDay: new Array(7).fill(0),
+                        afterHours: 0,
+                        weekend: 0
+                    };
+                }
+
+                authorPatterns[email].commitCount++;
+                authorPatterns[email].byHour[hour]++;
+                authorPatterns[email].byDay[dayOfWeek]++;
+
+                if (hour < workHourStart || hour >= workHourEnd) {
+                    authorPatterns[email].afterHours++;
+                }
+                if (dayOfWeek === 0 || dayOfWeek === 6) {
+                    authorPatterns[email].weekend++;
+                }
+            });
+
+            // Sort by commit count
+            const sorted = Object.values(authorPatterns).sort((a, b) => b.commitCount - a.commitCount);
+
+            // Render top contributors
+            const html = sorted.slice(0, 6).map(author => {
+                // Find peak hour
+                const peakHour = author.byHour.indexOf(Math.max(...author.byHour));
+                // Find peak day
+                const mondayFirstOrder = [1, 2, 3, 4, 5, 6, 0];
+                const dayLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                const peakDayIdx = author.byDay.indexOf(Math.max(...author.byDay));
+                const peakDayLabel = DAY_NAMES_SHORT[peakDayIdx];
+
+                // After hours percentage
+                const afterHoursPct = Math.round((author.afterHours / author.commitCount) * 100);
+                const weekendPct = Math.round((author.weekend / author.commitCount) * 100);
+
+                // Mini sparkline for hours (simplified - just show work vs after hours)
+                const workHoursCommits = author.byHour.slice(workHourStart, workHourEnd).reduce((a, b) => a + b, 0);
+                const workHoursPct = Math.round((workHoursCommits / author.commitCount) * 100);
+
+                return `
+                    <div class="p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-medium text-gray-900">${escapeHtml(author.name)}</span>
+                            <span class="text-xs text-gray-500">${author.commitCount} commits</span>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                            <div class="p-2 bg-white rounded">
+                                <span class="text-gray-500">Peak Hour</span>
+                                <p class="font-semibold text-gray-900">${peakHour.toString().padStart(2, '0')}:00</p>
+                            </div>
+                            <div class="p-2 bg-white rounded">
+                                <span class="text-gray-500">Peak Day</span>
+                                <p class="font-semibold text-gray-900">${peakDayLabel}</p>
+                            </div>
+                            <div class="p-2 bg-white rounded">
+                                <span class="text-gray-500">Work Hours</span>
+                                <p class="font-semibold ${workHoursPct >= 70 ? 'text-green-600' : workHoursPct >= 50 ? 'text-amber-600' : 'text-red-600'}">${workHoursPct}%</p>
+                            </div>
+                            <div class="p-2 bg-white rounded">
+                                <span class="text-gray-500">Weekends</span>
+                                <p class="font-semibold ${weekendPct <= 10 ? 'text-green-600' : weekendPct <= 25 ? 'text-amber-600' : 'text-red-600'}">${weekendPct}%</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('developer-patterns').innerHTML = html || '<p class="text-gray-500">No contributor data</p>';
         }
 
         // === Executive Summary Tab ===
@@ -1527,6 +2150,7 @@
             document.getElementById('summary-period').addEventListener('change', (e) => {
                 summaryPeriod = e.target.value;
                 renderSummary();
+                saveFiltersToStorage();
             });
         }
 
@@ -1544,6 +2168,11 @@
                 // Show/hide tabs
                 document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
                 document.getElementById(`tab-${btn.dataset.tab}`).classList.remove('hidden');
+
+                // Save state (only if data is loaded)
+                if (data) {
+                    saveFiltersToStorage();
+                }
             });
         });
 
@@ -1691,13 +2320,27 @@
         }
 
         // === Auto-load data.json if present ===
+        function showLoading(show) {
+            const content = document.getElementById('loader-content');
+            const spinner = document.getElementById('loader-spinner');
+            if (show) {
+                content.classList.add('hidden');
+                spinner.classList.remove('hidden');
+            } else {
+                content.classList.remove('hidden');
+                spinner.classList.add('hidden');
+            }
+        }
+
         async function tryAutoLoad() {
+            showLoading(true);
             try {
                 // Try to load from same directory
                 const response = await fetch('data.json');
                 if (response.ok) {
                     const jsonData = await response.json();
                     loadData(jsonData);
+                    return;
                 }
             } catch (e) {
                 // Try reports folder
@@ -1706,11 +2349,14 @@
                     if (response.ok) {
                         const jsonData = await response.json();
                         loadData(jsonData);
+                        return;
                     }
                 } catch (e2) {
                     // No auto-load available
                 }
             }
+            // No data found, show file picker
+            showLoading(false);
         }
 
         // === Utilities ===
@@ -1961,9 +2607,13 @@
             document.getElementById('export-buttons').classList.remove('hidden');
             document.getElementById('btn-share').addEventListener('click', copyShareableLink);
             document.getElementById('btn-export-pdf').addEventListener('click', exportToPdf);
+            document.getElementById('btn-theme').addEventListener('click', toggleDarkMode);
+            document.getElementById('btn-sanitize').addEventListener('click', toggleSanitizeMode);
         }
 
         // Initialize
+        initDarkMode();
+        initSanitizeMode();
         tryAutoLoad();
     </script>
 </body>
