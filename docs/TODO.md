@@ -1,135 +1,112 @@
 # TODO
 
-Items to be addressed, ordered by priority and dependencies.
+Items ordered by priority based on [Discovery Session](DISCOVERY_SESSION.md) (2026-01-19).
 
-## Foundation (Do First) - COMPLETE
+**Two audiences identified:**
 
-Data model and extraction changes required before building new views:
+- **Dev Manager** - Analyzes team patterns, presents to executives
+- **Executive** - Needs high-level, quick-to-scan summaries
 
-- [x] **Schema Migration** - Update data model: `type` → `tags[]`, add `complexity` field
-- [x] **Extract Script Update** - Modify `extract.js` to support tag-based workflow
-- [x] **Dashboard Tag Support** - Update dashboard to handle `tags[]` instead of single `type`
-- [x] **Aggregation Update** - Update `aggregate.js` to handle new schema
+---
+
+## Foundation - COMPLETE
+
+- [x] Schema Migration (`type` → `tags[]`, add `complexity`)
+- [x] Extract Script Update
+- [x] Dashboard Tag Support
+- [x] Aggregation Update
 - [ ] **Re-extract All Repos** - Run `scripts/update-all.sh` to regenerate all repo data
 
-## Timestamp Views (When)
+---
 
-Analytics focused on when developers commit:
+## Priority 1: Timestamp Views (When)
 
-- [ ] **Time Zone Awareness** - Display times in user's local timezone with optional UTC toggle (do early - affects all time displays)
-- [ ] **Commits by Hour** - Bar chart showing commit distribution across 24 hours (0-23)
-- [ ] **Commits by Day of Week** - Bar chart showing Mon-Sun commit distribution
-- [ ] **Commit Time Heatmap** - Hour-of-day vs day-of-week grid showing commit density (depends on hour + day views)
-- [ ] **Developer Activity Patterns** - Per-author breakdown of when they commit (morning/afternoon/evening/night)
-- [ ] **Weekly/Monthly Trends** - Commit volume over time, broken down by tags
+*Core discovered need: "What time of day is work being done, which days of the week"*
 
-## Tag Views (What)
+- [ ] **Commits by Hour** - Bar chart showing distribution across 24 hours (0-23)
+- [ ] **Commits by Day of Week** - Bar chart showing Mon-Sun distribution
+- [ ] **Time Zone Awareness** - Display in user's local timezone with optional UTC toggle
 
-Analytics focused on what was done (using new tags model):
+**Stretch:**
 
-- [ ] **Tags Distribution** - Chart showing commit counts per tag (handle multi-tag counting)
-- [ ] **Tags by Time** - Do certain tags (bugfix vs feature) happen at certain times?
-- [ ] **Developer Tag Distribution** - Which authors do more fixes vs features?
-- [ ] **Tag Combinations** - Common tag pairings (e.g., feature+test often together)
+- [ ] Commit Time Heatmap - Hour vs day-of-week grid
+- [ ] Developer Activity Patterns - Per-author time breakdowns
 
-## Complexity Views (How Complex)
+---
 
-Analytics focused on change complexity:
+## Priority 2: Work Pattern Styling
 
-- [ ] **Complexity Distribution** - Chart showing commits by complexity score (1-5)
-- [ ] **Complexity by Author** - Which developers handle more complex changes?
-- [ ] **Complexity by Time** - Are complex commits made at certain times/days?
-- [ ] **Complexity vs Tags** - Do certain tags correlate with higher complexity?
+*Core discovered need: "After hours vs working hours, weekends/public holidays vs normal working days"*
 
-## Work Pattern Visual Distinction
+**Visual distinction across ALL views:**
 
-Apply consistent visual styling across ALL tabs and views to distinguish work patterns:
+- [ ] **Work Hours Highlighting** - Differentiate 8:00-17:00 vs after-hours
+- [ ] **Weekend Highlighting** - Saturday/Sunday styled differently
+- [ ] **South African Public Holidays** - Load ZA holidays with distinct styling
+- [ ] **Commit List Badges** - "After Hours", "Weekend", "Holiday" indicators
+- [ ] **Legend/Key** - Explain the color coding
 
-**Time of Day:**
+**Integration:**
 
-- [ ] **Work Hours Highlighting** - Visually differentiate commits during work hours (8:00-17:00) vs after-hours
-- [ ] **After-Hours Styling** - Different color/indicator for commits outside 8-5 window
-- [ ] **Hour Charts Integration** - Work hours band highlighted in commits-by-hour view
+- [ ] Apply to Timeline tab (chart bars, commit list)
+- [ ] Apply to new timestamp views (hour/day charts)
+- [ ] Configurable work hours (default 8-17)
 
-**Days:**
+---
 
-- [ ] **Weekend Highlighting** - Visually differentiate Saturday/Sunday in all date-based views
-- [ ] **South African Public Holidays** - Load and display ZA holidays with distinct styling
-- [ ] **Holiday Data Source** - Config file or API for SA public holidays (updateable yearly)
+## Priority 3: Executive Summary View
 
-**Cross-Cutting:**
+*Discovered need: "Higher level, quick to scan, productivity, progress/growth"*
 
-- [ ] **Legend/Key** - Clear indicator explaining work hours, after-hours, weekend, holiday colors
-- [ ] **Timeline Integration** - Apply to existing Timeline tab (chart bars, commit list dates)
-- [ ] **Heatmap Integration** - Work hours rows + weekend columns styled differently
-- [ ] **Commit List Badges** - Show "After Hours", "Weekend", or "Holiday" badge on relevant commits
-- [ ] **Configurable Hours** - Allow customizing work hours (default 8-17)
+- [ ] **Summary Tab** - New tab designed for executive audience
+  - Total commits (period)
+  - Active contributors
+  - Progress trend (up/down vs previous period)
+  - Work type breakdown (features vs fixes vs other)
+  - Key highlights (most active project, busiest day, etc.)
 
-## Filter Persistence & Cross-Tab Behavior
+- [ ] **Quick Stats Cards** - At-a-glance metrics at top of summary
+- [ ] **Period Comparison** - This week vs last week, this month vs last month
 
-Make filters consistent and persistent across all views:
+---
 
-- [ ] **Global Filter State** - Filters apply across all tabs (not just Timeline)
-- [ ] **URL State Persistence** - Save filter state in URL params (shareable links)
-- [ ] **Session Persistence** - Remember filters on page reload (localStorage)
-- [ ] **Filter Sync UI** - Clear indicator showing which filters are active globally
+## Priority 4: Export / Share
 
-## Visual Design & Dark Mode
+*Discovered need: "Could be extracted and sent in a specific format"*
 
-Improve dashboard aesthetics:
+- [ ] **PDF Export** - Generate shareable PDF report
+- [ ] **Shareable Links** - URL with filter state encoded
 
-- [ ] **Dark Mode** - Full dark theme with toggle (respect system preference)
-- [ ] **Color Palette Refinement** - Consistent, accessible color scheme for charts
-- [ ] **Typography & Spacing** - Better visual hierarchy, breathing room
-- [ ] **Chart Styling** - Polished chart appearance (gridlines, legends, tooltips)
-- [ ] **Loading States** - Skeleton loaders, smooth transitions
-- [ ] **Responsive Polish** - Ensure all new views work well on mobile
+---
 
-## Private Repository Security
+## Lower Priority
 
-Support private repos without exposing sensitive information:
+### Tag & Complexity Views
 
-- [ ] **Sanitization Mode** - Option to strip sensitive data (file paths, commit messages)
-- [ ] **Anonymization** - Replace author names/emails with pseudonyms
-- [ ] **Content Filtering** - Exclude commits matching patterns (e.g., containing secrets)
-- [ ] **Local-Only Mode** - Ensure extracted data never leaves local machine unless explicitly shared
-- [ ] **Documentation** - Clear guidance on what data is extracted and privacy implications
+*Partially addressed - can filter, but could be clearer*
 
-## Repository Management
+- [ ] Developer Tag Distribution - Who does fixes vs features
+- [ ] Complexity by Author - Who handles complex changes
+- [ ] Complexity by Time - When are complex commits made
 
-Handle repository lifecycle changes gracefully:
+### Visual Polish
 
-- [ ] **Repo Rename Handling** - Config mapping old repo names to new names (preserve history continuity)
-- [ ] **Repo Alias Support** - Allow multiple names/aliases for same repo in aggregation
-- [ ] **Migration Tool** - Script to update existing data when repo is renamed
-- [ ] **Repo Archive Detection** - Handle archived/deleted repos gracefully in update-all.sh
-- [ ] **Repo URL Redirect** - Detect GitHub redirects when repo is renamed and update config
+- [ ] Dark Mode
+- [ ] Color palette refinement
+- [ ] Loading states
 
-## Research / Investigation
+### Infrastructure
 
-### Device/Platform Attribution
+- [ ] Global filter state across tabs
+- [ ] Filter persistence (localStorage)
+- [ ] Private repo sanitization mode
 
-Investigate splitting contributions by committer name patterns to distinguish work contexts:
+### Research / Future
 
-- [ ] **Mobile vs Desktop Detection** - Identify commits from mobile devices (e.g., "Author (mobile)" vs "Author")
-- [ ] **Committer Name Mapping** - Config to map name variations to same author with device tag
-- [ ] **Combined/Split Views** - Option to view contributions merged or separated by device
-- [ ] **Use Cases** - Document when this is useful (e.g., tracking mobile hotfixes vs planned desktop work)
-
-## Low Priority / Ideas
-
-### Could Have (from spec)
-
-- [ ] Export to PDF functionality
-- [ ] Pre-commit hook for conventional commits (prepare-commit-msg)
-- [ ] GitHub Action for automated extraction on push (separate from deployment)
-
-### Future Enhancements
-
-- [ ] Merge commit filtering option (exclude from stats)
-- [ ] Virtualized rendering for large commit lists (500+)
+- [ ] Device/platform attribution (mobile vs desktop commits)
+- [ ] Merge commit filtering
 - [ ] PWA offline support
 
 ---
 
-*Last updated: 2026-01-19 - Foundation complete (extract.js, aggregate.js, dashboard updated for tags + complexity)*
+*Last updated: 2026-01-19 - Reorganized based on Discovery Session findings*

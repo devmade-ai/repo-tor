@@ -28,6 +28,21 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-19
 
+### Discovery Framework Validation
+
+Applied the Discovery Framework to validate our solution against user needs:
+
+- Conducted systematic discovery session documenting people, flow, data, and context
+- **Key finding:** Two distinct audiences with different needs (Executive vs Dev Manager)
+- **Gaps identified:**
+  - Timestamp views (when work happens) - data stored but not visualized
+  - Work pattern distinction (after hours, weekends, holidays)
+  - Executive summary view (high-level, quick-to-scan)
+  - PDF export for sharing
+- **Verdict:** Core infrastructure solid, minimal over-engineering, main miss is time dimension
+- Created `docs/DISCOVERY_SESSION.md` documenting full session
+- Reorganized `docs/TODO.md` around discovered priorities
+
 ### Feature Roadmap Planning
 
 Added high-priority TODO items for next phase of development:

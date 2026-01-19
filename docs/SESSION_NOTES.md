@@ -21,6 +21,29 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Discovery Framework Validation (2026-01-19)
+
+Applied the Discovery Framework to validate our solution:
+
+**Key findings:**
+
+- Two distinct audiences: Executive (high-level summaries) vs Dev Manager (detailed analysis)
+- Core need we're missing: **when** work happens (time of day, day of week)
+- Work pattern distinction needed: after hours vs 8-5, weekends vs weekdays, holidays
+- Executive needs separate view: quick-to-scan, productivity-focused
+- Export needed: PDF for sharing outside dashboard
+
+**Actions taken:**
+
+- Created `docs/DISCOVERY_SESSION.md` with full session documentation
+- Reorganized `docs/TODO.md` around discovered priorities:
+  1. Timestamp Views (hour, day of week)
+  2. Work Pattern Styling (after hours, weekends, holidays)
+  3. Executive Summary View
+  4. PDF Export
+
+**Verdict:** Core infrastructure solid. Main gap is time dimension visualization and audience-specific views.
+
 ### Direction Shift: Tag-Based Analytics (2026-01-19)
 
 Refocused the tool's metrics and data model around three core dimensions:
@@ -151,25 +174,19 @@ Updated extraction and aggregation scripts for new tag-based model:
 
 ## Next Steps
 
-**High Priority (newly added):**
-1. **Timestamp Views & Developer Insights** - Commits by hour, commits by day of week, heatmaps, activity patterns
-2. **Work Pattern Visual Distinction** - Work hours (8-5) vs after-hours, weekends, SA holidays - styled across ALL views
-3. **Filter Persistence** - Global filters across tabs, URL params, localStorage
-4. **Visual Design & Dark Mode** - Dark theme, color refinement, polish
-5. **Private Repo Security** - Sanitization, anonymization, local-only mode
-6. **Repository Management** - Repo rename handling, aliases, migration, archive detection
+**Based on Discovery Session (see [TODO.md](TODO.md) for details):**
 
-**Research / Investigation:**
-- Device/platform attribution (mobile vs desktop by committer name)
-- AI-powered commit categorization (Claude reads messages + diffs)
-- Multi-tag commit model (one commit = multiple tags)
-- Tag-centric reporting (focus on accomplishments, not commit counts)
+1. **Priority 1: Timestamp Views** - Commits by hour (0-23), commits by day of week
+2. **Priority 2: Work Pattern Styling** - After hours vs 8-5, weekends, SA holidays across all views
+3. **Priority 3: Executive Summary View** - High-level tab for quick scanning
+4. **Priority 4: PDF Export** - Shareable reports
 
-**Low Priority:**
-- Export to PDF
-- Pre-commit hook for conventional commits
-- GitHub Action for automated extraction
-- PWA offline support
+**Lower Priority:**
+
+- Tag & complexity breakdown views
+- Dark mode, visual polish
+- Filter persistence (global state, URL params)
+- Private repo sanitization
 
 ## Notes
 
