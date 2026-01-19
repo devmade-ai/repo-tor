@@ -174,7 +174,7 @@ function aggregateData(repoDataList, authorMap) {
           additions: 0,
           deletions: 0,
           repos: new Set(),
-          types: {},
+          tagCounts: {},
           firstCommit: commit.timestamp,
           lastCommit: commit.timestamp
         });
@@ -187,7 +187,12 @@ function aggregateData(repoDataList, authorMap) {
       contributor.commits++;
       contributor.additions += commit.stats?.additions || 0;
       contributor.deletions += commit.stats?.deletions || 0;
-      contributor.types[commit.type] = (contributor.types[commit.type] || 0) + 1;
+
+      // Count each tag occurrence
+      const tags = commit.tags || ['other'];
+      for (const tag of tags) {
+        contributor.tagCounts[tag] = (contributor.tagCounts[tag] || 0) + 1;
+      }
 
       if (commit.timestamp < contributor.firstCommit) {
         contributor.firstCommit = commit.timestamp;
@@ -206,15 +211,15 @@ function aggregateData(repoDataList, authorMap) {
           repo_id: repoId,
           path: file.path,
           changeCount: 0,
-          commitTypes: {},
+          tagCounts: {},
           authors: new Set()
         });
       }
 
       const fileStats = allFiles.get(fileKey);
       fileStats.changeCount += file.changeCount;
-      for (const [type, count] of Object.entries(file.commitTypes || {})) {
-        fileStats.commitTypes[type] = (fileStats.commitTypes[type] || 0) + count;
+      for (const [tag, count] of Object.entries(file.tagCounts || {})) {
+        fileStats.tagCounts[tag] = (fileStats.tagCounts[tag] || 0) + count;
       }
       for (const author of file.authors || []) {
         fileStats.authors.add(author);
@@ -238,7 +243,7 @@ function aggregateData(repoDataList, authorMap) {
       commits: c.commits,
       additions: c.additions,
       deletions: c.deletions,
-      types: c.types,
+      tagCounts: c.tagCounts,
       firstCommit: c.firstCommit,
       lastCommit: c.lastCommit
     }))
@@ -263,23 +268,33 @@ function aggregateData(repoDataList, authorMap) {
 function generateSummary(aggregated, repoDataList) {
   const { commits, contributors, repoMetadata } = aggregated;
 
-  const typeBreakdown = {};
+  const tagBreakdown = {};
+  const complexityBreakdown = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
   const monthlyCommits = {};
   const repoBreakdown = {};
   let totalAdditions = 0;
   let totalDeletions = 0;
 
   for (const commit of commits) {
-    // Type breakdown
-    typeBreakdown[commit.type] = (typeBreakdown[commit.type] || 0) + 1;
+    // Tag breakdown (count each tag)
+    const tags = commit.tags || ['other'];
+    for (const tag of tags) {
+      tagBreakdown[tag] = (tagBreakdown[tag] || 0) + 1;
+    }
+
+    // Complexity breakdown
+    const complexity = commit.complexity || 1;
+    complexityBreakdown[complexity] = (complexityBreakdown[complexity] || 0) + 1;
 
     // Monthly aggregation
     const month = commit.timestamp?.substring(0, 7) || 'unknown';
     if (!monthlyCommits[month]) {
-      monthlyCommits[month] = { total: 0, types: {}, repos: {} };
+      monthlyCommits[month] = { total: 0, tags: {}, repos: {} };
     }
     monthlyCommits[month].total++;
-    monthlyCommits[month].types[commit.type] = (monthlyCommits[month].types[commit.type] || 0) + 1;
+    for (const tag of tags) {
+      monthlyCommits[month].tags[tag] = (monthlyCommits[month].tags[tag] || 0) + 1;
+    }
     monthlyCommits[month].repos[commit.repo_id] = (monthlyCommits[month].repos[commit.repo_id] || 0) + 1;
 
     // Repo breakdown
@@ -291,9 +306,7 @@ function generateSummary(aggregated, repoDataList) {
   }
 
   // Security commits across all repos with details
-  const securityCommits = commits.filter(c =>
-    c.type === 'security' || (c.tags || []).includes('security')
-  );
+  const securityCommits = commits.filter(c => (c.tags || []).includes('security'));
 
   const security_events = securityCommits.map(c => ({
     sha: c.sha,
@@ -316,7 +329,8 @@ function generateSummary(aggregated, repoDataList) {
     totalAdditions,
     totalDeletions,
     netLinesChanged: totalAdditions - totalDeletions,
-    typeBreakdown,
+    tagBreakdown,
+    complexityBreakdown,
     repoBreakdown,
     monthlyCommits,
     securityCommitCount: securityCommits.length,

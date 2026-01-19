@@ -66,17 +66,37 @@ Key decisions:
 
 ### Dashboard Multi-Tag Support (Phase 2)
 
-Implemented backward-compatible multi-tag support in the dashboard:
+Implemented multi-tag support in the dashboard (no backward compatibility needed - data regenerates):
 
-- Added `getCommitTags()` helper - uses `tags[]` if present, falls back to mapping `type` to tag
-- Added TAG_COLORS and TYPE_TO_TAG mappings for new tag vocabulary
+- Added `getCommitTags()`, `getAllTags()`, `getTagColor()`, `getTagClass()` helpers
+- Added TAG_COLORS constant with new tag vocabulary
 - Filter renamed from "Type" to "Tag" - matches commits with any matching tag
 - Commit list shows all tags (up to 3 with "+N" overflow indicator)
 - "By Type" tab renamed to "By Tag" - counts each tag occurrence
-- Progress tab Feature vs Bug Fix now tag-aware (checks both old and new tag names)
-- `combineDataFiles()` builds tagBreakdown alongside typeBreakdown
+- Progress tab Feature vs Bug Fix now tag-based
+- `combineDataFiles()` builds tagBreakdown
+- Removed backward compat code (TYPE_COLORS, TYPE_TO_TAG, legacy CSS)
 
-Dashboard is backward compatible: old data (single `type`) works, new data (`tags[]`) also works.
+### Extraction Script Tag Support (Phase 1)
+
+Updated `scripts/extract.js` for new tag-based model:
+
+- Added `CONVENTIONAL_TO_TAG` mapping (feat → feature, fix → bugfix, etc.)
+- `parseCommitMessage()` returns `tags[]` array instead of single `type`
+- Added `calculateComplexity()` function (1-5 scale based on files changed + tag count)
+- Summary outputs `tagBreakdown` and `complexityBreakdown`
+- Contributors track `tagCounts` instead of `types`
+- Files track `tagCounts` instead of `commitTypes`
+
+### Aggregation Script Tag Support (Phase 4)
+
+Updated `scripts/aggregate.js` for tag-aware aggregation:
+
+- Contributors aggregation uses `tagCounts` instead of `types`
+- File aggregation uses `tagCounts` instead of `commitTypes`
+- Summary outputs `tagBreakdown` and `complexityBreakdown`
+- Monthly aggregation tracks tags per month instead of types
+- Security detection uses `tags.includes('security')`
 
 ### Added chatty-chart Repository
 

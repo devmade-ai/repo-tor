@@ -2,15 +2,15 @@
 
 Items to be addressed, ordered by priority and dependencies.
 
-## Foundation (Do First)
+## Foundation (Do First) - COMPLETE
 
 Data model and extraction changes required before building new views:
 
-- [ ] **Schema Migration** - Update data model: `type` → `tags[]`, add `complexity` field
-- [ ] **Extract Script Update** - Modify `extract.js` to support AI-driven tagging workflow
-- [ ] **Dashboard Tag Support** - Update dashboard to handle `tags[]` instead of single `type`
-- [ ] **Aggregation Update** - Update `aggregate.js` to handle new schema
-- [ ] **Re-extract Repos** - Run extraction with new model on all tracked repositories
+- [x] **Schema Migration** - Update data model: `type` → `tags[]`, add `complexity` field
+- [x] **Extract Script Update** - Modify `extract.js` to support tag-based workflow
+- [x] **Dashboard Tag Support** - Update dashboard to handle `tags[]` instead of single `type`
+- [x] **Aggregation Update** - Update `aggregate.js` to handle new schema
+- [ ] **Re-extract All Repos** - Run `scripts/update-all.sh` to regenerate all repo data
 
 ## Timestamp Views (When)
 
@@ -132,4 +132,4 @@ Investigate splitting contributions by committer name patterns to distinguish wo
 
 ---
 
-*Last updated: 2026-01-19 - Reorganized for tag-based analytics direction (see SESSION_NOTES.md)*
+*Last updated: 2026-01-19 - Foundation complete (extract.js, aggregate.js, dashboard updated for tags + complexity)*

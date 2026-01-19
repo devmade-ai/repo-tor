@@ -57,7 +57,7 @@ The filter bar allows you to narrow down commits:
 
 | Filter | Description |
 |--------|-------------|
-| **Type** | Show only commits of a specific type (feat, fix, etc.) |
+| **Tag** | Show only commits with a specific tag (feature, bugfix, etc.) |
 | **Author** | Show only commits from a specific contributor |
 | **Repo** | Show only commits from a specific repository (aggregated data only) |
 | **From/To** | Show commits within a date range |
@@ -81,10 +81,9 @@ The filter bar allows you to narrow down commits:
 **Recent Commits List**
 - Shows up to 50 commits matching current filters
 - Each commit displays:
-  - **Type badge** (color-coded)
+  - **Tag badges** (color-coded, up to 3 shown with +N overflow)
   - **Subject** - The commit message summary
   - **Metadata** - SHA, author, date, repo (if aggregated)
-  - **Tags** - Security, breaking, etc. (if present)
   - **Line changes** - Green (+) additions, red (-) deletions
 
 ### Progress Tab
@@ -113,9 +112,9 @@ Shows **how** the project is evolving over time.
 
 **Feature vs Bug Fix Trend**
 - Two overlapping line charts:
-  - **Green** = Features (`feat` commits)
-  - **Red** = Bug fixes (`fix` commits)
-- Shows monthly counts of each type
+  - **Green** = Features (`feature` tag)
+  - **Red** = Bug fixes (`bugfix` tag)
+- Shows monthly counts of each tag
 
 **What to look for:**
 - Features > fixes = growth phase, adding capabilities
@@ -172,41 +171,42 @@ Shows commits related to **security**.
 - Regular security commits = proactive security culture
 - Review the commit bodies for severity context
 
-### By Type Tab
+### By Tag Tab
 
 Shows the **composition** of work done.
 
-**Commits by Type (Doughnut Chart)**
-- Visual breakdown of commit types
-- Larger slices = more commits of that type
+**Commits by Tag (Doughnut Chart)**
+- Visual breakdown of commit tags
+- A commit can have multiple tags (e.g., feature + test)
+- Larger slices = more commits with that tag
 
-**Type Breakdown**
-- Percentage bar for each type
+**Tag Breakdown**
+- Percentage bar for each tag
 - Sorted by count (highest first)
+- Note: Total may exceed commit count due to multi-tag commits
 
-**Commit Types Explained:**
+**Tag Vocabulary:**
 
-| Type | Color | Meaning |
-|------|-------|---------|
-| `feat` | Green | New features or capabilities |
-| `fix` | Red | Bug fixes |
+| Tag | Color | Meaning |
+|-----|-------|---------|
+| `feature` | Green | New features or capabilities |
+| `bugfix` | Red | Bug fixes |
 | `security` | Dark Red | Security patches or hardening |
 | `docs` | Blue | Documentation changes |
 | `refactor` | Purple | Code restructuring (no behavior change) |
 | `test` | Orange | Test additions or updates |
-| `chore` | Gray | Maintenance, dependencies |
-| `perf` | Cyan | Performance improvements |
+| `cleanup` | Gray | Maintenance, removing dead code |
+| `performance` | Cyan | Performance improvements |
 | `style` | Pink | Formatting, whitespace |
-| `build` | Brown | Build system changes |
-| `ci` | Slate | CI/CD configuration |
-| `revert` | Orange | Reverted commits |
+| `config` | Slate | Build, CI/CD, configuration changes |
+| `dependency` | Lime | Dependency updates |
 | `other` | Light Gray | Unclassified |
 
 **What to look for:**
-- Healthy mix: feat + fix + test + docs
-- Heavy `fix` ratio: May indicate quality issues
+- Healthy mix: feature + bugfix + test + docs
+- Heavy `bugfix` ratio: May indicate quality issues
 - No `test` commits: Testing might be lacking
-- Lots of `chore`: Dependency maintenance overhead
+- Lots of `cleanup`: Technical debt being addressed
 - High `other`: Commit messages may need better formatting
 
 ## Interpreting Overall Health

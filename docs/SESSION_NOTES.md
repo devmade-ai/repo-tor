@@ -111,25 +111,43 @@ Refocused the tool's metrics and data model around three core dimensions:
 
 ## In Progress
 
-### Phase 2: Dashboard Tag Support (2026-01-19)
+None
 
-Implementing multi-tag support in the dashboard:
+## Last Session Work
 
-**Completed:**
+### Phase 1 & 4: Extraction and Aggregation Tag Support (2026-01-19) - COMPLETE
 
-- Added `getCommitTags()` helper function (backward compatible)
-- Added TAG_COLORS and TYPE_TO_TAG mappings
-- Updated filter from "Type" to "Tag" (matches any tag)
-- Updated commit list to show all tags (up to 3 + overflow indicator)
+Updated extraction and aggregation scripts for new tag-based model:
+
+**extract.js changes:**
+- Added `CONVENTIONAL_TO_TAG` mapping (feat → feature, fix → bugfix, etc.)
+- `parseCommitMessage()` returns `tags[]` array instead of single `type`
+- Added `calculateComplexity()` function (1-5 scale based on files changed + tag count)
+- Summary outputs `tagBreakdown` and `complexityBreakdown`
+- Contributors/files track `tagCounts` instead of `types`
+
+**aggregate.js changes:**
+- Contributors aggregation uses `tagCounts` instead of `types`
+- File aggregation uses `tagCounts` instead of `commitTypes`
+- Summary outputs `tagBreakdown` and `complexityBreakdown`
+- Monthly aggregation tracks tags per month
+
+**Data regenerated:** Ran extraction on repo-tor (55 commits), dashboard now shows real tags and complexity scores.
+
+### Phase 2: Dashboard Tag Support (2026-01-19) - COMPLETE
+
+- Added `getCommitTags()`, `getAllTags()`, `getTagColor()`, `getTagClass()` helpers
+- Added TAG_COLORS constant with new tag vocabulary
+- Changed filter from "Type" to "Tag" (matches any tag in commit's tags[])
+- Commit list shows all tags (up to 3 with "+N" overflow)
 - Renamed "By Type" tab to "By Tag" tab
-- Updated Progress tab Feature vs Bug Fix to use tag-based counting
-- Updated `combineDataFiles()` to build tagBreakdown
+- Updated Progress tab Feature vs Bug Fix for tag-based counting
+- Removed all backward compatibility code
 
-**Remaining:**
+### Next Up
 
-- Phase 1: Add complexity calculation to extract.js
-- Phase 4: Update aggregate.js for tag-aware aggregation
-- Test dashboard with existing data
+1. **Run update-all.sh** - Regenerate data for all tracked repos with new tag format
+2. **Timestamp Views** - Start implementing commits by hour/day views (TODO.md)
 
 ## Next Steps
 

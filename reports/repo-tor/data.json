@@ -6,20 +6,11 @@
     "currentBranch": "main",
     "branches": [
       "main",
-      "origin",
-      "origin/claude/add-chatty-chart-repo-RxuLQ",
-      "origin/claude/add-todo-timestamp-views-9u4BW",
-      "origin/claude/admin-multi-repo-setup-7go0s",
-      "origin/claude/analyze-sample-data-time-ZWmOs",
-      "origin/claude/fix-dashboard-mobile-tabs-pRUVw",
-      "origin/claude/git-analytics-reporting-ebvnR",
-      "origin/claude/remove-duplicate-contributors-w8iLi",
-      "origin/claude/rerun-extraction-dashboard-M1m0i",
-      "origin/claude/update-docs-kubk3",
+      "origin/HEAD",
       "origin/main"
     ],
-    "extractedAt": "2026-01-19T06:39:12.479Z",
-    "repoPath": "/home/user/repo-tor/.repo-cache/repo-tor",
+    "extractedAt": "2026-01-19T09:07:36.806Z",
+    "repoPath": "/Users/jacotheron/Documents/GitHub/repo-tor",
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade-ai",
@@ -46,6 +37,201 @@
   },
   "commits": [
     {
+      "sha": "8e0f37a",
+      "fullSha": "8e0f37a4192f1871be9afb09815023b396dfbecc",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-19T11:00:52+02:00",
+      "commitDate": "2026-01-19T11:00:52+02:00",
+      "subject": "feat: add multi-tag support to dashboard",
+      "body": "- Replace single type field with tags[] array model\n- Add TAG_COLORS and tag helper functions (getCommitTags, getAllTags, getTagColor, getTagClass)\n- Rename \"Type\" filter to \"Tag\" filter (matches any tag)\n- Show all tags on commits (up to 3 with overflow indicator)\n- Rename \"By Type\" tab to \"By Tag\" tab\n- Update Progress tab Feature vs Bug Fix for tag-based counting\n- Update combineDataFiles() to build tagBreakdown\n\nDashboard expects tags[] field - will show \"other\" until extraction is updated.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "add multi-tag support to dashboard",
+      "is_conventional": true,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 166,
+        "deletions": 75
+      },
+      "files": [
+        "dashboard/index.html",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "57656f6",
+      "fullSha": "57656f6a1e145a4efe09a264b62ef92f06bab391",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-19T10:45:23+02:00",
+      "commitDate": "2026-01-19T10:45:23+02:00",
+      "subject": "docs: refocus on tag-based analytics with AI-driven extraction",
+      "body": "Shift tool focus to three core metrics:\n- When: timestamp analytics (hour, day, work hours, weekends)\n- What: AI-analyzed tags from commit messages (multiple per commit)\n- Complexity: score based on files changed + tag count\n\nAdd EXTRACTION_PLAYBOOK.md with \"feed the chicken\" trigger phrase.\nReorganize TODO.md around new direction (Foundation → Views → Polish).\nRemove completed items from TODO (tracked in HISTORY.md).\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "refocus on tag-based analytics with AI-driven extraction",
+      "is_conventional": true,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 252,
+        "deletions": 78
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "afdf679",
+      "fullSha": "afdf6794b6ea93a4f4e694aa58c7fa0dcc350e61",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-19T08:52:49+02:00",
+      "commitDate": "2026-01-19T08:52:49+02:00",
+      "subject": "Merge pull request #9 from devmade-ai/claude/add-todo-timestamp-views-9u4BW",
+      "body": "docs: add feature roadmap for timestamp views, filters, design, and privacy",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Merge pull request #9 from devmade-ai/claude/add-todo-timestamp-views-9u4BW",
+      "is_conventional": false,
+      "references": [
+        "#9"
+      ],
+      "stats": {
+        "filesChanged": 21,
+        "additions": 2129,
+        "deletions": 674
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "a27215f",
+      "fullSha": "a27215f8dc57c0d9a999adb205f2d5cca6fd44ae",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T06:50:51+00:00",
+      "commitDate": "2026-01-19T06:50:51+00:00",
+      "subject": "docs: add research items for commit model improvements",
+      "body": "New Research/Investigation section in TODO.md:\n\n1. Device/Platform Attribution\n   - Split contributions by committer name (mobile vs desktop)\n   - Config mapping for name variations with device tags\n\n2. AI-Powered Commit Categorization\n   - Claude reads commit messages + diffs to understand intent\n   - Auto-tagging beyond conventional commit types\n   - Confidence scores and human override\n\n3. Multi-Tag Commit Model\n   - One commit can have multiple tags (feat + refactor + docs)\n   - Schema change from single type to tags[] with weights\n   - Backward compatibility with existing data\n\n4. Tag-Centric Reporting\n   - Shift focus from commit counts to accomplishments\n   - Effort weighting based on complexity\n   - Activity vs output distinction",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "add research items for commit model improvements",
+      "is_conventional": true,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 47,
+        "deletions": 1
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "02f0e30",
+      "fullSha": "02f0e309757096bdb59cdf9376dd4a0dde1b8d51",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T06:39:36+00:00",
+      "commitDate": "2026-01-19T06:39:36+00:00",
+      "subject": "chore: update extracted data",
+      "body": "Re-extracted all 4 repositories:\n- social-ad-creator: 156 commits\n- model-pear: 302 commits\n- repo-tor: 50 commits (+7 new)\n- chatty-chart: 42 commits\n\nTotal: 550 commits across 4 repos",
+      "tags": [
+        "cleanup"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "update extracted data",
+      "is_conventional": true,
+      "references": [],
+      "stats": {
+        "filesChanged": 18,
+        "additions": 1998,
+        "deletions": 670
+      },
+      "files": [
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json",
+        "reports/chatty-chart/data.json",
+        "reports/chatty-chart/metadata.json",
+        "reports/model-pear/data.json",
+        "reports/model-pear/metadata.json",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json",
+        "reports/social-ad-creator/data.json",
+        "reports/social-ad-creator/metadata.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
       "sha": "24d8b0d",
       "fullSha": "24d8b0d199dda8a3b7699844d7203b95ce02de01",
       "author_id": "devmade.ai@gmail.com",
@@ -61,11 +247,13 @@
       "commitDate": "2026-01-19T06:35:58+00:00",
       "subject": "docs: add work hours vs after-hours distinction to roadmap",
       "body": "Renamed \"Weekend & Holiday Visual Distinction\" to \"Work Pattern Visual Distinction\"\n\nAdded time-of-day items:\n- Work hours highlighting (8:00-17:00)\n- After-hours styling for commits outside work window\n- Hour charts integration with work hours band\n- Configurable hours setting (default 8-17)\n\nUpdated cross-cutting items:\n- Heatmap now shows work hours rows + weekend columns\n- Commit badges include \"After Hours\" option",
-      "type": "docs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "add work hours vs after-hours distinction to roadmap",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -95,11 +283,13 @@
       "commitDate": "2026-01-19T06:31:13+00:00",
       "subject": "docs: add hour/day commit views and weekend/holiday distinction",
       "body": "Timestamp Views additions:\n- Commits by hour (0-23 bar chart)\n- Commits by day of week (Mon-Sun bar chart)\n\nNew Weekend & Holiday Visual Distinction section:\n- Weekend highlighting across ALL tabs/views\n- South African public holidays with distinct styling\n- Holiday data source (config/API)\n- Legend/key for workday vs weekend vs holiday\n- Integration points: Timeline, heatmap, commit list badges",
-      "type": "docs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "add hour/day commit views and weekend/holiday distinction",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -129,11 +319,13 @@
       "commitDate": "2026-01-19T06:25:27+00:00",
       "subject": "docs: update session notes with repo management priority item",
       "body": "",
-      "type": "docs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "update session notes with repo management priority item",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -161,11 +353,13 @@
       "commitDate": "2026-01-19T06:24:01+00:00",
       "subject": "docs: add repository management section to roadmap",
       "body": "New TODO items for handling repo lifecycle changes:\n- Repo rename handling with config mapping\n- Alias support for same repo with different names\n- Migration tool for updating existing data\n- Archive detection for graceful handling\n- URL redirect detection when repos are renamed",
-      "type": "docs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "add repository management section to roadmap",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -194,13 +388,14 @@
       "commitDate": "2026-01-19T06:18:33+00:00",
       "subject": "docs: add feature roadmap for timestamp views, filters, design, and privacy",
       "body": "High-priority items added to TODO.md:\n- Timestamp views & developer insights (heatmaps, activity patterns, trends)\n- Filter persistence across tabs (global state, URL params, localStorage)\n- Visual design & dark mode (theming, colors, typography)\n- Private repository security (sanitization, anonymization, local-only)",
-      "type": "docs",
+      "tags": [
+        "docs",
+        "security"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "add feature roadmap for timestamp views, filters, design, and privacy",
       "is_conventional": true,
-      "tags": [
-        "security"
-      ],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -230,11 +425,13 @@
       "commitDate": "2026-01-19T02:43:38+02:00",
       "subject": "Merge pull request #8 from devmade-ai/claude/add-chatty-chart-repo-RxuLQ",
       "body": "chore: add chatty-chart repository to dashboard",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "Merge pull request #8 from devmade-ai/claude/add-chatty-chart-repo-RxuLQ",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#8"
       ],
@@ -262,11 +459,13 @@
       "commitDate": "2026-01-19T00:42:25+00:00",
       "subject": "chore: add chatty-chart repository to dashboard",
       "body": "- Added illuminAI-select/chatty-chart (42 commits, 4 contributors)\n- Re-aggregated all data: now 543 commits across 4 repos",
-      "type": "chore",
+      "tags": [
+        "cleanup"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "add chatty-chart repository to dashboard",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 25,
@@ -318,11 +517,13 @@
       "commitDate": "2026-01-19T02:32:53+02:00",
       "subject": "Merge pull request #7 from devmade-ai/claude/remove-duplicate-contributors-w8iLi",
       "body": "fix: merge duplicate contributor entries using author-map",
-      "type": "other",
+      "tags": [
+        "cleanup"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "Merge pull request #7 from devmade-ai/claude/remove-duplicate-contributors-w8iLi",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#7"
       ],
@@ -350,11 +551,13 @@
       "commitDate": "2026-01-19T00:31:26+00:00",
       "subject": "chore: update extracted git analytics data",
       "body": "",
-      "type": "chore",
+      "tags": [
+        "cleanup"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "update extracted git analytics data",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 16,
@@ -397,11 +600,13 @@
       "commitDate": "2026-01-19T00:28:21+00:00",
       "subject": "fix: merge duplicate contributor entries using author-map",
       "body": "- Created config/author-map.json to merge jacotheron87's two emails\n  (jacotheron87@gmail.com and GitHub noreply address)\n- Re-aggregated data, reducing contributors from 4 to 3\n- Updated update-all.sh to auto-use author-map if present",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "merge duplicate contributor entries using author-map",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 10,
@@ -438,11 +643,13 @@
       "commitDate": "2026-01-19T02:20:39+02:00",
       "subject": "Merge pull request #6 from devmade-ai/claude/admin-multi-repo-setup-7go0s",
       "body": "feat: add social-ad-creator repo analytics",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "Merge pull request #6 from devmade-ai/claude/admin-multi-repo-setup-7go0s",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#6"
       ],
@@ -470,11 +677,13 @@
       "commitDate": "2026-01-19T00:19:42+00:00",
       "subject": "chore: update extracted git analytics data",
       "body": "Ran scripts/update-all.sh to refresh all repo data:\n- social-ad-creator: 156 commits\n- model-pear: 302 commits\n- repo-tor: 38 commits (updated with recent session commits)\n\nTotal: 496 commits across 3 repos",
-      "type": "chore",
+      "tags": [
+        "cleanup"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "update extracted git analytics data",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 16,
@@ -517,11 +726,13 @@
       "commitDate": "2026-01-19T00:17:34+00:00",
       "subject": "feat: add multi-repo management with config and update script",
       "body": "- Created config/repos.json to track repository URLs\n- Created scripts/update-all.sh to automate extraction/aggregation\n- Updated ADMIN_GUIDE.md with managed repos workflow\n- Simplified .gitignore: track all reports/, ignore .repo-cache/\n- Updated SESSION_NOTES.md and HISTORY.md\n\nRepos can now be added to config once and re-extracted anytime\nby running: ./scripts/update-all.sh",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "add multi-repo management with config and update script",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 6,
@@ -554,11 +765,13 @@
       "commitDate": "2026-01-19T00:12:03+00:00",
       "subject": "feat: aggregate all repos for dashboard auto-load",
       "body": "Combined data from 3 repos into dashboard/data.json:\n- social-ad-creator: 156 commits\n- model-pear: 302 commits\n- repo-tor: 32 commits\n\nDashboard will now auto-load all repo data on open.",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "aggregate all repos for dashboard auto-load",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 6,
@@ -591,11 +804,13 @@
       "commitDate": "2026-01-19T00:08:37+00:00",
       "subject": "feat: add model-pear repo analytics",
       "body": "Extracted git data for devmade-ai/model-pear:\n- 302 commits\n- 4 contributors\n- 228 files tracked",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "add model-pear repo analytics",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 7,
@@ -629,11 +844,13 @@
       "commitDate": "2026-01-19T00:05:11+00:00",
       "subject": "feat: add social-ad-creator repo analytics",
       "body": "Extracted git data for devmade-ai/social-ad-creator:\n- 156 commits\n- 3 contributors\n- 82 files tracked",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "add social-ad-creator repo analytics",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 7,
@@ -667,11 +884,13 @@
       "commitDate": "2026-01-19T01:44:05+02:00",
       "subject": "Merge pull request #5 from devmade-ai/claude/rerun-extraction-dashboard-M1m0i",
       "body": "chore: update extracted git analytics data",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "Merge pull request #5 from devmade-ai/claude/rerun-extraction-dashboard-M1m0i",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#5"
       ],
@@ -699,11 +918,13 @@
       "commitDate": "2026-01-18T23:42:10+00:00",
       "subject": "chore: update extracted git analytics data",
       "body": "Re-ran extraction script to capture latest commits (32 total).\nUpdated dashboard/data.json for GitHub Pages.",
-      "type": "chore",
+      "tags": [
+        "cleanup"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "update extracted git analytics data",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 7,
@@ -737,11 +958,13 @@
       "commitDate": "2026-01-19T00:55:18+02:00",
       "subject": "Merge pull request #4 from devmade-ai/claude/fix-dashboard-mobile-tabs-pRUVw",
       "body": "fix: make dashboard tabs mobile-friendly with horizontal scroll",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Merge pull request #4 from devmade-ai/claude/fix-dashboard-mobile-tabs-pRUVw",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#4"
       ],
@@ -769,11 +992,13 @@
       "commitDate": "2026-01-18T22:53:34+00:00",
       "subject": "feat: change timeline to horizontal bar chart",
       "body": "- Switched from vertical columns to horizontal bars\n- Newest dates at top for natural reading\n- Better mobile UX with more room for date labels",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "change timeline to horizontal bar chart",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -803,11 +1028,13 @@
       "commitDate": "2026-01-18T22:49:21+00:00",
       "subject": "fix: improve timeline layout for mobile devices",
       "body": "- Filter bar: responsive grid (2-col mobile, 3-col tablet, flex desktop)\n- Stacked filter labels above inputs for better touch targets\n- Shorter chart height on mobile (h-48 vs h-64)\n- Commit list: message wraps on mobile, metadata flows with separators\n- Line counts show inline on desktop, below metadata on mobile",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "improve timeline layout for mobile devices",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -837,11 +1064,13 @@
       "commitDate": "2026-01-18T22:46:10+00:00",
       "subject": "fix: make dashboard tabs mobile-friendly with horizontal scroll",
       "body": "Added overflow-x-auto and hidden scrollbar for clean horizontal\nscrolling on mobile devices. Applied whitespace-nowrap to prevent\ntab text wrapping and used negative margin for edge-to-edge scroll.",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "make dashboard tabs mobile-friendly with horizontal scroll",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -871,11 +1100,13 @@
       "commitDate": "2026-01-19T00:37:49+02:00",
       "subject": "fix: include data.json in GitHub Pages deployment",
       "body": "The deploy workflow was copying dashboard/index.html but not\ndashboard/data.json, causing 404 errors on the live site when\nthe dashboard tried to auto-load data.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "type": "fix",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "include data.json in GitHub Pages deployment",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -905,11 +1136,13 @@
       "commitDate": "2026-01-19T00:30:16+02:00",
       "subject": "Merge pull request #3 from devmade-ai/claude/analyze-sample-data-time-ZWmOs",
       "body": "chore: add sample data to dashboard for auto-load",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "Merge pull request #3 from devmade-ai/claude/analyze-sample-data-time-ZWmOs",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#3"
       ],
@@ -937,11 +1170,13 @@
       "commitDate": "2026-01-18T22:28:28+00:00",
       "subject": "docs: update docs and re-extract data with latest commits",
       "body": "- Update SESSION_NOTES.md with current state and live URL\n- Update HISTORY.md with dashboard auto-load fix entry\n- Re-run extraction (now 25 commits, 3 contributors)\n- Update dashboard/data.json with fresh extraction",
-      "type": "docs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "update docs and re-extract data with latest commits",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 9,
@@ -977,11 +1212,13 @@
       "commitDate": "2026-01-18T22:24:22+00:00",
       "subject": "docs: add live dashboard URL to guides",
       "body": "",
-      "type": "docs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "add live dashboard URL to guides",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -1010,11 +1247,13 @@
       "commitDate": "2026-01-18T22:21:22+00:00",
       "subject": "chore: add sample data to dashboard for auto-load",
       "body": "Copy data.json to dashboard directory so GitHub Pages deployment\ncan auto-load the sample data without manual file selection.",
-      "type": "chore",
+      "tags": [
+        "cleanup"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "add sample data to dashboard for auto-load",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1042,11 +1281,13 @@
       "commitDate": "2026-01-19T00:12:35+02:00",
       "subject": "Merge pull request #2 from devmade-ai/claude/update-docs-kubk3",
       "body": "docs: split documentation into user guide and admin guide",
-      "type": "docs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "Merge pull request #2 from devmade-ai/claude/update-docs-kubk3",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#2"
       ],
@@ -1074,11 +1315,13 @@
       "commitDate": "2026-01-18T22:11:11+00:00",
       "subject": "feat: implement schema alignment and multiple file loading",
       "body": "Schema Alignment:\n- Add author_id field to commits (references metadata.authors)\n- Replace parseMethod with is_conventional boolean\n- Add authors map to metadata.json for author lookup\n- Add security_events array to summary.json\n- Wrap commits.json in { \"commits\": [...] } object\n- Update aggregate.js to match new schema\n\nDashboard - Multiple Data Files:\n- File picker accepts multiple files (HTML5 multiple attribute)\n- Client-side combineDataFiles() function merges data\n- Combines commits, contributors, files from multiple repos\n- Merges authors from metadata of all files\n- Shows repo filter when multiple repos loaded\n\nUpdated documentation:\n- USER_GUIDE.md: Added Loading Data section with multi-file instructions\n- TODO.md: Marked medium priority items as complete\n- SESSION_NOTES.md: Updated current state\n- HISTORY.md: Added schema alignment and multi-file entries",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "implement schema alignment and multiple file loading",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 13,
@@ -1118,11 +1361,13 @@
       "commitDate": "2026-01-18T22:02:15+00:00",
       "subject": "docs: update all documentation and re-extract data",
       "body": "Re-ran extraction to capture all 20 commits (was 18):\n- reports/repo-tor/ now includes latest commits\n- Extraction uses git log --all for all branches\n\nUpdated documentation:\n- SESSION_NOTES.md: Current state with extraction details\n- TODO.md: Added data extraction to completed items\n- HISTORY.md: Added data extraction entry",
-      "type": "docs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "update all documentation and re-extract data",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 9,
@@ -1158,11 +1403,13 @@
       "commitDate": "2026-01-18T21:55:22+00:00",
       "subject": "chore: fix gitignore comment wording",
       "body": "",
-      "type": "chore",
+      "tags": [
+        "cleanup"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "fix gitignore comment wording",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1190,11 +1437,13 @@
       "commitDate": "2026-01-18T21:53:29+00:00",
       "subject": "chore: add extracted sample data for dashboard",
       "body": "Run extraction on this repository to provide sample data:\n- 18 commits from 3 contributors\n- Type breakdown: feat, docs, test, other, ci\n- Data available at reports/repo-tor/data.json\n\nUpdated .gitignore to allow sample data while ignoring other reports.",
-      "type": "chore",
+      "tags": [
+        "cleanup"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "add extracted sample data for dashboard",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 7,
@@ -1228,11 +1477,13 @@
       "commitDate": "2026-01-18T21:48:23+00:00",
       "subject": "ci: add GitHub Pages deployment workflow",
       "body": "Add automated deployment to GitHub Pages:\n- .github/workflows/deploy.yml: Deploys on push to main/master\n- Supports manual trigger via workflow_dispatch\n- Copies dashboard and reports folder to _site\n\nUpdated ADMIN_GUIDE.md with setup instructions:\n- Enable GitHub Pages with \"GitHub Actions\" as source\n- Manual deployment via Actions tab",
-      "type": "ci",
+      "tags": [
+        "config"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "add GitHub Pages deployment workflow",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -1264,11 +1515,13 @@
       "commitDate": "2026-01-18T21:08:20+00:00",
       "subject": "feat(dashboard): add filters for type, author, date range, and repo",
       "body": "Add filter bar to Timeline tab:\n- Type dropdown to filter by commit type\n- Author dropdown to filter by contributor\n- Repo dropdown for aggregated data (auto-hides for single repo)\n- Date range picker with from/to inputs\n- Clear Filters button to reset all\n\nFilters update both the timeline chart and commit list.\nAdded \"Showing X of Y commits\" counter.",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
       "scope": "dashboard",
       "title": "add filters for type, author, date range, and repo",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -1300,11 +1553,13 @@
       "commitDate": "2026-01-18T21:03:01+00:00",
       "subject": "feat(D3): add multi-repository aggregation script",
       "body": "Implement aggregation to combine data from multiple repositories:\n- scripts/aggregate.js: Combines repo data with author identity mapping\n- config/author-map.example.json: Example author mapping configuration\n- config/author-map.schema.json: JSON schema for validation\n\nAlso adds repo_id support:\n- scripts/extract.js: Now includes repo_id in metadata and commits\n- Enables tracking commit source in aggregated views\n\nDocumentation updates:\n- ADMIN_GUIDE.md: Added aggregation section\n- USER_GUIDE.md: Added multi-repository view section\n- TODO.md: Marked D3 as complete",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
       "scope": "D3",
       "title": "add multi-repository aggregation script",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 9,
@@ -1340,11 +1595,13 @@
       "commitDate": "2026-01-18T20:56:23+00:00",
       "subject": "docs: update CLAUDE.md checklist and TODO.md timestamp",
       "body": "- Add ADMIN_GUIDE.md to AI checklist for setup/config changes\n- Clarify USER_GUIDE.md is for UI/interpretation changes\n- Update TODO.md last-updated note to reflect session 3",
-      "type": "docs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "update CLAUDE.md checklist and TODO.md timestamp",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -1373,11 +1630,13 @@
       "commitDate": "2026-01-18T20:52:12+00:00",
       "subject": "docs: split documentation into user guide and admin guide",
       "body": "Separate concerns for different audiences:\n- USER_GUIDE.md: Dashboard UI walkthrough, chart interpretation, metric\n  analysis, health indicators, and tips for effective use\n- ADMIN_GUIDE.md: Installation, data extraction, commit hooks setup,\n  hosting options, and troubleshooting\n\nUser guide focuses on \"what does this mean?\" while admin guide\nfocuses on \"how do I set this up?\"",
-      "type": "docs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "split documentation into user guide and admin guide",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -1409,11 +1668,13 @@
       "commitDate": "2026-01-18T22:43:02+02:00",
       "subject": "Merge pull request #1 from devmade-ai/claude/git-analytics-reporting-ebvnR",
       "body": "Add Git Analytics Reporting System",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "Merge pull request #1 from devmade-ai/claude/git-analytics-reporting-ebvnR",
       "is_conventional": false,
-      "tags": [],
       "references": [
         "#1"
       ],
@@ -1441,11 +1702,13 @@
       "commitDate": "2026-01-18T20:40:49+00:00",
       "subject": "docs: update README and CLAUDE.md with project context",
       "body": "- README.md: Add project description, features, quick start, structure\n- CLAUDE.md: Add project overview section with purpose, components, state",
-      "type": "docs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "update README and CLAUDE.md with project context",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -1474,11 +1737,14 @@
       "commitDate": "2026-01-18T20:39:08+00:00",
       "subject": "docs: complete documentation for all features",
       "body": "- USER_GUIDE.md: Add commit convention section with hooks setup\n- USER_TESTING.md: Add test scenarios for extraction, dashboard, hooks\n- TODO.md: Add remaining work items (D3, schema alignment, filters)",
-      "type": "docs",
+      "tags": [
+        "docs",
+        "test"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "complete documentation for all features",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -1508,11 +1774,13 @@
       "commitDate": "2026-01-18T20:36:35+00:00",
       "subject": "docs: add commit convention guide and validation hooks",
       "body": "D2 deliverable - Commit Convention Guide:\n- docs/COMMIT_CONVENTION.md: Full guide for conventional commits\n  with type definitions, examples, and analytics impact\n- .gitmessage: Git commit template for consistent formatting\n- hooks/commit-msg: Validation hook for commit message format\n- hooks/setup.sh: Installation script for git hooks\n\nRun ./hooks/setup.sh to enable validation.",
-      "type": "docs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "add commit convention guide and validation hooks",
       "is_conventional": true,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 6,
@@ -1545,13 +1813,14 @@
       "commitDate": "2026-01-18T20:29:03+00:00",
       "subject": "Add Git Analytics Reporting System",
       "body": "- scripts/extract.js: Node.js extraction script with git log parsing,\n  conventional commit detection, keyword-based type fallback, and\n  structured JSON output\n- scripts/extract.sh: Shell wrapper for easier usage\n- dashboard/index.html: Static analytics dashboard with Chart.js\n  - Timeline: daily commit chart, recent commits list\n  - Progress: monthly volume, cumulative growth, feature vs fix trends\n  - Contributors: commits and lines by author\n  - Security: highlighted security-related commits\n  - Types: pie chart and percentage breakdown\n- Updated .gitignore to exclude generated reports/\n- Updated docs with usage documentation",
-      "type": "feat",
+      "tags": [
+        "feature",
+        "security"
+      ],
+      "complexity": 4,
       "scope": null,
       "title": "Add Git Analytics Reporting System",
       "is_conventional": false,
-      "tags": [
-        "security"
-      ],
       "references": [],
       "stats": {
         "filesChanged": 7,
@@ -1585,11 +1854,14 @@
       "commitDate": "2026-01-18T22:18:42+02:00",
       "subject": "Add USER_GUIDE.md and USER_TESTING.md to checklists",
       "body": "Updated \"After Each Significant Task\" checklist to include:\n- Update USER_GUIDE.md when user-facing behavior changes\n- Update USER_TESTING.md when new test scenarios are needed\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "type": "feat",
+      "tags": [
+        "feature",
+        "test"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Add USER_GUIDE.md and USER_TESTING.md to checklists",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 2,
@@ -1618,11 +1890,13 @@
       "commitDate": "2026-01-18T22:17:13+02:00",
       "subject": "Add USER_TESTING.md and USER_GUIDE.md",
       "body": "- USER_TESTING.md: Guidelines for testing features as a user\n- USER_GUIDE.md: Documentation for end users\n- Updated HISTORY.md and SESSION_NOTES.md\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "Add USER_TESTING.md and USER_GUIDE.md",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 4,
@@ -1653,11 +1927,13 @@
       "commitDate": "2026-01-18T22:14:17+02:00",
       "subject": "Add documentation structure in docs/ folder",
       "body": "- docs/SESSION_NOTES.md: Track current state for session continuity\n- docs/TODO.md: Capture pending items and ideas\n- docs/HISTORY.md: Log significant changes\n- docs/USER_ACTIONS.md: Document manual user actions needed\n- Updated CLAUDE.md references to point to docs/ folder\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
       "scope": null,
       "title": "Add documentation structure in docs/ folder",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 5,
@@ -1689,11 +1965,13 @@
       "commitDate": "2026-01-18T22:10:24+02:00",
       "subject": "Add Claude Code local settings to .gitignore",
       "body": "Prevents .claude/settings.local.json from being committed\nas it contains user-specific permission settings.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Add Claude Code local settings to .gitignore",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1721,11 +1999,13 @@
       "commitDate": "2026-01-18T22:06:07+02:00",
       "subject": "Add CLAUDE.md with AI assistant preferences and checklists",
       "body": "Establishes guidelines for AI sessions including:\n- Process for gathering context before tasks\n- Principles for user-first design and documentation\n- Checklists for session start, task completion, commits, and pushes\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "type": "feat",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Add CLAUDE.md with AI assistant preferences and checklists",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1753,11 +2033,13 @@
       "commitDate": "2026-01-18T22:03:39+02:00",
       "subject": "Remove test file",
       "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "type": "test",
+      "tags": [
+        "test"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Remove test file",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1785,11 +2067,13 @@
       "commitDate": "2026-01-18T22:03:07+02:00",
       "subject": "Test commit to verify push access",
       "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "type": "test",
+      "tags": [
+        "test"
+      ],
+      "complexity": 1,
       "scope": null,
       "title": "Test commit to verify push access",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 1,
@@ -1817,11 +2101,13 @@
       "commitDate": "2026-01-18T21:53:16+02:00",
       "subject": "Initial commit",
       "body": "",
-      "type": "other",
+      "tags": [
+        "other"
+      ],
+      "complexity": 2,
       "scope": null,
       "title": "Initial commit",
       "is_conventional": false,
-      "tags": [],
       "references": [],
       "stats": {
         "filesChanged": 3,
@@ -1843,17 +2129,18 @@
       "names": [
         "devmade-ai"
       ],
-      "commits": 23,
-      "additions": 195880,
-      "deletions": 8942,
+      "commits": 26,
+      "additions": 200054,
+      "deletions": 10287,
       "firstCommit": "2026-01-18T21:53:16+02:00",
-      "lastCommit": "2026-01-19T06:35:58+00:00",
-      "types": {
-        "docs": 6,
-        "feat": 5,
-        "chore": 4,
-        "other": 6,
-        "fix": 2
+      "lastCommit": "2026-01-19T08:52:49+02:00",
+      "tagCounts": {
+        "feature": 6,
+        "docs": 7,
+        "cleanup": 6,
+        "security": 1,
+        "bugfix": 2,
+        "other": 5
       },
       "primaryName": "devmade-ai"
     },
@@ -1868,12 +2155,14 @@
       "deletions": 1492,
       "firstCommit": "2026-01-18T20:29:03+00:00",
       "lastCommit": "2026-01-18T22:53:34+00:00",
-      "types": {
-        "feat": 5,
-        "fix": 2,
+      "tagCounts": {
+        "feature": 5,
+        "bugfix": 2,
         "docs": 8,
-        "chore": 3,
-        "ci": 1
+        "cleanup": 3,
+        "config": 1,
+        "test": 1,
+        "security": 1
       },
       "primaryName": "Claude"
     },
@@ -1883,15 +2172,16 @@
       "names": [
         "jacotheron87"
       ],
-      "commits": 8,
-      "additions": 216,
-      "deletions": 15,
+      "commits": 10,
+      "additions": 634,
+      "deletions": 168,
       "firstCommit": "2026-01-18T22:03:07+02:00",
-      "lastCommit": "2026-01-19T00:37:49+02:00",
-      "types": {
-        "fix": 1,
-        "feat": 5,
-        "test": 2
+      "lastCommit": "2026-01-19T11:00:52+02:00",
+      "tagCounts": {
+        "feature": 6,
+        "docs": 1,
+        "bugfix": 1,
+        "test": 3
       },
       "primaryName": "jacotheron87"
     }
@@ -1899,57 +2189,62 @@
   "files": [
     {
       "path": "docs/HISTORY.md",
-      "changeCount": 23,
-      "commitTypes": {
-        "docs": 8,
-        "chore": 1,
-        "fix": 4,
-        "feat": 9,
-        "ci": 1
+      "changeCount": 26,
+      "tagCounts": {
+        "feature": 10,
+        "docs": 10,
+        "security": 2,
+        "cleanup": 1,
+        "bugfix": 4,
+        "config": 1,
+        "test": 1
       },
       "authors": [
+        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com",
-        "noreply@anthropic.com",
-        "jacotheron87@gmail.com"
+        "noreply@anthropic.com"
       ]
     },
     {
       "path": "docs/SESSION_NOTES.md",
-      "changeCount": 22,
-      "commitTypes": {
-        "docs": 8,
-        "chore": 1,
-        "fix": 4,
-        "feat": 8,
-        "ci": 1
+      "changeCount": 25,
+      "tagCounts": {
+        "feature": 9,
+        "docs": 10,
+        "security": 2,
+        "cleanup": 1,
+        "bugfix": 4,
+        "config": 1
       },
       "authors": [
+        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com",
-        "noreply@anthropic.com",
-        "jacotheron87@gmail.com"
+        "noreply@anthropic.com"
       ]
     },
     {
       "path": "docs/TODO.md",
-      "changeCount": 12,
-      "commitTypes": {
-        "docs": 7,
-        "feat": 4,
-        "ci": 1
+      "changeCount": 14,
+      "tagCounts": {
+        "docs": 9,
+        "security": 1,
+        "feature": 4,
+        "config": 1,
+        "test": 1
       },
       "authors": [
+        "jacotheron87@gmail.com",
         "devmade.ai@gmail.com",
-        "noreply@anthropic.com",
-        "jacotheron87@gmail.com"
+        "noreply@anthropic.com"
       ]
     },
     {
       "path": "dashboard/data.json",
-      "changeCount": 8,
-      "commitTypes": {
-        "chore": 5,
-        "fix": 1,
-        "feat": 1,
+      "changeCount": 9,
+      "tagCounts": {
+        "cleanup": 6,
+        "bugfix": 1,
+        "feature": 1,
         "docs": 1
       },
       "authors": [
@@ -1959,11 +2254,11 @@
     },
     {
       "path": "reports/repo-tor/commits.json",
-      "changeCount": 8,
-      "commitTypes": {
-        "chore": 5,
+      "changeCount": 9,
+      "tagCounts": {
+        "cleanup": 6,
         "docs": 2,
-        "feat": 1
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com",
@@ -1972,11 +2267,11 @@
     },
     {
       "path": "reports/repo-tor/contributors.json",
-      "changeCount": 8,
-      "commitTypes": {
-        "chore": 5,
+      "changeCount": 9,
+      "tagCounts": {
+        "cleanup": 6,
         "docs": 2,
-        "feat": 1
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com",
@@ -1985,11 +2280,11 @@
     },
     {
       "path": "reports/repo-tor/data.json",
-      "changeCount": 8,
-      "commitTypes": {
-        "chore": 5,
+      "changeCount": 9,
+      "tagCounts": {
+        "cleanup": 6,
         "docs": 2,
-        "feat": 1
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com",
@@ -1998,11 +2293,11 @@
     },
     {
       "path": "reports/repo-tor/files.json",
-      "changeCount": 8,
-      "commitTypes": {
-        "chore": 5,
+      "changeCount": 9,
+      "tagCounts": {
+        "cleanup": 6,
         "docs": 2,
-        "feat": 1
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com",
@@ -2011,11 +2306,11 @@
     },
     {
       "path": "reports/repo-tor/metadata.json",
-      "changeCount": 8,
-      "commitTypes": {
-        "chore": 5,
+      "changeCount": 9,
+      "tagCounts": {
+        "cleanup": 6,
         "docs": 2,
-        "feat": 1
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com",
@@ -2024,11 +2319,11 @@
     },
     {
       "path": "reports/repo-tor/summary.json",
-      "changeCount": 8,
-      "commitTypes": {
-        "chore": 5,
+      "changeCount": 9,
+      "tagCounts": {
+        "cleanup": 6,
         "docs": 2,
-        "feat": 1
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com",
@@ -2038,9 +2333,10 @@
     {
       "path": ".gitignore",
       "changeCount": 8,
-      "commitTypes": {
-        "feat": 5,
-        "chore": 2,
+      "tagCounts": {
+        "feature": 5,
+        "cleanup": 2,
+        "security": 1,
         "other": 1
       },
       "authors": [
@@ -2052,9 +2348,11 @@
     {
       "path": "docs/USER_GUIDE.md",
       "changeCount": 8,
-      "commitTypes": {
+      "tagCounts": {
         "docs": 3,
-        "feat": 5
+        "feature": 5,
+        "test": 1,
+        "security": 1
       },
       "authors": [
         "noreply@anthropic.com",
@@ -2063,22 +2361,37 @@
     },
     {
       "path": "dashboard/index.html",
-      "changeCount": 6,
-      "commitTypes": {
-        "feat": 4,
-        "fix": 2
+      "changeCount": 7,
+      "tagCounts": {
+        "feature": 5,
+        "bugfix": 2,
+        "security": 1
       },
       "authors": [
+        "jacotheron87@gmail.com",
+        "noreply@anthropic.com"
+      ]
+    },
+    {
+      "path": "CLAUDE.md",
+      "changeCount": 6,
+      "tagCounts": {
+        "docs": 3,
+        "feature": 3,
+        "test": 1
+      },
+      "authors": [
+        "jacotheron87@gmail.com",
         "noreply@anthropic.com"
       ]
     },
     {
       "path": "dashboard/commits.json",
-      "changeCount": 5,
-      "commitTypes": {
-        "chore": 3,
-        "fix": 1,
-        "feat": 1
+      "changeCount": 6,
+      "tagCounts": {
+        "cleanup": 4,
+        "bugfix": 1,
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2086,11 +2399,11 @@
     },
     {
       "path": "dashboard/contributors.json",
-      "changeCount": 5,
-      "commitTypes": {
-        "chore": 3,
-        "fix": 1,
-        "feat": 1
+      "changeCount": 6,
+      "tagCounts": {
+        "cleanup": 4,
+        "bugfix": 1,
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2098,11 +2411,11 @@
     },
     {
       "path": "dashboard/files.json",
-      "changeCount": 5,
-      "commitTypes": {
-        "chore": 3,
-        "fix": 1,
-        "feat": 1
+      "changeCount": 6,
+      "tagCounts": {
+        "cleanup": 4,
+        "bugfix": 1,
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2110,11 +2423,11 @@
     },
     {
       "path": "dashboard/metadata.json",
-      "changeCount": 5,
-      "commitTypes": {
-        "chore": 3,
-        "fix": 1,
-        "feat": 1
+      "changeCount": 6,
+      "tagCounts": {
+        "cleanup": 4,
+        "bugfix": 1,
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2122,11 +2435,55 @@
     },
     {
       "path": "dashboard/summary.json",
+      "changeCount": 6,
+      "tagCounts": {
+        "cleanup": 4,
+        "bugfix": 1,
+        "feature": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "reports/model-pear/data.json",
       "changeCount": 5,
-      "commitTypes": {
-        "chore": 3,
-        "fix": 1,
-        "feat": 1
+      "tagCounts": {
+        "cleanup": 4,
+        "feature": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "reports/model-pear/metadata.json",
+      "changeCount": 5,
+      "tagCounts": {
+        "cleanup": 4,
+        "feature": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "reports/social-ad-creator/data.json",
+      "changeCount": 5,
+      "tagCounts": {
+        "cleanup": 4,
+        "feature": 1
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "reports/social-ad-creator/metadata.json",
+      "changeCount": 5,
+      "tagCounts": {
+        "cleanup": 4,
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2135,10 +2492,10 @@
     {
       "path": "docs/ADMIN_GUIDE.md",
       "changeCount": 5,
-      "commitTypes": {
-        "feat": 2,
+      "tagCounts": {
+        "feature": 2,
         "docs": 2,
-        "ci": 1
+        "config": 1
       },
       "authors": [
         "devmade.ai@gmail.com",
@@ -2146,66 +2503,11 @@
       ]
     },
     {
-      "path": "CLAUDE.md",
-      "changeCount": 5,
-      "commitTypes": {
-        "docs": 2,
-        "feat": 3
-      },
-      "authors": [
-        "noreply@anthropic.com",
-        "jacotheron87@gmail.com"
-      ]
-    },
-    {
-      "path": "reports/model-pear/data.json",
-      "changeCount": 4,
-      "commitTypes": {
-        "chore": 3,
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": "reports/model-pear/metadata.json",
-      "changeCount": 4,
-      "commitTypes": {
-        "chore": 3,
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": "reports/social-ad-creator/data.json",
-      "changeCount": 4,
-      "commitTypes": {
-        "chore": 3,
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": "reports/social-ad-creator/metadata.json",
-      "changeCount": 4,
-      "commitTypes": {
-        "chore": 3,
-        "feat": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
       "path": "scripts/extract.js",
       "changeCount": 3,
-      "commitTypes": {
-        "feat": 3
+      "tagCounts": {
+        "feature": 3,
+        "security": 1
       },
       "authors": [
         "noreply@anthropic.com"
@@ -2214,7 +2516,7 @@
     {
       "path": "README.md",
       "changeCount": 3,
-      "commitTypes": {
+      "tagCounts": {
         "docs": 2,
         "other": 1
       },
@@ -2224,11 +2526,31 @@
       ]
     },
     {
+      "path": "reports/chatty-chart/data.json",
+      "changeCount": 2,
+      "tagCounts": {
+        "cleanup": 2
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
+      "path": "reports/chatty-chart/metadata.json",
+      "changeCount": 2,
+      "tagCounts": {
+        "cleanup": 2
+      },
+      "authors": [
+        "devmade.ai@gmail.com"
+      ]
+    },
+    {
       "path": "config/repos.json",
       "changeCount": 2,
-      "commitTypes": {
-        "chore": 1,
-        "feat": 1
+      "tagCounts": {
+        "cleanup": 1,
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2237,9 +2559,9 @@
     {
       "path": "scripts/update-all.sh",
       "changeCount": 2,
-      "commitTypes": {
-        "fix": 1,
-        "feat": 1
+      "tagCounts": {
+        "bugfix": 1,
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2248,9 +2570,9 @@
     {
       "path": ".github/workflows/deploy.yml",
       "changeCount": 2,
-      "commitTypes": {
-        "fix": 1,
-        "ci": 1
+      "tagCounts": {
+        "bugfix": 1,
+        "config": 1
       },
       "authors": [
         "jacotheron87@gmail.com",
@@ -2260,8 +2582,8 @@
     {
       "path": "scripts/aggregate.js",
       "changeCount": 2,
-      "commitTypes": {
-        "feat": 2
+      "tagCounts": {
+        "feature": 2
       },
       "authors": [
         "noreply@anthropic.com"
@@ -2270,9 +2592,10 @@
     {
       "path": "docs/USER_TESTING.md",
       "changeCount": 2,
-      "commitTypes": {
+      "tagCounts": {
         "docs": 1,
-        "feat": 1
+        "test": 1,
+        "feature": 1
       },
       "authors": [
         "noreply@anthropic.com",
@@ -2282,8 +2605,18 @@
     {
       "path": "test-push-access.txt",
       "changeCount": 2,
-      "commitTypes": {
+      "tagCounts": {
         "test": 2
+      },
+      "authors": [
+        "jacotheron87@gmail.com"
+      ]
+    },
+    {
+      "path": "docs/EXTRACTION_PLAYBOOK.md",
+      "changeCount": 1,
+      "tagCounts": {
+        "docs": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -2292,8 +2625,8 @@
     {
       "path": "reports/chatty-chart/commits.json",
       "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
+      "tagCounts": {
+        "cleanup": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2302,18 +2635,8 @@
     {
       "path": "reports/chatty-chart/contributors.json",
       "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": "reports/chatty-chart/data.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
+      "tagCounts": {
+        "cleanup": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2322,18 +2645,8 @@
     {
       "path": "reports/chatty-chart/files.json",
       "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
-      },
-      "authors": [
-        "devmade.ai@gmail.com"
-      ]
-    },
-    {
-      "path": "reports/chatty-chart/metadata.json",
-      "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
+      "tagCounts": {
+        "cleanup": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2342,8 +2655,8 @@
     {
       "path": "reports/chatty-chart/summary.json",
       "changeCount": 1,
-      "commitTypes": {
-        "chore": 1
+      "tagCounts": {
+        "cleanup": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2352,8 +2665,8 @@
     {
       "path": "config/author-map.json",
       "changeCount": 1,
-      "commitTypes": {
-        "fix": 1
+      "tagCounts": {
+        "bugfix": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2362,8 +2675,8 @@
     {
       "path": "reports/model-pear/commits.json",
       "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
+      "tagCounts": {
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2372,8 +2685,8 @@
     {
       "path": "reports/model-pear/contributors.json",
       "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
+      "tagCounts": {
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2382,8 +2695,8 @@
     {
       "path": "reports/model-pear/files.json",
       "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
+      "tagCounts": {
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2392,8 +2705,8 @@
     {
       "path": "reports/model-pear/summary.json",
       "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
+      "tagCounts": {
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2402,8 +2715,8 @@
     {
       "path": "reports/social-ad-creator/commits.json",
       "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
+      "tagCounts": {
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2412,8 +2725,8 @@
     {
       "path": "reports/social-ad-creator/contributors.json",
       "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
+      "tagCounts": {
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2422,8 +2735,8 @@
     {
       "path": "reports/social-ad-creator/files.json",
       "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
+      "tagCounts": {
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2432,8 +2745,8 @@
     {
       "path": "reports/social-ad-creator/summary.json",
       "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
+      "tagCounts": {
+        "feature": 1
       },
       "authors": [
         "devmade.ai@gmail.com"
@@ -2442,8 +2755,8 @@
     {
       "path": "config/author-map.example.json",
       "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
+      "tagCounts": {
+        "feature": 1
       },
       "authors": [
         "noreply@anthropic.com"
@@ -2452,8 +2765,8 @@
     {
       "path": "config/author-map.schema.json",
       "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
+      "tagCounts": {
+        "feature": 1
       },
       "authors": [
         "noreply@anthropic.com"
@@ -2462,7 +2775,7 @@
     {
       "path": ".gitmessage",
       "changeCount": 1,
-      "commitTypes": {
+      "tagCounts": {
         "docs": 1
       },
       "authors": [
@@ -2472,7 +2785,7 @@
     {
       "path": "docs/COMMIT_CONVENTION.md",
       "changeCount": 1,
-      "commitTypes": {
+      "tagCounts": {
         "docs": 1
       },
       "authors": [
@@ -2482,7 +2795,7 @@
     {
       "path": "hooks/commit-msg",
       "changeCount": 1,
-      "commitTypes": {
+      "tagCounts": {
         "docs": 1
       },
       "authors": [
@@ -2492,7 +2805,7 @@
     {
       "path": "hooks/setup.sh",
       "changeCount": 1,
-      "commitTypes": {
+      "tagCounts": {
         "docs": 1
       },
       "authors": [
@@ -2502,8 +2815,9 @@
     {
       "path": "scripts/extract.sh",
       "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
+      "tagCounts": {
+        "feature": 1,
+        "security": 1
       },
       "authors": [
         "noreply@anthropic.com"
@@ -2512,8 +2826,8 @@
     {
       "path": "docs/USER_ACTIONS.md",
       "changeCount": 1,
-      "commitTypes": {
-        "feat": 1
+      "tagCounts": {
+        "feature": 1
       },
       "authors": [
         "jacotheron87@gmail.com"
@@ -2522,7 +2836,7 @@
     {
       "path": "LICENSE",
       "changeCount": 1,
-      "commitTypes": {
+      "tagCounts": {
         "other": 1
       },
       "authors": [
@@ -2531,31 +2845,40 @@
     }
   ],
   "summary": {
-    "totalCommits": 50,
+    "totalCommits": 55,
     "totalContributors": 3,
-    "totalAdditions": 205053,
-    "totalDeletions": 10449,
-    "netLinesChanged": 194604,
-    "typeBreakdown": {
-      "docs": 14,
-      "feat": 15,
-      "chore": 7,
-      "other": 6,
-      "fix": 5,
-      "ci": 1,
-      "test": 2
+    "totalAdditions": 209645,
+    "totalDeletions": 11947,
+    "netLinesChanged": 197698,
+    "tagBreakdown": {
+      "feature": 17,
+      "docs": 16,
+      "cleanup": 9,
+      "security": 2,
+      "bugfix": 5,
+      "other": 5,
+      "config": 1,
+      "test": 4
+    },
+    "complexityBreakdown": {
+      "1": 7,
+      "2": 17,
+      "3": 30,
+      "4": 1,
+      "5": 0
     },
     "monthlyCommits": {
       "2026-01": {
-        "total": 50,
-        "types": {
-          "docs": 14,
-          "feat": 15,
-          "chore": 7,
-          "other": 6,
-          "fix": 5,
-          "ci": 1,
-          "test": 2
+        "total": 55,
+        "tags": {
+          "feature": 17,
+          "docs": 16,
+          "cleanup": 9,
+          "security": 2,
+          "bugfix": 5,
+          "other": 5,
+          "config": 1,
+          "test": 4
         }
       }
     },
@@ -2578,7 +2901,7 @@
     ],
     "dateRange": {
       "earliest": "2026-01-18T21:53:16+02:00",
-      "latest": "2026-01-19T06:35:58+00:00"
+      "latest": "2026-01-19T11:00:52+02:00"
     }
   }
 }

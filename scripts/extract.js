@@ -13,22 +13,37 @@ const fs = require('fs');
 const path = require('path');
 
 // === Configuration ===
-const CONVENTIONAL_TYPES = [
-  'feat', 'fix', 'docs', 'style', 'refactor',
-  'perf', 'test', 'build', 'ci', 'chore', 'revert', 'security'
-];
 
+// New tag vocabulary (maps from conventional commit types)
+const CONVENTIONAL_TO_TAG = {
+  'feat': 'feature',
+  'fix': 'bugfix',
+  'docs': 'docs',
+  'style': 'style',
+  'refactor': 'refactor',
+  'perf': 'performance',
+  'test': 'test',
+  'build': 'config',
+  'ci': 'config',
+  'chore': 'cleanup',
+  'revert': 'cleanup',
+  'security': 'security'
+};
+
+const CONVENTIONAL_TYPES = Object.keys(CONVENTIONAL_TO_TAG);
+
+// Keyword patterns map to new tag vocabulary
 const KEYWORD_PATTERNS = {
-  feat: /\b(add|adds|added|adding|new|create|creates|created|implement|implements|implemented)\b/i,
-  fix: /\b(fix|fixes|fixed|fixing|bug|bugs|patch|patches|patched|resolve|resolves|resolved)\b/i,
+  feature: /\b(add|adds|added|adding|new|create|creates|created|implement|implements|implemented)\b/i,
+  bugfix: /\b(fix|fixes|fixed|fixing|bug|bugs|patch|patches|patched|resolve|resolves|resolved)\b/i,
   security: /\b(security|secure|vulnerability|vulnerabilities|cve|xss|csrf|injection|auth|authentication)\b/i,
   docs: /\b(doc|docs|documentation|readme|guide|comment|comments)\b/i,
-  refactor: /\b(refactor|refactors|refactored|refactoring|restructure|reorganize|cleanup|clean\s*up)\b/i,
+  refactor: /\b(refactor|refactors|refactored|refactoring|restructure|reorganize)\b/i,
   test: /\b(test|tests|testing|spec|specs|coverage)\b/i,
-  chore: /\b(chore|chores|maintenance|maintain|update|updates|updated|upgrade|upgrades|bump|bumps)\b/i,
-  perf: /\b(perf|performance|optimize|optimizes|optimized|optimization|speed|faster)\b/i,
-  ci: /\b(ci|cd|pipeline|workflow|github\s*action|travis|jenkins|circleci)\b/i,
-  build: /\b(build|builds|webpack|rollup|bundle|compile|compiles)\b/i,
+  cleanup: /\b(chore|chores|maintenance|maintain|cleanup|clean\s*up|remove|delete)\b/i,
+  performance: /\b(perf|performance|optimize|optimizes|optimized|optimization|speed|faster)\b/i,
+  config: /\b(ci|cd|pipeline|workflow|github\s*action|travis|jenkins|circleci|build|builds|webpack|rollup|bundle|compile|compiles|config|configure|configuration)\b/i,
+  dependency: /\b(dependency|dependencies|npm|yarn|package\.json|upgrade|upgrades|bump|bumps|update.*dep|dep.*update)\b/i,
 };
 
 // === Argument Parsing ===
@@ -62,71 +77,88 @@ function git(command, options = {}) {
 }
 
 // === Commit Message Parsing ===
-function parseCommitType(subject) {
-  // Try conventional commit format: type(scope): subject
-  const conventionalMatch = subject.match(/^(\w+)(?:\(([^)]+)\))?(!)?:\s*(.+)$/);
-
-  if (conventionalMatch) {
-    const [, type, scope, breaking, title] = conventionalMatch;
-    if (CONVENTIONAL_TYPES.includes(type.toLowerCase())) {
-      return {
-        type: type.toLowerCase(),
-        scope: scope || null,
-        breaking: !!breaking,
-        title: title,
-        is_conventional: true
-      };
-    }
-  }
-
-  // Fallback to keyword detection
-  for (const [type, pattern] of Object.entries(KEYWORD_PATTERNS)) {
-    if (pattern.test(subject)) {
-      return {
-        type,
-        scope: null,
-        breaking: false,
-        title: subject,
-        is_conventional: false
-      };
-    }
-  }
-
-  // Default to 'other' if no pattern matches
-  return {
-    type: 'other',
+function parseCommitMessage(subject, body) {
+  const result = {
+    tags: [],
     scope: null,
     breaking: false,
     title: subject,
     is_conventional: false
   };
+
+  // Try conventional commit format: type(scope): subject
+  const conventionalMatch = subject.match(/^(\w+)(?:\(([^)]+)\))?(!)?:\s*(.+)$/);
+
+  if (conventionalMatch) {
+    const [, type, scope, breaking, title] = conventionalMatch;
+    const lowerType = type.toLowerCase();
+    if (CONVENTIONAL_TYPES.includes(lowerType)) {
+      const tag = CONVENTIONAL_TO_TAG[lowerType];
+      result.tags.push(tag);
+      result.scope = scope || null;
+      result.breaking = !!breaking;
+      result.title = title;
+      result.is_conventional = true;
+    }
+  }
+
+  // If no conventional commit found, try keyword detection
+  if (result.tags.length === 0) {
+    for (const [tag, pattern] of Object.entries(KEYWORD_PATTERNS)) {
+      if (pattern.test(subject)) {
+        result.tags.push(tag);
+        break; // Only add first matching tag from subject
+      }
+    }
+  }
+
+  // Check body for additional tags (security, dependency patterns)
+  const fullText = subject + '\n' + body;
+
+  // Security detection
+  if (/\b(security|cve|vulnerability|xss|csrf|injection)\b/i.test(fullText)) {
+    if (!result.tags.includes('security')) result.tags.push('security');
+  }
+
+  // Dependency detection
+  if (/\b(dependency|dependencies|npm|yarn|package\.json)\b/i.test(body)) {
+    if (!result.tags.includes('dependency')) result.tags.push('dependency');
+  }
+
+  // Test detection in body
+  if (/\b(add.*test|test.*added|new.*test|test.*coverage)\b/i.test(body)) {
+    if (!result.tags.includes('test')) result.tags.push('test');
+  }
+
+  // Default to 'other' if no tags found
+  if (result.tags.length === 0) {
+    result.tags.push('other');
+  }
+
+  return result;
 }
 
-function extractTags(body) {
-  const tags = [];
+// Calculate complexity based on files changed and tag count
+function calculateComplexity(filesChanged, tagCount) {
+  // Score 1: Single file, single tag
+  // Score 2: 2-3 files OR 2 tags
+  // Score 3: 4-6 files OR 3+ tags
+  // Score 4: 7-10 files AND multiple tags
+  // Score 5: 10+ files AND 3+ tags
 
-  // Check for explicit tags line
-  const tagsMatch = body.match(/^tags?:\s*(.+)$/im);
-  if (tagsMatch) {
-    tags.push(...tagsMatch[1].split(/[,\s]+/).filter(Boolean));
-  }
+  if (filesChanged >= 10 && tagCount >= 3) return 5;
+  if (filesChanged >= 7 && tagCount >= 2) return 4;
+  if (filesChanged >= 4 || tagCount >= 3) return 3;
+  if (filesChanged >= 2 || tagCount >= 2) return 2;
+  return 1;
+}
 
-  // Check for security-related keywords
-  if (/\b(security|cve|vulnerability|xss|csrf|injection)\b/i.test(body)) {
-    if (!tags.includes('security')) tags.push('security');
-  }
-
+function extractBreakingChange(body) {
   // Check for breaking change indicators
   if (/\bBREAKING\s*CHANGE\b/i.test(body) || /^BREAKING:/im.test(body)) {
-    if (!tags.includes('breaking')) tags.push('breaking');
+    return true;
   }
-
-  // Check for dependency updates
-  if (/\b(dependency|dependencies|npm|yarn|package\.json)\b/i.test(body)) {
-    if (!tags.includes('dependency')) tags.push('dependency');
-  }
-
-  return tags;
+  return false;
 }
 
 function extractReferences(text) {
@@ -187,13 +219,14 @@ function extractCommits() {
            committerName, committerEmail, commitDate, subject, ...bodyLines] = lines;
 
     const body = bodyLines.join('\n').trim();
-    const parsed = parseCommitType(subject);
-    const tags = extractTags(body);
+    const parsed = parseCommitMessage(subject, body);
     const references = extractReferences(subject + '\n' + body);
 
-    // Add breaking tag if detected in parsing
-    if (parsed.breaking && !tags.includes('breaking')) {
-      tags.push('breaking');
+    // Check for breaking change in body
+    if (extractBreakingChange(body) || parsed.breaking) {
+      if (!parsed.tags.includes('breaking')) {
+        parsed.tags.push('breaking');
+      }
     }
 
     commits.push({
@@ -212,11 +245,11 @@ function extractCommits() {
       commitDate: commitDate,
       subject: subject,
       body: body,
-      type: parsed.type,
+      tags: parsed.tags,
+      complexity: 1, // Placeholder - calculated after stats are extracted
       scope: parsed.scope,
       title: parsed.title,
       is_conventional: parsed.is_conventional,
-      tags: tags,
       references: references
     });
   }
@@ -235,8 +268,9 @@ function extractCommits() {
     // Parse stats from output like: "2 files changed, 10 insertions(+), 5 deletions(-)"
     const statsMatch = statsOutput.match(/(\d+) files? changed(?:, (\d+) insertions?\(\+\))?(?:, (\d+) deletions?\(-\))?/);
 
+    const filesChanged = statsMatch ? parseInt(statsMatch[1]) || 0 : 0;
     commit.stats = {
-      filesChanged: statsMatch ? parseInt(statsMatch[1]) || 0 : 0,
+      filesChanged: filesChanged,
       additions: statsMatch ? parseInt(statsMatch[2]) || 0 : 0,
       deletions: statsMatch ? parseInt(statsMatch[3]) || 0 : 0
     };
@@ -244,6 +278,9 @@ function extractCommits() {
     // Extract changed files
     const filesOutput = git(`show ${commit.fullSha} --name-only --format=''`);
     commit.files = filesOutput.split('\n').filter(Boolean);
+
+    // Calculate complexity based on files changed and tag count
+    commit.complexity = calculateComplexity(filesChanged, commit.tags.length);
   }
 
   return commits;
@@ -267,7 +304,7 @@ function extractContributors(commits) {
         deletions: 0,
         firstCommit: commit.timestamp,
         lastCommit: commit.timestamp,
-        types: {}
+        tagCounts: {}
       });
     }
 
@@ -276,7 +313,11 @@ function extractContributors(commits) {
     contributor.commits++;
     contributor.additions += commit.stats.additions;
     contributor.deletions += commit.stats.deletions;
-    contributor.types[commit.type] = (contributor.types[commit.type] || 0) + 1;
+
+    // Count each tag occurrence
+    for (const tag of commit.tags) {
+      contributor.tagCounts[tag] = (contributor.tagCounts[tag] || 0) + 1;
+    }
 
     if (commit.timestamp < contributor.firstCommit) {
       contributor.firstCommit = commit.timestamp;
@@ -316,14 +357,19 @@ function extractFileStats(commits) {
         fileMap.set(file, {
           path: file,
           changeCount: 0,
-          commitTypes: {},
+          tagCounts: {},
           authors: new Set()
         });
       }
 
       const fileStats = fileMap.get(file);
       fileStats.changeCount++;
-      fileStats.commitTypes[commit.type] = (fileStats.commitTypes[commit.type] || 0) + 1;
+
+      // Count each tag occurrence for this file
+      for (const tag of commit.tags) {
+        fileStats.tagCounts[tag] = (fileStats.tagCounts[tag] || 0) + 1;
+      }
+
       fileStats.authors.add(commit.author.email);
     }
   }
@@ -362,22 +408,30 @@ function generateMetadata() {
 }
 
 function generateSummary(commits, contributors) {
-  const typeBreakdown = {};
+  const tagBreakdown = {};
+  const complexityBreakdown = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
   const monthlyCommits = {};
   let totalAdditions = 0;
   let totalDeletions = 0;
 
   for (const commit of commits) {
-    // Type breakdown
-    typeBreakdown[commit.type] = (typeBreakdown[commit.type] || 0) + 1;
+    // Tag breakdown (count each tag)
+    for (const tag of commit.tags) {
+      tagBreakdown[tag] = (tagBreakdown[tag] || 0) + 1;
+    }
+
+    // Complexity breakdown
+    complexityBreakdown[commit.complexity] = (complexityBreakdown[commit.complexity] || 0) + 1;
 
     // Monthly aggregation
     const month = commit.timestamp.substring(0, 7); // YYYY-MM
     if (!monthlyCommits[month]) {
-      monthlyCommits[month] = { total: 0, types: {} };
+      monthlyCommits[month] = { total: 0, tags: {} };
     }
     monthlyCommits[month].total++;
-    monthlyCommits[month].types[commit.type] = (monthlyCommits[month].types[commit.type] || 0) + 1;
+    for (const tag of commit.tags) {
+      monthlyCommits[month].tags[tag] = (monthlyCommits[month].tags[tag] || 0) + 1;
+    }
 
     // Totals
     totalAdditions += commit.stats.additions;
@@ -385,9 +439,7 @@ function generateSummary(commits, contributors) {
   }
 
   // Security commits with details
-  const securityCommits = commits.filter(c =>
-    c.type === 'security' || c.tags.includes('security')
-  );
+  const securityCommits = commits.filter(c => c.tags.includes('security'));
 
   const security_events = securityCommits.map(c => ({
     sha: c.sha,
@@ -403,7 +455,8 @@ function generateSummary(commits, contributors) {
     totalAdditions,
     totalDeletions,
     netLinesChanged: totalAdditions - totalDeletions,
-    typeBreakdown,
+    tagBreakdown,
+    complexityBreakdown,
     monthlyCommits,
     securityCommitCount: securityCommits.length,
     security_events,
