@@ -267,6 +267,20 @@ Shows **when** work happens - time of day and day of week patterns.
 | Weekend heavy | Deadline crunch or startup culture |
 | Friday low | Team winds down for the week |
 
+**Developer Activity Patterns**
+- Shows timing breakdown for top 6 contributors
+- Each contributor card displays:
+  - **Peak Hour** - Most common commit time
+  - **Peak Day** - Most common day of week
+  - **Work Hours %** - Percentage of commits during configured hours
+  - **Weekends %** - Percentage on Saturday/Sunday
+- Color indicators: Green (healthy), Amber (moderate), Red (concern)
+
+**What to look for:**
+- Low work hours % may indicate flexible schedules or timezone differences
+- High weekend % may signal burnout or crunch time
+- Compare patterns across team members for consistency
+
 ### By Tag Tab
 
 Shows the **composition** of work done.
@@ -367,6 +381,37 @@ Click the **moon/sun icon** in the header to toggle between light and dark theme
 - **Persistence**: Your choice is saved to localStorage and remembered on future visits
 - **Instant switch**: All charts and UI elements update immediately
 
+## Private Mode (Sanitization)
+
+Click the **eye icon** in the header to toggle private mode for sensitive repositories.
+
+**When enabled:**
+- Author names become anonymous (Developer A, Developer B, etc.)
+- Commit messages are hidden or sanitized
+- Conventional commit prefixes are preserved (e.g., "feat: [message hidden]")
+- Security tab hides commit body details
+
+**Use cases:**
+- Sharing dashboards without exposing proprietary information
+- Presenting to external stakeholders
+- Compliance with privacy requirements
+
+## Configurable Work Hours
+
+Customize what counts as "work hours" in the Timing tab:
+
+1. Navigate to the **Timing** tab
+2. Find the **Work Hours Settings** card at the bottom
+3. Select your preferred start and end times
+
+**Effects:**
+- Hour chart colors update (blue = work hours, gray = after hours)
+- Work pattern badges recalculate
+- Developer activity patterns update
+- Summary statistics adjust
+
+**Default:** 8:00 - 17:00
+
 ## Settings Persistence
 
 The dashboard automatically saves your settings to browser localStorage:
@@ -376,7 +421,9 @@ The dashboard automatically saves your settings to browser localStorage:
 - Filter values (tag, author, repo, date range)
 - Summary period (week/month/quarter)
 - Timezone (Local/UTC)
+- Work hours (start/end)
 - Dark mode preference
+- Private mode preference
 
 **Behavior:**
 - Settings restore automatically when you revisit the dashboard

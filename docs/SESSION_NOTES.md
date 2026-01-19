@@ -21,6 +21,38 @@ Current state and context for AI assistants to pick up where the last session le
 
 ## Last Completed
 
+### Polish and Infrastructure Sprint (2026-01-19)
+
+Completed all remaining lower-priority items:
+
+**1. Developer Activity Patterns (Timing Tab)**
+- Shows per-contributor timing breakdown
+- Displays: peak hour, peak day, work hours %, weekend %
+- Color-coded indicators (green/amber/red) for work-life balance
+- Top 6 contributors shown
+
+**2. Configurable Work Hours**
+- Added start/end time selectors in Timing tab
+- Default: 8:00-17:00
+- All views update dynamically (charts, badges, patterns)
+- Settings persist to localStorage
+
+**3. Loading States**
+- Added loading spinner for auto-load
+- Spinner shown while fetching data.json
+- Clean fallback to file picker if no data found
+
+**4. Color Palette Refinement**
+- Removed duplicate CSS tag definitions
+- Cleaned up inconsistent styles
+
+**5. Private Repo Sanitization Mode**
+- Eye toggle button in header
+- Anonymizes author names (Developer A, B, C...)
+- Hides/sanitizes commit messages
+- Persists to localStorage
+- Toast notification on toggle
+
 ### Dashboard Vanity Cleanup (2026-01-19)
 
 Audited every UI element and removed all vanity metrics:
