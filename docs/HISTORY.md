@@ -35,6 +35,7 @@ Added high-priority TODO items for next phase of development:
 - **Filter Persistence & Cross-Tab Behavior** - Global filter state across all tabs, URL params for shareable links, localStorage for session persistence
 - **Visual Design & Dark Mode** - Full dark theme with system preference detection, color palette refinement, typography improvements
 - **Private Repository Security** - Sanitization mode, anonymization options, content filtering, local-only mode documentation
+- **Repository Management** - Repo rename handling, alias support, migration tools, archive detection
 
 ### Added chatty-chart Repository
 

@@ -72,6 +72,14 @@ Support private repos without exposing sensitive information:
 - [ ] **Local-Only Mode** - Ensure extracted data never leaves local machine unless explicitly shared
 - [ ] **Documentation** - Clear guidance on what data is extracted and privacy implications
 
+### Repository Management
+Handle repository lifecycle changes gracefully:
+- [ ] **Repo Rename Handling** - Config mapping old repo names to new names (preserve history continuity)
+- [ ] **Repo Alias Support** - Allow multiple names/aliases for same repo in aggregation
+- [ ] **Migration Tool** - Script to update existing data when repo is renamed
+- [ ] **Repo Archive Detection** - Handle archived/deleted repos gracefully in update-all.sh
+- [ ] **Repo URL Redirect** - Detect GitHub redirects when repo is renamed and update config
+
 ## Low Priority / Ideas
 
 ### Could Have (from spec)
@@ -86,4 +94,4 @@ Support private repos without exposing sensitive information:
 
 ---
 
-*Last updated: 2026-01-19 - Added timestamp views, filter persistence, design, and private repo security items*
+*Last updated: 2026-01-19 - Added timestamp views, filter persistence, design, privacy, and repo management items*
