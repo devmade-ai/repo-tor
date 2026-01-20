@@ -250,14 +250,22 @@ Process pending batch files one at a time:
 2. AI proposes tags + complexity + urgency + impact for each commit
 3. Present to user for review
 4. User approves or corrects
-5. Save approved batch to `processed/<repo>/batches/` (append to existing)
-6. Update manifest: `node scripts/manifest-update.js <repo> <batch-file>`
+5. On approval, AI runs save script (fast, no IDE dialogs):
+   ```bash
+   cat <<'EOF' | node scripts/save-batch.js <repo>
+   {"commits": [...analyzed commits...]}
+   EOF
+   ```
+6. Script saves batch + updates manifest in one step
 7. Commit changes
 
 **User commands:**
-- `approve` - Save batch, update manifest, continue to next
+- `approve` - Save batch via script, continue to next
 - `#N tag1, tag2` - Correct tags for commit N, re-present
 - `stop` - End session (progress saved via manifest)
+
+**Why script-based saves?**
+Using `save-batch.js` instead of Write tool calls avoids IDE approval dialogs for each file, which slows down significantly as sessions get longer.
 
 **Stop when:**
 - All pending batches processed, OR

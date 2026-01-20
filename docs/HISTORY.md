@@ -4,6 +4,27 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-20
 
+### Fast Batch Saving Script
+
+Added `scripts/save-batch.js` to speed up batch processing workflow.
+
+**Problem:** Writing approved batches via IDE tools (Write/Edit) required approval dialogs for each file, which slowed down significantly as sessions got longer.
+
+**Solution:** Script-based saving that writes both batch file and manifest in one fast bash command with no IDE dialogs.
+
+**Usage:**
+```bash
+cat <<'EOF' | node scripts/save-batch.js <repo>
+{"commits": [...analyzed commits...]}
+EOF
+```
+
+**Files updated:**
+- `scripts/save-batch.js` - New script for fast batch saving
+- `docs/EXTRACTION_PLAYBOOK.md` - Updated workflow to use script
+
+---
+
 ### Dashboard V2 Complete - Detail Pane and Visualizations
 
 Completed the remaining Dashboard V2 features:

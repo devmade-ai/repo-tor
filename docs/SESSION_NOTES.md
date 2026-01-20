@@ -80,6 +80,8 @@ const TAB_MAPPING = {
 |------|---------|
 | `dashboard/index.html` | Main dashboard (V2 complete) |
 | `scripts/aggregate-processed.js` | Aggregation from processed/ data |
+| `scripts/save-batch.js` | Fast batch saving (no IDE dialogs) |
+| `scripts/pending.js` | Generate pending batches from manifest |
 | `dashboard/data.json` | Overall aggregated data |
 | `dashboard/repos/*.json` | Per-repo aggregated data |
 | `docs/DASHBOARD_V2_DESIGN.md` | Full design spec |
@@ -109,4 +111,4 @@ Continue with `@data feed the chicken`
 
 ---
 
-*Last updated: 2026-01-20 - model-pear batch 7 done*
+*Last updated: 2026-01-20 - added save-batch.js for faster batch processing*

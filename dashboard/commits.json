@@ -1,6 +1,555 @@
 {
   "commits": [
     {
+      "sha": "c7699cd",
+      "fullSha": "c7699cdc53e6b764c23117b65c0695c571ac75df",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T20:59:12+02:00",
+      "commitDate": "2026-01-20T20:59:12+02:00",
+      "subject": "chore: simplify file tracking and reduce batch size",
+      "body": "- Reduce batch size from 25 to 15 commits for stability\n- Gitignore all of reports/ (working data, regenerated)\n- Remove reports/ files from git tracking\n- Update playbook documentation\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "simplify file tracking and reduce batch size",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 22,
+        "additions": 1032,
+        "deletions": 27055
+      },
+      "files": [
+        ".gitignore",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "processed/model-pear/batches/batch-008.json",
+        "processed/model-pear/batches/batch-009.json",
+        "processed/model-pear/batches/batch-010.json",
+        "processed/model-pear/manifest.json",
+        "reports/chatty-chart/batches/batch-001.json",
+        "reports/chatty-chart/batches/batch-002.json",
+        "reports/chatty-chart/batches/batch-003.json",
+        "reports/chatty-chart/batches/batch-004.json",
+        "reports/chatty-chart/batches/batch-005.json",
+        "reports/chatty-chart/metadata.json",
+        "reports/model-pear/commits.json",
+        "reports/model-pear/contributors.json",
+        "reports/model-pear/data.json",
+        "reports/model-pear/files.json",
+        "reports/model-pear/metadata.json",
+        "reports/model-pear/summary.json",
+        "reports/repo-tor/metadata.json",
+        "reports/social-ad-creator/metadata.json",
+        "scripts/extract.js",
+        "scripts/pending.js"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
+      "sha": "98fb1bc",
+      "fullSha": "98fb1bc470843f480525ce1af4b2b6dabb2bd0dc",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T19:56:51+02:00",
+      "commitDate": "2026-01-20T19:56:51+02:00",
+      "subject": "chore: increase batch size to 25 and update workflow",
+      "body": "- Change BATCH_SIZE from 10 to 25 in pending.js and extract.js\n- Update playbook with new batch size and commit workflow\n- New commands: \"approve\" (no commit), \"approve and commit\", \"commit\"\n- Reduces model-pear from 24 batches to 10 batches\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "increase batch size to 25 and update workflow",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 17,
+        "deletions": 14
+      },
+      "files": [
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "scripts/extract.js",
+        "scripts/pending.js"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
+      "sha": "a796850",
+      "fullSha": "a796850f88c9dc8f65f39e66328dea9676692981",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T19:55:31+02:00",
+      "commitDate": "2026-01-20T19:55:31+02:00",
+      "subject": "docs: format DISCOVERY_FRAMEWORK.md as proper markdown",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "format DISCOVERY_FRAMEWORK.md as proper markdown",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 83,
+        "deletions": 79
+      },
+      "files": [
+        "docs/DISCOVERY_FRAMEWORK.md"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
+      "sha": "409f248",
+      "fullSha": "409f2483e11770f186c0fb212b0e5dbeb6709df6",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T19:44:17+02:00",
+      "commitDate": "2026-01-20T19:44:17+02:00",
+      "subject": "docs: update session notes - model-pear batch 7 complete",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "update session notes - model-pear batch 7 complete",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 3
+      },
+      "files": [
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
+      "sha": "0c9e095",
+      "fullSha": "0c9e095d581650b23cc0e78c2a4df362bb05855e",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T19:44:03+02:00",
+      "commitDate": "2026-01-20T19:44:03+02:00",
+      "subject": "chore: process model-pear batch 7 (10 commits)",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "process model-pear batch 7 (10 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 148,
+        "deletions": 2
+      },
+      "files": [
+        "processed/model-pear/batches/batch-007.json",
+        "processed/model-pear/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
+      "sha": "97278b0",
+      "fullSha": "97278b0a19548f8f36b7018a8ca5edfcaa4739a3",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T19:40:52+02:00",
+      "commitDate": "2026-01-20T19:40:52+02:00",
+      "subject": "chore: add automatic cleanup to extraction process",
+      "body": "- Update playbook to document automatic cleanup after repo completion\n- Remove redundant files for completed repos (chatty-chart, repo-tor, social-ad-creator)\n- Keep only metadata.json in reports/ for completed repos\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "add automatic cleanup to extraction process",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 19,
+        "additions": 31,
+        "deletions": 29058
+      },
+      "files": [
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "reports/chatty-chart/commits.json",
+        "reports/chatty-chart/contributors.json",
+        "reports/chatty-chart/data.json",
+        "reports/chatty-chart/files.json",
+        "reports/chatty-chart/metadata.json",
+        "reports/chatty-chart/summary.json",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json",
+        "reports/social-ad-creator/commits.json",
+        "reports/social-ad-creator/contributors.json",
+        "reports/social-ad-creator/data.json",
+        "reports/social-ad-creator/files.json",
+        "reports/social-ad-creator/metadata.json",
+        "reports/social-ad-creator/summary.json"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
+      "sha": "c681d2f",
+      "fullSha": "c681d2f29de5fd6d5964146b20b153fc2e163fe3",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T19:35:24+02:00",
+      "commitDate": "2026-01-20T19:35:24+02:00",
+      "subject": "docs: update session notes - model-pear batch 6 complete",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "update session notes - model-pear batch 6 complete",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 5,
+        "deletions": 5
+      },
+      "files": [
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
+      "sha": "2f3f505",
+      "fullSha": "2f3f50579c3881a168b5423e69b96bd5e48a747c",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T19:35:07+02:00",
+      "commitDate": "2026-01-20T19:35:07+02:00",
+      "subject": "chore: process model-pear batch 6 (10 commits)",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "process model-pear batch 6 (10 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 148,
+        "deletions": 2
+      },
+      "files": [
+        "processed/model-pear/batches/batch-006.json",
+        "processed/model-pear/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
+      "sha": "0bc11f8",
+      "fullSha": "0bc11f832e9ab377b6f7678e6b7080a70c66c056",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T19:33:18+02:00",
+      "commitDate": "2026-01-20T19:33:18+02:00",
+      "subject": "chore: process model-pear batch 5 (10 commits)",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "process model-pear batch 5 (10 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 148,
+        "deletions": 3
+      },
+      "files": [
+        "processed/model-pear/batches/batch-005.json",
+        "processed/model-pear/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
+      "sha": "b61ccdf",
+      "fullSha": "b61ccdf1109f3e5fd0e0056fab09b578d6b261c8",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T19:27:59+02:00",
+      "commitDate": "2026-01-20T19:27:59+02:00",
+      "subject": "chore: process model-pear batch 4 (10 commits)",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "process model-pear batch 4 (10 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 1358,
+        "deletions": 145
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json",
+        "processed/model-pear/batches/batch-004.json",
+        "processed/model-pear/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
+      "sha": "857180f",
+      "fullSha": "857180f306a277ed6fa1ebc40c6b09f5f5dabaa9",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T19:25:52+02:00",
+      "commitDate": "2026-01-20T19:25:52+02:00",
+      "subject": "Improve UI for Media, Style, and Platform sections",
+      "body": "- Move Image Overlay section above Advanced Filters in MediaTab\n- Add on/off toggle for Image Overlay (sets opacity to 0 or 50)\n- Overlay type/color buttons now toggle off when clicked again\n- Only show overlay controls when overlay is enabled\n- Make platform categories collapsible (shows selected platform when collapsed)\n- Make Typography section in Style tab collapsed by default\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "Improve UI for Media, Style, and Platform sections",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 254,
+        "deletions": 201
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "docs/USER_GUIDE.md",
+        "src/components/MediaTab.jsx",
+        "src/components/PlatformPreview.jsx",
+        "src/components/StyleTab.jsx"
+      ],
+      "repo_id": "social-ad-creator",
+      "author_canonical": "jacotheron87"
+    },
+    {
+      "sha": "26d9b65",
+      "fullSha": "26d9b65d63102f0f95b146a381f2aae196b6df54",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T19:20:34+02:00",
+      "commitDate": "2026-01-20T19:20:34+02:00",
+      "subject": "chore: process repo-tor batch 19 (5 commits) - repo complete (171 commits)",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "process repo-tor batch 19 (5 commits) - repo complete (171 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 1491,
+        "deletions": 94
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/metadata.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json",
+        "processed/repo-tor/batches/batch-019.json",
+        "processed/repo-tor/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
+      "sha": "c22f9ef",
+      "fullSha": "c22f9ef94e6a40592e28f90c196ea1888b14a167",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T19:15:12+02:00",
+      "commitDate": "2026-01-20T19:15:12+02:00",
+      "subject": "chore: process repo-tor batch 18 (10 commits)",
+      "body": "",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "process repo-tor batch 18 (10 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 383,
+        "deletions": 3
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-018.json",
+        "processed/repo-tor/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
+      "sha": "53b65a2",
+      "fullSha": "53b65a2d1ef1e6903d51d509a5578cb728982524",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T19:08:44+02:00",
+      "commitDate": "2026-01-20T19:08:44+02:00",
+      "subject": "chore: process social-ad-creator batch 17 (2 commits) - complete",
+      "body": "",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "process social-ad-creator batch 17 (2 commits) - complete",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 1550,
+        "deletions": 333
+      },
+      "files": [
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json",
+        "dashboard/summary.json",
+        "processed/social-ad-creator/batches/batch-017.json",
+        "processed/social-ad-creator/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
       "sha": "278bc0c",
       "fullSha": "278bc0c07cde943b93e6d51c6cd005a0d8fe75c6",
       "author_id": "devmade.ai@gmail.com",
