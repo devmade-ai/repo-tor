@@ -102,7 +102,7 @@ Continue processing commits with `@data feed the chicken`:
 |------|--------|-----------|
 | chatty-chart | ✅ Complete | 0 |
 | repo-tor | ✅ Complete | 0 |
-| social-ad-creator | 🔄 In progress | 6 batches (100/156 done) |
+| social-ad-creator | ✅ Complete | 0 |
 | model-pear | ⏳ Not started | 31 batches |
 
 ---
