@@ -386,7 +386,7 @@ function generateSummary(commits, contributors) {
 }
 
 // === Batch File Generation ===
-const BATCH_SIZE = 10;
+const BATCH_SIZE = 25;
 
 function writeBatchFiles(commits, batchDir) {
   fs.mkdirSync(batchDir, { recursive: true });

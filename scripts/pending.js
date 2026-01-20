@@ -21,7 +21,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BATCH_SIZE = 10;
+const BATCH_SIZE = 25;
 const REPORTS_DIR = 'reports';
 const PROCESSED_DIR = 'processed';
 const PENDING_DIR = 'pending';

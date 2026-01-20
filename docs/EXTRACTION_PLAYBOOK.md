@@ -25,17 +25,18 @@ Two-stage process with persistent storage of AI-analyzed commits:
 Human-in-the-loop review ensures quality tagging.
 
 ### Batch Size
-- Process **10 commits per batch**
+- Process **25 commits per batch**
 - AI presents analysis, **user reviews and approves**
-- After approval: write to `processed/`, update checkpoint
-- If session ends, work is saved at last approved batch
+- After approval: write to `processed/`, update manifest
+- Commits happen on demand (not after every batch)
+- If session ends, uncommitted work is lost (commit regularly)
 
 ### Review Format
 
 For each batch, AI presents commits like this:
 
 ```
-[1/10] abc123
+[1/25] abc123
 Subject: Fix button placement and performance issues
 Body:
 - Move "Update Visualization" button below the image
@@ -46,20 +47,22 @@ Body:
 Tags: refactor, bugfix, performance, docs
 Complexity: 4 | Urgency: 3 | Impact: user-facing
 ---
-[2/10] def456
+[2/25] def456
 ...
 ```
 
 User responds:
-- **"approve"** - Save all 10 and continue to next batch
+- **"approve"** - Save batch, continue to next (no commit yet)
+- **"approve and commit"** - Save batch + commit all pending changes
+- **"commit"** - Commit all pending changes now
 - **"#3 should be feature not refactor"** - AI corrects and re-presents
-- **"stop"** - Save progress and end session
+- **"stop"** - Commit pending changes and end session
 
 ### Benefits
 - **Accurate**: Human review catches AI mistakes
 - **Multi-tag**: AI reads full message, assigns ALL relevant tags
-- **Resilient**: Progress saved after each approved batch
-- **Incremental**: Can stop and continue anytime
+- **Fast**: 25 commits per batch, fewer approval prompts
+- **Flexible**: Commit when you want, not after every batch
 
 ## File Structure
 
@@ -67,9 +70,9 @@ User responds:
 reports/                      # Raw extracted data (ephemeral)
   <repo-name>/
     commits.json              # All commits (raw, no AI tags)
-    batches/                  # Split into files of 10 for AI review
-      batch-001.json          # Commits 1-10
-      batch-002.json          # Commits 11-20
+    batches/                  # Split into files of 25 for AI review
+      batch-001.json          # Commits 1-25
+      batch-002.json          # Commits 26-50
       ...
     metadata.json
     data.json
