@@ -4,6 +4,45 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-20
 
+### Dashboard V2 Implementation Progress
+
+Implemented core Dashboard V2 features:
+
+**Aggregation Script:**
+- Created `scripts/aggregate-processed.js` to read from processed/ data
+- Outputs `dashboard/data.json` (overall) and `dashboard/repos/*.json` (per-repo)
+- Includes urgency and impact breakdowns in aggregations
+- Same schema for both overall and per-repo views
+
+**Dashboard Structure:**
+- Reorganized from 7 tabs to 4 tabs (Overview, Activity, Work, Health)
+- Implemented TAB_MAPPING to show multiple content containers per tab
+- No breaking changes - existing render functions continue to work
+
+**New Visualizations:**
+- Health tab: Security count, Reactive %, Weekend %, After Hours % cards
+- Health tab: Urgency Distribution (Planned/Normal/Reactive bars)
+- Health tab: Impact Distribution (user-facing/internal/infra/api bars)
+- Overview tab: Avg Urgency card with trend indicator
+- Overview tab: % Planned card (urgency 1-2 ratio)
+
+**Files created:**
+- `scripts/aggregate-processed.js` - New aggregation script
+- `dashboard/repos/*.json` - Per-repo aggregated data
+
+**Files updated:**
+- `dashboard/index.html` - V2 tab structure and visualizations
+- `dashboard/data.json` - Regenerated with urgency/impact data
+- `docs/SESSION_NOTES.md` - Current progress
+- `docs/TODO.md` - Updated completion status
+
+**Remaining:**
+- Detail pane component
+- Click interactions for drill-down
+- More visualizations (urgency trend, impact by contributor)
+
+---
+
 ### Dashboard V2 Design Complete
 
 Conducted reporting discovery session and designed new dashboard architecture.

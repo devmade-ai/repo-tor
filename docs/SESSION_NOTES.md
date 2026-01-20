@@ -4,25 +4,55 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Design complete. See [DASHBOARD_V2_DESIGN.md](DASHBOARD_V2_DESIGN.md) for full specification.
+**Dashboard V2:** Implementation in progress. 4-tab structure complete, urgency/impact visualizations added.
 
 **Extraction System:** AI analysis in progress. Manifest-based incremental tracking implemented.
 
-**Live Dashboard:** https://devmade-ai.github.io/repo-tor/ (V1 - will be replaced by V2)
+**Live Dashboard:** https://devmade-ai.github.io/repo-tor/ (being updated to V2)
 
 ---
 
-## Dashboard V2 Summary
+## Dashboard V2 Progress
+
+### Completed
+
+- [x] **Aggregation script** - `scripts/aggregate-processed.js` reads from processed/ data
+- [x] **4-tab structure** - Overview, Activity, Work, Health
+- [x] **Tab mapping** - JavaScript maps new tabs to show multiple content containers
+- [x] **Urgency/Impact in Health tab** - Distribution bars, operational health cards
+- [x] **Urgency/Planned in Overview** - Executive summary cards
+
+### Remaining
+
+- [ ] **Detail pane** - Slide-out panel for drill-down
+- [ ] **Urgency trend chart** - Line chart over time
+- [ ] **Impact by contributor** - Per-person breakdown
+- [ ] **Click interactions** - Cards/charts trigger detail pane
 
 ### Design Decision
 
 Hybrid approach: **Logical Groupings + Contextual Detail Pane**
 
 - **4 tabs** (down from 7): Overview, Activity, Work, Health
-- **Detail pane** slides out when clicking any element
-- **Mobile:** Bottom sheet instead of side pane
+- **Detail pane** slides out when clicking any element (TODO)
+- **Mobile:** Bottom sheet instead of side pane (TODO)
 
-### New Data Dimensions
+### Tab Mapping
+
+The JavaScript TAB_MAPPING connects new tabs to existing content:
+
+```javascript
+const TAB_MAPPING = {
+    'overview': ['tab-overview'],
+    'activity': ['tab-activity', 'tab-timing'],
+    'work': ['tab-progress', 'tab-tags', 'tab-contributors'],
+    'health': ['tab-security']
+};
+```
+
+---
+
+## New Data Dimensions
 
 | Dimension | Values | Purpose |
 |-----------|--------|---------|
@@ -32,24 +62,6 @@ Hybrid approach: **Logical Groupings + Contextual Detail Pane**
 These enable new insights:
 - **Urgency Distribution** - operational health indicator
 - **Impact Allocation** - where effort goes
-
-### Key Requirement
-
-Same data format for overall and per-repo views:
-```
-dashboard/
-├── data.json              ← Overall (all repos)
-└── repos/
-    ├── repo-tor.json      ← Same schema, scoped to repo
-    └── ...
-```
-
-### Implementation Phases
-
-1. **Aggregation** - New script to read processed/ data
-2. **Dashboard Structure** - 4 tabs + detail pane
-3. **New Visualizations** - Urgency/impact charts
-4. **Polish** - Interactions, mobile, dark mode
 
 ---
 
@@ -67,49 +79,27 @@ Run `@data feed the chicken` to continue processing.
 
 ---
 
-## @data Extraction Workflow
-
-**Triggers (use @data persona):**
-- `@data hatch the chicken` - Full reset, analyze ALL commits
-- `@data feed the chicken` - Incremental, analyze NEW commits only
-
-**How it works:**
-1. Extract script creates batch files (10 commits each)
-2. `scripts/pending.js` generates pending batches from manifest comparison
-3. AI proposes tags, complexity, urgency, impact for each commit
-4. User reviews and approves (or corrects)
-5. Approved batches saved to `processed/<repo>/batches/`
-6. Manifest updated with processed SHAs
-
-**User commands during review:**
-- `approve` - Save batch, continue to next
-- `#3 tag1, tag2` - Correct commit #3's tags
-- `stop` - End session (progress saved)
-
----
-
 ## Key Files
 
 | File | Purpose |
 |------|---------|
-| `docs/DASHBOARD_V2_DESIGN.md` | Full design spec for new dashboard |
-| `docs/EXTRACTION_PLAYBOOK.md` | Extraction workflow and 55+ tag definitions |
-| `docs/DISCOVERY_SESSION.md` | Original discovery that informed design |
-| `docs/DISCOVERY_FRAMEWORK.md` | Framework used for discovery |
-| `config/repos.json` | Tracked repositories |
-| `processed/<repo>/manifest.json` | Tracks processed SHAs |
-| `scripts/aggregate-processed.js` | (TO BUILD) New aggregation from processed/ |
+| `dashboard/index.html` | Main dashboard (V2 structure) |
+| `scripts/aggregate-processed.js` | Aggregation from processed/ data |
+| `dashboard/data.json` | Overall aggregated data |
+| `dashboard/repos/*.json` | Per-repo aggregated data |
+| `docs/DASHBOARD_V2_DESIGN.md` | Full design spec |
+| `docs/EXTRACTION_PLAYBOOK.md` | Extraction workflow |
 
 ---
 
 ## Next Actions
 
-1. **Finish extraction** - Process remaining social-ad-creator and model-pear commits
-2. **Build aggregation** - Create `scripts/aggregate-processed.js`
-3. **Build dashboard V2** - Implement new 4-tab structure
+1. **Detail pane** - Implement slide-out panel for drill-down
+2. **More visualizations** - Urgency trend, impact by contributor
+3. **Continue extraction** - Process remaining commits
 
 See [TODO.md](TODO.md) for detailed implementation tasks.
 
 ---
 
-*Last updated: 2026-01-20 - Dashboard V2 design complete*
+*Last updated: 2026-01-20 - Dashboard V2 4-tab structure and basic urgency/impact complete*

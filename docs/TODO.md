@@ -35,15 +35,15 @@ Implementation tasks for Git Analytics Reporting System.
 
 ---
 
-## Priority 2: Dashboard Structure
+## Priority 2: Dashboard Structure - IN PROGRESS
 
 *Reorganize from 7 tabs to 4 grouped tabs with detail pane*
 
-- [ ] Create new tab structure:
-  - [ ] **Overview** - Executive summary (migrated from Summary)
-  - [ ] **Activity** - Timeline + Timing combined
-  - [ ] **Work** - Progress + Tags + Contributors combined
-  - [ ] **Health** - Security + Urgency (new)
+- [x] Create new tab structure:
+  - [x] **Overview** - Executive summary (migrated from Summary)
+  - [x] **Activity** - Timeline + Timing combined
+  - [x] **Work** - Progress + Tags + Contributors combined
+  - [x] **Health** - Security + Urgency (new)
 
 - [ ] Implement detail pane component:
   - [ ] Slide-out panel (30% width on desktop)
@@ -59,24 +59,30 @@ Implementation tasks for Git Analytics Reporting System.
 
 ---
 
-## Priority 3: New Visualizations
+## Priority 3: New Visualizations - PARTIAL
 
 *Urgency and Impact charts for new data dimensions*
 
 ### Urgency (Health Tab)
-- [ ] Urgency Distribution - horizontal bars (Planned/Normal/Reactive)
+- [x] Urgency Distribution - horizontal bars (Planned/Normal/Reactive)
 - [ ] Urgency Trend - line chart by month (lower is better)
 - [ ] Urgency by Contributor - horizontal bars per person
 
-### Impact (Work Tab + Overview)
-- [ ] Impact Allocation - horizontal bars (user-facing/internal/infra/api)
+### Impact (Health Tab)
+- [x] Impact Distribution - horizontal bars (user-facing/internal/infra/api)
 - [ ] Impact Over Time - stacked area chart by month
 - [ ] Impact by Contributor - breakdown per person
 
 ### Overview Cards
-- [ ] Avg Urgency card with trend indicator
-- [ ] % Planned card (urgency 1-2 ratio)
+- [x] Avg Urgency card with trend indicator
+- [x] % Planned card (urgency 1-2 ratio)
 - [ ] Impact Allocation mini-bars
+
+### Health Tab Cards
+- [x] Security count card
+- [x] Reactive % card (urgency 4-5)
+- [x] Weekend % card
+- [x] After Hours % card
 
 ---
 

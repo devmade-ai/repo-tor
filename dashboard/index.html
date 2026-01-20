@@ -447,19 +447,16 @@
                 </div>
             </div>
 
-            <!-- Navigation Tabs -->
+            <!-- Navigation Tabs (V2: 4 grouped tabs) -->
             <div class="flex border-b border-gray-200 mb-6 overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600 whitespace-nowrap" data-tab="summary">Summary</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="timeline">Timeline</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="progress">Progress</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="contributors">Contributors</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="security">Security</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="tags">By Tag</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="timing">Timing</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600 whitespace-nowrap" data-tab="overview">Overview</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="activity">Activity</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="work">Work</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="health">Health</button>
             </div>
 
             <!-- Tab Content -->
-            <div id="tab-summary" class="tab-content">
+            <div id="tab-overview" class="tab-content">
                 <!-- Period Selector -->
                 <div class="card mb-6">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -491,14 +488,14 @@
                         <p class="text-sm mt-1" id="summary-fixes-trend"></p>
                     </div>
                     <div class="card">
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Avg Complexity</p>
-                        <p class="text-3xl font-bold text-gray-900" id="summary-complexity">-</p>
-                        <p class="text-sm mt-1" id="summary-complexity-trend"></p>
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Avg Urgency</p>
+                        <p class="text-3xl font-bold text-gray-900" id="summary-urgency">-</p>
+                        <p class="text-sm mt-1" id="summary-urgency-trend"></p>
                     </div>
                     <div class="card">
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Files Touched</p>
-                        <p class="text-3xl font-bold text-gray-900" id="summary-files">0</p>
-                        <p class="text-sm mt-1" id="summary-files-trend"></p>
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">% Planned</p>
+                        <p class="text-3xl font-bold text-green-600" id="summary-planned">0%</p>
+                        <p class="text-sm mt-1" id="summary-planned-trend"></p>
                     </div>
                 </div>
 
@@ -524,7 +521,7 @@
                 </div>
             </div>
 
-            <div id="tab-timeline" class="tab-content hidden">
+            <div id="tab-activity" class="tab-content hidden">
                 <!-- Filters -->
                 <div class="card mb-6">
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-wrap items-end gap-3 lg:gap-4">
@@ -621,10 +618,48 @@
             </div>
 
             <div id="tab-security" class="tab-content hidden">
-                <div class="card mb-6">
+                <!-- Operational Health Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="card">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Security</p>
+                        <p class="text-3xl font-bold text-red-600" id="health-security-count">0</p>
+                        <p class="text-xs text-gray-400">security commits</p>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Reactive</p>
+                        <p class="text-3xl font-bold text-amber-600" id="health-reactive-pct">0%</p>
+                        <p class="text-xs text-gray-400">urgency 4-5</p>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Weekend</p>
+                        <p class="text-3xl font-bold text-indigo-600" id="health-weekend-pct">0%</p>
+                        <p class="text-xs text-gray-400">Sat/Sun commits</p>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">After Hours</p>
+                        <p class="text-3xl font-bold text-purple-600" id="health-afterhours-pct">0%</p>
+                        <p class="text-xs text-gray-400">outside work hours</p>
+                    </div>
+                </div>
+
+                <!-- Urgency Distribution -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Urgency Distribution</h2>
+                        <p class="text-xs text-gray-500 -mt-2 mb-4">Planned (1-2) vs Normal (3) vs Reactive (4-5)</p>
+                        <div id="urgency-breakdown" class="space-y-3"></div>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Impact Distribution</h2>
+                        <p class="text-xs text-gray-500 -mt-2 mb-4">Where effort is directed</p>
+                        <div id="impact-breakdown" class="space-y-3"></div>
+                    </div>
+                </div>
+
+                <!-- Security Commits -->
+                <div class="card">
                     <h2 class="text-lg font-semibold mb-4">Security-Related Commits</h2>
                     <p class="text-sm text-gray-500 mb-4">Commits tagged with security, or containing security-related keywords</p>
-                    <div id="security-count" class="text-4xl font-bold text-red-600 mb-4">0</div>
                     <div id="security-list" class="space-y-3"></div>
                 </div>
             </div>
@@ -1180,7 +1215,7 @@
                 useUTC,
                 workHourStart,
                 workHourEnd,
-                activeTab: document.querySelector('.tab-btn.border-blue-500')?.dataset.tab || 'summary'
+                activeTab: document.querySelector('.tab-btn.border-blue-500')?.dataset.tab || 'overview'
             };
             localStorage.setItem('dashboardState', JSON.stringify(state));
         }
@@ -1286,6 +1321,7 @@
             renderProgress();
             renderContributors();
             renderSecurity();
+            renderHealth();
             renderTags();
             renderTiming();
             setupSummaryPeriodToggle();
@@ -1663,6 +1699,105 @@
                 : '<p class="text-gray-500 text-center py-8">No security-related commits found</p>';
 
             document.getElementById('security-list').innerHTML = listHtml;
+        }
+
+        // === Health Tab (Urgency & Impact) ===
+        function renderHealth() {
+            const commits = data.commits;
+            const total = commits.length;
+
+            // Security count
+            const securityCount = commits.filter(c =>
+                c.type === 'security' || (c.tags || []).includes('security')
+            ).length;
+            document.getElementById('health-security-count').textContent = securityCount;
+
+            // Reactive percentage (urgency 4-5)
+            const reactiveCount = commits.filter(c => c.urgency >= 4).length;
+            const reactivePct = total > 0 ? Math.round((reactiveCount / total) * 100) : 0;
+            document.getElementById('health-reactive-pct').textContent = `${reactivePct}%`;
+
+            // Weekend percentage
+            const weekendCount = commits.filter(c => {
+                if (!c.timestamp) return false;
+                const date = new Date(c.timestamp);
+                const day = date.getDay();
+                return day === 0 || day === 6;
+            }).length;
+            const weekendPct = total > 0 ? Math.round((weekendCount / total) * 100) : 0;
+            document.getElementById('health-weekend-pct').textContent = `${weekendPct}%`;
+
+            // After hours percentage
+            const afterHoursCount = commits.filter(c => {
+                if (!c.timestamp) return false;
+                const date = new Date(c.timestamp);
+                const hour = date.getHours();
+                return hour < workHourStart || hour >= workHourEnd;
+            }).length;
+            const afterHoursPct = total > 0 ? Math.round((afterHoursCount / total) * 100) : 0;
+            document.getElementById('health-afterhours-pct').textContent = `${afterHoursPct}%`;
+
+            // Urgency breakdown
+            const urgencyBreakdown = { planned: 0, normal: 0, reactive: 0 };
+            commits.forEach(c => {
+                if (c.urgency <= 2) urgencyBreakdown.planned++;
+                else if (c.urgency === 3) urgencyBreakdown.normal++;
+                else if (c.urgency >= 4) urgencyBreakdown.reactive++;
+            });
+
+            const urgencyHtml = [
+                { label: 'Planned (1-2)', count: urgencyBreakdown.planned, color: 'bg-green-500' },
+                { label: 'Normal (3)', count: urgencyBreakdown.normal, color: 'bg-blue-500' },
+                { label: 'Reactive (4-5)', count: urgencyBreakdown.reactive, color: 'bg-amber-500' }
+            ].map(({ label, count, color }) => {
+                const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+                return `
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-600">${label}</span>
+                            <span class="text-gray-900 font-medium">${count} (${pct}%)</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="${color} h-2 rounded-full" style="width: ${pct}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('urgency-breakdown').innerHTML = urgencyHtml;
+
+            // Impact breakdown
+            const impactBreakdown = { 'user-facing': 0, 'internal': 0, 'infrastructure': 0, 'api': 0 };
+            commits.forEach(c => {
+                if (c.impact && impactBreakdown.hasOwnProperty(c.impact)) {
+                    impactBreakdown[c.impact]++;
+                }
+            });
+
+            const impactLabels = {
+                'user-facing': { label: 'User-Facing', color: 'bg-blue-500' },
+                'internal': { label: 'Internal', color: 'bg-gray-500' },
+                'infrastructure': { label: 'Infrastructure', color: 'bg-purple-500' },
+                'api': { label: 'API', color: 'bg-green-500' }
+            };
+
+            const impactHtml = Object.entries(impactBreakdown)
+                .sort((a, b) => b[1] - a[1])
+                .map(([key, count]) => {
+                    const { label, color } = impactLabels[key] || { label: key, color: 'bg-gray-400' };
+                    const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+                    return `
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">${label}</span>
+                                <span class="text-gray-900 font-medium">${count} (${pct}%)</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="${color} h-2 rounded-full" style="width: ${pct}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            document.getElementById('impact-breakdown').innerHTML = impactHtml;
         }
 
         // === Tags Tab ===
@@ -2100,26 +2235,25 @@
             const currentFixes = countTag(currentCommits, 'bugfix');
             const previousFixes = countTag(previousCommits, 'bugfix');
 
-            // Complexity metrics
-            const getAvgComplexity = (commits) => {
-                const complexities = commits.map(c => c.complexity).filter(c => c != null);
-                return complexities.length > 0
-                    ? (complexities.reduce((a, b) => a + b, 0) / complexities.length)
+            // Urgency metrics
+            const getAvgUrgency = (commits) => {
+                const urgencies = commits.map(c => c.urgency).filter(u => u != null && u >= 1 && u <= 5);
+                return urgencies.length > 0
+                    ? (urgencies.reduce((a, b) => a + b, 0) / urgencies.length)
                     : 0;
             };
-            const currentComplexity = getAvgComplexity(currentCommits);
-            const previousComplexity = getAvgComplexity(previousCommits);
+            const currentUrgency = getAvgUrgency(currentCommits);
+            const previousUrgency = getAvgUrgency(previousCommits);
 
-            // Files touched
-            const getFilesCount = (commits) => {
-                const files = new Set();
-                commits.forEach(c => {
-                    if (c.files) c.files.forEach(f => files.add(f.path || f));
-                });
-                return files.size;
+            // Planned percentage (urgency 1-2)
+            const getPlannedPct = (commits) => {
+                const withUrgency = commits.filter(c => c.urgency != null && c.urgency >= 1 && c.urgency <= 5);
+                if (withUrgency.length === 0) return 0;
+                const planned = withUrgency.filter(c => c.urgency <= 2).length;
+                return Math.round((planned / withUrgency.length) * 100);
             };
-            const currentFiles = getFilesCount(currentCommits);
-            const previousFiles = getFilesCount(previousCommits);
+            const currentPlanned = getPlannedPct(currentCommits);
+            const previousPlanned = getPlannedPct(previousCommits);
 
             // Update stats - focus on what matters
             document.getElementById('summary-features').textContent = currentFeatures;
@@ -2128,13 +2262,15 @@
             document.getElementById('summary-fixes').textContent = currentFixes;
             document.getElementById('summary-fixes-trend').innerHTML = getTrendHtml(currentFixes, previousFixes, periodLabel);
 
-            document.getElementById('summary-complexity').textContent = currentComplexity > 0 ? currentComplexity.toFixed(1) : '-';
-            document.getElementById('summary-complexity-trend').innerHTML = currentComplexity > 0
-                ? getTrendHtml(Math.round(currentComplexity * 10), Math.round(previousComplexity * 10), periodLabel)
+            document.getElementById('summary-urgency').textContent = currentUrgency > 0 ? currentUrgency.toFixed(1) : '-';
+            document.getElementById('summary-urgency-trend').innerHTML = currentUrgency > 0
+                ? getTrendHtml(Math.round(previousUrgency * 10), Math.round(currentUrgency * 10), periodLabel, true) // Inverted: lower is better
                 : '<span class="text-gray-400">No data</span>';
 
-            document.getElementById('summary-files').textContent = currentFiles;
-            document.getElementById('summary-files-trend').innerHTML = getTrendHtml(currentFiles, previousFiles, periodLabel);
+            document.getElementById('summary-planned').textContent = currentPlanned > 0 ? `${currentPlanned}%` : '-';
+            document.getElementById('summary-planned-trend').innerHTML = currentPlanned > 0
+                ? getTrendHtml(currentPlanned, previousPlanned, periodLabel) // Higher is better
+                : '<span class="text-gray-400">No data</span>';
 
             // Work breakdown chart
             const tagCounts = {};
@@ -2262,7 +2398,15 @@
             });
         }
 
-        // === Tab Navigation ===
+        // === Tab Navigation (V2: 4 grouped tabs) ===
+        // Map new tabs to the content containers they should show
+        const TAB_MAPPING = {
+            'overview': ['tab-overview'],
+            'activity': ['tab-activity', 'tab-timing'],
+            'work': ['tab-progress', 'tab-tags', 'tab-contributors'],
+            'health': ['tab-security']
+        };
+
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 // Update button styles
@@ -2273,9 +2417,13 @@
                 btn.classList.remove('border-transparent', 'text-gray-500');
                 btn.classList.add('border-blue-500', 'text-blue-600');
 
-                // Show/hide tabs
+                // Show/hide tabs based on mapping
                 document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
-                document.getElementById(`tab-${btn.dataset.tab}`).classList.remove('hidden');
+                const tabsToShow = TAB_MAPPING[btn.dataset.tab] || [`tab-${btn.dataset.tab}`];
+                tabsToShow.forEach(tabId => {
+                    const tabEl = document.getElementById(tabId);
+                    if (tabEl) tabEl.classList.remove('hidden');
+                });
 
                 // Save state (only if data is loaded)
                 if (data) {
@@ -2506,7 +2654,7 @@
                 repo: params.get('repo') || '',
                 dateFrom: params.get('from') || '',
                 dateTo: params.get('to') || '',
-                tab: params.get('tab') || 'summary',
+                tab: params.get('tab') || 'overview',
                 period: params.get('period') || '7days',
                 tz: params.get('tz') || 'local'
             };
@@ -2527,13 +2675,13 @@
             if (filters.dateFrom) params.set('from', filters.dateFrom);
             if (filters.dateTo) params.set('to', filters.dateTo);
 
-            // Add summary period if on summary tab
-            if (activeTab === 'summary' && summaryPeriod !== '7days') {
+            // Add summary period if on overview tab
+            if (activeTab === 'overview' && summaryPeriod !== '7days') {
                 params.set('period', summaryPeriod);
             }
 
-            // Add timezone if on timing tab and not local
-            if (activeTab === 'timing' && useUTC) {
+            // Add timezone if on activity tab (which includes timing) and not local
+            if (activeTab === 'activity' && useUTC) {
                 params.set('tz', 'utc');
             }
 
