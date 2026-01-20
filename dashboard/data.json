@@ -1,12 +1,97 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-20T16:05:52.609Z",
+    "generatedAt": "2026-01-20T17:08:37.611Z",
     "repository": "All Repositories",
     "scope": "overall",
     "repoCount": 4,
-    "commitCount": 384
+    "commitCount": 386
   },
   "commits": [
+    {
+      "sha": "743fd3d",
+      "fullSha": "743fd3deb445228980fe05b9fbe2b918a886aa90",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-20T18:25:12+02:00",
+      "commitDate": "2026-01-20T18:25:12+02:00",
+      "subject": "Merge pull request #35 from devmade-ai/claude/image-blur-overlay-hero-Eb9Kn",
+      "body": "Add hero banners, web platforms, and expanded overlay effects",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #35 from devmade-ai/claude/image-blur-overlay-hero-Eb9Kn",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#35"
+      ],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 609,
+        "deletions": 119
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "1ec88ba",
+      "fullSha": "1ec88ba0c721ae9c98ab32f3e7753c8c5862978a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T16:01:30+00:00",
+      "commitDate": "2026-01-20T16:01:30+00:00",
+      "subject": "Add hero banners, web platforms, and expanded overlay effects",
+      "body": "Platforms (14 total, up from 6):\n- Website: Hero Standard/Tall/Full HD, OG Image\n- Banners: LinkedIn Banner, YouTube Banner\n- Other: Email Header, Zoom Background\n- Grouped by category in platform selector\n\nOverlays (24 total, up from 11):\n- Radial: Radial Soft, Radial Ring\n- Effects: Blur Edges, Frame, Duotone\n- Blend modes: Multiply, Screen, Overlay, Color Burn\n- Textures: Noise, Film Grain (SVG filters)\n- Grouped by category in overlay selectors\n\nTechnical:\n- SVG filters for noise/grain textures\n- Blend mode support via mix-blend-mode\n- Duotone applies grayscale + color overlay",
+      "tags": [
+        "feature",
+        "ui",
+        "enhancement"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add hero banners, web platforms, and expanded overlay effects",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 609,
+        "deletions": 119
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_GUIDE.md",
+        "src/components/AdCanvas.jsx",
+        "src/components/MediaTab.jsx",
+        "src/components/PlatformPreview.jsx",
+        "src/components/StyleTab.jsx",
+        "src/config/layouts.js",
+        "src/config/platforms.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
     {
       "sha": "c41e9e9",
       "fullSha": "c41e9e918c23c82474d6b59926c210493ba774ef",
@@ -9435,17 +9520,17 @@
   "contributors": [
     {
       "author_id": "devmade.ai@gmail.com",
-      "commits": 176,
-      "avgComplexity": 1.53,
+      "commits": 178,
+      "avgComplexity": 1.54,
       "avgUrgency": 1.81,
       "tagBreakdown": {
-        "merge": 73,
+        "merge": 74,
+        "feature": 19,
+        "ui": 13,
+        "enhancement": 3,
         "bugfix": 9,
-        "ui": 12,
         "config": 28,
         "docs": 30,
-        "feature": 18,
-        "enhancement": 2,
         "refactor": 6,
         "build": 2,
         "seed": 27,
@@ -9455,20 +9540,20 @@
         "revert": 2
       },
       "impactBreakdown": {
-        "internal": 155,
-        "user-facing": 20,
+        "internal": 156,
+        "user-facing": 21,
         "infrastructure": 1,
         "api": 0
       },
       "repos": [
-        "repo-tor",
         "social-ad-creator",
+        "repo-tor",
         "model-pear",
         "chatty-chart"
       ],
       "repoCount": 4,
       "firstCommit": "2025-12-24T22:15:01+02:00",
-      "lastCommit": "2026-01-20T13:30:10+02:00"
+      "lastCommit": "2026-01-20T18:25:12+02:00"
     },
     {
       "author_id": "noreply@anthropic.com",
@@ -9593,16 +9678,16 @@
     }
   ],
   "summary": {
-    "totalCommits": 384,
+    "totalCommits": 386,
     "totalContributors": 5,
     "tagBreakdown": {
-      "merge": 81,
+      "merge": 82,
+      "feature": 78,
+      "ui": 89,
+      "enhancement": 26,
       "bugfix": 47,
-      "ui": 88,
       "config": 34,
       "docs": 99,
-      "feature": 77,
-      "enhancement": 25,
       "refactor": 23,
       "build": 2,
       "seed": 28,
@@ -9622,22 +9707,22 @@
       "accessibility": 4
     },
     "complexityBreakdown": {
-      "1": 174,
+      "1": 175,
       "2": 97,
       "3": 70,
-      "4": 36,
+      "4": 37,
       "5": 7
     },
     "urgencyBreakdown": {
-      "1": 123,
-      "2": 240,
+      "1": 124,
+      "2": 241,
       "3": 20,
       "4": 1,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 240,
-      "user-facing": 139,
+      "internal": 241,
+      "user-facing": 140,
       "infrastructure": 3,
       "api": 0
     },
@@ -9645,15 +9730,15 @@
     "avgUrgency": 1.74,
     "monthly": {
       "2026-01": {
-        "commits": 342,
+        "commits": 344,
         "tags": {
-          "merge": 62,
+          "merge": 63,
+          "feature": 74,
+          "ui": 73,
+          "enhancement": 19,
           "bugfix": 42,
-          "ui": 72,
           "config": 34,
           "docs": 91,
-          "feature": 73,
-          "enhancement": 18,
           "refactor": 18,
           "build": 2,
           "seed": 28,
@@ -9672,8 +9757,8 @@
           "chore": 6
         },
         "impact": {
-          "internal": 219,
-          "user-facing": 118,
+          "internal": 220,
+          "user-facing": 119,
           "infrastructure": 3,
           "api": 0
         },
@@ -9721,15 +9806,15 @@
     },
     "monthlyCommits": {
       "2026-01": {
-        "commits": 342,
+        "commits": 344,
         "tags": {
-          "merge": 62,
+          "merge": 63,
+          "feature": 74,
+          "ui": 73,
+          "enhancement": 19,
           "bugfix": 42,
-          "ui": 72,
           "config": 34,
           "docs": 91,
-          "feature": 73,
-          "enhancement": 18,
           "refactor": 18,
           "build": 2,
           "seed": 28,
@@ -9748,8 +9833,8 @@
           "chore": 6
         },
         "impact": {
-          "internal": 219,
-          "user-facing": 118,
+          "internal": 220,
+          "user-facing": 119,
           "infrastructure": 3,
           "api": 0
         },
@@ -9797,7 +9882,7 @@
     },
     "dateRange": {
       "earliest": "2025-06-16T11:03:48+02:00",
-      "latest": "2026-01-20T13:30:10+02:00"
+      "latest": "2026-01-20T18:25:12+02:00"
     },
     "security_events": []
   }
