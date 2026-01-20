@@ -2,6 +2,55 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-20
+
+### Dashboard V2 Design Complete
+
+Conducted reporting discovery session and designed new dashboard architecture.
+
+**Process followed:**
+1. Reviewed processed data to understand new dimensions (urgency, impact)
+2. Referenced original [Discovery Session](DISCOVERY_SESSION.md) for user flows
+3. Evaluated 5 design options for dashboard organization
+4. Selected hybrid approach: Logical Groupings + Contextual Detail Pane
+
+**Design decisions:**
+
+| Decision | Rationale |
+|----------|-----------|
+| 4 tabs (down from 7) | Clearer mental model, less cognitive load |
+| Detail pane (not navigation) | Preserves context while drilling down |
+| Same schema for overall + per-repo | Enables consistent views at both levels |
+| Urgency in Health tab | Operational health is a "health" concern |
+| Impact in Work + Overview | Shows where effort goes |
+
+**New dashboard structure:**
+- **Overview** - Executive landing (quick scan in 10 seconds)
+- **Activity** - When work happens (timeline + timing combined)
+- **Work** - What's being done (progress + tags + contributors)
+- **Health** - Operational concerns (security + urgency)
+
+**New visualizations planned:**
+- Urgency Distribution (planned vs reactive)
+- Urgency Trend (operational health over time)
+- Urgency by Contributor (who handles emergencies)
+- Impact Allocation (where effort goes)
+- Impact Over Time (shifting priorities)
+- Impact by Contributor (who works on what)
+
+**Key requirement identified:**
+Aggregation must read from `processed/` (AI-tagged data) not `reports/` (raw data).
+Output same schema for overall and per-repo views.
+
+**Files created:**
+- `docs/DASHBOARD_V2_DESIGN.md` - Full design specification
+
+**Files updated:**
+- `docs/SESSION_NOTES.md` - Current state and next actions
+- `docs/TODO.md` - Reorganized for V2 implementation
+
+---
+
 ### Manifest-Based Incremental Processing
 
 Implemented SHA-based tracking for reliable incremental processing ("feed the chicken"):
