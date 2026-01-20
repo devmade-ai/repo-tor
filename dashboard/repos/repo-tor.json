@@ -1,11 +1,1390 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-20T00:10:53.856Z",
+    "generatedAt": "2026-01-20T11:22:46.717Z",
+    "repository": "repo-tor",
     "scope": "repo-tor",
     "repoCount": 1,
-    "commitCount": 108
+    "commitCount": 144
   },
   "commits": [
+    {
+      "sha": "bfb7a03",
+      "fullSha": "bfb7a03a7b84eb916f13266ae17111a94e2f7623",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-20T06:29:41+02:00",
+      "commitDate": "2026-01-20T06:29:41+02:00",
+      "subject": "Merge pull request #22 from devmade-ai/claude/new-dashboard-reporting-wPrJF",
+      "body": "docs: complete Dashboard V2 design specification",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #22 from devmade-ai/claude/new-dashboard-reporting-wPrJF",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#22"
+      ],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 8518,
+        "deletions": 23880
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "38ef3d5",
+      "fullSha": "38ef3d5a0e55cf0f432a9ea76f058949560cf64b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T04:27:05+00:00",
+      "commitDate": "2026-01-20T04:27:05+00:00",
+      "subject": "docs: update guides for Dashboard V2 completion",
+      "body": "- USER_GUIDE.md: Rewrite for 4-tab structure, detail pane, click interactions\n- DASHBOARD_V2_DESIGN.md: Mark all implementation phases as complete\n- USER_TESTING.md: Add V2 dashboard test scenarios",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "update guides for Dashboard V2 completion",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 226,
+        "deletions": 377
+      },
+      "files": [
+        "docs/DASHBOARD_V2_DESIGN.md",
+        "docs/USER_GUIDE.md",
+        "docs/USER_TESTING.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "9e22860",
+      "fullSha": "9e2286014796a5e94bc191ceee54e01427c88705",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T04:04:28+00:00",
+      "commitDate": "2026-01-20T04:04:28+00:00",
+      "subject": "feat: complete Dashboard V2 with detail pane and trend visualizations",
+      "body": "- Add slide-out detail pane (desktop) / bottom sheet (mobile) for drill-down\n- Add click interactions for cards, charts, and bars to show filtered commits\n- Add Urgency Trend line chart showing average by month\n- Add Impact Over Time stacked bar chart\n- Add Urgency by Contributor and Impact by Contributor breakdowns\n- Wire up dark mode support for all new charts\n- Update documentation with completion status",
+      "tags": [
+        "feature",
+        "ui",
+        "enhancement"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "complete Dashboard V2 with detail pane and trend visualizations",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 731,
+        "deletions": 92
+      },
+      "files": [
+        "dashboard/index.html",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "229e7ab",
+      "fullSha": "229e7abb13ffec945ae59e24b2b169f5e14d6df7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T00:20:22+00:00",
+      "commitDate": "2026-01-20T00:20:22+00:00",
+      "subject": "feat: implement Dashboard V2 with 4-tab structure and urgency/impact visualizations",
+      "body": "Major dashboard restructure:\n- 4 tabs (Overview, Activity, Work, Health) down from 7\n- TAB_MAPPING in JS shows multiple content containers per tab\n- Existing render functions continue to work unchanged\n\nNew visualizations in Health tab:\n- Operational health cards (Security, Reactive%, Weekend%, After Hours%)\n- Urgency Distribution bars (Planned/Normal/Reactive)\n- Impact Distribution bars (user-facing/internal/infra/api)\n\nUpdated Overview tab:\n- Replaced Complexity and Files cards with Avg Urgency and % Planned\n- Trend indicators show urgency direction (lower is better)\n\nDocs updated with implementation progress and remaining work.",
+      "tags": [
+        "feature",
+        "ui",
+        "refactor"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "implement Dashboard V2 with 4-tab structure and urgency/impact visualizations",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 300,
+        "deletions": 117
+      },
+      "files": [
+        "dashboard/index.html",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "ce148ae",
+      "fullSha": "ce148aea1bc85746fa587d52f83eb7b6338edcab",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T00:12:38+00:00",
+      "commitDate": "2026-01-20T00:12:38+00:00",
+      "subject": "docs: mark Priority 1 (Aggregation) as complete",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "mark Priority 1 (Aggregation) as complete",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 24,
+        "deletions": 24
+      },
+      "files": [
+        "docs/TODO.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "35b5e01",
+      "fullSha": "35b5e01dade84e94f72d67a686e7b9910f8874e2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T00:11:56+00:00",
+      "commitDate": "2026-01-20T00:11:56+00:00",
+      "subject": "feat: add aggregation script for processed data with urgency/impact",
+      "body": "New script reads AI-analyzed commits from processed/<repo>/batches/\nand generates dashboard-ready JSON with full aggregations:\n\n- tagBreakdown, complexityBreakdown (existing)\n- urgencyBreakdown, impactBreakdown (NEW)\n- Monthly aggregations with avgUrgency, impact distribution\n- Contributor aggregations with avgUrgency, impactBreakdown\n\nOutput structure:\n- dashboard/data.json (overall, all repos combined)\n- dashboard/repos/<repo>.json (per-repo, same schema)\n\nBoth views use identical schema enabling consistent dashboard code.",
+      "tags": [
+        "feature",
+        "build"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "scope": null,
+      "title": "add aggregation script for processed data with urgency/impact",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 6712,
+        "deletions": 23323
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json",
+        "scripts/aggregate-processed.js"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "52691d9",
+      "fullSha": "52691d9c9769c96934363d6aea05f6ffd81cda35",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T00:07:42+00:00",
+      "commitDate": "2026-01-20T00:07:42+00:00",
+      "subject": "docs: complete Dashboard V2 design specification",
+      "body": "New hybrid dashboard architecture combining logical groupings with\ncontextual detail pane. Reduces cognitive load (4 tabs instead of 7)\nwhile enabling in-context drill-down.\n\nKey design decisions:\n- Overview/Activity/Work/Health tab structure\n- Detail pane slides out on click (preserves context)\n- Same data schema for overall and per-repo views\n- Urgency and Impact dimensions integrated throughout\n\nFiles:\n- DASHBOARD_V2_DESIGN.md: Full design spec with layouts and schemas\n- SESSION_NOTES.md: Updated current state and next actions\n- TODO.md: Reorganized for V2 implementation priorities\n- HISTORY.md: Added design session entry",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "scope": null,
+      "title": "complete Dashboard V2 design specification",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 709,
+        "deletions": 131
+      },
+      "files": [
+        "docs/DASHBOARD_V2_DESIGN.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b9c221d",
+      "fullSha": "b9c221d771a990d2372b56ad976f4c88d7d930b6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-20T01:22:40+02:00",
+      "commitDate": "2026-01-20T01:22:40+02:00",
+      "subject": "Merge pull request #21 from devmade-ai/claude/hatch-chicken-feature-fhLtJ",
+      "body": "chore: hatch the chicken - fresh extraction of all repos",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #21 from devmade-ai/claude/hatch-chicken-feature-fhLtJ",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#21"
+      ],
+      "stats": {
+        "filesChanged": 53,
+        "additions": 5066,
+        "deletions": 482
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "279e0a9",
+      "fullSha": "279e0a94029db1c173edb4ab292fd8e278d87198",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T23:17:45+00:00",
+      "commitDate": "2026-01-19T23:17:45+00:00",
+      "subject": "docs: update documentation for manifest-based tracking system",
+      "body": "- SESSION_NOTES.md: Update progress (240/608 commits processed), add new\n  scripts (pending.js, manifest-update.js) to key files, explain\n  manifest-based tracking benefits\n- HISTORY.md: Add entry documenting manifest-based incremental processing\n  feature - the problem, solution, workflow, and files changed",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "update documentation for manifest-based tracking system",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 56,
+        "deletions": 21
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "bd87de9",
+      "fullSha": "bd87de945860b771da3ab50492a8d22ba413f56c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T23:12:37+00:00",
+      "commitDate": "2026-01-19T23:12:37+00:00",
+      "subject": "feat: add incremental processing support for \"feed the chicken\"",
+      "body": "Add manifest-based tracking to enable resumable batch processing:\n- scripts/pending.js: Generates pending batches by comparing manifests\n  against extracted commits. Supports --rebuild-manifests flag.\n- scripts/manifest-update.js: Updates manifest after batch approval\n- processed/<repo>/manifest.json: Tracks processed SHAs (source of truth)\n- pending/<repo>/batches/: Generated batches of unprocessed commits only\n\nThis allows \"feed the chicken\" to work correctly even after merging\nand starting a new session - only truly new/unprocessed commits will\nbe presented for review.\n\nUpdated EXTRACTION_PLAYBOOK.md with new workflow documentation.",
+      "tags": [
+        "feature",
+        "build"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "scope": null,
+      "title": "add incremental processing support for \"feed the chicken\"",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 636,
+        "deletions": 33
+      },
+      "files": [
+        ".gitignore",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "processed/chatty-chart/manifest.json",
+        "processed/model-pear/manifest.json",
+        "processed/repo-tor/manifest.json",
+        "processed/social-ad-creator/manifest.json",
+        "scripts/manifest-update.js",
+        "scripts/pending.js"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b609ce3",
+      "fullSha": "b609ce3c0aa41722d6b6e4008ceaa85fa0ce41cb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T23:04:43+00:00",
+      "commitDate": "2026-01-19T23:04:43+00:00",
+      "subject": "chore: process social-ad-creator batch 9/16",
+      "body": "AI analysis of commits 10d7de5 through 85e686c with tags, complexity, urgency, and impact scores.",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process social-ad-creator batch 9/16",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/social-ad-creator/batches/batch-009.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "1ba39eb",
+      "fullSha": "1ba39eb9f99b96053516d2fbb869942b5cda7516",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T23:02:53+00:00",
+      "commitDate": "2026-01-19T23:02:53+00:00",
+      "subject": "chore: process social-ad-creator batch 8/16",
+      "body": "AI analysis of commits 0e726fa through b54adc4 with tags, complexity, urgency, and impact scores.",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process social-ad-creator batch 8/16",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/social-ad-creator/batches/batch-008.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "1cfeaa3",
+      "fullSha": "1cfeaa3e70feddc299aa32571c93897f281383c9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T23:01:17+00:00",
+      "commitDate": "2026-01-19T23:01:17+00:00",
+      "subject": "chore: process social-ad-creator batch 7/16",
+      "body": "AI analysis of commits 3a64041 through 3c893a9 with tags, complexity, urgency, and impact scores.",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process social-ad-creator batch 7/16",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/social-ad-creator/batches/batch-007.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "1b80592",
+      "fullSha": "1b80592744736e34434809e4a44ffae9be310ae4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:57:26+00:00",
+      "commitDate": "2026-01-19T22:57:26+00:00",
+      "subject": "chore: process social-ad-creator batch 6/16",
+      "body": "AI analysis of commits 7d3f442 through c67a9da with tags, complexity, urgency, and impact scores.",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process social-ad-creator batch 6/16",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/social-ad-creator/batches/batch-006.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "2103d9f",
+      "fullSha": "2103d9f886f3e45381e7e8f90d9de947ffb055db",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:55:23+00:00",
+      "commitDate": "2026-01-19T22:55:23+00:00",
+      "subject": "chore: process social-ad-creator batch 5/16",
+      "body": "AI analysis of commits 0e924ec through 604c48f with tags, complexity, urgency, and impact scores.",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process social-ad-creator batch 5/16",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/social-ad-creator/batches/batch-005.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "0e956e2",
+      "fullSha": "0e956e2b422b8ac742c9186ce6ea7af5f3c18c1e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:53:51+00:00",
+      "commitDate": "2026-01-19T22:53:51+00:00",
+      "subject": "chore: process social-ad-creator batch 4/16",
+      "body": "AI analysis of commits a3830ea through ecec912 with tags, complexity, urgency, and impact scores.",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process social-ad-creator batch 4/16",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/social-ad-creator/batches/batch-004.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "0c509c2",
+      "fullSha": "0c509c21158e98e8e6b0e9a83c07182f8688c2b3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:52:18+00:00",
+      "commitDate": "2026-01-19T22:52:18+00:00",
+      "subject": "chore: process social-ad-creator batch 3/16",
+      "body": "AI analysis of commits 690edc6 through bc8fcf6 with tags, complexity, urgency, and impact scores.",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process social-ad-creator batch 3/16",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/social-ad-creator/batches/batch-003.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "7538468",
+      "fullSha": "75384685830cc560ee7bc8bb25045b5be6d89131",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:50:34+00:00",
+      "commitDate": "2026-01-19T22:50:34+00:00",
+      "subject": "chore: process social-ad-creator batch 2/16",
+      "body": "AI analysis of commits bcb3dfb through 03728b9 with tags, complexity, urgency, and impact scores.",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process social-ad-creator batch 2/16",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/social-ad-creator/batches/batch-002.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "e841730",
+      "fullSha": "e8417301e9f13ea780562541a331be891b460023",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:48:49+00:00",
+      "commitDate": "2026-01-19T22:48:49+00:00",
+      "subject": "chore: process social-ad-creator batch 1/16",
+      "body": "AI analysis of commits d51268b through ae2f03a with tags, complexity, urgency, and impact scores.",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process social-ad-creator batch 1/16",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/social-ad-creator/batches/batch-001.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "bcd9873",
+      "fullSha": "bcd9873bd746ef719959a1ae72e996252a7ef72f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:46:05+00:00",
+      "commitDate": "2026-01-19T22:46:05+00:00",
+      "subject": "chore: process repo-tor batch 11/11 - repo complete (108 commits)",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 11/11 - repo complete (108 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 112,
+        "deletions": 0
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-011.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "eb5fb6f",
+      "fullSha": "eb5fb6f0545e1ecb14e3c310e681a314fb08c08c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:45:03+00:00",
+      "commitDate": "2026-01-19T22:45:03+00:00",
+      "subject": "chore: process repo-tor batch 10/11",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 10/11",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-010.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b34d002",
+      "fullSha": "b34d0022ee1bfdc6907f7ac9c58976aefd1dc50c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:43:18+00:00",
+      "commitDate": "2026-01-19T22:43:18+00:00",
+      "subject": "chore: process repo-tor batch 9/11",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 9/11",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-009.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "fede9da",
+      "fullSha": "fede9dac743c439098fa02f6fb1db24f1e1b2d6e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:41:57+00:00",
+      "commitDate": "2026-01-19T22:41:57+00:00",
+      "subject": "chore: process repo-tor batch 8/11",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 8/11",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-008.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "eb30d85",
+      "fullSha": "eb30d8589fcb794eea1de5d0a4f5daa12ddfb53c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:40:40+00:00",
+      "commitDate": "2026-01-19T22:40:40+00:00",
+      "subject": "chore: process repo-tor batch 7/11",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 7/11",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-007.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "3306248",
+      "fullSha": "33062486c0b47f2e144d6b0a2f5c62850edabbfe",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:39:17+00:00",
+      "commitDate": "2026-01-19T22:39:17+00:00",
+      "subject": "chore: process repo-tor batch 6/11",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 6/11",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-006.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "8cf0d70",
+      "fullSha": "8cf0d708c05c8b672bc73ae5081effb8613fd79a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:37:39+00:00",
+      "commitDate": "2026-01-19T22:37:39+00:00",
+      "subject": "chore: process repo-tor batch 5/11",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 5/11",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-005.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "cf82a3b",
+      "fullSha": "cf82a3ba68ad1a621b1326085521c069f2c68223",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:36:14+00:00",
+      "commitDate": "2026-01-19T22:36:14+00:00",
+      "subject": "chore: process repo-tor batch 4/11",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 4/11",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-004.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "ba7240c",
+      "fullSha": "ba7240cc868fd2259ef085332f6d5496c06fb4e5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:34:38+00:00",
+      "commitDate": "2026-01-19T22:34:38+00:00",
+      "subject": "chore: process repo-tor batch 3/11",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 3/11",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-003.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b6da079",
+      "fullSha": "b6da0799f539452ed26e10c799d0be1972c9abac",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:33:04+00:00",
+      "commitDate": "2026-01-19T22:33:04+00:00",
+      "subject": "chore: process repo-tor batch 2/11",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 2/11",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-002.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "5effe08",
+      "fullSha": "5effe081c135525557a7cd5e0905ee1119c69940",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:31:40+00:00",
+      "commitDate": "2026-01-19T22:31:40+00:00",
+      "subject": "chore: process repo-tor batch 1/11",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 1/11",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-001.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "58e59cf",
+      "fullSha": "58e59cff6121f824e532536a793625cc8a776a19",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:30:13+00:00",
+      "commitDate": "2026-01-19T22:30:13+00:00",
+      "subject": "chore: process chatty-chart batch 5/5 - repo complete (42 commits)",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process chatty-chart batch 5/5 - repo complete (42 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 34,
+        "deletions": 0
+      },
+      "files": [
+        "processed/chatty-chart/batches/batch-005.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "6c07445",
+      "fullSha": "6c07445cf1663397d546c2f8c0492fba95d32112",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:29:37+00:00",
+      "commitDate": "2026-01-19T22:29:37+00:00",
+      "subject": "chore: process chatty-chart batch 4/5",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process chatty-chart batch 4/5",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/chatty-chart/batches/batch-004.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "ade5f4e",
+      "fullSha": "ade5f4e4b95201d4a1724d1dfc15e2aa3588136a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:27:35+00:00",
+      "commitDate": "2026-01-19T22:27:35+00:00",
+      "subject": "chore: process chatty-chart batch 3/5",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process chatty-chart batch 3/5",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/chatty-chart/batches/batch-003.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "909d339",
+      "fullSha": "909d339fdb4e62c0e31a7f5645dbdd18325d16b6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:24:28+00:00",
+      "commitDate": "2026-01-19T22:24:28+00:00",
+      "subject": "chore: process chatty-chart batch 2/5",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process chatty-chart batch 2/5",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/chatty-chart/batches/batch-002.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "55a0b35",
+      "fullSha": "55a0b354fbdc45e9de39d54246aa438595f23097",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:23:08+00:00",
+      "commitDate": "2026-01-19T22:23:08+00:00",
+      "subject": "chore: process chatty-chart batch 1/5",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process chatty-chart batch 1/5",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 138,
+        "deletions": 0
+      },
+      "files": [
+        "processed/chatty-chart/batches/batch-001.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "dbb0efb",
+      "fullSha": "dbb0efba91c1c3d5b9349519a28ceb1ca4452a89",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T22:19:54+00:00",
+      "commitDate": "2026-01-19T22:19:54+00:00",
+      "subject": "chore: hatch the chicken - fresh extraction of all repos",
+      "body": "Full reset extraction of 608 commits across 4 repositories:\n- chatty-chart: 42 commits (5 batches)\n- repo-tor: 108 commits (11 batches)\n- social-ad-creator: 156 commits (16 batches)\n- model-pear: 302 commits (31 batches)\n\nAI analysis pending - 63 batches ready for human review.",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "hatch the chicken - fresh extraction of all repos",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 18,
+        "additions": 1054,
+        "deletions": 428
+      },
+      "files": [
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json",
+        "reports/chatty-chart/data.json",
+        "reports/chatty-chart/metadata.json",
+        "reports/model-pear/data.json",
+        "reports/model-pear/metadata.json",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json",
+        "reports/social-ad-creator/data.json",
+        "reports/social-ad-creator/metadata.json"
+      ],
+      "repo_id": "repo-tor"
+    },
     {
       "sha": "62a6842",
       "fullSha": "62a6842906adcbd0b534cd9e5fc64907d0a38ea7",
@@ -1672,25 +3051,27 @@
   "contributors": [
     {
       "author_id": "devmade.ai@gmail.com",
-      "commits": 77,
-      "avgComplexity": 1.99,
-      "avgUrgency": 1.61,
+      "commits": 113,
+      "avgComplexity": 1.81,
+      "avgUrgency": 1.69,
       "tagBreakdown": {
-        "merge": 20,
-        "docs": 25,
-        "feature": 14,
+        "merge": 22,
+        "docs": 29,
+        "feature": 18,
+        "ui": 11,
+        "enhancement": 2,
+        "refactor": 6,
+        "build": 2,
+        "seed": 26,
         "config": 21,
-        "refactor": 5,
         "removal": 2,
         "bugfix": 6,
-        "ui": 9,
-        "enhancement": 1,
         "ci": 1,
         "init": 1
       },
       "impactBreakdown": {
-        "internal": 63,
-        "user-facing": 13,
+        "internal": 97,
+        "user-facing": 15,
         "infrastructure": 1,
         "api": 0
       },
@@ -1699,7 +3080,7 @@
       ],
       "repoCount": 1,
       "firstCommit": "2026-01-18T21:53:16+02:00",
-      "lastCommit": "2026-01-20T00:16:56+02:00"
+      "lastCommit": "2026-01-20T06:29:41+02:00"
     },
     {
       "author_id": "noreply@anthropic.com",
@@ -1761,72 +3142,108 @@
     }
   ],
   "summary": {
+    "totalCommits": 144,
+    "totalContributors": 3,
     "tagBreakdown": {
-      "merge": 20,
-      "docs": 39,
-      "feature": 22,
+      "merge": 22,
+      "docs": 43,
+      "feature": 26,
+      "ui": 16,
+      "enhancement": 2,
+      "refactor": 9,
+      "build": 2,
+      "seed": 26,
       "config": 27,
-      "refactor": 8,
       "removal": 3,
       "bugfix": 9,
-      "ui": 14,
-      "enhancement": 1,
       "ci": 3,
       "init": 3,
       "test-unit": 1
     },
     "complexityBreakdown": {
-      "1": 36,
-      "2": 37,
-      "3": 22,
-      "4": 10,
+      "1": 64,
+      "2": 40,
+      "3": 25,
+      "4": 12,
       "5": 3
     },
     "urgencyBreakdown": {
-      "1": 56,
-      "2": 49,
+      "1": 61,
+      "2": 80,
       "3": 3,
       "4": 0,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 84,
-      "user-facing": 21,
+      "internal": 118,
+      "user-facing": 23,
       "infrastructure": 3,
       "api": 0
     },
-    "avgComplexity": 2.14,
-    "avgUrgency": 1.51,
+    "avgComplexity": 1.96,
+    "avgUrgency": 1.6,
     "monthly": {
       "2026-01": {
-        "commits": 108,
+        "commits": 144,
         "tags": {
-          "merge": 20,
-          "docs": 39,
-          "feature": 22,
+          "merge": 22,
+          "docs": 43,
+          "feature": 26,
+          "ui": 16,
+          "enhancement": 2,
+          "refactor": 9,
+          "build": 2,
+          "seed": 26,
           "config": 27,
-          "refactor": 8,
           "removal": 3,
           "bugfix": 9,
-          "ui": 14,
-          "enhancement": 1,
           "ci": 3,
           "init": 3,
           "test-unit": 1
         },
         "impact": {
-          "internal": 84,
-          "user-facing": 21,
+          "internal": 118,
+          "user-facing": 23,
           "infrastructure": 3,
           "api": 0
         },
-        "avgComplexity": 2.14,
-        "avgUrgency": 1.51
+        "avgComplexity": 1.96,
+        "avgUrgency": 1.6
+      }
+    },
+    "monthlyCommits": {
+      "2026-01": {
+        "commits": 144,
+        "tags": {
+          "merge": 22,
+          "docs": 43,
+          "feature": 26,
+          "ui": 16,
+          "enhancement": 2,
+          "refactor": 9,
+          "build": 2,
+          "seed": 26,
+          "config": 27,
+          "removal": 3,
+          "bugfix": 9,
+          "ci": 3,
+          "init": 3,
+          "test-unit": 1
+        },
+        "impact": {
+          "internal": 118,
+          "user-facing": 23,
+          "infrastructure": 3,
+          "api": 0
+        },
+        "avgComplexity": 1.96,
+        "avgUrgency": 1.6
       }
     },
     "dateRange": {
       "earliest": "2026-01-18T20:29:03+00:00",
-      "latest": "2026-01-20T00:16:56+02:00"
-    }
+      "latest": "2026-01-20T06:29:41+02:00"
+    },
+    "security_events": []
   }
 }

@@ -94,9 +94,19 @@ const TAB_MAPPING = {
 - [ ] PDF export updates for new layout
 - [ ] Shareable links for detail pane state
 
-### Extraction
-- Continue processing remaining commits with `@data feed the chicken`
+### Extraction Progress
+
+| Repo | Status | Processed |
+|------|--------|-----------|
+| chatty-chart | Complete | 42/42 |
+| repo-tor | Complete | 144/144 |
+| social-ad-creator | In progress | 100/156 (6 batches remaining) |
+| model-pear | Not started | 0/303 (31 batches) |
+
+**Total:** 286/645 commits processed (44%)
+
+Continue with `@data feed the chicken`
 
 ---
 
-*Last updated: 2026-01-20 - Dashboard V2 implementation complete (detail pane + trend charts + contributor visualizations)*
+*Last updated: 2026-01-20 - repo-tor complete, social-ad-creator batch 10 done*
