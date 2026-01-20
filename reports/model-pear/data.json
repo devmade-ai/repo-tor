@@ -9,6 +9,7 @@
       "origin",
       "origin/claude/add-capitalization-priority-0mbt5",
       "origin/claude/add-dark-theme-UVdLQ",
+      "origin/claude/add-discovery-framework-docs-BghhD",
       "origin/claude/add-error-checking-KFddQ",
       "origin/claude/add-input-table-option-anant",
       "origin/claude/add-model-comparison-Acyx7",
@@ -110,7 +111,7 @@
       "origin/claude/verify-tool-alignment-6JSPP",
       "origin/main"
     ],
-    "extractedAt": "2026-01-19T22:18:39.112Z",
+    "extractedAt": "2026-01-20T04:44:05.992Z",
     "repoPath": "/home/user/repo-tor/.repo-cache/model-pear",
     "authors": {
       "noreply@anthropic.com": {
@@ -144,6 +145,41 @@
     }
   },
   "commits": [
+    {
+      "sha": "ecccfaa",
+      "fullSha": "ecccfaafd3ef7c6bf0e42a56ec734b20d8dc117a",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-20T04:43:00+00:00",
+      "commitDate": "2026-01-20T04:43:00+00:00",
+      "subject": "docs: add Discovery Framework methodology guide",
+      "body": "Add comprehensive guide for conducting user discovery sessions covering:\n- Core principle of user flows as the spine\n- Session 1 structure (People, Flow, Data, Contacts, Why Now)\n- Post-session analysis checklist\n- Follow-up session templates by stakeholder type\n- Language guide for non-technical audiences\n- Data complexity signals reference",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "add Discovery Framework methodology guide",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 210,
+        "deletions": 9
+      },
+      "files": [
+        "docs/DISCOVERY_FRAMEWORK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear"
+    },
     {
       "sha": "dafacec",
       "fullSha": "dafacec889cbefc9bb1b54725af1b8ccf053460c",
@@ -10713,11 +10749,11 @@
       "names": [
         "Claude"
       ],
-      "commits": 190,
-      "additions": 90363,
-      "deletions": 69190,
+      "commits": 191,
+      "additions": 90573,
+      "deletions": 69199,
       "firstCommit": "2025-12-25T12:20:42+00:00",
-      "lastCommit": "2026-01-18T16:47:30+00:00",
+      "lastCommit": "2026-01-20T04:43:00+00:00",
       "tagCounts": {},
       "primaryName": "Claude"
     },
@@ -10793,8 +10829,8 @@
       ]
     },
     {
-      "path": "CLAUDE.md",
-      "changeCount": 24,
+      "path": "docs/HISTORY.md",
+      "changeCount": 25,
       "tagCounts": {},
       "authors": [
         "noreply@anthropic.com",
@@ -10802,7 +10838,7 @@
       ]
     },
     {
-      "path": "docs/HISTORY.md",
+      "path": "CLAUDE.md",
       "changeCount": 24,
       "tagCounts": {},
       "authors": [
@@ -10820,7 +10856,7 @@
     },
     {
       "path": "docs/SESSION_NOTES.md",
-      "changeCount": 20,
+      "changeCount": 21,
       "tagCounts": {},
       "authors": [
         "noreply@anthropic.com"
@@ -12043,6 +12079,14 @@
       ]
     },
     {
+      "path": "docs/DISCOVERY_FRAMEWORK.md",
+      "changeCount": 1,
+      "tagCounts": {},
+      "authors": [
+        "noreply@anthropic.com"
+      ]
+    },
+    {
       "path": "apps/web/playwright.config.ts",
       "changeCount": 1,
       "tagCounts": {},
@@ -12612,11 +12656,11 @@
     }
   ],
   "summary": {
-    "totalCommits": 302,
+    "totalCommits": 303,
     "totalContributors": 4,
-    "totalAdditions": 182388,
-    "totalDeletions": 135168,
-    "netLinesChanged": 47220,
+    "totalAdditions": 182598,
+    "totalDeletions": 135177,
+    "netLinesChanged": 47421,
     "tagBreakdown": {},
     "complexityBreakdown": {
       "1": 0,
@@ -12624,11 +12668,11 @@
       "3": 0,
       "4": 0,
       "5": 0,
-      "null": 302
+      "null": 303
     },
     "monthlyCommits": {
       "2026-01": {
-        "total": 257,
+        "total": 258,
         "tags": {}
       },
       "2025-12": {
@@ -12640,7 +12684,7 @@
     "security_events": [],
     "dateRange": {
       "earliest": "2025-12-25T14:09:06+02:00",
-      "latest": "2026-01-18T18:49:27+02:00"
+      "latest": "2026-01-20T04:43:00+00:00"
     }
   }
 }
