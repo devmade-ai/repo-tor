@@ -1,0 +1,21 @@
+{
+  "sha": "af4866f",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-09T18:25:46+00:00",
+  "subject": "Add testing lab tab for validating calculation correctness",
+  "body": "New feature that allows testing pre-populated input combinations against\nexpected outcomes to verify calculations are working correctly.\n\nFeatures:\n- Testing tab with \"Run Tests\" button to execute all tests at once\n- Individual test execution with detailed pass/fail results\n- Pre-defined test cases for Model 1 (all variants), Model 2, Model 3\n- Edge case tests (zero cost, high margin, custom tax rates)\n- Filter tests by model for focused testing\n- Expandable test details showing inputs and expected vs actual values\n- Summary panel with pass rate, duration, and error counts\n- Custom test capture from current calculator state",
+  "tags": [
+    "feature",
+    "test-unit",
+    "ui"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing",
+  "stats": {
+    "filesChanged": 4,
+    "additions": 1436,
+    "deletions": 2
+  },
+  "repo_id": "model-pear"
+}

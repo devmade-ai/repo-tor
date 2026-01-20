@@ -1,0 +1,20 @@
+{
+  "sha": "6a51830",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-11T01:42:10+00:00",
+  "subject": "feat: add projections module with NPV, IRR, payback calculations",
+  "body": "- Add projections/types.ts with TypeScript interfaces\n- Add projections/calculations.ts with:\n  - NPV, present value, future value\n  - IRR using Newton-Raphson method\n  - MIRR with reinvestment rate\n  - Simple and discounted payback period\n  - Profitability index\n  - ROI and annualized ROI\n  - Investment assessment utility\n  - Cash flow utilities\n- Export projections from main package index\n- Add 39 comprehensive tests for projections\n\nTotal tests: 261 passing across 7 test files",
+  "tags": [
+    "feature",
+    "test-unit"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "internal",
+  "stats": {
+    "filesChanged": 6,
+    "additions": 1077,
+    "deletions": 60
+  },
+  "repo_id": "model-pear"
+}

@@ -1,0 +1,16 @@
+{
+  "sha": "05c6081",
+  "fullSha": "05c60810a19e37aeb29be9fdf89a5f3305232b9e",
+  "author_id": "jacotheron87@gmail.com",
+  "timestamp": "2026-01-19T11:13:46+02:00",
+  "subject": "feat: implement tag-based extraction with complexity scoring",
+  "body": "Phase 1 - extract.js:\n- Add CONVENTIONAL_TO_TAG mapping (feat→feature, fix→bugfix, etc.)\n- parseCommitMessage() returns tags[] array instead of single type\n- Add calculateComplexity() function (1-5 scale)\n- Summary outputs tagBreakdown and complexityBreakdown\n- Contributors/files track tagCounts instead of types\n\nPhase 4 - aggregate.js:\n- Tag-aware aggregation with tagCounts\n- Summary outputs tagBreakdown and complexityBreakdown\n- Monthly aggregation tracks tags per month\n\nData regenerated for repo-tor with new format.\nDocs updated (USER_GUIDE, HISTORY, SESSION_NOTES, TODO).\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "feature",
+    "refactor"
+  ],
+  "complexity": 5,
+  "urgency": 1,
+  "impact": "internal",
+  "repo_id": "repo-tor"
+}

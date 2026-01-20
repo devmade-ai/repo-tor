@@ -1,0 +1,37 @@
+{
+  "sha": "bcfc569",
+  "fullSha": "bcfc569b1ba864024960dfd2088502aa554287b9",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-11T23:56:24+00:00",
+  "commitDate": "2026-01-11T23:56:24+00:00",
+  "subject": "feat: implement pricing calculator with subscription model",
+  "body": "- Replaced placeholder with working pricing calculator\n- Added model selector (5 models: subscription, usage-based, per-seat, one-time, marketplace)\n- Implemented subscription model with equilibrium analysis\n- Shows minimum price (seller needs), maximum price (buyer willing to pay), and suggested price\n- Displays financial metrics, seller position, and client ROI\n- Real-time reactive calculations as inputs change\n- Subscription model fully functional, other 4 models to be added\n\nThe calculator helps find the price range where both seller hits margin AND buyer sees ROI.",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 4,
+  "urgency": 3,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "implement pricing calculator with subscription model",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 230,
+    "deletions": 86
+  },
+  "files": [
+    "apps/web/src/routes/pricing/+page.svelte"
+  ],
+  "repo_id": "model-pear"
+}

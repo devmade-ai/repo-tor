@@ -1,0 +1,16 @@
+{
+  "sha": "4264848",
+  "fullSha": "42648484c7c234170c3dd8a0d2a258104f0be27b",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-14T19:03:17+00:00",
+  "subject": "Revert per-group alignment to cell-level alignment",
+  "body": "Per-group alignment caused text elements to overlap because each group\nwas rendered in its own absolutely positioned container. This change\nreverts to cell-level alignment where all text groups in a cell share\na single alignment container, allowing text to flow naturally.\n\n- Simplified textGroups state to only store cell assignment (no alignment)\n- Removed per-group alignment controls from Placement tab\n- Updated AdCanvas to render all groups in single container per cell",
+  "tags": [
+    "revert",
+    "bugfix"
+  ],
+  "complexity": 3,
+  "urgency": 3,
+  "impact": "user-facing",
+  "repo_id": "social-ad-creator"
+}

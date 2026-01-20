@@ -1,0 +1,21 @@
+{
+  "sha": "6adb689",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-09T19:24:14+00:00",
+  "subject": "Improve test documentation with business rules and formulas",
+  "body": "Each test case now includes:\n- businessRule: Explains WHY the test exists (accounting/tax logic)\n- formula: Step-by-step calculation showing HOW expected values derive\n- source: Reference to documentation (CALCULATIONS.md, IAS 38, OECD, etc.)\n\nThe expanded test view in the UI now displays these fields with\nappropriate formatting:\n- Business Rule: Blue-tinted box explaining the accounting principle\n- Formula: Monospace green text showing the calculation steps\n- Source: Reference badge linking to standards/documentation",
+  "tags": [
+    "docs",
+    "test-unit",
+    "ui"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "user-facing",
+  "stats": {
+    "filesChanged": 2,
+    "additions": 462,
+    "deletions": 45
+  },
+  "repo_id": "model-pear"
+}

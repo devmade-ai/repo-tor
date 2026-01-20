@@ -4,6 +4,33 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-20
 
+### Storage Migration: Batches to Individual Commit Files
+
+Migrated from storing commits in batch files to individual commit files.
+
+**Old structure:** `processed/<repo>/batches/batch-NNN.json` (15 commits per file)
+**New structure:** `processed/<repo>/commits/<sha>.json` (1 file per commit)
+
+**Benefits:**
+- Simpler deduplication (file existence = processed, no manifest sync issues)
+- Atomic edits (fix one commit without touching others)
+- Lower corruption risk (lose one file = lose one commit, not 15)
+- Cleaner git diffs (individual commit changes are isolated)
+
+**Files changed:**
+- `scripts/save-commit.js` - New script replacing save-batch.js
+- `scripts/aggregate-processed.js` - Updated to read from commits/
+- `scripts/extract.js` - Updated to write individual commit files
+- `scripts/migrate-batches-to-commits.js` - One-time migration script
+- `docs/EXTRACTION_PLAYBOOK.md` - Updated workflow documentation
+
+**Migration stats:**
+- 4 repositories migrated
+- 57 batch files converted
+- 576 individual commit files created
+
+---
+
 ### Fast Batch Saving Script
 
 Added `scripts/save-batch.js` to speed up batch processing workflow.

@@ -1,0 +1,14 @@
+{
+  "sha": "1725bbe",
+  "subject": "Implement Phase 3.3: Comparison Manager & View Components",
+  "body": "Add the core UI components for Compare Mode:\n\n- comparison-manager.js: Full panel for managing saved options\n  - List, load, delete, rename saved comparisons\n  - Edit notes for each comparison\n  - Select options for side-by-side comparison\n  - Export to JSON/CSV, import from JSON\n  - Clear all with confirmation dialog\n  - Storage info display\n\n- comparison-view.js: Side-by-side comparison table\n  - Compare 2-4 options simultaneously\n  - Developer, Buyer, Combined metrics sections\n  - Transfer pricing risk display\n  - Difference column with directional arrows\n  - Best/worst value highlighting\n  - Export comparison as JSON/CSV\n\n- calculator.js: Integration updates\n  - Import and initialize comparison components\n  - Wire up \"View Saved\" and \"Compare\" buttons\n  - Add cleanup for comparison modules\n\nThis substantially completes Phase 3 (Compare Mode) of the\nimplementation plan.",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-09T06:53:44+00:00",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 5,
+  "urgency": 1,
+  "impact": "user-facing"
+}

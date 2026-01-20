@@ -1,0 +1,21 @@
+{
+  "sha": "ac568bc",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-10T01:32:28+00:00",
+  "subject": "feat: remove combined from comparison features",
+  "body": "Phase 5 of refactor to remove Combined perspective.\n- comparison-view.js: remove Combined section from metrics\n- comparison-manager.js: replace Combined Net with Buyer Asset\n- storage.js: remove combined from CSV export and summary, update defaults\n- diff-view.js: replace Combined Net Cash with Buyer Asset",
+  "tags": [
+    "refactor",
+    "removal",
+    "ui"
+  ],
+  "complexity": 2,
+  "urgency": 1,
+  "impact": "user-facing",
+  "stats": {
+    "filesChanged": 4,
+    "additions": 5,
+    "deletions": 28
+  },
+  "repo_id": "model-pear"
+}

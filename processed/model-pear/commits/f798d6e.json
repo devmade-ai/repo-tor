@@ -1,0 +1,39 @@
+{
+  "sha": "f798d6e",
+  "fullSha": "f798d6e4e037b73a4fbb360e6844582e713faaec",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-08T08:08:38+02:00",
+  "commitDate": "2026-01-08T08:08:38+02:00",
+  "subject": "Fix reserved keyword 'eval' in destructuring assignment",
+  "body": "The compliance-analyzer.js was using 'eval' as a variable name in a\ndestructuring assignment, which is a reserved JavaScript keyword and\ncauses a SyntaxError. Renamed to 'evaluation'.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "naming"
+  ],
+  "complexity": 1,
+  "urgency": 3,
+  "impact": "internal",
+  "scope": null,
+  "title": "Fix reserved keyword 'eval' in destructuring assignment",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 29,
+    "deletions": 4
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "ui/intercompany/compliance-analyzer.js"
+  ],
+  "repo_id": "model-pear"
+}

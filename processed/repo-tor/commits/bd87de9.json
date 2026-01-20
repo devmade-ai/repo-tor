@@ -1,0 +1,45 @@
+{
+  "sha": "bd87de9",
+  "fullSha": "bd87de945860b771da3ab50492a8d22ba413f56c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T23:12:37+00:00",
+  "commitDate": "2026-01-19T23:12:37+00:00",
+  "subject": "feat: add incremental processing support for \"feed the chicken\"",
+  "body": "Add manifest-based tracking to enable resumable batch processing:\n- scripts/pending.js: Generates pending batches by comparing manifests\n  against extracted commits. Supports --rebuild-manifests flag.\n- scripts/manifest-update.js: Updates manifest after batch approval\n- processed/<repo>/manifest.json: Tracks processed SHAs (source of truth)\n- pending/<repo>/batches/: Generated batches of unprocessed commits only\n\nThis allows \"feed the chicken\" to work correctly even after merging\nand starting a new session - only truly new/unprocessed commits will\nbe presented for review.\n\nUpdated EXTRACTION_PLAYBOOK.md with new workflow documentation.",
+  "tags": [
+    "feature",
+    "build"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "internal",
+  "scope": null,
+  "title": "add incremental processing support for \"feed the chicken\"",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 636,
+    "deletions": 33
+  },
+  "files": [
+    ".gitignore",
+    "docs/EXTRACTION_PLAYBOOK.md",
+    "processed/chatty-chart/manifest.json",
+    "processed/model-pear/manifest.json",
+    "processed/repo-tor/manifest.json",
+    "processed/social-ad-creator/manifest.json",
+    "scripts/manifest-update.js",
+    "scripts/pending.js"
+  ],
+  "repo_id": "repo-tor"
+}

@@ -1,0 +1,16 @@
+{
+  "sha": "0cee69d",
+  "fullSha": "0cee69db6380b108e1ea8fe20666cbe447c32eb9",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-17T00:40:18+00:00",
+  "subject": "Add neutral colors for text and overlays",
+  "body": "Add 6 neutral color options (off-black, dark gray, gray, light gray,\noff-white, white) available in all color pickers regardless of theme.\n\n- Define neutralColors array and getNeutralColor() helper in themes.js\n- Update TextEditor, ImageUploader, and LayoutSelector color pickers\n- Update AdCanvas resolveColor() to handle neutral color keys",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "user-facing",
+  "repo_id": "social-ad-creator"
+}

@@ -1,0 +1,38 @@
+{
+  "sha": "27489eb",
+  "fullSha": "27489eb11d8ef9c3bcd723c6a9b7bf7fac210adb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-12T01:30:03+02:00",
+  "commitDate": "2026-01-12T01:30:03+02:00",
+  "subject": "fix: set base path for GitHub Pages deployment",
+  "body": "Assets were loading from root (/_app/) instead of /model-pear/_app/,\ncausing 404 errors on the deployed site.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 1,
+  "urgency": 3,
+  "impact": "infrastructure",
+  "scope": null,
+  "title": "set base path for GitHub Pages deployment",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "apps/web/svelte.config.js"
+  ],
+  "repo_id": "model-pear"
+}

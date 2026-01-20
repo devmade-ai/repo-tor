@@ -1,0 +1,44 @@
+{
+  "sha": "0bd6ff9",
+  "fullSha": "0bd6ff92d21046da3fb4d66690545276fb7280bc",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-20T12:11:44+00:00",
+  "commitDate": "2026-01-20T12:11:44+00:00",
+  "subject": "feat: implement Negotiation Mode UI changes",
+  "body": "Based on Discovery Framework findings, implement \"Simplified by Default\" approach\nfor client-facing negotiation sessions.\n\nInput Field Enhancements:\n- Add benchmark property for industry standard badges (e.g., \"Industry: 5-15%\")\n- Add essential property to control field grouping\n- InputField displays benchmark badges next to labels\n\nCalculator Page Refactor:\n- Progressive disclosure: Essential inputs visible, Advanced collapsed\n- Sensitivity/Projections moved to collapsible \"Advanced Analysis\" section\n- Transfer Pricing collapsed by default (shows risk badge)\n- One-click save with auto-generated names\n- Saved options count shown in action bar\n\nThis aligns with the 5 design principles from discovery:\n1. Client in the room - cleaner, less overwhelming UI\n2. Neutral ground first - industry benchmarks prominently displayed\n3. Show both sides - Developer/Buyer results always visible\n4. Progressive complexity - advanced features tucked away\n5. Compare to decide - prominent save, easy comparison flow",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "implement Negotiation Mode UI changes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 257,
+    "deletions": 91
+  },
+  "files": [
+    "apps/web/src/lib/components/InputField.svelte",
+    "apps/web/src/lib/config/inputFields.ts",
+    "apps/web/src/routes/structuring/[model]/+page.svelte",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "model-pear"
+}

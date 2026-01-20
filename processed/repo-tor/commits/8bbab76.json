@@ -1,0 +1,15 @@
+{
+  "sha": "8bbab76",
+  "fullSha": "8bbab76dacae91d2edbe639640994113bfb0eae2",
+  "author_id": "devmade.ai@gmail.com",
+  "timestamp": "2026-01-19T20:40:23+00:00",
+  "subject": "docs: add checkpoint-based batch processing to playbook",
+  "body": "- Process commits in batches of 50 for resilience\n- checkpoint.json tracks progress per repo (last SHA, count)\n- Commit after each batch so work survives interruptions\n- \"feed the chicken\" resumes from checkpoint if incomplete",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "urgency": 1,
+  "impact": "internal",
+  "repo_id": "repo-tor"
+}

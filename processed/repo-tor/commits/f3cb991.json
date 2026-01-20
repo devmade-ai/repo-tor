@@ -1,0 +1,15 @@
+{
+  "sha": "f3cb991",
+  "fullSha": "f3cb9911136c964506a473ba5c6658b4964d6a37",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-18T21:03:01+00:00",
+  "subject": "feat(D3): add multi-repository aggregation script",
+  "body": "Implement aggregation to combine data from multiple repositories:\n- scripts/aggregate.js: Combines repo data with author identity mapping\n- config/author-map.example.json: Example author mapping configuration\n- config/author-map.schema.json: JSON schema for validation\n\nAlso adds repo_id support:\n- scripts/extract.js: Now includes repo_id in metadata and commits\n- Enables tracking commit source in aggregated views\n\nDocumentation updates:\n- ADMIN_GUIDE.md: Added aggregation section\n- USER_GUIDE.md: Added multi-repository view section\n- TODO.md: Marked D3 as complete",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "internal",
+  "repo_id": "repo-tor"
+}

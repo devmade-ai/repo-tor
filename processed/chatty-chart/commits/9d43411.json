@@ -1,0 +1,15 @@
+{
+  "sha": "9d43411",
+  "fullSha": "9d4341196c1ba75b2adbbfa0edf365bc0d5edf85",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2025-12-25T09:26:28+00:00",
+  "subject": "Fix visualization reveal logic - invert covered/visible behavior",
+  "body": "The visualization was backwards: squares that should be visible (analyzed) were being covered instead. Fixed by inverting the logic so that 'analyzed' squares are revealed (not covered) and the remaining squares are covered (hidden).",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "urgency": 3,
+  "impact": "user-facing",
+  "repo_id": "chatty-chart"
+}

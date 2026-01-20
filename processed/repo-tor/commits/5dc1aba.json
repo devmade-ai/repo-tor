@@ -1,0 +1,15 @@
+{
+  "sha": "5dc1aba",
+  "fullSha": "5dc1abadd7075300924db2b3a66a47eb766644ff",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-18T21:48:23+00:00",
+  "subject": "ci: add GitHub Pages deployment workflow",
+  "body": "Add automated deployment to GitHub Pages:\n- .github/workflows/deploy.yml: Deploys on push to main/master\n- Supports manual trigger via workflow_dispatch\n- Copies dashboard and reports folder to _site\n\nUpdated ADMIN_GUIDE.md with setup instructions:\n- Enable GitHub Pages with \"GitHub Actions\" as source\n- Manual deployment via Actions tab",
+  "tags": [
+    "ci"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "infrastructure",
+  "repo_id": "repo-tor"
+}

@@ -1,0 +1,14 @@
+{
+  "sha": "d67deab",
+  "subject": "Implement Phase 3 Compare Mode - State & Storage Foundation",
+  "body": "Add core infrastructure for the Compare Mode feature:\n\n- Create utils/storage.js with localStorage persistence for saved comparisons\n  - Version-tracked storage format with 20 comparison limit\n  - Export (JSON/CSV) and import functionality\n  - Comparison summary generation for side-by-side view\n\n- Extend state/app-state.js with comparison management\n  - savedComparisons array in state\n  - Action creators: save, load, delete, update, clear comparisons\n  - UI state for comparison view and modal\n\n- Add Save as Option UI in calculator.js\n  - Save Actions Bar with Save/View/Compare buttons\n  - Save Modal with name and notes input\n  - Auto-generated default names from model/variant\n  - Reactive UI updates on comparison changes\n\nThis completes Sub-phases 3.1 (State & Storage) and 3.2 (Save UI).\nNext: comparison-manager.js and comparison-view.js components.",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-09T01:32:08+00:00",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing"
+}

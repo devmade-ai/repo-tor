@@ -1,0 +1,41 @@
+{
+  "sha": "e55ec59",
+  "fullSha": "e55ec5938d2acab6d8486d7b336fe19872b8e66d",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-13T14:50:37+00:00",
+  "commitDate": "2026-01-13T14:50:37+00:00",
+  "subject": "Add sample images feature for quick testing",
+  "body": "- Create sampleImages.js config with 5 devMade samples\n- Add sample image selector grid in ImageUploader\n- Shows clickable thumbnails when no image uploaded\n- Graceful fallback when images not yet in public/samples/",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Add sample images feature for quick testing",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 125,
+    "deletions": 31
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/ImageUploader.jsx",
+    "src/config/sampleImages.js"
+  ],
+  "repo_id": "social-ad-creator"
+}

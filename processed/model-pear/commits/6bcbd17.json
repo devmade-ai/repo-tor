@@ -1,0 +1,40 @@
+{
+  "sha": "6bcbd17",
+  "fullSha": "6bcbd17455867ee635487ff8d0b448c6fd959b97",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-20T15:56:00+00:00",
+  "commitDate": "2026-01-20T15:56:00+00:00",
+  "subject": "fix: resolve nested card styling in TransferPricingResults",
+  "body": "- Add `minimal` prop to TransferPricingResults component\n- When minimal=true, renders content without ResultPanel wrapper\n- Update [model]/+page.svelte to use minimal mode in collapsible section\n- Update SESSION_NOTES with completion status and defaults verification",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "resolve nested card styling in TransferPricingResults",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 50,
+    "deletions": 9
+  },
+  "files": [
+    "apps/web/src/lib/components/TransferPricingResults.svelte",
+    "apps/web/src/routes/structuring/[model]/+page.svelte",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "model-pear"
+}

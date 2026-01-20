@@ -1,0 +1,17 @@
+{
+  "sha": "59ce555",
+  "fullSha": "59ce55565fd1c07c77dfdabff628d56630996d55",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2025-12-29T21:55:47+00:00",
+  "subject": "Restore auto-scroll to visualization after fixing freeze issue",
+  "body": "The page freeze when clicking \"Update Visualization\" was caused by CSS\ntransitions on 10,000 squares (fixed in commit cfd34da), not by the\nscrollIntoView call that was removed in commit 55a33c8.\n\nNow that the actual performance issue is resolved, we can safely restore\nthe auto-scroll functionality for better UX. When users click \"Update\nVisualization\" (especially from the sidebar button), the page smoothly\nscrolls to show the visualization at the top.\n\nChanges:\n- Restore scrollIntoView call in reshuffle() function (app.js:424-428)\n- Update claude.md documentation to note auto-scroll feature\n- No performance impact since CSS transitions remain removed",
+  "tags": [
+    "enhancement",
+    "ux",
+    "docs"
+  ],
+  "complexity": 2,
+  "urgency": 2,
+  "impact": "user-facing",
+  "repo_id": "chatty-chart"
+}

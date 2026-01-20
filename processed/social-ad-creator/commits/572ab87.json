@@ -1,0 +1,40 @@
+{
+  "sha": "572ab87",
+  "fullSha": "572ab877e8d4cb40e07d4c9790ac9d6faf80b9ac",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-14T00:28:26+00:00",
+  "commitDate": "2026-01-14T00:28:26+00:00",
+  "subject": "Overhaul Image tab UX - cleaner flow and collapsible sections",
+  "body": "- Reorganize section order: Upload → Remove → Settings → Effects → Logo\n- Add collapsible Section component with sensible defaults\n  - Settings: open by default\n  - Style Presets, Filters, Overlay: collapsed by default\n  - Logo: collapsed unless logo exists\n- Move Remove button immediately after upload area (was buried after Quick Layout)\n- Remove Quick Layout presets from Image tab (belongs in Layout tab)\n- Remove unused layout-related props from ImageUploader\n- Clean up imports (removed layout preset dependencies)",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Overhaul Image tab UX - cleaner flow and collapsible sections",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 202,
+    "deletions": 262
+  },
+  "files": [
+    "docs/TODO.md",
+    "src/App.jsx",
+    "src/components/ImageUploader.jsx"
+  ],
+  "repo_id": "social-ad-creator"
+}

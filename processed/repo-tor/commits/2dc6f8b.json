@@ -1,0 +1,16 @@
+{
+  "sha": "2dc6f8b",
+  "fullSha": "2dc6f8be1eced1287a16247c2e861368b166270a",
+  "author_id": "devmade.ai@gmail.com",
+  "timestamp": "2026-01-19T12:50:39+00:00",
+  "subject": "feat: add PDF export and shareable links (Priority 4)",
+  "body": "Add export/share capabilities to the dashboard:\n\n- PDF Export: Generate downloadable PDF of current tab view\n  - Uses html2pdf.js for client-side generation\n  - Includes header, stats, and chart content\n  - Landscape A4 format with loading feedback\n\n- Shareable Links: Copy URL with encoded state\n  - Captures tab, filters, period, timezone settings\n  - Auto-applies URL state on page load\n  - Toast notifications for user feedback\n\n- UI: Header buttons (Share + Export PDF)\n  - Responsive layout (icons on mobile)\n  - Buttons appear after data loads\n\nCompletes all Discovery Session priorities (1-4).",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing",
+  "repo_id": "repo-tor"
+}

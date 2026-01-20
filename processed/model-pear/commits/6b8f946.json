@@ -1,0 +1,20 @@
+{
+  "sha": "6b8f946",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-11T23:12:27+00:00",
+  "subject": "fix: add root index.html to resolve GitHub Pages 404 error",
+  "body": "The monorepo structure moved the vanilla JS app to legacy/ but GitHub\nPages requires index.html at the root. This redirect ensures the site\nloads correctly while the SvelteKit build/deploy workflow is set up.",
+  "tags": [
+    "bugfix",
+    "hosting"
+  ],
+  "complexity": 1,
+  "urgency": 3,
+  "impact": "infrastructure",
+  "stats": {
+    "filesChanged": 1,
+    "additions": 15,
+    "deletions": 0
+  },
+  "repo_id": "model-pear"
+}

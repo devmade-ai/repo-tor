@@ -1,6 +1,56 @@
 {
   "commits": [
     {
+      "sha": "a8f37bd",
+      "fullSha": "a8f37bd3bf2913924cd439f7426dfcb17264da46",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T21:37:48+02:00",
+      "commitDate": "2026-01-20T21:37:48+02:00",
+      "subject": "feat: add save-batch.js for faster batch processing",
+      "body": "- New script writes batch file + updates manifest in one step\n- Avoids IDE approval dialogs that slow down long sessions\n- Updated EXTRACTION_PLAYBOOK.md with new workflow\n- Includes recent batch processing progress\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "add save-batch.js for faster batch processing",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 17,
+        "additions": 26882,
+        "deletions": 7276
+      },
+      "files": [
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "processed/model-pear/batches/batch-011.json",
+        "processed/model-pear/batches/batch-012.json",
+        "processed/model-pear/manifest.json",
+        "processed/repo-tor/batches/batch-020.json",
+        "processed/repo-tor/manifest.json",
+        "processed/social-ad-creator/batches/batch-018.json",
+        "processed/social-ad-creator/manifest.json",
+        "scripts/save-batch.js"
+      ],
+      "repo_id": "repo-tor",
+      "author_canonical": "jacotheron87"
+    },
+    {
       "sha": "c7699cd",
       "fullSha": "c7699cdc53e6b764c23117b65c0695c571ac75df",
       "author_id": "jacotheron87",

@@ -1,0 +1,38 @@
+{
+  "sha": "a4596b7",
+  "fullSha": "a4596b70902139d9c6dedee71e39ebcabf82a72d",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-18T11:35:12+00:00",
+  "commitDate": "2026-01-18T11:35:12+00:00",
+  "subject": "docs: fix arithmetic and enhance Model 5 use cases",
+  "body": "Technical corrections:\n- Fix 5B arithmetic: R1.75M annual payments at 8% (was R1.5M with incorrect total)\n- Add 5B note on separating interest from principal for TP/withholding\n- Add 5C note on supportable discount rate (Buyer credit risk)\n- Soften 5E source code premium claim (was \"typically 20-50%\")\n- Add 5G earnout revenue definition guidance with specific example\n- Expand 5G TP consideration re: earnout exceeding expectations\n\nNew content:\n- Add \"Sale Mechanics for All Variants\" section covering:\n  - What transfers (customers, employees, liabilities, data, infrastructure)\n  - TP characterisation risk (sale vs licence recharacterisation)\n  - IFRS 15 revenue recognition by variant\n- Note 5F and 5H combinability with other variants\n- Restructure selection guide into payment/relationship/scope categories\n- Add common mistakes for transfer mechanics and characterisation risk",
+  "tags": [
+    "docs",
+    "bugfix"
+  ],
+  "complexity": 2,
+  "urgency": 2,
+  "impact": "internal",
+  "scope": null,
+  "title": "fix arithmetic and enhance Model 5 use cases",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 65,
+    "deletions": 9
+  },
+  "files": [
+    "docs/model-use-cases/model-5-software-sale.md"
+  ],
+  "repo_id": "model-pear"
+}

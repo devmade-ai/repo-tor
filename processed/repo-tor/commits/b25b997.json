@@ -1,0 +1,41 @@
+{
+  "sha": "b25b997",
+  "fullSha": "b25b997c707a98ae7f67ffb628c7b7c7ec716beb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-20T11:23:18+00:00",
+  "commitDate": "2026-01-20T11:23:18+00:00",
+  "subject": "fix: add missing dashboard fields (repository, monthlyCommits, security_events)",
+  "body": "- metadata.repository: repo name for header display\n- summary.monthlyCommits: alias for monthly (dashboard compatibility)\n- summary.security_events: commits with security tag",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "add missing dashboard fields (repository, monthlyCommits, security_events)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 196,
+    "deletions": 10
+  },
+  "files": [
+    "dashboard/data.json",
+    "dashboard/repos/chatty-chart.json",
+    "dashboard/repos/repo-tor.json",
+    "dashboard/repos/social-ad-creator.json",
+    "scripts/aggregate-processed.js"
+  ],
+  "repo_id": "repo-tor"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "35c1cfb",
+  "fullSha": "35c1cfb0cb1e41136e3544ca9e78716f065aa869",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T05:40:57+00:00",
+  "commitDate": "2026-01-08T05:40:57+00:00",
+  "subject": "Add error handling and quality improvements",
+  "body": "- Add global error handlers (window.onerror, onunhandledrejection) in app.js\n- Wrap app initialization in try-catch with user-friendly error display\n- Add safeGetElement() and safeRenderChart() helpers in charts/index.js\n- Refactor all 18 chart rendering calls to use null-safe helpers\n- Add defensive null/NaN checks to formatCurrency, formatPercentage, formatNumber\n- Update HISTORY.md with quality improvements documentation",
+  "tags": [
+    "error-handling",
+    "refactor",
+    "validation"
+  ],
+  "complexity": 3,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Add error handling and quality improvements",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 160,
+    "deletions": 61
+  },
+  "files": [
+    "app.js",
+    "charts/index.js",
+    "docs/HISTORY.md",
+    "utils/index.js"
+  ],
+  "repo_id": "model-pear"
+}

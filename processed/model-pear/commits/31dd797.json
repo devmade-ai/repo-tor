@@ -1,0 +1,41 @@
+{
+  "sha": "31dd797",
+  "fullSha": "31dd797907b1ece0442931b1ca1046ad05829b7f",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T05:13:39+00:00",
+  "commitDate": "2026-01-08T05:13:39+00:00",
+  "subject": "Implement Phase 12: Growth Projections",
+  "body": "Add multi-year financial projections with:\n- NPV calculations per party (Developer, Buyer, Combined)\n- IRR calculations using Newton-Raphson method\n- Payback period calculations (simple and discounted)\n- Asset value trajectories with enhancements\n- Revenue break-even analysis\n- Projection visualizations: cash flow charts, ROI trajectory,\n  asset value charts, and investment assessment dashboards\n- Configurable parameters: projection period, discount rate,\n  revenue growth, inflation, and enhancement costs\n- New \"Projections\" tab in the inter-company calculator",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Implement Phase 12: Growth Projections",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 1814,
+    "deletions": 19
+  },
+  "files": [
+    "docs/IMPLEMENTATION_ROADMAP.md",
+    "models/intercompany/growth-projections.js",
+    "ui/intercompany/calculator.js",
+    "ui/intercompany/projection-visualizations.js"
+  ],
+  "repo_id": "model-pear"
+}

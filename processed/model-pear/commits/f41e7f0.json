@@ -1,0 +1,21 @@
+{
+  "sha": "f41e7f0",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-11T13:26:04+00:00",
+  "subject": "feat: add data-driven input field configurations for all 6 models",
+  "body": "- Create lib/config/inputFields.ts with field configs for Models 1-6\n- Each model has specific fields: project name, costs, revenues, tax settings\n- Calculator page now renders inputs dynamically from configuration\n- Reduces input section from ~170 lines to ~15 lines of code\n\nThis makes adding new input fields trivial - just update the config.",
+  "tags": [
+    "feature",
+    "refactor",
+    "config"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "user-facing",
+  "stats": {
+    "filesChanged": 3,
+    "additions": 310,
+    "deletions": 169
+  },
+  "repo_id": "model-pear"
+}

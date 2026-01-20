@@ -1,0 +1,41 @@
+{
+  "sha": "bb879c7",
+  "fullSha": "bb879c74afe792f401e9d24c101168cc596998c5",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-13T22:58:40+00:00",
+  "commitDate": "2026-01-13T22:58:40+00:00",
+  "subject": "Implement Phase 2 tab simplifications",
+  "body": "Text Tab:\n- Remove sub-tabs (Content, Style, Placement)\n- Combine content input with inline style controls (color, size)\n- Simpler, single-view editing experience\n\nLayout Tab:\n- Merge Alignment + Placement + Image Position into unified \"Placement\" tab\n- Remove separate Align tab (was redundant)\n- Placement tab now shows: image position, text alignment, text group placement\n- Removed duplicate image position from Presets tab\n- Reduced from 6 sub-tabs to 5",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Implement Phase 2 tab simplifications",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 168,
+    "deletions": 445
+  },
+  "files": [
+    "docs/TODO.md",
+    "src/App.jsx",
+    "src/components/LayoutSelector.jsx",
+    "src/components/TextEditor.jsx"
+  ],
+  "repo_id": "social-ad-creator"
+}

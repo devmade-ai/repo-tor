@@ -1,0 +1,16 @@
+{
+  "sha": "b27e603",
+  "fullSha": "b27e60318726976a9c8afb6939d243419940c1ea",
+  "author_id": "devmade.ai@gmail.com",
+  "timestamp": "2026-01-19T15:28:31+00:00",
+  "subject": "refactor: separate script extraction from AI tagging",
+  "body": "Scripts now extract raw data only (empty tags, null complexity):\n- extract.js: Removes tag parsing logic, outputs tags: [], complexity: null\n- aggregate.js: Passes through empty tags (no 'other' default)\n\nAI (@data persona) will analyze each commit and assign:\n- tags[] based on playbook guidelines\n- complexity (1-5) based on files changed + tag count\n\nUpdated EXTRACTION_PLAYBOOK.md with new two-stage process.",
+  "tags": [
+    "refactor",
+    "docs"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "internal",
+  "repo_id": "repo-tor"
+}

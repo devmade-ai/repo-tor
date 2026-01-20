@@ -1,0 +1,42 @@
+{
+  "sha": "229e7ab",
+  "fullSha": "229e7abb13ffec945ae59e24b2b169f5e14d6df7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-20T00:20:22+00:00",
+  "commitDate": "2026-01-20T00:20:22+00:00",
+  "subject": "feat: implement Dashboard V2 with 4-tab structure and urgency/impact visualizations",
+  "body": "Major dashboard restructure:\n- 4 tabs (Overview, Activity, Work, Health) down from 7\n- TAB_MAPPING in JS shows multiple content containers per tab\n- Existing render functions continue to work unchanged\n\nNew visualizations in Health tab:\n- Operational health cards (Security, Reactive%, Weekend%, After Hours%)\n- Urgency Distribution bars (Planned/Normal/Reactive)\n- Impact Distribution bars (user-facing/internal/infra/api)\n\nUpdated Overview tab:\n- Replaced Complexity and Files cards with Avg Urgency and % Planned\n- Trend indicators show urgency direction (lower is better)\n\nDocs updated with implementation progress and remaining work.",
+  "tags": [
+    "feature",
+    "ui",
+    "refactor"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "implement Dashboard V2 with 4-tab structure and urgency/impact visualizations",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 300,
+    "deletions": 117
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor"
+}

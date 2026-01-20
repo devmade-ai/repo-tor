@@ -1,0 +1,16 @@
+{
+  "sha": "ff2699f",
+  "fullSha": "ff2699f1ba98dff41cbb081458272a200b57347d",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-17T17:38:49+00:00",
+  "subject": "Refactor UI to workflow-based tabs",
+  "body": "Reorganized from feature-based tabs (Image, Layout, Text, Theme, Fonts)\nto workflow-based tabs: Templates | Media | Content | Layout | Style\n\nNew components:\n- CollapsibleSection.jsx - Reusable collapsible section\n- TemplatesTab.jsx - Complete designs + layout-only presets\n- MediaTab.jsx - Image/logo upload with filters\n- ContentTab.jsx - Text editing with cell assignment\n- LayoutTab.jsx - Structure + cell alignment\n- StyleTab.jsx - Themes, fonts, overlay, spacing\n\nThis follows the refactor plan in docs/REFACTOR_PLAN.md",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 5,
+  "urgency": 2,
+  "impact": "user-facing",
+  "repo_id": "social-ad-creator"
+}

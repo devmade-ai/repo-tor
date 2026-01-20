@@ -1,0 +1,16 @@
+{
+  "sha": "41f048b",
+  "fullSha": "41f048ba7f867f40b00964f8c700cd1f6565c8de",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-18T22:11:11+00:00",
+  "subject": "feat: implement schema alignment and multiple file loading",
+  "body": "Schema Alignment:\n- Add author_id field to commits (references metadata.authors)\n- Replace parseMethod with is_conventional boolean\n- Add authors map to metadata.json for author lookup\n- Add security_events array to summary.json\n- Wrap commits.json in { \"commits\": [...] } object\n- Update aggregate.js to match new schema\n\nDashboard - Multiple Data Files:\n- File picker accepts multiple files (HTML5 multiple attribute)\n- Client-side combineDataFiles() function merges data\n- Combines commits, contributors, files from multiple repos\n- Merges authors from metadata of all files\n- Shows repo filter when multiple repos loaded\n\nUpdated documentation:\n- USER_GUIDE.md: Added Loading Data section with multi-file instructions\n- TODO.md: Marked medium priority items as complete\n- SESSION_NOTES.md: Updated current state\n- HISTORY.md: Added schema alignment and multi-file entries",
+  "tags": [
+    "feature",
+    "refactor"
+  ],
+  "complexity": 5,
+  "urgency": 1,
+  "impact": "user-facing",
+  "repo_id": "repo-tor"
+}

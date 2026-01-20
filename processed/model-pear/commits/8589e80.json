@@ -1,0 +1,22 @@
+{
+  "sha": "8589e80",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-11T13:20:16+00:00",
+  "subject": "feat: add model selector UI and fix TypeScript array access issues",
+  "body": "- Add /structuring page with visual model cards for all 6 transaction models\n- Add dynamic /structuring/[model] calculator page with inputs and results\n- Fix TypeScript strict mode array access errors with ?? fallbacks\n- Export all 6 models and sensitivity functions from calculator package\n\nUI supports Model 1 (Cost-Plus) calculator with variant selection and\nbasic result display. Pages for Models 2-6 pending.",
+  "tags": [
+    "feature",
+    "ui",
+    "bugfix",
+    "types"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "user-facing",
+  "stats": {
+    "filesChanged": 6,
+    "additions": 862,
+    "deletions": 356
+  },
+  "repo_id": "model-pear"
+}

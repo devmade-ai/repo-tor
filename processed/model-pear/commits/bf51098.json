@@ -1,0 +1,42 @@
+{
+  "sha": "bf51098",
+  "fullSha": "bf51098ef730b4d6de435fbc351bb8db6d3f07f7",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T04:59:12+00:00",
+  "commitDate": "2026-01-08T04:59:12+00:00",
+  "subject": "Implement Phase 11: Range Selections & Sensitivity Analysis",
+  "body": "Adds comprehensive sensitivity analysis capabilities:\n\n- Range Input Framework (11.1):\n  - Low/Base/High input mode with color-coded fields\n  - Slider-based variance adjustment\n  - Variance patterns (conservative/moderate/aggressive)\n  - Support for cost, revenue, margin, duration inputs\n\n- Sensitivity Calculations (11.2):\n  - Best/Base/Worst case scenario calculations\n  - Break-even analysis with margin of safety\n  - Input sensitivity ranking by impact\n  - Monte Carlo simulation with triangular distribution\n\n- Sensitivity Visualizations (11.3):\n  - Tornado chart showing input sensitivities\n  - Fan chart for projection ranges\n  - Break-even margin visualization\n  - Monte Carlo histogram with percentiles\n\nNew files:\n- models/intercompany/sensitivity-analysis.js\n- ui/intercompany/range-input.js\n- ui/intercompany/sensitivity-visualizations.js\n\nIntegrates into calculator UI with new Sensitivity tab.",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 5,
+  "urgency": 1,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Implement Phase 11: Range Selections & Sensitivity Analysis",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 2190,
+    "deletions": 21
+  },
+  "files": [
+    "docs/IMPLEMENTATION_ROADMAP.md",
+    "models/intercompany/sensitivity-analysis.js",
+    "ui/intercompany/calculator.js",
+    "ui/intercompany/range-input.js",
+    "ui/intercompany/sensitivity-visualizations.js"
+  ],
+  "repo_id": "model-pear"
+}

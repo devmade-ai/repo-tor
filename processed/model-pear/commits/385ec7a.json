@@ -1,0 +1,15 @@
+{
+  "sha": "385ec7a",
+  "subject": "Implement Phase 1: Perspective Toggle Enhancement",
+  "body": "This commit implements Phase 1 of the IMPLEMENTATION_PLAN, enhancing\nthe perspective toggle and party relationship selection experience.\n\nNew Features:\n- Party Relationship Selector (party-selector.js): Prominent radio cards\n  for selecting between \"Independent Parties\" (2 perspectives) and\n  \"Related Parties\" (3 perspectives with Shareholder view)\n- Enhanced Perspective Toggle: Dynamic labels that change based on\n  relationship type - \"Net Effect\" becomes \"Shareholder\" when Related\n- Keyboard shortcuts: D (Developer), B (Buyer), S (Shareholder/Net Effect),\n  M (toggle Mutual Ownership)\n\nChanges:\n- Created ui/intercompany/party-selector.js\n- Added setRelationshipType() and arePartiesRelated() to app-state.js\n- Integrated party selector into calculator.js\n- Removed \"Relationship Settings\" from entity-config.js (moved to party selector)\n- Enhanced perspective-toggle.js with dynamic display and keyboard shortcuts\n- Updated IMPLEMENTATION_PLAN.md with completed tasks and session notes\n- Updated UI_UX_GUIDE.md with new keyboard shortcuts and changelog\n\nPhase 1 Status: COMPLETE\nNext: Phase 2 (Options Overview) or user testing",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-09T00:35:54+00:00",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing"
+}

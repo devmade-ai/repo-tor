@@ -385,31 +385,20 @@ function generateSummary(commits, contributors) {
   };
 }
 
-// === Batch File Generation ===
-const BATCH_SIZE = 15;
+// === Individual Commit File Generation ===
 
-function writeBatchFiles(commits, batchDir) {
-  fs.mkdirSync(batchDir, { recursive: true });
+function writeCommitFiles(commits, commitsDir) {
+  fs.mkdirSync(commitsDir, { recursive: true });
 
-  const totalBatches = Math.ceil(commits.length / BATCH_SIZE);
-  console.log(`\nWriting ${totalBatches} batch files (${BATCH_SIZE} commits each)...`);
+  console.log(`\nWriting ${commits.length} individual commit files...`);
 
-  for (let i = 0; i < commits.length; i += BATCH_SIZE) {
-    const batchNum = Math.floor(i / BATCH_SIZE) + 1;
-    const batchCommits = commits.slice(i, i + BATCH_SIZE);
-    const batchFile = path.join(batchDir, `batch-${String(batchNum).padStart(3, '0')}.json`);
-
-    fs.writeFileSync(batchFile, JSON.stringify({
-      batch: batchNum,
-      totalBatches: totalBatches,
-      startIndex: i,
-      count: batchCommits.length,
-      commits: batchCommits
-    }, null, 2));
+  for (const commit of commits) {
+    const commitFile = path.join(commitsDir, `${commit.sha}.json`);
+    fs.writeFileSync(commitFile, JSON.stringify(commit, null, 2));
   }
 
-  console.log(`  Wrote ${totalBatches} batch files to ${batchDir}/`);
-  return totalBatches;
+  console.log(`  Wrote ${commits.length} commit files to ${commitsDir}/`);
+  return commits.length;
 }
 
 // === Main Execution ===
@@ -468,15 +457,15 @@ function main() {
     summary
   });
 
-  // Write batch files for AI analysis
-  const batchDir = path.join(repoOutputDir, 'batches');
-  const totalBatches = writeBatchFiles(commits, batchDir);
+  // Write individual commit files for AI analysis
+  const commitsDir = path.join(repoOutputDir, 'commits');
+  const totalCommitFiles = writeCommitFiles(commits, commitsDir);
 
   console.log(`\nExtraction complete!`);
   console.log(`  Commits: ${commits.length}`);
   console.log(`  Contributors: ${contributors.length}`);
   console.log(`  Files tracked: ${files.length}`);
-  console.log(`  Batches: ${totalBatches} (for AI analysis)`);
+  console.log(`  Commit files: ${totalCommitFiles} (for AI analysis)`);
   console.log(`\nData written to: ${repoOutputDir}/`);
 }
 

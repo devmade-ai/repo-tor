@@ -1,0 +1,16 @@
+{
+  "sha": "eb1e7f2",
+  "fullSha": "eb1e7f24d0485aec0a5c0972b55ed3ac1f07b895",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-18T18:28:55+00:00",
+  "subject": "Add export overlay to show progress to user",
+  "body": "- Add isExporting state to App.jsx\n- Show \"Exporting...\" overlay with spinner over canvas during export\n- Pass onExportingChange callback to ExportButtons\n- Users now see clear feedback instead of canvas disappearing",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 2,
+  "urgency": 1,
+  "impact": "user-facing",
+  "repo_id": "social-ad-creator"
+}

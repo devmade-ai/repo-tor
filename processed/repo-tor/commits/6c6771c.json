@@ -1,0 +1,17 @@
+{
+  "sha": "6c6771c",
+  "fullSha": "6c6771c7c7f117d4b28863437af2e07e382685af",
+  "author_id": "devmade.ai@gmail.com",
+  "timestamp": "2026-01-19T13:10:51+00:00",
+  "subject": "refactor: remove all vanity metrics from dashboard",
+  "body": "Audit and cleanup - removed every element that shows meaningless counts:\n\nProgress Tab:\n- Remove: Monthly Commit Volume, Cumulative Lines charts\n- Add: Complexity Over Time chart\n\nContributors Tab (complete rework):\n- Remove: Commits by Contributor, Lines by Contributor charts\n- Remove: Contributor Details list\n- Add: \"Who Does What\" - work type breakdown per person\n- Add: Complexity by Contributor chart\n\nTimeline Tab:\n- Remove: Commit Timeline chart\n- Remove: +/- lines from commit display\n- Add: Complexity badge on each commit\n\nSummary Tab:\n- Remove: \"Top Contributor\", \"Busiest Day\" highlights\n- Remove: \"Avg commits/day\" stat\n- Add: \"Complex Changes\", \"Quality Work\" highlights\n\nDashboard now shows only meaningful work metrics:\nwhat kind of work, who does what, and how complex it is.",
+  "tags": [
+    "refactor",
+    "ui",
+    "removal"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing",
+  "repo_id": "repo-tor"
+}

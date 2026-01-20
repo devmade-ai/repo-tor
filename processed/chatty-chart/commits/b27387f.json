@@ -1,0 +1,18 @@
+{
+  "sha": "b27387f",
+  "fullSha": "b27387f32d7ae9ea83cc2df4641c0b0bc4e06402",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2025-12-24T21:41:03+00:00",
+  "subject": "Improve input UX with clearer wording and mobile-friendly controls",
+  "body": "- Replace technical jargon with user-friendly labels\n  - \"Communication Channel Inputs\" → \"Adjust Your Channels\"\n  - \"Analyzed %\" → \"Visibility\"\n  - \"Enabled\" → \"Active\"\n  - \"Reshuffle\" → \"Update Visualization\"\n  - \"Distribute Remaining %\" → \"Auto-Balance Channels\"\n\n- Add helpful contextual descriptions throughout the UI\n  - Main help text explaining what the tool does\n  - Section explanations for preset buttons\n  - Inline help text for each control (\"% of total data\", \"How much you can see\")\n\n- Improve mobile touch interaction\n  - Add +/- stepper buttons for easier value adjustment on mobile\n  - Replace cramped sliders with touch-friendly number inputs\n  - Keep sliders visible on desktop only\n  - Larger touch targets (44x44px minimum)\n\n- Enhance visual hierarchy and layout\n  - Better structured control rows with clear labels\n  - Lock icon (🔒) instead of checkbox for locking channels\n  - Separated sections with descriptive headings\n  - Improved spacing and typography\n\nThis makes the interface intuitive for users without context while maintaining all functionality.",
+  "tags": [
+    "enhancement",
+    "ui",
+    "ux",
+    "accessibility"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing",
+  "repo_id": "chatty-chart"
+}

@@ -1,0 +1,40 @@
+{
+  "sha": "9558c91",
+  "fullSha": "9558c914e200e286d5c4eab6cb3223170d617f6e",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-14T00:57:44+00:00",
+  "commitDate": "2026-01-14T00:57:44+00:00",
+  "subject": "Add error boundaries for graceful error handling",
+  "body": "- Create reusable ErrorBoundary component with friendly UI\n- Wrap all major sections: Image, Text, Layout, Theme, Fonts\n- Wrap AdCanvas preview and ExportButtons\n- Each boundary shows contextual error message with retry button\n- Errors are logged to console for debugging",
+  "tags": [
+    "feature",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Add error boundaries for graceful error handling",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 151,
+    "deletions": 78
+  },
+  "files": [
+    "docs/TODO.md",
+    "src/App.jsx",
+    "src/components/ErrorBoundary.jsx"
+  ],
+  "repo_id": "social-ad-creator"
+}

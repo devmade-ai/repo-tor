@@ -1,0 +1,42 @@
+{
+  "sha": "42e6069",
+  "fullSha": "42e6069c835fd5170ddce606eb4eb0e83504455c",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T01:24:35+00:00",
+  "commitDate": "2026-01-08T01:24:35+00:00",
+  "subject": "Implement Phase 8: Structure Selector Module",
+  "body": "Add intelligent decision tree wizard for guided model selection:\n\n- Decision tree logic with 7 factor questions (IP ownership, cash flow,\n  risk allocation, asset recognition, consolidation, software maturity,\n  control preference)\n- Scoring engine that calculates and normalizes model recommendations\n- Step-by-step wizard UI with progress indicator\n- Live preview of top recommendations while answering questions\n- Variant recommendation logic for each model\n- Rationale generation explaining why models are recommended\n- Mode toggle between Wizard and Direct selection\n- Integration with existing calculator UI",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Implement Phase 8: Structure Selector Module",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 1413,
+    "deletions": 19
+  },
+  "files": [
+    "docs/IMPLEMENTATION_ROADMAP.md",
+    "models/intercompany/structure-selector.js",
+    "ui/intercompany/calculator.js",
+    "ui/intercompany/structure-selector.js"
+  ],
+  "repo_id": "model-pear"
+}

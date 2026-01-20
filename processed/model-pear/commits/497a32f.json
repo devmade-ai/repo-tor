@@ -1,0 +1,20 @@
+{
+  "sha": "497a32f",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-11T13:13:17+00:00",
+  "subject": "feat: add sensitivity analysis module",
+  "body": "- Add sensitivity/types.ts with TypeScript interfaces for ranges,\n  scenarios, Monte Carlo, and chart data\n- Add sensitivity/calculations.ts with:\n  - Range creation (createRange, createInputRanges)\n  - Scenario generation (best/base/worst case)\n  - Input sensitivity analysis (calculateInputSensitivity)\n  - Break-even analysis (findBreakEvenValue)\n  - Monte Carlo simulation (runMonteCarloSimulation)\n  - Statistical utilities (mean, median, percentiles, histogram)\n  - Triangular distribution random number generation\n  - Formatting utilities (currency, percentage)\n- Export all sensitivity functions from main package index\n- Add 40 comprehensive tests for sensitivity analysis\n\nTotal tests: 301 passing across 8 test files",
+  "tags": [
+    "feature",
+    "test-unit"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "internal",
+  "stats": {
+    "filesChanged": 5,
+    "additions": 1369,
+    "deletions": 0
+  },
+  "repo_id": "model-pear"
+}

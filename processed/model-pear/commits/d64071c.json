@@ -1,0 +1,40 @@
+{
+  "sha": "d64071c",
+  "fullSha": "d64071c9492140bb8bde22cf859281d6ae913358",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-20T12:02:55+00:00",
+  "commitDate": "2026-01-20T12:02:55+00:00",
+  "subject": "docs: add Negotiation Mode design and UI audit",
+  "body": "Created NEGOTIATION_MODE.md with:\n- 5-minute client walkthrough script\n- Screen-by-screen requirements for negotiation use case\n- Feature visibility matrix (show/hide by mode)\n- Implementation recommendation: \"Simplified by Default\"\n\nCompleted UI audit against 5 design principles:\n- Client in the room: Partial - tabs may confuse\n- Neutral ground first: Fix needed - no benchmark badges\n- Show both sides: Good - Developer/Buyer panels work\n- Progressive complexity: Fix needed - all inputs visible\n- Compare to decide: Partial - save requires modal\n\nCreated prioritised fix list:\n- Priority 1: Industry badges, collapse advanced features, one-click save\n- Priority 2: Group inputs into Essential/Advanced\n- Priority 3: Comparison view enhancements",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "internal",
+  "scope": null,
+  "title": "add Negotiation Mode design and UI audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 484,
+    "deletions": 44
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/NEGOTIATION_MODE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "model-pear"
+}

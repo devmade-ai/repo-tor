@@ -1,0 +1,38 @@
+{
+  "sha": "ca40463",
+  "fullSha": "ca4046334f02d8cb83d7c6fdb7746ff7ec577a44",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-11T23:47:47+00:00",
+  "commitDate": "2026-01-11T23:47:47+00:00",
+  "subject": "fix: add /pricing route to resolve 404 error",
+  "body": "- Created /pricing route with placeholder page explaining pricing calculator migration\n- Updated svelte.config.js to use 404.html fallback for GitHub Pages SPA routing\n- Added links to transaction structuring tool and legacy version\n- Displayed planned pricing models (subscription, usage-based, per-seat, one-time, marketplace)",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "urgency": 3,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "add /pricing route to resolve 404 error",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 107,
+    "deletions": 1
+  },
+  "files": [
+    "apps/web/src/routes/pricing/+page.svelte",
+    "apps/web/svelte.config.js"
+  ],
+  "repo_id": "model-pear"
+}

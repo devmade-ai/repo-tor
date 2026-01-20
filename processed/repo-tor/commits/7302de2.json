@@ -1,0 +1,16 @@
+{
+  "sha": "7302de2",
+  "fullSha": "7302de295427b6639f466d1a3e00a7cb087698a5",
+  "author_id": "devmade.ai@gmail.com",
+  "timestamp": "2026-01-19T21:18:43+00:00",
+  "subject": "feat: add batch file output for AI review tracking",
+  "body": "- extract.js now creates batches/ folder with batch-NNN.json files (10 commits each)\n- Playbook updated with batch file workflow:\n  - reports/<repo>/batches/ = raw extracted batches\n  - processed/<repo>/batches/ = approved batches with AI tags\n  - Progress = compare file lists between folders\n- Removes checkpoint.json in favor of batch file tracking\n- Clear verification: can't skip or redo batches",
+  "tags": [
+    "feature",
+    "refactor"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "internal",
+  "repo_id": "repo-tor"
+}

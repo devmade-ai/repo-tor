@@ -1,0 +1,15 @@
+{
+  "sha": "ae2f03a",
+  "fullSha": "ae2f03aefe1b060c3023972bc37a65e9cfbf5807",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-18T18:17:33+00:00",
+  "subject": "Fix export text wrapping mismatch with preview",
+  "body": "Remove skipFonts: true from html-to-image export calls.\nThis option was causing different font metrics during export,\nresulting in text wrapping differently than shown in preview.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "urgency": 3,
+  "impact": "user-facing",
+  "repo_id": "social-ad-creator"
+}

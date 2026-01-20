@@ -1,0 +1,16 @@
+{
+  "sha": "90b94d4",
+  "fullSha": "90b94d4063fb538f189bc4f5d5326c4280170b1e",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-17T06:56:19+00:00",
+  "subject": "Enable overlay stacking: global + cell overlays layer together",
+  "body": "- Global overlay (Image tab) always applies to image cells\n- Cell overlay (Layout > Overlay) stacks on top as additional layer\n- Allows combining effects like vignette + gradient for rich visuals\n- getCellOverlay no longer falls back to global (handled separately)\n- Fixed non-image cell check for enabled: false",
+  "tags": [
+    "feature",
+    "enhancement"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "user-facing",
+  "repo_id": "social-ad-creator"
+}

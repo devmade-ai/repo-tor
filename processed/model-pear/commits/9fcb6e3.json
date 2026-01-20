@@ -1,0 +1,21 @@
+{
+  "sha": "9fcb6e3",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-10T01:57:05+00:00",
+  "subject": "refactor: complete removal of Combined/Shareholder perspective references",
+  "body": "Code changes:\n- Remove 'combined' perspective fallbacks in perspective-toggle.js\n- Remove combined projection generation in growth-projections.js\n- Remove consolidation rendering in compliance-analyzer.js\n- Remove consolidation fields from all 6 model files\n- Remove unused 'combined' parameter from tax position calculation\n- Update keyboard shortcuts display (removed 'C' key)\n\nDocumentation updates:\n- Update README.md to show two-perspective analysis\n- Update BUSINESS_GUIDE.md to remove shareholder view references\n- Update MANUAL_TESTING_GUIDE.md to remove shareholder testing\n- Remove Shareholder Perspective sections from all model concept docs\n- Update registry.js and results-display.js comments\n- Delete completed REFACTOR_PLAN_REMOVE_COMBINED.md\n\nTerminology updates:\n- 'three perspectives' → 'two perspectives'\n- 'Net Effect' references removed\n- 'combined asset maximisation' → clearer client-focused language",
+  "tags": [
+    "refactor",
+    "removal",
+    "docs"
+  ],
+  "complexity": 5,
+  "urgency": 1,
+  "impact": "user-facing",
+  "stats": {
+    "filesChanged": 24,
+    "additions": 43,
+    "deletions": 959
+  },
+  "repo_id": "model-pear"
+}

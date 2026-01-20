@@ -1,0 +1,16 @@
+{
+  "sha": "b828c64",
+  "fullSha": "b828c644361d3f499cd598078652f032cc00d443",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-18T18:53:36+00:00",
+  "subject": "Fix Image Overlay to use global overlay system (same as templates)",
+  "body": "- Changed from per-cell overlay (cellOverlays) to global overlay (state.overlay)\n- Now matches the same system that templates/presets use\n- Removed enable toggle - use opacity 0 to disable instead\n- Section auto-expands when overlay has opacity > 0\n- Templates that set overlay will now be reflected in these controls",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 3,
+  "urgency": 2,
+  "impact": "user-facing",
+  "repo_id": "social-ad-creator"
+}

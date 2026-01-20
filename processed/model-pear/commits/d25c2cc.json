@@ -1,0 +1,41 @@
+{
+  "sha": "d25c2cc",
+  "fullSha": "d25c2ccbf8b09ac1d6cc96dc37d58ae42c5eb8f2",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-11T23:38:13+00:00",
+  "commitDate": "2026-01-11T23:38:13+00:00",
+  "subject": "fix: use base path for all navigation links",
+  "body": "Import `base` from `$app/paths` and prefix all href attributes and\ngoto() calls to fix 404 errors on GitHub Pages deployment where the\napp is served from /model-pear/ rather than the root.",
+  "tags": [
+    "bugfix",
+    "hosting"
+  ],
+  "complexity": 2,
+  "urgency": 3,
+  "impact": "infrastructure",
+  "scope": null,
+  "title": "use base path for all navigation links",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 13,
+    "deletions": 10
+  },
+  "files": [
+    "apps/web/src/routes/+layout.svelte",
+    "apps/web/src/routes/+page.svelte",
+    "apps/web/src/routes/structuring/+page.svelte",
+    "apps/web/src/routes/structuring/[model]/+page.svelte"
+  ],
+  "repo_id": "model-pear"
+}

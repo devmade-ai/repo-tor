@@ -1,0 +1,42 @@
+{
+  "sha": "c48180a",
+  "fullSha": "c48180a6401803c208b38a998deb91bafcd54b98",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-20T15:41:25+00:00",
+  "commitDate": "2026-01-20T15:41:25+00:00",
+  "subject": "feat: enhance comparison view with summary and winner indicators",
+  "body": "Add \"Quick Summary\" section at top of comparison view:\n- Shows best-for insights per option (e.g., \"Best for net profit and lower TP risk\")\n- Grid layout adapts to number of options being compared\n- Only displays when there are clear winners to report\n\nAdd winner indicators in comparison table:\n- ★ star icon marks best value for each metric\n- Green text and background highlighting for winning values\n- Smart detection avoids marking ties as winners\n\nCompletes Priority 3 of Negotiation Mode implementation:\n- Summary row in comparison view\n- Winner indicators per metric",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "enhance comparison view with summary and winner indicators",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 100,
+    "deletions": 18
+  },
+  "files": [
+    "apps/web/src/lib/components/ComparisonView.svelte",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "model-pear"
+}

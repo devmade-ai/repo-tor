@@ -1,0 +1,21 @@
+{
+  "sha": "764c6e4",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-10T01:35:21+00:00",
+  "subject": "feat: remove combined from sensitivity and projections UI",
+  "body": "Phase 6 of refactor to remove Combined perspective.\n- sensitivity-visualizations.js: replace combined.totalValue with buyer.asset\n- projection-visualizations.js: remove combined from overview, table, and CSV\n- sensitivity-analysis.js: replace combined metric with buyer asset\n\nNote: Backend growth-projections.js still generates combined data (unused by UI).",
+  "tags": [
+    "refactor",
+    "removal",
+    "ui"
+  ],
+  "complexity": 2,
+  "urgency": 1,
+  "impact": "user-facing",
+  "stats": {
+    "filesChanged": 3,
+    "additions": 11,
+    "deletions": 42
+  },
+  "repo_id": "model-pear"
+}

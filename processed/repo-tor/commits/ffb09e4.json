@@ -1,0 +1,17 @@
+{
+  "sha": "ffb09e4",
+  "fullSha": "ffb09e4de159f72bafc1e867998bf3ad086eb80d",
+  "author_id": "devmade.ai@gmail.com",
+  "timestamp": "2026-01-19T16:41:12+00:00",
+  "subject": "refactor: new extraction architecture with two triggers",
+  "body": "- \"hatch the chicken\" = full reset, AI analyzes ALL commits\n- \"feed the chicken\" = incremental, AI analyzes only NEW commits\n- processed/ folder is source of truth (persistent)\n- reports/ folder removed (was ephemeral)\n- Deleted scripts/tag-commits.js (AI analyzes directly)",
+  "tags": [
+    "refactor",
+    "removal",
+    "docs"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "internal",
+  "repo_id": "repo-tor"
+}

@@ -1,0 +1,40 @@
+{
+  "sha": "61b4c1d",
+  "fullSha": "61b4c1db8b87e760cbba4445aa80cfdefbc677a4",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T01:50:35+00:00",
+  "commitDate": "2026-01-08T01:50:35+00:00",
+  "subject": "Implement Phase 9: Compliance Analyzer Module",
+  "body": "Add comprehensive compliance analysis for inter-company software transactions:\n\n- Transfer pricing risk scoring with weighted factors (margin compliance,\n  documentation, substance, comparability, consistency)\n- Accounting treatment summaries for Developer and Buyer perspectives\n- Tax impact analysis with Section 11(e) schedules, CGT calculations,\n  timing differences, and deferred tax\n- Six compliance checklists (written agreements, TP documentation,\n  development phase, cost tracking, control assessment, related party)\n- Interactive UI with risk dashboard, heat map visualization,\n  tab-based navigation, and PDF export capability",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 5,
+  "urgency": 1,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Implement Phase 9: Compliance Analyzer Module",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 2145,
+    "deletions": 29
+  },
+  "files": [
+    "docs/IMPLEMENTATION_ROADMAP.md",
+    "models/intercompany/compliance-analyzer.js",
+    "ui/intercompany/compliance-analyzer.js"
+  ],
+  "repo_id": "model-pear"
+}

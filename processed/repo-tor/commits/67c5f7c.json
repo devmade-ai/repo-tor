@@ -1,0 +1,41 @@
+{
+  "sha": "67c5f7c",
+  "fullSha": "67c5f7c69d971b0e7af3dfc75ce1bca1253ed911",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-20T11:20:50+00:00",
+  "commitDate": "2026-01-20T11:20:50+00:00",
+  "subject": "fix: add totalCommits/totalContributors to aggregation output",
+  "body": "Dashboard expects summary.totalCommits and summary.totalContributors\nfields which were missing from the aggregation script output.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "add totalCommits/totalContributors to aggregation output",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 17,
+    "deletions": 5
+  },
+  "files": [
+    "dashboard/data.json",
+    "dashboard/repos/chatty-chart.json",
+    "dashboard/repos/repo-tor.json",
+    "dashboard/repos/social-ad-creator.json",
+    "scripts/aggregate-processed.js"
+  ],
+  "repo_id": "repo-tor"
+}

@@ -1,0 +1,20 @@
+{
+  "sha": "994309f",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-11T13:23:49+00:00",
+  "subject": "refactor: create reusable component library for results display",
+  "body": "- Add lib/components with ResultPanel, ResultRow, ResultSection, InputField\n- Add DeveloperResults, BuyerResults, TransferPricingResults components\n- Add lib/utils with formatCurrency, formatPercent, getRiskBadgeClass helpers\n- Refactor calculator page to use new components, reducing code by ~150 lines\n\nThe component library ensures consistent styling across all 6 model calculators\nand simplifies maintenance.",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "internal",
+  "stats": {
+    "filesChanged": 11,
+    "additions": 372,
+    "deletions": 194
+  },
+  "repo_id": "model-pear"
+}

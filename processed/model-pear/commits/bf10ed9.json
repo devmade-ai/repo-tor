@@ -1,0 +1,54 @@
+{
+  "sha": "bf10ed9",
+  "fullSha": "bf10ed92a109feed692c0a3cf4ec380bed7bc53c",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-12T12:13:43+00:00",
+  "commitDate": "2026-01-12T12:13:43+00:00",
+  "subject": "feat: add polish & testing features (Phase 7)",
+  "body": "- Print/Export: CSS print styles, CSV export in ComparisonView\n- E2E Tests: Playwright config + 5 test suites (navigation, pricing, structuring, comparison, mobile)\n- Pricing Charts: EquilibriumChart component showing price range visualization\n- Mobile: Hamburger menu, sticky header, horizontal scroll model selector, touch utilities",
+  "tags": [
+    "feature",
+    "testing",
+    "ui"
+  ],
+  "complexity": 4,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "add polish & testing features (Phase 7)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 16,
+    "additions": 940,
+    "deletions": 62
+  },
+  "files": [
+    "apps/web/package.json",
+    "apps/web/playwright.config.ts",
+    "apps/web/src/app.css",
+    "apps/web/src/lib/components/ComparisonView.svelte",
+    "apps/web/src/lib/components/charts/EquilibriumChart.svelte",
+    "apps/web/src/lib/components/charts/index.ts",
+    "apps/web/src/routes/+layout.svelte",
+    "apps/web/src/routes/pricing/+page.svelte",
+    "apps/web/tests/e2e/comparison.spec.ts",
+    "apps/web/tests/e2e/mobile.spec.ts",
+    "apps/web/tests/e2e/navigation.spec.ts",
+    "apps/web/tests/e2e/pricing-calculator.spec.ts",
+    "apps/web/tests/e2e/structuring.spec.ts",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "pnpm-lock.yaml"
+  ],
+  "repo_id": "model-pear"
+}

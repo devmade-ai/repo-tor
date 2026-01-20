@@ -1,0 +1,42 @@
+{
+  "sha": "35b5e01",
+  "fullSha": "35b5e01dade84e94f72d67a686e7b9910f8874e2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-20T00:11:56+00:00",
+  "commitDate": "2026-01-20T00:11:56+00:00",
+  "subject": "feat: add aggregation script for processed data with urgency/impact",
+  "body": "New script reads AI-analyzed commits from processed/<repo>/batches/\nand generates dashboard-ready JSON with full aggregations:\n\n- tagBreakdown, complexityBreakdown (existing)\n- urgencyBreakdown, impactBreakdown (NEW)\n- Monthly aggregations with avgUrgency, impact distribution\n- Contributor aggregations with avgUrgency, impactBreakdown\n\nOutput structure:\n- dashboard/data.json (overall, all repos combined)\n- dashboard/repos/<repo>.json (per-repo, same schema)\n\nBoth views use identical schema enabling consistent dashboard code.",
+  "tags": [
+    "feature",
+    "build"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "internal",
+  "scope": null,
+  "title": "add aggregation script for processed data with urgency/impact",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 6712,
+    "deletions": 23323
+  },
+  "files": [
+    "dashboard/data.json",
+    "dashboard/repos/chatty-chart.json",
+    "dashboard/repos/repo-tor.json",
+    "dashboard/repos/social-ad-creator.json",
+    "scripts/aggregate-processed.js"
+  ],
+  "repo_id": "repo-tor"
+}

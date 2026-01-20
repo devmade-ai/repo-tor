@@ -1,0 +1,18 @@
+{
+  "sha": "5e1ecc2",
+  "fullSha": "5e1ecc25c9ff98be171c222da8cd08d01591a3db",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2025-12-25T09:18:38+00:00",
+  "subject": "Reorganize layout: swap columns, reverse overlay, add auto-scroll",
+  "body": "- Swap visualization and input columns so visualization appears first (left on desktop)\n- Remove initial black overlay - visualization now starts fully visible\n- Reverse overlay behavior - analyzed data now covers the image instead of revealing it\n- Add auto-scroll to top when visualization updates for better UX\n- Rename CSS class from 'transparent' to 'covered' to reflect new behavior",
+  "tags": [
+    "enhancement",
+    "ui",
+    "ux",
+    "refactor"
+  ],
+  "complexity": 3,
+  "urgency": 2,
+  "impact": "user-facing",
+  "repo_id": "chatty-chart"
+}

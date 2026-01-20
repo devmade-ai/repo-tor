@@ -2,8 +2,8 @@
 /**
  * Aggregate Processed Data
  *
- * Reads AI-analyzed commits from processed/<repo>/batches/ and generates
- * dashboard-ready JSON files with full aggregations including urgency and impact.
+ * Reads AI-analyzed commits from processed/<repo>/commits/ (or batches/ for legacy)
+ * and generates dashboard-ready JSON files with full aggregations.
  *
  * Usage:
  *   node aggregate-processed.js [--output=dashboard]
@@ -33,41 +33,38 @@ args.forEach(arg => {
 // === Data Loading ===
 
 /**
- * Load all batch files from a repo's processed directory
+ * Load individual commit files from a repo's commits/ directory
  */
-function loadRepoBatches(repoName) {
-  const batchDir = path.join(PROCESSED_DIR, repoName, 'batches');
+function loadRepoCommits(repoName) {
+  const commitsDir = path.join(PROCESSED_DIR, repoName, 'commits');
 
-  if (!fs.existsSync(batchDir)) {
-    console.log(`  No batches directory for ${repoName}, skipping`);
+  if (!fs.existsSync(commitsDir)) {
+    console.log(`  No commits directory for ${repoName}, skipping`);
     return [];
   }
 
-  const batchFiles = fs.readdirSync(batchDir)
+  const commitFiles = fs.readdirSync(commitsDir)
     .filter(f => f.endsWith('.json'))
     .sort();
 
-  if (batchFiles.length === 0) {
-    console.log(`  No batch files for ${repoName}, skipping`);
+  if (commitFiles.length === 0) {
+    console.log(`  No commit files for ${repoName}, skipping`);
     return [];
   }
 
   const commits = [];
 
-  for (const file of batchFiles) {
+  for (const file of commitFiles) {
     try {
-      const content = fs.readFileSync(path.join(batchDir, file), 'utf-8');
-      const batch = JSON.parse(content);
-
-      if (batch.commits && Array.isArray(batch.commits)) {
-        commits.push(...batch.commits);
-      }
+      const content = fs.readFileSync(path.join(commitsDir, file), 'utf-8');
+      const commit = JSON.parse(content);
+      commits.push(commit);
     } catch (err) {
       console.error(`  Error reading ${file}: ${err.message}`);
     }
   }
 
-  console.log(`  ${repoName}: ${commits.length} commits from ${batchFiles.length} batches`);
+  console.log(`  ${repoName}: ${commits.length} commits`);
   return commits;
 }
 
@@ -88,7 +85,7 @@ function loadAllRepos() {
   console.log(`\nLoading processed data from ${repoDirs.length} repos:\n`);
 
   for (const repoName of repoDirs) {
-    const commits = loadRepoBatches(repoName);
+    const commits = loadRepoCommits(repoName);
     if (commits.length > 0) {
       repos[repoName] = commits;
     }

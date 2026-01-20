@@ -1,0 +1,51 @@
+{
+  "sha": "86653a3",
+  "fullSha": "86653a36de091e63936b1cc9cee4f17d0ef1ee0b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-18T16:19:48+00:00",
+  "commitDate": "2026-01-18T16:19:48+00:00",
+  "subject": "docs: clean up stale documentation and update for new architecture",
+  "body": "Deleted (10 files):\n- MANUAL_TESTING_GUIDE.md - referenced old vanilla JS structure\n- UI_COMPONENT_HIERARCHY.md - referenced old vanilla JS structure\n- USAGE_SCENARIOS_REVIEW.md - completed review, no longer needed\n- financial_models_intercompany_software.md - superseded by BUSINESS_GUIDE.md\n- model_*_concept.md (6 files) - design docs superseded by model-use-cases/\n\nUpdated:\n- README.md - updated for TypeScript/SvelteKit architecture\n- ARCHITECTURE.md - status changed from \"In Progress\" to \"Complete\"\n- SESSION_NOTES.md - removed stale session notes, kept reference info\n- TODO.md - removed completed items, kept feature ideas\n- model-use-cases/README.md - corrected variant counts for Models 3 and 4",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 3,
+  "urgency": 2,
+  "impact": "internal",
+  "scope": null,
+  "title": "clean up stale documentation and update for new architecture",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 66,
+    "deletions": 6197
+  },
+  "files": [
+    "docs/ARCHITECTURE.md",
+    "docs/MANUAL_TESTING_GUIDE.md",
+    "docs/README.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/UI_COMPONENT_HIERARCHY.md",
+    "docs/USAGE_SCENARIOS_REVIEW.md",
+    "docs/financial_models_intercompany_software.md",
+    "docs/model-use-cases/README.md",
+    "docs/model_1_cost_plus_concept.md",
+    "docs/model_2_licence_royalties_concept.md",
+    "docs/model_3_joint_development_concept.md",
+    "docs/model_4_build_operate_transfer_concept.md",
+    "docs/model_5_software_sale_support_concept.md",
+    "docs/model_6_saas_subscription_concept.md"
+  ],
+  "repo_id": "model-pear"
+}

@@ -1,0 +1,20 @@
+{
+  "sha": "db68b85",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-09T14:39:40+00:00",
+  "subject": "Add version tracking diff view and cost estimation helper",
+  "body": "Implements the remaining usage scenario priorities:\n\nPriority 4 - Save & Iterate:\n- Added diff-view.js: Shows what changed between two saved options\n- Displays input changes, setting changes, and result impact\n- Visual badges for added/removed/changed fields\n- \"What Changed?\" button in comparison manager (requires 2 selections)\n\nPriority 6 - Cost Estimation Helper:\n- Added cost-estimator.js: Hours × rate calculator\n- Phase breakdown (Discovery, Design, Development, Testing, Deployment)\n- Contingency percentage calculation\n- \"Use Estimate\" button populates calculator inputs\n- Link added to input form section\n\nUpdated USAGE_SCENARIOS_REVIEW.md:\n- All 6 priorities now marked as implemented\n- Updated workflow step ratings to reflect current state\n- Added implementation summary with file locations",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing",
+  "stats": {
+    "filesChanged": 5,
+    "additions": 1895,
+    "deletions": 64
+  },
+  "repo_id": "model-pear"
+}

@@ -1,0 +1,40 @@
+{
+  "sha": "23ec7ee",
+  "fullSha": "23ec7ee5ecb2445a12f62696466dbd43d526b018",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-13T00:16:36+00:00",
+  "commitDate": "2026-01-13T00:16:36+00:00",
+  "subject": "Enhance layout controls with quick presets and improved UX",
+  "body": "- Add quick layout preset picker to Image tab showing suggested layouts\n- Allow up to 3 subdivisions per section (was limited to 2)\n- Implement proportional auto-balancing when adjusting section sizes\n- Default preset category to \"Suggested\" instead of \"All\"\n- Add +/- controls for subdivision count with visual feedback",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Enhance layout controls with quick presets and improved UX",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 230,
+    "deletions": 29
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/ImageUploader.jsx",
+    "src/components/LayoutSelector.jsx"
+  ],
+  "repo_id": "social-ad-creator"
+}

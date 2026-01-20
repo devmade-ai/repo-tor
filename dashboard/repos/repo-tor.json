@@ -1,12 +1,266 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-20T17:27:59.431Z",
+    "generatedAt": "2026-01-20T19:55:54.848Z",
     "repository": "repo-tor",
     "scope": "repo-tor",
     "repoCount": 1,
-    "commitCount": 171
+    "commitCount": 185
   },
   "commits": [
+    {
+      "sha": "a8f37bd",
+      "fullSha": "a8f37bd3bf2913924cd439f7426dfcb17264da46",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T21:37:48+02:00",
+      "commitDate": "2026-01-20T21:37:48+02:00",
+      "subject": "feat: add save-batch.js for faster batch processing",
+      "body": "- New script writes batch file + updates manifest in one step\n- Avoids IDE approval dialogs that slow down long sessions\n- Updated EXTRACTION_PLAYBOOK.md with new workflow\n- Includes recent batch processing progress\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "add save-batch.js for faster batch processing",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 17,
+        "additions": 26882,
+        "deletions": 7276
+      },
+      "files": [
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "processed/model-pear/batches/batch-011.json",
+        "processed/model-pear/batches/batch-012.json",
+        "processed/model-pear/manifest.json",
+        "processed/repo-tor/batches/batch-020.json",
+        "processed/repo-tor/manifest.json",
+        "processed/social-ad-creator/batches/batch-018.json",
+        "processed/social-ad-creator/manifest.json",
+        "scripts/save-batch.js"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "c7699cd",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-20T20:59:12+02:00",
+      "message": "chore: simplify file tracking and reduce batch size",
+      "tags": [
+        "config",
+        "docs",
+        "removal"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "internal",
+      "files_changed": 22,
+      "lines_added": 1032,
+      "lines_deleted": 27055
+    },
+    {
+      "sha": "98fb1bc",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-20T19:56:51+02:00",
+      "message": "chore: increase batch size to 25 and update workflow",
+      "tags": [
+        "config",
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "files_changed": 3,
+      "lines_added": 17,
+      "lines_deleted": 14
+    },
+    {
+      "sha": "a796850",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-20T19:55:31+02:00",
+      "message": "docs: format DISCOVERY_FRAMEWORK.md as proper markdown",
+      "tags": [
+        "docs",
+        "style"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "files_changed": 1,
+      "lines_added": 83,
+      "lines_deleted": 79
+    },
+    {
+      "sha": "409f248",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-20T19:44:17+02:00",
+      "message": "docs: update session notes - model-pear batch 7 complete",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "files_changed": 1,
+      "lines_added": 3,
+      "lines_deleted": 3
+    },
+    {
+      "sha": "0c9e095",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-20T19:44:03+02:00",
+      "message": "chore: process model-pear batch 7 (10 commits)",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "files_changed": 2,
+      "lines_added": 148,
+      "lines_deleted": 2
+    },
+    {
+      "sha": "97278b0",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-20T19:40:52+02:00",
+      "message": "chore: add automatic cleanup to extraction process",
+      "tags": [
+        "docs",
+        "removal"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "files_changed": 19,
+      "lines_added": 31,
+      "lines_deleted": 29058
+    },
+    {
+      "sha": "c681d2f",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-20T19:35:24+02:00",
+      "message": "docs: update session notes - model-pear batch 6 complete",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "files_changed": 1,
+      "lines_added": 5,
+      "lines_deleted": 5
+    },
+    {
+      "sha": "2f3f505",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-20T19:35:07+02:00",
+      "message": "chore: process model-pear batch 6 (10 commits)",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "files_changed": 2,
+      "lines_added": 148,
+      "lines_deleted": 2
+    },
+    {
+      "sha": "0bc11f8",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-20T19:33:18+02:00",
+      "message": "chore: process model-pear batch 5 (10 commits)",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "files_changed": 2,
+      "lines_added": 148,
+      "lines_deleted": 3
+    },
+    {
+      "sha": "b61ccdf",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-20T19:27:59+02:00",
+      "message": "chore: process model-pear batch 4 (10 commits)",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "files_changed": 7,
+      "lines_added": 1358,
+      "lines_deleted": 145
+    },
+    {
+      "sha": "26d9b65",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-20T19:20:34+02:00",
+      "message": "chore: process repo-tor batch 19 (5 commits) - repo complete (171 commits)",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "files_changed": 8,
+      "lines_added": 1491,
+      "lines_deleted": 94
+    },
+    {
+      "sha": "c22f9ef",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-20T19:15:12+02:00",
+      "message": "chore: process repo-tor batch 18 (10 commits)",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "files_changed": 2,
+      "lines_added": 383,
+      "lines_deleted": 3
+    },
+    {
+      "sha": "53b65a2",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-20T19:08:44+02:00",
+      "message": "chore: process social-ad-creator batch 17 (2 commits) - complete",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "files_changed": 12,
+      "lines_added": 1550,
+      "lines_deleted": 333
+    },
     {
       "sha": "278bc0c",
       "fullSha": "278bc0c07cde943b93e6d51c6cd005a0d8fe75c6",
@@ -4160,6 +4414,38 @@
       "lastCommit": "2026-01-20T18:25:55+02:00"
     },
     {
+      "author_id": "jacotheron87@gmail.com",
+      "commits": 26,
+      "avgComplexity": 1.85,
+      "avgUrgency": 1.58,
+      "tagBreakdown": {
+        "feature": 3,
+        "docs": 20,
+        "config": 3,
+        "removal": 3,
+        "style": 1,
+        "refactor": 2,
+        "ui": 1,
+        "bugfix": 1,
+        "ci": 1,
+        "init": 1,
+        "test-unit": 1
+      },
+      "impactBreakdown": {
+        "internal": 24,
+        "user-facing": 1,
+        "infrastructure": 1,
+        "api": 0
+      },
+      "repos": [
+        "repo-tor",
+        "unknown"
+      ],
+      "repoCount": 2,
+      "firstCommit": "2026-01-18T22:03:07+02:00",
+      "lastCommit": "2026-01-20T21:37:48+02:00"
+    },
+    {
       "author_id": "noreply@anthropic.com",
       "commits": 19,
       "avgComplexity": 2.63,
@@ -4186,140 +4472,113 @@
       "repoCount": 1,
       "firstCommit": "2026-01-18T20:29:03+00:00",
       "lastCommit": "2026-01-18T22:53:34+00:00"
-    },
-    {
-      "author_id": "jacotheron87@gmail.com",
-      "commits": 12,
-      "avgComplexity": 2.33,
-      "avgUrgency": 1.17,
-      "tagBreakdown": {
-        "docs": 6,
-        "feature": 2,
-        "refactor": 2,
-        "ui": 1,
-        "bugfix": 1,
-        "ci": 1,
-        "config": 1,
-        "init": 1,
-        "removal": 1,
-        "test-unit": 1
-      },
-      "impactBreakdown": {
-        "internal": 10,
-        "user-facing": 1,
-        "infrastructure": 1,
-        "api": 0
-      },
-      "repos": [
-        "repo-tor"
-      ],
-      "repoCount": 1,
-      "firstCommit": "2026-01-18T22:03:07+02:00",
-      "lastCommit": "2026-01-19T12:24:33+02:00"
     }
   ],
   "summary": {
-    "totalCommits": 171,
+    "totalCommits": 185,
     "totalContributors": 3,
     "tagBreakdown": {
+      "feature": 27,
+      "docs": 64,
+      "config": 37,
+      "removal": 5,
+      "style": 1,
       "merge": 24,
-      "docs": 50,
       "seed": 33,
       "build": 4,
-      "config": 35,
       "bugfix": 12,
       "ui": 17,
-      "feature": 26,
       "enhancement": 2,
       "refactor": 9,
-      "removal": 3,
       "ci": 3,
       "init": 3,
       "test-unit": 1
     },
     "complexityBreakdown": {
-      "1": 87,
-      "2": 44,
-      "3": 25,
+      "1": 97,
+      "2": 46,
+      "3": 27,
       "4": 12,
       "5": 3
     },
     "urgencyBreakdown": {
-      "1": 61,
-      "2": 107,
+      "1": 62,
+      "2": 120,
       "3": 3,
       "4": 0,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 142,
+      "internal": 156,
       "user-facing": 26,
       "infrastructure": 3,
       "api": 0
     },
-    "avgComplexity": 1.83,
-    "avgUrgency": 1.66,
+    "avgComplexity": 1.8,
+    "avgUrgency": 1.68,
     "monthly": {
       "2026-01": {
-        "commits": 171,
+        "commits": 185,
         "tags": {
+          "feature": 27,
+          "docs": 64,
+          "config": 37,
+          "removal": 5,
+          "style": 1,
           "merge": 24,
-          "docs": 50,
           "seed": 33,
           "build": 4,
-          "config": 35,
           "bugfix": 12,
           "ui": 17,
-          "feature": 26,
           "enhancement": 2,
           "refactor": 9,
-          "removal": 3,
           "ci": 3,
           "init": 3,
           "test-unit": 1
         },
         "impact": {
-          "internal": 142,
+          "internal": 156,
           "user-facing": 26,
           "infrastructure": 3,
           "api": 0
         },
-        "avgComplexity": 1.83,
-        "avgUrgency": 1.66
+        "avgComplexity": 1.8,
+        "avgUrgency": 1.68
       }
     },
     "monthlyCommits": {
       "2026-01": {
-        "commits": 171,
+        "commits": 185,
         "tags": {
+          "feature": 27,
+          "docs": 64,
+          "config": 37,
+          "removal": 5,
+          "style": 1,
           "merge": 24,
-          "docs": 50,
           "seed": 33,
           "build": 4,
-          "config": 35,
           "bugfix": 12,
           "ui": 17,
-          "feature": 26,
           "enhancement": 2,
           "refactor": 9,
-          "removal": 3,
           "ci": 3,
           "init": 3,
           "test-unit": 1
         },
         "impact": {
-          "internal": 142,
+          "internal": 156,
           "user-facing": 26,
           "infrastructure": 3,
           "api": 0
         },
-        "avgComplexity": 1.83,
-        "avgUrgency": 1.66
+        "avgComplexity": 1.8,
+        "avgUrgency": 1.68
       }
     },
     "dateRange": {
       "earliest": "2026-01-18T20:29:03+00:00",
-      "latest": "2026-01-20T18:25:55+02:00"
+      "latest": "2026-01-20T21:37:48+02:00"
     },
     "security_events": []
   }

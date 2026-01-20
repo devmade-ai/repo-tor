@@ -1,0 +1,20 @@
+{
+  "sha": "969af93",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-09T19:38:11+00:00",
+  "subject": "Refactor testing to workflow-based logical assertions",
+  "body": "Replace numerical math tests with readable workflow-based tests that verify\ndisplayed values are logically correct based on user actions and inputs.\n\nChanges:\n- Create ASSERTIONS library with reusable logical checks\n- Each assertion has: field name, readable logic formula, description\n- Define WORKFLOW_SCENARIOS that read like user stories\n- Tests now verify \"Developer Revenue = Cost × (1 + Markup)\" logic\n- Not testing math (1000 × 1.1 = 1100), testing business logic\n- Update UI to display stories, workflow badges, and assertion formulas",
+  "tags": [
+    "refactor",
+    "test-unit"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "internal",
+  "stats": {
+    "filesChanged": 2,
+    "additions": 845,
+    "deletions": 1071
+  },
+  "repo_id": "model-pear"
+}

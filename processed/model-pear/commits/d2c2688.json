@@ -1,0 +1,21 @@
+{
+  "sha": "d2c2688",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-11T20:43:19+00:00",
+  "subject": "feat: add model comparison view with save/compare functionality",
+  "body": "- Add comparison store with localStorage persistence (lib/stores)\n- Create ComparisonManager component for saving and selecting options\n- Create ComparisonView for side-by-side comparison (2-4 options)\n- Integrate save modal and comparison into calculator page\n\nUsers can now:\n- Save calculation results with custom names\n- Select 2-4 saved options and compare side-by-side\n- See difference indicators (best/worst values highlighted)\n- Export/import saved options as JSON\n- View all key metrics across Developer, Buyer, and TP Risk sections",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing",
+  "stats": {
+    "filesChanged": 7,
+    "additions": 882,
+    "deletions": 1
+  },
+  "repo_id": "model-pear"
+}

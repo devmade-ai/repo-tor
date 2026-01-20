@@ -80,7 +80,7 @@ const TAB_MAPPING = {
 |------|---------|
 | `dashboard/index.html` | Main dashboard (V2 complete) |
 | `scripts/aggregate-processed.js` | Aggregation from processed/ data |
-| `scripts/save-batch.js` | Fast batch saving (no IDE dialogs) |
+| `scripts/save-commit.js` | Save individual commit files (no IDE dialogs) |
 | `scripts/pending.js` | Generate pending batches from manifest |
 | `dashboard/data.json` | Overall aggregated data |
 | `dashboard/repos/*.json` | Per-repo aggregated data |
@@ -101,14 +101,24 @@ const TAB_MAPPING = {
 | Repo | Status | Processed |
 |------|--------|-----------|
 | chatty-chart | Complete | 42/42 |
-| repo-tor | Complete | 171/171 |
-| social-ad-creator | Complete | 158/158 |
-| model-pear | In progress | 70/309 (24 batches remaining) |
+| repo-tor | Complete | 185/185 |
+| social-ad-creator | Complete | 159/159 |
+| model-pear | Complete | 190/190 |
 
-**Total:** 441/680 commits processed (65%)
+**Total:** 576 commits processed (100%)
 
-Continue with `@data feed the chicken`
+### Storage Migration
+
+Migrated from batch files to individual commit files:
+
+**Old:** `processed/<repo>/batches/batch-NNN.json` (15 commits each)
+**New:** `processed/<repo>/commits/<sha>.json` (1 commit per file)
+
+Benefits:
+- Simpler deduplication (file existence = processed)
+- Atomic edits (fix one commit without touching others)
+- Cleaner git diffs
 
 ---
 
-*Last updated: 2026-01-20 - added save-batch.js for faster batch processing*
+*Last updated: 2026-01-20 - migrated from batch files to individual commit files*

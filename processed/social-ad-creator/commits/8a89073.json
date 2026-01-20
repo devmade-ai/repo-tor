@@ -1,0 +1,17 @@
+{
+  "sha": "8a89073",
+  "fullSha": "8a890738ed5f9619e3282f9898623dea6859ac94",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-18T18:46:39+00:00",
+  "subject": "Simplify layout UI: move Image Cell to Media, integrate alignment",
+  "body": "- Move Image Cell selector from Layout tab to Media tab (Background Image section)\n- Remove separate Cell Assignment section from Layout tab\n- Add new Text Alignment section that responds to structure selection:\n  - Section selected: applies alignment to all cells in that row/column\n  - Cell selected: applies alignment to just that cell\n  - Nothing selected: applies global alignment\n- Reduces from 3 grids to 1 main structure grid\n- Clearer relationship between selection and controls",
+  "tags": [
+    "refactor",
+    "ux",
+    "ui"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing",
+  "repo_id": "social-ad-creator"
+}

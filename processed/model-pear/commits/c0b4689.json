@@ -1,0 +1,41 @@
+{
+  "sha": "c0b4689",
+  "fullSha": "c0b46894e18466f0f9f25fdd500bc9df537081fb",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T02:14:50+00:00",
+  "commitDate": "2026-01-08T02:14:50+00:00",
+  "subject": "Implement Phase 10: Advanced Visualizations Module",
+  "body": "Add comprehensive visualization capabilities for inter-company transaction analysis:\n\n10.1 Cross-Model Comparison Charts:\n- Model comparison summary table with side-by-side metrics\n- Combined asset position by model (stacked bar chart)\n- Total cost to buyer ranked comparison\n- Developer return comparison across all 6 models\n- Risk score comparison radar chart\n\n10.2 Timeline Visualizations:\n- Asset value over time with amortisation trajectories\n- Cash flow waterfall showing transaction components\n- Multi-entity amortisation schedule (accounting vs S11e tax)\n- Project phase Gantt chart for development timeline\n\n10.3 Risk Visualizations:\n- Transfer pricing risk heat map by factor\n- Risk vs return quadrant chart (scatter plot)\n- Compliance score gauge (radial bar)\n- Sensitivity tornado chart (Stage 2 preparation)\n\nIntegration:\n- Added tabbed interface (Calculator, Compliance, Visualizations)\n- Integrated with existing ApexCharts library\n- Full dark theme support\n- Dynamic data generation from calculation results",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 5,
+  "urgency": 1,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Implement Phase 10: Advanced Visualizations Module",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 1976,
+    "deletions": 20
+  },
+  "files": [
+    "docs/IMPLEMENTATION_ROADMAP.md",
+    "models/intercompany/advanced-visualizations.js",
+    "ui/intercompany/advanced-visualizations.js",
+    "ui/intercompany/calculator.js"
+  ],
+  "repo_id": "model-pear"
+}

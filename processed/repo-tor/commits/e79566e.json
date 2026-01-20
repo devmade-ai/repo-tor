@@ -1,0 +1,16 @@
+{
+  "sha": "e79566e",
+  "fullSha": "e79566e9abf39e69857dade06755ba725dad098d",
+  "author_id": "jacotheron87@gmail.com",
+  "timestamp": "2026-01-19T00:37:49+02:00",
+  "subject": "fix: include data.json in GitHub Pages deployment",
+  "body": "The deploy workflow was copying dashboard/index.html but not\ndashboard/data.json, causing 404 errors on the live site when\nthe dashboard tried to auto-load data.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "ci"
+  ],
+  "complexity": 2,
+  "urgency": 3,
+  "impact": "infrastructure",
+  "repo_id": "repo-tor"
+}

@@ -20,14 +20,14 @@ Two-stage process with persistent storage of AI-analyzed commits:
 | **"hatch the chicken"** | Full reset - delete everything, extract all repos, AI analyzes ALL commits, save to `processed/`, aggregate to dashboard |
 | **"feed the chicken"** | Incremental - extract repos, AI analyzes only NEW commits (not in `processed/`), update `processed/`, re-aggregate |
 
-## Batch Processing Strategy
+## Commit Processing Strategy
 
 Human-in-the-loop review ensures quality tagging.
 
 ### Batch Size
-- Process **15 commits per batch**
+- Process **15 commits per batch** (for review efficiency)
 - AI presents analysis, **user reviews and approves**
-- After approval: write to `processed/`, update manifest
+- After approval: write individual commit files to `processed/<repo>/commits/`, update manifest
 - Commits happen on demand (not after every batch)
 - If session ends, uncommitted work is lost (commit regularly)
 
@@ -79,12 +79,11 @@ reports/                      # Raw extracted data (ephemeral)
 
 processed/                    # AI-analyzed data (committed to git)
   <repo-name>/
-    manifest.json             # Tracks processed SHAs (source of truth)
-    batches/                  # Approved batches copied here
-      batch-001.json          # Approved with AI tags
-      batch-002.json
+    manifest.json             # Tracks processed SHAs (index for fast loading)
+    commits/                  # Individual commit files
+      abc1234.json            # One file per commit (named by SHA)
+      def5678.json
       ...
-    metadata.json
 
 pending/                      # Generated unprocessed commits (ephemeral)
   <repo-name>/
@@ -108,8 +107,8 @@ dashboard/
 
 **What's committed to git:**
 
-- `processed/*/batches/*.json` - AI-analyzed commits (source of truth)
-- `processed/*/manifest.json` - Tracks which SHAs are processed
+- `processed/*/commits/*.json` - AI-analyzed commits (one file per commit)
+- `processed/*/manifest.json` - Index of processed SHAs
 - `dashboard/data.json` - Aggregated dashboard data
 
 **What's gitignored (working files):**
@@ -161,14 +160,14 @@ This puts raw repo data in `.repo-cache/`.
 For each repository, process batch files one at a time:
 
 **Per batch file:**
-1. Find next batch: first `batch-NNN.json` in `reports/<repo>/batches/` NOT in `processed/<repo>/batches/`
-2. Read the batch file (10 commits with subject + body)
+1. Find next batch: first `batch-NNN.json` in `reports/<repo>/batches/` with commits NOT yet in `processed/<repo>/commits/`
+2. Read the batch file (15 commits with subject + body)
 3. AI analyzes each commit and proposes:
    - Tags (multiple allowed, based on full message content)
    - Complexity score (1-5)
 4. Present to user in review format (see above)
 5. User approves or requests corrections
-6. On approval: copy batch file to `processed/<repo>/batches/batch-NNN.json` (with AI tags added)
+6. On approval: save each commit as `processed/<repo>/commits/<sha>.json` (with AI tags added)
 7. Commit: `git commit -m "chore: process <repo> batch NNN"`
 
 **User commands:**
@@ -181,8 +180,8 @@ For each repository, process batch files one at a time:
 **Progress check:**
 ```bash
 # See what's done vs pending
-ls reports/<repo>/batches/   # All batches
-ls processed/<repo>/batches/ # Completed batches
+ls reports/<repo>/batches/   # All batches to process
+ls processed/<repo>/commits/ # Completed commits
 ```
 
 **Verification per repo:**
@@ -191,7 +190,7 @@ ls processed/<repo>/batches/ # Completed batches
 - [ ] Every commit has urgency 1-5
 - [ ] Every commit has impact (internal/user-facing/infrastructure/api)
 - [ ] Tags reflect FULL message content (subject + body)
-- [ ] Same number of batch files in processed/ as reports/
+- [ ] All commits from reports/ have matching files in processed/commits/
 
 ### Step 4: Aggregate to Dashboard
 
@@ -252,11 +251,11 @@ Process pending batch files one at a time:
 4. User approves or corrects
 5. On approval, AI runs save script (fast, no IDE dialogs):
    ```bash
-   cat <<'EOF' | node scripts/save-batch.js <repo>
+   cat <<'EOF' | node scripts/save-commit.js <repo>
    {"commits": [...analyzed commits...]}
    EOF
    ```
-6. Script saves batch + updates manifest in one step
+6. Script saves each commit as individual file + updates manifest
 7. Commit changes
 
 **User commands:**
@@ -265,7 +264,7 @@ Process pending batch files one at a time:
 - `stop` - End session (progress saved via manifest)
 
 **Why script-based saves?**
-Using `save-batch.js` instead of Write tool calls avoids IDE approval dialogs for each file, which slows down significantly as sessions get longer.
+Using `save-commit.js` instead of Write tool calls avoids IDE approval dialogs for each file, which slows down significantly as sessions get longer.
 
 **Stop when:**
 - All pending batches processed, OR
@@ -300,7 +299,7 @@ git push
 |--------|-------------------|------------------|
 | Starting point | Delete everything | Keep existing processed/ |
 | Batch source | `reports/` batches | `pending/` batches |
-| Tracks progress | Batch file existence | manifest.json SHAs |
+| Tracks progress | Commit file existence | manifest.json SHAs |
 | Handles new commits | N/A (full reset) | Only processes new ones |
 | Resume after merge | Start over | Continues seamlessly |
 
@@ -548,4 +547,4 @@ Based on who/what is affected by the change:
 
 ---
 
-*Last updated: 2026-01-19 - Added urgency (1-5) and impact (internal/user-facing/infrastructure/api) dimensions*
+*Last updated: 2026-01-20 - Migrated from batch files to individual commit files*
