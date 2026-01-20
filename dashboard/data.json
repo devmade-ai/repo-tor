@@ -1,12 +1,534 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-20T11:22:46.724Z",
+    "generatedAt": "2026-01-20T16:05:52.609Z",
     "repository": "All Repositories",
     "scope": "overall",
-    "repoCount": 3,
-    "commitCount": 286
+    "repoCount": 4,
+    "commitCount": 384
   },
   "commits": [
+    {
+      "sha": "c41e9e9",
+      "fullSha": "c41e9e918c23c82474d6b59926c210493ba774ef",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-20T13:30:10+02:00",
+      "commitDate": "2026-01-20T13:30:10+02:00",
+      "subject": "Merge pull request #23 from devmade-ai/claude/chicken-feeding-data-feed-YE7eE",
+      "body": "chore: extract fresh git data for all repos",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #23 from devmade-ai/claude/chicken-feeding-data-feed-YE7eE",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#23"
+      ],
+      "stats": {
+        "filesChanged": 36,
+        "additions": 12327,
+        "deletions": 2474
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b979822",
+      "fullSha": "b97982285da445092e911dad34478355ddc385d2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T11:28:30+00:00",
+      "commitDate": "2026-01-20T11:28:30+00:00",
+      "subject": "fix: improve dark mode support for headers",
+      "body": "- Add text-themed-* utility classes that use CSS variables\n- Apply text-themed-primary to all h1/h2/h3 section headers\n- Apply text-themed-primary to stat value elements\n- Existing CSS overrides already handle text-gray-* in dark mode",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "improve dark mode support for headers",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 41,
+        "deletions": 31
+      },
+      "files": [
+        "dashboard/index.html"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b25b997",
+      "fullSha": "b25b997c707a98ae7f67ffb628c7b7c7ec716beb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T11:23:18+00:00",
+      "commitDate": "2026-01-20T11:23:18+00:00",
+      "subject": "fix: add missing dashboard fields (repository, monthlyCommits, security_events)",
+      "body": "- metadata.repository: repo name for header display\n- summary.monthlyCommits: alias for monthly (dashboard compatibility)\n- summary.security_events: commits with security tag",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "add missing dashboard fields (repository, monthlyCommits, security_events)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 196,
+        "deletions": 10
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json",
+        "scripts/aggregate-processed.js"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "67c5f7c",
+      "fullSha": "67c5f7c69d971b0e7af3dfc75ce1bca1253ed911",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T11:20:50+00:00",
+      "commitDate": "2026-01-20T11:20:50+00:00",
+      "subject": "fix: add totalCommits/totalContributors to aggregation output",
+      "body": "Dashboard expects summary.totalCommits and summary.totalContributors\nfields which were missing from the aggregation script output.",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "add totalCommits/totalContributors to aggregation output",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 17,
+        "deletions": 5
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json",
+        "scripts/aggregate-processed.js"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "12b5162",
+      "fullSha": "12b5162e20ac59e1bcb55e8b30bb80d4e245bbbe",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T11:17:48+00:00",
+      "commitDate": "2026-01-20T11:17:48+00:00",
+      "subject": "chore: re-aggregate dashboard data (286 commits from 3 repos)",
+      "body": "",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "re-aggregate dashboard data (286 commits from 3 repos)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 4532,
+        "deletions": 23851
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "3f30d08",
+      "fullSha": "3f30d0807dbb547fb8ae55cd6a73ebcda1a0007a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T05:18:18+00:00",
+      "commitDate": "2026-01-20T05:18:18+00:00",
+      "subject": "docs: update extraction progress - repo-tor complete, social-ad-creator 100/156",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "update extraction progress - repo-tor complete, social-ad-creator 100/156",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 14,
+        "deletions": 4
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "4b1982e",
+      "fullSha": "4b1982e09197a2a5e556f40a959f6de05623290b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T05:17:40+00:00",
+      "commitDate": "2026-01-20T05:17:40+00:00",
+      "subject": "chore: process social-ad-creator batch 10 (10 commits)",
+      "body": "",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process social-ad-creator batch 10 (10 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 250,
+        "deletions": 2
+      },
+      "files": [
+        "processed/social-ad-creator/batches/batch-010.json",
+        "processed/social-ad-creator/manifest.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "0330864",
+      "fullSha": "033086490f626f3d49590f784ab99e13e0cdea6a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T05:08:10+00:00",
+      "commitDate": "2026-01-20T05:08:10+00:00",
+      "subject": "chore: process repo-tor batch 15 (6 commits) - repo complete (144 commits)",
+      "body": "",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 15 (6 commits) - repo complete (144 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 154,
+        "deletions": 2
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-015.json",
+        "processed/repo-tor/manifest.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "ebdeb12",
+      "fullSha": "ebdeb1294fbd039879e59e8e2b4fdfcc369c8002",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T05:06:57+00:00",
+      "commitDate": "2026-01-20T05:06:57+00:00",
+      "subject": "chore: process repo-tor batch 14 (10 commits)",
+      "body": "",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 14 (10 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 250,
+        "deletions": 2
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-014.json",
+        "processed/repo-tor/manifest.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "485c662",
+      "fullSha": "485c662016d498f4c1bbc2d77c55501d913b58f5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T04:54:09+00:00",
+      "commitDate": "2026-01-20T04:54:09+00:00",
+      "subject": "chore: process repo-tor batch 13 (10 commits)",
+      "body": "",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 13 (10 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 350,
+        "deletions": 2
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-013.json",
+        "processed/repo-tor/manifest.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "3e922a5",
+      "fullSha": "3e922a563a95e3dc37a539df20935be88f553976",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T04:51:52+00:00",
+      "commitDate": "2026-01-20T04:51:52+00:00",
+      "subject": "chore: process repo-tor batch 12 (10 commits)",
+      "body": "",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "process repo-tor batch 12 (10 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 350,
+        "deletions": 2
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-012.json",
+        "processed/repo-tor/manifest.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "381fd0c",
+      "fullSha": "381fd0c68fa16d695e01da95cb361e3409f8253b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T04:45:41+00:00",
+      "commitDate": "2026-01-20T04:45:41+00:00",
+      "subject": "chore: extract fresh git data for all repos",
+      "body": "- repo-tor: 144 commits (36 new)\n- social-ad-creator: 156 commits (66 pending)\n- model-pear: 303 commits (303 pending)\n- chatty-chart: 42 commits (complete)\n\nTotal: 405 pending commits across 42 batches for AI analysis",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "extract fresh git data for all repos",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 22,
+        "additions": 33085,
+        "deletions": 5475
+      },
+      "files": [
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json",
+        "reports/chatty-chart/data.json",
+        "reports/chatty-chart/metadata.json",
+        "reports/model-pear/commits.json",
+        "reports/model-pear/contributors.json",
+        "reports/model-pear/data.json",
+        "reports/model-pear/files.json",
+        "reports/model-pear/metadata.json",
+        "reports/model-pear/summary.json",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json",
+        "reports/social-ad-creator/data.json",
+        "reports/social-ad-creator/metadata.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "ecccfaa",
+      "fullSha": "ecccfaafd3ef7c6bf0e42a56ec734b20d8dc117a",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-20T04:43:00+00:00",
+      "commitDate": "2026-01-20T04:43:00+00:00",
+      "subject": "docs: add Discovery Framework methodology guide",
+      "body": "Add comprehensive guide for conducting user discovery sessions covering:\n- Core principle of user flows as the spine\n- Session 1 structure (People, Flow, Data, Contacts, Why Now)\n- Post-session analysis checklist\n- Follow-up session templates by stakeholder type\n- Language guide for non-technical audiences\n- Data complexity signals reference",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "add Discovery Framework methodology guide",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 210,
+        "deletions": 9
+      },
+      "files": [
+        "docs/DISCOVERY_FRAMEWORK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear"
+    },
     {
       "sha": "bfb7a03",
       "fullSha": "bfb7a03a7b84eb916f13266ae17111a94e2f7623",
@@ -3236,6 +3758,812 @@
       "repo_id": "social-ad-creator"
     },
     {
+      "sha": "dafacec",
+      "fullSha": "dafacec889cbefc9bb1b54725af1b8ccf053460c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-18T18:49:27+02:00",
+      "commitDate": "2026-01-18T18:49:27+02:00",
+      "subject": "Merge pull request #100 from devmade-ai/claude/review-transfer-pricing-RSO8p",
+      "body": "docs: correct transfer pricing inaccuracies in Model 1 use cases",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #100 from devmade-ai/claude/review-transfer-pricing-RSO8p",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#100"
+      ],
+      "stats": {
+        "filesChanged": 25,
+        "additions": 647,
+        "deletions": 6358
+      },
+      "files": [],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "2ed91f0",
+      "fullSha": "2ed91f04e1a3ea4db430d8062d7a0fe32aafdec5",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T16:47:30+00:00",
+      "commitDate": "2026-01-18T16:47:30+00:00",
+      "subject": "docs: fix Before Compact checklist - focus on context preservation, not commit",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "fix Before Compact checklist - focus on context preservation, not commit",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 2,
+        "deletions": 3
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "12eec38",
+      "fullSha": "12eec38ccf77c477459444c3946b9d8fb5740da1",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T16:45:45+00:00",
+      "commitDate": "2026-01-18T16:45:45+00:00",
+      "subject": "docs: add Before Compact checklist to AI checklists",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "add Before Compact checklist to AI checklists",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 9,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "c0b5084",
+      "fullSha": "c0b508478fac1b64add516c00493641b5170caa3",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T16:43:02+00:00",
+      "commitDate": "2026-01-18T16:43:02+00:00",
+      "subject": "docs: add AI checklists for session start, after task, pre-commit, pre-push",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "add AI checklists for session start, after task, pre-commit, pre-push",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 25,
+        "deletions": 14
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "a1ac5b4",
+      "fullSha": "a1ac5b45f8dffa32c49d1e39792bfc5668213af1",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T16:39:05+00:00",
+      "commitDate": "2026-01-18T16:39:05+00:00",
+      "subject": "docs: update HISTORY.md and SESSION_NOTES.md with today's work",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "update HISTORY.md and SESSION_NOTES.md with today's work",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 60,
+        "deletions": 1
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "3e9e081",
+      "fullSha": "3e9e081280c147e7fedf02d220b9a06105ceeace",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T16:36:43+00:00",
+      "commitDate": "2026-01-18T16:36:43+00:00",
+      "subject": "docs: clarify docs should be updated immediately after each change, not batched",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "clarify docs should be updated immediately after each change, not batched",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 8,
+        "deletions": 7
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "1256488",
+      "fullSha": "1256488db28fd5c2ace0de9ad7d69a2e42fc46b1",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T16:34:32+00:00",
+      "commitDate": "2026-01-18T16:34:32+00:00",
+      "subject": "docs: update SESSION_NOTES approach - update after each task, not at end",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "update SESSION_NOTES approach - update after each task, not at end",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 6,
+        "deletions": 6
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "181fa92",
+      "fullSha": "181fa9287e2d961ce8e8908cceb8167c1b28c924",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T16:31:46+00:00",
+      "commitDate": "2026-01-18T16:31:46+00:00",
+      "subject": "docs: clarify SESSION_NOTES.md purpose as session continuity mechanism",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "clarify SESSION_NOTES.md purpose as session continuity mechanism",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 9,
+        "deletions": 4
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "3d6d65e",
+      "fullSha": "3d6d65e30a8922bb5ecc528ceeb61138336fe397",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T16:27:17+00:00",
+      "commitDate": "2026-01-18T16:27:17+00:00",
+      "subject": "docs: clarify that AI should update docs automatically during every session",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "clarify that AI should update docs automatically during every session",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 7,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "128aa98",
+      "fullSha": "128aa98a74beb0a82a0258c6f05eae556c586819",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T16:25:11+00:00",
+      "commitDate": "2026-01-18T16:25:11+00:00",
+      "subject": "docs: add minimal root README linking to docs/",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "add minimal root README linking to docs/",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 34,
+        "deletions": 0
+      },
+      "files": [
+        "README.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "94a0348",
+      "fullSha": "94a034857485dba61e6109487d31a91abf6a4416",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T16:22:40+00:00",
+      "commitDate": "2026-01-18T16:22:40+00:00",
+      "subject": "docs: update CLAUDE.md documentation reference and fix stale links",
+      "body": "- Updated CLAUDE.md file structure to show current docs (removed deleted concept docs)\n- Expanded Documentation Maintenance section to full Documentation Reference table\n- Listed all docs with purpose and when to update\n- Fixed model-use-cases/README.md reference to deleted concept docs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "update CLAUDE.md documentation reference and fix stale links",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 30,
+        "deletions": 14
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/model-use-cases/README.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "86653a3",
+      "fullSha": "86653a36de091e63936b1cc9cee4f17d0ef1ee0b",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T16:19:48+00:00",
+      "commitDate": "2026-01-18T16:19:48+00:00",
+      "subject": "docs: clean up stale documentation and update for new architecture",
+      "body": "Deleted (10 files):\n- MANUAL_TESTING_GUIDE.md - referenced old vanilla JS structure\n- UI_COMPONENT_HIERARCHY.md - referenced old vanilla JS structure\n- USAGE_SCENARIOS_REVIEW.md - completed review, no longer needed\n- financial_models_intercompany_software.md - superseded by BUSINESS_GUIDE.md\n- model_*_concept.md (6 files) - design docs superseded by model-use-cases/\n\nUpdated:\n- README.md - updated for TypeScript/SvelteKit architecture\n- ARCHITECTURE.md - status changed from \"In Progress\" to \"Complete\"\n- SESSION_NOTES.md - removed stale session notes, kept reference info\n- TODO.md - removed completed items, kept feature ideas\n- model-use-cases/README.md - corrected variant counts for Models 3 and 4",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "clean up stale documentation and update for new architecture",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 66,
+        "deletions": 6197
+      },
+      "files": [
+        "docs/ARCHITECTURE.md",
+        "docs/MANUAL_TESTING_GUIDE.md",
+        "docs/README.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/UI_COMPONENT_HIERARCHY.md",
+        "docs/USAGE_SCENARIOS_REVIEW.md",
+        "docs/financial_models_intercompany_software.md",
+        "docs/model-use-cases/README.md",
+        "docs/model_1_cost_plus_concept.md",
+        "docs/model_2_licence_royalties_concept.md",
+        "docs/model_3_joint_development_concept.md",
+        "docs/model_4_build_operate_transfer_concept.md",
+        "docs/model_5_software_sale_support_concept.md",
+        "docs/model_6_saas_subscription_concept.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "172e850",
+      "fullSha": "172e8507ed94aa556c5d0995dfa7c12c8ffd1483",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T11:57:56+00:00",
+      "commitDate": "2026-01-18T11:57:56+00:00",
+      "subject": "docs: enhance CALCULATIONS.md with formula clarifications and missing elements",
+      "body": "- Clarify payback period formula context (recurring vs one-time models)\n- Reconcile Model 4 variant numbering with use case documentation\n- Add buy-in/buy-out/balancing payment calculations for CCA (Model 3)\n- Define margin compliance ranges in TP risk section with indicative table\n- Fix BOT TP assessment language (remove incorrect \"not applicable\")\n- Add Section 11(e) verification note referencing SARS IN 47\n- Add IFRS 15 variable consideration constraint for earnouts\n- Clarify One-Time model buyer cost methodology\n- Add Mode 1/Mode 2 calculator model mapping table\n- Acknowledge economies of scale limitation in assumptions",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "enhance CALCULATIONS.md with formula clarifications and missing elements",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 134,
+        "deletions": 23
+      },
+      "files": [
+        "docs/CALCULATIONS.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "c364861",
+      "fullSha": "c3648613b1b99cbeee25e70b237e709352417ab8",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T11:44:10+00:00",
+      "commitDate": "2026-01-18T11:44:10+00:00",
+      "subject": "docs: enhance Model 6 SaaS use cases with missing elements",
+      "body": "Technical corrections:\n- Add jurisdictional characterisation caveat (services vs royalties)\n- Note implementation cost capitalisation exception to OPEX claim\n- Correct 6G regulatory reference (SARB → POPIA/sector regulations)\n- Add PE implications note to 6G data residency\n\nNew content:\n- Add IP ownership guidance section for 6E customisations\n- Cross-reference 6I with Model 2F (white-label comparison)\n- Add \"Standard SaaS Contract Elements\" section covering:\n  - Service credits and downtime economics\n  - Data portability and exit rights\n  - Auto-renewal and termination mechanics\n  - Data ownership and usage rights\n\nSelection guide restructured:\n- Group into pricing variants (6A-6D) and combinable options\n- Show example enterprise combination (6B + 6F + 6G + 6H)\n- Add common mistakes for data portability, IP ownership, characterisation",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "enhance Model 6 SaaS use cases with missing elements",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "A-6"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 69,
+        "deletions": 9
+      },
+      "files": [
+        "docs/model-use-cases/model-6-saas-subscription.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "a4596b7",
+      "fullSha": "a4596b70902139d9c6dedee71e39ebcabf82a72d",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T11:35:12+00:00",
+      "commitDate": "2026-01-18T11:35:12+00:00",
+      "subject": "docs: fix arithmetic and enhance Model 5 use cases",
+      "body": "Technical corrections:\n- Fix 5B arithmetic: R1.75M annual payments at 8% (was R1.5M with incorrect total)\n- Add 5B note on separating interest from principal for TP/withholding\n- Add 5C note on supportable discount rate (Buyer credit risk)\n- Soften 5E source code premium claim (was \"typically 20-50%\")\n- Add 5G earnout revenue definition guidance with specific example\n- Expand 5G TP consideration re: earnout exceeding expectations\n\nNew content:\n- Add \"Sale Mechanics for All Variants\" section covering:\n  - What transfers (customers, employees, liabilities, data, infrastructure)\n  - TP characterisation risk (sale vs licence recharacterisation)\n  - IFRS 15 revenue recognition by variant\n- Note 5F and 5H combinability with other variants\n- Restructure selection guide into payment/relationship/scope categories\n- Add common mistakes for transfer mechanics and characterisation risk",
+      "tags": [
+        "docs",
+        "bugfix"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "fix arithmetic and enhance Model 5 use cases",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 65,
+        "deletions": 9
+      },
+      "files": [
+        "docs/model-use-cases/model-5-software-sale.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "1bf1a4a",
+      "fullSha": "1bf1a4aa40694efec0f6cfbcf99a64dc58b700ba",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T11:24:37+00:00",
+      "commitDate": "2026-01-18T11:24:37+00:00",
+      "subject": "docs: correct BOT model errors in Model 4 use cases",
+      "body": "Major structural changes:\n- Restructure 4G from standalone variant to Standard Provisions section\n- Add operation period economics section (Build/Operate/Transfer phases)\n- Add transition and knowledge transfer provisions\n- Clarify 4F as staged acquisition extending traditional BOT\n\nTechnical corrections:\n- Fix 4B: Replace unrealistic 5x GMV multiple with revenue-based formula\n- Soften 4C \"highest defensibility\" to \"strong defensibility\" with caveats\n- Rename 4D to \"Cost Recovery with Gain Sharing\" and clarify distinction\n- Fix 4H: UK does not withhold on standard service fees\n- Add 4A long-duration TP risk note\n- Add valuation multiple guidance to 4B\n- Update selection guide (remove 4G as variant option)\n- Expand common mistakes with new entries",
+      "tags": [
+        "docs",
+        "bugfix"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "correct BOT model errors in Model 4 use cases",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 62,
+        "deletions": 36
+      },
+      "files": [
+        "docs/model-use-cases/model-4-build-operate-transfer.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "a7c356b",
+      "fullSha": "a7c356b71836e8fd6c2b12b257772cac7cbdbbfd",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T11:17:51+00:00",
+      "commitDate": "2026-01-18T11:17:51+00:00",
+      "subject": "docs: correct fundamental CCA errors in Model 3 use cases",
+      "body": "Major structural changes:\n- Rename 3A from \"Proportional\" to \"Equal\" (contradiction resolved)\n- Rewrite 3C to align contributions with benefits per OECD CCA principles\n- Restructure 3G from standalone variant to \"Required Provisions\" section\n- Clarify 3D as mutual development, not a CCA\n\nTechnical corrections:\n- Remove incorrect \"no intercompany profit\" claim\n- Add buy-in, buy-out, and balancing payment mechanics to overview\n- Strengthen 3A TP warning to \"presumptively non-arm's length\"\n- Add periodic review requirement to 3C\n- Add commercialisation value methodology to 3E\n- Expand 3F JV licensing complexity warning\n- Add Pillar Two note to 3H Irish tax rate example\n- Update selection guide (remove 3G as variant option)\n- Expand common mistakes with new entries",
+      "tags": [
+        "docs",
+        "bugfix"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "correct fundamental CCA errors in Model 3 use cases",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 73,
+        "deletions": 50
+      },
+      "files": [
+        "docs/model-use-cases/model-3-joint-development.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "c26b56a",
+      "fullSha": "c26b56acd703142eb828d13cac07e79a0e4abdb8",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T11:08:44+00:00",
+      "commitDate": "2026-01-18T11:08:44+00:00",
+      "subject": "docs: correct technical inaccuracies in Model 2 use cases",
+      "body": "- Add IFRS 15 caveat for 2A revenue recognition (bundled obligations)\n- Soften 2F reseller margin range with industry context\n- Replace 2G \"typical\" premium with fact-specific language\n- Expand 2E TP complexity discussion with specific challenges\n- Add cross-border withholding tax note to overview\n- Clarify 2D vs 2C positioning for unpredictable usage\n- Add common mistake about 2A perpetual with planned enhancements\n- Expand 2H escrow trigger conditions\n- Fix 2E attribution methodology terminology\n- Add DEMPE analysis note to 2G exclusivity TP consideration",
+      "tags": [
+        "docs",
+        "bugfix"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "correct technical inaccuracies in Model 2 use cases",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 15,
+        "deletions": 11
+      },
+      "files": [
+        "docs/model-use-cases/model-2-software-licence.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "3e1bbc0",
+      "fullSha": "3e1bbc0864d49a739bc532d836a5cedef98f7fc2",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T10:15:54+00:00",
+      "commitDate": "2026-01-18T10:15:54+00:00",
+      "subject": "docs: correct transfer pricing inaccuracies in Model 1 use cases",
+      "body": "- Replace OECD guidelines citation with market benchmark language\n- Clarify that zero-margin arrangements can attract TP scrutiny\n- Distinguish accounting consolidation from tax TP obligations\n- Fix margin vs markup terminology in 1D example\n- Add IAS 38 criteria caveat for capitalisation claims",
+      "tags": [
+        "docs",
+        "bugfix"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "correct transfer pricing inaccuracies in Model 1 use cases",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 10,
+        "deletions": 10
+      },
+      "files": [
+        "docs/model-use-cases/model-1-development-services.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "64f60c1",
+      "fullSha": "64f60c19d3b8937b6ea82e8cc4888c15a409bc90",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-18T10:09:29+02:00",
+      "commitDate": "2026-01-18T10:09:29+02:00",
+      "subject": "Merge pull request #99 from devmade-ai/claude/model-use-cases-iExEs",
+      "body": "docs: add realistic use case scenarios for all 47 variants",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #99 from devmade-ai/claude/model-use-cases-iExEs",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#99"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 1388,
+        "deletions": 0
+      },
+      "files": [],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "852b332",
+      "fullSha": "852b3320a3729687d5dea508ebb18043972adcd0",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-18T05:20:09+00:00",
+      "commitDate": "2026-01-18T05:20:09+00:00",
+      "subject": "docs: add realistic use case scenarios for all 47 variants",
+      "body": "Document when each transaction model variant is the best choice:\n- Model 1: Development Services (6 variants)\n- Model 2: Software Licence (8 variants)\n- Model 3: Joint Development (8 variants)\n- Model 4: Build-Operate-Transfer (8 variants)\n- Model 5: Software Sale (8 variants)\n- Model 6: SaaS/Subscription (9 variants)\n\nEach file includes real-world examples, variant selection guides,\ntransfer pricing considerations, and common mistakes to avoid.",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 4,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "add realistic use case scenarios for all 47 variants",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 1388,
+        "deletions": 0
+      },
+      "files": [
+        "docs/model-use-cases/README.md",
+        "docs/model-use-cases/model-1-development-services.md",
+        "docs/model-use-cases/model-2-software-licence.md",
+        "docs/model-use-cases/model-3-joint-development.md",
+        "docs/model-use-cases/model-4-build-operate-transfer.md",
+        "docs/model-use-cases/model-5-software-sale.md",
+        "docs/model-use-cases/model-6-saas-subscription.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
       "sha": "64cbc69",
       "fullSha": "64cbc69ac1759b85f58b530637ac2443697bc7d4",
       "author_id": "devmade.ai@gmail.com",
@@ -4834,6 +6162,2610 @@
       "repo_id": "social-ad-creator"
     },
     {
+      "sha": "c7b4da3",
+      "fullSha": "c7b4da3ef8f4439ea559f2277ce572a8c8219728",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-14T00:35:12+00:00",
+      "commitDate": "2026-01-14T00:35:12+00:00",
+      "subject": "Add typography controls: bold, italic, and letter spacing",
+      "body": "- Add bold/italic toggle buttons for each text element\n- Add letter spacing options (Tight, Normal, Wide, Wider)\n- Update default state with new typography properties\n- AdCanvas now renders fontWeight, fontStyle, and letterSpacing dynamically\n- Title, Body Heading, and CTA default to bold for visual hierarchy",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add typography controls: bold, italic, and letter spacing",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 87,
+        "deletions": 19
+      },
+      "files": [
+        "docs/TODO.md",
+        "src/components/AdCanvas.jsx",
+        "src/components/TextEditor.jsx",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "572ab87",
+      "fullSha": "572ab877e8d4cb40e07d4c9790ac9d6faf80b9ac",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-14T00:28:26+00:00",
+      "commitDate": "2026-01-14T00:28:26+00:00",
+      "subject": "Overhaul Image tab UX - cleaner flow and collapsible sections",
+      "body": "- Reorganize section order: Upload → Remove → Settings → Effects → Logo\n- Add collapsible Section component with sensible defaults\n  - Settings: open by default\n  - Style Presets, Filters, Overlay: collapsed by default\n  - Logo: collapsed unless logo exists\n- Move Remove button immediately after upload area (was buried after Quick Layout)\n- Remove Quick Layout presets from Image tab (belongs in Layout tab)\n- Remove unused layout-related props from ImageUploader\n- Clean up imports (removed layout preset dependencies)",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Overhaul Image tab UX - cleaner flow and collapsible sections",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 202,
+        "deletions": 262
+      },
+      "files": [
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/components/ImageUploader.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "339d0da",
+      "fullSha": "339d0daa323fd6e38a2ee59ec263af1ec23ca2b3",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-14T00:10:17+00:00",
+      "commitDate": "2026-01-14T00:10:17+00:00",
+      "subject": "Clean up TODO.md - mark implemented items, simplify scope",
+      "body": "- Mark completed: smart layout suggestions, keyboard shortcuts, export loading states\n- Remove advanced text customization items (keeping only bold/italic/letter-spacing)\n- Clarify Image tab UX issues as priority item with clear problem description\n- Consolidate completed features, remove duplicates",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Clean up TODO.md - mark implemented items, simplify scope",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 35,
+        "deletions": 37
+      },
+      "files": [
+        "docs/TODO.md"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "3a04615",
+      "fullSha": "3a0461553b590c69314cdb04f566fa79ae138491",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-14T01:16:42+02:00",
+      "commitDate": "2026-01-14T01:16:42+02:00",
+      "subject": "Merge pull request #10 from devmade-ai/claude/improve-todo-layout-CKPEx",
+      "body": "Add Image tab improvements to TODO list",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #10 from devmade-ai/claude/improve-todo-layout-CKPEx",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#10"
+      ],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 413,
+        "deletions": 515
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "04ed1a8",
+      "fullSha": "04ed1a80259bc3f8e6553aaae443ff284e5c7d1f",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T23:13:58+00:00",
+      "commitDate": "2026-01-13T23:13:58+00:00",
+      "subject": "Implement Phase 4 placement tab enhancements",
+      "body": "Placement tab now features:\n- Image section with cell selector + quick controls:\n  - Cover/Contain toggle\n  - Grayscale on/off\n  - Overlay opacity slider\n- Individual text elements (not groups):\n  - Title, Tagline, Body Heading, Body Text, CTA, Footnote\n  - Each with visibility toggle, color picker, text input\n  - Cell placement buttons (when multi-cell layout)\n- Text alignment controls (horizontal + vertical)",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Implement Phase 4 placement tab enhancements",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 207,
+        "deletions": 100
+      },
+      "files": [
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/components/LayoutSelector.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "11547e6",
+      "fullSha": "11547e6bd70197bc9c06eede72a0659ab827eec1",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T23:08:17+00:00",
+      "commitDate": "2026-01-13T23:08:17+00:00",
+      "subject": "Implement Phase 3 UX polish",
+      "body": "- Standard alignment icons: SVG-based left/center/right and top/middle/bottom\n- Sub-tabs more prominent: larger text, bolder styling, blue active state\n- Cell selector improvements:\n  - Constrained max-width (180px) on wider screens\n  - Matches selected platform aspect ratio\n  - Simple numbered labels (1, 2, 3) instead of Row/Column naming",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Implement Phase 3 UX polish",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 92,
+        "deletions": 37
+      },
+      "files": [
+        "docs/TODO.md",
+        "src/components/LayoutSelector.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "bb879c7",
+      "fullSha": "bb879c74afe792f401e9d24c101168cc596998c5",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T22:58:40+00:00",
+      "commitDate": "2026-01-13T22:58:40+00:00",
+      "subject": "Implement Phase 2 tab simplifications",
+      "body": "Text Tab:\n- Remove sub-tabs (Content, Style, Placement)\n- Combine content input with inline style controls (color, size)\n- Simpler, single-view editing experience\n\nLayout Tab:\n- Merge Alignment + Placement + Image Position into unified \"Placement\" tab\n- Remove separate Align tab (was redundant)\n- Placement tab now shows: image position, text alignment, text group placement\n- Removed duplicate image position from Presets tab\n- Reduced from 6 sub-tabs to 5",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Implement Phase 2 tab simplifications",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 168,
+        "deletions": 445
+      },
+      "files": [
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/components/TextEditor.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "0c28380",
+      "fullSha": "0c28380972c1d437e7af10b646c28c448a2ddede",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T22:55:39+00:00",
+      "commitDate": "2026-01-13T22:55:39+00:00",
+      "subject": "Implement Phase 1 UX improvements",
+      "body": "- Rename \"Media\" tab to \"Image\" for clarity\n- Default platform to Instagram Square (most common use case)\n- Reorder platforms: IG Square, TikTok, LinkedIn, IG Story first\n- Default presets filter to \"All\" instead of \"Suggested\"\n- Remove layout \"Type\" selector from presets tab (unnecessary complexity)",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Implement Phase 1 UX improvements",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 11,
+        "deletions": 32
+      },
+      "files": [
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/config/platforms.js",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "1a17257",
+      "fullSha": "1a17257660c41c87ba87b6c01e8df1b68caca342",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T22:52:19+00:00",
+      "commitDate": "2026-01-13T22:52:19+00:00",
+      "subject": "Add cell selector aspect ratio matching to TODO",
+      "body": "Cell selector should match selected platform's shape for consistency",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Add cell selector aspect ratio matching to TODO",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        "docs/TODO.md"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "bb97666",
+      "fullSha": "bb9766659a8604fb79327c84082df462622f894e",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T22:50:00+00:00",
+      "commitDate": "2026-01-13T22:50:00+00:00",
+      "subject": "Add Text tab simplification and Placement enhancements to TODO",
+      "body": "- Text tab: remove sub-tabs, simplify to single view\n- Layout tab: make sub-tabs more prominent\n- Placement: separate individual text elements (not groups)\n- Placement: per-element color and text editing\n- Placement: image quick controls (contain/cover, grayscale, overlay)",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Add Text tab simplification and Placement enhancements to TODO",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 11,
+        "deletions": 0
+      },
+      "files": [
+        "docs/TODO.md"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "5bb6c3b",
+      "fullSha": "5bb6c3be21dc7cfd883d90953032fcbe27ae4234",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T22:40:26+00:00",
+      "commitDate": "2026-01-13T22:40:26+00:00",
+      "subject": "Add Layout tab UX improvements to TODO list",
+      "body": "- Remove type from presets, default to All\n- Consolidate placement tabs (image + text)\n- Merge alignments and placements\n- Use standard alignment icons\n- Better cell assignment UX (confusing dropdown names)\n- Improve cell references (row/column not user-friendly)\n- Smaller cell selector on wide screens\n- Fixed units for padding instead of percentages",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Add Layout tab UX improvements to TODO list",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 12,
+        "deletions": 0
+      },
+      "files": [
+        "docs/TODO.md"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "dc9b093",
+      "fullSha": "dc9b09335f859bcdd8e21f6c352db8daafbd3c52",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T22:19:30+00:00",
+      "commitDate": "2026-01-13T22:19:30+00:00",
+      "subject": "Add Image tab improvements to TODO list",
+      "body": "- Rename Media tab to Image\n- Default platform to Instagram Square\n- Reorder platforms (IG Square, TikTok, LinkedIn, IG Story first)\n- Better quick layout suggestions\n- More logical section ordering\n- Collapsible sections\n- Fix remove image placement",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Add Image tab improvements to TODO list",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 10,
+        "deletions": 0
+      },
+      "files": [
+        "docs/TODO.md"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "17dfc56",
+      "fullSha": "17dfc563eca24e386af5f15fd7a2e9380c230678",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-14T00:05:00+02:00",
+      "commitDate": "2026-01-14T00:05:00+02:00",
+      "subject": "Update SESSION_NOTES.md - mark sample images complete",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Update SESSION_NOTES.md - mark sample images complete",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 8
+      },
+      "files": [
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "240a95c",
+      "fullSha": "240a95cec0f68417454f52b67e4a14421642a54a",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-14T00:04:44+02:00",
+      "commitDate": "2026-01-14T00:04:44+02:00",
+      "subject": "Add 9 sample images and fix path resolution",
+      "body": "- Add devMade branded sample images to public/samples/\n- Update sampleImages.js with all 9 images (.jpg format)\n- Fix BASE_URL path resolution for production deployment\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add 9 sample images and fix path resolution",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 32,
+        "deletions": 9
+      },
+      "files": [
+        "public/samples/ai-growth.jpg",
+        "public/samples/brain-ideas.jpg",
+        "public/samples/circuit-spiral.jpg",
+        "public/samples/circuit-tree.jpg",
+        "public/samples/dm-badge.jpg",
+        "public/samples/dm-cube.jpg",
+        "public/samples/dm-rocket.jpg",
+        "public/samples/globe-tech.jpg",
+        "public/samples/tree-cube.jpg",
+        "src/components/ImageUploader.jsx",
+        "src/config/sampleImages.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "6d1c40d",
+      "fullSha": "6d1c40deed1c5b6c751cdda7912917890660de1f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-13T23:06:18+02:00",
+      "commitDate": "2026-01-13T23:06:18+02:00",
+      "subject": "Merge pull request #9 from devmade-ai/claude/plan-next-priorities-V2UdC",
+      "body": "Add sample images feature for quick testing",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #9 from devmade-ai/claude/plan-next-priorities-V2UdC",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#9"
+      ],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 889,
+        "deletions": 89
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "1b6d948",
+      "fullSha": "1b6d948e4bf477e809bf4fc3e8edbe32aa9ece57",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T15:41:15+00:00",
+      "commitDate": "2026-01-13T15:41:15+00:00",
+      "subject": "Add image presets, filters, per-cell overlays, padding, and merge media tabs",
+      "body": "Features:\n- Image style presets (Dramatic Dark, Vintage, Cinematic, etc.)\n- Image filters (sepia, blur, contrast, brightness)\n- Per-cell overlay controls in Layout > Overlay sub-tab\n- Global and per-cell padding in Layout > Spacing sub-tab\n- Merged Logo tab into Media tab for unified controls\n\nState changes:\n- imageGrayscale -> imageFilters object\n- Added layout.cellOverlays for per-cell overlay config\n- Added padding state with global and cellOverrides",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add image presets, filters, per-cell overlays, padding, and merge media tabs",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 778,
+        "deletions": 72
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/components/AdCanvas.jsx",
+        "src/components/ImageUploader.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/config/layouts.js",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "e55ec59",
+      "fullSha": "e55ec5938d2acab6d8486d7b336fe19872b8e66d",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T14:50:37+00:00",
+      "commitDate": "2026-01-13T14:50:37+00:00",
+      "subject": "Add sample images feature for quick testing",
+      "body": "- Create sampleImages.js config with 5 devMade samples\n- Add sample image selector grid in ImageUploader\n- Shows clickable thumbnails when no image uploaded\n- Graceful fallback when images not yet in public/samples/",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add sample images feature for quick testing",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 125,
+        "deletions": 31
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/ImageUploader.jsx",
+        "src/config/sampleImages.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "7955143",
+      "fullSha": "7955143e93aa4ce7b07225c86b0e17220489b0d4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-13T10:19:11+02:00",
+      "commitDate": "2026-01-13T10:19:11+02:00",
+      "subject": "Merge pull request #8 from devmade-ai/claude/improve-layout-tab-74Et0",
+      "body": "Redesign Layout tab with sub-tabs and unified cell selector",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #8 from devmade-ai/claude/improve-layout-tab-74Et0",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#8"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 1236,
+        "deletions": 514
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "7f37322",
+      "fullSha": "7f3732242a6f1d1998e4cc784bf0c1acfb62c498",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T08:17:13+00:00",
+      "commitDate": "2026-01-13T08:17:13+00:00",
+      "subject": "Add Text tab sub-tabs, expand themes, and update documentation",
+      "body": "Text Tab Improvements:\n- Split into 3 sub-tabs: Content, Style, Placement\n- Content: text inputs with visibility toggles\n- Style: color and size controls per layer\n- Placement: assign text groups to layout cells\n\nTheme System:\n- Expanded from 4 to 12 preset themes\n- Added: Corporate, Slate, Sunset, Ocean, Forest, Earth, Neon, Candy\n\nDocumentation:\n- Reorganized TODO.md with clear sections\n- Added planned features: image presets, per-cell overlays, padding controls\n- Added ideas: merge Logo/Image tabs, sample images",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add Text tab sub-tabs, expand themes, and update documentation",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 393,
+        "deletions": 175
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/components/TextEditor.jsx",
+        "src/config/themes.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "21e2b89",
+      "fullSha": "21e2b89e0fb1d1397d014e0667e4baeec486b029",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T08:03:04+00:00",
+      "commitDate": "2026-01-13T08:03:04+00:00",
+      "subject": "Make preview canvas responsive and update documentation",
+      "body": "- Preview canvas now adapts to container width using ResizeObserver\n- Fills available horizontal space while maintaining aspect ratio\n- Respects max height (60% viewport or 600px) to prevent overflow\n\nDocumentation updates:\n- CLAUDE.md: Updated architecture, state structure, and added Layout Tab section\n- SESSION_NOTES.md: Documented all session changes\n- TODO.md: Added Layout Tab sub-tabs section, marked responsive preview complete",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Make preview canvas responsive and update documentation",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 129,
+        "deletions": 53
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/App.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "db02cd3",
+      "fullSha": "db02cd36cc1e0a02fb0c22653463e83e02063335",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T07:57:17+00:00",
+      "commitDate": "2026-01-13T07:57:17+00:00",
+      "subject": "Improve Structure sub-tab with contextual cell/section selection",
+      "body": "- Add StructureGrid component with clickable section labels (R1, R2... or C1, C2...)\n- Click section label to edit row/column: height/width slider + subdivision count\n- Click cell in subdivided section to edit that cell's width/height\n- Click same element again to deselect (toggle behavior)\n- Shows only relevant control for current selection:\n  - Section selected: height/width + split count + delete option\n  - Cell selected: width/height + \"Edit Parent\" button\n  - Nothing selected: overview + \"Add Row/Column\" button\n- Purple highlighting for selected elements, lighter purple for sibling cells\n- Cells show their size percentage when subdivided",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Improve Structure sub-tab with contextual cell/section selection",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 303,
+        "deletions": 97
+      },
+      "files": [
+        "src/components/LayoutSelector.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "58ccdf8",
+      "fullSha": "58ccdf8cca5aba70f857318fe2a881209f31069b",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T07:48:01+00:00",
+      "commitDate": "2026-01-13T07:48:01+00:00",
+      "subject": "Redesign Layout tab with sub-tabs and unified cell selector",
+      "body": "- Add sub-tabs: Presets, Structure, Alignment, Placement\n- Create reusable CellGrid component for consistent cell selection\n- Presets tab: quick layout type + preset selection with image position\n- Structure tab: fine-tune rows/columns, sizes, subdivisions\n- Alignment tab: click cell to edit (none = all cells), H/V alignment\n- Placement tab: click cell then assign text groups with quick buttons\n- Purple highlight for selected editing cell, blue for image cell\n- Reduces visual clutter by organizing controls by purpose",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Redesign Layout tab with sub-tabs and unified cell selector",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 555,
+        "deletions": 333
+      },
+      "files": [
+        "src/components/LayoutSelector.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "f0a5609",
+      "fullSha": "f0a56092360218ca3f807683844dffe34ba6c57b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-13T02:18:32+02:00",
+      "commitDate": "2026-01-13T02:18:32+02:00",
+      "subject": "Merge pull request #7 from devmade-ai/claude/new-layout-framework-OVqiZ",
+      "body": "Enhance layout controls with quick presets and improved UX",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #7 from devmade-ai/claude/new-layout-framework-OVqiZ",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#7"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 230,
+        "deletions": 29
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "23ec7ee",
+      "fullSha": "23ec7ee5ecb2445a12f62696466dbd43d526b018",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T00:16:36+00:00",
+      "commitDate": "2026-01-13T00:16:36+00:00",
+      "subject": "Enhance layout controls with quick presets and improved UX",
+      "body": "- Add quick layout preset picker to Image tab showing suggested layouts\n- Allow up to 3 subdivisions per section (was limited to 2)\n- Implement proportional auto-balancing when adjusting section sizes\n- Default preset category to \"Suggested\" instead of \"All\"\n- Add +/- controls for subdivision count with visual feedback",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Enhance layout controls with quick presets and improved UX",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 230,
+        "deletions": 29
+      },
+      "files": [
+        "src/App.jsx",
+        "src/components/ImageUploader.jsx",
+        "src/components/LayoutSelector.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "e8148c9",
+      "fullSha": "e8148c95eb3f0acbce3c64b61e4219d08d6bca80",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-13T01:15:28+02:00",
+      "commitDate": "2026-01-13T01:15:28+02:00",
+      "subject": "Merge pull request #6 from devmade-ai/claude/evaluate-grid-layout-4GX3n",
+      "body": "Implement nested grid layout system with resizable cells",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #6 from devmade-ai/claude/evaluate-grid-layout-4GX3n",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 720,
+        "deletions": 529
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "b6f1d1b",
+      "fullSha": "b6f1d1bdedb6fa8003f1bb70a055d1f41c59f6b6",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-12T23:00:31+00:00",
+      "commitDate": "2026-01-12T23:00:31+00:00",
+      "subject": "Implement nested grid layout system with resizable cells",
+      "body": "Replace the old row/column split system with a new nested grid approach:\n- Primary split (rows or columns) with optional subdivisions per section\n- Each section has customizable size percentages\n- Image goes in a single cell (no spanning complexity)\n- Visual cell picker in UI shows layout structure clearly\n\nNew features:\n- Add/remove sections dynamically\n- Toggle subdivisions per section (split button)\n- Resize sections and subdivisions with sliders\n- New \"Grid\" category with 4 preset layouts using nested cells\n- Click-to-select image cell in visual preview\n\nBreaking change: Layout state structure changed from splitType/sections/imageCells\nto type/structure/imageCell format.",
+      "tags": [
+        "feature",
+        "breaking"
+      ],
+      "complexity": 5,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Implement nested grid layout system with resizable cells",
+      "is_conventional": false,
+      "has_breaking_change": true,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 720,
+        "deletions": 529
+      },
+      "files": [
+        "src/components/AdCanvas.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/config/layoutPresets.js",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "fbd005c",
+      "fullSha": "fbd005c932c999299b8905f6abb402208c6bad3c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-12T21:13:45+02:00",
+      "commitDate": "2026-01-12T21:13:45+02:00",
+      "subject": "Merge pull request #5 from devmade-ai/claude/fix-github-actions-deploy-W7p1T",
+      "body": "Fix GitHub Actions deployment timeout issues",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/fix-github-actions-deploy-W7p1T",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 1
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "6062a7c",
+      "fullSha": "6062a7cbea27862a618ab9c5c96adadb7820451e",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-12T19:12:41+00:00",
+      "commitDate": "2026-01-12T19:12:41+00:00",
+      "subject": "Fix GitHub Actions deployment timeout issues",
+      "body": "- Update concurrency group to be ref-specific\n- Add timeout-minutes to deploy job (10 min)\n- Add timeout-minutes to deploy step (5 min)\n- This prevents deployments from getting stuck in queued state",
+      "tags": [
+        "bugfix",
+        "infra"
+      ],
+      "complexity": 1,
+      "urgency": 3,
+      "impact": "infra",
+      "scope": null,
+      "title": "Fix GitHub Actions deployment timeout issues",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 1
+      },
+      "files": [
+        ".github/workflows/deploy.yml"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "3ddf5c2",
+      "fullSha": "3ddf5c2625e6f7d2b6615cf461bf1a6a1cd96165",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-12T20:56:08+02:00",
+      "commitDate": "2026-01-12T20:56:08+02:00",
+      "subject": "Merge pull request #4 from devmade-ai/claude/add-sample-input-text-3lhJU",
+      "body": "Add sample text to all text input fields",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #4 from devmade-ai/claude/add-sample-input-text-3lhJU",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 4,
+        "deletions": 4
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "007b3b3",
+      "fullSha": "007b3b36ed8f9e7dd512292ab6571d0d79e97c5a",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-12T18:55:19+00:00",
+      "commitDate": "2026-01-12T18:55:19+00:00",
+      "subject": "Add sample text to all text input fields",
+      "body": "",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add sample text to all text input fields",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 4,
+        "deletions": 4
+      },
+      "files": [
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "2431769",
+      "fullSha": "24317698be4c2c0fdf5af27ff09b9ddff8956011",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-12T20:44:08+02:00",
+      "commitDate": "2026-01-12T20:44:08+02:00",
+      "subject": "Merge pull request #3 from devmade-ai/claude/investigate-missing-changes-MwZPB",
+      "body": "Add GitHub Actions workflow for automatic deployment",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #3 from devmade-ai/claude/investigate-missing-changes-MwZPB",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 53,
+        "deletions": 0
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "799516a",
+      "fullSha": "799516a09071010a48902f18c6207cb561ab0d02",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-12T18:40:06+00:00",
+      "commitDate": "2026-01-12T18:40:06+00:00",
+      "subject": "Add GitHub Actions workflow for automatic deployment",
+      "body": "",
+      "tags": [
+        "feature",
+        "infra"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "infra",
+      "scope": null,
+      "title": "Add GitHub Actions workflow for automatic deployment",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 53,
+        "deletions": 0
+      },
+      "files": [
+        ".github/workflows/deploy.yml"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "f8b140c",
+      "fullSha": "f8b140cf0807cd33f896441ba8d2c244033315d4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-12T17:19:01+02:00",
+      "commitDate": "2026-01-12T17:19:01+02:00",
+      "subject": "Merge pull request #2 from devmade-ai/claude/improve-layouts-quickstart-7y33c",
+      "body": "Enhance layout system with expanded presets and improved UX",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #2 from devmade-ai/claude/improve-layouts-quickstart-7y33c",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#2"
+      ],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 916,
+        "deletions": 226
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "e137860",
+      "fullSha": "e1378600806235ccf00262eb284d1d287bf980cd",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-12T14:01:27+00:00",
+      "commitDate": "2026-01-12T14:01:27+00:00",
+      "subject": "Enhance layout system with expanded presets and improved UX",
+      "body": "- Expand layout presets from 6 to 17 (hero variants, two-thirds splits,\n  accent strips, banners, center focus, image sandwich)\n- Add visual SVG preview icons replacing Unicode symbols\n- Organize presets into categories (All, Suggested, Image Focus,\n  Text Focus, Balanced) with tab navigation\n- Implement smart layout suggestions based on image aspect ratio\n  and platform type\n- Add quick actions: Flip (swap sides), Rotate (columns <-> rows),\n  Reset (default layout)\n- Improve preset naming for clarity\n- Collapse fine-tune controls by default for cleaner UI",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Enhance layout system with expanded presets and improved UX",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 916,
+        "deletions": 226
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "src/App.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/config/layoutPresets.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "8a83e5c",
+      "fullSha": "8a83e5c534fc559a3e345c630eaf7f554f450879",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-12T15:19:39+02:00",
+      "commitDate": "2026-01-12T15:19:39+02:00",
+      "subject": "Merge pull request #98 from devmade-ai/claude/review-remaining-tasks-02suz",
+      "body": "feat: add polish & testing features (Phase 7)",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #98 from devmade-ai/claude/review-remaining-tasks-02suz",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#98"
+      ],
+      "stats": {
+        "filesChanged": 16,
+        "additions": 940,
+        "deletions": 62
+      },
+      "files": [],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "bf10ed9",
+      "fullSha": "bf10ed92a109feed692c0a3cf4ec380bed7bc53c",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-12T12:13:43+00:00",
+      "commitDate": "2026-01-12T12:13:43+00:00",
+      "subject": "feat: add polish & testing features (Phase 7)",
+      "body": "- Print/Export: CSS print styles, CSV export in ComparisonView\n- E2E Tests: Playwright config + 5 test suites (navigation, pricing, structuring, comparison, mobile)\n- Pricing Charts: EquilibriumChart component showing price range visualization\n- Mobile: Hamburger menu, sticky header, horizontal scroll model selector, touch utilities",
+      "tags": [
+        "feature",
+        "testing",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "add polish & testing features (Phase 7)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 16,
+        "additions": 940,
+        "deletions": 62
+      },
+      "files": [
+        "apps/web/package.json",
+        "apps/web/playwright.config.ts",
+        "apps/web/src/app.css",
+        "apps/web/src/lib/components/ComparisonView.svelte",
+        "apps/web/src/lib/components/charts/EquilibriumChart.svelte",
+        "apps/web/src/lib/components/charts/index.ts",
+        "apps/web/src/routes/+layout.svelte",
+        "apps/web/src/routes/pricing/+page.svelte",
+        "apps/web/tests/e2e/comparison.spec.ts",
+        "apps/web/tests/e2e/mobile.spec.ts",
+        "apps/web/tests/e2e/navigation.spec.ts",
+        "apps/web/tests/e2e/pricing-calculator.spec.ts",
+        "apps/web/tests/e2e/structuring.spec.ts",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "pnpm-lock.yaml"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "d722b4f",
+      "fullSha": "d722b4fd73522c37895234cd0a80401dec5b315d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-12T09:50:23+02:00",
+      "commitDate": "2026-01-12T09:50:23+02:00",
+      "subject": "Merge pull request #97 from devmade-ai/claude/fix-pricing-paths-THYv9",
+      "body": "fix: add /pricing route to resolve 404 error",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #97 from devmade-ai/claude/fix-pricing-paths-THYv9",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#97"
+      ],
+      "stats": {
+        "filesChanged": 51,
+        "additions": 759,
+        "deletions": 33017
+      },
+      "files": [],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "a13b556",
+      "fullSha": "a13b556944de978a29db4460a1e06aa074dbe7d2",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-12T07:47:58+00:00",
+      "commitDate": "2026-01-12T07:47:58+00:00",
+      "subject": "docs: remove legacy references and update migration status",
+      "body": "- SESSION_NOTES.md: Removed legacy folder reference, added pricing route\n- ARCHITECTURE.md: Updated migration status to complete, removed legacy sections\n- Updated next steps to reflect completed work",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "remove legacy references and update migration status",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 68,
+        "deletions": 72
+      },
+      "files": [
+        "docs/ARCHITECTURE.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "08478da",
+      "fullSha": "08478daaf11825ae7f129231a09ddd67da705cfe",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-12T07:32:51+00:00",
+      "commitDate": "2026-01-12T07:32:51+00:00",
+      "subject": "feat: complete pricing calculator with all 5 models + remove legacy code",
+      "body": "Pricing Calculator (Mode 1):\n- Implemented all 5 pricing models with equilibrium analysis:\n  * Subscription (SaaS): Monthly recurring revenue\n  * Usage-Based: Pay per unit (API calls, transactions)\n  * Per-Seat: Price per user/seat\n  * One-Time: Perpetual license + maintenance\n  * Marketplace: Commission-based model\n- Each model shows equilibrium zone (minimum to maximum viable price)\n- Displays suggested price, financial metrics, and ROI for both parties\n- Reactive calculations with proper input validation\n\nLegacy Cleanup:\n- Deleted entire /legacy/ folder (1.3MB vanilla JS code)\n- Updated CLAUDE.md to reflect new TypeScript + SvelteKit architecture\n- Removed ~50 legacy files (models, calculators, UI components)\n\nBoth modes now complete in new architecture:\n- Mode 1: Pricing Calculator (5 models)\n- Mode 2: Transaction Structuring (6 models, 47 variants)",
+      "tags": [
+        "feature",
+        "refactor"
+      ],
+      "complexity": 5,
+      "urgency": 3,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "complete pricing calculator with all 5 models + remove legacy code",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 48,
+        "additions": 488,
+        "deletions": 32992
+      },
+      "files": [
+        "CLAUDE.md",
+        "apps/web/src/routes/pricing/+page.svelte",
+        "legacy/app.js",
+        "legacy/calculators/engine.js",
+        "legacy/calculators/reverse-calculations.js",
+        "legacy/charts/index.js",
+        "legacy/config/constants.js",
+        "legacy/config/sa-pricing-defaults.js",
+        "legacy/index.html",
+        "legacy/models/index.js",
+        "legacy/models/intercompany/advanced-visualizations.js",
+        "legacy/models/intercompany/compliance-analyzer.js",
+        "legacy/models/intercompany/growth-projections.js",
+        "legacy/models/intercompany/model-1-cost-plus.js",
+        "legacy/models/intercompany/model-2-licence-royalties.js",
+        "legacy/models/intercompany/model-3-joint-development.js",
+        "legacy/models/intercompany/model-4-bot.js",
+        "legacy/models/intercompany/model-5-software-sale.js",
+        "legacy/models/intercompany/model-6-saas-subscription.js",
+        "legacy/models/intercompany/registry.js",
+        "legacy/models/intercompany/sensitivity-analysis.js",
+        "legacy/models/intercompany/structure-selector.js",
+        "legacy/models/intercompany/testing-utilities.js",
+        "legacy/state/app-state.js",
+        "legacy/styles.css",
+        "legacy/ui/forms.js",
+        "legacy/ui/initialization.js",
+        "legacy/ui/intercompany/advanced-visualizations.js",
+        "legacy/ui/intercompany/calculator.js",
+        "legacy/ui/intercompany/comparison-manager.js",
+        "legacy/ui/intercompany/comparison-view.js",
+        "legacy/ui/intercompany/compliance-analyzer.js",
+        "legacy/ui/intercompany/cost-estimator.js",
+        "legacy/ui/intercompany/diff-view.js",
+        "legacy/ui/intercompany/entity-config.js",
+        "legacy/ui/intercompany/options-overview.js",
+        "legacy/ui/intercompany/party-selector.js",
+        "legacy/ui/intercompany/perspective-toggle.js",
+        "legacy/ui/intercompany/projection-visualizations.js",
+        "legacy/ui/intercompany/range-input.js",
+        "legacy/ui/intercompany/results-display.js",
+        "legacy/ui/intercompany/sensitivity-visualizations.js",
+        "legacy/ui/intercompany/structure-selector.js",
+        "legacy/ui/intercompany/testing.js",
+        "legacy/ui/modals.js",
+        "legacy/ui/results-display.js",
+        "legacy/utils/index.js",
+        "legacy/utils/storage.js"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "bcfc569",
+      "fullSha": "bcfc569b1ba864024960dfd2088502aa554287b9",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-11T23:56:24+00:00",
+      "commitDate": "2026-01-11T23:56:24+00:00",
+      "subject": "feat: implement pricing calculator with subscription model",
+      "body": "- Replaced placeholder with working pricing calculator\n- Added model selector (5 models: subscription, usage-based, per-seat, one-time, marketplace)\n- Implemented subscription model with equilibrium analysis\n- Shows minimum price (seller needs), maximum price (buyer willing to pay), and suggested price\n- Displays financial metrics, seller position, and client ROI\n- Real-time reactive calculations as inputs change\n- Subscription model fully functional, other 4 models to be added\n\nThe calculator helps find the price range where both seller hits margin AND buyer sees ROI.",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 4,
+      "urgency": 3,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "implement pricing calculator with subscription model",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 230,
+        "deletions": 86
+      },
+      "files": [
+        "apps/web/src/routes/pricing/+page.svelte"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "ca40463",
+      "fullSha": "ca4046334f02d8cb83d7c6fdb7746ff7ec577a44",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-11T23:47:47+00:00",
+      "commitDate": "2026-01-11T23:47:47+00:00",
+      "subject": "fix: add /pricing route to resolve 404 error",
+      "body": "- Created /pricing route with placeholder page explaining pricing calculator migration\n- Updated svelte.config.js to use 404.html fallback for GitHub Pages SPA routing\n- Added links to transaction structuring tool and legacy version\n- Displayed planned pricing models (subscription, usage-based, per-seat, one-time, marketplace)",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
+      "urgency": 3,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "add /pricing route to resolve 404 error",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 107,
+        "deletions": 1
+      },
+      "files": [
+        "apps/web/src/routes/pricing/+page.svelte",
+        "apps/web/svelte.config.js"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "38f921f",
+      "fullSha": "38f921ff379d2b91a105a54b81a486546cd6e7d5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-12T01:39:25+02:00",
+      "commitDate": "2026-01-12T01:39:25+02:00",
+      "subject": "Merge pull request #96 from devmade-ai/claude/fix-url-path-404-yvWaG",
+      "body": "fix: use base path for all navigation links",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #96 from devmade-ai/claude/fix-url-path-404-yvWaG",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#96"
+      ],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 13,
+        "deletions": 10
+      },
+      "files": [],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "b56a718",
+      "fullSha": "b56a718d6784e388631537b8a42579d40a3c2fba",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-11T22:37:22+02:00",
+      "commitDate": "2026-01-11T22:37:22+02:00",
+      "subject": "Updates",
+      "body": "",
+      "tags": [
+        "chore"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Updates",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 55,
+        "deletions": 55
+      },
+      "files": [
+        "assets/index-B4N59-U8.css",
+        "assets/index-CQsQAsuw.js",
+        "assets/index-Cpm0ONP9.js",
+        "assets/index-DnSGYvYM.css",
+        "index.html"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "f4e8e4a",
+      "fullSha": "f4e8e4acdc88104c6b7682384195ed8f05b7d5cb",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-11T22:37:14+02:00",
+      "commitDate": "2026-01-11T22:37:14+02:00",
+      "subject": "Add undo/redo functionality",
+      "body": "- Create useHistory hook for state history management (max 50 states)\n- Integrate history into useAdState hook\n- Add undo/redo buttons in header with disabled states\n- Add keyboard shortcuts: Ctrl+Z (undo), Ctrl+Shift+Z / Ctrl+Y (redo)\n- Skip history when typing in inputs to preserve native behavior\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add undo/redo functionality",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 142,
+        "deletions": 6
+      },
+      "files": [
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/hooks/useAdState.js",
+        "src/hooks/useHistory.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "426d964",
+      "fullSha": "426d964d40304810f66624db623156ac998875af",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-11T20:42:44+02:00",
+      "commitDate": "2026-01-11T20:42:44+02:00",
+      "subject": "Add principle for documenting user actions",
+      "body": "Add principle #11 to track manual user actions in docs/USER_ACTIONS.md\nfor external dashboards, credentials, and other manual steps.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Add principle for documenting user actions",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#11"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 8,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "49d416d",
+      "fullSha": "49d416d9442943a4e23fd00e1779ccbf2b474fff",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-11T20:17:39+02:00",
+      "commitDate": "2026-01-11T20:17:39+02:00",
+      "subject": "Updates",
+      "body": "",
+      "tags": [
+        "chore"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Updates",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 55,
+        "deletions": 55
+      },
+      "files": [
+        "assets/index-B4N59-U8.css",
+        "assets/index-CQsQAsuw.js",
+        "assets/index-DMvB4pb7.js",
+        "index.html"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "1cd3a21",
+      "fullSha": "1cd3a21fe965e9df0c5466fd156b2c9b3670df3d",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-11T20:17:23+02:00",
+      "commitDate": "2026-01-11T20:17:23+02:00",
+      "subject": "Add layout presets for quick start",
+      "body": "Add 6 layout presets (Hero, Left/Right/Top/Bottom Image, Text Focus)\nto the Layout tab for faster ad creation. Presets configure split type,\nimage coverage, cell alignments, and text group placements.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add layout presets for quick start",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 199,
+        "deletions": 0
+      },
+      "files": [
+        "src/components/LayoutSelector.jsx",
+        "src/config/layoutPresets.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "34e77fb",
+      "fullSha": "34e77fbca918d668f6dccac9ab7b279983d0f040",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T19:03:35+02:00",
+      "commitDate": "2026-01-10T19:03:35+02:00",
+      "subject": "Fix image duplication in split layouts",
+      "body": "Image now spans across selected cells as a single continuous layer\ninstead of duplicating in each cell. Cover/contain settings apply\nto the combined span area.",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 3,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Fix image duplication in split layouts",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 394,
+        "deletions": 224
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/components/ImageUploader.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/components/OverlayControls.jsx",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "9a9264e",
+      "fullSha": "9a9264ee0be117d6b7e32fe772410983639e041b",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T19:01:50+02:00",
+      "commitDate": "2026-01-10T19:01:50+02:00",
+      "subject": "Updates",
+      "body": "",
+      "tags": [
+        "chore"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Updates",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 55,
+        "deletions": 55
+      },
+      "files": [
+        "assets/index-CShrdZPn.css",
+        "assets/index-DMvB4pb7.js",
+        "assets/index-DdudQRRr.js",
+        "assets/index-aJQZzt1E.css",
+        "index.html"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "8df225e",
+      "fullSha": "8df225ecde6704ef6c5cef4ad50196b2bb26066e",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T19:01:37+02:00",
+      "commitDate": "2026-01-10T19:01:37+02:00",
+      "subject": "Fix image duplication in split layouts",
+      "body": "Image now spans across selected cells as a single continuous layer\ninstead of duplicating in each cell. Cover/contain settings apply\nto the combined span area.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 3,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Fix image duplication in split layouts",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 296,
+        "deletions": 230
+      },
+      "files": [
+        "src/components/AdCanvas.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "0b50e2a",
+      "fullSha": "0b50e2a9468511bc2f1973db7c3345fe597bb615",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T16:41:34+02:00",
+      "commitDate": "2026-01-10T16:41:34+02:00",
+      "subject": "Updates",
+      "body": "",
+      "tags": [
+        "chore"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Updates",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 55,
+        "deletions": 55
+      },
+      "files": [
+        "assets/index-DdudQRRr.js",
+        "assets/index-N_CfFsk6.css",
+        "assets/index-VpzsYrtB.js",
+        "assets/index-aJQZzt1E.css",
+        "index.html"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "22cdca9",
+      "fullSha": "22cdca95bd744fbf6fad4dfc71479e9f5e6cb6ab",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T16:40:36+02:00",
+      "commitDate": "2026-01-10T16:40:36+02:00",
+      "subject": "Fix layout bugs, logo drag-drop, and text overlay issues",
+      "body": "- Fix image not displaying in column/row layouts (use flex sizing)\n- Fix text duplication in 3-section layouts\n- Remove redundant layout preview from Layout tab\n- Fix logo drag-drop (add onDrop/onDragOver handlers)\n- Fix text vertical align on image (respect user setting)\n- Fix text sizes on image (use consistent font multipliers)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 3,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Fix layout bugs, logo drag-drop, and text overlay issues",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 97,
+        "deletions": 122
+      },
+      "files": [
+        "HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "src/components/AdCanvas.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/components/LogoUploader.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "f9f6329",
+      "fullSha": "f9f63298a664e22d2b177cd31e70196313ba922e",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T16:03:14+02:00",
+      "commitDate": "2026-01-10T16:03:14+02:00",
+      "subject": "Add flexible layout system, logo upload, and font size controls",
+      "body": "- Redesigned layout system: configurable split type, sections, proportions\n- Added logo upload with position and size options\n- Added per-layer font size controls (XS to XL)\n- Added text overflow protection\n- Updated documentation\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add flexible layout system, logo upload, and font size controls",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 867,
+        "deletions": 491
+      },
+      "files": [
+        "CLAUDE.md",
+        "HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/components/AdCanvas.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/components/LogoUploader.jsx",
+        "src/components/TextEditor.jsx",
+        "src/config/layouts.js",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "2a7f952",
+      "fullSha": "2a7f9520d377c84bc26d5105e079eb2f8669fe78",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T14:56:02+02:00",
+      "commitDate": "2026-01-10T14:56:02+02:00",
+      "subject": "Updates",
+      "body": "",
+      "tags": [
+        "chore"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Updates",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 9,
+        "deletions": 9
+      },
+      "files": [
+        "assets/index-VpzsYrtB.js",
+        "index.html"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "97a1b29",
+      "fullSha": "97a1b299362c5ac772d1240245466c4969ac7995",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-10T14:49:52+02:00",
+      "commitDate": "2026-01-10T14:49:52+02:00",
+      "subject": "Merge pull request #1 from devmade-ai/claude/reorganize-tabs-text-options-UpIbw",
+      "body": "Reorganize tabs, show all text elements, add more fonts",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #1 from devmade-ai/claude/reorganize-tabs-text-options-UpIbw",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#1"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 82,
+        "deletions": 17
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "2c55d32",
+      "fullSha": "2c55d32fe17181c82fa676c4de70d68ce5b43305",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-10T12:31:36+00:00",
+      "commitDate": "2026-01-10T12:31:36+00:00",
+      "subject": "Reorganize tabs, show all text elements, add more fonts",
+      "body": "- Move Layout tab after Image for better user flow\n- Make all 6 text layers visible by default\n- Expand font options from 5 to 15 (sans-serif, serif, display categories)",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Reorganize tabs, show all text elements, add more fonts",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 82,
+        "deletions": 17
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/SESSION_NOTES.md",
+        "src/App.jsx",
+        "src/config/fonts.js",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "9d6bfac",
+      "fullSha": "9d6bfacd8bf138e47bc7164623408a903d1296a7",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T13:40:04+02:00",
+      "commitDate": "2026-01-10T13:40:04+02:00",
+      "subject": "Updates",
+      "body": "",
+      "tags": [
+        "chore"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Updates",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 92,
+        "deletions": 0
+      },
+      "files": [
+        ".gitignore",
+        "assets/index-BInRX0-j.js",
+        "assets/index-N_CfFsk6.css",
+        "index.html"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "4645e97",
+      "fullSha": "4645e97ca0e707ad658455accd4742d0c138fb4f",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T13:36:51+02:00",
+      "commitDate": "2026-01-10T13:36:51+02:00",
+      "subject": "Add grayscale option for images",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add grayscale option for images",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 24,
+        "deletions": 1
+      },
+      "files": [
+        "src/App.jsx",
+        "src/components/AdCanvas.jsx",
+        "src/components/ImageUploader.jsx",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "43fc8d9",
+      "fullSha": "43fc8d9a997654d3620724b5e1cdca9671dcbf16",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T13:30:37+02:00",
+      "commitDate": "2026-01-10T13:30:37+02:00",
+      "subject": "Add HISTORY.md and update README with GitHub Pages deployment",
+      "body": "- Created HISTORY.md with full commit changelog\n- Replaced boilerplate README with project documentation\n- Added GitHub Pages setup and deployment instructions\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Add HISTORY.md and update README with GitHub Pages deployment",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 114,
+        "deletions": 9
+      },
+      "files": [
+        "HISTORY.md",
+        "README.md"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "821a0e4",
+      "fullSha": "821a0e4198b372fc2db7c052da70cfc5a2057998",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T13:27:54+02:00",
+      "commitDate": "2026-01-10T13:27:54+02:00",
+      "subject": "Fix export capturing scaled preview instead of full-size canvas",
+      "body": "The canvas uses CSS transform scale for preview display, but html-to-image\nwas capturing the scaled-down version. Now temporarily sets scale(1) during\ncapture to export at correct dimensions.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
+      "urgency": 3,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Fix export capturing scaled preview instead of full-size canvas",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 20,
+        "deletions": 13
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "src/components/ExportButtons.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "fa1af6d",
+      "fullSha": "fa1af6d0ef3ce0b74a263fdd005e3151d871b4fa",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T13:18:07+02:00",
+      "commitDate": "2026-01-10T13:18:07+02:00",
+      "subject": "Fix text layer state errors and Google Fonts export issue",
+      "body": "Add defensive checks to prevent crashes when text layer state is\nundefined (can happen during hot reload). Skip font embedding in\nhtml-to-image export to avoid cross-origin stylesheet errors with\nGoogle Fonts.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
+      "urgency": 3,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Fix text layer state errors and Google Fonts export issue",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 215,
+        "deletions": 190
+      },
+      "files": [
+        "src/components/AdCanvas.jsx",
+        "src/components/ExportButtons.jsx",
+        "src/components/TextEditor.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "df6d714",
+      "fullSha": "df6d71467728395200c349099d356c372c37f086",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T13:09:40+02:00",
+      "commitDate": "2026-01-10T13:09:40+02:00",
+      "subject": "Add overlay to all layouts and expand text layers",
+      "body": "- Fix overlay to apply to images in all layout types (background, vertical, horizontal)\n- Expand text layers from 3 to 6: title, tagline, body heading, body text, call to action, footnote\n- Update documentation\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add overlay to all layouts and expand text layers",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 126,
+        "deletions": 150
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/SESSION_NOTES.md",
+        "src/components/AdCanvas.jsx",
+        "src/components/TextEditor.jsx",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "eb92465",
+      "fullSha": "eb92465310d3168992a83b3a88ab8fdd21b65fbe",
+      "author_id": "jacotheron87@gmail.com",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T12:42:53+02:00",
+      "commitDate": "2026-01-10T12:42:53+02:00",
+      "subject": "Add Social Ad Creator implementation",
+      "body": "- Vite + React 18 + Tailwind CSS setup\n- Image upload with drag-drop, object-fit and position controls\n- 16 layout templates (background, vertical columns, horizontal rows)\n- Text layers: title, subtitle, body with visibility and color controls\n- 4 overlay types: solid, gradient down/up, vignette\n- Theme system with 4 presets + custom colors\n- 5 Google Fonts for title and body text\n- Export to 6 platforms: LinkedIn, Facebook, Instagram, Twitter/X, TikTok\n- Single download and batch ZIP download\n- GitHub Pages deployment configured\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "seed"
+      ],
+      "complexity": 5,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add Social Ad Creator implementation",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 30,
+        "additions": 5045,
+        "deletions": 1
+      },
+      "files": [
+        ".gitignore",
+        "CLAUDE.md",
+        "README.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "eslint.config.js",
+        "index.html",
+        "package-lock.json",
+        "package.json",
+        "postcss.config.js",
+        "src/App.jsx",
+        "src/components/AdCanvas.jsx",
+        "src/components/ExportButtons.jsx",
+        "src/components/FontSelector.jsx",
+        "src/components/ImageUploader.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/components/OverlayControls.jsx",
+        "src/components/PlatformPreview.jsx",
+        "src/components/TextEditor.jsx",
+        "src/components/ThemePicker.jsx",
+        "src/config/fonts.js",
+        "src/config/layouts.js",
+        "src/config/platforms.js",
+        "src/config/themes.js",
+        "src/hooks/useAdState.js",
+        "src/index.css",
+        "src/main.jsx",
+        "src/utils/export.js",
+        "tailwind.config.js",
+        "vite.config.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "ab39a59",
+      "fullSha": "ab39a59fcfcc068db150fc027cd863182c964e62",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-10T12:01:03+02:00",
+      "commitDate": "2026-01-10T12:01:03+02:00",
+      "subject": "Initial commit",
+      "body": "",
+      "tags": [
+        "seed"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Initial commit",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        "README.md"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
       "sha": "fea759f",
       "fullSha": "fea759f3f09c2a1fba89a694b7dc02574e265240",
       "author_id": "devmade.ai@gmail.com",
@@ -5503,52 +9435,53 @@
   "contributors": [
     {
       "author_id": "devmade.ai@gmail.com",
-      "commits": 148,
-      "avgComplexity": 1.61,
-      "avgUrgency": 1.78,
+      "commits": 176,
+      "avgComplexity": 1.53,
+      "avgUrgency": 1.81,
       "tagBreakdown": {
-        "merge": 57,
-        "docs": 29,
+        "merge": 73,
+        "bugfix": 9,
+        "ui": 12,
+        "config": 28,
+        "docs": 30,
         "feature": 18,
-        "ui": 11,
         "enhancement": 2,
         "refactor": 6,
         "build": 2,
-        "seed": 26,
-        "config": 21,
+        "seed": 27,
         "removal": 2,
-        "bugfix": 6,
         "ci": 1,
         "init": 1,
         "revert": 2
       },
       "impactBreakdown": {
-        "internal": 130,
-        "user-facing": 17,
+        "internal": 155,
+        "user-facing": 20,
         "infrastructure": 1,
         "api": 0
       },
       "repos": [
         "repo-tor",
         "social-ad-creator",
+        "model-pear",
         "chatty-chart"
       ],
-      "repoCount": 3,
+      "repoCount": 4,
       "firstCommit": "2025-12-24T22:15:01+02:00",
-      "lastCommit": "2026-01-20T06:29:41+02:00"
+      "lastCommit": "2026-01-20T13:30:10+02:00"
     },
     {
       "author_id": "noreply@anthropic.com",
-      "commits": 93,
-      "avgComplexity": 2.6,
-      "avgUrgency": 1.49,
+      "commits": 142,
+      "avgComplexity": 2.51,
+      "avgUrgency": 1.7,
       "tagBreakdown": {
-        "feature": 26,
-        "ui": 40,
-        "bugfix": 18,
-        "docs": 29,
+        "docs": 55,
+        "feature": 47,
+        "ui": 57,
+        "bugfix": 25,
         "config": 5,
-        "refactor": 14,
+        "refactor": 15,
         "ci": 1,
         "init": 1,
         "ux": 10,
@@ -5558,45 +9491,51 @@
         "performance": 4,
         "error-handling": 1,
         "fix": 1,
+        "breaking": 1,
+        "infra": 2,
+        "testing": 1,
         "accessibility": 4
       },
       "impactBreakdown": {
-        "internal": 26,
-        "user-facing": 66,
+        "internal": 52,
+        "user-facing": 87,
         "infrastructure": 1,
         "api": 0
       },
       "repos": [
+        "model-pear",
         "repo-tor",
         "social-ad-creator",
         "chatty-chart"
       ],
-      "repoCount": 3,
+      "repoCount": 4,
       "firstCommit": "2025-12-24T20:13:25+00:00",
-      "lastCommit": "2026-01-18T22:53:34+00:00"
+      "lastCommit": "2026-01-20T04:43:00+00:00"
     },
     {
       "author_id": "jacotheron87@gmail.com",
-      "commits": 33,
-      "avgComplexity": 2.18,
-      "avgUrgency": 1.21,
+      "commits": 54,
+      "avgComplexity": 2.17,
+      "avgUrgency": 1.61,
       "tagBreakdown": {
-        "docs": 11,
-        "feature": 5,
+        "docs": 14,
+        "feature": 12,
         "refactor": 2,
-        "ui": 9,
-        "bugfix": 8,
+        "ui": 17,
+        "bugfix": 13,
         "ci": 1,
         "config": 1,
         "init": 1,
         "removal": 1,
         "test-unit": 1,
         "enhancement": 7,
-        "ux": 4
+        "ux": 4,
+        "chore": 6,
+        "seed": 1
       },
       "impactBreakdown": {
-        "internal": 15,
-        "user-facing": 17,
+        "internal": 24,
+        "user-facing": 29,
         "infrastructure": 1,
         "api": 0
       },
@@ -5605,7 +9544,7 @@
         "social-ad-creator"
       ],
       "repoCount": 2,
-      "firstCommit": "2026-01-14T21:45:44+02:00",
+      "firstCommit": "2026-01-10T12:42:53+02:00",
       "lastCommit": "2026-01-19T12:24:33+02:00"
     },
     {
@@ -5654,20 +9593,20 @@
     }
   ],
   "summary": {
-    "totalCommits": 286,
+    "totalCommits": 384,
     "totalContributors": 5,
     "tagBreakdown": {
-      "merge": 65,
-      "docs": 69,
-      "feature": 49,
-      "ui": 62,
+      "merge": 81,
+      "bugfix": 47,
+      "ui": 88,
+      "config": 34,
+      "docs": 99,
+      "feature": 77,
       "enhancement": 25,
-      "refactor": 22,
+      "refactor": 23,
       "build": 2,
-      "seed": 26,
-      "config": 27,
+      "seed": 28,
       "removal": 4,
-      "bugfix": 32,
       "ci": 3,
       "init": 5,
       "test-unit": 1,
@@ -5676,45 +9615,49 @@
       "performance": 4,
       "error-handling": 1,
       "fix": 1,
+      "breaking": 1,
+      "infra": 2,
+      "testing": 1,
+      "chore": 6,
       "accessibility": 4
     },
     "complexityBreakdown": {
-      "1": 126,
-      "2": 75,
-      "3": 53,
-      "4": 28,
-      "5": 4
+      "1": 174,
+      "2": 97,
+      "3": 70,
+      "4": 36,
+      "5": 7
     },
     "urgencyBreakdown": {
       "1": 123,
-      "2": 151,
-      "3": 11,
+      "2": 240,
+      "3": 20,
       "4": 1,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 180,
-      "user-facing": 103,
+      "internal": 240,
+      "user-facing": 139,
       "infrastructure": 3,
       "api": 0
     },
-    "avgComplexity": 1.98,
-    "avgUrgency": 1.62,
+    "avgComplexity": 1.97,
+    "avgUrgency": 1.74,
     "monthly": {
       "2026-01": {
-        "commits": 244,
+        "commits": 342,
         "tags": {
-          "merge": 46,
-          "docs": 61,
-          "feature": 45,
-          "ui": 46,
+          "merge": 62,
+          "bugfix": 42,
+          "ui": 72,
+          "config": 34,
+          "docs": 91,
+          "feature": 73,
           "enhancement": 18,
-          "refactor": 17,
+          "refactor": 18,
           "build": 2,
-          "seed": 26,
-          "config": 27,
+          "seed": 28,
           "removal": 4,
-          "bugfix": 27,
           "ci": 3,
           "init": 3,
           "test-unit": 1,
@@ -5722,16 +9665,20 @@
           "revert": 5,
           "performance": 1,
           "error-handling": 1,
-          "fix": 1
+          "fix": 1,
+          "breaking": 1,
+          "infra": 2,
+          "testing": 1,
+          "chore": 6
         },
         "impact": {
-          "internal": 159,
-          "user-facing": 82,
+          "internal": 219,
+          "user-facing": 118,
           "infrastructure": 3,
           "api": 0
         },
-        "avgComplexity": 1.99,
-        "avgUrgency": 1.59
+        "avgComplexity": 1.98,
+        "avgUrgency": 1.74
       },
       "2025-12": {
         "commits": 39,
@@ -5774,19 +9721,19 @@
     },
     "monthlyCommits": {
       "2026-01": {
-        "commits": 244,
+        "commits": 342,
         "tags": {
-          "merge": 46,
-          "docs": 61,
-          "feature": 45,
-          "ui": 46,
+          "merge": 62,
+          "bugfix": 42,
+          "ui": 72,
+          "config": 34,
+          "docs": 91,
+          "feature": 73,
           "enhancement": 18,
-          "refactor": 17,
+          "refactor": 18,
           "build": 2,
-          "seed": 26,
-          "config": 27,
+          "seed": 28,
           "removal": 4,
-          "bugfix": 27,
           "ci": 3,
           "init": 3,
           "test-unit": 1,
@@ -5794,16 +9741,20 @@
           "revert": 5,
           "performance": 1,
           "error-handling": 1,
-          "fix": 1
+          "fix": 1,
+          "breaking": 1,
+          "infra": 2,
+          "testing": 1,
+          "chore": 6
         },
         "impact": {
-          "internal": 159,
-          "user-facing": 82,
+          "internal": 219,
+          "user-facing": 118,
           "infrastructure": 3,
           "api": 0
         },
-        "avgComplexity": 1.99,
-        "avgUrgency": 1.59
+        "avgComplexity": 1.98,
+        "avgUrgency": 1.74
       },
       "2025-12": {
         "commits": 39,
@@ -5846,7 +9797,7 @@
     },
     "dateRange": {
       "earliest": "2025-06-16T11:03:48+02:00",
-      "latest": "2026-01-20T06:29:41+02:00"
+      "latest": "2026-01-20T13:30:10+02:00"
     },
     "security_events": []
   }
