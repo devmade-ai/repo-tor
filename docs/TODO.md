@@ -6,32 +6,32 @@ Implementation tasks for Git Analytics Reporting System.
 
 ---
 
-## Priority 1: Aggregation Script
+## Priority 1: Aggregation Script - COMPLETE
 
 *Read from processed/ data, output dashboard-ready JSON*
 
-- [ ] Create `scripts/aggregate-processed.js`
-  - [ ] Read all `processed/<repo>/batches/*.json` files
-  - [ ] Combine commits from all repos
-  - [ ] Calculate summary aggregations:
-    - [ ] `tagBreakdown` - count per tag
-    - [ ] `complexityBreakdown` - count per level (1-5)
-    - [ ] `urgencyBreakdown` - count per level (1-5) **NEW**
-    - [ ] `impactBreakdown` - count per category **NEW**
-  - [ ] Calculate monthly aggregations:
-    - [ ] `monthly.*.commits` - count per month
-    - [ ] `monthly.*.avgComplexity` - average per month
-    - [ ] `monthly.*.avgUrgency` - average per month **NEW**
-    - [ ] `monthly.*.tags` - tag counts per month
-    - [ ] `monthly.*.impact` - impact counts per month **NEW**
-  - [ ] Calculate contributor aggregations:
-    - [ ] `contributors.*.tagBreakdown` - per person
-    - [ ] `contributors.*.avgComplexity` - per person
-    - [ ] `contributors.*.avgUrgency` - per person **NEW**
-    - [ ] `contributors.*.impactBreakdown` - per person **NEW**
-  - [ ] Output files:
-    - [ ] `dashboard/data.json` - overall (all repos)
-    - [ ] `dashboard/repos/<repo>.json` - per-repo (same schema)
+- [x] Create `scripts/aggregate-processed.js`
+  - [x] Read all `processed/<repo>/batches/*.json` files
+  - [x] Combine commits from all repos
+  - [x] Calculate summary aggregations:
+    - [x] `tagBreakdown` - count per tag
+    - [x] `complexityBreakdown` - count per level (1-5)
+    - [x] `urgencyBreakdown` - count per level (1-5)
+    - [x] `impactBreakdown` - count per category
+  - [x] Calculate monthly aggregations:
+    - [x] `monthly.*.commits` - count per month
+    - [x] `monthly.*.avgComplexity` - average per month
+    - [x] `monthly.*.avgUrgency` - average per month
+    - [x] `monthly.*.tags` - tag counts per month
+    - [x] `monthly.*.impact` - impact counts per month
+  - [x] Calculate contributor aggregations:
+    - [x] `contributors.*.tagBreakdown` - per person
+    - [x] `contributors.*.avgComplexity` - per person
+    - [x] `contributors.*.avgUrgency` - per person
+    - [x] `contributors.*.impactBreakdown` - per person
+  - [x] Output files:
+    - [x] `dashboard/data.json` - overall (all repos)
+    - [x] `dashboard/repos/<repo>.json` - per-repo (same schema)
 
 ---
 
@@ -120,4 +120,4 @@ Continue processing commits with `@data feed the chicken`:
 
 ---
 
-*Last updated: 2026-01-20 - Reorganized for Dashboard V2 implementation*
+*Last updated: 2026-01-20 - Priority 1 (Aggregation) complete*
