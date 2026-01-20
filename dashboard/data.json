@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-20T17:20:25.591Z",
+    "generatedAt": "2026-01-20T17:27:59.435Z",
     "repository": "All Repositories",
     "scope": "overall",
     "repoCount": 4,
-    "commitCount": 401
+    "commitCount": 411
   },
   "commits": [
     {
@@ -80,6 +80,44 @@
       },
       "files": [],
       "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "0b8efef",
+      "fullSha": "0b8efef467b33125d4d208c901ac5b7e5c60d2ba",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-20T18:24:39+02:00",
+      "commitDate": "2026-01-20T18:24:39+02:00",
+      "subject": "Merge pull request #101 from devmade-ai/claude/add-discovery-framework-docs-BghhD",
+      "body": "docs: add Discovery Framework methodology guide",
+      "tags": [
+        "merge",
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #101 from devmade-ai/claude/add-discovery-framework-docs-BghhD",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#101"
+      ],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 1299,
+        "deletions": 82
+      },
+      "files": [],
+      "repo_id": "model-pear"
     },
     {
       "sha": "1e01a4e",
@@ -287,6 +325,46 @@
       "repo_id": "repo-tor"
     },
     {
+      "sha": "6bcbd17",
+      "fullSha": "6bcbd17455867ee635487ff8d0b448c6fd959b97",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-20T15:56:00+00:00",
+      "commitDate": "2026-01-20T15:56:00+00:00",
+      "subject": "fix: resolve nested card styling in TransferPricingResults",
+      "body": "- Add `minimal` prop to TransferPricingResults component\n- When minimal=true, renders content without ResultPanel wrapper\n- Update [model]/+page.svelte to use minimal mode in collapsible section\n- Update SESSION_NOTES with completion status and defaults verification",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "resolve nested card styling in TransferPricingResults",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 50,
+        "deletions": 9
+      },
+      "files": [
+        "apps/web/src/lib/components/TransferPricingResults.svelte",
+        "apps/web/src/routes/structuring/[model]/+page.svelte",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
       "sha": "da026a7",
       "fullSha": "da026a7b707f1713886308ff64e1212da0eadee9",
       "author_id": "devmade.ai@gmail.com",
@@ -367,6 +445,48 @@
       "repo_id": "repo-tor"
     },
     {
+      "sha": "c48180a",
+      "fullSha": "c48180a6401803c208b38a998deb91bafcd54b98",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-20T15:41:25+00:00",
+      "commitDate": "2026-01-20T15:41:25+00:00",
+      "subject": "feat: enhance comparison view with summary and winner indicators",
+      "body": "Add \"Quick Summary\" section at top of comparison view:\n- Shows best-for insights per option (e.g., \"Best for net profit and lower TP risk\")\n- Grid layout adapts to number of options being compared\n- Only displays when there are clear winners to report\n\nAdd winner indicators in comparison table:\n- ★ star icon marks best value for each metric\n- Green text and background highlighting for winning values\n- Smart detection avoids marking ties as winners\n\nCompletes Priority 3 of Negotiation Mode implementation:\n- Summary row in comparison view\n- Winner indicators per metric",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "enhance comparison view with summary and winner indicators",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 100,
+        "deletions": 18
+      },
+      "files": [
+        "apps/web/src/lib/components/ComparisonView.svelte",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
       "sha": "4c21e9c",
       "fullSha": "4c21e9cda1001636861eb072f056c6523638b78d",
       "author_id": "devmade.ai@gmail.com",
@@ -441,6 +561,50 @@
         "processed/social-ad-creator/manifest.json"
       ],
       "repo_id": "repo-tor"
+    },
+    {
+      "sha": "0bd6ff9",
+      "fullSha": "0bd6ff92d21046da3fb4d66690545276fb7280bc",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-20T12:11:44+00:00",
+      "commitDate": "2026-01-20T12:11:44+00:00",
+      "subject": "feat: implement Negotiation Mode UI changes",
+      "body": "Based on Discovery Framework findings, implement \"Simplified by Default\" approach\nfor client-facing negotiation sessions.\n\nInput Field Enhancements:\n- Add benchmark property for industry standard badges (e.g., \"Industry: 5-15%\")\n- Add essential property to control field grouping\n- InputField displays benchmark badges next to labels\n\nCalculator Page Refactor:\n- Progressive disclosure: Essential inputs visible, Advanced collapsed\n- Sensitivity/Projections moved to collapsible \"Advanced Analysis\" section\n- Transfer Pricing collapsed by default (shows risk badge)\n- One-click save with auto-generated names\n- Saved options count shown in action bar\n\nThis aligns with the 5 design principles from discovery:\n1. Client in the room - cleaner, less overwhelming UI\n2. Neutral ground first - industry benchmarks prominently displayed\n3. Show both sides - Developer/Buyer results always visible\n4. Progressive complexity - advanced features tucked away\n5. Compare to decide - prominent save, easy comparison flow",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "implement Negotiation Mode UI changes",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 257,
+        "deletions": 91
+      },
+      "files": [
+        "apps/web/src/lib/components/InputField.svelte",
+        "apps/web/src/lib/config/inputFields.ts",
+        "apps/web/src/routes/structuring/[model]/+page.svelte",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "model-pear"
     },
     {
       "sha": "55251de",
@@ -519,6 +683,46 @@
       "repo_id": "repo-tor"
     },
     {
+      "sha": "d64071c",
+      "fullSha": "d64071c9492140bb8bde22cf859281d6ae913358",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-20T12:02:55+00:00",
+      "commitDate": "2026-01-20T12:02:55+00:00",
+      "subject": "docs: add Negotiation Mode design and UI audit",
+      "body": "Created NEGOTIATION_MODE.md with:\n- 5-minute client walkthrough script\n- Screen-by-screen requirements for negotiation use case\n- Feature visibility matrix (show/hide by mode)\n- Implementation recommendation: \"Simplified by Default\"\n\nCompleted UI audit against 5 design principles:\n- Client in the room: Partial - tabs may confuse\n- Neutral ground first: Fix needed - no benchmark badges\n- Show both sides: Good - Developer/Buyer panels work\n- Progressive complexity: Fix needed - all inputs visible\n- Compare to decide: Partial - save requires modal\n\nCreated prioritised fix list:\n- Priority 1: Industry badges, collapse advanced features, one-click save\n- Priority 2: Group inputs into Essential/Advanced\n- Priority 3: Comparison view enhancements",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "scope": null,
+      "title": "add Negotiation Mode design and UI audit",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 484,
+        "deletions": 44
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/NEGOTIATION_MODE.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
       "sha": "c9fd282",
       "fullSha": "c9fd28232374a945fed0bf1e2715df601934ace7",
       "author_id": "devmade.ai@gmail.com",
@@ -555,6 +759,46 @@
         "processed/social-ad-creator/manifest.json"
       ],
       "repo_id": "repo-tor"
+    },
+    {
+      "sha": "aa84330",
+      "fullSha": "aa843307217f93c069fd1979abf65ca57f380643",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-20T11:57:48+00:00",
+      "commitDate": "2026-01-20T11:57:48+00:00",
+      "subject": "docs: complete discovery session and document findings",
+      "body": "Applied Discovery Framework to understand actual tool usage:\n- Key finding: tool used WITH clients in live negotiations, not as back-office calculator\n- Actual users: tech-sales + non-technical exec + finance exec\n- Tool enters after discovery, during \"let's structure this together\"\n\nCreated DISCOVERY_FINDINGS.md with:\n- Full session documentation (People, Flow, Data, Why Now)\n- Gap analysis comparing findings vs current solution\n- 5 design principles derived from discovery\n- Plan: define negotiation mode → audit UI → create fix list\n\nUpdated TODO.md with high-priority alignment tasks\nUpdated SESSION_NOTES.md with current state and next steps",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "scope": null,
+      "title": "complete discovery session and document findings",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 295,
+        "deletions": 8
+      },
+      "files": [
+        "docs/DISCOVERY_FINDINGS.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "model-pear"
     },
     {
       "sha": "9f9c9d2",
@@ -8530,6 +8774,161 @@
       "repo_id": "model-pear"
     },
     {
+      "sha": "d25c2cc",
+      "fullSha": "d25c2ccbf8b09ac1d6cc96dc37d58ae42c5eb8f2",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-11T23:38:13+00:00",
+      "commitDate": "2026-01-11T23:38:13+00:00",
+      "subject": "fix: use base path for all navigation links",
+      "body": "Import `base` from `$app/paths` and prefix all href attributes and\ngoto() calls to fix 404 errors on GitHub Pages deployment where the\napp is served from /model-pear/ rather than the root.",
+      "tags": [
+        "bugfix",
+        "hosting"
+      ],
+      "complexity": 2,
+      "urgency": 3,
+      "impact": "infrastructure",
+      "scope": null,
+      "title": "use base path for all navigation links",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 13,
+        "deletions": 10
+      },
+      "files": [
+        "apps/web/src/routes/+layout.svelte",
+        "apps/web/src/routes/+page.svelte",
+        "apps/web/src/routes/structuring/+page.svelte",
+        "apps/web/src/routes/structuring/[model]/+page.svelte"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "32cba57",
+      "fullSha": "32cba57c1fca55f69e15be567750aa2395cc91e7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-12T01:31:23+02:00",
+      "commitDate": "2026-01-12T01:31:23+02:00",
+      "subject": "fix: set NODE_ENV=production in build step",
+      "body": "Ensures SvelteKit uses the /model-pear base path for GitHub Pages.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "ci"
+      ],
+      "complexity": 1,
+      "urgency": 3,
+      "impact": "infrastructure",
+      "scope": null,
+      "title": "set NODE_ENV=production in build step",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 2,
+        "deletions": 0
+      },
+      "files": [
+        ".github/workflows/deploy.yml"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "27489eb",
+      "fullSha": "27489eb11d8ef9c3bcd723c6a9b7bf7fac210adb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-12T01:30:03+02:00",
+      "commitDate": "2026-01-12T01:30:03+02:00",
+      "subject": "fix: set base path for GitHub Pages deployment",
+      "body": "Assets were loading from root (/_app/) instead of /model-pear/_app/,\ncausing 404 errors on the deployed site.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "urgency": 3,
+      "impact": "infrastructure",
+      "scope": null,
+      "title": "set base path for GitHub Pages deployment",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 2,
+        "deletions": 2
+      },
+      "files": [
+        "apps/web/svelte.config.js"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "34f786e",
+      "fullSha": "34f786e3f348d2b950851b96dd791ef7fc3b0b96",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-12T01:24:24+02:00",
+      "commitDate": "2026-01-12T01:24:24+02:00",
+      "subject": "ci: add GitHub Pages deployment workflow",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "ci",
+        "cd"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "infrastructure",
+      "scope": null,
+      "title": "add GitHub Pages deployment workflow",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 58,
+        "deletions": 0
+      },
+      "files": [
+        ".github/workflows/deploy.yml"
+      ],
+      "repo_id": "model-pear"
+    },
+    {
       "sha": "b56a718",
       "fullSha": "b56a718d6784e388631537b8a42579d40a3c2fba",
       "author_id": "jacotheron87@gmail.com",
@@ -10114,29 +10513,30 @@
   "contributors": [
     {
       "author_id": "devmade.ai@gmail.com",
-      "commits": 193,
-      "avgComplexity": 1.51,
-      "avgUrgency": 1.82,
+      "commits": 197,
+      "avgComplexity": 1.5,
+      "avgUrgency": 1.83,
       "tagBreakdown": {
-        "merge": 75,
-        "docs": 36,
+        "merge": 76,
+        "docs": 37,
         "seed": 34,
         "build": 4,
         "feature": 19,
         "ui": 13,
         "enhancement": 3,
-        "config": 29,
-        "bugfix": 9,
+        "config": 30,
+        "bugfix": 11,
         "refactor": 6,
         "removal": 2,
-        "ci": 1,
+        "ci": 3,
         "init": 1,
-        "revert": 2
+        "revert": 2,
+        "cd": 1
       },
       "impactBreakdown": {
-        "internal": 171,
+        "internal": 172,
         "user-facing": 21,
-        "infrastructure": 1,
+        "infrastructure": 4,
         "api": 0
       },
       "repos": [
@@ -10151,19 +10551,19 @@
     },
     {
       "author_id": "noreply@anthropic.com",
-      "commits": 142,
-      "avgComplexity": 2.51,
-      "avgUrgency": 1.7,
+      "commits": 148,
+      "avgComplexity": 2.52,
+      "avgUrgency": 1.69,
       "tagBreakdown": {
-        "docs": 55,
-        "feature": 47,
-        "ui": 57,
-        "bugfix": 25,
+        "bugfix": 27,
+        "ui": 60,
+        "feature": 49,
+        "ux": 12,
+        "docs": 57,
         "config": 5,
         "refactor": 15,
         "ci": 1,
         "init": 1,
-        "ux": 10,
         "removal": 1,
         "enhancement": 16,
         "revert": 3,
@@ -10173,12 +10573,13 @@
         "breaking": 1,
         "infra": 2,
         "testing": 1,
+        "hosting": 1,
         "accessibility": 4
       },
       "impactBreakdown": {
-        "internal": 52,
-        "user-facing": 87,
-        "infrastructure": 1,
+        "internal": 54,
+        "user-facing": 90,
+        "infrastructure": 2,
         "api": 0
       },
       "repos": [
@@ -10189,7 +10590,7 @@
       ],
       "repoCount": 4,
       "firstCommit": "2025-12-24T20:13:25+00:00",
-      "lastCommit": "2026-01-20T04:43:00+00:00"
+      "lastCommit": "2026-01-20T15:56:00+00:00"
     },
     {
       "author_id": "jacotheron87@gmail.com",
@@ -10272,24 +10673,24 @@
     }
   ],
   "summary": {
-    "totalCommits": 401,
+    "totalCommits": 411,
     "totalContributors": 5,
     "tagBreakdown": {
-      "merge": 83,
-      "docs": 105,
+      "merge": 84,
+      "docs": 108,
       "seed": 35,
       "build": 4,
-      "feature": 78,
-      "ui": 89,
+      "feature": 80,
+      "ui": 92,
       "enhancement": 26,
-      "config": 35,
-      "bugfix": 47,
+      "bugfix": 51,
+      "ux": 16,
+      "config": 36,
       "refactor": 23,
       "removal": 4,
-      "ci": 3,
+      "ci": 5,
       "init": 5,
       "test-unit": 1,
-      "ux": 14,
       "revert": 5,
       "performance": 4,
       "error-handling": 1,
@@ -10297,50 +10698,52 @@
       "breaking": 1,
       "infra": 2,
       "testing": 1,
+      "hosting": 1,
+      "cd": 1,
       "chore": 6,
       "accessibility": 4
     },
     "complexityBreakdown": {
-      "1": 189,
-      "2": 98,
-      "3": 70,
-      "4": 37,
+      "1": 192,
+      "2": 101,
+      "3": 73,
+      "4": 38,
       "5": 7
     },
     "urgencyBreakdown": {
-      "1": 124,
-      "2": 256,
-      "3": 20,
+      "1": 129,
+      "2": 258,
+      "3": 23,
       "4": 1,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 256,
-      "user-facing": 140,
-      "infrastructure": 3,
+      "internal": 259,
+      "user-facing": 143,
+      "infrastructure": 7,
       "api": 0
     },
-    "avgComplexity": 1.94,
+    "avgComplexity": 1.95,
     "avgUrgency": 1.75,
     "monthly": {
       "2026-01": {
-        "commits": 359,
+        "commits": 369,
         "tags": {
-          "merge": 64,
-          "docs": 97,
+          "merge": 65,
+          "docs": 100,
           "seed": 35,
           "build": 4,
-          "feature": 74,
-          "ui": 73,
+          "feature": 76,
+          "ui": 76,
           "enhancement": 19,
-          "config": 35,
-          "bugfix": 42,
+          "bugfix": 46,
+          "ux": 11,
+          "config": 36,
           "refactor": 18,
           "removal": 4,
-          "ci": 3,
+          "ci": 5,
           "init": 3,
           "test-unit": 1,
-          "ux": 9,
           "revert": 5,
           "performance": 1,
           "error-handling": 1,
@@ -10348,15 +10751,17 @@
           "breaking": 1,
           "infra": 2,
           "testing": 1,
+          "hosting": 1,
+          "cd": 1,
           "chore": 6
         },
         "impact": {
-          "internal": 235,
-          "user-facing": 119,
-          "infrastructure": 3,
+          "internal": 238,
+          "user-facing": 122,
+          "infrastructure": 7,
           "api": 0
         },
-        "avgComplexity": 1.94,
+        "avgComplexity": 1.95,
         "avgUrgency": 1.75
       },
       "2025-12": {
@@ -10400,23 +10805,23 @@
     },
     "monthlyCommits": {
       "2026-01": {
-        "commits": 359,
+        "commits": 369,
         "tags": {
-          "merge": 64,
-          "docs": 97,
+          "merge": 65,
+          "docs": 100,
           "seed": 35,
           "build": 4,
-          "feature": 74,
-          "ui": 73,
+          "feature": 76,
+          "ui": 76,
           "enhancement": 19,
-          "config": 35,
-          "bugfix": 42,
+          "bugfix": 46,
+          "ux": 11,
+          "config": 36,
           "refactor": 18,
           "removal": 4,
-          "ci": 3,
+          "ci": 5,
           "init": 3,
           "test-unit": 1,
-          "ux": 9,
           "revert": 5,
           "performance": 1,
           "error-handling": 1,
@@ -10424,15 +10829,17 @@
           "breaking": 1,
           "infra": 2,
           "testing": 1,
+          "hosting": 1,
+          "cd": 1,
           "chore": 6
         },
         "impact": {
-          "internal": 235,
-          "user-facing": 119,
-          "infrastructure": 3,
+          "internal": 238,
+          "user-facing": 122,
+          "infrastructure": 7,
           "api": 0
         },
-        "avgComplexity": 1.94,
+        "avgComplexity": 1.95,
         "avgUrgency": 1.75
       },
       "2025-12": {
