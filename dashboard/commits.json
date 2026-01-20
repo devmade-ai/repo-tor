@@ -1,6 +1,440 @@
 {
   "commits": [
     {
+      "sha": "c41e9e9",
+      "fullSha": "c41e9e918c23c82474d6b59926c210493ba774ef",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-20T13:30:10+02:00",
+      "commitDate": "2026-01-20T13:30:10+02:00",
+      "subject": "Merge pull request #23 from devmade-ai/claude/chicken-feeding-data-feed-YE7eE",
+      "body": "chore: extract fresh git data for all repos",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "Merge pull request #23 from devmade-ai/claude/chicken-feeding-data-feed-YE7eE",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#23"
+      ],
+      "stats": {
+        "filesChanged": 36,
+        "additions": 12327,
+        "deletions": 2474
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b979822",
+      "fullSha": "b97982285da445092e911dad34478355ddc385d2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T11:28:30+00:00",
+      "commitDate": "2026-01-20T11:28:30+00:00",
+      "subject": "fix: improve dark mode support for headers",
+      "body": "- Add text-themed-* utility classes that use CSS variables\n- Apply text-themed-primary to all h1/h2/h3 section headers\n- Apply text-themed-primary to stat value elements\n- Existing CSS overrides already handle text-gray-* in dark mode",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "improve dark mode support for headers",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 41,
+        "deletions": 31
+      },
+      "files": [
+        "dashboard/index.html"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b25b997",
+      "fullSha": "b25b997c707a98ae7f67ffb628c7b7c7ec716beb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T11:23:18+00:00",
+      "commitDate": "2026-01-20T11:23:18+00:00",
+      "subject": "fix: add missing dashboard fields (repository, monthlyCommits, security_events)",
+      "body": "- metadata.repository: repo name for header display\n- summary.monthlyCommits: alias for monthly (dashboard compatibility)\n- summary.security_events: commits with security tag",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "add missing dashboard fields (repository, monthlyCommits, security_events)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 196,
+        "deletions": 10
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json",
+        "scripts/aggregate-processed.js"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "67c5f7c",
+      "fullSha": "67c5f7c69d971b0e7af3dfc75ce1bca1253ed911",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T11:20:50+00:00",
+      "commitDate": "2026-01-20T11:20:50+00:00",
+      "subject": "fix: add totalCommits/totalContributors to aggregation output",
+      "body": "Dashboard expects summary.totalCommits and summary.totalContributors\nfields which were missing from the aggregation script output.",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "add totalCommits/totalContributors to aggregation output",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 17,
+        "deletions": 5
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json",
+        "scripts/aggregate-processed.js"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "12b5162",
+      "fullSha": "12b5162e20ac59e1bcb55e8b30bb80d4e245bbbe",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T11:17:48+00:00",
+      "commitDate": "2026-01-20T11:17:48+00:00",
+      "subject": "chore: re-aggregate dashboard data (286 commits from 3 repos)",
+      "body": "",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "re-aggregate dashboard data (286 commits from 3 repos)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 4532,
+        "deletions": 23851
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "3f30d08",
+      "fullSha": "3f30d0807dbb547fb8ae55cd6a73ebcda1a0007a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T05:18:18+00:00",
+      "commitDate": "2026-01-20T05:18:18+00:00",
+      "subject": "docs: update extraction progress - repo-tor complete, social-ad-creator 100/156",
+      "body": "",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "update extraction progress - repo-tor complete, social-ad-creator 100/156",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 14,
+        "deletions": 4
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "4b1982e",
+      "fullSha": "4b1982e09197a2a5e556f40a959f6de05623290b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T05:17:40+00:00",
+      "commitDate": "2026-01-20T05:17:40+00:00",
+      "subject": "chore: process social-ad-creator batch 10 (10 commits)",
+      "body": "",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "process social-ad-creator batch 10 (10 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 250,
+        "deletions": 2
+      },
+      "files": [
+        "processed/social-ad-creator/batches/batch-010.json",
+        "processed/social-ad-creator/manifest.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "0330864",
+      "fullSha": "033086490f626f3d49590f784ab99e13e0cdea6a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T05:08:10+00:00",
+      "commitDate": "2026-01-20T05:08:10+00:00",
+      "subject": "chore: process repo-tor batch 15 (6 commits) - repo complete (144 commits)",
+      "body": "",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "process repo-tor batch 15 (6 commits) - repo complete (144 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 154,
+        "deletions": 2
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-015.json",
+        "processed/repo-tor/manifest.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "ebdeb12",
+      "fullSha": "ebdeb1294fbd039879e59e8e2b4fdfcc369c8002",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T05:06:57+00:00",
+      "commitDate": "2026-01-20T05:06:57+00:00",
+      "subject": "chore: process repo-tor batch 14 (10 commits)",
+      "body": "",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "process repo-tor batch 14 (10 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 250,
+        "deletions": 2
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-014.json",
+        "processed/repo-tor/manifest.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "485c662",
+      "fullSha": "485c662016d498f4c1bbc2d77c55501d913b58f5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T04:54:09+00:00",
+      "commitDate": "2026-01-20T04:54:09+00:00",
+      "subject": "chore: process repo-tor batch 13 (10 commits)",
+      "body": "",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "process repo-tor batch 13 (10 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 350,
+        "deletions": 2
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-013.json",
+        "processed/repo-tor/manifest.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "3e922a5",
+      "fullSha": "3e922a563a95e3dc37a539df20935be88f553976",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T04:51:52+00:00",
+      "commitDate": "2026-01-20T04:51:52+00:00",
+      "subject": "chore: process repo-tor batch 12 (10 commits)",
+      "body": "",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "process repo-tor batch 12 (10 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 350,
+        "deletions": 2
+      },
+      "files": [
+        "processed/repo-tor/batches/batch-012.json",
+        "processed/repo-tor/manifest.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "381fd0c",
+      "fullSha": "381fd0c68fa16d695e01da95cb361e3409f8253b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T04:45:41+00:00",
+      "commitDate": "2026-01-20T04:45:41+00:00",
+      "subject": "chore: extract fresh git data for all repos",
+      "body": "- repo-tor: 144 commits (36 new)\n- social-ad-creator: 156 commits (66 pending)\n- model-pear: 303 commits (303 pending)\n- chatty-chart: 42 commits (complete)\n\nTotal: 405 pending commits across 42 batches for AI analysis",
+      "tags": [],
+      "complexity": null,
+      "scope": null,
+      "title": "extract fresh git data for all repos",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 22,
+        "additions": 33085,
+        "deletions": 5475
+      },
+      "files": [
+        "dashboard/commits.json",
+        "dashboard/contributors.json",
+        "dashboard/data.json",
+        "dashboard/files.json",
+        "dashboard/metadata.json",
+        "dashboard/summary.json",
+        "reports/chatty-chart/data.json",
+        "reports/chatty-chart/metadata.json",
+        "reports/model-pear/commits.json",
+        "reports/model-pear/contributors.json",
+        "reports/model-pear/data.json",
+        "reports/model-pear/files.json",
+        "reports/model-pear/metadata.json",
+        "reports/model-pear/summary.json",
+        "reports/repo-tor/commits.json",
+        "reports/repo-tor/contributors.json",
+        "reports/repo-tor/data.json",
+        "reports/repo-tor/files.json",
+        "reports/repo-tor/metadata.json",
+        "reports/repo-tor/summary.json",
+        "reports/social-ad-creator/data.json",
+        "reports/social-ad-creator/metadata.json"
+      ],
+      "repo_id": "repo-tor"
+    },
+    {
       "sha": "ecccfaa",
       "fullSha": "ecccfaafd3ef7c6bf0e42a56ec734b20d8dc117a",
       "author_id": "noreply@anthropic.com",
