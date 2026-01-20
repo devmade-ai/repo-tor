@@ -101,12 +101,12 @@ const TAB_MAPPING = {
 | chatty-chart | Complete | 42/42 |
 | repo-tor | Complete | 171/171 |
 | social-ad-creator | Complete | 158/158 |
-| model-pear | In progress | 60/309 (25 batches remaining) |
+| model-pear | In progress | 70/309 (24 batches remaining) |
 
-**Total:** 431/680 commits processed (63%)
+**Total:** 441/680 commits processed (65%)
 
 Continue with `@data feed the chicken`
 
 ---
 
-*Last updated: 2026-01-20 - model-pear batch 6 done*
+*Last updated: 2026-01-20 - model-pear batch 7 done*
