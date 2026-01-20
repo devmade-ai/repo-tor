@@ -370,10 +370,17 @@ function generateAggregation(commits, scope, repoCount = 1) {
   const dateRange = calcDateRange(sortedCommits);
 
   const contributors = calcContributorAggregations(sortedCommits);
+  const monthly = calcMonthlyAggregations(sortedCommits);
+
+  // Security events - commits with 'security' tag
+  const securityEvents = sortedCommits
+    .filter(c => (c.tags || []).includes('security'))
+    .map(c => ({ sha: c.sha, timestamp: c.timestamp, subject: c.subject }));
 
   return {
     metadata: {
       generatedAt: new Date().toISOString(),
+      repository: scope === 'overall' ? 'All Repositories' : scope,
       scope: scope,
       repoCount: repoCount,
       commitCount: sortedCommits.length
@@ -392,8 +399,10 @@ function generateAggregation(commits, scope, repoCount = 1) {
       impactBreakdown: calcImpactBreakdown(sortedCommits),
       avgComplexity: calcAverage(sortedCommits, 'complexity'),
       avgUrgency: calcAverage(sortedCommits, 'urgency'),
-      monthly: calcMonthlyAggregations(sortedCommits),
-      dateRange: dateRange
+      monthly: monthly,
+      monthlyCommits: monthly,  // Alias for dashboard compatibility
+      dateRange: dateRange,
+      security_events: securityEvents
     }
   };
 }
