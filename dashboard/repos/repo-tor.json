@@ -1,0 +1,1832 @@
+{
+  "metadata": {
+    "generatedAt": "2026-01-20T00:10:53.856Z",
+    "scope": "repo-tor",
+    "repoCount": 1,
+    "commitCount": 108
+  },
+  "commits": [
+    {
+      "sha": "62a6842",
+      "fullSha": "62a6842906adcbd0b534cd9e5fc64907d0a38ea7",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-20T00:16:56+02:00",
+      "subject": "Merge pull request #20 from devmade-ai/claude/hatch-chicken-data-I8cBO",
+      "body": "chore: hatch the chicken - fresh extraction of all repos",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "6cbac27",
+      "fullSha": "6cbac270341ddf29cdafe7f20778ddd7e581cac2",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T22:14:06+00:00",
+      "subject": "docs: align commit convention with urgency and impact dimensions",
+      "body": "Updated COMMIT_CONVENTION.md to match the extraction playbook schema:\n\n- Added urgency/impact to commit message format\n- New \"Optional: Metadata Footers\" section explaining usage\n- Expanded \"Metadata Indicators\" section with urgency and impact tables\n- Updated all examples to demonstrate the new fields\n- Added optional items to commit checklist\n\nEnsures manual commits can include the same metadata that AI analysis assigns.",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "f9c0e18",
+      "fullSha": "f9c0e1801d009e84f4380159f8afb0701ce0f474",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T22:11:01+00:00",
+      "subject": "feat: add urgency and impact dimensions to commit analysis schema",
+      "body": "Two new dimensions for richer commit insights:\n\nUrgency (1-5): How critical was the change?\n- Captures reactive vs planned work patterns\n- Helps identify operational health (high urgency = problems)\n\nImpact (internal/user-facing/infrastructure/api): Who is affected?\n- Shows where effort goes\n- Distinguishes building vs maintaining vs supporting\n\nUpdated EXTRACTION_PLAYBOOK.md with guidelines, examples, and schema.",
+      "tags": [
+        "feature",
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "6097c7e",
+      "fullSha": "6097c7ef57f0f9e540787270c8928c2618f53c88",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T22:01:16+00:00",
+      "subject": "chore: hatch the chicken - fresh extraction of all repos",
+      "body": "Full reset and re-extraction of git data for all 4 repositories:\n- chatty-chart: 42 commits (5 batches)\n- repo-tor: 104 commits (11 batches)\n- social-ad-creator: 156 commits (16 batches)\n- model-pear: 302 commits (31 batches)\n\nTotal: 604 commits across 63 batches ready for AI analysis.",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "46b971d",
+      "fullSha": "46b971d3d8b15e398c2437ec202f9db19c841905",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T23:57:13+02:00",
+      "subject": "Merge pull request #19 from devmade-ai/claude/feeding-chicken-feature-wVffN",
+      "body": "docs: update playbook with human-in-the-loop review",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "7c87d10",
+      "fullSha": "7c87d107e04a605351ae285888d5dc40f44dbb70",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T21:55:09+00:00",
+      "subject": "docs: align commit convention with playbook tags",
+      "body": "Updated COMMIT_CONVENTION.md to use the same 55+ tag system\nfrom EXTRACTION_PLAYBOOK.md. Commits now use multiple tags\nin footer for consistent analysis between manual commits\nand AI-analyzed historical commits.\n\nUpdated commit-msg hook to encourage (not require) tags.\n\ntags: docs, config, enhancement",
+      "tags": [
+        "docs",
+        "config"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "29536ee",
+      "fullSha": "29536ee029aa5d54290b3740977da33e4fbfa0fc",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T21:50:15+00:00",
+      "subject": "chore: add data cleanup strategy to playbook",
+      "body": "- Add reports/*/batches/ to .gitignore (working files, regenerated)\n- Document what's committed vs gitignored in playbook\n- Update clean slate step to delete all extracted data\n- Clarify what's preserved during reset (config, dashboard UI)",
+      "tags": [
+        "docs",
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "ae0f9c0",
+      "fullSha": "ae0f9c088d07ef62fd13cf33fddffb9135d89334",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T21:45:06+00:00",
+      "subject": "docs: simplify SESSION_NOTES for future sessions",
+      "body": "- Removed outdated history (moved to git log)\n- Focus on current state and @data workflow\n- Quick reference for extraction triggers and commands\n- Progress tracking table for batch processing\n- Key files reference",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "8b7ec94",
+      "fullSha": "8b7ec941f560f77bb2d99e233cc08f07fcd6e148",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T21:41:54+00:00",
+      "subject": "docs: comprehensive 55+ tag list for commit analysis",
+      "body": "Expanded from 11 generic tags to 55+ specific tags across categories:\n- User-facing: feature, enhancement, bugfix, hotfix, ui, ux, accessibility, i18n, localization\n- Code: refactor, simplify, removal, deprecation, migration, naming, types\n- Performance: performance, memory, caching\n- Security: security, auth, authorization, vulnerability, sanitization\n- Testing: test-unit, test-integration, test-e2e, test-fix, coverage, mocks\n- Docs: docs, changelog, comments, api-docs, examples\n- Infra: ci, cd, docker, monitoring, hosting\n- Build: build, bundler, config, env, lint, formatter\n- Deps: dependency-add, dependency-update, dependency-remove, dependency-security\n- Database: database, schema, data-migration, seed\n- API: api, api-breaking, endpoint\n- Git: merge, revert, release, init\n- Style: style, imports, whitespace\n- Errors: error-handling, logging, validation\n\nAI reads full commit body and assigns ALL applicable tags.",
+      "tags": [
+        "docs",
+        "feature"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "69b46c3",
+      "fullSha": "69b46c3f834bcd728bc39b6d77b841785c517a73",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T21:19:34+00:00",
+      "subject": "chore: re-extract chatty-chart with batch files",
+      "body": "",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "7302de2",
+      "fullSha": "7302de295427b6639f466d1a3e00a7cb087698a5",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T21:18:43+00:00",
+      "subject": "feat: add batch file output for AI review tracking",
+      "body": "- extract.js now creates batches/ folder with batch-NNN.json files (10 commits each)\n- Playbook updated with batch file workflow:\n  - reports/<repo>/batches/ = raw extracted batches\n  - processed/<repo>/batches/ = approved batches with AI tags\n  - Progress = compare file lists between folders\n- Removes checkpoint.json in favor of batch file tracking\n- Clear verification: can't skip or redo batches",
+      "tags": [
+        "feature",
+        "refactor"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "8091334",
+      "fullSha": "80913343eb2ade58ac380baf32e7c7d1dbebe296",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T21:12:43+00:00",
+      "subject": "docs: update playbook with human-in-the-loop review",
+      "body": "- Change from 50 to 10 commits per batch\n- Add review format showing subject + body for each commit\n- User approves, corrects, or stops after each batch\n- Multi-tag analysis based on full commit message",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "d2e08da",
+      "fullSha": "d2e08da49a4873b8a0068de65648e663e91ed8f2",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T22:41:51+02:00",
+      "subject": "Merge pull request #18 from devmade-ai/claude/review-playbook-idea-JCZAg",
+      "body": "refactor: new extraction architecture with two triggers",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "8bbab76",
+      "fullSha": "8bbab76dacae91d2edbe639640994113bfb0eae2",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T20:40:23+00:00",
+      "subject": "docs: add checkpoint-based batch processing to playbook",
+      "body": "- Process commits in batches of 50 for resilience\n- checkpoint.json tracks progress per repo (last SHA, count)\n- Commit after each batch so work survives interruptions\n- \"feed the chicken\" resumes from checkpoint if incomplete",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "ea944fe",
+      "fullSha": "ea944fed8725166a68964deb277cdb7328bd0493",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T20:32:16+00:00",
+      "subject": "docs: update session notes with hatch progress",
+      "body": "Processed 133 commits (chatty-chart + repo-tor).\nRemaining: social-ad-creator (156) + model-pear (302).",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "f74ec6c",
+      "fullSha": "f74ec6c99cda8f7fde23371120d89561af3efbf1",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T20:30:14+00:00",
+      "subject": "chore: hatch the chicken - repo-tor processed (91 commits)",
+      "body": "Second repo in full extraction. AI analyzed each commit with:\n- tags[] based on playbook guidelines\n- complexity (1-5) based on files changed + tags\n\nRemaining: social-ad-creator (156), model-pear (302)",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "5404c7b",
+      "fullSha": "5404c7b3cc5be883c93fea197c6eb9daa4dfc2b8",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T20:24:09+00:00",
+      "subject": "chore: hatch the chicken - chatty-chart processed (42 commits)",
+      "body": "First repo in full extraction. AI analyzed each commit with:\n- tags[] based on playbook guidelines\n- complexity (1-5) based on files changed + tags\n\nRemaining: repo-tor (91), social-ad-creator (156), model-pear (302)",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "ffb09e4",
+      "fullSha": "ffb09e4de159f72bafc1e867998bf3ad086eb80d",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T16:41:12+00:00",
+      "subject": "refactor: new extraction architecture with two triggers",
+      "body": "- \"hatch the chicken\" = full reset, AI analyzes ALL commits\n- \"feed the chicken\" = incremental, AI analyzes only NEW commits\n- processed/ folder is source of truth (persistent)\n- reports/ folder removed (was ephemeral)\n- Deleted scripts/tag-commits.js (AI analyzes directly)",
+      "tags": [
+        "refactor",
+        "removal",
+        "docs"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "e32cddf",
+      "fullSha": "e32cddfbff668d0046fc9d97cacfbee1c3a8b023",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T18:10:09+02:00",
+      "subject": "Merge pull request #17 from devmade-ai/claude/separate-coding-data-personas-hFBpV",
+      "body": "feat: add @coder and @data persona triggers",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "04a79a2",
+      "fullSha": "04a79a20f1d2279841575e13c48f8cccd52310f4",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T15:56:55+00:00",
+      "subject": "docs: update session notes with two-stage extraction process",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "9ff1271",
+      "fullSha": "9ff1271491e29c664370cc00e226624a5294a60c",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T15:56:16+00:00",
+      "subject": "chore: tag per-repo commit files and update playbook",
+      "body": "- Apply tagging script to all per-repo reports (4 repos, 586 commits)\n- Update EXTRACTION_PLAYBOOK.md to include per-repo tagging in Step 4\n- Document use of tag-commits.js script for efficient tagging",
+      "tags": [
+        "config",
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "bb9ed3d",
+      "fullSha": "bb9ed3dc9864f2e24c859ef04c2cc291f2183db2",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T15:45:55+00:00",
+      "subject": "chore: tag all 586 commits with AI analysis",
+      "body": "- Added scripts/tag-commits.js for consistent tagging\n- Applied playbook rules to all commits\n- Tag breakdown: feature(160), bugfix(68), docs(79), cleanup(241), etc.\n- All commits have tags and complexity (1-5) assigned",
+      "tags": [
+        "feature",
+        "config"
+      ],
+      "complexity": 4,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b27e603",
+      "fullSha": "b27e60318726976a9c8afb6939d243419940c1ea",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T15:28:31+00:00",
+      "subject": "refactor: separate script extraction from AI tagging",
+      "body": "Scripts now extract raw data only (empty tags, null complexity):\n- extract.js: Removes tag parsing logic, outputs tags: [], complexity: null\n- aggregate.js: Passes through empty tags (no 'other' default)\n\nAI (@data persona) will analyze each commit and assign:\n- tags[] based on playbook guidelines\n- complexity (1-5) based on files changed + tag count\n\nUpdated EXTRACTION_PLAYBOOK.md with new two-stage process.",
+      "tags": [
+        "refactor",
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "abc7211",
+      "fullSha": "abc7211605d6c112de7d2384a269eb1295232d54",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T15:13:06+00:00",
+      "subject": "chore: update extracted data (584 commits across 4 repos)",
+      "body": "",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "975e0cd",
+      "fullSha": "975e0cde3e15ac1cea3243a525b2f9ce90e6ab3e",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T14:58:17+00:00",
+      "subject": "fix: show total file changes instead of unique file count",
+      "body": "",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "35176c1",
+      "fullSha": "35176c1d653587018c278dfe5b157bd2e24f3b4e",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T14:53:17+00:00",
+      "subject": "docs: add commit count verification to prevent skipping",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "2905089",
+      "fullSha": "290508946da221b1f42a48d1fd64a0f6624eb721",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T14:51:00+00:00",
+      "subject": "fix: remove tag limits, focus on consistency in playbook",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "7b4825d",
+      "fullSha": "7b4825de0c686e25798de60295d9b68907187f3d",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T14:37:55+00:00",
+      "subject": "docs: add tagging guidelines for @data consistency",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "d4020de",
+      "fullSha": "d4020dea95416ae4188c00fadab16748a665f22f",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T14:35:14+00:00",
+      "subject": "docs: update extraction playbook for @data persona",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "fa39a47",
+      "fullSha": "fa39a47239c31f6c4b1ed6539e4aadc86dbcd2a5",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T14:33:05+00:00",
+      "subject": "fix: make @coder the default persona",
+      "body": "",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "eab5bf3",
+      "fullSha": "eab5bf36df5c582678c0ed3981464e9a4a629f3e",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T14:27:48+00:00",
+      "subject": "feat: add @coder and @data persona triggers",
+      "body": "Two personas for focused interactions:\n- @coder: development work (code, bugs, features, architecture)\n- @data: extraction and processing (playbooks, reports, aggregation)\n\n\"feed the chicken\" is now a command within @data persona.",
+      "tags": [
+        "feature",
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "0f60b3e",
+      "fullSha": "0f60b3e48e2a421fcc6bc59e2368070c1df53fbc",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T16:17:42+02:00",
+      "subject": "Merge pull request #16 from devmade-ai/claude/mobile-fixes-timeline-8bNJi",
+      "body": "feat: add activity timeline chart and fix mobile layout",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "e0805c6",
+      "fullSha": "e0805c63ce72e76d363f4d62ac511dff4075d138",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T13:58:48+00:00",
+      "subject": "feat: add activity timeline chart and fix mobile layout",
+      "body": "- Add bar chart to Timeline tab showing commits by date\n- Multi-repo data shows stacked bars by repository\n- Change period comparison from calendar to rolling (7/30 days)\n- Fix mobile layout: stack headers on small screens\n- Update documentation with new features",
+      "tags": [
+        "feature",
+        "ui",
+        "bugfix"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "18dce6d",
+      "fullSha": "18dce6d2a0211ddc6c6decdbc6d184b4152eecc1",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T15:47:42+02:00",
+      "subject": "Merge pull request #15 from devmade-ai/claude/plan-next-priorities-8klm9",
+      "body": "feat: add heatmap, dark mode, and filter persistence",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "42e7ef2",
+      "fullSha": "42e7ef265cede3ab5dd253f5d308fc5a656888c4",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T13:43:33+00:00",
+      "subject": "feat: add remaining polish and infrastructure features",
+      "body": "- Developer Activity Patterns: per-author timing breakdown in Timing tab\n- Configurable Work Hours: start/end selectors (default 8-17)\n- Loading States: spinner during data auto-load\n- Color Palette: removed duplicate CSS definitions\n- Private Mode: sanitize names/messages for sensitive repos\n\nCompletes all lower priority items from TODO.md",
+      "tags": [
+        "feature",
+        "ui",
+        "enhancement"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "db8a8ca",
+      "fullSha": "db8a8cafae7460abe0389848da88b5fbe64be7d1",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T13:34:52+00:00",
+      "subject": "feat: add heatmap, dark mode, and filter persistence",
+      "body": "- Add activity heatmap to Timing tab (24×7 hour/day grid)\n- Add dark mode toggle with system preference detection\n- Add localStorage persistence for filters, tab, and settings\n- Update documentation with new features\n\nImplements stretch goal (heatmap) and infrastructure items\n(dark mode, filter persistence) from TODO.md",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "ae2c4e5",
+      "fullSha": "ae2c4e58106fbd3555e82fc78bc3dc6b7838fe25",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T15:16:15+02:00",
+      "subject": "Merge pull request #14 from devmade-ai/claude/review-todo-items-fZVwp",
+      "body": "feat: add PDF export and shareable links (Priority 4)",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "fe79b86",
+      "fullSha": "fe79b86a9912f6d6fceb13b120f8f56b6216ab37",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T13:14:53+00:00",
+      "subject": "chore: update extracted data (570 commits across 4 repos)",
+      "body": "",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "6c6771c",
+      "fullSha": "6c6771c7c7f117d4b28863437af2e07e382685af",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T13:10:51+00:00",
+      "subject": "refactor: remove all vanity metrics from dashboard",
+      "body": "Audit and cleanup - removed every element that shows meaningless counts:\n\nProgress Tab:\n- Remove: Monthly Commit Volume, Cumulative Lines charts\n- Add: Complexity Over Time chart\n\nContributors Tab (complete rework):\n- Remove: Commits by Contributor, Lines by Contributor charts\n- Remove: Contributor Details list\n- Add: \"Who Does What\" - work type breakdown per person\n- Add: Complexity by Contributor chart\n\nTimeline Tab:\n- Remove: Commit Timeline chart\n- Remove: +/- lines from commit display\n- Add: Complexity badge on each commit\n\nSummary Tab:\n- Remove: \"Top Contributor\", \"Busiest Day\" highlights\n- Remove: \"Avg commits/day\" stat\n- Add: \"Complex Changes\", \"Quality Work\" highlights\n\nDashboard now shows only meaningful work metrics:\nwhat kind of work, who does what, and how complex it is.",
+      "tags": [
+        "refactor",
+        "ui",
+        "removal"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "5ab4afd",
+      "fullSha": "5ab4afd42787d61df5fa76100a1d9a9ac5e92935",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T12:58:24+00:00",
+      "subject": "refactor: replace vanity metrics with meaningful work metrics",
+      "body": "Remove commits/lines focus, add metrics that actually matter:\n\nSummary Cards:\n- Lines Added → Files Changed (scope)\n- Lines Removed → Avg Complexity (1-5)\n- Commits → Top Work Type (focus)\n\nExecutive Summary:\n- Commits → Features Built\n- Contributors → Bugs Fixed\n- Add Complexity + Files Touched with trends\n\nThe dashboard now shows what kind of work is being done,\nhow complex it is, and how much of the codebase is affected -\nnot vanity metrics like line counts.",
+      "tags": [
+        "refactor",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "2dc6f8b",
+      "fullSha": "2dc6f8be1eced1287a16247c2e861368b166270a",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T12:50:39+00:00",
+      "subject": "feat: add PDF export and shareable links (Priority 4)",
+      "body": "Add export/share capabilities to the dashboard:\n\n- PDF Export: Generate downloadable PDF of current tab view\n  - Uses html2pdf.js for client-side generation\n  - Includes header, stats, and chart content\n  - Landscape A4 format with loading feedback\n\n- Shareable Links: Copy URL with encoded state\n  - Captures tab, filters, period, timezone settings\n  - Auto-applies URL state on page load\n  - Toast notifications for user feedback\n\n- UI: Header buttons (Share + Export PDF)\n  - Responsive layout (icons on mobile)\n  - Buttons appear after data loads\n\nCompletes all Discovery Session priorities (1-4).",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "a2b0c80",
+      "fullSha": "a2b0c803f2c9327096ef0da41f3bcd6dbe6e7499",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T14:40:38+02:00",
+      "subject": "Merge pull request #13 from devmade-ai/claude/fix-summary-by-tag-2NyWg",
+      "body": "fix: Summary tab zeros and tag display order inconsistency",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "cccd59c",
+      "fullSha": "cccd59c1804b69e9426e725eae3a8151fc65cc48",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T12:38:00+00:00",
+      "subject": "fix: Summary tab zeros and tag display order inconsistency",
+      "body": "- Fix date range comparison to include full day (commits after midnight)\n- Add endOfDay() helper to set end times to 23:59:59.999\n- Sort tags by count before rendering chart for consistent order\n- Update docs with fix details",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
+      "urgency": 3,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b2df551",
+      "fullSha": "b2df55152627810a9f5e6a70e3cd03588b358d7d",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T14:16:37+02:00",
+      "subject": "Merge pull request #12 from devmade-ai/claude/fix-project-list-display-1RCBF",
+      "body": "fix: add cache-busting to prevent stale data.json on GitHub Pages",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "f00dd0e",
+      "fullSha": "f00dd0eb2ef71a7dbcb8b7090e3972bd2aefc00d",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T12:04:53+00:00",
+      "subject": "fix: add cache-busting to prevent stale data.json on GitHub Pages",
+      "body": "Appends git commit hash as query parameter during deployment to ensure\nbrowsers always fetch the latest data file after each deployment.",
+      "tags": [
+        "bugfix",
+        "ci"
+      ],
+      "complexity": 2,
+      "urgency": 3,
+      "impact": "infrastructure",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "bcb4d85",
+      "fullSha": "bcb4d85db20e796e1bb3dc1481aa9711b917abf7",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T13:55:14+02:00",
+      "subject": "Merge pull request #11 from devmade-ai/claude/plan-next-priorities-DSZEr",
+      "body": "chore: re-extract all repos with tag-based format",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "f190f99",
+      "fullSha": "f190f99283515bb2d38557846d799eaeb5302b7e",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T11:52:49+00:00",
+      "subject": "chore: re-extract all repos with tag-based format",
+      "body": "- Extracted 561 commits across 4 repos (model-pear, social-ad-creator, repo-tor, chatty-chart)\n- All data now uses tags[] and complexity fields\n- Foundation phase complete",
+      "tags": [
+        "config"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "d2d120e",
+      "fullSha": "d2d120e12e17dff30f055febad2748866b125943",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T12:51:22+02:00",
+      "subject": "Merge pull request #10 from devmade-ai/claude/start-todos-feature-ykdyO",
+      "body": "feat: add Timing tab with hour and day-of-week charts",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "f283ebc",
+      "fullSha": "f283ebc0fa5a4cfbe3868c46162000ce16408089",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T10:41:27+00:00",
+      "subject": "feat: add Executive Summary tab with period comparison",
+      "body": "Add new Summary tab as default view for executive quick scanning:\n- Period selector (week/month/quarter vs previous)\n- Quick stats cards with trend indicators (↑/↓ %)\n- Work breakdown doughnut chart\n- Key highlights (top contributor, busiest day, etc.)\n- Activity snapshot (avg/day, after-hours, weekend, holiday)",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "e4fc6a4",
+      "fullSha": "e4fc6a4f4ef788b667069d5c876190e8db85ad98",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T10:37:33+00:00",
+      "subject": "feat: add work pattern styling with SA holidays",
+      "body": "Add visual indicators for commits made outside normal work hours:\n- After Hours badge (amber) for commits before 8am or after 5pm\n- Weekend badge (indigo) for Saturday/Sunday commits\n- Holiday badge (pink) for SA public holidays\n- Legend in Timeline tab explaining badge meanings",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "04e3bb5",
+      "fullSha": "04e3bb587215b149fcffd9a6275f316ec8744ec4",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T10:32:09+00:00",
+      "subject": "feat: add Timing tab with hour and day-of-week charts",
+      "body": "Add new Timing tab to dashboard visualizing when work happens:\n- Commits by Hour chart (0-23) with work hours highlighting\n- Commits by Day of Week chart (Mon-Sun) with weekend distinction\n- Timezone toggle (Local/UTC) for time display preferences",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "ee18bf4",
+      "fullSha": "ee18bf44aea4f908e85c35c06cf63079073c5e70",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-19T12:24:33+02:00",
+      "subject": "docs: add discovery framework validation session",
+      "body": "Applied Discovery Framework to validate solution against user needs:\n- Identified two distinct audiences (Executive vs Dev Manager)\n- Key gap: timestamp visualization (when work happens)\n- Key gap: audience-specific views (exec needs summary)\n- Reorganized TODO.md around discovered priorities\n\nNew files:\n- docs/DISCOVERY_SESSION.md - full session documentation\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "05c6081",
+      "fullSha": "05c60810a19e37aeb29be9fdf89a5f3305232b9e",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-19T11:13:46+02:00",
+      "subject": "feat: implement tag-based extraction with complexity scoring",
+      "body": "Phase 1 - extract.js:\n- Add CONVENTIONAL_TO_TAG mapping (feat→feature, fix→bugfix, etc.)\n- parseCommitMessage() returns tags[] array instead of single type\n- Add calculateComplexity() function (1-5 scale)\n- Summary outputs tagBreakdown and complexityBreakdown\n- Contributors/files track tagCounts instead of types\n\nPhase 4 - aggregate.js:\n- Tag-aware aggregation with tagCounts\n- Summary outputs tagBreakdown and complexityBreakdown\n- Monthly aggregation tracks tags per month\n\nData regenerated for repo-tor with new format.\nDocs updated (USER_GUIDE, HISTORY, SESSION_NOTES, TODO).\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "refactor"
+      ],
+      "complexity": 5,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "8e0f37a",
+      "fullSha": "8e0f37a4192f1871be9afb09815023b396dfbecc",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-19T11:00:52+02:00",
+      "subject": "feat: add multi-tag support to dashboard",
+      "body": "- Replace single type field with tags[] array model\n- Add TAG_COLORS and tag helper functions (getCommitTags, getAllTags, getTagColor, getTagClass)\n- Rename \"Type\" filter to \"Tag\" filter (matches any tag)\n- Show all tags on commits (up to 3 with overflow indicator)\n- Rename \"By Type\" tab to \"By Tag\" tab\n- Update Progress tab Feature vs Bug Fix for tag-based counting\n- Update combineDataFiles() to build tagBreakdown\n\nDashboard expects tags[] field - will show \"other\" until extraction is updated.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui",
+        "refactor"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "57656f6",
+      "fullSha": "57656f6a1e145a4efe09a264b62ef92f06bab391",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-19T10:45:23+02:00",
+      "subject": "docs: refocus on tag-based analytics with AI-driven extraction",
+      "body": "Shift tool focus to three core metrics:\n- When: timestamp analytics (hour, day, work hours, weekends)\n- What: AI-analyzed tags from commit messages (multiple per commit)\n- Complexity: score based on files changed + tag count\n\nAdd EXTRACTION_PLAYBOOK.md with \"feed the chicken\" trigger phrase.\nReorganize TODO.md around new direction (Foundation → Views → Polish).\nRemove completed items from TODO (tracked in HISTORY.md).\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "afdf679",
+      "fullSha": "afdf6794b6ea93a4f4e694aa58c7fa0dcc350e61",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T08:52:49+02:00",
+      "subject": "Merge pull request #9 from devmade-ai/claude/add-todo-timestamp-views-9u4BW",
+      "body": "docs: add feature roadmap for timestamp views, filters, design, and privacy",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "a27215f",
+      "fullSha": "a27215f8dc57c0d9a999adb205f2d5cca6fd44ae",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T06:50:51+00:00",
+      "subject": "docs: add research items for commit model improvements",
+      "body": "New Research/Investigation section in TODO.md:\n\n1. Device/Platform Attribution\n   - Split contributions by committer name (mobile vs desktop)\n   - Config mapping for name variations with device tags\n\n2. AI-Powered Commit Categorization\n   - Claude reads commit messages + diffs to understand intent\n   - Auto-tagging beyond conventional commit types\n   - Confidence scores and human override\n\n3. Multi-Tag Commit Model\n   - One commit can have multiple tags (feat + refactor + docs)\n   - Schema change from single type to tags[] with weights\n   - Backward compatibility with existing data\n\n4. Tag-Centric Reporting\n   - Shift focus from commit counts to accomplishments\n   - Effort weighting based on complexity\n   - Activity vs output distinction",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "02f0e30",
+      "fullSha": "02f0e309757096bdb59cdf9376dd4a0dde1b8d51",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T06:39:36+00:00",
+      "subject": "chore: update extracted data",
+      "body": "Re-extracted all 4 repositories:\n- social-ad-creator: 156 commits\n- model-pear: 302 commits\n- repo-tor: 50 commits (+7 new)\n- chatty-chart: 42 commits\n\nTotal: 550 commits across 4 repos",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "24d8b0d",
+      "fullSha": "24d8b0d199dda8a3b7699844d7203b95ce02de01",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T06:35:58+00:00",
+      "subject": "docs: add work hours vs after-hours distinction to roadmap",
+      "body": "Renamed \"Weekend & Holiday Visual Distinction\" to \"Work Pattern Visual Distinction\"\n\nAdded time-of-day items:\n- Work hours highlighting (8:00-17:00)\n- After-hours styling for commits outside work window\n- Hour charts integration with work hours band\n- Configurable hours setting (default 8-17)\n\nUpdated cross-cutting items:\n- Heatmap now shows work hours rows + weekend columns\n- Commit badges include \"After Hours\" option",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "43bade1",
+      "fullSha": "43bade1309252b1e22bb755a1cae718f0852130e",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T06:31:13+00:00",
+      "subject": "docs: add hour/day commit views and weekend/holiday distinction",
+      "body": "Timestamp Views additions:\n- Commits by hour (0-23 bar chart)\n- Commits by day of week (Mon-Sun bar chart)\n\nNew Weekend & Holiday Visual Distinction section:\n- Weekend highlighting across ALL tabs/views\n- South African public holidays with distinct styling\n- Holiday data source (config/API)\n- Legend/key for workday vs weekend vs holiday\n- Integration points: Timeline, heatmap, commit list badges",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "d47a34c",
+      "fullSha": "d47a34c750203c04025f2f3ff0ba7797aee63ffa",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T06:25:27+00:00",
+      "subject": "docs: update session notes with repo management priority item",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "84c164e",
+      "fullSha": "84c164e6a9855c690c508d62db58a4922d6fa6a2",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T06:24:01+00:00",
+      "subject": "docs: add repository management section to roadmap",
+      "body": "New TODO items for handling repo lifecycle changes:\n- Repo rename handling with config mapping\n- Alias support for same repo with different names\n- Migration tool for updating existing data\n- Archive detection for graceful handling\n- URL redirect detection when repos are renamed",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "4dea600",
+      "fullSha": "4dea6003604f4bece92768d73768a3b472d0f7d4",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T06:18:33+00:00",
+      "subject": "docs: add feature roadmap for timestamp views, filters, design, and privacy",
+      "body": "High-priority items added to TODO.md:\n- Timestamp views & developer insights (heatmaps, activity patterns, trends)\n- Filter persistence across tabs (global state, URL params, localStorage)\n- Visual design & dark mode (theming, colors, typography)\n- Private repository security (sanitization, anonymization, local-only)",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "c35067a",
+      "fullSha": "c35067a6cd19a90f54cbb8fe9910ab8d755cd6be",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T02:43:38+02:00",
+      "subject": "Merge pull request #8 from devmade-ai/claude/add-chatty-chart-repo-RxuLQ",
+      "body": "chore: add chatty-chart repository to dashboard",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "81f6021",
+      "fullSha": "81f60217a4a51480984627992c7673a59505b3b6",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T00:42:25+00:00",
+      "subject": "chore: add chatty-chart repository to dashboard",
+      "body": "- Added illuminAI-select/chatty-chart (42 commits, 4 contributors)\n- Re-aggregated all data: now 543 commits across 4 repos",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b4edfd1",
+      "fullSha": "b4edfd16a43db11d40e95a6c20317b182379143b",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T02:32:53+02:00",
+      "subject": "Merge pull request #7 from devmade-ai/claude/remove-duplicate-contributors-w8iLi",
+      "body": "fix: merge duplicate contributor entries using author-map",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "f736728",
+      "fullSha": "f736728ac50696474d9ff21e462b5df48dd5cded",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T00:31:26+00:00",
+      "subject": "chore: update extracted git analytics data",
+      "body": "",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "1d15f41",
+      "fullSha": "1d15f419f81b1b6352280c372761617563b2d1c2",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T00:28:21+00:00",
+      "subject": "fix: merge duplicate contributor entries using author-map",
+      "body": "- Created config/author-map.json to merge jacotheron87's two emails\n  (jacotheron87@gmail.com and GitHub noreply address)\n- Re-aggregated data, reducing contributors from 4 to 3\n- Updated update-all.sh to auto-use author-map if present",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b316fef",
+      "fullSha": "b316fef84733c515e04dc49d28f796f8cd4496af",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T02:20:39+02:00",
+      "subject": "Merge pull request #6 from devmade-ai/claude/admin-multi-repo-setup-7go0s",
+      "body": "feat: add social-ad-creator repo analytics",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "9c3bd2d",
+      "fullSha": "9c3bd2d1d436596ce9f577378afed8cb6bc6f7af",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T00:19:42+00:00",
+      "subject": "chore: update extracted git analytics data",
+      "body": "Ran scripts/update-all.sh to refresh all repo data:\n- social-ad-creator: 156 commits\n- model-pear: 302 commits\n- repo-tor: 38 commits (updated with recent session commits)\n\nTotal: 496 commits across 3 repos",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "9389600",
+      "fullSha": "9389600a7e7e840a32ced6d28d484ac8235e5ea8",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T00:17:34+00:00",
+      "subject": "feat: add multi-repo management with config and update script",
+      "body": "- Created config/repos.json to track repository URLs\n- Created scripts/update-all.sh to automate extraction/aggregation\n- Updated ADMIN_GUIDE.md with managed repos workflow\n- Simplified .gitignore: track all reports/, ignore .repo-cache/\n- Updated SESSION_NOTES.md and HISTORY.md\n\nRepos can now be added to config once and re-extracted anytime\nby running: ./scripts/update-all.sh",
+      "tags": [
+        "feature",
+        "config",
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "273c700",
+      "fullSha": "273c70001da0382d1fafd67ce0f5cb9c32331135",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T00:12:03+00:00",
+      "subject": "feat: aggregate all repos for dashboard auto-load",
+      "body": "Combined data from 3 repos into dashboard/data.json:\n- social-ad-creator: 156 commits\n- model-pear: 302 commits\n- repo-tor: 32 commits\n\nDashboard will now auto-load all repo data on open.",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "38b4f7f",
+      "fullSha": "38b4f7fd0e51bca4829da955aa0ede1063c45e97",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T00:08:37+00:00",
+      "subject": "feat: add model-pear repo analytics",
+      "body": "Extracted git data for devmade-ai/model-pear:\n- 302 commits\n- 4 contributors\n- 228 files tracked",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "9da691c",
+      "fullSha": "9da691c11e03b9e8f8be617eb2506b2c3f4ff59d",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T00:05:11+00:00",
+      "subject": "feat: add social-ad-creator repo analytics",
+      "body": "Extracted git data for devmade-ai/social-ad-creator:\n- 156 commits\n- 3 contributors\n- 82 files tracked",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b28e781",
+      "fullSha": "b28e7812894477ad2237167f01dbf874843ad890",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T01:44:05+02:00",
+      "subject": "Merge pull request #5 from devmade-ai/claude/rerun-extraction-dashboard-M1m0i",
+      "body": "chore: update extracted git analytics data",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "2dd178b",
+      "fullSha": "2dd178b1260e0c35ee15ecca4a62c31ef9f4a96d",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-18T23:42:10+00:00",
+      "subject": "chore: update extracted git analytics data",
+      "body": "Re-ran extraction script to capture latest commits (32 total).\nUpdated dashboard/data.json for GitHub Pages.",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "9539fcb",
+      "fullSha": "9539fcbc633f04baf501ebb1dd04d2fe31ba3a65",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T00:55:18+02:00",
+      "subject": "Merge pull request #4 from devmade-ai/claude/fix-dashboard-mobile-tabs-pRUVw",
+      "body": "fix: make dashboard tabs mobile-friendly with horizontal scroll",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "709f212",
+      "fullSha": "709f2129126c80d8e4c405ee11bb0fa43aa735b2",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T22:53:34+00:00",
+      "subject": "feat: change timeline to horizontal bar chart",
+      "body": "- Switched from vertical columns to horizontal bars\n- Newest dates at top for natural reading\n- Better mobile UX with more room for date labels",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "6be558d",
+      "fullSha": "6be558dc324e61c8f92b82306836fed8eef637be",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T22:49:21+00:00",
+      "subject": "fix: improve timeline layout for mobile devices",
+      "body": "- Filter bar: responsive grid (2-col mobile, 3-col tablet, flex desktop)\n- Stacked filter labels above inputs for better touch targets\n- Shorter chart height on mobile (h-48 vs h-64)\n- Commit list: message wraps on mobile, metadata flows with separators\n- Line counts show inline on desktop, below metadata on mobile",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "5c0d4f7",
+      "fullSha": "5c0d4f7af5742ec9ee9684f83d618ec961fe847c",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T22:46:10+00:00",
+      "subject": "fix: make dashboard tabs mobile-friendly with horizontal scroll",
+      "body": "Added overflow-x-auto and hidden scrollbar for clean horizontal\nscrolling on mobile devices. Applied whitespace-nowrap to prevent\ntab text wrapping and used negative margin for edge-to-edge scroll.",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "e79566e",
+      "fullSha": "e79566e9abf39e69857dade06755ba725dad098d",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-19T00:37:49+02:00",
+      "subject": "fix: include data.json in GitHub Pages deployment",
+      "body": "The deploy workflow was copying dashboard/index.html but not\ndashboard/data.json, causing 404 errors on the live site when\nthe dashboard tried to auto-load data.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "ci"
+      ],
+      "complexity": 2,
+      "urgency": 3,
+      "impact": "infrastructure",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "d6bc084",
+      "fullSha": "d6bc08468762d40cf028d5b231ac4408a0fddb02",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T00:30:16+02:00",
+      "subject": "Merge pull request #3 from devmade-ai/claude/analyze-sample-data-time-ZWmOs",
+      "body": "chore: add sample data to dashboard for auto-load",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "3eb8b8b",
+      "fullSha": "3eb8b8b038ceaa79a15b7fc409ccffdbd28ff0df",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T22:28:28+00:00",
+      "subject": "docs: update docs and re-extract data with latest commits",
+      "body": "- Update SESSION_NOTES.md with current state and live URL\n- Update HISTORY.md with dashboard auto-load fix entry\n- Re-run extraction (now 25 commits, 3 contributors)\n- Update dashboard/data.json with fresh extraction",
+      "tags": [
+        "docs",
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "febe08a",
+      "fullSha": "febe08ade0073264900c10d119b65c14965ac726",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T22:24:22+00:00",
+      "subject": "docs: add live dashboard URL to guides",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "82227d0",
+      "fullSha": "82227d0850936e175dc1576f0401766a72c94afa",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T22:21:22+00:00",
+      "subject": "chore: add sample data to dashboard for auto-load",
+      "body": "Copy data.json to dashboard directory so GitHub Pages deployment\ncan auto-load the sample data without manual file selection.",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "7efe257",
+      "fullSha": "7efe2574825e23736a657361aab4469c0ab3a344",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-19T00:12:35+02:00",
+      "subject": "Merge pull request #2 from devmade-ai/claude/update-docs-kubk3",
+      "body": "docs: split documentation into user guide and admin guide",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "41f048b",
+      "fullSha": "41f048ba7f867f40b00964f8c700cd1f6565c8de",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T22:11:11+00:00",
+      "subject": "feat: implement schema alignment and multiple file loading",
+      "body": "Schema Alignment:\n- Add author_id field to commits (references metadata.authors)\n- Replace parseMethod with is_conventional boolean\n- Add authors map to metadata.json for author lookup\n- Add security_events array to summary.json\n- Wrap commits.json in { \"commits\": [...] } object\n- Update aggregate.js to match new schema\n\nDashboard - Multiple Data Files:\n- File picker accepts multiple files (HTML5 multiple attribute)\n- Client-side combineDataFiles() function merges data\n- Combines commits, contributors, files from multiple repos\n- Merges authors from metadata of all files\n- Shows repo filter when multiple repos loaded\n\nUpdated documentation:\n- USER_GUIDE.md: Added Loading Data section with multi-file instructions\n- TODO.md: Marked medium priority items as complete\n- SESSION_NOTES.md: Updated current state\n- HISTORY.md: Added schema alignment and multi-file entries",
+      "tags": [
+        "feature",
+        "refactor"
+      ],
+      "complexity": 5,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "2fc026d",
+      "fullSha": "2fc026da0b27d8475d2d7bd2d61e1563ddab4a8b",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T22:02:15+00:00",
+      "subject": "docs: update all documentation and re-extract data",
+      "body": "Re-ran extraction to capture all 20 commits (was 18):\n- reports/repo-tor/ now includes latest commits\n- Extraction uses git log --all for all branches\n\nUpdated documentation:\n- SESSION_NOTES.md: Current state with extraction details\n- TODO.md: Added data extraction to completed items\n- HISTORY.md: Added data extraction entry",
+      "tags": [
+        "docs",
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "0db4ed3",
+      "fullSha": "0db4ed38e4824f7e997455b06d0ea6aaedc01f10",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T21:55:22+00:00",
+      "subject": "chore: fix gitignore comment wording",
+      "body": "",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "d173a5b",
+      "fullSha": "d173a5b680bfa1de1697f63a28ad74f25aa99f3d",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T21:53:29+00:00",
+      "subject": "chore: add extracted sample data for dashboard",
+      "body": "Run extraction on this repository to provide sample data:\n- 18 commits from 3 contributors\n- Type breakdown: feat, docs, test, other, ci\n- Data available at reports/repo-tor/data.json\n\nUpdated .gitignore to allow sample data while ignoring other reports.",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "5dc1aba",
+      "fullSha": "5dc1abadd7075300924db2b3a66a47eb766644ff",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T21:48:23+00:00",
+      "subject": "ci: add GitHub Pages deployment workflow",
+      "body": "Add automated deployment to GitHub Pages:\n- .github/workflows/deploy.yml: Deploys on push to main/master\n- Supports manual trigger via workflow_dispatch\n- Copies dashboard and reports folder to _site\n\nUpdated ADMIN_GUIDE.md with setup instructions:\n- Enable GitHub Pages with \"GitHub Actions\" as source\n- Manual deployment via Actions tab",
+      "tags": [
+        "ci"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "infrastructure",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "8744117",
+      "fullSha": "87441177901141f9ba34df9be78bd73a308366ff",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T21:08:20+00:00",
+      "subject": "feat(dashboard): add filters for type, author, date range, and repo",
+      "body": "Add filter bar to Timeline tab:\n- Type dropdown to filter by commit type\n- Author dropdown to filter by contributor\n- Repo dropdown for aggregated data (auto-hides for single repo)\n- Date range picker with from/to inputs\n- Clear Filters button to reset all\n\nFilters update both the timeline chart and commit list.\nAdded \"Showing X of Y commits\" counter.",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "f3cb991",
+      "fullSha": "f3cb9911136c964506a473ba5c6658b4964d6a37",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T21:03:01+00:00",
+      "subject": "feat(D3): add multi-repository aggregation script",
+      "body": "Implement aggregation to combine data from multiple repositories:\n- scripts/aggregate.js: Combines repo data with author identity mapping\n- config/author-map.example.json: Example author mapping configuration\n- config/author-map.schema.json: JSON schema for validation\n\nAlso adds repo_id support:\n- scripts/extract.js: Now includes repo_id in metadata and commits\n- Enables tracking commit source in aggregated views\n\nDocumentation updates:\n- ADMIN_GUIDE.md: Added aggregation section\n- USER_GUIDE.md: Added multi-repository view section\n- TODO.md: Marked D3 as complete",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "2f1df27",
+      "fullSha": "2f1df279af1428ea54401e6a7422fb06695204dd",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T20:56:23+00:00",
+      "subject": "docs: update CLAUDE.md checklist and TODO.md timestamp",
+      "body": "- Add ADMIN_GUIDE.md to AI checklist for setup/config changes\n- Clarify USER_GUIDE.md is for UI/interpretation changes\n- Update TODO.md last-updated note to reflect session 3",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "bbacc75",
+      "fullSha": "bbacc75db0b777ffee8271a1b58a18d5dbd76e9b",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T20:52:12+00:00",
+      "subject": "docs: split documentation into user guide and admin guide",
+      "body": "Separate concerns for different audiences:\n- USER_GUIDE.md: Dashboard UI walkthrough, chart interpretation, metric\n  analysis, health indicators, and tips for effective use\n- ADMIN_GUIDE.md: Installation, data extraction, commit hooks setup,\n  hosting options, and troubleshooting\n\nUser guide focuses on \"what does this mean?\" while admin guide\nfocuses on \"how do I set this up?\"",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "9a4494b",
+      "fullSha": "9a4494b88f8fb6ac68362c9868b334565f772aea",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-18T22:43:02+02:00",
+      "subject": "Merge pull request #1 from devmade-ai/claude/git-analytics-reporting-ebvnR",
+      "body": "Add Git Analytics Reporting System",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "d2852aa",
+      "fullSha": "d2852aaaab8c4c5c73aae055842eac54a4b16176",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T20:40:49+00:00",
+      "subject": "docs: update README and CLAUDE.md with project context",
+      "body": "- README.md: Add project description, features, quick start, structure\n- CLAUDE.md: Add project overview section with purpose, components, state",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "e714d22",
+      "fullSha": "e714d220479b5b8f156b4635c2207ae54ad25c09",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T20:39:08+00:00",
+      "subject": "docs: complete documentation for all features",
+      "body": "- USER_GUIDE.md: Add commit convention section with hooks setup\n- USER_TESTING.md: Add test scenarios for extraction, dashboard, hooks\n- TODO.md: Add remaining work items (D3, schema alignment, filters)",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "9e2ca25",
+      "fullSha": "9e2ca252a7354f7c1d61ff9fd2f7bbab6b77f71b",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T20:36:35+00:00",
+      "subject": "docs: add commit convention guide and validation hooks",
+      "body": "D2 deliverable - Commit Convention Guide:\n- docs/COMMIT_CONVENTION.md: Full guide for conventional commits\n  with type definitions, examples, and analytics impact\n- .gitmessage: Git commit template for consistent formatting\n- hooks/commit-msg: Validation hook for commit message format\n- hooks/setup.sh: Installation script for git hooks\n\nRun ./hooks/setup.sh to enable validation.",
+      "tags": [
+        "docs",
+        "feature"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "4057c14",
+      "fullSha": "4057c14a32a88f574c6d1c5f39dacf16159d755a",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T20:29:03+00:00",
+      "subject": "Add Git Analytics Reporting System",
+      "body": "- scripts/extract.js: Node.js extraction script with git log parsing,\n  conventional commit detection, keyword-based type fallback, and\n  structured JSON output\n- scripts/extract.sh: Shell wrapper for easier usage\n- dashboard/index.html: Static analytics dashboard with Chart.js\n  - Timeline: daily commit chart, recent commits list\n  - Progress: monthly volume, cumulative growth, feature vs fix trends\n  - Contributors: commits and lines by author\n  - Security: highlighted security-related commits\n  - Types: pie chart and percentage breakdown\n- Updated .gitignore to exclude generated reports/\n- Updated docs with usage documentation",
+      "tags": [
+        "feature",
+        "init"
+      ],
+      "complexity": 5,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "bdef1a0",
+      "fullSha": "bdef1a027ca1cf1411293a07cfdb45ab8531efc7",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-18T22:18:42+02:00",
+      "subject": "Add USER_GUIDE.md and USER_TESTING.md to checklists",
+      "body": "Updated \"After Each Significant Task\" checklist to include:\n- Update USER_GUIDE.md when user-facing behavior changes\n- Update USER_TESTING.md when new test scenarios are needed\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "95dc604",
+      "fullSha": "95dc6046d6c98f20d2602dedb58cd0a21d7df5ac",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-18T22:17:13+02:00",
+      "subject": "Add USER_TESTING.md and USER_GUIDE.md",
+      "body": "- USER_TESTING.md: Guidelines for testing features as a user\n- USER_GUIDE.md: Documentation for end users\n- Updated HISTORY.md and SESSION_NOTES.md\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "6151e82",
+      "fullSha": "6151e828edc3ded9f605c2e4e00ac672249c721c",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-18T22:14:17+02:00",
+      "subject": "Add documentation structure in docs/ folder",
+      "body": "- docs/SESSION_NOTES.md: Track current state for session continuity\n- docs/TODO.md: Capture pending items and ideas\n- docs/HISTORY.md: Log significant changes\n- docs/USER_ACTIONS.md: Document manual user actions needed\n- Updated CLAUDE.md references to point to docs/ folder\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "0259c03",
+      "fullSha": "0259c03c5dbce4a49153791fc029ed8c11100d8f",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-18T22:10:24+02:00",
+      "subject": "Add Claude Code local settings to .gitignore",
+      "body": "Prevents .claude/settings.local.json from being committed\nas it contains user-specific permission settings.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "edbc8a3",
+      "fullSha": "edbc8a3ded70fe8e0cd4444112521a06aa273382",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-18T22:06:07+02:00",
+      "subject": "Add CLAUDE.md with AI assistant preferences and checklists",
+      "body": "Establishes guidelines for AI sessions including:\n- Process for gathering context before tasks\n- Principles for user-first design and documentation\n- Checklists for session start, task completion, commits, and pushes\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs",
+        "init"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "049b9fa",
+      "fullSha": "049b9fa7de116f8211ec494a6dbc5d223770e9fb",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-18T22:03:39+02:00",
+      "subject": "Remove test file",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "removal"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "708da3f",
+      "fullSha": "708da3f8e79ba45c80bcb7854052096d7f73c270",
+      "author_id": "jacotheron87@gmail.com",
+      "timestamp": "2026-01-18T22:03:07+02:00",
+      "subject": "Test commit to verify push access",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "test-unit"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "6fd38d8",
+      "fullSha": "6fd38d8a2d805eae85f28f305a8ad4926bf0a327",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-18T21:53:16+02:00",
+      "subject": "Initial commit",
+      "body": "",
+      "tags": [
+        "init"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    }
+  ],
+  "contributors": [
+    {
+      "author_id": "devmade.ai@gmail.com",
+      "commits": 77,
+      "avgComplexity": 1.99,
+      "avgUrgency": 1.61,
+      "tagBreakdown": {
+        "merge": 20,
+        "docs": 25,
+        "feature": 14,
+        "config": 21,
+        "refactor": 5,
+        "removal": 2,
+        "bugfix": 6,
+        "ui": 9,
+        "enhancement": 1,
+        "ci": 1,
+        "init": 1
+      },
+      "impactBreakdown": {
+        "internal": 63,
+        "user-facing": 13,
+        "infrastructure": 1,
+        "api": 0
+      },
+      "repos": [
+        "repo-tor"
+      ],
+      "repoCount": 1,
+      "firstCommit": "2026-01-18T21:53:16+02:00",
+      "lastCommit": "2026-01-20T00:16:56+02:00"
+    },
+    {
+      "author_id": "noreply@anthropic.com",
+      "commits": 19,
+      "avgComplexity": 2.63,
+      "avgUrgency": 1.32,
+      "tagBreakdown": {
+        "feature": 6,
+        "ui": 4,
+        "bugfix": 2,
+        "docs": 8,
+        "config": 5,
+        "refactor": 1,
+        "ci": 1,
+        "init": 1
+      },
+      "impactBreakdown": {
+        "internal": 11,
+        "user-facing": 7,
+        "infrastructure": 1,
+        "api": 0
+      },
+      "repos": [
+        "repo-tor"
+      ],
+      "repoCount": 1,
+      "firstCommit": "2026-01-18T20:29:03+00:00",
+      "lastCommit": "2026-01-18T22:53:34+00:00"
+    },
+    {
+      "author_id": "jacotheron87@gmail.com",
+      "commits": 12,
+      "avgComplexity": 2.33,
+      "avgUrgency": 1.17,
+      "tagBreakdown": {
+        "docs": 6,
+        "feature": 2,
+        "refactor": 2,
+        "ui": 1,
+        "bugfix": 1,
+        "ci": 1,
+        "config": 1,
+        "init": 1,
+        "removal": 1,
+        "test-unit": 1
+      },
+      "impactBreakdown": {
+        "internal": 10,
+        "user-facing": 1,
+        "infrastructure": 1,
+        "api": 0
+      },
+      "repos": [
+        "repo-tor"
+      ],
+      "repoCount": 1,
+      "firstCommit": "2026-01-18T22:03:07+02:00",
+      "lastCommit": "2026-01-19T12:24:33+02:00"
+    }
+  ],
+  "summary": {
+    "tagBreakdown": {
+      "merge": 20,
+      "docs": 39,
+      "feature": 22,
+      "config": 27,
+      "refactor": 8,
+      "removal": 3,
+      "bugfix": 9,
+      "ui": 14,
+      "enhancement": 1,
+      "ci": 3,
+      "init": 3,
+      "test-unit": 1
+    },
+    "complexityBreakdown": {
+      "1": 36,
+      "2": 37,
+      "3": 22,
+      "4": 10,
+      "5": 3
+    },
+    "urgencyBreakdown": {
+      "1": 56,
+      "2": 49,
+      "3": 3,
+      "4": 0,
+      "5": 0
+    },
+    "impactBreakdown": {
+      "internal": 84,
+      "user-facing": 21,
+      "infrastructure": 3,
+      "api": 0
+    },
+    "avgComplexity": 2.14,
+    "avgUrgency": 1.51,
+    "monthly": {
+      "2026-01": {
+        "commits": 108,
+        "tags": {
+          "merge": 20,
+          "docs": 39,
+          "feature": 22,
+          "config": 27,
+          "refactor": 8,
+          "removal": 3,
+          "bugfix": 9,
+          "ui": 14,
+          "enhancement": 1,
+          "ci": 3,
+          "init": 3,
+          "test-unit": 1
+        },
+        "impact": {
+          "internal": 84,
+          "user-facing": 21,
+          "infrastructure": 3,
+          "api": 0
+        },
+        "avgComplexity": 2.14,
+        "avgUrgency": 1.51
+      }
+    },
+    "dateRange": {
+      "earliest": "2026-01-18T20:29:03+00:00",
+      "latest": "2026-01-20T00:16:56+02:00"
+    }
+  }
+}

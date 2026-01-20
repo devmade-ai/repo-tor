@@ -2,6 +2,131 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-20
+
+### Dashboard V2 Complete - Detail Pane and Visualizations
+
+Completed the remaining Dashboard V2 features:
+
+**Detail Pane Component:**
+- Slide-out panel from right (30% width on desktop)
+- Bottom sheet variant for mobile (85% viewport height)
+- Click-outside or Escape key to dismiss
+- Smooth CSS transition animations
+- Shows filtered commits with message, author, date, tags, urgency/impact labels
+
+**Click Interactions:**
+- Overview cards → filtered commits (features, fixes, urgency, planned)
+- Health cards → filtered commits (security, reactive, weekend, after-hours)
+- Urgency distribution bars → commits by urgency level
+- Impact distribution bars → commits by impact category
+- Tag breakdown bars → commits with that tag
+- Contributor cards → contributor's commits
+- Urgency/Impact by contributor → contributor's commits
+
+**New Visualizations Added:**
+- Urgency Trend chart (line chart by month, lower is better)
+- Impact Over Time chart (stacked bar chart by month)
+- Urgency by Contributor (stacked bars showing planned/normal/reactive)
+- Impact by Contributor (stacked bars showing user-facing/internal/infra/api)
+
+**Dark Mode Support:**
+- Added renderHealth() to dark mode re-render list
+- New charts and detail pane respect dark mode
+
+**Files updated:**
+- `dashboard/index.html` - Detail pane, trend charts, contributor visualizations
+- `docs/SESSION_NOTES.md` - Updated with completion status
+- `docs/TODO.md` - Marked priorities 2 and 3 as complete
+
+---
+
+### Dashboard V2 Implementation Progress
+
+Implemented core Dashboard V2 features:
+
+**Aggregation Script:**
+- Created `scripts/aggregate-processed.js` to read from processed/ data
+- Outputs `dashboard/data.json` (overall) and `dashboard/repos/*.json` (per-repo)
+- Includes urgency and impact breakdowns in aggregations
+- Same schema for both overall and per-repo views
+
+**Dashboard Structure:**
+- Reorganized from 7 tabs to 4 tabs (Overview, Activity, Work, Health)
+- Implemented TAB_MAPPING to show multiple content containers per tab
+- No breaking changes - existing render functions continue to work
+
+**New Visualizations:**
+- Health tab: Security count, Reactive %, Weekend %, After Hours % cards
+- Health tab: Urgency Distribution (Planned/Normal/Reactive bars)
+- Health tab: Impact Distribution (user-facing/internal/infra/api bars)
+- Overview tab: Avg Urgency card with trend indicator
+- Overview tab: % Planned card (urgency 1-2 ratio)
+
+**Files created:**
+- `scripts/aggregate-processed.js` - New aggregation script
+- `dashboard/repos/*.json` - Per-repo aggregated data
+
+**Files updated:**
+- `dashboard/index.html` - V2 tab structure and visualizations
+- `dashboard/data.json` - Regenerated with urgency/impact data
+- `docs/SESSION_NOTES.md` - Current progress
+- `docs/TODO.md` - Updated completion status
+
+**Remaining:**
+- Detail pane component
+- Click interactions for drill-down
+- More visualizations (urgency trend, impact by contributor)
+
+---
+
+### Dashboard V2 Design Complete
+
+Conducted reporting discovery session and designed new dashboard architecture.
+
+**Process followed:**
+1. Reviewed processed data to understand new dimensions (urgency, impact)
+2. Referenced original [Discovery Session](DISCOVERY_SESSION.md) for user flows
+3. Evaluated 5 design options for dashboard organization
+4. Selected hybrid approach: Logical Groupings + Contextual Detail Pane
+
+**Design decisions:**
+
+| Decision | Rationale |
+|----------|-----------|
+| 4 tabs (down from 7) | Clearer mental model, less cognitive load |
+| Detail pane (not navigation) | Preserves context while drilling down |
+| Same schema for overall + per-repo | Enables consistent views at both levels |
+| Urgency in Health tab | Operational health is a "health" concern |
+| Impact in Work + Overview | Shows where effort goes |
+
+**New dashboard structure:**
+- **Overview** - Executive landing (quick scan in 10 seconds)
+- **Activity** - When work happens (timeline + timing combined)
+- **Work** - What's being done (progress + tags + contributors)
+- **Health** - Operational concerns (security + urgency)
+
+**New visualizations planned:**
+- Urgency Distribution (planned vs reactive)
+- Urgency Trend (operational health over time)
+- Urgency by Contributor (who handles emergencies)
+- Impact Allocation (where effort goes)
+- Impact Over Time (shifting priorities)
+- Impact by Contributor (who works on what)
+
+**Key requirement identified:**
+Aggregation must read from `processed/` (AI-tagged data) not `reports/` (raw data).
+Output same schema for overall and per-repo views.
+
+**Files created:**
+- `docs/DASHBOARD_V2_DESIGN.md` - Full design specification
+
+**Files updated:**
+- `docs/SESSION_NOTES.md` - Current state and next actions
+- `docs/TODO.md` - Reorganized for V2 implementation
+
+---
+
 ### Manifest-Based Incremental Processing
 
 Implemented SHA-based tracking for reliable incremental processing ("feed the chicken"):

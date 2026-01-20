@@ -363,6 +363,157 @@
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
+
+        /* Detail Pane - Slide-out panel for drill-down */
+        .detail-pane-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 998;
+        }
+        .detail-pane-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .dark .detail-pane-overlay {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .detail-pane {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 480px;
+            height: 100%;
+            background: var(--bg-secondary);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .detail-pane.open {
+            transform: translateX(0);
+        }
+        .dark .detail-pane {
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .detail-pane-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .detail-pane-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .detail-pane-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            margin-top: 0.25rem;
+        }
+        .detail-pane-close {
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+            background: transparent;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .detail-pane-close:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .detail-pane-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .detail-pane-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+        }
+
+        /* Detail pane commit list */
+        .detail-commit {
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-light);
+            margin-bottom: 0.75rem;
+            transition: background 0.15s;
+        }
+        .detail-commit:hover {
+            background: var(--bg-tertiary);
+        }
+        .detail-commit-message {
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .detail-commit-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+        .detail-commit-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Mobile: Bottom sheet variant */
+        @media (max-width: 640px) {
+            .detail-pane {
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-width: none;
+                height: 85vh;
+                max-height: 85vh;
+                border-radius: 1rem 1rem 0 0;
+                transform: translateY(100%);
+            }
+            .detail-pane.open {
+                transform: translateY(0);
+            }
+            .detail-pane-header {
+                padding: 0.75rem 1rem;
+            }
+            .detail-pane-header::before {
+                content: '';
+                position: absolute;
+                top: 0.5rem;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 2rem;
+                height: 0.25rem;
+                background: var(--border-color);
+                border-radius: 0.125rem;
+            }
+            .detail-pane-content {
+                padding: 1rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -447,19 +598,16 @@
                 </div>
             </div>
 
-            <!-- Navigation Tabs -->
+            <!-- Navigation Tabs (V2: 4 grouped tabs) -->
             <div class="flex border-b border-gray-200 mb-6 overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600 whitespace-nowrap" data-tab="summary">Summary</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="timeline">Timeline</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="progress">Progress</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="contributors">Contributors</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="security">Security</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="tags">By Tag</button>
-                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="timing">Timing</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600 whitespace-nowrap" data-tab="overview">Overview</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="activity">Activity</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="work">Work</button>
+                <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 whitespace-nowrap" data-tab="health">Health</button>
             </div>
 
             <!-- Tab Content -->
-            <div id="tab-summary" class="tab-content">
+            <div id="tab-overview" class="tab-content">
                 <!-- Period Selector -->
                 <div class="card mb-6">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -480,25 +628,25 @@
 
                 <!-- Quick Stats with Trends -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div class="card">
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-summary-card="features">
                         <p class="text-sm text-gray-500 uppercase tracking-wide">Features Built</p>
                         <p class="text-3xl font-bold text-green-600" id="summary-features">0</p>
                         <p class="text-sm mt-1" id="summary-features-trend"></p>
                     </div>
-                    <div class="card">
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-summary-card="fixes">
                         <p class="text-sm text-gray-500 uppercase tracking-wide">Bugs Fixed</p>
                         <p class="text-3xl font-bold text-amber-600" id="summary-fixes">0</p>
                         <p class="text-sm mt-1" id="summary-fixes-trend"></p>
                     </div>
-                    <div class="card">
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Avg Complexity</p>
-                        <p class="text-3xl font-bold text-gray-900" id="summary-complexity">-</p>
-                        <p class="text-sm mt-1" id="summary-complexity-trend"></p>
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-summary-card="urgency">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Avg Urgency</p>
+                        <p class="text-3xl font-bold text-gray-900" id="summary-urgency">-</p>
+                        <p class="text-sm mt-1" id="summary-urgency-trend"></p>
                     </div>
-                    <div class="card">
-                        <p class="text-sm text-gray-500 uppercase tracking-wide">Files Touched</p>
-                        <p class="text-3xl font-bold text-gray-900" id="summary-files">0</p>
-                        <p class="text-sm mt-1" id="summary-files-trend"></p>
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-summary-card="planned">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">% Planned</p>
+                        <p class="text-3xl font-bold text-green-600" id="summary-planned">0%</p>
+                        <p class="text-sm mt-1" id="summary-planned-trend"></p>
                     </div>
                 </div>
 
@@ -524,7 +672,7 @@
                 </div>
             </div>
 
-            <div id="tab-timeline" class="tab-content hidden">
+            <div id="tab-activity" class="tab-content hidden">
                 <!-- Filters -->
                 <div class="card mb-6">
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-wrap items-end gap-3 lg:gap-4">
@@ -621,10 +769,80 @@
             </div>
 
             <div id="tab-security" class="tab-content hidden">
-                <div class="card mb-6">
+                <!-- Operational Health Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-health-card="security">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Security</p>
+                        <p class="text-3xl font-bold text-red-600" id="health-security-count">0</p>
+                        <p class="text-xs text-gray-400">security commits</p>
+                    </div>
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-health-card="reactive">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Reactive</p>
+                        <p class="text-3xl font-bold text-amber-600" id="health-reactive-pct">0%</p>
+                        <p class="text-xs text-gray-400">urgency 4-5</p>
+                    </div>
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-health-card="weekend">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">Weekend</p>
+                        <p class="text-3xl font-bold text-indigo-600" id="health-weekend-pct">0%</p>
+                        <p class="text-xs text-gray-400">Sat/Sun commits</p>
+                    </div>
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-health-card="afterhours">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide">After Hours</p>
+                        <p class="text-3xl font-bold text-purple-600" id="health-afterhours-pct">0%</p>
+                        <p class="text-xs text-gray-400">outside work hours</p>
+                    </div>
+                </div>
+
+                <!-- Urgency Distribution -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Urgency Distribution</h2>
+                        <p class="text-xs text-gray-500 -mt-2 mb-4">Planned (1-2) vs Normal (3) vs Reactive (4-5)</p>
+                        <div id="urgency-breakdown" class="space-y-3"></div>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Impact Distribution</h2>
+                        <p class="text-xs text-gray-500 -mt-2 mb-4">Where effort is directed</p>
+                        <div id="impact-breakdown" class="space-y-3"></div>
+                    </div>
+                </div>
+
+                <!-- Trend Charts -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Urgency Trend</h2>
+                        <p class="text-xs text-gray-500 -mt-2 mb-4">Average urgency by month (lower is better)</p>
+                        <div class="h-48">
+                            <canvas id="urgency-trend-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Impact Over Time</h2>
+                        <p class="text-xs text-gray-500 -mt-2 mb-4">Distribution of impact categories by month</p>
+                        <div class="h-48">
+                            <canvas id="impact-trend-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contributor Health -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Urgency by Contributor</h2>
+                        <p class="text-xs text-gray-500 -mt-2 mb-4">Who handles reactive vs planned work</p>
+                        <div id="urgency-by-contributor" class="space-y-3"></div>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-lg font-semibold mb-4">Impact by Contributor</h2>
+                        <p class="text-xs text-gray-500 -mt-2 mb-4">Where each person's effort goes</p>
+                        <div id="impact-by-contributor" class="space-y-3"></div>
+                    </div>
+                </div>
+
+                <!-- Security Commits -->
+                <div class="card">
                     <h2 class="text-lg font-semibold mb-4">Security-Related Commits</h2>
                     <p class="text-sm text-gray-500 mb-4">Commits tagged with security, or containing security-related keywords</p>
-                    <div id="security-count" class="text-4xl font-bold text-red-600 mb-4">0</div>
                     <div id="security-list" class="space-y-3"></div>
                 </div>
             </div>
@@ -740,7 +958,31 @@
                 </div>
             </div>
         </div>
+
+        <!-- Detail Pane (slide-out panel for drill-down) -->
+        <div id="detail-overlay" class="detail-pane-overlay"></div>
+        <div id="detail-pane" class="detail-pane">
+            <div class="detail-pane-header">
+                <div>
+                    <div class="detail-pane-title" id="detail-title">Details</div>
+                    <div class="detail-pane-subtitle" id="detail-subtitle"></div>
+                </div>
+                <button class="detail-pane-close" id="detail-close" title="Close panel">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="detail-pane-content" id="detail-content">
+                <div class="detail-pane-loading">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
 
     <script>
         // === Global State ===
@@ -760,6 +1002,107 @@
         let isSanitized = false;
         const anonymousNames = ['Developer A', 'Developer B', 'Developer C', 'Developer D', 'Developer E', 'Developer F', 'Developer G', 'Developer H'];
         const authorAnonMap = new Map();
+        let detailPaneOpen = false;
+
+        // === Detail Pane Functions ===
+        function openDetailPane(title, subtitle, commits) {
+            const overlay = document.getElementById('detail-overlay');
+            const pane = document.getElementById('detail-pane');
+            const titleEl = document.getElementById('detail-title');
+            const subtitleEl = document.getElementById('detail-subtitle');
+            const contentEl = document.getElementById('detail-content');
+
+            titleEl.textContent = title;
+            subtitleEl.textContent = subtitle || '';
+
+            // Render commits in the detail pane
+            if (commits && commits.length > 0) {
+                contentEl.innerHTML = commits.map(commit => renderDetailCommit(commit)).join('');
+            } else {
+                contentEl.innerHTML = '<p class="text-gray-500 text-center py-8">No commits found</p>';
+            }
+
+            overlay.classList.add('open');
+            pane.classList.add('open');
+            detailPaneOpen = true;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDetailPane() {
+            const overlay = document.getElementById('detail-overlay');
+            const pane = document.getElementById('detail-pane');
+
+            overlay.classList.remove('open');
+            pane.classList.remove('open');
+            detailPaneOpen = false;
+            document.body.style.overflow = '';
+        }
+
+        function renderDetailCommit(commit) {
+            const tags = getCommitTags(commit);
+            const email = getAuthorEmail(commit);
+            const authorName = sanitizeName(getAuthorName(commit), email);
+            const message = sanitizeMessage(commit.message);
+            const date = new Date(commit.timestamp).toLocaleDateString('en-US', {
+                month: 'short', day: 'numeric', year: 'numeric'
+            });
+
+            const tagsHtml = tags.map(tag =>
+                `<span class="tag tag-${tag}">${tag}</span>`
+            ).join('');
+
+            const urgencyLabel = commit.urgency ? getUrgencyLabel(commit.urgency) : '';
+            const impactLabel = commit.impact ? commit.impact : '';
+
+            return `
+                <div class="detail-commit">
+                    <div class="detail-commit-message">${escapeHtml(message)}</div>
+                    <div class="detail-commit-meta">
+                        <span>${authorName}</span>
+                        <span>•</span>
+                        <span>${date}</span>
+                        ${commit.repo_id ? `<span>•</span><span>${commit.repo_id}</span>` : ''}
+                        ${urgencyLabel ? `<span>•</span><span class="text-amber-600">${urgencyLabel}</span>` : ''}
+                        ${impactLabel ? `<span>•</span><span class="text-blue-600">${impactLabel}</span>` : ''}
+                    </div>
+                    ${tags.length > 0 ? `<div class="detail-commit-tags">${tagsHtml}</div>` : ''}
+                </div>
+            `;
+        }
+
+        function getUrgencyLabel(urgency) {
+            if (urgency <= 2) return 'Planned';
+            if (urgency === 3) return 'Normal';
+            return 'Reactive';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initialize detail pane event listeners
+        function initDetailPane() {
+            const overlay = document.getElementById('detail-overlay');
+            const closeBtn = document.getElementById('detail-close');
+
+            overlay.addEventListener('click', closeDetailPane);
+            closeBtn.addEventListener('click', closeDetailPane);
+
+            // Close on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && detailPaneOpen) {
+                    closeDetailPane();
+                }
+            });
+        }
+
+        // Helper to filter commits by criteria and open detail pane
+        function showCommitsInPane(title, subtitle, filterFn) {
+            const commits = data.commits.filter(filterFn);
+            openDetailPane(title, subtitle, commits);
+        }
 
         // === Dark Mode ===
         function initDarkMode() {
@@ -794,6 +1137,7 @@
                 renderTags();
                 renderTiming();
                 renderSummary();
+                renderHealth();
             }
         }
 
@@ -1180,7 +1524,7 @@
                 useUTC,
                 workHourStart,
                 workHourEnd,
-                activeTab: document.querySelector('.tab-btn.border-blue-500')?.dataset.tab || 'summary'
+                activeTab: document.querySelector('.tab-btn.border-blue-500')?.dataset.tab || 'overview'
             };
             localStorage.setItem('dashboardState', JSON.stringify(state));
         }
@@ -1286,6 +1630,7 @@
             renderProgress();
             renderContributors();
             renderSecurity();
+            renderHealth();
             renderTags();
             renderTiming();
             setupSummaryPeriodToggle();
@@ -1589,13 +1934,23 @@
                         </div>`;
                     }).join('');
                 return `
-                    <div class="p-3 bg-gray-50 rounded-lg">
-                        <p class="font-medium text-gray-900 mb-2">${escapeHtml(c.name)}</p>
+                    <div class="p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors" data-contributor-email="${escapeHtml(c.email)}">
+                        <p class="font-medium text-gray-900 mb-2">${escapeHtml(sanitizeName(c.name, c.email))}</p>
                         <div class="space-y-1">${tagBars}</div>
                     </div>
                 `;
             }).join('');
             document.getElementById('contributor-work-types').innerHTML = workTypesHtml || '<p class="text-gray-500">No contributor data</p>';
+
+            // Add click handlers for contributor cards
+            document.querySelectorAll('[data-contributor-email]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const email = el.dataset.contributorEmail;
+                    const commits = data.commits.filter(c => getAuthorEmail(c) === email);
+                    const name = commits.length > 0 ? sanitizeName(getAuthorName(commits[0]), email) : 'Unknown';
+                    openDetailPane(`${name}'s Commits`, `${commits.length} commits`, commits);
+                });
+            });
 
             // Complexity by Contributor chart
             const top8 = sorted.slice(0, 8);
@@ -1665,6 +2020,357 @@
             document.getElementById('security-list').innerHTML = listHtml;
         }
 
+        // === Health Tab (Urgency & Impact) ===
+        function renderHealth() {
+            const commits = data.commits;
+            const total = commits.length;
+
+            // Security count
+            const securityCount = commits.filter(c =>
+                c.type === 'security' || (c.tags || []).includes('security')
+            ).length;
+            document.getElementById('health-security-count').textContent = securityCount;
+
+            // Reactive percentage (urgency 4-5)
+            const reactiveCount = commits.filter(c => c.urgency >= 4).length;
+            const reactivePct = total > 0 ? Math.round((reactiveCount / total) * 100) : 0;
+            document.getElementById('health-reactive-pct').textContent = `${reactivePct}%`;
+
+            // Weekend percentage
+            const weekendCount = commits.filter(c => {
+                if (!c.timestamp) return false;
+                const date = new Date(c.timestamp);
+                const day = date.getDay();
+                return day === 0 || day === 6;
+            }).length;
+            const weekendPct = total > 0 ? Math.round((weekendCount / total) * 100) : 0;
+            document.getElementById('health-weekend-pct').textContent = `${weekendPct}%`;
+
+            // After hours percentage
+            const afterHoursCount = commits.filter(c => {
+                if (!c.timestamp) return false;
+                const date = new Date(c.timestamp);
+                const hour = date.getHours();
+                return hour < workHourStart || hour >= workHourEnd;
+            }).length;
+            const afterHoursPct = total > 0 ? Math.round((afterHoursCount / total) * 100) : 0;
+            document.getElementById('health-afterhours-pct').textContent = `${afterHoursPct}%`;
+
+            // Urgency breakdown
+            const urgencyBreakdown = { planned: 0, normal: 0, reactive: 0 };
+            commits.forEach(c => {
+                if (c.urgency <= 2) urgencyBreakdown.planned++;
+                else if (c.urgency === 3) urgencyBreakdown.normal++;
+                else if (c.urgency >= 4) urgencyBreakdown.reactive++;
+            });
+
+            const urgencyHtml = [
+                { label: 'Planned (1-2)', count: urgencyBreakdown.planned, color: 'bg-green-500', filter: 'planned' },
+                { label: 'Normal (3)', count: urgencyBreakdown.normal, color: 'bg-blue-500', filter: 'normal' },
+                { label: 'Reactive (4-5)', count: urgencyBreakdown.reactive, color: 'bg-amber-500', filter: 'reactive' }
+            ].map(({ label, count, color, filter }) => {
+                const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+                return `
+                    <div class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors" data-urgency-filter="${filter}">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-600">${label}</span>
+                            <span class="text-gray-900 font-medium">${count} (${pct}%)</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="${color} h-2 rounded-full" style="width: ${pct}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('urgency-breakdown').innerHTML = urgencyHtml;
+
+            // Add click handlers for urgency bars
+            document.querySelectorAll('[data-urgency-filter]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const filter = el.dataset.urgencyFilter;
+                    let filterFn, title;
+                    if (filter === 'planned') {
+                        filterFn = c => c.urgency <= 2;
+                        title = 'Planned Work (Urgency 1-2)';
+                    } else if (filter === 'normal') {
+                        filterFn = c => c.urgency === 3;
+                        title = 'Normal Work (Urgency 3)';
+                    } else {
+                        filterFn = c => c.urgency >= 4;
+                        title = 'Reactive Work (Urgency 4-5)';
+                    }
+                    const commits = data.commits.filter(filterFn);
+                    openDetailPane(title, `${commits.length} commits`, commits);
+                });
+            });
+
+            // Impact breakdown
+            const impactBreakdown = { 'user-facing': 0, 'internal': 0, 'infrastructure': 0, 'api': 0 };
+            commits.forEach(c => {
+                if (c.impact && impactBreakdown.hasOwnProperty(c.impact)) {
+                    impactBreakdown[c.impact]++;
+                }
+            });
+
+            const impactLabels = {
+                'user-facing': { label: 'User-Facing', color: 'bg-blue-500' },
+                'internal': { label: 'Internal', color: 'bg-gray-500' },
+                'infrastructure': { label: 'Infrastructure', color: 'bg-purple-500' },
+                'api': { label: 'API', color: 'bg-green-500' }
+            };
+
+            const impactHtml = Object.entries(impactBreakdown)
+                .sort((a, b) => b[1] - a[1])
+                .map(([key, count]) => {
+                    const { label, color } = impactLabels[key] || { label: key, color: 'bg-gray-400' };
+                    const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+                    return `
+                        <div class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors" data-impact-filter="${key}">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600">${label}</span>
+                                <span class="text-gray-900 font-medium">${count} (${pct}%)</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="${color} h-2 rounded-full" style="width: ${pct}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            document.getElementById('impact-breakdown').innerHTML = impactHtml;
+
+            // Add click handlers for impact bars
+            document.querySelectorAll('[data-impact-filter]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const impact = el.dataset.impactFilter;
+                    const label = impactLabels[impact]?.label || impact;
+                    const commits = data.commits.filter(c => c.impact === impact);
+                    openDetailPane(`${label} Impact`, `${commits.length} commits`, commits);
+                });
+            });
+
+            // Urgency Trend Chart (line chart by month)
+            const monthlyUrgency = {};
+            commits.forEach(c => {
+                if (!c.timestamp || !c.urgency) return;
+                const month = c.timestamp.substring(0, 7);
+                if (!monthlyUrgency[month]) {
+                    monthlyUrgency[month] = { sum: 0, count: 0 };
+                }
+                monthlyUrgency[month].sum += c.urgency;
+                monthlyUrgency[month].count++;
+            });
+
+            const sortedMonths = Object.keys(monthlyUrgency).sort();
+            const urgencyData = sortedMonths.map(m =>
+                Math.round((monthlyUrgency[m].sum / monthlyUrgency[m].count) * 100) / 100
+            );
+
+            if (charts.urgencyTrend) charts.urgencyTrend.destroy();
+            charts.urgencyTrend = new Chart(document.getElementById('urgency-trend-chart'), {
+                type: 'line',
+                data: {
+                    labels: sortedMonths.map(m => {
+                        const [year, month] = m.split('-');
+                        return new Date(year, month - 1).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+                    }),
+                    datasets: [{
+                        label: 'Avg Urgency',
+                        data: urgencyData,
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { min: 1, max: 5, ticks: { stepSize: 1 } }
+                    }
+                }
+            });
+
+            // Impact Over Time Chart (stacked bar)
+            const monthlyImpact = {};
+            commits.forEach(c => {
+                if (!c.timestamp || !c.impact) return;
+                const month = c.timestamp.substring(0, 7);
+                if (!monthlyImpact[month]) {
+                    monthlyImpact[month] = { 'user-facing': 0, 'internal': 0, 'infrastructure': 0, 'api': 0 };
+                }
+                if (monthlyImpact[month].hasOwnProperty(c.impact)) {
+                    monthlyImpact[month][c.impact]++;
+                }
+            });
+
+            const impactColors = {
+                'user-facing': '#3b82f6',
+                'internal': '#6b7280',
+                'infrastructure': '#8b5cf6',
+                'api': '#10b981'
+            };
+
+            if (charts.impactTrend) charts.impactTrend.destroy();
+            charts.impactTrend = new Chart(document.getElementById('impact-trend-chart'), {
+                type: 'bar',
+                data: {
+                    labels: sortedMonths.map(m => {
+                        const [year, month] = m.split('-');
+                        return new Date(year, month - 1).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+                    }),
+                    datasets: ['user-facing', 'internal', 'infrastructure', 'api'].map(impact => ({
+                        label: impact,
+                        data: sortedMonths.map(m => monthlyImpact[m]?.[impact] || 0),
+                        backgroundColor: impactColors[impact]
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } },
+                    scales: { x: { stacked: true }, y: { stacked: true } }
+                }
+            });
+
+            // Urgency by Contributor
+            const contributorUrgency = {};
+            commits.forEach(c => {
+                const email = getAuthorEmail(c);
+                const name = getAuthorName(c);
+                if (!contributorUrgency[email]) {
+                    contributorUrgency[email] = { name, email, planned: 0, normal: 0, reactive: 0, total: 0 };
+                }
+                contributorUrgency[email].total++;
+                if (c.urgency <= 2) contributorUrgency[email].planned++;
+                else if (c.urgency === 3) contributorUrgency[email].normal++;
+                else if (c.urgency >= 4) contributorUrgency[email].reactive++;
+            });
+
+            const sortedContributors = Object.values(contributorUrgency)
+                .sort((a, b) => b.total - a.total)
+                .slice(0, 6);
+
+            const urgencyByContributorHtml = sortedContributors.map(c => {
+                const plannedPct = Math.round((c.planned / c.total) * 100);
+                const normalPct = Math.round((c.normal / c.total) * 100);
+                const reactivePct = Math.round((c.reactive / c.total) * 100);
+                return `
+                    <div class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors" data-contributor-urgency="${escapeHtml(c.email)}">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-700 font-medium">${escapeHtml(sanitizeName(c.name, c.email))}</span>
+                            <span class="text-gray-500">${c.total} commits</span>
+                        </div>
+                        <div class="w-full h-2 rounded-full flex overflow-hidden">
+                            <div class="bg-green-500 h-full" style="width: ${plannedPct}%" title="Planned: ${c.planned}"></div>
+                            <div class="bg-blue-500 h-full" style="width: ${normalPct}%" title="Normal: ${c.normal}"></div>
+                            <div class="bg-amber-500 h-full" style="width: ${reactivePct}%" title="Reactive: ${c.reactive}"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('urgency-by-contributor').innerHTML = urgencyByContributorHtml || '<p class="text-gray-500 text-sm">No data</p>';
+
+            // Click handlers for urgency by contributor
+            document.querySelectorAll('[data-contributor-urgency]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const email = el.dataset.contributorUrgency;
+                    const commits = data.commits.filter(c => getAuthorEmail(c) === email);
+                    const name = commits.length > 0 ? sanitizeName(getAuthorName(commits[0]), email) : 'Unknown';
+                    openDetailPane(`${name}'s Commits`, `${commits.length} commits`, commits);
+                });
+            });
+
+            // Impact by Contributor
+            const contributorImpact = {};
+            commits.forEach(c => {
+                const email = getAuthorEmail(c);
+                const name = getAuthorName(c);
+                if (!contributorImpact[email]) {
+                    contributorImpact[email] = { name, email, 'user-facing': 0, 'internal': 0, 'infrastructure': 0, 'api': 0, total: 0 };
+                }
+                contributorImpact[email].total++;
+                if (c.impact && contributorImpact[email].hasOwnProperty(c.impact)) {
+                    contributorImpact[email][c.impact]++;
+                }
+            });
+
+            const sortedContributorsImpact = Object.values(contributorImpact)
+                .sort((a, b) => b.total - a.total)
+                .slice(0, 6);
+
+            const impactByContributorHtml = sortedContributorsImpact.map(c => {
+                const userPct = Math.round((c['user-facing'] / c.total) * 100);
+                const internalPct = Math.round((c['internal'] / c.total) * 100);
+                const infraPct = Math.round((c['infrastructure'] / c.total) * 100);
+                const apiPct = Math.round((c['api'] / c.total) * 100);
+                return `
+                    <div class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors" data-contributor-impact="${escapeHtml(c.email)}">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-700 font-medium">${escapeHtml(sanitizeName(c.name, c.email))}</span>
+                            <span class="text-gray-500">${c.total} commits</span>
+                        </div>
+                        <div class="w-full h-2 rounded-full flex overflow-hidden">
+                            <div class="bg-blue-500 h-full" style="width: ${userPct}%" title="User-facing: ${c['user-facing']}"></div>
+                            <div class="bg-gray-500 h-full" style="width: ${internalPct}%" title="Internal: ${c['internal']}"></div>
+                            <div class="bg-purple-500 h-full" style="width: ${infraPct}%" title="Infrastructure: ${c['infrastructure']}"></div>
+                            <div class="bg-green-500 h-full" style="width: ${apiPct}%" title="API: ${c['api']}"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            document.getElementById('impact-by-contributor').innerHTML = impactByContributorHtml || '<p class="text-gray-500 text-sm">No data</p>';
+
+            // Click handlers for impact by contributor
+            document.querySelectorAll('[data-contributor-impact]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const email = el.dataset.contributorImpact;
+                    const commits = data.commits.filter(c => getAuthorEmail(c) === email);
+                    const name = commits.length > 0 ? sanitizeName(getAuthorName(commits[0]), email) : 'Unknown';
+                    openDetailPane(`${name}'s Commits`, `${commits.length} commits`, commits);
+                });
+            });
+
+            // Add click handlers for health cards
+            document.querySelectorAll('[data-health-card]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const cardType = el.dataset.healthCard;
+                    let filteredCommits, title;
+
+                    if (cardType === 'security') {
+                        filteredCommits = commits.filter(c =>
+                            c.type === 'security' || (c.tags || []).includes('security')
+                        );
+                        title = 'Security Commits';
+                    } else if (cardType === 'reactive') {
+                        filteredCommits = commits.filter(c => c.urgency >= 4);
+                        title = 'Reactive Work (Urgency 4-5)';
+                    } else if (cardType === 'weekend') {
+                        filteredCommits = commits.filter(c => {
+                            if (!c.timestamp) return false;
+                            const date = new Date(c.timestamp);
+                            const day = date.getDay();
+                            return day === 0 || day === 6;
+                        });
+                        title = 'Weekend Commits';
+                    } else if (cardType === 'afterhours') {
+                        filteredCommits = commits.filter(c => {
+                            if (!c.timestamp) return false;
+                            const date = new Date(c.timestamp);
+                            const hour = date.getHours();
+                            return hour < workHourStart || hour >= workHourEnd;
+                        });
+                        title = 'After Hours Commits';
+                    }
+
+                    if (filteredCommits) {
+                        openDetailPane(title, `${filteredCommits.length} commits`, filteredCommits);
+                    }
+                });
+            });
+        }
+
         // === Tags Tab ===
         function renderTags() {
             // Build tag breakdown from commits (counting each tag occurrence)
@@ -1707,7 +2413,7 @@
             });
 
             const breakdownHtml = sortedTags.map(({ tag, count }) => `
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors" data-tag-filter="${tag}">
                     <span class="tag ${getTagClass(tag)}">${tag}</span>
                     <div class="flex-1 bg-gray-200 rounded-full h-2">
                         <div class="h-2 rounded-full" style="width: ${(count / total * 100).toFixed(1)}%; background-color: ${getTagColor(tag)}"></div>
@@ -1716,6 +2422,15 @@
                 </div>
             `).join('');
             document.getElementById('tag-breakdown').innerHTML = breakdownHtml;
+
+            // Add click handlers for tag bars
+            document.querySelectorAll('[data-tag-filter]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const tag = el.dataset.tagFilter;
+                    const commits = data.commits.filter(c => (c.tags || []).includes(tag));
+                    openDetailPane(`${tag} Commits`, `${commits.length} commits`, commits);
+                });
+            });
         }
 
         // === Timing Tab ===
@@ -2100,26 +2815,25 @@
             const currentFixes = countTag(currentCommits, 'bugfix');
             const previousFixes = countTag(previousCommits, 'bugfix');
 
-            // Complexity metrics
-            const getAvgComplexity = (commits) => {
-                const complexities = commits.map(c => c.complexity).filter(c => c != null);
-                return complexities.length > 0
-                    ? (complexities.reduce((a, b) => a + b, 0) / complexities.length)
+            // Urgency metrics
+            const getAvgUrgency = (commits) => {
+                const urgencies = commits.map(c => c.urgency).filter(u => u != null && u >= 1 && u <= 5);
+                return urgencies.length > 0
+                    ? (urgencies.reduce((a, b) => a + b, 0) / urgencies.length)
                     : 0;
             };
-            const currentComplexity = getAvgComplexity(currentCommits);
-            const previousComplexity = getAvgComplexity(previousCommits);
+            const currentUrgency = getAvgUrgency(currentCommits);
+            const previousUrgency = getAvgUrgency(previousCommits);
 
-            // Files touched
-            const getFilesCount = (commits) => {
-                const files = new Set();
-                commits.forEach(c => {
-                    if (c.files) c.files.forEach(f => files.add(f.path || f));
-                });
-                return files.size;
+            // Planned percentage (urgency 1-2)
+            const getPlannedPct = (commits) => {
+                const withUrgency = commits.filter(c => c.urgency != null && c.urgency >= 1 && c.urgency <= 5);
+                if (withUrgency.length === 0) return 0;
+                const planned = withUrgency.filter(c => c.urgency <= 2).length;
+                return Math.round((planned / withUrgency.length) * 100);
             };
-            const currentFiles = getFilesCount(currentCommits);
-            const previousFiles = getFilesCount(previousCommits);
+            const currentPlanned = getPlannedPct(currentCommits);
+            const previousPlanned = getPlannedPct(previousCommits);
 
             // Update stats - focus on what matters
             document.getElementById('summary-features').textContent = currentFeatures;
@@ -2128,13 +2842,15 @@
             document.getElementById('summary-fixes').textContent = currentFixes;
             document.getElementById('summary-fixes-trend').innerHTML = getTrendHtml(currentFixes, previousFixes, periodLabel);
 
-            document.getElementById('summary-complexity').textContent = currentComplexity > 0 ? currentComplexity.toFixed(1) : '-';
-            document.getElementById('summary-complexity-trend').innerHTML = currentComplexity > 0
-                ? getTrendHtml(Math.round(currentComplexity * 10), Math.round(previousComplexity * 10), periodLabel)
+            document.getElementById('summary-urgency').textContent = currentUrgency > 0 ? currentUrgency.toFixed(1) : '-';
+            document.getElementById('summary-urgency-trend').innerHTML = currentUrgency > 0
+                ? getTrendHtml(Math.round(previousUrgency * 10), Math.round(currentUrgency * 10), periodLabel, true) // Inverted: lower is better
                 : '<span class="text-gray-400">No data</span>';
 
-            document.getElementById('summary-files').textContent = currentFiles;
-            document.getElementById('summary-files-trend').innerHTML = getTrendHtml(currentFiles, previousFiles, periodLabel);
+            document.getElementById('summary-planned').textContent = currentPlanned > 0 ? `${currentPlanned}%` : '-';
+            document.getElementById('summary-planned-trend').innerHTML = currentPlanned > 0
+                ? getTrendHtml(currentPlanned, previousPlanned, periodLabel) // Higher is better
+                : '<span class="text-gray-400">No data</span>';
 
             // Work breakdown chart
             const tagCounts = {};
@@ -2252,6 +2968,32 @@
                     <p class="text-xs text-gray-500">Complex</p>
                 </div>
             `;
+
+            // Add click handlers for summary cards
+            document.querySelectorAll('[data-summary-card]').forEach(el => {
+                el.addEventListener('click', () => {
+                    const cardType = el.dataset.summaryCard;
+                    let filteredCommits, title;
+
+                    if (cardType === 'features') {
+                        filteredCommits = currentCommits.filter(c => (c.tags || []).includes('feature'));
+                        title = 'Feature Commits';
+                    } else if (cardType === 'fixes') {
+                        filteredCommits = currentCommits.filter(c => (c.tags || []).includes('bugfix'));
+                        title = 'Bug Fix Commits';
+                    } else if (cardType === 'urgency') {
+                        filteredCommits = currentCommits.filter(c => c.urgency >= 4);
+                        title = 'Reactive Commits (Urgency 4-5)';
+                    } else if (cardType === 'planned') {
+                        filteredCommits = currentCommits.filter(c => c.urgency <= 2);
+                        title = 'Planned Work (Urgency 1-2)';
+                    }
+
+                    if (filteredCommits) {
+                        openDetailPane(title, `${filteredCommits.length} commits in this period`, filteredCommits);
+                    }
+                });
+            });
         }
 
         function setupSummaryPeriodToggle() {
@@ -2262,7 +3004,15 @@
             });
         }
 
-        // === Tab Navigation ===
+        // === Tab Navigation (V2: 4 grouped tabs) ===
+        // Map new tabs to the content containers they should show
+        const TAB_MAPPING = {
+            'overview': ['tab-overview'],
+            'activity': ['tab-activity', 'tab-timing'],
+            'work': ['tab-progress', 'tab-tags', 'tab-contributors'],
+            'health': ['tab-security']
+        };
+
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 // Update button styles
@@ -2273,9 +3023,13 @@
                 btn.classList.remove('border-transparent', 'text-gray-500');
                 btn.classList.add('border-blue-500', 'text-blue-600');
 
-                // Show/hide tabs
+                // Show/hide tabs based on mapping
                 document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
-                document.getElementById(`tab-${btn.dataset.tab}`).classList.remove('hidden');
+                const tabsToShow = TAB_MAPPING[btn.dataset.tab] || [`tab-${btn.dataset.tab}`];
+                tabsToShow.forEach(tabId => {
+                    const tabEl = document.getElementById(tabId);
+                    if (tabEl) tabEl.classList.remove('hidden');
+                });
 
                 // Save state (only if data is loaded)
                 if (data) {
@@ -2506,7 +3260,7 @@
                 repo: params.get('repo') || '',
                 dateFrom: params.get('from') || '',
                 dateTo: params.get('to') || '',
-                tab: params.get('tab') || 'summary',
+                tab: params.get('tab') || 'overview',
                 period: params.get('period') || '7days',
                 tz: params.get('tz') || 'local'
             };
@@ -2527,13 +3281,13 @@
             if (filters.dateFrom) params.set('from', filters.dateFrom);
             if (filters.dateTo) params.set('to', filters.dateTo);
 
-            // Add summary period if on summary tab
-            if (activeTab === 'summary' && summaryPeriod !== '7days') {
+            // Add summary period if on overview tab
+            if (activeTab === 'overview' && summaryPeriod !== '7days') {
                 params.set('period', summaryPeriod);
             }
 
-            // Add timezone if on timing tab and not local
-            if (activeTab === 'timing' && useUTC) {
+            // Add timezone if on activity tab (which includes timing) and not local
+            if (activeTab === 'activity' && useUTC) {
                 params.set('tz', 'utc');
             }
 
@@ -2722,6 +3476,7 @@
         // Initialize
         initDarkMode();
         initSanitizeMode();
+        initDetailPane();
         tryAutoLoad();
     </script>
 </body>

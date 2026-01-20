@@ -4,91 +4,99 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard:** Complete and deployed at https://devmade-ai.github.io/repo-tor/
+**Dashboard V2:** Implementation complete. Detail pane, trend charts, and contributor visualizations all working.
 
 **Extraction System:** AI analysis in progress. Manifest-based incremental tracking implemented.
 
-### Tracked Repos (config/repos.json)
-| Repo | Commits | Processed | Pending |
-|------|---------|-----------|---------|
-| chatty-chart | 42 | 42 ✅ | 0 |
-| repo-tor | 108 | 108 ✅ | 0 |
-| social-ad-creator | 156 | 90 | 66 |
-| model-pear | 302 | 0 | 302 |
-| **Total** | **608** | **240** | **368** |
+**Live Dashboard:** https://devmade-ai.github.io/repo-tor/ (being updated to V2)
 
-## @data Extraction Workflow
+---
 
-The extraction system uses human-in-the-loop AI analysis. Full details in `docs/EXTRACTION_PLAYBOOK.md`.
+## Dashboard V2 Progress
 
-### Quick Reference
+### Completed
 
-**Triggers (use @data persona):**
-- `@data hatch the chicken` - Full reset, analyze ALL commits
-- `@data feed the chicken` - Incremental, analyze NEW commits only
+- [x] **Aggregation script** - `scripts/aggregate-processed.js` reads from processed/ data
+- [x] **4-tab structure** - Overview, Activity, Work, Health
+- [x] **Tab mapping** - JavaScript maps new tabs to show multiple content containers
+- [x] **Urgency/Impact in Health tab** - Distribution bars, operational health cards
+- [x] **Urgency/Planned in Overview** - Executive summary cards
+- [x] **Detail pane** - Slide-out panel (desktop) / bottom sheet (mobile)
+- [x] **Urgency trend chart** - Line chart showing average urgency by month
+- [x] **Impact over time chart** - Stacked bar chart by month
+- [x] **Urgency by contributor** - Per-person breakdown with stacked bars
+- [x] **Impact by contributor** - Per-person breakdown with stacked bars
+- [x] **Click interactions** - Cards, charts, and bars all trigger detail pane
 
-**How it works:**
-1. Extract script creates `reports/<repo>/batches/batch-NNN.json` files (10 commits each)
-2. `scripts/pending.js` compares manifest against extraction, generates `pending/<repo>/batches/`
-3. AI reads each pending batch, proposes for each commit:
-   - **Tags** (multiple) - What type of work
-   - **Complexity** (1-5) - How big/difficult
-   - **Urgency** (1-5) - How critical (reactive vs planned)
-   - **Impact** (internal/user-facing/infrastructure/api) - Who is affected
-4. User reviews and approves (or corrects)
-5. Approved batch saved to `processed/<repo>/batches/batch-NNN.json`
-6. Manifest updated with processed SHAs (`processed/<repo>/manifest.json`)
-7. Progress tracked by SHA, not batch number - allows resuming after new commits
+### Detail Pane Features
 
-**User commands during review:**
-- `approve` - Save batch, continue to next
-- `#3 tag1, tag2` - Correct commit #3's tags
-- `stop` - End session (progress saved)
+- Slide-out panel from right (30% width on desktop)
+- Bottom sheet on mobile (85% viewport height)
+- Click-outside or Escape key to close
+- Smooth transition animations
+- Shows filtered commits with:
+  - Message, author, date, repo
+  - Tags, urgency label, impact label
 
-### Current Progress
+### Click Interactions
 
-| Repo | Processed | Pending | Status |
-|------|-----------|---------|--------|
-| chatty-chart | 42/42 | 0 batches | ✅ Complete |
-| repo-tor | 108/108 | 0 batches | ✅ Complete |
-| social-ad-creator | 90/156 | 7 batches | 🔄 In progress |
-| model-pear | 0/302 | 31 batches | ⏳ Not started |
+The following elements open the detail pane:
 
-**Status:** 39.5% complete (240/608 commits). Run `@data feed the chicken` to continue.
+**Overview Tab:**
+- Features Built card → shows feature commits
+- Bugs Fixed card → shows bugfix commits
+- Avg Urgency card → shows reactive commits
+- % Planned card → shows planned commits
+
+**Health Tab:**
+- Security/Reactive/Weekend/After Hours cards → filtered commits
+- Urgency distribution bars → commits by urgency level
+- Impact distribution bars → commits by impact category
+- Urgency by contributor → contributor's commits
+- Impact by contributor → contributor's commits
+
+**Work Tab:**
+- Tag breakdown bars → commits with that tag
+- Contributor cards → contributor's commits
+
+---
+
+## Tab Mapping
+
+```javascript
+const TAB_MAPPING = {
+    'overview': ['tab-overview'],
+    'activity': ['tab-activity', 'tab-timing'],
+    'work': ['tab-progress', 'tab-tags', 'tab-contributors'],
+    'health': ['tab-security']
+};
+```
+
+---
 
 ## Key Files
 
 | File | Purpose |
 |------|---------|
-| `docs/EXTRACTION_PLAYBOOK.md` | Complete extraction workflow and 55+ tag definitions |
-| `config/repos.json` | Tracked repositories |
-| `config/author-map.json` | Author email merging |
-| `scripts/extract.js` | Extracts git data, creates batch files |
-| `scripts/pending.js` | Generates pending batches by comparing manifest vs extraction |
-| `scripts/manifest-update.js` | Updates manifest after batch approval |
-| `scripts/aggregate.js` | Combines processed data for dashboard |
-| `scripts/update-all.sh` | Runs extraction for all repos |
-| `processed/<repo>/manifest.json` | Tracks processed SHAs (source of truth for progress) |
+| `dashboard/index.html` | Main dashboard (V2 complete) |
+| `scripts/aggregate-processed.js` | Aggregation from processed/ data |
+| `dashboard/data.json` | Overall aggregated data |
+| `dashboard/repos/*.json` | Per-repo aggregated data |
+| `docs/DASHBOARD_V2_DESIGN.md` | Full design spec |
+| `docs/EXTRACTION_PLAYBOOK.md` | Extraction workflow |
 
-## Analysis Dimensions
+---
 
-Each commit gets assigned:
+## Remaining Work
 
-| Dimension | Values | Purpose |
-|-----------|--------|---------|
-| **Tags** | 55+ options | What type of work |
-| **Complexity** | 1-5 | How big/difficult |
-| **Urgency** | 1-5 | Reactive vs planned work |
-| **Impact** | internal, user-facing, infrastructure, api | Who is affected |
+### Polish (Optional)
+- [ ] Loading states for detail pane content
+- [ ] PDF export updates for new layout
+- [ ] Shareable links for detail pane state
 
-See `docs/EXTRACTION_PLAYBOOK.md` for full tag list and guidelines.
+### Extraction
+- Continue processing remaining commits with `@data feed the chicken`
 
-## Notes
+---
 
-- Dashboard is fully functional with existing data
-- Extraction workflow designed for human review of AI tagging
-- **Manifest-based tracking** ensures proper incremental processing:
-  - Progress tracked by SHA, not batch file number
-  - Safe to add new commits between sessions
-  - `pending.js` generates batches with only unprocessed commits
-- All progress persisted to git after each approved batch
+*Last updated: 2026-01-20 - Dashboard V2 implementation complete (detail pane + trend charts + contributor visualizations)*

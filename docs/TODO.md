@@ -1,110 +1,127 @@
 # TODO
 
-Items ordered by priority based on [Discovery Session](DISCOVERY_SESSION.md) (2026-01-19).
+Implementation tasks for Git Analytics Reporting System.
 
-**Two audiences identified:**
-
-- **Dev Manager** - Analyzes team patterns, presents to executives
-- **Executive** - Needs high-level, quick-to-scan summaries
+**Design:** See [DASHBOARD_V2_DESIGN.md](DASHBOARD_V2_DESIGN.md) for full specification.
 
 ---
 
-## Foundation - COMPLETE
+## Priority 1: Aggregation Script - COMPLETE
 
-- [x] Schema Migration (`type` → `tags[]`, add `complexity`)
-- [x] Extract Script Update
-- [x] Dashboard Tag Support
-- [x] Aggregation Update
-- [x] **Re-extract All Repos** - Run `scripts/update-all.sh` to regenerate all repo data
+*Read from processed/ data, output dashboard-ready JSON*
 
----
-
-## Priority 1: Timestamp Views (When) - COMPLETE
-
-*Core discovered need: "What time of day is work being done, which days of the week"*
-
-- [x] **Commits by Hour** - Bar chart showing distribution across 24 hours (0-23)
-- [x] **Commits by Day of Week** - Bar chart showing Mon-Sun distribution
-- [x] **Time Zone Awareness** - Display in user's local timezone with optional UTC toggle
-
-**Stretch:**
-
-- [x] Commit Time Heatmap - Hour vs day-of-week grid
-- [x] Developer Activity Patterns - Per-author time breakdowns
-
----
-
-## Priority 2: Work Pattern Styling - COMPLETE
-
-*Core discovered need: "After hours vs working hours, weekends/public holidays vs normal working days"*
-
-**Visual distinction across ALL views:**
-
-- [x] **Work Hours Highlighting** - Differentiate 8:00-17:00 vs after-hours
-- [x] **Weekend Highlighting** - Saturday/Sunday styled differently
-- [x] **South African Public Holidays** - Load ZA holidays with distinct styling
-- [x] **Commit List Badges** - "After Hours", "Weekend", "Holiday" indicators
-- [x] **Legend/Key** - Explain the color coding
-
-**Integration:**
-
-- [x] Apply to Timeline tab (commit list badges)
-- [x] Apply to Timing tab (hour/day charts with color distinction)
-- [x] Configurable work hours (default 8-17)
+- [x] Create `scripts/aggregate-processed.js`
+  - [x] Read all `processed/<repo>/batches/*.json` files
+  - [x] Combine commits from all repos
+  - [x] Calculate summary aggregations:
+    - [x] `tagBreakdown` - count per tag
+    - [x] `complexityBreakdown` - count per level (1-5)
+    - [x] `urgencyBreakdown` - count per level (1-5)
+    - [x] `impactBreakdown` - count per category
+  - [x] Calculate monthly aggregations:
+    - [x] `monthly.*.commits` - count per month
+    - [x] `monthly.*.avgComplexity` - average per month
+    - [x] `monthly.*.avgUrgency` - average per month
+    - [x] `monthly.*.tags` - tag counts per month
+    - [x] `monthly.*.impact` - impact counts per month
+  - [x] Calculate contributor aggregations:
+    - [x] `contributors.*.tagBreakdown` - per person
+    - [x] `contributors.*.avgComplexity` - per person
+    - [x] `contributors.*.avgUrgency` - per person
+    - [x] `contributors.*.impactBreakdown` - per person
+  - [x] Output files:
+    - [x] `dashboard/data.json` - overall (all repos)
+    - [x] `dashboard/repos/<repo>.json` - per-repo (same schema)
 
 ---
 
-## Priority 3: Executive Summary View - COMPLETE
+## Priority 2: Dashboard Structure - COMPLETE
 
-*Discovered need: "Higher level, quick to scan, productivity, progress/growth"*
+*Reorganize from 7 tabs to 4 grouped tabs with detail pane*
 
-- [x] **Summary Tab** - New tab designed for executive audience
-  - Total commits (period)
-  - Active contributors
-  - Progress trend (up/down vs previous period)
-  - Work type breakdown (features vs fixes vs other)
-  - Key highlights (most active project, busiest day, etc.)
+- [x] Create new tab structure:
+  - [x] **Overview** - Executive summary (migrated from Summary)
+  - [x] **Activity** - Timeline + Timing combined
+  - [x] **Work** - Progress + Tags + Contributors combined
+  - [x] **Health** - Security + Urgency (new)
 
-- [x] **Quick Stats Cards** - At-a-glance metrics at top of summary
-- [x] **Period Comparison** - This week vs last week, this month vs last month, this quarter vs last quarter
+- [x] Implement detail pane component:
+  - [x] Slide-out panel (30% width on desktop)
+  - [x] Bottom sheet variant for mobile
+  - [x] Close button / click-outside to dismiss
+  - [x] Smooth transition animations
+
+- [x] Wire up click interactions:
+  - [x] Cards → show related commits
+  - [x] Chart segments → show filtered commits
+  - [x] Contributors → show person's commits
+  - [x] Tags → show tagged commits
 
 ---
 
-## Priority 4: Export / Share - COMPLETE
+## Priority 3: New Visualizations - COMPLETE
 
-*Discovered need: "Could be extracted and sent in a specific format"*
+*Urgency and Impact charts for new data dimensions*
 
-- [x] **PDF Export** - Generate shareable PDF report
-- [x] **Shareable Links** - URL with filter state encoded
+### Urgency (Health Tab)
+- [x] Urgency Distribution - horizontal bars (Planned/Normal/Reactive)
+- [x] Urgency Trend - line chart by month (lower is better)
+- [x] Urgency by Contributor - stacked bars per person
+
+### Impact (Health Tab)
+- [x] Impact Distribution - horizontal bars (user-facing/internal/infra/api)
+- [x] Impact Over Time - stacked bar chart by month
+- [x] Impact by Contributor - stacked bars per person
+
+### Overview Cards
+- [x] Avg Urgency card with trend indicator
+- [x] % Planned card (urgency 1-2 ratio)
+
+### Health Tab Cards
+- [x] Security count card
+- [x] Reactive % card (urgency 4-5)
+- [x] Weekend % card
+- [x] After Hours % card
 
 ---
 
-## Lower Priority
+## Priority 4: Polish (Optional)
 
-### Tag & Complexity Views - DONE
+- [x] Dark mode for new components (charts re-render on toggle)
+- [ ] Loading states for detail pane content
+- [ ] PDF export updates for new layout
+- [ ] Shareable links for detail pane state
 
-- [x] Developer Tag Distribution - Who does fixes vs features (Contributors tab: "Who Does What")
-- [x] Complexity by Author - Who handles complex changes (Contributors tab: Complexity chart)
-- [x] Complexity by Time - When are complex commits made (Progress tab: Complexity Over Time)
+---
 
-### Visual Polish - DONE
+## Extraction (Ongoing)
 
-- [x] Dark Mode
-- [x] Color palette refinement
-- [x] Loading states
+Continue processing commits with `@data feed the chicken`:
 
-### Infrastructure - DONE
+| Repo | Status | Remaining |
+|------|--------|-----------|
+| chatty-chart | ✅ Complete | 0 |
+| repo-tor | ✅ Complete | 0 |
+| social-ad-creator | 🔄 In progress | ~7 batches |
+| model-pear | ⏳ Not started | 31 batches |
 
-- [x] Global filter state across tabs
-- [x] Filter persistence (localStorage)
-- [x] Private repo sanitization mode
+---
 
-### Research / Future
+## Future / Backlog
 
+### Global Filters
+- [ ] Filter bar visible on all tabs
+- [ ] Repo selector (when viewing overall)
+- [ ] Date range picker
+- [ ] Author filter
+- [ ] Tag / Urgency / Impact filters
+- [ ] Active filter indicator in header
+
+### Research
 - [ ] Device/platform attribution (mobile vs desktop commits)
-- [ ] Merge commit filtering
+- [ ] Merge commit filtering options
 - [ ] PWA offline support
 
 ---
 
-*Last updated: 2026-01-19 - Completed all polish and infrastructure items*
+*Last updated: 2026-01-20 - Priority 2 (Dashboard Structure) and Priority 3 (Visualizations) complete*
