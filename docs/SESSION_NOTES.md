@@ -99,14 +99,14 @@ const TAB_MAPPING = {
 | Repo | Status | Processed |
 |------|--------|-----------|
 | chatty-chart | Complete | 42/42 |
-| repo-tor | Complete | 144/144 |
-| social-ad-creator | In progress | 100/156 (6 batches remaining) |
-| model-pear | Not started | 0/303 (31 batches) |
+| repo-tor | Complete | 171/171 |
+| social-ad-creator | Complete | 158/158 |
+| model-pear | In progress | 60/309 (25 batches remaining) |
 
-**Total:** 286/645 commits processed (44%)
+**Total:** 431/680 commits processed (63%)
 
 Continue with `@data feed the chicken`
 
 ---
 
-*Last updated: 2026-01-20 - repo-tor complete, social-ad-creator batch 10 done*
+*Last updated: 2026-01-20 - model-pear batch 6 done*
