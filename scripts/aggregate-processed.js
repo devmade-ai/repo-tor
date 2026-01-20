@@ -369,6 +369,8 @@ function generateAggregation(commits, scope, repoCount = 1) {
 
   const dateRange = calcDateRange(sortedCommits);
 
+  const contributors = calcContributorAggregations(sortedCommits);
+
   return {
     metadata: {
       generatedAt: new Date().toISOString(),
@@ -379,9 +381,11 @@ function generateAggregation(commits, scope, repoCount = 1) {
 
     commits: sortedCommits,
 
-    contributors: calcContributorAggregations(sortedCommits),
+    contributors: contributors,
 
     summary: {
+      totalCommits: sortedCommits.length,
+      totalContributors: contributors.length,
       tagBreakdown: calcTagBreakdown(sortedCommits),
       complexityBreakdown: calcComplexityBreakdown(sortedCommits),
       urgencyBreakdown: calcUrgencyBreakdown(sortedCommits),
