@@ -71,6 +71,16 @@
             padding: 1.5rem;
         }
 
+        /* Text color utilities using CSS variables for dark mode support */
+        .text-themed-primary { color: var(--text-primary); }
+        .text-themed-secondary { color: var(--text-secondary); }
+        .text-themed-tertiary { color: var(--text-tertiary); }
+        .text-themed-muted { color: var(--text-muted); }
+        .bg-themed-primary { background-color: var(--bg-primary); }
+        .bg-themed-secondary { background-color: var(--bg-secondary); }
+        .bg-themed-tertiary { background-color: var(--bg-tertiary); }
+        .border-themed { border-color: var(--border-color); }
+
         .tag {
             display: inline-block;
             padding: 0.125rem 0.5rem;
@@ -522,7 +532,7 @@
         <header class="mb-8">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900" id="repo-name">Git Analytics Dashboard</h1>
+                    <h1 class="text-3xl font-bold text-themed-primary" id="repo-name">Git Analytics Dashboard</h1>
                     <p class="text-gray-500 mt-1" id="repo-subtitle">Loading data...</p>
                 </div>
                 <div id="export-buttons" class="hidden flex items-center gap-2 no-print">
@@ -579,22 +589,22 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div class="card">
                     <p class="text-sm text-gray-500 uppercase tracking-wide">Files Changed</p>
-                    <p class="text-3xl font-bold text-gray-900" id="stat-files">0</p>
+                    <p class="text-3xl font-bold text-themed-primary" id="stat-files">0</p>
                     <p class="text-xs text-gray-400" id="stat-files-sub"></p>
                 </div>
                 <div class="card">
                     <p class="text-sm text-gray-500 uppercase tracking-wide">Avg Complexity</p>
-                    <p class="text-3xl font-bold text-gray-900" id="stat-complexity">-</p>
+                    <p class="text-3xl font-bold text-themed-primary" id="stat-complexity">-</p>
                     <p class="text-xs text-gray-400" id="stat-complexity-sub"></p>
                 </div>
                 <div class="card">
                     <p class="text-sm text-gray-500 uppercase tracking-wide">Top Work Type</p>
-                    <p class="text-2xl font-bold text-gray-900" id="stat-top-tag">-</p>
+                    <p class="text-2xl font-bold text-themed-primary" id="stat-top-tag">-</p>
                     <p class="text-xs text-gray-400" id="stat-top-tag-sub"></p>
                 </div>
                 <div class="card">
                     <p class="text-sm text-gray-500 uppercase tracking-wide">Contributors</p>
-                    <p class="text-3xl font-bold text-gray-900" id="stat-contributors">0</p>
+                    <p class="text-3xl font-bold text-themed-primary" id="stat-contributors">0</p>
                 </div>
             </div>
 
@@ -612,7 +622,7 @@
                 <div class="card mb-6">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                         <div>
-                            <h2 class="text-lg font-semibold">Executive Summary</h2>
+                            <h2 class="text-lg font-semibold text-themed-primary">Executive Summary</h2>
                             <p class="text-xs text-gray-500">High-level overview for quick scanning</p>
                         </div>
                         <div class="flex items-center gap-2">
@@ -640,7 +650,7 @@
                     </div>
                     <div class="card cursor-pointer hover:shadow-md transition-shadow" data-summary-card="urgency">
                         <p class="text-sm text-gray-500 uppercase tracking-wide">Avg Urgency</p>
-                        <p class="text-3xl font-bold text-gray-900" id="summary-urgency">-</p>
+                        <p class="text-3xl font-bold text-themed-primary" id="summary-urgency">-</p>
                         <p class="text-sm mt-1" id="summary-urgency-trend"></p>
                     </div>
                     <div class="card cursor-pointer hover:shadow-md transition-shadow" data-summary-card="planned">
@@ -653,20 +663,20 @@
                 <!-- Work Breakdown and Highlights -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div class="card">
-                        <h3 class="text-lg font-semibold mb-4">Work Breakdown</h3>
+                        <h3 class="text-lg font-semibold text-themed-primary mb-4">Work Breakdown</h3>
                         <div class="h-48">
                             <canvas id="summary-breakdown-chart"></canvas>
                         </div>
                     </div>
                     <div class="card">
-                        <h3 class="text-lg font-semibold mb-4">Key Highlights</h3>
+                        <h3 class="text-lg font-semibold text-themed-primary mb-4">Key Highlights</h3>
                         <div id="summary-highlights" class="space-y-3"></div>
                     </div>
                 </div>
 
                 <!-- Activity Snapshot -->
                 <div class="card">
-                    <h3 class="text-lg font-semibold mb-4">Activity Snapshot</h3>
+                    <h3 class="text-lg font-semibold text-themed-primary mb-4">Activity Snapshot</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="summary-activity">
                     </div>
                 </div>
@@ -720,7 +730,7 @@
 
                 <!-- Activity Timeline Chart -->
                 <div class="card mb-6">
-                    <h2 class="text-lg font-semibold mb-4">Activity Timeline</h2>
+                    <h2 class="text-lg font-semibold text-themed-primary mb-4">Activity Timeline</h2>
                     <p class="text-xs text-gray-500 -mt-2 mb-4">Commits by date across all projects</p>
                     <div class="h-48 md:h-64">
                         <canvas id="activity-timeline-chart"></canvas>
@@ -729,7 +739,7 @@
 
                 <div class="card">
                     <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-lg font-semibold">Changes</h2>
+                        <h2 class="text-lg font-semibold text-themed-primary">Changes</h2>
                         <span id="commit-count" class="text-sm text-gray-500"></span>
                     </div>
                     <div id="commit-list" class="space-y-3 max-h-[600px] overflow-y-auto"></div>
@@ -738,14 +748,14 @@
 
             <div id="tab-progress" class="tab-content hidden">
                 <div class="card mb-6">
-                    <h2 class="text-lg font-semibold mb-4">Work Type Trend</h2>
+                    <h2 class="text-lg font-semibold text-themed-primary mb-4">Work Type Trend</h2>
                     <p class="text-xs text-gray-500 -mt-2 mb-4">Features vs bug fixes over time</p>
                     <div class="h-64">
                         <canvas id="feat-fix-chart"></canvas>
                     </div>
                 </div>
                 <div class="card">
-                    <h2 class="text-lg font-semibold mb-4">Complexity Over Time</h2>
+                    <h2 class="text-lg font-semibold text-themed-primary mb-4">Complexity Over Time</h2>
                     <p class="text-xs text-gray-500 -mt-2 mb-4">Average complexity by month</p>
                     <div class="h-64">
                         <canvas id="complexity-trend-chart"></canvas>
@@ -755,12 +765,12 @@
 
             <div id="tab-contributors" class="tab-content hidden">
                 <div class="card mb-6">
-                    <h2 class="text-lg font-semibold mb-4">Who Does What</h2>
+                    <h2 class="text-lg font-semibold text-themed-primary mb-4">Who Does What</h2>
                     <p class="text-xs text-gray-500 -mt-2 mb-4">Work type distribution by contributor</p>
                     <div id="contributor-work-types" class="space-y-4"></div>
                 </div>
                 <div class="card">
-                    <h2 class="text-lg font-semibold mb-4">Complexity by Contributor</h2>
+                    <h2 class="text-lg font-semibold text-themed-primary mb-4">Complexity by Contributor</h2>
                     <p class="text-xs text-gray-500 -mt-2 mb-4">Who handles complex vs simple changes</p>
                     <div class="h-64">
                         <canvas id="contributor-complexity-chart"></canvas>
@@ -796,12 +806,12 @@
                 <!-- Urgency Distribution -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Urgency Distribution</h2>
+                        <h2 class="text-lg font-semibold text-themed-primary mb-4">Urgency Distribution</h2>
                         <p class="text-xs text-gray-500 -mt-2 mb-4">Planned (1-2) vs Normal (3) vs Reactive (4-5)</p>
                         <div id="urgency-breakdown" class="space-y-3"></div>
                     </div>
                     <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Impact Distribution</h2>
+                        <h2 class="text-lg font-semibold text-themed-primary mb-4">Impact Distribution</h2>
                         <p class="text-xs text-gray-500 -mt-2 mb-4">Where effort is directed</p>
                         <div id="impact-breakdown" class="space-y-3"></div>
                     </div>
@@ -810,14 +820,14 @@
                 <!-- Trend Charts -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Urgency Trend</h2>
+                        <h2 class="text-lg font-semibold text-themed-primary mb-4">Urgency Trend</h2>
                         <p class="text-xs text-gray-500 -mt-2 mb-4">Average urgency by month (lower is better)</p>
                         <div class="h-48">
                             <canvas id="urgency-trend-chart"></canvas>
                         </div>
                     </div>
                     <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Impact Over Time</h2>
+                        <h2 class="text-lg font-semibold text-themed-primary mb-4">Impact Over Time</h2>
                         <p class="text-xs text-gray-500 -mt-2 mb-4">Distribution of impact categories by month</p>
                         <div class="h-48">
                             <canvas id="impact-trend-chart"></canvas>
@@ -828,12 +838,12 @@
                 <!-- Contributor Health -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Urgency by Contributor</h2>
+                        <h2 class="text-lg font-semibold text-themed-primary mb-4">Urgency by Contributor</h2>
                         <p class="text-xs text-gray-500 -mt-2 mb-4">Who handles reactive vs planned work</p>
                         <div id="urgency-by-contributor" class="space-y-3"></div>
                     </div>
                     <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Impact by Contributor</h2>
+                        <h2 class="text-lg font-semibold text-themed-primary mb-4">Impact by Contributor</h2>
                         <p class="text-xs text-gray-500 -mt-2 mb-4">Where each person's effort goes</p>
                         <div id="impact-by-contributor" class="space-y-3"></div>
                     </div>
@@ -841,7 +851,7 @@
 
                 <!-- Security Commits -->
                 <div class="card">
-                    <h2 class="text-lg font-semibold mb-4">Security-Related Commits</h2>
+                    <h2 class="text-lg font-semibold text-themed-primary mb-4">Security-Related Commits</h2>
                     <p class="text-sm text-gray-500 mb-4">Commits tagged with security, or containing security-related keywords</p>
                     <div id="security-list" class="space-y-3"></div>
                 </div>
@@ -850,14 +860,14 @@
             <div id="tab-tags" class="tab-content hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Commits by Tag</h2>
+                        <h2 class="text-lg font-semibold text-themed-primary mb-4">Commits by Tag</h2>
                         <p class="text-xs text-gray-500 -mt-2 mb-4">A commit can have multiple tags</p>
                         <div class="h-64">
                             <canvas id="tags-chart"></canvas>
                         </div>
                     </div>
                     <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Tag Breakdown</h2>
+                        <h2 class="text-lg font-semibold text-themed-primary mb-4">Tag Breakdown</h2>
                         <p class="text-xs text-gray-500 -mt-2 mb-4">Tag occurrences (total may exceed commit count)</p>
                         <div id="tag-breakdown" class="space-y-2"></div>
                     </div>
@@ -868,7 +878,7 @@
                 <div class="card mb-6">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                         <div>
-                            <h2 class="text-lg font-semibold">When Work Happens</h2>
+                            <h2 class="text-lg font-semibold text-themed-primary">When Work Happens</h2>
                             <p class="text-xs text-gray-500">Commit distribution by time of day and day of week</p>
                         </div>
                         <div class="flex items-center gap-2">
@@ -883,7 +893,7 @@
 
                 <!-- Heatmap -->
                 <div class="card mb-6">
-                    <h2 class="text-lg font-semibold mb-4">Activity Heatmap</h2>
+                    <h2 class="text-lg font-semibold text-themed-primary mb-4">Activity Heatmap</h2>
                     <p class="text-xs text-gray-500 -mt-2 mb-4">Commits by hour and day of week (darker = more commits)</p>
                     <div id="heatmap-container" class="overflow-x-auto">
                         <div id="heatmap" class="heatmap-grid"></div>
@@ -903,14 +913,14 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Commits by Hour of Day</h2>
+                        <h2 class="text-lg font-semibold text-themed-primary mb-4">Commits by Hour of Day</h2>
                         <p class="text-xs text-gray-500 -mt-2 mb-4">Distribution across 24 hours (0-23)</p>
                         <div class="h-64">
                             <canvas id="hour-chart"></canvas>
                         </div>
                     </div>
                     <div class="card">
-                        <h2 class="text-lg font-semibold mb-4">Commits by Day of Week</h2>
+                        <h2 class="text-lg font-semibold text-themed-primary mb-4">Commits by Day of Week</h2>
                         <p class="text-xs text-gray-500 -mt-2 mb-4">Distribution across weekdays</p>
                         <div class="h-64">
                             <canvas id="day-chart"></canvas>
@@ -920,7 +930,7 @@
 
                 <!-- Developer Activity Patterns -->
                 <div class="card mt-6">
-                    <h2 class="text-lg font-semibold mb-4">Developer Activity Patterns</h2>
+                    <h2 class="text-lg font-semibold text-themed-primary mb-4">Developer Activity Patterns</h2>
                     <p class="text-xs text-gray-500 -mt-2 mb-4">When each contributor typically commits</p>
                     <div id="developer-patterns" class="space-y-4"></div>
                 </div>
@@ -929,7 +939,7 @@
                 <div class="card mt-6">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                         <div>
-                            <h2 class="text-lg font-semibold">Work Hours Settings</h2>
+                            <h2 class="text-lg font-semibold text-themed-primary">Work Hours Settings</h2>
                             <p class="text-xs text-gray-500">Customize what counts as "work hours"</p>
                         </div>
                         <div class="flex items-center gap-4">
