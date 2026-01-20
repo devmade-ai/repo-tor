@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-20T00:10:53.858Z",
+    "generatedAt": "2026-01-20T11:17:39.371Z",
     "scope": "social-ad-creator",
     "repoCount": 1,
-    "commitCount": 90
+    "commitCount": 100
   },
   "commits": [
     {
@@ -1399,28 +1399,423 @@
       "urgency": 2,
       "impact": "user-facing",
       "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "0812774",
+      "fullSha": "08127747022d9d667a82f223c8bfaa4c0eb0b2b8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-14T19:49:00+02:00",
+      "commitDate": "2026-01-14T19:49:00+02:00",
+      "subject": "Merge pull request #13 from devmade-ai/claude/add-layout-presets-Faxjc",
+      "body": "Add global style presets for one-click professional looks",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Merge pull request #13 from devmade-ai/claude/add-layout-presets-Faxjc",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#13"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 891,
+        "deletions": 159
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "7632b49",
+      "fullSha": "7632b49cb9eaa1dff62befbc1631f6d0779baea3",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-14T17:46:34+00:00",
+      "commitDate": "2026-01-14T17:46:34+00:00",
+      "subject": "Enlarge and center cell selector grids in Layout tabs",
+      "body": "- Add size prop to CellGrid and StructureGrid (normal=180px, large=280px)\n- Apply size=\"large\" to main cell selectors in Structure, Placement, Overlay, and Spacing tabs\n- Center grids with flex justify-center containers\n- Center labels to match\n- Keep small size for inline image cell selector in Placement tab",
+      "tags": [
+        "ui",
+        "enhancement"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Enlarge and center cell selector grids in Layout tabs",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 61,
+        "deletions": 39
+      },
+      "files": [
+        "src/components/LayoutSelector.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "ede9489",
+      "fullSha": "ede9489be7e120ab7a71ab2c6379dd74dd99e3d4",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-14T17:16:00+00:00",
+      "commitDate": "2026-01-14T17:16:00+00:00",
+      "subject": "Add global style presets for one-click professional looks",
+      "body": "Style presets combine layout, theme, fonts, overlay, and image filters\ninto cohesive design packages. This replaces the layout-only presets\nwith comprehensive styling that users can apply with a single click.\n\n- Add 16 style presets across 7 categories (Modern, Professional, Elegant, Warm, Fresh, Retro, Grid)\n- Create StylePresetSelector component at top of preview area\n- Remove Presets sub-tab from Layout (now handled by global presets)\n- Add applyStylePreset function to useAdState hook\n- Track active preset ID to highlight selected style",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add global style presets for one-click professional looks",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 830,
+        "deletions": 120
+      },
+      "files": [
+        "src/App.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/components/StylePresetSelector.jsx",
+        "src/config/stylePresets.js",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "7cefaae",
+      "fullSha": "7cefaae8b53672e5765515087efa9cebd1f31b4f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-14T03:48:39+02:00",
+      "commitDate": "2026-01-14T03:48:39+02:00",
+      "subject": "Merge pull request #12 from devmade-ai/claude/fix-select-cell-display-dOy0G",
+      "body": "Add consistent cell selector to Placement tab",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Merge pull request #12 from devmade-ai/claude/fix-select-cell-display-dOy0G",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#12"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 74,
+        "deletions": 26
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "4095794",
+      "fullSha": "4095794f0a79fd8497bf71624465ca23886edd39",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-14T01:30:44+00:00",
+      "commitDate": "2026-01-14T01:30:44+00:00",
+      "subject": "Align Structure tab UI with other layout sub-tabs",
+      "body": "- Update StructureGrid to use dynamic aspectRatio prop (matches CellGrid)\n- Add consistent \"Select Cell\" label format\n- Add selection indicator matching Placement/Overlay/Spacing tabs\n- Use platformAspectRatio for consistent grid sizing across all tabs",
+      "tags": [
+        "ui",
+        "enhancement"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Align Structure tab UI with other layout sub-tabs",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 44,
+        "deletions": 25
+      },
+      "files": [
+        "src/components/LayoutSelector.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "577ab74",
+      "fullSha": "577ab744d8822a58812ea11fc509b9065af43d8b",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-14T01:25:31+00:00",
+      "commitDate": "2026-01-14T01:25:31+00:00",
+      "subject": "Add consistent cell selector to Placement tab",
+      "body": "Restore the \"Select Cell\" display with selection indicator to the\nPlacement tab, matching the pattern used in Overlay and Spacing tabs\nfor UI consistency across layout sub-tabs.",
+      "tags": [
+        "ui",
+        "enhancement"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add consistent cell selector to Placement tab",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 30,
+        "deletions": 1
+      },
+      "files": [
+        "src/components/LayoutSelector.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "1b4954a",
+      "fullSha": "1b4954a5d0ebe83f09e7915e9d47a812c16ea61f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-14T03:04:16+02:00",
+      "commitDate": "2026-01-14T03:04:16+02:00",
+      "subject": "Merge pull request #11 from devmade-ai/claude/cleanup-todos-ZlUa9",
+      "body": "Clean up TODO.md - mark implemented items, simplify scope",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #11 from devmade-ai/claude/cleanup-todos-ZlUa9",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#11"
+      ],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 489,
+        "deletions": 407
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "f1e0374",
+      "fullSha": "f1e0374d8664f3edd845100fecadb501eb8496a5",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-14T00:59:53+00:00",
+      "commitDate": "2026-01-14T00:59:53+00:00",
+      "subject": "Optimize re-renders with React.memo",
+      "body": "Wrap components with memo to prevent unnecessary re-renders:\n- ThemePicker + ColorInput\n- FontSelector\n- PlatformPreview\n- TextEditor\n- ImageUploader\n- ExportButtons\n\nThese components now only re-render when their props actually change.",
+      "tags": [
+        "performance",
+        "refactor"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Optimize re-renders with React.memo",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 23,
+        "deletions": 22
+      },
+      "files": [
+        "docs/TODO.md",
+        "src/components/ExportButtons.jsx",
+        "src/components/FontSelector.jsx",
+        "src/components/ImageUploader.jsx",
+        "src/components/PlatformPreview.jsx",
+        "src/components/TextEditor.jsx",
+        "src/components/ThemePicker.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "9558c91",
+      "fullSha": "9558c914e200e286d5c4eab6cb3223170d617f6e",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-14T00:57:44+00:00",
+      "commitDate": "2026-01-14T00:57:44+00:00",
+      "subject": "Add error boundaries for graceful error handling",
+      "body": "- Create reusable ErrorBoundary component with friendly UI\n- Wrap all major sections: Image, Text, Layout, Theme, Fonts\n- Wrap AdCanvas preview and ExportButtons\n- Each boundary shows contextual error message with retry button\n- Errors are logged to console for debugging",
+      "tags": [
+        "feature",
+        "error-handling"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add error boundaries for graceful error handling",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 151,
+        "deletions": 78
+      },
+      "files": [
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/components/ErrorBoundary.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "707def8",
+      "fullSha": "707def8dd34883249689921a830dc667c38bbb58",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-14T00:56:23+00:00",
+      "commitDate": "2026-01-14T00:56:23+00:00",
+      "subject": "Change padding from percentage to fixed px units",
+      "body": "- Default padding now 20px instead of 5%\n- Slider range 0-60px with 4px steps\n- Consistent padding regardless of cell size\n- Updated useAdState, AdCanvas, and LayoutSelector",
+      "tags": [
+        "ui",
+        "fix"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Change padding from percentage to fixed px units",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 15,
+        "deletions": 13
+      },
+      "files": [
+        "docs/TODO.md",
+        "src/components/AdCanvas.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
     }
   ],
   "contributors": [
     {
       "author_id": "noreply@anthropic.com",
-      "commits": 48,
-      "avgComplexity": 2.46,
-      "avgUrgency": 1.46,
+      "commits": 55,
+      "avgComplexity": 2.47,
+      "avgUrgency": 1.51,
       "tagBreakdown": {
         "docs": 13,
         "bugfix": 11,
-        "refactor": 7,
-        "feature": 14,
-        "ui": 17,
+        "refactor": 8,
+        "feature": 16,
+        "ui": 22,
         "ux": 5,
         "removal": 1,
-        "enhancement": 6,
-        "revert": 3
+        "enhancement": 9,
+        "revert": 3,
+        "performance": 1,
+        "error-handling": 1,
+        "fix": 1
       },
       "impactBreakdown": {
         "internal": 14,
-        "user-facing": 34,
+        "user-facing": 41,
         "infrastructure": 0,
         "api": 0
       },
@@ -1428,21 +1823,21 @@
         "social-ad-creator"
       ],
       "repoCount": 1,
-      "firstCommit": "2026-01-14T18:19:46+00:00",
+      "firstCommit": "2026-01-14T00:56:23+00:00",
       "lastCommit": "2026-01-18T19:01:05+00:00"
     },
     {
       "author_id": "devmade.ai@gmail.com",
-      "commits": 21,
+      "commits": 24,
       "avgComplexity": 1,
-      "avgUrgency": 2.1,
+      "avgUrgency": 2.08,
       "tagBreakdown": {
-        "merge": 21,
+        "merge": 24,
         "revert": 2
       },
       "impactBreakdown": {
-        "internal": 21,
-        "user-facing": 0,
+        "internal": 22,
+        "user-facing": 2,
         "infrastructure": 0,
         "api": 0
       },
@@ -1450,7 +1845,7 @@
         "social-ad-creator"
       ],
       "repoCount": 1,
-      "firstCommit": "2026-01-14T20:47:13+02:00",
+      "firstCommit": "2026-01-14T03:04:16+02:00",
       "lastCommit": "2026-01-18T21:03:08+02:00"
     },
     {
@@ -1482,66 +1877,72 @@
   ],
   "summary": {
     "tagBreakdown": {
-      "merge": 21,
+      "merge": 24,
       "docs": 18,
       "bugfix": 18,
-      "refactor": 7,
-      "feature": 17,
-      "ui": 25,
+      "refactor": 8,
+      "feature": 19,
+      "ui": 30,
       "ux": 9,
       "removal": 1,
-      "enhancement": 13,
-      "revert": 5
+      "enhancement": 16,
+      "revert": 5,
+      "performance": 1,
+      "error-handling": 1,
+      "fix": 1
     },
     "complexityBreakdown": {
-      "1": 37,
-      "2": 25,
-      "3": 17,
-      "4": 10,
+      "1": 40,
+      "2": 29,
+      "3": 19,
+      "4": 11,
       "5": 1
     },
     "urgencyBreakdown": {
-      "1": 46,
-      "2": 38,
+      "1": 47,
+      "2": 47,
       "3": 6,
       "4": 0,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 40,
-      "user-facing": 50,
+      "internal": 41,
+      "user-facing": 59,
       "infrastructure": 0,
       "api": 0
     },
-    "avgComplexity": 2.03,
-    "avgUrgency": 1.56,
+    "avgComplexity": 2.04,
+    "avgUrgency": 1.59,
     "monthly": {
       "2026-01": {
-        "commits": 90,
+        "commits": 100,
         "tags": {
-          "merge": 21,
+          "merge": 24,
           "docs": 18,
           "bugfix": 18,
-          "refactor": 7,
-          "feature": 17,
-          "ui": 25,
+          "refactor": 8,
+          "feature": 19,
+          "ui": 30,
           "ux": 9,
           "removal": 1,
-          "enhancement": 13,
-          "revert": 5
+          "enhancement": 16,
+          "revert": 5,
+          "performance": 1,
+          "error-handling": 1,
+          "fix": 1
         },
         "impact": {
-          "internal": 40,
-          "user-facing": 50,
+          "internal": 41,
+          "user-facing": 59,
           "infrastructure": 0,
           "api": 0
         },
-        "avgComplexity": 2.03,
-        "avgUrgency": 1.56
+        "avgComplexity": 2.04,
+        "avgUrgency": 1.59
       }
     },
     "dateRange": {
-      "earliest": "2026-01-14T18:19:46+00:00",
+      "earliest": "2026-01-14T00:56:23+00:00",
       "latest": "2026-01-18T21:03:08+02:00"
     }
   }
