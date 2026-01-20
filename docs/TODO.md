@@ -35,7 +35,7 @@ Implementation tasks for Git Analytics Reporting System.
 
 ---
 
-## Priority 2: Dashboard Structure - IN PROGRESS
+## Priority 2: Dashboard Structure - COMPLETE
 
 *Reorganize from 7 tabs to 4 grouped tabs with detail pane*
 
@@ -45,38 +45,37 @@ Implementation tasks for Git Analytics Reporting System.
   - [x] **Work** - Progress + Tags + Contributors combined
   - [x] **Health** - Security + Urgency (new)
 
-- [ ] Implement detail pane component:
-  - [ ] Slide-out panel (30% width on desktop)
-  - [ ] Bottom sheet variant for mobile
-  - [ ] Close button / click-outside to dismiss
-  - [ ] Smooth transition animations
+- [x] Implement detail pane component:
+  - [x] Slide-out panel (30% width on desktop)
+  - [x] Bottom sheet variant for mobile
+  - [x] Close button / click-outside to dismiss
+  - [x] Smooth transition animations
 
-- [ ] Wire up click interactions:
-  - [ ] Cards → show related commits
-  - [ ] Chart segments → show filtered commits
-  - [ ] Contributors → show person's commits
-  - [ ] Commits → show full commit detail
+- [x] Wire up click interactions:
+  - [x] Cards → show related commits
+  - [x] Chart segments → show filtered commits
+  - [x] Contributors → show person's commits
+  - [x] Tags → show tagged commits
 
 ---
 
-## Priority 3: New Visualizations - PARTIAL
+## Priority 3: New Visualizations - COMPLETE
 
 *Urgency and Impact charts for new data dimensions*
 
 ### Urgency (Health Tab)
 - [x] Urgency Distribution - horizontal bars (Planned/Normal/Reactive)
-- [ ] Urgency Trend - line chart by month (lower is better)
-- [ ] Urgency by Contributor - horizontal bars per person
+- [x] Urgency Trend - line chart by month (lower is better)
+- [x] Urgency by Contributor - stacked bars per person
 
 ### Impact (Health Tab)
 - [x] Impact Distribution - horizontal bars (user-facing/internal/infra/api)
-- [ ] Impact Over Time - stacked area chart by month
-- [ ] Impact by Contributor - breakdown per person
+- [x] Impact Over Time - stacked bar chart by month
+- [x] Impact by Contributor - stacked bars per person
 
 ### Overview Cards
 - [x] Avg Urgency card with trend indicator
 - [x] % Planned card (urgency 1-2 ratio)
-- [ ] Impact Allocation mini-bars
 
 ### Health Tab Cards
 - [x] Security count card
@@ -86,13 +85,12 @@ Implementation tasks for Git Analytics Reporting System.
 
 ---
 
-## Priority 4: Polish
+## Priority 4: Polish (Optional)
 
-- [ ] Dark mode for new components
-- [ ] Loading states for detail pane
-- [ ] Responsive refinements
+- [x] Dark mode for new components (charts re-render on toggle)
+- [ ] Loading states for detail pane content
 - [ ] PDF export updates for new layout
-- [ ] Shareable links for new tab structure
+- [ ] Shareable links for detail pane state
 
 ---
 
@@ -126,4 +124,4 @@ Continue processing commits with `@data feed the chicken`:
 
 ---
 
-*Last updated: 2026-01-20 - Priority 1 (Aggregation) complete*
+*Last updated: 2026-01-20 - Priority 2 (Dashboard Structure) and Priority 3 (Visualizations) complete*

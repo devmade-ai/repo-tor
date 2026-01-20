@@ -4,6 +4,43 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-20
 
+### Dashboard V2 Complete - Detail Pane and Visualizations
+
+Completed the remaining Dashboard V2 features:
+
+**Detail Pane Component:**
+- Slide-out panel from right (30% width on desktop)
+- Bottom sheet variant for mobile (85% viewport height)
+- Click-outside or Escape key to dismiss
+- Smooth CSS transition animations
+- Shows filtered commits with message, author, date, tags, urgency/impact labels
+
+**Click Interactions:**
+- Overview cards → filtered commits (features, fixes, urgency, planned)
+- Health cards → filtered commits (security, reactive, weekend, after-hours)
+- Urgency distribution bars → commits by urgency level
+- Impact distribution bars → commits by impact category
+- Tag breakdown bars → commits with that tag
+- Contributor cards → contributor's commits
+- Urgency/Impact by contributor → contributor's commits
+
+**New Visualizations Added:**
+- Urgency Trend chart (line chart by month, lower is better)
+- Impact Over Time chart (stacked bar chart by month)
+- Urgency by Contributor (stacked bars showing planned/normal/reactive)
+- Impact by Contributor (stacked bars showing user-facing/internal/infra/api)
+
+**Dark Mode Support:**
+- Added renderHealth() to dark mode re-render list
+- New charts and detail pane respect dark mode
+
+**Files updated:**
+- `dashboard/index.html` - Detail pane, trend charts, contributor visualizations
+- `docs/SESSION_NOTES.md` - Updated with completion status
+- `docs/TODO.md` - Marked priorities 2 and 3 as complete
+
+---
+
 ### Dashboard V2 Implementation Progress
 
 Implemented core Dashboard V2 features:

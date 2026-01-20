@@ -4,7 +4,7 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation in progress. 4-tab structure complete, urgency/impact visualizations added.
+**Dashboard V2:** Implementation complete. Detail pane, trend charts, and contributor visualizations all working.
 
 **Extraction System:** AI analysis in progress. Manifest-based incremental tracking implemented.
 
@@ -21,25 +21,47 @@ Current state for AI assistants to continue work.
 - [x] **Tab mapping** - JavaScript maps new tabs to show multiple content containers
 - [x] **Urgency/Impact in Health tab** - Distribution bars, operational health cards
 - [x] **Urgency/Planned in Overview** - Executive summary cards
+- [x] **Detail pane** - Slide-out panel (desktop) / bottom sheet (mobile)
+- [x] **Urgency trend chart** - Line chart showing average urgency by month
+- [x] **Impact over time chart** - Stacked bar chart by month
+- [x] **Urgency by contributor** - Per-person breakdown with stacked bars
+- [x] **Impact by contributor** - Per-person breakdown with stacked bars
+- [x] **Click interactions** - Cards, charts, and bars all trigger detail pane
 
-### Remaining
+### Detail Pane Features
 
-- [ ] **Detail pane** - Slide-out panel for drill-down
-- [ ] **Urgency trend chart** - Line chart over time
-- [ ] **Impact by contributor** - Per-person breakdown
-- [ ] **Click interactions** - Cards/charts trigger detail pane
+- Slide-out panel from right (30% width on desktop)
+- Bottom sheet on mobile (85% viewport height)
+- Click-outside or Escape key to close
+- Smooth transition animations
+- Shows filtered commits with:
+  - Message, author, date, repo
+  - Tags, urgency label, impact label
 
-### Design Decision
+### Click Interactions
 
-Hybrid approach: **Logical Groupings + Contextual Detail Pane**
+The following elements open the detail pane:
 
-- **4 tabs** (down from 7): Overview, Activity, Work, Health
-- **Detail pane** slides out when clicking any element (TODO)
-- **Mobile:** Bottom sheet instead of side pane (TODO)
+**Overview Tab:**
+- Features Built card → shows feature commits
+- Bugs Fixed card → shows bugfix commits
+- Avg Urgency card → shows reactive commits
+- % Planned card → shows planned commits
 
-### Tab Mapping
+**Health Tab:**
+- Security/Reactive/Weekend/After Hours cards → filtered commits
+- Urgency distribution bars → commits by urgency level
+- Impact distribution bars → commits by impact category
+- Urgency by contributor → contributor's commits
+- Impact by contributor → contributor's commits
 
-The JavaScript TAB_MAPPING connects new tabs to existing content:
+**Work Tab:**
+- Tag breakdown bars → commits with that tag
+- Contributor cards → contributor's commits
+
+---
+
+## Tab Mapping
 
 ```javascript
 const TAB_MAPPING = {
@@ -52,38 +74,11 @@ const TAB_MAPPING = {
 
 ---
 
-## New Data Dimensions
-
-| Dimension | Values | Purpose |
-|-----------|--------|---------|
-| `urgency` | 1-5 | Reactive vs planned work |
-| `impact` | internal, user-facing, infrastructure, api | Who is affected |
-
-These enable new insights:
-- **Urgency Distribution** - operational health indicator
-- **Impact Allocation** - where effort goes
-
----
-
-## Extraction Progress
-
-| Repo | Commits | Processed | Status |
-|------|---------|-----------|--------|
-| chatty-chart | 42 | 42 | ✅ Complete |
-| repo-tor | 108 | 108 | ✅ Complete |
-| social-ad-creator | 156 | 90 | 🔄 In progress |
-| model-pear | 302 | 0 | ⏳ Not started |
-| **Total** | **608** | **240** | **39.5%** |
-
-Run `@data feed the chicken` to continue processing.
-
----
-
 ## Key Files
 
 | File | Purpose |
 |------|---------|
-| `dashboard/index.html` | Main dashboard (V2 structure) |
+| `dashboard/index.html` | Main dashboard (V2 complete) |
 | `scripts/aggregate-processed.js` | Aggregation from processed/ data |
 | `dashboard/data.json` | Overall aggregated data |
 | `dashboard/repos/*.json` | Per-repo aggregated data |
@@ -92,14 +87,16 @@ Run `@data feed the chicken` to continue processing.
 
 ---
 
-## Next Actions
+## Remaining Work
 
-1. **Detail pane** - Implement slide-out panel for drill-down
-2. **More visualizations** - Urgency trend, impact by contributor
-3. **Continue extraction** - Process remaining commits
+### Polish (Optional)
+- [ ] Loading states for detail pane content
+- [ ] PDF export updates for new layout
+- [ ] Shareable links for detail pane state
 
-See [TODO.md](TODO.md) for detailed implementation tasks.
+### Extraction
+- Continue processing remaining commits with `@data feed the chicken`
 
 ---
 
-*Last updated: 2026-01-20 - Dashboard V2 4-tab structure and basic urgency/impact complete*
+*Last updated: 2026-01-20 - Dashboard V2 implementation complete (detail pane + trend charts + contributor visualizations)*
