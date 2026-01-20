@@ -1,0 +1,338 @@
+{
+  "batch": 12,
+  "totalBatches": 15,
+  "startIndex": 110,
+  "count": 10,
+  "commits": [
+    {
+      "sha": "bfb7a03",
+      "fullSha": "bfb7a03a7b84eb916f13266ae17111a94e2f7623",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-20T06:29:41+02:00",
+      "commitDate": "2026-01-20T06:29:41+02:00",
+      "subject": "Merge pull request #22 from devmade-ai/claude/new-dashboard-reporting-wPrJF",
+      "body": "docs: complete Dashboard V2 design specification",
+      "tags": ["merge"],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #22 from devmade-ai/claude/new-dashboard-reporting-wPrJF",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": ["#22"],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 8518,
+        "deletions": 23880
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "38ef3d5",
+      "fullSha": "38ef3d5a0e55cf0f432a9ea76f058949560cf64b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T04:27:05+00:00",
+      "commitDate": "2026-01-20T04:27:05+00:00",
+      "subject": "docs: update guides for Dashboard V2 completion",
+      "body": "- USER_GUIDE.md: Rewrite for 4-tab structure, detail pane, click interactions\n- DASHBOARD_V2_DESIGN.md: Mark all implementation phases as complete\n- USER_TESTING.md: Add V2 dashboard test scenarios",
+      "tags": ["docs"],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "update guides for Dashboard V2 completion",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 226,
+        "deletions": 377
+      },
+      "files": ["docs/DASHBOARD_V2_DESIGN.md", "docs/USER_GUIDE.md", "docs/USER_TESTING.md"],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "9e22860",
+      "fullSha": "9e2286014796a5e94bc191ceee54e01427c88705",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T04:04:28+00:00",
+      "commitDate": "2026-01-20T04:04:28+00:00",
+      "subject": "feat: complete Dashboard V2 with detail pane and trend visualizations",
+      "body": "- Add slide-out detail pane (desktop) / bottom sheet (mobile) for drill-down\n- Add click interactions for cards, charts, and bars to show filtered commits\n- Add Urgency Trend line chart showing average by month\n- Add Impact Over Time stacked bar chart\n- Add Urgency by Contributor and Impact by Contributor breakdowns\n- Wire up dark mode support for all new charts\n- Update documentation with completion status",
+      "tags": ["feature", "ui", "enhancement"],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "complete Dashboard V2 with detail pane and trend visualizations",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 731,
+        "deletions": 92
+      },
+      "files": ["dashboard/index.html", "docs/HISTORY.md", "docs/SESSION_NOTES.md", "docs/TODO.md"],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "229e7ab",
+      "fullSha": "229e7abb13ffec945ae59e24b2b169f5e14d6df7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T00:20:22+00:00",
+      "commitDate": "2026-01-20T00:20:22+00:00",
+      "subject": "feat: implement Dashboard V2 with 4-tab structure and urgency/impact visualizations",
+      "body": "Major dashboard restructure:\n- 4 tabs (Overview, Activity, Work, Health) down from 7\n- TAB_MAPPING in JS shows multiple content containers per tab\n- Existing render functions continue to work unchanged\n\nNew visualizations in Health tab:\n- Operational health cards (Security, Reactive%, Weekend%, After Hours%)\n- Urgency Distribution bars (Planned/Normal/Reactive)\n- Impact Distribution bars (user-facing/internal/infra/api)\n\nUpdated Overview tab:\n- Replaced Complexity and Files cards with Avg Urgency and % Planned\n- Trend indicators show urgency direction (lower is better)\n\nDocs updated with implementation progress and remaining work.",
+      "tags": ["feature", "ui", "refactor"],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "implement Dashboard V2 with 4-tab structure and urgency/impact visualizations",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 300,
+        "deletions": 117
+      },
+      "files": ["dashboard/index.html", "docs/HISTORY.md", "docs/SESSION_NOTES.md", "docs/TODO.md"],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "ce148ae",
+      "fullSha": "ce148aea1bc85746fa587d52f83eb7b6338edcab",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T00:12:38+00:00",
+      "commitDate": "2026-01-20T00:12:38+00:00",
+      "subject": "docs: mark Priority 1 (Aggregation) as complete",
+      "body": "",
+      "tags": ["docs"],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "mark Priority 1 (Aggregation) as complete",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 24,
+        "deletions": 24
+      },
+      "files": ["docs/TODO.md"],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "35b5e01",
+      "fullSha": "35b5e01dade84e94f72d67a686e7b9910f8874e2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T00:11:56+00:00",
+      "commitDate": "2026-01-20T00:11:56+00:00",
+      "subject": "feat: add aggregation script for processed data with urgency/impact",
+      "body": "New script reads AI-analyzed commits from processed/<repo>/batches/\nand generates dashboard-ready JSON with full aggregations:\n\n- tagBreakdown, complexityBreakdown (existing)\n- urgencyBreakdown, impactBreakdown (NEW)\n- Monthly aggregations with avgUrgency, impact distribution\n- Contributor aggregations with avgUrgency, impactBreakdown\n\nOutput structure:\n- dashboard/data.json (overall, all repos combined)\n- dashboard/repos/<repo>.json (per-repo, same schema)\n\nBoth views use identical schema enabling consistent dashboard code.",
+      "tags": ["feature", "build"],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "scope": null,
+      "title": "add aggregation script for processed data with urgency/impact",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 6712,
+        "deletions": 23323
+      },
+      "files": ["dashboard/data.json", "dashboard/repos/chatty-chart.json", "dashboard/repos/repo-tor.json", "dashboard/repos/social-ad-creator.json", "scripts/aggregate-processed.js"],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "52691d9",
+      "fullSha": "52691d9c9769c96934363d6aea05f6ffd81cda35",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T00:07:42+00:00",
+      "commitDate": "2026-01-20T00:07:42+00:00",
+      "subject": "docs: complete Dashboard V2 design specification",
+      "body": "New hybrid dashboard architecture combining logical groupings with\ncontextual detail pane. Reduces cognitive load (4 tabs instead of 7)\nwhile enabling in-context drill-down.\n\nKey design decisions:\n- Overview/Activity/Work/Health tab structure\n- Detail pane slides out on click (preserves context)\n- Same data schema for overall and per-repo views\n- Urgency and Impact dimensions integrated throughout\n\nFiles:\n- DASHBOARD_V2_DESIGN.md: Full design spec with layouts and schemas\n- SESSION_NOTES.md: Updated current state and next actions\n- TODO.md: Reorganized for V2 implementation priorities\n- HISTORY.md: Added design session entry",
+      "tags": ["docs"],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "scope": null,
+      "title": "complete Dashboard V2 design specification",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 709,
+        "deletions": 131
+      },
+      "files": ["docs/DASHBOARD_V2_DESIGN.md", "docs/HISTORY.md", "docs/SESSION_NOTES.md", "docs/TODO.md"],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b9c221d",
+      "fullSha": "b9c221d771a990d2372b56ad976f4c88d7d930b6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-20T01:22:40+02:00",
+      "commitDate": "2026-01-20T01:22:40+02:00",
+      "subject": "Merge pull request #21 from devmade-ai/claude/hatch-chicken-feature-fhLtJ",
+      "body": "chore: hatch the chicken - fresh extraction of all repos",
+      "tags": ["merge"],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #21 from devmade-ai/claude/hatch-chicken-feature-fhLtJ",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": ["#21"],
+      "stats": {
+        "filesChanged": 53,
+        "additions": 5066,
+        "deletions": 482
+      },
+      "files": [],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "279e0a9",
+      "fullSha": "279e0a94029db1c173edb4ab292fd8e278d87198",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T23:17:45+00:00",
+      "commitDate": "2026-01-19T23:17:45+00:00",
+      "subject": "docs: update documentation for manifest-based tracking system",
+      "body": "- SESSION_NOTES.md: Update progress (240/608 commits processed), add new\n  scripts (pending.js, manifest-update.js) to key files, explain\n  manifest-based tracking benefits\n- HISTORY.md: Add entry documenting manifest-based incremental processing\n  feature - the problem, solution, workflow, and files changed",
+      "tags": ["docs"],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "update documentation for manifest-based tracking system",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 56,
+        "deletions": 21
+      },
+      "files": ["docs/HISTORY.md", "docs/SESSION_NOTES.md"],
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "bd87de9",
+      "fullSha": "bd87de945860b771da3ab50492a8d22ba413f56c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T23:12:37+00:00",
+      "commitDate": "2026-01-19T23:12:37+00:00",
+      "subject": "feat: add incremental processing support for \"feed the chicken\"",
+      "body": "Add manifest-based tracking to enable resumable batch processing:\n- scripts/pending.js: Generates pending batches by comparing manifests\n  against extracted commits. Supports --rebuild-manifests flag.\n- scripts/manifest-update.js: Updates manifest after batch approval\n- processed/<repo>/manifest.json: Tracks processed SHAs (source of truth)\n- pending/<repo>/batches/: Generated batches of unprocessed commits only\n\nThis allows \"feed the chicken\" to work correctly even after merging\nand starting a new session - only truly new/unprocessed commits will\nbe presented for review.\n\nUpdated EXTRACTION_PLAYBOOK.md with new workflow documentation.",
+      "tags": ["feature", "build"],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "scope": null,
+      "title": "add incremental processing support for \"feed the chicken\"",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 636,
+        "deletions": 33
+      },
+      "files": [".gitignore", "docs/EXTRACTION_PLAYBOOK.md", "processed/chatty-chart/manifest.json", "processed/model-pear/manifest.json", "processed/repo-tor/manifest.json", "processed/social-ad-creator/manifest.json", "scripts/manifest-update.js", "scripts/pending.js"],
+      "repo_id": "repo-tor"
+    }
+  ]
+}
