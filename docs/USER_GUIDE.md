@@ -23,7 +23,7 @@ When multiple files are loaded:
 - The Repo filter appears to filter by specific repository
 - Summary cards show totals across all repositories
 
-**Tip:** Use the server-side aggregation script (`scripts/aggregate.js`) for better author identity mapping when the same person uses different emails across repositories.
+**Tip:** Use the server-side aggregation script (`scripts/aggregate-processed.js`) for better author identity mapping when the same person uses different emails across repositories.
 
 ## Dashboard Overview
 
@@ -40,17 +40,22 @@ Four cards at the top provide meaningful metrics about the work being done:
 | **Top Work Type** | Most common tag/type of work | Primary focus of development |
 | **Contributors** | Unique contributors | Team size / involvement |
 
-**Interpreting the numbers:**
-- High complexity = significant structural changes, major features
-- Low complexity = small fixes, config changes, simple updates
-- Top work type shows what the team is primarily focused on
-- Files changed indicates breadth of impact across the codebase
+## Dashboard Tabs (V2)
 
-## Dashboard Tabs
+The dashboard uses **4 tabs** organized by logical groupings:
 
-### Summary Tab (Executive View)
+| Tab | Purpose | Primary User |
+|-----|---------|--------------|
+| **Overview** | Executive summary, quick stats, highlights | Executive |
+| **Activity** | Timeline, heatmap, when work happens | Dev Manager |
+| **Work** | Progress, tags, contributors, what's being built | Dev Manager |
+| **Health** | Security, urgency, operational indicators | Both |
 
-The **default tab** designed for executives and managers who need quick, high-level insights.
+---
+
+### Overview Tab (Executive Landing)
+
+The **default tab** designed for executives who need quick, high-level insights.
 
 **Period Comparison**
 - Use the dropdown to compare: This Week vs Last Week, This Month vs Last Month, This Quarter vs Last Quarter
@@ -58,22 +63,16 @@ The **default tab** designed for executives and managers who need quick, high-le
 
 **Quick Stats Cards**
 
-| Card | What It Shows |
-|------|--------------|
-| **Features Built** | New features added in the period with trend |
-| **Bugs Fixed** | Bug fixes completed with trend |
-| **Avg Complexity** | Average complexity of changes with trend |
-| **Files Touched** | Unique files modified with trend |
+| Card | What It Shows | Click Action |
+|------|--------------|--------------|
+| **Features Built** | New features added with trend | Opens detail pane with feature commits |
+| **Bugs Fixed** | Bug fixes completed with trend | Opens detail pane with bugfix commits |
+| **Avg Urgency** | Average urgency of changes | Opens detail pane with reactive commits |
+| **% Planned** | Ratio of planned work (urgency 1-2) | Opens detail pane with planned commits |
 
 Trend indicators:
 - **↑ Green** = Increase vs previous period
 - **↓ Red** = Decrease vs previous period
-- Percentage shows relative change
-
-**What to focus on:**
-- Features vs fixes ratio indicates development vs maintenance mode
-- Complexity trending up may signal larger architectural changes
-- Files touched shows breadth of work across the codebase
 
 **Work Breakdown**
 - Doughnut chart showing top 5 tag categories for the period
@@ -86,381 +85,183 @@ Trend indicators:
 - **After-Hours Work** - Percentage of commits outside 8am-5pm
 
 **Activity Snapshot**
-- **Avg commits/day** - Daily productivity indicator
-- **After-hours** - Count of commits outside work hours
-- **Weekend** - Count of Saturday/Sunday commits
-- **Holiday** - Count of commits on SA public holidays
+- After-hours, weekend, holiday, and complex commit counts
 
-**What to look for:**
-- Green trends = growing activity and productivity
-- High after-hours/weekend = potential burnout or deadline pressure
-- Balanced features vs fixes = healthy development cycle
-- One dominant contributor = bus factor risk
+---
 
-### Timeline Tab
+### Activity Tab (When Things Happen)
 
 Shows **when** commits happened and **what** was recently committed.
 
 **Filters**
 
-The filter bar allows you to narrow down commits:
-
 | Filter | Description |
 |--------|-------------|
-| **Tag** | Show only commits with a specific tag (feature, bugfix, etc.) |
+| **Tag** | Show only commits with a specific tag |
 | **Author** | Show only commits from a specific contributor |
-| **Repo** | Show only commits from a specific repository (aggregated data only) |
+| **Repo** | Show only commits from a specific repository |
 | **From/To** | Show commits within a date range |
 
-- Filters apply to the changes list
-- The counter shows how many changes match current filters
-- Click "Clear Filters" to reset all filters
+**Activity Timeline**
+- Daily commit bar chart showing when commits happened
 
 **Changes List**
 - Shows up to 100 changes matching current filters
-- Each change displays:
-  - **Tag badges** (color-coded, up to 3 shown with +N overflow)
-  - **Subject** - The commit message summary
-  - **Complexity** - Score from 1-5 (purple = high, blue = medium, gray = low)
-  - **Metadata** - Author, date, repo (if aggregated)
-  - **Work pattern badges** - Indicators for when the commit was made
+- Each change displays: tags, subject, complexity, author, date, work pattern badges
 
-**Work Pattern Badges**
+**Activity Heatmap** (scroll down)
+- 24×7 grid showing commits by hour and day of week
+- Color intensity indicates commit density
 
-Commits made outside normal work hours show visual indicators:
+**Commits by Hour/Day Charts**
+- Distribution across 24 hours and days of week
+- Blue = work hours, Gray = after hours/weekend
 
-| Badge | Color | Meaning |
-|-------|-------|---------|
-| `AFTER HOURS` | Amber | Committed before 8:00 or after 17:00 |
-| `WEEKEND` | Indigo | Committed on Saturday or Sunday |
-| `HOLIDAY` | Pink | Committed on a South African public holiday |
+**Developer Activity Patterns**
+- Per-contributor timing breakdown showing peak hours and weekend %
 
-The legend in the filter bar explains these badges. A commit can have multiple badges (e.g., "After Hours" + "Weekend" if committed late on a Saturday).
+---
 
-**What to look for:**
-- Consistent after-hours badges = potential burnout or distributed team
-- Weekend clusters = deadline pressure or passion projects
-- Holiday badges = emergency fixes or dedicated contributors
+### Work Tab (What's Being Done)
 
-### Progress Tab
-
-Shows **how** work is evolving over time.
+Shows **how** work is evolving and **who does what**.
 
 **Work Type Trend**
-- Two overlapping line charts showing features vs bug fixes by month
-- **Green** = Features (`feature` tag)
-- **Red** = Bug fixes (`bugfix` tag)
-
-**What to look for:**
-- Features > fixes = growth phase, adding capabilities
-- Fixes > features = stabilization phase, quality focus
-- Fix spikes after feature spikes = common pattern (new code has bugs)
+- Features vs bug fixes by month (overlapping line charts)
 
 **Complexity Over Time**
-- Line chart showing average complexity (1-5 scale) by month
-- Purple line with filled area
-
-**What to look for:**
-- Rising complexity = larger architectural changes
-- Falling complexity = simpler maintenance work
-- Spikes = major refactoring or feature work
-
-### Contributors Tab
-
-Shows **who does what kind of work**.
+- Average complexity by month (rising = architectural changes)
 
 **Who Does What**
 - Work type breakdown per contributor
-- Shows percentage bars for each tag type (feature, bugfix, refactor, etc.)
-- Top 8 contributors displayed
-
-**What to look for:**
-- Who focuses on features vs fixes
-- Specialists vs generalists
-- Distribution of quality work (refactors, tests)
-
-**Complexity by Contributor**
-- Horizontal bar chart showing average complexity per person
-- Purple = high complexity, Blue = medium, Gray = low
-
-**What to look for:**
-- Who handles complex vs simple changes
-- Complexity distribution across team
-- Potential overload on one person for complex work
-
-### Security Tab
-
-Shows commits related to **security**.
-
-**Security Count**
-- Total number of security-related commits
-- Includes commits with:
-  - Type `security`
-  - Tag `security`
-  - Security-related keywords in the message
-
-**Security Commits List**
-- Detailed view of each security commit
-- Shows full subject, body excerpt, author, and date
-
-**What to look for:**
-- Zero security commits isn't necessarily good (are you looking?)
-- Clustered security commits = audit or vulnerability response
-- Regular security commits = proactive security culture
-- Review the commit bodies for severity context
-
-### Timing Tab
-
-Shows **when** work happens - time of day and day of week patterns.
-
-**Header Controls**
-- **Timezone selector** - Switch between Local (browser) and UTC time display
-- Charts update dynamically when you change the timezone
-
-**Activity Heatmap**
-- 24×7 grid showing commits by hour (Y-axis) and day of week (X-axis)
-- Color intensity indicates commit density:
-  - Light gray = 0 commits
-  - Light blue to dark blue = low to high commit count
-- Hover over any cell to see exact commit count
-- Days ordered Monday-first for business context
-
-**What to look for in the heatmap:**
-| Pattern | What It May Indicate |
-|---------|---------------------|
-| Hot spots 9-12, 14-17 | Traditional work hours focus |
-| Evening hot spots | Remote workers or global team |
-| Weekend hot spots | Crunch time or personal projects |
-| Uniform heat | 24/7 operations or global distribution |
-| Single day concentration | Deployment days or meeting-free focus days |
-
-**Commits by Hour of Day**
-- Bar chart showing commit distribution across 24 hours (0-23)
-- **Blue bars** = Work hours (8:00-17:00)
-- **Gray bars** = After hours (before 8:00 or after 17:00)
-- Hover for "Work hours" or "After hours" tooltip
-
-**What to look for:**
-- Peak activity hours: When is the team most productive?
-- After-hours work: Is there significant work outside business hours?
-- Time zone spread: For distributed teams, are commits spread across hours?
-- Concentrated vs distributed: Focused sprints vs steady work?
-
-**Commits by Day of Week**
-- Bar chart showing commit distribution across Mon-Sun
-- **Blue bars** = Weekdays (Monday-Friday)
-- **Gray bars** = Weekends (Saturday-Sunday)
-- Days ordered Monday-first for business context
-
-**What to look for:**
-- Weekend work: Are people working on weekends regularly?
-- Mid-week peaks: Tuesday-Thursday often have highest activity
-- Monday/Friday patterns: Slow starts or wrap-up days?
-- Work-life balance signals: High weekend activity may indicate deadline pressure
-
-**Interpreting patterns:**
-| Pattern | What It May Indicate |
-|---------|---------------------|
-| Most commits 9-17 | Typical office hours team |
-| Evening spike (18-22) | Remote/flexible workers or side projects |
-| Uniform distribution | Globally distributed team |
-| Weekend heavy | Deadline crunch or startup culture |
-| Friday low | Team winds down for the week |
-
-**Developer Activity Patterns**
-- Shows timing breakdown for top 6 contributors
-- Each contributor card displays:
-  - **Peak Hour** - Most common commit time
-  - **Peak Day** - Most common day of week
-  - **Work Hours %** - Percentage of commits during configured hours
-  - **Weekends %** - Percentage on Saturday/Sunday
-- Color indicators: Green (healthy), Amber (moderate), Red (concern)
-
-**What to look for:**
-- Low work hours % may indicate flexible schedules or timezone differences
-- High weekend % may signal burnout or crunch time
-- Compare patterns across team members for consistency
-
-### By Tag Tab
-
-Shows the **composition** of work done.
-
-**Commits by Tag (Doughnut Chart)**
-- Visual breakdown of commit tags
-- A commit can have multiple tags (e.g., feature + test)
-- Larger slices = more commits with that tag
+- **Click any contributor card** → Opens detail pane with their commits
 
 **Tag Breakdown**
 - Percentage bar for each tag
-- Sorted by count (highest first)
-- Note: Total may exceed commit count due to multi-tag commits
+- **Click any tag bar** → Opens detail pane with commits having that tag
 
-**Tag Vocabulary:**
+**Complexity by Contributor**
+- Horizontal bar chart showing average complexity per person
 
-| Tag | Color | Meaning |
-|-----|-------|---------|
-| `feature` | Green | New features or capabilities |
-| `bugfix` | Red | Bug fixes |
-| `security` | Dark Red | Security patches or hardening |
-| `docs` | Blue | Documentation changes |
-| `refactor` | Purple | Code restructuring (no behavior change) |
-| `test` | Orange | Test additions or updates |
-| `cleanup` | Gray | Maintenance, removing dead code |
-| `performance` | Cyan | Performance improvements |
-| `style` | Pink | Formatting, whitespace |
-| `config` | Slate | Build, CI/CD, configuration changes |
-| `dependency` | Lime | Dependency updates |
-| `other` | Light Gray | Unclassified |
+---
+
+### Health Tab (Operational Concerns)
+
+Shows operational health - security, urgency, work patterns.
+
+**Health Cards** (all clickable)
+
+| Card | What It Shows | Click Action |
+|------|--------------|--------------|
+| **Security** | Count of security-related commits | Opens detail pane with security commits |
+| **Reactive** | % of urgency 4-5 commits | Opens detail pane with reactive commits |
+| **Weekend** | % of Saturday/Sunday commits | Opens detail pane with weekend commits |
+| **After Hours** | % outside work hours | Opens detail pane with after-hours commits |
+
+**Urgency Distribution**
+- Horizontal bars: Planned (1-2), Normal (3), Reactive (4-5)
+- **Click any bar** → Opens detail pane with commits at that urgency level
+
+**Impact Distribution**
+- Horizontal bars: user-facing, internal, infrastructure, api
+- **Click any bar** → Opens detail pane with commits at that impact level
+
+**Urgency Trend**
+- Line chart showing average urgency by month (lower is better)
+
+**Impact Over Time**
+- Stacked bar chart showing distribution of impact categories by month
+
+**Urgency by Contributor**
+- Stacked bars showing planned/normal/reactive per person
+- **Click any contributor** → Opens detail pane with their commits
+
+**Impact by Contributor**
+- Stacked bars showing user-facing/internal/infra/api per person
+- **Click any contributor** → Opens detail pane with their commits
+
+**Security Commits List**
+- Detailed view of each security-related commit
+
+---
+
+## Detail Pane
+
+Clicking interactive elements opens a **detail pane** that slides in from the right (or bottom on mobile).
+
+**Features:**
+- Shows filtered commits matching your selection
+- Each commit displays: message, author, date, tags, urgency, impact
+- Close by clicking the X, clicking outside, or pressing Escape
+- Main dashboard view remains visible for context
+
+**What triggers the detail pane:**
+- Overview cards (features, fixes, urgency, planned)
+- Health cards (security, reactive, weekend, after-hours)
+- Urgency/Impact distribution bars
+- Tag breakdown bars
+- Contributor cards and urgency/impact breakdowns
+
+---
+
+## Interpreting New Metrics
+
+### Urgency (1-5 scale)
+
+| Level | Label | Meaning |
+|-------|-------|---------|
+| 1-2 | Planned | Scheduled, proactive work |
+| 3 | Normal | Regular development |
+| 4-5 | Reactive | Urgent fixes, firefighting |
 
 **What to look for:**
-- Healthy mix: feature + bugfix + test + docs
-- Heavy `bugfix` ratio: May indicate quality issues
-- No `test` commits: Testing might be lacking
-- Lots of `cleanup`: Technical debt being addressed
-- High `other`: Commit messages may need better formatting
+- High % Planned = healthy, executing roadmap
+- High % Reactive = firefighting, tech debt issues
+- Urgency trending up = increasing operational pressure
 
-## Interpreting Overall Health
+### Impact Categories
 
-Use these patterns to assess repository health:
+| Category | Meaning |
+|----------|---------|
+| user-facing | Changes visible to end users |
+| internal | Internal tooling, admin features |
+| infrastructure | DevOps, CI/CD, deployment |
+| api | API changes, integrations |
 
-| Signal | Good | Concerning |
-|--------|------|-----------|
-| Activity | Consistent commits | Long gaps or sporadic bursts |
-| Growth | Steady cumulative growth | Stagnant or declining |
-| Balance | Mix of feat/fix/test | Dominated by one type |
-| Distribution | Multiple active contributors | Single contributor dominance |
-| Security | Present and reviewed | None or clustered incidents |
+**What to look for:**
+- user-facing dominant = product development focus
+- infrastructure heavy = platform investment
+- Balanced mix = healthy full-stack work
+
+---
 
 ## Export and Sharing
 
 ### Share Link
-
-Click the **Share** button in the header to copy a shareable URL to your clipboard.
-
-**What gets captured in the link:**
-- Current tab (Summary, Timeline, etc.)
-- Active filters (tag, author, repo, date range)
-- Summary period selection (week/month/quarter)
-- Timezone setting (Local/UTC)
-
-**Use cases:**
-- Send a colleague a direct link to a specific view
-- Bookmark filtered views for quick access
-- Share findings with your team
-
-**Note:** The link encodes the current filter state. Recipients will see the same filtered view when they open the link.
+Click the **Share** button to copy a shareable URL with your current view state.
 
 ### PDF Export
-
 Click the **Export PDF** button to download a PDF report of the current view.
-
-**What gets exported:**
-- Current tab content with all charts
-- Summary statistics cards
-- Header with repository name and date range
-- Timestamp showing when the report was generated
-- "Filtered view" indicator if filters are active
-
-**Tips:**
-- Navigate to the tab you want to export before clicking Export
-- Apply filters first to export a focused view
-- PDF uses landscape A4 format for better chart visibility
-- The export captures the current state of all charts
-
-**Recommended workflow for executive reports:**
-1. Switch to Summary tab
-2. Select the period (week/month/quarter)
-3. Click Export PDF
-4. Share the PDF with stakeholders
 
 ## Dark Mode
 
-Click the **moon/sun icon** in the header to toggle between light and dark themes.
-
-- **Auto-detection**: On first visit, the dashboard respects your system preference (`prefers-color-scheme`)
-- **Persistence**: Your choice is saved to localStorage and remembered on future visits
-- **Instant switch**: All charts and UI elements update immediately
+Click the **moon/sun icon** to toggle between light and dark themes.
 
 ## Private Mode (Sanitization)
 
-Click the **eye icon** in the header to toggle private mode for sensitive repositories.
+Click the **eye icon** to toggle private mode:
+- Author names become anonymous
+- Commit messages are hidden
 
-**When enabled:**
-- Author names become anonymous (Developer A, Developer B, etc.)
-- Commit messages are hidden or sanitized
-- Conventional commit prefixes are preserved (e.g., "feat: [message hidden]")
-- Security tab hides commit body details
-
-**Use cases:**
-- Sharing dashboards without exposing proprietary information
-- Presenting to external stakeholders
-- Compliance with privacy requirements
-
-## Configurable Work Hours
-
-Customize what counts as "work hours" in the Timing tab:
-
-1. Navigate to the **Timing** tab
-2. Find the **Work Hours Settings** card at the bottom
-3. Select your preferred start and end times
-
-**Effects:**
-- Hour chart colors update (blue = work hours, gray = after hours)
-- Work pattern badges recalculate
-- Developer activity patterns update
-- Summary statistics adjust
-
-**Default:** 8:00 - 17:00
-
-## Settings Persistence
-
-The dashboard automatically saves your settings to browser localStorage:
-
-**What's saved:**
-- Active tab (Summary, Timeline, etc.)
-- Filter values (tag, author, repo, date range)
-- Summary period (week/month/quarter)
-- Timezone (Local/UTC)
-- Work hours (start/end)
-- Dark mode preference
-- Private mode preference
-
-**Behavior:**
-- Settings restore automatically when you revisit the dashboard
-- URL parameters override saved settings (shareable links take priority)
-- Clear browser data to reset all settings
+---
 
 ## Tips for Using the Dashboard
 
-1. **Compare over time** - Load data from different dates to see trends
-2. **Focus on ratios** - Absolute numbers matter less than proportions
-3. **Consider context** - A "fix" spike after launch is normal
-4. **Look for patterns** - Repeated issues suggest systemic problems
-5. **Use with other data** - Combine with issue trackers, reviews, etc.
-6. **Use shareable links** - Bookmark specific filtered views for quick access
-7. **Export for meetings** - Generate PDFs for stakeholders who don't use the dashboard
-8. **Use dark mode** - Easier on the eyes for extended analysis sessions
-
-## Loading Data
-
-- **File picker**: Click "Choose File" to select a `data.json` file
-- **Auto-load**: Place `data.json` in the same folder as the dashboard
-- The dashboard accepts files generated by the extraction or aggregation scripts
-
-## Multi-Repository View
-
-When loading aggregated data (from multiple repositories), the dashboard shows combined metrics:
-
-- **Header** displays "Aggregated (N repos)" instead of a single repo name
-- **Commits** show a `repo_id` indicating which repository each came from
-- **Contributors** may show the same person across multiple repos (if author mapping was used)
-- **Summary** includes per-repository breakdown
-
-**Interpreting aggregated data:**
-- Compare activity levels across repositories
-- Identify contributors who work across multiple repos
-- Spot repos that may need more attention (low activity, high fix ratio)
-- See organization-wide commit patterns and trends
+1. **Start with Overview** - Get quick status in 10 seconds
+2. **Click to drill down** - Any card, bar, or chart segment opens detail pane
+3. **Use Health tab for ops reviews** - Urgency and work pattern insights
+4. **Compare periods** - Change the period dropdown in Overview
+5. **Export for meetings** - Generate PDFs for stakeholders
 
 ---
 

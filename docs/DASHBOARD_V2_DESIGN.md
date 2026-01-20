@@ -1,7 +1,7 @@
 # Dashboard V2 Design
 
 **Date:** 2026-01-20
-**Status:** Design Complete, Ready for Implementation
+**Status:** Implementation Complete
 
 ---
 
@@ -439,31 +439,32 @@ Visual indicator shows active filters in header.
 
 ## Implementation Phases
 
-### Phase 1: Aggregation
-- [ ] Create `scripts/aggregate-processed.js`
-- [ ] Read from processed/ batches
-- [ ] Output per-repo + overall data files
-- [ ] Include urgency/impact aggregations
+### Phase 1: Aggregation - COMPLETE
+- [x] Create `scripts/aggregate-processed.js`
+- [x] Read from processed/ batches
+- [x] Output per-repo + overall data files
+- [x] Include urgency/impact aggregations
 
-### Phase 2: Dashboard Structure
-- [ ] Restructure to 4 tabs
-- [ ] Implement detail pane component
-- [ ] Mobile bottom sheet variant
-- [ ] Migrate existing content to new tabs
+### Phase 2: Dashboard Structure - COMPLETE
+- [x] Restructure to 4 tabs
+- [x] Implement detail pane component
+- [x] Mobile bottom sheet variant
+- [x] Migrate existing content to new tabs
 
-### Phase 3: New Visualizations
-- [ ] Urgency distribution chart
-- [ ] Urgency trend line
-- [ ] Urgency by contributor
-- [ ] Impact allocation bars
-- [ ] Impact over time (stacked)
-- [ ] Impact by contributor
+### Phase 3: New Visualizations - COMPLETE
+- [x] Urgency distribution chart
+- [x] Urgency trend line
+- [x] Urgency by contributor
+- [x] Impact allocation bars
+- [x] Impact over time (stacked)
+- [x] Impact by contributor
 
-### Phase 4: Polish
-- [ ] Click interactions for drill-down
-- [ ] Detail pane content for each click type
-- [ ] Responsive refinements
-- [ ] Dark mode for new components
+### Phase 4: Polish - COMPLETE
+- [x] Click interactions for drill-down
+- [x] Detail pane content for each click type
+- [x] Dark mode for new components
+- [ ] Loading states for detail pane (optional)
+- [ ] Shareable links for detail pane state (optional)
 
 ---
 
