@@ -4,6 +4,25 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-21
 
+### Fix: JavaScript Error in updateFilteredStats()
+
+Removed orphaned `updateFilteredStats()` function that was causing console errors when making filter selections.
+
+**Problem:**
+
+- `updateFilteredStats()` tried to set `textContent` on element `stat-commits-filtered` which doesn't exist
+- This threw an uncaught TypeError every time filters were changed
+- The function was redundant since `updateFilterIndicator()` already handles showing filtered counts
+
+**Changes to `dashboard/index.html`:**
+
+- Removed the call to `updateFilteredStats()` from `applyFilters()`
+- Removed the orphaned `updateFilteredStats()` function
+
+**Result:** Filter selections no longer throw console errors.
+
+---
+
 ### Fix: JavaScript Error Breaking Filter Updates
 
 Fixed a JavaScript error in `renderSecurity()` that was preventing filters from updating the Overview tab.

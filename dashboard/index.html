@@ -1814,7 +1814,6 @@
             renderSecurity();
             renderTiming();
             renderSummary();
-            updateFilteredStats();
             saveFiltersToStorage();
         }
 
@@ -1921,18 +1920,6 @@
             } catch (e) {
                 console.warn('Failed to restore dashboard state:', e);
                 return false;
-            }
-        }
-
-        function updateFilteredStats() {
-            const filtered = getFilteredCommits();
-            const total = data.commits.length;
-            const filteredEl = document.getElementById('stat-commits-filtered');
-
-            if (filtered.length !== total) {
-                filteredEl.textContent = `(${filtered.length} shown)`;
-            } else {
-                filteredEl.textContent = '';
             }
         }
 
