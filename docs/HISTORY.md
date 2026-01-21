@@ -4,6 +4,49 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-21
 
+### Enhancement: Koinz Style Guide Implementation
+
+Complete visual redesign of the dashboard following the Koinz Style Guide.
+
+**Color System (Dark-Only Theme):**
+- Background: #1B1B1B (page), #2a2a2a (cards)
+- Primary blue: #2D68FF (links, CTAs, focus states)
+- Text: #FFFFFF (primary), #767676 (secondary)
+- Borders: #333333
+- Semantic: #16A34A (success), #EF4444 (error), #EAB308 (warning)
+
+**Typography:**
+- Font: Figtree (loaded from Google Fonts)
+- Weights: 400 (regular), 500 (medium), 600 (semibold)
+
+**Spacing:**
+- Base unit: 8px
+- Section gaps: 24px
+- Card padding: 24px
+- Component gaps: 8px, 16px
+
+**Border Radius:**
+- Small: 4px (buttons, icons)
+- Medium: 8px (inputs, alerts)
+- Large: 12px (cards, dialogs)
+- Full: 9999px (badges, pills)
+
+**Components Updated:**
+- Cards: border instead of shadow, #2a2a2a background
+- Buttons: primary (#2D68FF), secondary (transparent with border)
+- Inputs: 40px height, 2px border, 8px radius
+- Tags/badges: transparent backgrounds with colored text and borders
+- Modal backdrop: rgba(0, 0, 0, 0.8)
+
+**Dark Mode:**
+- Removed light mode toggle (dark-only)
+- Chart.js defaults set for dark theme
+- Heatmap colors adjusted for dark backgrounds
+
+**Reference:** Koinz Style Guide specification provided by user.
+
+---
+
 ### Enhancement: Redesigned Dashboard Layout with Sticky Tabs and Filter Sidebar
 
 Major UI restructure for improved navigation and screen real estate.

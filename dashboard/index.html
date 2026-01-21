@@ -4,54 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Git Analytics Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        /* CSS Variables for theming */
+        /* Koinz Style Guide - Dark Theme Only */
         :root {
-            --bg-primary: #f3f4f6;
-            --bg-secondary: #ffffff;
-            --bg-tertiary: #f9fafb;
-            --bg-hover: #f3f4f6;
-            --text-primary: #111827;
-            --text-secondary: #374151;
-            --text-tertiary: #6b7280;
-            --text-muted: #9ca3af;
-            --border-color: #e5e7eb;
-            --border-light: #f3f4f6;
-            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-            --chart-grid: rgba(0, 0, 0, 0.1);
-        }
+            color-scheme: dark;
 
-        .dark {
-            --bg-primary: #111827;
-            --bg-secondary: #1f2937;
-            --bg-tertiary: #374151;
-            --bg-hover: #374151;
-            --text-primary: #f9fafb;
+            /* Primary Palette */
+            --color-primary: #2D68FF;
+            --color-background: #1B1B1B;
+            --color-foreground: #FFFFFF;
+            --color-card: #2a2a2a;
+            --color-secondary: #767676;
+            --color-border: #333333;
+
+            /* Extended Palette */
+            --color-primary-dark: #121213;
+            --color-primary-light: #2a2a2a;
+            --color-secondary-dark: #333333;
+            --color-secondary-light: #222222;
+
+            /* Semantic Colors */
+            --color-success: #16A34A;
+            --color-error: #EF4444;
+            --color-warning: #EAB308;
+
+            /* Mapped Variables (for compatibility) */
+            --bg-primary: #1B1B1B;
+            --bg-secondary: #2a2a2a;
+            --bg-tertiary: #333333;
+            --bg-hover: #222222;
+            --text-primary: #FFFFFF;
             --text-secondary: #e5e7eb;
-            --text-tertiary: #9ca3af;
-            --text-muted: #6b7280;
-            --border-color: #374151;
-            --border-light: #1f2937;
-            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.3);
+            --text-tertiary: #767676;
+            --text-muted: #767676;
+            --border-color: #333333;
+            --border-light: #2a2a2a;
+            --shadow: none;
             --chart-grid: rgba(255, 255, 255, 0.1);
+
+            /* Spacing (8px base) */
+            --spacing-base: 8px;
+            --section-gap: 24px;
+            --card-gap: 16px;
+            --content-padding: 24px;
+
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
         }
 
-        /* Tag classes */
-        .tag-feature { background-color: #10b981; color: white; }
-        .tag-bugfix { background-color: #ef4444; color: white; }
-        .tag-refactor { background-color: #8b5cf6; color: white; }
-        .tag-docs { background-color: #3b82f6; color: white; }
-        .tag-test { background-color: #f59e0b; color: white; }
-        .tag-config { background-color: #64748b; color: white; }
-        .tag-style { background-color: #ec4899; color: white; }
-        .tag-cleanup { background-color: #6b7280; color: white; }
-        .tag-security { background-color: #dc2626; color: white; }
-        .tag-performance { background-color: #06b6d4; color: white; }
-        .tag-dependency { background-color: #84cc16; color: white; }
-        .tag-other { background-color: #9ca3af; color: white; }
+        /* Base styles */
+        * {
+            font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        /* Tag classes - adjusted for dark theme */
+        .tag-feature { background-color: rgba(22, 163, 74, 0.2); color: #16A34A; border: 1px solid rgba(22, 163, 74, 0.3); }
+        .tag-bugfix { background-color: rgba(239, 68, 68, 0.2); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .tag-refactor { background-color: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
+        .tag-docs { background-color: rgba(45, 104, 255, 0.2); color: #2D68FF; border: 1px solid rgba(45, 104, 255, 0.3); }
+        .tag-test { background-color: rgba(234, 179, 8, 0.2); color: #EAB308; border: 1px solid rgba(234, 179, 8, 0.3); }
+        .tag-config { background-color: rgba(100, 116, 139, 0.2); color: #94a3b8; border: 1px solid rgba(100, 116, 139, 0.3); }
+        .tag-style { background-color: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
+        .tag-cleanup { background-color: rgba(107, 114, 128, 0.2); color: #9ca3af; border: 1px solid rgba(107, 114, 128, 0.3); }
+        .tag-security { background-color: rgba(220, 38, 38, 0.2); color: #f87171; border: 1px solid rgba(220, 38, 38, 0.3); }
+        .tag-performance { background-color: rgba(6, 182, 212, 0.2); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3); }
+        .tag-dependency { background-color: rgba(132, 204, 22, 0.2); color: #a3e635; border: 1px solid rgba(132, 204, 22, 0.3); }
+        .tag-other { background-color: rgba(156, 163, 175, 0.2); color: #d1d5db; border: 1px solid rgba(156, 163, 175, 0.3); }
 
         .timeline-dot {
             width: 12px;
@@ -66,9 +98,9 @@
 
         .card {
             background: var(--bg-secondary);
-            border-radius: 0.75rem;
-            box-shadow: var(--shadow);
-            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            padding: 24px;
         }
 
         /* Text color utilities using CSS variables for dark mode support */
@@ -83,42 +115,44 @@
 
         .tag {
             display: inline-block;
-            padding: 0.125rem 0.5rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
             font-weight: 500;
         }
 
         /* Special alert-style tags */
-        .tag-breaking { background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a; }
+        .tag-breaking { background-color: rgba(234, 179, 8, 0.1); color: #EAB308; border: 1px solid rgba(234, 179, 8, 0.3); }
 
         .filter-select {
-            padding: 0.375rem 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
+            height: 40px;
+            padding: 0 24px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 14px;
             background-color: var(--bg-secondary);
-            color: var(--text-secondary);
+            color: var(--text-primary);
             min-width: 120px;
         }
         .filter-select:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(45, 104, 255, 0.2);
         }
 
         .filter-input {
-            padding: 0.375rem 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
+            height: 40px;
+            padding: 0 24px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 14px;
             background-color: var(--bg-secondary);
-            color: var(--text-secondary);
+            color: var(--text-primary);
         }
         .filter-input:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 2px rgba(45, 104, 255, 0.2);
         }
 
         /* Hide scrollbar for mobile tabs */
@@ -131,91 +165,93 @@
             display: none;
         }
 
-        /* Work pattern badges */
+        /* Work pattern badges - Koinz dark theme */
         .badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.25rem;
-            padding: 0.125rem 0.375rem;
-            border-radius: 0.25rem;
-            font-size: 0.625rem;
+            gap: 4px;
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 10px;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.025em;
         }
         .badge-after-hours {
-            background-color: #fef3c7;
-            color: #92400e;
+            background-color: rgba(234, 179, 8, 0.2);
+            color: #EAB308;
         }
         .badge-weekend {
-            background-color: #e0e7ff;
-            color: #3730a3;
+            background-color: rgba(139, 92, 246, 0.2);
+            color: #a78bfa;
         }
         .badge-holiday {
-            background-color: #fce7f3;
-            color: #9d174d;
+            background-color: rgba(236, 72, 153, 0.2);
+            color: #f472b6;
         }
 
-        /* Export/Share buttons */
+        /* Export/Share buttons - Koinz style */
         .btn-icon {
             display: inline-flex;
             align-items: center;
-            gap: 0.375rem;
-            padding: 0.5rem 0.75rem;
-            font-size: 0.875rem;
+            gap: 6px;
+            height: 40px;
+            padding: 0 32px;
+            font-size: 14px;
             font-weight: 500;
-            border-radius: 0.375rem;
+            border-radius: var(--radius-sm);
             cursor: pointer;
             transition: all 0.15s;
         }
         .btn-primary {
-            background-color: #3b82f6;
+            background-color: var(--color-primary);
             color: white;
         }
         .btn-primary:hover {
-            background-color: #2563eb;
+            background-color: rgba(45, 104, 255, 0.9);
         }
         .btn-secondary {
-            background-color: var(--bg-secondary);
-            color: var(--text-secondary);
+            background-color: transparent;
+            color: var(--text-primary);
             border: 1px solid var(--border-color);
         }
         .btn-secondary:hover {
-            background-color: var(--bg-hover);
+            background-color: var(--bg-secondary);
         }
         .btn-icon svg {
-            width: 1rem;
-            height: 1rem;
+            width: 16px;
+            height: 16px;
         }
 
-        /* Toast notification */
+        /* Toast notification - Koinz style */
         .toast {
             position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            background-color: #1f2937;
-            color: white;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
+            bottom: 24px;
+            right: 24px;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            font-size: 14px;
             z-index: 1000;
             opacity: 0;
-            transform: translateY(1rem);
+            transform: translateY(16px);
             transition: all 0.3s ease;
-        }
-        .dark .toast {
-            background-color: #f9fafb;
-            color: #111827;
         }
         .toast.show {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Dark mode toggle button */
+        /* Icon buttons - Koinz style */
         .btn-theme {
-            padding: 0.5rem;
-            border-radius: 0.375rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
             background: transparent;
             color: var(--text-tertiary);
             cursor: pointer;
@@ -226,8 +262,8 @@
             color: var(--text-primary);
         }
         .btn-theme svg {
-            width: 1.25rem;
-            height: 1.25rem;
+            width: 20px;
+            height: 20px;
         }
 
         /* Print styles for PDF */
@@ -237,7 +273,7 @@
             .card { box-shadow: none !important; border: 1px solid #e5e7eb; }
         }
 
-        /* Heatmap styles */
+        /* Heatmap styles - Koinz dark theme */
         .heatmap-grid {
             display: grid;
             grid-template-columns: 50px repeat(7, 1fr);
@@ -248,12 +284,12 @@
             aspect-ratio: 1;
             min-width: 28px;
             min-height: 28px;
-            border-radius: 4px;
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 10px;
-            color: #374151;
+            color: var(--text-secondary);
             cursor: default;
             transition: transform 0.1s;
         }
@@ -267,7 +303,7 @@
             justify-content: flex-end;
             padding-right: 8px;
             font-size: 11px;
-            color: #6b7280;
+            color: var(--text-tertiary);
         }
         .heatmap-header {
             display: flex;
@@ -275,80 +311,70 @@
             justify-content: center;
             font-size: 11px;
             font-weight: 500;
-            color: #374151;
-        }
-        /* Heatmap intensity levels */
-        .heatmap-0 { background-color: #f3f4f6; }
-        .heatmap-1 { background-color: #dbeafe; }
-        .heatmap-2 { background-color: #93c5fd; }
-        .heatmap-3 { background-color: #3b82f6; color: white; }
-        .heatmap-4 { background-color: #1d4ed8; color: white; }
-
-        .dark .heatmap-0 { background-color: #374151; }
-        .dark .heatmap-1 { background-color: #1e3a5f; }
-        .dark .heatmap-2 { background-color: #1e40af; }
-        .dark .heatmap-3 { background-color: #2563eb; color: white; }
-        .dark .heatmap-4 { background-color: #3b82f6; color: white; }
-
-        .heatmap-cell {
             color: var(--text-secondary);
         }
-        .heatmap-label {
+        /* Heatmap intensity levels - Koinz primary blue */
+        .heatmap-0 { background-color: var(--bg-tertiary); }
+        .heatmap-1 { background-color: rgba(45, 104, 255, 0.15); }
+        .heatmap-2 { background-color: rgba(45, 104, 255, 0.35); }
+        .heatmap-3 { background-color: rgba(45, 104, 255, 0.6); color: white; }
+        .heatmap-4 { background-color: var(--color-primary); color: white; }
+
+        /* Tailwind gray class overrides for dark theme */
+        .bg-gray-50 { background-color: var(--bg-tertiary) !important; }
+        .bg-gray-100 { background-color: var(--bg-primary) !important; }
+        .text-gray-900 { color: var(--text-primary) !important; }
+        .text-gray-700 { color: var(--text-secondary) !important; }
+        .text-gray-600 { color: var(--text-secondary) !important; }
+        .text-gray-500 { color: var(--text-tertiary) !important; }
+        .text-gray-400 { color: var(--text-muted) !important; }
+        .border-gray-200 { border-color: var(--border-color) !important; }
+        .border-gray-100 { border-color: var(--border-light) !important; }
+        .hover\:text-gray-900:hover { color: var(--text-primary) !important; }
+        .hover\:text-gray-700:hover { color: var(--text-secondary) !important; }
+        .hover\:bg-gray-100:hover { background-color: var(--bg-hover) !important; }
+
+        /* Semantic card backgrounds for dark theme */
+        .bg-amber-50 { background-color: rgba(234, 179, 8, 0.1) !important; }
+        .bg-indigo-50 { background-color: rgba(45, 104, 255, 0.1) !important; }
+        .bg-pink-50 { background-color: rgba(236, 72, 153, 0.1) !important; }
+        .bg-purple-50 { background-color: rgba(139, 92, 246, 0.1) !important; }
+        .bg-red-50 { background-color: rgba(239, 68, 68, 0.1) !important; }
+        .bg-green-50 { background-color: rgba(22, 163, 74, 0.1) !important; }
+        .bg-blue-50 { background-color: rgba(45, 104, 255, 0.1) !important; }
+
+        /* Semantic text colors */
+        .text-green-600 { color: var(--color-success) !important; }
+        .text-red-600 { color: var(--color-error) !important; }
+        .text-amber-600 { color: var(--color-warning) !important; }
+        .text-blue-600 { color: var(--color-primary) !important; }
+        .border-blue-500 { border-color: var(--color-primary) !important; }
+
+        /* Tab button styling - Koinz style */
+        .tab-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
             color: var(--text-tertiary);
+            white-space: nowrap;
+            transition: all 0.15s;
         }
-        .heatmap-header {
+        .tab-btn:hover {
             color: var(--text-secondary);
         }
-
-        /* Dark mode color overrides */
-        .dark .bg-gray-50 { background-color: var(--bg-tertiary) !important; }
-        .dark .bg-gray-100 { background-color: var(--bg-primary) !important; }
-        .dark .text-gray-900 { color: var(--text-primary) !important; }
-        .dark .text-gray-700 { color: var(--text-secondary) !important; }
-        .dark .text-gray-600 { color: var(--text-secondary) !important; }
-        .dark .text-gray-500 { color: var(--text-tertiary) !important; }
-        .dark .text-gray-400 { color: var(--text-muted) !important; }
-        .dark .border-gray-200 { border-color: var(--border-color) !important; }
-        .dark .border-gray-100 { border-color: var(--border-light) !important; }
-        .dark .hover\:text-gray-900:hover { color: var(--text-primary) !important; }
-        .dark .hover\:text-gray-700:hover { color: var(--text-secondary) !important; }
-        .dark .hover\:bg-gray-100:hover { background-color: var(--bg-hover) !important; }
-
-        /* Dark mode summary card backgrounds */
-        .dark .bg-amber-50 { background-color: rgba(251, 191, 36, 0.1) !important; }
-        .dark .bg-indigo-50 { background-color: rgba(99, 102, 241, 0.1) !important; }
-        .dark .bg-pink-50 { background-color: rgba(236, 72, 153, 0.1) !important; }
-        .dark .bg-purple-50 { background-color: rgba(139, 92, 246, 0.1) !important; }
-        .dark .bg-red-50 { background-color: rgba(239, 68, 68, 0.1) !important; }
-
-        /* Dark mode badges */
-        .dark .badge-after-hours {
-            background-color: rgba(251, 191, 36, 0.2);
-            color: #fbbf24;
-        }
-        .dark .badge-weekend {
-            background-color: rgba(99, 102, 241, 0.2);
-            color: #818cf8;
-        }
-        .dark .badge-holiday {
-            background-color: rgba(236, 72, 153, 0.2);
-            color: #f472b6;
+        .tab-btn.border-blue-500 {
+            border-color: var(--color-primary) !important;
+            color: var(--color-primary) !important;
         }
 
-        /* Consistent spacing variables */
-        :root {
-            --section-gap: 1.5rem;
-            --card-gap: 1rem;
-            --content-padding: 1.5rem;
-        }
-
-        /* Collapsible sections */
+        /* Collapsible sections - Koinz style */
         .collapsible-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
-            padding: 0.75rem 0;
+            padding: 12px 0;
             user-select: none;
         }
         .collapsible-header:hover {
@@ -357,11 +383,11 @@
         .collapsible-title {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
         }
         .collapsible-chevron {
-            width: 1.25rem;
-            height: 1.25rem;
+            width: 20px;
+            height: 20px;
             transition: transform 0.2s ease;
             color: var(--text-tertiary);
             flex-shrink: 0;
@@ -380,20 +406,20 @@
             opacity: 1;
         }
         .collapsible-subtitle {
-            font-size: 0.75rem;
+            font-size: 12px;
             color: var(--text-tertiary);
             margin-left: auto;
-            margin-right: 0.5rem;
+            margin-right: 8px;
         }
 
-        /* Loading states */
+        /* Loading states - Koinz style */
         .loading-spinner {
             display: inline-block;
-            width: 1.5rem;
-            height: 1.5rem;
+            width: 24px;
+            height: 24px;
             border: 2px solid var(--border-color);
             border-radius: 50%;
-            border-top-color: #3b82f6;
+            border-top-color: var(--color-primary);
             animation: spin 0.8s linear infinite;
         }
         @keyframes spin {
@@ -407,7 +433,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 0.75rem;
+            border-radius: var(--radius-lg);
             z-index: 10;
         }
         .card-loading {
@@ -418,18 +444,18 @@
             background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-hover) 50%, var(--bg-tertiary) 75%);
             background-size: 200% 100%;
             animation: skeleton-loading 1.5s infinite;
-            border-radius: 0.25rem;
+            border-radius: var(--radius-sm);
         }
         @keyframes skeleton-loading {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
 
-        /* Detail Pane - Slide-out panel for drill-down */
+        /* Detail Pane - Slide-out panel for drill-down (Koinz style) */
         .detail-pane-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.8);
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
@@ -438,9 +464,6 @@
         .detail-pane-overlay.open {
             opacity: 1;
             visibility: visible;
-        }
-        .dark .detail-pane-overlay {
-            background: rgba(0, 0, 0, 0.5);
         }
 
         .detail-pane {
@@ -451,7 +474,7 @@
             max-width: 480px;
             height: 100%;
             background: var(--bg-secondary);
-            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+            border-left: 1px solid var(--border-color);
             transform: translateX(100%);
             transition: transform 0.3s ease;
             z-index: 999;
@@ -462,31 +485,32 @@
         .detail-pane.open {
             transform: translateX(0);
         }
-        .dark .detail-pane {
-            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.4);
-        }
 
         .detail-pane-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1rem 1.5rem;
+            padding: 16px 24px;
             border-bottom: 1px solid var(--border-color);
             flex-shrink: 0;
         }
         .detail-pane-title {
-            font-size: 1.125rem;
+            font-size: 18px;
             font-weight: 600;
             color: var(--text-primary);
         }
         .detail-pane-subtitle {
-            font-size: 0.75rem;
+            font-size: 12px;
             color: var(--text-tertiary);
-            margin-top: 0.25rem;
+            margin-top: 4px;
         }
         .detail-pane-close {
-            padding: 0.5rem;
-            border-radius: 0.375rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
             background: transparent;
             color: var(--text-tertiary);
             cursor: pointer;
@@ -500,44 +524,44 @@
         .detail-pane-content {
             flex: 1;
             overflow-y: auto;
-            padding: 1.5rem;
+            padding: 24px;
         }
 
         .detail-pane-loading {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 3rem;
+            padding: 48px;
         }
 
-        /* Detail pane commit list */
+        /* Detail pane commit list - Koinz style */
         .detail-commit {
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            border: 1px solid var(--border-light);
-            margin-bottom: 0.75rem;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            margin-bottom: 12px;
             transition: background 0.15s;
         }
         .detail-commit:hover {
-            background: var(--bg-tertiary);
+            background: rgba(255, 255, 255, 0.05);
         }
         .detail-commit-message {
             font-weight: 500;
             color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
         }
         .detail-commit-meta {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            font-size: 0.75rem;
+            gap: 8px;
+            font-size: 12px;
             color: var(--text-tertiary);
         }
         .detail-commit-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.25rem;
-            margin-top: 0.5rem;
+            gap: 4px;
+            margin-top: 8px;
         }
 
         /* Mobile: Bottom sheet variant */
@@ -551,56 +575,58 @@
                 max-width: none;
                 height: 85vh;
                 max-height: 85vh;
-                border-radius: 1rem 1rem 0 0;
+                border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+                border-left: none;
+                border-top: 1px solid var(--border-color);
                 transform: translateY(100%);
             }
             .detail-pane.open {
                 transform: translateY(0);
             }
             .detail-pane-header {
-                padding: 0.75rem 1rem;
+                padding: 12px 16px;
             }
             .detail-pane-header::before {
                 content: '';
                 position: absolute;
-                top: 0.5rem;
+                top: 8px;
                 left: 50%;
                 transform: translateX(-50%);
-                width: 2rem;
-                height: 0.25rem;
+                width: 32px;
+                height: 4px;
                 background: var(--border-color);
-                border-radius: 0.125rem;
+                border-radius: 2px;
             }
             .detail-pane-content {
-                padding: 1rem;
+                padding: 16px;
             }
         }
 
-        /* Sticky tabs bar */
+        /* Sticky tabs bar - Koinz style */
         .tabs-bar {
             position: sticky;
             top: 0;
             z-index: 100;
             background: var(--bg-primary);
             border-bottom: 1px solid var(--border-color);
-            margin: 0 -1rem;
-            padding: 0 1rem;
+            margin: 0 -16px;
+            padding: 0 16px;
         }
         @media (min-width: 768px) {
             .tabs-bar {
-                margin: 0 -2rem;
-                padding: 0 2rem;
+                margin: 0 -32px;
+                padding: 0 32px;
             }
         }
 
-        /* Filter toggle button */
+        /* Filter toggle button - Koinz style */
         .filter-toggle {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 0.375rem;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
             background: transparent;
             color: var(--text-tertiary);
             cursor: pointer;
@@ -618,18 +644,18 @@
             border-color: var(--border-color);
         }
         .filter-toggle svg {
-            width: 1.25rem;
-            height: 1.25rem;
+            width: 20px;
+            height: 20px;
         }
 
         /* Dashboard layout with sidebar */
         .dashboard-layout {
             display: flex;
-            gap: 1.5rem;
+            gap: 24px;
             position: relative;
         }
 
-        /* Filter sidebar */
+        /* Filter sidebar - Koinz style */
         .filter-sidebar {
             width: 280px;
             flex-shrink: 0;
@@ -638,26 +664,26 @@
         }
         .filter-sidebar.collapsed {
             width: 0;
-            margin-left: -1.5rem;
+            margin-left: -24px;
         }
         .filter-sidebar-inner {
             width: 280px;
-            padding: 1rem;
+            padding: 16px;
             background: var(--bg-secondary);
-            border-radius: 0.75rem;
-            box-shadow: var(--shadow);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
         }
         .filter-sidebar-inner .filter-group {
-            margin-bottom: 1rem;
+            margin-bottom: 16px;
         }
         .filter-sidebar-inner .filter-group:last-child {
             margin-bottom: 0;
         }
         .filter-sidebar-inner label {
             display: block;
-            font-size: 0.75rem;
+            font-size: 12px;
             color: var(--text-tertiary);
-            margin-bottom: 0.25rem;
+            margin-bottom: 4px;
         }
         .filter-sidebar-inner select,
         .filter-sidebar-inner input {
@@ -696,12 +722,12 @@
                 height: 100%;
                 border-radius: 0;
                 overflow-y: auto;
-                padding-top: 1.5rem;
+                padding-top: 24px;
             }
             .filter-sidebar-overlay {
                 position: fixed;
                 inset: 0;
-                background: rgba(0, 0, 0, 0.3);
+                background: rgba(0, 0, 0, 0.8);
                 z-index: 199;
                 opacity: 0;
                 visibility: hidden;
@@ -713,19 +739,19 @@
             }
         }
 
-        /* Filter badge on toggle button */
+        /* Filter badge on toggle button - Koinz style */
         .filter-toggle .filter-badge {
             position: absolute;
-            top: 0.25rem;
-            right: 0.25rem;
-            width: 0.5rem;
-            height: 0.5rem;
-            background: #3b82f6;
+            top: 4px;
+            right: 4px;
+            width: 8px;
+            height: 8px;
+            background: var(--color-primary);
             border-radius: 50%;
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="min-h-screen">
     <div id="app" class="container mx-auto px-4 py-8 max-w-7xl">
         <!-- Header -->
         <header class="mb-8">
@@ -744,7 +770,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
                         </svg>
                     </button>
-                    <button id="btn-theme" class="btn-theme" title="Toggle dark mode">
+                    <!-- Theme toggle hidden: Koinz style is dark-only -->
+                    <button id="btn-theme" class="btn-theme hidden" title="Toggle dark mode">
                         <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
                         </svg>
@@ -1610,47 +1637,31 @@
             });
         }
 
-        // === Dark Mode ===
+        // === Dark Mode (Koinz Style - Always Dark) ===
         function initDarkMode() {
-            // Check localStorage first, then system preference
-            const stored = localStorage.getItem('darkMode');
-            if (stored !== null) {
-                isDarkMode = stored === 'true';
-            } else {
-                isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            }
+            // Koinz style guide: dark mode only
+            isDarkMode = true;
             applyDarkMode();
         }
 
         function applyDarkMode() {
-            document.documentElement.classList.toggle('dark', isDarkMode);
-            document.getElementById('icon-sun').classList.toggle('hidden', !isDarkMode);
-            document.getElementById('icon-moon').classList.toggle('hidden', isDarkMode);
+            // Always apply dark mode for Koinz style
+            document.documentElement.classList.add('dark');
 
-            // Update Chart.js defaults for dark mode
-            if (isDarkMode) {
-                Chart.defaults.color = '#9ca3af';
-                Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
-            } else {
-                Chart.defaults.color = '#6b7280';
-                Chart.defaults.borderColor = 'rgba(0, 0, 0, 0.1)';
-            }
+            // Hide theme toggle icons (dark-only mode)
+            const iconSun = document.getElementById('icon-sun');
+            const iconMoon = document.getElementById('icon-moon');
+            if (iconSun) iconSun.classList.add('hidden');
+            if (iconMoon) iconMoon.classList.add('hidden');
 
-            // Re-render charts if data is loaded
-            if (data) {
-                renderProgress();
-                renderContributors();
-                renderTags();
-                renderTiming();
-                renderSummary();
-                renderHealth();
-            }
+            // Chart.js defaults for Koinz dark theme
+            Chart.defaults.color = '#767676';  // Koinz secondary text
+            Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
         }
 
         function toggleDarkMode() {
-            isDarkMode = !isDarkMode;
-            localStorage.setItem('darkMode', isDarkMode);
-            applyDarkMode();
+            // No-op: Koinz style is dark-only
+            // Kept for compatibility but does nothing
         }
 
         // === Sanitization Mode ===
@@ -1702,13 +1713,9 @@
             return '[Commit message hidden]';
         }
 
-        // Initialize dark mode immediately (before DOM loads to prevent flash)
+        // Initialize dark mode immediately (Koinz style - always dark)
         (function() {
-            const stored = localStorage.getItem('darkMode');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (stored === 'true' || (stored === null && prefersDark)) {
-                document.documentElement.classList.add('dark');
-            }
+            document.documentElement.classList.add('dark');
         })();
 
         // === South African Public Holidays ===
@@ -1797,11 +1804,11 @@
 
         // === Tag Colors ===
         const TAG_COLORS = {
-            feature: '#10b981',
+            feature: '#16A34A',
             bugfix: '#ef4444',
             refactor: '#8b5cf6',
-            docs: '#3b82f6',
-            test: '#f59e0b',
+            docs: '#2D68FF',
+            test: '#EAB308',
             config: '#64748b',
             style: '#ec4899',
             cleanup: '#6b7280',
@@ -2284,8 +2291,8 @@
             const repoColors = {};
             const repos = [...new Set(commits.map(c => c.repo_id).filter(Boolean))];
 
-            // Assign colors to repos
-            const repoColorPalette = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444', '#06b6d4'];
+            // Assign colors to repos - Koinz style palette
+            const repoColorPalette = ['#2D68FF', '#16A34A', '#EAB308', '#a78bfa', '#EF4444', '#22d3ee'];
             repos.forEach((repo, i) => {
                 repoColors[repo] = repoColorPalette[i % repoColorPalette.length];
             });
@@ -2325,7 +2332,7 @@
                 datasets = [{
                     label: 'Commits',
                     data: sortedDates.map(d => commitsByDate[d]?.total || 0),
-                    backgroundColor: '#3b82f6',
+                    backgroundColor: '#2D68FF',
                     borderRadius: 2
                 }];
             }
@@ -2409,7 +2416,7 @@
                         {
                             label: 'Features',
                             data: featData,
-                            borderColor: '#10b981',
+                            borderColor: '#16A34A',
                             backgroundColor: 'rgba(16, 185, 129, 0.1)',
                             fill: true,
                             tension: 0.3
@@ -2548,7 +2555,7 @@
                     datasets: [{
                         label: 'Avg Complexity',
                         data: avgComplexities,
-                        backgroundColor: avgComplexities.map(c => c >= 3.5 ? '#8b5cf6' : c >= 2.5 ? '#3b82f6' : '#94a3b8')
+                        backgroundColor: avgComplexities.map(c => c >= 3.5 ? '#8b5cf6' : c >= 2.5 ? '#2D68FF' : '#94a3b8')
                     }]
                 },
                 options: {
@@ -2757,7 +2764,7 @@
                     datasets: [{
                         label: 'Avg Urgency',
                         data: urgencyData,
-                        borderColor: '#f59e0b',
+                        borderColor: '#EAB308',
                         backgroundColor: 'rgba(245, 158, 11, 0.1)',
                         fill: true,
                         tension: 0.3
@@ -2787,10 +2794,10 @@
             });
 
             const impactColors = {
-                'user-facing': '#3b82f6',
-                'internal': '#6b7280',
-                'infrastructure': '#8b5cf6',
-                'api': '#10b981'
+                'user-facing': '#2D68FF',
+                'internal': '#767676',
+                'infrastructure': '#a78bfa',
+                'api': '#16A34A'
             };
 
             if (charts.impactTrend) charts.impactTrend.destroy();
@@ -3068,7 +3075,7 @@
                         label: 'Commits',
                         data: byHour,
                         backgroundColor: byHour.map((_, i) =>
-                            (i >= workHourStart && i < workHourEnd) ? '#3b82f6' : '#94a3b8'
+                            (i >= workHourStart && i < workHourEnd) ? '#2D68FF' : '#94a3b8'
                         ),
                         borderRadius: 2
                     }]
@@ -3117,7 +3124,7 @@
                         label: 'Commits',
                         data: dayData,
                         backgroundColor: dayData.map((_, i) =>
-                            (i < 5) ? '#3b82f6' : '#94a3b8'  // Mon-Fri blue, Sat-Sun gray
+                            (i < 5) ? '#2D68FF' : '#94a3b8'  // Mon-Fri blue, Sat-Sun gray
                         ),
                         borderRadius: 2
                     }]

@@ -121,4 +121,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-21 - Redesigned dashboard layout: sticky tabs, collapsible filter sidebar, consolidated Overview metrics*
+*Last updated: 2026-01-21 - Implemented Koinz Style Guide: dark-only theme, Figtree font, updated colors/spacing/components*

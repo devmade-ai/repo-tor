@@ -243,9 +243,9 @@ Click the **Share** button to copy a shareable URL with your current view state.
 ### PDF Export
 Click the **Export PDF** button to download a PDF report of the current view.
 
-## Dark Mode
+## Theme
 
-Click the **moon/sun icon** to toggle between light and dark themes.
+The dashboard uses a dark theme based on the Koinz Style Guide, optimized for readability and reduced eye strain.
 
 ## Private Mode (Sanitization)
 
