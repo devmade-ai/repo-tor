@@ -19,6 +19,62 @@ const path = require('path');
 // === Configuration ===
 const PROCESSED_DIR = path.join(__dirname, '..', 'processed');
 const DEFAULT_OUTPUT = path.join(__dirname, '..', 'dashboard');
+const AUTHOR_MAP_PATH = path.join(__dirname, '..', 'config', 'author-map.json');
+
+// === Author Identity Mapping ===
+let authorMap = null;
+let emailToCanonical = {};
+
+function loadAuthorMap() {
+  if (!fs.existsSync(AUTHOR_MAP_PATH)) {
+    console.log('No author-map.json found, using raw author IDs');
+    return;
+  }
+
+  try {
+    const content = fs.readFileSync(AUTHOR_MAP_PATH, 'utf-8');
+    authorMap = JSON.parse(content);
+
+    // Build reverse lookup: email -> canonical author ID
+    for (const [canonicalId, author] of Object.entries(authorMap.authors || {})) {
+      for (const email of author.emails || []) {
+        emailToCanonical[email.toLowerCase()] = canonicalId;
+      }
+    }
+
+    console.log(`Loaded author map with ${Object.keys(authorMap.authors || {}).length} authors`);
+  } catch (err) {
+    console.warn(`Warning: Could not load author-map.json: ${err.message}`);
+  }
+}
+
+/**
+ * Resolve an email/author_id to its canonical author ID
+ */
+function resolveAuthorId(authorId) {
+  if (!authorId) return 'unknown';
+  const canonical = emailToCanonical[authorId.toLowerCase()];
+  return canonical || authorId;
+}
+
+/**
+ * Get display info for an author
+ */
+function getAuthorInfo(authorId) {
+  const canonicalId = resolveAuthorId(authorId);
+  if (authorMap?.authors?.[canonicalId]) {
+    return {
+      id: canonicalId,
+      name: authorMap.authors[canonicalId].name,
+      email: authorMap.authors[canonicalId].emails?.[0] || authorId
+    };
+  }
+  return {
+    id: canonicalId,
+    name: canonicalId,
+    email: authorId
+  };
+}
 
 // === Argument Parsing ===
 const args = process.argv.slice(2);
@@ -254,17 +310,23 @@ function calcMonthlyAggregations(commits) {
 }
 
 /**
- * Calculate contributor aggregations
+ * Calculate contributor aggregations (with author identity merging)
  */
 function calcContributorAggregations(commits) {
   const contributors = {};
 
   for (const commit of commits) {
-    const authorId = commit.author_id || 'unknown';
+    // Use canonical author ID (merges multiple emails to single identity)
+    const rawAuthorId = commit.author_id || 'unknown';
+    const authorId = resolveAuthorId(rawAuthorId);
+    const authorInfo = getAuthorInfo(rawAuthorId);
 
     if (!contributors[authorId]) {
       contributors[authorId] = {
         author_id: authorId,
+        name: authorInfo.name,
+        email: authorInfo.email,
+        rawEmails: new Set(),
         commits: 0,
         complexitySum: 0,
         complexityCount: 0,
@@ -286,6 +348,7 @@ function calcContributorAggregations(commits) {
     const c = contributors[authorId];
     c.commits++;
     c.repos.add(commit.repo_id || 'unknown');
+    c.rawEmails.add(rawAuthorId);  // Track original emails for debugging
 
     // Complexity
     if (commit.complexity >= 1 && commit.complexity <= 5) {
@@ -316,8 +379,12 @@ function calcContributorAggregations(commits) {
 
   // Finalize and convert to array
   const result = Object.values(contributors).map(c => {
+    const rawEmails = Array.from(c.rawEmails);
     return {
       author_id: c.author_id,
+      name: c.name,
+      email: c.email,
+      emails: rawEmails.length > 1 ? rawEmails : undefined,  // Only include if merged
       commits: c.commits,
       avgComplexity: c.complexityCount > 0
         ? Math.round((c.complexitySum / c.complexityCount) * 100) / 100
@@ -359,10 +426,13 @@ function calcDateRange(commits) {
  * Generate full aggregated data for a set of commits
  */
 function generateAggregation(commits, scope, repoCount = 1) {
-  // Sort commits by timestamp (newest first)
-  const sortedCommits = [...commits].sort((a, b) =>
-    new Date(b.timestamp) - new Date(a.timestamp)
-  );
+  // Sort commits by timestamp (newest first) and normalize author_id
+  const sortedCommits = [...commits]
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+    .map(c => ({
+      ...c,
+      author_id: resolveAuthorId(c.author_id)  // Normalize to canonical ID
+    }));
 
   const dateRange = calcDateRange(sortedCommits);
 
@@ -374,13 +444,24 @@ function generateAggregation(commits, scope, repoCount = 1) {
     .filter(c => (c.tags || []).includes('security'))
     .map(c => ({ sha: c.sha, timestamp: c.timestamp, subject: c.subject }));
 
+  // Build author lookup for dashboard (keyed by author_id)
+  const authorsLookup = {};
+  for (const c of contributors) {
+    authorsLookup[c.author_id] = {
+      name: c.name,
+      email: c.email,
+      emails: c.emails  // Multiple emails if merged
+    };
+  }
+
   return {
     metadata: {
       generatedAt: new Date().toISOString(),
       repository: scope === 'overall' ? 'All Repositories' : scope,
       scope: scope,
       repoCount: repoCount,
-      commitCount: sortedCommits.length
+      commitCount: sortedCommits.length,
+      authors: authorsLookup  // For dashboard author resolution
     },
 
     commits: sortedCommits,
@@ -418,6 +499,9 @@ function writeJson(filepath, data) {
 function main() {
   console.log('Aggregate Processed Data');
   console.log('========================\n');
+
+  // Load author identity mapping
+  loadAuthorMap();
 
   // Load all repos
   const repos = loadAllRepos();

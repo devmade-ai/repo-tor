@@ -121,4 +121,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-20 - migrated from batch files to individual commit files*
+*Last updated: 2026-01-21 - fixed author identity mapping in aggregation*
