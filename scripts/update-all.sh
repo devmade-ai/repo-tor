@@ -100,20 +100,11 @@ done <<< "$REPOS"
 
 echo ""
 
-# Aggregate all repos
-echo "Step 3: Aggregating data for dashboard"
+# Aggregate from processed data (with AI tags)
+echo "Step 3: Aggregating processed data for dashboard"
 echo "-------------------------------------------"
 
-# Build the aggregate command with all report paths
-# Include author-map if it exists (merges duplicate contributors)
-AUTHOR_MAP_FLAG=""
-AUTHOR_MAP_FILE="$ROOT_DIR/config/author-map.json"
-if [[ -f "$AUTHOR_MAP_FILE" ]]; then
-    AUTHOR_MAP_FLAG="--author-map=$AUTHOR_MAP_FILE"
-    echo "  Using author map: $AUTHOR_MAP_FILE"
-fi
-
-node "$SCRIPT_DIR/aggregate.js" $REPORT_PATHS $AUTHOR_MAP_FLAG --output="$DASHBOARD_DIR" 2>&1 | sed 's/^/  /'
+node "$SCRIPT_DIR/aggregate-processed.js" 2>&1 | sed 's/^/  /'
 
 echo ""
 echo "=========================================="
@@ -123,7 +114,7 @@ echo ""
 echo "Dashboard data: $DASHBOARD_DIR/data.json"
 echo ""
 echo "Next steps:"
-echo "  1. Review changes: git status"
-echo "  2. Commit: git add reports/ dashboard/ && git commit -m 'chore: update extracted data'"
-echo "  3. Push to deploy: git push"
+echo "  1. Run: node scripts/pending.js  (to see new commits)"
+echo "  2. Process pending commits with @data feed the chicken"
+echo "  3. Re-aggregate: node scripts/aggregate-processed.js"
 echo ""
