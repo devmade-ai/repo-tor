@@ -121,4 +121,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-21 - fixed author identity mapping in aggregation*
+*Last updated: 2026-01-21 - fixed charts not rendering in hidden tabs (Activity/Work)*
