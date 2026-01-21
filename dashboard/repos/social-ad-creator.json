@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-21T23:39:54.658Z",
+    "generatedAt": "2026-01-21T23:42:58.151Z",
     "repository": "social-ad-creator",
     "scope": "social-ad-creator",
     "repoCount": 1,
-    "commitCount": 182,
+    "commitCount": 183,
     "authors": {
       "noreply@anthropic.com": {
         "name": "noreply@anthropic.com",
@@ -17,6 +17,10 @@
       "jacotheron87": {
         "name": "jacotheron87",
         "email": "jacotheron87@gmail.com"
+      },
+      "unknown": {
+        "name": "unknown",
+        "email": "unknown"
       }
     }
   },
@@ -61,25 +65,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "7d398e5",
-      "fullSha": "7d398e580aac03243bd44946fa3294039c05de76",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "timestamp": "2026-01-21T23:07:19+02:00",
-      "subject": "Merge pull request #40 from devmade-ai/claude/fun-style-guide-GxEc4",
-      "body": "Add fun style guide adapted from Koinz design system",
-      "tags": [
-        "merge"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "internal",
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "d0746a5",
       "fullSha": "d0746a512e8968b29444d825b4b0734f7e7dbf60",
       "author_id": "devmade.ai@gmail.com",
@@ -112,6 +97,1244 @@
       "body": "",
       "tags": [
         "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "2000a45",
+      "fullSha": "2000a45f267d1ad24d328da1f143ce6473ca969b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T01:31:22+02:00",
+      "subject": "Merge pull request #37 from devmade-ai/claude/standardize-slider-increments-ICx9e",
+      "body": "Standardize all sliders to 5% increments",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "31a07ea",
+      "fullSha": "31a07ea911184a3004603a9429e9996b44b9a9e3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T23:29:29+00:00",
+      "subject": "Update session notes",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "0996841",
+      "fullSha": "0996841410875a5517d5ac5b675ed1a4fb150348",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T23:35:53+02:00",
+      "subject": "Merge pull request #36 from devmade-ai/claude/fix-black-downloads-eS79O",
+      "body": "Fix black downloads by overriding opacity in toPng capture",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "1ec88ba",
+      "fullSha": "1ec88ba0c721ae9c98ab32f3e7753c8c5862978a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T16:01:30+00:00",
+      "commitDate": "2026-01-20T16:01:30+00:00",
+      "subject": "Add hero banners, web platforms, and expanded overlay effects",
+      "body": "Platforms (14 total, up from 6):\n- Website: Hero Standard/Tall/Full HD, OG Image\n- Banners: LinkedIn Banner, YouTube Banner\n- Other: Email Header, Zoom Background\n- Grouped by category in platform selector\n\nOverlays (24 total, up from 11):\n- Radial: Radial Soft, Radial Ring\n- Effects: Blur Edges, Frame, Duotone\n- Blend modes: Multiply, Screen, Overlay, Color Burn\n- Textures: Noise, Film Grain (SVG filters)\n- Grouped by category in overlay selectors\n\nTechnical:\n- SVG filters for noise/grain textures\n- Blend mode support via mix-blend-mode\n- Duotone applies grayscale + color overlay",
+      "tags": [
+        "feature",
+        "ui",
+        "enhancement"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add hero banners, web platforms, and expanded overlay effects",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 609,
+        "deletions": 119
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_GUIDE.md",
+        "src/components/AdCanvas.jsx",
+        "src/components/MediaTab.jsx",
+        "src/components/PlatformPreview.jsx",
+        "src/components/StyleTab.jsx",
+        "src/config/layouts.js",
+        "src/config/platforms.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "2f82d28",
+      "fullSha": "2f82d2850a883164bfe8ce3f09aff1a0d14c7bc1",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-18T18:23:27+00:00",
+      "subject": "Hide canvas during export to prevent visible flash",
+      "body": "Set opacity to 0 while capturing at full scale, then restore.\nThis prevents users from seeing the canvas briefly jump to full size.",
+      "tags": [
+        "bugfix",
+        "ux"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "0990ba0",
+      "fullSha": "0990ba04e58b6618ef993e2d1063ad131e557314",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-17T19:53:37+00:00",
+      "subject": "Add 'When to read' to all documentation entries in CLAUDE.md",
+      "body": "Standardized all doc entries to include:\n- Purpose\n- When to read\n- When to update\n- What to include\n- Why",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "120f07f",
+      "fullSha": "120f07fc001095d1d00ff6a89c8d68796c9f6ee1",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-17T19:45:37+00:00",
+      "subject": "Add user guide and testing guide, update README",
+      "body": "Documentation overhaul:\n- Create docs/USER_GUIDE.md with tab-by-tab feature documentation\n- Create docs/TESTING_GUIDE.md with 20+ manual test scenarios\n- Update README.md to reflect current workflow-based UI\n- Update CLAUDE.md with USER_GUIDE and TESTING_GUIDE references\n- Update HISTORY.md and SESSION_NOTES.md",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "03728b9",
+      "fullSha": "03728b92421913e7c0ea5e4feb4f508462e15340",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-17T18:44:40+00:00",
+      "subject": "Add Auto button to reset text alignment to cell default",
+      "body": "Previously, the only way to reset a per-element text alignment back to\nthe cell default was a small \"×\" button that was easy to miss. Now there\nis a dedicated \"Auto\" button (first in the alignment options) with a\nfaded icon that clearly shows when cell default is being used.",
+      "tags": [
+        "feature",
+        "ux"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "06e6458",
+      "fullSha": "06e64587bdeba6a7b682afd58da93b22412bfbcb",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-17T13:37:48+00:00",
+      "subject": "Update documentation to reflect current state",
+      "body": "README.md:\n- Update overlay description (8 gradient directions, spotlight, per-cell)\n- Add per-element alignment to text features\n- Document Layout tab's 5 sub-tabs (Structure, Placement, Overlay, Spacing, Presets)\n\ndocs/TODO.md:\n- Remove completed item (text placement selector validation)\n\ndocs/HISTORY.md:\n- Add text placement selector validation entry",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "36a2c3a",
+      "fullSha": "36a2c3ac352e0a0a90883eae5077c7c0d765e49e",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-17T11:37:03+00:00",
+      "subject": "Update CLAUDE.md to accurately reflect current codebase",
+      "body": "- Add Current Tab Structure section (Image, Layout, Text, Theme, Fonts)\n- Fix Layout sub-tabs order to match code (Structure, Placement, Overlay, Spacing, Presets)\n- Update Architecture with all actual components (StylePresetSelector, ErrorBoundary, useDarkMode)\n- Correct component descriptions to match implementation",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "0e924ec",
+      "fullSha": "0e924eca16c03d6f0f3e88caf7c0e7fd3ba13e2d",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-17T06:40:22+00:00",
+      "subject": "Update CLAUDE.md with expanded overlay options",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "1d0a8fb",
+      "fullSha": "1d0a8fbef4664132bdefaeb40fdc603d23ac1e84",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-17T05:19:57+02:00",
+      "subject": "Merge pull request #24 from devmade-ai/claude/revert-last-change-UuPgh",
+      "body": "Revert \"Merge pull request #23 from devmade-ai/claude/improve-style-presets-HBcmL\"",
+      "tags": [
+        "merge",
+        "revert"
+      ],
+      "complexity": 1,
+      "urgency": 3,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "2aa96d2",
+      "fullSha": "2aa96d2cf05f88311f6a374c27d020c7b59a7169",
+      "author_id": "devmade.ai@gmail.com",
+      "timestamp": "2026-01-17T05:08:32+02:00",
+      "subject": "Merge pull request #23 from devmade-ai/claude/improve-style-presets-HBcmL",
+      "body": "Improve style presets with neutral color text defaults",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "1fe6f7e",
+      "fullSha": "1fe6f7e466ba93b10cb74334c63fac6506c5137b",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-17T03:07:14+00:00",
+      "subject": "Improve style presets with neutral color text defaults",
+      "body": "- Add textColors support to style preset settings for per-element color control\n- Update applyStylePreset to apply text colors when selecting a preset\n- Improve all existing presets with carefully chosen neutral text colors:\n  - Dark backgrounds use white/off-white titles, light-gray body, gray footnotes\n  - Light backgrounds use off-black titles, dark-gray body, gray footnotes\n- Add 8 new presets: Midnight Blue, Pure Monochrome, Champagne Glow,\n  Terracotta Warmth, Fresh Mint, Lavender Dream, Vintage Cream, Feature Grid\n- Add 2 High Contrast presets: Stark Contrast, Inverted Bold\n- Add new \"High Contrast\" category\n- Update overlay colors to use neutrals for more consistent results\n\nTotal: 24 style presets across 9 categories, each with complete text color definitions.",
+      "tags": [
+        "feature",
+        "enhancement"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "181250c",
+      "fullSha": "181250c39836da3edcdbafcbb12aab92ea9c3c9b",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-17T01:42:22+00:00",
+      "subject": "Fix color picker overflow on mobile",
+      "body": "Split color and size controls onto separate rows in TextEditor.\nRestructured text element rows in LayoutSelector Placement tab\nto put color picker on its own row with flex-wrap for mobile.",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "0cee69d",
+      "fullSha": "0cee69db6380b108e1ea8fe20666cbe447c32eb9",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-17T00:40:18+00:00",
+      "subject": "Add neutral colors for text and overlays",
+      "body": "Add 6 neutral color options (off-black, dark gray, gray, light gray,\noff-white, white) available in all color pickers regardless of theme.\n\n- Define neutralColors array and getNeutralColor() helper in themes.js\n- Update TextEditor, ImageUploader, and LayoutSelector color pickers\n- Update AdCanvas resolveColor() to handle neutral color keys",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "2999ff8",
+      "fullSha": "2999ff8519cf13e748bdcbb1f44a1f48cc3413c3",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-16T19:30:39+00:00",
+      "subject": "Improve overall app visual design and polish",
+      "body": "- Increase text sizes for better readability (text-xs -> text-sm)\n- Add consistent rounded corners (rounded-lg -> rounded-xl)\n- Improve spacing with more breathing room between elements\n- Add soft shadows and depth to panels and cards\n- Update button styles with better hover/active states\n- Add smooth transitions for interactive elements\n- Style range inputs with custom track and thumb\n- Add custom scrollbar styling\n- Use subtle gradients for backgrounds\n- Make header sticky with backdrop blur\n- Add progress bar animation for export\n- Consistent styling across all components\n\nAll changes maintain mobile-friendliness with responsive sizing.",
+      "tags": [
+        "enhancement",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "0e726fa",
+      "fullSha": "0e726fa7e7a8dca6baad6050bee7997a5b4ed39a",
+      "author_id": "jacotheron87",
+      "timestamp": "2026-01-15T01:40:24+02:00",
+      "subject": "Add over-engineered alignment mistake to AI_MISTAKES.md",
+      "body": "Documented the per-item per-cell alignment fiasco that took 11+ commits\nto fix when user only wanted simple per-cell alignment.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "031e06a",
+      "fullSha": "031e06a7d1cfa291b08d354788a6565d46fef500",
+      "author_id": "jacotheron87",
+      "timestamp": "2026-01-15T00:35:18+02:00",
+      "subject": "Move Presets subtab to last position and improve mobile overflow",
+      "body": "- Reorder Layout subtabs: Structure, Placement, Overlay, Spacing, Presets\n- Default to Structure tab instead of Presets\n- Add horizontal scroll with min-width for mobile devices\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "enhancement",
+        "ux"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "10d7de5",
+      "fullSha": "10d7de55e5972326dcd74a7f99ae0d392498931c",
+      "author_id": "jacotheron87",
+      "timestamp": "2026-01-14T21:46:41+02:00",
+      "subject": "Update CLAUDE.md title",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "377775c",
+      "fullSha": "377775ccbb188c2d8e73f5cf73b2230fef1f6d79",
+      "author_id": "noreply@anthropic.com",
+      "timestamp": "2026-01-14T19:21:35+00:00",
+      "subject": "Fix cell grid display for fullbleed and small sizes",
+      "body": "- Add minHeight to size configurations to ensure grid visibility\n- Change flex from '0 0 X%' to '1 1 X%' to allow cells to grow\n- Add min-h-[20px] to cells and h-full to container\n- Reduce small grid maxWidth to 60px for better inline fit",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "0812774",
+      "fullSha": "08127747022d9d667a82f223c8bfaa4c0eb0b2b8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-14T19:49:00+02:00",
+      "commitDate": "2026-01-14T19:49:00+02:00",
+      "subject": "Merge pull request #13 from devmade-ai/claude/add-layout-presets-Faxjc",
+      "body": "Add global style presets for one-click professional looks",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Merge pull request #13 from devmade-ai/claude/add-layout-presets-Faxjc",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#13"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 891,
+        "deletions": 159
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "1b4954a",
+      "fullSha": "1b4954a5d0ebe83f09e7915e9d47a812c16ea61f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-14T03:04:16+02:00",
+      "commitDate": "2026-01-14T03:04:16+02:00",
+      "subject": "Merge pull request #11 from devmade-ai/claude/cleanup-todos-ZlUa9",
+      "body": "Clean up TODO.md - mark implemented items, simplify scope",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #11 from devmade-ai/claude/cleanup-todos-ZlUa9",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#11"
+      ],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 489,
+        "deletions": 407
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "339d0da",
+      "fullSha": "339d0daa323fd6e38a2ee59ec263af1ec23ca2b3",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-14T00:10:17+00:00",
+      "commitDate": "2026-01-14T00:10:17+00:00",
+      "subject": "Clean up TODO.md - mark implemented items, simplify scope",
+      "body": "- Mark completed: smart layout suggestions, keyboard shortcuts, export loading states\n- Remove advanced text customization items (keeping only bold/italic/letter-spacing)\n- Clarify Image tab UX issues as priority item with clear problem description\n- Consolidate completed features, remove duplicates",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Clean up TODO.md - mark implemented items, simplify scope",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 35,
+        "deletions": 37
+      },
+      "files": [
+        "docs/TODO.md"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "3a04615",
+      "fullSha": "3a0461553b590c69314cdb04f566fa79ae138491",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-14T01:16:42+02:00",
+      "commitDate": "2026-01-14T01:16:42+02:00",
+      "subject": "Merge pull request #10 from devmade-ai/claude/improve-todo-layout-CKPEx",
+      "body": "Add Image tab improvements to TODO list",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #10 from devmade-ai/claude/improve-todo-layout-CKPEx",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#10"
+      ],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 413,
+        "deletions": 515
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "04ed1a8",
+      "fullSha": "04ed1a80259bc3f8e6553aaae443ff284e5c7d1f",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T23:13:58+00:00",
+      "commitDate": "2026-01-13T23:13:58+00:00",
+      "subject": "Implement Phase 4 placement tab enhancements",
+      "body": "Placement tab now features:\n- Image section with cell selector + quick controls:\n  - Cover/Contain toggle\n  - Grayscale on/off\n  - Overlay opacity slider\n- Individual text elements (not groups):\n  - Title, Tagline, Body Heading, Body Text, CTA, Footnote\n  - Each with visibility toggle, color picker, text input\n  - Cell placement buttons (when multi-cell layout)\n- Text alignment controls (horizontal + vertical)",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Implement Phase 4 placement tab enhancements",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 207,
+        "deletions": 100
+      },
+      "files": [
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/components/LayoutSelector.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "11547e6",
+      "fullSha": "11547e6bd70197bc9c06eede72a0659ab827eec1",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T23:08:17+00:00",
+      "commitDate": "2026-01-13T23:08:17+00:00",
+      "subject": "Implement Phase 3 UX polish",
+      "body": "- Standard alignment icons: SVG-based left/center/right and top/middle/bottom\n- Sub-tabs more prominent: larger text, bolder styling, blue active state\n- Cell selector improvements:\n  - Constrained max-width (180px) on wider screens\n  - Matches selected platform aspect ratio\n  - Simple numbered labels (1, 2, 3) instead of Row/Column naming",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Implement Phase 3 UX polish",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 92,
+        "deletions": 37
+      },
+      "files": [
+        "docs/TODO.md",
+        "src/components/LayoutSelector.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "0c28380",
+      "fullSha": "0c28380972c1d437e7af10b646c28c448a2ddede",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T22:55:39+00:00",
+      "commitDate": "2026-01-13T22:55:39+00:00",
+      "subject": "Implement Phase 1 UX improvements",
+      "body": "- Rename \"Media\" tab to \"Image\" for clarity\n- Default platform to Instagram Square (most common use case)\n- Reorder platforms: IG Square, TikTok, LinkedIn, IG Story first\n- Default presets filter to \"All\" instead of \"Suggested\"\n- Remove layout \"Type\" selector from presets tab (unnecessary complexity)",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Implement Phase 1 UX improvements",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 11,
+        "deletions": 32
+      },
+      "files": [
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/config/platforms.js",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "1a17257",
+      "fullSha": "1a17257660c41c87ba87b6c01e8df1b68caca342",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T22:52:19+00:00",
+      "commitDate": "2026-01-13T22:52:19+00:00",
+      "subject": "Add cell selector aspect ratio matching to TODO",
+      "body": "Cell selector should match selected platform's shape for consistency",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Add cell selector aspect ratio matching to TODO",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        "docs/TODO.md"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "17dfc56",
+      "fullSha": "17dfc563eca24e386af5f15fd7a2e9380c230678",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-14T00:05:00+02:00",
+      "commitDate": "2026-01-14T00:05:00+02:00",
+      "subject": "Update SESSION_NOTES.md - mark sample images complete",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Update SESSION_NOTES.md - mark sample images complete",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 8
+      },
+      "files": [
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "240a95c",
+      "fullSha": "240a95cec0f68417454f52b67e4a14421642a54a",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-14T00:04:44+02:00",
+      "commitDate": "2026-01-14T00:04:44+02:00",
+      "subject": "Add 9 sample images and fix path resolution",
+      "body": "- Add devMade branded sample images to public/samples/\n- Update sampleImages.js with all 9 images (.jpg format)\n- Fix BASE_URL path resolution for production deployment\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add 9 sample images and fix path resolution",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 32,
+        "deletions": 9
+      },
+      "files": [
+        "public/samples/ai-growth.jpg",
+        "public/samples/brain-ideas.jpg",
+        "public/samples/circuit-spiral.jpg",
+        "public/samples/circuit-tree.jpg",
+        "public/samples/dm-badge.jpg",
+        "public/samples/dm-cube.jpg",
+        "public/samples/dm-rocket.jpg",
+        "public/samples/globe-tech.jpg",
+        "public/samples/tree-cube.jpg",
+        "src/components/ImageUploader.jsx",
+        "src/config/sampleImages.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "1b6d948",
+      "fullSha": "1b6d948e4bf477e809bf4fc3e8edbe32aa9ece57",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T15:41:15+00:00",
+      "commitDate": "2026-01-13T15:41:15+00:00",
+      "subject": "Add image presets, filters, per-cell overlays, padding, and merge media tabs",
+      "body": "Features:\n- Image style presets (Dramatic Dark, Vintage, Cinematic, etc.)\n- Image filters (sepia, blur, contrast, brightness)\n- Per-cell overlay controls in Layout > Overlay sub-tab\n- Global and per-cell padding in Layout > Spacing sub-tab\n- Merged Logo tab into Media tab for unified controls\n\nState changes:\n- imageGrayscale -> imageFilters object\n- Added layout.cellOverlays for per-cell overlay config\n- Added padding state with global and cellOverrides",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add image presets, filters, per-cell overlays, padding, and merge media tabs",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 778,
+        "deletions": 72
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/components/AdCanvas.jsx",
+        "src/components/ImageUploader.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/config/layouts.js",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "21e2b89",
+      "fullSha": "21e2b89e0fb1d1397d014e0667e4baeec486b029",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T08:03:04+00:00",
+      "commitDate": "2026-01-13T08:03:04+00:00",
+      "subject": "Make preview canvas responsive and update documentation",
+      "body": "- Preview canvas now adapts to container width using ResizeObserver\n- Fills available horizontal space while maintaining aspect ratio\n- Respects max height (60% viewport or 600px) to prevent overflow\n\nDocumentation updates:\n- CLAUDE.md: Updated architecture, state structure, and added Layout Tab section\n- SESSION_NOTES.md: Documented all session changes\n- TODO.md: Added Layout Tab sub-tabs section, marked responsive preview complete",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Make preview canvas responsive and update documentation",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 129,
+        "deletions": 53
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/App.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "23ec7ee",
+      "fullSha": "23ec7ee5ecb2445a12f62696466dbd43d526b018",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-13T00:16:36+00:00",
+      "commitDate": "2026-01-13T00:16:36+00:00",
+      "subject": "Enhance layout controls with quick presets and improved UX",
+      "body": "- Add quick layout preset picker to Image tab showing suggested layouts\n- Allow up to 3 subdivisions per section (was limited to 2)\n- Implement proportional auto-balancing when adjusting section sizes\n- Default preset category to \"Suggested\" instead of \"All\"\n- Add +/- controls for subdivision count with visual feedback",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Enhance layout controls with quick presets and improved UX",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 230,
+        "deletions": 29
+      },
+      "files": [
+        "src/App.jsx",
+        "src/components/ImageUploader.jsx",
+        "src/components/LayoutSelector.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "007b3b3",
+      "fullSha": "007b3b36ed8f9e7dd512292ab6571d0d79e97c5a",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-12T18:55:19+00:00",
+      "commitDate": "2026-01-12T18:55:19+00:00",
+      "subject": "Add sample text to all text input fields",
+      "body": "",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add sample text to all text input fields",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 4,
+        "deletions": 4
+      },
+      "files": [
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "2431769",
+      "fullSha": "24317698be4c2c0fdf5af27ff09b9ddff8956011",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-12T20:44:08+02:00",
+      "commitDate": "2026-01-12T20:44:08+02:00",
+      "subject": "Merge pull request #3 from devmade-ai/claude/investigate-missing-changes-MwZPB",
+      "body": "Add GitHub Actions workflow for automatic deployment",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Merge pull request #3 from devmade-ai/claude/investigate-missing-changes-MwZPB",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 53,
+        "deletions": 0
+      },
+      "files": [],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "1cd3a21",
+      "fullSha": "1cd3a21fe965e9df0c5466fd156b2c9b3670df3d",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-11T20:17:23+02:00",
+      "commitDate": "2026-01-11T20:17:23+02:00",
+      "subject": "Add layout presets for quick start",
+      "body": "Add 6 layout presets (Hero, Left/Right/Top/Bottom Image, Text Focus)\nto the Layout tab for faster ad creation. Presets configure split type,\nimage coverage, cell alignments, and text group placements.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Add layout presets for quick start",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 199,
+        "deletions": 0
+      },
+      "files": [
+        "src/components/LayoutSelector.jsx",
+        "src/config/layoutPresets.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "34e77fb",
+      "fullSha": "34e77fbca918d668f6dccac9ab7b279983d0f040",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T19:03:35+02:00",
+      "commitDate": "2026-01-10T19:03:35+02:00",
+      "subject": "Fix image duplication in split layouts",
+      "body": "Image now spans across selected cells as a single continuous layer\ninstead of duplicating in each cell. Cover/contain settings apply\nto the combined span area.",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 3,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Fix image duplication in split layouts",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 394,
+        "deletions": 224
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/App.jsx",
+        "src/components/ImageUploader.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/components/OverlayControls.jsx",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "0b50e2a",
+      "fullSha": "0b50e2a9468511bc2f1973db7c3345fe597bb615",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T16:41:34+02:00",
+      "commitDate": "2026-01-10T16:41:34+02:00",
+      "subject": "Updates",
+      "body": "",
+      "tags": [
+        "chore"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Updates",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 55,
+        "deletions": 55
+      },
+      "files": [
+        "assets/index-DdudQRRr.js",
+        "assets/index-N_CfFsk6.css",
+        "assets/index-VpzsYrtB.js",
+        "assets/index-aJQZzt1E.css",
+        "index.html"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "22cdca9",
+      "fullSha": "22cdca95bd744fbf6fad4dfc71479e9f5e6cb6ab",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T16:40:36+02:00",
+      "commitDate": "2026-01-10T16:40:36+02:00",
+      "subject": "Fix layout bugs, logo drag-drop, and text overlay issues",
+      "body": "- Fix image not displaying in column/row layouts (use flex sizing)\n- Fix text duplication in 3-section layouts\n- Remove redundant layout preview from Layout tab\n- Fix logo drag-drop (add onDrop/onDragOver handlers)\n- Fix text vertical align on image (respect user setting)\n- Fix text sizes on image (use consistent font multipliers)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 3,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Fix layout bugs, logo drag-drop, and text overlay issues",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 97,
+        "deletions": 122
+      },
+      "files": [
+        "HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "src/components/AdCanvas.jsx",
+        "src/components/LayoutSelector.jsx",
+        "src/components/LogoUploader.jsx"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "2a7f952",
+      "fullSha": "2a7f9520d377c84bc26d5105e079eb2f8669fe78",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-10T14:56:02+02:00",
+      "commitDate": "2026-01-10T14:56:02+02:00",
+      "subject": "Updates",
+      "body": "",
+      "tags": [
+        "chore"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "scope": null,
+      "title": "Updates",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 9,
+        "deletions": 9
+      },
+      "files": [
+        "assets/index-VpzsYrtB.js",
+        "index.html"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "2c55d32",
+      "fullSha": "2c55d32fe17181c82fa676c4de70d68ce5b43305",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-10T12:31:36+00:00",
+      "commitDate": "2026-01-10T12:31:36+00:00",
+      "subject": "Reorganize tabs, show all text elements, add more fonts",
+      "body": "- Move Layout tab after Image for better user flow\n- Make all 6 text layers visible by default\n- Expand font options from 5 to 15 (sans-serif, serif, display categories)",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "scope": null,
+      "title": "Reorganize tabs, show all text elements, add more fonts",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 82,
+        "deletions": 17
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/SESSION_NOTES.md",
+        "src/App.jsx",
+        "src/config/fonts.js",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "39e9a52",
+      "tags": [
+        "fix",
+        "ui",
+        "mobile"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "author_id": "unknown"
+    },
+    {
+      "sha": "7d398e5",
+      "fullSha": "7d398e580aac03243bd44946fa3294039c05de76",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T23:07:19+02:00",
+      "subject": "Merge pull request #40 from devmade-ai/claude/fun-style-guide-GxEc4",
+      "body": "Add fun style guide adapted from Koinz design system",
+      "tags": [
+        "merge"
       ],
       "complexity": 1,
       "urgency": 2,
@@ -337,44 +1560,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "2000a45",
-      "fullSha": "2000a45f267d1ad24d328da1f143ce6473ca969b",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "timestamp": "2026-01-21T01:31:22+02:00",
-      "subject": "Merge pull request #37 from devmade-ai/claude/standardize-slider-increments-ICx9e",
-      "body": "Standardize all sliders to 5% increments",
-      "tags": [
-        "merge"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "internal",
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "31a07ea",
-      "fullSha": "31a07ea911184a3004603a9429e9996b44b9a9e3",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "timestamp": "2026-01-20T23:29:29+00:00",
-      "subject": "Update session notes",
-      "body": "",
-      "tags": [
-        "docs"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "internal",
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "4012a30",
       "fullSha": "4012a30ef4c664a87b42f2b2292392335e9ed56c",
       "author_id": "devmade.ai@gmail.com",
@@ -432,25 +1617,6 @@
       "complexity": 2,
       "urgency": 2,
       "impact": "user-facing",
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "0996841",
-      "fullSha": "0996841410875a5517d5ac5b675ed1a4fb150348",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "timestamp": "2026-01-20T23:35:53+02:00",
-      "subject": "Merge pull request #36 from devmade-ai/claude/fix-black-downloads-eS79O",
-      "body": "Fix black downloads by overriding opacity in toPng capture",
-      "tags": [
-        "merge"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "internal",
       "repo_id": "social-ad-creator"
     },
     {
@@ -524,54 +1690,6 @@
         "deletions": 119
       },
       "files": [],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "1ec88ba",
-      "fullSha": "1ec88ba0c721ae9c98ab32f3e7753c8c5862978a",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "timestamp": "2026-01-20T16:01:30+00:00",
-      "commitDate": "2026-01-20T16:01:30+00:00",
-      "subject": "Add hero banners, web platforms, and expanded overlay effects",
-      "body": "Platforms (14 total, up from 6):\n- Website: Hero Standard/Tall/Full HD, OG Image\n- Banners: LinkedIn Banner, YouTube Banner\n- Other: Email Header, Zoom Background\n- Grouped by category in platform selector\n\nOverlays (24 total, up from 11):\n- Radial: Radial Soft, Radial Ring\n- Effects: Blur Edges, Frame, Duotone\n- Blend modes: Multiply, Screen, Overlay, Color Burn\n- Textures: Noise, Film Grain (SVG filters)\n- Grouped by category in overlay selectors\n\nTechnical:\n- SVG filters for noise/grain textures\n- Blend mode support via mix-blend-mode\n- Duotone applies grayscale + color overlay",
-      "tags": [
-        "feature",
-        "ui",
-        "enhancement"
-      ],
-      "complexity": 4,
-      "urgency": 1,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Add hero banners, web platforms, and expanded overlay effects",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 10,
-        "additions": 609,
-        "deletions": 119
-      },
-      "files": [
-        "CLAUDE.md",
-        "docs/HISTORY.md",
-        "docs/SESSION_NOTES.md",
-        "docs/USER_GUIDE.md",
-        "src/components/AdCanvas.jsx",
-        "src/components/MediaTab.jsx",
-        "src/components/PlatformPreview.jsx",
-        "src/components/StyleTab.jsx",
-        "src/config/layouts.js",
-        "src/config/platforms.js"
-      ],
       "repo_id": "social-ad-creator"
     },
     {
@@ -701,22 +1819,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "2f82d28",
-      "fullSha": "2f82d2850a883164bfe8ce3f09aff1a0d14c7bc1",
-      "author_id": "noreply@anthropic.com",
-      "timestamp": "2026-01-18T18:23:27+00:00",
-      "subject": "Hide canvas during export to prevent visible flash",
-      "body": "Set opacity to 0 while capturing at full scale, then restore.\nThis prevents users from seeing the canvas briefly jump to full size.",
-      "tags": [
-        "bugfix",
-        "ux"
-      ],
-      "complexity": 2,
-      "urgency": 2,
-      "impact": "user-facing",
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "ae2f03a",
       "fullSha": "ae2f03aefe1b060c3023972bc37a65e9cfbf5807",
       "author_id": "noreply@anthropic.com",
@@ -793,36 +1895,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "0990ba0",
-      "fullSha": "0990ba04e58b6618ef993e2d1063ad131e557314",
-      "author_id": "noreply@anthropic.com",
-      "timestamp": "2026-01-17T19:53:37+00:00",
-      "subject": "Add 'When to read' to all documentation entries in CLAUDE.md",
-      "body": "Standardized all doc entries to include:\n- Purpose\n- When to read\n- When to update\n- What to include\n- Why",
-      "tags": [
-        "docs"
-      ],
-      "complexity": 1,
-      "urgency": 1,
-      "impact": "internal",
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "120f07f",
-      "fullSha": "120f07fc001095d1d00ff6a89c8d68796c9f6ee1",
-      "author_id": "noreply@anthropic.com",
-      "timestamp": "2026-01-17T19:45:37+00:00",
-      "subject": "Add user guide and testing guide, update README",
-      "body": "Documentation overhaul:\n- Create docs/USER_GUIDE.md with tab-by-tab feature documentation\n- Create docs/TESTING_GUIDE.md with 20+ manual test scenarios\n- Update README.md to reflect current workflow-based UI\n- Update CLAUDE.md with USER_GUIDE and TESTING_GUIDE references\n- Update HISTORY.md and SESSION_NOTES.md",
-      "tags": [
-        "docs"
-      ],
-      "complexity": 3,
-      "urgency": 1,
-      "impact": "internal",
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "7698940",
       "fullSha": "76989408474a7ef7e2a289e86f4706dd93e9c2d8",
       "author_id": "noreply@anthropic.com",
@@ -865,22 +1937,6 @@
       ],
       "complexity": 2,
       "urgency": 2,
-      "impact": "user-facing",
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "03728b9",
-      "fullSha": "03728b92421913e7c0ea5e4feb4f508462e15340",
-      "author_id": "noreply@anthropic.com",
-      "timestamp": "2026-01-17T18:44:40+00:00",
-      "subject": "Add Auto button to reset text alignment to cell default",
-      "body": "Previously, the only way to reset a per-element text alignment back to\nthe cell default was a small \"×\" button that was easy to miss. Now there\nis a dedicated \"Auto\" button (first in the alignment options) with a\nfaded icon that clearly shows when cell default is being used.",
-      "tags": [
-        "feature",
-        "ux"
-      ],
-      "complexity": 2,
-      "urgency": 1,
       "impact": "user-facing",
       "repo_id": "social-ad-creator"
     },
@@ -967,36 +2023,6 @@
       "timestamp": "2026-01-17T16:39:08+00:00",
       "subject": "Clarify preset naming across documentation",
       "body": "Rename preset types to avoid confusion:\n- Layout Presets → \"Layouts\" (20 grid templates)\n- Style Presets → \"Quick Styles\" (theme + font combinations)\n- Theme Presets → \"Themes\" (color schemes)\n\nAdded \"Preset Types (Naming Clarification)\" table to CLAUDE.md\nAdded \"Quick Styles\" section to README.md\nUpdated all references to use consistent terminology",
-      "tags": [
-        "docs"
-      ],
-      "complexity": 2,
-      "urgency": 1,
-      "impact": "internal",
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "06e6458",
-      "fullSha": "06e64587bdeba6a7b682afd58da93b22412bfbcb",
-      "author_id": "noreply@anthropic.com",
-      "timestamp": "2026-01-17T13:37:48+00:00",
-      "subject": "Update documentation to reflect current state",
-      "body": "README.md:\n- Update overlay description (8 gradient directions, spotlight, per-cell)\n- Add per-element alignment to text features\n- Document Layout tab's 5 sub-tabs (Structure, Placement, Overlay, Spacing, Presets)\n\ndocs/TODO.md:\n- Remove completed item (text placement selector validation)\n\ndocs/HISTORY.md:\n- Add text placement selector validation entry",
-      "tags": [
-        "docs"
-      ],
-      "complexity": 1,
-      "urgency": 1,
-      "impact": "internal",
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "36a2c3a",
-      "fullSha": "36a2c3ac352e0a0a90883eae5077c7c0d765e49e",
-      "author_id": "noreply@anthropic.com",
-      "timestamp": "2026-01-17T11:37:03+00:00",
-      "subject": "Update CLAUDE.md to accurately reflect current codebase",
-      "body": "- Add Current Tab Structure section (Image, Layout, Text, Theme, Fonts)\n- Fix Layout sub-tabs order to match code (Structure, Placement, Overlay, Spacing, Presets)\n- Update Architecture with all actual components (StylePresetSelector, ErrorBoundary, useDarkMode)\n- Correct component descriptions to match implementation",
       "tags": [
         "docs"
       ],
@@ -1191,21 +2217,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "0e924ec",
-      "fullSha": "0e924eca16c03d6f0f3e88caf7c0e7fd3ba13e2d",
-      "author_id": "noreply@anthropic.com",
-      "timestamp": "2026-01-17T06:40:22+00:00",
-      "subject": "Update CLAUDE.md with expanded overlay options",
-      "body": "",
-      "tags": [
-        "docs"
-      ],
-      "complexity": 1,
-      "urgency": 1,
-      "impact": "internal",
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "571a639",
       "fullSha": "571a639543847d89e29ae037ecea6d636e30e1ec",
       "author_id": "noreply@anthropic.com",
@@ -1222,22 +2233,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "1d0a8fb",
-      "fullSha": "1d0a8fbef4664132bdefaeb40fdc603d23ac1e84",
-      "author_id": "devmade.ai@gmail.com",
-      "timestamp": "2026-01-17T05:19:57+02:00",
-      "subject": "Merge pull request #24 from devmade-ai/claude/revert-last-change-UuPgh",
-      "body": "Revert \"Merge pull request #23 from devmade-ai/claude/improve-style-presets-HBcmL\"",
-      "tags": [
-        "merge",
-        "revert"
-      ],
-      "complexity": 1,
-      "urgency": 3,
-      "impact": "internal",
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "3d3a2ab",
       "fullSha": "3d3a2ab79775fa6d11b59f8e4eb028e85223ac5f",
       "author_id": "noreply@anthropic.com",
@@ -1249,37 +2244,6 @@
       ],
       "complexity": 1,
       "urgency": 3,
-      "impact": "user-facing",
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "2aa96d2",
-      "fullSha": "2aa96d2cf05f88311f6a374c27d020c7b59a7169",
-      "author_id": "devmade.ai@gmail.com",
-      "timestamp": "2026-01-17T05:08:32+02:00",
-      "subject": "Merge pull request #23 from devmade-ai/claude/improve-style-presets-HBcmL",
-      "body": "Improve style presets with neutral color text defaults",
-      "tags": [
-        "merge"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "internal",
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "1fe6f7e",
-      "fullSha": "1fe6f7e466ba93b10cb74334c63fac6506c5137b",
-      "author_id": "noreply@anthropic.com",
-      "timestamp": "2026-01-17T03:07:14+00:00",
-      "subject": "Improve style presets with neutral color text defaults",
-      "body": "- Add textColors support to style preset settings for per-element color control\n- Update applyStylePreset to apply text colors when selecting a preset\n- Improve all existing presets with carefully chosen neutral text colors:\n  - Dark backgrounds use white/off-white titles, light-gray body, gray footnotes\n  - Light backgrounds use off-black titles, dark-gray body, gray footnotes\n- Add 8 new presets: Midnight Blue, Pure Monochrome, Champagne Glow,\n  Terracotta Warmth, Fresh Mint, Lavender Dream, Vintage Cream, Feature Grid\n- Add 2 High Contrast presets: Stark Contrast, Inverted Bold\n- Add new \"High Contrast\" category\n- Update overlay colors to use neutrals for more consistent results\n\nTotal: 24 style presets across 9 categories, each with complete text color definitions.",
-      "tags": [
-        "feature",
-        "enhancement"
-      ],
-      "complexity": 4,
-      "urgency": 1,
       "impact": "user-facing",
       "repo_id": "social-ad-creator"
     },
@@ -1361,22 +2325,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "181250c",
-      "fullSha": "181250c39836da3edcdbafcbb12aab92ea9c3c9b",
-      "author_id": "noreply@anthropic.com",
-      "timestamp": "2026-01-17T01:42:22+00:00",
-      "subject": "Fix color picker overflow on mobile",
-      "body": "Split color and size controls onto separate rows in TextEditor.\nRestructured text element rows in LayoutSelector Placement tab\nto put color picker on its own row with flex-wrap for mobile.",
-      "tags": [
-        "bugfix",
-        "ui"
-      ],
-      "complexity": 2,
-      "urgency": 2,
-      "impact": "user-facing",
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "d9e5d81",
       "fullSha": "d9e5d8166905834b70340473b350713ff0bd1afc",
       "author_id": "devmade.ai@gmail.com",
@@ -1389,22 +2337,6 @@
       "complexity": 1,
       "urgency": 2,
       "impact": "internal",
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "0cee69d",
-      "fullSha": "0cee69db6380b108e1ea8fe20666cbe447c32eb9",
-      "author_id": "noreply@anthropic.com",
-      "timestamp": "2026-01-17T00:40:18+00:00",
-      "subject": "Add neutral colors for text and overlays",
-      "body": "Add 6 neutral color options (off-black, dark gray, gray, light gray,\noff-white, white) available in all color pickers regardless of theme.\n\n- Define neutralColors array and getNeutralColor() helper in themes.js\n- Update TextEditor, ImageUploader, and LayoutSelector color pickers\n- Update AdCanvas resolveColor() to handle neutral color keys",
-      "tags": [
-        "feature",
-        "ui"
-      ],
-      "complexity": 3,
-      "urgency": 1,
-      "impact": "user-facing",
       "repo_id": "social-ad-creator"
     },
     {
@@ -1579,22 +2511,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "2999ff8",
-      "fullSha": "2999ff8519cf13e748bdcbb1f44a1f48cc3413c3",
-      "author_id": "noreply@anthropic.com",
-      "timestamp": "2026-01-16T19:30:39+00:00",
-      "subject": "Improve overall app visual design and polish",
-      "body": "- Increase text sizes for better readability (text-xs -> text-sm)\n- Add consistent rounded corners (rounded-lg -> rounded-xl)\n- Improve spacing with more breathing room between elements\n- Add soft shadows and depth to panels and cards\n- Update button styles with better hover/active states\n- Add smooth transitions for interactive elements\n- Style range inputs with custom track and thumb\n- Add custom scrollbar styling\n- Use subtle gradients for backgrounds\n- Make header sticky with backdrop blur\n- Add progress bar animation for export\n- Consistent styling across all components\n\nAll changes maintain mobile-friendliness with responsive sizing.",
-      "tags": [
-        "enhancement",
-        "ui"
-      ],
-      "complexity": 4,
-      "urgency": 1,
-      "impact": "user-facing",
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "720e8e0",
       "fullSha": "720e8e01ba2cf5bc011cb808c5aa024ecdf93fb6",
       "author_id": "jacotheron87",
@@ -1654,21 +2570,6 @@
       "complexity": 2,
       "urgency": 1,
       "impact": "user-facing",
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "0e726fa",
-      "fullSha": "0e726fa7e7a8dca6baad6050bee7997a5b4ed39a",
-      "author_id": "jacotheron87",
-      "timestamp": "2026-01-15T01:40:24+02:00",
-      "subject": "Add over-engineered alignment mistake to AI_MISTAKES.md",
-      "body": "Documented the per-item per-cell alignment fiasco that took 11+ commits\nto fix when user only wanted simple per-cell alignment.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "tags": [
-        "docs"
-      ],
-      "complexity": 1,
-      "urgency": 1,
-      "impact": "internal",
       "repo_id": "social-ad-creator"
     },
     {
@@ -1766,22 +2667,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "031e06a",
-      "fullSha": "031e06a7d1cfa291b08d354788a6565d46fef500",
-      "author_id": "jacotheron87",
-      "timestamp": "2026-01-15T00:35:18+02:00",
-      "subject": "Move Presets subtab to last position and improve mobile overflow",
-      "body": "- Reorder Layout subtabs: Structure, Placement, Overlay, Spacing, Presets\n- Default to Structure tab instead of Presets\n- Add horizontal scroll with min-width for mobile devices\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "tags": [
-        "enhancement",
-        "ux"
-      ],
-      "complexity": 2,
-      "urgency": 1,
-      "impact": "user-facing",
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "71117ad",
       "fullSha": "71117ad6bac84205894cec737d2a58201d586eb1",
       "author_id": "jacotheron87",
@@ -1814,21 +2699,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "10d7de5",
-      "fullSha": "10d7de55e5972326dcd74a7f99ae0d392498931c",
-      "author_id": "jacotheron87",
-      "timestamp": "2026-01-14T21:46:41+02:00",
-      "subject": "Update CLAUDE.md title",
-      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "tags": [
-        "docs"
-      ],
-      "complexity": 1,
-      "urgency": 1,
-      "impact": "internal",
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "9876080",
       "fullSha": "98760803790606610d5295a1252787ebc8b2c511",
       "author_id": "jacotheron87",
@@ -1857,22 +2727,6 @@
       "complexity": 1,
       "urgency": 2,
       "impact": "internal",
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "377775c",
-      "fullSha": "377775ccbb188c2d8e73f5cf73b2230fef1f6d79",
-      "author_id": "noreply@anthropic.com",
-      "timestamp": "2026-01-14T19:21:35+00:00",
-      "subject": "Fix cell grid display for fullbleed and small sizes",
-      "body": "- Add minHeight to size configurations to ensure grid visibility\n- Change flex from '0 0 X%' to '1 1 X%' to allow cells to grow\n- Add min-h-[20px] to cells and h-full to container\n- Reduce small grid maxWidth to 60px for better inline fit",
-      "tags": [
-        "bugfix",
-        "ui"
-      ],
-      "complexity": 2,
-      "urgency": 2,
-      "impact": "user-facing",
       "repo_id": "social-ad-creator"
     },
     {
@@ -1966,43 +2820,6 @@
       "complexity": 4,
       "urgency": 2,
       "impact": "user-facing",
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "0812774",
-      "fullSha": "08127747022d9d667a82f223c8bfaa4c0eb0b2b8",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2026-01-14T19:49:00+02:00",
-      "commitDate": "2026-01-14T19:49:00+02:00",
-      "subject": "Merge pull request #13 from devmade-ai/claude/add-layout-presets-Faxjc",
-      "body": "Add global style presets for one-click professional looks",
-      "tags": [
-        "merge"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Merge pull request #13 from devmade-ai/claude/add-layout-presets-Faxjc",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#13"
-      ],
-      "stats": {
-        "filesChanged": 5,
-        "additions": 891,
-        "deletions": 159
-      },
-      "files": [],
       "repo_id": "social-ad-creator"
     },
     {
@@ -2196,43 +3013,6 @@
       "files": [
         "src/components/LayoutSelector.jsx"
       ],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "1b4954a",
-      "fullSha": "1b4954a5d0ebe83f09e7915e9d47a812c16ea61f",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2026-01-14T03:04:16+02:00",
-      "commitDate": "2026-01-14T03:04:16+02:00",
-      "subject": "Merge pull request #11 from devmade-ai/claude/cleanup-todos-ZlUa9",
-      "body": "Clean up TODO.md - mark implemented items, simplify scope",
-      "tags": [
-        "merge"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "internal",
-      "scope": null,
-      "title": "Merge pull request #11 from devmade-ai/claude/cleanup-todos-ZlUa9",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#11"
-      ],
-      "stats": {
-        "filesChanged": 12,
-        "additions": 489,
-        "deletions": 407
-      },
-      "files": [],
       "repo_id": "social-ad-creator"
     },
     {
@@ -2442,159 +3222,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "339d0da",
-      "fullSha": "339d0daa323fd6e38a2ee59ec263af1ec23ca2b3",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2026-01-14T00:10:17+00:00",
-      "commitDate": "2026-01-14T00:10:17+00:00",
-      "subject": "Clean up TODO.md - mark implemented items, simplify scope",
-      "body": "- Mark completed: smart layout suggestions, keyboard shortcuts, export loading states\n- Remove advanced text customization items (keeping only bold/italic/letter-spacing)\n- Clarify Image tab UX issues as priority item with clear problem description\n- Consolidate completed features, remove duplicates",
-      "tags": [
-        "docs"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "internal",
-      "scope": null,
-      "title": "Clean up TODO.md - mark implemented items, simplify scope",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 35,
-        "deletions": 37
-      },
-      "files": [
-        "docs/TODO.md"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "3a04615",
-      "fullSha": "3a0461553b590c69314cdb04f566fa79ae138491",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2026-01-14T01:16:42+02:00",
-      "commitDate": "2026-01-14T01:16:42+02:00",
-      "subject": "Merge pull request #10 from devmade-ai/claude/improve-todo-layout-CKPEx",
-      "body": "Add Image tab improvements to TODO list",
-      "tags": [
-        "merge"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "internal",
-      "scope": null,
-      "title": "Merge pull request #10 from devmade-ai/claude/improve-todo-layout-CKPEx",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#10"
-      ],
-      "stats": {
-        "filesChanged": 6,
-        "additions": 413,
-        "deletions": 515
-      },
-      "files": [],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "04ed1a8",
-      "fullSha": "04ed1a80259bc3f8e6553aaae443ff284e5c7d1f",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2026-01-13T23:13:58+00:00",
-      "commitDate": "2026-01-13T23:13:58+00:00",
-      "subject": "Implement Phase 4 placement tab enhancements",
-      "body": "Placement tab now features:\n- Image section with cell selector + quick controls:\n  - Cover/Contain toggle\n  - Grayscale on/off\n  - Overlay opacity slider\n- Individual text elements (not groups):\n  - Title, Tagline, Body Heading, Body Text, CTA, Footnote\n  - Each with visibility toggle, color picker, text input\n  - Cell placement buttons (when multi-cell layout)\n- Text alignment controls (horizontal + vertical)",
-      "tags": [
-        "feature",
-        "ui"
-      ],
-      "complexity": 3,
-      "urgency": 2,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Implement Phase 4 placement tab enhancements",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 207,
-        "deletions": 100
-      },
-      "files": [
-        "docs/TODO.md",
-        "src/App.jsx",
-        "src/components/LayoutSelector.jsx"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "11547e6",
-      "fullSha": "11547e6bd70197bc9c06eede72a0659ab827eec1",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2026-01-13T23:08:17+00:00",
-      "commitDate": "2026-01-13T23:08:17+00:00",
-      "subject": "Implement Phase 3 UX polish",
-      "body": "- Standard alignment icons: SVG-based left/center/right and top/middle/bottom\n- Sub-tabs more prominent: larger text, bolder styling, blue active state\n- Cell selector improvements:\n  - Constrained max-width (180px) on wider screens\n  - Matches selected platform aspect ratio\n  - Simple numbered labels (1, 2, 3) instead of Row/Column naming",
-      "tags": [
-        "feature",
-        "ui"
-      ],
-      "complexity": 2,
-      "urgency": 2,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Implement Phase 3 UX polish",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 92,
-        "deletions": 37
-      },
-      "files": [
-        "docs/TODO.md",
-        "src/components/LayoutSelector.jsx"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "bb879c7",
       "fullSha": "bb879c74afe792f401e9d24c101168cc596998c5",
       "author_id": "noreply@anthropic.com",
@@ -2632,85 +3259,6 @@
         "src/App.jsx",
         "src/components/LayoutSelector.jsx",
         "src/components/TextEditor.jsx"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "0c28380",
-      "fullSha": "0c28380972c1d437e7af10b646c28c448a2ddede",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2026-01-13T22:55:39+00:00",
-      "commitDate": "2026-01-13T22:55:39+00:00",
-      "subject": "Implement Phase 1 UX improvements",
-      "body": "- Rename \"Media\" tab to \"Image\" for clarity\n- Default platform to Instagram Square (most common use case)\n- Reorder platforms: IG Square, TikTok, LinkedIn, IG Story first\n- Default presets filter to \"All\" instead of \"Suggested\"\n- Remove layout \"Type\" selector from presets tab (unnecessary complexity)",
-      "tags": [
-        "feature",
-        "ui"
-      ],
-      "complexity": 2,
-      "urgency": 2,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Implement Phase 1 UX improvements",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 5,
-        "additions": 11,
-        "deletions": 32
-      },
-      "files": [
-        "docs/TODO.md",
-        "src/App.jsx",
-        "src/components/LayoutSelector.jsx",
-        "src/config/platforms.js",
-        "src/hooks/useAdState.js"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "1a17257",
-      "fullSha": "1a17257660c41c87ba87b6c01e8df1b68caca342",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2026-01-13T22:52:19+00:00",
-      "commitDate": "2026-01-13T22:52:19+00:00",
-      "subject": "Add cell selector aspect ratio matching to TODO",
-      "body": "Cell selector should match selected platform's shape for consistency",
-      "tags": [
-        "docs"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "internal",
-      "scope": null,
-      "title": "Add cell selector aspect ratio matching to TODO",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 1,
-        "deletions": 0
-      },
-      "files": [
-        "docs/TODO.md"
       ],
       "repo_id": "social-ad-creator"
     },
@@ -2826,90 +3374,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "17dfc56",
-      "fullSha": "17dfc563eca24e386af5f15fd7a2e9380c230678",
-      "author_id": "jacotheron87",
-      "author": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "committer": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "timestamp": "2026-01-14T00:05:00+02:00",
-      "commitDate": "2026-01-14T00:05:00+02:00",
-      "subject": "Update SESSION_NOTES.md - mark sample images complete",
-      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "tags": [
-        "docs"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "internal",
-      "scope": null,
-      "title": "Update SESSION_NOTES.md - mark sample images complete",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 3,
-        "deletions": 8
-      },
-      "files": [
-        "docs/SESSION_NOTES.md"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "240a95c",
-      "fullSha": "240a95cec0f68417454f52b67e4a14421642a54a",
-      "author_id": "jacotheron87",
-      "author": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "committer": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "timestamp": "2026-01-14T00:04:44+02:00",
-      "commitDate": "2026-01-14T00:04:44+02:00",
-      "subject": "Add 9 sample images and fix path resolution",
-      "body": "- Add devMade branded sample images to public/samples/\n- Update sampleImages.js with all 9 images (.jpg format)\n- Fix BASE_URL path resolution for production deployment\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "tags": [
-        "feature"
-      ],
-      "complexity": 2,
-      "urgency": 2,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Add 9 sample images and fix path resolution",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 11,
-        "additions": 32,
-        "deletions": 9
-      },
-      "files": [
-        "public/samples/ai-growth.jpg",
-        "public/samples/brain-ideas.jpg",
-        "public/samples/circuit-spiral.jpg",
-        "public/samples/circuit-tree.jpg",
-        "public/samples/dm-badge.jpg",
-        "public/samples/dm-cube.jpg",
-        "public/samples/dm-rocket.jpg",
-        "public/samples/globe-tech.jpg",
-        "public/samples/tree-cube.jpg",
-        "src/components/ImageUploader.jsx",
-        "src/config/sampleImages.js"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "6d1c40d",
       "fullSha": "6d1c40deed1c5b6c751cdda7912917890660de1f",
       "author_id": "devmade.ai@gmail.com",
@@ -2944,51 +3408,6 @@
         "deletions": 89
       },
       "files": [],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "1b6d948",
-      "fullSha": "1b6d948e4bf477e809bf4fc3e8edbe32aa9ece57",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2026-01-13T15:41:15+00:00",
-      "commitDate": "2026-01-13T15:41:15+00:00",
-      "subject": "Add image presets, filters, per-cell overlays, padding, and merge media tabs",
-      "body": "Features:\n- Image style presets (Dramatic Dark, Vintage, Cinematic, etc.)\n- Image filters (sepia, blur, contrast, brightness)\n- Per-cell overlay controls in Layout > Overlay sub-tab\n- Global and per-cell padding in Layout > Spacing sub-tab\n- Merged Logo tab into Media tab for unified controls\n\nState changes:\n- imageGrayscale -> imageFilters object\n- Added layout.cellOverlays for per-cell overlay config\n- Added padding state with global and cellOverrides",
-      "tags": [
-        "feature",
-        "ui"
-      ],
-      "complexity": 4,
-      "urgency": 2,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Add image presets, filters, per-cell overlays, padding, and merge media tabs",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 8,
-        "additions": 778,
-        "deletions": 72
-      },
-      "files": [
-        "docs/SESSION_NOTES.md",
-        "docs/TODO.md",
-        "src/App.jsx",
-        "src/components/AdCanvas.jsx",
-        "src/components/ImageUploader.jsx",
-        "src/components/LayoutSelector.jsx",
-        "src/config/layouts.js",
-        "src/hooks/useAdState.js"
-      ],
       "repo_id": "social-ad-creator"
     },
     {
@@ -3112,47 +3531,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "21e2b89",
-      "fullSha": "21e2b89e0fb1d1397d014e0667e4baeec486b029",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2026-01-13T08:03:04+00:00",
-      "commitDate": "2026-01-13T08:03:04+00:00",
-      "subject": "Make preview canvas responsive and update documentation",
-      "body": "- Preview canvas now adapts to container width using ResizeObserver\n- Fills available horizontal space while maintaining aspect ratio\n- Respects max height (60% viewport or 600px) to prevent overflow\n\nDocumentation updates:\n- CLAUDE.md: Updated architecture, state structure, and added Layout Tab section\n- SESSION_NOTES.md: Documented all session changes\n- TODO.md: Added Layout Tab sub-tabs section, marked responsive preview complete",
-      "tags": [
-        "feature",
-        "ui"
-      ],
-      "complexity": 2,
-      "urgency": 2,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Make preview canvas responsive and update documentation",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 4,
-        "additions": 129,
-        "deletions": 53
-      },
-      "files": [
-        "CLAUDE.md",
-        "docs/SESSION_NOTES.md",
-        "docs/TODO.md",
-        "src/App.jsx"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "db02cd3",
       "fullSha": "db02cd36cc1e0a02fb0c22653463e83e02063335",
       "author_id": "noreply@anthropic.com",
@@ -3263,46 +3641,6 @@
         "deletions": 29
       },
       "files": [],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "23ec7ee",
-      "fullSha": "23ec7ee5ecb2445a12f62696466dbd43d526b018",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2026-01-13T00:16:36+00:00",
-      "commitDate": "2026-01-13T00:16:36+00:00",
-      "subject": "Enhance layout controls with quick presets and improved UX",
-      "body": "- Add quick layout preset picker to Image tab showing suggested layouts\n- Allow up to 3 subdivisions per section (was limited to 2)\n- Implement proportional auto-balancing when adjusting section sizes\n- Default preset category to \"Suggested\" instead of \"All\"\n- Add +/- controls for subdivision count with visual feedback",
-      "tags": [
-        "feature",
-        "ui"
-      ],
-      "complexity": 3,
-      "urgency": 2,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Enhance layout controls with quick presets and improved UX",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 230,
-        "deletions": 29
-      },
-      "files": [
-        "src/App.jsx",
-        "src/components/ImageUploader.jsx",
-        "src/components/LayoutSelector.jsx"
-      ],
       "repo_id": "social-ad-creator"
     },
     {
@@ -3491,81 +3829,6 @@
         "filesChanged": 1,
         "additions": 4,
         "deletions": 4
-      },
-      "files": [],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "007b3b3",
-      "fullSha": "007b3b36ed8f9e7dd512292ab6571d0d79e97c5a",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2026-01-12T18:55:19+00:00",
-      "commitDate": "2026-01-12T18:55:19+00:00",
-      "subject": "Add sample text to all text input fields",
-      "body": "",
-      "tags": [
-        "feature",
-        "ui"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Add sample text to all text input fields",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 4,
-        "deletions": 4
-      },
-      "files": [
-        "src/hooks/useAdState.js"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "2431769",
-      "fullSha": "24317698be4c2c0fdf5af27ff09b9ddff8956011",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2026-01-12T20:44:08+02:00",
-      "commitDate": "2026-01-12T20:44:08+02:00",
-      "subject": "Merge pull request #3 from devmade-ai/claude/investigate-missing-changes-MwZPB",
-      "body": "Add GitHub Actions workflow for automatic deployment",
-      "tags": [
-        "merge"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "internal",
-      "scope": null,
-      "title": "Merge pull request #3 from devmade-ai/claude/investigate-missing-changes-MwZPB",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#3"
-      ],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 53,
-        "deletions": 0
       },
       "files": [],
       "repo_id": "social-ad-creator"
@@ -3849,90 +4112,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "1cd3a21",
-      "fullSha": "1cd3a21fe965e9df0c5466fd156b2c9b3670df3d",
-      "author_id": "jacotheron87",
-      "author": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "committer": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "timestamp": "2026-01-11T20:17:23+02:00",
-      "commitDate": "2026-01-11T20:17:23+02:00",
-      "subject": "Add layout presets for quick start",
-      "body": "Add 6 layout presets (Hero, Left/Right/Top/Bottom Image, Text Focus)\nto the Layout tab for faster ad creation. Presets configure split type,\nimage coverage, cell alignments, and text group placements.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "tags": [
-        "feature",
-        "ui"
-      ],
-      "complexity": 3,
-      "urgency": 2,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Add layout presets for quick start",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 199,
-        "deletions": 0
-      },
-      "files": [
-        "src/components/LayoutSelector.jsx",
-        "src/config/layoutPresets.js"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "34e77fb",
-      "fullSha": "34e77fbca918d668f6dccac9ab7b279983d0f040",
-      "author_id": "jacotheron87",
-      "author": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "committer": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "timestamp": "2026-01-10T19:03:35+02:00",
-      "commitDate": "2026-01-10T19:03:35+02:00",
-      "subject": "Fix image duplication in split layouts",
-      "body": "Image now spans across selected cells as a single continuous layer\ninstead of duplicating in each cell. Cover/contain settings apply\nto the combined span area.",
-      "tags": [
-        "bugfix",
-        "ui"
-      ],
-      "complexity": 3,
-      "urgency": 3,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Fix image duplication in split layouts",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 8,
-        "additions": 394,
-        "deletions": 224
-      },
-      "files": [
-        "CLAUDE.md",
-        "docs/SESSION_NOTES.md",
-        "docs/TODO.md",
-        "src/App.jsx",
-        "src/components/ImageUploader.jsx",
-        "src/components/LayoutSelector.jsx",
-        "src/components/OverlayControls.jsx",
-        "src/hooks/useAdState.js"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "9a9264e",
       "fullSha": "9a9264ee0be117d6b7e32fe772410983639e041b",
       "author_id": "jacotheron87",
@@ -4012,89 +4191,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "0b50e2a",
-      "fullSha": "0b50e2a9468511bc2f1973db7c3345fe597bb615",
-      "author_id": "jacotheron87",
-      "author": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "committer": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "timestamp": "2026-01-10T16:41:34+02:00",
-      "commitDate": "2026-01-10T16:41:34+02:00",
-      "subject": "Updates",
-      "body": "",
-      "tags": [
-        "chore"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "internal",
-      "scope": null,
-      "title": "Updates",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 5,
-        "additions": 55,
-        "deletions": 55
-      },
-      "files": [
-        "assets/index-DdudQRRr.js",
-        "assets/index-N_CfFsk6.css",
-        "assets/index-VpzsYrtB.js",
-        "assets/index-aJQZzt1E.css",
-        "index.html"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "22cdca9",
-      "fullSha": "22cdca95bd744fbf6fad4dfc71479e9f5e6cb6ab",
-      "author_id": "jacotheron87",
-      "author": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "committer": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "timestamp": "2026-01-10T16:40:36+02:00",
-      "commitDate": "2026-01-10T16:40:36+02:00",
-      "subject": "Fix layout bugs, logo drag-drop, and text overlay issues",
-      "body": "- Fix image not displaying in column/row layouts (use flex sizing)\n- Fix text duplication in 3-section layouts\n- Remove redundant layout preview from Layout tab\n- Fix logo drag-drop (add onDrop/onDragOver handlers)\n- Fix text vertical align on image (respect user setting)\n- Fix text sizes on image (use consistent font multipliers)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
-      "tags": [
-        "bugfix",
-        "ui"
-      ],
-      "complexity": 3,
-      "urgency": 3,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Fix layout bugs, logo drag-drop, and text overlay issues",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 5,
-        "additions": 97,
-        "deletions": 122
-      },
-      "files": [
-        "HISTORY.md",
-        "docs/SESSION_NOTES.md",
-        "src/components/AdCanvas.jsx",
-        "src/components/LayoutSelector.jsx",
-        "src/components/LogoUploader.jsx"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "f9f6329",
       "fullSha": "f9f63298a664e22d2b177cd31e70196313ba922e",
       "author_id": "jacotheron87",
@@ -4143,44 +4239,6 @@
       "repo_id": "social-ad-creator"
     },
     {
-      "sha": "2a7f952",
-      "fullSha": "2a7f9520d377c84bc26d5105e079eb2f8669fe78",
-      "author_id": "jacotheron87",
-      "author": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "committer": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
-      "timestamp": "2026-01-10T14:56:02+02:00",
-      "commitDate": "2026-01-10T14:56:02+02:00",
-      "subject": "Updates",
-      "body": "",
-      "tags": [
-        "chore"
-      ],
-      "complexity": 1,
-      "urgency": 2,
-      "impact": "internal",
-      "scope": null,
-      "title": "Updates",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 9,
-        "deletions": 9
-      },
-      "files": [
-        "assets/index-VpzsYrtB.js",
-        "index.html"
-      ],
-      "repo_id": "social-ad-creator"
-    },
-    {
       "sha": "97a1b29",
       "fullSha": "97a1b299362c5ac772d1240245466c4969ac7995",
       "author_id": "devmade.ai@gmail.com",
@@ -4215,48 +4273,6 @@
         "deletions": 17
       },
       "files": [],
-      "repo_id": "social-ad-creator"
-    },
-    {
-      "sha": "2c55d32",
-      "fullSha": "2c55d32fe17181c82fa676c4de70d68ce5b43305",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2026-01-10T12:31:36+00:00",
-      "commitDate": "2026-01-10T12:31:36+00:00",
-      "subject": "Reorganize tabs, show all text elements, add more fonts",
-      "body": "- Move Layout tab after Image for better user flow\n- Make all 6 text layers visible by default\n- Expand font options from 5 to 15 (sans-serif, serif, display categories)",
-      "tags": [
-        "feature",
-        "ui"
-      ],
-      "complexity": 2,
-      "urgency": 2,
-      "impact": "user-facing",
-      "scope": null,
-      "title": "Reorganize tabs, show all text elements, add more fonts",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 5,
-        "additions": 82,
-        "deletions": 17
-      },
-      "files": [
-        "CLAUDE.md",
-        "docs/SESSION_NOTES.md",
-        "src/App.jsx",
-        "src/config/fonts.js",
-        "src/hooks/useAdState.js"
-      ],
       "repo_id": "social-ad-creator"
     },
     {
@@ -4611,14 +4627,14 @@
       "avgComplexity": 2.46,
       "avgUrgency": 1.67,
       "tagBreakdown": {
-        "docs": 18,
         "bugfix": 12,
-        "refactor": 8,
-        "feature": 34,
-        "ui": 38,
         "ux": 5,
-        "removal": 1,
+        "docs": 18,
+        "feature": 34,
         "enhancement": 9,
+        "ui": 38,
+        "refactor": 8,
+        "removal": 1,
         "revert": 3,
         "performance": 1,
         "error-handling": 1,
@@ -4653,10 +4669,10 @@
         "ui": 5,
         "docs": 7,
         "feature": 5,
-        "accessibility": 1,
         "enhancement": 5,
-        "simplify": 1,
         "revert": 2,
+        "accessibility": 1,
+        "simplify": 1,
         "seed": 1
       },
       "impactBreakdown": {
@@ -4680,11 +4696,11 @@
       "avgComplexity": 2.14,
       "avgUrgency": 1.74,
       "tagBreakdown": {
-        "ui": 17,
-        "ux": 5,
-        "enhancement": 8,
-        "feature": 10,
         "docs": 8,
+        "enhancement": 8,
+        "ux": 5,
+        "feature": 10,
+        "ui": 17,
         "bugfix": 12,
         "chore": 6,
         "seed": 1
@@ -4696,55 +4712,79 @@
         "api": 0
       },
       "repos": [
-        "unknown",
-        "social-ad-creator"
+        "social-ad-creator",
+        "unknown"
       ],
       "repoCount": 2,
       "firstCommit": "2026-01-10T12:42:53+02:00",
       "lastCommit": "2026-01-20T19:25:52+02:00"
+    },
+    {
+      "author_id": "unknown",
+      "name": "unknown",
+      "email": "unknown",
+      "commits": 1,
+      "avgComplexity": 2,
+      "avgUrgency": 2,
+      "tagBreakdown": {
+        "fix": 1,
+        "ui": 1,
+        "mobile": 1
+      },
+      "impactBreakdown": {
+        "internal": 0,
+        "user-facing": 1,
+        "infrastructure": 0,
+        "api": 0
+      },
+      "repos": [
+        "unknown"
+      ],
+      "repoCount": 1
     }
   ],
   "summary": {
-    "totalCommits": 182,
-    "totalContributors": 3,
+    "totalCommits": 183,
+    "totalContributors": 4,
     "tagBreakdown": {
       "merge": 41,
       "bugfix": 27,
       "ux": 17,
-      "ui": 60,
+      "ui": 61,
       "docs": 33,
       "feature": 49,
-      "accessibility": 1,
       "enhancement": 22,
+      "revert": 5,
+      "chore": 6,
+      "fix": 2,
+      "mobile": 1,
+      "accessibility": 1,
       "simplify": 1,
       "refactor": 8,
       "removal": 1,
-      "revert": 5,
       "performance": 1,
       "error-handling": 1,
-      "fix": 1,
       "breaking": 1,
       "infra": 2,
-      "chore": 6,
       "seed": 2
     },
     "complexityBreakdown": {
       "1": 81,
-      "2": 47,
+      "2": 48,
       "3": 33,
       "4": 18,
       "5": 3
     },
     "urgencyBreakdown": {
       "1": 52,
-      "2": 117,
+      "2": 118,
       "3": 13,
       "4": 0,
       "5": 0
     },
     "impactBreakdown": {
       "internal": 80,
-      "user-facing": 100,
+      "user-facing": 101,
       "infrastructure": 0,
       "api": 0
     },
@@ -4760,18 +4800,18 @@
           "ui": 60,
           "docs": 33,
           "feature": 49,
-          "accessibility": 1,
           "enhancement": 22,
+          "revert": 5,
+          "chore": 6,
+          "accessibility": 1,
           "simplify": 1,
           "refactor": 8,
           "removal": 1,
-          "revert": 5,
           "performance": 1,
           "error-handling": 1,
           "fix": 1,
           "breaking": 1,
           "infra": 2,
-          "chore": 6,
           "seed": 2
         },
         "impact": {
@@ -4794,18 +4834,18 @@
           "ui": 60,
           "docs": 33,
           "feature": 49,
-          "accessibility": 1,
           "enhancement": 22,
+          "revert": 5,
+          "chore": 6,
+          "accessibility": 1,
           "simplify": 1,
           "refactor": 8,
           "removal": 1,
-          "revert": 5,
           "performance": 1,
           "error-handling": 1,
           "fix": 1,
           "breaking": 1,
           "infra": 2,
-          "chore": 6,
           "seed": 2
         },
         "impact": {
