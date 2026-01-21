@@ -4,6 +4,26 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-21
 
+### Fix: Overview Tab Filters Not Updating
+
+Fixed filters and Compare dropdown not affecting the Overview tab display and click handlers.
+
+**Problem:**
+1. Overview tab card click handlers (Features Built, Bugs Fixed, etc.) captured commit data from closure at render time, showing stale data when filters changed
+2. Health tab card click handlers had the same stale closure issue
+3. Event listeners were being added repeatedly on each re-render without cleanup
+
+**Changes to `dashboard/index.html`:**
+- Added `getCurrentPeriodCommits()` helper function to dynamically compute filtered commits based on current filters AND summary period
+- Added `summaryCardHandlersInitialized` flag to prevent duplicate event listeners on Overview tab cards
+- Changed Overview card click handlers to call `getCurrentPeriodCommits()` at click time instead of using closure-captured data
+- Added `healthCardHandlersInitialized` flag for Health tab cards
+- Changed Health card click handlers to call `getFilteredCommits()` at click time
+
+**Result:** Overview and Health tab cards now correctly respond to filter changes and show current filtered data when clicked.
+
+---
+
 ### Enhancement: UI Consistency Improvements
 
 Improved UI consistency across all dashboard components.

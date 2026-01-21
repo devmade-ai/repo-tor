@@ -121,4 +121,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-21 - UI consistency improvements (collapsible sections, themed colors, tag display)*
+*Last updated: 2026-01-21 - Fixed filter updates not applying to Overview tab and Compare dropdown*
