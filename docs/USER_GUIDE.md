@@ -245,7 +245,7 @@ Click the **Export PDF** button to download a PDF report of the current view.
 
 ## Theme
 
-The dashboard uses a dark theme based on the Koinz Style Guide, optimized for readability and reduced eye strain.
+The dashboard uses a dark theme optimized for readability and reduced eye strain.
 
 ## Private Mode (Sanitization)
 
