@@ -4,6 +4,39 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-21
 
+### Enhancement: UI Consistency Improvements
+
+Improved UI consistency across all dashboard components.
+
+**Changes to `dashboard/index.html`:**
+
+1. **Collapsible Sections**
+   - Added collapsible functionality to all card sections
+   - Sections default to collapsed state on first load
+   - State is persisted to localStorage per section
+   - Click header to expand/collapse with chevron indicator
+   - Smooth animation transitions
+
+2. **Standardized Text Colors**
+   - Replaced inconsistent `text-gray-*` Tailwind classes with themed CSS variables
+   - Added `text-themed-primary`, `text-themed-secondary`, `text-themed-tertiary`, `text-themed-muted` utilities
+   - Better dark mode support through CSS variable theming
+   - Consistent color hierarchy across all tabs
+
+3. **Standardized Spacing**
+   - Consistent `mb-6` between sections
+   - Consistent `gap-4` for small grids, `gap-6` for larger layouts
+   - Added CSS variables for spacing (`--section-gap`, `--card-gap`, `--content-padding`)
+
+4. **Tag Display Consistency**
+   - All tag renders now use `getTagClass()` function
+   - Consistent tag styling across commit lists, breakdowns, and contributors
+   - Removed redundant size classes (tags use base `.tag` styling)
+
+**Result:** Dashboard now has consistent visual hierarchy, better dark mode support, and less visual clutter with collapsible sections.
+
+---
+
 ### Fix: Charts Not Rendering in Hidden Tabs
 
 Fixed charts in Activity, Work, and Health tabs appearing empty on mobile.
