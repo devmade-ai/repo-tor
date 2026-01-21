@@ -4,6 +4,30 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-21
 
+### Feature: Global Filters Across All Tabs
+
+Made dashboard filters apply globally to all tabs instead of just the Activity tab.
+
+**Problems Fixed:**
+1. Filter bar was only visible on Activity tab
+2. Filters only affected the commit list, not other tabs (Work, Health, etc.)
+3. Filter state was lost when switching between repos
+
+**Changes:**
+- Moved filter bar above tabs (always visible)
+- Added filter indicator showing "X of Y" when filters are active
+- Updated all render functions to use `getFilteredCommits()`:
+  - `updateSummaryStats()`, `renderProgress()`, `renderContributors()`
+  - `renderTags()`, `renderHealth()`, `renderSecurity()`
+  - `renderTiming()`, `renderHeatmap()`, `renderDeveloperPatterns()`
+  - `renderSummary()`, all click handlers
+- Filter state now persists across repo switches (validates options exist)
+
+**Files changed:**
+- `dashboard/index.html` - Global filter implementation
+
+---
+
 ### Fix: Dashboard Data Format Inconsistencies
 
 Fixed multiple data format inconsistencies causing incorrect stats and missing data in dashboard.

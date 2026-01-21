@@ -608,6 +608,47 @@
                 </div>
             </div>
 
+            <!-- Global Filters (always visible) -->
+            <div class="card mb-6" id="global-filters">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-medium text-gray-700">Filters</span>
+                        <span id="filter-indicator" class="hidden px-2 py-0.5 text-xs font-medium bg-blue-100 text-blue-700 rounded-full"></span>
+                    </div>
+                    <button id="clear-filters" class="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded border border-gray-200">
+                        Clear All
+                    </button>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-wrap items-end gap-3 lg:gap-4">
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs text-gray-500">Tag</label>
+                        <select id="filter-tag" class="filter-select w-full">
+                            <option value="">All Tags</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs text-gray-500">Author</label>
+                        <select id="filter-author" class="filter-select w-full">
+                            <option value="">All Authors</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-1" id="repo-filter-container" style="display: none;">
+                        <label class="text-xs text-gray-500">Repo</label>
+                        <select id="filter-repo" class="filter-select w-full">
+                            <option value="">All Repos</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs text-gray-500">From</label>
+                        <input type="date" id="filter-date-from" class="filter-input w-full">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs text-gray-500">To</label>
+                        <input type="date" id="filter-date-to" class="filter-input w-full">
+                    </div>
+                </div>
+            </div>
+
             <!-- Navigation Tabs (V2: 4 grouped tabs) -->
             <div class="flex border-b border-gray-200 mb-6 overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
                 <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600 whitespace-nowrap" data-tab="overview">Overview</button>
@@ -683,51 +724,6 @@
             </div>
 
             <div id="tab-activity" class="tab-content hidden">
-                <!-- Filters -->
-                <div class="card mb-6">
-                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-wrap items-end gap-3 lg:gap-4">
-                        <div class="flex flex-col gap-1">
-                            <label class="text-xs text-gray-500">Tag</label>
-                            <select id="filter-tag" class="filter-select w-full">
-                                <option value="">All Tags</option>
-                            </select>
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <label class="text-xs text-gray-500">Author</label>
-                            <select id="filter-author" class="filter-select w-full">
-                                <option value="">All Authors</option>
-                            </select>
-                        </div>
-                        <div class="flex flex-col gap-1" id="repo-filter-container" style="display: none;">
-                            <label class="text-xs text-gray-500">Repo</label>
-                            <select id="filter-repo" class="filter-select w-full">
-                                <option value="">All Repos</option>
-                            </select>
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <label class="text-xs text-gray-500">From</label>
-                            <input type="date" id="filter-date-from" class="filter-input w-full">
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <label class="text-xs text-gray-500">To</label>
-                            <input type="date" id="filter-date-to" class="filter-input w-full">
-                        </div>
-                        <button id="clear-filters" class="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded border border-gray-200 col-span-2 sm:col-span-1">
-                            Clear Filters
-                        </button>
-                    </div>
-                    <!-- Work Pattern Legend -->
-                    <div class="mt-3 pt-3 border-t border-gray-100 flex flex-wrap items-center gap-3 text-xs text-gray-500">
-                        <span>Work patterns:</span>
-                        <span class="badge badge-after-hours">After Hours</span>
-                        <span class="text-gray-400">before 8am or after 5pm</span>
-                        <span class="badge badge-weekend">Weekend</span>
-                        <span class="text-gray-400">Sat/Sun</span>
-                        <span class="badge badge-holiday">Holiday</span>
-                        <span class="text-gray-400">SA public holidays</span>
-                    </div>
-                </div>
-
                 <!-- Activity Timeline Chart -->
                 <div class="card mb-6">
                     <h2 class="text-lg font-semibold text-themed-primary mb-4">Activity Timeline</h2>
@@ -1110,8 +1106,8 @@
 
         // Helper to filter commits by criteria and open detail pane
         function showCommitsInPane(title, subtitle, filterFn) {
-            const commits = data.commits.filter(filterFn);
-            openDetailPane(title, subtitle, commits);
+            const filtered = getFilteredCommits().filter(filterFn);
+            openDetailPane(title, subtitle, filtered);
         }
 
         // === Dark Mode ===
@@ -1386,14 +1382,16 @@
         // === Summary Stats ===
 
         function updateSummaryStats() {
+            const commits = getFilteredCommits();
+
             // Files changed - sum of all file changes across commits (not unique files)
-            const totalFileChanges = data.commits.reduce((sum, c) => sum + getFilesChanged(c), 0);
+            const totalFileChanges = commits.reduce((sum, c) => sum + getFilesChanged(c), 0);
             const uniqueFiles = data.files?.length || 0;
             document.getElementById('stat-files').textContent = totalFileChanges.toLocaleString();
-            document.getElementById('stat-files-sub').textContent = uniqueFiles > 0 ? `${uniqueFiles} unique files` : `across ${data.summary.totalCommits} commits`;
+            document.getElementById('stat-files-sub').textContent = uniqueFiles > 0 ? `${uniqueFiles} unique files` : `across ${commits.length} commits`;
 
             // Average complexity
-            const complexities = data.commits.map(c => c.complexity).filter(c => c != null);
+            const complexities = commits.map(c => c.complexity).filter(c => c != null);
             if (complexities.length > 0) {
                 const avgComplexity = (complexities.reduce((a, b) => a + b, 0) / complexities.length).toFixed(1);
                 document.getElementById('stat-complexity').textContent = avgComplexity;
@@ -1408,7 +1406,7 @@
 
             // Top work type (most common tag)
             const tagCounts = {};
-            data.commits.forEach(c => {
+            commits.forEach(c => {
                 getCommitTags(c).forEach(tag => {
                     tagCounts[tag] = (tagCounts[tag] || 0) + 1;
                 });
@@ -1416,13 +1414,14 @@
             const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
             if (sortedTags.length > 0) {
                 const [topTag, topCount] = sortedTags[0];
-                const pct = Math.round((topCount / data.commits.length) * 100);
+                const pct = Math.round((topCount / commits.length) * 100);
                 document.getElementById('stat-top-tag').textContent = topTag;
                 document.getElementById('stat-top-tag-sub').textContent = `${pct}% of changes`;
             }
 
-            // Contributors
-            document.getElementById('stat-contributors').textContent = data.summary.totalContributors;
+            // Contributors - count unique authors in filtered commits
+            const uniqueAuthors = new Set(commits.map(c => getAuthorEmail(c)));
+            document.getElementById('stat-contributors').textContent = uniqueAuthors.size;
         }
 
         // === Filter Functions ===
@@ -1543,9 +1542,34 @@
         }
 
         function applyFilters() {
+            // Update filter indicator
+            updateFilterIndicator();
+            // Re-render all tabs with filtered data
+            updateSummaryStats();
             renderTimeline();
+            renderProgress();
+            renderContributors();
+            renderTags();
+            renderHealth();
+            renderSecurity();
+            renderTiming();
+            renderSummary();
             updateFilteredStats();
             saveFiltersToStorage();
+        }
+
+        function updateFilterIndicator() {
+            const indicator = document.getElementById('filter-indicator');
+            const filtered = getFilteredCommits();
+            const total = data?.commits?.length || 0;
+            const hasFilters = filters.tag || filters.author || filters.repo || filters.dateFrom || filters.dateTo;
+
+            if (hasFilters && filtered.length !== total) {
+                indicator.textContent = `${filtered.length} of ${total}`;
+                indicator.classList.remove('hidden');
+            } else {
+                indicator.classList.add('hidden');
+            }
         }
 
         // === Filter Persistence ===
@@ -1568,12 +1592,39 @@
 
                 const state = JSON.parse(stored);
 
-                // Restore filters
+                // Restore filters (only if values are valid options in the new data)
                 if (state.filters) {
-                    filters = { ...filters, ...state.filters };
-                    document.getElementById('filter-tag').value = filters.tag;
-                    document.getElementById('filter-author').value = filters.author;
-                    document.getElementById('filter-repo').value = filters.repo;
+                    const tagSelect = document.getElementById('filter-tag');
+                    const authorSelect = document.getElementById('filter-author');
+                    const repoSelect = document.getElementById('filter-repo');
+
+                    // Restore tag filter if it exists in current options
+                    if (state.filters.tag && [...tagSelect.options].some(o => o.value === state.filters.tag)) {
+                        filters.tag = state.filters.tag;
+                        tagSelect.value = filters.tag;
+                    } else {
+                        filters.tag = '';
+                    }
+
+                    // Restore author filter if it exists in current options
+                    if (state.filters.author && [...authorSelect.options].some(o => o.value === state.filters.author)) {
+                        filters.author = state.filters.author;
+                        authorSelect.value = filters.author;
+                    } else {
+                        filters.author = '';
+                    }
+
+                    // Restore repo filter if it exists in current options
+                    if (state.filters.repo && [...repoSelect.options].some(o => o.value === state.filters.repo)) {
+                        filters.repo = state.filters.repo;
+                        repoSelect.value = filters.repo;
+                    } else {
+                        filters.repo = '';
+                    }
+
+                    // Date filters don't need validation
+                    filters.dateFrom = state.filters.dateFrom || '';
+                    filters.dateTo = state.filters.dateTo || '';
                     document.getElementById('filter-date-from').value = filters.dateFrom;
                     document.getElementById('filter-date-to').value = filters.dateTo;
                 }
@@ -1832,12 +1883,15 @@
 
         // === Progress Tab ===
         function renderProgress() {
-            const months = Object.keys(data.summary.monthlyCommits).sort();
+            const commits = getFilteredCommits();
+            // Get months from filtered commits
+            const monthSet = new Set(commits.map(c => c.timestamp?.substring(0, 7)).filter(Boolean));
+            const months = [...monthSet].sort();
 
             // Feature vs Bug Fix Trend
             const monthlyTagCounts = {};
             const monthlyComplexity = {};
-            data.commits.forEach(commit => {
+            commits.forEach(commit => {
                 const month = commit.timestamp?.substring(0, 7);
                 if (!month) return;
                 if (!monthlyTagCounts[month]) monthlyTagCounts[month] = { feature: 0, bugfix: 0 };
@@ -1921,9 +1975,10 @@
 
         // === Contributors Tab ===
         function renderContributors() {
+            const commits = getFilteredCommits();
             // Build per-contributor stats from commits
             const contributorStats = {};
-            data.commits.forEach(commit => {
+            commits.forEach(commit => {
                 const email = getAuthorEmail(commit);
                 const name = getAuthorName(commit);
                 if (!contributorStats[email]) {
@@ -1978,9 +2033,9 @@
             document.querySelectorAll('[data-contributor-email]').forEach(el => {
                 el.addEventListener('click', () => {
                     const email = el.dataset.contributorEmail;
-                    const commits = data.commits.filter(c => getAuthorEmail(c) === email);
-                    const name = commits.length > 0 ? sanitizeName(getAuthorName(commits[0]), email) : 'Unknown';
-                    openDetailPane(`${name}'s Commits`, `${commits.length} commits`, commits);
+                    const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
+                    const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
+                    openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered);
                 });
             });
 
@@ -2017,14 +2072,15 @@
 
         // === Security Tab ===
         function renderSecurity() {
+            const commits = getFilteredCommits();
             // Use security_events from summary if available, otherwise compute
             let securityCommits;
             if (data.summary?.security_events?.length > 0) {
                 // Map security_events back to full commits for display
                 const securityShas = new Set(data.summary.security_events.map(e => e.sha));
-                securityCommits = data.commits.filter(c => securityShas.has(c.sha));
+                securityCommits = commits.filter(c => securityShas.has(c.sha));
             } else {
-                securityCommits = data.commits.filter(c =>
+                securityCommits = commits.filter(c =>
                     c.type === 'security' || (c.tags || []).includes('security')
                 );
             }
@@ -2054,7 +2110,7 @@
 
         // === Health Tab (Urgency & Impact) ===
         function renderHealth() {
-            const commits = data.commits;
+            const commits = getFilteredCommits();
             const total = commits.length;
 
             // Security count
@@ -2131,8 +2187,8 @@
                         filterFn = c => c.urgency >= 4;
                         title = 'Reactive Work (Urgency 4-5)';
                     }
-                    const commits = data.commits.filter(filterFn);
-                    openDetailPane(title, `${commits.length} commits`, commits);
+                    const filtered = getFilteredCommits().filter(filterFn);
+                    openDetailPane(title, `${filtered.length} commits`, filtered);
                 });
             });
 
@@ -2175,8 +2231,8 @@
                 el.addEventListener('click', () => {
                     const impact = el.dataset.impactFilter;
                     const label = impactLabels[impact]?.label || impact;
-                    const commits = data.commits.filter(c => c.impact === impact);
-                    openDetailPane(`${label} Impact`, `${commits.length} commits`, commits);
+                    const filtered = getFilteredCommits().filter(c => c.impact === impact);
+                    openDetailPane(`${label} Impact`, `${filtered.length} commits`, filtered);
                 });
             });
 
@@ -2308,9 +2364,9 @@
             document.querySelectorAll('[data-contributor-urgency]').forEach(el => {
                 el.addEventListener('click', () => {
                     const email = el.dataset.contributorUrgency;
-                    const commits = data.commits.filter(c => getAuthorEmail(c) === email);
-                    const name = commits.length > 0 ? sanitizeName(getAuthorName(commits[0]), email) : 'Unknown';
-                    openDetailPane(`${name}'s Commits`, `${commits.length} commits`, commits);
+                    const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
+                    const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
+                    openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered);
                 });
             });
 
@@ -2358,9 +2414,9 @@
             document.querySelectorAll('[data-contributor-impact]').forEach(el => {
                 el.addEventListener('click', () => {
                     const email = el.dataset.contributorImpact;
-                    const commits = data.commits.filter(c => getAuthorEmail(c) === email);
-                    const name = commits.length > 0 ? sanitizeName(getAuthorName(commits[0]), email) : 'Unknown';
-                    openDetailPane(`${name}'s Commits`, `${commits.length} commits`, commits);
+                    const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
+                    const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
+                    openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered);
                 });
             });
 
@@ -2405,9 +2461,10 @@
 
         // === Tags Tab ===
         function renderTags() {
+            const commits = getFilteredCommits();
             // Build tag breakdown from commits (counting each tag occurrence)
             const tagBreakdown = {};
-            data.commits.forEach(commit => {
+            commits.forEach(commit => {
                 const tags = getCommitTags(commit);
                 tags.forEach(tag => {
                     tagBreakdown[tag] = (tagBreakdown[tag] || 0) + 1;
@@ -2459,8 +2516,8 @@
             document.querySelectorAll('[data-tag-filter]').forEach(el => {
                 el.addEventListener('click', () => {
                     const tag = el.dataset.tagFilter;
-                    const commits = data.commits.filter(c => (c.tags || []).includes(tag));
-                    openDetailPane(`${tag} Commits`, `${commits.length} commits`, commits);
+                    const filtered = getFilteredCommits().filter(c => (c.tags || []).includes(tag));
+                    openDetailPane(`${tag} Commits`, `${filtered.length} commits`, filtered);
                 });
             });
         }
@@ -2484,6 +2541,7 @@
         }
 
         function renderTiming() {
+            const commits = getFilteredCommits();
             // Render the heatmap first
             renderHeatmap();
 
@@ -2492,7 +2550,7 @@
             // Aggregate commits by day of week (0=Sun, 6=Sat)
             const byDay = new Array(7).fill(0);
 
-            data.commits.forEach(commit => {
+            commits.forEach(commit => {
                 const { hour, dayOfWeek } = getCommitDateTime(commit);
                 byHour[hour]++;
                 byDay[dayOfWeek]++;
@@ -2590,10 +2648,11 @@
         }
 
         function renderHeatmap() {
+            const commits = getFilteredCommits();
             // Build 24x7 matrix (hours x days)
             const matrix = Array.from({ length: 24 }, () => new Array(7).fill(0));
 
-            data.commits.forEach(commit => {
+            commits.forEach(commit => {
                 const { hour, dayOfWeek } = getCommitDateTime(commit);
                 matrix[hour][dayOfWeek]++;
             });
@@ -2671,10 +2730,11 @@
         }
 
         function renderDeveloperPatterns() {
+            const commits = getFilteredCommits();
             // Get per-author timing data
             const authorPatterns = {};
 
-            data.commits.forEach(commit => {
+            commits.forEach(commit => {
                 const email = getAuthorEmail(commit);
                 const name = getAuthorName(commit);
                 const { hour, dayOfWeek } = getCommitDateTime(commit);
@@ -2830,12 +2890,13 @@
         }
 
         function renderSummary() {
+            const commits = getFilteredCommits();
             const periods = getPeriodDates(summaryPeriod);
             const periodLabel = summaryPeriod === '7days' ? 'previous 7 days'
                 : summaryPeriod === '30days' ? 'previous 30 days' : 'last quarter';
 
-            const currentCommits = getCommitsInRange(data.commits, periods.current.start, periods.current.end);
-            const previousCommits = getCommitsInRange(data.commits, periods.previous.start, periods.previous.end);
+            const currentCommits = getCommitsInRange(commits, periods.current.start, periods.current.end);
+            const previousCommits = getCommitsInRange(commits, periods.previous.start, periods.previous.end);
 
             // Count metrics for current period
             const countTag = (commits, tag) => commits.filter(c =>

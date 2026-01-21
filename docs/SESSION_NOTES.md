@@ -121,4 +121,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-21 - fixed multiple dashboard data format inconsistencies*
+*Last updated: 2026-01-21 - added global filters across all dashboard tabs*
