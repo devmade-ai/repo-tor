@@ -4,25 +4,42 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-21
 
-### Fix: Dashboard Files Changed Showing 0
+### Fix: Dashboard Data Format Inconsistencies
 
-Fixed dashboard "Files Changed" stat showing 0 instead of actual count.
+Fixed multiple data format inconsistencies causing incorrect stats and missing data in dashboard.
 
-**Problem:** The dashboard was looking for `c.filesChanged` (camelCase) on commits, but the data had multiple formats:
-- `stats.filesChanged` (from recent extractions)
-- `files_changed` (snake_case, from older processed commits)
+**Problem:** Different commits had different field formats due to varied extraction sources:
 
-**Solution:** Added `getFilesChanged()` helper function that normalizes across all formats:
+| Field | Format 1 | Format 2 | Missing |
+|-------|----------|----------|---------|
+| Files changed | `stats.filesChanged` (267) | `files_changed` (44) | 265 |
+| Commit text | `subject` (532) | `message` (44) | 0 |
+| Additions | `stats.additions` (267) | `lines_added` (44) | 265 |
+| Deletions | `stats.deletions` (267) | `lines_deleted` (44) | 265 |
+
+**Solution:** Added helper functions to normalize across all formats:
 ```javascript
 function getFilesChanged(commit) {
     return commit.stats?.filesChanged || commit.filesChanged || commit.files_changed || 0;
 }
+function getCommitSubject(commit) {
+    return commit.subject || commit.message || '';
+}
+function getAdditions(commit) {
+    return commit.stats?.additions || commit.lines_added || 0;
+}
+function getDeletions(commit) {
+    return commit.stats?.deletions || commit.lines_deleted || 0;
+}
 ```
 
-**Result:** Dashboard now correctly shows 1,689 files changed across 576 commits.
+**Result:**
+- Files changed: now shows 1,689 (was 0)
+- All 576 commits now display subject/message correctly
+- Additions/deletions now aggregated from all sources: 277,817 / 275,506
 
 **Files changed:**
-- `dashboard/index.html` - Added helper function, updated stat calculation
+- `dashboard/index.html` - Added 4 helper functions, updated all field references
 
 ---
 

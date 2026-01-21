@@ -1052,7 +1052,7 @@
             const tags = getCommitTags(commit);
             const email = getAuthorEmail(commit);
             const authorName = sanitizeName(getAuthorName(commit), email);
-            const message = sanitizeMessage(commit.message);
+            const message = sanitizeMessage(getCommitSubject(commit));
             const date = new Date(commit.timestamp).toLocaleDateString('en-US', {
                 month: 'short', day: 'numeric', year: 'numeric'
             });
@@ -1362,11 +1362,28 @@
             return commit.author?.email || commit.author_id || 'unknown';
         }
 
-        // === Summary Stats ===
+        // === Data Format Helpers ===
         function getFilesChanged(commit) {
             // Handle different data formats: stats.filesChanged, filesChanged, files_changed
             return commit.stats?.filesChanged || commit.filesChanged || commit.files_changed || 0;
         }
+
+        function getCommitSubject(commit) {
+            // Handle different data formats: subject vs message
+            return commit.subject || commit.message || '';
+        }
+
+        function getAdditions(commit) {
+            // Handle different data formats: stats.additions vs lines_added
+            return commit.stats?.additions || commit.lines_added || 0;
+        }
+
+        function getDeletions(commit) {
+            // Handle different data formats: stats.deletions vs lines_deleted
+            return commit.stats?.deletions || commit.lines_deleted || 0;
+        }
+
+        // === Summary Stats ===
 
         function updateSummaryStats() {
             // Files changed - sum of all file changes across commits (not unique files)
@@ -1701,7 +1718,7 @@
                             ${tagBadges}${extraTags}
                         </div>
                         <div class="flex-1 min-w-0">
-                            <p class="text-sm font-medium text-gray-900 break-words sm:truncate">${escapeHtml(sanitizeMessage(commit.subject))}</p>
+                            <p class="text-sm font-medium text-gray-900 break-words sm:truncate">${escapeHtml(sanitizeMessage(getCommitSubject(commit)))}</p>
                         </div>
                         ${complexityBadge}
                     </div>
@@ -2020,7 +2037,7 @@
                         <div class="flex items-start gap-3">
                             <span class="tag tag-security">security</span>
                             <div class="flex-1">
-                                <p class="font-medium text-gray-900">${escapeHtml(sanitizeMessage(commit.subject))}</p>
+                                <p class="font-medium text-gray-900">${escapeHtml(sanitizeMessage(getCommitSubject(commit)))}</p>
                                 <p class="text-sm text-gray-600 mt-1">${isSanitized ? '[Details hidden]' : (escapeHtml(commit.body || '').substring(0, 200) || 'No description')}</p>
                                 <p class="text-xs text-gray-500 mt-2">
                                     ${commit.sha} by ${escapeHtml(getAuthorName(commit))} on ${formatDate(commit.timestamp)}
@@ -3123,8 +3140,8 @@
                         });
                     }
 
-                    totalAdditions += commit.stats?.additions || 0;
-                    totalDeletions += commit.stats?.deletions || 0;
+                    totalAdditions += getAdditions(commit);
+                    totalDeletions += getDeletions(commit);
                 }
 
                 // Process contributors

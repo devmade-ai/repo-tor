@@ -121,4 +121,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-21 - fixed dashboard "Files Changed" showing 0*
+*Last updated: 2026-01-21 - fixed multiple dashboard data format inconsistencies*
