@@ -4,6 +4,52 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-21
 
+### Enhancement: Redesigned Dashboard Layout with Sticky Tabs and Filter Sidebar
+
+Major UI restructure for improved navigation and screen real estate.
+
+**Changes:**
+
+1. **Sticky Tabs Bar**
+   - Tabs now stick to top of viewport when scrolling
+   - Immediate access to tab navigation from anywhere on the page
+   - Filter toggle button integrated into tabs bar
+
+2. **Collapsible Filter Sidebar**
+   - Filters moved from inline card to collapsible left sidebar
+   - Default state: collapsed (more content visible)
+   - Desktop: pushes content when expanded
+   - Mobile: overlays as slide-out panel
+   - Filter badge shows when filters are active
+
+3. **Consolidated Overview Metrics**
+   - Removed redundant global summary cards section
+   - Merged Files Changed, Avg Complexity, Contributors into Overview tab
+   - Removed Top Work Type (redundant with Work Breakdown chart)
+   - Overview now shows 7 metrics: Features, Bugs Fixed, Urgency, % Planned, Files, Complexity, Contributors
+
+**Result:** Cleaner layout with tabs always accessible, more vertical space for content, and filters available on demand.
+
+---
+
+### Fix: Consistent Section Spacing Across Tabs
+
+Fixed inconsistent spacing between sections when multiple tab content containers are displayed together.
+
+**Problem:**
+- Tabs like Work and Activity display multiple tab-content containers together (e.g., Work shows tab-progress + tab-contributors + tab-tags)
+- The last section in each container was missing `mb-6` spacing, creating visual gaps between containers
+
+**Changes to `dashboard/index.html`:**
+- Added `mb-6` to Changes section in tab-activity (spacing before tab-timing)
+- Added `mb-6` to Complexity Over Time section in tab-progress (spacing before tab-contributors)
+- Added `mb-6` to Complexity by Contributor section in tab-contributors (spacing before tab-tags)
+- Added `mb-6` to tag grid in tab-tags
+
+**Result:** Consistent 1.5rem spacing between all sections across all tabs.
+
+---
+
 ### Fix: JavaScript Error in updateFilteredStats()
 
 Removed orphaned `updateFilteredStats()` function that was causing console errors when making filter selections.
