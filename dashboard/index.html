@@ -2372,6 +2372,8 @@
         }
 
         // === Health Tab (Urgency & Impact) ===
+        let healthCardHandlersInitialized = false;
+
         function renderHealth() {
             const commits = getFilteredCommits();
             const total = commits.length;
@@ -2683,43 +2685,48 @@
                 });
             });
 
-            // Add click handlers for health cards
-            document.querySelectorAll('[data-health-card]').forEach(el => {
-                el.addEventListener('click', () => {
-                    const cardType = el.dataset.healthCard;
-                    let filteredCommits, title;
+            // Add click handlers for health cards (only once, using dynamic data)
+            if (!healthCardHandlersInitialized) {
+                healthCardHandlersInitialized = true;
+                document.querySelectorAll('[data-health-card]').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const cardType = el.dataset.healthCard;
+                        // Get filtered commits dynamically (respects current filters)
+                        const currentCommits = getFilteredCommits();
+                        let filteredCommits, title;
 
-                    if (cardType === 'security') {
-                        filteredCommits = commits.filter(c =>
-                            c.type === 'security' || (c.tags || []).includes('security')
-                        );
-                        title = 'Security Commits';
-                    } else if (cardType === 'reactive') {
-                        filteredCommits = commits.filter(c => c.urgency >= 4);
-                        title = 'Reactive Work (Urgency 4-5)';
-                    } else if (cardType === 'weekend') {
-                        filteredCommits = commits.filter(c => {
-                            if (!c.timestamp) return false;
-                            const date = new Date(c.timestamp);
-                            const day = date.getDay();
-                            return day === 0 || day === 6;
-                        });
-                        title = 'Weekend Commits';
-                    } else if (cardType === 'afterhours') {
-                        filteredCommits = commits.filter(c => {
-                            if (!c.timestamp) return false;
-                            const date = new Date(c.timestamp);
-                            const hour = date.getHours();
-                            return hour < workHourStart || hour >= workHourEnd;
-                        });
-                        title = 'After Hours Commits';
-                    }
+                        if (cardType === 'security') {
+                            filteredCommits = currentCommits.filter(c =>
+                                c.type === 'security' || (c.tags || []).includes('security')
+                            );
+                            title = 'Security Commits';
+                        } else if (cardType === 'reactive') {
+                            filteredCommits = currentCommits.filter(c => c.urgency >= 4);
+                            title = 'Reactive Work (Urgency 4-5)';
+                        } else if (cardType === 'weekend') {
+                            filteredCommits = currentCommits.filter(c => {
+                                if (!c.timestamp) return false;
+                                const date = new Date(c.timestamp);
+                                const day = date.getDay();
+                                return day === 0 || day === 6;
+                            });
+                            title = 'Weekend Commits';
+                        } else if (cardType === 'afterhours') {
+                            filteredCommits = currentCommits.filter(c => {
+                                if (!c.timestamp) return false;
+                                const date = new Date(c.timestamp);
+                                const hour = date.getHours();
+                                return hour < workHourStart || hour >= workHourEnd;
+                            });
+                            title = 'After Hours Commits';
+                        }
 
-                    if (filteredCommits) {
-                        openDetailPane(title, `${filteredCommits.length} commits`, filteredCommits);
-                    }
+                        if (filteredCommits) {
+                            openDetailPane(title, `${filteredCommits.length} commits`, filteredCommits);
+                        }
+                    });
                 });
-            });
+            }
         }
 
         // === Tags Tab ===
@@ -3080,6 +3087,14 @@
 
         // === Executive Summary Tab ===
         let summaryPeriod = '7days';
+        let summaryCardHandlersInitialized = false;
+
+        // Helper to get commits filtered by both global filters AND current summary period
+        function getCurrentPeriodCommits() {
+            const commits = getFilteredCommits();
+            const periods = getPeriodDates(summaryPeriod);
+            return getCommitsInRange(commits, periods.current.start, periods.current.end);
+        }
 
         function getPeriodDates(period) {
             const now = new Date();
@@ -3325,31 +3340,36 @@
                 </div>
             `;
 
-            // Add click handlers for summary cards
-            document.querySelectorAll('[data-summary-card]').forEach(el => {
-                el.addEventListener('click', () => {
-                    const cardType = el.dataset.summaryCard;
-                    let filteredCommits, title;
+            // Add click handlers for summary cards (only once, using dynamic data)
+            if (!summaryCardHandlersInitialized) {
+                summaryCardHandlersInitialized = true;
+                document.querySelectorAll('[data-summary-card]').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const cardType = el.dataset.summaryCard;
+                        // Get current period commits dynamically (respects current filters and period)
+                        const currentPeriodCommits = getCurrentPeriodCommits();
+                        let filteredCommits, title;
 
-                    if (cardType === 'features') {
-                        filteredCommits = currentCommits.filter(c => (c.tags || []).includes('feature'));
-                        title = 'Feature Commits';
-                    } else if (cardType === 'fixes') {
-                        filteredCommits = currentCommits.filter(c => (c.tags || []).includes('bugfix'));
-                        title = 'Bug Fix Commits';
-                    } else if (cardType === 'urgency') {
-                        filteredCommits = currentCommits.filter(c => c.urgency >= 4);
-                        title = 'Reactive Commits (Urgency 4-5)';
-                    } else if (cardType === 'planned') {
-                        filteredCommits = currentCommits.filter(c => c.urgency <= 2);
-                        title = 'Planned Work (Urgency 1-2)';
-                    }
+                        if (cardType === 'features') {
+                            filteredCommits = currentPeriodCommits.filter(c => (c.tags || []).includes('feature'));
+                            title = 'Feature Commits';
+                        } else if (cardType === 'fixes') {
+                            filteredCommits = currentPeriodCommits.filter(c => (c.tags || []).includes('bugfix'));
+                            title = 'Bug Fix Commits';
+                        } else if (cardType === 'urgency') {
+                            filteredCommits = currentPeriodCommits.filter(c => c.urgency >= 4);
+                            title = 'Reactive Commits (Urgency 4-5)';
+                        } else if (cardType === 'planned') {
+                            filteredCommits = currentPeriodCommits.filter(c => c.urgency <= 2);
+                            title = 'Planned Work (Urgency 1-2)';
+                        }
 
-                    if (filteredCommits) {
-                        openDetailPane(title, `${filteredCommits.length} commits in this period`, filteredCommits);
-                    }
+                        if (filteredCommits) {
+                            openDetailPane(title, `${filteredCommits.length} commits in this period`, filteredCommits);
+                        }
+                    });
                 });
-            });
+            }
         }
 
         function setupSummaryPeriodToggle() {
