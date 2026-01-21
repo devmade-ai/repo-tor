@@ -1,0 +1,20 @@
+{
+  "sha": "f158a04",
+  "fullSha": "f158a048fda881bb95f80d84809a3e7998413a15",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T10:16:31+00:00",
+  "subject": "fix: filter and compare updates now apply to Overview tab",
+  "body": "- Add getCurrentPeriodCommits() helper for dynamic filtered+period data\n- Use initialization flags to prevent duplicate click handlers\n- Overview cards (Features, Bugs, Urgency, Planned) now use dynamic data\n- Health cards (Security, Reactive, Weekend, After Hours) now use dynamic data\n\nFixes issue where filters and Compare dropdown didn't affect Overview tab.",
+  "tags": [
+    "bugfix",
+    "enhancement"
+  ],
+  "complexity": 3,
+  "urgency": 2,
+  "impact": "user-facing",
+  "repo_id": "repo-tor"
+}

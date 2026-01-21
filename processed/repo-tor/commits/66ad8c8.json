@@ -1,0 +1,20 @@
+{
+  "sha": "66ad8c8",
+  "fullSha": "66ad8c8fd451778e7ffc2301041b72e4094da377",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T06:58:25+00:00",
+  "subject": "feat: global filters across all dashboard tabs",
+  "body": "- Move filter bar above tabs (always visible)\n- Add filter indicator showing \"X of Y\" when active\n- Apply filters to all tabs (Work, Health, etc.) not just Activity\n- Update all render functions to use getFilteredCommits()\n- Preserve filter state across repo switches with validation\n\nPreviously filters only affected the commit list on the Activity tab. Now all charts, stats, and breakdowns respect the active filters.",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "user-facing",
+  "repo_id": "repo-tor"
+}

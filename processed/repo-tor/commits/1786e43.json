@@ -1,0 +1,20 @@
+{
+  "sha": "1786e43",
+  "fullSha": "1786e43e174f321847e898608865c07b618e31d1",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2026-01-21T13:45:43+02:00",
+  "subject": "fix: remove orphaned updateFilteredStats() causing console errors",
+  "body": "The function referenced a non-existent 'stat-commits-filtered' element, throwing TypeError on every filter change. The functionality was already handled by updateFilterIndicator().\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "removal"
+  ],
+  "complexity": 1,
+  "urgency": 2,
+  "impact": "internal",
+  "repo_id": "repo-tor"
+}
