@@ -3124,6 +3124,16 @@
                     if (tabEl) tabEl.classList.remove('hidden');
                 });
 
+                // Re-render charts when their tab becomes visible (Chart.js needs visible containers)
+                if (data) {
+                    const activeTab = btn.dataset.tab;
+                    if (activeTab === 'activity') {
+                        renderTiming();
+                    } else if (activeTab === 'work') {
+                        renderTags();
+                    }
+                }
+
                 // Save state (only if data is loaded)
                 if (data) {
                     saveFiltersToStorage();

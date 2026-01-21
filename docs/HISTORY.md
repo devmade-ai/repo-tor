@@ -4,6 +4,21 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-21
 
+### Fix: Charts Not Rendering in Hidden Tabs
+
+Fixed charts in Activity and Work tabs appearing empty on mobile.
+
+**Problem:** Chart.js cannot properly render charts inside hidden containers (display: none or visibility: hidden). When the dashboard loads, only the Overview tab is visible. Charts rendered to the Activity tab (heatmap, hour chart, day chart) and Work tab (tags chart) would fail silently because their parent containers had zero width/height.
+
+**Changes to `dashboard/index.html`:**
+- Added re-render logic to tab click handler
+- When switching to 'activity' tab: calls `renderTiming()` to re-render all timing charts
+- When switching to 'work' tab: calls `renderTags()` to re-render tag charts
+
+**Result:** Charts now render correctly when users switch to Activity or Work tabs.
+
+---
+
 ### Fix: Author Identity Mapping in Aggregation
 
 Fixed author identity mapping not being applied during data aggregation.
