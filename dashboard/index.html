@@ -1911,21 +1911,6 @@
                 document.getElementById('stat-complexity-sub').textContent = 'not available';
             }
 
-            // Top work type (most common tag)
-            const tagCounts = {};
-            commits.forEach(c => {
-                getCommitTags(c).forEach(tag => {
-                    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-                });
-            });
-            const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
-            if (sortedTags.length > 0) {
-                const [topTag, topCount] = sortedTags[0];
-                const pct = Math.round((topCount / commits.length) * 100);
-                document.getElementById('stat-top-tag').textContent = topTag;
-                document.getElementById('stat-top-tag-sub').textContent = `${pct}% of changes`;
-            }
-
             // Contributors - count unique authors in filtered commits
             const uniqueAuthors = new Set(commits.map(c => getAuthorEmail(c)));
             document.getElementById('stat-contributors').textContent = uniqueAuthors.size;
@@ -4010,7 +3995,7 @@
                 // Add summary stats
                 const stats = document.createElement('div');
                 stats.innerHTML = `
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px;">
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;">
                         <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
                             <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Files Changed</p>
                             <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-files').textContent}</p>
@@ -4018,10 +4003,6 @@
                         <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
                             <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Avg Complexity</p>
                             <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-complexity').textContent}</p>
-                        </div>
-                        <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
-                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Top Work Type</p>
-                            <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-top-tag').textContent}</p>
                         </div>
                         <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
                             <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Contributors</p>

@@ -4,6 +4,23 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-21
 
+### Fix: Remove orphaned stat-top-tag JavaScript causing dashboard to break
+
+The dashboard was showing 0 for Contributors, Features Built, and Bugs Fixed because
+JavaScript code was trying to set a `stat-top-tag` element that no longer existed in
+the HTML. This caused a TypeError that stopped script execution, preventing subsequent
+stats and render functions from completing.
+
+**Root Cause:**
+- HTML was updated to show only 3 stat cards (Files Changed, Avg Complexity, Contributors)
+- JavaScript still tried to set `stat-top-tag` and `stat-top-tag-sub` elements
+- `document.getElementById('stat-top-tag')` returned null
+- Calling `.textContent` on null threw an error, halting execution
+
+**Changes:**
+- Removed orphaned `stat-top-tag` code from `updateSummaryStats()`
+- Updated PDF export to match 3-card layout (was 4 columns, now 3)
+
 ### Enhancement: Koinz Style Guide Implementation
 
 Complete visual redesign of the dashboard following the Koinz Style Guide.
