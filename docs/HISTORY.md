@@ -4,6 +4,24 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-21
 
+### Fix: Consistent Section Spacing Across Tabs
+
+Fixed inconsistent spacing between sections when multiple tab content containers are displayed together.
+
+**Problem:**
+- Tabs like Work and Activity display multiple tab-content containers together (e.g., Work shows tab-progress + tab-contributors + tab-tags)
+- The last section in each container was missing `mb-6` spacing, creating visual gaps between containers
+
+**Changes to `dashboard/index.html`:**
+- Added `mb-6` to Changes section in tab-activity (spacing before tab-timing)
+- Added `mb-6` to Complexity Over Time section in tab-progress (spacing before tab-contributors)
+- Added `mb-6` to Complexity by Contributor section in tab-contributors (spacing before tab-tags)
+- Added `mb-6` to tag grid in tab-tags
+
+**Result:** Consistent 1.5rem spacing between all sections across all tabs.
+
+---
+
 ### Fix: JavaScript Error in updateFilteredStats()
 
 Removed orphaned `updateFilteredStats()` function that was causing console errors when making filter selections.
