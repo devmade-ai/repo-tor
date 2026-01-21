@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-21T07:03:36.481Z",
+    "generatedAt": "2026-01-21T23:39:54.653Z",
     "repository": "repo-tor",
     "scope": "repo-tor",
     "repoCount": 1,
-    "commitCount": 185,
+    "commitCount": 209,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -21,6 +21,477 @@
     }
   },
   "commits": [
+    {
+      "sha": "d7e3885",
+      "fullSha": "d7e388516253b32df741259f1272bef1985b2235",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T23:18:37+02:00",
+      "subject": "Merge pull request #32 from devmade-ai/claude/investigate-missing-content-VxLCP",
+      "body": "fix: remove orphaned stat-top-tag code breaking dashboard stats",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "dab1e1b",
+      "fullSha": "dab1e1b015c24b69968df67894b3dcaba7577e5b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T21:12:22+00:00",
+      "subject": "chore: remove all Koinz brand references",
+      "body": "Replace Koinz Style Guide references with generic dark theme descriptions throughout the codebase.",
+      "tags": [
+        "docs",
+        "removal"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "25387c3",
+      "fullSha": "25387c3762f6e91ecb06b5bc0afd3a5e5d9670f2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T21:04:16+00:00",
+      "subject": "fix: remove orphaned stat-top-tag code breaking dashboard stats",
+      "body": "The dashboard was showing 0 for Contributors, Features Built, and Bugs Fixed because JavaScript was trying to set elements that no longer existed in the HTML after a previous layout change.\n\n- Remove stat-top-tag code from updateSummaryStats()\n- Update PDF export from 4 to 3 column layout\n- This fixes the TypeError that was halting script execution",
+      "tags": [
+        "bugfix",
+        "removal"
+      ],
+      "complexity": 2,
+      "urgency": 3,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "5995ec5",
+      "fullSha": "5995ec5991ca23b74d99322097567c361514f0bb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T22:19:16+02:00",
+      "subject": "Merge pull request #31 from devmade-ai/claude/implement-koinz-style-guide-KIfQY",
+      "body": "feat: implement Koinz Style Guide for dashboard",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "0aadb92",
+      "fullSha": "0aadb92fb9d2e5357740e0ee69f9d239673d6f28",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T20:16:28+00:00",
+      "subject": "feat: implement Koinz Style Guide for dashboard",
+      "body": "Complete visual redesign following the Koinz Style Guide specification:\n\n- Dark-only theme with Koinz color palette (#1B1B1B background, #2a2a2a cards, #2D68FF primary)\n- Figtree font family loaded from Google Fonts\n- 8px base spacing system\n- Updated border radius (4px/8px/12px for sm/md/lg)\n- Redesigned components: cards, buttons, inputs, tags, badges\n- Chart.js colors updated to match Koinz palette\n- Removed light mode toggle (dark-only mode)\n- Modal backdrop uses rgba(0, 0, 0, 0.8)\n- Tags/badges use transparent backgrounds with colored borders",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "8e30602",
+      "fullSha": "8e306026c7281afc5c681d7236566a225ce9e299",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T21:56:29+02:00",
+      "subject": "Merge pull request #30 from devmade-ai/claude/fix-spacing-reorder-sections-L1brs",
+      "body": "fix: consistent section spacing across all dashboard tabs",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "f3a07b2",
+      "fullSha": "f3a07b28962af6e9ec63a83a06112fbf8a94551f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T19:36:46+00:00",
+      "subject": "feat: redesign dashboard layout with sticky tabs and filter sidebar",
+      "body": "- Add sticky tabs bar that stays visible when scrolling\n- Create collapsible filter sidebar (collapsed by default)\n  - Desktop: pushes content when expanded\n  - Mobile: overlays as slide-out panel\n- Move global summary cards into Overview tab\n  - Add Files Changed, Avg Complexity, Contributors to Overview\n  - Remove redundant Top Work Type (shown in Work Breakdown chart)\n- Add filter badge indicator on toggle button when filters active",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "337d3f3",
+      "fullSha": "337d3f3495206d20228d460bb4b5b6e60e94487c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T13:41:14+00:00",
+      "subject": "fix: consistent section spacing across all dashboard tabs",
+      "body": "Add mb-6 spacing to sections that precede other tab-content containers when displayed together (Work tab shows progress + contributors + tags, Activity tab shows activity + timing).",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "1786e43",
+      "fullSha": "1786e43e174f321847e898608865c07b618e31d1",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-21T13:45:43+02:00",
+      "subject": "fix: remove orphaned updateFilteredStats() causing console errors",
+      "body": "The function referenced a non-existent 'stat-commits-filtered' element, throwing TypeError on every filter change. The functionality was already handled by updateFilterIndicator().\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "removal"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "f8e6ad7",
+      "fullSha": "f8e6ad7f2f905578ac3942b55d5e738c9c31ed10",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T12:58:56+02:00",
+      "subject": "Merge pull request #29 from devmade-ai/claude/fix-overview-filters-g2Sdz",
+      "body": "fix: remove broken security-count reference in renderSecurity()",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b961f45",
+      "fullSha": "b961f45ec942d7b069a693d4c84ff3632e36027c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T10:57:05+00:00",
+      "subject": "fix: remove broken security-count reference in renderSecurity()",
+      "body": "The renderSecurity() function was trying to update a non-existent element 'security-count', causing a TypeError that stopped execution of applyFilters(). Since renderSummary() is called after renderSecurity() in applyFilters(), the Overview tab never updated when filters changed.\n\nThe security count is already correctly handled by renderHealth() via the 'health-security-count' element, so the broken line was simply removed.",
+      "tags": [
+        "bugfix",
+        "removal"
+      ],
+      "complexity": 2,
+      "urgency": 3,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "31bcacf",
+      "fullSha": "31bcacf9aa4d554964a028cb481f448cc7be28d7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T12:40:20+02:00",
+      "subject": "Merge pull request #28 from devmade-ai/claude/fix-filter-updates-4hRgv",
+      "body": "fix: filter and compare updates now apply to Overview tab",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "f158a04",
+      "fullSha": "f158a048fda881bb95f80d84809a3e7998413a15",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T10:16:31+00:00",
+      "subject": "fix: filter and compare updates now apply to Overview tab",
+      "body": "- Add getCurrentPeriodCommits() helper for dynamic filtered+period data\n- Use initialization flags to prevent duplicate click handlers\n- Overview cards (Features, Bugs, Urgency, Planned) now use dynamic data\n- Health cards (Security, Reactive, Weekend, After Hours) now use dynamic data\n\nFixes issue where filters and Compare dropdown didn't affect Overview tab.",
+      "tags": [
+        "bugfix",
+        "enhancement"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "1c9413b",
+      "fullSha": "1c9413b9570dac37d244a603b1611c2c01e7add8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T12:07:30+02:00",
+      "subject": "Merge pull request #27 from devmade-ai/claude/improve-ui-consistency-osHJo",
+      "body": "feat: improve UI consistency across dashboard",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "e1e2829",
+      "fullSha": "e1e28298d3b98feddac971300084d3b2b6b7c096",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T10:01:50+00:00",
+      "subject": "feat: improve UI consistency across dashboard",
+      "body": "- Add collapsible sections with persistent state (default collapsed)\n- Standardize text colors with themed CSS variables\n- Standardize spacing with consistent gaps and margins\n- Ensure consistent tag colors and display using getTagClass()\n- Add dark mode improvements for themed backgrounds",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "d57a741",
+      "fullSha": "d57a7417f3eea159ef713a5e4144a69360fd9a4d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T11:08:55+02:00",
+      "subject": "Merge pull request #26 from devmade-ai/claude/fix-dashboard-issues-dIOhA",
+      "body": "fix: re-render charts when switching to Activity/Work tabs",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "81ef430",
+      "fullSha": "81ef4302415fe8ed15efc9f1eb4c5f915513674f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T09:01:01+00:00",
+      "subject": "fix: include Health tab in re-render on tab switch",
+      "body": "Extended the Chart.js hidden container fix to also re-render the Health tab (urgency trend, impact over time charts) when switching to that tab.",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "b78b4ec",
+      "fullSha": "b78b4ec6f7224f2c64d59215e081f9312726c3b0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T08:55:42+00:00",
+      "subject": "fix: re-render charts when switching to Activity/Work tabs",
+      "body": "Chart.js cannot render to hidden containers (zero width/height). Added re-render calls in tab click handler to fix empty charts on Activity tab (heatmap, hour/day charts) and Work tab (tags).",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "31cd3c7",
+      "fullSha": "31cd3c727462cb5fe3a6bf02a7e9b2ae2ebd6ce5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T09:09:51+02:00",
+      "subject": "Merge pull request #25 from devmade-ai/claude/review-dashboard-commits-XgWku",
+      "body": "fix: dashboard Files Changed showing 0",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "4ecc1fd",
+      "fullSha": "4ecc1fd83900bd5c1f07a64373f3697f822b60da",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T07:04:34+00:00",
+      "subject": "fix: apply author identity mapping in aggregation",
+      "body": "The author-map.json config existed but wasn't being used during data aggregation. Now the aggregate script:\n\n- Loads config/author-map.json at startup\n- Resolves raw emails to canonical author IDs\n- Normalizes author_id in all commits\n- Merges contributor stats by canonical ID\n- Includes metadata.authors for dashboard resolution\n\nResult: jacotheron87's two email addresses are now properly merged into a single contributor (4 total instead of 5).",
+      "tags": [
+        "bugfix",
+        "feature"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "66ad8c8",
+      "fullSha": "66ad8c8fd451778e7ffc2301041b72e4094da377",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T06:58:25+00:00",
+      "subject": "feat: global filters across all dashboard tabs",
+      "body": "- Move filter bar above tabs (always visible)\n- Add filter indicator showing \"X of Y\" when active\n- Apply filters to all tabs (Work, Health, etc.) not just Activity\n- Update all render functions to use getFilteredCommits()\n- Preserve filter state across repo switches with validation\n\nPreviously filters only affected the commit list on the Activity tab. Now all charts, stats, and breakdowns respect the active filters.",
+      "tags": [
+        "feature",
+        "ux"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "4565adf",
+      "fullSha": "4565adf44844c34b1fcee4caf78d7d615fde5c3e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T06:17:11+00:00",
+      "subject": "fix: normalize data field formats in dashboard",
+      "body": "Add helper functions to handle inconsistent field formats:\n- getCommitSubject(): handles subject vs message\n- getAdditions(): handles stats.additions vs lines_added\n- getDeletions(): handles stats.deletions vs lines_deleted\n\nThis ensures all 576 commits display correctly regardless of which extraction format they came from.",
+      "tags": [
+        "bugfix",
+        "refactor"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "79350b5",
+      "fullSha": "79350b5f1cc28be7f251bb2eff4153ac8c94ef4f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T00:02:06+00:00",
+      "subject": "fix: dashboard Files Changed showing 0",
+      "body": "Add getFilesChanged() helper to handle multiple data formats:\n- stats.filesChanged (new extractions)\n- files_changed (snake_case, older commits)\n\nNow correctly shows 1,689 files changed across 576 commits.",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "repo-tor"
+    },
+    {
+      "sha": "3862372",
+      "fullSha": "3862372c19b3cc08b718e6b6fffb93c9709c6699",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-20T22:04:07+02:00",
+      "subject": "refactor: migrate from batch files to individual commit files",
+      "body": "Store each analyzed commit as a separate JSON file instead of batching 15 commits per file. This simplifies deduplication (file existence = processed), enables atomic edits, and produces cleaner git diffs.\n\nChanges:\n- Add scripts/save-commit.js for saving individual commits\n- Add scripts/migrate-batches-to-commits.js for one-time migration\n- Update scripts/aggregate-processed.js to read from commits/\n- Update scripts/extract.js to write individual commit files\n- Migrate all 4 repos (576 commits total)\n- Delete old batches/ directories\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "refactor",
+        "migration"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "repo-tor"
+    },
     {
       "sha": "a8f37bd",
       "fullSha": "a8f37bd3bf2913924cd439f7426dfcb17264da46",
@@ -4398,27 +4869,28 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 140,
-      "avgComplexity": 1.68,
-      "avgUrgency": 1.75,
+      "commits": 162,
+      "avgComplexity": 1.7,
+      "avgUrgency": 1.77,
       "tagBreakdown": {
-        "merge": 24,
-        "docs": 36,
+        "merge": 32,
+        "docs": 37,
+        "removal": 5,
+        "bugfix": 18,
+        "feature": 23,
+        "ui": 16,
+        "ux": 3,
+        "enhancement": 3,
+        "refactor": 7,
         "seed": 33,
         "build": 4,
         "config": 29,
-        "bugfix": 9,
-        "ui": 12,
-        "feature": 18,
-        "enhancement": 2,
-        "refactor": 6,
-        "removal": 2,
         "ci": 1,
         "init": 1
       },
       "impactBreakdown": {
-        "internal": 121,
-        "user-facing": 18,
+        "internal": 131,
+        "user-facing": 30,
         "infrastructure": 1,
         "api": 0
       },
@@ -4427,30 +4899,31 @@
       ],
       "repoCount": 1,
       "firstCommit": "2026-01-18T21:53:16+02:00",
-      "lastCommit": "2026-01-20T18:25:55+02:00"
+      "lastCommit": "2026-01-21T23:18:37+02:00"
     },
     {
       "author_id": "jacotheron87",
       "name": "jacotheron87",
       "email": "jacotheron87@gmail.com",
-      "commits": 26,
-      "avgComplexity": 1.85,
-      "avgUrgency": 1.58,
+      "commits": 28,
+      "avgComplexity": 1.89,
+      "avgUrgency": 1.57,
       "tagBreakdown": {
+        "bugfix": 2,
+        "removal": 4,
+        "refactor": 3,
+        "migration": 1,
         "feature": 3,
         "docs": 20,
         "config": 3,
-        "removal": 3,
         "style": 1,
-        "refactor": 2,
         "ui": 1,
-        "bugfix": 1,
         "ci": 1,
         "init": 1,
         "test-unit": 1
       },
       "impactBreakdown": {
-        "internal": 24,
+        "internal": 26,
         "user-facing": 1,
         "infrastructure": 1,
         "api": 0
@@ -4461,7 +4934,7 @@
       ],
       "repoCount": 2,
       "firstCommit": "2026-01-18T22:03:07+02:00",
-      "lastCommit": "2026-01-20T21:37:48+02:00"
+      "lastCommit": "2026-01-21T13:45:43+02:00"
     },
     {
       "author_id": "noreply@anthropic.com",
@@ -4495,110 +4968,116 @@
     }
   ],
   "summary": {
-    "totalCommits": 185,
+    "totalCommits": 209,
     "totalContributors": 3,
     "tagBreakdown": {
-      "feature": 27,
-      "docs": 64,
+      "merge": 32,
+      "docs": 65,
+      "removal": 9,
+      "bugfix": 22,
+      "feature": 32,
+      "ui": 21,
+      "ux": 3,
+      "enhancement": 3,
+      "refactor": 11,
+      "migration": 1,
       "config": 37,
-      "removal": 5,
       "style": 1,
-      "merge": 24,
       "seed": 33,
       "build": 4,
-      "bugfix": 12,
-      "ui": 17,
-      "enhancement": 2,
-      "refactor": 9,
       "ci": 3,
       "init": 3,
       "test-unit": 1
     },
     "complexityBreakdown": {
-      "1": 97,
-      "2": 46,
-      "3": 27,
-      "4": 12,
+      "1": 109,
+      "2": 51,
+      "3": 32,
+      "4": 14,
       "5": 3
     },
     "urgencyBreakdown": {
-      "1": 62,
-      "2": 120,
-      "3": 3,
+      "1": 67,
+      "2": 137,
+      "3": 5,
       "4": 0,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 156,
-      "user-facing": 26,
+      "internal": 168,
+      "user-facing": 38,
       "infrastructure": 3,
       "api": 0
     },
-    "avgComplexity": 1.8,
-    "avgUrgency": 1.68,
+    "avgComplexity": 1.81,
+    "avgUrgency": 1.7,
     "monthly": {
       "2026-01": {
-        "commits": 185,
+        "commits": 209,
         "tags": {
-          "feature": 27,
-          "docs": 64,
+          "merge": 32,
+          "docs": 65,
+          "removal": 9,
+          "bugfix": 22,
+          "feature": 32,
+          "ui": 21,
+          "ux": 3,
+          "enhancement": 3,
+          "refactor": 11,
+          "migration": 1,
           "config": 37,
-          "removal": 5,
           "style": 1,
-          "merge": 24,
           "seed": 33,
           "build": 4,
-          "bugfix": 12,
-          "ui": 17,
-          "enhancement": 2,
-          "refactor": 9,
           "ci": 3,
           "init": 3,
           "test-unit": 1
         },
         "impact": {
-          "internal": 156,
-          "user-facing": 26,
+          "internal": 168,
+          "user-facing": 38,
           "infrastructure": 3,
           "api": 0
         },
-        "avgComplexity": 1.8,
-        "avgUrgency": 1.68
+        "avgComplexity": 1.81,
+        "avgUrgency": 1.7
       }
     },
     "monthlyCommits": {
       "2026-01": {
-        "commits": 185,
+        "commits": 209,
         "tags": {
-          "feature": 27,
-          "docs": 64,
+          "merge": 32,
+          "docs": 65,
+          "removal": 9,
+          "bugfix": 22,
+          "feature": 32,
+          "ui": 21,
+          "ux": 3,
+          "enhancement": 3,
+          "refactor": 11,
+          "migration": 1,
           "config": 37,
-          "removal": 5,
           "style": 1,
-          "merge": 24,
           "seed": 33,
           "build": 4,
-          "bugfix": 12,
-          "ui": 17,
-          "enhancement": 2,
-          "refactor": 9,
           "ci": 3,
           "init": 3,
           "test-unit": 1
         },
         "impact": {
-          "internal": 156,
-          "user-facing": 26,
+          "internal": 168,
+          "user-facing": 38,
           "infrastructure": 3,
           "api": 0
         },
-        "avgComplexity": 1.8,
-        "avgUrgency": 1.68
+        "avgComplexity": 1.81,
+        "avgUrgency": 1.7
       }
     },
     "dateRange": {
       "earliest": "2026-01-18T20:29:03+00:00",
-      "latest": "2026-01-20T21:37:48+02:00"
+      "latest": "2026-01-21T23:18:37+02:00"
     },
     "security_events": []
   }

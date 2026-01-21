@@ -1,26 +1,477 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-21T07:03:36.485Z",
+    "generatedAt": "2026-01-21T23:39:54.658Z",
     "repository": "social-ad-creator",
     "scope": "social-ad-creator",
     "repoCount": 1,
-    "commitCount": 159,
+    "commitCount": 182,
     "authors": {
       "noreply@anthropic.com": {
         "name": "noreply@anthropic.com",
         "email": "noreply@anthropic.com"
       },
-      "jacotheron87": {
-        "name": "jacotheron87",
-        "email": "jacotheron87@gmail.com"
-      },
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
         "email": "devmade.ai@gmail.com"
+      },
+      "jacotheron87": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
       }
     }
   },
   "commits": [
+    {
+      "sha": "0ba35fe",
+      "fullSha": "0ba35fe34a507b638f6cc318c9a9544c09590bad",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T00:24:10+02:00",
+      "subject": "Merge pull request #41 from devmade-ai/claude/prevent-mobile-refresh-wxNqJ",
+      "body": "Prevent accidental pull-to-refresh on mobile",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "35439d2",
+      "fullSha": "35439d25f134c10f57a9f98ee75fdc95332e3977",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T22:23:08+00:00",
+      "subject": "Prevent accidental pull-to-refresh on mobile",
+      "body": "Add overscroll-behavior-y: contain to body to stop the browser from triggering page refresh when users scroll past the top.",
+      "tags": [
+        "bugfix",
+        "ux"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "7d398e5",
+      "fullSha": "7d398e580aac03243bd44946fa3294039c05de76",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T23:07:19+02:00",
+      "subject": "Merge pull request #40 from devmade-ai/claude/fun-style-guide-GxEc4",
+      "body": "Add fun style guide adapted from Koinz design system",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "d0746a5",
+      "fullSha": "d0746a512e8968b29444d825b4b0734f7e7dbf60",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T21:01:50+00:00",
+      "subject": "Fix remaining blue color references to use violet/primary",
+      "body": "",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "37df890",
+      "fullSha": "37df890298af0d81f681bc4d33ec88520ae22bd7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T20:58:39+00:00",
+      "subject": "Update session notes with implementation details",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "f3d46b4",
+      "fullSha": "f3d46b4d7ad6af37b3834ef8f04042344c3c622a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T20:57:53+00:00",
+      "subject": "Implement fun style guide across entire UI",
+      "body": "Full implementation of the creative design system:\n- Primary palette: Electric Violet (#8B5CF6), Hot Pink accent\n- Dark mode uses deep indigo (#0F0F23) instead of pure black\n- New Tailwind config with custom colors, gradients, and glow shadows\n- Updated all components from blue/gray to violet/zinc colors\n- Added display font family for headings\n- Micro-animations: btn-scale, card-lift utility classes\n- Gradient progress bar during export\n- Glow effects on primary buttons in dark mode\n- Reduced motion support for accessibility\n\nBuild passes successfully.",
+      "tags": [
+        "feature",
+        "ui",
+        "accessibility"
+      ],
+      "complexity": 4,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "e264b1c",
+      "fullSha": "e264b1cb4702ef2c11fdf639be550af7f9682c38",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T20:50:40+00:00",
+      "subject": "Remove external references from session notes",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "e7a86d1",
+      "fullSha": "e7a86d1dc68e2936ef28fca1e4199654d6741acc",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T20:48:03+00:00",
+      "subject": "Update session notes",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "4adfe7e",
+      "fullSha": "4adfe7e626aaef1a737b295aaf3e0249e44d7a1f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T20:47:35+00:00",
+      "subject": "Add fun style guide adapted from Koinz design system",
+      "body": "Creates comprehensive STYLE_GUIDE.md with vibrant, creative design tokens:\n- Electric Violet/Hot Pink/Cyber Cyan primary palette\n- Deep indigo dark mode (not pure black)\n- Gradient accent system\n- Typography using Space Grotesk + Inter\n- Motion and micro-animation guidelines\n- Component patterns for buttons, inputs, cards\n- Accessibility requirements maintained",
+      "tags": [
+        "docs",
+        "feature"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "a8cf3a9",
+      "fullSha": "a8cf3a90338505b149f855d7e3affad559a6d33b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T11:29:36+02:00",
+      "subject": "Merge pull request #39 from devmade-ai/claude/default-colors-collapse-sections-FP9Mh",
+      "body": "Default AI Prompt colors to Custom and collapse all sections",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "e8dd943",
+      "fullSha": "e8dd943229e2bde43ce38ba49e05f00b250c5f65",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T09:09:52+00:00",
+      "subject": "Update session notes",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "e8f8154",
+      "fullSha": "e8f81541be0a9a1199f5fefc58108dafa17db3ce",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T09:08:55+00:00",
+      "subject": "Default AI Prompt colors to Custom and collapse all sections",
+      "body": "- Change AI Image Prompt Helper to default to 'Custom' colors instead of 'Use Theme'\n- Collapse all CollapsibleSection components by default across all tabs:\n  - MediaTab: Background Image, Image Overlay, Logo\n  - ContentTab: All text groups (Title & Tagline, Body, CTA, Footnote)\n  - LayoutTab: Structure, Text Alignment\n  - StyleTab: Themes\n  - TemplatesTab: Complete Designs",
+      "tags": [
+        "enhancement",
+        "ux"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "dabcb47",
+      "fullSha": "dabcb4714b964f76c7f515f9057f08c5e2353dd0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T09:07:43+02:00",
+      "subject": "Merge pull request #38 from devmade-ai/claude/add-image-prompt-helper-pj4Qv",
+      "body": "Add AI Image Prompt Helper to Media tab",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "505f509",
+      "fullSha": "505f509e7d44323d09350b8008896d5567db4cb8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T06:56:26+00:00",
+      "subject": "Simplify orientation to manual selection instead of platform-derived",
+      "body": "Users typically export to multiple platforms, so deriving aspect ratio from\nthe current platform selection wasn't helpful. Now uses simple Landscape /\nPortrait / Square buttons that the user selects based on their target formats.\n\n- Removed platform-based format detection\n- Added orientation selector with 3 options\n- Updated USER_GUIDE.md with new workflow",
+      "tags": [
+        "enhancement",
+        "ux",
+        "simplify"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "e2781ee",
+      "fullSha": "e2781eeb206733b63b38e6088ee9821eb8aba290",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T06:50:20+00:00",
+      "subject": "Improve AI Prompt Helper UX for first-time users",
+      "body": "- Show helpful message when theme not yet selected (instead of confusing state)\n- Mark Colors as \"(optional)\" since prompt works without it\n- Add hint that theme comes from Style tab\n- Add hint that platform comes from Export section\n- Add \"Updates as you change options\" label to clarify live preview",
+      "tags": [
+        "enhancement",
+        "ux"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "7003513",
+      "fullSha": "70035136ec8260aa11e9d593deb753c79f17a877",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T06:42:51+00:00",
+      "subject": "Add AI Image Prompt Helper to Media tab",
+      "body": "Adds a collapsible section (collapsed by default) to help users generate\nprompts for AI image generation tools. Features:\n\n- Subject/context description input\n- Style options (Photo, Cinematic, Editorial, Minimal, Abstract, etc.)\n- Mood/lighting options (Dark, Light, Neutral, Dramatic, Soft, Warm, Cool)\n- Image purpose toggle (Hero Image vs Background for text overlays)\n- Color options (use current theme colors or custom description)\n- Auto-detected format from selected platform (orientation, aspect ratio)\n- Generated prompt always includes \"no text/overlays\" constraints\n- Copy button with visual feedback\n\nAlso updates USER_GUIDE.md with documentation for the new feature.",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "2000a45",
+      "fullSha": "2000a45f267d1ad24d328da1f143ce6473ca969b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T01:31:22+02:00",
+      "subject": "Merge pull request #37 from devmade-ai/claude/standardize-slider-increments-ICx9e",
+      "body": "Standardize all sliders to 5% increments",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "31a07ea",
+      "fullSha": "31a07ea911184a3004603a9429e9996b44b9a9e3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T23:29:29+00:00",
+      "subject": "Update session notes",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "4012a30",
+      "fullSha": "4012a30ef4c664a87b42f2b2292392335e9ed56c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T23:29:03+00:00",
+      "subject": "Add flexible image position with X/Y sliders",
+      "body": "- Replace 3x3 button grid with percentage-based positioning (0-100%)\n- Add X and Y sliders with 5% increments for fine-tuned control\n- Keep quick preset buttons (9 positions) for common placements\n- Update state and canvas to use percentage-based background-position",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "8f700a9",
+      "fullSha": "8f700a953d6a6b53005ccd4b217bbf0a763c817c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T23:23:47+00:00",
+      "subject": "Update session notes for slider standardization",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "ebe3825",
+      "fullSha": "ebe382551936d3f0f4fb76accf12e6b93e94e445",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T23:23:03+00:00",
+      "subject": "Standardize all sliders to 5% increments",
+      "body": "Adds step=\"5\" to all slider inputs for consistent UX:\n- MediaTab: overlay opacity, grayscale, sepia, contrast, brightness\n- StyleTab: cell overlay opacity, global/cell padding (changed from step=4)\n- LayoutTab: section size, cell/subdivision size",
+      "tags": [
+        "enhancement",
+        "ux"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "0996841",
+      "fullSha": "0996841410875a5517d5ac5b675ed1a4fb150348",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T23:35:53+02:00",
+      "subject": "Merge pull request #36 from devmade-ai/claude/fix-black-downloads-eS79O",
+      "body": "Fix black downloads by overriding opacity in toPng capture",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "social-ad-creator"
+    },
+    {
+      "sha": "57ea89a",
+      "fullSha": "57ea89ab6a078f62629af841486e4d5a7e6d365a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-20T21:34:01+00:00",
+      "subject": "Fix black downloads by overriding opacity in toPng capture",
+      "body": "The canvas was hidden (opacity: 0) during export to prevent visual\nflashing, but html-to-image clones elements with computed styles.\nAdded style override to ensure cloned element has opacity: 1.",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
+      "urgency": 3,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
     {
       "sha": "857180f",
       "author_id": "jacotheron87",
@@ -4189,6 +4640,39 @@
       "lastCommit": "2026-01-18T19:01:05+00:00"
     },
     {
+      "author_id": "devmade.ai@gmail.com",
+      "name": "devmade.ai@gmail.com",
+      "email": "devmade.ai@gmail.com",
+      "commits": 60,
+      "avgComplexity": 1.25,
+      "avgUrgency": 1.97,
+      "tagBreakdown": {
+        "merge": 41,
+        "bugfix": 3,
+        "ux": 7,
+        "ui": 5,
+        "docs": 7,
+        "feature": 5,
+        "accessibility": 1,
+        "enhancement": 5,
+        "simplify": 1,
+        "revert": 2,
+        "seed": 1
+      },
+      "impactBreakdown": {
+        "internal": 47,
+        "user-facing": 13,
+        "infrastructure": 0,
+        "api": 0
+      },
+      "repos": [
+        "social-ad-creator"
+      ],
+      "repoCount": 1,
+      "firstCommit": "2026-01-10T12:01:03+02:00",
+      "lastCommit": "2026-01-22T00:24:10+02:00"
+    },
+    {
       "author_id": "jacotheron87",
       "name": "jacotheron87",
       "email": "jacotheron87@gmail.com",
@@ -4218,47 +4702,21 @@
       "repoCount": 2,
       "firstCommit": "2026-01-10T12:42:53+02:00",
       "lastCommit": "2026-01-20T19:25:52+02:00"
-    },
-    {
-      "author_id": "devmade.ai@gmail.com",
-      "name": "devmade.ai@gmail.com",
-      "email": "devmade.ai@gmail.com",
-      "commits": 37,
-      "avgComplexity": 1.08,
-      "avgUrgency": 2.03,
-      "tagBreakdown": {
-        "merge": 35,
-        "feature": 1,
-        "ui": 1,
-        "enhancement": 1,
-        "revert": 2,
-        "seed": 1
-      },
-      "impactBreakdown": {
-        "internal": 34,
-        "user-facing": 3,
-        "infrastructure": 0,
-        "api": 0
-      },
-      "repos": [
-        "social-ad-creator"
-      ],
-      "repoCount": 1,
-      "firstCommit": "2026-01-10T12:01:03+02:00",
-      "lastCommit": "2026-01-20T18:25:12+02:00"
     }
   ],
   "summary": {
-    "totalCommits": 159,
+    "totalCommits": 182,
     "totalContributors": 3,
     "tagBreakdown": {
-      "ui": 56,
-      "ux": 10,
-      "enhancement": 18,
-      "merge": 35,
-      "feature": 45,
-      "docs": 26,
-      "bugfix": 24,
+      "merge": 41,
+      "bugfix": 27,
+      "ux": 17,
+      "ui": 60,
+      "docs": 33,
+      "feature": 49,
+      "accessibility": 1,
+      "enhancement": 22,
+      "simplify": 1,
       "refactor": 8,
       "removal": 1,
       "revert": 5,
@@ -4271,38 +4729,40 @@
       "seed": 2
     },
     "complexityBreakdown": {
-      "1": 67,
-      "2": 40,
-      "3": 32,
-      "4": 17,
+      "1": 81,
+      "2": 47,
+      "3": 33,
+      "4": 18,
       "5": 3
     },
     "urgencyBreakdown": {
-      "1": 48,
-      "2": 99,
-      "3": 12,
+      "1": 52,
+      "2": 117,
+      "3": 13,
       "4": 0,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 67,
-      "user-facing": 90,
+      "internal": 80,
+      "user-facing": 100,
       "infrastructure": 0,
       "api": 0
     },
-    "avgComplexity": 2.05,
-    "avgUrgency": 1.77,
+    "avgComplexity": 1.98,
+    "avgUrgency": 1.79,
     "monthly": {
       "2026-01": {
-        "commits": 159,
+        "commits": 182,
         "tags": {
-          "ui": 56,
-          "ux": 10,
-          "enhancement": 18,
-          "merge": 35,
-          "feature": 45,
-          "docs": 26,
-          "bugfix": 24,
+          "merge": 41,
+          "bugfix": 27,
+          "ux": 17,
+          "ui": 60,
+          "docs": 33,
+          "feature": 49,
+          "accessibility": 1,
+          "enhancement": 22,
+          "simplify": 1,
           "refactor": 8,
           "removal": 1,
           "revert": 5,
@@ -4315,26 +4775,28 @@
           "seed": 2
         },
         "impact": {
-          "internal": 67,
-          "user-facing": 90,
+          "internal": 80,
+          "user-facing": 100,
           "infrastructure": 0,
           "api": 0
         },
-        "avgComplexity": 2.05,
-        "avgUrgency": 1.77
+        "avgComplexity": 1.98,
+        "avgUrgency": 1.79
       }
     },
     "monthlyCommits": {
       "2026-01": {
-        "commits": 159,
+        "commits": 182,
         "tags": {
-          "ui": 56,
-          "ux": 10,
-          "enhancement": 18,
-          "merge": 35,
-          "feature": 45,
-          "docs": 26,
-          "bugfix": 24,
+          "merge": 41,
+          "bugfix": 27,
+          "ux": 17,
+          "ui": 60,
+          "docs": 33,
+          "feature": 49,
+          "accessibility": 1,
+          "enhancement": 22,
+          "simplify": 1,
           "refactor": 8,
           "removal": 1,
           "revert": 5,
@@ -4347,18 +4809,18 @@
           "seed": 2
         },
         "impact": {
-          "internal": 67,
-          "user-facing": 90,
+          "internal": 80,
+          "user-facing": 100,
           "infrastructure": 0,
           "api": 0
         },
-        "avgComplexity": 2.05,
-        "avgUrgency": 1.77
+        "avgComplexity": 1.98,
+        "avgUrgency": 1.79
       }
     },
     "dateRange": {
       "earliest": "2026-01-10T12:01:03+02:00",
-      "latest": "2026-01-20T19:25:52+02:00"
+      "latest": "2026-01-22T00:24:10+02:00"
     },
     "security_events": []
   }
