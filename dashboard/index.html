@@ -1363,9 +1363,14 @@
         }
 
         // === Summary Stats ===
+        function getFilesChanged(commit) {
+            // Handle different data formats: stats.filesChanged, filesChanged, files_changed
+            return commit.stats?.filesChanged || commit.filesChanged || commit.files_changed || 0;
+        }
+
         function updateSummaryStats() {
             // Files changed - sum of all file changes across commits (not unique files)
-            const totalFileChanges = data.commits.reduce((sum, c) => sum + (c.filesChanged || 0), 0);
+            const totalFileChanges = data.commits.reduce((sum, c) => sum + getFilesChanged(c), 0);
             const uniqueFiles = data.files?.length || 0;
             document.getElementById('stat-files').textContent = totalFileChanges.toLocaleString();
             document.getElementById('stat-files-sub').textContent = uniqueFiles > 0 ? `${uniqueFiles} unique files` : `across ${data.summary.totalCommits} commits`;

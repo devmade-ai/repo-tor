@@ -2,6 +2,30 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-21
+
+### Fix: Dashboard Files Changed Showing 0
+
+Fixed dashboard "Files Changed" stat showing 0 instead of actual count.
+
+**Problem:** The dashboard was looking for `c.filesChanged` (camelCase) on commits, but the data had multiple formats:
+- `stats.filesChanged` (from recent extractions)
+- `files_changed` (snake_case, from older processed commits)
+
+**Solution:** Added `getFilesChanged()` helper function that normalizes across all formats:
+```javascript
+function getFilesChanged(commit) {
+    return commit.stats?.filesChanged || commit.filesChanged || commit.files_changed || 0;
+}
+```
+
+**Result:** Dashboard now correctly shows 1,689 files changed across 576 commits.
+
+**Files changed:**
+- `dashboard/index.html` - Added helper function, updated stat calculation
+
+---
+
 ## 2026-01-20
 
 ### Storage Migration: Batches to Individual Commit Files
