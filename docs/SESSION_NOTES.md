@@ -121,4 +121,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-21 - Implemented Koinz Style Guide: dark-only theme, Figtree font, updated colors/spacing/components*
+*Last updated: 2026-01-21 - Fixed orphaned stat-top-tag bug; dark-only theme with Figtree font*

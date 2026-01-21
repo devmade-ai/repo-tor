@@ -21,9 +21,9 @@ stats and render functions from completing.
 - Removed orphaned `stat-top-tag` code from `updateSummaryStats()`
 - Updated PDF export to match 3-card layout (was 4 columns, now 3)
 
-### Enhancement: Koinz Style Guide Implementation
+### Enhancement: Dark Theme Implementation
 
-Complete visual redesign of the dashboard following the Koinz Style Guide.
+Complete visual redesign of the dashboard with a dark-only theme.
 
 **Color System (Dark-Only Theme):**
 - Background: #1B1B1B (page), #2a2a2a (cards)
@@ -60,7 +60,6 @@ Complete visual redesign of the dashboard following the Koinz Style Guide.
 - Chart.js defaults set for dark theme
 - Heatmap colors adjusted for dark backgrounds
 
-**Reference:** Koinz Style Guide specification provided by user.
 
 ---
 
