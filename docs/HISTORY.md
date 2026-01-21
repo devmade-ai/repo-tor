@@ -4,6 +4,23 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-21
 
+### Fix: JavaScript Error Breaking Filter Updates
+
+Fixed a JavaScript error in `renderSecurity()` that was preventing filters from updating the Overview tab.
+
+**Problem:**
+- `renderSecurity()` tried to set `textContent` on element `security-count` which doesn't exist
+- This threw an uncaught TypeError that stopped `applyFilters()` execution
+- Since `renderSummary()` is called after `renderSecurity()` in `applyFilters()`, the Overview tab never updated
+
+**Changes to `dashboard/index.html`:**
+- Removed the broken `document.getElementById('security-count')` line from `renderSecurity()`
+- The security count is already correctly displayed by `renderHealth()` via `health-security-count`
+
+**Result:** Filter changes now properly trigger all render functions including `renderSummary()`, fixing the Overview tab updates.
+
+---
+
 ### Fix: Overview Tab Filters Not Updating
 
 Fixed filters and Compare dropdown not affecting the Overview tab display and click handlers.

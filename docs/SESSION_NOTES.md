@@ -121,4 +121,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-21 - Fixed filter updates not applying to Overview tab and Compare dropdown*
+*Last updated: 2026-01-21 - Fixed JavaScript error in renderSecurity() that was breaking filter updates*
