@@ -121,4 +121,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-21 - Fixed section spacing across all tabs for consistent layout*
+*Last updated: 2026-01-21 - Redesigned dashboard layout: sticky tabs, collapsible filter sidebar, consolidated Overview metrics*
