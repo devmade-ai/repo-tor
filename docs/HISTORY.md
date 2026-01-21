@@ -4,6 +4,27 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-21
 
+### Fix: Author Identity Mapping in Aggregation
+
+Fixed author identity mapping not being applied during data aggregation.
+
+**Problem:** The `config/author-map.json` existed to merge multiple email addresses (e.g., `jacotheron87@gmail.com` and `34473836+jacotheron87@users.noreply.github.com`) into a single identity, but the aggregation script wasn't using it.
+
+**Changes to `scripts/aggregate-processed.js`:**
+- Added `loadAuthorMap()` to read `config/author-map.json` at startup
+- Added `resolveAuthorId()` to map raw emails to canonical IDs
+- Updated `generateAggregation()` to normalize `author_id` in all commits
+- Updated `calcContributorAggregations()` to merge commits by canonical ID
+- Added `metadata.authors` to generated data for dashboard resolution
+- Contributors now include `name`, `email`, and `emails` (if merged)
+
+**Result:**
+- Before: 5 contributors (same person counted twice)
+- After: 4 contributors (emails properly merged)
+- Dashboard filter dropdown now shows one entry per person
+
+---
+
 ### Feature: Global Filters Across All Tabs
 
 Made dashboard filters apply globally to all tabs instead of just the Activity tab.
