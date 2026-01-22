@@ -12,6 +12,8 @@ Current state for AI assistants to continue work.
 - Added `extract-api.js` for API-based extraction (no cloning required, faster)
 - Added `merge-analysis.js` for ~10x token reduction during "feed the chicken" workflow
 
+**⚠️ UNTESTED:** `extract-api.js` was built but NEVER tested (requires `gh auth login`). Use `--clone` flag until tested. See TODO.md for details.
+
 **Live Dashboard:** https://devmade-ai.github.io/repo-tor/
 
 ---
