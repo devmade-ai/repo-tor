@@ -72,18 +72,52 @@
         }
 
         /* Tag classes - adjusted for dark theme */
+        /* Additive (green family) */
         .tag-feature { background-color: rgba(22, 163, 74, 0.2); color: #16A34A; border: 1px solid rgba(22, 163, 74, 0.3); }
+        .tag-enhancement { background-color: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .tag-seed { background-color: rgba(74, 222, 128, 0.2); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3); }
+        .tag-init { background-color: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+        /* Problems/Fixes (red family) */
         .tag-bugfix { background-color: rgba(239, 68, 68, 0.2); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.3); }
-        .tag-refactor { background-color: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
-        .tag-docs { background-color: rgba(45, 104, 255, 0.2); color: #2D68FF; border: 1px solid rgba(45, 104, 255, 0.3); }
-        .tag-test { background-color: rgba(234, 179, 8, 0.2); color: #EAB308; border: 1px solid rgba(234, 179, 8, 0.3); }
-        .tag-config { background-color: rgba(100, 116, 139, 0.2); color: #94a3b8; border: 1px solid rgba(100, 116, 139, 0.3); }
-        .tag-style { background-color: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
-        .tag-cleanup { background-color: rgba(107, 114, 128, 0.2); color: #9ca3af; border: 1px solid rgba(107, 114, 128, 0.3); }
+        .tag-fix { background-color: rgba(239, 68, 68, 0.2); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.3); }
         .tag-security { background-color: rgba(220, 38, 38, 0.2); color: #f87171; border: 1px solid rgba(220, 38, 38, 0.3); }
+        .tag-hotfix { background-color: rgba(248, 113, 113, 0.2); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.3); }
+        /* Removal/Revert (orange/amber) */
+        .tag-removal { background-color: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .tag-revert { background-color: rgba(251, 146, 60, 0.2); color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.3); }
+        .tag-deprecate { background-color: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+        /* Refactoring (purple family) */
+        .tag-refactor { background-color: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); }
+        .tag-naming { background-color: rgba(167, 139, 250, 0.2); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3); }
+        .tag-cleanup { background-color: rgba(124, 58, 237, 0.2); color: #a78bfa; border: 1px solid rgba(124, 58, 237, 0.3); }
+        /* Documentation (blue) */
+        .tag-docs { background-color: rgba(45, 104, 255, 0.2); color: #2D68FF; border: 1px solid rgba(45, 104, 255, 0.3); }
+        /* Testing (yellow) */
+        .tag-test { background-color: rgba(234, 179, 8, 0.2); color: #EAB308; border: 1px solid rgba(234, 179, 8, 0.3); }
+        .tag-test-unit { background-color: rgba(250, 204, 21, 0.2); color: #facc15; border: 1px solid rgba(250, 204, 21, 0.3); }
+        .tag-test-e2e { background-color: rgba(253, 224, 71, 0.2); color: #fde047; border: 1px solid rgba(253, 224, 71, 0.3); }
+        /* DevOps/Build (orange) */
+        .tag-build { background-color: rgba(249, 115, 22, 0.2); color: #f97316; border: 1px solid rgba(249, 115, 22, 0.3); }
+        .tag-ci { background-color: rgba(251, 146, 60, 0.2); color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.3); }
+        .tag-deploy { background-color: rgba(234, 88, 12, 0.2); color: #ea580c; border: 1px solid rgba(234, 88, 12, 0.3); }
+        /* Config/Chore (slate) */
+        .tag-config { background-color: rgba(100, 116, 139, 0.2); color: #94a3b8; border: 1px solid rgba(100, 116, 139, 0.3); }
+        .tag-chore { background-color: rgba(148, 163, 184, 0.2); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.3); }
+        /* Style/UX (pink family) */
+        .tag-style { background-color: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.3); }
+        .tag-ux { background-color: rgba(244, 114, 182, 0.2); color: #f472b6; border: 1px solid rgba(244, 114, 182, 0.3); }
+        .tag-ui { background-color: rgba(232, 121, 249, 0.2); color: #e879f9; border: 1px solid rgba(232, 121, 249, 0.3); }
+        .tag-accessibility { background-color: rgba(217, 70, 239, 0.2); color: #d946ef; border: 1px solid rgba(217, 70, 239, 0.3); }
+        /* Performance (cyan) */
         .tag-performance { background-color: rgba(6, 182, 212, 0.2); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3); }
+        .tag-perf { background-color: rgba(34, 211, 238, 0.2); color: #22d3ee; border: 1px solid rgba(34, 211, 238, 0.3); }
+        /* Dependencies (lime) */
         .tag-dependency { background-color: rgba(132, 204, 22, 0.2); color: #a3e635; border: 1px solid rgba(132, 204, 22, 0.3); }
+        .tag-deps { background-color: rgba(163, 230, 53, 0.2); color: #a3e635; border: 1px solid rgba(163, 230, 53, 0.3); }
+        /* Fallback */
         .tag-other { background-color: rgba(156, 163, 175, 0.2); color: #d1d5db; border: 1px solid rgba(156, 163, 175, 0.3); }
+        /* Dynamic tag - uses CSS custom properties set via inline style */
+        .tag-dynamic { background-color: var(--tag-bg); color: var(--tag-color); border: 1px solid var(--tag-border); }
 
         .timeline-dot {
             width: 12px;
@@ -126,13 +160,14 @@
 
         .filter-select {
             height: 40px;
-            padding: 0 24px;
+            padding: 0 16px;
             border: 2px solid var(--border-color);
             border-radius: var(--radius-md);
             font-size: 14px;
             background-color: var(--bg-secondary);
             color: var(--text-primary);
-            min-width: 120px;
+            min-width: 0;
+            max-width: 100%;
         }
         .filter-select:focus {
             outline: none;
@@ -476,14 +511,16 @@
             background: var(--bg-secondary);
             border-left: 1px solid var(--border-color);
             transform: translateX(100%);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, visibility 0.3s ease;
             z-index: 999;
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            visibility: hidden;
         }
         .detail-pane.open {
             transform: translateX(0);
+            visibility: visible;
         }
 
         .detail-pane-header {
@@ -579,9 +616,11 @@
                 border-left: none;
                 border-top: 1px solid var(--border-color);
                 transform: translateY(100%);
+                visibility: hidden;
             }
             .detail-pane.open {
                 transform: translateY(0);
+                visibility: visible;
             }
             .detail-pane-header {
                 padding: 12px 16px;
@@ -602,6 +641,20 @@
             }
         }
 
+        /* Stat card label styling - prevent awkward wrapping */
+        .stat-label {
+            font-size: 12px;
+            line-height: 1.3;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+        @media (min-width: 640px) {
+            .stat-label {
+                font-size: 14px;
+                white-space: nowrap;
+            }
+        }
+
         /* Sticky tabs bar - dark theme */
         .tabs-bar {
             position: sticky;
@@ -611,6 +664,7 @@
             border-bottom: 1px solid var(--border-color);
             margin: 0 -16px;
             padding: 0 16px;
+            overflow: hidden;
         }
         @media (min-width: 768px) {
             .tabs-bar {
@@ -820,11 +874,11 @@
                         </svg>
                         <span id="filter-badge" class="filter-badge hidden"></span>
                     </button>
-                    <div class="flex overflow-x-auto scrollbar-hide flex-1">
-                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600 whitespace-nowrap" data-tab="overview">Overview</button>
-                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap" data-tab="activity">Activity</button>
-                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap" data-tab="work">Work</button>
-                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap" data-tab="health">Health</button>
+                    <div class="flex overflow-x-auto scrollbar-hide flex-1 min-w-0">
+                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600 whitespace-nowrap flex-shrink-0" data-tab="overview">Overview</button>
+                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="activity">Activity</button>
+                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="work">Breakdown</button>
+                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="health">Risk</button>
                     </div>
                 </div>
             </div>
@@ -919,19 +973,19 @@
                 </div>
 
                 <!-- Additional Stats (from global metrics) -->
-                <div class="grid grid-cols-3 md:grid-cols-3 gap-4 mb-6">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                     <div class="card">
-                        <p class="text-sm text-themed-tertiary uppercase tracking-wide">Files Changed</p>
+                        <p class="stat-label text-themed-tertiary">Files Changed</p>
                         <p class="text-3xl font-bold text-themed-primary" id="stat-files">0</p>
                         <p class="text-xs text-themed-muted" id="stat-files-sub"></p>
                     </div>
                     <div class="card">
-                        <p class="text-sm text-themed-tertiary uppercase tracking-wide">Avg Complexity</p>
+                        <p class="stat-label text-themed-tertiary">Avg Complexity</p>
                         <p class="text-3xl font-bold text-themed-primary" id="stat-complexity">-</p>
                         <p class="text-xs text-themed-muted" id="stat-complexity-sub"></p>
                     </div>
                     <div class="card">
-                        <p class="text-sm text-themed-tertiary uppercase tracking-wide">Contributors</p>
+                        <p class="stat-label text-themed-tertiary">Contributors</p>
                         <p class="text-3xl font-bold text-themed-primary" id="stat-contributors">0</p>
                     </div>
                 </div>
@@ -946,7 +1000,7 @@
                             <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </div>
                         <div class="collapsible-content">
-                            <div class="h-48 pt-2">
+                            <div class="h-56 pt-2">
                                 <canvas id="summary-breakdown-chart"></canvas>
                             </div>
                         </div>
@@ -1095,6 +1149,20 @@
                     </div>
                 </div>
 
+                <!-- Security Commits -->
+                <div class="card mb-6" data-section="security-commits">
+                    <div class="collapsible-header" aria-expanded="false" onclick="toggleSection(this)">
+                        <div class="collapsible-title">
+                            <h2 class="text-lg font-semibold text-themed-primary">Security-Related Commits</h2>
+                        </div>
+                        <span class="collapsible-subtitle">Security-tagged commits</span>
+                        <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="collapsible-content">
+                        <div id="security-list" class="space-y-3 pt-2"></div>
+                    </div>
+                </div>
+
                 <!-- Urgency Distribution -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div class="card" data-section="urgency-distribution">
@@ -1183,19 +1251,6 @@
                     </div>
                 </div>
 
-                <!-- Security Commits -->
-                <div class="card" data-section="security-commits">
-                    <div class="collapsible-header" aria-expanded="false" onclick="toggleSection(this)">
-                        <div class="collapsible-title">
-                            <h2 class="text-lg font-semibold text-themed-primary">Security-Related Commits</h2>
-                        </div>
-                        <span class="collapsible-subtitle">Security-tagged commits</span>
-                        <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </div>
-                    <div class="collapsible-content">
-                        <div id="security-list" class="space-y-3 pt-2"></div>
-                    </div>
-                </div>
             </div>
 
             <div id="tab-tags" class="tab-content hidden">
@@ -1209,7 +1264,7 @@
                             <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </div>
                         <div class="collapsible-content">
-                            <div class="h-64 pt-2">
+                            <div class="h-80 pt-2">
                                 <canvas id="tags-chart"></canvas>
                             </div>
                         </div>
@@ -1318,16 +1373,19 @@
                     </div>
                 </div>
 
-                <!-- Work Hours Settings -->
-                <div class="card">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                        <div>
+                <!-- Work Hours Settings (collapsed by default - it's config, not content) -->
+                <div class="card" data-section="work-hours-settings">
+                    <div class="collapsible-header" aria-expanded="false" onclick="toggleSection(this)">
+                        <div class="collapsible-title">
                             <h2 class="text-lg font-semibold text-themed-primary">Work Hours Settings</h2>
-                            <p class="text-xs text-themed-tertiary">Customize what counts as "work hours"</p>
                         </div>
-                        <div class="flex items-center gap-4">
+                        <span class="collapsible-subtitle">Customize what counts as "work hours"</span>
+                        <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="flex flex-wrap items-center gap-4 pt-3">
                             <div class="flex items-center gap-2">
-                                <label class="text-xs text-themed-tertiary">Start:</label>
+                                <label class="text-xs text-themed-tertiary whitespace-nowrap">Start:</label>
                                 <select id="work-hour-start" class="filter-select text-sm">
                                     <option value="6">6:00</option>
                                     <option value="7">7:00</option>
@@ -1337,7 +1395,7 @@
                                 </select>
                             </div>
                             <div class="flex items-center gap-2">
-                                <label class="text-xs text-themed-tertiary">End:</label>
+                                <label class="text-xs text-themed-tertiary whitespace-nowrap">End:</label>
                                 <select id="work-hour-end" class="filter-select text-sm">
                                     <option value="16">16:00</option>
                                     <option value="17" selected>17:00</option>
@@ -1352,6 +1410,11 @@
             </div>
                 </main>
             </div>
+
+            <!-- Dashboard Footer -->
+            <footer id="dashboard-footer" class="mt-8 pt-6 pb-8 border-t border-themed text-center text-sm text-themed-tertiary">
+                <span id="footer-summary">Loading...</span>
+            </footer>
         </div>
 
         <!-- Detail Pane (slide-out panel for drill-down) -->
@@ -1443,7 +1506,7 @@
             });
 
             const tagsHtml = tags.map(tag =>
-                `<span class="tag ${getTagClass(tag)}">${tag}</span>`
+                `<span class="tag ${getTagClass(tag)}" style="${getTagStyle(tag)}">${tag}</span>`
             ).join('');
 
             const urgencyLabel = commit.urgency ? getUrgencyLabel(commit.urgency) : '';
@@ -1807,20 +1870,83 @@
         }
 
         // === Tag Colors ===
+        // Semantic presets for common tags
         const TAG_COLORS = {
+            // Additive (green family)
             feature: '#16A34A',
+            enhancement: '#22c55e',
+            seed: '#4ade80',
+            init: '#10b981',
+            // Problems/Fixes (red family)
             bugfix: '#ef4444',
-            refactor: '#8b5cf6',
-            docs: '#2D68FF',
-            test: '#EAB308',
-            config: '#64748b',
-            style: '#ec4899',
-            cleanup: '#6b7280',
+            fix: '#ef4444',
             security: '#dc2626',
+            hotfix: '#f87171',
+            // Removal/Revert (orange/amber)
+            removal: '#f59e0b',
+            revert: '#fb923c',
+            deprecate: '#fbbf24',
+            // Refactoring (purple family)
+            refactor: '#8b5cf6',
+            naming: '#a78bfa',
+            cleanup: '#7c3aed',
+            // Documentation (blue)
+            docs: '#2D68FF',
+            // Testing (yellow)
+            test: '#EAB308',
+            'test-unit': '#facc15',
+            'test-e2e': '#fde047',
+            // DevOps/Build (orange/slate)
+            build: '#f97316',
+            ci: '#fb923c',
+            deploy: '#ea580c',
+            // Config/Chore (slate)
+            config: '#64748b',
+            chore: '#94a3b8',
+            // Style/UX (pink family)
+            style: '#ec4899',
+            ux: '#f472b6',
+            ui: '#e879f9',
+            accessibility: '#d946ef',
+            // Performance (cyan)
             performance: '#06b6d4',
+            perf: '#22d3ee',
+            // Dependencies (lime)
             dependency: '#84cc16',
+            deps: '#a3e635',
+            // Fallback
             other: '#9ca3af'
         };
+
+        // Palette for dynamic tag colors (works well on dark backgrounds)
+        const DYNAMIC_TAG_PALETTE = [
+            '#f472b6', // pink
+            '#a78bfa', // purple
+            '#60a5fa', // blue
+            '#34d399', // emerald
+            '#fbbf24', // amber
+            '#fb923c', // orange
+            '#f87171', // red
+            '#2dd4bf', // teal
+            '#a3e635', // lime
+            '#e879f9', // fuchsia
+        ];
+
+        // Simple hash function for consistent color assignment
+        function hashString(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash);
+        }
+
+        function getDynamicTagColor(tag) {
+            const index = hashString(tag) % DYNAMIC_TAG_PALETTE.length;
+            return DYNAMIC_TAG_PALETTE[index];
+        }
 
         // === Tag Helper Functions ===
         function getCommitTags(commit) {
@@ -1839,11 +1965,21 @@
         }
 
         function getTagColor(tag) {
-            return TAG_COLORS[tag] || TAG_COLORS.other;
+            return TAG_COLORS[tag] || getDynamicTagColor(tag);
         }
 
         function getTagClass(tag) {
-            return TAG_COLORS[tag] ? `tag-${tag}` : 'tag-other';
+            return TAG_COLORS[tag] ? `tag-${tag}` : 'tag-dynamic';
+        }
+
+        function getTagStyle(tag) {
+            if (TAG_COLORS[tag]) return '';
+            const color = getDynamicTagColor(tag);
+            // Convert hex to rgba for background
+            const r = parseInt(color.slice(1, 3), 16);
+            const g = parseInt(color.slice(3, 5), 16);
+            const b = parseInt(color.slice(5, 7), 16);
+            return `--tag-bg: rgba(${r}, ${g}, ${b}, 0.2); --tag-color: ${color}; --tag-border: rgba(${r}, ${g}, ${b}, 0.3);`;
         }
 
         // === Author Resolution ===
@@ -1979,7 +2115,7 @@
             const repos = [...new Set(data.commits.map(c => c.repo_id).filter(Boolean))];
             const repoContainer = document.getElementById('repo-filter-container');
             if (repos.length > 1) {
-                repoContainer.style.display = 'flex';
+                repoContainer.style.display = 'block';
                 const repoSelect = document.getElementById('filter-repo');
                 repoSelect.innerHTML = '<option value="">All Repos</option>' +
                     repos.sort().map(r => `<option value="${r}">${r}</option>`).join('');
@@ -2213,6 +2349,20 @@
             if (hasActiveFilters()) {
                 applyFilters();
             }
+
+            // Update footer
+            updateFooter();
+        }
+
+        function updateFooter() {
+            const commitCount = data.summary.totalCommits;
+            const dateRange = `${formatDate(data.summary.dateRange.earliest)} – ${formatDate(data.summary.dateRange.latest)}`;
+            const loadedAt = new Date().toLocaleString('en-US', {
+                month: 'short', day: 'numeric', year: 'numeric',
+                hour: 'numeric', minute: '2-digit'
+            });
+            document.getElementById('footer-summary').textContent =
+                `${commitCount} commits · ${dateRange} · Data loaded ${loadedAt}`;
         }
 
         function formatDate(isoString) {
@@ -2243,7 +2393,7 @@
             const listHtml = filteredCommits.slice(0, 100).map(commit => {
                 const tags = getCommitTags(commit);
                 const tagBadges = tags.slice(0, 3).map(t =>
-                    `<span class="tag ${getTagClass(t)} shrink-0">${t}</span>`
+                    `<span class="tag ${getTagClass(t)} shrink-0" style="${getTagStyle(t)}">${t}</span>`
                 ).join(' ');
                 const extraTags = tags.length > 3 ? `<span class="tag tag-other shrink-0">+${tags.length - 3}</span>` : '';
                 const workPatternBadges = getWorkPatternBadges(commit);
@@ -2502,7 +2652,7 @@
                     .map(([tag, count]) => {
                         const pct = Math.round((count / totalTags) * 100);
                         return `<div class="flex items-center gap-2">
-                            <span class="tag ${getTagClass(tag)}">${tag}</span>
+                            <span class="tag ${getTagClass(tag)}" style="${getTagStyle(tag)}">${tag}</span>
                             <div class="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                                 <div class="h-2 rounded-full" style="width: ${pct}%; background-color: ${getTagColor(tag)}"></div>
                             </div>
@@ -2990,14 +3140,30 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'right' }
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                padding: 8,
+                                font: { size: 11 },
+                                generateLabels: function(chart) {
+                                    const data = chart.data;
+                                    return data.labels.map((label, i) => ({
+                                        text: `${label} (${data.datasets[0].data[i]})`,
+                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                        hidden: false,
+                                        index: i
+                                    }));
+                                }
+                            }
+                        }
                     }
                 }
             });
 
             const breakdownHtml = sortedTags.map(({ tag, count }) => `
                 <div class="flex items-center gap-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors" data-tag-filter="${tag}">
-                    <span class="tag ${getTagClass(tag)}">${tag}</span>
+                    <span class="tag ${getTagClass(tag)}" style="${getTagStyle(tag)}">${tag}</span>
                     <div class="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                         <div class="h-2 rounded-full" style="width: ${(count / total * 100).toFixed(1)}%; background-color: ${getTagColor(tag)}"></div>
                     </div>
@@ -3470,7 +3636,23 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'right' }
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 12,
+                                padding: 8,
+                                font: { size: 11 },
+                                generateLabels: function(chart) {
+                                    const data = chart.data;
+                                    return data.labels.map((label, i) => ({
+                                        text: `${label} (${data.datasets[0].data[i]})`,
+                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                        hidden: false,
+                                        index: i
+                                    }));
+                                }
+                            }
+                        }
                     }
                 }
             });
