@@ -4,6 +4,27 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-22
 
+### Optimization: Merge-analysis script for faster feeding
+
+Added `scripts/merge-analysis.js` to dramatically reduce AI output tokens during the "feed the chicken" workflow.
+
+**Problem:** When processing pending batches, AI had to output full commit objects (500-800 tokens each) including all git metadata. This was slow and wasteful since the git data already exists in `reports/`.
+
+**Solution:** New merge-based workflow:
+1. AI outputs **only analysis fields**: `{sha, tags, complexity, urgency, impact}`
+2. Script merges with raw git data from `reports/<repo>/commits/<sha>.json`
+3. Saves complete commit to `processed/<repo>/commits/<sha>.json`
+
+**Token savings:** ~10x reduction in AI output per commit (50-80 tokens vs 500-800)
+
+**Files added:**
+- `scripts/merge-analysis.js` - Merges analysis with raw git data
+
+**Files updated:**
+- `docs/EXTRACTION_PLAYBOOK.md` - Updated feed workflow to use merge-analysis.js
+
+---
+
 ### Fix: Skip malformed commits and prevent incomplete saves
 
 Dashboard was showing empty sections because malformed commits (missing timestamp, author)

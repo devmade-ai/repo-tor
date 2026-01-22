@@ -249,22 +249,28 @@ Process pending batch files one at a time:
 2. AI proposes tags + complexity + urgency + impact for each commit
 3. Present to user for review
 4. User approves or corrects
-5. On approval, AI runs save script (fast, no IDE dialogs):
+5. On approval, AI outputs **analysis only** and runs merge script:
    ```bash
-   cat <<'EOF' | node scripts/save-commit.js <repo>
-   {"commits": [...analyzed commits...]}
+   cat <<'EOF' | node scripts/merge-analysis.js <repo>
+   {"commits": [
+     {"sha": "abc123", "tags": ["feature", "ui"], "complexity": 2, "urgency": 1, "impact": "user-facing"},
+     {"sha": "def456", "tags": ["bugfix"], "complexity": 1, "urgency": 3, "impact": "user-facing"}
+   ]}
    EOF
    ```
-6. Script saves each commit as individual file + updates manifest
+6. Script merges analysis with raw git data from `reports/` and saves to `processed/`
 7. Commit changes
 
 **User commands:**
-- `approve` - Save batch via script, continue to next
+- `approve` - Merge analysis via script, continue to next
 - `#N tag1, tag2` - Correct tags for commit N, re-present
 - `stop` - End session (progress saved via manifest)
 
-**Why script-based saves?**
-Using `save-commit.js` instead of Write tool calls avoids IDE approval dialogs for each file, which slows down significantly as sessions get longer.
+**Why merge-analysis.js? (Optimized workflow)**
+- AI outputs **only analysis fields** (sha, tags, complexity, urgency, impact)
+- Script merges with full git data from `reports/<repo>/commits/<sha>.json`
+- **~10x reduction in AI output tokens** (50-80 vs 500-800 per commit)
+- Faster processing, lower cost, same quality
 
 **Stop when:**
 - All pending batches processed, OR
@@ -331,9 +337,9 @@ If commits fail validation, `save-commit.js`:
 3. Exits with error code (so it's visible)
 4. Prints loud warnings about what failed
 
-**Common cause:** AI outputs only analysis fields without the full commit object from the pending batch.
+**Common cause (with save-commit.js):** AI outputs only analysis fields without the full commit object.
 
-**Prevention:** When saving commits, always include the FULL commit object from the pending batch (with all git metadata), then add/modify the analysis fields.
+**Solution:** Use `merge-analysis.js` instead - it only requires analysis fields and merges with raw git data automatically.
 
 ### Fixing Malformed Commits
 
@@ -607,4 +613,4 @@ Based on who/what is affected by the change:
 
 ---
 
-*Last updated: 2026-01-20 - Migrated from batch files to individual commit files*
+*Last updated: 2026-01-22 - Added merge-analysis.js for optimized feed workflow (~10x token reduction)*
