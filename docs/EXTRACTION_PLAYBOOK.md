@@ -67,29 +67,31 @@ User responds:
 ## File Structure
 
 ```
-reports/                      # Raw extracted data (ephemeral)
+reports/                      # Raw extracted data (ephemeral, from extract)
   <repo-name>/
-    commits.json              # All commits (raw, no AI tags)
-    batches/                  # Split into files of 25 for AI review
-      batch-001.json          # Commits 1-25
-      batch-002.json          # Commits 26-50
+    commits.json              # All commits (bulk file)
+    commits/                  # Individual commit files (for merge-analysis.js)
+      abc1234.json
+      def5678.json
       ...
     metadata.json
     data.json
 
-processed/                    # AI-analyzed data (committed to git)
+pending/                      # Unprocessed commits (ephemeral, from pending.js)
   <repo-name>/
-    manifest.json             # Tracks processed SHAs (index for fast loading)
-    commits/                  # Individual commit files
-      abc1234.json            # One file per commit (named by SHA)
-      def5678.json
+    batches/                  # Commits NOT in manifest, split into batches
+      batch-001.json          # 25 commits per batch
+      batch-002.json
       ...
 
-pending/                      # Generated unprocessed commits (ephemeral)
+processed/                    # AI-analyzed data (committed to git)
   <repo-name>/
-    batches/                  # Only commits NOT in manifest
-      batch-001.json
+    manifest.json             # Tracks processed SHAs
+    commits/                  # Individual commit files (with AI tags)
+      abc1234.json
+      def5678.json
       ...
+    needs-reprocess.json      # Failed analysis attempts (if any)
 
 config/
   repos.json                  # Tracked repositories
@@ -135,8 +137,8 @@ rm -f dashboard/commits.json dashboard/data.json dashboard/summary.json dashboar
 ```
 
 **What gets deleted:**
-- `processed/` - All AI-analyzed batches
-- `reports/` - All raw extracted data and batch files
+- `processed/` - All AI-analyzed commits and manifests
+- `reports/` - All raw extracted data
 - `dashboard/*.json` - Aggregated dashboard data
 
 **What's preserved:**
@@ -158,32 +160,25 @@ scripts/update-all.sh --clone
 
 This extracts raw git data to `reports/`.
 
-### Step 3: AI Analyze Each Repository (Human Review)
+### Step 3: Generate Pending Batches
 
-For each repository, process batch files one at a time:
+Since manifest is empty (full reset), ALL commits will be pending:
 
-**Per batch file:**
-1. Find next batch: first `batch-NNN.json` in `reports/<repo>/batches/` with commits NOT yet in `processed/<repo>/commits/`
-2. Read the batch file (15 commits with subject + body)
-3. AI analyzes each commit and proposes:
-   - Tags (multiple allowed, based on full message content)
-   - Complexity score (1-5)
-4. Present to user in review format (see above)
-5. User approves or requests corrections
-6. On approval: save each commit as `processed/<repo>/commits/<sha>.json` (with AI tags added)
-7. Commit: `git commit -m "chore: process <repo> batch NNN"`
+```bash
+node scripts/pending.js
+```
 
-**User commands:**
-- `approve` - Save batch to processed/, continue to next
-- `#N tag1, tag2` - Correct tags for commit N, re-present
-- `stop` - End session (progress is saved)
+This creates `pending/<repo>/batches/` with all commits split into batches.
 
-**Repeat until all batch files processed or user stops.**
+### Step 4: AI Analyze Batches (Human Review)
+
+**Same flow as "feed the chicken"** - see Step 3 in that section.
+
+Process `pending/<repo>/batches/batch-NNN.json` files one at a time using `merge-analysis.js`.
 
 **Progress check:**
 ```bash
-# See what's done vs pending
-ls reports/<repo>/batches/   # All batches to process
+node scripts/pending.js      # Shows remaining vs processed
 ls processed/<repo>/commits/ # Completed commits
 ```
 
@@ -193,17 +188,16 @@ ls processed/<repo>/commits/ # Completed commits
 - [ ] Every commit has urgency 1-5
 - [ ] Every commit has impact (internal/user-facing/infrastructure/api)
 - [ ] Tags reflect FULL message content (subject + body)
-- [ ] All commits from reports/ have matching files in processed/commits/
 
-### Step 4: Aggregate to Dashboard
+### Step 5: Aggregate to Dashboard
 
 Combine all `processed/` data into dashboard files:
 
 ```bash
-node scripts/aggregate.js
+node scripts/aggregate-processed.js
 ```
 
-### Step 5: Commit Changes
+### Step 6: Commit Changes
 
 ```bash
 git add processed/ dashboard/
@@ -311,8 +305,8 @@ git push
 | Aspect | Hatch the Chicken | Feed the Chicken |
 |--------|-------------------|------------------|
 | Starting point | Delete everything | Keep existing processed/ |
-| Batch source | `reports/` batches | `pending/` batches |
-| Tracks progress | Commit file existence | manifest.json SHAs |
+| Batch source | `pending/` (all commits) | `pending/` (new commits only) |
+| Manifest state | Empty (reset) | Contains processed SHAs |
 | Handles new commits | N/A (full reset) | Only processes new ones |
 | Resume after merge | Start over | Continues seamlessly |
 
@@ -627,4 +621,4 @@ Based on who/what is affected by the change:
 
 ---
 
-*Last updated: 2026-01-22 - Added API-based extraction (no cloning required) and merge-analysis.js (~10x token reduction)*
+*Last updated: 2026-01-22 - Fixed file structure docs, unified hatch/feed to both use pending/ batches*
