@@ -112,9 +112,34 @@ async function main() {
   }
 
   // Validate commits have required fields
+  const requiredFields = ['sha', 'timestamp', 'subject'];
+  const analysisFields = ['tags', 'complexity', 'urgency', 'impact'];
+
   for (const commit of commits) {
-    if (!commit.sha) {
-      console.error('Error: Each commit must have a "sha" field');
+    // Check required metadata fields
+    for (const field of requiredFields) {
+      if (!commit[field]) {
+        console.error(`Error: Commit ${commit.sha || '(unknown)'} missing required field: ${field}`);
+        console.error('Each commit must include original git metadata (sha, timestamp, subject, author_id)');
+        console.error('plus AI analysis fields (tags, complexity, urgency, impact).');
+        console.error('');
+        console.error('Make sure to include the full commit object from the pending batch,');
+        console.error('not just the analysis fields.');
+        process.exit(1);
+      }
+    }
+
+    // Check analysis fields
+    for (const field of analysisFields) {
+      if (commit[field] === undefined) {
+        console.error(`Error: Commit ${commit.sha} missing analysis field: ${field}`);
+        process.exit(1);
+      }
+    }
+
+    // Ensure author info exists
+    if (!commit.author_id && !commit.author) {
+      console.error(`Error: Commit ${commit.sha} missing author_id or author`);
       process.exit(1);
     }
   }
