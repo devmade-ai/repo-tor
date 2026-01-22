@@ -4,9 +4,9 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete. Fixed bug where Overview tab wasn't re-rendered on tab switch, causing stale data when compare period changed.
+**Dashboard V2:** Implementation complete. Fixed bug where malformed commits (missing timestamps) caused JavaScript errors that halted execution.
 
-**Extraction System:** AI analysis complete. 763 commits processed across 4 repositories.
+**Extraction System:** AI analysis complete. 698 valid commits processed across 4 repositories (65 malformed commits skipped).
 
 **Live Dashboard:** https://devmade-ai.github.io/repo-tor/
 
@@ -98,14 +98,14 @@ const TAB_MAPPING = {
 
 ### Extraction Progress
 
-| Repo | Status | Processed |
-|------|--------|-----------|
-| chatty-chart | Complete | 42/42 |
-| repo-tor | Complete | 220/220 |
-| social-ad-creator | Complete | 183/183 |
-| model-pear | Complete | 318/318 |
+| Repo | Status | Valid | Skipped |
+|------|--------|-------|---------|
+| chatty-chart | Complete | 42 | 0 |
+| repo-tor | Complete | 209 | 11 |
+| social-ad-creator | Complete | 182 | 1 |
+| model-pear | Complete | 265 | 53 |
 
-**Total:** 763 commits processed (100%)
+**Total:** 698 valid commits (65 skipped due to missing required fields)
 
 ### Storage Migration
 
@@ -121,4 +121,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-22 - Fixed Overview tab re-render on tab switch; 763 commits processed*
+*Last updated: 2026-01-22 - Fixed malformed commits causing JS errors; 698 valid commits (65 skipped)*

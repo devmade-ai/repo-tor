@@ -89,6 +89,19 @@ args.forEach(arg => {
 // === Data Loading ===
 
 /**
+ * Validate that a commit has all required fields
+ * Returns error message if invalid, null if valid
+ */
+function validateCommit(commit, repoName) {
+  if (!commit.sha) return 'missing sha';
+  if (!commit.timestamp) return 'missing timestamp';
+  if (!commit.author_id && !commit.author) return 'missing author';
+  // Add repo_id if missing (for backwards compatibility)
+  if (!commit.repo_id) commit.repo_id = repoName;
+  return null;
+}
+
+/**
  * Load individual commit files from a repo's commits/ directory
  */
 function loadRepoCommits(repoName) {
@@ -109,18 +122,31 @@ function loadRepoCommits(repoName) {
   }
 
   const commits = [];
+  let skipped = 0;
 
   for (const file of commitFiles) {
     try {
       const content = fs.readFileSync(path.join(commitsDir, file), 'utf-8');
       const commit = JSON.parse(content);
+
+      // Validate commit has required fields
+      const error = validateCommit(commit, repoName);
+      if (error) {
+        skipped++;
+        continue; // Skip malformed commits silently
+      }
+
       commits.push(commit);
     } catch (err) {
       console.error(`  Error reading ${file}: ${err.message}`);
     }
   }
 
-  console.log(`  ${repoName}: ${commits.length} commits`);
+  if (skipped > 0) {
+    console.log(`  ${repoName}: ${commits.length} commits (${skipped} skipped - missing required fields)`);
+  } else {
+    console.log(`  ${repoName}: ${commits.length} commits`);
+  }
   return commits;
 }
 

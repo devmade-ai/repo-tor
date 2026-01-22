@@ -4,19 +4,26 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-22
 
-### Fix: Add Overview tab re-render on tab switch
+### Fix: Skip malformed commits and add defensive null checks
 
-When switching between tabs, the Overview tab's Executive Summary was not being re-rendered,
-which could cause stale data to display if filters or the compare period were changed while
-viewing another tab.
+Dashboard was showing empty sections because malformed commits (missing timestamp, author)
+were causing JavaScript errors that halted execution before event listeners were attached.
 
 **Root Cause:**
-- Tab switch logic re-rendered Activity, Work, and Health tabs, but not Overview
-- renderSummary() was only called on initial load and filter changes
-- If user changed compare period while on another tab, Overview wouldn't update on return
+- 65 processed commit files were missing required fields (timestamp, author_id, repo_id)
+- JavaScript tried to call `.substring()` on undefined timestamps
+- This halted execution before `setupSummaryPeriodToggle()` ran
+- Compare dropdown never got its event listener attached
 
 **Changes:**
-- Added `renderSummary()` call when switching to Overview tab in tab navigation handler
+- `aggregate-processed.js`: Added `validateCommit()` to skip commits missing required fields
+- `dashboard/index.html`: Added null guard in `getWorkPattern()` for missing timestamps
+- `dashboard/index.html`: Added `renderSummary()` call when switching to Overview tab
+
+**Skipped commits:**
+- model-pear: 53 commits
+- repo-tor: 11 commits
+- social-ad-creator: 1 commit
 
 ## 2026-01-21
 

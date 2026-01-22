@@ -1771,6 +1771,10 @@
 
         // === Work Pattern Helpers ===
         function getWorkPattern(commit) {
+            // Guard against missing timestamp
+            if (!commit.timestamp) {
+                return { isAfterHours: false, isWeekend: false, isHoliday: false, hour: 0, dayOfWeek: 0, dateStr: '' };
+            }
             const date = new Date(commit.timestamp);
             const hour = useUTC ? date.getUTCHours() : date.getHours();
             const dayOfWeek = useUTC ? date.getUTCDay() : date.getDay();
