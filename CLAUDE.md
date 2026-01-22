@@ -47,7 +47,8 @@
 
 - [ ] Read CLAUDE.md (this file)
 - [ ] Read docs/SESSION_NOTES.md for current state and context
-- [ ] Check docs/TODO.md for pending items
+- [ ] Check docs/TODO.md for pending items and known issues
+- [ ] Check docs/AI_LESSONS.md for past mistakes to avoid
 - [ ] Understand what was last done before starting new work
 
 ### After Each Significant Task
@@ -120,5 +121,7 @@ See `docs/EXTRACTION_PLAYBOOK.md` for details.
 - Always read a file before attempting to edit it
 - Check for existing patterns in the codebase before creating new ones
 - Clean up completed or obsolete docs/files and remove references to them
+- **Test features before documenting them as working** - if you can't test, say so explicitly
+- **Document your mistakes** in docs/AI_LESSONS.md so future sessions learn from them
 
 ---
