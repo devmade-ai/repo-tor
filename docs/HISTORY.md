@@ -4,6 +4,39 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-22
 
+### Setup: GitHub CLI installation and authentication script
+
+Added `scripts/setup-gh.sh` to automate GitHub CLI setup for API-based extraction.
+
+**Problem:** The API-based extraction (`extract-api.js`) requires `gh` CLI to be installed and authenticated, but there was no automated way to set this up across different environments.
+
+**Solution:** Cross-platform setup script that:
+- Detects OS (macOS, Ubuntu/Debian, RHEL/Fedora, Arch, Alpine, WSL)
+- Installs `gh` CLI using the appropriate package manager
+- Handles authentication (interactive browser login or token-based)
+- Verifies API access is working
+
+**Usage:**
+```bash
+# Interactive setup
+./scripts/setup-gh.sh
+
+# CI/CD / non-interactive
+GH_TOKEN=ghp_xxx ./scripts/setup-gh.sh
+./scripts/setup-gh.sh --token=ghp_xxx
+```
+
+**Files added:**
+- `scripts/setup-gh.sh` - Cross-platform gh CLI setup script
+
+**Files updated:**
+- `docs/ADMIN_GUIDE.md` - Added GitHub CLI setup section with platform support
+- `docs/USER_ACTIONS.md` - Added pending action for users to run setup
+- `docs/TODO.md` - Updated untested warning with setup instructions
+- `docs/SESSION_NOTES.md` - Updated current state
+
+---
+
 ### Optimization: API-based extraction (no cloning required)
 
 Added `scripts/extract-api.js` to extract git data directly via GitHub API without cloning repos.

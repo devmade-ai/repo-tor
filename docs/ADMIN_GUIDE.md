@@ -87,7 +87,7 @@ For future updates, just ask: "Update all repo data"
 ## Prerequisites
 
 - **Node.js** v14 or higher
-- **GitHub CLI (`gh`)** installed and authenticated (`gh auth login`) - for API-based extraction
+- **GitHub CLI (`gh`)** installed and authenticated - for API-based extraction (see setup below)
 - **Git** (optional) - only needed if using `--clone` flag
 - Access to the repository/repositories you want to analyze
 
@@ -100,6 +100,87 @@ For future updates, just ask: "Update all repo data"
    ```
 
 2. No dependencies to install - the extraction script uses only Node.js built-ins.
+
+3. Set up GitHub CLI (required for API-based extraction):
+   ```bash
+   ./scripts/setup-gh.sh
+   ```
+
+## GitHub CLI Setup
+
+The setup script handles installation and authentication for the GitHub CLI, which is required for API-based extraction (faster, no cloning needed).
+
+### Quick Setup (Interactive)
+
+```bash
+./scripts/setup-gh.sh
+```
+
+This will:
+1. Install `gh` CLI if not present (supports Linux, macOS, WSL)
+2. Guide you through authentication (browser or token)
+3. Verify API access is working
+
+### CI/CD / Non-Interactive Setup
+
+For automated environments, use a GitHub Personal Access Token:
+
+```bash
+# Option 1: Pass token as argument
+./scripts/setup-gh.sh --token=ghp_xxxxxxxxxxxx
+
+# Option 2: Use environment variable
+GH_TOKEN=ghp_xxxxxxxxxxxx ./scripts/setup-gh.sh
+
+# Option 3: Set GH_TOKEN in CI/CD secrets and just run
+./scripts/setup-gh.sh
+```
+
+**Token requirements:**
+- Create at: https://github.com/settings/tokens/new
+- Scopes needed: `repo` (for private repos) or `public_repo` (public only)
+
+### Manual Installation
+
+If the setup script doesn't work for your environment:
+
+1. Install `gh` CLI: https://cli.github.com/
+2. Authenticate:
+   ```bash
+   gh auth login
+   ```
+3. Verify:
+   ```bash
+   gh auth status
+   ```
+
+### Supported Platforms
+
+| Platform | Installation Method |
+|----------|---------------------|
+| macOS | Homebrew (`brew install gh`) |
+| Ubuntu/Debian | apt (official GitHub repo) |
+| RHEL/Fedora/CentOS | dnf (official GitHub repo) |
+| Arch Linux | pacman |
+| Alpine Linux | apk |
+| WSL | apt (same as Debian) |
+| Other | Manual or conda |
+
+### Troubleshooting
+
+```bash
+# Check if gh is installed
+gh --version
+
+# Check authentication status
+gh auth status
+
+# Re-authenticate if needed
+gh auth logout && gh auth login
+
+# Test API access
+gh api user --jq '.login'
+```
 
 ## Data Extraction
 
