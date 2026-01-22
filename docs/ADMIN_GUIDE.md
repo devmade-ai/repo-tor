@@ -34,10 +34,16 @@ Edit `config/repos.json`:
 ```
 
 This will:
-- Clone any new repos (cached in `.repo-cache/`)
-- Pull updates for existing repos
-- Extract git data from each
+- Fetch commit data via GitHub API (no cloning needed)
+- Extract git data from each repo
 - Aggregate all data into `dashboard/data.json`
+
+**Requirements:** `gh` CLI installed and authenticated (`gh auth login`)
+
+**Alternative (clone-based):**
+```bash
+./scripts/update-all.sh --clone   # Clone repos instead of using API
+```
 
 ### 3. Commit and push
 
@@ -54,7 +60,8 @@ The dashboard will auto-load the aggregated data on GitHub Pages.
 Just run the script again:
 
 ```bash
-./scripts/update-all.sh        # Update existing repos
+./scripts/update-all.sh         # Fetch via API (default)
+./scripts/update-all.sh --clone # Use clone-based extraction
 ./scripts/update-all.sh --fresh # Re-clone everything from scratch
 ```
 
@@ -67,7 +74,7 @@ If you're using Claude Code, you can simply provide repo URLs and ask it to add 
 ```
 
 Claude will:
-1. Clone the repo
+1. Fetch commit data via API
 2. Run extraction
 3. Update `config/repos.json`
 4. Re-aggregate all data
@@ -80,7 +87,8 @@ For future updates, just ask: "Update all repo data"
 ## Prerequisites
 
 - **Node.js** v14 or higher
-- **Git** installed and accessible from command line
+- **GitHub CLI (`gh`)** installed and authenticated (`gh auth login`) - for API-based extraction
+- **Git** (optional) - only needed if using `--clone` flag
 - Access to the repository/repositories you want to analyze
 
 ## Installation

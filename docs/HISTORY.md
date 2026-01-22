@@ -4,6 +4,58 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-22
 
+### Optimization: API-based extraction (no cloning required)
+
+Added `scripts/extract-api.js` to extract git data directly via GitHub API without cloning repos.
+
+**Problem:** Clone-based extraction required downloading full repos (potentially large) just to read commit history.
+
+**Solution:** Use GitHub API via `gh` CLI:
+- Fetches commit list with pagination
+- Gets stats and files per commit via API
+- Outputs same format as clone-based extractor
+
+**Benefits:**
+- No disk space for clones
+- Faster for initial setup
+- Works without git installed (only needs `gh` CLI)
+- Supports `--since` flag for incremental fetches
+
+**Usage:**
+```bash
+scripts/update-all.sh           # API mode (default)
+scripts/update-all.sh --clone   # Clone mode (if needed)
+```
+
+**Files added:**
+- `scripts/extract-api.js` - GitHub API-based extractor
+
+**Files updated:**
+- `scripts/update-all.sh` - Default to API mode, `--clone` flag for old behavior
+
+---
+
+### Optimization: Merge-analysis script for faster feeding
+
+Added `scripts/merge-analysis.js` to dramatically reduce AI output tokens during the "feed the chicken" workflow.
+
+**Problem:** When processing pending batches, AI had to output full commit objects (500-800 tokens each) including all git metadata. This was slow and wasteful since the git data already exists in `reports/`.
+
+**Solution:** New merge-based workflow:
+1. AI outputs **only analysis fields**: `{sha, tags, complexity, urgency, impact}`
+2. Script merges with raw git data from `reports/<repo>/commits/<sha>.json`
+3. Saves complete commit to `processed/<repo>/commits/<sha>.json`
+
+**Token savings:** ~10x reduction in AI output per commit (50-80 tokens vs 500-800)
+
+**Files added:**
+- `scripts/merge-analysis.js` - Merges analysis with raw git data
+
+**Files updated:**
+- `docs/EXTRACTION_PLAYBOOK.md` - Updated feed workflow to use merge-analysis.js
+
+---
+
 ### Fix: Skip malformed commits and prevent incomplete saves
 
 Dashboard was showing empty sections because malformed commits (missing timestamp, author)

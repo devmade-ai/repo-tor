@@ -107,6 +107,26 @@ Continue processing commits with `@data feed the chicken`:
 
 ---
 
+## ⚠️ Untested / Known Issues
+
+**IMPORTANT FOR AI:** These features were built but NOT tested. Test before using or recommending.
+
+### API Extraction (`extract-api.js`) - NOT TESTED
+- Built to extract via GitHub API instead of cloning
+- **Requires:** `gh` CLI installed AND authenticated (`gh auth login`)
+- **Problem:** Was built without considering auth would be needed to test
+- **Status:** Code exists but has NEVER been run successfully
+- **Risk:** May have bugs, may not work at all
+- **Fallback:** Use `--clone` flag for clone-based extraction (works but needs git credentials for private repos)
+
+### Before using API extraction:
+1. Install gh CLI: https://cli.github.com/
+2. Run `gh auth login` to authenticate
+3. Test with: `node scripts/extract-api.js <owner/repo> --output=reports/`
+4. If it fails, use `scripts/update-all.sh --clone` instead
+
+---
+
 ## Future / Backlog
 
 ### Global Filters
