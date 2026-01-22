@@ -4,6 +4,49 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-22
 
+### Setup: GitHub CLI installation and authentication with .env support
+
+Added `scripts/setup-gh.sh` and `.env` file support for API-based extraction authentication.
+
+**Problem:** The API-based extraction (`extract-api.js`) requires GitHub authentication, but:
+- Interactive `gh auth login` doesn't work in AI sessions (no browser)
+- Environment variables don't persist between sessions
+- No standardized way to configure authentication
+
+**Solution:** Multi-layered authentication support:
+1. **`.env` file** - Store `GH_TOKEN` in project root (gitignored)
+2. **Environment variable** - `GH_TOKEN=xxx` for one-off runs
+3. **Setup script** - Interactive or token-based authentication
+4. **Auto-loading** - Scripts automatically read from `.env`
+
+**Usage:**
+```bash
+# Option 1: Create .env file (recommended for AI sessions)
+cp .env.example .env
+# Edit .env and set GH_TOKEN=ghp_xxx
+
+# Option 2: Interactive setup
+./scripts/setup-gh.sh
+
+# Option 3: Token + save to .env
+./scripts/setup-gh.sh --token=ghp_xxx --save-env
+
+# Option 4: One-off with env var
+GH_TOKEN=ghp_xxx node scripts/extract-api.js owner/repo
+```
+
+**Files added:**
+- `scripts/setup-gh.sh` - Cross-platform gh CLI setup script
+- `.env.example` - Template for environment configuration
+
+**Files updated:**
+- `scripts/extract-api.js` - Added .env file loading and GH_TOKEN support
+- `.gitignore` - Added `.env` to ignore list
+- `docs/ADMIN_GUIDE.md` - Added GitHub CLI and .env setup sections
+- `docs/USER_ACTIONS.md` - Added detailed setup instructions for all methods
+
+---
+
 ### Optimization: API-based extraction (no cloning required)
 
 Added `scripts/extract-api.js` to extract git data directly via GitHub API without cloning repos.

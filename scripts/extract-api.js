@@ -12,12 +12,48 @@
  *   node extract-api.js devmade-ai/repo-tor --output=reports/
  *   node extract-api.js devmade-ai/repo-tor --since=2026-01-01
  *
- * Requires: gh CLI installed and authenticated (gh auth login)
+ * Authentication (in priority order):
+ *   1. GH_TOKEN environment variable
+ *   2. .env file in project root (GH_TOKEN=...)
+ *   3. gh auth login (interactive)
  */
 
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+
+// === Load .env file if present ===
+function loadEnvFile() {
+  const envPaths = [
+    path.join(process.cwd(), '.env'),
+    path.join(__dirname, '..', '.env')
+  ];
+
+  for (const envPath of envPaths) {
+    if (fs.existsSync(envPath)) {
+      const content = fs.readFileSync(envPath, 'utf-8');
+      for (const line of content.split('\n')) {
+        const trimmed = line.trim();
+        // Skip comments and empty lines
+        if (!trimmed || trimmed.startsWith('#')) continue;
+
+        const match = trimmed.match(/^([A-Z_][A-Z0-9_]*)=(.*)$/);
+        if (match) {
+          const [, key, value] = match;
+          // Don't override existing env vars
+          if (!process.env[key]) {
+            // Remove quotes if present
+            process.env[key] = value.replace(/^["']|["']$/g, '');
+          }
+        }
+      }
+      return envPath;
+    }
+  }
+  return null;
+}
+
+const loadedEnvFile = loadEnvFile();
 
 // === Argument Parsing ===
 const args = process.argv.slice(2);
@@ -450,20 +486,42 @@ function main() {
   if (sinceDate) console.log(`Since: ${sinceDate}`);
   console.log('');
 
+  // Show env file status
+  if (loadedEnvFile) {
+    console.log(`Loaded environment from: ${loadedEnvFile}`);
+  }
+
+  // Check authentication method
+  const hasToken = !!process.env.GH_TOKEN;
+  if (hasToken) {
+    console.log('Authentication: Using GH_TOKEN from environment');
+  }
+
   // Check gh CLI is available
   try {
     execSync('gh --version', { encoding: 'utf-8', stdio: 'pipe' });
   } catch (e) {
     console.error('Error: gh CLI not found. Install from https://cli.github.com/');
+    console.error('       Or run: ./scripts/setup-gh.sh');
     process.exit(1);
   }
 
-  // Check authentication
-  try {
-    execSync('gh auth status', { encoding: 'utf-8', stdio: 'pipe' });
-  } catch (e) {
-    console.error('Error: Not authenticated with GitHub. Run: gh auth login');
-    process.exit(1);
+  // Check authentication (gh CLI uses GH_TOKEN automatically if set)
+  if (!hasToken) {
+    try {
+      execSync('gh auth status', { encoding: 'utf-8', stdio: 'pipe' });
+      console.log('Authentication: Using gh auth login session');
+    } catch (e) {
+      console.error('Error: Not authenticated with GitHub.');
+      console.error('');
+      console.error('Options:');
+      console.error('  1. Set GH_TOKEN in .env file (recommended for AI sessions)');
+      console.error('  2. Run: gh auth login (interactive)');
+      console.error('  3. Run: ./scripts/setup-gh.sh');
+      console.error('');
+      console.error('Create a token at: https://github.com/settings/tokens/new');
+      process.exit(1);
+    }
   }
 
   // Fetch commits
