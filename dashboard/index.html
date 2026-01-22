@@ -877,8 +877,8 @@
                     <div class="flex overflow-x-auto scrollbar-hide flex-1 min-w-0">
                         <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600 whitespace-nowrap flex-shrink-0" data-tab="overview">Overview</button>
                         <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="activity">Activity</button>
-                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="work">Work</button>
-                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="health">Health</button>
+                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="work">Breakdown</button>
+                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="health">Risk</button>
                     </div>
                 </div>
             </div>
@@ -1149,6 +1149,20 @@
                     </div>
                 </div>
 
+                <!-- Security Commits -->
+                <div class="card mb-6" data-section="security-commits">
+                    <div class="collapsible-header" aria-expanded="false" onclick="toggleSection(this)">
+                        <div class="collapsible-title">
+                            <h2 class="text-lg font-semibold text-themed-primary">Security-Related Commits</h2>
+                        </div>
+                        <span class="collapsible-subtitle">Security-tagged commits</span>
+                        <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="collapsible-content">
+                        <div id="security-list" class="space-y-3 pt-2"></div>
+                    </div>
+                </div>
+
                 <!-- Urgency Distribution -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div class="card" data-section="urgency-distribution">
@@ -1237,19 +1251,6 @@
                     </div>
                 </div>
 
-                <!-- Security Commits -->
-                <div class="card" data-section="security-commits">
-                    <div class="collapsible-header" aria-expanded="false" onclick="toggleSection(this)">
-                        <div class="collapsible-title">
-                            <h2 class="text-lg font-semibold text-themed-primary">Security-Related Commits</h2>
-                        </div>
-                        <span class="collapsible-subtitle">Security-tagged commits</span>
-                        <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </div>
-                    <div class="collapsible-content">
-                        <div id="security-list" class="space-y-3 pt-2"></div>
-                    </div>
-                </div>
             </div>
 
             <div id="tab-tags" class="tab-content hidden">
@@ -1372,14 +1373,17 @@
                     </div>
                 </div>
 
-                <!-- Work Hours Settings -->
-                <div class="card">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                        <div>
+                <!-- Work Hours Settings (collapsed by default - it's config, not content) -->
+                <div class="card" data-section="work-hours-settings">
+                    <div class="collapsible-header" aria-expanded="false" onclick="toggleSection(this)">
+                        <div class="collapsible-title">
                             <h2 class="text-lg font-semibold text-themed-primary">Work Hours Settings</h2>
-                            <p class="text-xs text-themed-tertiary">Customize what counts as "work hours"</p>
                         </div>
-                        <div class="flex flex-wrap items-center gap-3">
+                        <span class="collapsible-subtitle">Customize what counts as "work hours"</span>
+                        <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="flex flex-wrap items-center gap-4 pt-3">
                             <div class="flex items-center gap-2">
                                 <label class="text-xs text-themed-tertiary whitespace-nowrap">Start:</label>
                                 <select id="work-hour-start" class="filter-select text-sm">
