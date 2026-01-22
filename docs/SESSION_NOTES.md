@@ -12,10 +12,11 @@ Current state for AI assistants to continue work.
 - Added `extract-api.js` for API-based extraction (no cloning required, faster)
 - Added `merge-analysis.js` for ~10x token reduction during "feed the chicken" workflow
 
-**GitHub CLI Setup:** Added `scripts/setup-gh.sh` to install and authenticate `gh` CLI for API extraction.
-- Supports Linux, macOS, WSL
-- Interactive and non-interactive (token) modes
-- See docs/USER_ACTIONS.md for setup instructions
+**GitHub CLI Setup:** Authentication for API extraction with multiple options:
+- `.env` file support - Store `GH_TOKEN` for AI sessions (gitignored)
+- `scripts/setup-gh.sh` - Cross-platform installation and auth
+- Auto-loading - Scripts read from `.env` automatically
+- See docs/USER_ACTIONS.md for detailed setup instructions
 
 **Live Dashboard:** https://devmade-ai.github.io/repo-tor/
 
@@ -132,4 +133,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-22 - Added scripts/setup-gh.sh for GitHub CLI installation and authentication*
+*Last updated: 2026-01-22 - Added .env support for GH_TOKEN authentication in AI sessions*

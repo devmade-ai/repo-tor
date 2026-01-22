@@ -140,6 +140,36 @@ GH_TOKEN=ghp_xxxxxxxxxxxx ./scripts/setup-gh.sh
 - Create at: https://github.com/settings/tokens/new
 - Scopes needed: `repo` (for private repos) or `public_repo` (public only)
 
+### AI Sessions / .env File Setup
+
+For AI assistants (like Claude Code) that can't use interactive authentication:
+
+1. **Create a Personal Access Token** at https://github.com/settings/tokens/new
+   - Select scopes: `repo` (for private repos) or `public_repo` (public only)
+   - Copy the token (starts with `ghp_`)
+
+2. **Create .env file** from the example:
+   ```bash
+   cp .env.example .env
+   ```
+
+3. **Edit .env** and set your token:
+   ```
+   GH_TOKEN=ghp_your_token_here
+   ```
+
+4. **Test extraction:**
+   ```bash
+   node scripts/extract-api.js devmade-ai/repo-tor --output=reports/
+   ```
+
+The scripts automatically load `.env` from the project root. The `.env` file is gitignored and won't be committed.
+
+**Alternative:** Save token via setup script:
+```bash
+./scripts/setup-gh.sh --token=ghp_xxx --save-env
+```
+
 ### Manual Installation
 
 If the setup script doesn't work for your environment:

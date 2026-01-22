@@ -8,12 +8,17 @@
 # Usage:
 #   ./scripts/setup-gh.sh                    # Interactive setup
 #   ./scripts/setup-gh.sh --token <TOKEN>    # Non-interactive with token
+#   ./scripts/setup-gh.sh --save-env         # Save token to .env file
 #   GH_TOKEN=xxx ./scripts/setup-gh.sh       # Token via environment variable
 #
-# For CI/CD environments, use a GitHub Personal Access Token (PAT) with 'repo' scope.
+# For CI/CD or AI sessions, use a GitHub Personal Access Token (PAT) with 'repo' scope.
 #
 
 set -e
+
+# Get script directory for relative paths
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # Colors for output
 RED='\033[0;31m'
@@ -29,20 +34,49 @@ echo ""
 
 # === Parse Arguments ===
 TOKEN=""
-for arg in "$@"; do
-    case $arg in
+SAVE_ENV=false
+SKIP_INSTALL=false
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
         --token=*)
-            TOKEN="${arg#*=}"
+            TOKEN="${1#*=}"
+            shift
             ;;
         --token)
+            TOKEN="$2"
+            shift 2
+            ;;
+        --save-env)
+            SAVE_ENV=true
             shift
-            TOKEN="$1"
+            ;;
+        --skip-install)
+            SKIP_INSTALL=true
+            shift
+            ;;
+        *)
+            shift
             ;;
     esac
-    shift 2>/dev/null || true
 done
 
-# Check for token in environment
+# === Load .env file if present ===
+ENV_FILE="$PROJECT_ROOT/.env"
+if [[ -f "$ENV_FILE" ]]; then
+    echo -e "Loading environment from: ${BLUE}$ENV_FILE${NC}"
+    # Source .env file (only export lines starting with valid var names)
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        # Skip comments and empty lines
+        [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
+        # Only process valid KEY=VALUE lines
+        if [[ "$line" =~ ^[A-Z_][A-Z0-9_]*= ]]; then
+            export "$line"
+        fi
+    done < "$ENV_FILE"
+fi
+
+# Check for token (priority: arg > env > .env file)
 if [[ -z "$TOKEN" && -n "$GH_TOKEN" ]]; then
     TOKEN="$GH_TOKEN"
 fi
@@ -74,6 +108,8 @@ echo ""
 if command -v gh &> /dev/null; then
     GH_VERSION=$(gh --version | head -n1)
     echo -e "${GREEN}GitHub CLI already installed:${NC} $GH_VERSION"
+elif [[ "$SKIP_INSTALL" == true ]]; then
+    echo -e "${YELLOW}GitHub CLI not installed (skipped by --skip-install)${NC}"
 else
     echo -e "${YELLOW}GitHub CLI not found. Installing...${NC}"
     echo ""
@@ -147,38 +183,75 @@ echo ""
 echo "Checking authentication status..."
 echo ""
 
-if gh auth status &> /dev/null; then
+# If we have a token, we can use it directly (gh CLI respects GH_TOKEN env var)
+if [[ -n "$TOKEN" ]]; then
+    echo -e "${GREEN}Token available${NC} (GH_TOKEN environment variable)"
+
+    # Export for this session
+    export GH_TOKEN="$TOKEN"
+
+    # Optionally save to .env file
+    if [[ "$SAVE_ENV" == true ]]; then
+        if [[ -f "$ENV_FILE" ]]; then
+            # Update existing .env file
+            if grep -q "^GH_TOKEN=" "$ENV_FILE" 2>/dev/null; then
+                # Replace existing GH_TOKEN line
+                sed -i.bak "s|^GH_TOKEN=.*|GH_TOKEN=$TOKEN|" "$ENV_FILE"
+                rm -f "$ENV_FILE.bak"
+                echo -e "${GREEN}Updated GH_TOKEN in $ENV_FILE${NC}"
+            else
+                # Append GH_TOKEN
+                echo "" >> "$ENV_FILE"
+                echo "GH_TOKEN=$TOKEN" >> "$ENV_FILE"
+                echo -e "${GREEN}Added GH_TOKEN to $ENV_FILE${NC}"
+            fi
+        else
+            # Create new .env file from example
+            if [[ -f "$PROJECT_ROOT/.env.example" ]]; then
+                cp "$PROJECT_ROOT/.env.example" "$ENV_FILE"
+                sed -i.bak "s|^GH_TOKEN=.*|GH_TOKEN=$TOKEN|" "$ENV_FILE"
+                rm -f "$ENV_FILE.bak"
+            else
+                echo "GH_TOKEN=$TOKEN" > "$ENV_FILE"
+            fi
+            echo -e "${GREEN}Created $ENV_FILE with GH_TOKEN${NC}"
+        fi
+    fi
+
+    # Test the token
+    echo ""
+    echo "Verifying token access..."
+    if gh api user --jq '.login' &> /dev/null; then
+        USER=$(gh api user --jq '.login')
+        echo -e "${GREEN}API access confirmed!${NC} Logged in as: $USER"
+    else
+        echo -e "${RED}Token verification failed.${NC}"
+        echo ""
+        echo "Token requirements:"
+        echo "  - Must have 'repo' scope for private repos"
+        echo "  - Must have 'public_repo' scope for public repos only"
+        echo ""
+        echo "Create a new token at: https://github.com/settings/tokens/new"
+        exit 1
+    fi
+
+elif gh auth status &> /dev/null; then
     echo -e "${GREEN}Already authenticated with GitHub!${NC}"
     gh auth status
 else
     echo -e "${YELLOW}Not authenticated. Setting up authentication...${NC}"
     echo ""
 
-    if [[ -n "$TOKEN" ]]; then
-        # Non-interactive: use provided token
-        echo "Authenticating with provided token..."
-        echo "$TOKEN" | gh auth login --with-token
-
-        if gh auth status &> /dev/null; then
-            echo -e "${GREEN}Authentication successful!${NC}"
-        else
-            echo -e "${RED}Authentication failed. Check your token.${NC}"
-            echo ""
-            echo "Token requirements:"
-            echo "  - Must have 'repo' scope for private repos"
-            echo "  - Must have 'public_repo' scope for public repos only"
-            echo ""
-            echo "Create a token at: https://github.com/settings/tokens"
-            exit 1
-        fi
-    else
+    # Check if we're in an interactive terminal
+    if [[ -t 0 ]]; then
         # Interactive: guide user
         echo "Choose authentication method:"
         echo ""
         echo "  1. Browser login (recommended for interactive use)"
         echo "  2. Token login (for CI/CD or headless environments)"
+        echo "  3. Token login + save to .env file (for AI sessions)"
         echo ""
-        read -p "Enter choice (1 or 2): " choice
+        read -p "Enter choice (1, 2, or 3): " choice
         echo ""
 
         case $choice in
@@ -188,7 +261,7 @@ else
                 echo ""
                 gh auth login --web
                 ;;
-            2)
+            2|3)
                 echo "Token authentication selected."
                 echo ""
                 echo "Create a Personal Access Token (PAT) at:"
@@ -202,6 +275,23 @@ else
                 echo ""
                 echo ""
                 echo "$user_token" | gh auth login --with-token
+
+                if [[ "$choice" == "3" && $? -eq 0 ]]; then
+                    # Save to .env
+                    if [[ -f "$PROJECT_ROOT/.env.example" && ! -f "$ENV_FILE" ]]; then
+                        cp "$PROJECT_ROOT/.env.example" "$ENV_FILE"
+                        sed -i.bak "s|^GH_TOKEN=.*|GH_TOKEN=$user_token|" "$ENV_FILE"
+                        rm -f "$ENV_FILE.bak"
+                    else
+                        if [[ -f "$ENV_FILE" ]] && grep -q "^GH_TOKEN=" "$ENV_FILE" 2>/dev/null; then
+                            sed -i.bak "s|^GH_TOKEN=.*|GH_TOKEN=$user_token|" "$ENV_FILE"
+                            rm -f "$ENV_FILE.bak"
+                        else
+                            echo "GH_TOKEN=$user_token" >> "$ENV_FILE"
+                        fi
+                    fi
+                    echo -e "${GREEN}Token saved to $ENV_FILE${NC}"
+                fi
                 ;;
             *)
                 echo -e "${RED}Invalid choice. Exiting.${NC}"
@@ -215,19 +305,26 @@ else
             echo -e "${RED}Authentication failed.${NC}"
             exit 1
         fi
+    else
+        # Non-interactive: show instructions
+        echo -e "${RED}No token provided and not in interactive terminal.${NC}"
+        echo ""
+        echo "For non-interactive setup, use one of:"
+        echo ""
+        echo "  1. Set GH_TOKEN environment variable:"
+        echo "     GH_TOKEN=ghp_xxx ./scripts/setup-gh.sh"
+        echo ""
+        echo "  2. Pass token as argument:"
+        echo "     ./scripts/setup-gh.sh --token=ghp_xxx"
+        echo ""
+        echo "  3. Create .env file:"
+        echo "     cp .env.example .env"
+        echo "     # Edit .env and set GH_TOKEN=ghp_xxx"
+        echo "     ./scripts/setup-gh.sh"
+        echo ""
+        echo "Create a token at: https://github.com/settings/tokens/new"
+        exit 1
     fi
-fi
-
-echo ""
-
-# === Verify API Access ===
-echo "Verifying GitHub API access..."
-if gh api user --jq '.login' &> /dev/null; then
-    USER=$(gh api user --jq '.login')
-    echo -e "${GREEN}API access confirmed!${NC} Logged in as: $USER"
-else
-    echo -e "${YELLOW}Warning: Could not verify API access.${NC}"
-    echo "This may be due to token scope limitations."
 fi
 
 echo ""
@@ -237,9 +334,13 @@ echo "=========================================="
 echo ""
 echo "You can now use API-based extraction:"
 echo ""
-echo "  ./scripts/update-all.sh              # Extract via GitHub API"
+echo "  ./scripts/update-all.sh                  # Extract via GitHub API"
 echo "  node scripts/extract-api.js owner/repo   # Extract single repo"
 echo ""
+if [[ -f "$ENV_FILE" ]]; then
+    echo "Environment file: $ENV_FILE"
+    echo ""
+fi
 echo "Troubleshooting:"
 echo "  gh auth status      # Check auth status"
 echo "  gh auth refresh     # Refresh token"

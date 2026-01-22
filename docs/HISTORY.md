@@ -4,36 +4,46 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-22
 
-### Setup: GitHub CLI installation and authentication script
+### Setup: GitHub CLI installation and authentication with .env support
 
-Added `scripts/setup-gh.sh` to automate GitHub CLI setup for API-based extraction.
+Added `scripts/setup-gh.sh` and `.env` file support for API-based extraction authentication.
 
-**Problem:** The API-based extraction (`extract-api.js`) requires `gh` CLI to be installed and authenticated, but there was no automated way to set this up across different environments.
+**Problem:** The API-based extraction (`extract-api.js`) requires GitHub authentication, but:
+- Interactive `gh auth login` doesn't work in AI sessions (no browser)
+- Environment variables don't persist between sessions
+- No standardized way to configure authentication
 
-**Solution:** Cross-platform setup script that:
-- Detects OS (macOS, Ubuntu/Debian, RHEL/Fedora, Arch, Alpine, WSL)
-- Installs `gh` CLI using the appropriate package manager
-- Handles authentication (interactive browser login or token-based)
-- Verifies API access is working
+**Solution:** Multi-layered authentication support:
+1. **`.env` file** - Store `GH_TOKEN` in project root (gitignored)
+2. **Environment variable** - `GH_TOKEN=xxx` for one-off runs
+3. **Setup script** - Interactive or token-based authentication
+4. **Auto-loading** - Scripts automatically read from `.env`
 
 **Usage:**
 ```bash
-# Interactive setup
+# Option 1: Create .env file (recommended for AI sessions)
+cp .env.example .env
+# Edit .env and set GH_TOKEN=ghp_xxx
+
+# Option 2: Interactive setup
 ./scripts/setup-gh.sh
 
-# CI/CD / non-interactive
-GH_TOKEN=ghp_xxx ./scripts/setup-gh.sh
-./scripts/setup-gh.sh --token=ghp_xxx
+# Option 3: Token + save to .env
+./scripts/setup-gh.sh --token=ghp_xxx --save-env
+
+# Option 4: One-off with env var
+GH_TOKEN=ghp_xxx node scripts/extract-api.js owner/repo
 ```
 
 **Files added:**
 - `scripts/setup-gh.sh` - Cross-platform gh CLI setup script
+- `.env.example` - Template for environment configuration
 
 **Files updated:**
-- `docs/ADMIN_GUIDE.md` - Added GitHub CLI setup section with platform support
-- `docs/USER_ACTIONS.md` - Added pending action for users to run setup
-- `docs/TODO.md` - Updated untested warning with setup instructions
-- `docs/SESSION_NOTES.md` - Updated current state
+- `scripts/extract-api.js` - Added .env file loading and GH_TOKEN support
+- `.gitignore` - Added `.env` to ignore list
+- `docs/ADMIN_GUIDE.md` - Added GitHub CLI and .env setup sections
+- `docs/USER_ACTIONS.md` - Added detailed setup instructions for all methods
 
 ---
 
