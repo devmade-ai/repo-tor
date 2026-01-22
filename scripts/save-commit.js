@@ -111,55 +111,101 @@ async function main() {
     process.exit(1);
   }
 
-  // Validate commits have required fields
+  // Validate commits and separate valid from invalid
   const requiredFields = ['sha', 'timestamp', 'subject'];
   const analysisFields = ['tags', 'complexity', 'urgency', 'impact'];
 
+  const validCommits = [];
+  const failedCommits = [];
+
   for (const commit of commits) {
+    const errors = [];
+
     // Check required metadata fields
     for (const field of requiredFields) {
       if (!commit[field]) {
-        console.error(`Error: Commit ${commit.sha || '(unknown)'} missing required field: ${field}`);
-        console.error('Each commit must include original git metadata (sha, timestamp, subject, author_id)');
-        console.error('plus AI analysis fields (tags, complexity, urgency, impact).');
-        console.error('');
-        console.error('Make sure to include the full commit object from the pending batch,');
-        console.error('not just the analysis fields.');
-        process.exit(1);
+        errors.push(`missing ${field}`);
       }
     }
 
     // Check analysis fields
     for (const field of analysisFields) {
       if (commit[field] === undefined) {
-        console.error(`Error: Commit ${commit.sha} missing analysis field: ${field}`);
-        process.exit(1);
+        errors.push(`missing ${field}`);
       }
     }
 
     // Ensure author info exists
     if (!commit.author_id && !commit.author) {
-      console.error(`Error: Commit ${commit.sha} missing author_id or author`);
-      process.exit(1);
+      errors.push('missing author_id or author');
     }
+
+    if (errors.length > 0) {
+      failedCommits.push({
+        sha: commit.sha || '(unknown)',
+        errors,
+        partial: commit
+      });
+    } else {
+      validCommits.push(commit);
+    }
+  }
+
+  // If there are failures, write them to a reprocess file
+  if (failedCommits.length > 0) {
+    const reprocessDir = path.join(PROCESSED_DIR, repoId);
+    fs.mkdirSync(reprocessDir, { recursive: true });
+    const reprocessPath = path.join(reprocessDir, 'needs-reprocess.json');
+
+    // Append to existing failures or create new file
+    let existingFailures = [];
+    if (fs.existsSync(reprocessPath)) {
+      existingFailures = JSON.parse(fs.readFileSync(reprocessPath, 'utf-8'));
+    }
+
+    // Add new failures (avoid duplicates by sha)
+    const existingShas = new Set(existingFailures.map(f => f.sha));
+    for (const failure of failedCommits) {
+      if (!existingShas.has(failure.sha)) {
+        existingFailures.push(failure);
+      }
+    }
+
+    fs.writeFileSync(reprocessPath, JSON.stringify(existingFailures, null, 2));
+
+    console.error('\n========== VALIDATION FAILURES ==========');
+    console.error(`${failedCommits.length} commit(s) failed validation and need reprocessing:\n`);
+    for (const failure of failedCommits) {
+      console.error(`  ${failure.sha}: ${failure.errors.join(', ')}`);
+    }
+    console.error(`\nFailed commits written to: ${reprocessPath}`);
+    console.error('\nThese commits were NOT saved. You must include the full commit object');
+    console.error('from the pending batch (with all git metadata), not just analysis fields.');
+    console.error('==========================================\n');
+  }
+
+  // If ALL commits failed, exit with error
+  if (validCommits.length === 0) {
+    console.error('Error: No valid commits to save. All commits failed validation.');
+    process.exit(1);
   }
 
   // Prepare commits directory
   const commitsDir = path.join(PROCESSED_DIR, repoId, 'commits');
   fs.mkdirSync(commitsDir, { recursive: true });
 
-  // Save each commit
+  // Save each valid commit
   let saved = 0;
-  let skipped = 0;
+  let updated = 0;
 
-  for (const commit of commits) {
+  for (const commit of validCommits) {
     const commitPath = path.join(commitsDir, `${commit.sha}.json`);
 
     // Check if already exists (idempotent)
     if (fs.existsSync(commitPath)) {
       // Overwrite with new data (allows corrections)
       fs.writeFileSync(commitPath, JSON.stringify(commit, null, 2));
-      skipped++;
+      updated++;
     } else {
       fs.writeFileSync(commitPath, JSON.stringify(commit, null, 2));
       saved++;
@@ -167,8 +213,8 @@ async function main() {
   }
 
   console.log(`Saved: ${saved} new commits to ${commitsDir}/`);
-  if (skipped > 0) {
-    console.log(`Updated: ${skipped} existing commits`);
+  if (updated > 0) {
+    console.log(`Updated: ${updated} existing commits`);
   }
 
   // Update manifest
@@ -176,7 +222,7 @@ async function main() {
   const existingSet = new Set(manifest.processedShas);
 
   let added = 0;
-  for (const commit of commits) {
+  for (const commit of validCommits) {
     if (!existingSet.has(commit.sha)) {
       manifest.processedShas.push(commit.sha);
       added++;
@@ -187,7 +233,14 @@ async function main() {
   writeManifest(repoId, manifest);
 
   console.log(`Updated manifest: +${added} SHAs (total: ${manifest.processedShas.length})`);
-  console.log('Done!');
+
+  // Final status
+  if (failedCommits.length > 0) {
+    console.log(`\nWarning: ${failedCommits.length} commit(s) need reprocessing (see needs-reprocess.json)`);
+    process.exit(1); // Exit with error so it's clear something went wrong
+  } else {
+    console.log('Done!');
+  }
 }
 
 main().catch(err => {
