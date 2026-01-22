@@ -2,12 +2,13 @@
 #
 # Update All Repos - Git Analytics
 #
-# Reads config/repos.json, clones/updates all repos, extracts data,
-# and aggregates into dashboard/data.json
+# Reads config/repos.json and extracts git data from all repos.
+# By default uses GitHub API (no cloning required).
 #
 # Usage:
-#   ./scripts/update-all.sh           # Update all repos
-#   ./scripts/update-all.sh --fresh   # Remove cached repos and re-clone
+#   ./scripts/update-all.sh           # Extract via GitHub API (default, fast)
+#   ./scripts/update-all.sh --clone   # Clone repos and extract locally
+#   ./scripts/update-all.sh --fresh   # Remove cached repos and re-clone (implies --clone)
 #
 
 set -e
@@ -25,17 +26,35 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
+# Default to API mode
+USE_API=true
+
 echo "=========================================="
 echo "Git Analytics - Update All Repos"
 echo "=========================================="
 echo ""
 
-# Check for --fresh flag
-if [[ "$1" == "--fresh" ]]; then
-    echo -e "${YELLOW}Fresh mode: removing cached repos...${NC}"
-    rm -rf "$CACHE_DIR"
-    echo ""
+# Parse flags
+for arg in "$@"; do
+    case $arg in
+        --clone)
+            USE_API=false
+            ;;
+        --fresh)
+            USE_API=false
+            echo -e "${YELLOW}Fresh mode: removing cached repos...${NC}"
+            rm -rf "$CACHE_DIR"
+            echo ""
+            ;;
+    esac
+done
+
+if [ "$USE_API" = true ]; then
+    echo -e "${GREEN}Mode: GitHub API (no cloning)${NC}"
+else
+    echo -e "${YELLOW}Mode: Clone-based extraction${NC}"
 fi
+echo ""
 
 # Check config exists
 if [[ ! -f "$CONFIG_FILE" ]]; then
@@ -68,40 +87,72 @@ REPO_COUNT=$(echo "$REPOS" | wc -l)
 echo "Found $REPO_COUNT repositories in config"
 echo ""
 
-# Clone or update each repo
-echo "Step 1: Fetching repositories"
-echo "-------------------------------------------"
+if [ "$USE_API" = true ]; then
+    # === API-based extraction (no cloning) ===
+    echo "Step 1: Extracting via GitHub API"
+    echo "-------------------------------------------"
 
-while IFS='|' read -r NAME URL; do
-    REPO_PATH="$CACHE_DIR/$NAME"
-
-    if [[ -d "$REPO_PATH/.git" ]]; then
-        echo -e "  ${GREEN}↻${NC} Updating $NAME..."
-        (cd "$REPO_PATH" && git fetch --all --quiet && git pull --quiet 2>/dev/null || true)
-    else
-        echo -e "  ${GREEN}↓${NC} Cloning $NAME..."
-        git clone --quiet "$URL" "$REPO_PATH"
+    # Check gh CLI is available and authenticated
+    if ! command -v gh &> /dev/null; then
+        echo -e "${RED}Error: gh CLI not found. Install from https://cli.github.com/${NC}"
+        echo "Or use --clone flag to extract via cloning instead."
+        exit 1
     fi
-done <<< "$REPOS"
+
+    if ! gh auth status &> /dev/null; then
+        echo -e "${RED}Error: Not authenticated with GitHub. Run: gh auth login${NC}"
+        echo "Or use --clone flag to extract via cloning instead."
+        exit 1
+    fi
+
+    while IFS='|' read -r NAME URL; do
+        # Extract owner/repo from URL (handles both .git and non-.git URLs)
+        REPO_FULL=$(echo "$URL" | sed -E 's|https://github.com/||; s|\.git$||')
+        echo "  Extracting $REPO_FULL..."
+        node "$SCRIPT_DIR/extract-api.js" "$REPO_FULL" --output="$REPORTS_DIR" 2>&1 | sed 's/^/    /'
+    done <<< "$REPOS"
+
+else
+    # === Clone-based extraction ===
+
+    # Create cache directory
+    mkdir -p "$CACHE_DIR"
+
+    # Clone or update each repo
+    echo "Step 1: Fetching repositories"
+    echo "-------------------------------------------"
+
+    while IFS='|' read -r NAME URL; do
+        REPO_PATH="$CACHE_DIR/$NAME"
+
+        if [[ -d "$REPO_PATH/.git" ]]; then
+            echo -e "  ${GREEN}↻${NC} Updating $NAME..."
+            (cd "$REPO_PATH" && git fetch --all --quiet && git pull --quiet 2>/dev/null || true)
+        else
+            echo -e "  ${GREEN}↓${NC} Cloning $NAME..."
+            git clone --quiet "$URL" "$REPO_PATH"
+        fi
+    done <<< "$REPOS"
+
+    echo ""
+
+    # Extract data from each repo
+    echo "Step 2: Extracting git data"
+    echo "-------------------------------------------"
+
+    while IFS='|' read -r NAME URL; do
+        REPO_PATH="$CACHE_DIR/$NAME"
+        echo "  Extracting $NAME..."
+        node "$SCRIPT_DIR/extract.js" "$REPO_PATH" --output="$REPORTS_DIR" 2>&1 | sed 's/^/    /'
+    done <<< "$REPOS"
+fi
 
 echo ""
-
-# Extract data from each repo
-echo "Step 2: Extracting git data"
-echo "-------------------------------------------"
-
-REPORT_PATHS=""
-while IFS='|' read -r NAME URL; do
-    REPO_PATH="$CACHE_DIR/$NAME"
-    echo "  Extracting $NAME..."
-    node "$SCRIPT_DIR/extract.js" "$REPO_PATH" --output="$REPORTS_DIR" 2>&1 | sed 's/^/    /'
-    REPORT_PATHS="$REPORT_PATHS $REPORTS_DIR/$NAME"
-done <<< "$REPOS"
 
 echo ""
 
 # Aggregate from processed data (with AI tags)
-echo "Step 3: Aggregating processed data for dashboard"
+echo "Step 2: Aggregating processed data for dashboard"
 echo "-------------------------------------------"
 
 node "$SCRIPT_DIR/aggregate-processed.js" 2>&1 | sed 's/^/  /'

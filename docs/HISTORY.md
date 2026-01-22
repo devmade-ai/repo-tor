@@ -4,6 +4,37 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-22
 
+### Optimization: API-based extraction (no cloning required)
+
+Added `scripts/extract-api.js` to extract git data directly via GitHub API without cloning repos.
+
+**Problem:** Clone-based extraction required downloading full repos (potentially large) just to read commit history.
+
+**Solution:** Use GitHub API via `gh` CLI:
+- Fetches commit list with pagination
+- Gets stats and files per commit via API
+- Outputs same format as clone-based extractor
+
+**Benefits:**
+- No disk space for clones
+- Faster for initial setup
+- Works without git installed (only needs `gh` CLI)
+- Supports `--since` flag for incremental fetches
+
+**Usage:**
+```bash
+scripts/update-all.sh           # API mode (default)
+scripts/update-all.sh --clone   # Clone mode (if needed)
+```
+
+**Files added:**
+- `scripts/extract-api.js` - GitHub API-based extractor
+
+**Files updated:**
+- `scripts/update-all.sh` - Default to API mode, `--clone` flag for old behavior
+
+---
+
 ### Optimization: Merge-analysis script for faster feeding
 
 Added `scripts/merge-analysis.js` to dramatically reduce AI output tokens during the "feed the chicken" workflow.

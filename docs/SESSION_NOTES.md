@@ -8,7 +8,9 @@ Current state for AI assistants to continue work.
 
 **Extraction System:** AI analysis complete. 763 commits processed across 4 repositories. All previously malformed commits have been fixed.
 
-**Feed Optimization:** Added `merge-analysis.js` for ~10x token reduction during "feed the chicken" workflow. AI now outputs only analysis fields (sha, tags, complexity, urgency, impact) instead of full commit objects.
+**Feed Optimization:**
+- Added `extract-api.js` for API-based extraction (no cloning required, faster)
+- Added `merge-analysis.js` for ~10x token reduction during "feed the chicken" workflow
 
 **Live Dashboard:** https://devmade-ai.github.io/repo-tor/
 
@@ -81,14 +83,13 @@ const TAB_MAPPING = {
 | File | Purpose |
 |------|---------|
 | `dashboard/index.html` | Main dashboard (V2 complete) |
+| `scripts/extract-api.js` | GitHub API-based extraction (no cloning) |
 | `scripts/aggregate-processed.js` | Aggregation from processed/ data |
 | `scripts/merge-analysis.js` | Merge AI analysis with raw git data (optimized feed) |
 | `scripts/save-commit.js` | Save individual commit files (legacy, full objects) |
 | `scripts/pending.js` | Generate pending batches from manifest |
-| `scripts/fix-malformed.js` | Fix commits missing git metadata |
 | `dashboard/data.json` | Overall aggregated data |
 | `dashboard/repos/*.json` | Per-repo aggregated data |
-| `docs/DASHBOARD_V2_DESIGN.md` | Full design spec |
 | `docs/EXTRACTION_PLAYBOOK.md` | Extraction workflow |
 
 ---
@@ -125,4 +126,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-22 - Added merge-analysis.js for optimized feed workflow (~10x token reduction)*
+*Last updated: 2026-01-22 - Added API-based extraction and merge-analysis.js*
