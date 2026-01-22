@@ -1,5 +1,24 @@
 {
   "sha": "8d24ab8",
+  "fullSha": "8d24ab8876ae96ee6c1e8cd635eb2ab9690a747d",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T20:16:47+00:00",
+  "commitDate": "2025-12-27T20:16:47+00:00",
+  "subject": "Implement comprehensive dashboard race chart improvements",
+  "body": "- Keep existing values when selection changes via storedInputValues Map\n- Set minimum initial values (1 for non-rate fields, 0 for rate fields)\n- Add interactive race chart visualization with play/pause/reset controls\n- Remove empty metric cards when all values are null/zero\n- Replace winner trophy icons with top-3 highlight system using blue gradients\n- Fix null and zero value handling (display \"N/A\" for null/undefined)\n- Add starting customer base field to per-seat model\n- Remove recommendation section from executive summary\n\nThe race chart provides an animated bar chart showing revenue progression\nover time, with manual controls and slider for month-by-month exploration.\nHighlights emphasize top 3 performers with different opacity levels.",
+  "stats": {
+    "filesChanged": 2,
+    "additions": 255,
+    "deletions": 30
+  },
   "tags": [
     "feature",
     "ui",
@@ -7,5 +26,6 @@
   ],
   "complexity": 4,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

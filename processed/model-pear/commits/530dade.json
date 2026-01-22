@@ -1,10 +1,30 @@
 {
   "sha": "530dade",
+  "fullSha": "530dade206e4a7a64291625093ec560495fcb635",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-26T04:27:49+00:00",
+  "commitDate": "2025-12-26T04:27:49+00:00",
+  "subject": "Implement Layer 2/3 framework modifiers across all pricing models",
+  "body": "This commit completes the calculation engine integration for the framework alignment:\n\n✅ Added central applyFrameworkModifiers() helper function\n- Consistently applies Layer 2 (Delivery) and Layer 3 (Service) modifiers\n- Handles self-hosted one-time conversions\n- Adds managed services base fees\n- Adjusts pricing, churn rates, and CAC\n\n✅ Updated generateAllForms() to use category-specific defaults\n- Applies pricing defaults from LAYER_1_CATEGORIES\n- Shows category-specific hint text for ranges and benchmarks\n- Maps common inputs (price, churnRate, conversionRate) to context data\n\n✅ Updated all 20 pricing model calculate() functions:\nCore models:\n- per-seat: Applies modifiers to seat pricing and churn\n- usage-based: Applies modifiers to per-unit pricing\n- tiered: Applies modifiers to all three tier prices\n- freemium: Applies modifiers to paid tier pricing and churn\n- subscription: Applies modifiers to monthly price and churn\n\nAdditional models (15 total):\n- one-time, retainer, managed-services, pay-per-transaction\n- credits-token, time-materials, fixed-price, outcome-based\n- open-core, marketplace, revenue-share, advertising\n- ela, data-licensing, white-label\n\nEach model now:\n1. Calls applyFrameworkModifiers() at start of calculate()\n2. Uses modifiers.price instead of raw input price\n3. Uses modifiers.churn instead of raw churn rate\n4. Adds managed services revenue when applicable\n5. Includes debug info (appliedPrice, appliedChurnRate)\n\nThis enables the full framework flow:\nCategory → Models → Delivery → Service → Calculate\n\nNext steps: Testing and industry benchmarks display",
+  "stats": {
+    "filesChanged": 1,
+    "additions": 387,
+    "deletions": 62
+  },
   "tags": [
     "feature",
     "calculation"
   ],
   "complexity": 5,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

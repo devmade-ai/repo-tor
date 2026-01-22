@@ -1,10 +1,30 @@
 {
   "sha": "8a1c149",
+  "fullSha": "8a1c1492cb839d8c8eca044cec9b449e7a9aff6a",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T21:13:00+00:00",
+  "commitDate": "2025-12-27T21:13:00+00:00",
+  "subject": "Adapt currency and default values for South African market",
+  "body": "- Changed currency formatter from USD to ZAR (South African Rand)\n- Updated all currency labels from ($) to (R) throughout the app\n- Converted all model default values to appropriate South African Rand amounts\n  - One-time license: R15,000 (was $499)\n  - Subscription: R1,800/month (was $99)\n  - Per-seat: R450/seat (was $25)\n  - Usage-based: R0.90/unit (was $0.05)\n  - Tiered pricing: R520/R1,800/R5,400 (was $29/$99/$299)\n  - Retainer: R90,000/month (was $5,000)\n  - Managed services: R180,000/month (was $10,000)\n  - Enterprise models: R9M+ annual contracts (was $500k)\n  - All other models scaled proportionally using ~18:1 exchange rate\n\nThis aligns the calculator with South African market pricing context\nthat was already present in the LAYER_1_CATEGORIES configuration.",
+  "stats": {
+    "filesChanged": 1,
+    "additions": 48,
+    "deletions": 48
+  },
   "tags": [
     "config",
     "localization"
   ],
   "complexity": 3,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

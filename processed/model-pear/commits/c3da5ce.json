@@ -1,10 +1,30 @@
 {
   "sha": "c3da5ce",
+  "fullSha": "c3da5ce601a9f4620f37fb01b52033c0f28a221a",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-31T22:10:25+00:00",
+  "commitDate": "2025-12-31T22:10:25+00:00",
+  "subject": "Enhance calculator with explanations, tooltips, and variable display",
+  "body": "Major improvements to calculator transparency and usability:\n\nFeatures Added:\n- Clickable tooltips: Interactive info icons (ⓘ) throughout the interface\n  - Input fields show detailed parameter explanations and context\n  - Metric cards display calculation methods and benchmarks\n  - Model info shows formulas, methodology, and use cases\n- Calculation explanations: Comprehensive CALCULATION_EXPLANATIONS object\n  - Formulas for all 20 revenue models\n  - Step-by-step methodology descriptions\n  - Key metrics and use cases for each model\n- Variables summary panel: Display all inputs used in calculations\n  - Shows formatted values for transparency\n  - Available in both single and comparison modes\n  - Clickable info icons on each variable\n- Zero value support: Intelligent validation for realistic scenarios\n  - Allow zero for optional variables (startingCustomers, expansionRate)\n  - Context-aware warnings (zero customers + zero base)\n  - Maintain errors for nonsensical zeros (price = 0)\n\nTechnical Changes:\n- Added tooltip modal component with backdrop and close functionality\n- Updated input form generation with clickable info icons\n- Enhanced metric cards to use onclick instead of title attribute\n- Created displayVariablesSummary() function for input transparency\n- Modified validation rules to support zero values appropriately\n- Updated README with new features documentation\n\nFiles Modified:\n- app.js: Core functionality, tooltips, validation, displays\n- index.html: Tooltip modal structure\n- README.md: Documentation of new features\n\nAll changes maintain backward compatibility and improve user experience\nwithout breaking existing functionality.",
+  "stats": {
+    "filesChanged": 3,
+    "additions": 500,
+    "deletions": 22
+  },
   "tags": [
     "feature",
     "ui"
   ],
   "complexity": 5,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

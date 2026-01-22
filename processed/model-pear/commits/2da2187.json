@@ -1,10 +1,30 @@
 {
   "sha": "2da2187",
+  "fullSha": "2da2187334169f02f0891536b35c8b4b31430fce",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-31T20:55:34+00:00",
+  "commitDate": "2025-12-31T20:55:34+00:00",
+  "subject": "Redesign table view as Admin panel for all model configuration",
+  "body": "Major Changes:\n- Removed Form/Table view toggle (was limited to selected models only)\n- Added 4th calculator mode: Admin Panel\n- Admin panel shows ALL 20 revenue models in spreadsheet-style table\n- Enables centralized editing of default parameters across all models\n- Layout: Parameters as rows, Models as columns\n- Real-time updates to model defaults\n- Sticky headers for easy navigation\n- Horizontal scrolling for all 19 models\n\nUI Updates:\n- Calculator mode buttons now in 2x2 grid (Vendor, Growth, Client, Admin)\n- Admin mode hides category/model selection (not needed)\n- Admin button uses ⚙️ icon for clarity\n\nDocumentation:\n- Updated README.md with Admin Mode usage guide\n- Updated claude.md with Admin Mode technical specification\n- Removed all references to old Table View feature\n\nTechnical Implementation:\n- New generateAdminPanel() function\n- New onAdminInputChange() event handler\n- Updated setCalculatorMode() to handle 'admin' mode\n- Removed old table view code (generateTableView, setInputView, etc.)\n- Cleaned up global state (removed currentInputView variable)",
+  "stats": {
+    "filesChanged": 4,
+    "additions": 226,
+    "deletions": 305
+  },
   "tags": [
     "feature",
     "ui"
   ],
   "complexity": 4,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

@@ -305,6 +305,66 @@ git push
 
 ---
 
+## Validation & Reprocessing
+
+### What Gets Validated
+
+`save-commit.js` validates every commit before saving:
+
+**Required metadata fields:**
+- `sha` - Commit hash
+- `timestamp` - Author date (ISO format)
+- `subject` - Commit subject line
+- `author` or `author_id` - Author info
+
+**Required analysis fields:**
+- `tags` - Array of tags
+- `complexity` - Score 1-5
+- `urgency` - Score 1-5
+- `impact` - One of: internal, user-facing, infrastructure, api
+
+### When Validation Fails
+
+If commits fail validation, `save-commit.js`:
+1. Writes failures to `processed/<repo>/needs-reprocess.json`
+2. Still saves any valid commits
+3. Exits with error code (so it's visible)
+4. Prints loud warnings about what failed
+
+**Common cause:** AI outputs only analysis fields without the full commit object from the pending batch.
+
+**Prevention:** When saving commits, always include the FULL commit object from the pending batch (with all git metadata), then add/modify the analysis fields.
+
+### Fixing Malformed Commits
+
+If `needs-reprocess.json` files exist, run:
+
+```bash
+node scripts/fix-malformed.js
+```
+
+This script:
+1. Reads `needs-reprocess.json` from each repo
+2. Clones/updates repos from `config/repos.json`
+3. Extracts git metadata for each malformed commit
+4. Merges with existing analysis (tags, complexity, urgency, impact)
+5. Saves complete commit objects
+6. Re-aggregates dashboard data
+
+**After extraction or feeding:**
+AI should check for `needs-reprocess.json` files and run `fix-malformed.js` if any exist.
+
+### Aggregation Validation
+
+`aggregate-processed.js` also validates commits during aggregation:
+- Skips malformed commits (missing timestamp, author, etc.)
+- Writes skipped commits to `needs-reprocess.json`
+- Prints warnings so issues are visible
+
+This catches any commits that slipped through or were corrupted.
+
+---
+
 ## Tagging Guidelines
 
 AI reads the full commit message (subject + body) and assigns ALL tags that apply.

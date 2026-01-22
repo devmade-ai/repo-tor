@@ -1,5 +1,24 @@
 {
   "sha": "114a5ed",
+  "fullSha": "114a5ed706a969e1d2a442efab093c72935a6ec9",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-25T21:35:25+00:00",
+  "commitDate": "2025-12-25T21:35:25+00:00",
+  "subject": "Improve comparison feature with enhanced UX and accuracy",
+  "body": "Added comprehensive improvements to make model comparisons more accurate,\nuser-friendly, and actionable:\n\n**Accuracy Improvements:**\n- Added real CAC (Customer Acquisition Cost) inputs to all models\n- Updated calculateUniversalMetrics to use actual CAC instead of estimates\n- More accurate LTV:CAC ratios and profitability metrics\n\n**User Experience Improvements:**\n- Quick-start scenario templates (Early Stage SaaS, Enterprise SaaS, etc.)\n- Smart input validation with actionable warnings before calculation\n- Visual winner indicators with trophy icons and percentage differences\n- Metric tooltips with explanations and industry benchmarks\n- Executive summary panel with AI-generated recommendations\n- Empty state handling for zero-revenue scenarios\n- Enhanced input labels with contextual hints\n\n**Technical Changes:**\n- New constants: SCENARIO_TEMPLATES, METRIC_EXPLANATIONS\n- New functions: validateModelInputs, displayValidationWarnings,\n  getMetricInterpretation, renderExecutiveSummary, generateRecommendation\n- Updated: calculateUniversalMetrics, renderUniversalMetrics,\n  renderFamilyOverlayChart, renderSideBySideCharts\n- CSS additions: winner-row styling, metric-card hover effects,\n  validation warning animations\n\n**Documentation:**\n- Updated claude.md with detailed feature documentation\n- Added technical architecture changes section\n- Marked resolved open questions",
+  "stats": {
+    "filesChanged": 3,
+    "additions": 955,
+    "deletions": 107
+  },
   "tags": [
     "feature",
     "ui",
@@ -7,5 +26,6 @@
   ],
   "complexity": 5,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

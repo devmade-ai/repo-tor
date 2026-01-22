@@ -1,10 +1,30 @@
 {
   "sha": "ffc19b6",
+  "fullSha": "ffc19b6d1b42d27dd4375e026a9c5acefc011e10",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-31T20:38:07+00:00",
+  "commitDate": "2025-12-31T20:38:07+00:00",
+  "subject": "Add Client Budget Calculator mode - client/cost perspective",
+  "body": "This commit introduces a new Client Budget Calculator mode that complements\nthe existing Vendor (forward) and Growth (reverse) modes. The new mode allows\nclients/buyers to input their budget and find optimal pricing options.\n\nKey Changes:\n- UI: Added third calculator mode button \"Client\" (Budget Options)\n- HTML: New client budget input section with budget, flexibility, and priority options\n- JS: Implemented client budget calculation logic with 3 optimization strategies:\n  * Maximum Capacity: Get the most users/seats within budget\n  * Best Value: Optimize for lowest cost per unit\n  * Budget Conscious: Leave 20% buffer\n- Budget flexibility options: Strict, Moderate (±10%), Flexible (±20%)\n- Results display: Shows 3-6 pricing options with cost, capacity, and value metrics\n- Color-coded badges: Green (within budget), Yellow (within flex), Red (over)\n- Docs: Updated README.md and claude.md with client mode documentation\n\nThe three modes now serve different perspectives:\n1. Vendor Mode: Business calculating revenue from pricing parameters\n2. Growth Mode: Business with revenue target finding required inputs\n3. Client Mode: Buyer with budget finding best pricing options\n\nAll 20 revenue models now support the client budget calculator.",
+  "stats": {
+    "filesChanged": 4,
+    "additions": 709,
+    "deletions": 22
+  },
   "tags": [
     "feature",
     "calculation"
   ],
   "complexity": 5,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

@@ -89,14 +89,28 @@ args.forEach(arg => {
 // === Data Loading ===
 
 /**
+ * Validate that a commit has all required fields
+ * Returns error message if invalid, null if valid
+ */
+function validateCommit(commit, repoName) {
+  if (!commit.sha) return 'missing sha';
+  if (!commit.timestamp) return 'missing timestamp';
+  if (!commit.author_id && !commit.author) return 'missing author';
+  // Add repo_id if missing (for backwards compatibility)
+  if (!commit.repo_id) commit.repo_id = repoName;
+  return null;
+}
+
+/**
  * Load individual commit files from a repo's commits/ directory
+ * Returns { commits, malformed } where malformed contains commits that need reprocessing
  */
 function loadRepoCommits(repoName) {
   const commitsDir = path.join(PROCESSED_DIR, repoName, 'commits');
 
   if (!fs.existsSync(commitsDir)) {
     console.log(`  No commits directory for ${repoName}, skipping`);
-    return [];
+    return { commits: [], malformed: [] };
   }
 
   const commitFiles = fs.readdirSync(commitsDir)
@@ -105,30 +119,45 @@ function loadRepoCommits(repoName) {
 
   if (commitFiles.length === 0) {
     console.log(`  No commit files for ${repoName}, skipping`);
-    return [];
+    return { commits: [], malformed: [] };
   }
 
   const commits = [];
+  const malformed = [];
 
   for (const file of commitFiles) {
     try {
       const content = fs.readFileSync(path.join(commitsDir, file), 'utf-8');
       const commit = JSON.parse(content);
+
+      // Validate commit has required fields
+      const error = validateCommit(commit, repoName);
+      if (error) {
+        malformed.push({ sha: commit.sha || file, error, file });
+        continue;
+      }
+
       commits.push(commit);
     } catch (err) {
       console.error(`  Error reading ${file}: ${err.message}`);
     }
   }
 
-  console.log(`  ${repoName}: ${commits.length} commits`);
-  return commits;
+  if (malformed.length > 0) {
+    console.log(`  ${repoName}: ${commits.length} commits (${malformed.length} MALFORMED - need reprocessing)`);
+  } else {
+    console.log(`  ${repoName}: ${commits.length} commits`);
+  }
+  return { commits, malformed };
 }
 
 /**
  * Load commits from all repos
+ * Returns { repos, allMalformed } where allMalformed maps repo -> malformed commits
  */
 function loadAllRepos() {
   const repos = {};
+  const allMalformed = {};
 
   if (!fs.existsSync(PROCESSED_DIR)) {
     console.error(`Processed directory not found: ${PROCESSED_DIR}`);
@@ -141,13 +170,16 @@ function loadAllRepos() {
   console.log(`\nLoading processed data from ${repoDirs.length} repos:\n`);
 
   for (const repoName of repoDirs) {
-    const commits = loadRepoCommits(repoName);
+    const { commits, malformed } = loadRepoCommits(repoName);
     if (commits.length > 0) {
       repos[repoName] = commits;
     }
+    if (malformed.length > 0) {
+      allMalformed[repoName] = malformed;
+    }
   }
 
-  return repos;
+  return { repos, allMalformed };
 }
 
 // === Aggregation Functions ===
@@ -504,12 +536,37 @@ function main() {
   loadAuthorMap();
 
   // Load all repos
-  const repos = loadAllRepos();
+  const { repos, allMalformed } = loadAllRepos();
   const repoNames = Object.keys(repos);
 
   if (repoNames.length === 0) {
     console.error('\nNo processed data found. Run extraction first.');
     process.exit(1);
+  }
+
+  // Report malformed commits loudly
+  const malformedRepos = Object.keys(allMalformed);
+  if (malformedRepos.length > 0) {
+    console.log('\n========== MALFORMED COMMITS ==========');
+    console.log('The following commits need reprocessing:\n');
+
+    let totalMalformed = 0;
+    for (const repoName of malformedRepos) {
+      const malformed = allMalformed[repoName];
+      totalMalformed += malformed.length;
+      console.log(`  ${repoName}: ${malformed.length} malformed`);
+      for (const m of malformed) {
+        console.log(`    - ${m.sha}: ${m.error}`);
+      }
+
+      // Write to needs-reprocess.json in the repo's processed folder
+      const reprocessPath = path.join(PROCESSED_DIR, repoName, 'needs-reprocess.json');
+      writeJson(reprocessPath, malformed);
+    }
+
+    console.log(`\nTotal: ${totalMalformed} commits need reprocessing`);
+    console.log('Written to: processed/<repo>/needs-reprocess.json');
+    console.log('=========================================\n');
   }
 
   console.log(`\nGenerating aggregations:\n`);
@@ -535,6 +592,11 @@ function main() {
   console.log(`  Total commits: ${allCommits.length}`);
   console.log(`  Contributors: ${overallData.contributors.length}`);
   console.log(`  Output: ${outputDir}/`);
+
+  if (malformedRepos.length > 0) {
+    console.log(`\n  WARNING: Some commits were skipped due to missing fields.`);
+    console.log(`  Check processed/<repo>/needs-reprocess.json for details.`);
+  }
 }
 
 main();

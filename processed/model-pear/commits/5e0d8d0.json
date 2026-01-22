@@ -1,5 +1,24 @@
 {
   "sha": "5e0d8d0",
+  "fullSha": "5e0d8d04ba2e46692a956e19409554e26c4acda2",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-25T23:07:46+00:00",
+  "commitDate": "2025-12-25T23:07:46+00:00",
+  "subject": "Implement framework alignment: Layer 1, 2, 3 structure and UI",
+  "body": "Major Changes:\n- Added Layer 1 (Core Function Categories): 10 software categories with pricing contexts\n- Added Layer 2 (Delivery Mechanisms): 5 delivery options with modifiers\n- Added Layer 3 (Service Models): 4 service levels with impact metrics\n- Redesigned UI with 4-step flow: Category → Models → Delivery/Service → Inputs\n- Implemented category-based model filtering with context-specific pricing hints\n- Added event handlers for category selection and Layer 2/3 options\n\nData Structures:\n- LAYER_1_CATEGORIES: 10 categories including dev-devops, business-ops, marketing, etc.\n- LAYER_2_DELIVERY: cloud-saas, self-hosted, hybrid, mobile, api-embedded\n- LAYER_3_SERVICE: self-service, managed-services, professional-services, hybrid-modular\n- Helper functions for applying delivery and service modifiers\n\nUI Updates:\n- Step 1: Category selector with description and examples\n- Step 2: Filtered model checkboxes with category-specific pricing ranges\n- Step 3: Radio buttons for delivery mechanism and service model\n- Step 4: Model-specific inputs (existing functionality)\n\nNext Steps:\n- Apply Layer 2/3 modifiers in calculation engine\n- Update input forms with category-specific defaults\n- Add industry benchmark displays\n- Test complete user flows",
+  "stats": {
+    "filesChanged": 2,
+    "additions": 856,
+    "deletions": 52
+  },
   "tags": [
     "feature",
     "architecture",
@@ -7,5 +26,6 @@
   ],
   "complexity": 5,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

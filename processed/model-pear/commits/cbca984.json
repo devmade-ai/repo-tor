@@ -1,10 +1,30 @@
 {
   "sha": "cbca984",
+  "fullSha": "cbca98491597d9f71d53df4391d9cbd479188ccb",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-25T17:02:22+00:00",
+  "commitDate": "2025-12-25T17:02:22+00:00",
+  "subject": "Add multi-model comparison infrastructure",
+  "body": "Major Changes:\n- Added MODEL_FAMILIES metadata system with 7 model families\n- Created universal metrics calculator (CAC, LTV, LTV:CAC, payback period, growth rates)\n- Replaced dropdown selector with checkbox-based multi-select UI grouped by family\n- Implemented tabbed input forms for multiple model configuration\n- Built comparison views:\n  * Universal metrics panel for cross-model comparison\n  * Family overlay charts (same family models on one chart)\n  * Side-by-side charts (different family models)\n  * Month-by-month comparison table\n- Updated calculation engine to handle multiple models simultaneously\n- Added smart comparison logic based on model family compatibility\n\nUI Updates:\n- Checkbox selector with family grouping and descriptions\n- Selected models summary display\n- Tabbed input forms for multi-model configuration\n- Universal metrics comparison cards\n- Comparison charts container with overlay/side-by-side logic\n- Month-by-month data table for all selected models\n\nDocumentation:\n- Updated claude.md with new goals and architecture\n- Added note to keep claude.md updated with changes\n- Documented model families and comparison strategy",
+  "stats": {
+    "filesChanged": 3,
+    "additions": 840,
+    "deletions": 34
+  },
   "tags": [
     "feature",
     "architecture"
   ],
   "complexity": 5,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

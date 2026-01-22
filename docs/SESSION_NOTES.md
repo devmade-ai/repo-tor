@@ -4,9 +4,9 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete. Fixed critical bug where orphaned `stat-top-tag` JavaScript was causing Contributors, Features Built, and Bugs Fixed to show 0.
+**Dashboard V2:** Implementation complete. Fixed bug where malformed commits (missing timestamps) caused JavaScript errors that halted execution.
 
-**Extraction System:** AI analysis complete. 576 commits processed across 4 repositories.
+**Extraction System:** AI analysis complete. 763 commits processed across 4 repositories. All previously malformed commits have been fixed.
 
 **Live Dashboard:** https://devmade-ai.github.io/repo-tor/
 
@@ -82,6 +82,7 @@ const TAB_MAPPING = {
 | `scripts/aggregate-processed.js` | Aggregation from processed/ data |
 | `scripts/save-commit.js` | Save individual commit files (no IDE dialogs) |
 | `scripts/pending.js` | Generate pending batches from manifest |
+| `scripts/fix-malformed.js` | Fix commits missing git metadata |
 | `dashboard/data.json` | Overall aggregated data |
 | `dashboard/repos/*.json` | Per-repo aggregated data |
 | `docs/DASHBOARD_V2_DESIGN.md` | Full design spec |
@@ -98,14 +99,14 @@ const TAB_MAPPING = {
 
 ### Extraction Progress
 
-| Repo | Status | Processed |
-|------|--------|-----------|
-| chatty-chart | Complete | 42/42 |
-| repo-tor | Complete | 185/185 |
-| social-ad-creator | Complete | 159/159 |
-| model-pear | Complete | 190/190 |
+| Repo | Status | Commits |
+|------|--------|---------|
+| chatty-chart | Complete | 42 |
+| repo-tor | Complete | 220 |
+| social-ad-creator | Complete | 183 |
+| model-pear | Complete | 318 |
 
-**Total:** 576 commits processed (100%)
+**Total:** 763 commits (65 previously malformed commits fixed via `fix-malformed.js`)
 
 ### Storage Migration
 
@@ -121,4 +122,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-21 - Fixed orphaned stat-top-tag bug; dark-only theme with Figtree font*
+*Last updated: 2026-01-22 - Fixed all 65 malformed commits; 763 total commits; documented validation & reprocessing workflow*

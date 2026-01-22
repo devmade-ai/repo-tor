@@ -1771,6 +1771,10 @@
 
         // === Work Pattern Helpers ===
         function getWorkPattern(commit) {
+            // Guard against missing timestamp
+            if (!commit.timestamp) {
+                return { isAfterHours: false, isWeekend: false, isHoliday: false, hour: 0, dayOfWeek: 0, dateStr: '' };
+            }
             const date = new Date(commit.timestamp);
             const hour = useUTC ? date.getUTCHours() : date.getHours();
             const dayOfWeek = useUTC ? date.getUTCDay() : date.getDay();
@@ -3627,10 +3631,12 @@
                     if (tabEl) tabEl.classList.remove('hidden');
                 });
 
-                // Re-render charts when their tab becomes visible (Chart.js needs visible containers)
+                // Re-render content when tab becomes visible (Chart.js needs visible containers)
                 if (data) {
                     const activeTab = btn.dataset.tab;
-                    if (activeTab === 'activity') {
+                    if (activeTab === 'overview') {
+                        renderSummary();
+                    } else if (activeTab === 'activity') {
                         renderTiming();
                     } else if (activeTab === 'work') {
                         renderTags();

@@ -1,5 +1,24 @@
 {
   "sha": "62a1d0c",
+  "fullSha": "62a1d0c1eddc27722e871827c652ae1c5202c52a",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-01T14:46:09+00:00",
+  "commitDate": "2026-01-01T14:46:09+00:00",
+  "subject": "Add flexible model selection toggle and update documentation",
+  "body": "Features:\n- Add \"Compare multiple models\" toggle checkbox in model selection UI\n- Switch between single model (radio buttons) and multiple models (checkboxes)\n- Automatically regenerate model selector when toggle changes\n- Preserve current selections when switching modes\n\nImplementation:\n- Enhanced generateModelCheckboxes() to detect toggle state and use appropriate input type\n- Updated onModelSelectionChange() to handle both radio and checkbox selection logic\n- Added onCompareMultipleToggle() event handler to regenerate selector\n- Added toggle UI in index.html with clear user instructions\n\nDocumentation:\n- Updated README.md with new toggle feature in Vendor and Client mode sections\n- Added comprehensive changelog entry documenting all changes\n- Updated claude.md with detailed technical implementation notes\n- Added resolved items to Questions & Decisions section\n\nThis completes the model selection improvements, giving users full control\nover whether they want to focus on a single model or compare multiple models.",
+  "stats": {
+    "filesChanged": 4,
+    "additions": 145,
+    "deletions": 22
+  },
   "tags": [
     "feature",
     "ui",
@@ -7,5 +26,6 @@
   ],
   "complexity": 3,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

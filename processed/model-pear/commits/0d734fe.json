@@ -1,10 +1,30 @@
 {
   "sha": "0d734fe",
+  "fullSha": "0d734fe64ecd8973ccaaafda724abb972e058b02",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-01T15:10:02+00:00",
+  "commitDate": "2026-01-01T15:10:02+00:00",
+  "subject": "Refactor monolithic app.js into modular architecture",
+  "body": "Major refactoring to improve maintainability, testability, and developer experience.\n\n## Changes\n\n### Architecture\n- Extracted 6,377-line monolithic app.js into 12 specialized modules\n- Organized code into 7 directories with clear separation of concerns\n- Implemented ES6 module system with proper imports/exports\n- Created main app.js orchestrator (now ~500 lines)\n\n### New Directory Structure\n- config/ - Global configuration and application state (1 file)\n- framework/ - Three-layer framework implementation (4 files)\n  - model-families.js - Model family groupings\n  - categories.js - Layer 1: Core function categories\n  - delivery.js - Layer 2: Delivery mechanisms\n  - services.js - Layer 3: Service models\n- models/ - All 20 revenue model definitions (1 file, ~1,250 lines)\n- utils/ - Utility functions for formatting, validation, calculations (1 file, ~810 lines)\n- charts/ - Chart rendering with ApexCharts (1 file, ~730 lines)\n- calculators/ - Calculation engines (2 files, ~1,300 lines)\n  - engine.js - Core calculation engine\n  - client-budget.js - Client budget calculator\n- ui/ - User interface logic (5 files, ~1,600 lines)\n  - forms.js - Dynamic form generation\n  - events.js - Event handlers\n  - initialization.js - App initialization logic\n  - admin.js - Admin panel functionality\n  - modals.js - Tooltip and modal functions\n\n### Technical Improvements\n- Resolved circular dependencies using dependency injection pattern\n- Each module has clear, single responsibility\n- Proper encapsulation with explicit exports\n- Maintained backward compatibility with existing HTML\n- All JavaScript files pass syntax validation\n\n### Documentation Updates\n- Updated README.md with new project structure and module descriptions\n- Added modular architecture benefits section\n- Updated QUICK_START_ALIGNMENT.md with modular structure examples\n- Added notes to IMPLEMENTATION_PROGRESS.md and FRAMEWORK_ALIGNMENT_PLAN.md\n- Added comprehensive changelog entry for refactoring\n\n### Benefits\n- 92% reduction in main file size (6,377 lines → ~500 lines)\n- Better maintainability and code navigation\n- Individual modules can be unit tested independently\n- Reduced cognitive load for developers\n- Easier to add new revenue models or features\n- Improved scalability for future development\n\n### Testing\n- All JavaScript files validated for syntax errors\n- Module structure verified\n- Import/export dependencies confirmed\n- No breaking changes to existing functionality",
+  "stats": {
+    "filesChanged": 21,
+    "additions": 6905,
+    "deletions": 6391
+  },
   "tags": [
     "refactor",
     "architecture"
   ],
   "complexity": 5,
   "urgency": 2,
-  "impact": "internal"
+  "impact": "internal",
+  "repo_id": "model-pear"
 }

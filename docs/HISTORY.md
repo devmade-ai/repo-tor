@@ -2,6 +2,30 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-22
+
+### Fix: Skip malformed commits and prevent incomplete saves
+
+Dashboard was showing empty sections because malformed commits (missing timestamp, author)
+were causing JavaScript errors that halted execution before event listeners were attached.
+
+**Root Cause:**
+- 65 processed commit files were missing required fields (timestamp, author_id, repo_id)
+- When AI analyzed batches, it only output analysis fields (tags, complexity, urgency, impact)
+  instead of the complete commit object (original metadata + analysis)
+- `save-commit.js` had no validation, so incomplete commits were saved
+- Dashboard JavaScript crashed trying to access undefined `.timestamp`
+
+**Changes:**
+- `save-commit.js`: Added validation for required fields (sha, timestamp, subject, author)
+  and analysis fields (tags, complexity, urgency, impact) - rejects incomplete commits
+- `aggregate-processed.js`: Added `validateCommit()` as safety net to skip malformed commits
+- `dashboard/index.html`: Added null guard in `getWorkPattern()` for timestamps
+- `dashboard/index.html`: Added `renderSummary()` on Overview tab switch
+
+**Prevention:** `save-commit.js` now fails fast with clear error message if commit objects
+are missing required fields, preventing incomplete commits from being saved in the future.
+
 ## 2026-01-21
 
 ### Fix: Remove orphaned stat-top-tag JavaScript causing dashboard to break
