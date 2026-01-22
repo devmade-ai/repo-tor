@@ -2,6 +2,22 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-22
+
+### Fix: Add Overview tab re-render on tab switch
+
+When switching between tabs, the Overview tab's Executive Summary was not being re-rendered,
+which could cause stale data to display if filters or the compare period were changed while
+viewing another tab.
+
+**Root Cause:**
+- Tab switch logic re-rendered Activity, Work, and Health tabs, but not Overview
+- renderSummary() was only called on initial load and filter changes
+- If user changed compare period while on another tab, Overview wouldn't update on return
+
+**Changes:**
+- Added `renderSummary()` call when switching to Overview tab in tab navigation handler
+
 ## 2026-01-21
 
 ### Fix: Remove orphaned stat-top-tag JavaScript causing dashboard to break

@@ -3627,10 +3627,12 @@
                     if (tabEl) tabEl.classList.remove('hidden');
                 });
 
-                // Re-render charts when their tab becomes visible (Chart.js needs visible containers)
+                // Re-render content when tab becomes visible (Chart.js needs visible containers)
                 if (data) {
                     const activeTab = btn.dataset.tab;
-                    if (activeTab === 'activity') {
+                    if (activeTab === 'overview') {
+                        renderSummary();
+                    } else if (activeTab === 'activity') {
                         renderTiming();
                     } else if (activeTab === 'work') {
                         renderTags();

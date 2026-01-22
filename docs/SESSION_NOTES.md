@@ -4,9 +4,9 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete. Fixed critical bug where orphaned `stat-top-tag` JavaScript was causing Contributors, Features Built, and Bugs Fixed to show 0.
+**Dashboard V2:** Implementation complete. Fixed bug where Overview tab wasn't re-rendered on tab switch, causing stale data when compare period changed.
 
-**Extraction System:** AI analysis complete. 576 commits processed across 4 repositories.
+**Extraction System:** AI analysis complete. 763 commits processed across 4 repositories.
 
 **Live Dashboard:** https://devmade-ai.github.io/repo-tor/
 
@@ -101,11 +101,11 @@ const TAB_MAPPING = {
 | Repo | Status | Processed |
 |------|--------|-----------|
 | chatty-chart | Complete | 42/42 |
-| repo-tor | Complete | 185/185 |
-| social-ad-creator | Complete | 159/159 |
-| model-pear | Complete | 190/190 |
+| repo-tor | Complete | 220/220 |
+| social-ad-creator | Complete | 183/183 |
+| model-pear | Complete | 318/318 |
 
-**Total:** 576 commits processed (100%)
+**Total:** 763 commits processed (100%)
 
 ### Storage Migration
 
@@ -121,4 +121,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-21 - Fixed orphaned stat-top-tag bug; dark-only theme with Figtree font*
+*Last updated: 2026-01-22 - Fixed Overview tab re-render on tab switch; 763 commits processed*
