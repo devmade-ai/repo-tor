@@ -1406,6 +1406,11 @@
             </div>
                 </main>
             </div>
+
+            <!-- Dashboard Footer -->
+            <footer id="dashboard-footer" class="mt-8 pt-6 pb-8 border-t border-themed text-center text-sm text-themed-tertiary">
+                <span id="footer-summary">Loading...</span>
+            </footer>
         </div>
 
         <!-- Detail Pane (slide-out panel for drill-down) -->
@@ -2340,6 +2345,20 @@
             if (hasActiveFilters()) {
                 applyFilters();
             }
+
+            // Update footer
+            updateFooter();
+        }
+
+        function updateFooter() {
+            const commitCount = data.summary.totalCommits;
+            const dateRange = `${formatDate(data.summary.dateRange.earliest)} – ${formatDate(data.summary.dateRange.latest)}`;
+            const loadedAt = new Date().toLocaleString('en-US', {
+                month: 'short', day: 'numeric', year: 'numeric',
+                hour: 'numeric', minute: '2-digit'
+            });
+            document.getElementById('footer-summary').textContent =
+                `${commitCount} commits · ${dateRange} · Data loaded ${loadedAt}`;
         }
 
         function formatDate(isoString) {
