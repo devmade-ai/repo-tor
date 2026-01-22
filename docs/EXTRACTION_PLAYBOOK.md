@@ -344,9 +344,16 @@ If commits fail validation, `save-commit.js`:
 3. Exits with error code (so it's visible)
 4. Prints loud warnings about what failed
 
-**Common cause (with save-commit.js):** AI outputs only analysis fields without the full commit object.
+**Common causes:**
+- AI outputs wrong format (e.g., `complexity: "high"` instead of `complexity: 3`)
+- AI omits required fields
+- Raw commit not found in `reports/` (extraction issue)
 
-**Solution:** Use `merge-analysis.js` instead - it only requires analysis fields and merges with raw git data automatically.
+**Both scripts write failures to `needs-reprocess.json`** with:
+- SHA and error details
+- The analysis that failed (for debugging)
+- Attempt count (tracks repeated failures)
+- Timestamp of last failure
 
 ### Fixing Malformed Commits
 

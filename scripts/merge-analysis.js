@@ -262,13 +262,40 @@ async function main() {
     }
   }
 
-  // Report failures
+  // Report and save failures
   if (results.failed.length > 0) {
+    const reprocessPath = path.join(PROCESSED_DIR, repoId, 'needs-reprocess.json');
+
+    // Load existing failures (avoid duplicates)
+    let existingFailures = [];
+    if (fs.existsSync(reprocessPath)) {
+      existingFailures = JSON.parse(fs.readFileSync(reprocessPath, 'utf-8'));
+    }
+
+    // Add new failures (update existing entries by sha)
+    const existingBySha = new Map(existingFailures.map(f => [f.sha, f]));
+    for (const failure of results.failed) {
+      existingBySha.set(failure.sha, {
+        sha: failure.sha,
+        errors: failure.errors,
+        analysis: failure.analysis,
+        failedAt: new Date().toISOString(),
+        attempts: (existingBySha.get(failure.sha)?.attempts || 0) + 1
+      });
+    }
+
+    // Write updated failures
+    const updatedFailures = Array.from(existingBySha.values());
+    fs.mkdirSync(path.dirname(reprocessPath), { recursive: true });
+    fs.writeFileSync(reprocessPath, JSON.stringify(updatedFailures, null, 2));
+
     console.error('\n========== MERGE FAILURES ==========');
     console.error(`${results.failed.length} commit(s) failed to merge:\n`);
     for (const failure of results.failed) {
-      console.error(`  ${failure.sha}: ${failure.errors.join(', ')}`);
+      const attempts = existingBySha.get(failure.sha)?.attempts || 1;
+      console.error(`  ${failure.sha}: ${failure.errors.join(', ')} (attempt ${attempts})`);
     }
+    console.error(`\nFailed commits written to: ${reprocessPath}`);
     console.error('=====================================\n');
   }
 
