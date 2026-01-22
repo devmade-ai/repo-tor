@@ -1,0 +1,20 @@
+{
+  "sha": "3862372",
+  "fullSha": "3862372c19b3cc08b718e6b6fffb93c9709c6699",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2026-01-20T22:04:07+02:00",
+  "subject": "refactor: migrate from batch files to individual commit files",
+  "body": "Store each analyzed commit as a separate JSON file instead of batching 15 commits per file. This simplifies deduplication (file existence = processed), enables atomic edits, and produces cleaner git diffs.\n\nChanges:\n- Add scripts/save-commit.js for saving individual commits\n- Add scripts/migrate-batches-to-commits.js for one-time migration\n- Update scripts/aggregate-processed.js to read from commits/\n- Update scripts/extract.js to write individual commit files\n- Migrate all 4 repos (576 commits total)\n- Delete old batches/ directories\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "refactor",
+    "migration"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "internal",
+  "repo_id": "repo-tor"
+}

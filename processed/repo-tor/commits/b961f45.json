@@ -1,0 +1,20 @@
+{
+  "sha": "b961f45",
+  "fullSha": "b961f45ec942d7b069a693d4c84ff3632e36027c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T10:57:05+00:00",
+  "subject": "fix: remove broken security-count reference in renderSecurity()",
+  "body": "The renderSecurity() function was trying to update a non-existent element 'security-count', causing a TypeError that stopped execution of applyFilters(). Since renderSummary() is called after renderSecurity() in applyFilters(), the Overview tab never updated when filters changed.\n\nThe security count is already correctly handled by renderHealth() via the 'health-security-count' element, so the broken line was simply removed.",
+  "tags": [
+    "bugfix",
+    "removal"
+  ],
+  "complexity": 2,
+  "urgency": 3,
+  "impact": "user-facing",
+  "repo_id": "repo-tor"
+}

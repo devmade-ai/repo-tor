@@ -1,0 +1,20 @@
+{
+  "sha": "25387c3",
+  "fullSha": "25387c3762f6e91ecb06b5bc0afd3a5e5d9670f2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T21:04:16+00:00",
+  "subject": "fix: remove orphaned stat-top-tag code breaking dashboard stats",
+  "body": "The dashboard was showing 0 for Contributors, Features Built, and Bugs Fixed because JavaScript was trying to set elements that no longer existed in the HTML after a previous layout change.\n\n- Remove stat-top-tag code from updateSummaryStats()\n- Update PDF export from 4 to 3 column layout\n- This fixes the TypeError that was halting script execution",
+  "tags": [
+    "bugfix",
+    "removal"
+  ],
+  "complexity": 2,
+  "urgency": 3,
+  "impact": "user-facing",
+  "repo_id": "repo-tor"
+}

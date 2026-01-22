@@ -1,0 +1,20 @@
+{
+  "sha": "4ecc1fd",
+  "fullSha": "4ecc1fd83900bd5c1f07a64373f3697f822b60da",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T07:04:34+00:00",
+  "subject": "fix: apply author identity mapping in aggregation",
+  "body": "The author-map.json config existed but wasn't being used during data aggregation. Now the aggregate script:\n\n- Loads config/author-map.json at startup\n- Resolves raw emails to canonical author IDs\n- Normalizes author_id in all commits\n- Merges contributor stats by canonical ID\n- Includes metadata.authors for dashboard resolution\n\nResult: jacotheron87's two email addresses are now properly merged into a single contributor (4 total instead of 5).",
+  "tags": [
+    "bugfix",
+    "feature"
+  ],
+  "complexity": 3,
+  "urgency": 2,
+  "impact": "internal",
+  "repo_id": "repo-tor"
+}
