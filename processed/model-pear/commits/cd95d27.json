@@ -1,10 +1,30 @@
 {
   "sha": "cd95d27",
+  "fullSha": "cd95d27b00aa2aca491548a08a70525c8588575b",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-30T10:13:34+00:00",
+  "commitDate": "2025-12-30T10:13:34+00:00",
+  "subject": "Set all default values to minimum realistic values for SA market",
+  "body": "Updated both pricing model inputs and category-level defaults to reflect\nminimum realistic values for early-stage companies in the South African market:\n\nPricing Models:\n- One-Time: R15,000 → R5,000 license, 25 → 5 units/month\n- Subscription: R1,800 → R500/month, 50 → 10 customers/month\n- Freemium: 500 → 100 free users, R900 → R300 paid tier\n- Usage-Based: R0.90 → R0.50/unit, 1000 → 500 usage, 20 → 5 customers\n- Tiered: R520/R1,800/R5,400 → R200/R600/R2,000, 100 → 20 customers\n- Per-Seat: R450 → R150/seat, 5 → 3 seats, 30 → 8 customers\n- Retainer: R90,000 → R25,000/month, 2 → 1 clients\n- Managed Services: R180,000 → R50,000/month, R90,000 → R25,000 setup\n- Pay-Per-Transaction: R45 → R10/transaction, 1000 → 500 transactions\n- Credits: R1.80 → R1.00/credit, 100 → 50 purchase size, 200 → 50 customers\n- Time & Materials: R2,700 → R800/hour, 5 → 2 resources\n- Fixed-Price: R900,000 → R200,000/project, 2 → 1 projects/month\n- Outcome-Based: R1,800,000 → R400,000 base value\n- Open Core: 2000 → 500 downloads, R90,000 → R30,000 enterprise\n- Marketplace: R1,800,000 → R500,000 volume, 500 → 100 buyers\n- Revenue Share: R3,600,000 → R1,000,000 revenue, 10 → 3 partners\n- Advertising: 100,000 → 25,000 users, R90 → R30 CPM\n- ELA: R9,000,000 → R2,500,000/year, 4 → 2 deals\n- Data Licensing: R900,000 → R250,000 license, R1,800 → R500 usage fee\n- White Label: R1,800,000 → R500,000 setup, R180,000 → R50,000/month\n\nCategory Defaults: Updated all LAYER_1_CATEGORIES to minimum range values\nreflecting conservative, achievable targets for SA bootstrapped/early-stage businesses.",
+  "stats": {
+    "filesChanged": 1,
+    "additions": 99,
+    "deletions": 99
+  },
   "tags": [
     "config",
     "localization"
   ],
   "complexity": 3,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

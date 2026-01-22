@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-22T00:47:51.162Z",
+    "generatedAt": "2026-01-22T00:51:05.534Z",
     "repository": "social-ad-creator",
     "scope": "social-ad-creator",
     "repoCount": 1,
-    "commitCount": 182,
+    "commitCount": 183,
     "authors": {
       "noreply@anthropic.com": {
         "name": "noreply@anthropic.com",
@@ -21,6 +21,37 @@
     }
   },
   "commits": [
+    {
+      "sha": "39e9a52",
+      "fullSha": "39e9a521b61e91ca1c3614dce172bf2af35f290d",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T23:16:34+00:00",
+      "commitDate": "2026-01-21T23:16:34+00:00",
+      "subject": "Fix pull-to-refresh more aggressively",
+      "body": "- Add overscroll-behavior: none to html element inline\n- Add overscroll-behavior-y: contain to html and #root in CSS\n- Add touch-action: pan-x pan-y to prevent browser gesture hijacking\n\nThe previous fix only applied to body which isn't enough for all browsers.",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 10,
+        "deletions": 1
+      },
+      "tags": [
+        "fix",
+        "ui",
+        "mobile"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "social-ad-creator"
+    },
     {
       "sha": "0ba35fe",
       "fullSha": "0ba35fe34a507b638f6cc318c9a9544c09590bad",
@@ -4644,14 +4675,16 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 60,
-      "avgComplexity": 1.25,
+      "commits": 61,
+      "avgComplexity": 1.26,
       "avgUrgency": 1.97,
       "tagBreakdown": {
+        "fix": 1,
+        "ui": 6,
+        "mobile": 1,
         "merge": 41,
         "bugfix": 3,
         "ux": 7,
-        "ui": 5,
         "docs": 7,
         "feature": 5,
         "accessibility": 1,
@@ -4662,7 +4695,7 @@
       },
       "impactBreakdown": {
         "internal": 47,
-        "user-facing": 13,
+        "user-facing": 14,
         "infrastructure": 0,
         "api": 0
       },
@@ -4705,13 +4738,15 @@
     }
   ],
   "summary": {
-    "totalCommits": 182,
+    "totalCommits": 183,
     "totalContributors": 3,
     "tagBreakdown": {
+      "fix": 2,
+      "ui": 61,
+      "mobile": 1,
       "merge": 41,
       "bugfix": 27,
       "ux": 17,
-      "ui": 60,
       "docs": 33,
       "feature": 49,
       "accessibility": 1,
@@ -4722,7 +4757,6 @@
       "revert": 5,
       "performance": 1,
       "error-handling": 1,
-      "fix": 1,
       "breaking": 1,
       "infra": 2,
       "chore": 6,
@@ -4730,21 +4764,21 @@
     },
     "complexityBreakdown": {
       "1": 81,
-      "2": 47,
+      "2": 48,
       "3": 33,
       "4": 18,
       "5": 3
     },
     "urgencyBreakdown": {
       "1": 52,
-      "2": 117,
+      "2": 118,
       "3": 13,
       "4": 0,
       "5": 0
     },
     "impactBreakdown": {
       "internal": 80,
-      "user-facing": 100,
+      "user-facing": 101,
       "infrastructure": 0,
       "api": 0
     },
@@ -4752,12 +4786,14 @@
     "avgUrgency": 1.79,
     "monthly": {
       "2026-01": {
-        "commits": 182,
+        "commits": 183,
         "tags": {
+          "fix": 2,
+          "ui": 61,
+          "mobile": 1,
           "merge": 41,
           "bugfix": 27,
           "ux": 17,
-          "ui": 60,
           "docs": 33,
           "feature": 49,
           "accessibility": 1,
@@ -4768,7 +4804,6 @@
           "revert": 5,
           "performance": 1,
           "error-handling": 1,
-          "fix": 1,
           "breaking": 1,
           "infra": 2,
           "chore": 6,
@@ -4776,7 +4811,7 @@
         },
         "impact": {
           "internal": 80,
-          "user-facing": 100,
+          "user-facing": 101,
           "infrastructure": 0,
           "api": 0
         },
@@ -4786,12 +4821,14 @@
     },
     "monthlyCommits": {
       "2026-01": {
-        "commits": 182,
+        "commits": 183,
         "tags": {
+          "fix": 2,
+          "ui": 61,
+          "mobile": 1,
           "merge": 41,
           "bugfix": 27,
           "ux": 17,
-          "ui": 60,
           "docs": 33,
           "feature": 49,
           "accessibility": 1,
@@ -4802,7 +4839,6 @@
           "revert": 5,
           "performance": 1,
           "error-handling": 1,
-          "fix": 1,
           "breaking": 1,
           "infra": 2,
           "chore": 6,
@@ -4810,7 +4846,7 @@
         },
         "impact": {
           "internal": 80,
-          "user-facing": 100,
+          "user-facing": 101,
           "infrastructure": 0,
           "api": 0
         },

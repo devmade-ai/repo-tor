@@ -1,10 +1,30 @@
 {
   "sha": "6051215",
+  "fullSha": "6051215b71e4867ab8ed06d6acf5d97657a9dc02",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-01T08:07:29+00:00",
+  "commitDate": "2026-01-01T08:07:29+00:00",
+  "subject": "Fix budget calculations, section visibility, and improve UX",
+  "body": "Fixed Issues:\n- Budget calculator options now update when models change in Client Mode\n- Eliminated empty sections after switching modes or calculations\n- Charts now display contextual subtitles/descriptions\n- Tooltips only appear on complex inputs, reducing clutter\n\nTechnical Changes:\n- Added updateClientBudgetOptions() call in onModelSelectionChange()\n- Created centralized hideAllResultPanels() function\n- Removed 50+ lines of redundant panel-hiding code\n- Added subtitle property to all major chart configurations\n- Made tooltip icons conditional based on hint complexity\n- Added variables-summary class for consistent cleanup\n\nDocumentation:\n- Updated README.md with January 2026 changelog\n- Updated claude.md with detailed bug fix documentation\n- Updated last modified dates",
+  "stats": {
+    "filesChanged": 3,
+    "additions": 153,
+    "deletions": 45
+  },
   "tags": [
     "fix",
     "ui"
   ],
   "complexity": 4,
   "urgency": 3,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

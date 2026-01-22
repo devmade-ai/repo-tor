@@ -1,5 +1,24 @@
 {
   "sha": "5c1c112",
+  "fullSha": "5c1c112c04ce2de1e377facf38c203163b80286b",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-25T18:41:07+00:00",
+  "commitDate": "2025-12-25T18:41:07+00:00",
+  "subject": "Fix multi-model comparison and mobile responsiveness",
+  "body": "- Fix models returning all zeros by namespacing input field IDs\n  - Input fields now use {modelKey}-{inputName} format\n  - Prevents ID conflicts when multiple models are selected\n  - All model forms kept in DOM (hidden/shown) instead of destroyed\n\n- Fix calculate & compare button for multiple models\n  - Updated calculateModel() to use namespaced input IDs\n  - Updated gatherInputs() to use namespaced input IDs\n  - Forms now persist in DOM so all model inputs are accessible\n\n- Fix mobile metrics card layout\n  - Changed from grid-cols-2 to grid-cols-1 on mobile\n  - Cards now stack vertically on small screens\n  - Responsive: 1 col (mobile) -> 2 cols (tablet) -> 4 cols (desktop)",
+  "stats": {
+    "filesChanged": 2,
+    "additions": 89,
+    "deletions": 17
+  },
   "tags": [
     "fix",
     "ui",
@@ -7,5 +26,6 @@
   ],
   "complexity": 3,
   "urgency": 3,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

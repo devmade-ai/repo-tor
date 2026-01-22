@@ -1,10 +1,30 @@
 {
   "sha": "153db33",
+  "fullSha": "153db33545e93c78186ff0518a3a109acad683b3",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T21:21:52+00:00",
+  "commitDate": "2025-12-27T21:21:52+00:00",
+  "subject": "Fix empty sections appearing between metrics and cumulative chart",
+  "body": "The issue was caused by a grid container wrapping the secondary charts\nthat was never hidden, even when its children were hidden. This resulted\nin empty space appearing in the comparison view.\n\nChanges:\n- Added 'secondaryChartsGrid' ID to the parent grid container (index.html:181)\n- Made parent grid hidden by default instead of individual containers\n- Updated all JavaScript to show/hide the parent grid instead of individual containers\n- Removed redundant visibility management of child containers\n\nThis ensures the grid and its gap spacing only appear when charts are\nactually being displayed, eliminating the empty section between metrics\nand the cumulative revenue chart.",
+  "stats": {
+    "filesChanged": 2,
+    "additions": 11,
+    "deletions": 20
+  },
   "tags": [
     "fix",
     "ui"
   ],
   "complexity": 2,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

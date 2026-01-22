@@ -1,10 +1,30 @@
 {
   "sha": "2bba0f2",
+  "fullSha": "2bba0f2f77f71503cf0799ef88dc22b7fa5c92d8",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-31T19:35:15+00:00",
+  "commitDate": "2025-12-31T19:35:15+00:00",
+  "subject": "Add reverse budget calculator with scenario planning",
+  "body": "Implement a comprehensive reverse calculator that allows users to:\n- Set revenue targets and timeframes\n- Calculate required input variables to hit those targets\n- Generate multiple scenarios (recommended, optimistic, conservative)\n- View full projections and charts with calculated inputs\n\nFeatures added:\n- Dual calculator modes (forward/reverse) with mode toggle UI\n- Reverse solver using binary search algorithm for accurate solutions\n- Dynamic constraint inputs for all non-solved variables\n- Scenario generator with 3 different assumption sets\n- Results display showing solved values, accuracy, and all inputs\n- Support for all 20 revenue models\n- Validation and error handling\n\nTechnical implementation:\n- New global state for calculator mode and reverse settings\n- Binary search algorithm with 1% tolerance and 50 iteration limit\n- Variable bounds based on input definitions and types\n- Format helpers for displaying solved values\n- Event handlers for mode toggling and model selection\n- Dynamic form generation for constraints\n\nDocumentation:\n- Updated README with reverse calculator usage guide\n- Added example use cases and step-by-step instructions\n- Updated project structure and features list",
+  "stats": {
+    "filesChanged": 3,
+    "additions": 742,
+    "deletions": 2
+  },
   "tags": [
     "feature",
     "calculation"
   ],
   "complexity": 5,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

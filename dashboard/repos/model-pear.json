@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-22T00:47:51.150Z",
+    "generatedAt": "2026-01-22T00:51:05.516Z",
     "repository": "model-pear",
     "scope": "model-pear",
     "repoCount": 1,
-    "commitCount": 265,
+    "commitCount": 318,
     "authors": {
       "noreply@anthropic.com": {
         "name": "noreply@anthropic.com",
@@ -6108,6 +6108,1576 @@
       "urgency": 1,
       "impact": "internal",
       "repo_id": "model-pear"
+    },
+    {
+      "sha": "f18527a",
+      "fullSha": "f18527a76515494da3e22754801e7e5f54d34131",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-01T17:11:46+02:00",
+      "commitDate": "2026-01-01T17:11:46+02:00",
+      "subject": "Merge pull request #24 from devmade-ai/claude/analyze-code-structure-E4LNH",
+      "body": "Refactor monolithic app.js into modular architecture",
+      "stats": {
+        "filesChanged": 21,
+        "additions": 6905,
+        "deletions": 6391
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "0d734fe",
+      "fullSha": "0d734fe64ecd8973ccaaafda724abb972e058b02",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-01T15:10:02+00:00",
+      "commitDate": "2026-01-01T15:10:02+00:00",
+      "subject": "Refactor monolithic app.js into modular architecture",
+      "body": "Major refactoring to improve maintainability, testability, and developer experience.\n\n## Changes\n\n### Architecture\n- Extracted 6,377-line monolithic app.js into 12 specialized modules\n- Organized code into 7 directories with clear separation of concerns\n- Implemented ES6 module system with proper imports/exports\n- Created main app.js orchestrator (now ~500 lines)\n\n### New Directory Structure\n- config/ - Global configuration and application state (1 file)\n- framework/ - Three-layer framework implementation (4 files)\n  - model-families.js - Model family groupings\n  - categories.js - Layer 1: Core function categories\n  - delivery.js - Layer 2: Delivery mechanisms\n  - services.js - Layer 3: Service models\n- models/ - All 20 revenue model definitions (1 file, ~1,250 lines)\n- utils/ - Utility functions for formatting, validation, calculations (1 file, ~810 lines)\n- charts/ - Chart rendering with ApexCharts (1 file, ~730 lines)\n- calculators/ - Calculation engines (2 files, ~1,300 lines)\n  - engine.js - Core calculation engine\n  - client-budget.js - Client budget calculator\n- ui/ - User interface logic (5 files, ~1,600 lines)\n  - forms.js - Dynamic form generation\n  - events.js - Event handlers\n  - initialization.js - App initialization logic\n  - admin.js - Admin panel functionality\n  - modals.js - Tooltip and modal functions\n\n### Technical Improvements\n- Resolved circular dependencies using dependency injection pattern\n- Each module has clear, single responsibility\n- Proper encapsulation with explicit exports\n- Maintained backward compatibility with existing HTML\n- All JavaScript files pass syntax validation\n\n### Documentation Updates\n- Updated README.md with new project structure and module descriptions\n- Added modular architecture benefits section\n- Updated QUICK_START_ALIGNMENT.md with modular structure examples\n- Added notes to IMPLEMENTATION_PROGRESS.md and FRAMEWORK_ALIGNMENT_PLAN.md\n- Added comprehensive changelog entry for refactoring\n\n### Benefits\n- 92% reduction in main file size (6,377 lines → ~500 lines)\n- Better maintainability and code navigation\n- Individual modules can be unit tested independently\n- Reduced cognitive load for developers\n- Easier to add new revenue models or features\n- Improved scalability for future development\n\n### Testing\n- All JavaScript files validated for syntax errors\n- Module structure verified\n- Import/export dependencies confirmed\n- No breaking changes to existing functionality",
+      "stats": {
+        "filesChanged": 21,
+        "additions": 6905,
+        "deletions": 6391
+      },
+      "tags": [
+        "refactor",
+        "architecture"
+      ],
+      "complexity": 5,
+      "urgency": 2,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "aa5d829",
+      "fullSha": "aa5d82968f1aef17de4f85f4432f859fe7ca9b5b",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-01T16:47:33+02:00",
+      "commitDate": "2026-01-01T16:47:33+02:00",
+      "subject": "Merge pull request #23 from devmade-ai/claude/fix-budget-model-selection-4SVgz",
+      "body": "Fix budget calculations to handle large budgets and improve capacity detection",
+      "stats": {
+        "filesChanged": 4,
+        "additions": 200,
+        "deletions": 57
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "62a1d0c",
+      "fullSha": "62a1d0c1eddc27722e871827c652ae1c5202c52a",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-01T14:46:09+00:00",
+      "commitDate": "2026-01-01T14:46:09+00:00",
+      "subject": "Add flexible model selection toggle and update documentation",
+      "body": "Features:\n- Add \"Compare multiple models\" toggle checkbox in model selection UI\n- Switch between single model (radio buttons) and multiple models (checkboxes)\n- Automatically regenerate model selector when toggle changes\n- Preserve current selections when switching modes\n\nImplementation:\n- Enhanced generateModelCheckboxes() to detect toggle state and use appropriate input type\n- Updated onModelSelectionChange() to handle both radio and checkbox selection logic\n- Added onCompareMultipleToggle() event handler to regenerate selector\n- Added toggle UI in index.html with clear user instructions\n\nDocumentation:\n- Updated README.md with new toggle feature in Vendor and Client mode sections\n- Added comprehensive changelog entry documenting all changes\n- Updated claude.md with detailed technical implementation notes\n- Added resolved items to Questions & Decisions section\n\nThis completes the model selection improvements, giving users full control\nover whether they want to focus on a single model or compare multiple models.",
+      "stats": {
+        "filesChanged": 4,
+        "additions": 145,
+        "deletions": 22
+      },
+      "tags": [
+        "feature",
+        "ui",
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "d18cc98",
+      "fullSha": "d18cc983f4a56e85f628a1b5df55343097c2f54d",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-01T14:40:31+00:00",
+      "commitDate": "2026-01-01T14:40:31+00:00",
+      "subject": "Fix budget calculations to handle large budgets and improve capacity detection",
+      "body": "- Add findCapacityInput() helper with case-insensitive keyword matching\n- Add calculateCapacityLimit() to dynamically scale search limits based on budget\n- Update findMaximumCapacity() to support budgets up to 1M capacity\n- Update findBestValue() with adaptive step sizes and dynamic limits (up to 50k)\n- Update findConservativeOption() with dynamic limits (up to 25k)\n- Fix issue where 10M budget showed \"no options\" due to hardcoded 10k limit\n\nThis resolves the budget calculation issue where large budgets were constrained\nby hardcoded capacity limits that were too low.",
+      "stats": {
+        "filesChanged": 1,
+        "additions": 55,
+        "deletions": 35
+      },
+      "tags": [
+        "fix",
+        "calculation"
+      ],
+      "complexity": 3,
+      "urgency": 3,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "c9c65ba",
+      "fullSha": "c9c65ba37a08044ab80d5c48fbbb1d7705aed9e8",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-01T10:12:18+02:00",
+      "commitDate": "2026-01-01T10:12:18+02:00",
+      "subject": "Merge pull request #22 from devmade-ai/claude/fix-budget-calculations-5XBow",
+      "body": "Fix budget calculations, section visibility, and improve UX",
+      "stats": {
+        "filesChanged": 3,
+        "additions": 153,
+        "deletions": 45
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "6051215",
+      "fullSha": "6051215b71e4867ab8ed06d6acf5d97657a9dc02",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-01T08:07:29+00:00",
+      "commitDate": "2026-01-01T08:07:29+00:00",
+      "subject": "Fix budget calculations, section visibility, and improve UX",
+      "body": "Fixed Issues:\n- Budget calculator options now update when models change in Client Mode\n- Eliminated empty sections after switching modes or calculations\n- Charts now display contextual subtitles/descriptions\n- Tooltips only appear on complex inputs, reducing clutter\n\nTechnical Changes:\n- Added updateClientBudgetOptions() call in onModelSelectionChange()\n- Created centralized hideAllResultPanels() function\n- Removed 50+ lines of redundant panel-hiding code\n- Added subtitle property to all major chart configurations\n- Made tooltip icons conditional based on hint complexity\n- Added variables-summary class for consistent cleanup\n\nDocumentation:\n- Updated README.md with January 2026 changelog\n- Updated claude.md with detailed bug fix documentation\n- Updated last modified dates",
+      "stats": {
+        "filesChanged": 3,
+        "additions": 153,
+        "deletions": 45
+      },
+      "tags": [
+        "fix",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 3,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "3afc753",
+      "fullSha": "3afc7530673926f3ca1144c878faa60cbd0bc753",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-01T00:12:32+02:00",
+      "commitDate": "2026-01-01T00:12:32+02:00",
+      "subject": "Merge pull request #21 from devmade-ai/claude/enhance-calculator-features-6puZZ",
+      "body": "Enhance calculator with explanations, tooltips, and variable display",
+      "stats": {
+        "filesChanged": 3,
+        "additions": 500,
+        "deletions": 22
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "c3da5ce",
+      "fullSha": "c3da5ce601a9f4620f37fb01b52033c0f28a221a",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-31T22:10:25+00:00",
+      "commitDate": "2025-12-31T22:10:25+00:00",
+      "subject": "Enhance calculator with explanations, tooltips, and variable display",
+      "body": "Major improvements to calculator transparency and usability:\n\nFeatures Added:\n- Clickable tooltips: Interactive info icons (ⓘ) throughout the interface\n  - Input fields show detailed parameter explanations and context\n  - Metric cards display calculation methods and benchmarks\n  - Model info shows formulas, methodology, and use cases\n- Calculation explanations: Comprehensive CALCULATION_EXPLANATIONS object\n  - Formulas for all 20 revenue models\n  - Step-by-step methodology descriptions\n  - Key metrics and use cases for each model\n- Variables summary panel: Display all inputs used in calculations\n  - Shows formatted values for transparency\n  - Available in both single and comparison modes\n  - Clickable info icons on each variable\n- Zero value support: Intelligent validation for realistic scenarios\n  - Allow zero for optional variables (startingCustomers, expansionRate)\n  - Context-aware warnings (zero customers + zero base)\n  - Maintain errors for nonsensical zeros (price = 0)\n\nTechnical Changes:\n- Added tooltip modal component with backdrop and close functionality\n- Updated input form generation with clickable info icons\n- Enhanced metric cards to use onclick instead of title attribute\n- Created displayVariablesSummary() function for input transparency\n- Modified validation rules to support zero values appropriately\n- Updated README with new features documentation\n\nFiles Modified:\n- app.js: Core functionality, tooltips, validation, displays\n- index.html: Tooltip modal structure\n- README.md: Documentation of new features\n\nAll changes maintain backward compatibility and improve user experience\nwithout breaking existing functionality.",
+      "stats": {
+        "filesChanged": 3,
+        "additions": 500,
+        "deletions": 22
+      },
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 5,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "1723240",
+      "fullSha": "17232402cc9f38023a9f53783378e81d1f2a0ba6",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-31T23:24:37+02:00",
+      "commitDate": "2025-12-31T23:24:37+02:00",
+      "subject": "Merge pull request #20 from devmade-ai/claude/redesign-table-admin-view-JPruD",
+      "body": "Redesign table view as Admin panel for all model configuration",
+      "stats": {
+        "filesChanged": 4,
+        "additions": 226,
+        "deletions": 305
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "2da2187",
+      "fullSha": "2da2187334169f02f0891536b35c8b4b31430fce",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-31T20:55:34+00:00",
+      "commitDate": "2025-12-31T20:55:34+00:00",
+      "subject": "Redesign table view as Admin panel for all model configuration",
+      "body": "Major Changes:\n- Removed Form/Table view toggle (was limited to selected models only)\n- Added 4th calculator mode: Admin Panel\n- Admin panel shows ALL 20 revenue models in spreadsheet-style table\n- Enables centralized editing of default parameters across all models\n- Layout: Parameters as rows, Models as columns\n- Real-time updates to model defaults\n- Sticky headers for easy navigation\n- Horizontal scrolling for all 19 models\n\nUI Updates:\n- Calculator mode buttons now in 2x2 grid (Vendor, Growth, Client, Admin)\n- Admin mode hides category/model selection (not needed)\n- Admin button uses ⚙️ icon for clarity\n\nDocumentation:\n- Updated README.md with Admin Mode usage guide\n- Updated claude.md with Admin Mode technical specification\n- Removed all references to old Table View feature\n\nTechnical Implementation:\n- New generateAdminPanel() function\n- New onAdminInputChange() event handler\n- Updated setCalculatorMode() to handle 'admin' mode\n- Removed old table view code (generateTableView, setInputView, etc.)\n- Cleaned up global state (removed currentInputView variable)",
+      "stats": {
+        "filesChanged": 4,
+        "additions": 226,
+        "deletions": 305
+      },
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "53b7f88",
+      "fullSha": "53b7f888d9e9bad6b5b7030102cb9b3acde5be18",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-31T22:44:19+02:00",
+      "commitDate": "2025-12-31T22:44:19+02:00",
+      "subject": "Merge pull request #19 from devmade-ai/claude/refactor-budget-client-costs-YQMIH",
+      "body": "Add Client Budget Calculator mode - client/cost perspective",
+      "stats": {
+        "filesChanged": 4,
+        "additions": 709,
+        "deletions": 22
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "ffc19b6",
+      "fullSha": "ffc19b6d1b42d27dd4375e026a9c5acefc011e10",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-31T20:38:07+00:00",
+      "commitDate": "2025-12-31T20:38:07+00:00",
+      "subject": "Add Client Budget Calculator mode - client/cost perspective",
+      "body": "This commit introduces a new Client Budget Calculator mode that complements\nthe existing Vendor (forward) and Growth (reverse) modes. The new mode allows\nclients/buyers to input their budget and find optimal pricing options.\n\nKey Changes:\n- UI: Added third calculator mode button \"Client\" (Budget Options)\n- HTML: New client budget input section with budget, flexibility, and priority options\n- JS: Implemented client budget calculation logic with 3 optimization strategies:\n  * Maximum Capacity: Get the most users/seats within budget\n  * Best Value: Optimize for lowest cost per unit\n  * Budget Conscious: Leave 20% buffer\n- Budget flexibility options: Strict, Moderate (±10%), Flexible (±20%)\n- Results display: Shows 3-6 pricing options with cost, capacity, and value metrics\n- Color-coded badges: Green (within budget), Yellow (within flex), Red (over)\n- Docs: Updated README.md and claude.md with client mode documentation\n\nThe three modes now serve different perspectives:\n1. Vendor Mode: Business calculating revenue from pricing parameters\n2. Growth Mode: Business with revenue target finding required inputs\n3. Client Mode: Buyer with budget finding best pricing options\n\nAll 20 revenue models now support the client budget calculator.",
+      "stats": {
+        "filesChanged": 4,
+        "additions": 709,
+        "deletions": 22
+      },
+      "tags": [
+        "feature",
+        "calculation"
+      ],
+      "complexity": 5,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "e5275a1",
+      "fullSha": "e5275a1e14c6826f0dad2aa9f0d1a6c5403d5af9",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-31T22:24:13+02:00",
+      "commitDate": "2025-12-31T22:24:13+02:00",
+      "subject": "Merge pull request #18 from devmade-ai/claude/add-input-table-option-anant",
+      "body": "Add dual input view: Form and Table modes",
+      "stats": {
+        "filesChanged": 4,
+        "additions": 403,
+        "deletions": 7
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "be0eba0",
+      "fullSha": "be0eba0db0a0b7f5828decf149ffc7938ee74f0f",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-31T20:18:04+00:00",
+      "commitDate": "2025-12-31T20:18:04+00:00",
+      "subject": "Add dual input view: Form and Table modes",
+      "body": "Implemented a new table view option for input parameters alongside the existing form view:\n\nFeatures:\n- View toggle buttons to switch between Form and Table views\n- Single model table: displays all parameters in a structured table with Parameter/Value/Unit/Description columns\n- Multi-model comparison table: side-by-side parameter comparison across selected models\n- Real-time synchronization between form and table inputs\n- Table view automatically updates when models are selected/deselected\n- View toggle only shown in forward calculator mode with selected models\n\nBenefits:\n- Power users can quickly edit parameters in spreadsheet-style interface\n- Easy comparison of input differences across multiple models\n- Efficient bulk parameter adjustments\n- Copy-paste support from external spreadsheets\n- Beginner-friendly form view remains the default with hints and guidance\n\nFiles modified:\n- index.html: Added view toggle UI and table container\n- app.js: Implemented table generation, view switching, and input synchronization\n- README.md: Added documentation for table view feature and usage guide\n- claude.md: Updated feature list to include dual input views",
+      "stats": {
+        "filesChanged": 4,
+        "additions": 403,
+        "deletions": 7
+      },
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "8c2d665",
+      "fullSha": "8c2d665eb15250fbbb6f22d68d4d87eef50455ae",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-31T21:39:20+02:00",
+      "commitDate": "2025-12-31T21:39:20+02:00",
+      "subject": "Merge pull request #17 from devmade-ai/claude/reverse-budget-calculator-NOEZj",
+      "body": "Add reverse budget calculator with scenario planning",
+      "stats": {
+        "filesChanged": 3,
+        "additions": 742,
+        "deletions": 2
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "2bba0f2",
+      "fullSha": "2bba0f2f77f71503cf0799ef88dc22b7fa5c92d8",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-31T19:35:15+00:00",
+      "commitDate": "2025-12-31T19:35:15+00:00",
+      "subject": "Add reverse budget calculator with scenario planning",
+      "body": "Implement a comprehensive reverse calculator that allows users to:\n- Set revenue targets and timeframes\n- Calculate required input variables to hit those targets\n- Generate multiple scenarios (recommended, optimistic, conservative)\n- View full projections and charts with calculated inputs\n\nFeatures added:\n- Dual calculator modes (forward/reverse) with mode toggle UI\n- Reverse solver using binary search algorithm for accurate solutions\n- Dynamic constraint inputs for all non-solved variables\n- Scenario generator with 3 different assumption sets\n- Results display showing solved values, accuracy, and all inputs\n- Support for all 20 revenue models\n- Validation and error handling\n\nTechnical implementation:\n- New global state for calculator mode and reverse settings\n- Binary search algorithm with 1% tolerance and 50 iteration limit\n- Variable bounds based on input definitions and types\n- Format helpers for displaying solved values\n- Event handlers for mode toggling and model selection\n- Dynamic form generation for constraints\n\nDocumentation:\n- Updated README with reverse calculator usage guide\n- Added example use cases and step-by-step instructions\n- Updated project structure and features list",
+      "stats": {
+        "filesChanged": 3,
+        "additions": 742,
+        "deletions": 2
+      },
+      "tags": [
+        "feature",
+        "calculation"
+      ],
+      "complexity": 5,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "2ff7de7",
+      "fullSha": "2ff7de7776dfd828e1defc73d24639e5f9f00bd5",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-30T12:38:06+02:00",
+      "commitDate": "2025-12-30T12:38:06+02:00",
+      "subject": "Merge pull request #16 from devmade-ai/claude/sa-market-defaults-EieLH",
+      "body": "Set all default values to minimum realistic values for SA market",
+      "stats": {
+        "filesChanged": 1,
+        "additions": 99,
+        "deletions": 99
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "cd95d27",
+      "fullSha": "cd95d27b00aa2aca491548a08a70525c8588575b",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-30T10:13:34+00:00",
+      "commitDate": "2025-12-30T10:13:34+00:00",
+      "subject": "Set all default values to minimum realistic values for SA market",
+      "body": "Updated both pricing model inputs and category-level defaults to reflect\nminimum realistic values for early-stage companies in the South African market:\n\nPricing Models:\n- One-Time: R15,000 → R5,000 license, 25 → 5 units/month\n- Subscription: R1,800 → R500/month, 50 → 10 customers/month\n- Freemium: 500 → 100 free users, R900 → R300 paid tier\n- Usage-Based: R0.90 → R0.50/unit, 1000 → 500 usage, 20 → 5 customers\n- Tiered: R520/R1,800/R5,400 → R200/R600/R2,000, 100 → 20 customers\n- Per-Seat: R450 → R150/seat, 5 → 3 seats, 30 → 8 customers\n- Retainer: R90,000 → R25,000/month, 2 → 1 clients\n- Managed Services: R180,000 → R50,000/month, R90,000 → R25,000 setup\n- Pay-Per-Transaction: R45 → R10/transaction, 1000 → 500 transactions\n- Credits: R1.80 → R1.00/credit, 100 → 50 purchase size, 200 → 50 customers\n- Time & Materials: R2,700 → R800/hour, 5 → 2 resources\n- Fixed-Price: R900,000 → R200,000/project, 2 → 1 projects/month\n- Outcome-Based: R1,800,000 → R400,000 base value\n- Open Core: 2000 → 500 downloads, R90,000 → R30,000 enterprise\n- Marketplace: R1,800,000 → R500,000 volume, 500 → 100 buyers\n- Revenue Share: R3,600,000 → R1,000,000 revenue, 10 → 3 partners\n- Advertising: 100,000 → 25,000 users, R90 → R30 CPM\n- ELA: R9,000,000 → R2,500,000/year, 4 → 2 deals\n- Data Licensing: R900,000 → R250,000 license, R1,800 → R500 usage fee\n- White Label: R1,800,000 → R500,000 setup, R180,000 → R50,000/month\n\nCategory Defaults: Updated all LAYER_1_CATEGORIES to minimum range values\nreflecting conservative, achievable targets for SA bootstrapped/early-stage businesses.",
+      "stats": {
+        "filesChanged": 1,
+        "additions": 99,
+        "deletions": 99
+      },
+      "tags": [
+        "config",
+        "localization"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "65281fe",
+      "fullSha": "65281fe5d5ca22e3c003b6275f2416e3241f2c07",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-27T23:23:14+02:00",
+      "commitDate": "2025-12-27T23:23:14+02:00",
+      "subject": "Merge pull request #15 from devmade-ai/claude/fix-sections-sa-market-bcoB5",
+      "body": "Adapt currency and default values for South African market",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 59,
+        "deletions": 68
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "153db33",
+      "fullSha": "153db33545e93c78186ff0518a3a109acad683b3",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-27T21:21:52+00:00",
+      "commitDate": "2025-12-27T21:21:52+00:00",
+      "subject": "Fix empty sections appearing between metrics and cumulative chart",
+      "body": "The issue was caused by a grid container wrapping the secondary charts\nthat was never hidden, even when its children were hidden. This resulted\nin empty space appearing in the comparison view.\n\nChanges:\n- Added 'secondaryChartsGrid' ID to the parent grid container (index.html:181)\n- Made parent grid hidden by default instead of individual containers\n- Updated all JavaScript to show/hide the parent grid instead of individual containers\n- Removed redundant visibility management of child containers\n\nThis ensures the grid and its gap spacing only appear when charts are\nactually being displayed, eliminating the empty section between metrics\nand the cumulative revenue chart.",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 11,
+        "deletions": 20
+      },
+      "tags": [
+        "fix",
+        "ui"
+      ],
+      "complexity": 2,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "8a1c149",
+      "fullSha": "8a1c1492cb839d8c8eca044cec9b449e7a9aff6a",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-27T21:13:00+00:00",
+      "commitDate": "2025-12-27T21:13:00+00:00",
+      "subject": "Adapt currency and default values for South African market",
+      "body": "- Changed currency formatter from USD to ZAR (South African Rand)\n- Updated all currency labels from ($) to (R) throughout the app\n- Converted all model default values to appropriate South African Rand amounts\n  - One-time license: R15,000 (was $499)\n  - Subscription: R1,800/month (was $99)\n  - Per-seat: R450/seat (was $25)\n  - Usage-based: R0.90/unit (was $0.05)\n  - Tiered pricing: R520/R1,800/R5,400 (was $29/$99/$299)\n  - Retainer: R90,000/month (was $5,000)\n  - Managed services: R180,000/month (was $10,000)\n  - Enterprise models: R9M+ annual contracts (was $500k)\n  - All other models scaled proportionally using ~18:1 exchange rate\n\nThis aligns the calculator with South African market pricing context\nthat was already present in the LAYER_1_CATEGORIES configuration.",
+      "stats": {
+        "filesChanged": 1,
+        "additions": 48,
+        "deletions": 48
+      },
+      "tags": [
+        "config",
+        "localization"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "2ac3bb1",
+      "fullSha": "2ac3bb192387153480243f4bb2e56dd7d28c392f",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-27T22:49:41+02:00",
+      "commitDate": "2025-12-27T22:49:41+02:00",
+      "subject": "Merge pull request #14 from devmade-ai/claude/fix-model-selection-charts-wfItA",
+      "body": "Fix model selection and chart improvements",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 115,
+        "deletions": 155
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "9fce09b",
+      "fullSha": "9fce09b6d4a7588e4e166aedd4662ff5d3949963",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-27T20:40:24+00:00",
+      "commitDate": "2025-12-27T20:40:24+00:00",
+      "subject": "Fix model selection and chart improvements",
+      "body": "- Clear selected models when software category changes\n- Filter out empty/sparse metric cards (>50% empty values)\n- Convert race chart to cumulative revenue line chart using ApexCharts\n- Remove deprecated chart controls (Play/Pause/Reset buttons and slider)",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 115,
+        "deletions": 155
+      },
+      "tags": [
+        "fix",
+        "ui"
+      ],
+      "complexity": 3,
+      "urgency": 3,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "492f20a",
+      "fullSha": "492f20aeb51475c054422b0066eac2b924e7c100",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-27T22:18:56+02:00",
+      "commitDate": "2025-12-27T22:18:56+02:00",
+      "subject": "Merge pull request #13 from devmade-ai/claude/dashboard-race-chart-improvements-nuKu2",
+      "body": "Implement comprehensive dashboard race chart improvements",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 255,
+        "deletions": 30
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "8d24ab8",
+      "fullSha": "8d24ab8876ae96ee6c1e8cd635eb2ab9690a747d",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-27T20:16:47+00:00",
+      "commitDate": "2025-12-27T20:16:47+00:00",
+      "subject": "Implement comprehensive dashboard race chart improvements",
+      "body": "- Keep existing values when selection changes via storedInputValues Map\n- Set minimum initial values (1 for non-rate fields, 0 for rate fields)\n- Add interactive race chart visualization with play/pause/reset controls\n- Remove empty metric cards when all values are null/zero\n- Replace winner trophy icons with top-3 highlight system using blue gradients\n- Fix null and zero value handling (display \"N/A\" for null/undefined)\n- Add starting customer base field to per-seat model\n- Remove recommendation section from executive summary\n\nThe race chart provides an animated bar chart showing revenue progression\nover time, with manual controls and slider for month-by-month exploration.\nHighlights emphasize top 3 performers with different opacity levels.",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 255,
+        "deletions": 30
+      },
+      "tags": [
+        "feature",
+        "ui",
+        "charts"
+      ],
+      "complexity": 4,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "765a991",
+      "fullSha": "765a99158599eb1acd67960765d374e7c3dcb1f5",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-26T08:14:30+02:00",
+      "commitDate": "2025-12-26T08:14:30+02:00",
+      "subject": "Merge pull request #12 from devmade-ai/claude/continue-calculator-implementation-Pa5Ii",
+      "body": "Implement Layer 2/3 framework modifiers across all pricing models",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 540,
+        "deletions": 185
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "2a70fb3",
+      "fullSha": "2a70fb32bb3a596376e63f6e777c0dd5f89c0e70",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-26T04:31:41+00:00",
+      "commitDate": "2025-12-26T04:31:41+00:00",
+      "subject": "Complete framework alignment: Add category context to results and update docs",
+      "body": "This commit completes the framework alignment implementation (95% done):\n\n✅ Added category context header to results display (app.js:3481-3513)\n- Shows selected category, delivery mechanism, and service model\n- Displays cost impact and service characteristics\n- Provides full context for calculation results\n\n✅ Updated IMPLEMENTATION_PROGRESS.md to reflect completion status\n- Phase 1 (Data Layer): 100% complete\n- Phase 2 (UI Implementation): 100% complete\n- Phase 3 (Calculation Engine): 100% complete\n- Phase 4 (Industry Benchmarks): 25% complete (context header added)\n- Updated success criteria: All functional requirements met\n\nFramework is now fully functional with:\n✅ 10 software categories with pricing contexts\n✅ 5 delivery mechanisms with pricing multipliers\n✅ 4 service models with business impact\n✅ 20 pricing models all updated with modifiers\n✅ Category-specific defaults in input forms\n✅ Layer 2/3 modifiers applied to all calculations\n✅ Results display with full calculation context\n\nRemaining work is optional enhancements only:\n- Additional benchmark indicators (nice-to-have UX)\n- Style improvements (optional polish)\n- End-to-end testing (recommended for QA)\n\nThe Revenue Model Calculator now provides industry-aligned,\ncontext-aware pricing guidance across all software categories.",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 153,
+        "deletions": 123
+      },
+      "tags": [
+        "feature",
+        "docs"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "530dade",
+      "fullSha": "530dade206e4a7a64291625093ec560495fcb635",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-26T04:27:49+00:00",
+      "commitDate": "2025-12-26T04:27:49+00:00",
+      "subject": "Implement Layer 2/3 framework modifiers across all pricing models",
+      "body": "This commit completes the calculation engine integration for the framework alignment:\n\n✅ Added central applyFrameworkModifiers() helper function\n- Consistently applies Layer 2 (Delivery) and Layer 3 (Service) modifiers\n- Handles self-hosted one-time conversions\n- Adds managed services base fees\n- Adjusts pricing, churn rates, and CAC\n\n✅ Updated generateAllForms() to use category-specific defaults\n- Applies pricing defaults from LAYER_1_CATEGORIES\n- Shows category-specific hint text for ranges and benchmarks\n- Maps common inputs (price, churnRate, conversionRate) to context data\n\n✅ Updated all 20 pricing model calculate() functions:\nCore models:\n- per-seat: Applies modifiers to seat pricing and churn\n- usage-based: Applies modifiers to per-unit pricing\n- tiered: Applies modifiers to all three tier prices\n- freemium: Applies modifiers to paid tier pricing and churn\n- subscription: Applies modifiers to monthly price and churn\n\nAdditional models (15 total):\n- one-time, retainer, managed-services, pay-per-transaction\n- credits-token, time-materials, fixed-price, outcome-based\n- open-core, marketplace, revenue-share, advertising\n- ela, data-licensing, white-label\n\nEach model now:\n1. Calls applyFrameworkModifiers() at start of calculate()\n2. Uses modifiers.price instead of raw input price\n3. Uses modifiers.churn instead of raw churn rate\n4. Adds managed services revenue when applicable\n5. Includes debug info (appliedPrice, appliedChurnRate)\n\nThis enables the full framework flow:\nCategory → Models → Delivery → Service → Calculate\n\nNext steps: Testing and industry benchmarks display",
+      "stats": {
+        "filesChanged": 1,
+        "additions": 387,
+        "deletions": 62
+      },
+      "tags": [
+        "feature",
+        "calculation"
+      ],
+      "complexity": 5,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "a8d4df1",
+      "fullSha": "a8d4df1cba6d0092ccd49484ce12e796c059462c",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-26T06:11:52+02:00",
+      "commitDate": "2025-12-26T06:11:52+02:00",
+      "subject": "Merge pull request #11 from devmade-ai/claude/read-md-start-implementation-rLB45",
+      "body": "Implement framework alignment: Layer 1, 2, 3 structure and UI",
+      "stats": {
+        "filesChanged": 3,
+        "additions": 1144,
+        "deletions": 52
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "e9fe9d6",
+      "fullSha": "e9fe9d643968ef07d43e723d870b34cc729639ed",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T23:09:24+00:00",
+      "commitDate": "2025-12-25T23:09:24+00:00",
+      "subject": "Add implementation progress tracking document for future sessions",
+      "body": "",
+      "stats": {
+        "filesChanged": 1,
+        "additions": 288,
+        "deletions": 0
+      },
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "5e0d8d0",
+      "fullSha": "5e0d8d04ba2e46692a956e19409554e26c4acda2",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T23:07:46+00:00",
+      "commitDate": "2025-12-25T23:07:46+00:00",
+      "subject": "Implement framework alignment: Layer 1, 2, 3 structure and UI",
+      "body": "Major Changes:\n- Added Layer 1 (Core Function Categories): 10 software categories with pricing contexts\n- Added Layer 2 (Delivery Mechanisms): 5 delivery options with modifiers\n- Added Layer 3 (Service Models): 4 service levels with impact metrics\n- Redesigned UI with 4-step flow: Category → Models → Delivery/Service → Inputs\n- Implemented category-based model filtering with context-specific pricing hints\n- Added event handlers for category selection and Layer 2/3 options\n\nData Structures:\n- LAYER_1_CATEGORIES: 10 categories including dev-devops, business-ops, marketing, etc.\n- LAYER_2_DELIVERY: cloud-saas, self-hosted, hybrid, mobile, api-embedded\n- LAYER_3_SERVICE: self-service, managed-services, professional-services, hybrid-modular\n- Helper functions for applying delivery and service modifiers\n\nUI Updates:\n- Step 1: Category selector with description and examples\n- Step 2: Filtered model checkboxes with category-specific pricing ranges\n- Step 3: Radio buttons for delivery mechanism and service model\n- Step 4: Model-specific inputs (existing functionality)\n\nNext Steps:\n- Apply Layer 2/3 modifiers in calculation engine\n- Update input forms with category-specific defaults\n- Add industry benchmark displays\n- Test complete user flows",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 856,
+        "deletions": 52
+      },
+      "tags": [
+        "feature",
+        "architecture",
+        "ui"
+      ],
+      "complexity": 5,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "7f65513",
+      "fullSha": "7f6551305d3f45b01f0d566d3b5e22b34fb49655",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-26T00:54:03+02:00",
+      "commitDate": "2025-12-26T00:54:03+02:00",
+      "subject": "Merge pull request #10 from devmade-ai/claude/pricing-framework-alignment-dD4n7",
+      "body": "Add comprehensive framework alignment planning documents",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 999,
+        "deletions": 0
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "c660e79",
+      "fullSha": "c660e79c91ac10bba60c3be143a0828577094a65",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T22:48:06+00:00",
+      "commitDate": "2025-12-25T22:48:06+00:00",
+      "subject": "Add comprehensive framework alignment planning documents",
+      "body": "This commit adds detailed planning for aligning the Revenue Model Calculator\nwith the Software Product Classification Framework, which introduces a 3-layer\napproach:\n\nLayer 1: Core Function Categories (Dev & DevOps, CRM, Marketing, etc.)\nLayer 2: Delivery Mechanisms (Cloud SaaS, Self-Hosted, Hybrid, Mobile, API)\nLayer 3: Service Models (Self-Service, Managed Services, Professional Services)\n\nDocuments added:\n- FRAMEWORK_ALIGNMENT_PLAN.md: Comprehensive 1000+ line implementation guide\n  with data structures, UI/UX redesign, roadmap, and technical decisions\n- QUICK_START_ALIGNMENT.md: Concise reference guide with before/after examples,\n  code structure changes, and testing checklist\n\nKey changes planned:\n- Add Layer 1 category selector as primary entry point\n- Filter revenue models by software category (only show applicable models)\n- Include realistic pricing ranges from framework (ZAR pricing)\n- Add Layer 2/3 modifiers that affect calculations\n- Show industry benchmarks alongside user results\n\nImpact:\n- Transforms generic revenue calculator into industry-specific pricing advisor\n- Users get context-aware, realistic projections vs guesswork\n- 80%+ accuracy to real-world pricing (vs 50%+ variance currently)",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 999,
+        "deletions": 0
+      },
+      "tags": [
+        "docs",
+        "planning"
+      ],
+      "complexity": 3,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "789cff1",
+      "fullSha": "789cff15584bcc745bf9d1ed5520407f3fb4460c",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-26T00:04:16+02:00",
+      "commitDate": "2025-12-26T00:04:16+02:00",
+      "subject": "Merge pull request #9 from devmade-ai/claude/refactor-claude-md-c94Pq",
+      "body": "Refactor claude.md with best practices and goal alignment",
+      "stats": {
+        "filesChanged": 1,
+        "additions": 389,
+        "deletions": 1247
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "a9d508a",
+      "fullSha": "a9d508a255e1b6e4f698ef749ffcdb844a47c440",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T22:01:02+00:00",
+      "commitDate": "2025-12-25T22:01:02+00:00",
+      "subject": "Refactor claude.md with best practices and goal alignment",
+      "body": "- Reduce file size by 67% (1,285 → 426 lines)\n- Focus on architecture and patterns over implementation details\n- Add AI-friendly structure with clear status indicators\n- Include code examples showing key implementation patterns\n- Document line number references for common tasks\n- Emphasize core goal: multi-model revenue comparison\n- Add troubleshooting section and common tasks guide\n- Remove outdated content and completed TODO items",
+      "stats": {
+        "filesChanged": 1,
+        "additions": 389,
+        "deletions": 1247
+      },
+      "tags": [
+        "docs",
+        "refactor"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "d4e120f",
+      "fullSha": "d4e120fb073bed728389088bb77f02d79e16a512",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T23:36:33+02:00",
+      "commitDate": "2025-12-25T23:36:33+02:00",
+      "subject": "Merge pull request #8 from devmade-ai/claude/improve-comparison-feature-GwxVb",
+      "body": "Improve comparison feature with enhanced UX and accuracy",
+      "stats": {
+        "filesChanged": 3,
+        "additions": 955,
+        "deletions": 107
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "114a5ed",
+      "fullSha": "114a5ed706a969e1d2a442efab093c72935a6ec9",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T21:35:25+00:00",
+      "commitDate": "2025-12-25T21:35:25+00:00",
+      "subject": "Improve comparison feature with enhanced UX and accuracy",
+      "body": "Added comprehensive improvements to make model comparisons more accurate,\nuser-friendly, and actionable:\n\n**Accuracy Improvements:**\n- Added real CAC (Customer Acquisition Cost) inputs to all models\n- Updated calculateUniversalMetrics to use actual CAC instead of estimates\n- More accurate LTV:CAC ratios and profitability metrics\n\n**User Experience Improvements:**\n- Quick-start scenario templates (Early Stage SaaS, Enterprise SaaS, etc.)\n- Smart input validation with actionable warnings before calculation\n- Visual winner indicators with trophy icons and percentage differences\n- Metric tooltips with explanations and industry benchmarks\n- Executive summary panel with AI-generated recommendations\n- Empty state handling for zero-revenue scenarios\n- Enhanced input labels with contextual hints\n\n**Technical Changes:**\n- New constants: SCENARIO_TEMPLATES, METRIC_EXPLANATIONS\n- New functions: validateModelInputs, displayValidationWarnings,\n  getMetricInterpretation, renderExecutiveSummary, generateRecommendation\n- Updated: calculateUniversalMetrics, renderUniversalMetrics,\n  renderFamilyOverlayChart, renderSideBySideCharts\n- CSS additions: winner-row styling, metric-card hover effects,\n  validation warning animations\n\n**Documentation:**\n- Updated claude.md with detailed feature documentation\n- Added technical architecture changes section\n- Marked resolved open questions",
+      "stats": {
+        "filesChanged": 3,
+        "additions": 955,
+        "deletions": 107
+      },
+      "tags": [
+        "feature",
+        "ui",
+        "calculation"
+      ],
+      "complexity": 5,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "69f6985",
+      "fullSha": "69f69853ea8e371f0265185a7f5609efd7b99bb0",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T20:43:51+02:00",
+      "commitDate": "2025-12-25T20:43:51+02:00",
+      "subject": "Merge pull request #7 from devmade-ai/claude/fix-model-and-mobile-bugs-y4MPS",
+      "body": "Fix multi-model comparison and mobile responsiveness",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 89,
+        "deletions": 17
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "5c1c112",
+      "fullSha": "5c1c112c04ce2de1e377facf38c203163b80286b",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T18:41:07+00:00",
+      "commitDate": "2025-12-25T18:41:07+00:00",
+      "subject": "Fix multi-model comparison and mobile responsiveness",
+      "body": "- Fix models returning all zeros by namespacing input field IDs\n  - Input fields now use {modelKey}-{inputName} format\n  - Prevents ID conflicts when multiple models are selected\n  - All model forms kept in DOM (hidden/shown) instead of destroyed\n\n- Fix calculate & compare button for multiple models\n  - Updated calculateModel() to use namespaced input IDs\n  - Updated gatherInputs() to use namespaced input IDs\n  - Forms now persist in DOM so all model inputs are accessible\n\n- Fix mobile metrics card layout\n  - Changed from grid-cols-2 to grid-cols-1 on mobile\n  - Cards now stack vertically on small screens\n  - Responsive: 1 col (mobile) -> 2 cols (tablet) -> 4 cols (desktop)",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 89,
+        "deletions": 17
+      },
+      "tags": [
+        "fix",
+        "ui",
+        "responsive"
+      ],
+      "complexity": 3,
+      "urgency": 3,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "1f4592f",
+      "fullSha": "1f4592ff58a75b08dfcbe1ea16ba435ff63d12e9",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T19:15:42+02:00",
+      "commitDate": "2025-12-25T19:15:42+02:00",
+      "subject": "Merge pull request #6 from devmade-ai/claude/multi-model-comparison-Yh9V7",
+      "body": "Add 14 remaining revenue models - Complete 20/20 models",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 737,
+        "deletions": 14
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "44c6dc9",
+      "fullSha": "44c6dc9d13fdeba71499bc80d444cf848b51dff6",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T17:14:02+00:00",
+      "commitDate": "2025-12-25T17:14:02+00:00",
+      "subject": "Add 14 remaining revenue models - Complete 20/20 models",
+      "body": "Implemented all remaining revenue models across 6 batches:\n\nBatch 1: Subscription Family (2 models)\n- Retainer Agreements: Monthly retainer with overage and price increases\n- Managed Services: Base fee + expansion + setup fees\n\nBatch 2: Usage-Based Family (2 models)\n- Pay-Per-Transaction: Transaction-based revenue with growth\n- Credits/Token System: Pre-purchase credits with usage tracking\n\nBatch 3: Project Delivery Family (3 models)\n- Time and Materials: Hourly billing with utilization tracking\n- Fixed-Price Projects: Upfront + milestone payments over duration\n- Outcome-Based/Milestone: Performance bonuses on milestone completion\n\nBatch 4: Free-to-Paid Family (1 model)\n- Open Core: Free downloads converting to enterprise + support\n\nBatch 5: Platform/Intermediary Family (3 models)\n- Marketplace/Platform Fee: GMV-based with take rate\n- Revenue Share Partnership: Partner revenue sharing with growth\n- Advertising Supported: CPM-based ads + premium conversions\n\nBatch 6: Enterprise License Family (3 models)\n- Enterprise License Agreement (ELA): Multi-year contracts with renewals\n- Data Licensing: License + renewal + usage fees\n- White Label/OEM: Setup + platform + revenue share\n\nAll models include:\n- Detailed input configurations with proper defaults\n- Complex calculation logic matching real-world scenarios\n- Revenue tracking and growth patterns\n- Compatible with universal metrics system\n- Work with multi-model comparison UI\n\nUpdated claude.md to reflect completion of all 20 models.",
+      "stats": {
+        "filesChanged": 2,
+        "additions": 737,
+        "deletions": 14
+      },
+      "tags": [
+        "feature",
+        "models"
+      ],
+      "complexity": 5,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "e214900",
+      "fullSha": "e2149003773e502910617b4d6d1749a58d28be58",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T19:04:39+02:00",
+      "commitDate": "2025-12-25T19:04:39+02:00",
+      "subject": "Merge pull request #5 from devmade-ai/claude/add-model-comparison-Acyx7",
+      "body": "Add multi-model comparison infrastructure",
+      "stats": {
+        "filesChanged": 3,
+        "additions": 840,
+        "deletions": 34
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "cbca984",
+      "fullSha": "cbca98491597d9f71d53df4391d9cbd479188ccb",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T17:02:22+00:00",
+      "commitDate": "2025-12-25T17:02:22+00:00",
+      "subject": "Add multi-model comparison infrastructure",
+      "body": "Major Changes:\n- Added MODEL_FAMILIES metadata system with 7 model families\n- Created universal metrics calculator (CAC, LTV, LTV:CAC, payback period, growth rates)\n- Replaced dropdown selector with checkbox-based multi-select UI grouped by family\n- Implemented tabbed input forms for multiple model configuration\n- Built comparison views:\n  * Universal metrics panel for cross-model comparison\n  * Family overlay charts (same family models on one chart)\n  * Side-by-side charts (different family models)\n  * Month-by-month comparison table\n- Updated calculation engine to handle multiple models simultaneously\n- Added smart comparison logic based on model family compatibility\n\nUI Updates:\n- Checkbox selector with family grouping and descriptions\n- Selected models summary display\n- Tabbed input forms for multi-model configuration\n- Universal metrics comparison cards\n- Comparison charts container with overlay/side-by-side logic\n- Month-by-month data table for all selected models\n\nDocumentation:\n- Updated claude.md with new goals and architecture\n- Added note to keep claude.md updated with changes\n- Documented model families and comparison strategy",
+      "stats": {
+        "filesChanged": 3,
+        "additions": 840,
+        "deletions": 34
+      },
+      "tags": [
+        "feature",
+        "architecture"
+      ],
+      "complexity": 5,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "c179926",
+      "fullSha": "c1799268f852641787b0e85224eb9020d8d08315",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T18:39:05+02:00",
+      "commitDate": "2025-12-25T18:39:05+02:00",
+      "subject": "Merge pull request #4 from devmade-ai/claude/extract-css-js-files-h12X5",
+      "body": "Extract CSS and JavaScript to separate files",
+      "stats": {
+        "filesChanged": 3,
+        "additions": 1257,
+        "deletions": 1257
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "c3ded88",
+      "fullSha": "c3ded88bba1d2cf707b9afdb2bc0170adc491a09",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T16:37:33+00:00",
+      "commitDate": "2025-12-25T16:37:33+00:00",
+      "subject": "Extract CSS and JavaScript to separate files",
+      "body": "- Created styles.css with custom CSS rules\n- Created app.js with all application JavaScript\n- Updated index.html to reference external CSS and JS files\n- Improved code organization and maintainability",
+      "stats": {
+        "filesChanged": 3,
+        "additions": 1257,
+        "deletions": 1257
+      },
+      "tags": [
+        "refactor",
+        "organization"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "f4231d1",
+      "fullSha": "f4231d1396949285505bda338fd83660fb4c56ad",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T18:25:51+02:00",
+      "commitDate": "2025-12-25T18:25:51+02:00",
+      "subject": "Merge pull request #3 from devmade-ai/claude/add-dark-theme-UVdLQ",
+      "body": "Convert Revenue Model Calculator to dark theme",
+      "stats": {
+        "filesChanged": 1,
+        "additions": 197,
+        "deletions": 161
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "42a8399",
+      "fullSha": "42a8399558bf9ecc2b0f4b12f4d3162aca08222e",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T16:18:27+00:00",
+      "commitDate": "2025-12-25T16:18:27+00:00",
+      "subject": "Convert Revenue Model Calculator to dark theme",
+      "body": "- Updated body background to gray-900\n- Changed all card backgrounds from white to gray-800 with gray-700 borders\n- Updated all text colors (headings to gray-100, descriptions to gray-400)\n- Converted form inputs and selects to dark theme with gray-700 backgrounds\n- Updated all ApexCharts configurations with dark theme colors:\n  - Transparent chart backgrounds\n  - Gray-400 text for labels and axes\n  - Gray-700 borders for grids\n  - Dark tooltips\n- Updated metrics panel with semi-transparent dark backgrounds and colored borders\n- Maintained all functionality while improving visual appeal in dark mode",
+      "stats": {
+        "filesChanged": 1,
+        "additions": 197,
+        "deletions": 161
+      },
+      "tags": [
+        "feature",
+        "ui",
+        "theming"
+      ],
+      "complexity": 3,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "10e749e",
+      "fullSha": "10e749e5a2feff129f6230b7502c471a4120e342",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T17:26:44+02:00",
+      "commitDate": "2025-12-25T17:26:44+02:00",
+      "subject": "Merge pull request #2 from devmade-ai/claude/start-core-functionality-9fXIF",
+      "body": "Implement core revenue model calculator functionality",
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1073,
+        "deletions": 31
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "d43d5c8",
+      "fullSha": "d43d5c89803034eb2392ddd1472a58328e018ae3",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T15:01:16+00:00",
+      "commitDate": "2025-12-25T15:01:16+00:00",
+      "subject": "Implement core revenue model calculator functionality",
+      "body": "Added complete implementation for 6 core revenue models:\n- One-Time Purchase (Perpetual License)\n- Subscription (SaaS)\n- Freemium\n- Usage-Based (Consumption)\n- Tiered Pricing\n- Per-Seat/Per-User\n\nFeatures implemented:\n- Dynamic form generation for model-specific inputs\n- Real-time calculation engine with 24-month forecasts\n- Interactive ApexCharts visualizations (3 charts per model)\n- Metrics panel with key performance indicators\n- Debounced input handling for smooth UX\n- Responsive layout with Tailwind CSS\n\nTechnical details:\n- File size: 60KB (well under 200KB target)\n- Lines of code: 1,312 (within 1,050-1,600 estimate)\n- No build process required\n- All functionality client-side",
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1073,
+        "deletions": 31
+      },
+      "tags": [
+        "feature",
+        "core"
+      ],
+      "complexity": 5,
+      "urgency": 2,
+      "impact": "user-facing",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "bae8e6f",
+      "fullSha": "bae8e6f82fc2557e2179815cf3e56ad41b065b8c",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T14:21:47+02:00",
+      "commitDate": "2025-12-25T14:21:47+02:00",
+      "subject": "Merge pull request #1 from devmade-ai/claude/setup-project-structure-8iOZJ",
+      "body": "Add initial project structure for Revenue Model Calculator",
+      "stats": {
+        "filesChanged": 4,
+        "additions": 1384,
+        "deletions": 0
+      },
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "872de0d",
+      "fullSha": "872de0dcc373030fcc1b436d29b96393f2624a90",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "author_id": "noreply@anthropic.com",
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2025-12-25T12:20:42+00:00",
+      "commitDate": "2025-12-25T12:20:42+00:00",
+      "subject": "Add initial project structure for Revenue Model Calculator",
+      "body": "- Add claude.md with complete project specification\n- Add README.md with project overview and usage instructions\n- Add skeleton index.html with basic layout and placeholder code\n- Add .gitignore for common development files\n\nThis establishes the foundation for building the static web\napplication with 20 revenue model calculators.",
+      "stats": {
+        "filesChanged": 4,
+        "additions": 1384,
+        "deletions": 0
+      },
+      "tags": [
+        "setup",
+        "docs"
+      ],
+      "complexity": 2,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
+    },
+    {
+      "sha": "0d52365",
+      "fullSha": "0d5236566b17d880e48d77f138a5a923af4fe592",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "author_id": "devmade.ai@gmail.com",
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2025-12-25T14:09:06+02:00",
+      "commitDate": "2025-12-25T14:09:06+02:00",
+      "subject": "Initial commit",
+      "body": "",
+      "stats": {
+        "filesChanged": 0,
+        "additions": 0,
+        "deletions": 0
+      },
+      "tags": [
+        "init"
+      ],
+      "complexity": 1,
+      "urgency": 1,
+      "impact": "internal",
+      "repo_id": "model-pear"
     }
   ],
   "contributors": [
@@ -6115,19 +7685,19 @@
       "author_id": "noreply@anthropic.com",
       "name": "noreply@anthropic.com",
       "email": "noreply@anthropic.com",
-      "commits": 168,
-      "avgComplexity": 2.52,
-      "avgUrgency": 1.55,
+      "commits": 196,
+      "avgComplexity": 2.68,
+      "avgUrgency": 1.61,
       "tagBreakdown": {
         "bugfix": 26,
-        "ui": 44,
-        "feature": 43,
+        "ui": 56,
+        "feature": 58,
         "ux": 16,
-        "docs": 83,
+        "docs": 89,
         "testing": 1,
-        "refactor": 25,
+        "refactor": 28,
         "hosting": 2,
-        "config": 7,
+        "config": 9,
         "dependency-add": 1,
         "types": 3,
         "test-unit": 7,
@@ -6144,14 +7714,24 @@
         "accessibility": 2,
         "performance": 1,
         "error-handling": 1,
-        "architecture": 1,
-        "planning": 1,
+        "architecture": 4,
+        "planning": 2,
         "simplify": 3,
-        "deployment": 1
+        "deployment": 1,
+        "fix": 5,
+        "calculation": 5,
+        "localization": 2,
+        "charts": 1,
+        "responsive": 1,
+        "models": 1,
+        "organization": 1,
+        "theming": 1,
+        "core": 1,
+        "setup": 1
       },
       "impactBreakdown": {
-        "internal": 97,
-        "user-facing": 69,
+        "internal": 103,
+        "user-facing": 91,
         "infrastructure": 2,
         "api": 0
       },
@@ -6159,18 +7739,18 @@
         "model-pear"
       ],
       "repoCount": 1,
-      "firstCommit": "2026-01-01T15:20:11+00:00",
+      "firstCommit": "2025-12-25T12:20:42+00:00",
       "lastCommit": "2026-01-20T15:56:00+00:00"
     },
     {
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 95,
-      "avgComplexity": 1.11,
-      "avgUrgency": 2.04,
+      "commits": 120,
+      "avgComplexity": 1.08,
+      "avgUrgency": 1.83,
       "tagBreakdown": {
-        "merge": 79,
+        "merge": 103,
         "docs": 4,
         "removal": 1,
         "bugfix": 10,
@@ -6181,10 +7761,11 @@
         "config": 1,
         "cd": 1,
         "naming": 1,
-        "chore": 1
+        "chore": 1,
+        "init": 1
       },
       "impactBreakdown": {
-        "internal": 87,
+        "internal": 112,
         "user-facing": 5,
         "infrastructure": 3,
         "api": 0
@@ -6193,7 +7774,7 @@
         "model-pear"
       ],
       "repoCount": 1,
-      "firstCommit": "2026-01-01T17:22:02+02:00",
+      "firstCommit": "2025-12-25T14:09:06+02:00",
       "lastCommit": "2026-01-21T23:04:08+02:00"
     },
     {
@@ -6222,21 +7803,21 @@
     }
   ],
   "summary": {
-    "totalCommits": 265,
+    "totalCommits": 318,
     "totalContributors": 3,
     "tagBreakdown": {
-      "merge": 80,
-      "docs": 87,
+      "merge": 104,
+      "docs": 93,
       "removal": 16,
       "bugfix": 37,
-      "ui": 46,
-      "feature": 46,
+      "ui": 58,
+      "feature": 61,
       "ux": 17,
       "testing": 1,
-      "refactor": 25,
+      "refactor": 28,
       "hosting": 2,
       "ci": 2,
-      "config": 8,
+      "config": 10,
       "cd": 1,
       "dependency-add": 1,
       "types": 3,
@@ -6253,47 +7834,58 @@
       "accessibility": 2,
       "performance": 1,
       "error-handling": 1,
-      "architecture": 1,
-      "planning": 1,
+      "architecture": 4,
+      "planning": 2,
       "chore": 1,
       "simplify": 3,
-      "deployment": 1
+      "deployment": 1,
+      "fix": 5,
+      "calculation": 5,
+      "localization": 2,
+      "charts": 1,
+      "responsive": 1,
+      "models": 1,
+      "organization": 1,
+      "theming": 1,
+      "core": 1,
+      "setup": 1,
+      "init": 1
     },
     "complexityBreakdown": {
-      "1": 135,
-      "2": 55,
-      "3": 31,
-      "4": 28,
-      "5": 16
+      "1": 160,
+      "2": 60,
+      "3": 40,
+      "4": 32,
+      "5": 26
     },
     "urgencyBreakdown": {
-      "1": 94,
-      "2": 150,
-      "3": 20,
+      "1": 124,
+      "2": 169,
+      "3": 24,
       "4": 1,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 186,
-      "user-facing": 74,
+      "internal": 217,
+      "user-facing": 96,
       "infrastructure": 5,
       "api": 0
     },
-    "avgComplexity": 2,
-    "avgUrgency": 1.73,
+    "avgComplexity": 2.07,
+    "avgUrgency": 1.69,
     "monthly": {
       "2026-01": {
-        "commits": 265,
+        "commits": 273,
         "tags": {
-          "merge": 80,
-          "docs": 87,
+          "merge": 84,
+          "docs": 88,
           "removal": 16,
           "bugfix": 37,
-          "ui": 46,
-          "feature": 46,
+          "ui": 48,
+          "feature": 47,
           "ux": 17,
           "testing": 1,
-          "refactor": 25,
+          "refactor": 26,
           "hosting": 2,
           "ci": 2,
           "config": 8,
@@ -6313,35 +7905,69 @@
           "accessibility": 2,
           "performance": 1,
           "error-handling": 1,
-          "architecture": 1,
+          "architecture": 2,
           "planning": 1,
           "chore": 1,
           "simplify": 3,
-          "deployment": 1
+          "deployment": 1,
+          "fix": 2,
+          "calculation": 1
         },
         "impact": {
-          "internal": 186,
-          "user-facing": 74,
+          "internal": 191,
+          "user-facing": 77,
           "infrastructure": 5,
           "api": 0
         },
-        "avgComplexity": 2,
+        "avgComplexity": 2.01,
         "avgUrgency": 1.73
+      },
+      "2025-12": {
+        "commits": 45,
+        "tags": {
+          "feature": 14,
+          "ui": 10,
+          "merge": 20,
+          "calculation": 4,
+          "config": 2,
+          "localization": 2,
+          "fix": 3,
+          "charts": 1,
+          "docs": 5,
+          "architecture": 2,
+          "planning": 1,
+          "refactor": 2,
+          "responsive": 1,
+          "models": 1,
+          "organization": 1,
+          "theming": 1,
+          "core": 1,
+          "setup": 1,
+          "init": 1
+        },
+        "impact": {
+          "internal": 26,
+          "user-facing": 19,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "avgComplexity": 2.42,
+        "avgUrgency": 1.47
       }
     },
     "monthlyCommits": {
       "2026-01": {
-        "commits": 265,
+        "commits": 273,
         "tags": {
-          "merge": 80,
-          "docs": 87,
+          "merge": 84,
+          "docs": 88,
           "removal": 16,
           "bugfix": 37,
-          "ui": 46,
-          "feature": 46,
+          "ui": 48,
+          "feature": 47,
           "ux": 17,
           "testing": 1,
-          "refactor": 25,
+          "refactor": 26,
           "hosting": 2,
           "ci": 2,
           "config": 8,
@@ -6361,24 +7987,58 @@
           "accessibility": 2,
           "performance": 1,
           "error-handling": 1,
-          "architecture": 1,
+          "architecture": 2,
           "planning": 1,
           "chore": 1,
           "simplify": 3,
-          "deployment": 1
+          "deployment": 1,
+          "fix": 2,
+          "calculation": 1
         },
         "impact": {
-          "internal": 186,
-          "user-facing": 74,
+          "internal": 191,
+          "user-facing": 77,
           "infrastructure": 5,
           "api": 0
         },
-        "avgComplexity": 2,
+        "avgComplexity": 2.01,
         "avgUrgency": 1.73
+      },
+      "2025-12": {
+        "commits": 45,
+        "tags": {
+          "feature": 14,
+          "ui": 10,
+          "merge": 20,
+          "calculation": 4,
+          "config": 2,
+          "localization": 2,
+          "fix": 3,
+          "charts": 1,
+          "docs": 5,
+          "architecture": 2,
+          "planning": 1,
+          "refactor": 2,
+          "responsive": 1,
+          "models": 1,
+          "organization": 1,
+          "theming": 1,
+          "core": 1,
+          "setup": 1,
+          "init": 1
+        },
+        "impact": {
+          "internal": 26,
+          "user-facing": 19,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "avgComplexity": 2.42,
+        "avgUrgency": 1.47
       }
     },
     "dateRange": {
-      "earliest": "2026-01-01T15:20:11+00:00",
+      "earliest": "2025-12-25T12:20:42+00:00",
       "latest": "2026-01-21T23:04:08+02:00"
     },
     "security_events": []

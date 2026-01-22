@@ -1,10 +1,30 @@
 {
   "sha": "be0eba0",
+  "fullSha": "be0eba0db0a0b7f5828decf149ffc7938ee74f0f",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-31T20:18:04+00:00",
+  "commitDate": "2025-12-31T20:18:04+00:00",
+  "subject": "Add dual input view: Form and Table modes",
+  "body": "Implemented a new table view option for input parameters alongside the existing form view:\n\nFeatures:\n- View toggle buttons to switch between Form and Table views\n- Single model table: displays all parameters in a structured table with Parameter/Value/Unit/Description columns\n- Multi-model comparison table: side-by-side parameter comparison across selected models\n- Real-time synchronization between form and table inputs\n- Table view automatically updates when models are selected/deselected\n- View toggle only shown in forward calculator mode with selected models\n\nBenefits:\n- Power users can quickly edit parameters in spreadsheet-style interface\n- Easy comparison of input differences across multiple models\n- Efficient bulk parameter adjustments\n- Copy-paste support from external spreadsheets\n- Beginner-friendly form view remains the default with hints and guidance\n\nFiles modified:\n- index.html: Added view toggle UI and table container\n- app.js: Implemented table generation, view switching, and input synchronization\n- README.md: Added documentation for table view feature and usage guide\n- claude.md: Updated feature list to include dual input views",
+  "stats": {
+    "filesChanged": 4,
+    "additions": 403,
+    "deletions": 7
+  },
   "tags": [
     "feature",
     "ui"
   ],
   "complexity": 4,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }

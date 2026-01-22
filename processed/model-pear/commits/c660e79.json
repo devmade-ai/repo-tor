@@ -1,10 +1,30 @@
 {
   "sha": "c660e79",
+  "fullSha": "c660e79c91ac10bba60c3be143a0828577094a65",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-25T22:48:06+00:00",
+  "commitDate": "2025-12-25T22:48:06+00:00",
+  "subject": "Add comprehensive framework alignment planning documents",
+  "body": "This commit adds detailed planning for aligning the Revenue Model Calculator\nwith the Software Product Classification Framework, which introduces a 3-layer\napproach:\n\nLayer 1: Core Function Categories (Dev & DevOps, CRM, Marketing, etc.)\nLayer 2: Delivery Mechanisms (Cloud SaaS, Self-Hosted, Hybrid, Mobile, API)\nLayer 3: Service Models (Self-Service, Managed Services, Professional Services)\n\nDocuments added:\n- FRAMEWORK_ALIGNMENT_PLAN.md: Comprehensive 1000+ line implementation guide\n  with data structures, UI/UX redesign, roadmap, and technical decisions\n- QUICK_START_ALIGNMENT.md: Concise reference guide with before/after examples,\n  code structure changes, and testing checklist\n\nKey changes planned:\n- Add Layer 1 category selector as primary entry point\n- Filter revenue models by software category (only show applicable models)\n- Include realistic pricing ranges from framework (ZAR pricing)\n- Add Layer 2/3 modifiers that affect calculations\n- Show industry benchmarks alongside user results\n\nImpact:\n- Transforms generic revenue calculator into industry-specific pricing advisor\n- Users get context-aware, realistic projections vs guesswork\n- 80%+ accuracy to real-world pricing (vs 50%+ variance currently)",
+  "stats": {
+    "filesChanged": 2,
+    "additions": 999,
+    "deletions": 0
+  },
   "tags": [
     "docs",
     "planning"
   ],
   "complexity": 3,
   "urgency": 1,
-  "impact": "internal"
+  "impact": "internal",
+  "repo_id": "model-pear"
 }

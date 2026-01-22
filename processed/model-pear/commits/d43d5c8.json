@@ -1,10 +1,30 @@
 {
   "sha": "d43d5c8",
+  "fullSha": "d43d5c89803034eb2392ddd1472a58328e018ae3",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "author_id": "noreply@anthropic.com",
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-25T15:01:16+00:00",
+  "commitDate": "2025-12-25T15:01:16+00:00",
+  "subject": "Implement core revenue model calculator functionality",
+  "body": "Added complete implementation for 6 core revenue models:\n- One-Time Purchase (Perpetual License)\n- Subscription (SaaS)\n- Freemium\n- Usage-Based (Consumption)\n- Tiered Pricing\n- Per-Seat/Per-User\n\nFeatures implemented:\n- Dynamic form generation for model-specific inputs\n- Real-time calculation engine with 24-month forecasts\n- Interactive ApexCharts visualizations (3 charts per model)\n- Metrics panel with key performance indicators\n- Debounced input handling for smooth UX\n- Responsive layout with Tailwind CSS\n\nTechnical details:\n- File size: 60KB (well under 200KB target)\n- Lines of code: 1,312 (within 1,050-1,600 estimate)\n- No build process required\n- All functionality client-side",
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1073,
+    "deletions": 31
+  },
   "tags": [
     "feature",
     "core"
   ],
   "complexity": 5,
   "urgency": 2,
-  "impact": "user-facing"
+  "impact": "user-facing",
+  "repo_id": "model-pear"
 }
