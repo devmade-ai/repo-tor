@@ -1,0 +1,39 @@
+{
+  "sha": "d10c476",
+  "fullSha": "d10c4765478e9da555b1132abce04b26dd077c36",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-23T13:41:19Z",
+  "commitDate": "2025-12-23T13:41:19Z",
+  "subject": "Fix mobile web gesture handling with platform-specific implementation",
+  "body": "Completely rethought mobile web interactions by separating web and native implementations:\n\n**Web Implementation (MessageBubbleWeb):**\n- Use native browser event listeners (addEventListener) instead of RN props\n- Support both touch events (mobile) and mouse events (desktop)\n- Touch: tap, long-press, horizontal swipe-to-reply, vertical scroll\n- Mouse: click, right-click, hold-to-press\n- Vertical scrolling no longer interferes with message interactions\n\n**Native Implementation (MessageBubbleNative):**\n- Keep existing react-native-gesture-handler behavior\n- Swipe-to-reply with visual feedback\n- Tap or long-press for action sheet\n\n**Pagination Fix:**\n- Add maintainVisibleContentPosition prop to FlatList\n- Prevents auto-scroll when loading older messages\n- Preserves user's scroll position during pagination\n\nKey insight: Stop fighting the browser - use native DOM events on web\ninstead of trying to make gesture-handler work like native scrolling.",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Fix mobile web gesture handling with platform-specific implementation",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 325,
+    "deletions": 21
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "components/MessageBubble.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

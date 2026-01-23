@@ -1,0 +1,40 @@
+{
+  "sha": "6e2eacd",
+  "fullSha": "6e2eacd315e6910e1d7aa282eae3566981a6e790",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-28T16:07:51Z",
+  "commitDate": "2025-12-28T16:07:51Z",
+  "subject": "Fix OneSignal service worker loading on web platforms",
+  "body": "- Update OneSignalSDKWorker.js to use correct SDK v16 service worker script (.sw.js instead of .page.js)\n- Add Vercel rewrite rule to exclude service worker from catch-all routing\n- Update documentation with OneSignal deployment requirements\n\nFixes \"DOMException: The operation is insecure\" error when loading OneSignal on Firefox and other browsers. The catch-all rewrite was intercepting service worker requests, causing script evaluation failures.",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix OneSignal service worker loading on web platforms",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 11,
+    "deletions": 5
+  },
+  "files": [
+    "CLAUDE.md",
+    "public/OneSignalSDKWorker.js",
+    "vercel.json"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

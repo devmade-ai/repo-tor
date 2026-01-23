@@ -1,0 +1,64 @@
+{
+  "sha": "0e69d96",
+  "fullSha": "0e69d961df657398726a20b5734e93766ecdc407",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-22T11:41:01Z",
+  "commitDate": "2025-12-22T11:41:01Z",
+  "subject": "Add comprehensive message actions with reply, delete, and moderation features",
+  "body": "Implement full suite of message interaction capabilities including threaded replies, clipboard copy, soft/hard deletion, message info modal, and content reporting system.\n\n**Reply to Messages:**\n- Quote-style threading with visual reply references on message bubbles\n- Reply preview bar in compose area shows original message excerpt\n- Tap reply reference to scroll to original message with smooth animation\n- Reply data stored denormalized on messages table (reply_to_id, reply_snippet, reply_sender_id) for optimal performance\n- Replies to replies reference the original (1-level deep threading)\n\n**Message Deletion:**\n- Soft delete (Delete for Me): Removes from your view only via message_deletions table\n- Hard delete (Delete for Everyone): Permanent deletion with 1-hour window, shows \"[Message deleted]\" tombstone\n- Realtime sync ensures deletions propagate instantly to both participants\n\n**Message Info & Moderation:**\n- Message info modal displays delivery status, tones, reactions, and edit history\n- Copy text to clipboard with toast confirmation\n- Report inappropriate messages with category selection (spam, harassment, inappropriate, other)\n- Anonymous reporting stored in message_reports table for future moderation\n\n**UI/UX Improvements:**\n- Unified MessageActionSheet component with context-aware actions\n- Toast notifications provide feedback for copy, delete, and report actions\n- Scroll-to-message with smooth animation when tapping reply references\n- Platform-aware dialogs (window.confirm on web, Alert.alert on native)\n- Automatic read marking only when tab/window is visible (prevents background marking)\n\n**Database Schema:**\n- New tables: message_replies (deprecated), message_deletions, message_reports\n- Messages table additions: reply_to_id, reply_snippet, reply_sender_id, deleted_at, deleted_by\n- Denormalized reply storage eliminates JOINs and ensures snippets work with realtime\n- Full RLS policies for all new tables and updated message UPDATE permissions\n- Realtime enabled for message_deletions table\n- REPLICA IDENTITY FULL on messages table for reliable realtime UPDATE events\n\n**Technical Details:**\n- Reply snippets denormalized on messages table (first 100 chars) for performance\n- message_replies table kept for backwards compatibility but deprecated\n- 15-minute edit window and 5-edit limit enforced in application layer\n- 1-hour hard delete window with sender verification\n- Unique constraints prevent duplicate soft deletes and reports\n- Platform-aware storage and dialogs for web/native compatibility",
+  "tags": [
+    "feature",
+    "schema"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "Add comprehensive message actions with reply, delete, and moderation features",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 27,
+    "additions": 2338,
+    "deletions": 135
+  },
+  "files": [
+    ".claude/message-actions-plan.md",
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "app/_layout.tsx",
+    "components/ComposeBar.tsx",
+    "components/MessageActionSheet.tsx",
+    "components/MessageBubble.tsx",
+    "components/MessageInfoModal.tsx",
+    "components/ReplyPreviewBar.tsx",
+    "components/ReplyReference.tsx",
+    "components/ReportMessageModal.tsx",
+    "components/Toast.tsx",
+    "hooks/useChats.ts",
+    "hooks/useMessages.ts",
+    "hooks/usePolling.ts",
+    "lib/supabase.ts",
+    "services/messages.ts",
+    "services/reactions.ts",
+    "services/reports.ts",
+    "supabase/migrations/20251221184957_add_message_replies.sql",
+    "supabase/migrations/20251221185100_add_message_deletions.sql",
+    "supabase/migrations/20251221185200_add_hard_delete_and_reports.sql",
+    "supabase/migrations/20251222000000_enable_message_deletions_realtime.sql",
+    "supabase/migrations/20251222073648_add_reply_snippet_to_message_replies.sql",
+    "supabase/migrations/20251222075809_add_reply_fields_to_messages.sql",
+    "supabase/migrations/20251222103835_enable_messages_replica_identity.sql",
+    "types/database.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

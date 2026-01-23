@@ -1,0 +1,39 @@
+{
+  "sha": "facec1b",
+  "fullSha": "facec1b8e45b30ebfa8ea7e6dc85e29aef1fc1c7",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T05:59:13Z",
+  "commitDate": "2025-12-29T05:59:13Z",
+  "subject": "feat: add platform-specific instructions for enabling blocked notifications",
+  "body": "When notification permissions are denied and cannot be re-prompted, clicking the bell button now displays detailed instructions for manually enabling notifications in system/browser settings.\n\nFeatures:\n- Detects denied permission status before attempting re-request\n- Shows browser-specific instructions (Chrome, Safari, Firefox, Edge)\n- Shows platform-specific instructions (iOS, Android)\n- Includes step-by-step guidance for each platform\n- Improves UX by helping users recover from denied permissions",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "add platform-specific instructions for enabling blocked notifications",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 54,
+    "deletions": 1
+  },
+  "files": [
+    "app/(app)/home.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

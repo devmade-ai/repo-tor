@@ -1,0 +1,42 @@
+{
+  "sha": "9681504",
+  "fullSha": "968150416cf7894c2fc4bf706954c6123460a76f",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-28T10:59:32Z",
+  "commitDate": "2025-12-28T10:59:32Z",
+  "subject": "Move notification permission request to after tutorial completion",
+  "body": "- Remove notification step from tutorial (now 8 steps instead of 9)\n- Simplify TutorialModal by removing notification permission handling\n- Enhance useTutorial hook to support onComplete callback\n- Request notifications automatically after tutorial completes\n- Update documentation to reflect new flow\n\nThis creates a smoother onboarding experience where users learn about the\napp first, then are prompted for permissions after they complete the tutorial.",
+  "tags": [
+    "enhancement",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Move notification permission request to after tutorial completion",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 40,
+    "deletions": 83
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/home.tsx",
+    "components/TutorialModal.tsx",
+    "constants/tutorial.ts",
+    "hooks/useTutorial.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

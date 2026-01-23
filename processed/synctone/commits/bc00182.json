@@ -1,0 +1,45 @@
+{
+  "sha": "bc00182",
+  "fullSha": "bc00182f25a850481fd9e84c68f9fdc29d44ec2b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-14T21:31:32Z",
+  "commitDate": "2025-12-14T21:31:32Z",
+  "subject": "Add session management and fix realtime subscription issues",
+  "body": "## Session Management\n- Add `clearAllStorage()` function to clear all local data across platforms\n  - Web: Clears AsyncStorage, localStorage, and sessionStorage\n  - Native: Clears AsyncStorage and SecureStore\n- Add logout/clear data button (🗑️) in home screen header\n- Add \"Clear Data & Retry\" button on initialization error screen\n- Both buttons sign out from Supabase and reload app after clearing data\n\n## Realtime Subscription Fixes\n- Add polling fallback (2s interval) for chat join detection\n  - Ensures creator navigates to chat when participant joins\n  - Works even if Supabase realtime subscription fails\n- Add polling fallback (3s interval) for message tone updates\n  - Ensures sender sees receiver's tone tags\n  - Detects receiver_tone changes reliably\n- Add comprehensive debug logging throughout subscription flow\n  - Chat subscriptions: creation, status, updates\n  - Message subscriptions: new messages, updates, tone tagging\n  - Join flow: validation, database updates, navigation\n\n## UX Improvements\n- Add X button to create chat screen header for easy navigation back\n- Remove redundant cancel button from create screen footer\n- Improve error handling with detailed console logs\n\nAll changes maintain backward compatibility and use polling as a\nreliable fallback while keeping realtime as the primary mechanism for\nbetter performance when it works.",
+  "tags": [
+    "feature",
+    "bugfix"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add session management and fix realtime subscription issues",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 252,
+    "deletions": 35
+  },
+  "files": [
+    "app/(app)/create.tsx",
+    "app/(app)/home.tsx",
+    "app/(app)/join.tsx",
+    "app/_layout.tsx",
+    "hooks/useMessages.ts",
+    "services/chat.ts",
+    "services/identity.ts",
+    "services/messages.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

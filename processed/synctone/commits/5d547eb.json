@@ -1,0 +1,39 @@
+{
+  "sha": "5d547eb",
+  "fullSha": "5d547ebb01a2d2dd615c37315403fdb5f515016e",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T11:45:44Z",
+  "commitDate": "2025-12-27T11:45:44Z",
+  "subject": "Implement full page reload on pull-to-refresh",
+  "body": "Home screen:\n- Pull down triggers window.location.reload() on web\n- Ensures refresh works on web mobile\n- Native performs hard data refetch\n\nChat screen:\n- Pull UP from bottom (newest messages) triggers page reload\n- Pull down from top still loads older messages (pagination preserved)\n- Removed RefreshControl to avoid conflicts with pagination\n- Custom scroll detection for pull-up-to-refresh gesture",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Implement full page reload on pull-to-refresh",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 41,
+    "deletions": 12
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/home.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,39 @@
+{
+  "sha": "84d2ce5",
+  "fullSha": "84d2ce56bc52ab5036ba90fd587ba508e56dd108",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T07:15:59Z",
+  "commitDate": "2025-12-29T07:15:59Z",
+  "subject": "fix: use OneSignal SDK permission status for notification icon",
+  "body": "Reverted to using OneSignal SDK as the source of truth for permission status.\nThe native browser permission API is not accurate enough - OneSignal SDK\nprovides the correct state.\n\nChanges:\n- Use getOneSignalPermissionStatus() for all permission checks\n- Icon updates when OneSignal SDK state changes\n- Removed native browser permission checks\n- Icon shows: ⏳ loading, 🔔 granted, 🔕 denied, 🔔 undetermined",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "use OneSignal SDK permission status for notification icon",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 52,
+    "deletions": 84
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "hooks/useNotifications.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

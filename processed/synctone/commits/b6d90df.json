@@ -1,0 +1,37 @@
+{
+  "sha": "b6d90df",
+  "fullSha": "b6d90df3f89c73960c9288663d929680a0a2bf23",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-23T13:20:19Z",
+  "commitDate": "2025-12-23T13:20:19Z",
+  "subject": "Fix auto-scroll when loading older messages via pagination",
+  "body": "Modified polling logic in useMessages hook to update only affected messages instead of replacing entire message array. This prevents unwanted scroll-to-bottom behavior when users load older messages through infinite scroll.\n\nChanges:\n- Soft deletions: Filter out specific message IDs without recreating array\n- New messages: Append and sort while preserving paginated messages\n- Message updates: Map through existing array, updating only changed messages\n\nThis maintains scroll position stability during pagination while keeping realtime updates working correctly.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Fix auto-scroll when loading older messages via pagination",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 36,
+    "deletions": 65
+  },
+  "files": [
+    "hooks/useMessages.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

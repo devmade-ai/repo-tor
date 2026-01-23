@@ -1,0 +1,38 @@
+{
+  "sha": "6503cfe",
+  "fullSha": "6503cfe1f81e1b230fddd1e2a39d53e8a38850d7",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T16:56:00Z",
+  "commitDate": "2025-12-27T16:56:00Z",
+  "subject": "Fix chat deletion sync between users",
+  "body": "Previously, when one user deleted a chat, the other user would still see it in their list. When they tried to delete it, it would temporarily disappear (due to optimistic local state) but reappear after a hard refresh.\n\nRoot causes:\n1. The deletedChatIds local React state was used for optimistic UI updates but reset on page refresh\n2. No client-side fallback to filter chats where ended_by !== null\n3. Stale chat IDs accumulated in deletedChatIds Set without cleanup\n\nChanges:\n- Added client-side filter to exclude chats where ended_by !== null (belt and suspenders approach)\n  - This ensures ended chats never appear even if the database query has issues\n  - Works as a fallback to the server-side .is('ended_by', null) filter\n- Added useEffect to clean up deletedChatIds when chats are successfully removed from server data\n  - Prevents the Set from growing indefinitely with stale IDs\n  - Automatically removes IDs when server confirms deletion\n- Added debug logging in useChats to detect if the database query incorrectly returns ended chats\n  - Helps identify if there are issues with the .is('ended_by', null) filter or RLS policies\n\nNow when User A deletes a chat:\n1. ended_by is set in the database\n2. User B's realtime subscription triggers a refetch\n3. The client-side filter ensures the chat is hidden even if still in the query results\n4. On hard refresh, the client-side filter still applies, keeping the chat hidden\n5. No accumulation of stale IDs in local state",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Fix chat deletion sync between users",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 29,
+    "deletions": 1
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "hooks/useChats.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

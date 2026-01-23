@@ -1,0 +1,40 @@
+{
+  "sha": "c4247b1",
+  "fullSha": "c4247b1d21a27aa8437e4caa8eb4517142f12af7",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T02:52:29Z",
+  "commitDate": "2025-12-29T02:52:29Z",
+  "subject": "Add tutorial step explaining notifications before permission request",
+  "body": "Added new \"Stay Connected\" step (step 8) to the tutorial that explains:\n- What notifications do (alert when messages arrive)\n- Why they matter for asynchronous messaging\n- Platform differences (mobile vs web)\n- Sets expectation for upcoming permission request\n\nThis ensures users understand the value of notifications before being prompted, improving onboarding UX.\n\nUpdated CLAUDE.md to reflect 9-step tutorial structure.",
+  "tags": [
+    "feature",
+    "docs",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Add tutorial step explaining notifications before permission request",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 10,
+    "deletions": 3
+  },
+  "files": [
+    "CLAUDE.md",
+    "constants/tutorial.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

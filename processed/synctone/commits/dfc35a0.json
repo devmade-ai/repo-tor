@@ -1,0 +1,44 @@
+{
+  "sha": "dfc35a0",
+  "fullSha": "dfc35a0b7d282f44f203c070804bd76ffe5061db",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-28T09:50:17Z",
+  "commitDate": "2025-12-28T09:50:17Z",
+  "subject": "Add OneSignal integration for web push notifications",
+  "body": "Migrates web mobile and web desktop notifications from custom service\nworker implementation to OneSignal for improved reliability, analytics,\nand easier management.\n\nChanges:\n- Add OneSignal SDK integration (services/onesignal.ts)\n- Add app instance management service (services/appInstance.ts)\n- Update notification hook to use OneSignal for web platforms\n- Initialize OneSignal in app layout with click handlers\n- Add database migration for onesignal_player_id column\n- Create Supabase Edge Function for sending notifications via OneSignal API\n- Update CLAUDE.md documentation with OneSignal setup details\n\nBenefits:\n- Free tier with unlimited notifications\n- Better delivery rates and reliability\n- Analytics dashboard for monitoring\n- Unified API for web mobile and desktop\n- Professional notification infrastructure\n\nImplementation:\n- Native mobile continues using expo-notifications\n- Web platforms now use OneSignal for push notifications\n- Player IDs stored in database for targeted notifications\n- Backend sends notifications via OneSignal REST API",
+  "tags": [
+    "feature",
+    "infrastructure"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add OneSignal integration for web push notifications",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 522,
+    "deletions": 42
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/_layout.tsx",
+    "hooks/useNotifications.ts",
+    "services/appInstance.ts",
+    "services/onesignal.ts",
+    "supabase/functions/send-notification/index.ts",
+    "supabase/migrations/20250115000001_add_onesignal_player_id.sql"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

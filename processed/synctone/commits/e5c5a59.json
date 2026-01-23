@@ -1,0 +1,38 @@
+{
+  "sha": "e5c5a59",
+  "fullSha": "e5c5a591203b23153730a42e97af9c1778dc0852",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T16:23:52Z",
+  "commitDate": "2025-12-27T16:23:52Z",
+  "subject": "Fix message deletion sync between users",
+  "body": "Previously, when one user hard-deleted a message (delete for everyone), the deletion wouldn't sync reliably to the other user's view. Additionally, soft deletes (delete for me) sometimes wouldn't persist on refresh.\n\nRoot causes:\n1. Polling only checked the most recent 15 messages for updates, missing deletions of older messages\n2. Insufficient logging made it hard to debug soft delete filtering issues\n\nChanges:\n- Updated polling in useMessages.ts to fetch and check all currently loaded messages (up to 100) instead of just the most recent 15\n- This ensures hard deletes are detected even for older paginated messages\n- Added detailed logging to soft delete filtering in getMessagesPaginated to track when messages are filtered out\n- Added logging for deleted_at changes during polling to track hard delete propagation\n\nThe improved polling now:\n- Fetches max(MESSAGES_PER_PAGE, min(currentMessages.length, 100)) messages\n- Compares ALL loaded messages against fresh data\n- Detects both hard deletes (deleted_at changes) and soft deletes (message removal from query results)\n\nThis ensures both participants see consistent message states within a 3-second polling window, even when realtime UPDATE events don't fire reliably.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Fix message deletion sync between users",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 81,
+    "deletions": 58
+  },
+  "files": [
+    "hooks/useMessages.ts",
+    "services/messages.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

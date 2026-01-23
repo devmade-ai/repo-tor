@@ -1,0 +1,47 @@
+{
+  "sha": "de36cdc",
+  "fullSha": "de36cdc9b524c1ab6a1c024b79798b9d5e76d1dd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-20T19:45:38Z",
+  "commitDate": "2025-12-20T19:45:38Z",
+  "subject": "Add message editing for correcting spelling mistakes",
+  "body": "Implemented comprehensive message editing functionality with constraints to prevent abuse:\n\nFeatures:\n- Edit messages within 15-minute window from sending\n- Maximum 5 edits per message\n- Tone tags are locked and cannot be changed\n- \"(edited)\" indicator displayed on modified messages\n- Cross-platform support (tap on web, tap/long-press on native)\n\nUI/UX:\n- Tap own messages to open action sheet with \"Edit Message\" and \"Add Reaction\" options\n- Edit button only shown if message is within time/edit limits\n- Reaction button always available on own messages\n- Edit mode shows locked tones with \"Tones (cannot be changed)\" label\n- Cancel button to exit edit mode\n- Checkmark send icon when editing\n\nDatabase:\n- Added edited_at timestamp column to track last edit\n- Added edit_count integer with max 5 constraint\n- RLS policy allowing users to edit their own messages\n- Optimistic updates with error rollback\n\nFixes:\n- Fixed message bubble alignment for sent messages\n- Fixed tone label overflow within bubble width\n- Added polling fallback for reaction updates (3s interval)\n- Fixed reaction removal not updating without refresh\n- Improved realtime subscription logging for debugging",
+  "tags": [
+    "feature",
+    "schema"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add message editing for correcting spelling mistakes",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 392,
+    "deletions": 23
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "components/ComposeBar.tsx",
+    "components/MessageBubble.tsx",
+    "hooks/useMessages.ts",
+    "hooks/useReactions.ts",
+    "services/messages.ts",
+    "services/reactions.ts",
+    "supabase/migrations/20251220190159_add_message_editing.sql",
+    "supabase/migrations/20251220190832_add_message_edit_rls.sql",
+    "types/database.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

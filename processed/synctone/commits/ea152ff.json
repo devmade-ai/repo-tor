@@ -1,0 +1,39 @@
+{
+  "sha": "ea152ff",
+  "fullSha": "ea152ff95be20f74122d3ddc4a9b74e828ae57d4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-27T15:35:15Z",
+  "commitDate": "2025-12-27T15:35:15Z",
+  "subject": "Fix whitespace text node warnings in React Native web",
+  "body": "Remove newlines between sibling JSX elements within View components that were creating unwanted text nodes. In React/JSX, whitespace (including newlines) between sibling elements becomes a text node, which causes \"Unexpected text node\" warnings in React Native web since View components cannot have text node children.\n\nFixed in:\n- app/_layout.tsx: Removed newlines between ActivityIndicator/Text and between Text/Pressable elements\n- app/(app)/home.tsx: Removed newlines between Pressable elements, View elements, comments, and EmptyState component\n- components/ChatListItem.tsx: Removed newlines before inline comments between sibling View elements\n\nAll sibling elements within View components now appear on the same line or have comments attached directly to closing tags (e.g., `</Element>{/* comment */}`) to prevent whitespace text nodes.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix whitespace text node warnings in React Native web",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 60,
+    "deletions": 78
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "app/_layout.tsx",
+    "components/ChatListItem.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

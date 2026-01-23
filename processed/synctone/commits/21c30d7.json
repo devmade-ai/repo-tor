@@ -1,0 +1,38 @@
+{
+  "sha": "21c30d7",
+  "fullSha": "21c30d7affd66f3bfed191956967ace854db1526",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-27T15:46:50Z",
+  "commitDate": "2025-12-27T15:46:50Z",
+  "subject": "Fix whitespace text node warnings in ToneSelector and MessageInfoModal",
+  "body": "Remove newlines between sibling JSX elements within View components that were creating unwanted text nodes. In React/JSX, whitespace (including newlines) between sibling elements becomes a text node, which causes \"Unexpected text node\" warnings in React Native web since View components cannot have text node children.\n\nFixed in:\n- components/ToneSelector.tsx: Removed newlines before {/* All Categories */} comment in both compact and full variants\n- components/MessageInfoModal.tsx: Removed newlines before Tones Section, Edit Info Section, Reactions Section, and Close Button comments\n\nAll sibling elements within View components now appear on the same line or have comments attached directly to closing tags (e.g., `</View>{/* comment */}`) to prevent whitespace text nodes.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "scope": null,
+  "title": "Fix whitespace text node warnings in ToneSelector and MessageInfoModal",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 5,
+    "deletions": 16
+  },
+  "files": [
+    "components/MessageInfoModal.tsx",
+    "components/ToneSelector.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

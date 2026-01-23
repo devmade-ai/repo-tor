@@ -1,0 +1,42 @@
+{
+  "sha": "41a5be6",
+  "fullSha": "41a5be645d8a19ea6add7bff8443e2572fb36601",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T11:08:14Z",
+  "commitDate": "2025-12-27T11:08:14Z",
+  "subject": "Reorganize UI colors for better semantic meaning",
+  "body": "Changed color usage to follow clear semantic guidelines:\n- Accent (teal): Positive/creative actions (Create/Join Chat, Send button)\n- Secondary (magenta-pink): Destructive/warning actions (End Chat, error states, unread badges)\n- Primary (blue): Neutral actions (Copy Code button)\n\nKey changes:\n- Create Chat and Join Chat buttons: secondary → accent\n- Send message button: secondary → accent\n- Copy Code button: secondary → primary\n- All loading spinners: secondary → accent\n- Refresh/Try Again buttons: secondary → accent\n- End Chat button: kept as secondary (destructive action)\n- Unread badges: kept as secondary (attention-grabbing)",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Reorganize UI colors for better semantic meaning",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 17,
+    "deletions": 17
+  },
+  "files": [
+    "app/(app)/create.tsx",
+    "app/(app)/home.tsx",
+    "app/(app)/join.tsx",
+    "app/_layout.tsx",
+    "components/ComposeBar.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 1,
+  "impact": "user-facing"
+}

@@ -1,0 +1,38 @@
+{
+  "sha": "eaf959d",
+  "fullSha": "eaf959da1e14e1da86decd288ab06edf4da6bd65",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-23T13:17:34Z",
+  "commitDate": "2025-12-23T13:17:34Z",
+  "subject": "Fix mobile web scrolling by optimizing gesture handling",
+  "body": "- Increase horizontal swipe threshold on web (30px vs 10px) to prioritize vertical scrolling\n- Reduce vertical fail threshold on web (10px vs 15px) so pan gesture fails quickly when scrolling\n- Use Gesture.Simultaneous on web to allow both tap and swipe-to-reply without blocking scroll\n- Re-enable swipe-to-reply on mobile web with gesture configuration that doesn't interfere with scrolling\n\nThe key fix is the lower failOffsetY threshold on web, which makes the pan gesture immediately yield to native scrolling when detecting vertical movement, while still allowing intentional horizontal swipes for the reply feature.",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix mobile web scrolling by optimizing gesture handling",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 6,
+    "deletions": 14
+  },
+  "files": [
+    "components/MessageBubble.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

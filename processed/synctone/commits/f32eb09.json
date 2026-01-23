@@ -1,0 +1,52 @@
+{
+  "sha": "f32eb09",
+  "fullSha": "f32eb0974e67161223c80dff4e46ad2e1bc18996",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T09:54:11Z",
+  "commitDate": "2025-12-27T09:54:11Z",
+  "subject": "Implement SeaBlueCherry dark mode color scheme",
+  "body": "Applied a vibrant ocean-inspired dark mode with the following colors:\n- Background: #0A1221 (very dark navy-blue)\n- Primary: #1E90FF (vivid teal-blue for buttons/links)\n- Secondary: #E91E63 (vibrant magenta-pink for highlights)\n- Text: #F0F4FF (near-white with blue tint)\n- Text Secondary: #A0B0D0 (muted blue-gray)\n\nChanges:\n- Updated core theme colors in styles/theme.js\n- Extended Tailwind config with new color utilities\n- Replaced all hardcoded colors in components and screens\n- Updated loading spinners to use secondary color\n- Updated placeholder text to use textSecondary color\n- Updated read receipt indicators to use primary color\n- Updated shadow colors to match new palette\n\nThe color scheme maintains a fresh, energetic beach/ocean feel while\noptimizing for dark mode viewing with reduced eye strain and improved\ncontrast.",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Implement SeaBlueCherry dark mode color scheme",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [
+    "#0",
+    "#1"
+  ],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 36,
+    "deletions": 27
+  },
+  "files": [
+    "app/(app)/_layout.tsx",
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/create.tsx",
+    "app/(app)/home.tsx",
+    "app/(app)/join.tsx",
+    "app/_layout.tsx",
+    "components/ChatListItem.tsx",
+    "components/ComposeBar.tsx",
+    "components/MessageBubble.tsx",
+    "components/ReportMessageModal.tsx",
+    "styles/theme.js",
+    "tailwind.config.js"
+  ],
+  "repo_id": "synctone",
+  "urgency": 1,
+  "impact": "user-facing"
+}

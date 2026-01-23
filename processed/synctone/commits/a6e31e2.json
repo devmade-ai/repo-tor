@@ -1,0 +1,42 @@
+{
+  "sha": "a6e31e2",
+  "fullSha": "a6e31e2e08e9f349c5f34a4b1884caa1304e7a6b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-28T11:48:16Z",
+  "commitDate": "2025-12-28T11:48:16Z",
+  "subject": "Improve OneSignal diagnostics and use async loading for performance",
+  "body": "Better solution that addresses both performance and debugging concerns:\n\n1. Performance Fix:\n   - Use async attribute instead of blocking (reverted removal of defer)\n   - Async loads script asynchronously without blocking page render\n   - Maintains proper initialization order via OneSignalDeferred\n\n2. Comprehensive Diagnostics:\n   - Added detailed console logging at each initialization stage\n   - Script load verification with helpful error messages\n   - Progress updates every 2 seconds during initialization\n   - Specific troubleshooting guidance for different failure modes\n\n3. Setup Verification Guide:\n   - Created ONESIGNAL_SETUP.md with complete setup checklist\n   - Covers OneSignal dashboard configuration\n   - Lists common issues and solutions\n   - Includes verification commands for service worker and CDN\n\n4. Better Error Messages:\n   - Identifies specific failure points (script load, initialization, timeout)\n   - Suggests concrete next steps for each error type\n   - Points to setup guide for detailed troubleshooting\n\nThis allows diagnosing whether the issue is:\n- Network/CDN blocking\n- Invalid app ID\n- Missing dashboard configuration\n- Service worker problems\n- Or actually a timing/race condition\n\nCheck browser console for detailed diagnostic output.",
+  "tags": [
+    "enhancement",
+    "performance",
+    "logging",
+    "docs"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Improve OneSignal diagnostics and use async loading for performance",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 185,
+    "deletions": 12
+  },
+  "files": [
+    "ONESIGNAL_SETUP.md",
+    "services/onesignal.ts",
+    "web/index.html"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

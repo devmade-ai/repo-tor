@@ -1,0 +1,41 @@
+{
+  "sha": "384a8ac",
+  "fullSha": "384a8acbaba9895d26950b5cffef1c4f2d017252",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-28T11:24:26Z",
+  "commitDate": "2025-12-28T11:24:26Z",
+  "subject": "Add OneSignal SDK loading state tracking and separate subscription flow",
+  "body": "Changes:\n- Add SDK loading state tracking in onesignal.ts (idle/loading/ready/error)\n- Add visual SDK status indicator in NotificationBanner (colored dot + status text)\n- Separate permission request from subscription on web platforms\n- Add explicit subscribe() function for OneSignal opt-in\n- Add isSubscribed state tracking separate from permission status\n- Show two-step flow on web: 1) Enable permissions 2) Subscribe to notifications\n- Add loading spinners for both permission and subscription buttons\n- Disable buttons appropriately based on SDK state\n\nThis addresses potential SDK loading issues by:\n- Providing visual feedback about OneSignal SDK initialization\n- Preventing actions before SDK is ready\n- Clearly separating browser permission from OneSignal subscription\n- Showing helpful error messages if SDK fails to load",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Add OneSignal SDK loading state tracking and separate subscription flow",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 304,
+    "deletions": 38
+  },
+  "files": [
+    "components/NotificationBanner.tsx",
+    "hooks/useNotifications.ts",
+    "services/onesignal.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

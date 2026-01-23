@@ -1,0 +1,38 @@
+{
+  "sha": "7e1a1eb",
+  "fullSha": "7e1a1ebf33a4ea9d4b3f64d1846bae2f798f4593",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T12:53:05Z",
+  "commitDate": "2025-12-29T12:53:05Z",
+  "subject": "fix: prevent scroll offset race condition during pagination on mobile web",
+  "body": "**Problem:**\nMobile web still experienced upward jumps when loading older messages, despite previous fixes.\n\n**Root Cause:**\nRace condition between scroll event handlers and pagination:\n1. User scrolls to trigger pagination\n2. onEndReached fires, loads older messages\n3. During pagination, onScroll continues firing and updates scrollOffsetBeforePagination\n4. onContentSizeChange fires multiple times with stale/updated offset values\n5. Scroll restoration uses wrong offset → upward jump\n\n**Solution:**\nFreeze scroll offset values during pagination to prevent intermediate updates:\n- Added isPaginatingRef flag to lock captured scroll offset\n- onEndReached sets flag when pagination starts\n- onScroll skips updates when flag is set (values frozen)\n- onContentSizeChange resets flag after scroll restoration completes\n\n**Result:**\nScroll offset reference point remains stable throughout pagination cycle, eliminating race condition and upward jumps.",
+  "tags": [
+    "bugfix",
+    "performance"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "prevent scroll offset race condition during pagination on mobile web",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 12,
+    "deletions": 1
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

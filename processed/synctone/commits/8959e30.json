@@ -1,0 +1,38 @@
+{
+  "sha": "8959e30",
+  "fullSha": "8959e3026fa0df7df15185a3bee518c9571f0539",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T07:46:02Z",
+  "commitDate": "2025-12-29T07:46:02Z",
+  "subject": "docs: align notification documentation with 2-button system",
+  "body": "Update documentation to accurately reflect the new 2-button notification\nsystem for web browsers (browser permission + OneSignal subscription).\n\nChanges:\n- CLAUDE.md: Document separate buttons for native (1 button) vs web (2 buttons)\n- tutorial.ts: Rewrite notification step to clearly explain both buttons\n  with visual indicators (🔔/🔕 for browser, 📡/📴 for OneSignal)\n- Clarify that browser permission must be enabled FIRST before OneSignal\n- Add icon legend so users understand what each icon state means\n\nAll button press handlers verified to show correct contextual messages.",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "align notification documentation with 2-button system",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 7,
+    "deletions": 3
+  },
+  "files": [
+    "CLAUDE.md",
+    "constants/tutorial.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

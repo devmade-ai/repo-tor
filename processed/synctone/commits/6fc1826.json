@@ -1,0 +1,39 @@
+{
+  "sha": "6fc1826",
+  "fullSha": "6fc1826c5e1697d88221f33eacf912e920167400",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-14T21:01:37Z",
+  "commitDate": "2025-12-14T21:01:37Z",
+  "subject": "- Reorganized tones into Feeling, Attitude, Energy categories",
+  "body": "- Allow selecting up to 2 tones per message\n- Added 'Most Used' row for frequently used tones\n- Improved send button icon and alignment\n- Made tone selector more compact (40% less space)\n- Updated database schema to support tone arrays\n- Enhanced tone comparison to show partial matches\"",
+  "tags": [
+    "enhancement",
+    "schema"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "- Reorganized tones into Feeling, Attitude, Energy categories",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 9,
+    "deletions": 0
+  },
+  "files": [
+    "supabase/migrations/20251214200901_support_multiple_tones.sql",
+    "supabase/migrations/20251214210033_fix_tone_array_constraints.sql"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

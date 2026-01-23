@@ -1,0 +1,47 @@
+{
+  "sha": "7fb7bfe",
+  "fullSha": "7fb7bfe7f99e71987e2427db5ef4541a8810a84b",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "committer": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2025-12-10T06:42:21Z",
+  "commitDate": "2025-12-10T06:42:21Z",
+  "subject": "1. Homepage Visual Improvements",
+  "body": "Reduced Create Chat button shadow for a cleaner look\nFixed spacing between header and first chat item\nCentered the × button in the red end-chat circle\n2. Privacy Bug Fix\nFixed critical bug where sender's tone was visible before receiver tagged it\nTone emojis now only show when both parties have tagged\n3. Readable Chat Codes\nReplaced: Random codes like A3B7K2 → Memorable phrases like happy-tiger\nCreated: Word lists (48 adjectives × 48 nouns = 2,304 combinations)\nUpdated: Database schema to support longer codes (varchar(20))\nEnhanced: Chat avatars now show emojis instead of letters\nImproved: Join screen with new placeholder and lowercase input\n4. Database Fix\nFixed RLS policy that was blocking users from joining chats\nApplied all migrations successfully\nAll features are now working correctly with the new word-based chat code system!",
+  "tags": [
+    "enhancement",
+    "bugfix",
+    "schema",
+    "security"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "1. Homepage Visual Improvements",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 166,
+    "deletions": 45
+  },
+  "files": [
+    "app/(app)/create.tsx",
+    "app/(app)/home.tsx",
+    "app/(app)/join.tsx",
+    "components/ChatListItem.tsx",
+    "constants/wordLists.ts",
+    "services/chat.ts",
+    "supabase/migrations/20251210062313_update_chat_code_length.sql",
+    "supabase/migrations/20251210063411_fix_join_chat_rls_check.sql"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

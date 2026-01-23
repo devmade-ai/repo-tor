@@ -1,0 +1,45 @@
+{
+  "sha": "cbf4417",
+  "fullSha": "cbf44176ebf4d7439f84f9ade5a320550c32183b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-20T18:58:16Z",
+  "commitDate": "2025-12-20T18:58:16Z",
+  "subject": "Add emoji reactions to messages",
+  "body": "Implemented full emoji reaction support for messages in chat conversations. Users can react to any message (their own or received) with multiple different emojis, and toggle reactions on/off.\n\nFeatures:\n- Tap any message to open emoji picker with 12 popular reactions\n- Multiple different reactions allowed per message\n- Toggle reactions on/off by tapping reaction badges\n- Real-time reaction updates across devices\n- Optimistic UI updates for instant feedback\n- Reaction counts displayed with visual feedback for user's reactions\n\nDatabase changes:\n- New reactions table with CASCADE deletion\n- RLS policies for anonymous auth (view/add/remove own reactions)\n- Realtime subscriptions enabled\n\nImplementation:\n- New ReactionPicker modal component (bottom sheet UI)\n- New ReactionBar component (displays reaction badges below messages)\n- New useReactions hook (state management with realtime sync)\n- New reactions service (CRUD operations)\n- Updated MessageBubble to support tap interaction and reaction display\n- Updated chat screen to integrate reaction functionality\n\nTechnical details:\n- Optimistic updates prevent UI lag\n- Duplicate detection avoids double-counting from realtime events\n- Grouped reactions by emoji with participant tracking\n- Unique constraint prevents duplicate user+emoji combinations",
+  "tags": [
+    "feature",
+    "schema"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add emoji reactions to messages",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 628,
+    "deletions": 51
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "components/MessageBubble.tsx",
+    "components/ReactionBar.tsx",
+    "components/ReactionPicker.tsx",
+    "hooks/useReactions.ts",
+    "services/reactions.ts",
+    "supabase/migrations/20251220104257_add_message_reactions.sql",
+    "types/database.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

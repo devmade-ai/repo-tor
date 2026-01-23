@@ -1,0 +1,41 @@
+{
+  "sha": "f41cb5b",
+  "fullSha": "f41cb5bd27f48178b2de3b0e28f38b8aa22f8cc4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-28T19:25:11Z",
+  "commitDate": "2025-12-28T19:25:11Z",
+  "subject": "Remove unnecessary internal authentication from notification system",
+  "body": "The Edge Function is only called internally by the database trigger via pg_net, so the X-Internal-Secret authentication layer was redundant and causing 401 errors.\n\nChanges:\n- Remove INTERNAL_API_SECRET validation from send-notification Edge Function\n- Update notify_new_message() trigger to not send X-Internal-Secret header\n- Simplify authentication flow to rely on Supabase project isolation\n- Fix TypeScript error handling in Edge Function catch block\n\nThe notification system is already secure because:\n- Edge Function is hosted within Supabase project infrastructure\n- Only accessible via pg_net from database trigger\n- OneSignal API key remains securely stored in environment variables\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "security",
+    "simplify"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Remove unnecessary internal authentication from notification system",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 238,
+    "deletions": 15
+  },
+  "files": [
+    "supabase/functions/send-notification/index.ts",
+    "supabase/migrations/20251228191602_force_update_notification_function.sql",
+    "supabase/migrations/20251228192110_remove_internal_auth_from_notification_function.sql"
+  ],
+  "repo_id": "synctone",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

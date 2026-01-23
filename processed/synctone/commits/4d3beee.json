@@ -1,0 +1,38 @@
+{
+  "sha": "4d3beee",
+  "fullSha": "4d3beee86020b37467a83a3feeb5a6b0c59720f3",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T11:40:03Z",
+  "commitDate": "2025-12-27T11:40:03Z",
+  "subject": "Add pull-to-refresh to chat screen",
+  "body": "- Add RefreshControl to chat messages FlatList for manual refresh\n- Refresh triggers when pulling down from top (oldest messages)\n- Performs hard refresh by reloading all messages from database\n- Maintains existing home screen pull-to-refresh functionality",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Add pull-to-refresh to chat screen",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 15,
+    "deletions": 1
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

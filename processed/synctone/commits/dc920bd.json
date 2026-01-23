@@ -1,0 +1,41 @@
+{
+  "sha": "dc920bd",
+  "fullSha": "dc920bd9ec2607bf9b3fc6a3bbf4c5c83c8422a5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-22T20:44:47Z",
+  "commitDate": "2025-12-22T20:44:47Z",
+  "subject": "Add immediate emoji reactions to message action sheet",
+  "body": "- Extract REACTION_EMOJIS constant to shared constants/reactions.ts file\n- Display emoji picker directly at top of MessageActionSheet for faster access\n- Remove separate ReactionPicker modal from chat flow (still available for backward compatibility)\n- Update both MessageActionSheet and ReactionPicker to use shared emoji constant\n- Remove background color from reaction buttons for cleaner appearance\n- Reduce reaction flow from 4 taps to 2 taps\n\nUsers can now react to messages immediately when opening the action sheet instead of navigating through an additional modal.",
+  "tags": [
+    "enhancement",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Add immediate emoji reactions to message action sheet",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 38,
+    "deletions": 39
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "components/MessageActionSheet.tsx",
+    "components/ReactionPicker.tsx",
+    "constants/reactions.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

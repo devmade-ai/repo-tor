@@ -1,0 +1,39 @@
+{
+  "sha": "bba30e0",
+  "fullSha": "bba30e0068b2d0d543d709cd1612190456462195",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T06:16:33Z",
+  "commitDate": "2025-12-29T06:16:33Z",
+  "subject": "fix: correct notification icon states and add Android web dual-layer instructions",
+  "body": "- Fix notification bell icon to show correct state:\n  - undetermined state now shows 🔕 (was incorrectly showing 🔔)\n  - granted state shows 🔔 (enabled)\n  - denied state shows 🔕 (blocked)\n- Add Android-specific dual-layer notification instructions:\n  - Android Chrome/Edge: system settings + browser permissions\n  - Android Firefox: system settings + browser permissions\n  - Mirrors iOS Safari's existing dual-layer approach",
+  "tags": [
+    "bugfix",
+    "ui",
+    "docs"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "correct notification icon states and add Android web dual-layer instructions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 17,
+    "deletions": 4
+  },
+  "files": [
+    "app/(app)/home.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

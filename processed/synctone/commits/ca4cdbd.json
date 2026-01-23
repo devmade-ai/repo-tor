@@ -1,0 +1,39 @@
+{
+  "sha": "ca4cdbd",
+  "fullSha": "ca4cdbdc54b229b5960fa0bbb6c81d4229b7185f",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T06:21:24Z",
+  "commitDate": "2025-12-29T06:21:24Z",
+  "subject": "feat: add distinct notification icon for undetermined permission state",
+  "body": "Previously, the undetermined state (user not yet asked) showed the same icon (🔕) as the denied state (user blocked notifications), causing confusion.\n\nNow each permission state has a clear visual indicator:\n- ⏳ Loading: Checking permission status\n- 🔔 Undetermined: Not yet asked - invites user to enable\n- ✅ Granted: Notifications enabled and working\n- 🔕 Denied: Notifications blocked - tap for system settings instructions\n\nThis improves UX by clearly distinguishing between \"ready to enable\" and \"blocked\" states.",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 1,
+  "scope": null,
+  "title": "add distinct notification icon for undetermined permission state",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "app/(app)/home.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

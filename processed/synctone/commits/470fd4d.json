@@ -1,0 +1,39 @@
+{
+  "sha": "470fd4d",
+  "fullSha": "470fd4d106723f1a0eac6c43d58a567cc4ff6832",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "committer": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2025-12-14T12:32:03Z",
+  "commitDate": "2025-12-14T12:32:03Z",
+  "subject": "Deploy via Vercel Dashboard",
+  "body": "Go to vercel.com\nClick \"Add New Project\"\nImport your GitHub repository\nVercel will auto-detect the settings\n3. Configure Vercel (Create vercel.json)\nFor better control, I recommend creating a vercel.json configuration file:\nWrite vercel.json\n14 lines\n4. Set Environment Variables\nYou'll need to add your Supabase credentials to Vercel:\nIn Vercel Dashboard → Your Project → Settings → Environment Variables\nAdd these variables:\nEXPO_PUBLIC_SUPABASE_URL = your Supabase URL\nEXPO_PUBLIC_SUPABASE_ANON_KEY = your Supabase anon key\n5. Add build script to package.json\nLet me update your package.json to include export commands:\nEdit package.json\nAdded 1 line\nPerfect! Now you can also use npm run build:web for building.\nQuick Deployment Commands\n# Build and test locally first\nnpm run build:web\nnpx serve dist\n\n# Then deploy to Vercel\nvercel\n\n# Or for production deployment\nvercel --prod\nImportant Notes\nEnvironment Variables: Make sure to set your Supabase environment variables in Vercel's dashboard before deploying\nGit Push Auto-Deploy: Once connected, every push to your main branch will automatically trigger a new deployment on Vercel\nPreview Deployments: Pull requests get their own preview URLs automatically\nCustom Domain: You can add a custom domain in Vercel's project settings\nLocal Testing: Before deploying, test the build locally:\nnpm run build:web\nnpx serve dist\nThe configuration I created will:\nBuild your Expo web app on each deployment\nServe files from the dist directory\nHandle client-side routing properly (all routes redirect to index.html)\nRemove trailing slashes for cleaner URLs\nYour app should now be ready to deploy to Vercel! 🚀",
+  "tags": [
+    "infrastructure",
+    "config"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Deploy via Vercel Dashboard",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 14,
+    "deletions": 0
+  },
+  "files": [
+    "package.json",
+    "vercel.json"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

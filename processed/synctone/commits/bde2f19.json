@@ -1,0 +1,43 @@
+{
+  "sha": "bde2f19",
+  "fullSha": "bde2f19e71d6855205b0a92b596073c2a9402dec",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-22T19:52:47Z",
+  "commitDate": "2025-12-22T19:52:47Z",
+  "subject": "Add unified gesture handling for message interactions",
+  "body": "Implement swipe gestures (left/right), tap, and long-press to all open the message action sheet, providing a consistent and intuitive UX across all interaction methods.\n\nChanges:\n- Add react-native-gesture-handler dependency for gesture support\n- Replace Pressable with GestureDetector in MessageBubble component\n- Implement pan gesture with 50px threshold for swipe detection\n- Add visual feedback with animated horizontal translation during swipes\n- Combine tap, long-press, and swipe gestures using Gesture.Race and Gesture.Simultaneous\n- Wrap app with GestureHandlerRootView in root layout\n- Remove redundant onLongPress prop from MessageBubble interface\n\nAll message interactions now trigger the same action sheet, improving discoverability and user experience.",
+  "tags": [
+    "feature",
+    "ux",
+    "dependency-add"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Add unified gesture handling for message interactions",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 133,
+    "deletions": 94
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "app/_layout.tsx",
+    "components/MessageBubble.tsx",
+    "package-lock.json",
+    "package.json"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

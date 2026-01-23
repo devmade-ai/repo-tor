@@ -1,0 +1,43 @@
+{
+  "sha": "d12a676",
+  "fullSha": "d12a676ea1bb0a19e8ba4752ccfc131f537c00bb",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T15:57:47Z",
+  "commitDate": "2025-12-27T15:57:47Z",
+  "subject": "Fix mobile web delete button and restore code readability",
+  "body": "- Show delete button on all web platforms (mobile and desktop)\n  - Long-press gestures don't work reliably on mobile web browsers\n  - Delete button now visible on mobile web with active:scale-95 feedback\n  - Removed isWebMobile check and isMobilePlatform import\n\n- Restore code readability by adding back blank lines\n  - Previous whitespace \"fixes\" removed blank lines between sections\n  - Made code hard to read without actually fixing warnings\n  - Blank lines between JSX elements don't create text nodes\n  - Restored formatting in: home.tsx, _layout.tsx, ChatListItem.tsx,\n    ToneSelector.tsx, MessageInfoModal.tsx\n\nThe whitespace changes were likely misguided - blank lines between JSX\nelements are just formatting and don't create text node warnings in React.\nIf warnings persist, they're likely from a different source.",
+  "tags": [
+    "bugfix",
+    "ui",
+    "refactor"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix mobile web delete button and restore code readability",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 49,
+    "deletions": 22
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "app/_layout.tsx",
+    "components/ChatListItem.tsx",
+    "components/MessageInfoModal.tsx",
+    "components/ToneSelector.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

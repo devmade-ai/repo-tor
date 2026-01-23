@@ -1,0 +1,51 @@
+{
+  "sha": "701e06f",
+  "fullSha": "701e06f01e239ad641dd086841d05c8ecd04c91d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-18T12:02:40Z",
+  "commitDate": "2025-12-18T12:02:40Z",
+  "subject": "Refactor: Eliminate code duplication and improve maintainability",
+  "body": "- Create reusable utility functions for common operations:\n  - utils/avatarColors.ts: Centralized avatar color generation\n  - utils/formatting.ts: Centralized timestamp formatting\n  - utils/dialogs.ts: Platform-agnostic confirmation dialogs\n  - utils/clearData.ts: Unified data clearing logic\n  - utils/logger.ts: Standardized logging with prefixes\n  - utils/subscriptions.ts: Reusable Supabase subscription abstraction\n\n- Create hooks/usePolling.ts for reusable polling pattern\n\n- Update components to use shared utilities:\n  - ChatListItem.tsx: Use shared avatar colors, formatting, and dialogs\n  - MessageBubble.tsx: Use shared timestamp formatting\n  - chat/[id].tsx: Use shared avatar colors\n  - home.tsx: Use clearData utility, fix useEffect dependencies\n  - _layout.tsx: Use clearData utility\n  - create.tsx: Use usePolling hook\n\n- Fix bugs:\n  - home.tsx: Add missing useEffect dependencies (refetch, instanceId)\n  - appStore.ts: Remove duplicate state initialization\n\n- Remove 150+ lines of duplicate code across the codebase\n\nSee REFACTORING_SUMMARY.md for complete details.",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Eliminate code duplication and improve maintainability",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 668,
+    "deletions": 195
+  },
+  "files": [
+    "REFACTORING_SUMMARY.md",
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/create.tsx",
+    "app/(app)/home.tsx",
+    "app/_layout.tsx",
+    "components/ChatListItem.tsx",
+    "components/MessageBubble.tsx",
+    "hooks/usePolling.ts",
+    "stores/appStore.ts",
+    "utils/avatarColors.ts",
+    "utils/clearData.ts",
+    "utils/dialogs.ts",
+    "utils/formatting.ts",
+    "utils/logger.ts",
+    "utils/subscriptions.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 1,
+  "impact": "internal"
+}

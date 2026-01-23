@@ -1,0 +1,39 @@
+{
+  "sha": "cbf8f87",
+  "fullSha": "cbf8f8753a1cba0d6f81f15dc3e165b353fa46cc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-23T19:59:25Z",
+  "commitDate": "2025-12-23T19:59:25Z",
+  "subject": "Fix mobile web scrolling by removing tap gesture Remove tap gesture from mobile web message bubbles to prevent conflicts with vertical scrolling. Mobile web now only supports long-press (500ms) to open action sheet, while desktop web retains click, right-click, and hold-to-press interactions. Horizontal swipe-to-reply still works on both platforms.",
+  "body": "",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix mobile web scrolling by removing tap gesture Remove tap gesture from mobile web message bubbles to prevent conflicts with vertical scrolling. Mobile web now only supports long-press (500ms) to open action sheet, while desktop web retains click, right-click, and hold-to-press interactions. Horizontal swipe-to-reply still works on both platforms.",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 5,
+    "deletions": 16
+  },
+  "files": [
+    "CLAUDE.md",
+    "components/MessageBubble.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

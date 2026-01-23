@@ -1,0 +1,39 @@
+{
+  "sha": "8ca2965",
+  "fullSha": "8ca2965e60af173926aeaba00144e84f5973171b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-28T18:42:42Z",
+  "commitDate": "2025-12-28T18:42:42Z",
+  "subject": "Fix critical bug in push notification trigger",
+  "body": "Problem:\nThe notify_new_message() database trigger was sending notifications to the wrong user\ndue to a variable collision bug. The trigger was overwriting v_sender_id with\nparticipant_2 from the chat, causing incorrect receiver identification.\n\nRoot Cause:\nIn the original trigger (20251228000001_add_push_notification_trigger.sql):\n- Line 22: v_sender_id := new.sender_id (correct)\n- Line 27: SELECT ... INTO v_chat_code, v_receiver_id, v_sender_id (overwrites v_sender_id!)\n- Line 32: Compares overwritten v_sender_id with new.sender_id (wrong comparison)\n\nThis caused notifications to be sent to the message sender instead of the receiver,\nor to the wrong participant entirely.\n\nSolution:\n- Use separate variables (v_participant_1, v_participant_2) when fetching chat participants\n- Compare new.sender_id with v_participant_1/v_participant_2 to find correct receiver\n- Added better logging to track sender and receiver IDs in notices\n\nChanges:\n✅ Created migration: 20251228120000_fix_notification_trigger_receiver.sql\n✅ Created standalone SQL fix: FIX_NOTIFICATION_TRIGGER.sql (for manual deployment)\n✅ Added debug script: scripts/check-player-ids.ts\n✅ Fixed receiver identification logic\n✅ Added better error handling for edge cases\n\nDeployment:\nRun FIX_NOTIFICATION_TRIGGER.sql in Supabase SQL Editor to apply the fix.\n\nTesting:\nAfter applying fix:\n1. Send a message from User A to User B\n2. Check Supabase logs for \"Sending notification to receiver: <user_b_id>\"\n3. User B should receive notification (not User A)",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Fix critical bug in push notification trigger",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 334,
+    "deletions": 0
+  },
+  "files": [
+    "FIX_NOTIFICATION_TRIGGER.sql",
+    "scripts/check-player-ids.ts",
+    "supabase/migrations/20251228120000_fix_notification_trigger_receiver.sql"
+  ],
+  "repo_id": "synctone",
+  "urgency": 5,
+  "impact": "infrastructure"
+}

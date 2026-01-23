@@ -1,0 +1,39 @@
+{
+  "sha": "181853a",
+  "fullSha": "181853aa0fc0c362fbd6b0e68226ab681d89c24b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-27T15:14:32Z",
+  "commitDate": "2025-12-27T15:14:32Z",
+  "subject": "Fix chat deletion on mobile web and improve header button layout",
+  "body": "- Fix chat deletion not working on mobile web by adding explicit delayLongPress\n- Force immediate refetch after chat deletion instead of relying on realtime\n- Hide delete (×) button on mobile web, use long-press instead\n- Reorganize header buttons: utility buttons right-aligned, refresh with stats\n- Remove text labels from buttons, keeping icon-only design\n- Position refresh button next to stats for better context",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix chat deletion on mobile web and improve header button layout",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 33,
+    "deletions": 25
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "components/ChatListItem.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

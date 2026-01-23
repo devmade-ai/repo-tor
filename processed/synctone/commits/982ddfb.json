@@ -1,0 +1,39 @@
+{
+  "sha": "982ddfb",
+  "fullSha": "982ddfb975fd5300ba2ed0fd0937385cad2e402b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-23T12:30:16Z",
+  "commitDate": "2025-12-23T12:30:16Z",
+  "subject": "Fix message ordering and scroll behavior in chat view",
+  "body": "- Remove `.reverse()` in getMessagesPaginated to maintain descending order (newest first)\n- Update realtime message handler to sort in descending order for inverted FlatList\n- Fix loadMoreMessages to correctly append older messages to end of descending array\n- Replace scrollToEnd() with scrollToIndex(0) for proper inverted FlatList scrolling\n- Ensure chat opens scrolled to bottom showing complete newest messages with reactions\n\nFixes issue where new messages appeared above older messages and initial\nscroll position didn't show the full last message.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix message ordering and scroll behavior in chat view",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 13,
+    "deletions": 9
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "hooks/useMessages.ts",
+    "services/messages.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

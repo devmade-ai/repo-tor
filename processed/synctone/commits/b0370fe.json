@@ -1,0 +1,38 @@
+{
+  "sha": "b0370fe",
+  "fullSha": "b0370fe576f83eb595fb6f7c36ba0060c9bae3c7",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T07:28:07Z",
+  "commitDate": "2025-12-29T07:28:07Z",
+  "subject": "fix: use native browser Notification API for reliable icon state",
+  "body": "The previous approaches created a circular dependency between native permission\nand OneSignal SDK, causing state flashing and unreliable icon display.\n\nRoot cause: Icon showed same emoji (🔔) for both 'granted' and 'undetermined'\nstates, and the code kept switching between native and OneSignal as source of\ntruth without fixing the underlying issue.\n\nSolution:\n- Use native window.Notification.permission ONLY for UI state (icon)\n- Check synchronously (no await) for instant, accurate state on page load\n- No more 'loading' state transitions or flashing between states\n- OneSignal SDK still used for push token/subscription management\n- Don't recheck permission when SDK loads (native is already correct)\n\nThis eliminates the back-and-forth between commits b03c99f and 84d2ce5.\nNative browser permission IS the single source of truth and is always accurate\nbecause OneSignal uses the same API underneath.",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "use native browser Notification API for reliable icon state",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 59,
+    "deletions": 44
+  },
+  "files": [
+    "hooks/useNotifications.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

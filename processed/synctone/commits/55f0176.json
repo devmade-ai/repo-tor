@@ -1,0 +1,40 @@
+{
+  "sha": "55f0176",
+  "fullSha": "55f0176b63000c721619505e2df3daffb112849b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-23T13:03:16Z",
+  "commitDate": "2025-12-23T13:03:16Z",
+  "subject": "Fix mobile web scrolling and pagination auto-scroll behavior",
+  "body": "Resolved issue where loading older messages via pagination would trigger\nunwanted auto-scroll to bottom, creating an infinite scroll loop on mobile web.\n\nChanges:\n- Add isLoadingMoreRef to track pagination state in chat screen\n- Update onContentSizeChange to distinguish between new messages and pagination\n- Modify polling mechanism to preserve paginated messages when updating recent messages\n- Only auto-scroll when genuinely new messages arrive, not during history loading\n\nThis ensures smooth infinite scroll behavior while maintaining auto-scroll for new messages.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Fix mobile web scrolling and pagination auto-scroll behavior",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 47,
+    "deletions": 415
+  },
+  "files": [
+    ".claude/message-actions-plan.md",
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "hooks/useMessages.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

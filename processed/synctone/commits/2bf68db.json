@@ -1,0 +1,48 @@
+{
+  "sha": "2bf68db",
+  "fullSha": "2bf68dba842fe7a6e25c57a7e1d7bae8abbab44e",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T04:52:38Z",
+  "commitDate": "2025-12-29T04:52:38Z",
+  "subject": "fix: improve scroll performance and remove sensitive logging",
+  "body": "Performance improvements:\n- Fix auto-scroll behavior during pagination by tracking user scroll state\n- Increase polling interval from 3s to 5s to reduce server load\n- Add error handling for scroll operations with fallback to scrollToOffset\n- Prevent auto-scroll during user manual scrolling\n\nSecurity improvements:\n- Remove sensitive data from logs (message content, user IDs, chat codes, player IDs)\n- Sanitize console logs to only show message/chat IDs and boolean flags\n- Keep error logging for debugging while protecting user privacy\n\nChanges made:\n- hooks/useMessages.ts: Sanitized message logging, increased poll interval to 5s\n- services/messages.ts: Removed message content and user IDs from logs\n- services/reactions.ts: Sanitized reaction logging\n- app/(app)/chat/[id].tsx: Improved scroll behavior with user interaction tracking\n- app/(app)/join.tsx: Removed chat code from logs\n- services/chat.ts: Removed chat code from logs\n- services/appInstance.ts: Removed player ID from logs\n- services/onesignal.ts: Sanitized permission logs\n- hooks/useNotifications.ts: Replaced player ID with boolean flag",
+  "tags": [
+    "bugfix",
+    "performance",
+    "security",
+    "logging"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "improve scroll performance and remove sensitive logging",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 60,
+    "deletions": 53
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/join.tsx",
+    "hooks/useMessages.ts",
+    "hooks/useNotifications.ts",
+    "services/appInstance.ts",
+    "services/chat.ts",
+    "services/messages.ts",
+    "services/onesignal.ts",
+    "services/reactions.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

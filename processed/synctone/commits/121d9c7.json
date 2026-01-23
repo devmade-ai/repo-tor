@@ -1,0 +1,41 @@
+{
+  "sha": "121d9c7",
+  "fullSha": "121d9c77d20f67b8df7b51824d8a221e27dcc25e",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T11:23:18Z",
+  "commitDate": "2025-12-27T11:23:18Z",
+  "subject": "Fix mobile refresh and improve home screen UX",
+  "body": "- Add pull-to-refresh support for empty chat list on home screen\n- Differentiate Create (solid accent) and Join (outlined) buttons\n- Add pull-down refresh to chat screen to reload messages\n- Add refetch function to useMessages hook for manual refresh",
+  "tags": [
+    "bugfix",
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix mobile refresh and improve home screen UX",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 50,
+    "deletions": 16
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/home.tsx",
+    "hooks/useMessages.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

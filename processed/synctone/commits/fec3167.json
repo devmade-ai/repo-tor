@@ -1,0 +1,47 @@
+{
+  "sha": "fec3167",
+  "fullSha": "fec316725658981b4b9af383f75fcef1c42ccde6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-23T12:18:36Z",
+  "commitDate": "2025-12-23T12:18:36Z",
+  "subject": "Add per-participant display names for chats",
+  "body": "Allow each participant to set their own personal display name for a chat.\nDisplay names are now stored per-participant (participant_1_display_name\nand participant_2_display_name) rather than shared, giving users freedom\nto name chats based on their own context.\n\nDatabase changes:\n- Remove single display_name column from chats table\n- Add participant_1_display_name and participant_2_display_name columns\n- Add 50-character length constraints for both columns\n\nBackend changes:\n- Update Chat, ChatInsert, and ChatUpdate TypeScript interfaces\n- Update createChat() to set participant_1_display_name\n- Update joinChat() to set participant_2_display_name\n- Add getMyDisplayName() helper in useChats hook\n\nUI changes:\n- Update chat creation flow with optional name input screen\n- Update join chat flow with optional name input field\n- Update ChatListItem to display user's personal display name\n- Update chat header to show user's personal display name\n- Add myDisplayName property to ChatWithPreview interface\n\nAlso fixes chat screen scroll behavior:\n- Consolidate multiple scroll-to-bottom calls into single scroll\n- Add inverted prop to FlatList for proper chat UX\n- Fix pagination to load older messages when scrolling up",
+  "tags": [
+    "feature",
+    "schema"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add per-participant display names for chats",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 253,
+    "deletions": 73
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/create.tsx",
+    "app/(app)/join.tsx",
+    "components/ChatListItem.tsx",
+    "hooks/useChats.ts",
+    "services/chat.ts",
+    "supabase/migrations/20251223120433_add_display_name_to_chats.sql",
+    "supabase/migrations/20251223121232_per_participant_display_names.sql",
+    "types/database.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

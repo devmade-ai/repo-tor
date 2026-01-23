@@ -1,0 +1,40 @@
+{
+  "sha": "3f085c5",
+  "fullSha": "3f085c5b934a7600a51dd9bf1b3fa28efc0f8235",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-28T16:18:18Z",
+  "commitDate": "2025-12-28T16:18:18Z",
+  "subject": "Fix OneSignal service worker registration and add diagnostics",
+  "body": "- Add Service-Worker-Allowed header for OneSignalSDKWorker.js to ensure proper scope\n- Add Cache-Control header to prevent service worker caching issues\n- Add service worker registration diagnostics to log active workers and their states\n- Help debug \"Could not get ServiceWorkerRegistration to postMessage\" error in production\n\nThis addresses the Chrome error where OneSignal SDK cannot communicate with its service worker.",
+  "tags": [
+    "bugfix",
+    "logging"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix OneSignal service worker registration and add diagnostics",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 199,
+    "deletions": 1
+  },
+  "files": [
+    "PRODUCTION_ERRORS.md",
+    "services/onesignal.ts",
+    "vercel.json"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

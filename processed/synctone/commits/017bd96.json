@@ -1,0 +1,39 @@
+{
+  "sha": "017bd96",
+  "fullSha": "017bd96821140d71c5f0980c97e642d3ecbd2f6d",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T07:33:23Z",
+  "commitDate": "2025-12-29T07:33:23Z",
+  "subject": "fix: require BOTH browser permission AND OneSignal subscription for notifications",
+  "body": "The previous fixes only checked one variable, causing incorrect icon states.\nIn Brave browser, native permission can be granted but OneSignal gets blocked.\n\nChanges:\n- Two separate state variables: nativePermissionGranted and isSubscribed\n- isEnabled = BOTH must be true (for web), shows correct icon\n- Icon: 🔔 only if BOTH true, otherwise 🔕\n- Messages:\n  * Both true: \"Notifications enabled\"\n  * Native granted but not subscribed: \"Blocked by Brave browser\" with fix instructions\n  * Native denied: Show browser settings instructions\n  * Undetermined: Request permission\n\nThis fixes the Brave browser issue where it shows granted but blocks OneSignal.",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "require BOTH browser permission AND OneSignal subscription for notifications",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 46,
+    "deletions": 22
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "hooks/useNotifications.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,40 @@
+{
+  "sha": "d727331",
+  "fullSha": "d727331b61a244645af381f49960975e7495995d",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T02:42:35Z",
+  "commitDate": "2025-12-29T02:42:35Z",
+  "subject": "Update documentation with notification architecture and feature explanations",
+  "body": "## What Changed\n\n### CLAUDE.md\n- Added detailed \"Notification Architecture\" section explaining the database-driven approach\n- Documented the 7-step notification flow from message insert to delivery\n- Explained \"Why This Architecture\" with rationale for design decisions\n- Added comprehensive \"Key Implementation Details\" covering:\n  - No internal auth requirement (Edge Function only called by database)\n  - Hardcoded Edge Function URL (simpler configuration)\n  - Receiver detection logic\n  - Graceful degradation for edge cases\n- Enhanced \"Related Database Objects\" with detailed breakdowns of:\n  - notify_new_message() function behavior\n  - Edge Function configuration and features\n  - Security model and error handling\n\n### README.md\n- Improved \"Quick Start\" setup instructions with numbered steps and annotations\n- Added explanatory comments for each command (what they do)\n- Clarified local development URLs with descriptions\n- Enhanced \"Tone Tags\" section explaining how and why they work\n- Added \"How Push Notifications Work\" section with:\n  - 6-step architectural flow diagram\n  - \"Why this approach\" rationale covering reliability, performance, simplicity\n- Updated platform support descriptions with OneSignal specifics\n\n### constants/tutorial.ts\n- Enhanced \"Creating a Chat\" step to mention custom display names\n- Clarified \"Tone Tags\" step emphasizing they're completely optional\n- Updated \"What's Different\" step with better explanations:\n  - Tone tags are optional, use when needed\n  - Display names are per-person (personalized organization)\n  - Database-driven notifications (reliable, automatic)\n- Improved \"Privacy\" step explaining why no recovery exists:\n  - True anonymity means no backdoors or account recovery\n  - You are your device, that's it\n\n### PUSH_NOTIFICATIONS_SETUP.md\n- Rewrote \"Overview\" with \"Why this architecture\" section\n- Updated \"Step 3\" to reflect no database configuration needed (hardcoded URL)\n- Updated \"Step 4\" to reference latest migration with recent improvements\n- Updated \"Step 5\" with Edge Function key features\n- Completely redesigned \"Architecture Diagram\" showing:\n  - Async HTTP flow via pg_net\n  - No authentication requirement\n  - Absolute URL deep linking\n  - Non-blocking execution\n- Added \"Key architectural decisions\" section with 6 design rationales\n\n## Why These Changes\n\nThe documentation now:\n1. **Explains the \"why\"** not just the \"what\" - helps developers understand design decisions\n2. **Reflects recent fixes** - absolute URLs, removed internal auth, hardcoded Edge Function URL\n3. **Provides context** - explains how features work and why they work that way\n4. **Improves onboarding** - clearer setup instructions, better tutorial explanations\n5. **Demonstrates architecture** - detailed flow diagrams and step-by-step breakdowns",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Update documentation with notification architecture and feature explanations",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 176,
+    "deletions": 72
+  },
+  "files": [
+    "CLAUDE.md",
+    "PUSH_NOTIFICATIONS_SETUP.md",
+    "README.md",
+    "constants/tutorial.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

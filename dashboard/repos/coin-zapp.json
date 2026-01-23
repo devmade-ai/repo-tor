@@ -1,0 +1,4352 @@
+{
+  "metadata": {
+    "generatedAt": "2026-01-23T10:06:35.160Z",
+    "repository": "coin-zapp",
+    "scope": "coin-zapp",
+    "repoCount": 1,
+    "commitCount": 81,
+    "authors": {
+      "devmade.ai@gmail.com": {
+        "name": "devmade.ai@gmail.com",
+        "email": "devmade.ai@gmail.com"
+      },
+      "noreply@anthropic.com": {
+        "name": "noreply@anthropic.com",
+        "email": "noreply@anthropic.com"
+      },
+      "jacotheron87": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      }
+    }
+  },
+  "commits": [
+    {
+      "sha": "6a71195",
+      "fullSha": "6a711959ec6ab08dc63dd3be517e745574696bd8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-21T20:02:21Z",
+      "commitDate": "2026-01-21T20:02:21Z",
+      "subject": "Merge pull request #3 from devmade-ai/claude/create-style-design-guide-rpMar",
+      "body": "Add style guide and design guide documentation",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Merge pull request #3 from devmade-ai/claude/create-style-design-guide-rpMar",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 1038,
+        "deletions": 1
+      },
+      "files": [
+        "docs/DESIGN_GUIDE.md",
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "docs/STYLE_GUIDE.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "01a5f78",
+      "fullSha": "01a5f78aefccca38a5a9ab474a3f0f7af13638a6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T19:45:45Z",
+      "commitDate": "2026-01-21T19:45:45Z",
+      "subject": "Add style guide and design guide documentation",
+      "body": "- STYLE_GUIDE.md: colors, typography, icons, spacing, component sizes\n- DESIGN_GUIDE.md: UX/UI principles, component patterns, state handling",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Add style guide and design guide documentation",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 1038,
+        "deletions": 1
+      },
+      "files": [
+        "docs/DESIGN_GUIDE.md",
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "docs/STYLE_GUIDE.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "4b08457",
+      "fullSha": "4b08457fafa3d7fee0066e8ec643ed8cef6427e1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T15:05:59Z",
+      "commitDate": "2026-01-19T15:05:59Z",
+      "subject": "Fix NaN display in holdings and document Unum funds",
+      "body": "- Fix \"R NaN\" in Your Holdings by adding defensive checks in totalHoldingsValueZAR\n- Add validation in Unum service for price parsing (getLatestPrice, getPricingHistory)\n- Document all 6 Unum funds and DLS code mappings in DISCOVERY_ANALYSIS.md\n- Note that KZAR is a custom Fireblocks token, not a Unum fund\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "validation",
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Fix NaN display in holdings and document Unum funds",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 77,
+        "deletions": 24
+      },
+      "files": [
+        "docs/DISCOVERY_ANALYSIS.md",
+        "docs/SESSION_NOTES.md",
+        "src/services/Unum.service.ts",
+        "src/store/Funds.store.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "abb56f3",
+      "fullSha": "abb56f3825f0f712d9a5b51bd8c314343350c402",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T14:46:20Z",
+      "commitDate": "2026-01-19T14:46:20Z",
+      "subject": "Add Vite dev proxy for Unum API CORS",
+      "body": "- Configure proxy in vite.config.ts: /api/unum -> unum.co.za/one/api\n- Update Unum.service.ts to use proxy path in development\n- Document production CORS solution needed in PRODUCTION_CHECKLIST.md\n- Update IMPLEMENTATION_PLAN.md with completed Unum API tasks\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "config"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Add Vite dev proxy for Unum API CORS",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 37,
+        "deletions": 4
+      },
+      "files": [
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/PRODUCTION_CHECKLIST.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/services/Unum.service.ts",
+        "vite.config.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "7e0e2db",
+      "fullSha": "7e0e2dbfaa0a873fa6a49e881841153f0bc24487",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T14:31:38Z",
+      "commitDate": "2026-01-19T14:31:38Z",
+      "subject": "Add interactive price history chart to FundDetailPage",
+      "body": "- Create PriceChart component with SVG-based line chart (no dependencies)\n- Time range filters: 1M, 3M, 6M, 1Y, ALL\n- Hover tooltip showing price and date\n- Color-coded: green for gains, red for losses\n- Percentage change indicator for selected period\n- Add translation keys for chart loading states\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Add interactive price history chart to FundDetailPage",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 363,
+        "deletions": 17
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "src/pages/Funds/FundDetailPage.tsx",
+        "src/pages/Funds/PriceChart.tsx",
+        "src/translation/en.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "b3633df",
+      "fullSha": "b3633df860dc947c30ec0309facf105e72fc59d1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T14:25:58Z",
+      "commitDate": "2026-01-19T14:25:58Z",
+      "subject": "Integrate Unum Capital API for real fund data and NAV prices",
+      "body": "- Add Unum.service.ts with API client (funds, DLS codes, prices)\n- Update FundsStore to fetch fund list from Unum API\n- Fetch and display real NAV prices with change percentage\n- Add FUND_CONFIG mapping for Unum→Fireblocks asset IDs\n- Update FundCard to show NAV change indicator\n- Add pricing history method for future chart integration\n- 5-minute cache to reduce API calls\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "api"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "Integrate Unum Capital API for real fund data and NAV prices",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 661,
+        "deletions": 75
+      },
+      "files": [
+        "docs/DISCOVERY_ANALYSIS.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "src/pages/Funds/FundCard.tsx",
+        "src/services/Unum.service.ts",
+        "src/services/index.ts",
+        "src/store/Funds.store.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "48a2340",
+      "fullSha": "48a2340e0d13876fe79e81f58c4112338f417496",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T13:48:04Z",
+      "commitDate": "2026-01-19T13:48:04Z",
+      "subject": "Update documentation workflow: HISTORY as completed work log",
+      "body": "- HISTORY.md now receives completed session notes (not just decisions)\n- SESSION_NOTES.md cleaned to just blockers and next steps\n- Updated CLAUDE.md to reflect new HISTORY.md purpose\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Update documentation workflow: HISTORY as completed work log",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 80,
+        "deletions": 160
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "ff80fcc",
+      "fullSha": "ff80fcc06d8dad5a49b3cd4d560a939aec28fe3f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T13:42:45Z",
+      "commitDate": "2026-01-19T13:42:45Z",
+      "subject": "Add Phase 4 polish: recent transactions, skeleton, error boundary",
+      "body": "- Add Recent Transactions section to Dashboard (last 5 with status)\n- Create Skeleton component for loading states\n- Create ErrorBoundary component wrapping App\n- Create lightweight Toast component (alternative to notistack)\n- Add translation keys for dashboard transactions\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui",
+        "error-handling"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Add Phase 4 polish: recent transactions, skeleton, error boundary",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 479,
+        "deletions": 7
+      },
+      "files": [
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "src/Initializer.tsx",
+        "src/components/ui/error-boundary.tsx",
+        "src/components/ui/skeleton.tsx",
+        "src/components/ui/toast.tsx",
+        "src/pages/Dashboard/DashboardPage.tsx",
+        "src/translation/en.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "a0667fe",
+      "fullSha": "a0667fe3ad0ac31bdb98598f15c744ee8877dbf3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T13:33:01Z",
+      "commitDate": "2026-01-19T13:33:01Z",
+      "subject": "Add Fund detail page and enhance Dashboard",
+      "body": "- Create FundDetailPage component at /funds/:fundCode with full fund\n  info, NAV display, balance, chart placeholder, and buy/sell buttons\n- Rewrite DashboardPage with portfolio overview: total value header,\n  quick actions card, fund holdings list, and crypto holdings list\n- Make FundCard header clickable to navigate to fund detail page\n- Add route for fund detail page in App.tsx\n- Add translation keys for new Dashboard and fund detail features\n- Update documentation with completed tasks\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "Add Fund detail page and enhance Dashboard",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 580,
+        "deletions": 26
+      },
+      "files": [
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "src/App.tsx",
+        "src/pages/Dashboard/DashboardPage.tsx",
+        "src/pages/Funds/FundCard.tsx",
+        "src/pages/Funds/FundDetailPage.tsx",
+        "src/pages/index.ts",
+        "src/translation/en.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "ad87399",
+      "fullSha": "ad873997427ff365cdbf5b5ce811b39fcb168c20",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T13:10:19Z",
+      "commitDate": "2026-01-19T13:10:19Z",
+      "subject": "Add Firestore integration for fund orders",
+      "body": "Orders now persist to users/{uid}/orders/{orderId}:\n- loadOrders() fetches orders on init\n- saveOrderToFirestore() saves on create\n- Orders sorted by createdAt descending\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "database"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Add Firestore integration for fund orders",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 100,
+        "deletions": 4
+      },
+      "files": [
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "src/store/Funds.store.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "8eaea8d",
+      "fullSha": "8eaea8deb49e04b33e43a536dbf71ab0c81232ca",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T13:06:50Z",
+      "commitDate": "2026-01-19T13:06:50Z",
+      "subject": "Fix TypeScript errors in Funds module",
+      "body": "- Remove unsupported title prop from LoadingPage usage\n- Use totalBalance instead of non-existent available property\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "types"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Fix TypeScript errors in Funds module",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 2,
+        "deletions": 2
+      },
+      "files": [
+        "src/pages/Funds/FundsPage.tsx",
+        "src/store/Funds.store.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "c6020ca",
+      "fullSha": "c6020ca95ea1fc26c530b0a0fcc0b8825bb2b9d3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T12:59:18Z",
+      "commitDate": "2026-01-19T12:59:18Z",
+      "subject": "Add purchase, sell, and orders UI for Phase 3 trading",
+      "body": "- PurchaseDialog: Two-step buy flow (ZAR amount → banking details with reference)\n- SellDialog: Three-step sell flow (token amount → bank details → confirmation)\n- OrdersList: Shows pending orders with status badges on Funds page\n- All translations added for new components\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "Add purchase, sell, and orders UI for Phase 3 trading",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 962,
+        "deletions": 29
+      },
+      "files": [
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "src/pages/Funds/FundsPage.tsx",
+        "src/pages/Funds/OrdersList.tsx",
+        "src/pages/Funds/PurchaseDialog.tsx",
+        "src/pages/Funds/SellDialog.tsx",
+        "src/translation/en.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "8654080",
+      "fullSha": "865408075ce277493375e15133c10a61bfe5503b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T12:40:19Z",
+      "commitDate": "2026-01-19T12:40:19Z",
+      "subject": "Add fund catalog UI for Phase 3 trading",
+      "body": "- Create FundsStore with mock KZAR data (NAV R1.00)\n- Add FundCard component with NAV, balance, Buy/Sell buttons\n- Update FundsPage with grid layout (available/coming soon sections)\n- Integrate FundsStore into Root.store and useStoreHook\n- Add fund-related translations\n- Document ZAR/EFT payment flow in USER_FLOWS.md\n- Add orders collection schema to IMPLEMENTATION_PLAN.md\n- Confirm KZAR asset ID (KZAR_B7HGYK31_Q033) working in NCW\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "Add fund catalog UI for Phase 3 trading",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 13,
+        "additions": 761,
+        "deletions": 51
+      },
+      "files": [
+        "docs/DISCOVERY_ANALYSIS.md",
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "docs/USER_FLOWS.md",
+        "src/pages/Funds/FundCard.tsx",
+        "src/pages/Funds/FundsPage.tsx",
+        "src/store/Funds.store.ts",
+        "src/store/Root.store.ts",
+        "src/store/index.ts",
+        "src/store/useStoreHook.ts",
+        "src/translation/en.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "ab4fd2b",
+      "fullSha": "ab4fd2b0c9a7d93ea136d8a744aad671e201299d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T11:58:06Z",
+      "commitDate": "2026-01-19T11:58:06Z",
+      "subject": "Add discovery analysis and update Phase 3 scope",
+      "body": "- Add DISCOVERY_FRAMEWORK.md for structured requirements gathering\n- Add DISCOVERY_ANALYSIS.md documenting key findings:\n  - Users pay in ZAR via EFT (not crypto)\n  - Manual settlement (admin mints tokens after payment)\n  - KYC deferred to later phase\n  - Unum API only provides fund list (not NAV)\n- Update IMPLEMENTATION_PLAN.md Phase 3 with simplified flow\n- Update TODO.md with Unum blockers\n- Update USER_ACTIONS.md with pending Unum requests\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Add discovery analysis and update Phase 3 scope",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 593,
+        "deletions": 40
+      },
+      "files": [
+        "docs/DISCOVERY_ANALYSIS.md",
+        "docs/DISCOVERY_FRAMEWORK.md",
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "8bca789",
+      "fullSha": "8bca7893a89b82dabf53c4cf6d3d9a92cc78611f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-19T10:30:01Z",
+      "commitDate": "2026-01-19T10:30:01Z",
+      "subject": "Fix transaction store and asset handling bugs",
+      "body": "- Fix transactions not appearing: add addOrEditTransaction() call in\n  updateTransactionsFromFireblocks() to actually store fetched transactions\n- Handle \"Asset already exists\" error gracefully in AssetsStore.addAsset()\n  by continuing to fetch asset details instead of throwing\n- Add debug logging for transaction fetching\n- Update Phase 2 test statuses (Enable Asset, Deposit, Receive, History done)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "error-handling"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Fix transaction store and asset handling bugs",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 49,
+        "deletions": 77
+      },
+      "files": [
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "src/api-embedded-wallet/transactions.embedded.api.ts",
+        "src/store/Assets.store.ts",
+        "src/store/Transactions.store.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "8ab5c0e",
+      "fullSha": "8ab5c0ede4f6569b26e6a2adb696927c00739db2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-16T12:42:00Z",
+      "commitDate": "2026-01-16T12:42:00Z",
+      "subject": "Add TEST_FLOWS.md and align documentation",
+      "body": "- Create manual QA testing guide with 16 step-by-step test cases\n- Add TEST_FLOWS.md to CLAUDE.md documentation table\n- Expand IMPLEMENTATION_PLAN testing table to match TEST_FLOWS\n- Add TODO items: force backup, custom password UI\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Add TEST_FLOWS.md and align documentation",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 279,
+        "deletions": 16
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TEST_FLOWS.md",
+        "docs/TODO.md",
+        "docs/USER_FLOWS.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "0a14e25",
+      "fullSha": "0a14e255ee913ca663aa6f933bebca31b8d1e263",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-16T12:27:09Z",
+      "commitDate": "2026-01-16T12:27:09Z",
+      "subject": "Fix login bugs and improve backup UX",
+      "body": "- Fix AccountsStore double-init causing duplicate accounts\n- Fix MobX warnings by wrapping SDK events in runInAction\n- Fix login redirect loop (check authStore.status before redirect)\n- Add backup check for users without deviceId (recovery flow)\n- Improve backup skip UX with two-click confirmation\n- Add step-by-step logging for MPC key generation\n- Update docs: correct Phase 2 status (blockers were resolved)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "ux",
+        "auth"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "Fix login bugs and improve backup UX",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 819,
+        "deletions": 176
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/AI_MISTAKES.md",
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "package.json",
+        "scripts/delete-firebase-user.cjs",
+        "src/pages/Login/LoginPage.tsx",
+        "src/pages/Login/components/BackupPhaseUI.tsx",
+        "src/pages/Login/components/styles.ts",
+        "src/store/Accounts.store.ts",
+        "src/store/Auth.store.ts",
+        "src/store/FireblocksSDK.store.ts",
+        "vite.config.ts",
+        "yarn.lock"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "9445ab2",
+      "fullSha": "9445ab2db75a1de90d79627ac46cc5c5fac77ea8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-16T09:44:42Z",
+      "commitDate": "2026-01-16T09:44:42Z",
+      "subject": "Fix MPC key generation order and post-login navigation",
+      "body": "MPC Key Generation:\n- Fixed \"Device setup is incomplete\" error by calling initEmbeddedWalletCore\n  BEFORE assignWallet in Auth.store.ts\n- SDK requires deviceId via initializeCore before wallet operations\n- Fixed premature getMyDevices() call for new users in FireblocksSDK.store\n\nPost-Login Navigation:\n- AuthCallback now checks for deviceId before deciding route\n- New users (no deviceId) go directly to /login showing GetStarted\n- Existing users (has deviceId) go to dashboard\n- Fixed LoginPage using wrong redirect function (was for loaders, not components)\n- Disabled unused NEEDS_RECOVERY status check to fix TypeScript error\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "auth"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Fix MPC key generation order and post-login navigation",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 96,
+        "deletions": 127
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "src/App.tsx",
+        "src/api-embedded-wallet/device.embedded.api.ts",
+        "src/auth/FirebaseAuthManager.ts",
+        "src/pages/AuthCallback/AuthCallback.tsx",
+        "src/pages/Login/LoginPage.tsx",
+        "src/store/Auth.store.ts",
+        "src/store/FireblocksSDK.store.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "3fb01d8",
+      "fullSha": "3fb01d88532c5a50aa32d8271e574ae41842205b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-16T00:01:04Z",
+      "commitDate": "2026-01-16T00:01:04Z",
+      "subject": "Document MPC key generation issue and session progress",
+      "body": "- Add reference/ to gitignore for original demo comparison\n- Document MPC key generation failure (password not set)\n- Add GCP project confusion warning to demo checklist\n- Mark Google Drive API as enabled in user actions\n- Add wallet creation safeguard items to TODO\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Document MPC key generation issue and session progress",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 48,
+        "deletions": 4
+      },
+      "files": [
+        ".gitignore",
+        "docs/DEMO_CHECKLIST.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "95d7951",
+      "fullSha": "95d79513c43c7c4b5f7f6a2df3e4f3d949688558",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T23:16:06Z",
+      "commitDate": "2026-01-15T23:16:06Z",
+      "subject": "Add documentation for demo, production, and technical decisions",
+      "body": "- DEMO_CHECKLIST.md: Setup needed before demoing (OAuth test users)\n- PRODUCTION_CHECKLIST.md: Launch requirements checklist\n- TECHNICAL_DECISIONS.md: Open architecture investigations\n- Note: OAuth testing mode has 100 user lifetime limit\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Add documentation for demo, production, and technical decisions",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 218,
+        "deletions": 2
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/DEMO_CHECKLIST.md",
+        "docs/PRODUCTION_CHECKLIST.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TECHNICAL_DECISIONS.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "5916fe3",
+      "fullSha": "5916fe322da31dd8cbae089cea6a6557fd3d50d3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T22:50:50Z",
+      "commitDate": "2026-01-15T22:50:50Z",
+      "subject": "Restore Google Drive backup with Firebase Auth",
+      "body": "Add OAuth integration for Google Drive backup:\n- Request drive.appdata scope during Google sign-in\n- Store and cache OAuth access token with 55-minute expiry\n- Re-authenticate automatically when token expires\n- Add getGoogleDriveAccessToken() to IAuthManager interface\n\nFix backup cancel flow bug:\n- Errors now propagate properly instead of being silently caught\n- Canceling Google popup no longer triggers password creation dialog\n- Only continue to create new backup if \"Not found backup location\" error\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "auth"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Restore Google Drive backup with Firebase Auth",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 162,
+        "deletions": 31
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "src/auth/FirebaseAuthManager.ts",
+        "src/auth/IAuthManager.ts",
+        "src/store/Backup.store.ts",
+        "src/store/User.store.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "7f0508e",
+      "fullSha": "7f0508e59cc95378d2a8c6892beece2ad47b0288",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T21:51:28Z",
+      "commitDate": "2026-01-15T21:51:28Z",
+      "subject": "Add required output format to pre-compact checklist",
+      "body": "Matches pre-commit checklist improvement - forces explicit\nverification of each item before context compaction.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Add required output format to pre-compact checklist",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 12,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "8c4b622",
+      "fullSha": "8c4b622cba4dcb5056f807a4b5b22a90665935df",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T21:50:22Z",
+      "commitDate": "2026-01-15T21:50:22Z",
+      "subject": "Improve pre-commit checklist with required output format",
+      "body": "Forces explicit verification of each doc item by requiring\n\"Updated\" or \"No changes needed\" for each checklist item.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Improve pre-commit checklist with required output format",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 17,
+        "deletions": 5
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "eea0cf2",
+      "fullSha": "eea0cf2e3cf0bd7ed8975106672ed6f1ecdbe40b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T21:46:39Z",
+      "commitDate": "2026-01-15T21:46:39Z",
+      "subject": "Fix PinEntryDialog UX issues and add pre-compact checklist",
+      "body": "- Fix backdrop click closing dialog during first-time setup\n- Fix invisible caret in password input fields\n- Fix checkbox cursor not showing pointer inside the box\n- Add wallet safety items to TODO (premature creation, safeguards)\n- Add pre-compact checklist to CLAUDE.md\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "ux"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Fix PinEntryDialog UX issues and add pre-compact checklist",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 52,
+        "deletions": 9
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/pages/common/Dialogs/PinEntryDialog.tsx"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "274279f",
+      "fullSha": "274279fc8a29a2c13a1a8604ae275a9e565e0ae4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T20:51:07Z",
+      "commitDate": "2026-01-15T20:51:07Z",
+      "subject": "Add pre-commit checklist reference to Process section",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Add pre-commit checklist reference to Process section",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "905db40",
+      "fullSha": "905db408beac4f59e4e37869001dd713a2a6e12f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T20:37:35Z",
+      "commitDate": "2026-01-15T20:37:35Z",
+      "subject": "Clean up and align documentation files",
+      "body": "- SESSION_NOTES: Keep only current session, removed history\n- TODO: Removed completed items, clean backlog only\n- CLAUDE.md: Clearer doc table with purpose descriptions\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Clean up and align documentation files",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 27,
+        "deletions": 63
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "9e160c4",
+      "fullSha": "9e160c4518885004ff1645050200fabafefdd9bf",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T20:33:47Z",
+      "commitDate": "2026-01-15T20:33:47Z",
+      "subject": "Update docs: pre-commit checklist, session notes, todo",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Update docs: pre-commit checklist, session notes, todo",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 25,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "f35a627",
+      "fullSha": "f35a6270da18137af7cb9f1b4cce6b6d67b6d1f5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T20:30:20Z",
+      "commitDate": "2026-01-15T20:30:20Z",
+      "subject": "Add development reports feature and January report",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Add development reports feature and January report",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 122,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/reports/2026-01-development-report.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "36aaf24",
+      "fullSha": "36aaf24740fe489ecf57bdb1ea8e75ab5e52487e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T20:30:15Z",
+      "commitDate": "2026-01-15T20:30:15Z",
+      "subject": "Replace demo branding with Koinz throughout codebase",
+      "body": "- Title: NCW Web Demo → Koinz\n- Theme: webDemoTheme → koinzTheme\n- Storage key: DEMO_APP → KOINZ\n- Icons: login-ew-icon.svg → logo.svg\n- Translations: Bitvault/Embedded Wallets → Koinz\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "refactor",
+        "naming"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Replace demo branding with Koinz throughout codebase",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 11,
+        "deletions": 11
+      },
+      "files": [
+        "index.html",
+        "src/Initializer.tsx",
+        "src/api-embedded-wallet/device.embedded.api.ts",
+        "src/foundation/theme.ts",
+        "src/pages/Login/LoginPage.tsx",
+        "src/pages/common/Header.tsx",
+        "src/translation/en.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "befd490",
+      "fullSha": "befd49090813616a39c78f6797720c3eca3edd65",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T19:58:32Z",
+      "commitDate": "2026-01-15T19:58:32Z",
+      "subject": "Update README as user guide, fix Firebase references",
+      "body": "- Replace Supabase with Firebase throughout\n- Add User Guide section (first time setup, daily usage, recovery)\n- Update project structure and architecture\n- Add security features documentation\n- Update CLAUDE.md doc table entry for README\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Update README as user guide, fix Firebase references",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 70,
+        "deletions": 48
+      },
+      "files": [
+        "CLAUDE.md",
+        "README.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "c66a221",
+      "fullSha": "c66a221fd9acace32c79cddf9dfcc739280af507",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T19:56:18Z",
+      "commitDate": "2026-01-15T19:56:18Z",
+      "subject": "Add README.md to Documentation section",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Add README.md to Documentation section",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "a931230",
+      "fullSha": "a931230b1b293e9b06875606a864ada08fdd9e70",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T19:49:44Z",
+      "commitDate": "2026-01-15T19:49:44Z",
+      "subject": "Add Documentation section with file purposes and update triggers",
+      "body": "- Lists all 8 doc files with purpose and when to update\n- Clarifies all docs are AI-maintained\n- Removes redundant listing from Application Structure\n- Highlights SESSION_NOTES cleanup and IMPLEMENTATION_PLAN as source of truth\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Add Documentation section with file purposes and update triggers",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 24,
+        "deletions": 7
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "84eb128",
+      "fullSha": "84eb12856827078ab6411dfe4cbf00b5dde5c8c5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T19:45:39Z",
+      "commitDate": "2026-01-15T19:45:39Z",
+      "subject": "Add UI clarification, security features, and glossary terms",
+      "body": "- Clarify hybrid UI system (foundation styled-components + Shadcn/ui)\n- Add Security Features section documenting password/session features\n- Add Device and EW terms to glossary\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Add UI clarification, security features, and glossary terms",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 25,
+        "deletions": 9
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "13ccf56",
+      "fullSha": "13ccf563482b183e09b4e20786fe11b57f788c49",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T19:40:49Z",
+      "commitDate": "2026-01-15T19:40:49Z",
+      "subject": "Update CLAUDE.md: Firebase migration cleanup",
+      "body": "- Update auth/ and lib/ folder descriptions (Supabase → Firebase)\n- Remove obsolete supabase/ folder from structure\n- Mark Firebase as configured (coin-zapp project)\n- Fix inconsistent Fireblocks environment reference (EU-2 → US Production)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Update CLAUDE.md: Firebase migration cleanup",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "EU-2"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 10,
+        "deletions": 10
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "6b93193",
+      "fullSha": "6b93193271804fe88c5a8b3d4ad2f248229060d5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T19:33:30Z",
+      "commitDate": "2026-01-15T19:33:30Z",
+      "subject": "Add password validation and show/hide toggle",
+      "body": "- Increase minimum password length to 8 characters\n- Block ~100 common passwords (password123, qwerty, bitcoin, etc.)\n- Add show/hide password checkbox for easier verification\n- Fix input cursor styling\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "security"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Add password validation and show/hide toggle",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 118,
+        "deletions": 16
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "src/pages/common/Dialogs/PinEntryDialog.tsx",
+        "src/services/PasswordValidation.service.ts",
+        "src/services/index.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "96566bd",
+      "fullSha": "96566bd19ec7336184a1483f1e647a38089e9d45",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T13:35:09Z",
+      "commitDate": "2026-01-15T13:35:09Z",
+      "subject": "Add session lock, new browser recovery flow, fix API spam",
+      "body": "Security & Session Management:\n- Add 5-minute inactivity timeout with session lock\n- Password creation mandatory during first-time setup\n- Activity timestamp persisted to localStorage (survives refresh)\n- Session unlock verifies against PBKDF2 hash\n\nNew Browser Recovery:\n- WalletSetupDialog offers recover/create choice\n- Fixes bug where new browser created new wallet silently\n\nAPI Spam Fix:\n- Removed premature listenToTransactions() from initEmbeddedWalletCore()\n- Polling now starts in Auth.store.ts after isMPCReady is true\n\nDead Code Cleanup:\n- Removed unused NFT/Web3 API files\n\nDocs:\n- Updated USER_FLOWS.md with Security & Session section\n- Aligned IMPLEMENTATION_PLAN.md with new flow structure\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "security",
+        "bugfix"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "Add session lock, new browser recovery flow, fix API spam",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 19,
+        "additions": 1291,
+        "deletions": 409
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_FLOWS.md",
+        "src/App.tsx",
+        "src/api-embedded-wallet/index.ts",
+        "src/api-embedded-wallet/nft.embedded.api.ts",
+        "src/api-embedded-wallet/web3.embedded.api.ts",
+        "src/foundation/Dialog.tsx",
+        "src/pages/common/Dialogs/PinEntryDialog.tsx",
+        "src/pages/common/Dialogs/WalletSetupDialog.tsx",
+        "src/pages/index.ts",
+        "src/services/PinEntry.service.ts",
+        "src/services/SessionLock.service.ts",
+        "src/services/index.ts",
+        "src/store/Auth.store.ts",
+        "src/store/FireblocksSDK.store.ts",
+        "src/store/User.store.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "73c0b73",
+      "fullSha": "73c0b731a3309e96ff28bb5e7804fdd3d4ae740e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-15T08:46:09Z",
+      "commitDate": "2026-01-15T08:46:09Z",
+      "subject": "Update docs for coin-zapp Firebase project and OAuth config",
+      "body": "- Firebase project: coin-zapp (africa-south1 region)\n- Fireblocks OAuth client ID: 3b0766fd-9c17-41df-9b72-7d5bc5226462\n- Mark Firebase and OAuth setup as complete in USER_ACTIONS.md\n- Update SESSION_NOTES.md: Phase 1 complete, ready for testing\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Update docs for coin-zapp Firebase project and OAuth config",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 47,
+        "deletions": 38
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "7ba1387",
+      "fullSha": "7ba1387460a90dfc6ea84a660ee4a0accf52ec81",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-14T13:04:54Z",
+      "commitDate": "2026-01-14T13:04:54Z",
+      "subject": "Migrate auth from Supabase to Firebase + fix TypeScript errors",
+      "body": "Auth Migration:\n- Add Firebase SDK and client config (src/lib/firebase.ts)\n- Create FirebaseAuthManager implementing IAuthManager interface\n- Update User store to use FirebaseAuthManager\n- Update AuthCallback for Firebase redirect handling\n- Update device API for Firestore persistence\n- Remove Supabase client, auth manager, and dependencies\n- Update .env with Firebase configuration\n\nTypeScript Fixes:\n- Add missing amount/destAddress to TYPED_MESSAGE transactions\n- Fix BackupDialog Date constructor with undefined fallback\n- Remove 15 unused @ts-expect-error directives across stores\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "migration",
+        "auth"
+      ],
+      "complexity": 5,
+      "scope": null,
+      "title": "Migrate auth from Supabase to Firebase + fix TypeScript errors",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 18,
+        "additions": 851,
+        "deletions": 317
+      },
+      "files": [
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "package.json",
+        "src/api-embedded-wallet/device.embedded.api.ts",
+        "src/auth/FirebaseAuthManager.ts",
+        "src/auth/SupabaseAuthManager.ts",
+        "src/auth/index.ts",
+        "src/lib/firebase.ts",
+        "src/lib/supabase.ts",
+        "src/pages/Assets/NewTransactionDialog/NewTransactionDialog.tsx",
+        "src/pages/AuthCallback/AuthCallback.tsx",
+        "src/pages/Settings/Dialogs/BackupDialog.tsx",
+        "src/store/Assets.store.ts",
+        "src/store/Backup.store.ts",
+        "src/store/Transaction.store.ts",
+        "src/store/Transactions.store.ts",
+        "src/store/User.store.ts",
+        "yarn.lock"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "7a998e5",
+      "fullSha": "7a998e5a341491f9155916b2c4a87f37d781960e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-14T12:35:50Z",
+      "commitDate": "2026-01-14T12:35:50Z",
+      "subject": "Update docs for Firebase migration: consolidate tasks in IMPLEMENTATION_PLAN.md",
+      "body": "- Update architecture to Firebase (Cloud Functions, Firestore)\n- Mark Phase 1 auth tasks for redo (Supabase → Firebase)\n- Add Backend Migration section to Phase 2\n- Convert database schema from SQL to Firestore collections\n- Clean up USER_ACTIONS.md (only manual actions, not code tasks)\n- Simplify SESSION_NOTES.md with blockers and doc links\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Update docs for Firebase migration: consolidate tasks in IMPLEMENTATION_PLAN.md",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 75,
+        "deletions": 172
+      },
+      "files": [
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "29e39f7",
+      "fullSha": "29e39f745ec17a696705cd12c3560668cb1f29c2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-14T12:17:48Z",
+      "commitDate": "2026-01-14T12:17:48Z",
+      "subject": "Add environments reference section to CLAUDE.md",
+      "body": "Clarifies the confusing \"production\" terminology:\n- Fireblocks console (US Production) vs workspace (Testnet)\n- SDK env=production means main infrastructure, not real money\n- Firebase and app build environments explained\n- Production migration checklist added\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Add environments reference section to CLAUDE.md",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 81,
+        "deletions": 8
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "fad2382",
+      "fullSha": "fad2382ea83c628ed78983dc15e5e3568149cc9d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-14T12:08:34Z",
+      "commitDate": "2026-01-14T12:08:34Z",
+      "subject": "Fix Fireblocks SDK environment: sandbox → production",
+      "body": "The workspace is on console.fireblocks.io (US Production console) with a\nTestnet workspace - not the separate sandbox.fireblocks.io environment.\n\n- Update VITE_NCW_SDK_ENV to production in docs and .env.example\n- Update .env.example to use Firebase config instead of Supabase\n- Add clarifying comments about sandbox vs production\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Fix Fireblocks SDK environment: sandbox → production",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 14,
+        "deletions": 17
+      },
+      "files": [
+        ".env.example",
+        "CLAUDE.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "41e73ac",
+      "fullSha": "41e73ac866057a30663d63e26b369d8e29fb9bc1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-14T12:05:27Z",
+      "commitDate": "2026-01-14T12:05:27Z",
+      "subject": "Switch from Supabase to Firebase Auth (RS256 requirement)",
+      "body": "Fireblocks NCW OAuth requires RS256 JWT signing, but Supabase uses ES256\nwhich is fundamentally incompatible. Updated all documentation to reflect\nFirebase Auth as the chosen provider.\n\n- Update CLAUDE.md with Firebase config and OAuth settings\n- Add AI_MISTAKES.md to document the Supabase/Fireblocks incompatibility\n- Update USER_ACTIONS.md with Firebase migration checklist\n- Update SESSION_NOTES.md with current status\n- Add debugging logs and fix initialization order in App.tsx and stores\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "migration",
+        "auth",
+        "docs"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "Switch from Supabase to Firebase Auth (RS256 requirement)",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 340,
+        "deletions": 83
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/AI_MISTAKES.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "src/App.tsx",
+        "src/api-embedded-wallet/assets.embedded.api.ts",
+        "src/store/Accounts.store.ts",
+        "src/store/Assets.store.ts",
+        "src/store/Auth.store.ts",
+        "src/store/FireblocksSDK.store.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "a1381fb",
+      "fullSha": "a1381fba647f493043295b8e1ab882a91418248a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-13T14:42:50Z",
+      "commitDate": "2026-01-13T14:42:50Z",
+      "subject": "Update Fireblocks config to US Production with JWKS webhook verification",
+      "body": "- Switch API URL from sandbox to US Production (api.fireblocks.io)\n- Migrate webhook signature verification from static key to JWKS\n- Document correct environment: US Production console with Testnet workspace\n- Add Fireblocks Configuration section to CLAUDE.md with environment reference\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "config"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Update Fireblocks config to US Production with JWKS webhook verification",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 118,
+        "deletions": 47
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/USER_ACTIONS.md",
+        "supabase/functions/_shared/fireblocks.ts",
+        "supabase/functions/webhook/index.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "92c05e2",
+      "fullSha": "92c05e276d321b76a82824b5cbaf5daed28d2312",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-13T14:12:08Z",
+      "commitDate": "2026-01-13T14:12:08Z",
+      "subject": "Fix auth flow: detect existing sessions and correct navigation routes",
+      "body": "- SupabaseAuthManager.onUserChanged() now immediately checks for existing session\n- AuthCallback redirects to / instead of non-existent /assets route\n- Actions.tsx navigation updated from /assets to /wallet\n- Add providers.ts with Google Drive API discovery document\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "auth"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Fix auth flow: detect existing sessions and correct navigation routes",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 15,
+        "deletions": 4
+      },
+      "files": [
+        "src/auth/SupabaseAuthManager.ts",
+        "src/auth/providers.ts",
+        "src/pages/AuthCallback/AuthCallback.tsx",
+        "src/pages/Login/Actions.tsx"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "a2fb406",
+      "fullSha": "a2fb4067f61d9bb2e6ca0e84802a77f690b81530",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-13T11:18:42Z",
+      "commitDate": "2026-01-13T11:18:42Z",
+      "subject": "Add user flows documentation, webhook function, remove Firebase",
+      "body": "- Create USER_FLOWS.md with detailed step-by-step scenarios for all user journeys\n- Add Fireblocks webhook Edge Function for real-time transaction updates\n- Remove unused Firebase dependencies and files (auth manager, FCM service worker)\n- Fix typo in LoginPage.tsx (updateBackupPhase function name)\n- Update IMPLEMENTATION_PLAN.md to reference user flows by phase\n- Update CLAUDE.md with new docs structure\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs",
+        "feature"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Add user flows documentation, webhook function, remove Firebase",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 14,
+        "additions": 597,
+        "deletions": 1335
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "docs/USER_FLOWS.md",
+        "package.json",
+        "public/firebase-messaging-sw.js",
+        "src/auth/FCM_README.md",
+        "src/auth/FirebaseAuthManager.ts",
+        "src/auth/providers.ts",
+        "src/pages/Login/LoginPage.tsx",
+        "supabase/functions/webhook/index.ts",
+        "yarn.lock"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "1e418ca",
+      "fullSha": "1e418ca4490fc8dd05da2e843b4744721ed574c0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-13T11:00:02Z",
+      "commitDate": "2026-01-13T11:00:02Z",
+      "subject": "Update documentation with comprehensive review",
+      "body": "- Add page status table to SESSION_NOTES.md\n- Mark sandbox environment as configured in CLAUDE.md\n- Update TODO.md with current backlog\n- Add review entry to HISTORY.md\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Update documentation with comprehensive review",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 42,
+        "deletions": 17
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "afc7130",
+      "fullSha": "afc71307ef6bf7dbdb47801f9f351af06ae68d6c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-13T10:51:14Z",
+      "commitDate": "2026-01-13T10:51:14Z",
+      "subject": "Add withdrawal confirmation modal",
+      "body": "Users now see a confirmation dialog before withdrawals execute, showing\nasset, amount, USD value, destination address, and fee level.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Add withdrawal confirmation modal",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 363,
+        "deletions": 7
+      },
+      "files": [
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "package.json",
+        "src/components/ui/dialog.tsx",
+        "src/pages/Wallet/WithdrawConfirmationDialog.tsx",
+        "src/pages/Wallet/WithdrawPage.tsx",
+        "yarn.lock"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "f54f260",
+      "fullSha": "f54f26060ebe1ba0280fbe4ee93a2be87d88ef07",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-13T10:38:32Z",
+      "commitDate": "2026-01-13T10:38:32Z",
+      "subject": "Update docs to reflect correct architecture",
+      "body": "- Clarify system responsibilities: Fireblocks Console for admin tasks,\n  Embedded SDK for user wallet ops, Unum API for certificate delivery\n- Document user flows: deposit, withdraw, trade, purchase/sell fund\n- Remove whitelisted_addresses from scope (admin manages in console)\n- Update Phase 2/3 tasks to reflect what's actually built vs remaining\n- Clean up outdated Unum API references\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Update docs to reflect correct architecture",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 179,
+        "deletions": 138
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "87d8ccc",
+      "fullSha": "87d8ccc608d57ad9e4400d7d63251c147df32f2c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-12T14:03:15Z",
+      "commitDate": "2026-01-12T14:03:15Z",
+      "subject": "Add Phase 2 wallet features: deposit/withdraw pages and DB persistence",
+      "body": "- Create auth trigger for auto user profile creation on signup\n- Update device.embedded.api.ts to persist wallet/device to database\n- Add dedicated Deposit page (/wallet/deposit) with QR code and address\n- Add dedicated Withdraw page (/wallet/withdraw) with amount/address input\n- Add Deposit/Withdraw buttons to wallet page header\n- Add Shadcn UI components: Select, Input, Label\n- Install @radix-ui/react-select and @radix-ui/react-label\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "ui",
+        "database"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "Add Phase 2 wallet features: deposit/withdraw pages and DB persistence",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 1221,
+        "deletions": 26
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "package.json",
+        "src/App.tsx",
+        "src/api-embedded-wallet/device.embedded.api.ts",
+        "src/components/ui/input.tsx",
+        "src/components/ui/label.tsx",
+        "src/components/ui/select.tsx",
+        "src/pages/Assets/AssetsPage.tsx",
+        "src/pages/Wallet/DepositPage.tsx",
+        "src/pages/Wallet/WithdrawPage.tsx",
+        "src/pages/Wallet/index.ts",
+        "src/pages/index.ts",
+        "src/store/Device.store.ts",
+        "supabase/migrations/20260112000001_auth_user_trigger.sql",
+        "yarn.lock"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "e558bcb",
+      "fullSha": "e558bcbedb34cd19186aec8e4bf3b006b813932c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-12T13:41:52Z",
+      "commitDate": "2026-01-12T13:41:52Z",
+      "subject": "Update session notes with UI consistency work",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Update session notes with UI consistency work",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "2d687eb",
+      "fullSha": "2d687ebd357ac2caeec4077bcb64e24b9e891bcd",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-12T13:40:30Z",
+      "commitDate": "2026-01-12T13:40:30Z",
+      "subject": "Standardize page headers and typography across all pages",
+      "body": "- Use i18n translations for all page titles (Dashboard, Funds)\n- Unify HeadingAmount typography (body2 for labels, h5 for values)\n- Fix EmptyPage to use Typography h6 for page title consistency\n- Add HeadingAmount to Funds page for visual consistency\n- Add DASHBOARD and FUNDS translation sections\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "refactor",
+        "ui"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Standardize page headers and typography across all pages",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 44,
+        "deletions": 20
+      },
+      "files": [
+        "src/pages/Assets/AssetsPage.tsx",
+        "src/pages/Dashboard/DashboardPage.tsx",
+        "src/pages/Funds/FundsPage.tsx",
+        "src/pages/Transactions/TransactionsPage.tsx",
+        "src/pages/common/EmptyPage.tsx",
+        "src/pages/common/HeadingAmount.tsx",
+        "src/translation/en.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "3cb1754",
+      "fullSha": "3cb17545e482687dc3569f0ee4776b818be07718",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-12T13:01:57Z",
+      "commitDate": "2026-01-12T13:01:57Z",
+      "subject": "Update session notes with dev server fix",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Update session notes with dev server fix",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 5,
+        "deletions": 9
+      },
+      "files": [
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "1ffe826",
+      "fullSha": "1ffe826dd4c3d75f7d7506ddb2e5499ac8265f07",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-12T13:00:50Z",
+      "commitDate": "2026-01-12T13:00:50Z",
+      "subject": "Fix dev server to auto-restart on port conflict",
+      "body": "- Add strictPort to vite.config.ts to fail instead of finding new port\n- Update yarn dev to kill existing vite processes before starting\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Fix dev server to auto-restart on port conflict",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 3,
+        "deletions": 1
+      },
+      "files": [
+        "package.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "d6341a7",
+      "fullSha": "d6341a7765cf6f1a207ffab38db29eab90eada6a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T23:12:42Z",
+      "commitDate": "2026-01-11T23:12:42Z",
+      "subject": "Complete Phase 1.5: Demo cleanup and navigation restructure",
+      "body": "- Remove NFTs page, components, and NFT.store\n- Remove Web3 page, components, and Web3.store\n- Rename ASSETS tab to \"Wallet\" (route: /wallet)\n- Add Dashboard placeholder page (route: /)\n- Add Funds placeholder page (route: /funds)\n- Update navigation order: Dashboard -> Funds -> Wallet -> Transactions\n- Clean up translations and unused imports\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "refactor",
+        "removal"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "Complete Phase 1.5: Demo cleanup and navigation restructure",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 31,
+        "additions": 178,
+        "deletions": 2908
+      },
+      "files": [
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "src/App.tsx",
+        "src/pages/Assets/AssetsPage.tsx",
+        "src/pages/Dashboard/DashboardPage.tsx",
+        "src/pages/Funds/FundsPage.tsx",
+        "src/pages/NFTs/Cards/NFTCard.tsx",
+        "src/pages/NFTs/Cards/NFTCards.tsx",
+        "src/pages/NFTs/NFTsPage.tsx",
+        "src/pages/NFTs/NewTransactionDialog/NewTransactionDialog.tsx",
+        "src/pages/NFTs/NewTransactionDialog/SelectedToken.tsx",
+        "src/pages/NFTs/Table/NFTsList.tsx",
+        "src/pages/NFTs/Table/NFTsListItem.tsx",
+        "src/pages/Web3/AddConnectionDialog/AddConnectionDialog.tsx",
+        "src/pages/Web3/AddConnectionDialog/ConnectionConfirmation.tsx",
+        "src/pages/Web3/AddConnectionDialog/ConnectionListItem.tsx",
+        "src/pages/Web3/DAppDetailsDialog/DAppDetailsDialog.tsx",
+        "src/pages/Web3/Web3List.tsx",
+        "src/pages/Web3/Web3ListItem.tsx",
+        "src/pages/Web3/Web3Page.tsx",
+        "src/pages/Web3/mappers.ts",
+        "src/pages/common/Header.tsx",
+        "src/pages/index.ts",
+        "src/store/NFT.store.ts",
+        "src/store/NFTToken.store.ts",
+        "src/store/Root.store.ts",
+        "src/store/Transaction.store.ts",
+        "src/store/Web3.store.ts",
+        "src/store/index.ts",
+        "src/store/useStoreHook.ts",
+        "src/translation/en.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "de55085",
+      "fullSha": "de5508557cdcef408b3ba391651774b8aedf30d7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T22:32:34Z",
+      "commitDate": "2026-01-11T22:32:34Z",
+      "subject": "Refine implementation plan with better task ordering",
+      "body": "- Move database setup to start of Phase 2 (needed before wallet ops)\n- Add Sentry and webhook Edge Function to infrastructure tasks\n- Distribute testing across phases instead of all at end\n- Add desktop-required markers for mobile Claude Code compatibility\n- Clean up SESSION_NOTES.md to be more concise\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Refine implementation plan with better task ordering",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 83,
+        "deletions": 66
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "24fb270",
+      "fullSha": "24fb2703750f8b8cb956ebb0b3f9577958251d14",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T22:10:45Z",
+      "commitDate": "2026-01-11T22:10:45Z",
+      "subject": "Update HISTORY.md with recent decisions",
+      "body": "- Add 2026-01-12 entries for backend proxy removal, demo feature assessment\n- Fix SDK reference to @fireblocks/embedded-wallet-sdk\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Update HISTORY.md with recent decisions",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 36,
+        "deletions": 1
+      },
+      "files": [
+        "docs/HISTORY.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "5d708b3",
+      "fullSha": "5d708b30cef6ab93bcdb69844ff569bef171b9ec",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T22:07:15Z",
+      "commitDate": "2026-01-11T22:07:15Z",
+      "subject": "Clean up USER_ACTIONS.md - mark auth flow as complete",
+      "body": "Auth flow is now working, consolidated completed items and\nremoved stale troubleshooting details.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Clean up USER_ACTIONS.md - mark auth flow as complete",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 17,
+        "deletions": 56
+      },
+      "files": [
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "ad07ac8",
+      "fullSha": "ad07ac8a55f5b794f3164e93a3c815ca785463e7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T22:06:10Z",
+      "commitDate": "2026-01-11T22:06:10Z",
+      "subject": "Add Phase 1.5 (Demo Cleanup) to implementation plan",
+      "body": "Document decision to remove NFTs and Web3 tabs from the demo UI,\nkeep wallet/transaction features, and restructure navigation for\nthe Koinz investment platform.\n\nNew navigation: Dashboard → Funds → Wallet → Transactions → Settings\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Add Phase 1.5 (Demo Cleanup) to implementation plan",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 87,
+        "deletions": 28
+      },
+      "files": [
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "303c7c7",
+      "fullSha": "303c7c733cbcc6ecde8991f8f35f076cbbe59596",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T21:58:23Z",
+      "commitDate": "2026-01-11T21:58:23Z",
+      "subject": "Update CLAUDE.md to reflect current architecture",
+      "body": "- Update architecture diagram to show Embedded Wallet SDK and Supabase Edge Functions\n- Fix technology stack to reference @fireblocks/embedded-wallet-sdk\n- Update application structure to match actual directory layout\n- Remove VITE_USE_EMBEDDED_WALLET_SDK from env vars (no longer used)\n- Add push notification env vars documentation\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Update CLAUDE.md to reflect current architecture",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 31,
+        "deletions": 33
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "6b53685",
+      "fullSha": "6b53685042f06ecb05269b90be57c19347752be4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T21:54:20Z",
+      "commitDate": "2026-01-11T21:54:20Z",
+      "subject": "Remove backend proxy code and simplify to Embedded Wallet SDK only",
+      "body": "The app now uses only the Fireblocks Embedded Wallet SDK with Supabase\nEdge Functions. Removed all proxy backend related code and configuration.\n\n- Delete src/api/ directory (proxy backend implementation)\n- Delete backend-proxy.env configuration file\n- Remove VITE_USE_EMBEDDED_WALLET_SDK and VITE_BACKEND_BASE_URL env vars\n- Simplify vite.config.ts to always use api-embedded-wallet\n- Clean up store files to remove conditional proxy logic\n- Update page components to remove proxy mode checks\n- Simplify FirebaseAuthManager.ts\n- Update tsconfig.json paths for @api alias\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "refactor",
+        "removal",
+        "simplify"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "Remove backend proxy code and simplify to Embedded Wallet SDK only",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 31,
+        "additions": 251,
+        "deletions": 1250
+      },
+      "files": [
+        ".env.example",
+        "README.md",
+        "backend-proxy.env",
+        "docs/SESSION_NOTES.md",
+        "src/App.tsx",
+        "src/api-embedded-wallet/accounts.embedded.api.ts",
+        "src/api-embedded-wallet/backup.embedded.api.ts",
+        "src/api/accounts.api.ts",
+        "src/api/assets.api.ts",
+        "src/api/backup.api.ts",
+        "src/api/device.api.ts",
+        "src/api/fireblocksSDK.api.ts",
+        "src/api/index.ts",
+        "src/api/nft.api.ts",
+        "src/api/transactions.api.ts",
+        "src/api/user.api.ts",
+        "src/api/utils.api.ts",
+        "src/auth/FirebaseAuthManager.ts",
+        "src/env.d.ts",
+        "src/env_config.ts",
+        "src/pages/Login/Actions.tsx",
+        "src/pages/Login/LoginPage.tsx",
+        "src/pages/Web3/Web3Page.tsx",
+        "src/pages/common/Header.tsx",
+        "src/store/Accounts.store.ts",
+        "src/store/Auth.store.ts",
+        "src/store/FireblocksSDK.store.ts",
+        "src/store/Transactions.store.ts",
+        "src/store/User.store.ts",
+        "tsconfig.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "56920a7",
+      "fullSha": "56920a76eae16cd7b4bfacd668a3a3596817c79f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T21:23:10Z",
+      "commitDate": "2026-01-11T21:23:28Z",
+      "subject": "Fix auth flow issues and add debug logging",
+      "body": "- Fix BigInt error: generate device ID before SDK init in Auth.store.ts\n- Add debug logging to API calls and Fireblocks client\n- Update Edge Function to use --no-verify-jwt (Supabase gateway issue)\n- Document Fireblocks API credential troubleshooting steps\n\nCurrent blocker: Fireblocks API returning \"Unauthorized: Error getting\nUser certificate\" (code -7) - requires verifying API Key ID matches\nthe value set in Supabase secrets.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "bugfix",
+        "auth",
+        "logging"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Fix auth flow issues and add debug logging",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 133,
+        "deletions": 35
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "src/api/utils.api.ts",
+        "src/store/Auth.store.ts",
+        "supabase/functions/_shared/fireblocks.ts",
+        "supabase/functions/ncw-api/index.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "726d05d",
+      "fullSha": "726d05dbc71e4ba054cac81e4c5cec9017157d79",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T20:47:17Z",
+      "commitDate": "2026-01-11T20:47:17Z",
+      "subject": "Add supabase/.temp/ to gitignore",
+      "body": "Supabase CLI local cache files should not be tracked.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Add supabase/.temp/ to gitignore",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 0
+      },
+      "files": [
+        ".gitignore"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "d85a129",
+      "fullSha": "d85a1296b99a9f920b1536c5414846a8d695c44b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T20:45:42Z",
+      "commitDate": "2026-01-11T20:45:42Z",
+      "subject": "Update docs: Edge Function deployed and secrets configured",
+      "body": "Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Update docs: Edge Function deployed and secrets configured",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 17,
+        "deletions": 80
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "fa06d29",
+      "fullSha": "fa06d2982495bd5d73d25e769aede321f92385c0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T20:40:44Z",
+      "commitDate": "2026-01-11T20:40:44Z",
+      "subject": "Add NCW API Edge Function and database schema",
+      "body": "- Create ncw-api Edge Function handling all Fireblocks NCW endpoints\n  (login, device assignment, RPC, accounts, assets, transactions)\n- Add database migration for user_wallets and user_devices tables with RLS\n- Update .env.example with Supabase Edge Functions URL pattern\n- Document deployment steps in USER_ACTIONS.md\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "api",
+        "database"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "Add NCW API Edge Function and database schema",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 464,
+        "deletions": 18
+      },
+      "files": [
+        ".env.example",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "supabase/functions/ncw-api/index.ts",
+        "supabase/migrations/20260111000000_user_wallets.sql"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "3689e07",
+      "fullSha": "3689e076358016abc2206424087b2d5785c12f00",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T20:34:26Z",
+      "commitDate": "2026-01-11T20:34:26Z",
+      "subject": "Fireblocks setup: credentials configured, shared API client created",
+      "body": "- Added secrets/ to .gitignore\n- Updated workspace ID in .env\n- Created shared Fireblocks API client for Edge Functions\n- Updated SESSION_NOTES with next steps for Edge Functions\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "config"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Fireblocks setup: credentials configured, shared API client created",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 397,
+        "deletions": 11
+      },
+      "files": [
+        ".gitignore",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "supabase/.temp/cli-latest",
+        "supabase/functions/_shared/fireblocks.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "eba3398",
+      "fullSha": "eba339858ecbc0d5a89c91f68063a0b2527c904f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T19:55:04Z",
+      "commitDate": "2026-01-11T19:55:04Z",
+      "subject": "Complete Phase 1: Google OAuth working",
+      "body": "- Mark Phase 1 tasks complete in IMPLEMENTATION_PLAN.md\n- Update SESSION_NOTES.md with current state\n- Move Google OAuth setup to completed in USER_ACTIONS.md\n- Update TODO.md to reflect Supabase setup complete\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Complete Phase 1: Google OAuth working",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 30,
+        "deletions": 56
+      },
+      "files": [
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "3580167",
+      "fullSha": "3580167fb32860e7560d7aae5ece23ec9707e548",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T18:53:52Z",
+      "commitDate": "2026-01-11T18:53:52Z",
+      "subject": "Remove unused GitHub Pages deployment workflow",
+      "body": "This workflow was inherited from fireblocks/ncw-web-demo-v2 and not needed for Koinz.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "removal"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Remove unused GitHub Pages deployment workflow",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 91
+      },
+      "files": [
+        ".github/workflows/publish.yml"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "10b5b14",
+      "fullSha": "10b5b14247fe0d225ad764f0d6a396c55a7a0a90",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T18:44:50Z",
+      "commitDate": "2026-01-11T18:44:50Z",
+      "subject": "Add USER_ACTIONS.md for tracking manual user tasks",
+      "body": "- Create docs/USER_ACTIONS.md with pending Google OAuth setup instructions\n- Add principle #11 to preferences: document user actions in dedicated file\n- Update docs structure in CLAUDE.md to include new file\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Add USER_ACTIONS.md for tracking manual user tasks",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#11"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 31,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "a631b7a",
+      "fullSha": "a631b7ac7f05202e23a0abbbd65e2767bd4d4d24",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T18:27:37Z",
+      "commitDate": "2026-01-11T18:27:37Z",
+      "subject": "Replace Firebase auth with Supabase and add Tailwind/Shadcn UI",
+      "body": "Phase 1 implementation complete:\n- Swap Firebase auth for Supabase Google OAuth\n- Add SupabaseAuthManager implementing IAuthManager interface\n- Create OAuth callback route at /auth/callback\n- Remove FCM push notification code (to be reimplemented later)\n- Install and configure Tailwind CSS v4 with custom dark theme\n- Set up Shadcn/ui with Button and Card components\n- Add Shell layout component\n- Update documentation with session progress\n\nUser action required: Configure Google OAuth in Supabase Dashboard\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "migration",
+        "feature"
+      ],
+      "complexity": 5,
+      "scope": null,
+      "title": "Replace Firebase auth with Supabase and add Tailwind/Shadcn UI",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 25,
+        "additions": 919,
+        "deletions": 205
+      },
+      "files": [
+        "components.json",
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "package.json",
+        "postcss.config.js",
+        "src/App.tsx",
+        "src/auth/IAuthManager.ts",
+        "src/auth/SupabaseAuthManager.ts",
+        "src/auth/index.ts",
+        "src/components/layout/Shell.tsx",
+        "src/components/layout/index.ts",
+        "src/components/ui/button.tsx",
+        "src/components/ui/card.tsx",
+        "src/index.css",
+        "src/lib/supabase.ts",
+        "src/lib/utils.ts",
+        "src/pages/AuthCallback/AuthCallback.tsx",
+        "src/pages/index.ts",
+        "src/root.tsx",
+        "src/store/Auth.store.ts",
+        "src/store/User.store.ts",
+        "tailwind.config.js",
+        "tsconfig.json",
+        "yarn.lock"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "1090536",
+      "fullSha": "1090536a8b7a41bd03ef52731746722ac262b556",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-11T17:46:47Z",
+      "commitDate": "2026-01-11T17:46:47Z",
+      "subject": "Add AI preferences and restructure documentation",
+      "body": "- Move preferences section to top of CLAUDE.md for AI assistants\n- Create docs/ folder with SESSION_NOTES.md, TODO.md, HISTORY.md\n- Move detailed implementation phases to docs/IMPLEMENTATION_PLAN.md\n- Streamline CLAUDE.md to focus on project overview and key decisions\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Add AI preferences and restructure documentation",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 329,
+        "deletions": 203
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/IMPLEMENTATION_PLAN.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "84dd68c",
+      "fullSha": "84dd68c551da272be8da33c7527b68b592357cc6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-11T17:31:08Z",
+      "commitDate": "2026-01-11T17:31:08Z",
+      "subject": "Merge pull request #2 from devmade-ai/claude/clean-slate-restart-0uqHS",
+      "body": "Clean slate: remove all existing code to start fresh",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Merge pull request #2 from devmade-ai/claude/clean-slate-restart-0uqHS",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#2"
+      ],
+      "stats": {
+        "filesChanged": 300,
+        "additions": 24428,
+        "deletions": 25102
+      },
+      "files": [
+        ".env.example",
+        ".eslintrc.cjs",
+        ".github/workflows/publish.yml",
+        ".gitignore",
+        ".nvmrc",
+        ".prettierrc",
+        "CLAUDE.md",
+        "EW_Demo_app_flow.pdf",
+        "LICENSE",
+        "README.md",
+        "app.json",
+        "app/(protected)/(tabs)/_layout.tsx",
+        "app/(protected)/(tabs)/index.tsx",
+        "app/(protected)/_layout.tsx",
+        "app/(public)/_layout.tsx",
+        "app/(public)/sign-in.tsx",
+        "app/(public)/sign-up.tsx",
+        "app/(public)/welcome.tsx",
+        "app/_layout.tsx",
+        "assets/adaptive-icon.png",
+        "assets/icon.png",
+        "assets/splash-icon.png",
+        "babel.config.js",
+        "backend-proxy.env",
+        "bun.lock",
+        "claude.md",
+        "context/supabase-context.ts",
+        "docs/HISTORY.md",
+        "docs/Koinz_Setup_Guide.md",
+        "docs/TODO.md",
+        "docs/setup.sh",
+        "eslint.config.js",
+        "favicon.ico",
+        "hooks/useSignIn.ts",
+        "hooks/useSignUp.ts",
+        "hooks/useSupabase.ts",
+        "index.html",
+        "lib/api.ts",
+        "lib/supabase.ts",
+        "package-lock.json",
+        "package.json",
+        "providers/supabase-provider.tsx",
+        "public/firebase-messaging-sw.js",
+        "public/icons/Icon/close.svg",
+        "public/icons/apple.svg",
+        "public/icons/arrow-down-blue.svg",
+        "public/icons/arrow-down.svg",
+        "public/icons/arrow-left.svg",
+        "public/icons/arrow-right.svg",
+        "public/icons/arrow-up.svg",
+        "public/icons/backup_large.svg",
+        "public/icons/cancel.svg",
+        "public/icons/card_view_active.svg",
+        "public/icons/card_view_not_active.svg",
+        "public/icons/close-icon.svg",
+        "public/icons/close.svg",
+        "public/icons/cloud.svg",
+        "public/icons/cloud_upload.svg",
+        "public/icons/confirm-device.svg",
+        "public/icons/copy.svg",
+        "public/icons/copy_white.svg",
+        "public/icons/crypto-icons/aave.png",
+        "public/icons/crypto-icons/ada.png",
+        "public/icons/crypto-icons/algo.png",
+        "public/icons/crypto-icons/atom.png",
+        "public/icons/crypto-icons/avax.png",
+        "public/icons/crypto-icons/bal.png",
+        "public/icons/crypto-icons/band.png",
+        "public/icons/crypto-icons/bat.png",
+        "public/icons/crypto-icons/bnb.png",
+        "public/icons/crypto-icons/btc.png",
+        "public/icons/crypto-icons/chz.png",
+        "public/icons/crypto-icons/comp.png",
+        "public/icons/crypto-icons/crv.png",
+        "public/icons/crypto-icons/dai.png",
+        "public/icons/crypto-icons/doge.png",
+        "public/icons/crypto-icons/dot.png",
+        "public/icons/crypto-icons/enj.png",
+        "public/icons/crypto-icons/etc.png",
+        "public/icons/crypto-icons/eth.png",
+        "public/icons/crypto-icons/fil.png",
+        "public/icons/crypto-icons/grt.png",
+        "public/icons/crypto-icons/hot.png",
+        "public/icons/crypto-icons/icp.png",
+        "public/icons/crypto-icons/knc.png",
+        "public/icons/crypto-icons/link.png",
+        "public/icons/crypto-icons/lrc.png",
+        "public/icons/crypto-icons/ltc.png",
+        "public/icons/crypto-icons/mana.png",
+        "public/icons/crypto-icons/matic.png",
+        "public/icons/crypto-icons/mkr.png",
+        "public/icons/crypto-icons/neo.png",
+        "public/icons/crypto-icons/omg.png",
+        "public/icons/crypto-icons/one.png",
+        "public/icons/crypto-icons/qnt.png",
+        "public/icons/crypto-icons/ren.png",
+        "public/icons/crypto-icons/sand.png",
+        "public/icons/crypto-icons/snx.png",
+        "public/icons/crypto-icons/sol.png",
+        "public/icons/crypto-icons/storj.png",
+        "public/icons/crypto-icons/sushi.png",
+        "public/icons/crypto-icons/theta.png",
+        "public/icons/crypto-icons/trx.png",
+        "public/icons/crypto-icons/uma.png",
+        "public/icons/crypto-icons/uni.png",
+        "public/icons/crypto-icons/usdc.png",
+        "public/icons/crypto-icons/usdt.png",
+        "public/icons/crypto-icons/vet.png",
+        "public/icons/crypto-icons/waves.png",
+        "public/icons/crypto-icons/xlm.png",
+        "public/icons/crypto-icons/xrp.png",
+        "public/icons/crypto-icons/xtz.png",
+        "public/icons/crypto-icons/yfi.png",
+        "public/icons/crypto-icons/zec.png",
+        "public/icons/crypto-icons/zrx.png",
+        "public/icons/delete_logs.svg",
+        "public/icons/dots.svg",
+        "public/icons/download_logs.svg",
+        "public/icons/empty_page_no_assets.svg",
+        "public/icons/empty_page_no_nft.svg",
+        "public/icons/empty_page_no_tx.svg",
+        "public/icons/empty_page_no_web3.svg",
+        "public/icons/empty_search.svg",
+        "public/icons/existing_user.svg",
+        "public/icons/eye.svg",
+        "public/icons/eye_off.svg",
+        "public/icons/eye_off_white.svg",
+        "public/icons/eye_white.svg",
+        "public/icons/google.svg",
+        "public/icons/icons.d.ts",
+        "public/icons/info.svg",
+        "public/icons/join_existing_wallet.svg",
+        "public/icons/key.svg",
+        "public/icons/login-ew-icon.svg",
+        "public/icons/login_assets.svg",
+        "public/icons/login_bg.svg",
+        "public/icons/logo.svg",
+        "public/icons/new-wallet.svg",
+        "public/icons/new_device.svg",
+        "public/icons/new_user.svg",
+        "public/icons/no_asset_image.svg",
+        "public/icons/no_nft_image.svg",
+        "public/icons/notification_error.svg",
+        "public/icons/notification_success.svg",
+        "public/icons/pencil-icon-with-frame.svg",
+        "public/icons/plus-icon.svg",
+        "public/icons/receive.svg",
+        "public/icons/recover.svg",
+        "public/icons/refresh.svg",
+        "public/icons/scan-qr-code.svg",
+        "public/icons/search.svg",
+        "public/icons/send.svg",
+        "public/icons/setting-recover-wallet.svg",
+        "public/icons/settings.svg",
+        "public/icons/share_logs.svg",
+        "public/icons/sign.svg",
+        "public/icons/table_view_active.svg",
+        "public/icons/table_view_not_active.svg",
+        "public/icons/unlink.svg",
+        "public/icons/v-sign.svg",
+        "public/icons/wallet.svg",
+        "public/icons/web3-main-icon.svg",
+        "src/App.tsx",
+        "src/Initializer.tsx",
+        "src/api-embedded-wallet/accounts.embedded.api.ts",
+        "src/api-embedded-wallet/assets.embedded.api.ts",
+        "src/api-embedded-wallet/backup.embedded.api.ts",
+        "src/api-embedded-wallet/device.embedded.api.ts",
+        "src/api-embedded-wallet/fireblocksSDK.embedded.api.ts",
+        "src/api-embedded-wallet/index.ts",
+        "src/api-embedded-wallet/nft.embedded.api.ts",
+        "src/api-embedded-wallet/transactions.embedded.api.ts",
+        "src/api-embedded-wallet/user.embedded.api.ts",
+        "src/api-embedded-wallet/web3.embedded.api.ts",
+        "src/api/accounts.api.ts",
+        "src/api/assets.api.ts",
+        "src/api/backup.api.ts",
+        "src/api/device.api.ts",
+        "src/api/fireblocksSDK.api.ts",
+        "src/api/index.ts",
+        "src/api/nft.api.ts",
+        "src/api/transactions.api.ts",
+        "src/api/user.api.ts",
+        "src/api/utils.api.ts",
+        "src/auth/FCM_README.md",
+        "src/auth/FirebaseAuthManager.ts",
+        "src/auth/IAuthManager.ts",
+        "src/auth/index.ts",
+        "src/auth/providers.ts",
+        "src/env.d.ts",
+        "src/env_config.ts",
+        "src/foundation/ActionButton.tsx",
+        "src/foundation/BlueButton.tsx",
+        "src/foundation/ContentSection.tsx",
+        "src/foundation/CopyText.tsx",
+        "src/foundation/CustomTabPanel.tsx",
+        "src/foundation/Dialog.tsx",
+        "src/foundation/DropDownMenu.tsx",
+        "src/foundation/IconButton.tsx",
+        "src/foundation/LoadingPage.tsx",
+        "src/foundation/ModeSwitcher.tsx",
+        "src/foundation/Notification.tsx",
+        "src/foundation/Progress.tsx",
+        "src/foundation/SecondaryIconButton.tsx",
+        "src/foundation/cards/CardItem.tsx",
+        "src/foundation/cards/CardsWrapper.tsx",
+        "src/foundation/form/AddressField.tsx",
+        "src/foundation/form/AssetAmountInput.tsx",
+        "src/foundation/form/ButtonsGroup.tsx",
+        "src/foundation/form/QRField.tsx",
+        "src/foundation/form/SearchInput.tsx",
+        "src/foundation/form/TextInput.tsx",
+        "src/foundation/form/commonStyledComponents.ts",
+        "src/foundation/index.ts",
+        "src/foundation/table/Table.tsx",
+        "src/foundation/table/TableBody.tsx",
+        "src/foundation/table/TableHead.tsx",
+        "src/foundation/table/TableRow.tsx",
+        "src/foundation/table/cells/SortableTableHeaderCell.tsx",
+        "src/foundation/table/cells/TableBalanceCell.tsx",
+        "src/foundation/table/cells/TableCell.tsx",
+        "src/foundation/table/cells/TableChangeCell.tsx",
+        "src/foundation/table/cells/TableHeaderCell.tsx",
+        "src/foundation/table/cells/TablePriceCell.tsx",
+        "src/foundation/table/cells/TableSignCell.tsx",
+        "src/foundation/table/cells/TableStatusCell.tsx",
+        "src/foundation/table/cells/TableTextCell.tsx",
+        "src/foundation/table/cells/TableTitleCell.tsx",
+        "src/foundation/table/cells/TableTransferCell.tsx",
+        "src/foundation/table/cells/TableUnlinkCell.tsx",
+        "src/foundation/theme.ts",
+        "src/pages/Assets/AddAssetDialog/AddAssetDialog.tsx",
+        "src/pages/Assets/AddAssetDialog/AssetListItem.tsx",
+        "src/pages/Assets/AssetsList.tsx",
+        "src/pages/Assets/AssetsListItem.tsx",
+        "src/pages/Assets/AssetsPage.tsx",
+        "src/pages/Assets/NewTransactionDialog/NewTransactionDialog.tsx",
+        "src/pages/Assets/NewTransactionDialog/SelectedAsset.tsx",
+        "src/pages/Assets/NewTransactionDialog/TxType.tsx",
+        "src/pages/Login/ActionPlate.tsx",
+        "src/pages/Login/Actions.tsx",
+        "src/pages/Login/LoginPage.tsx",
+        "src/pages/Login/components/BackupPhaseUI.tsx",
+        "src/pages/Login/components/JoinWalletUI.tsx",
+        "src/pages/Login/components/LoginOptionsUI.tsx",
+        "src/pages/Login/components/ProcessingUI.tsx",
+        "src/pages/Login/components/WalletGenerationOptionsUI.tsx",
+        "src/pages/Login/components/index.ts",
+        "src/pages/Login/components/styles.ts",
+        "src/pages/NFTs/Cards/NFTCard.tsx",
+        "src/pages/NFTs/Cards/NFTCards.tsx",
+        "src/pages/NFTs/NFTsPage.tsx",
+        "src/pages/NFTs/NewTransactionDialog/NewTransactionDialog.tsx",
+        "src/pages/NFTs/NewTransactionDialog/SelectedToken.tsx",
+        "src/pages/NFTs/Table/NFTsList.tsx",
+        "src/pages/NFTs/Table/NFTsListItem.tsx",
+        "src/pages/Settings/ActionPlate.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/AddNewDeviceDialog.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/DeviceInfo.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/Error.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/QrScanner.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/RequestIdEntry.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/SelectionPhase.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/Success.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/index.ts",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/styled.ts",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/types.ts",
+        "src/pages/Settings/Dialogs/AdvancedInfoDialog.tsx",
+        "src/pages/Settings/Dialogs/BackupDialog.tsx",
+        "src/pages/Settings/Dialogs/ExportKeys/AssetListItem.tsx",
+        "src/pages/Settings/Dialogs/ExportKeys/ExportPrivateKeysDialog.tsx",
+        "src/pages/Settings/Dialogs/ExportKeys/ExportPrivateKeysDialogVM.ts",
+        "src/pages/Settings/Dialogs/ExportKeys/Key.tsx",
+        "src/pages/Settings/Dialogs/ExportKeys/PrivateKeyListItem.tsx",
+        "src/pages/Settings/Dialogs/ExportPrivateKeyErrorDialog.tsx",
+        "src/pages/Settings/Dialogs/JoinWalletPopup.tsx",
+        "src/pages/Settings/Dialogs/LogsDialog.tsx",
+        "src/pages/Settings/Dialogs/RecoverWalletDialog.tsx",
+        "src/pages/Settings/SettingsItems.tsx",
+        "src/pages/Settings/SettingsPage.tsx",
+        "src/pages/Transactions/TransactionDetailsDialog.tsx",
+        "src/pages/Transactions/TransactionsList.tsx",
+        "src/pages/Transactions/TransactionsListItem.tsx",
+        "src/pages/Transactions/TransactionsPage.tsx",
+        "src/pages/Web3/AddConnectionDialog/AddConnectionDialog.tsx",
+        "src/pages/Web3/AddConnectionDialog/ConnectionConfirmation.tsx",
+        "src/pages/Web3/AddConnectionDialog/ConnectionListItem.tsx",
+        "src/pages/Web3/DAppDetailsDialog/DAppDetailsDialog.tsx",
+        "src/pages/Web3/Web3List.tsx",
+        "src/pages/Web3/Web3ListItem.tsx",
+        "src/pages/Web3/Web3Page.tsx",
+        "src/pages/Web3/mappers.ts",
+        "src/pages/common/ActionsBox.tsx",
+        "src/pages/common/Dialogs/RestartWalletDialog.tsx",
+        "src/pages/common/EmptyPage.tsx",
+        "src/pages/common/EmptySearch.tsx",
+        "src/pages/common/FeeLevel.tsx",
+        "src/pages/common/Header.tsx",
+        "src/pages/common/HeadingAmount.tsx",
+        "src/pages/index.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "1373393",
+      "fullSha": "13733938fe4125b1688cd47eb516fda918f37113",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-11T17:24:16Z",
+      "commitDate": "2026-01-11T17:24:16Z",
+      "subject": "Initialize Koinz PWA from fireblocks/ncw-web-demo-v2",
+      "body": "Starting fresh with the official Fireblocks NCW web demo as the foundation\nfor the Koinz tokenized fund investment platform.\n\nKey changes from demo:\n- Renamed project to koinz-pwa\n- Added CLAUDE.md with implementation plan\n- Added .env.example with Supabase/Unum config placeholders\n- Updated .gitignore to exclude .env files\n\nNext steps:\n- Replace CloudKit auth with Supabase (Google SSO)\n- Add Tailwind CSS + Shadcn/ui\n- Implement Koinz-specific fund management features",
+      "tags": [
+        "init"
+      ],
+      "complexity": 5,
+      "scope": null,
+      "title": "Initialize Koinz PWA from fireblocks/ncw-web-demo-v2",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 300,
+        "additions": 24497,
+        "deletions": 0
+      },
+      "files": [
+        ".env.example",
+        ".eslintrc.cjs",
+        ".github/workflows/publish.yml",
+        ".gitignore",
+        ".nvmrc",
+        ".prettierrc",
+        "CLAUDE.md",
+        "EW_Demo_app_flow.pdf",
+        "LICENSE",
+        "README.md",
+        "backend-proxy.env",
+        "favicon.ico",
+        "index.html",
+        "package.json",
+        "public/firebase-messaging-sw.js",
+        "public/icons/Icon/close.svg",
+        "public/icons/apple.svg",
+        "public/icons/arrow-down-blue.svg",
+        "public/icons/arrow-down.svg",
+        "public/icons/arrow-left.svg",
+        "public/icons/arrow-right.svg",
+        "public/icons/arrow-up.svg",
+        "public/icons/backup_large.svg",
+        "public/icons/cancel.svg",
+        "public/icons/card_view_active.svg",
+        "public/icons/card_view_not_active.svg",
+        "public/icons/close-icon.svg",
+        "public/icons/close.svg",
+        "public/icons/cloud.svg",
+        "public/icons/cloud_upload.svg",
+        "public/icons/confirm-device.svg",
+        "public/icons/copy.svg",
+        "public/icons/copy_white.svg",
+        "public/icons/crypto-icons/aave.png",
+        "public/icons/crypto-icons/ada.png",
+        "public/icons/crypto-icons/algo.png",
+        "public/icons/crypto-icons/atom.png",
+        "public/icons/crypto-icons/avax.png",
+        "public/icons/crypto-icons/bal.png",
+        "public/icons/crypto-icons/band.png",
+        "public/icons/crypto-icons/bat.png",
+        "public/icons/crypto-icons/bnb.png",
+        "public/icons/crypto-icons/btc.png",
+        "public/icons/crypto-icons/chz.png",
+        "public/icons/crypto-icons/comp.png",
+        "public/icons/crypto-icons/crv.png",
+        "public/icons/crypto-icons/dai.png",
+        "public/icons/crypto-icons/doge.png",
+        "public/icons/crypto-icons/dot.png",
+        "public/icons/crypto-icons/enj.png",
+        "public/icons/crypto-icons/etc.png",
+        "public/icons/crypto-icons/eth.png",
+        "public/icons/crypto-icons/fil.png",
+        "public/icons/crypto-icons/grt.png",
+        "public/icons/crypto-icons/hot.png",
+        "public/icons/crypto-icons/icp.png",
+        "public/icons/crypto-icons/knc.png",
+        "public/icons/crypto-icons/link.png",
+        "public/icons/crypto-icons/lrc.png",
+        "public/icons/crypto-icons/ltc.png",
+        "public/icons/crypto-icons/mana.png",
+        "public/icons/crypto-icons/matic.png",
+        "public/icons/crypto-icons/mkr.png",
+        "public/icons/crypto-icons/neo.png",
+        "public/icons/crypto-icons/omg.png",
+        "public/icons/crypto-icons/one.png",
+        "public/icons/crypto-icons/qnt.png",
+        "public/icons/crypto-icons/ren.png",
+        "public/icons/crypto-icons/sand.png",
+        "public/icons/crypto-icons/snx.png",
+        "public/icons/crypto-icons/sol.png",
+        "public/icons/crypto-icons/storj.png",
+        "public/icons/crypto-icons/sushi.png",
+        "public/icons/crypto-icons/theta.png",
+        "public/icons/crypto-icons/trx.png",
+        "public/icons/crypto-icons/uma.png",
+        "public/icons/crypto-icons/uni.png",
+        "public/icons/crypto-icons/usdc.png",
+        "public/icons/crypto-icons/usdt.png",
+        "public/icons/crypto-icons/vet.png",
+        "public/icons/crypto-icons/waves.png",
+        "public/icons/crypto-icons/xlm.png",
+        "public/icons/crypto-icons/xrp.png",
+        "public/icons/crypto-icons/xtz.png",
+        "public/icons/crypto-icons/yfi.png",
+        "public/icons/crypto-icons/zec.png",
+        "public/icons/crypto-icons/zrx.png",
+        "public/icons/delete_logs.svg",
+        "public/icons/dots.svg",
+        "public/icons/download_logs.svg",
+        "public/icons/empty_page_no_assets.svg",
+        "public/icons/empty_page_no_nft.svg",
+        "public/icons/empty_page_no_tx.svg",
+        "public/icons/empty_page_no_web3.svg",
+        "public/icons/empty_search.svg",
+        "public/icons/existing_user.svg",
+        "public/icons/eye.svg",
+        "public/icons/eye_off.svg",
+        "public/icons/eye_off_white.svg",
+        "public/icons/eye_white.svg",
+        "public/icons/google.svg",
+        "public/icons/icons.d.ts",
+        "public/icons/info.svg",
+        "public/icons/join_existing_wallet.svg",
+        "public/icons/key.svg",
+        "public/icons/login-ew-icon.svg",
+        "public/icons/login_assets.svg",
+        "public/icons/login_bg.svg",
+        "public/icons/logo.svg",
+        "public/icons/new-wallet.svg",
+        "public/icons/new_device.svg",
+        "public/icons/new_user.svg",
+        "public/icons/no_asset_image.svg",
+        "public/icons/no_nft_image.svg",
+        "public/icons/notification_error.svg",
+        "public/icons/notification_success.svg",
+        "public/icons/pencil-icon-with-frame.svg",
+        "public/icons/plus-icon.svg",
+        "public/icons/receive.svg",
+        "public/icons/recover.svg",
+        "public/icons/refresh.svg",
+        "public/icons/scan-qr-code.svg",
+        "public/icons/search.svg",
+        "public/icons/send.svg",
+        "public/icons/setting-recover-wallet.svg",
+        "public/icons/settings.svg",
+        "public/icons/share_logs.svg",
+        "public/icons/sign.svg",
+        "public/icons/table_view_active.svg",
+        "public/icons/table_view_not_active.svg",
+        "public/icons/unlink.svg",
+        "public/icons/v-sign.svg",
+        "public/icons/wallet.svg",
+        "public/icons/web3-main-icon.svg",
+        "src/App.tsx",
+        "src/Initializer.tsx",
+        "src/api-embedded-wallet/accounts.embedded.api.ts",
+        "src/api-embedded-wallet/assets.embedded.api.ts",
+        "src/api-embedded-wallet/backup.embedded.api.ts",
+        "src/api-embedded-wallet/device.embedded.api.ts",
+        "src/api-embedded-wallet/fireblocksSDK.embedded.api.ts",
+        "src/api-embedded-wallet/index.ts",
+        "src/api-embedded-wallet/nft.embedded.api.ts",
+        "src/api-embedded-wallet/transactions.embedded.api.ts",
+        "src/api-embedded-wallet/user.embedded.api.ts",
+        "src/api-embedded-wallet/web3.embedded.api.ts",
+        "src/api/accounts.api.ts",
+        "src/api/assets.api.ts",
+        "src/api/backup.api.ts",
+        "src/api/device.api.ts",
+        "src/api/fireblocksSDK.api.ts",
+        "src/api/index.ts",
+        "src/api/nft.api.ts",
+        "src/api/transactions.api.ts",
+        "src/api/user.api.ts",
+        "src/api/utils.api.ts",
+        "src/auth/FCM_README.md",
+        "src/auth/FirebaseAuthManager.ts",
+        "src/auth/IAuthManager.ts",
+        "src/auth/index.ts",
+        "src/auth/providers.ts",
+        "src/env.d.ts",
+        "src/env_config.ts",
+        "src/foundation/ActionButton.tsx",
+        "src/foundation/BlueButton.tsx",
+        "src/foundation/ContentSection.tsx",
+        "src/foundation/CopyText.tsx",
+        "src/foundation/CustomTabPanel.tsx",
+        "src/foundation/Dialog.tsx",
+        "src/foundation/DropDownMenu.tsx",
+        "src/foundation/IconButton.tsx",
+        "src/foundation/LoadingPage.tsx",
+        "src/foundation/ModeSwitcher.tsx",
+        "src/foundation/Notification.tsx",
+        "src/foundation/Progress.tsx",
+        "src/foundation/SecondaryIconButton.tsx",
+        "src/foundation/cards/CardItem.tsx",
+        "src/foundation/cards/CardsWrapper.tsx",
+        "src/foundation/form/AddressField.tsx",
+        "src/foundation/form/AssetAmountInput.tsx",
+        "src/foundation/form/ButtonsGroup.tsx",
+        "src/foundation/form/QRField.tsx",
+        "src/foundation/form/SearchInput.tsx",
+        "src/foundation/form/TextInput.tsx",
+        "src/foundation/form/commonStyledComponents.ts",
+        "src/foundation/index.ts",
+        "src/foundation/table/Table.tsx",
+        "src/foundation/table/TableBody.tsx",
+        "src/foundation/table/TableHead.tsx",
+        "src/foundation/table/TableRow.tsx",
+        "src/foundation/table/cells/SortableTableHeaderCell.tsx",
+        "src/foundation/table/cells/TableBalanceCell.tsx",
+        "src/foundation/table/cells/TableCell.tsx",
+        "src/foundation/table/cells/TableChangeCell.tsx",
+        "src/foundation/table/cells/TableHeaderCell.tsx",
+        "src/foundation/table/cells/TablePriceCell.tsx",
+        "src/foundation/table/cells/TableSignCell.tsx",
+        "src/foundation/table/cells/TableStatusCell.tsx",
+        "src/foundation/table/cells/TableTextCell.tsx",
+        "src/foundation/table/cells/TableTitleCell.tsx",
+        "src/foundation/table/cells/TableTransferCell.tsx",
+        "src/foundation/table/cells/TableUnlinkCell.tsx",
+        "src/foundation/theme.ts",
+        "src/pages/Assets/AddAssetDialog/AddAssetDialog.tsx",
+        "src/pages/Assets/AddAssetDialog/AssetListItem.tsx",
+        "src/pages/Assets/AssetsList.tsx",
+        "src/pages/Assets/AssetsListItem.tsx",
+        "src/pages/Assets/AssetsPage.tsx",
+        "src/pages/Assets/NewTransactionDialog/NewTransactionDialog.tsx",
+        "src/pages/Assets/NewTransactionDialog/SelectedAsset.tsx",
+        "src/pages/Assets/NewTransactionDialog/TxType.tsx",
+        "src/pages/Login/ActionPlate.tsx",
+        "src/pages/Login/Actions.tsx",
+        "src/pages/Login/LoginPage.tsx",
+        "src/pages/Login/components/BackupPhaseUI.tsx",
+        "src/pages/Login/components/JoinWalletUI.tsx",
+        "src/pages/Login/components/LoginOptionsUI.tsx",
+        "src/pages/Login/components/ProcessingUI.tsx",
+        "src/pages/Login/components/WalletGenerationOptionsUI.tsx",
+        "src/pages/Login/components/index.ts",
+        "src/pages/Login/components/styles.ts",
+        "src/pages/NFTs/Cards/NFTCard.tsx",
+        "src/pages/NFTs/Cards/NFTCards.tsx",
+        "src/pages/NFTs/NFTsPage.tsx",
+        "src/pages/NFTs/NewTransactionDialog/NewTransactionDialog.tsx",
+        "src/pages/NFTs/NewTransactionDialog/SelectedToken.tsx",
+        "src/pages/NFTs/Table/NFTsList.tsx",
+        "src/pages/NFTs/Table/NFTsListItem.tsx",
+        "src/pages/Settings/ActionPlate.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/AddNewDeviceDialog.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/DeviceInfo.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/Error.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/QrScanner.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/RequestIdEntry.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/SelectionPhase.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/Success.tsx",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/index.ts",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/styled.ts",
+        "src/pages/Settings/Dialogs/AddNewDeviceDialog/types.ts",
+        "src/pages/Settings/Dialogs/AdvancedInfoDialog.tsx",
+        "src/pages/Settings/Dialogs/BackupDialog.tsx",
+        "src/pages/Settings/Dialogs/ExportKeys/AssetListItem.tsx",
+        "src/pages/Settings/Dialogs/ExportKeys/ExportPrivateKeysDialog.tsx",
+        "src/pages/Settings/Dialogs/ExportKeys/ExportPrivateKeysDialogVM.ts",
+        "src/pages/Settings/Dialogs/ExportKeys/Key.tsx",
+        "src/pages/Settings/Dialogs/ExportKeys/PrivateKeyListItem.tsx",
+        "src/pages/Settings/Dialogs/ExportPrivateKeyErrorDialog.tsx",
+        "src/pages/Settings/Dialogs/JoinWalletPopup.tsx",
+        "src/pages/Settings/Dialogs/LogsDialog.tsx",
+        "src/pages/Settings/Dialogs/RecoverWalletDialog.tsx",
+        "src/pages/Settings/SettingsItems.tsx",
+        "src/pages/Settings/SettingsPage.tsx",
+        "src/pages/Transactions/TransactionDetailsDialog.tsx",
+        "src/pages/Transactions/TransactionsList.tsx",
+        "src/pages/Transactions/TransactionsListItem.tsx",
+        "src/pages/Transactions/TransactionsPage.tsx",
+        "src/pages/Web3/AddConnectionDialog/AddConnectionDialog.tsx",
+        "src/pages/Web3/AddConnectionDialog/ConnectionConfirmation.tsx",
+        "src/pages/Web3/AddConnectionDialog/ConnectionListItem.tsx",
+        "src/pages/Web3/DAppDetailsDialog/DAppDetailsDialog.tsx",
+        "src/pages/Web3/Web3List.tsx",
+        "src/pages/Web3/Web3ListItem.tsx",
+        "src/pages/Web3/Web3Page.tsx",
+        "src/pages/Web3/mappers.ts",
+        "src/pages/common/ActionsBox.tsx",
+        "src/pages/common/Dialogs/RestartWalletDialog.tsx",
+        "src/pages/common/EmptyPage.tsx",
+        "src/pages/common/EmptySearch.tsx",
+        "src/pages/common/FeeLevel.tsx",
+        "src/pages/common/Header.tsx",
+        "src/pages/common/HeadingAmount.tsx",
+        "src/pages/index.ts",
+        "src/root.tsx",
+        "src/services/Cloudkit.service.ts",
+        "src/services/ErrorHandling.utils.ts",
+        "src/services/GoogleDrive.service.ts",
+        "src/services/IndexedDBLogger.factory.ts",
+        "src/services/IndexedDBLogger.service.ts",
+        "src/services/PasswordEncryptedLocalStorage.service.ts",
+        "src/services/SecureStorageProvider.factory.ts",
+        "src/services/Snackbar.service.ts",
+        "src/services/extra-helper.ts",
+        "src/services/index.ts",
+        "src/services/randomPassPhrase.service.ts",
+        "src/store/Account.store.ts",
+        "src/store/Accounts.store.ts",
+        "src/store/Asset.store.ts",
+        "src/store/Assets.store.ts",
+        "src/store/Auth.store.ts",
+        "src/store/Backup.store.ts",
+        "src/store/Device.store.ts",
+        "src/store/FireblocksSDK.store.ts",
+        "src/store/NFT.store.ts",
+        "src/store/NFTToken.store.ts",
+        "src/store/Root.store.ts",
+        "src/store/Transaction.store.ts",
+        "src/store/Transactions.store.ts",
+        "src/store/User.store.ts",
+        "src/store/Web3.store.ts",
+        "src/store/index.ts"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "05af6ed",
+      "fullSha": "05af6eda85e02d3be92a6f54774b94038e61b118",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-11T13:21:02Z",
+      "commitDate": "2026-01-11T13:21:02Z",
+      "subject": "Clean slate: remove all existing code to start fresh",
+      "body": "Preparing to clone Fireblocks Supabase template for PWA development",
+      "tags": [
+        "removal"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Clean slate: remove all existing code to start fresh",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 35,
+        "additions": 0,
+        "deletions": 25171
+      },
+      "files": [
+        ".env.example",
+        ".gitignore",
+        "README.md",
+        "app.json",
+        "app/(protected)/(tabs)/_layout.tsx",
+        "app/(protected)/(tabs)/index.tsx",
+        "app/(protected)/_layout.tsx",
+        "app/(public)/_layout.tsx",
+        "app/(public)/sign-in.tsx",
+        "app/(public)/sign-up.tsx",
+        "app/(public)/welcome.tsx",
+        "app/_layout.tsx",
+        "assets/adaptive-icon.png",
+        "assets/icon.png",
+        "assets/splash-icon.png",
+        "babel.config.js",
+        "bun.lock",
+        "claude.md",
+        "context/supabase-context.ts",
+        "docs/HISTORY.md",
+        "docs/Koinz_Setup_Guide.md",
+        "docs/TODO.md",
+        "docs/setup.sh",
+        "eslint.config.js",
+        "hooks/useSignIn.ts",
+        "hooks/useSignUp.ts",
+        "hooks/useSupabase.ts",
+        "lib/api.ts",
+        "lib/supabase.ts",
+        "package-lock.json",
+        "package.json",
+        "providers/supabase-provider.tsx",
+        "supabase/.gitignore",
+        "supabase/config.toml",
+        "tsconfig.json"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "328086e",
+      "fullSha": "328086e0a39f6195bb4f4cd0a10ff1b900499ff5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-02T06:50:29Z",
+      "commitDate": "2026-01-02T06:50:29Z",
+      "subject": "supabase init + .env",
+      "body": "",
+      "tags": [
+        "init",
+        "config"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "supabase init + .env",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 970,
+        "deletions": 22
+      },
+      "files": [
+        ".env.example",
+        "claude.md",
+        "docs/HISTORY.md",
+        "docs/TODO.md",
+        "lib/api.ts",
+        "lib/supabase.ts",
+        "supabase/.gitignore",
+        "supabase/config.toml"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "983a88b",
+      "fullSha": "983a88b90a854c0aadbb7c2affc1311a12571b2b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-02T05:29:51Z",
+      "commitDate": "2026-01-02T05:29:51Z",
+      "subject": "Merge pull request #1 from devmade-ai/claude/update-documentation-LAXta",
+      "body": "Update documentation to reflect current implementation status",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Merge pull request #1 from devmade-ai/claude/update-documentation-LAXta",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#1"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 276,
+        "deletions": 65
+      },
+      "files": [
+        ".env.example",
+        "README.md",
+        "app.json",
+        "claude.md",
+        "docs/HISTORY.md",
+        "docs/Koinz_Setup_Guide.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "d42eae7",
+      "fullSha": "d42eae7b595890b85f075951198cb4cd271843e7",
+      "author_id": "noreply@anthropic.com",
+      "author": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "committer": {
+        "name": "Claude",
+        "email": "noreply@anthropic.com"
+      },
+      "timestamp": "2026-01-02T05:25:34Z",
+      "commitDate": "2026-01-02T05:25:34Z",
+      "subject": "Update documentation to reflect current implementation status",
+      "body": "**What Changed:**\n- Updated app.json to use coin-zapp branding (removed template references)\n- Created .env.example with correct environment variable names\n- Rewrote README.md to clearly separate implemented vs planned features\n- Updated docs/HISTORY.md with all 5 commits from git history\n- Added current status sections to docs/TODO.md and docs/Koinz_Setup_Guide.md\n- Added implementation status section to claude.md\n\n**Why:**\n- Documentation was describing the target state as if fully implemented\n- Template artifacts (expo-supabase-starter) needed to be replaced\n- Environment variable naming was inconsistent between code and docs\n- Missing .env.example file that README referenced\n- Needed clear distinction between what exists vs what's planned\n\n**Impact:**\n- Developers can now see actual project status at a glance\n- Setup instructions are accurate and won't cause confusion\n- Documentation links are corrected\n- Git history is properly documented in HISTORY.md\n\n**Files Changed:**\n- app.json: Updated branding and bundle identifiers\n- .env.example: Created with correct variable names\n- README.md: Added status section, fixed structure, corrected links\n- docs/HISTORY.md: Documented all 5 commits with context\n- docs/TODO.md: Added current status overview\n- docs/Koinz_Setup_Guide.md: Added setup progress tracker\n- claude.md: Added implementation status warnings",
+      "tags": [
+        "docs",
+        "config",
+        "env"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Update documentation to reflect current implementation status",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 276,
+        "deletions": 65
+      },
+      "files": [
+        ".env.example",
+        "README.md",
+        "app.json",
+        "claude.md",
+        "docs/HISTORY.md",
+        "docs/Koinz_Setup_Guide.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "3204c9e",
+      "fullSha": "3204c9ec3a3031a126bc8a3b660b4e0cad2e44f2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-01T23:19:42Z",
+      "commitDate": "2026-01-01T23:19:42Z",
+      "subject": "template and npm install safe",
+      "body": "",
+      "tags": [
+        "init",
+        "dependency-add",
+        "config"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "template and npm install safe",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 23,
+        "additions": 22525,
+        "deletions": 8
+      },
+      "files": [
+        "app.json",
+        "app/(protected)/(tabs)/_layout.tsx",
+        "app/(protected)/(tabs)/index.tsx",
+        "app/(protected)/_layout.tsx",
+        "app/(public)/_layout.tsx",
+        "app/(public)/sign-in.tsx",
+        "app/(public)/sign-up.tsx",
+        "app/(public)/welcome.tsx",
+        "app/_layout.tsx",
+        "assets/adaptive-icon.png",
+        "assets/icon.png",
+        "assets/splash-icon.png",
+        "babel.config.js",
+        "bun.lock",
+        "context/supabase-context.ts",
+        "eslint.config.js",
+        "hooks/useSignIn.ts",
+        "hooks/useSignUp.ts",
+        "hooks/useSupabase.ts",
+        "package-lock.json",
+        "package.json",
+        "providers/supabase-provider.tsx",
+        "tsconfig.json"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "7e97d61",
+      "fullSha": "7e97d614eea8de4c77f749589c93c5913c3797bd",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-01T22:36:54Z",
+      "commitDate": "2026-01-01T22:36:54Z",
+      "subject": "setup",
+      "body": "",
+      "tags": [
+        "init",
+        "docs",
+        "config"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "setup",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 213,
+        "deletions": 6
+      },
+      "files": [
+        ".gitignore",
+        "claude.md",
+        "docs/Koinz_Setup_Guide.md",
+        "docs/TODO.md",
+        "docs/setup.sh"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "58017fc",
+      "fullSha": "58017fc6c07eb86e37adf043f6eb2aaba884a9ce",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-01T21:31:14Z",
+      "commitDate": "2026-01-01T21:31:14Z",
+      "subject": "preferences updated",
+      "body": "",
+      "tags": [
+        "docs",
+        "config"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "preferences updated",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 129,
+        "deletions": 3
+      },
+      "files": [
+        "claude.md",
+        "docs/HISTORY.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "5ebb70c",
+      "fullSha": "5ebb70c3df9f15babfa0384510d3209d8d39bf2d",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-01-01T21:15:13Z",
+      "commitDate": "2026-01-01T21:15:13Z",
+      "subject": "sanitize documentation",
+      "body": "",
+      "tags": [
+        "docs",
+        "removal"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "sanitize documentation",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 113,
+        "deletions": 97
+      },
+      "files": [
+        "Koinz_Setup_Guide.md",
+        "README.md",
+        "claude.md",
+        "package.json"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "3f34076",
+      "fullSha": "3f3407681a83e2f3e9e537122d4878f38c212e30",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-01T20:38:53Z",
+      "commitDate": "2026-01-01T20:38:53Z",
+      "subject": "create repo",
+      "body": "",
+      "tags": [
+        "init",
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "create repo",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 1146,
+        "deletions": 0
+      },
+      "files": [
+        "Koinz_Setup_Guide.md",
+        "README.md",
+        "claude.md",
+        "package.json",
+        "setup.sh"
+      ],
+      "repo_id": "coin-zapp",
+      "urgency": 2,
+      "impact": "internal"
+    }
+  ],
+  "contributors": [
+    {
+      "author_id": "devmade.ai@gmail.com",
+      "name": "devmade.ai@gmail.com",
+      "email": "devmade.ai@gmail.com",
+      "commits": 75,
+      "avgComplexity": 2.17,
+      "avgUrgency": 1.71,
+      "tagBreakdown": {
+        "merge": 3,
+        "docs": 37,
+        "bugfix": 11,
+        "validation": 1,
+        "feature": 16,
+        "config": 8,
+        "ui": 8,
+        "api": 2,
+        "error-handling": 2,
+        "database": 3,
+        "types": 1,
+        "ux": 2,
+        "auth": 7,
+        "refactor": 4,
+        "naming": 1,
+        "security": 2,
+        "migration": 3,
+        "removal": 3,
+        "simplify": 1,
+        "logging": 1,
+        "init": 3,
+        "dependency-add": 1
+      },
+      "impactBreakdown": {
+        "internal": 44,
+        "user-facing": 21,
+        "infrastructure": 10,
+        "api": 0
+      },
+      "repos": [
+        "coin-zapp"
+      ],
+      "repoCount": 1,
+      "firstCommit": "2026-01-01T20:38:53Z",
+      "lastCommit": "2026-01-21T20:02:21Z"
+    },
+    {
+      "author_id": "noreply@anthropic.com",
+      "name": "noreply@anthropic.com",
+      "email": "noreply@anthropic.com",
+      "commits": 3,
+      "avgComplexity": 3.67,
+      "avgUrgency": 2,
+      "tagBreakdown": {
+        "init": 1,
+        "removal": 1,
+        "docs": 1,
+        "config": 1,
+        "env": 1
+      },
+      "impactBreakdown": {
+        "internal": 2,
+        "user-facing": 0,
+        "infrastructure": 1,
+        "api": 0
+      },
+      "repos": [
+        "coin-zapp"
+      ],
+      "repoCount": 1,
+      "firstCommit": "2026-01-02T05:25:34Z",
+      "lastCommit": "2026-01-11T17:24:16Z"
+    },
+    {
+      "author_id": "jacotheron87",
+      "name": "jacotheron87",
+      "email": "jacotheron87@gmail.com",
+      "commits": 3,
+      "avgComplexity": 2,
+      "avgUrgency": 2,
+      "tagBreakdown": {
+        "init": 1,
+        "docs": 3,
+        "config": 2,
+        "removal": 1
+      },
+      "impactBreakdown": {
+        "internal": 3,
+        "user-facing": 0,
+        "infrastructure": 0,
+        "api": 0
+      },
+      "repos": [
+        "coin-zapp"
+      ],
+      "repoCount": 1,
+      "firstCommit": "2026-01-01T21:15:13Z",
+      "lastCommit": "2026-01-01T22:36:54Z"
+    }
+  ],
+  "summary": {
+    "totalCommits": 81,
+    "totalContributors": 3,
+    "tagBreakdown": {
+      "merge": 3,
+      "docs": 41,
+      "bugfix": 11,
+      "validation": 1,
+      "feature": 16,
+      "config": 11,
+      "ui": 8,
+      "api": 2,
+      "error-handling": 2,
+      "database": 3,
+      "types": 1,
+      "ux": 2,
+      "auth": 7,
+      "refactor": 4,
+      "naming": 1,
+      "security": 2,
+      "migration": 3,
+      "removal": 5,
+      "simplify": 1,
+      "logging": 1,
+      "init": 5,
+      "env": 1,
+      "dependency-add": 1
+    },
+    "complexityBreakdown": {
+      "1": 26,
+      "2": 29,
+      "3": 11,
+      "4": 12,
+      "5": 3
+    },
+    "urgencyBreakdown": {
+      "1": 31,
+      "2": 41,
+      "3": 9,
+      "4": 0,
+      "5": 0
+    },
+    "impactBreakdown": {
+      "internal": 49,
+      "user-facing": 21,
+      "infrastructure": 11,
+      "api": 0
+    },
+    "avgComplexity": 2.22,
+    "avgUrgency": 1.73,
+    "monthly": {
+      "2026-01": {
+        "commits": 81,
+        "tags": {
+          "merge": 3,
+          "docs": 41,
+          "bugfix": 11,
+          "validation": 1,
+          "feature": 16,
+          "config": 11,
+          "ui": 8,
+          "api": 2,
+          "error-handling": 2,
+          "database": 3,
+          "types": 1,
+          "ux": 2,
+          "auth": 7,
+          "refactor": 4,
+          "naming": 1,
+          "security": 2,
+          "migration": 3,
+          "removal": 5,
+          "simplify": 1,
+          "logging": 1,
+          "init": 5,
+          "env": 1,
+          "dependency-add": 1
+        },
+        "impact": {
+          "internal": 49,
+          "user-facing": 21,
+          "infrastructure": 11,
+          "api": 0
+        },
+        "avgComplexity": 2.22,
+        "avgUrgency": 1.73
+      }
+    },
+    "monthlyCommits": {
+      "2026-01": {
+        "commits": 81,
+        "tags": {
+          "merge": 3,
+          "docs": 41,
+          "bugfix": 11,
+          "validation": 1,
+          "feature": 16,
+          "config": 11,
+          "ui": 8,
+          "api": 2,
+          "error-handling": 2,
+          "database": 3,
+          "types": 1,
+          "ux": 2,
+          "auth": 7,
+          "refactor": 4,
+          "naming": 1,
+          "security": 2,
+          "migration": 3,
+          "removal": 5,
+          "simplify": 1,
+          "logging": 1,
+          "init": 5,
+          "env": 1,
+          "dependency-add": 1
+        },
+        "impact": {
+          "internal": 49,
+          "user-facing": 21,
+          "infrastructure": 11,
+          "api": 0
+        },
+        "avgComplexity": 2.22,
+        "avgUrgency": 1.73
+      }
+    },
+    "dateRange": {
+      "earliest": "2026-01-01T20:38:53Z",
+      "latest": "2026-01-21T20:02:21Z"
+    },
+    "security_events": [
+      {
+        "sha": "6b93193",
+        "timestamp": "2026-01-15T19:33:30Z",
+        "subject": "Add password validation and show/hide toggle"
+      },
+      {
+        "sha": "96566bd",
+        "timestamp": "2026-01-15T13:35:09Z",
+        "subject": "Add session lock, new browser recovery flow, fix API spam"
+      }
+    ]
+  }
+}

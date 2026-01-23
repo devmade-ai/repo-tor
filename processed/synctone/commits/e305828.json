@@ -1,0 +1,41 @@
+{
+  "sha": "e305828",
+  "fullSha": "e3058281dc4319d56aa529c547f6b1ea35441e45",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T05:19:12Z",
+  "commitDate": "2025-12-29T05:19:12Z",
+  "subject": "feat: implement opt-in notification approach",
+  "body": "Changes:\n- Update tutorial step 8 to explain notification button in header\n- Remove auto-permission-request after tutorial completion\n- Disable NotificationBanner (users now click 🔔 button when ready)\n- Update CLAUDE.md to document opt-in behavior\n\nThis makes notifications fully opt-in: users are informed about the\nnotification button during the tutorial and click it when ready to\nenable notifications. No automatic prompts or banners.",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "implement opt-in notification approach",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 10,
+    "deletions": 10
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/home.tsx",
+    "components/NotificationBanner.tsx",
+    "constants/tutorial.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

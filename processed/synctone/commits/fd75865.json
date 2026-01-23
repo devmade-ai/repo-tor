@@ -1,0 +1,38 @@
+{
+  "sha": "fd75865",
+  "fullSha": "fd75865f88946d59316884172144a6adbaae7d71",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T12:34:01Z",
+  "commitDate": "2025-12-29T12:34:01Z",
+  "subject": "fix: resolve auto-scroll race condition when loading older messages",
+  "body": "Problem:\n- When paginating older messages, FlatList's onContentSizeChange fired multiple times\n- The isLoadingMore flag changed from true to false between callbacks\n- This caused the second callback to incorrectly auto-scroll to bottom\n- Users experienced unwanted scroll jumps when loading message history\n\nSolution:\n- Track newest message ID instead of relying on isLoadingMore flag\n- Compare message IDs to distinguish new messages from pagination:\n  * New message: newest message ID changed → auto-scroll to bottom\n  * Pagination: newest message ID unchanged → maintain scroll position\n- Replace setTimeout with requestAnimationFrame for more reliable web scroll restoration\n- This eliminates the race condition since we're comparing actual data, not async state\n\nChanges:\n- Added newestMessageIdRef to track the ID of the newest message (index 0)\n- Updated onContentSizeChange logic to use ID comparison for scroll decisions\n- Improved web scroll position restoration timing with requestAnimationFrame\n\nFixes high priority bug affecting UX during message history browsing",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "resolve auto-scroll race condition when loading older messages",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 21,
+    "deletions": 9
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

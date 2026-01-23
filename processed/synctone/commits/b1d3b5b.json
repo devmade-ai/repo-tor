@@ -1,0 +1,42 @@
+{
+  "sha": "b1d3b5b",
+  "fullSha": "b1d3b5b38f18fcb2d87e0babea0c89095304f21b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-28T10:33:36Z",
+  "commitDate": "2025-12-28T10:33:36Z",
+  "subject": "Integrate notification permissions into tutorial onboarding",
+  "body": "Added notification permission step to tutorial flow to improve UX and prevent conflicts with notification banner:\n\nChanges:\n- Added step 8 \"Stay in the Loop\" to tutorial with notification prompt\n- Shows \"Enable Now\" and \"Maybe Later\" buttons on notification step\n- TutorialModal now accepts requestNotificationPermission prop\n- Home screen passes requestPermission function to tutorial\n- Updated CLAUDE.md to reflect 9-step tutorial\n\nBenefits:\n- Users guided through notification setup during onboarding\n- No tutorial/banner conflicts - permission request is part of the flow\n- Higher opt-in rates due to contextual prompting\n- Users can still skip with \"Maybe Later\" option",
+  "tags": [
+    "feature",
+    "ux",
+    "onboarding"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Integrate notification permissions into tutorial onboarding",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 80,
+    "deletions": 21
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/home.tsx",
+    "components/TutorialModal.tsx",
+    "constants/tutorial.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

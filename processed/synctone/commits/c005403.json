@@ -1,0 +1,45 @@
+{
+  "sha": "c005403",
+  "fullSha": "c0054038c6fa14c9a5be4d7458c1d2a327deae92",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-23T20:52:20Z",
+  "commitDate": "2025-12-23T20:52:20Z",
+  "subject": "Add comprehensive notification support for web platforms",
+  "body": "Implement full notification functionality for web mobile and web desktop:\n\n**Sound & Vibration:**\n- Add default notification sound for both web platforms\n- Add vibration pattern [200ms, 100ms, 200ms] for web mobile\n- Update service worker to include sound and vibration\n\n**Badge Count:**\n- Implement Badge API for app icon unread count\n- Auto-update badge based on total unread messages across all chats\n- Clear badge when user opens chat and marks messages as read\n- Add setBadgeCount() and clearBadge() helper functions\n\n**In-App Notifications:**\n- Create InAppNotification component with slide-in animation\n- Add InAppNotificationContext for global state management\n- Show notifications when messages arrive in foreground\n- Auto-dismiss after 4 seconds with tap-to-open functionality\n\n**Infrastructure:**\n- Update useMessages hook to trigger foreground/background notifications\n- Update useChats hook to manage badge count\n- Integrate InAppNotificationProvider in root layout\n- Update documentation with all notification features\n\nFiles changed:\n- services/notifications.ts: Add sound, vibration, badge API\n- public/sw.js: Update service worker notification options\n- components/InAppNotification.tsx: New in-app banner component\n- contexts/InAppNotificationContext.tsx: New notification context\n- hooks/useMessages.ts: Add notification triggers\n- hooks/useChats.ts: Add badge count management\n- app/_layout.tsx: Add InAppNotificationProvider\n- CLAUDE.md: Document notification features",
+  "tags": [
+    "feature",
+    "infrastructure"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add comprehensive notification support for web platforms",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 262,
+    "deletions": 15
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/_layout.tsx",
+    "components/InAppNotification.tsx",
+    "contexts/InAppNotificationContext.tsx",
+    "hooks/useChats.ts",
+    "hooks/useMessages.ts",
+    "public/sw.js",
+    "services/notifications.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

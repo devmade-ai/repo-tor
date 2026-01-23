@@ -1,0 +1,41 @@
+{
+  "sha": "6d96873",
+  "fullSha": "6d96873810c240d441dde6e37bf0d8899dc80ae7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-23T11:58:59Z",
+  "commitDate": "2025-12-23T11:58:59Z",
+  "subject": "Fix mobile web scrolling and message visibility issues",
+  "body": "- Increase pan gesture thresholds on web (30px) to prevent scroll conflicts\n- Separate swipe-to-reply from tap/long-press gestures using Race composition\n- Add auto-focus to input field when replying via swipe or action sheet\n- Change \"Copy Text\" button styling to match secondary actions\n- Increase FlatList bottom padding (pb-20) for reaction visibility\n- Add delayed scroll on initial load (300ms) to account for reaction rendering\n- Add secondary scroll trigger when reactions load to ensure last message visibility\n\nThese changes improve the mobile web experience by preventing accidental\ngesture triggers during scrolling and ensuring all message content including\nreactions is fully visible on initial chat load.",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Fix mobile web scrolling and message visibility issues",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 58,
+    "deletions": 16
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "components/ComposeBar.tsx",
+    "components/MessageActionSheet.tsx",
+    "components/MessageBubble.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

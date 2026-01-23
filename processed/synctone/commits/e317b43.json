@@ -1,0 +1,39 @@
+{
+  "sha": "e317b43",
+  "fullSha": "e317b4362299460f2dc4454835de9432b109016a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-22T20:07:49Z",
+  "commitDate": "2025-12-22T20:07:49Z",
+  "subject": "Fix gesture handling and TypeScript error for message interactions",
+  "body": "Improve gesture reliability on mobile by using onFinalize with success checks and Gesture.Exclusive composition. Fix JSX.Element type error in MessageActionSheet.\n\nChanges:\n- Use onFinalize instead of onEnd for tap and long-press gestures\n- Add shouldCancelWhenOutside(true) to prevent gestures from completing when finger moves away\n- Increase tap maxDuration to 400ms and long-press minDuration to 500ms for more deliberate interactions\n- Add activeOffsetX and failOffsetY to pan gesture to require intentional horizontal movement\n- Change gesture composition from Gesture.Race to Gesture.Exclusive for cleaner gesture recognition\n- Add statusBarTranslucent and onStartShouldSetResponder to MessageActionSheet modal\n- Fix return type from JSX.Element to React.JSX.Element in MessageActionSheet\n\nThese changes prevent accidental action triggers and ensure gestures only complete when intended, improving the mobile UX.",
+  "tags": [
+    "bugfix",
+    "types"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix gesture handling and TypeScript error for message interactions",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 34,
+    "deletions": 18
+  },
+  "files": [
+    "components/MessageActionSheet.tsx",
+    "components/MessageBubble.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

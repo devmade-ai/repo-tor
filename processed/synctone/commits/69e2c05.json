@@ -1,0 +1,39 @@
+{
+  "sha": "69e2c05",
+  "fullSha": "69e2c05f1574077a86e92635bb3e5a6dbb3b9181",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-22T20:51:52Z",
+  "commitDate": "2025-12-22T20:51:52Z",
+  "subject": "Fix chat message visibility and optimize initial load",
+  "body": "- Add bottom padding (pb-8) to chat FlatList to ensure last message and reactions are fully visible\n- Reduce initial message pagination from 50 to 15 for faster load times\n- Users can still load older messages via infinite scroll",
+  "tags": [
+    "bugfix",
+    "performance"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix chat message visibility and optimize initial load",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "hooks/useMessages.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

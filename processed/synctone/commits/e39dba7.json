@@ -1,0 +1,41 @@
+{
+  "sha": "e39dba7",
+  "fullSha": "e39dba7466573a0c7e770755f9d730a57e35d061",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-28T04:07:10Z",
+  "commitDate": "2025-12-28T04:07:10Z",
+  "subject": "Fix chat deletion sync between users",
+  "body": "This commit fixes the issue where chat deletions weren't properly synced between users:\n\n1. Changed ended_by filter logic from `.is('ended_by', null)` to `.or('ended_by.is.null,ended_by.neq.${instanceId}')`\n   - Now only filters out chats ended by the current user\n   - Other user can still see the chat until they also delete it\n   - Fixes issue where User B couldn't remove chat after User A deleted all data\n\n2. Added endAllChats() function to mark all user's chats as ended in the database\n   - Ensures proper cleanup when clearing all data\n\n3. Updated clearAllData() to end all chats before clearing local data\n   - Prevents orphaned chats appearing for other users\n   - Passes instanceId to properly mark chats as ended\n\n4. Updated documentation in CLAUDE.md to reflect per-user deletion behavior\n\nChanges made to:\n- services/chat.ts: Updated getMyChats filter, added endAllChats function\n- services/messages.ts: Updated markAllChatsDelivered filter\n- utils/clearData.ts: Added endAllChats call before clearing data\n- app/(app)/home.tsx: Updated visibleChats filter, pass instanceId to clearAllData\n- CLAUDE.md: Updated documentation\n\nFixes: When User A deletes all chats, User B can now successfully remove those chats from their list and they won't reappear after refresh.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Fix chat deletion sync between users",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 62,
+    "deletions": 9
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/home.tsx",
+    "services/chat.ts",
+    "services/messages.ts",
+    "utils/clearData.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

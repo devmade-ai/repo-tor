@@ -1,0 +1,38 @@
+{
+  "sha": "4acb401",
+  "fullSha": "4acb4017609fad70076d6892bc8d6de554f9ade1",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T04:58:05Z",
+  "commitDate": "2025-12-29T04:58:05Z",
+  "subject": "fix(web): manual scroll position management for pagination",
+  "body": "The maintainVisibleContentPosition prop doesn't work on web platforms,\ncausing auto-scroll issues when loading older messages. This commit adds\nweb-specific scroll position tracking and restoration.\n\nChanges:\n- Track scroll offset and content height on web platforms\n- Calculate height difference after pagination\n- Restore scroll position manually for web\n- Native platforms continue using maintainVisibleContentPosition\n\nThis fixes the auto-scrolling behavior when loading older messages\non mobile web and desktop web platforms.",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": "web",
+  "title": "manual scroll position management for pagination",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 42,
+    "deletions": 2
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

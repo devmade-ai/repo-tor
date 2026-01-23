@@ -1,0 +1,39 @@
+{
+  "sha": "6a4352d",
+  "fullSha": "6a4352dcdd5cce62004d2c39d5b4dd0d2dc84995",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T07:02:04Z",
+  "commitDate": "2025-12-29T07:02:04Z",
+  "subject": "fix: notification button stuck in loading state on mobile web reload",
+  "body": "The notification button was showing the hourglass (⏳) after hard reload on\nmobile web and only updating when clicked. This was caused by waiting for\nOneSignal SDK to fully load (up to 15 seconds) before checking permissions.\n\nChanges:\n- Check native browser Notification.permission API immediately for instant feedback\n- Return early from getOneSignalPermissionStatus() if SDK not ready yet\n- Set permission state in useNotifications before waiting for OneSignal\n- OneSignal check still runs in background and updates state when ready\n\nResult: Button now shows correct state (🔔/🔕/⏳) immediately on page load",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "notification button stuck in loading state on mobile web reload",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 40,
+    "deletions": 1
+  },
+  "files": [
+    "hooks/useNotifications.ts",
+    "services/onesignal.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

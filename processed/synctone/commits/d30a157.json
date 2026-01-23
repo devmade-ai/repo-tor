@@ -1,0 +1,41 @@
+{
+  "sha": "d30a157",
+  "fullSha": "d30a157650d0d52d987abd835bcb509e292f5ba7",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-28T16:50:48Z",
+  "commitDate": "2025-12-28T16:50:48Z",
+  "subject": "Add automatic push notifications via database trigger",
+  "body": "Implements automatic push notification sending when new messages are created using a PostgreSQL trigger that calls the OneSignal Edge Function.\n\nChanges:\n- Add database trigger (notify_new_message) that fires on message insert\n- Trigger looks up receiver's OneSignal player ID and calls send-notification Edge Function\n- Uses pg_net extension for async HTTP requests (non-blocking)\n- Add comprehensive setup guide (PUSH_NOTIFICATIONS_SETUP.md) with configuration steps, testing procedures, and troubleshooting\n- Update CLAUDE.md with trigger documentation\n\nHow it works:\n1. User sends message → INSERT into messages table\n2. Trigger automatically fires and calls notify_new_message() function\n3. Function gets receiver's OneSignal player ID from app_instances\n4. Makes async HTTP call to send-notification Edge Function\n5. Edge Function sends push via OneSignal REST API\n6. Receiver gets notification on their device\n\nConfiguration required:\n- Set Supabase secrets: ONESIGNAL_APP_ID, ONESIGNAL_REST_API_KEY\n- Configure database settings: app.supabase_url, app.service_role_key\n- Deploy migration and Edge Function\n\nSee PUSH_NOTIFICATIONS_SETUP.md for complete setup instructions.",
+  "tags": [
+    "feature",
+    "database",
+    "docs"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add automatic push notifications via database trigger",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 450,
+    "deletions": 0
+  },
+  "files": [
+    "CLAUDE.md",
+    "PUSH_NOTIFICATIONS_SETUP.md",
+    "supabase/migrations/20251228000001_add_push_notification_trigger.sql"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

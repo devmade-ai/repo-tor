@@ -1,0 +1,45 @@
+{
+  "sha": "11eeb92",
+  "fullSha": "11eeb92937b7ed020c46969e5c4f225a784053d1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-17T19:57:27Z",
+  "commitDate": "2025-12-17T19:57:27Z",
+  "subject": "Replace emoji-based tones with word labels and simplify to tap-to-reveal UX",
+  "body": "- Remove emoji property from Tone interface and all tone definitions\n- Update ToneSelector to display word-based tone buttons (compact and full variants)\n- Simplify MessageBubble to show tones as colored text labels instead of emojis\n- Replace forced receiver tone tagging with simple tap-to-acknowledge flow\n- Remove tone tagging modal and comparison UI from chat screen\n- Update receiver_tone to act as acknowledgment flag (empty array when read)\n- Remove tone emoji display from ChatListItem preview\n- Update ToneComparison component to use text labels (currently unused)\n- Update CLAUDE.md documentation to reflect new UX and design decisions\n\nThis change avoids confusion between tone indicators and future message\nreactions feature, while simplifying the core UX to focus on sender intent\nrather than perception comparison.",
+  "tags": [
+    "refactor",
+    "ux"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Replace emoji-based tones with word labels and simplify to tap-to-reveal UX",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 148,
+    "deletions": 274
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "components/ChatListItem.tsx",
+    "components/MessageBubble.tsx",
+    "components/ToneComparison.tsx",
+    "components/ToneSelector.tsx",
+    "constants/tones.ts",
+    "supabase/migrations/20251217081816_fix_global_tone_popularity_security.sql"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

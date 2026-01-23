@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-23T09:16:52.232Z",
+    "generatedAt": "2026-01-23T10:06:35.167Z",
     "repository": "repo-tor",
     "scope": "repo-tor",
     "repoCount": 1,
-    "commitCount": 220,
+    "commitCount": 250,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -21,6 +21,1572 @@
     }
   },
   "commits": [
+    {
+      "sha": "b010510",
+      "fullSha": "b010510be6d32454e599ae14365961f9df4255e8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-22T22:02:18Z",
+      "commitDate": "2026-01-22T22:02:18Z",
+      "subject": "Merge pull request #37 from devmade-ai/claude/setup-gh-cli-auth-AcLWM",
+      "body": "feat: add GitHub CLI setup script for API extraction",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Merge pull request #37 from devmade-ai/claude/setup-gh-cli-auth-AcLWM",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#37"
+      ],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 683,
+        "deletions": 23
+      },
+      "files": [
+        ".env.example",
+        ".gitignore",
+        "docs/ADMIN_GUIDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "scripts/extract-api.js",
+        "scripts/setup-gh.sh"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "28c7a06",
+      "fullSha": "28c7a06110fa141f04773ca2c582d138cb0d5470",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T21:50:09Z",
+      "commitDate": "2026-01-22T21:50:09Z",
+      "subject": "feat: add .env file support for GH_TOKEN authentication",
+      "body": "Enable API extraction to work in AI sessions and non-interactive\nenvironments by supporting GH_TOKEN via .env file.\n\nChanges:\n- Add .env.example template with GH_TOKEN configuration\n- Update extract-api.js to load .env and use GH_TOKEN\n- Update setup-gh.sh with --save-env flag and .env support\n- Add .env to .gitignore (secrets shouldn't be committed)\n\nAuthentication priority:\n1. GH_TOKEN environment variable\n2. .env file in project root\n3. gh auth login (interactive)\n\nThis enables AI assistants to use API extraction by simply creating\na .env file with their GitHub token.",
+      "tags": [
+        "feature",
+        "config",
+        "auth",
+        "env"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "add .env file support for GH_TOKEN authentication",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 335,
+        "deletions": 76
+      },
+      "files": [
+        ".env.example",
+        ".gitignore",
+        "docs/ADMIN_GUIDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "scripts/extract-api.js",
+        "scripts/setup-gh.sh"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "bc101a5",
+      "fullSha": "bc101a5a250645ca5c38e5f726ceb25e57b0ee96",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T21:27:10Z",
+      "commitDate": "2026-01-22T21:27:10Z",
+      "subject": "feat: add GitHub CLI setup script for API extraction",
+      "body": "Add scripts/setup-gh.sh to automate GitHub CLI installation and\nauthentication across different environments (Linux, macOS, WSL).\n\n- Detects OS and uses appropriate package manager\n- Supports interactive (browser) and non-interactive (token) auth\n- Verifies API access after authentication\n- Updates documentation with setup instructions\n\nThis enables the untested extract-api.js to be properly configured\nand tested from any environment.",
+      "tags": [
+        "feature",
+        "config"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "add GitHub CLI setup script for API extraction",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 417,
+        "deletions": 16
+      },
+      "files": [
+        "docs/ADMIN_GUIDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "scripts/setup-gh.sh"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "36d3ada",
+      "fullSha": "36d3adae978e8f78a4de54bc68206751c189e5cd",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-22T21:20:40Z",
+      "commitDate": "2026-01-22T21:20:40Z",
+      "subject": "Merge pull request #36 from devmade-ai/claude/optimize-feeding-process-SNCIW",
+      "body": "feat: add merge-analysis.js for optimized feed workflow",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Merge pull request #36 from devmade-ai/claude/optimize-feeding-process-SNCIW",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#36"
+      ],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 1161,
+        "deletions": 97
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/ADMIN_GUIDE.md",
+        "docs/AI_LESSONS.md",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "scripts/extract-api.js",
+        "scripts/merge-analysis.js",
+        "scripts/update-all.sh"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "35b23e2",
+      "fullSha": "35b23e25122be3d9ab330f3657f34c040ebc9334",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T21:16:03Z",
+      "commitDate": "2026-01-22T21:16:03Z",
+      "subject": "docs: add AI_LESSONS.md for tracking AI mistakes",
+      "body": "Created dedicated file to document AI oversights and mistakes so future\nsessions can learn from them. Added to session start checklist in\nCLAUDE.md.\n\nFirst entry: Building extract-api.js without ability to test it.",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "add AI_LESSONS.md for tracking AI mistakes",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 54,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/AI_LESSONS.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ab4a509",
+      "fullSha": "ab4a509a7aa1d487dc26a337ec3c6224efb42144",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T21:13:07Z",
+      "commitDate": "2026-01-22T21:13:07Z",
+      "subject": "docs: add warnings about untested API extraction feature",
+      "body": "extract-api.js was built but never successfully tested because it\nrequires gh CLI authentication. Added prominent warnings to TODO.md\nand SESSION_NOTES.md so future AI sessions know to use --clone flag\nuntil the API extraction is properly tested.",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "add warnings about untested API extraction feature",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 22,
+        "deletions": 0
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "c368157",
+      "fullSha": "c368157fb84c43ee49194d6403350e32e22d472b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T21:07:31Z",
+      "commitDate": "2026-01-22T21:07:31Z",
+      "subject": "fix: correct playbook file structure and hatch flow",
+      "body": "- File structure: reports/ has commits/ not batches/\n- Hatch flow: now uses pending.js like feed (not reports/batches/)\n- Key differences table: updated to reflect unified batch source\n- Step numbers: adjusted for new pending.js step in hatch",
+      "tags": [
+        "bugfix",
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "correct playbook file structure and hatch flow",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 35,
+        "deletions": 41
+      },
+      "files": [
+        "docs/EXTRACTION_PLAYBOOK.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "272a8eb",
+      "fullSha": "272a8eb76cc2e575be693c9180ae9db1b98cde41",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T21:02:18Z",
+      "commitDate": "2026-01-22T21:02:18Z",
+      "subject": "fix: write failed analysis to needs-reprocess.json",
+      "body": "merge-analysis.js now tracks failures like save-commit.js:\n- Writes to processed/<repo>/needs-reprocess.json\n- Includes attempt count for repeated failures\n- Preserves the failed analysis for debugging",
+      "tags": [
+        "bugfix",
+        "error-handling"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "write failed analysis to needs-reprocess.json",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 39,
+        "deletions": 5
+      },
+      "files": [
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "scripts/merge-analysis.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "d84aecf",
+      "fullSha": "d84aecf64249cf77667a6c90833c5c1abefa6fed",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T20:52:50Z",
+      "commitDate": "2026-01-22T20:52:50Z",
+      "subject": "docs: update ADMIN_GUIDE with API-based extraction info",
+      "body": "",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "update ADMIN_GUIDE with API-based extraction info",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 14,
+        "deletions": 6
+      },
+      "files": [
+        "docs/ADMIN_GUIDE.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "41aa125",
+      "fullSha": "41aa125d89bec36fd061c099c1bbab801b6936f6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T20:48:57Z",
+      "commitDate": "2026-01-22T20:48:57Z",
+      "subject": "feat: add API-based extraction (no cloning required)",
+      "body": "- extract-api.js fetches commit data via GitHub API\n- update-all.sh defaults to API mode, --clone for old behavior\n- Faster setup, no disk space for clones, works without git installed\n\nRequires: gh CLI installed and authenticated",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "add API-based extraction (no cloning required)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 654,
+        "deletions": 41
+      },
+      "files": [
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/extract-api.js",
+        "scripts/update-all.sh"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "07d8e44",
+      "fullSha": "07d8e443504476955d2338f1b39a132090a77f4c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T20:21:51Z",
+      "commitDate": "2026-01-22T20:21:51Z",
+      "subject": "feat: add merge-analysis.js for optimized feed workflow",
+      "body": "AI now outputs only analysis fields (sha, tags, complexity, urgency, impact)\ninstead of full commit objects. Script merges with raw git data from reports/.\n\nToken savings: ~10x reduction per commit (50-80 vs 500-800 tokens)",
+      "tags": [
+        "feature",
+        "performance"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "add merge-analysis.js for optimized feed workflow",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 352,
+        "deletions": 12
+      },
+      "files": [
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/merge-analysis.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "3c6f2c6",
+      "fullSha": "3c6f2c636bc083d348dd3d61afda9b05663ca33e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-22T05:32:30Z",
+      "commitDate": "2026-01-22T05:32:30Z",
+      "subject": "Merge pull request #35 from devmade-ai/claude/fix-overflow-wrapping-b3N8s",
+      "body": "fix: resolve overflow and wrapping issues in dashboard",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Merge pull request #35 from devmade-ai/claude/fix-overflow-wrapping-b3N8s",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#35"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 230,
+        "deletions": 48
+      },
+      "files": [
+        "dashboard/index.html"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "48179a2",
+      "fullSha": "48179a27fb238aacc98b551b863cad20bc4132f8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T05:24:36Z",
+      "commitDate": "2026-01-22T05:24:36Z",
+      "subject": "refactor: improve tab naming and section ordering",
+      "body": "Tab renames for clarity:\n- \"Work\" → \"Breakdown\" (clearer - breaking down by type/tags/people)\n- \"Health\" → \"Risk\" (accurate - it's about urgency/impact/security)\n\nRisk tab reordering:\n- Move Security-Related Commits to top (most actionable item first)\n- Urgency/Impact sections follow\n\nWork Hours Settings:\n- Convert to collapsible section (collapsed by default)\n- It's config, not content - shouldn't take visual priority",
+      "tags": [
+        "refactor",
+        "ui",
+        "ux"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "improve tab naming and section ordering",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 25,
+        "deletions": 21
+      },
+      "files": [
+        "dashboard/index.html"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "ffb073c",
+      "fullSha": "ffb073c81bbe963e0d1c36cfeb63f12862e5316d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T05:16:59Z",
+      "commitDate": "2026-01-22T05:16:59Z",
+      "subject": "feat: add dashboard footer with data summary",
+      "body": "- Add footer showing commit count, date range, and load timestamp\n- Example: \"698 commits · Jan 2024 – Jan 2025 · Data loaded Jan 22, 2025 3:45 PM\"\n- Styled subtly with muted text and top border\n- Provides consistent bottom spacing across all tabs",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "add dashboard footer with data summary",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 19,
+        "deletions": 0
+      },
+      "files": [
+        "dashboard/index.html"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "64fc2b1",
+      "fullSha": "64fc2b106d9907caa0be48698c3af190214a66f5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T05:11:35Z",
+      "commitDate": "2026-01-22T05:11:35Z",
+      "subject": "fix: move chart legends to bottom to prevent overflow",
+      "body": "- Tags chart: Move legend from right to bottom position\n- Work Breakdown chart: Move legend from right to bottom position\n- Add custom legend labels showing tag name + count\n- Increase container heights to accommodate bottom legends\n  - tags-chart: h-64 → h-80\n  - summary-breakdown-chart: h-48 → h-56\n- Style legend with smaller font (11px) and compact padding",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "move chart legends to bottom to prevent overflow",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 36,
+        "deletions": 4
+      },
+      "files": [
+        "dashboard/index.html"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "7190479",
+      "fullSha": "7190479a27d09c62c806d11b1db6a236feaf1dbf",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T05:03:17Z",
+      "commitDate": "2026-01-22T05:03:17Z",
+      "subject": "feat: expand tag colors with presets and dynamic fallback",
+      "body": "- Add 30+ preset tag colors for common conventional commit types:\n  - Green family: feature, enhancement, seed, init\n  - Red family: bugfix, fix, security, hotfix\n  - Orange/amber: removal, revert, deprecate\n  - Purple family: refactor, naming, cleanup\n  - Yellow: test, test-unit, test-e2e\n  - Orange: build, ci, deploy\n  - Slate: config, chore\n  - Pink family: style, ux, ui, accessibility\n  - Cyan: performance, perf\n  - Lime: dependency, deps\n\n- Add hash-based dynamic color generation for unknown tags\n  - Uses 10-color palette optimized for dark backgrounds\n  - Same tag always gets same color (consistent hashing)\n  - No more gray fallback for unrecognized tags\n\n- Update all tag rendering to use dynamic styles",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "expand tag colors with presets and dynamic fallback",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 117,
+        "deletions": 10
+      },
+      "files": [
+        "dashboard/index.html"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "36b4a7c",
+      "fullSha": "36b4a7c7564946bc472415236149dfc38a8db345",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T04:54:50Z",
+      "commitDate": "2026-01-22T04:54:50Z",
+      "subject": "fix: additional overflow and visibility fixes",
+      "body": "- Repo filter: Change display from 'flex' to 'block' so label appears above dropdown\n- Detail pane: Add visibility:hidden to prevent showing when closed\n- Work Hours: Add flex-wrap and whitespace-nowrap for mobile overflow",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "additional overflow and visibility fixes",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 9,
+        "deletions": 5
+      },
+      "files": [
+        "dashboard/index.html"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "207ccdb",
+      "fullSha": "207ccdb6bf9023e96df7225db95457fd0f5fa2d6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T04:22:44Z",
+      "commitDate": "2026-01-22T04:22:44Z",
+      "subject": "fix: resolve overflow and wrapping issues in dashboard",
+      "body": "- Stats cards: Change grid from 3-col to 1-col on mobile (sm:grid-cols-3)\n- Stats labels: Add .stat-label class with responsive sizing\n- Tabs bar: Add min-w-0 and flex-shrink-0 for proper overflow scrolling\n- Filter select: Remove min-width constraint to prevent overflow\n- Tabs bar: Add overflow:hidden to container",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "resolve overflow and wrapping issues in dashboard",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 27,
+        "deletions": 11
+      },
+      "files": [
+        "dashboard/index.html"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "562811d",
+      "fullSha": "562811d8918a466ab4413ba296caa01e27e87c6e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-22T00:58:59Z",
+      "commitDate": "2026-01-22T00:58:59Z",
+      "subject": "Merge pull request #34 from devmade-ai/claude/fix-sections-compare-RRk3k",
+      "body": "fix: re-render Overview tab on tab switch to prevent stale data",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Merge pull request #34 from devmade-ai/claude/fix-sections-compare-RRk3k",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#34"
+      ],
+      "stats": {
+        "filesChanged": 77,
+        "additions": 24373,
+        "deletions": 20020
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/index.html",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "processed/model-pear/commits/0d52365.json",
+        "processed/model-pear/commits/0d734fe.json",
+        "processed/model-pear/commits/10e749e.json",
+        "processed/model-pear/commits/114a5ed.json",
+        "processed/model-pear/commits/153db33.json",
+        "processed/model-pear/commits/1723240.json",
+        "processed/model-pear/commits/1f4592f.json",
+        "processed/model-pear/commits/2a70fb3.json",
+        "processed/model-pear/commits/2ac3bb1.json",
+        "processed/model-pear/commits/2bba0f2.json",
+        "processed/model-pear/commits/2da2187.json",
+        "processed/model-pear/commits/2ff7de7.json",
+        "processed/model-pear/commits/3afc753.json",
+        "processed/model-pear/commits/42a8399.json",
+        "processed/model-pear/commits/44c6dc9.json",
+        "processed/model-pear/commits/492f20a.json",
+        "processed/model-pear/commits/530dade.json",
+        "processed/model-pear/commits/53b7f88.json",
+        "processed/model-pear/commits/5c1c112.json",
+        "processed/model-pear/commits/5e0d8d0.json",
+        "processed/model-pear/commits/6051215.json",
+        "processed/model-pear/commits/62a1d0c.json",
+        "processed/model-pear/commits/65281fe.json",
+        "processed/model-pear/commits/69f6985.json",
+        "processed/model-pear/commits/765a991.json",
+        "processed/model-pear/commits/789cff1.json",
+        "processed/model-pear/commits/7f65513.json",
+        "processed/model-pear/commits/872de0d.json",
+        "processed/model-pear/commits/8a1c149.json",
+        "processed/model-pear/commits/8c2d665.json",
+        "processed/model-pear/commits/8d24ab8.json",
+        "processed/model-pear/commits/9fce09b.json",
+        "processed/model-pear/commits/a8d4df1.json",
+        "processed/model-pear/commits/a9d508a.json",
+        "processed/model-pear/commits/aa5d829.json",
+        "processed/model-pear/commits/bae8e6f.json",
+        "processed/model-pear/commits/be0eba0.json",
+        "processed/model-pear/commits/c179926.json",
+        "processed/model-pear/commits/c3da5ce.json",
+        "processed/model-pear/commits/c3ded88.json",
+        "processed/model-pear/commits/c660e79.json",
+        "processed/model-pear/commits/c9c65ba.json",
+        "processed/model-pear/commits/cbca984.json",
+        "processed/model-pear/commits/cd95d27.json",
+        "processed/model-pear/commits/d18cc98.json",
+        "processed/model-pear/commits/d43d5c8.json",
+        "processed/model-pear/commits/d4e120f.json",
+        "processed/model-pear/commits/e214900.json",
+        "processed/model-pear/commits/e5275a1.json",
+        "processed/model-pear/commits/e9fe9d6.json",
+        "processed/model-pear/commits/f18527a.json",
+        "processed/model-pear/commits/f4231d1.json",
+        "processed/model-pear/commits/ffc19b6.json",
+        "processed/repo-tor/commits/0b0bf2b.json",
+        "processed/repo-tor/commits/31fae0e.json",
+        "processed/repo-tor/commits/4f8becc.json",
+        "processed/repo-tor/commits/a560677.json",
+        "processed/repo-tor/commits/a9a9d39.json",
+        "processed/repo-tor/commits/c6ab3bb.json",
+        "processed/repo-tor/commits/d4e2804.json",
+        "processed/repo-tor/commits/e772cd8.json",
+        "processed/repo-tor/commits/e94eeee.json",
+        "processed/repo-tor/commits/effa30b.json",
+        "processed/repo-tor/commits/fb1592c.json",
+        "processed/social-ad-creator/commits/39e9a52.json",
+        "scripts/aggregate-processed.js",
+        "scripts/fix-malformed.js",
+        "scripts/save-commit.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "b6514c4",
+      "fullSha": "b6514c471266afc2e3aa6f6deb5beec346215dc3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T00:56:28Z",
+      "commitDate": "2026-01-22T00:56:28Z",
+      "subject": "docs: add validation & reprocessing workflow to playbook",
+      "body": "- Document what save-commit.js validates (metadata + analysis fields)\n- Document needs-reprocess.json and when it's created\n- Document fix-malformed.js for fixing malformed commits\n- Update SESSION_NOTES with 763 total commits (all 65 fixed)\n- Add fix-malformed.js to key files table\n\nhttps://claude.ai/code/session_01GTJnfM2q8ybazZtZ1Y54fg",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "add validation & reprocessing workflow to playbook",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 70,
+        "deletions": 9
+      },
+      "files": [
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "633a5e7",
+      "fullSha": "633a5e7f03651d369be29172b6c059c4c22a675d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T00:51:31Z",
+      "commitDate": "2026-01-22T00:51:31Z",
+      "subject": "fix: reprocess 65 malformed commits with complete git metadata",
+      "body": "Added fix-malformed.js script that:\n- Clones repos to extract git metadata (timestamp, author, subject, etc.)\n- Merges with existing analysis (tags, complexity, urgency, impact)\n- Saves complete commit objects\n\nAll 65 previously malformed commits are now fixed:\n- model-pear: 53 commits\n- repo-tor: 11 commits\n- social-ad-creator: 1 commit\n\nTotal commits now: 763 (was 698 with 65 skipped)\n\nhttps://claude.ai/code/session_01GTJnfM2q8ybazZtZ1Y54fg",
+      "tags": [
+        "bugfix",
+        "data-migration"
+      ],
+      "complexity": 4,
+      "scope": null,
+      "title": "reprocess 65 malformed commits with complete git metadata",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 74,
+        "additions": 10342,
+        "deletions": 5116
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json",
+        "processed/model-pear/commits/0d52365.json",
+        "processed/model-pear/commits/0d734fe.json",
+        "processed/model-pear/commits/10e749e.json",
+        "processed/model-pear/commits/114a5ed.json",
+        "processed/model-pear/commits/153db33.json",
+        "processed/model-pear/commits/1723240.json",
+        "processed/model-pear/commits/1f4592f.json",
+        "processed/model-pear/commits/2a70fb3.json",
+        "processed/model-pear/commits/2ac3bb1.json",
+        "processed/model-pear/commits/2bba0f2.json",
+        "processed/model-pear/commits/2da2187.json",
+        "processed/model-pear/commits/2ff7de7.json",
+        "processed/model-pear/commits/3afc753.json",
+        "processed/model-pear/commits/42a8399.json",
+        "processed/model-pear/commits/44c6dc9.json",
+        "processed/model-pear/commits/492f20a.json",
+        "processed/model-pear/commits/530dade.json",
+        "processed/model-pear/commits/53b7f88.json",
+        "processed/model-pear/commits/5c1c112.json",
+        "processed/model-pear/commits/5e0d8d0.json",
+        "processed/model-pear/commits/6051215.json",
+        "processed/model-pear/commits/62a1d0c.json",
+        "processed/model-pear/commits/65281fe.json",
+        "processed/model-pear/commits/69f6985.json",
+        "processed/model-pear/commits/765a991.json",
+        "processed/model-pear/commits/789cff1.json",
+        "processed/model-pear/commits/7f65513.json",
+        "processed/model-pear/commits/872de0d.json",
+        "processed/model-pear/commits/8a1c149.json",
+        "processed/model-pear/commits/8c2d665.json",
+        "processed/model-pear/commits/8d24ab8.json",
+        "processed/model-pear/commits/9fce09b.json",
+        "processed/model-pear/commits/a8d4df1.json",
+        "processed/model-pear/commits/a9d508a.json",
+        "processed/model-pear/commits/aa5d829.json",
+        "processed/model-pear/commits/bae8e6f.json",
+        "processed/model-pear/commits/be0eba0.json",
+        "processed/model-pear/commits/c179926.json",
+        "processed/model-pear/commits/c3da5ce.json",
+        "processed/model-pear/commits/c3ded88.json",
+        "processed/model-pear/commits/c660e79.json",
+        "processed/model-pear/commits/c9c65ba.json",
+        "processed/model-pear/commits/cbca984.json",
+        "processed/model-pear/commits/cd95d27.json",
+        "processed/model-pear/commits/d18cc98.json",
+        "processed/model-pear/commits/d43d5c8.json",
+        "processed/model-pear/commits/d4e120f.json",
+        "processed/model-pear/commits/e214900.json",
+        "processed/model-pear/commits/e5275a1.json",
+        "processed/model-pear/commits/e9fe9d6.json",
+        "processed/model-pear/commits/f18527a.json",
+        "processed/model-pear/commits/f4231d1.json",
+        "processed/model-pear/commits/ffc19b6.json",
+        "processed/model-pear/needs-reprocess.json",
+        "processed/repo-tor/commits/0b0bf2b.json",
+        "processed/repo-tor/commits/31fae0e.json",
+        "processed/repo-tor/commits/4f8becc.json",
+        "processed/repo-tor/commits/a560677.json",
+        "processed/repo-tor/commits/a9a9d39.json",
+        "processed/repo-tor/commits/c6ab3bb.json",
+        "processed/repo-tor/commits/d4e2804.json",
+        "processed/repo-tor/commits/e772cd8.json",
+        "processed/repo-tor/commits/e94eeee.json",
+        "processed/repo-tor/commits/effa30b.json",
+        "processed/repo-tor/commits/fb1592c.json",
+        "processed/repo-tor/needs-reprocess.json",
+        "processed/social-ad-creator/commits/39e9a52.json",
+        "processed/social-ad-creator/needs-reprocess.json",
+        "scripts/fix-malformed.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 3,
+      "impact": "internal"
+    },
+    {
+      "sha": "e206076",
+      "fullSha": "e20607669b0891d8bad13dd47852bac0c98e1736",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T00:49:01Z",
+      "commitDate": "2026-01-22T00:49:01Z",
+      "subject": "chore: regenerate dashboard data (698 valid commits)",
+      "body": "https://claude.ai/code/session_01GTJnfM2q8ybazZtZ1Y54fg",
+      "tags": [
+        "chore"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "regenerate dashboard data (698 valid commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 5,
+        "deletions": 5
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "8c38590",
+      "fullSha": "8c3859031df1fcf7e4be9ef56d3c80b4d9aede1b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T00:48:20Z",
+      "commitDate": "2026-01-22T00:48:20Z",
+      "subject": "fix: capture validation failures for reprocessing instead of skipping",
+      "body": "Both scripts now write malformed commits to needs-reprocess.json files\ninstead of silently skipping them:\n\nsave-commit.js:\n- Validates all required fields before saving\n- Valid commits are saved, invalid ones written to needs-reprocess.json\n- Exits with error if any commits failed validation\n- Clear error messages explaining what went wrong\n\naggregate-processed.js:\n- Loudly reports all malformed commits during aggregation\n- Writes them to processed/<repo>/needs-reprocess.json\n- Shows warning at end of output\n\nThis ensures validation failures are visible and actionable rather\nthan silently lost.\n\nhttps://claude.ai/code/session_01GTJnfM2q8ybazZtZ1Y54fg",
+      "tags": [
+        "bugfix",
+        "validation",
+        "error-handling"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "capture validation failures for reprocessing instead of skipping",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 451,
+        "deletions": 31
+      },
+      "files": [
+        "processed/model-pear/needs-reprocess.json",
+        "processed/repo-tor/needs-reprocess.json",
+        "processed/social-ad-creator/needs-reprocess.json",
+        "scripts/aggregate-processed.js",
+        "scripts/save-commit.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 3,
+      "impact": "internal"
+    },
+    {
+      "sha": "899a01a",
+      "fullSha": "899a01ab3afbcf04f5ade051917788e2c8c5a08c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T00:42:53Z",
+      "commitDate": "2026-01-22T00:42:53Z",
+      "subject": "fix: add validation to save-commit.js to prevent incomplete saves",
+      "body": "Root cause of malformed commits: when AI analyzed batches, it only\noutput analysis fields instead of complete commit objects. Without\nvalidation, these incomplete commits were saved to processed/.\n\nNow save-commit.js validates:\n- Required metadata: sha, timestamp, subject\n- Required author: author_id or author\n- Required analysis: tags, complexity, urgency, impact\n\nFails fast with clear error message if any fields are missing.\n\nhttps://claude.ai/code/session_01GTJnfM2q8ybazZtZ1Y54fg",
+      "tags": [
+        "bugfix",
+        "validation"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "add validation to save-commit.js to prevent incomplete saves",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 40,
+        "deletions": 14
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "scripts/save-commit.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 3,
+      "impact": "internal"
+    },
+    {
+      "sha": "3a4ad7e",
+      "fullSha": "3a4ad7e2fe3871beb616c1a34f1971dd1059e574",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T00:39:03Z",
+      "commitDate": "2026-01-22T00:39:03Z",
+      "subject": "chore: regenerate dashboard data (698 valid commits)",
+      "body": "Skipped 65 malformed commits missing required fields.\n\nhttps://claude.ai/code/session_01GTJnfM2q8ybazZtZ1Y54fg",
+      "tags": [
+        "chore"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "regenerate dashboard data (698 valid commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 18600,
+        "deletions": 20035
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "c773b8d",
+      "fullSha": "c773b8dcf835e5797d6384221e5756072f047b2f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T00:38:53Z",
+      "commitDate": "2026-01-22T00:38:53Z",
+      "subject": "fix: skip malformed commits and add defensive null checks",
+      "body": "Dashboard was breaking because 65 processed commits were missing required\nfields (timestamp, author_id). JavaScript errors halted execution before\nthe compare dropdown event listener was attached.\n\nChanges:\n- aggregate-processed.js: Add validateCommit() to skip incomplete commits\n- dashboard/index.html: Add null guard in getWorkPattern() for timestamps\n- dashboard/index.html: Add renderSummary() on Overview tab switch\n\nSkipped commits: model-pear (53), repo-tor (11), social-ad-creator (1)\n\nhttps://claude.ai/code/session_01GTJnfM2q8ybazZtZ1Y54fg",
+      "tags": [
+        "bugfix",
+        "validation",
+        "error-handling"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "skip malformed commits and add defensive null checks",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 56,
+        "deletions": 19
+      },
+      "files": [
+        "dashboard/index.html",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/aggregate-processed.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "ef54c89",
+      "fullSha": "ef54c89743547f62674e72df4a05eb165dcce22a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T00:29:52Z",
+      "commitDate": "2026-01-22T00:29:52Z",
+      "subject": "chore: regenerate dashboard data (763 commits)",
+      "body": "https://claude.ai/code/session_01GTJnfM2q8ybazZtZ1Y54fg",
+      "tags": [
+        "chore"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "regenerate dashboard data (763 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 5,
+        "deletions": 5
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "64e2c14",
+      "fullSha": "64e2c145799912cd8d496bd6c6be6a7333036ecc",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-22T00:29:42Z",
+      "commitDate": "2026-01-22T00:29:42Z",
+      "subject": "fix: re-render Overview tab on tab switch to prevent stale data",
+      "body": "When switching between tabs, the Overview tab's Executive Summary was not\nbeing re-rendered, which could cause stale data to display if filters or\nthe compare period were changed while viewing another tab.\n\n- Add renderSummary() call when switching to Overview tab\n- Update extraction counts (now 763 commits across 4 repos)\n\nhttps://claude.ai/code/session_01GTJnfM2q8ybazZtZ1Y54fg",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "re-render Overview tab on tab switch to prevent stale data",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 27,
+        "deletions": 9
+      },
+      "files": [
+        "dashboard/index.html",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "88a135e",
+      "fullSha": "88a135e717dc0fa77e0e4d9796d5c19375d33447",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-01-22T00:03:56Z",
+      "commitDate": "2026-01-22T00:03:56Z",
+      "subject": "Merge pull request #33 from devmade-ai/claude/chicken-feeding-stats-llXic",
+      "body": "chore: increase batch size from 15 to 25 commits",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Merge pull request #33 from devmade-ai/claude/chicken-feeding-stats-llXic",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#33"
+      ],
+      "stats": {
+        "filesChanged": 197,
+        "additions": 25472,
+        "deletions": 15920
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json",
+        "processed/model-pear/commits/08aedfe.json",
+        "processed/model-pear/commits/0974082.json",
+        "processed/model-pear/commits/0a60c55.json",
+        "processed/model-pear/commits/0d52365.json",
+        "processed/model-pear/commits/0d734fe.json",
+        "processed/model-pear/commits/10e749e.json",
+        "processed/model-pear/commits/114a5ed.json",
+        "processed/model-pear/commits/1203f6d.json",
+        "processed/model-pear/commits/153db33.json",
+        "processed/model-pear/commits/15970c8.json",
+        "processed/model-pear/commits/1723240.json",
+        "processed/model-pear/commits/17574b0.json",
+        "processed/model-pear/commits/189a14e.json",
+        "processed/model-pear/commits/1d69c27.json",
+        "processed/model-pear/commits/1f4592f.json",
+        "processed/model-pear/commits/21889cb.json",
+        "processed/model-pear/commits/248ed65.json",
+        "processed/model-pear/commits/2a01bf1.json",
+        "processed/model-pear/commits/2a70fb3.json",
+        "processed/model-pear/commits/2ac3bb1.json",
+        "processed/model-pear/commits/2ae43e8.json",
+        "processed/model-pear/commits/2bba0f2.json",
+        "processed/model-pear/commits/2c155d9.json",
+        "processed/model-pear/commits/2da2187.json",
+        "processed/model-pear/commits/2ff7de7.json",
+        "processed/model-pear/commits/34770b5.json",
+        "processed/model-pear/commits/38aaaa7.json",
+        "processed/model-pear/commits/39b622a.json",
+        "processed/model-pear/commits/3afc753.json",
+        "processed/model-pear/commits/3c09a55.json",
+        "processed/model-pear/commits/3dbc5e0.json",
+        "processed/model-pear/commits/42a8399.json",
+        "processed/model-pear/commits/43474db.json",
+        "processed/model-pear/commits/44c6dc9.json",
+        "processed/model-pear/commits/46273dd.json",
+        "processed/model-pear/commits/492f20a.json",
+        "processed/model-pear/commits/4963c75.json",
+        "processed/model-pear/commits/4a74037.json",
+        "processed/model-pear/commits/50b8446.json",
+        "processed/model-pear/commits/530dade.json",
+        "processed/model-pear/commits/53b7f88.json",
+        "processed/model-pear/commits/556857b.json",
+        "processed/model-pear/commits/58a473e.json",
+        "processed/model-pear/commits/5a47ed4.json",
+        "processed/model-pear/commits/5c1c112.json",
+        "processed/model-pear/commits/5c598e4.json",
+        "processed/model-pear/commits/5e0d8d0.json",
+        "processed/model-pear/commits/5e30cad.json",
+        "processed/model-pear/commits/5f60e84.json",
+        "processed/model-pear/commits/6051215.json",
+        "processed/model-pear/commits/62a1d0c.json",
+        "processed/model-pear/commits/65281fe.json",
+        "processed/model-pear/commits/69f6985.json",
+        "processed/model-pear/commits/6f9fa1e.json",
+        "processed/model-pear/commits/701b056.json",
+        "processed/model-pear/commits/73f4201.json",
+        "processed/model-pear/commits/765a991.json",
+        "processed/model-pear/commits/77f12ef.json",
+        "processed/model-pear/commits/789cff1.json",
+        "processed/model-pear/commits/7a06e7b.json",
+        "processed/model-pear/commits/7b7cbad.json",
+        "processed/model-pear/commits/7ee4b3c.json",
+        "processed/model-pear/commits/7f65513.json",
+        "processed/model-pear/commits/872de0d.json",
+        "processed/model-pear/commits/8a1c149.json",
+        "processed/model-pear/commits/8c2d665.json",
+        "processed/model-pear/commits/8d24ab8.json",
+        "processed/model-pear/commits/8e5aa53.json",
+        "processed/model-pear/commits/965c41b.json",
+        "processed/model-pear/commits/969b766.json",
+        "processed/model-pear/commits/9fce09b.json",
+        "processed/model-pear/commits/9fe29d9.json",
+        "processed/model-pear/commits/a303840.json",
+        "processed/model-pear/commits/a523cfa.json",
+        "processed/model-pear/commits/a618194.json",
+        "processed/model-pear/commits/a8d4df1.json",
+        "processed/model-pear/commits/a9d508a.json",
+        "processed/model-pear/commits/aa5d829.json",
+        "processed/model-pear/commits/af8033d.json",
+        "processed/model-pear/commits/b7d3413.json",
+        "processed/model-pear/commits/b889668.json",
+        "processed/model-pear/commits/ba272e5.json",
+        "processed/model-pear/commits/bae8e6f.json",
+        "processed/model-pear/commits/bdc6a46.json",
+        "processed/model-pear/commits/be0eba0.json",
+        "processed/model-pear/commits/be822d1.json",
+        "processed/model-pear/commits/bebb2f6.json",
+        "processed/model-pear/commits/bf32bb9.json",
+        "processed/model-pear/commits/c042632.json",
+        "processed/model-pear/commits/c13e385.json",
+        "processed/model-pear/commits/c179926.json",
+        "processed/model-pear/commits/c3da5ce.json",
+        "processed/model-pear/commits/c3ded88.json",
+        "processed/model-pear/commits/c660e79.json",
+        "processed/model-pear/commits/c6f69d2.json",
+        "processed/model-pear/commits/c761e94.json",
+        "processed/model-pear/commits/c9c65ba.json",
+        "processed/model-pear/commits/c9d68fb.json",
+        "processed/model-pear/commits/ca39507.json",
+        "processed/model-pear/commits/cbca984.json",
+        "processed/model-pear/commits/cc32480.json",
+        "processed/model-pear/commits/cd95d27.json",
+        "processed/model-pear/commits/d11e6c9.json",
+        "processed/model-pear/commits/d18cc98.json",
+        "processed/model-pear/commits/d191d73.json",
+        "processed/model-pear/commits/d43d5c8.json",
+        "processed/model-pear/commits/d4e120f.json",
+        "processed/model-pear/commits/dc12ea4.json",
+        "processed/model-pear/commits/e214900.json",
+        "processed/model-pear/commits/e48841f.json",
+        "processed/model-pear/commits/e5275a1.json",
+        "processed/model-pear/commits/e5711e0.json",
+        "processed/model-pear/commits/e69ac2e.json",
+        "processed/model-pear/commits/e6ab8b1.json",
+        "processed/model-pear/commits/e788f93.json",
+        "processed/model-pear/commits/e9fe9d6.json",
+        "processed/model-pear/commits/ecc0d0e.json",
+        "processed/model-pear/commits/ecf41ea.json",
+        "processed/model-pear/commits/ef191b0.json",
+        "processed/model-pear/commits/f066026.json",
+        "processed/model-pear/commits/f18527a.json",
+        "processed/model-pear/commits/f4231d1.json",
+        "processed/model-pear/commits/f909a24.json",
+        "processed/model-pear/commits/fa06741.json",
+        "processed/model-pear/commits/fa06bcb.json",
+        "processed/model-pear/commits/fb3a993.json",
+        "processed/model-pear/commits/fdda6cc.json",
+        "processed/model-pear/commits/ffc19b6.json",
+        "processed/model-pear/manifest.json",
+        "processed/repo-tor/commits/0aadb92.json",
+        "processed/repo-tor/commits/0b0bf2b.json",
+        "processed/repo-tor/commits/1786e43.json",
+        "processed/repo-tor/commits/1c9413b.json",
+        "processed/repo-tor/commits/25387c3.json",
+        "processed/repo-tor/commits/31bcacf.json",
+        "processed/repo-tor/commits/31cd3c7.json",
+        "processed/repo-tor/commits/31fae0e.json",
+        "processed/repo-tor/commits/337d3f3.json",
+        "processed/repo-tor/commits/3862372.json",
+        "processed/repo-tor/commits/4565adf.json",
+        "processed/repo-tor/commits/4ecc1fd.json",
+        "processed/repo-tor/commits/4f8becc.json",
+        "processed/repo-tor/commits/5995ec5.json",
+        "processed/repo-tor/commits/66ad8c8.json",
+        "processed/repo-tor/commits/79350b5.json",
+        "processed/repo-tor/commits/81ef430.json",
+        "processed/repo-tor/commits/8e30602.json",
+        "processed/repo-tor/commits/a560677.json",
+        "processed/repo-tor/commits/a9a9d39.json",
+        "processed/repo-tor/commits/b78b4ec.json",
+        "processed/repo-tor/commits/b961f45.json",
+        "processed/repo-tor/commits/c6ab3bb.json",
+        "processed/repo-tor/commits/d4e2804.json",
+        "processed/repo-tor/commits/d57a741.json",
+        "processed/repo-tor/commits/d7e3885.json",
+        "processed/repo-tor/commits/dab1e1b.json",
+        "processed/repo-tor/commits/e1e2829.json",
+        "processed/repo-tor/commits/e772cd8.json",
+        "processed/repo-tor/commits/e94eeee.json",
+        "processed/repo-tor/commits/effa30b.json",
+        "processed/repo-tor/commits/f158a04.json",
+        "processed/repo-tor/commits/f3a07b2.json",
+        "processed/repo-tor/commits/f8e6ad7.json",
+        "processed/repo-tor/commits/fb1592c.json",
+        "processed/repo-tor/manifest.json",
+        "processed/social-ad-creator/commits/0996841.json",
+        "processed/social-ad-creator/commits/0ba35fe.json",
+        "processed/social-ad-creator/commits/2000a45.json",
+        "processed/social-ad-creator/commits/31a07ea.json",
+        "processed/social-ad-creator/commits/35439d2.json",
+        "processed/social-ad-creator/commits/37df890.json",
+        "processed/social-ad-creator/commits/39e9a52.json",
+        "processed/social-ad-creator/commits/4012a30.json",
+        "processed/social-ad-creator/commits/4adfe7e.json",
+        "processed/social-ad-creator/commits/505f509.json",
+        "processed/social-ad-creator/commits/57ea89a.json",
+        "processed/social-ad-creator/commits/7003513.json",
+        "processed/social-ad-creator/commits/7d398e5.json",
+        "processed/social-ad-creator/commits/8f700a9.json",
+        "processed/social-ad-creator/commits/a8cf3a9.json",
+        "processed/social-ad-creator/commits/d0746a5.json",
+        "processed/social-ad-creator/commits/dabcb47.json",
+        "processed/social-ad-creator/commits/e264b1c.json",
+        "processed/social-ad-creator/commits/e2781ee.json",
+        "processed/social-ad-creator/commits/e7a86d1.json",
+        "processed/social-ad-creator/commits/e8dd943.json",
+        "processed/social-ad-creator/commits/e8f8154.json",
+        "processed/social-ad-creator/commits/ebe3825.json",
+        "processed/social-ad-creator/commits/f3d46b4.json",
+        "processed/social-ad-creator/manifest.json",
+        "scripts/pending.js",
+        "scripts/update-all.sh"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "c3f111a",
+      "fullSha": "c3f111a62ac15fac1a6ad9d1a4008a70f40bd409",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-21T23:43:07Z",
+      "commitDate": "2026-01-21T23:43:07Z",
+      "subject": "chore: process snack batch (12 commits)",
+      "body": "- repo-tor: 11 commits (session meta-commits)\n- social-ad-creator: 1 commit (pull-to-refresh fix)",
+      "tags": [
+        "chore"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "process snack batch (12 commits)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 19,
+        "additions": 9587,
+        "deletions": 9120
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/social-ad-creator.json",
+        "processed/repo-tor/commits/0b0bf2b.json",
+        "processed/repo-tor/commits/31fae0e.json",
+        "processed/repo-tor/commits/4f8becc.json",
+        "processed/repo-tor/commits/a560677.json",
+        "processed/repo-tor/commits/a9a9d39.json",
+        "processed/repo-tor/commits/c6ab3bb.json",
+        "processed/repo-tor/commits/d4e2804.json",
+        "processed/repo-tor/commits/e772cd8.json",
+        "processed/repo-tor/commits/e94eeee.json",
+        "processed/repo-tor/commits/effa30b.json",
+        "processed/repo-tor/commits/fb1592c.json",
+        "processed/repo-tor/manifest.json",
+        "processed/social-ad-creator/commits/39e9a52.json",
+        "processed/social-ad-creator/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
     {
       "sha": "a9a9d39",
       "fullSha": "a9a9d39a15ee53a83a136f3616ef7855ab556a00",
@@ -5212,33 +6778,39 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 173,
-      "avgComplexity": 1.66,
-      "avgUrgency": 1.73,
+      "commits": 203,
+      "avgComplexity": 1.69,
+      "avgUrgency": 1.77,
       "tagBreakdown": {
-        "chore": 10,
+        "merge": 37,
+        "feature": 29,
+        "config": 32,
+        "auth": 1,
+        "env": 1,
+        "docs": 42,
+        "bugfix": 28,
+        "error-handling": 3,
+        "performance": 1,
+        "refactor": 8,
+        "ui": 23,
+        "ux": 4,
+        "data-migration": 1,
+        "chore": 14,
+        "validation": 3,
         "data": 9,
         "fix": 1,
         "scripts": 1,
-        "config": 30,
-        "merge": 32,
-        "docs": 37,
         "removal": 5,
-        "bugfix": 18,
-        "feature": 23,
-        "ui": 16,
-        "ux": 3,
         "enhancement": 3,
-        "refactor": 7,
         "seed": 33,
         "build": 4,
         "ci": 1,
         "init": 1
       },
       "impactBreakdown": {
-        "internal": 142,
-        "user-facing": 30,
-        "infrastructure": 1,
+        "internal": 161,
+        "user-facing": 38,
+        "infrastructure": 4,
         "api": 0
       },
       "repos": [
@@ -5246,7 +6818,7 @@
       ],
       "repoCount": 1,
       "firstCommit": "2026-01-18T21:53:16+02:00",
-      "lastCommit": "2026-01-21T23:40:03+00:00"
+      "lastCommit": "2026-01-22T22:02:18Z"
     },
     {
       "author_id": "jacotheron87",
@@ -5314,23 +6886,29 @@
     }
   ],
   "summary": {
-    "totalCommits": 220,
+    "totalCommits": 250,
     "totalContributors": 3,
     "tagBreakdown": {
-      "chore": 10,
+      "merge": 37,
+      "feature": 38,
+      "config": 40,
+      "auth": 1,
+      "env": 1,
+      "docs": 70,
+      "bugfix": 32,
+      "error-handling": 3,
+      "performance": 1,
+      "refactor": 12,
+      "ui": 28,
+      "ux": 4,
+      "data-migration": 1,
+      "chore": 14,
+      "validation": 3,
       "data": 9,
       "fix": 1,
       "scripts": 1,
-      "config": 38,
-      "merge": 32,
-      "docs": 65,
       "removal": 9,
-      "bugfix": 22,
-      "feature": 32,
-      "ui": 21,
-      "ux": 3,
       "enhancement": 3,
-      "refactor": 11,
       "migration": 1,
       "style": 1,
       "seed": 33,
@@ -5340,45 +6918,51 @@
       "test-unit": 1
     },
     "complexityBreakdown": {
-      "1": 119,
-      "2": 52,
-      "3": 32,
-      "4": 14,
+      "1": 132,
+      "2": 61,
+      "3": 38,
+      "4": 16,
       "5": 3
     },
     "urgencyBreakdown": {
-      "1": 77,
-      "2": 138,
-      "3": 5,
+      "1": 80,
+      "2": 161,
+      "3": 9,
       "4": 0,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 179,
-      "user-facing": 38,
-      "infrastructure": 3,
+      "internal": 198,
+      "user-facing": 46,
+      "infrastructure": 6,
       "api": 0
     },
-    "avgComplexity": 1.77,
-    "avgUrgency": 1.67,
+    "avgComplexity": 1.79,
+    "avgUrgency": 1.72,
     "monthly": {
       "2026-01": {
-        "commits": 220,
+        "commits": 250,
         "tags": {
-          "chore": 10,
+          "merge": 37,
+          "feature": 38,
+          "config": 40,
+          "auth": 1,
+          "env": 1,
+          "docs": 70,
+          "bugfix": 32,
+          "error-handling": 3,
+          "performance": 1,
+          "refactor": 12,
+          "ui": 28,
+          "ux": 4,
+          "data-migration": 1,
+          "chore": 14,
+          "validation": 3,
           "data": 9,
           "fix": 1,
           "scripts": 1,
-          "config": 38,
-          "merge": 32,
-          "docs": 65,
           "removal": 9,
-          "bugfix": 22,
-          "feature": 32,
-          "ui": 21,
-          "ux": 3,
           "enhancement": 3,
-          "refactor": 11,
           "migration": 1,
           "style": 1,
           "seed": 33,
@@ -5388,33 +6972,39 @@
           "test-unit": 1
         },
         "impact": {
-          "internal": 179,
-          "user-facing": 38,
-          "infrastructure": 3,
+          "internal": 198,
+          "user-facing": 46,
+          "infrastructure": 6,
           "api": 0
         },
-        "avgComplexity": 1.77,
-        "avgUrgency": 1.67
+        "avgComplexity": 1.79,
+        "avgUrgency": 1.72
       }
     },
     "monthlyCommits": {
       "2026-01": {
-        "commits": 220,
+        "commits": 250,
         "tags": {
-          "chore": 10,
+          "merge": 37,
+          "feature": 38,
+          "config": 40,
+          "auth": 1,
+          "env": 1,
+          "docs": 70,
+          "bugfix": 32,
+          "error-handling": 3,
+          "performance": 1,
+          "refactor": 12,
+          "ui": 28,
+          "ux": 4,
+          "data-migration": 1,
+          "chore": 14,
+          "validation": 3,
           "data": 9,
           "fix": 1,
           "scripts": 1,
-          "config": 38,
-          "merge": 32,
-          "docs": 65,
           "removal": 9,
-          "bugfix": 22,
-          "feature": 32,
-          "ui": 21,
-          "ux": 3,
           "enhancement": 3,
-          "refactor": 11,
           "migration": 1,
           "style": 1,
           "seed": 33,
@@ -5424,18 +7014,18 @@
           "test-unit": 1
         },
         "impact": {
-          "internal": 179,
-          "user-facing": 38,
-          "infrastructure": 3,
+          "internal": 198,
+          "user-facing": 46,
+          "infrastructure": 6,
           "api": 0
         },
-        "avgComplexity": 1.77,
-        "avgUrgency": 1.67
+        "avgComplexity": 1.79,
+        "avgUrgency": 1.72
       }
     },
     "dateRange": {
       "earliest": "2026-01-18T20:29:03+00:00",
-      "latest": "2026-01-21T23:40:03+00:00"
+      "latest": "2026-01-22T22:02:18Z"
     },
     "security_events": []
   }

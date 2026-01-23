@@ -1,0 +1,37 @@
+{
+  "sha": "a22b40b",
+  "fullSha": "a22b40b3e1167a1478e24de70d85e2a2d71d1708",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-22T20:26:17Z",
+  "commitDate": "2025-12-22T20:26:17Z",
+  "subject": "Fix message action sheet not appearing on web mobile",
+  "body": "On web mobile, tapping a message was immediately executing an action\ninstead of showing the action sheet with options.\n\n- Remove tap gesture on web platform (keep long-press and swipe only)\n- Reduce long-press duration on web from 500ms to 300ms for better UX\n- Keep native behavior unchanged (tap, long-press, and swipe all work)\n\nThis prevents accidental triggers on web while maintaining responsive\ninteraction through long-press (300ms) or swipe gestures.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix message action sheet not appearing on web mobile",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 10,
+    "deletions": 11
+  },
+  "files": [
+    "components/MessageBubble.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

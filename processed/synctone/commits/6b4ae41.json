@@ -1,0 +1,39 @@
+{
+  "sha": "6b4ae41",
+  "fullSha": "6b4ae41e0b9cde524bec1f226b313d278583a560",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T10:40:38Z",
+  "commitDate": "2025-12-27T10:40:38Z",
+  "subject": "Remove unused ToneComparison component and fix color usage",
+  "body": "- Removed ToneComparison.tsx (no longer used in the app)\n- Fixed error message text color in join.tsx (text-text instead of text-accent for better readability)\n- Color distribution now follows semantic pattern:\n  - Primary (blue): interactive elements\n  - Secondary (magenta-pink): attention/alerts\n  - Accent (teal): positive status indicators",
+  "tags": [
+    "removal",
+    "refactor"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Remove unused ToneComparison component and fix color usage",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 1,
+    "deletions": 92
+  },
+  "files": [
+    "app/(app)/join.tsx",
+    "components/ToneComparison.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 1,
+  "impact": "internal"
+}

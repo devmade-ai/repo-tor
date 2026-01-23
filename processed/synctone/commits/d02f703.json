@@ -1,0 +1,44 @@
+{
+  "sha": "d02f703",
+  "fullSha": "d02f703c99127ca12c398d12febf44dab4c26766",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-26T21:57:25Z",
+  "commitDate": "2025-12-26T21:57:25Z",
+  "subject": "Add interactive user tutorial for first-time onboarding",
+  "body": "Implement a comprehensive 8-step tutorial system that automatically shows on first app launch to help new users understand SyncTone's unique features.\n\nFeatures:\n- Auto-shows on first launch, dismissable, and re-accessible via help button\n- 8 tutorial steps covering: welcome, creating chats, joining chats, tone tags, familiar features, unique features, privacy, and completion\n- Help button (❓) in home screen header allows users to re-access tutorial anytime\n- Tutorial state persisted in SecureStore (native) or AsyncStorage (web)\n- Step navigation with progress bar, dot indicators, and smooth transitions\n- Skip functionality for returning users\n\nComponents:\n- TutorialModal: Multi-step modal with navigation and progress tracking\n- useTutorial hook: Manages tutorial state and auto-show logic\n- Tutorial constants: 8 detailed step definitions with icons and descriptions\n\nTechnical implementation:\n- Tutorial completion state stored via TUTORIAL_COMPLETED_KEY in platform-aware storage\n- Functions: hasTutorialCompleted(), markTutorialCompleted(), resetTutorial()\n- Integrated into home screen with conditional rendering based on completion state",
+  "tags": [
+    "feature",
+    "ux",
+    "onboarding"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add interactive user tutorial for first-time onboarding",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 346,
+    "deletions": 1
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/home.tsx",
+    "components/TutorialModal.tsx",
+    "constants/tutorial.ts",
+    "hooks/useTutorial.ts",
+    "services/identity.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 1,
+  "impact": "user-facing"
+}

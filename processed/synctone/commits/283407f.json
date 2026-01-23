@@ -1,0 +1,54 @@
+{
+  "sha": "283407f",
+  "fullSha": "283407f940ce172f97f99215b5126bcb0a3d7281",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-18T07:14:49Z",
+  "commitDate": "2025-12-18T07:14:49Z",
+  "subject": "Add delivery/read indicators, notifications, and bulk message reveal",
+  "body": "- Add delivered_at and read_at timestamps to messages table\n- Show ✓ (sent), ✓✓ (delivered), ✓✓ (read) indicators on sender messages\n- Implement cross-platform push notifications (native + web)\n  - expo-notifications for iOS/Android\n  - Web Notifications API for browsers\n  - Permission banner on home screen\n- Add \"Reveal All\" button to mark all unread messages as read at once\n- Update badge count to show unread messages per chat\n- Add markMessagesDelivered() and markAllMessagesRead() functions\n- Update documentation with new features",
+  "tags": [
+    "feature",
+    "infrastructure"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "Add delivery/read indicators, notifications, and bulk message reveal",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 17,
+    "additions": 1214,
+    "deletions": 45
+  },
+  "files": [
+    "CLAUDE.md",
+    "app.json",
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/home.tsx",
+    "app/_layout.tsx",
+    "components/MessageBubble.tsx",
+    "components/NotificationBanner.tsx",
+    "components/NotificationDebug.tsx",
+    "hooks/useMessages.ts",
+    "hooks/useNotifications.ts",
+    "package-lock.json",
+    "package.json",
+    "public/sw.js",
+    "services/messages.ts",
+    "services/notifications.ts",
+    "supabase/migrations/20251217200645_add_delivery_read_timestamps.sql",
+    "types/database.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

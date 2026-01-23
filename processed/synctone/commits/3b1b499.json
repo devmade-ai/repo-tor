@@ -1,0 +1,38 @@
+{
+  "sha": "3b1b499",
+  "fullSha": "3b1b499876ce186f0f47d567ee9b58714db69f11",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-14T21:59:07Z",
+  "commitDate": "2025-12-14T21:59:07Z",
+  "subject": "Fix chat list not updating on navigation - add web support",
+  "body": "- Add console logging to debug refetch timing\n- Add web-specific useEffect to refetch on component mount\n- Improve useFocusEffect to work better on web platform\n- Add logging in useChats to track fetch operations\n- Ensure chat list updates when navigating back from chat screen\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix chat list not updating on navigation - add web support",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 22,
+    "deletions": 3
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "hooks/useChats.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

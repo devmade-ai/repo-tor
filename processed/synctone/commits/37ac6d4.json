@@ -1,0 +1,40 @@
+{
+  "sha": "37ac6d4",
+  "fullSha": "37ac6d4b3429722d3999b19e6e48ecb3ae1c273f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-14T21:55:24Z",
+  "commitDate": "2025-12-14T21:55:24Z",
+  "subject": "Simplify tone display UI - show compact emojis, expand on tap",
+  "body": "- Replace inline tone labels with emoji-only display in message bubbles\n- Remove \"Show/Hide\" toggle button from chat header\n- Add tap-to-expand modal for full tone comparison details\n- Show subtle \"Tap to see comparison\" hint on tagged messages\n- Reduce visual clutter while keeping tone info accessible\n- Both tagged tones shown as: 😊😄 • 🤔😡 (sender • receiver)\n- Improve realtime subscription logging in useChats hook\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "enhancement",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Simplify tone display UI - show compact emojis, expand on tap",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 90,
+    "deletions": 72
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "components/MessageBubble.tsx",
+    "hooks/useChats.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

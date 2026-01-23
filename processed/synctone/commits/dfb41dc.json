@@ -1,0 +1,44 @@
+{
+  "sha": "dfb41dc",
+  "fullSha": "dfb41dce93ef13783c7cc64b5fcc187f54e95160",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-19T15:11:16Z",
+  "commitDate": "2025-12-19T15:11:16Z",
+  "subject": "Remove manual tone reveal, automatically show tones on chat entry",
+  "body": "Simplified UX by removing the tap-to-reveal interaction for message tones. Now messages are automatically marked as read and tones are revealed when entering a chat screen.\n\nChanges:\n- Auto-mark messages as read on chat entry (300ms delay after load)\n- Remove \"Reveal All\" button and tap-to-reveal hints\n- Always display sender tones on all messages\n- Free up message tap gesture for future features (replies/reactions)\n- Update documentation to reflect automatic reveal behavior\n\nTechnical:\n- Renamed revealAll to markAllAsRead in useMessages hook\n- Removed tagTone function (manual single message acknowledgment)\n- Removed unreadCount from useMessages return type\n- Simplified MessageBubble to always show tones\n- Messages still use receiver_tone=[] and read_at for tracking",
+  "tags": [
+    "enhancement",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Remove manual tone reveal, automatically show tones on chat entry",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 111,
+    "deletions": 87
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/home.tsx",
+    "components/MessageBubble.tsx",
+    "hooks/useAppStateRefresh.ts",
+    "hooks/useChats.ts",
+    "hooks/useMessages.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

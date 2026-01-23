@@ -1,0 +1,42 @@
+{
+  "sha": "c2d94ae",
+  "fullSha": "c2d94aeed8b19287c7cce7927d83144566d98d91",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-22T20:21:11Z",
+  "commitDate": "2025-12-22T20:21:11Z",
+  "subject": "Make tone tagging optional and minimize category headings",
+  "body": "- Update database constraint to allow 0-2 tones (previously required 1-2)\n- Remove tone requirement from ComposeBar send validation\n- Add \"(optional)\" label to tone selector instruction text\n- Minimize category headings in ToneSelector compact variant:\n  - Reduce font size from 12px to 9px\n  - Lower opacity and use uppercase with letter-spacing\n  - Reduce vertical margins for more screen space\n- Keep \"Most Used\" section at top as primary recommendation\n- Update sendMessage/tagReceiverTone to handle empty tone arrays\n- Only track tone usage when tones are actually selected",
+  "tags": [
+    "enhancement",
+    "ux",
+    "schema"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Make tone tagging optional and minimize category headings",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 32,
+    "deletions": 16
+  },
+  "files": [
+    "components/ComposeBar.tsx",
+    "components/ToneSelector.tsx",
+    "services/messages.ts",
+    "supabase/migrations/20251222201230_make_tone_optional.sql"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

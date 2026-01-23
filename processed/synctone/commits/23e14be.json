@@ -1,0 +1,40 @@
+{
+  "sha": "23e14be",
+  "fullSha": "23e14be12dcb55845f99967db8218252336985bd",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-28T15:26:45Z",
+  "commitDate": "2025-12-28T15:26:45Z",
+  "subject": "Fix OneSignal script loading with dynamic injection and retry support",
+  "body": "Problem:\n- OneSignal SDK script was loaded statically in HTML with async attribute\n- When script failed to load (network issues, ad blockers, etc.), retry button\n  would check the same failed script tag and fail again\n- Error: \"OneSignal script failed to load. Check browser console for details.\"\n  persisted even after clicking retry\n\nSolution:\n1. Implemented dynamic script injection in services/onesignal.ts:\n   - New injectOneSignalScript() function removes failed scripts and injects fresh ones\n   - Checks for existing valid scripts before injecting to avoid duplicates\n   - Properly handles script load errors with detailed error messages\n\n2. Updated HTML script loading in web/index.html:\n   - Changed to IIFE pattern for cleaner script injection\n   - Improved error handling with better user messaging\n   - Works seamlessly with dynamic retry mechanism\n\n3. Enhanced retry logic:\n   - resetOneSignalSDKState() properly clears error state\n   - Retry actually reloads the script instead of checking the same failed one\n   - Prevents duplicate initialization when HTML already queued it\n\nBenefits:\n- Retry button now actually works and reloads the failed script\n- More resilient to network issues and CDN failures\n- Better user experience with clear error messages and recovery\n- Maintains fast initial load for normal cases (HTML script)\n- Provides robust fallback for error cases (dynamic injection)\n\nFiles changed:\n- services/onesignal.ts: Added dynamic script injection with retry support\n- web/index.html: Updated script loading to work with dynamic retry",
+  "tags": [
+    "bugfix",
+    "enhancement",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Fix OneSignal script loading with dynamic injection and retry support",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 117,
+    "deletions": 54
+  },
+  "files": [
+    "services/onesignal.ts",
+    "web/index.html"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

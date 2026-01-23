@@ -1,0 +1,40 @@
+{
+  "sha": "15469af",
+  "fullSha": "15469af3bad9a4dd7082e7649f5cb249f6f95fe3",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-28T11:43:17Z",
+  "commitDate": "2025-12-28T11:43:17Z",
+  "subject": "Fix OneSignal SDK loading race condition",
+  "body": "Fixed \"OneSignal failed to load\" error by addressing race condition\nbetween script loading and React app initialization.\n\nChanges:\n- Removed defer attribute from OneSignal script tag to ensure\n  synchronous loading before React app starts\n- Added onerror handler to detect script load failures\n- Improved error detection with script tag verification\n- Added helpful error messages for different failure scenarios\n- Increased timeout to 15 seconds (from 10) for slower connections\n- Added resetOneSignalSDKState() function to allow retry\n- Updated NotificationBanner with retry button for failed SDK loads\n\nThe defer attribute was causing the SDK to load after the React app\nstarted, leading to timeout errors when the app tried to access\nwindow.OneSignal before it was ready.",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Fix OneSignal SDK loading race condition",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 99,
+    "deletions": 15
+  },
+  "files": [
+    "components/NotificationBanner.tsx",
+    "services/onesignal.ts",
+    "web/index.html"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

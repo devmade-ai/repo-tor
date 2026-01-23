@@ -1,0 +1,38 @@
+{
+  "sha": "5d8eb54",
+  "fullSha": "5d8eb54d306d19e91a0e5658df80e417482ffdde",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T06:47:11Z",
+  "commitDate": "2025-12-29T06:47:11Z",
+  "subject": "fix: use visibilitychange API for mobile web foreground detection",
+  "body": "- Remove pushToken from useEffect dependencies to prevent loops\n- Use browser visibilitychange event for web platforms (mobile/desktop)\n- Keep AppState.addEventListener for native platforms only\n- Fixes notification permission rechecking on mobile web",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "use visibilitychange API for mobile web foreground detection",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 35,
+    "deletions": 18
+  },
+  "files": [
+    "hooks/useNotifications.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

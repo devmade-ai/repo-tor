@@ -1,0 +1,40 @@
+{
+  "sha": "a07d05f",
+  "fullSha": "a07d05fc9767e5f8d0dcfe5f0375e2dfd3fa235c",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-28T10:06:59Z",
+  "commitDate": "2025-12-28T10:06:59Z",
+  "subject": "Add OneSignal script tags and service worker files",
+  "body": "Updates OneSignal integration to use the official SDK approach with\nscript tags in HTML head and service worker file.\n\nChanges:\n- Add custom web/index.html with OneSignal script tags\n- Add public/OneSignalSDKWorker.js service worker file\n- Update services/onesignal.ts to use global OneSignal object\n- Remove dependency on react-onesignal package\n\nImplementation:\n- OneSignal SDK loaded via CDN script tag in HTML head\n- Service worker file required by OneSignal in public directory\n- TypeScript wrappers provide type-safe access to global OneSignal\n- Proper async initialization with timeout handling\n\nThis follows OneSignal's official web integration guide and ensures\nnotifications work correctly on all web browsers.",
+  "tags": [
+    "feature",
+    "infrastructure"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Add OneSignal script tags and service worker files",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 180,
+    "deletions": 76
+  },
+  "files": [
+    "public/OneSignalSDKWorker.js",
+    "services/onesignal.ts",
+    "web/index.html"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

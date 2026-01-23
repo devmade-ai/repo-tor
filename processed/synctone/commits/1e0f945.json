@@ -1,0 +1,46 @@
+{
+  "sha": "1e0f945",
+  "fullSha": "1e0f94509fa369c4b71bbf9667e3891b3f5080b9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-18T09:50:08Z",
+  "commitDate": "2025-12-18T09:50:08Z",
+  "subject": "Add hopeful tone, fix delivery tracking, and improve UX",
+  "body": "- Add 6 new tones: hopeful, grateful, proud, anxious, overwhelmed, curious (34 total)\n- Change delivery indicator (✓✓) to trigger on home screen instead of chat screen\n- Replace tabbed tone selector with vertical scrolling grid layout\n- Fix tone tag colors not displaying in message bubbles (use inline styles)\n- Update all tone colors to muted palette matching app theme",
+  "tags": [
+    "feature",
+    "enhancement",
+    "ui"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Add hopeful tone, fix delivery tracking, and improve UX",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 142,
+    "deletions": 139
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/home.tsx",
+    "components/MessageBubble.tsx",
+    "components/ToneSelector.tsx",
+    "constants/tones.ts",
+    "hooks/useMessages.ts",
+    "services/messages.ts",
+    "tailwind.config.js"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

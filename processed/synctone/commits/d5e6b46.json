@@ -1,0 +1,43 @@
+{
+  "sha": "d5e6b46",
+  "fullSha": "d5e6b46a5ccd6162217bcb1ebaa465b5d9fca048",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-28T17:45:41Z",
+  "commitDate": "2025-12-28T17:45:41Z",
+  "subject": "Add automatic push notifications via database trigger",
+  "body": "- Add OneSignal player ID column to app_instances table\n- Create database trigger to automatically send notifications on new messages\n- Implement send-notification Edge Function with OneSignal REST API integration\n- Add internal API secret authentication between database and Edge Function\n- Auto-detect local vs production environment for Edge Function URLs\n- Update .gitignore to protect Supabase function secrets\n- Rename migration file to correct chronological order\n\nThe notification system uses pg_net for async HTTP requests from the database,\nensuring message insertion is never blocked by notification delivery.\nSecurity is maintained through internal secret token validation without\nexposing service role keys in version control.",
+  "tags": [
+    "feature",
+    "database"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add automatic push notifications via database trigger",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 74,
+    "deletions": 35
+  },
+  "files": [
+    ".gitignore",
+    "PUSH_NOTIFICATIONS_SETUP.md",
+    "supabase/functions/send-notification/index.ts",
+    "supabase/migrations/20250115000001_add_onesignal_player_id.sql",
+    "supabase/migrations/20251228000000_add_onesignal_player_id.sql",
+    "supabase/migrations/20251228000001_add_push_notification_trigger.sql"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

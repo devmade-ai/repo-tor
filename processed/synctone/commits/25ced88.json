@@ -1,0 +1,38 @@
+{
+  "sha": "25ced88",
+  "fullSha": "25ced88af55ad6345dd286a5a7e651c795a4670d",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T16:09:06Z",
+  "commitDate": "2025-12-27T16:09:06Z",
+  "subject": "Fix chat deletion on mobile web and align utility buttons left",
+  "body": "- Move utility buttons (Help, Notification, Clear Data) to left alignment under title\n- Keep refresh button in its current position (right-aligned with stats)\n- Add optimistic UI updates for chat deletion to ensure immediate feedback\n- When delete is clicked, chat is immediately removed from UI\n- Rollback optimistic update if deletion fails\n- Filter deleted chats using local state (deletedChatIds Set)\n- Update all chat count references to use visibleChats instead of chats\n\nThis fixes the issue where clicking delete on mobile web would show the confirmation but not remove the chat from the list, even after hard refresh.",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix chat deletion on mobile web and align utility buttons left",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 22,
+    "deletions": 8
+  },
+  "files": [
+    "app/(app)/home.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

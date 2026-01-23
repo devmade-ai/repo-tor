@@ -1,0 +1,39 @@
+{
+  "sha": "a10eaf3",
+  "fullSha": "a10eaf3a5c3f77b23e751084a71d53ea28154369",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-23T12:44:55Z",
+  "commitDate": "2025-12-23T12:44:55Z",
+  "subject": "Fix mobile web scrolling and auto-scroll behavior in chat view",
+  "body": "- Fix auto-scroll when loading older messages: Track message count to only auto-scroll when new messages arrive, not when paginating to older messages\n- Improve mobile web scrolling: Remove pan and tap gestures on web to prevent conflicts with native scrolling and accidental action triggers\n- Use long-press only on mobile web to open message action sheet, avoiding unintended actions from quick taps\n- Native platforms retain tap, long-press, and swipe-to-reply gestures",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix mobile web scrolling and auto-scroll behavior in chat view",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 31,
+    "deletions": 13
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "components/MessageBubble.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

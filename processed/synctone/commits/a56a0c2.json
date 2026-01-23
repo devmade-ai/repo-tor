@@ -1,0 +1,38 @@
+{
+  "sha": "a56a0c2",
+  "fullSha": "a56a0c2154ed1a66f3aafd40b8a8c4df240d51df",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-28T10:25:48Z",
+  "commitDate": "2025-12-28T10:25:48Z",
+  "subject": "Fix notification permission state detection on web reload",
+  "body": "Problem:\n- After page refresh, notification bell showed as disabled (🔕) even though permissions were previously granted\n- OneSignal permission check was running before SDK was fully initialized\n- Errors during initialization incorrectly returned 'denied' status\n\nSolution:\n- Improved waitForOneSignal() to verify full initialization by testing API calls\n- Changed error fallback from 'denied' to 'undetermined' to avoid false negatives\n- Added loading state (⏳) to bell icon while checking permissions\n- Enhanced player ID retrieval with permission validation and warnings\n\nThis ensures notification status is accurately reflected after deployments and page refreshes.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Fix notification permission state detection on web reload",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 41,
+    "deletions": 15
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "services/onesignal.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

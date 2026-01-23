@@ -1,0 +1,39 @@
+{
+  "sha": "63682fd",
+  "fullSha": "63682fdf972712037852722bf603de9663f9fe0b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-28T18:13:45Z",
+  "commitDate": "2025-12-28T18:13:45Z",
+  "subject": "Summary of Changes",
+  "body": "Problem Fixed:\nThe send-notification Edge Function had a hardcoded fallback value ('your-secret-token-here') for INTERNAL_API_SECRET\nThis was a security risk - if the env var wasn't set, it would use a weak default\nSolution Applied:\n✅ Removed the fallback value using the non-null assertion operator (!)\n✅ Added explicit validation that throws an error if INTERNAL_API_SECRET is missing\n✅ Redeployed the function to Supabase (project: kmqcbpeidmmintltcoqm)\n✅ Verified all required secrets are set in Supabase",
+  "tags": [
+    "security",
+    "docs"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Summary of Changes",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 160,
+    "deletions": 1
+  },
+  "files": [
+    "NOTIFICATION_TEST_PLAN.md",
+    "supabase/functions/send-notification/index.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

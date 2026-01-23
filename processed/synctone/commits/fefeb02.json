@@ -1,0 +1,39 @@
+{
+  "sha": "fefeb02",
+  "fullSha": "fefeb02b38318d6b24083a0d1c799268081bb85e",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T07:35:28Z",
+  "commitDate": "2025-12-29T07:35:28Z",
+  "subject": "fix: split notification status into TWO separate buttons",
+  "body": "Previous single-button approach caused confusion between browser permission\nand OneSignal subscription state.\n\nNow shows TWO buttons (web only shows both, native shows just browser):\n1. Browser Permission: 🔔 (granted), 🔕 (denied), 🔔 (not asked)\n2. OneSignal Subscription: 📡 (subscribed), 📴 (not subscribed)\n\nEach button shows EXACTLY what it's checking with no confusion.\nClick each to see detailed status and fix instructions.",
+  "tags": [
+    "enhancement",
+    "ui",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "split notification status into TWO separate buttons",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 47,
+    "deletions": 18
+  },
+  "files": [
+    "app/(app)/home.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,44 @@
+{
+  "sha": "3f9d34c",
+  "fullSha": "3f9d34ce78f5c61a6b862e97872288dfa1da2cc2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-23T20:16:03Z",
+  "commitDate": "2025-12-23T20:16:03Z",
+  "subject": "Add platform-specific notification handling for web PC, web mobile, and native",
+  "body": "Implement granular platform detection and notification support to properly handle notifications across three distinct platforms:\n- Native mobile (iOS/Android): expo-notifications with APNs/FCM\n- Web mobile: Service Worker with Web Push API\n- Web desktop: Browser Notification API (banner hidden by default)\n\nAdd new platform detection utility (utils/platform.ts) that uses user agent, touch capability, and screen size to distinguish web mobile from web desktop.\n\nUpdate notification service with platform-specific implementations:\n- getNotificationCapabilities() returns platform-specific feature support\n- Platform-aware permission requests and token retrieval\n- Auto-register service worker for web mobile before requesting permissions\n\nEnhance notification components with platform awareness:\n- NotificationBanner shows platform-specific messaging and hides on web desktop\n- useNotifications hook returns capabilities for UI adjustments\n- Service worker improvements with skipWaiting() and clients.claim()",
+  "tags": [
+    "feature",
+    "infrastructure"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add platform-specific notification handling for web PC, web mobile, and native",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 511,
+    "deletions": 94
+  },
+  "files": [
+    "CLAUDE.md",
+    "components/NotificationBanner.tsx",
+    "hooks/useMessages.ts",
+    "hooks/useNotifications.ts",
+    "public/sw.js",
+    "services/notifications.ts",
+    "utils/platform.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

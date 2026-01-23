@@ -1,0 +1,41 @@
+{
+  "sha": "6d94e71",
+  "fullSha": "6d94e7199c0b4f2c69f8597ddd1e308967a363fb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-18T09:13:20Z",
+  "commitDate": "2025-12-18T09:13:20Z",
+  "subject": "Optimize chat performance with pagination and database improvements",
+  "body": "- Implement message pagination: Load 50 most recent messages first instead of entire history\n- Add infinite scroll to load older messages on demand when scrolling up\n- Fix slow pg_timezone_names query (0.24s) by replacing timezone('utc', now()) with now()\n- Improve initial chat load time and reduce unnecessary data transfer\n- Add loading indicator when fetching older messages",
+  "tags": [
+    "performance",
+    "schema"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Optimize chat performance with pagination and database improvements",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 114,
+    "deletions": 11
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "hooks/useMessages.ts",
+    "supabase/migrations/20251218085446_optimize_timestamp_defaults.sql"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

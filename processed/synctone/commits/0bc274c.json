@@ -1,0 +1,39 @@
+{
+  "sha": "0bc274c",
+  "fullSha": "0bc274cbd8c92a20ca380f1266926a1f4b7f1a3f",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T06:04:52Z",
+  "commitDate": "2025-12-29T06:04:52Z",
+  "subject": "improve: enhance notification instructions with iOS Safari dual-layer permissions and better icon states",
+  "body": "- Add iOS Safari-specific instructions covering BOTH system-level and browser-level permissions\n- Fix icon accuracy: now shows correct states for loading, granted, denied, and undetermined\n- Add granted state handler: clicking bell when enabled shows confirmation instead of re-requesting\n- Import getDeviceType for platform-aware Safari instructions\n\nAddresses user feedback:\n1. Mobile web (iOS Safari) requires checking TWO places for notifications\n2. Icon now accurately represents all permission states\n3. Instructions only show when permissions are denied (correct behavior)",
+  "tags": [
+    "enhancement",
+    "ui",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "enhance notification instructions with iOS Safari dual-layer permissions and better icon states",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 27,
+    "deletions": 3
+  },
+  "files": [
+    "app/(app)/home.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

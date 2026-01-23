@@ -1,0 +1,39 @@
+{
+  "sha": "4768d38",
+  "fullSha": "4768d381e8764ee1dd7bac55943123ae46622fd2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2025-12-23T14:01:06Z",
+  "commitDate": "2025-12-23T14:01:06Z",
+  "subject": "Update mobile web gesture handling to use tap-to-react Changed mobile web message bubble interaction to open reaction picker directly on tap, while long-press still opens full action sheet. This improves reliability on mobile web where tap gestures were conflicting with scrolling.",
+  "body": "Add onQuickReact prop to MessageBubble for mobile web tap-to-react\nModify MessageBubbleWeb to prioritize quick react over action sheet on tap\nAdd ReactionPicker modal to chat screen for quick emoji selection\nDesktop web behavior unchanged (click/right-click opens action sheet)",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Update mobile web gesture handling to use tap-to-react Changed mobile web message bubble interaction to open reaction picker directly on tap, while long-press still opens full action sheet. This improves reliability on mobile web where tap gestures were conflicting with scrolling.",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 38,
+    "deletions": 4
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "components/MessageBubble.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

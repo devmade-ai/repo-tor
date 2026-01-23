@@ -1,0 +1,40 @@
+{
+  "sha": "b5166fb",
+  "fullSha": "b5166fb120de7d8d85c71067b693c0bd92ed16ef",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T06:40:03Z",
+  "commitDate": "2025-12-29T06:40:03Z",
+  "subject": "fix: improve notification icon clarity and state detection",
+  "body": "- Change notification icons for better UX:\n  - Enabled: Use 🔔 bell instead of ✅ tick\n  - Undetermined: Use ⏳ hourglass instead of 🔔 bell\n  - This makes states clearer: hourglass = waiting/unknown, bell = enabled, bell-slash = disabled\n\n- Fix permission state detection on first load:\n  - Add useEffect that rechecks permission once OneSignal SDK becomes ready\n  - Ensures icon updates from hourglass to actual state without user interaction\n  - Prevents stuck \"undetermined\" state on page load\n\n- Improve browser detection for Chromium browsers:\n  - Detect Chrome, Brave, and other Chromium browsers as 'Chrome/Brave'\n  - Update notification instructions to be more generic for all Chromium browsers\n  - Removes confusion when Brave users see \"Chrome\" in instructions",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "improve notification icon clarity and state detection",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 53,
+    "deletions": 8
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "hooks/useNotifications.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}
