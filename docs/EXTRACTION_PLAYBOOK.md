@@ -25,7 +25,7 @@ Two-stage process with persistent storage of AI-analyzed commits:
 Human-in-the-loop review ensures quality tagging.
 
 ### Batch Size
-- Process **15 commits per batch** (for review efficiency)
+- Process **25 commits per batch** (for review efficiency)
 - AI presents analysis, **user reviews and approves**
 - After approval: write individual commit files to `processed/<repo>/commits/`, update manifest
 - Commits happen on demand (not after every batch)
@@ -35,8 +35,8 @@ Human-in-the-loop review ensures quality tagging.
 
 For each batch, AI presents commits like this:
 
-```
-[1/15] abc123
+```text
+[1/25] abc123
 Subject: Fix button placement and performance issues
 Body:
 - Move "Update Visualization" button below the image
@@ -47,7 +47,7 @@ Body:
 Tags: refactor, bugfix, performance, docs
 Complexity: 4 | Urgency: 3 | Impact: user-facing
 ---
-[2/15] def456
+[2/25] def456
 ...
 ```
 
@@ -59,14 +59,15 @@ User responds:
 - **"stop"** - Commit pending changes and end session
 
 ### Benefits
+
 - **Accurate**: Human review catches AI mistakes
 - **Multi-tag**: AI reads full message, assigns ALL relevant tags
-- **Fast**: 15 commits per batch, fewer approval prompts
+- **Fast**: 25 commits per batch, fewer approval prompts
 - **Flexible**: Commit when you want, not after every batch
 
 ## File Structure
 
-```
+```text
 reports/                      # Raw extracted data (ephemeral, from extract)
   <repo-name>/
     commits.json              # All commits (bulk file)
@@ -235,7 +236,8 @@ This script:
 3. Generates `pending/<repo>/batches/` with ONLY unprocessed commits
 
 **Output shows:**
-```
+
+```text
 social-ad-creator: 66/156 pending (7 batches)
 model-pear: 302/302 pending (31 batches)
 Total: 368 pending commits in 38 batches
@@ -621,4 +623,4 @@ Based on who/what is affected by the change:
 
 ---
 
-*Last updated: 2026-01-22 - Fixed file structure docs, unified hatch/feed to both use pending/ batches*
+*Last updated: 2026-01-23 - Updated batch size to 25, fixed markdown formatting*
