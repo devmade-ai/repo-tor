@@ -1,0 +1,47 @@
+{
+  "sha": "c82af0d",
+  "fullSha": "c82af0d722eb9918f20a7e0673784f12959f64a3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T21:22:51Z",
+  "commitDate": "2026-01-22T21:22:51Z",
+  "subject": "style: replace emojis with Ionicons across the app",
+  "body": "Updated UI components to use consistent Ionicons instead of emojis:\n\nComponents:\n- BackButton: ← → chevron-back\n- ChatListItem: × → close icon\n- InAppNotification: ✕ → close icon\n- MessageBubble: ↩️ → arrow-undo (swipe reply indicator)\n- ReplyPreviewBar: ✕ → close icon\n- EmptyState: Now uses iconName prop with Ionicons (default: chatbubbles-outline)\n\nScreens:\n- home.tsx: Create (add-circle-outline), Join (enter-outline) buttons\n- chat/[id].tsx: Error state, empty chat, refresh button\n- create.tsx: Error state\n- _layout.tsx: Initialization error state\n\nAll error states now use alert-circle-outline with error color.\nAll close/dismiss buttons use consistent close icon.",
+  "tags": [
+    "ui",
+    "refactor"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "replace emojis with Ionicons across the app",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 35,
+    "deletions": 17
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/create.tsx",
+    "app/(app)/home.tsx",
+    "app/_layout.tsx",
+    "components/BackButton.tsx",
+    "components/ChatListItem.tsx",
+    "components/EmptyState.tsx",
+    "components/InAppNotification.tsx",
+    "components/MessageBubble.tsx",
+    "components/ReplyPreviewBar.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

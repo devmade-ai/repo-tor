@@ -1,0 +1,53 @@
+{
+  "sha": "512c2bd",
+  "fullSha": "512c2bdef319b4a788869086609ae5c38268d606",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T22:31:46Z",
+  "commitDate": "2026-01-21T22:31:46Z",
+  "subject": "refactor: update theme for darker, more colorful design",
+  "body": "- Darken base background from #1B1B1B to #0F0F0F (near OLED black)\n- Add tone category colors: Feeling (pink #FF6B9D), Attitude (teal #4ECDC4), Energy (orange #FFB347)\n- Reduce gray elevated backgrounds throughout app\n- Update tone selector to show category colors on buttons\n- Update chat background pattern to use pink/teal dots\n- Update message bubbles to use subtler backgrounds\n- Update CLAUDE.md with new theme documentation",
+  "tags": [
+    "refactor",
+    "ui",
+    "enhancement"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "update theme for darker, more colorful design",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#1",
+    "#0",
+    "#4"
+  ],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 190,
+    "deletions": 134
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/home.tsx",
+    "components/ChatListItem.tsx",
+    "components/ComposeBar.tsx",
+    "components/EmptyState.tsx",
+    "components/MessageBubble.tsx",
+    "components/ToneSelector.tsx",
+    "constants/tones.ts",
+    "styles/theme.js",
+    "tailwind.config.js"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

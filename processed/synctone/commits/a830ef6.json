@@ -1,0 +1,45 @@
+{
+  "sha": "a830ef6",
+  "fullSha": "a830ef6e52d7a915d1d83cc171c1c1c599086cd6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T23:18:21Z",
+  "commitDate": "2026-01-21T23:18:21Z",
+  "subject": "fix: improve UI visibility and tone color distinction",
+  "body": "- Add useKeyboardHeight hook for mobile web keyboard detection using\n  visualViewport API to keep compose bar visible above keyboard\n- Update tone tags on own messages (blue bubble) to show category colors\n  with dark background instead of semi-transparent white\n- Increase tone selector border visibility (40% to 80% opacity, 1.5px)\n- Create ChatBackground component with proper CSS radial gradients for\n  the dot pattern background on web\n- Update CLAUDE.md and HISTORY.md documentation",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "improve UI visibility and tone color distinction",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 190,
+    "deletions": 35
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "components/ChatBackground.tsx",
+    "components/MessageBubble.tsx",
+    "components/ToneSelector.tsx",
+    "docs/HISTORY.md",
+    "hooks/useKeyboardHeight.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

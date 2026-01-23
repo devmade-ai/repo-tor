@@ -1,0 +1,41 @@
+{
+  "sha": "8fd6391",
+  "fullSha": "8fd63910471f95185de10d8cffd300681b3e060b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T20:16:10Z",
+  "commitDate": "2025-12-29T20:17:04Z",
+  "subject": "fix: implement comprehensive notification state verification for mobile web",
+  "body": "Problem: The 🔔 icon could show on mobile web when notifications wouldn't\nactually work, creating false positives. Browser permission can be \"granted\"\neven when service worker failed, push subscription expired, or system-level\nnotifications are disabled.\n\nSolution: Added verifyNotificationState() that performs multi-layer checks\nfor mobile web:\n1. Platform capability (APIs exist)\n2. Browser permission granted\n3. Service worker registered and active\n4. Push subscription exists (most reliable)\n\nImpact: 🔔 icon now accurately reflects whether notifications will work,\ndramatically reducing false positives on mobile web.",
+  "tags": [
+    "bugfix",
+    "validation"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "implement comprehensive notification state verification for mobile web",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 269,
+    "deletions": 30
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "hooks/useNotifications.ts",
+    "services/notifications.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

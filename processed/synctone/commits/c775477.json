@@ -1,0 +1,58 @@
+{
+  "sha": "c775477",
+  "fullSha": "c77547762cbca20a189f3b9abbbe00ca35c2f9d8",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-04T15:02:33Z",
+  "commitDate": "2026-01-04T15:02:33Z",
+  "subject": "fix: correct border colors and destructive action colors throughout app",
+  "body": "Problem:\n- Borders throughout app used border-primary/XX (blue tint) instead of\n  neutral gray border colors\n- \"End Chat\" destructive action used bg-secondary (magenta) instead of\n  semantic error (red)\n- Error messages used bg-secondary/20 instead of bg-errorBg\n- Chat background pattern at 4% opacity was too subtle to be visible\n\nSolution:\n- Replace all border-primary/XX, border-secondary/XX, border-accent/XX\n  with neutral border (#404040) or borderDark (#505050)\n- Change \"End Chat\" button from bg-secondary/90 to bg-error/90 (red)\n- Change error message styling from secondary to error colors\n- Increase chat background pattern opacity from 4% to 8%\n\nPreserved intentional color usage:\n- Reply bars: border-l-4 border-primary for visual accent\n- Reaction badges: bg-primary border-primary when user has reacted\n- Action buttons: bg-primary, bg-secondary, bg-accent for themed actions\n- Link text: text-primary for clickable links\n- Status badges: bg-secondary/30 for \"Waiting...\" indicators\n\nImpact:\n- Borders now appear as neutral dark gray instead of blue-tinted\n- Destructive actions use red (error) color for clearer intent\n- Error messages visually distinct with red backgrounds\n- Chat background pattern more visible\n- Theme accent colors reserved for intentional usage only",
+  "tags": [
+    "bugfix",
+    "ui",
+    "refactor"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "correct border colors and destructive action colors throughout app",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#404040",
+    "#505050"
+  ],
+  "stats": {
+    "filesChanged": 17,
+    "additions": 91,
+    "deletions": 57
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/create.tsx",
+    "app/(app)/home.tsx",
+    "app/(app)/join/[code].tsx",
+    "app/(app)/join/index.tsx",
+    "components/BackButton.tsx",
+    "components/ChatListItem.tsx",
+    "components/ComposeBar.tsx",
+    "components/EmptyState.tsx",
+    "components/InAppNotification.tsx",
+    "components/MessageActionSheet.tsx",
+    "components/MessageBubble.tsx",
+    "components/NotificationDebug.tsx",
+    "components/ReportMessageModal.tsx",
+    "components/ToneSelector.tsx",
+    "docs/HISTORY.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

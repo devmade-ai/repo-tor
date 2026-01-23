@@ -1,0 +1,42 @@
+{
+  "sha": "805d03a",
+  "fullSha": "805d03a828e8ce869cf236dc8bae1d61b4aebce9",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T19:33:21Z",
+  "commitDate": "2025-12-29T19:33:21Z",
+  "subject": "fix: improve OneSignal subscription error detection with specific messages",
+  "body": "Previously, any subscription failure showed a generic Brave browser warning,\neven on Chrome or other browsers. This was confusing and unhelpful.\n\nNow provides detailed error detection with specific, actionable messages:\n- SDK not ready: \"Please wait, system initializing\"\n- Permission mismatch: \"Sync issue, try refreshing\"\n- Brave browser: Brave-specific instructions (Shields, etc.)\n- Ad blocker/firewall: Generic troubleshooting steps\n- Unknown errors: Display actual error message\n\nChanges:\n- subscribeToOneSignal() returns { success, error, message } object\n- Pre-flight checks for SDK state and permission sync\n- 500ms delay after optIn for subscription to process\n- Browser detection only shows Brave message for actual Brave browser\n- UI displays error-specific instructions with helpful context\n\nImpact: Users see accurate, actionable error messages that help diagnose\nthe actual problem instead of assuming all issues are Brave-related.",
+  "tags": [
+    "bugfix",
+    "ux",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "improve OneSignal subscription error detection with specific messages",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 146,
+    "deletions": 23
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "docs/HISTORY.md",
+    "hooks/useNotifications.ts",
+    "services/onesignal.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,41 @@
+{
+  "sha": "b9ea97c",
+  "fullSha": "b9ea97c724cec4088d19163826c2622e7337559d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-23T00:52:16Z",
+  "commitDate": "2026-01-23T00:52:16Z",
+  "subject": "fix: improve scroll position preservation when loading older messages",
+  "body": "- Capture pre-load scroll state before triggering pagination\n- Wait for loading to complete AND content height increase before restoring\n- Use triple requestAnimationFrame for reliable layout completion\n- Add 500ms cleanup timeout for edge cases (empty responses, failures)\n- Fix diagonal scrolling accidentally triggering long-press action sheet\n  by canceling timer on any movement >10px",
+  "tags": [
+    "bugfix",
+    "ux",
+    "performance"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "improve scroll position preservation when loading older messages",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 78,
+    "deletions": 23
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "components/MessageBubble.tsx",
+    "docs/HISTORY.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

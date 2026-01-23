@@ -1,0 +1,45 @@
+{
+  "sha": "bcdadf5",
+  "fullSha": "bcdadf5d45d974f1bd28a1c8e4d8c79b27d225fa",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-04T19:21:56Z",
+  "commitDate": "2026-01-04T19:21:56Z",
+  "subject": "refactor: unify semantic status colors with jewel tone palette",
+  "body": "Replace separate semantic status colors (green/red/amber) with jewel tones:\n- Success/Positive → Accent (Emerald Teal #00BFA5)\n- Error/Warning/Destructive → Secondary (Ruby Magenta #E91E63)\n- Info/Neutral → Primary (Sapphire Blue #3D5AFE)\n\nBenefits:\n- Simplifies color system from 7 colors to 3 core jewel tones\n- More cohesive visual identity using teal/ruby instead of green/red\n- Ruby already used for attention states (unread badges, warnings)\n- All semantic class names preserved (bg-success, bg-error, etc.)\n\nChanges:\n- styles/theme.js: Map semantic colors to jewel tones with comments\n- tailwind.config.js: Update comments to reflect jewel tone mapping\n- components/ChatListItem.tsx: Update shadow color for End Chat button\n- CLAUDE.md: Document new semantic color mapping and design philosophy",
+  "tags": [
+    "refactor",
+    "ui",
+    "simplify"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "unify semantic status colors with jewel tone palette",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#00",
+    "#3"
+  ],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 38,
+    "deletions": 40
+  },
+  "files": [
+    "CLAUDE.md",
+    "components/ChatListItem.tsx",
+    "styles/theme.js",
+    "tailwind.config.js"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

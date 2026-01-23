@@ -1,0 +1,50 @@
+{
+  "sha": "c638c8e",
+  "fullSha": "c638c8e6974f04c9d8f5af6a7eb658d83358dfc7",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-04T14:42:56Z",
+  "commitDate": "2026-01-04T14:42:56Z",
+  "subject": "refactor: enhance theme with semantic status colors and improved borders",
+  "body": "- Add semantic status colors (success, error, warning, info) independent of theme accents\n- Update border colors from #2C2C2C/#3C3C3C to #404040/#505050 for better visibility (2.1x/2.5x contrast)\n- Enhance chat background pattern: primary blue at 4% opacity, 20px grid (more visible)\n- Replace Tailwind default colors (red-600, green-600, gray-800) with themed equivalents in Toast, MessageActionSheet, and ReportMessageModal\n- Update CLAUDE.md documentation with new theme structure and chat background pattern details\n\nThis refactor separates UI state colors from theme accent colors to prevent confusion and improves overall visual hierarchy.",
+  "tags": [
+    "refactor",
+    "ui",
+    "enhancement"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "enhance theme with semantic status colors and improved borders",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#2",
+    "#3",
+    "#404040",
+    "#505050"
+  ],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 75,
+    "deletions": 17
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "components/MessageActionSheet.tsx",
+    "components/ReportMessageModal.tsx",
+    "components/Toast.tsx",
+    "styles/theme.js",
+    "tailwind.config.js"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

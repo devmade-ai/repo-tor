@@ -1,0 +1,39 @@
+{
+  "sha": "46d9ebf",
+  "fullSha": "46d9ebf4330e142f8cc33fb828ee4f04ac8f8a77",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T20:21:26Z",
+  "commitDate": "2026-01-22T20:21:26Z",
+  "subject": "fix: implement web pull-to-refresh on home screen",
+  "body": "RefreshControl doesn't support pull-to-refresh gestures on web platforms.\nThis adds custom touch event handling to detect pull gestures at the top\nof the scroll view and trigger page refresh on web.\n\n- Add touch event listeners for touchstart/touchmove/touchend on web\n- Track scroll position to detect when user is at top of list\n- Show animated pull indicator with threshold feedback\n- Trigger window.location.reload when threshold is reached\n- Keep native RefreshControl for iOS/Android platforms",
+  "tags": [
+    "feature",
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "implement web pull-to-refresh on home screen",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 153,
+    "deletions": 12
+  },
+  "files": [
+    "app/(app)/home.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

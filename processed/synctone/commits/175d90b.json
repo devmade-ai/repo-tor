@@ -1,0 +1,40 @@
+{
+  "sha": "175d90b",
+  "fullSha": "175d90bdbaf4de5310d2dd7399ac5d2090e2a66e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T20:28:42Z",
+  "commitDate": "2026-01-22T20:28:42Z",
+  "subject": "refactor: move utility buttons to settings modal for compact header",
+  "body": "- Create SettingsModal component with help, notifications, and clear data\n- Replace utility button row with single settings icon (⚙️)\n- Move stats inline with title (X chats · Y active)\n- Keep refresh button visible in header\n- Reduces header height significantly for better mobile UX",
+  "tags": [
+    "refactor",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "move utility buttons to settings modal for compact header",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 188,
+    "deletions": 78
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "components/SettingsModal.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

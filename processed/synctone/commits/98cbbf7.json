@@ -1,0 +1,38 @@
+{
+  "sha": "98cbbf7",
+  "fullSha": "98cbbf74cf0b137915c2d4f98589a6a7d0963905",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T13:28:41Z",
+  "commitDate": "2025-12-29T13:28:41Z",
+  "subject": "chore: triple rate limits for messages and chats",
+  "body": "Adjust rate limits to be less strict:\n- Messages: 10/min → 30/min\n- Chats: 5/hour → 15/hour\n- Reports: 3/hour (unchanged)\n\nRationale: Allow more active conversation and legitimate chat\ncreation while still preventing spam bots and abuse.\n\nError messages already user-friendly:\n\"Rate limit exceeded. Maximum X [action]s allowed per [timeframe].\nPlease wait before trying again.\"",
+  "tags": [
+    "config"
+  ],
+  "complexity": 1,
+  "scope": null,
+  "title": "triple rate limits for messages and chats",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 7,
+    "deletions": 6
+  },
+  "files": [
+    "CLAUDE.md",
+    "services/rateLimit.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

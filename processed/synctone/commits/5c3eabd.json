@@ -1,0 +1,46 @@
+{
+  "sha": "5c3eabd",
+  "fullSha": "5c3eabdad58adc8404c347c6da7cd059c32592ab",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T23:11:34Z",
+  "commitDate": "2026-01-22T23:11:34Z",
+  "subject": "refactor: implement rose gold metallic theme with refined UI",
+  "body": "Visual Refinements:\n- Updated theme palette to sophisticated rose gold/champagne metallic\n- Primary color: #C9A57B (rose gold) with bronze accents\n- Semantic colors: emerald success, softer rose error, amber warning\n- All colors have warm metallic tints for cohesive aesthetic\n\nUI Improvements:\n- Reduced glass blur from 20px to 12px (less overwhelming)\n- Softened create button shadow (height 6→4, opacity 0.4→0.3)\n- Fixed button contrast (dark text on light gradient)\n- Softened delete button (15% opacity bg + subtle border vs harsh red)\n- Increased background pattern visibility (8-15% opacity)\n- Applied ChatBackground to all screens (create, join, chat)\n\nTutorial Updates:\n- Removed emoji icons for cleaner look\n- Updated button names (\"New Chat\" → \"Create Chat\")\n- Simplified notification instructions\n- Updated tone color descriptions to match metallic theme\n- Modernized language throughout\n\nThe theme now feels classy, premium, and sophisticated while maintaining\nthe deep dark aesthetic with subtle metallic shimmer.",
+  "tags": [
+    "refactor",
+    "ui",
+    "enhancement"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "implement rose gold metallic theme with refined UI",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 155,
+    "deletions": 145
+  },
+  "files": [
+    "app/(app)/create.tsx",
+    "app/(app)/home.tsx",
+    "app/(app)/join/[code].tsx",
+    "app/(app)/join/index.tsx",
+    "components/ChatBackground.tsx",
+    "components/ChatListItem.tsx",
+    "constants/tutorial.ts",
+    "styles/theme.js"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

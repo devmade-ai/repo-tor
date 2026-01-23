@@ -1,0 +1,43 @@
+{
+  "sha": "54addff",
+  "fullSha": "54addff0f97969d0ee7fae2759f2544f5b2c17ca",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T22:14:20Z",
+  "commitDate": "2025-12-29T22:14:20Z",
+  "subject": "enhance: fine-tune scroll behavior and gesture handling on mobile web",
+  "body": "Improve mobile web UX with better gesture discrimination, visual feedback, and smoother scroll physics.\n\nChanges:\n- Implement angle-based gesture discrimination in MessageBubbleWeb using Math.atan2 to distinguish horizontal swipe (±30°) from vertical scroll (60-120°)\n- Add visual swipe feedback with translateX animation and fade-in reply icon (↩️) during swipe-to-reply gesture\n- Unify swipe threshold to single 60px value for clearer user feedback\n- Add smooth scroll CSS properties to FlatList on web (scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch')\n- Tune onEndReachedThreshold to 0.3 on web for earlier pagination trigger\n- Improve scroll restoration during pagination with double requestAnimationFrame and temporary scrollBehavior override to eliminate jumps\n- Update CLAUDE.md with detailed gesture handling documentation\n- Update docs/TODO.md and docs/HISTORY.md\n\nImpact: Eliminates scroll/swipe conflicts, makes swipe-to-reply discoverable with visual feedback, and creates smoother scrolling experience on mobile web that feels closer to native app quality.",
+  "tags": [
+    "enhancement",
+    "ux",
+    "performance"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "fine-tune scroll behavior and gesture handling on mobile web",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 137,
+    "deletions": 51
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "components/MessageBubble.tsx",
+    "docs/HISTORY.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

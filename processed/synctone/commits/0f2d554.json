@@ -1,0 +1,40 @@
+{
+  "sha": "0f2d554",
+  "fullSha": "0f2d5542dab9f73f2cad896aa40d350bb8eb970c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-23T00:12:19Z",
+  "commitDate": "2026-01-23T00:12:19Z",
+  "subject": "perf: fix chat scrolling lag and improve responsiveness",
+  "body": "- MessageBubble: Use refs instead of state for isSwiping to prevent\n  event listener re-registration on every swipe state change\n- MessageBubble: Wrap components with React.memo to prevent unnecessary\n  re-renders when parent state changes\n- useMessages: Increase polling interval from 5s to 30s (realtime is\n  primary, polling is just a fallback)\n- useMessages: Simplify polling logic and remove excessive console.log\n  statements that add overhead\n- chat/[id]: Simplify onContentSizeChange handler by removing double\n  requestAnimationFrame and direct DOM manipulation for scroll behavior",
+  "tags": [
+    "performance",
+    "refactor"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "fix chat scrolling lag and improve responsiveness",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 85,
+    "deletions": 153
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "components/MessageBubble.tsx",
+    "hooks/useMessages.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

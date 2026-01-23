@@ -29,6 +29,25 @@ Mistakes and oversights made by AI assistants during development. Document these
 
 ---
 
+## 2026-01-23: Merge commits should only have `merge` tag
+
+**What happened:** When analyzing commits, AI added descriptive tags (feature, bugfix, ui) to merge commits based on the PR title/body.
+
+**Why it's a problem:**
+- Merge commits don't contain the actual work - they just combine branches
+- The real commits already have the appropriate tags
+- Adding tags to merges double-counts work in analytics
+
+**What should have happened:**
+- Merge commits get only the `merge` tag
+- Complexity: 1 (merging is trivial)
+- Urgency: 2 (normal)
+- Impact: internal (the merge itself doesn't affect users)
+
+**Current status:** Corrected in current batch, documented for future sessions.
+
+---
+
 ## Template for Future Entries
 
 ```markdown

@@ -1,0 +1,39 @@
+{
+  "sha": "0a20840",
+  "fullSha": "0a20840c58547836586db3c39144c1fd58335dc5",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T19:09:50Z",
+  "commitDate": "2025-12-29T19:09:50Z",
+  "subject": "fix: enable resubscription for mobile web users with browser permission",
+  "body": "Users who granted browser permission but weren't automatically subscribed\nto OneSignal had no way to resubscribe. The OneSignal button only showed\nan error message about Brave browser without attempting subscription.\n\nChanges:\n- Add subscribe to useNotifications() destructured values\n- Update handleOneSignalClick() to prompt user and call subscribe()\n- Show success message on successful subscription\n- Only show Brave error message if subscription attempt fails\n\nImpact: Users can now resubscribe to push notifications by clicking\nthe OneSignal button (📡) without refreshing or re-granting permissions.",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "enable resubscription for mobile web users with browser permission",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 28,
+    "deletions": 3
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "docs/HISTORY.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

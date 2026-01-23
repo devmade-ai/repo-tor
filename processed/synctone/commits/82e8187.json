@@ -1,0 +1,40 @@
+{
+  "sha": "82e8187",
+  "fullSha": "82e8187e65e9e70a07b284d75a2c1afc2e98a732",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T21:15:08Z",
+  "commitDate": "2025-12-29T21:15:08Z",
+  "subject": "Add missing tones and rename sarcastic tone",
+  "body": "Added 3 crucial tones that were missing from the tone system:\n- shy (Feeling) - for timid/self-conscious messages\n- embarrassed (Feeling) - for feeling exposed after mistakes\n- joking (Attitude) - clarifies \"this is meant to be funny\"\n\nRenamed sarcastic to \"(not) sarcastic\" for meta-sarcastic effect.\n\nUpdated documentation:\n- constants/tones.ts: Added new tones with appropriate colors\n- CLAUDE.md: Fixed tone counts (35→37) and corrected Feeling category (removed \"excited\" which was incorrectly listed)\n- README.md: Updated tone counts and lists to match\n\nNew totals: 17 Feeling, 12 Attitude, 8 Energy = 37 total tones",
+  "tags": [
+    "feature",
+    "enhancement"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Add missing tones and rename sarcastic tone",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 10,
+    "deletions": 7
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "constants/tones.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

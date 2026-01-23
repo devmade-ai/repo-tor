@@ -1,0 +1,45 @@
+{
+  "sha": "d42eae7",
+  "fullSha": "d42eae7b595890b85f075951198cb4cd271843e7",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-02T05:25:34Z",
+  "commitDate": "2026-01-02T05:25:34Z",
+  "subject": "Update documentation to reflect current implementation status",
+  "body": "**What Changed:**\n- Updated app.json to use coin-zapp branding (removed template references)\n- Created .env.example with correct environment variable names\n- Rewrote README.md to clearly separate implemented vs planned features\n- Updated docs/HISTORY.md with all 5 commits from git history\n- Added current status sections to docs/TODO.md and docs/Koinz_Setup_Guide.md\n- Added implementation status section to claude.md\n\n**Why:**\n- Documentation was describing the target state as if fully implemented\n- Template artifacts (expo-supabase-starter) needed to be replaced\n- Environment variable naming was inconsistent between code and docs\n- Missing .env.example file that README referenced\n- Needed clear distinction between what exists vs what's planned\n\n**Impact:**\n- Developers can now see actual project status at a glance\n- Setup instructions are accurate and won't cause confusion\n- Documentation links are corrected\n- Git history is properly documented in HISTORY.md\n\n**Files Changed:**\n- app.json: Updated branding and bundle identifiers\n- .env.example: Created with correct variable names\n- README.md: Added status section, fixed structure, corrected links\n- docs/HISTORY.md: Documented all 5 commits with context\n- docs/TODO.md: Added current status overview\n- docs/Koinz_Setup_Guide.md: Added setup progress tracker\n- claude.md: Added implementation status warnings",
+  "tags": [
+    "docs",
+    "config",
+    "env"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Update documentation to reflect current implementation status",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 276,
+    "deletions": 65
+  },
+  "files": [
+    ".env.example",
+    "README.md",
+    "app.json",
+    "claude.md",
+    "docs/HISTORY.md",
+    "docs/Koinz_Setup_Guide.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 2,
+  "impact": "internal"
+}

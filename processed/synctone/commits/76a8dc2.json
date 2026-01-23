@@ -1,0 +1,42 @@
+{
+  "sha": "76a8dc2",
+  "fullSha": "76a8dc2026956857f1739930a2cacdc22c59d365",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T23:32:00Z",
+  "commitDate": "2026-01-21T23:32:00Z",
+  "subject": "refactor: add individual colors for each tone",
+  "body": "Each of the 37 tones now has its own unique color that's a subtle\nvariation within its category family:\n\n- Feeling: pink/coral/rose variations (happy=#FF7EB3, sad=#C490A8, etc.)\n- Attitude: teal/cyan/mint variations (playful=#5CD9D0, serious=#5BA8A8)\n- Energy: orange/gold/amber variations (calm=#E8C878, excited=#FFB060)\n\nCategory base colors preserved for header indicators via CATEGORY_COLORS.\nThis makes messages more visually interesting while maintaining cohesion.",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "add individual colors for each tone",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#5"
+  ],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 68,
+    "deletions": 56
+  },
+  "files": [
+    "components/ToneSelector.tsx",
+    "constants/tones.ts",
+    "docs/HISTORY.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,45 @@
+{
+  "sha": "cc99118",
+  "fullSha": "cc9911835cb90cc7a7d0104767e6da2c4eff26a2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T23:36:27Z",
+  "commitDate": "2026-01-21T23:36:27Z",
+  "subject": "refactor: use semantic tone colors and remove categories",
+  "body": "Each tone now has a semantically meaningful color:\n- happy: golden yellow (#FFD93D) - joy\n- sad: soft blue (#6B9BD1) - sadness\n- angry: red (#E85A5A) - anger\n- calm: soft teal (#7DC9C0) - peaceful\n- excited: bright orange (#FFB060) - energetic\n...and so on for all 37 tones\n\nRemoved tone categories (Feeling/Attitude/Energy) from UI:\n- Simplified Tone interface (removed category property)\n- ToneSelector shows flat list: \"Most Used\" + \"All Tones\"\n- No more category indicator dots or section headers\n- Cleaner, less cluttered interface",
+  "tags": [
+    "refactor",
+    "ui",
+    "simplify"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "use semantic tone colors and remove categories",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#6",
+    "#7"
+  ],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 118,
+    "deletions": 183
+  },
+  "files": [
+    "CLAUDE.md",
+    "components/ToneSelector.tsx",
+    "constants/tones.ts",
+    "docs/HISTORY.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

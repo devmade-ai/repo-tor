@@ -1,0 +1,39 @@
+{
+  "sha": "3d48390",
+  "fullSha": "3d483906a48590e1f01cf87dcbf11a844af652f7",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-30T11:13:54Z",
+  "commitDate": "2025-12-30T11:13:54Z",
+  "subject": "fix: properly center delete button and prevent overlap on mobile web chat list",
+  "body": "- Changed delete button positioning from top-1/2 -mt-4 to top-1/2 -translate-y-1/2 for proper CSS transform centering\n- Removed inline text padding adjustments (marginTop, marginLeft) that interfered with positioning\n- Added pr-12 padding to content area on web to prevent overlap with \"Waiting...\" badge and status indicators\n\nFixes vertical centering issue and badge overlap on mobile web home screen.",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "properly center delete button and prevent overlap on mobile web chat list",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 22,
+    "deletions": 3
+  },
+  "files": [
+    "components/ChatListItem.tsx",
+    "docs/HISTORY.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

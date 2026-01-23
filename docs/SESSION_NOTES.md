@@ -116,11 +116,11 @@ const TAB_MAPPING = {
 | repo-tor | Complete | 250 |
 | social-ad-creator | Complete | 184 |
 | model-pear | Complete | 318 |
-| coin-zapp | In Progress | 75/81 (1 batch remaining) |
-| synctone | Pending | 0/288 (12 batches) |
+| coin-zapp | Complete | 81 |
+| synctone | In Progress | 100/288 (8 batches remaining) |
 
-**Total Processed:** 869 commits
-**Remaining:** 6 (coin-zapp) + 288 (synctone) = 294 commits
+**Total Processed:** 975 commits
+**Remaining:** 188 (synctone batches 5-12)
 
 ### Storage Migration
 
@@ -136,4 +136,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-23 - AI analysis in progress: 131 new commits processed (social-ad-creator, repo-tor, coin-zapp partial)*
+*Last updated: 2026-01-23 - AI analysis in progress: coin-zapp complete, synctone 100/288 (batches 1-4 done, 5-12 remaining)*

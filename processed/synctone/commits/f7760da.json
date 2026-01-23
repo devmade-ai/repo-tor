@@ -1,0 +1,56 @@
+{
+  "sha": "f7760da",
+  "fullSha": "f7760da40bf74302ed51543ac4b456224932a8eb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T20:44:28Z",
+  "commitDate": "2026-01-21T20:44:28Z",
+  "subject": "fix: improve tone tag contrast and theme color consistency",
+  "body": "- Fix tone tags being same color as own message bubbles by using\n  semi-transparent white styling for contrast on blue backgrounds\n- Standardize modal backdrops to rgba(0,0,0,0.8) per Koinz style guide\n- Update layout background to use theme.colors.background\n- Fix placeholder colors to use textSecondary (#767676)\n- Convert TutorialModal to use theme colors\n- Replace hardcoded text-white/border-white with text-text/border-text\n- Update documentation with new tone tag styling approach",
+  "tags": [
+    "bugfix",
+    "ui",
+    "refactor"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "improve tone tag contrast and theme color consistency",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#767676"
+  ],
+  "stats": {
+    "filesChanged": 16,
+    "additions": 88,
+    "deletions": 55
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/_layout.tsx",
+    "app/(app)/create.tsx",
+    "app/(app)/join/[code].tsx",
+    "app/(app)/join/index.tsx",
+    "components/ComposeBar.tsx",
+    "components/MessageActionSheet.tsx",
+    "components/MessageBubble.tsx",
+    "components/MessageInfoModal.tsx",
+    "components/ReactionBar.tsx",
+    "components/ReactionPicker.tsx",
+    "components/ReportMessageModal.tsx",
+    "components/Toast.tsx",
+    "components/ToneSelector.tsx",
+    "components/TutorialModal.tsx",
+    "docs/HISTORY.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

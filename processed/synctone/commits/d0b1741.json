@@ -1,0 +1,57 @@
+{
+  "sha": "d0b1741",
+  "fullSha": "d0b1741c18c4612ef17e438160e4ec3d3e512698",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T20:15:48Z",
+  "commitDate": "2026-01-21T20:15:48Z",
+  "subject": "refactor: implement Koinz style guide across entire app",
+  "body": "- Migrate color palette to Koinz standards:\n  - Background: #121212 → #1B1B1B\n  - Card/Elevated: #1E1E1E → #2a2a2a\n  - Primary: #3D5AFE → #2D68FF\n  - Border: #404040 → #333333\n\n- Simplify accent colors: Remove Ruby/Emerald jewel tones,\n  unify on single primary blue (#2D68FF)\n\n- Add Figtree font via Google Fonts with proper fallbacks\n\n- Unify all 37 tone tag colors to primary blue\n\n- Add Koinz CSS variables and typography utility classes\n  (text-heading-1 through text-caption)\n\n- Update all ActivityIndicator and shadow colors across app\n\nFiles changed: theme.js, tailwind.config.js, global.css,\ntones.ts, CLAUDE.md, and all app screens/components",
+  "tags": [
+    "refactor",
+    "ui",
+    "config"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "implement Koinz style guide across entire app",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#121212",
+    "#1",
+    "#2",
+    "#3",
+    "#404040",
+    "#333333"
+  ],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 373,
+    "deletions": 160
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/create.tsx",
+    "app/(app)/home.tsx",
+    "app/(app)/join/[code].tsx",
+    "app/_layout.tsx",
+    "components/ChatListItem.tsx",
+    "constants/tones.ts",
+    "docs/HISTORY.md",
+    "global.css",
+    "styles/theme.js",
+    "tailwind.config.js"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,61 @@
+{
+  "sha": "4067185",
+  "fullSha": "40671858bd91ee1bee9d175196c21c199b400104",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-04T14:05:22Z",
+  "commitDate": "2026-01-04T14:05:22Z",
+  "subject": "feat: migrate to three-color light theme from dark theme",
+  "body": "Replace the dark SeaBlueCherry theme with a modern light theme featuring clean white backgrounds and three vibrant accent colors (Blue, Cherry, Teal).\n\n**Theme Changes:**\n- Background: Pure white (#FFFFFF) for main surfaces, light gray (#F8F9FA) for elevated elements\n- Primary Blue (#055EBA): Main accent for buttons, links, primary actions\n  - Added light tint (#E8F2FC) and border (#B3D9FF) variants\n- Secondary Cherry (#BA055F): Magenta-pink for highlights and CTAs\n  - Added light tint (#FCE8F2) and border (#FFB3D9) variants\n- Accent Teal (#058B88): Tertiary accent color\n  - Added light tint (#E8F7F7) and border (#99E6E5) variants\n- Text: Dark gray (#1A1A1A) for primary, medium gray (#666666) for secondary, light gray (#999999) for tertiary/placeholders\n\n**Component Updates:**\n- Message bubbles: White text on blue backgrounds (own messages), dark text on light gray backgrounds (other messages)\n- Chat background: Subtle light gray dot pattern (3% opacity) instead of blue\n- Placeholder text: Updated from #A0B0D0 to #999999 (appropriate for light backgrounds)\n- Read receipts: White checkmarks on blue message bubbles\n- Activity indicators: Updated colors (#BA055F for chat, #058B88 for loading states)\n- Deleted message tombstones: Light gray background\n- Reply references: Light blue tinted background\n- All borders: Light gray (#E0E0E0)\n\n**Documentation:**\n- CLAUDE.md: Completely rewrote Theme & Colors section with new palette details\n- Tutorial: Updated read receipt description from \"blue ✓✓\" to \"white ✓✓\"\n- Comments: Removed \"SeaBlueCherry\" references, simplified to \"Blue/Cherry/Teal accent\"\n\n**Why This Change:**\n- Modern light theme provides better readability and less eye strain\n- Three vibrant colors create visual hierarchy and brand identity\n- Clean white backgrounds make content stand out\n- Better alignment with contemporary design trends (Material Design 3, iOS design)",
+  "tags": [
+    "feature",
+    "ui",
+    "refactor"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "migrate to three-color light theme from dark theme",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#055",
+    "#058",
+    "#99",
+    "#1",
+    "#666666",
+    "#999999"
+  ],
+  "stats": {
+    "filesChanged": 16,
+    "additions": 110,
+    "deletions": 57
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/_layout.tsx",
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/create.tsx",
+    "app/(app)/home.tsx",
+    "app/(app)/join/[code].tsx",
+    "app/(app)/join/index.tsx",
+    "app/_layout.tsx",
+    "components/ChatListItem.tsx",
+    "components/ComposeBar.tsx",
+    "components/MessageBubble.tsx",
+    "components/ReplyReference.tsx",
+    "components/ReportMessageModal.tsx",
+    "constants/tutorial.ts",
+    "styles/theme.js",
+    "tailwind.config.js"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

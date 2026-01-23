@@ -1,0 +1,47 @@
+{
+  "sha": "dfcaf1b",
+  "fullSha": "dfcaf1be7caf794b06817bb3c406ca183941a657",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-30T06:03:55Z",
+  "commitDate": "2025-12-30T06:03:55Z",
+  "subject": "feat: implement join chat link share functionality with deep linking support",
+  "body": "- Add utils/sharing.ts with generateChatJoinLink() and shareChatLink()\n- Update create.tsx with \"Share Link\" button (primary) and \"Copy Code\" (secondary)\n- Add dynamic route app/(app)/join/[code].tsx for link-based joining\n- Move join.tsx to join/index.tsx to support nested routing\n- Add deep link handler in app/_layout.tsx using expo-linking\n- Support both web URLs (https://synctone.vercel.app/join/{code}) and native URLs (myapp://join/{code})\n- Update CLAUDE.md and README.md with link sharing documentation\n- Update docs/TODO.md and docs/HISTORY.md\n\nUsers can now share chat invites via SMS, WhatsApp, email, or any app with a single tap.\nRecipients click the link and join without typing codes. Links work universally across\nweb and native platforms with deep linking support for seamless native app experience.",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "implement join chat link share functionality with deep linking support",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 466,
+    "deletions": 16
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "app/(app)/_layout.tsx",
+    "app/(app)/create.tsx",
+    "app/(app)/join/[code].tsx",
+    "app/(app)/join/index.tsx",
+    "app/_layout.tsx",
+    "docs/HISTORY.md",
+    "docs/TODO.md",
+    "utils/sharing.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

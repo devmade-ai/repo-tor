@@ -1,0 +1,46 @@
+{
+  "sha": "518625e",
+  "fullSha": "518625e8980b3a5ee88156e28a3446b4b980aa6e",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T20:50:02Z",
+  "commitDate": "2025-12-29T20:50:47Z",
+  "subject": "enhance: update dark theme with saturated blue backgrounds and chat texture",
+  "body": "- Increase background color saturation to match primary blue hue (#055EBA)\n  - background: #0A1221 → #040E15 (HSL: 210°, 70%, 8%)\n  - backgroundElevated: #121A2E → #0A1521 (HSL: 210°, 65%, 12%)\n\n- Add subtle dot grid texture to chat background\n  - Uses radial-gradient with primary blue at 8% opacity\n  - 24px spacing for non-distracting visual depth\n\n- Update CLAUDE.md with Theme & Colors section documenting SeaBlueCherry theme",
+  "tags": [
+    "enhancement",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "update dark theme with saturated blue backgrounds and chat texture",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#055",
+    "#0",
+    "#040",
+    "#121"
+  ],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 42,
+    "deletions": 3
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "docs/HISTORY.md",
+    "styles/theme.js"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

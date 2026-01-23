@@ -1,0 +1,47 @@
+{
+  "sha": "d3746a9",
+  "fullSha": "d3746a976fc784b16a6d6f2d312736dd05e0c5db",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T13:23:37Z",
+  "commitDate": "2025-12-29T13:23:37Z",
+  "subject": "feat: implement comprehensive spam and bot prevention system",
+  "body": "Add multi-layer spam prevention to protect against abuse and bot attacks:\n\n**Layer 1: Database Constraints**\n- Add message length limit (10,000 chars max)\n- Add performance indexes for rate limit queries\n\n**Layer 2: Database Rate Limiting**\n- Add check_rate_limit() SECURITY DEFINER function\n- Enforce limits at database level (cannot be circumvented)\n- User-friendly error messages\n\n**Layer 3: Application Rate Limits**\n- Messages: 10 per minute\n- Chats: 5 per hour\n- Reports: 3 per hour\n- Add rateLimit.ts service with checkRateLimit() and config\n- Update sendMessage(), createChat(), reportMessage() to check limits\n\n**Layer 4: Auto-Flagging System**\n- Add spam_flags table for moderation queue\n- Rapid-fire detection: 10+ messages in 10 seconds\n- Identical message detection: 3+ identical in 1 minute\n- Multiple reports: 3+ reports against user\n- Database triggers auto-flag suspicious behavior\n\n**Layer 5: Edge Function Protection**\n- Add honeypot validation (UUID format check)\n- Remove stack traces from error responses\n- Improve security for send-notification function\n\nFiles changed:\n- supabase/migrations/20251229000000_add_spam_prevention_constraints.sql\n- supabase/migrations/20251229000001_add_rate_limit_function.sql\n- supabase/migrations/20251229000002_add_auto_flagging_system.sql\n- services/rateLimit.ts (new)\n- services/messages.ts\n- services/chat.ts\n- services/reports.ts\n- supabase/functions/send-notification/index.ts\n- CLAUDE.md (documentation updated)",
+  "tags": [
+    "feature",
+    "security",
+    "database"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "implement comprehensive spam and bot prevention system",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 502,
+    "deletions": 2
+  },
+  "files": [
+    "CLAUDE.md",
+    "services/chat.ts",
+    "services/messages.ts",
+    "services/rateLimit.ts",
+    "services/reports.ts",
+    "supabase/functions/send-notification/index.ts",
+    "supabase/migrations/20251229000000_add_spam_prevention_constraints.sql",
+    "supabase/migrations/20251229000001_add_rate_limit_function.sql",
+    "supabase/migrations/20251229000002_add_auto_flagging_system.sql"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

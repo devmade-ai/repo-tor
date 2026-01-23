@@ -1,0 +1,47 @@
+{
+  "sha": "f645e4a",
+  "fullSha": "f645e4a204eac6e3346bc17615c681de662672b2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-23T06:37:16Z",
+  "commitDate": "2026-01-23T06:37:16Z",
+  "subject": "feat: implement side-by-side layout for web-desktop",
+  "body": "- Add activeChatId to Zustand store for desktop state management\n- Create DesktopLayout.tsx with DesktopSidebar and DesktopEmptyPanel\n- Create ChatPanel.tsx for desktop-specific chat view\n- Modify app layout to conditionally render desktop or mobile layouts\n- Update ChatListItem with compact and isActive props for sidebar mode\n- Update create.tsx and join/index.tsx with modal mode support\n- Layout: 300px sidebar with chat list, flex-1 chat panel\n- Create/Join screens open as centered modals on desktop\n- Dynamic layout switching on window resize\n\nhttps://claude.ai/code/session_01YGB16oxn4baboeu1NXVvDA",
+  "tags": [
+    "feature",
+    "ui",
+    "refactor"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "implement side-by-side layout for web-desktop",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 1156,
+    "deletions": 24
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/_layout.tsx",
+    "app/(app)/create.tsx",
+    "app/(app)/join/index.tsx",
+    "components/ChatListItem.tsx",
+    "components/ChatPanel.tsx",
+    "components/DesktopLayout.tsx",
+    "docs/HISTORY.md",
+    "stores/appStore.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

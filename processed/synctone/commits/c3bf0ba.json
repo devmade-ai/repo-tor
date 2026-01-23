@@ -1,0 +1,49 @@
+{
+  "sha": "c3bf0ba",
+  "fullSha": "c3bf0ba73cc9e1efb7e2409e31f22f871c9f77cd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T21:56:33Z",
+  "commitDate": "2026-01-21T21:56:33Z",
+  "subject": "refactor: replace hardcoded colors with theme references",
+  "body": "Replace all hardcoded color values (#767676, #2D68FF, #EF4444) with\nimports from styles/theme.js to ensure consistent theming:\n\n- placeholderTextColor now uses theme.colors.textSecondary\n- ActivityIndicator and RefreshControl colors use theme.colors.primary\n- shadowColor uses theme.colors.primary or theme.colors.error\n- Remove redundant '// Primary blue' comments",
+  "tags": [
+    "refactor",
+    "style"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "replace hardcoded colors with theme references",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#767676",
+    "#2"
+  ],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 27,
+    "deletions": 25
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/create.tsx",
+    "app/(app)/home.tsx",
+    "app/(app)/join/[code].tsx",
+    "app/(app)/join/index.tsx",
+    "app/_layout.tsx",
+    "components/ChatListItem.tsx",
+    "components/ComposeBar.tsx",
+    "components/ReportMessageModal.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,39 @@
+{
+  "sha": "0e0abe7",
+  "fullSha": "0e0abe77f5d8dfadc80899d8a75b742d966a2107",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-23T00:29:30Z",
+  "commitDate": "2026-01-23T00:29:30Z",
+  "subject": "fix: improve chat scroll responsiveness and pagination on web",
+  "body": "- Remove scrollBehavior: 'smooth' which caused touch input delay\n- Simplify scroll position restoration logic for pagination\n- Use double requestAnimationFrame for reliable scroll restoration\n- Only auto-scroll to new messages when user is near bottom\n- Set wasLoadingMore flag before loading to track pagination state",
+  "tags": [
+    "bugfix",
+    "performance",
+    "ux"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "improve chat scroll responsiveness and pagination on web",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 32,
+    "deletions": 92
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}
