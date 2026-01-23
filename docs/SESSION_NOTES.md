@@ -113,11 +113,14 @@ const TAB_MAPPING = {
 | Repo | Status | Commits |
 |------|--------|---------|
 | chatty-chart | Complete | 42 |
-| repo-tor | Complete | 220 |
-| social-ad-creator | Complete | 183 |
+| repo-tor | Complete | 250 |
+| social-ad-creator | Complete | 184 |
 | model-pear | Complete | 318 |
+| coin-zapp | In Progress | 75/81 (1 batch remaining) |
+| synctone | Pending | 0/288 (12 batches) |
 
-**Total:** 763 commits (65 previously malformed commits fixed via `fix-malformed.js`)
+**Total Processed:** 869 commits
+**Remaining:** 6 (coin-zapp) + 288 (synctone) = 294 commits
 
 ### Storage Migration
 
@@ -133,4 +136,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-22 - Added .env support for GH_TOKEN authentication in AI sessions*
+*Last updated: 2026-01-23 - AI analysis in progress: 131 new commits processed (social-ad-creator, repo-tor, coin-zapp partial)*
