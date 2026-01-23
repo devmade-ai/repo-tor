@@ -1,0 +1,55 @@
+{
+  "sha": "7ba1387",
+  "fullSha": "7ba1387460a90dfc6ea84a660ee4a0accf52ec81",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-14T13:04:54Z",
+  "commitDate": "2026-01-14T13:04:54Z",
+  "subject": "Migrate auth from Supabase to Firebase + fix TypeScript errors",
+  "body": "Auth Migration:\n- Add Firebase SDK and client config (src/lib/firebase.ts)\n- Create FirebaseAuthManager implementing IAuthManager interface\n- Update User store to use FirebaseAuthManager\n- Update AuthCallback for Firebase redirect handling\n- Update device API for Firestore persistence\n- Remove Supabase client, auth manager, and dependencies\n- Update .env with Firebase configuration\n\nTypeScript Fixes:\n- Add missing amount/destAddress to TYPED_MESSAGE transactions\n- Fix BackupDialog Date constructor with undefined fallback\n- Remove 15 unused @ts-expect-error directives across stores\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "migration",
+    "auth"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "Migrate auth from Supabase to Firebase + fix TypeScript errors",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 18,
+    "additions": 851,
+    "deletions": 317
+  },
+  "files": [
+    "docs/IMPLEMENTATION_PLAN.md",
+    "docs/SESSION_NOTES.md",
+    "package.json",
+    "src/api-embedded-wallet/device.embedded.api.ts",
+    "src/auth/FirebaseAuthManager.ts",
+    "src/auth/SupabaseAuthManager.ts",
+    "src/auth/index.ts",
+    "src/lib/firebase.ts",
+    "src/lib/supabase.ts",
+    "src/pages/Assets/NewTransactionDialog/NewTransactionDialog.tsx",
+    "src/pages/AuthCallback/AuthCallback.tsx",
+    "src/pages/Settings/Dialogs/BackupDialog.tsx",
+    "src/store/Assets.store.ts",
+    "src/store/Backup.store.ts",
+    "src/store/Transaction.store.ts",
+    "src/store/Transactions.store.ts",
+    "src/store/User.store.ts",
+    "yarn.lock"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

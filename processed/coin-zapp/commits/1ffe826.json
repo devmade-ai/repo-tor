@@ -1,0 +1,39 @@
+{
+  "sha": "1ffe826",
+  "fullSha": "1ffe826dd4c3d75f7d7506ddb2e5499ac8265f07",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-12T13:00:50Z",
+  "commitDate": "2026-01-12T13:00:50Z",
+  "subject": "Fix dev server to auto-restart on port conflict",
+  "body": "- Add strictPort to vite.config.ts to fail instead of finding new port\n- Update yarn dev to kill existing vite processes before starting\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 1,
+  "scope": null,
+  "title": "Fix dev server to auto-restart on port conflict",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 3,
+    "deletions": 1
+  },
+  "files": [
+    "package.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 2,
+  "impact": "internal"
+}

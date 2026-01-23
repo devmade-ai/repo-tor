@@ -1,0 +1,48 @@
+{
+  "sha": "41e73ac",
+  "fullSha": "41e73ac866057a30663d63e26b369d8e29fb9bc1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-14T12:05:27Z",
+  "commitDate": "2026-01-14T12:05:27Z",
+  "subject": "Switch from Supabase to Firebase Auth (RS256 requirement)",
+  "body": "Fireblocks NCW OAuth requires RS256 JWT signing, but Supabase uses ES256\nwhich is fundamentally incompatible. Updated all documentation to reflect\nFirebase Auth as the chosen provider.\n\n- Update CLAUDE.md with Firebase config and OAuth settings\n- Add AI_MISTAKES.md to document the Supabase/Fireblocks incompatibility\n- Update USER_ACTIONS.md with Firebase migration checklist\n- Update SESSION_NOTES.md with current status\n- Add debugging logs and fix initialization order in App.tsx and stores\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "migration",
+    "auth",
+    "docs"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Switch from Supabase to Firebase Auth (RS256 requirement)",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 340,
+    "deletions": 83
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "src/App.tsx",
+    "src/api-embedded-wallet/assets.embedded.api.ts",
+    "src/store/Accounts.store.ts",
+    "src/store/Assets.store.ts",
+    "src/store/Auth.store.ts",
+    "src/store/FireblocksSDK.store.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,44 @@
+{
+  "sha": "c6020ca",
+  "fullSha": "c6020ca95ea1fc26c530b0a0fcc0b8825bb2b9d3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T12:59:18Z",
+  "commitDate": "2026-01-19T12:59:18Z",
+  "subject": "Add purchase, sell, and orders UI for Phase 3 trading",
+  "body": "- PurchaseDialog: Two-step buy flow (ZAR amount → banking details with reference)\n- SellDialog: Three-step sell flow (token amount → bank details → confirmation)\n- OrdersList: Shows pending orders with status badges on Funds page\n- All translations added for new components\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add purchase, sell, and orders UI for Phase 3 trading",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 962,
+    "deletions": 29
+  },
+  "files": [
+    "docs/IMPLEMENTATION_PLAN.md",
+    "docs/SESSION_NOTES.md",
+    "src/pages/Funds/FundsPage.tsx",
+    "src/pages/Funds/OrdersList.tsx",
+    "src/pages/Funds/PurchaseDialog.tsx",
+    "src/pages/Funds/SellDialog.tsx",
+    "src/translation/en.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 1,
+  "impact": "user-facing"
+}

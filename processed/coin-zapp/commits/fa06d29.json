@@ -1,0 +1,43 @@
+{
+  "sha": "fa06d29",
+  "fullSha": "fa06d2982495bd5d73d25e769aede321f92385c0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-11T20:40:44Z",
+  "commitDate": "2026-01-11T20:40:44Z",
+  "subject": "Add NCW API Edge Function and database schema",
+  "body": "- Create ncw-api Edge Function handling all Fireblocks NCW endpoints\n  (login, device assignment, RPC, accounts, assets, transactions)\n- Add database migration for user_wallets and user_devices tables with RLS\n- Update .env.example with Supabase Edge Functions URL pattern\n- Document deployment steps in USER_ACTIONS.md\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "feature",
+    "api",
+    "database"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add NCW API Edge Function and database schema",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 464,
+    "deletions": 18
+  },
+  "files": [
+    ".env.example",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "supabase/functions/ncw-api/index.ts",
+    "supabase/migrations/20260111000000_user_wallets.sql"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

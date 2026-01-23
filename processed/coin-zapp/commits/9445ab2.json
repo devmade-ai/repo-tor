@@ -1,0 +1,45 @@
+{
+  "sha": "9445ab2",
+  "fullSha": "9445ab2db75a1de90d79627ac46cc5c5fac77ea8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-16T09:44:42Z",
+  "commitDate": "2026-01-16T09:44:42Z",
+  "subject": "Fix MPC key generation order and post-login navigation",
+  "body": "MPC Key Generation:\n- Fixed \"Device setup is incomplete\" error by calling initEmbeddedWalletCore\n  BEFORE assignWallet in Auth.store.ts\n- SDK requires deviceId via initializeCore before wallet operations\n- Fixed premature getMyDevices() call for new users in FireblocksSDK.store\n\nPost-Login Navigation:\n- AuthCallback now checks for deviceId before deciding route\n- New users (no deviceId) go directly to /login showing GetStarted\n- Existing users (has deviceId) go to dashboard\n- Fixed LoginPage using wrong redirect function (was for loaders, not components)\n- Disabled unused NEEDS_RECOVERY status check to fix TypeScript error\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "auth"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Fix MPC key generation order and post-login navigation",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 96,
+    "deletions": 127
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "src/App.tsx",
+    "src/api-embedded-wallet/device.embedded.api.ts",
+    "src/auth/FirebaseAuthManager.ts",
+    "src/pages/AuthCallback/AuthCallback.tsx",
+    "src/pages/Login/LoginPage.tsx",
+    "src/store/Auth.store.ts",
+    "src/store/FireblocksSDK.store.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 3,
+  "impact": "user-facing"
+}

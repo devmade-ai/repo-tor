@@ -1,0 +1,40 @@
+{
+  "sha": "64e2c14",
+  "fullSha": "64e2c145799912cd8d496bd6c6be6a7333036ecc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T00:29:42Z",
+  "commitDate": "2026-01-22T00:29:42Z",
+  "subject": "fix: re-render Overview tab on tab switch to prevent stale data",
+  "body": "When switching between tabs, the Overview tab's Executive Summary was not\nbeing re-rendered, which could cause stale data to display if filters or\nthe compare period were changed while viewing another tab.\n\n- Add renderSummary() call when switching to Overview tab\n- Update extraction counts (now 763 commits across 4 repos)\n\nhttps://claude.ai/code/session_01GTJnfM2q8ybazZtZ1Y54fg",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "re-render Overview tab on tab switch to prevent stale data",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 27,
+    "deletions": 9
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,39 @@
+{
+  "sha": "fad2382",
+  "fullSha": "fad2382ea83c628ed78983dc15e5e3568149cc9d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-14T12:08:34Z",
+  "commitDate": "2026-01-14T12:08:34Z",
+  "subject": "Fix Fireblocks SDK environment: sandbox → production",
+  "body": "The workspace is on console.fireblocks.io (US Production console) with a\nTestnet workspace - not the separate sandbox.fireblocks.io environment.\n\n- Update VITE_NCW_SDK_ENV to production in docs and .env.example\n- Update .env.example to use Firebase config instead of Supabase\n- Add clarifying comments about sandbox vs production\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix Fireblocks SDK environment: sandbox → production",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 14,
+    "deletions": 17
+  },
+  "files": [
+    ".env.example",
+    "CLAUDE.md"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,47 @@
+{
+  "sha": "28c7a06",
+  "fullSha": "28c7a06110fa141f04773ca2c582d138cb0d5470",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T21:50:09Z",
+  "commitDate": "2026-01-22T21:50:09Z",
+  "subject": "feat: add .env file support for GH_TOKEN authentication",
+  "body": "Enable API extraction to work in AI sessions and non-interactive\nenvironments by supporting GH_TOKEN via .env file.\n\nChanges:\n- Add .env.example template with GH_TOKEN configuration\n- Update extract-api.js to load .env and use GH_TOKEN\n- Update setup-gh.sh with --save-env flag and .env support\n- Add .env to .gitignore (secrets shouldn't be committed)\n\nAuthentication priority:\n1. GH_TOKEN environment variable\n2. .env file in project root\n3. gh auth login (interactive)\n\nThis enables AI assistants to use API extraction by simply creating\na .env file with their GitHub token.",
+  "tags": [
+    "feature",
+    "config",
+    "auth",
+    "env"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "add .env file support for GH_TOKEN authentication",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 335,
+    "deletions": 76
+  },
+  "files": [
+    ".env.example",
+    ".gitignore",
+    "docs/ADMIN_GUIDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "scripts/extract-api.js",
+    "scripts/setup-gh.sh"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

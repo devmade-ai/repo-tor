@@ -1,0 +1,42 @@
+{
+  "sha": "4b08457",
+  "fullSha": "4b08457fafa3d7fee0066e8ec643ed8cef6427e1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T15:05:59Z",
+  "commitDate": "2026-01-19T15:05:59Z",
+  "subject": "Fix NaN display in holdings and document Unum funds",
+  "body": "- Fix \"R NaN\" in Your Holdings by adding defensive checks in totalHoldingsValueZAR\n- Add validation in Unum service for price parsing (getLatestPrice, getPricingHistory)\n- Document all 6 Unum funds and DLS code mappings in DISCOVERY_ANALYSIS.md\n- Note that KZAR is a custom Fireblocks token, not a Unum fund\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "validation",
+    "docs"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix NaN display in holdings and document Unum funds",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 77,
+    "deletions": 24
+  },
+  "files": [
+    "docs/DISCOVERY_ANALYSIS.md",
+    "docs/SESSION_NOTES.md",
+    "src/services/Unum.service.ts",
+    "src/store/Funds.store.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 3,
+  "impact": "user-facing"
+}

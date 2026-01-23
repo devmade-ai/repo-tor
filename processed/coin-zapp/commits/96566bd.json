@@ -1,0 +1,57 @@
+{
+  "sha": "96566bd",
+  "fullSha": "96566bd19ec7336184a1483f1e647a38089e9d45",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-15T13:35:09Z",
+  "commitDate": "2026-01-15T13:35:09Z",
+  "subject": "Add session lock, new browser recovery flow, fix API spam",
+  "body": "Security & Session Management:\n- Add 5-minute inactivity timeout with session lock\n- Password creation mandatory during first-time setup\n- Activity timestamp persisted to localStorage (survives refresh)\n- Session unlock verifies against PBKDF2 hash\n\nNew Browser Recovery:\n- WalletSetupDialog offers recover/create choice\n- Fixes bug where new browser created new wallet silently\n\nAPI Spam Fix:\n- Removed premature listenToTransactions() from initEmbeddedWalletCore()\n- Polling now starts in Auth.store.ts after isMPCReady is true\n\nDead Code Cleanup:\n- Removed unused NFT/Web3 API files\n\nDocs:\n- Updated USER_FLOWS.md with Security & Session section\n- Aligned IMPLEMENTATION_PLAN.md with new flow structure\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "feature",
+    "security",
+    "bugfix"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add session lock, new browser recovery flow, fix API spam",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 19,
+    "additions": 1291,
+    "deletions": 409
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/IMPLEMENTATION_PLAN.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_FLOWS.md",
+    "src/App.tsx",
+    "src/api-embedded-wallet/index.ts",
+    "src/api-embedded-wallet/nft.embedded.api.ts",
+    "src/api-embedded-wallet/web3.embedded.api.ts",
+    "src/foundation/Dialog.tsx",
+    "src/pages/common/Dialogs/PinEntryDialog.tsx",
+    "src/pages/common/Dialogs/WalletSetupDialog.tsx",
+    "src/pages/index.ts",
+    "src/services/PinEntry.service.ts",
+    "src/services/SessionLock.service.ts",
+    "src/services/index.ts",
+    "src/store/Auth.store.ts",
+    "src/store/FireblocksSDK.store.ts",
+    "src/store/User.store.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 2,
+  "impact": "user-facing"
+}

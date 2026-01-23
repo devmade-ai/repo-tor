@@ -1,0 +1,42 @@
+{
+  "sha": "c773b8d",
+  "fullSha": "c773b8dcf835e5797d6384221e5756072f047b2f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T00:38:53Z",
+  "commitDate": "2026-01-22T00:38:53Z",
+  "subject": "fix: skip malformed commits and add defensive null checks",
+  "body": "Dashboard was breaking because 65 processed commits were missing required\nfields (timestamp, author_id). JavaScript errors halted execution before\nthe compare dropdown event listener was attached.\n\nChanges:\n- aggregate-processed.js: Add validateCommit() to skip incomplete commits\n- dashboard/index.html: Add null guard in getWorkPattern() for timestamps\n- dashboard/index.html: Add renderSummary() on Overview tab switch\n\nSkipped commits: model-pear (53), repo-tor (11), social-ad-creator (1)\n\nhttps://claude.ai/code/session_01GTJnfM2q8ybazZtZ1Y54fg",
+  "tags": [
+    "bugfix",
+    "validation",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "skip malformed commits and add defensive null checks",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 56,
+    "deletions": 19
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/aggregate-processed.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

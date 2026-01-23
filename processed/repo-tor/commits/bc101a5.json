@@ -1,0 +1,43 @@
+{
+  "sha": "bc101a5",
+  "fullSha": "bc101a5a250645ca5c38e5f726ceb25e57b0ee96",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T21:27:10Z",
+  "commitDate": "2026-01-22T21:27:10Z",
+  "subject": "feat: add GitHub CLI setup script for API extraction",
+  "body": "Add scripts/setup-gh.sh to automate GitHub CLI installation and\nauthentication across different environments (Linux, macOS, WSL).\n\n- Detects OS and uses appropriate package manager\n- Supports interactive (browser) and non-interactive (token) auth\n- Verifies API access after authentication\n- Updates documentation with setup instructions\n\nThis enables the untested extract-api.js to be properly configured\nand tested from any environment.",
+  "tags": [
+    "feature",
+    "config"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "add GitHub CLI setup script for API extraction",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 417,
+    "deletions": 16
+  },
+  "files": [
+    "docs/ADMIN_GUIDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_ACTIONS.md",
+    "scripts/setup-gh.sh"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

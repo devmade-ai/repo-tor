@@ -1,0 +1,41 @@
+{
+  "sha": "a1381fb",
+  "fullSha": "a1381fba647f493043295b8e1ab882a91418248a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-13T14:42:50Z",
+  "commitDate": "2026-01-13T14:42:50Z",
+  "subject": "Update Fireblocks config to US Production with JWKS webhook verification",
+  "body": "- Switch API URL from sandbox to US Production (api.fireblocks.io)\n- Migrate webhook signature verification from static key to JWKS\n- Document correct environment: US Production console with Testnet workspace\n- Add Fireblocks Configuration section to CLAUDE.md with environment reference\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "config"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Update Fireblocks config to US Production with JWKS webhook verification",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 118,
+    "deletions": 47
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/USER_ACTIONS.md",
+    "supabase/functions/_shared/fireblocks.ts",
+    "supabase/functions/webhook/index.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

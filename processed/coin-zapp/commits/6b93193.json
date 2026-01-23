@@ -1,0 +1,41 @@
+{
+  "sha": "6b93193",
+  "fullSha": "6b93193271804fe88c5a8b3d4ad2f248229060d5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-15T19:33:30Z",
+  "commitDate": "2026-01-15T19:33:30Z",
+  "subject": "Add password validation and show/hide toggle",
+  "body": "- Increase minimum password length to 8 characters\n- Block ~100 common passwords (password123, qwerty, bitcoin, etc.)\n- Add show/hide password checkbox for easier verification\n- Fix input cursor styling\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "feature",
+    "security"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Add password validation and show/hide toggle",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 118,
+    "deletions": 16
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "src/pages/common/Dialogs/PinEntryDialog.tsx",
+    "src/services/PasswordValidation.service.ts",
+    "src/services/index.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 2,
+  "impact": "user-facing"
+}

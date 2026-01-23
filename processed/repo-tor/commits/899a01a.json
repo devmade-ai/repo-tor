@@ -1,0 +1,39 @@
+{
+  "sha": "899a01a",
+  "fullSha": "899a01ab3afbcf04f5ade051917788e2c8c5a08c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T00:42:53Z",
+  "commitDate": "2026-01-22T00:42:53Z",
+  "subject": "fix: add validation to save-commit.js to prevent incomplete saves",
+  "body": "Root cause of malformed commits: when AI analyzed batches, it only\noutput analysis fields instead of complete commit objects. Without\nvalidation, these incomplete commits were saved to processed/.\n\nNow save-commit.js validates:\n- Required metadata: sha, timestamp, subject\n- Required author: author_id or author\n- Required analysis: tags, complexity, urgency, impact\n\nFails fast with clear error message if any fields are missing.\n\nhttps://claude.ai/code/session_01GTJnfM2q8ybazZtZ1Y54fg",
+  "tags": [
+    "bugfix",
+    "validation"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "add validation to save-commit.js to prevent incomplete saves",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 40,
+    "deletions": 14
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "scripts/save-commit.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "internal"
+}

@@ -1,0 +1,45 @@
+{
+  "sha": "a0667fe",
+  "fullSha": "a0667fe3ad0ac31bdb98598f15c744ee8877dbf3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T13:33:01Z",
+  "commitDate": "2026-01-19T13:33:01Z",
+  "subject": "Add Fund detail page and enhance Dashboard",
+  "body": "- Create FundDetailPage component at /funds/:fundCode with full fund\n  info, NAV display, balance, chart placeholder, and buy/sell buttons\n- Rewrite DashboardPage with portfolio overview: total value header,\n  quick actions card, fund holdings list, and crypto holdings list\n- Make FundCard header clickable to navigate to fund detail page\n- Add route for fund detail page in App.tsx\n- Add translation keys for new Dashboard and fund detail features\n- Update documentation with completed tasks\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add Fund detail page and enhance Dashboard",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 580,
+    "deletions": 26
+  },
+  "files": [
+    "docs/IMPLEMENTATION_PLAN.md",
+    "docs/SESSION_NOTES.md",
+    "src/App.tsx",
+    "src/pages/Dashboard/DashboardPage.tsx",
+    "src/pages/Funds/FundCard.tsx",
+    "src/pages/Funds/FundDetailPage.tsx",
+    "src/pages/index.ts",
+    "src/translation/en.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 1,
+  "impact": "user-facing"
+}

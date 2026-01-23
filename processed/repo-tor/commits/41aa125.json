@@ -1,0 +1,41 @@
+{
+  "sha": "41aa125",
+  "fullSha": "41aa125d89bec36fd061c099c1bbab801b6936f6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T20:48:57Z",
+  "commitDate": "2026-01-22T20:48:57Z",
+  "subject": "feat: add API-based extraction (no cloning required)",
+  "body": "- extract-api.js fetches commit data via GitHub API\n- update-all.sh defaults to API mode, --clone for old behavior\n- Faster setup, no disk space for clones, works without git installed\n\nRequires: gh CLI installed and authenticated",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "add API-based extraction (no cloning required)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 654,
+    "deletions": 41
+  },
+  "files": [
+    "docs/EXTRACTION_PLAYBOOK.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/extract-api.js",
+    "scripts/update-all.sh"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

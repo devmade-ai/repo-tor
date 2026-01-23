@@ -1,0 +1,69 @@
+{
+  "sha": "6b53685",
+  "fullSha": "6b53685042f06ecb05269b90be57c19347752be4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-11T21:54:20Z",
+  "commitDate": "2026-01-11T21:54:20Z",
+  "subject": "Remove backend proxy code and simplify to Embedded Wallet SDK only",
+  "body": "The app now uses only the Fireblocks Embedded Wallet SDK with Supabase\nEdge Functions. Removed all proxy backend related code and configuration.\n\n- Delete src/api/ directory (proxy backend implementation)\n- Delete backend-proxy.env configuration file\n- Remove VITE_USE_EMBEDDED_WALLET_SDK and VITE_BACKEND_BASE_URL env vars\n- Simplify vite.config.ts to always use api-embedded-wallet\n- Clean up store files to remove conditional proxy logic\n- Update page components to remove proxy mode checks\n- Simplify FirebaseAuthManager.ts\n- Update tsconfig.json paths for @api alias\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "refactor",
+    "removal",
+    "simplify"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Remove backend proxy code and simplify to Embedded Wallet SDK only",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 31,
+    "additions": 251,
+    "deletions": 1250
+  },
+  "files": [
+    ".env.example",
+    "README.md",
+    "backend-proxy.env",
+    "docs/SESSION_NOTES.md",
+    "src/App.tsx",
+    "src/api-embedded-wallet/accounts.embedded.api.ts",
+    "src/api-embedded-wallet/backup.embedded.api.ts",
+    "src/api/accounts.api.ts",
+    "src/api/assets.api.ts",
+    "src/api/backup.api.ts",
+    "src/api/device.api.ts",
+    "src/api/fireblocksSDK.api.ts",
+    "src/api/index.ts",
+    "src/api/nft.api.ts",
+    "src/api/transactions.api.ts",
+    "src/api/user.api.ts",
+    "src/api/utils.api.ts",
+    "src/auth/FirebaseAuthManager.ts",
+    "src/env.d.ts",
+    "src/env_config.ts",
+    "src/pages/Login/Actions.tsx",
+    "src/pages/Login/LoginPage.tsx",
+    "src/pages/Web3/Web3Page.tsx",
+    "src/pages/common/Header.tsx",
+    "src/store/Accounts.store.ts",
+    "src/store/Auth.store.ts",
+    "src/store/FireblocksSDK.store.ts",
+    "src/store/Transactions.store.ts",
+    "src/store/User.store.ts",
+    "tsconfig.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

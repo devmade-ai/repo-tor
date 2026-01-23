@@ -1,0 +1,44 @@
+{
+  "sha": "56920a7",
+  "fullSha": "56920a76eae16cd7b4bfacd668a3a3596817c79f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-11T21:23:10Z",
+  "commitDate": "2026-01-11T21:23:28Z",
+  "subject": "Fix auth flow issues and add debug logging",
+  "body": "- Fix BigInt error: generate device ID before SDK init in Auth.store.ts\n- Add debug logging to API calls and Fireblocks client\n- Update Edge Function to use --no-verify-jwt (Supabase gateway issue)\n- Document Fireblocks API credential troubleshooting steps\n\nCurrent blocker: Fireblocks API returning \"Unauthorized: Error getting\nUser certificate\" (code -7) - requires verifying API Key ID matches\nthe value set in Supabase secrets.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "auth",
+    "logging"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Fix auth flow issues and add debug logging",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 133,
+    "deletions": 35
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "src/api/utils.api.ts",
+    "src/store/Auth.store.ts",
+    "supabase/functions/_shared/fireblocks.ts",
+    "supabase/functions/ncw-api/index.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 3,
+  "impact": "user-facing"
+}

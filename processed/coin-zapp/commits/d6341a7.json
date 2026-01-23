@@ -1,0 +1,68 @@
+{
+  "sha": "d6341a7",
+  "fullSha": "d6341a7765cf6f1a207ffab38db29eab90eada6a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-11T23:12:42Z",
+  "commitDate": "2026-01-11T23:12:42Z",
+  "subject": "Complete Phase 1.5: Demo cleanup and navigation restructure",
+  "body": "- Remove NFTs page, components, and NFT.store\n- Remove Web3 page, components, and Web3.store\n- Rename ASSETS tab to \"Wallet\" (route: /wallet)\n- Add Dashboard placeholder page (route: /)\n- Add Funds placeholder page (route: /funds)\n- Update navigation order: Dashboard -> Funds -> Wallet -> Transactions\n- Clean up translations and unused imports\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "refactor",
+    "removal"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Complete Phase 1.5: Demo cleanup and navigation restructure",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 31,
+    "additions": 178,
+    "deletions": 2908
+  },
+  "files": [
+    "docs/IMPLEMENTATION_PLAN.md",
+    "docs/SESSION_NOTES.md",
+    "src/App.tsx",
+    "src/pages/Assets/AssetsPage.tsx",
+    "src/pages/Dashboard/DashboardPage.tsx",
+    "src/pages/Funds/FundsPage.tsx",
+    "src/pages/NFTs/Cards/NFTCard.tsx",
+    "src/pages/NFTs/Cards/NFTCards.tsx",
+    "src/pages/NFTs/NFTsPage.tsx",
+    "src/pages/NFTs/NewTransactionDialog/NewTransactionDialog.tsx",
+    "src/pages/NFTs/NewTransactionDialog/SelectedToken.tsx",
+    "src/pages/NFTs/Table/NFTsList.tsx",
+    "src/pages/NFTs/Table/NFTsListItem.tsx",
+    "src/pages/Web3/AddConnectionDialog/AddConnectionDialog.tsx",
+    "src/pages/Web3/AddConnectionDialog/ConnectionConfirmation.tsx",
+    "src/pages/Web3/AddConnectionDialog/ConnectionListItem.tsx",
+    "src/pages/Web3/DAppDetailsDialog/DAppDetailsDialog.tsx",
+    "src/pages/Web3/Web3List.tsx",
+    "src/pages/Web3/Web3ListItem.tsx",
+    "src/pages/Web3/Web3Page.tsx",
+    "src/pages/Web3/mappers.ts",
+    "src/pages/common/Header.tsx",
+    "src/pages/index.ts",
+    "src/store/NFT.store.ts",
+    "src/store/NFTToken.store.ts",
+    "src/store/Root.store.ts",
+    "src/store/Transaction.store.ts",
+    "src/store/Web3.store.ts",
+    "src/store/index.ts",
+    "src/store/useStoreHook.ts",
+    "src/translation/en.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,39 @@
+{
+  "sha": "272a8eb",
+  "fullSha": "272a8eb76cc2e575be693c9180ae9db1b98cde41",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T21:02:18Z",
+  "commitDate": "2026-01-22T21:02:18Z",
+  "subject": "fix: write failed analysis to needs-reprocess.json",
+  "body": "merge-analysis.js now tracks failures like save-commit.js:\n- Writes to processed/<repo>/needs-reprocess.json\n- Includes attempt count for repeated failures\n- Preserves the failed analysis for debugging",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "write failed analysis to needs-reprocess.json",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 39,
+    "deletions": 5
+  },
+  "files": [
+    "docs/EXTRACTION_PLAYBOOK.md",
+    "scripts/merge-analysis.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

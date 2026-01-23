@@ -1,0 +1,51 @@
+{
+  "sha": "a2fb406",
+  "fullSha": "a2fb4067f61d9bb2e6ca0e84802a77f690b81530",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-13T11:18:42Z",
+  "commitDate": "2026-01-13T11:18:42Z",
+  "subject": "Add user flows documentation, webhook function, remove Firebase",
+  "body": "- Create USER_FLOWS.md with detailed step-by-step scenarios for all user journeys\n- Add Fireblocks webhook Edge Function for real-time transaction updates\n- Remove unused Firebase dependencies and files (auth manager, FCM service worker)\n- Fix typo in LoginPage.tsx (updateBackupPhase function name)\n- Update IMPLEMENTATION_PLAN.md to reference user flows by phase\n- Update CLAUDE.md with new docs structure\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "docs",
+    "feature"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Add user flows documentation, webhook function, remove Firebase",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 597,
+    "deletions": 1335
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/IMPLEMENTATION_PLAN.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_ACTIONS.md",
+    "docs/USER_FLOWS.md",
+    "package.json",
+    "public/firebase-messaging-sw.js",
+    "src/auth/FCM_README.md",
+    "src/auth/FirebaseAuthManager.ts",
+    "src/auth/providers.ts",
+    "src/pages/Login/LoginPage.tsx",
+    "supabase/functions/webhook/index.ts",
+    "yarn.lock"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 2,
+  "impact": "internal"
+}

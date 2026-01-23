@@ -1,0 +1,62 @@
+{
+  "sha": "a631b7a",
+  "fullSha": "a631b7ac7f05202e23a0abbbd65e2767bd4d4d24",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-11T18:27:37Z",
+  "commitDate": "2026-01-11T18:27:37Z",
+  "subject": "Replace Firebase auth with Supabase and add Tailwind/Shadcn UI",
+  "body": "Phase 1 implementation complete:\n- Swap Firebase auth for Supabase Google OAuth\n- Add SupabaseAuthManager implementing IAuthManager interface\n- Create OAuth callback route at /auth/callback\n- Remove FCM push notification code (to be reimplemented later)\n- Install and configure Tailwind CSS v4 with custom dark theme\n- Set up Shadcn/ui with Button and Card components\n- Add Shell layout component\n- Update documentation with session progress\n\nUser action required: Configure Google OAuth in Supabase Dashboard\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "migration",
+    "feature"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "Replace Firebase auth with Supabase and add Tailwind/Shadcn UI",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 25,
+    "additions": 919,
+    "deletions": 205
+  },
+  "files": [
+    "components.json",
+    "docs/IMPLEMENTATION_PLAN.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "package.json",
+    "postcss.config.js",
+    "src/App.tsx",
+    "src/auth/IAuthManager.ts",
+    "src/auth/SupabaseAuthManager.ts",
+    "src/auth/index.ts",
+    "src/components/layout/Shell.tsx",
+    "src/components/layout/index.ts",
+    "src/components/ui/button.tsx",
+    "src/components/ui/card.tsx",
+    "src/index.css",
+    "src/lib/supabase.ts",
+    "src/lib/utils.ts",
+    "src/pages/AuthCallback/AuthCallback.tsx",
+    "src/pages/index.ts",
+    "src/root.tsx",
+    "src/store/Auth.store.ts",
+    "src/store/User.store.ts",
+    "tailwind.config.js",
+    "tsconfig.json",
+    "yarn.lock"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,41 @@
+{
+  "sha": "92c05e2",
+  "fullSha": "92c05e276d321b76a82824b5cbaf5daed28d2312",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-13T14:12:08Z",
+  "commitDate": "2026-01-13T14:12:08Z",
+  "subject": "Fix auth flow: detect existing sessions and correct navigation routes",
+  "body": "- SupabaseAuthManager.onUserChanged() now immediately checks for existing session\n- AuthCallback redirects to / instead of non-existent /assets route\n- Actions.tsx navigation updated from /assets to /wallet\n- Add providers.ts with Google Drive API discovery document\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "auth"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix auth flow: detect existing sessions and correct navigation routes",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 15,
+    "deletions": 4
+  },
+  "files": [
+    "src/auth/SupabaseAuthManager.ts",
+    "src/auth/providers.ts",
+    "src/pages/AuthCallback/AuthCallback.tsx",
+    "src/pages/Login/Actions.tsx"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 3,
+  "impact": "user-facing"
+}

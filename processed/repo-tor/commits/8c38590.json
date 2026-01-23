@@ -1,0 +1,43 @@
+{
+  "sha": "8c38590",
+  "fullSha": "8c3859031df1fcf7e4be9ef56d3c80b4d9aede1b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T00:48:20Z",
+  "commitDate": "2026-01-22T00:48:20Z",
+  "subject": "fix: capture validation failures for reprocessing instead of skipping",
+  "body": "Both scripts now write malformed commits to needs-reprocess.json files\ninstead of silently skipping them:\n\nsave-commit.js:\n- Validates all required fields before saving\n- Valid commits are saved, invalid ones written to needs-reprocess.json\n- Exits with error if any commits failed validation\n- Clear error messages explaining what went wrong\n\naggregate-processed.js:\n- Loudly reports all malformed commits during aggregation\n- Writes them to processed/<repo>/needs-reprocess.json\n- Shows warning at end of output\n\nThis ensures validation failures are visible and actionable rather\nthan silently lost.\n\nhttps://claude.ai/code/session_01GTJnfM2q8ybazZtZ1Y54fg",
+  "tags": [
+    "bugfix",
+    "validation",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "capture validation failures for reprocessing instead of skipping",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 451,
+    "deletions": 31
+  },
+  "files": [
+    "processed/model-pear/needs-reprocess.json",
+    "processed/repo-tor/needs-reprocess.json",
+    "processed/social-ad-creator/needs-reprocess.json",
+    "scripts/aggregate-processed.js",
+    "scripts/save-commit.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "internal"
+}

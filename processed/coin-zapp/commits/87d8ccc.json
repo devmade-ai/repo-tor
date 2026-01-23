@@ -1,0 +1,53 @@
+{
+  "sha": "87d8ccc",
+  "fullSha": "87d8ccc608d57ad9e4400d7d63251c147df32f2c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-12T14:03:15Z",
+  "commitDate": "2026-01-12T14:03:15Z",
+  "subject": "Add Phase 2 wallet features: deposit/withdraw pages and DB persistence",
+  "body": "- Create auth trigger for auto user profile creation on signup\n- Update device.embedded.api.ts to persist wallet/device to database\n- Add dedicated Deposit page (/wallet/deposit) with QR code and address\n- Add dedicated Withdraw page (/wallet/withdraw) with amount/address input\n- Add Deposit/Withdraw buttons to wallet page header\n- Add Shadcn UI components: Select, Input, Label\n- Install @radix-ui/react-select and @radix-ui/react-label\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "feature",
+    "ui",
+    "database"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add Phase 2 wallet features: deposit/withdraw pages and DB persistence",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 1221,
+    "deletions": 26
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "package.json",
+    "src/App.tsx",
+    "src/api-embedded-wallet/device.embedded.api.ts",
+    "src/components/ui/input.tsx",
+    "src/components/ui/label.tsx",
+    "src/components/ui/select.tsx",
+    "src/pages/Assets/AssetsPage.tsx",
+    "src/pages/Wallet/DepositPage.tsx",
+    "src/pages/Wallet/WithdrawPage.tsx",
+    "src/pages/Wallet/index.ts",
+    "src/pages/index.ts",
+    "src/store/Device.store.ts",
+    "supabase/migrations/20260112000001_auth_user_trigger.sql",
+    "yarn.lock"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 2,
+  "impact": "user-facing"
+}

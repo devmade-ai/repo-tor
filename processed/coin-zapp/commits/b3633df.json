@@ -1,0 +1,45 @@
+{
+  "sha": "b3633df",
+  "fullSha": "b3633df860dc947c30ec0309facf105e72fc59d1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T14:25:58Z",
+  "commitDate": "2026-01-19T14:25:58Z",
+  "subject": "Integrate Unum Capital API for real fund data and NAV prices",
+  "body": "- Add Unum.service.ts with API client (funds, DLS codes, prices)\n- Update FundsStore to fetch fund list from Unum API\n- Fetch and display real NAV prices with change percentage\n- Add FUND_CONFIG mapping for Unum→Fireblocks asset IDs\n- Update FundCard to show NAV change indicator\n- Add pricing history method for future chart integration\n- 5-minute cache to reduce API calls\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "feature",
+    "api"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Integrate Unum Capital API for real fund data and NAV prices",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 661,
+    "deletions": 75
+  },
+  "files": [
+    "docs/DISCOVERY_ANALYSIS.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_ACTIONS.md",
+    "src/pages/Funds/FundCard.tsx",
+    "src/services/Unum.service.ts",
+    "src/services/index.ts",
+    "src/store/Funds.store.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 2,
+  "impact": "user-facing"
+}

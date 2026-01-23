@@ -1,0 +1,50 @@
+{
+  "sha": "8654080",
+  "fullSha": "865408075ce277493375e15133c10a61bfe5503b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T12:40:19Z",
+  "commitDate": "2026-01-19T12:40:19Z",
+  "subject": "Add fund catalog UI for Phase 3 trading",
+  "body": "- Create FundsStore with mock KZAR data (NAV R1.00)\n- Add FundCard component with NAV, balance, Buy/Sell buttons\n- Update FundsPage with grid layout (available/coming soon sections)\n- Integrate FundsStore into Root.store and useStoreHook\n- Add fund-related translations\n- Document ZAR/EFT payment flow in USER_FLOWS.md\n- Add orders collection schema to IMPLEMENTATION_PLAN.md\n- Confirm KZAR asset ID (KZAR_B7HGYK31_Q033) working in NCW\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add fund catalog UI for Phase 3 trading",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 761,
+    "deletions": 51
+  },
+  "files": [
+    "docs/DISCOVERY_ANALYSIS.md",
+    "docs/IMPLEMENTATION_PLAN.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_ACTIONS.md",
+    "docs/USER_FLOWS.md",
+    "src/pages/Funds/FundCard.tsx",
+    "src/pages/Funds/FundsPage.tsx",
+    "src/store/Funds.store.ts",
+    "src/store/Root.store.ts",
+    "src/store/index.ts",
+    "src/store/useStoreHook.ts",
+    "src/translation/en.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 1,
+  "impact": "user-facing"
+}

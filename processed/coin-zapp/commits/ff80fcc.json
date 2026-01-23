@@ -1,0 +1,46 @@
+{
+  "sha": "ff80fcc",
+  "fullSha": "ff80fcc06d8dad5a49b3cd4d560a939aec28fe3f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T13:42:45Z",
+  "commitDate": "2026-01-19T13:42:45Z",
+  "subject": "Add Phase 4 polish: recent transactions, skeleton, error boundary",
+  "body": "- Add Recent Transactions section to Dashboard (last 5 with status)\n- Create Skeleton component for loading states\n- Create ErrorBoundary component wrapping App\n- Create lightweight Toast component (alternative to notistack)\n- Add translation keys for dashboard transactions\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "feature",
+    "ui",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Add Phase 4 polish: recent transactions, skeleton, error boundary",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 479,
+    "deletions": 7
+  },
+  "files": [
+    "docs/IMPLEMENTATION_PLAN.md",
+    "docs/SESSION_NOTES.md",
+    "src/Initializer.tsx",
+    "src/components/ui/error-boundary.tsx",
+    "src/components/ui/skeleton.tsx",
+    "src/components/ui/toast.tsx",
+    "src/pages/Dashboard/DashboardPage.tsx",
+    "src/translation/en.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 1,
+  "impact": "user-facing"
+}

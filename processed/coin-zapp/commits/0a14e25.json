@@ -1,0 +1,53 @@
+{
+  "sha": "0a14e25",
+  "fullSha": "0a14e255ee913ca663aa6f933bebca31b8d1e263",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-16T12:27:09Z",
+  "commitDate": "2026-01-16T12:27:09Z",
+  "subject": "Fix login bugs and improve backup UX",
+  "body": "- Fix AccountsStore double-init causing duplicate accounts\n- Fix MobX warnings by wrapping SDK events in runInAction\n- Fix login redirect loop (check authStore.status before redirect)\n- Add backup check for users without deviceId (recovery flow)\n- Improve backup skip UX with two-click confirmation\n- Add step-by-step logging for MPC key generation\n- Update docs: correct Phase 2 status (blockers were resolved)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "ux",
+    "auth"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Fix login bugs and improve backup UX",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 819,
+    "deletions": 176
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/IMPLEMENTATION_PLAN.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "package.json",
+    "scripts/delete-firebase-user.cjs",
+    "src/pages/Login/LoginPage.tsx",
+    "src/pages/Login/components/BackupPhaseUI.tsx",
+    "src/pages/Login/components/styles.ts",
+    "src/store/Accounts.store.ts",
+    "src/store/Auth.store.ts",
+    "src/store/FireblocksSDK.store.ts",
+    "vite.config.ts",
+    "yarn.lock"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 3,
+  "impact": "user-facing"
+}

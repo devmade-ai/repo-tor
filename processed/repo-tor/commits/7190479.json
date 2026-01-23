@@ -1,0 +1,38 @@
+{
+  "sha": "7190479",
+  "fullSha": "7190479a27d09c62c806d11b1db6a236feaf1dbf",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T05:03:17Z",
+  "commitDate": "2026-01-22T05:03:17Z",
+  "subject": "feat: expand tag colors with presets and dynamic fallback",
+  "body": "- Add 30+ preset tag colors for common conventional commit types:\n  - Green family: feature, enhancement, seed, init\n  - Red family: bugfix, fix, security, hotfix\n  - Orange/amber: removal, revert, deprecate\n  - Purple family: refactor, naming, cleanup\n  - Yellow: test, test-unit, test-e2e\n  - Orange: build, ci, deploy\n  - Slate: config, chore\n  - Pink family: style, ux, ui, accessibility\n  - Cyan: performance, perf\n  - Lime: dependency, deps\n\n- Add hash-based dynamic color generation for unknown tags\n  - Uses 10-color palette optimized for dark backgrounds\n  - Same tag always gets same color (consistent hashing)\n  - No more gray fallback for unrecognized tags\n\n- Update all tag rendering to use dynamic styles",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "expand tag colors with presets and dynamic fallback",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 117,
+    "deletions": 10
+  },
+  "files": [
+    "dashboard/index.html"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "user-facing"
+}

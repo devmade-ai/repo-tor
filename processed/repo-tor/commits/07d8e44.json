@@ -1,0 +1,41 @@
+{
+  "sha": "07d8e44",
+  "fullSha": "07d8e443504476955d2338f1b39a132090a77f4c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T20:21:51Z",
+  "commitDate": "2026-01-22T20:21:51Z",
+  "subject": "feat: add merge-analysis.js for optimized feed workflow",
+  "body": "AI now outputs only analysis fields (sha, tags, complexity, urgency, impact)\ninstead of full commit objects. Script merges with raw git data from reports/.\n\nToken savings: ~10x reduction per commit (50-80 vs 500-800 tokens)",
+  "tags": [
+    "feature",
+    "performance"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "add merge-analysis.js for optimized feed workflow",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 352,
+    "deletions": 12
+  },
+  "files": [
+    "docs/EXTRACTION_PLAYBOOK.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/merge-analysis.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

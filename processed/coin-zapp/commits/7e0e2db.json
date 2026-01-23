@@ -1,0 +1,41 @@
+{
+  "sha": "7e0e2db",
+  "fullSha": "7e0e2dbfaa0a873fa6a49e881841153f0bc24487",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T14:31:38Z",
+  "commitDate": "2026-01-19T14:31:38Z",
+  "subject": "Add interactive price history chart to FundDetailPage",
+  "body": "- Create PriceChart component with SVG-based line chart (no dependencies)\n- Time range filters: 1M, 3M, 6M, 1Y, ALL\n- Hover tooltip showing price and date\n- Color-coded: green for gains, red for losses\n- Percentage change indicator for selected period\n- Add translation keys for chart loading states\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Add interactive price history chart to FundDetailPage",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 363,
+    "deletions": 17
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "src/pages/Funds/FundDetailPage.tsx",
+    "src/pages/Funds/PriceChart.tsx",
+    "src/translation/en.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 1,
+  "impact": "user-facing"
+}

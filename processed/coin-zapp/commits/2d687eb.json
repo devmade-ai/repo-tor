@@ -1,0 +1,44 @@
+{
+  "sha": "2d687eb",
+  "fullSha": "2d687ebd357ac2caeec4077bcb64e24b9e891bcd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-12T13:40:30Z",
+  "commitDate": "2026-01-12T13:40:30Z",
+  "subject": "Standardize page headers and typography across all pages",
+  "body": "- Use i18n translations for all page titles (Dashboard, Funds)\n- Unify HeadingAmount typography (body2 for labels, h5 for values)\n- Fix EmptyPage to use Typography h6 for page title consistency\n- Add HeadingAmount to Funds page for visual consistency\n- Add DASHBOARD and FUNDS translation sections\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Standardize page headers and typography across all pages",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 44,
+    "deletions": 20
+  },
+  "files": [
+    "src/pages/Assets/AssetsPage.tsx",
+    "src/pages/Dashboard/DashboardPage.tsx",
+    "src/pages/Funds/FundsPage.tsx",
+    "src/pages/Transactions/TransactionsPage.tsx",
+    "src/pages/common/EmptyPage.tsx",
+    "src/pages/common/HeadingAmount.tsx",
+    "src/translation/en.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 1,
+  "impact": "user-facing"
+}

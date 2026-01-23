@@ -1,0 +1,40 @@
+{
+  "sha": "ad87399",
+  "fullSha": "ad873997427ff365cdbf5b5ce811b39fcb168c20",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T13:10:19Z",
+  "commitDate": "2026-01-19T13:10:19Z",
+  "subject": "Add Firestore integration for fund orders",
+  "body": "Orders now persist to users/{uid}/orders/{orderId}:\n- loadOrders() fetches orders on init\n- saveOrderToFirestore() saves on create\n- Orders sorted by createdAt descending\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "feature",
+    "database"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Add Firestore integration for fund orders",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 100,
+    "deletions": 4
+  },
+  "files": [
+    "docs/IMPLEMENTATION_PLAN.md",
+    "docs/SESSION_NOTES.md",
+    "src/store/Funds.store.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 2,
+  "impact": "internal"
+}

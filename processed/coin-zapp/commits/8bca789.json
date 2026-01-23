@@ -1,0 +1,42 @@
+{
+  "sha": "8bca789",
+  "fullSha": "8bca7893a89b82dabf53c4cf6d3d9a92cc78611f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T10:30:01Z",
+  "commitDate": "2026-01-19T10:30:01Z",
+  "subject": "Fix transaction store and asset handling bugs",
+  "body": "- Fix transactions not appearing: add addOrEditTransaction() call in\n  updateTransactionsFromFireblocks() to actually store fetched transactions\n- Handle \"Asset already exists\" error gracefully in AssetsStore.addAsset()\n  by continuing to fetch asset details instead of throwing\n- Add debug logging for transaction fetching\n- Update Phase 2 test statuses (Enable Asset, Deposit, Receive, History done)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix transaction store and asset handling bugs",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 49,
+    "deletions": 77
+  },
+  "files": [
+    "docs/IMPLEMENTATION_PLAN.md",
+    "docs/SESSION_NOTES.md",
+    "src/api-embedded-wallet/transactions.embedded.api.ts",
+    "src/store/Assets.store.ts",
+    "src/store/Transactions.store.ts"
+  ],
+  "repo_id": "coin-zapp",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,38 @@
+{
+  "sha": "207ccdb",
+  "fullSha": "207ccdb6bf9023e96df7225db95457fd0f5fa2d6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-22T04:22:44Z",
+  "commitDate": "2026-01-22T04:22:44Z",
+  "subject": "fix: resolve overflow and wrapping issues in dashboard",
+  "body": "- Stats cards: Change grid from 3-col to 1-col on mobile (sm:grid-cols-3)\n- Stats labels: Add .stat-label class with responsive sizing\n- Tabs bar: Add min-w-0 and flex-shrink-0 for proper overflow scrolling\n- Filter select: Remove min-width constraint to prevent overflow\n- Tabs bar: Add overflow:hidden to container",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "resolve overflow and wrapping issues in dashboard",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 27,
+    "deletions": 11
+  },
+  "files": [
+    "dashboard/index.html"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}
