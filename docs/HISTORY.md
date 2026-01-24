@@ -2,6 +2,37 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-24
+
+### Feature: Role-based view levels for different audiences
+
+Added view level selector (Executive/Management/Developer) that changes data granularity while keeping the same dashboard layout.
+
+**Problem:** Different stakeholders need different levels of detail:
+- Executives want high-level summaries, not individual contributor data
+- Managers want project-level views, not hourly breakdowns
+- Developers want full detail for debugging and self-analysis
+
+**Solution:** Aggregation layer that transforms data based on selected view level:
+
+| View | Contributors | Heatmap | Drilldown |
+|------|-------------|---------|-----------|
+| Executive | "All Contributors (45)" | Weekly activity | Stats summary |
+| Management | "repo-api (12 people)" | Day-of-week bars | Stats + repo split |
+| Developer | "Alice Chen" | 24×7 hourly grid | Full commit list |
+
+**Key design decisions:**
+- Same layout and charts for all views (no hidden tabs or sections)
+- Filters still apply across all view levels
+- Selection persists in localStorage
+
+**Files updated:**
+- `dashboard/index.html` - Added VIEW_LEVELS config, aggregation functions, modified render functions
+- `docs/TODO.md` - Added role-based view levels to backlog with implementation checklist
+- `docs/SESSION_NOTES.md` - Updated with new feature details
+
+---
+
 ## 2026-01-22
 
 ### Setup: GitHub CLI installation and authentication with .env support

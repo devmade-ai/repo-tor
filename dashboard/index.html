@@ -898,6 +898,16 @@
                             </button>
                         </div>
                         <div class="filter-group">
+                            <label>View Level</label>
+                            <select id="view-level-selector" class="filter-select">
+                                <option value="developer">Developer</option>
+                                <option value="management">Management</option>
+                                <option value="executive">Executive</option>
+                            </select>
+                            <p class="text-xs text-themed-tertiary mt-1">Controls data granularity</p>
+                        </div>
+                        <hr class="border-themed my-3">
+                        <div class="filter-group">
                             <label>Tag</label>
                             <select id="filter-tag" class="filter-select">
                                 <option value="">All Tags</option>
@@ -1462,6 +1472,244 @@
         const authorAnonMap = new Map();
         let detailPaneOpen = false;
 
+        // === View Level Configuration ===
+        // Different data granularity for different audiences
+        const VIEW_LEVELS = {
+            executive: {
+                label: 'Executive',
+                contributors: 'total',      // Single aggregate: "45 contributors"
+                timing: 'week',             // Weekly buckets only
+                drilldown: 'summary',       // Stats only, no commit list
+                showAuthorNames: false,
+                showCommitMessages: false
+            },
+            management: {
+                label: 'Management',
+                contributors: 'repo',       // Group by project
+                timing: 'day',              // Daily buckets
+                drilldown: 'summary',       // Stats, not individual commits
+                showAuthorNames: true,
+                showCommitMessages: false
+            },
+            developer: {
+                label: 'Developer',
+                contributors: 'individual', // Per-person (current behavior)
+                timing: 'hour',             // Hourly detail
+                drilldown: 'commits',       // Full commit list
+                showAuthorNames: true,
+                showCommitMessages: true
+            }
+        };
+        let currentViewLevel = 'developer';
+
+        function getViewConfig() {
+            return VIEW_LEVELS[currentViewLevel] || VIEW_LEVELS.developer;
+        }
+
+        // === Aggregation Functions for View Levels ===
+
+        /**
+         * Aggregate contributors based on view level
+         * Returns same data shape, different granularity
+         */
+        function aggregateContributors(commits) {
+            const config = getViewConfig();
+
+            switch (config.contributors) {
+                case 'total':
+                    // Executive: one entry with totals
+                    const uniqueAuthors = new Set(commits.map(c => getAuthorEmail(c)));
+                    return [{
+                        label: '__total__',
+                        displayName: `All Contributors (${uniqueAuthors.size})`,
+                        count: commits.length,
+                        breakdown: aggregateByTag(commits),
+                        complexities: commits.filter(c => c.complexity != null).map(c => c.complexity)
+                    }];
+
+                case 'repo':
+                    // Management: group by repository
+                    const byRepo = {};
+                    commits.forEach(c => {
+                        const repo = c.repo_id || 'default';
+                        if (!byRepo[repo]) {
+                            byRepo[repo] = {
+                                label: repo,
+                                commits: [],
+                                authors: new Set(),
+                                complexities: []
+                            };
+                        }
+                        byRepo[repo].commits.push(c);
+                        byRepo[repo].authors.add(getAuthorEmail(c));
+                        if (c.complexity != null) {
+                            byRepo[repo].complexities.push(c.complexity);
+                        }
+                    });
+                    return Object.values(byRepo).map(r => ({
+                        label: r.label,
+                        displayName: `${r.label} (${r.authors.size} contributors)`,
+                        count: r.commits.length,
+                        breakdown: aggregateByTag(r.commits),
+                        complexities: r.complexities
+                    })).sort((a, b) => b.count - a.count);
+
+                case 'individual':
+                default:
+                    // Developer: current behavior - per person
+                    const byAuthor = {};
+                    commits.forEach(c => {
+                        const email = getAuthorEmail(c);
+                        const name = getAuthorName(c);
+                        if (!byAuthor[email]) {
+                            byAuthor[email] = {
+                                label: email,
+                                displayName: sanitizeName(name, email),
+                                commits: [],
+                                tags: {},
+                                complexities: []
+                            };
+                        }
+                        byAuthor[email].commits.push(c);
+                        getCommitTags(c).forEach(tag => {
+                            byAuthor[email].tags[tag] = (byAuthor[email].tags[tag] || 0) + 1;
+                        });
+                        if (c.complexity != null) {
+                            byAuthor[email].complexities.push(c.complexity);
+                        }
+                    });
+                    return Object.values(byAuthor).map(a => ({
+                        label: a.label,
+                        displayName: a.displayName,
+                        count: a.commits.length,
+                        breakdown: a.tags,
+                        complexities: a.complexities,
+                        commits: a.commits
+                    })).sort((a, b) => b.count - a.count);
+            }
+        }
+
+        /**
+         * Aggregate commits by tag
+         */
+        function aggregateByTag(commits) {
+            const tags = {};
+            commits.forEach(c => {
+                getCommitTags(c).forEach(tag => {
+                    tags[tag] = (tags[tag] || 0) + 1;
+                });
+            });
+            return tags;
+        }
+
+        /**
+         * Get date range from commits
+         */
+        function getCommitDateRange(commits) {
+            if (!commits || commits.length === 0) {
+                return { earliest: 'N/A', latest: 'N/A' };
+            }
+            const dates = commits.map(c => c.timestamp).filter(Boolean).sort();
+            return {
+                earliest: dates[0]?.substring(0, 10) || 'N/A',
+                latest: dates[dates.length - 1]?.substring(0, 10) || 'N/A'
+            };
+        }
+
+        /**
+         * Aggregate for detail pane drilldown based on view level
+         */
+        function aggregateForDrilldown(commits, context) {
+            const config = getViewConfig();
+
+            if (config.drilldown === 'commits') {
+                // Developer: return full commit list
+                return { type: 'commits', data: commits };
+            }
+
+            // Executive/Management: return summary stats
+            const uniqueAuthors = new Set(commits.map(c => getAuthorEmail(c)));
+            const tagCounts = aggregateByTag(commits);
+            const repos = [...new Set(commits.map(c => c.repo_id).filter(Boolean))];
+
+            return {
+                type: 'summary',
+                data: {
+                    totalCommits: commits.length,
+                    contributorCount: uniqueAuthors.size,
+                    tagBreakdown: tagCounts,
+                    repoCount: repos.length,
+                    dateRange: getCommitDateRange(commits),
+                    // For management, include repo breakdown
+                    ...(config.contributors === 'repo' && {
+                        byRepo: repos.map(r => ({
+                            name: r,
+                            count: commits.filter(c => c.repo_id === r).length
+                        })).sort((a, b) => b.count - a.count)
+                    })
+                }
+            };
+        }
+
+        /**
+         * Render drilldown summary for executive/management views
+         */
+        function renderDrilldownSummary(summary) {
+            const tagBreakdownHtml = Object.entries(summary.tagBreakdown)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10)
+                .map(([tag, count]) => `
+                    <div class="flex justify-between items-center py-1">
+                        <span class="tag ${getTagClass(tag)}" style="${getTagStyle(tag)}">${tag}</span>
+                        <span class="text-themed-secondary">${count}</span>
+                    </div>
+                `).join('');
+
+            const repoBreakdownHtml = summary.byRepo
+                ? summary.byRepo.map(r => `
+                    <div class="flex justify-between items-center py-1">
+                        <span class="text-themed-primary">${escapeHtml(r.name)}</span>
+                        <span class="text-themed-secondary">${r.count} commits</span>
+                    </div>
+                `).join('')
+                : '';
+
+            return `
+                <div class="space-y-6">
+                    <!-- Summary Stats -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-themed-tertiary rounded-lg text-center">
+                            <div class="text-2xl font-semibold text-themed-primary">${summary.totalCommits}</div>
+                            <div class="text-sm text-themed-tertiary">Total Commits</div>
+                        </div>
+                        <div class="p-4 bg-themed-tertiary rounded-lg text-center">
+                            <div class="text-2xl font-semibold text-themed-primary">${summary.contributorCount}</div>
+                            <div class="text-sm text-themed-tertiary">Contributors</div>
+                        </div>
+                    </div>
+
+                    <!-- Date Range -->
+                    <div class="text-sm text-themed-tertiary text-center">
+                        ${summary.dateRange.earliest} — ${summary.dateRange.latest}
+                    </div>
+
+                    <!-- Tag Breakdown -->
+                    <div>
+                        <h4 class="text-sm font-medium text-themed-primary mb-2">Work Type Breakdown</h4>
+                        <div class="space-y-1">${tagBreakdownHtml || '<p class="text-themed-tertiary">No tags</p>'}</div>
+                    </div>
+
+                    ${repoBreakdownHtml ? `
+                    <!-- Repo Breakdown (Management only) -->
+                    <div>
+                        <h4 class="text-sm font-medium text-themed-primary mb-2">By Repository</h4>
+                        <div class="space-y-1">${repoBreakdownHtml}</div>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
         // === Detail Pane Functions ===
         function openDetailPane(title, subtitle, commits) {
             const overlay = document.getElementById('detail-overlay');
@@ -1473,11 +1721,19 @@
             titleEl.textContent = title;
             subtitleEl.textContent = subtitle || '';
 
-            // Render commits in the detail pane
-            if (commits && commits.length > 0) {
-                contentEl.innerHTML = commits.map(commit => renderDetailCommit(commit)).join('');
+            // Check view level for appropriate drilldown
+            const drilldown = aggregateForDrilldown(commits, { title });
+
+            if (drilldown.type === 'commits') {
+                // Developer view: show commit list (current behavior)
+                if (commits && commits.length > 0) {
+                    contentEl.innerHTML = commits.map(commit => renderDetailCommit(commit)).join('');
+                } else {
+                    contentEl.innerHTML = '<p class="text-themed-tertiary text-center py-8">No commits found</p>';
+                }
             } else {
-                contentEl.innerHTML = '<p class="text-themed-tertiary text-center py-8">No commits found</p>';
+                // Executive/Management: show summary
+                contentEl.innerHTML = renderDrilldownSummary(drilldown.data);
             }
 
             overlay.classList.add('open');
@@ -2137,6 +2393,20 @@
         }
 
         function setupFilterListeners() {
+            // View level selector
+            document.getElementById('view-level-selector').addEventListener('change', (e) => {
+                currentViewLevel = e.target.value;
+                localStorage.setItem('viewLevel', currentViewLevel);
+                applyFilters();
+            });
+
+            // Restore saved view level
+            const savedViewLevel = localStorage.getItem('viewLevel');
+            if (savedViewLevel && VIEW_LEVELS[savedViewLevel]) {
+                currentViewLevel = savedViewLevel;
+                document.getElementById('view-level-selector').value = savedViewLevel;
+            }
+
             document.getElementById('filter-tag').addEventListener('change', (e) => {
                 filters.tag = e.target.value;
                 applyFilters();
@@ -2615,42 +2885,23 @@
         // === Contributors Tab ===
         function renderContributors() {
             const commits = getFilteredCommits();
-            // Build per-contributor stats from commits
-            const contributorStats = {};
-            commits.forEach(commit => {
-                const email = getAuthorEmail(commit);
-                const name = getAuthorName(commit);
-                if (!contributorStats[email]) {
-                    contributorStats[email] = {
-                        name,
-                        email,
-                        tags: {},
-                        complexities: []
-                    };
-                }
-                getCommitTags(commit).forEach(tag => {
-                    contributorStats[email].tags[tag] = (contributorStats[email].tags[tag] || 0) + 1;
-                });
-                if (commit.complexity != null) {
-                    contributorStats[email].complexities.push(commit.complexity);
-                }
-            });
+            const config = getViewConfig();
 
-            // Sort by total changes
-            const sorted = Object.values(contributorStats).sort((a, b) => {
-                const aTotal = Object.values(a.tags).reduce((s, v) => s + v, 0);
-                const bTotal = Object.values(b.tags).reduce((s, v) => s + v, 0);
-                return bTotal - aTotal;
-            });
+            // Use aggregation layer for view-level-appropriate grouping
+            const aggregated = aggregateContributors(commits);
 
-            // Who Does What - work type breakdown per contributor
-            const workTypesHtml = sorted.slice(0, 8).map(c => {
-                const totalTags = Object.values(c.tags).reduce((s, v) => s + v, 0);
-                const tagBars = Object.entries(c.tags)
+            // Who Does What - work type breakdown (cards)
+            // Different granularity based on view level:
+            // - executive: single "All Contributors" card
+            // - management: one card per repo
+            // - developer: one card per person (current behavior)
+            const workTypesHtml = aggregated.slice(0, 8).map(item => {
+                const totalTags = Object.values(item.breakdown).reduce((s, v) => s + v, 0);
+                const tagBars = Object.entries(item.breakdown)
                     .sort((a, b) => b[1] - a[1])
                     .slice(0, 5)
                     .map(([tag, count]) => {
-                        const pct = Math.round((count / totalTags) * 100);
+                        const pct = totalTags > 0 ? Math.round((count / totalTags) * 100) : 0;
                         return `<div class="flex items-center gap-2">
                             <span class="tag ${getTagClass(tag)}" style="${getTagStyle(tag)}">${tag}</span>
                             <div class="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
@@ -2660,37 +2911,53 @@
                         </div>`;
                     }).join('');
                 return `
-                    <div class="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors" data-contributor-email="${escapeHtml(c.email)}">
-                        <p class="font-medium text-themed-primary mb-2">${escapeHtml(sanitizeName(c.name, c.email))}</p>
+                    <div class="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors" data-drilldown-label="${escapeHtml(item.label)}">
+                        <p class="font-medium text-themed-primary mb-1">${escapeHtml(item.displayName)}</p>
+                        <p class="text-xs text-themed-tertiary mb-2">${item.count} commits</p>
                         <div class="space-y-1">${tagBars}</div>
                     </div>
                 `;
             }).join('');
             document.getElementById('contributor-work-types').innerHTML = workTypesHtml || '<p class="text-themed-tertiary">No contributor data</p>';
 
-            // Add click handlers for contributor cards
-            document.querySelectorAll('[data-contributor-email]').forEach(el => {
+            // Add click handlers for cards - drilldown changes by view level
+            document.querySelectorAll('[data-drilldown-label]').forEach(el => {
                 el.addEventListener('click', () => {
-                    const email = el.dataset.contributorEmail;
-                    const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
-                    const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
-                    openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered);
+                    const label = el.dataset.drilldownLabel;
+                    const item = aggregated.find(a => a.label === label);
+                    if (!item) return;
+
+                    // Get commits for this item based on view level
+                    let relevantCommits;
+                    if (config.contributors === 'total') {
+                        relevantCommits = commits;
+                    } else if (config.contributors === 'repo') {
+                        relevantCommits = commits.filter(c => (c.repo_id || 'default') === label);
+                    } else {
+                        relevantCommits = commits.filter(c => getAuthorEmail(c) === label);
+                    }
+
+                    openDetailPane(item.displayName, `${item.count} commits`, relevantCommits);
                 });
             });
 
-            // Complexity by Contributor chart
-            const top8 = sorted.slice(0, 8);
-            const names = top8.map(c => c.name);
-            const avgComplexities = top8.map(c => {
-                if (c.complexities.length === 0) return 0;
-                return c.complexities.reduce((a, b) => a + b, 0) / c.complexities.length;
+            // Complexity chart - same shape, different labels based on view level
+            const top8 = aggregated.slice(0, 8);
+            const chartLabels = top8.map(item => {
+                // Truncate long labels for chart
+                const name = item.displayName;
+                return name.length > 20 ? name.substring(0, 17) + '...' : name;
+            });
+            const avgComplexities = top8.map(item => {
+                if (!item.complexities || item.complexities.length === 0) return 0;
+                return item.complexities.reduce((a, b) => a + b, 0) / item.complexities.length;
             });
 
             if (charts.contributorComplexity) charts.contributorComplexity.destroy();
             charts.contributorComplexity = new Chart(document.getElementById('contributor-complexity-chart'), {
                 type: 'bar',
                 data: {
-                    labels: names,
+                    labels: chartLabels,
                     datasets: [{
                         label: 'Avg Complexity',
                         data: avgComplexities,
@@ -3202,7 +3469,9 @@
 
         function renderTiming() {
             const commits = getFilteredCommits();
-            // Render the heatmap first
+            const config = getViewConfig();
+
+            // Render the heatmap (handles its own granularity)
             renderHeatmap();
 
             // Aggregate commits by hour (0-23)
@@ -3215,6 +3484,16 @@
                 byHour[hour]++;
                 byDay[dayOfWeek]++;
             });
+
+            // Hour chart - only show for developer view (hourly granularity)
+            const hourChartContainer = document.getElementById('hour-chart')?.parentElement?.parentElement;
+            if (hourChartContainer) {
+                if (config.timing === 'hour') {
+                    hourChartContainer.style.display = '';
+                } else {
+                    hourChartContainer.style.display = 'none';
+                }
+            }
 
             // Hour Chart
             const hourLabels = Array.from({ length: 24 }, (_, i) =>
@@ -3303,12 +3582,32 @@
                 }
             });
 
-            // Render developer activity patterns
-            renderDeveloperPatterns();
+            // Render developer activity patterns - only for developer view
+            const devPatternsContainer = document.querySelector('[data-section="developer-patterns"]');
+            if (devPatternsContainer) {
+                if (config.timing === 'hour') {
+                    devPatternsContainer.style.display = '';
+                    renderDeveloperPatterns();
+                } else {
+                    devPatternsContainer.style.display = 'none';
+                }
+            }
         }
 
         function renderHeatmap() {
             const commits = getFilteredCommits();
+            const config = getViewConfig();
+
+            // Different granularity based on view level
+            if (config.timing === 'week') {
+                renderWeeklyHeatmap(commits);
+                return;
+            } else if (config.timing === 'day') {
+                renderDailyHeatmap(commits);
+                return;
+            }
+
+            // Developer view: full 24x7 hourly heatmap (current behavior)
             // Build 24x7 matrix (hours x days)
             const matrix = Array.from({ length: 24 }, () => new Array(7).fill(0));
 
@@ -3360,6 +3659,121 @@
                     html += `<div class="heatmap-cell heatmap-${intensity}" title="${tooltip}">${count || ''}</div>`;
                 });
             }
+
+            document.getElementById('heatmap').innerHTML = html;
+        }
+
+        /**
+         * Weekly heatmap for Executive view
+         * Shows a simplified week-by-week view instead of hourly detail
+         */
+        function renderWeeklyHeatmap(commits) {
+            // Group commits by week
+            const byWeek = {};
+            commits.forEach(commit => {
+                if (!commit.timestamp) return;
+                const date = new Date(commit.timestamp);
+                // Get ISO week start (Monday)
+                const weekStart = new Date(date);
+                weekStart.setDate(date.getDate() - ((date.getDay() + 6) % 7));
+                const weekKey = weekStart.toISOString().substring(0, 10);
+                byWeek[weekKey] = (byWeek[weekKey] || 0) + 1;
+            });
+
+            const weeks = Object.entries(byWeek).sort((a, b) => a[0].localeCompare(b[0]));
+            const maxCount = Math.max(...weeks.map(w => w[1]), 1);
+
+            const getIntensity = (count) => {
+                if (count === 0) return 0;
+                const ratio = count / maxCount;
+                if (ratio <= 0.25) return 1;
+                if (ratio <= 0.5) return 2;
+                if (ratio <= 0.75) return 3;
+                return 4;
+            };
+
+            // Build a grid of weeks (similar to GitHub contribution graph)
+            let html = '<div class="weekly-heatmap">';
+            html += '<p class="text-xs text-themed-tertiary mb-2">Weekly commit activity (most recent weeks)</p>';
+            html += '<div class="flex flex-wrap gap-1">';
+
+            // Show last 26 weeks (half year)
+            const recentWeeks = weeks.slice(-26);
+            recentWeeks.forEach(([weekKey, count]) => {
+                const intensity = getIntensity(count);
+                const weekDate = new Date(weekKey);
+                const weekLabel = weekDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                html += `<div class="heatmap-cell heatmap-${intensity}" style="width: 16px; height: 16px;" title="Week of ${weekLabel}: ${count} commits">${count > 9 ? '' : count || ''}</div>`;
+            });
+
+            html += '</div>';
+
+            // Summary stats
+            const totalWeeks = recentWeeks.length;
+            const totalCommits = recentWeeks.reduce((sum, [_, c]) => sum + c, 0);
+            const avgPerWeek = totalWeeks > 0 ? Math.round(totalCommits / totalWeeks) : 0;
+            html += `<p class="text-xs text-themed-tertiary mt-2">${totalCommits} commits over ${totalWeeks} weeks (avg ${avgPerWeek}/week)</p>`;
+            html += '</div>';
+
+            document.getElementById('heatmap').innerHTML = html;
+        }
+
+        /**
+         * Daily heatmap for Management view
+         * Shows day-of-week distribution without hourly breakdown
+         */
+        function renderDailyHeatmap(commits) {
+            // Aggregate by day of week
+            const byDay = new Array(7).fill(0);
+            commits.forEach(commit => {
+                const { dayOfWeek } = getCommitDateTime(commit);
+                byDay[dayOfWeek]++;
+            });
+
+            // Reorder to Monday-first
+            const dayOrder = [1, 2, 3, 4, 5, 6, 0]; // Mon-Sun
+            const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            const maxCount = Math.max(...byDay, 1);
+
+            const getIntensity = (count) => {
+                if (count === 0) return 0;
+                const ratio = count / maxCount;
+                if (ratio <= 0.25) return 1;
+                if (ratio <= 0.5) return 2;
+                if (ratio <= 0.75) return 3;
+                return 4;
+            };
+
+            let html = '<div class="daily-heatmap">';
+            html += '<p class="text-xs text-themed-tertiary mb-3">Commits by day of week</p>';
+            html += '<div class="space-y-2">';
+
+            dayOrder.forEach((dayIdx, i) => {
+                const count = byDay[dayIdx];
+                const intensity = getIntensity(count);
+                const pct = maxCount > 0 ? Math.round((count / maxCount) * 100) : 0;
+                const isWeekend = i >= 5;
+
+                html += `
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm text-themed-secondary w-24">${dayLabels[i]}</span>
+                        <div class="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-4">
+                            <div class="h-4 rounded-full heatmap-${intensity}" style="width: ${pct}%;"></div>
+                        </div>
+                        <span class="text-sm text-themed-tertiary w-16 text-right">${count} commits</span>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+
+            // Weekday vs weekend summary
+            const weekdayCommits = dayOrder.slice(0, 5).reduce((sum, idx) => sum + byDay[idx], 0);
+            const weekendCommits = dayOrder.slice(5).reduce((sum, idx) => sum + byDay[idx], 0);
+            const weekendPct = commits.length > 0 ? Math.round((weekendCommits / commits.length) * 100) : 0;
+
+            html += `<p class="text-xs text-themed-tertiary mt-3">Weekday: ${weekdayCommits} | Weekend: ${weekendCommits} (${weekendPct}%)</p>`;
+            html += '</div>';
 
             document.getElementById('heatmap').innerHTML = html;
         }
