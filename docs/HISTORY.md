@@ -31,6 +31,24 @@ Added view level selector (Executive/Management/Developer) that changes data gra
 - `docs/TODO.md` - Added role-based view levels to backlog with implementation checklist
 - `docs/SESSION_NOTES.md` - Updated with new feature details
 
+### Extension: Role-based view levels to all tabs
+
+Extended view level support to remaining dashboard sections:
+
+**Health tab:**
+- Urgency by Contributor → Executive: single aggregated bar, Management: by repo, Developer: by person
+- Impact by Contributor → Same pattern
+
+**Security tab:**
+- Executive: shows count and date range only
+- Management: shows per-repo breakdown with click-to-drill
+- Developer: full commit details (original)
+
+**Timeline:**
+- Executive: weekly period summaries with tag breakdown
+- Management: daily period summaries with tag breakdown
+- Developer: individual commit list (original)
+
 ---
 
 ## 2026-01-22

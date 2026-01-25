@@ -2651,47 +2651,157 @@
         // === Timeline Tab ===
         function renderTimeline() {
             const filteredCommits = getFilteredCommits();
+            const config = getViewConfig();
 
-            // Update count
-            document.getElementById('commit-count').textContent =
-                `Showing ${Math.min(filteredCommits.length, 100)} of ${filteredCommits.length}`;
+            // Update count based on view level
+            if (config.drilldown === 'commits') {
+                document.getElementById('commit-count').textContent =
+                    `Showing ${Math.min(filteredCommits.length, 100)} of ${filteredCommits.length}`;
+            } else {
+                document.getElementById('commit-count').textContent =
+                    `${filteredCommits.length} total commits`;
+            }
 
             // Render activity timeline chart
             renderActivityTimeline(filteredCommits);
 
-            // Commit List - show tags, complexity, work patterns (no +/- lines)
-            const listHtml = filteredCommits.slice(0, 100).map(commit => {
-                const tags = getCommitTags(commit);
-                const tagBadges = tags.slice(0, 3).map(t =>
-                    `<span class="tag ${getTagClass(t)} shrink-0" style="${getTagStyle(t)}">${t}</span>`
-                ).join(' ');
-                const extraTags = tags.length > 3 ? `<span class="tag tag-other shrink-0">+${tags.length - 3}</span>` : '';
-                const workPatternBadges = getWorkPatternBadges(commit);
-                const complexityBadge = commit.complexity != null
-                    ? `<span class="text-xs px-1.5 py-0.5 rounded ${commit.complexity >= 4 ? 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300' : commit.complexity >= 2 ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' : 'bg-gray-100 text-themed-secondary dark:bg-gray-700'}">${commit.complexity}/5</span>`
-                    : '';
+            // Commit List - different view based on level
+            let listHtml;
 
-                return `
-                <div class="p-3 bg-themed-tertiary rounded-lg">
-                    <div class="flex items-start gap-2 sm:gap-3">
-                        <div class="flex flex-wrap gap-1 shrink-0">
-                            ${tagBadges}${extraTags}
+            if (config.drilldown === 'commits') {
+                // Developer view: show individual commits (current behavior)
+                listHtml = filteredCommits.slice(0, 100).map(commit => {
+                    const tags = getCommitTags(commit);
+                    const tagBadges = tags.slice(0, 3).map(t =>
+                        `<span class="tag ${getTagClass(t)} shrink-0" style="${getTagStyle(t)}">${t}</span>`
+                    ).join(' ');
+                    const extraTags = tags.length > 3 ? `<span class="tag tag-other shrink-0">+${tags.length - 3}</span>` : '';
+                    const workPatternBadges = getWorkPatternBadges(commit);
+                    const complexityBadge = commit.complexity != null
+                        ? `<span class="text-xs px-1.5 py-0.5 rounded ${commit.complexity >= 4 ? 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300' : commit.complexity >= 2 ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' : 'bg-gray-100 text-themed-secondary dark:bg-gray-700'}">${commit.complexity}/5</span>`
+                        : '';
+
+                    return `
+                    <div class="p-3 bg-themed-tertiary rounded-lg">
+                        <div class="flex items-start gap-2 sm:gap-3">
+                            <div class="flex flex-wrap gap-1 shrink-0">
+                                ${tagBadges}${extraTags}
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-themed-primary break-words sm:truncate">${escapeHtml(sanitizeMessage(getCommitSubject(commit)))}</p>
+                            </div>
+                            ${complexityBadge}
                         </div>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-sm font-medium text-themed-primary break-words sm:truncate">${escapeHtml(sanitizeMessage(getCommitSubject(commit)))}</p>
+                        <div class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-themed-tertiary">
+                            <span>${escapeHtml(getAuthorName(commit))}</span>
+                            <span>·</span>
+                            <span>${formatDate(commit.timestamp)}</span>
+                            ${commit.repo_id ? `<span class="text-themed-muted">· ${commit.repo_id}</span>` : ''}
+                            ${workPatternBadges ? `<span class="ml-1">${workPatternBadges}</span>` : ''}
                         </div>
-                        ${complexityBadge}
                     </div>
-                    <div class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-themed-tertiary">
-                        <span>${escapeHtml(getAuthorName(commit))}</span>
-                        <span>·</span>
-                        <span>${formatDate(commit.timestamp)}</span>
-                        ${commit.repo_id ? `<span class="text-themed-muted">· ${commit.repo_id}</span>` : ''}
-                        ${workPatternBadges ? `<span class="ml-1">${workPatternBadges}</span>` : ''}
+                `}).join('');
+            } else {
+                // Executive/Management view: show summary by time period
+                const periodData = config.timing === 'week'
+                    ? aggregateByWeekPeriod(filteredCommits)
+                    : aggregateByDayPeriod(filteredCommits);
+
+                listHtml = periodData.slice(0, 20).map(period => {
+                    const tagSummary = Object.entries(period.tags)
+                        .sort((a, b) => b[1] - a[1])
+                        .slice(0, 4)
+                        .map(([tag, count]) => `<span class="tag ${getTagClass(tag)}" style="${getTagStyle(tag)}">${tag} (${count})</span>`)
+                        .join(' ');
+
+                    return `
+                    <div class="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors" data-period-key="${period.key}">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-themed-primary">${period.label}</span>
+                            <span class="text-sm text-themed-secondary">${period.count} commits</span>
+                        </div>
+                        <div class="flex flex-wrap gap-1">
+                            ${tagSummary}
+                        </div>
+                        ${period.repos && period.repos.length > 1 ? `<div class="text-xs text-themed-tertiary mt-1">${period.repos.length} repos</div>` : ''}
                     </div>
-                </div>
-            `}).join('');
+                `;
+                }).join('');
+
+                // Add click handlers for period cards
+                setTimeout(() => {
+                    document.querySelectorAll('[data-period-key]').forEach(el => {
+                        el.addEventListener('click', () => {
+                            const key = el.dataset.periodKey;
+                            const period = periodData.find(p => p.key === key);
+                            if (period) {
+                                openDetailPane(period.label, `${period.count} commits`, period.commits);
+                            }
+                        });
+                    });
+                }, 0);
+            }
+
             document.getElementById('commit-list').innerHTML = listHtml || '<p class="text-themed-tertiary">No changes match the current filters</p>';
+        }
+
+        // Helper: aggregate commits by week for executive view
+        function aggregateByWeekPeriod(commits) {
+            const byWeek = {};
+            commits.forEach(c => {
+                if (!c.timestamp) return;
+                const date = new Date(c.timestamp);
+                const weekStart = new Date(date);
+                weekStart.setDate(date.getDate() - ((date.getDay() + 6) % 7));
+                const key = weekStart.toISOString().substring(0, 10);
+                if (!byWeek[key]) {
+                    byWeek[key] = { commits: [], tags: {}, repos: new Set() };
+                }
+                byWeek[key].commits.push(c);
+                getCommitTags(c).forEach(tag => {
+                    byWeek[key].tags[tag] = (byWeek[key].tags[tag] || 0) + 1;
+                });
+                if (c.repo_id) byWeek[key].repos.add(c.repo_id);
+            });
+
+            return Object.entries(byWeek)
+                .sort((a, b) => b[0].localeCompare(a[0]))  // Most recent first
+                .map(([key, data]) => ({
+                    key,
+                    label: `Week of ${new Date(key).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`,
+                    count: data.commits.length,
+                    commits: data.commits,
+                    tags: data.tags,
+                    repos: [...data.repos]
+                }));
+        }
+
+        // Helper: aggregate commits by day for management view
+        function aggregateByDayPeriod(commits) {
+            const byDay = {};
+            commits.forEach(c => {
+                if (!c.timestamp) return;
+                const key = c.timestamp.substring(0, 10);
+                if (!byDay[key]) {
+                    byDay[key] = { commits: [], tags: {}, repos: new Set() };
+                }
+                byDay[key].commits.push(c);
+                getCommitTags(c).forEach(tag => {
+                    byDay[key].tags[tag] = (byDay[key].tags[tag] || 0) + 1;
+                });
+                if (c.repo_id) byDay[key].repos.add(c.repo_id);
+            });
+
+            return Object.entries(byDay)
+                .sort((a, b) => b[0].localeCompare(a[0]))  // Most recent first
+                .map(([key, data]) => ({
+                    key,
+                    label: new Date(key).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }),
+                    count: data.commits.length,
+                    commits: data.commits,
+                    tags: data.tags,
+                    repos: [...data.repos]
+                }));
         }
 
         function renderActivityTimeline(commits) {
@@ -2979,6 +3089,8 @@
         // === Security Tab ===
         function renderSecurity() {
             const commits = getFilteredCommits();
+            const config = getViewConfig();
+
             // Use security_events from summary if available, otherwise compute
             let securityCommits;
             if (data.summary?.security_events?.length > 0) {
@@ -2991,23 +3103,90 @@
                 );
             }
 
-            const listHtml = securityCommits.length > 0
-                ? securityCommits.map(commit => `
-                    <div class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                        <div class="flex items-start gap-3">
-                            <span class="tag tag-security">security</span>
-                            <div class="flex-1">
-                                <p class="font-medium text-themed-primary">${escapeHtml(sanitizeMessage(getCommitSubject(commit)))}</p>
-                                <p class="text-sm text-themed-secondary mt-1">${isSanitized ? '[Details hidden]' : (escapeHtml(commit.body || '').substring(0, 200) || 'No description')}</p>
-                                <p class="text-xs text-themed-tertiary mt-2">
-                                    ${commit.sha} by ${escapeHtml(getAuthorName(commit))} on ${formatDate(commit.timestamp)}
-                                    ${commit.repo_id ? `in ${commit.repo_id}` : ''}
-                                </p>
+            let listHtml;
+
+            if (config.contributors === 'total') {
+                // Executive view: show summary stats only
+                if (securityCommits.length === 0) {
+                    listHtml = '<p class="text-themed-tertiary text-center py-8">No security-related commits found</p>';
+                } else {
+                    const dateRange = getCommitDateRange(securityCommits);
+                    const repos = [...new Set(securityCommits.map(c => c.repo_id).filter(Boolean))];
+                    listHtml = `
+                        <div class="p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-red-600 dark:text-red-400 mb-2">${securityCommits.length}</div>
+                                <div class="text-sm text-themed-secondary mb-4">Security-related commits</div>
+                                <div class="text-xs text-themed-tertiary">
+                                    ${dateRange.earliest} — ${dateRange.latest}
+                                    ${repos.length > 0 ? `<br>Across ${repos.length} repositories` : ''}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `).join('')
-                : '<p class="text-themed-tertiary text-center py-8">No security-related commits found</p>';
+                    `;
+                }
+            } else if (config.contributors === 'repo') {
+                // Management view: show counts per repo
+                if (securityCommits.length === 0) {
+                    listHtml = '<p class="text-themed-tertiary text-center py-8">No security-related commits found</p>';
+                } else {
+                    const byRepo = {};
+                    securityCommits.forEach(c => {
+                        const repo = c.repo_id || 'default';
+                        byRepo[repo] = (byRepo[repo] || 0) + 1;
+                    });
+                    const sortedRepos = Object.entries(byRepo).sort((a, b) => b[1] - a[1]);
+
+                    listHtml = `
+                        <div class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg mb-4">
+                            <div class="text-center mb-4">
+                                <div class="text-3xl font-bold text-red-600 dark:text-red-400">${securityCommits.length}</div>
+                                <div class="text-sm text-themed-secondary">Total security commits</div>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            ${sortedRepos.map(([repo, count]) => `
+                                <div class="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors" data-security-repo="${escapeHtml(repo)}">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-themed-primary font-medium">${escapeHtml(repo)}</span>
+                                        <span class="text-red-600 dark:text-red-400 font-semibold">${count} commits</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+
+                    // Add click handlers after rendering
+                    setTimeout(() => {
+                        document.querySelectorAll('[data-security-repo]').forEach(el => {
+                            el.addEventListener('click', () => {
+                                const repo = el.dataset.securityRepo;
+                                const filtered = securityCommits.filter(c => (c.repo_id || 'default') === repo);
+                                openDetailPane(`${repo} Security`, `${filtered.length} commits`, filtered);
+                            });
+                        });
+                    }, 0);
+                }
+            } else {
+                // Developer view: show full commit details (original behavior)
+                listHtml = securityCommits.length > 0
+                    ? securityCommits.map(commit => `
+                        <div class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                            <div class="flex items-start gap-3">
+                                <span class="tag tag-security">security</span>
+                                <div class="flex-1">
+                                    <p class="font-medium text-themed-primary">${escapeHtml(sanitizeMessage(getCommitSubject(commit)))}</p>
+                                    <p class="text-sm text-themed-secondary mt-1">${isSanitized ? '[Details hidden]' : (escapeHtml(commit.body || '').substring(0, 200) || 'No description')}</p>
+                                    <p class="text-xs text-themed-tertiary mt-2">
+                                        ${commit.sha} by ${escapeHtml(getAuthorName(commit))} on ${formatDate(commit.timestamp)}
+                                        ${commit.repo_id ? `in ${commit.repo_id}` : ''}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')
+                    : '<p class="text-themed-tertiary text-center py-8">No security-related commits found</p>';
+            }
 
             document.getElementById('security-list').innerHTML = listHtml;
         }
@@ -3228,103 +3407,258 @@
                 }
             });
 
-            // Urgency by Contributor
-            const contributorUrgency = {};
-            commits.forEach(c => {
-                const email = getAuthorEmail(c);
-                const name = getAuthorName(c);
-                if (!contributorUrgency[email]) {
-                    contributorUrgency[email] = { name, email, planned: 0, normal: 0, reactive: 0, total: 0 };
-                }
-                contributorUrgency[email].total++;
-                if (c.urgency <= 2) contributorUrgency[email].planned++;
-                else if (c.urgency === 3) contributorUrgency[email].normal++;
-                else if (c.urgency >= 4) contributorUrgency[email].reactive++;
-            });
+            // Urgency by Contributor (or aggregated based on view level)
+            const config = getViewConfig();
 
-            const sortedContributors = Object.values(contributorUrgency)
-                .sort((a, b) => b.total - a.total)
-                .slice(0, 6);
+            if (config.contributors === 'total') {
+                // Executive view: show single aggregated bar
+                const plannedPct = total > 0 ? Math.round((urgencyBreakdown.planned / total) * 100) : 0;
+                const normalPct = total > 0 ? Math.round((urgencyBreakdown.normal / total) * 100) : 0;
+                const reactivePct = total > 0 ? Math.round((urgencyBreakdown.reactive / total) * 100) : 0;
 
-            const urgencyByContributorHtml = sortedContributors.map(c => {
-                const plannedPct = Math.round((c.planned / c.total) * 100);
-                const normalPct = Math.round((c.normal / c.total) * 100);
-                const reactivePct = Math.round((c.reactive / c.total) * 100);
-                return `
-                    <div class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors" data-contributor-urgency="${escapeHtml(c.email)}">
+                const urgencyByContributorHtml = `
+                    <div class="p-2">
                         <div class="flex justify-between text-sm mb-1">
-                            <span class="text-themed-secondary font-medium">${escapeHtml(sanitizeName(c.name, c.email))}</span>
-                            <span class="text-themed-tertiary">${c.total} commits</span>
+                            <span class="text-themed-secondary font-medium">All Contributors</span>
+                            <span class="text-themed-tertiary">${total} commits</span>
                         </div>
-                        <div class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
-                            <div class="bg-green-500 h-full" style="width: ${plannedPct}%" title="Planned: ${c.planned}"></div>
-                            <div class="bg-blue-500 h-full" style="width: ${normalPct}%" title="Normal: ${c.normal}"></div>
-                            <div class="bg-amber-500 h-full" style="width: ${reactivePct}%" title="Reactive: ${c.reactive}"></div>
+                        <div class="w-full h-3 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
+                            <div class="bg-green-500 h-full" style="width: ${plannedPct}%" title="Planned: ${urgencyBreakdown.planned}"></div>
+                            <div class="bg-blue-500 h-full" style="width: ${normalPct}%" title="Normal: ${urgencyBreakdown.normal}"></div>
+                            <div class="bg-amber-500 h-full" style="width: ${reactivePct}%" title="Reactive: ${urgencyBreakdown.reactive}"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-themed-tertiary mt-1">
+                            <span>Planned ${plannedPct}%</span>
+                            <span>Normal ${normalPct}%</span>
+                            <span>Reactive ${reactivePct}%</span>
                         </div>
                     </div>
                 `;
-            }).join('');
-            document.getElementById('urgency-by-contributor').innerHTML = urgencyByContributorHtml || '<p class="text-themed-tertiary text-sm">No data</p>';
-
-            // Click handlers for urgency by contributor
-            document.querySelectorAll('[data-contributor-urgency]').forEach(el => {
-                el.addEventListener('click', () => {
-                    const email = el.dataset.contributorUrgency;
-                    const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
-                    const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
-                    openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered);
+                document.getElementById('urgency-by-contributor').innerHTML = urgencyByContributorHtml;
+            } else if (config.contributors === 'repo') {
+                // Management view: show by repo
+                const repoUrgency = {};
+                commits.forEach(c => {
+                    const repo = c.repo_id || 'default';
+                    if (!repoUrgency[repo]) {
+                        repoUrgency[repo] = { planned: 0, normal: 0, reactive: 0, total: 0 };
+                    }
+                    repoUrgency[repo].total++;
+                    if (c.urgency <= 2) repoUrgency[repo].planned++;
+                    else if (c.urgency === 3) repoUrgency[repo].normal++;
+                    else if (c.urgency >= 4) repoUrgency[repo].reactive++;
                 });
-            });
 
-            // Impact by Contributor
-            const contributorImpact = {};
-            commits.forEach(c => {
-                const email = getAuthorEmail(c);
-                const name = getAuthorName(c);
-                if (!contributorImpact[email]) {
-                    contributorImpact[email] = { name, email, 'user-facing': 0, 'internal': 0, 'infrastructure': 0, 'api': 0, total: 0 };
-                }
-                contributorImpact[email].total++;
-                if (c.impact && contributorImpact[email].hasOwnProperty(c.impact)) {
-                    contributorImpact[email][c.impact]++;
-                }
-            });
+                const sortedRepos = Object.entries(repoUrgency)
+                    .sort((a, b) => b[1].total - a[1].total)
+                    .slice(0, 6);
 
-            const sortedContributorsImpact = Object.values(contributorImpact)
-                .sort((a, b) => b.total - a.total)
-                .slice(0, 6);
-
-            const impactByContributorHtml = sortedContributorsImpact.map(c => {
-                const userPct = Math.round((c['user-facing'] / c.total) * 100);
-                const internalPct = Math.round((c['internal'] / c.total) * 100);
-                const infraPct = Math.round((c['infrastructure'] / c.total) * 100);
-                const apiPct = Math.round((c['api'] / c.total) * 100);
-                return `
-                    <div class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors" data-contributor-impact="${escapeHtml(c.email)}">
-                        <div class="flex justify-between text-sm mb-1">
-                            <span class="text-themed-secondary font-medium">${escapeHtml(sanitizeName(c.name, c.email))}</span>
-                            <span class="text-themed-tertiary">${c.total} commits</span>
+                const urgencyByContributorHtml = sortedRepos.map(([repo, data]) => {
+                    const plannedPct = Math.round((data.planned / data.total) * 100);
+                    const normalPct = Math.round((data.normal / data.total) * 100);
+                    const reactivePct = Math.round((data.reactive / data.total) * 100);
+                    return `
+                        <div class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors" data-repo-urgency="${escapeHtml(repo)}">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-themed-secondary font-medium">${escapeHtml(repo)}</span>
+                                <span class="text-themed-tertiary">${data.total} commits</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
+                                <div class="bg-green-500 h-full" style="width: ${plannedPct}%" title="Planned: ${data.planned}"></div>
+                                <div class="bg-blue-500 h-full" style="width: ${normalPct}%" title="Normal: ${data.normal}"></div>
+                                <div class="bg-amber-500 h-full" style="width: ${reactivePct}%" title="Reactive: ${data.reactive}"></div>
+                            </div>
                         </div>
-                        <div class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
-                            <div class="bg-blue-500 h-full" style="width: ${userPct}%" title="User-facing: ${c['user-facing']}"></div>
-                            <div class="bg-gray-500 h-full" style="width: ${internalPct}%" title="Internal: ${c['internal']}"></div>
-                            <div class="bg-purple-500 h-full" style="width: ${infraPct}%" title="Infrastructure: ${c['infrastructure']}"></div>
-                            <div class="bg-green-500 h-full" style="width: ${apiPct}%" title="API: ${c['api']}"></div>
+                    `;
+                }).join('');
+                document.getElementById('urgency-by-contributor').innerHTML = urgencyByContributorHtml || '<p class="text-themed-tertiary text-sm">No data</p>';
+
+                // Click handlers for repo urgency
+                document.querySelectorAll('[data-repo-urgency]').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const repo = el.dataset.repoUrgency;
+                        const filtered = getFilteredCommits().filter(c => (c.repo_id || 'default') === repo);
+                        openDetailPane(`${repo}`, `${filtered.length} commits`, filtered);
+                    });
+                });
+            } else {
+                // Developer view: show by individual contributor (original behavior)
+                const contributorUrgency = {};
+                commits.forEach(c => {
+                    const email = getAuthorEmail(c);
+                    const name = getAuthorName(c);
+                    if (!contributorUrgency[email]) {
+                        contributorUrgency[email] = { name, email, planned: 0, normal: 0, reactive: 0, total: 0 };
+                    }
+                    contributorUrgency[email].total++;
+                    if (c.urgency <= 2) contributorUrgency[email].planned++;
+                    else if (c.urgency === 3) contributorUrgency[email].normal++;
+                    else if (c.urgency >= 4) contributorUrgency[email].reactive++;
+                });
+
+                const sortedContributors = Object.values(contributorUrgency)
+                    .sort((a, b) => b.total - a.total)
+                    .slice(0, 6);
+
+                const urgencyByContributorHtml = sortedContributors.map(c => {
+                    const plannedPct = Math.round((c.planned / c.total) * 100);
+                    const normalPct = Math.round((c.normal / c.total) * 100);
+                    const reactivePct = Math.round((c.reactive / c.total) * 100);
+                    return `
+                        <div class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors" data-contributor-urgency="${escapeHtml(c.email)}">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-themed-secondary font-medium">${escapeHtml(sanitizeName(c.name, c.email))}</span>
+                                <span class="text-themed-tertiary">${c.total} commits</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
+                                <div class="bg-green-500 h-full" style="width: ${plannedPct}%" title="Planned: ${c.planned}"></div>
+                                <div class="bg-blue-500 h-full" style="width: ${normalPct}%" title="Normal: ${c.normal}"></div>
+                                <div class="bg-amber-500 h-full" style="width: ${reactivePct}%" title="Reactive: ${c.reactive}"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                document.getElementById('urgency-by-contributor').innerHTML = urgencyByContributorHtml || '<p class="text-themed-tertiary text-sm">No data</p>';
+
+                // Click handlers for urgency by contributor
+                document.querySelectorAll('[data-contributor-urgency]').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const email = el.dataset.contributorUrgency;
+                        const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
+                        const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
+                        openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered);
+                    });
+                });
+            }
+
+            // Impact by Contributor (or aggregated based on view level)
+            if (config.contributors === 'total') {
+                // Executive view: show single aggregated bar
+                const userPct = total > 0 ? Math.round((impactBreakdown['user-facing'] / total) * 100) : 0;
+                const internalPct = total > 0 ? Math.round((impactBreakdown['internal'] / total) * 100) : 0;
+                const infraPct = total > 0 ? Math.round((impactBreakdown['infrastructure'] / total) * 100) : 0;
+                const apiPct = total > 0 ? Math.round((impactBreakdown['api'] / total) * 100) : 0;
+
+                const impactByContributorHtml = `
+                    <div class="p-2">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-themed-secondary font-medium">All Contributors</span>
+                            <span class="text-themed-tertiary">${total} commits</span>
+                        </div>
+                        <div class="w-full h-3 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
+                            <div class="bg-blue-500 h-full" style="width: ${userPct}%" title="User-facing: ${impactBreakdown['user-facing']}"></div>
+                            <div class="bg-gray-500 h-full" style="width: ${internalPct}%" title="Internal: ${impactBreakdown['internal']}"></div>
+                            <div class="bg-purple-500 h-full" style="width: ${infraPct}%" title="Infrastructure: ${impactBreakdown['infrastructure']}"></div>
+                            <div class="bg-green-500 h-full" style="width: ${apiPct}%" title="API: ${impactBreakdown['api']}"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-themed-tertiary mt-1">
+                            <span>User ${userPct}%</span>
+                            <span>Internal ${internalPct}%</span>
+                            <span>Infra ${infraPct}%</span>
+                            <span>API ${apiPct}%</span>
                         </div>
                     </div>
                 `;
-            }).join('');
-            document.getElementById('impact-by-contributor').innerHTML = impactByContributorHtml || '<p class="text-themed-tertiary text-sm">No data</p>';
-
-            // Click handlers for impact by contributor
-            document.querySelectorAll('[data-contributor-impact]').forEach(el => {
-                el.addEventListener('click', () => {
-                    const email = el.dataset.contributorImpact;
-                    const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
-                    const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
-                    openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered);
+                document.getElementById('impact-by-contributor').innerHTML = impactByContributorHtml;
+            } else if (config.contributors === 'repo') {
+                // Management view: show by repo
+                const repoImpact = {};
+                commits.forEach(c => {
+                    const repo = c.repo_id || 'default';
+                    if (!repoImpact[repo]) {
+                        repoImpact[repo] = { 'user-facing': 0, 'internal': 0, 'infrastructure': 0, 'api': 0, total: 0 };
+                    }
+                    repoImpact[repo].total++;
+                    if (c.impact && repoImpact[repo].hasOwnProperty(c.impact)) {
+                        repoImpact[repo][c.impact]++;
+                    }
                 });
-            });
+
+                const sortedReposImpact = Object.entries(repoImpact)
+                    .sort((a, b) => b[1].total - a[1].total)
+                    .slice(0, 6);
+
+                const impactByContributorHtml = sortedReposImpact.map(([repo, data]) => {
+                    const userPct = Math.round((data['user-facing'] / data.total) * 100);
+                    const internalPct = Math.round((data['internal'] / data.total) * 100);
+                    const infraPct = Math.round((data['infrastructure'] / data.total) * 100);
+                    const apiPct = Math.round((data['api'] / data.total) * 100);
+                    return `
+                        <div class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors" data-repo-impact="${escapeHtml(repo)}">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-themed-secondary font-medium">${escapeHtml(repo)}</span>
+                                <span class="text-themed-tertiary">${data.total} commits</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
+                                <div class="bg-blue-500 h-full" style="width: ${userPct}%" title="User-facing: ${data['user-facing']}"></div>
+                                <div class="bg-gray-500 h-full" style="width: ${internalPct}%" title="Internal: ${data['internal']}"></div>
+                                <div class="bg-purple-500 h-full" style="width: ${infraPct}%" title="Infrastructure: ${data['infrastructure']}"></div>
+                                <div class="bg-green-500 h-full" style="width: ${apiPct}%" title="API: ${data['api']}"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                document.getElementById('impact-by-contributor').innerHTML = impactByContributorHtml || '<p class="text-themed-tertiary text-sm">No data</p>';
+
+                // Click handlers for repo impact
+                document.querySelectorAll('[data-repo-impact]').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const repo = el.dataset.repoImpact;
+                        const filtered = getFilteredCommits().filter(c => (c.repo_id || 'default') === repo);
+                        openDetailPane(`${repo}`, `${filtered.length} commits`, filtered);
+                    });
+                });
+            } else {
+                // Developer view: show by individual contributor (original behavior)
+                const contributorImpact = {};
+                commits.forEach(c => {
+                    const email = getAuthorEmail(c);
+                    const name = getAuthorName(c);
+                    if (!contributorImpact[email]) {
+                        contributorImpact[email] = { name, email, 'user-facing': 0, 'internal': 0, 'infrastructure': 0, 'api': 0, total: 0 };
+                    }
+                    contributorImpact[email].total++;
+                    if (c.impact && contributorImpact[email].hasOwnProperty(c.impact)) {
+                        contributorImpact[email][c.impact]++;
+                    }
+                });
+
+                const sortedContributorsImpact = Object.values(contributorImpact)
+                    .sort((a, b) => b.total - a.total)
+                    .slice(0, 6);
+
+                const impactByContributorHtml = sortedContributorsImpact.map(c => {
+                    const userPct = Math.round((c['user-facing'] / c.total) * 100);
+                    const internalPct = Math.round((c['internal'] / c.total) * 100);
+                    const infraPct = Math.round((c['infrastructure'] / c.total) * 100);
+                    const apiPct = Math.round((c['api'] / c.total) * 100);
+                    return `
+                        <div class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors" data-contributor-impact="${escapeHtml(c.email)}">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-themed-secondary font-medium">${escapeHtml(sanitizeName(c.name, c.email))}</span>
+                                <span class="text-themed-tertiary">${c.total} commits</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
+                                <div class="bg-blue-500 h-full" style="width: ${userPct}%" title="User-facing: ${c['user-facing']}"></div>
+                                <div class="bg-gray-500 h-full" style="width: ${internalPct}%" title="Internal: ${c['internal']}"></div>
+                                <div class="bg-purple-500 h-full" style="width: ${infraPct}%" title="Infrastructure: ${c['infrastructure']}"></div>
+                                <div class="bg-green-500 h-full" style="width: ${apiPct}%" title="API: ${c['api']}"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                document.getElementById('impact-by-contributor').innerHTML = impactByContributorHtml || '<p class="text-themed-tertiary text-sm">No data</p>';
+
+                // Click handlers for impact by contributor
+                document.querySelectorAll('[data-contributor-impact]').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const email = el.dataset.contributorImpact;
+                        const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
+                        const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
+                        openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered);
+                    });
+                });
+            }
 
             // Add click handlers for health cards (only once, using dynamic data)
             if (!healthCardHandlersInitialized) {

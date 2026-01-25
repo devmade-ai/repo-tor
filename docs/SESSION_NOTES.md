@@ -61,6 +61,12 @@ Current state for AI assistants to continue work.
 | Management | "repo-api (12 contributors)" | Day-of-week bars | Stats + repo split |
 | Developer | Individual names | 24×7 hourly grid | Full commit list |
 
+**Full coverage across all tabs:**
+- **Health tab**: Urgency/Impact by contributor → aggregated by total/repo/individual
+- **Security tab**: Executive sees count only, Management sees per-repo breakdown
+- **Timeline**: Executive sees weekly summaries, Management sees daily summaries
+- **Tags/Progress**: Drilldowns automatically use view-level-aware detail pane
+
 Access via the "View Level" selector in the filter sidebar. Selection persists in localStorage.
 
 ### Click Interactions
