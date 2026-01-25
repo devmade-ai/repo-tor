@@ -132,6 +132,31 @@ All repositories processed with `@data feed the chicken`:
 
 ## Future / Backlog
 
+### Role-Based View Levels - COMPLETE
+*Different data granularity for different audiences - same layout, same charts, different detail levels*
+
+- [x] Role configuration & state
+  - [x] VIEW_LEVELS config (executive/management/developer)
+  - [x] currentViewLevel state variable
+  - [x] localStorage persistence
+- [x] Aggregation layer functions
+  - [x] `aggregateContributors()` - total/repo/individual
+  - [x] `renderWeeklyHeatmap()` / `renderDailyHeatmap()` - different time views
+  - [x] `aggregateForDrilldown()` - summary stats vs commit list
+  - [x] `aggregateByTag()` helper
+- [x] Modify render functions for view levels
+  - [x] `renderContributors()` - different groupings
+  - [x] `renderTiming()` / heatmap - different granularity
+  - [x] `openDetailPane()` - summary vs commits
+  - [x] `renderDrilldownSummary()` - new summary view
+- [x] UI role selector (in filter area)
+
+| View | Contributors | Timing | Drilldown |
+|------|-------------|--------|-----------|
+| Executive | "All (45)" | Weekly | Stats only |
+| Management | "repo-api (12)" | Daily | Stats + repo split |
+| Developer | "Alice Chen" | Hourly | Full commit list |
+
 ### Global Filters
 - [ ] Filter bar visible on all tabs
 - [ ] Repo selector (when viewing overall)
@@ -147,4 +172,4 @@ All repositories processed with `@data feed the chicken`:
 
 ---
 
-*Last updated: 2026-01-23 - All extraction complete (1163 commits). Created ANALYSIS_GUIDE.md.*
+*Last updated: 2026-01-24 - Role-based view levels implemented (Executive/Management/Developer).*

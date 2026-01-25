@@ -25,6 +25,34 @@ When multiple files are loaded:
 
 **Tip:** Use the server-side aggregation script (`scripts/aggregate-processed.js`) for better author identity mapping when the same person uses different emails across repositories.
 
+## View Levels
+
+The dashboard supports three view levels for different audiences. Select your view level from the filter sidebar:
+
+| View Level | Best For | What Changes |
+|------------|----------|--------------|
+| **Executive** | High-level summaries | Aggregated totals, weekly heatmap, stats-only drilldowns |
+| **Management** | Project-level views | Per-repo groupings, daily heatmap, stats drilldowns |
+| **Developer** | Detailed analysis (default) | Individual contributors, hourly heatmap, full commit lists |
+
+**What stays the same across all views:**
+- All tabs and charts remain visible
+- Filters (date range, repo, tag, author) apply to all views
+- Layout and structure are consistent
+
+**What changes per view level:**
+
+| Element | Executive | Management | Developer |
+|---------|-----------|------------|-----------|
+| Contributor cards | "All Contributors (45)" | "repo-api (12 people)" | "Alice Chen" |
+| Heatmap | Weekly activity blocks | Day-of-week distribution | 24×7 hourly grid |
+| Click drilldowns | Summary stats | Stats + repo breakdown | Full commit list |
+| Developer Patterns | Hidden | Hidden | Shown |
+
+Your view level selection is saved in your browser and will persist across sessions.
+
+---
+
 ## Dashboard Overview
 
 When you load a data file, the dashboard displays analytics for that repository. The header shows the repository name, total commits, contributor count, and date range covered.

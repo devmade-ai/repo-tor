@@ -4,7 +4,12 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete. Fixed bug where malformed commits (missing timestamps) caused JavaScript errors that halted execution.
+**Dashboard V2:** Implementation complete with role-based view levels. Users can now switch between Executive, Management, and Developer views for different data granularity.
+
+**Role-Based View Levels:** New feature allows different audiences to see appropriate detail levels:
+- **Executive**: Aggregated totals, weekly heatmap, summary drilldowns
+- **Management**: Per-repo groupings, daily heatmap, summary drilldowns
+- **Developer**: Individual contributors, hourly heatmap, full commit lists (default)
 
 **Extraction System:** AI analysis complete. 1163 commits processed across 6 repositories. All previously malformed commits have been fixed.
 
@@ -44,9 +49,25 @@ Current state for AI assistants to continue work.
 - Bottom sheet on mobile (85% viewport height)
 - Click-outside or Escape key to close
 - Smooth transition animations
-- Shows filtered commits with:
-  - Message, author, date, repo
-  - Tags, urgency label, impact label
+- **View-level aware drilldowns:**
+  - Developer: Full commit list with message, author, date, repo, tags
+  - Executive/Management: Summary stats (commit counts, contributor counts, tag breakdown, date range)
+
+### Role-Based View Levels
+
+| View | Contributors | Heatmap | Drilldown |
+|------|-------------|---------|-----------|
+| Executive | "All (45 contributors)" | Weekly blocks | Stats only |
+| Management | "repo-api (12 contributors)" | Day-of-week bars | Stats + repo split |
+| Developer | Individual names | 24×7 hourly grid | Full commit list |
+
+**Full coverage across all tabs:**
+- **Health tab**: Urgency/Impact by contributor → aggregated by total/repo/individual
+- **Security tab**: Executive sees count only, Management sees per-repo breakdown
+- **Timeline**: Executive sees weekly summaries, Management sees daily summaries
+- **Tags/Progress**: Drilldowns automatically use view-level-aware detail pane
+
+Access via the "View Level" selector in the filter sidebar. Selection persists in localStorage.
 
 ### Click Interactions
 
@@ -136,4 +157,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-23 - All AI analysis complete! 1163 commits across 6 repos. Created ANALYSIS_GUIDE.md for tagging consistency.*
+*Last updated: 2026-01-24 - Added role-based view levels (Executive/Management/Developer) for different data granularity.*
