@@ -13,9 +13,9 @@
 - `hooks/commit-msg` - Validates conventional commit format
 - `docs/COMMIT_CONVENTION.md` - Team guide for commit messages
 
-**Current State:** MVP complete (D1, D2, D4). See `docs/SESSION_NOTES.md` for details.
+**Current State:** Dashboard V2 complete with role-based views. See `docs/SESSION_NOTES.md` for details.
 
-**Remaining Work:** Tag-based analytics, complexity scoring, timestamp views. See `docs/TODO.md`.
+**Remaining Work:** See `docs/TODO.md` for backlog items.
 
 ---
 
