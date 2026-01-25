@@ -48,6 +48,34 @@ Mistakes and oversights made by AI assistants during development. Document these
 
 ---
 
+## 2026-01-25: Hardcoded values instead of reading CSS variables
+
+**What happened:** When fixing chart text visibility, changed `Chart.defaults.color` from one hardcoded hex value (`#767676`) to another (`#e5e7eb`) that "matched" the CSS variable `--text-secondary`. Did this twice - first with `#b0b0b0`, then when corrected, still used a hardcoded value.
+
+**Why it's a problem:**
+- If the CSS variable changes, charts won't update
+- Defeats the purpose of having a theming system
+- "Matching" values is fragile - easy to get out of sync
+- Shows a pattern of taking shortcuts rather than doing it properly
+
+**What should have happened:**
+- Read CSS variables with JavaScript: `getComputedStyle(document.documentElement).getPropertyValue('--text-secondary')`
+- This keeps charts in sync with the theme automatically
+- Fallback to a default only if the variable is missing
+
+**Correct approach:**
+```javascript
+const styles = getComputedStyle(document.documentElement);
+Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e5e7eb';
+```
+
+**Current status:** Fixed to read from CSS variables properly.
+
+**Files affected:**
+- `dashboard/index.html` - Chart.defaults configuration
+
+---
+
 ## Template for Future Entries
 
 ```markdown
