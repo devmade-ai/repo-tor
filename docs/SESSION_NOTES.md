@@ -10,13 +10,13 @@ Current state for AI assistants to continue work.
 - Fixed chart text visibility using themed color (`--text-secondary`)
 - Added summary cards to Activity and Breakdown tabs for consistent UX
 - Removed section state persistence - consistent defaults on every page reload
-- Developer Patterns section now hidden for non-developer views (role-appropriate)
+- Added role-specific interpretation guidance (Executive/Management see contextual tips)
 - Added future enhancement TODOs for: techy theme, date exclusions, filter presets, match all/any filter logic
 
 **Role-Based View Levels:** Different audiences see appropriate detail levels:
-- **Executive**: Aggregated totals, weekly heatmap, summary drilldowns
-- **Management**: Per-repo groupings, daily heatmap, summary drilldowns
-- **Developer**: Individual contributors, hourly heatmap, full commit lists (default)
+- **Executive**: Aggregated totals, weekly heatmap, summary drilldowns + interpretation guidance
+- **Management**: Per-repo groupings, daily heatmap, summary drilldowns + interpretation guidance
+- **Developer**: Individual contributors, hourly heatmap, full commit lists (no hints needed)
 
 **Extraction System:** AI analysis complete. 1163 commits processed across 6 repositories. All previously malformed commits have been fixed.
 
