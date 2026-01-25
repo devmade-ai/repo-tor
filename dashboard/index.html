@@ -2095,9 +2095,10 @@
             if (iconSun) iconSun.classList.add('hidden');
             if (iconMoon) iconMoon.classList.add('hidden');
 
-            // Chart.js defaults for dark theme - use themed colors
-            Chart.defaults.color = '#e5e7eb';  // matches --text-secondary
-            Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';  // matches --chart-grid
+            // Chart.js defaults - read from CSS variables for theme consistency
+            const styles = getComputedStyle(document.documentElement);
+            Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e5e7eb';
+            Chart.defaults.borderColor = styles.getPropertyValue('--chart-grid').trim() || 'rgba(255, 255, 255, 0.1)';
         }
 
         function toggleDarkMode() {
