@@ -4,12 +4,19 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete with role-based view levels. Users can now switch between Executive, Management, and Developer views for different data granularity.
+**Dashboard V2:** Implementation complete with role-based view levels and consistent tab layouts.
 
-**Role-Based View Levels:** New feature allows different audiences to see appropriate detail levels:
-- **Executive**: Aggregated totals, weekly heatmap, summary drilldowns
-- **Management**: Per-repo groupings, daily heatmap, summary drilldowns
-- **Developer**: Individual contributors, hourly heatmap, full commit lists (default)
+**Recent Updates (2026-01-25):**
+- Fixed chart text visibility by reading CSS variables with `getComputedStyle()` (not hardcoded values)
+- Added summary cards to Activity and Breakdown tabs for consistent UX
+- Removed section state persistence - consistent defaults on every page reload
+- Added role-specific interpretation guidance (Executive/Management see contextual tips)
+- Added future enhancement TODOs for: techy theme, date exclusions, filter presets, match all/any filter logic
+
+**Role-Based View Levels:** Different audiences see appropriate detail levels:
+- **Executive**: Aggregated totals, weekly heatmap, summary drilldowns + interpretation guidance
+- **Management**: Per-repo groupings, daily heatmap, summary drilldowns + interpretation guidance
+- **Developer**: Individual contributors, hourly heatmap, full commit lists (no hints needed)
 
 **Extraction System:** AI analysis complete. 1163 commits processed across 6 repositories. All previously malformed commits have been fixed.
 
@@ -157,4 +164,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-24 - Added role-based view levels (Executive/Management/Developer) for different data granularity.*
+*Last updated: 2026-01-25 - Dashboard consistency: CSS variable chart colors, summary cards, section defaults, role-specific guidance.*

@@ -50,15 +50,16 @@ docs/
   ...
 ```
 
-## Reports Generated
+## Dashboard Tabs
 
-| Report | Description |
-|--------|-------------|
-| Timeline | Daily commit activity with type coloring |
-| Progress | Monthly volume, cumulative growth, feature vs fix trends |
-| Contributors | Commits and lines changed by author |
-| Security | Security-tagged commits highlighted |
-| Types | Commit type distribution breakdown |
+| Tab | Purpose |
+|-----|---------|
+| **Overview** | Executive summary with period comparison, quick stats, highlights |
+| **Activity** | Timeline, heatmap, when work happens |
+| **Work** | Progress trends, tags, contributors, what's being built |
+| **Health** | Security, urgency, work patterns, operational indicators |
+
+**View Levels:** Switch between Executive, Management, and Developer views for different data granularity. Non-developer views include interpretation guidance.
 
 ## License
 

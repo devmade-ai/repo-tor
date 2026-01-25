@@ -47,7 +47,9 @@ The dashboard supports three view levels for different audiences. Select your vi
 | Contributor cards | "All Contributors (45)" | "repo-api (12 people)" | "Alice Chen" |
 | Heatmap | Weekly activity blocks | Day-of-week distribution | 24×7 hourly grid |
 | Click drilldowns | Summary stats | Stats + repo breakdown | Full commit list |
-| Developer Patterns | Hidden | Hidden | Shown |
+| Interpretation guidance | Shown | Shown | Hidden |
+
+**Role-Specific Guidance:** Executive and Management views show contextual interpretation hints on key sections (e.g., "high weekend % may signal burnout risk"). Developers see raw data without hints.
 
 Your view level selection is saved in your browser and will persist across sessions.
 
@@ -121,6 +123,15 @@ Trend indicators:
 
 Shows **when** commits happened and **what** was recently committed.
 
+**Summary Cards** (top of tab)
+
+| Card | What It Shows |
+|------|--------------|
+| **Total Commits** | Count of commits in current filter |
+| **Active Days** | Unique days with commits |
+| **Contributors** | Unique contributors in period |
+| **Avg / Day** | Commits per active day |
+
 **Filters**
 
 | Filter | Description |
@@ -153,6 +164,15 @@ Shows **when** commits happened and **what** was recently committed.
 ### Work Tab (What's Being Done)
 
 Shows **how** work is evolving and **who does what**.
+
+**Summary Cards** (top of tab)
+
+| Card | What It Shows |
+|------|--------------|
+| **Features** | Count of feature commits |
+| **Bug Fixes** | Count of bugfix/fix commits |
+| **Refactors** | Count of refactor commits |
+| **Avg Complexity** | Average complexity score (1-5) |
 
 **Work Type Trend**
 - Features vs bug fixes by month (overlapping line charts)

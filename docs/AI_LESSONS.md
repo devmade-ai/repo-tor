@@ -48,6 +48,65 @@ Mistakes and oversights made by AI assistants during development. Document these
 
 ---
 
+## 2026-01-25: Hardcoded values instead of reading CSS variables
+
+**What happened:** When fixing chart text visibility, changed `Chart.defaults.color` from one hardcoded hex value (`#767676`) to another (`#e5e7eb`) that "matched" the CSS variable `--text-secondary`. Did this twice - first with `#b0b0b0`, then when corrected, still used a hardcoded value.
+
+**Why it's a problem:**
+- If the CSS variable changes, charts won't update
+- Defeats the purpose of having a theming system
+- "Matching" values is fragile - easy to get out of sync
+- Shows a pattern of taking shortcuts rather than doing it properly
+
+**What should have happened:**
+- Read CSS variables with JavaScript: `getComputedStyle(document.documentElement).getPropertyValue('--text-secondary')`
+- This keeps charts in sync with the theme automatically
+- Fallback to a default only if the variable is missing
+
+**Correct approach:**
+```javascript
+const styles = getComputedStyle(document.documentElement);
+Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e5e7eb';
+```
+
+**Current status:** Fixed to read from CSS variables properly.
+
+**Files affected:**
+- `dashboard/index.html` - Chart.defaults configuration
+
+---
+
+## 2026-01-25: Not checking all docs after making changes
+
+**What happened:** After implementing dashboard changes (summary cards, section defaults, role-specific guidance), only updated SESSION_NOTES.md and HISTORY.md. Didn't check or update CLAUDE.md, README.md, or USER_GUIDE.md until user asked "nothing in claude.md or readme or any other docs?"
+
+**Why it's a problem:**
+- CLAUDE.md had stale "Remaining Work" listing already-completed features
+- README.md had outdated "Reports Generated" table that didn't match current tabs
+- USER_GUIDE.md said "Developer Patterns: Hidden" when we'd changed it to show with guidance
+- USER_GUIDE.md didn't document the new summary cards
+- Creates drift between code and docs that confuses future sessions
+
+**What should have happened:**
+- CLAUDE.md checklist explicitly says: "Update docs/USER_GUIDE.md if dashboard UI or interpretation changed"
+- Should have checked ALL user-facing docs after UI changes, not just session tracking docs
+- The checklist exists for a reason - follow it completely
+
+**Lesson:** After any UI/feature change, check:
+1. USER_GUIDE.md - Does it describe current behavior?
+2. README.md - Is the overview accurate?
+3. CLAUDE.md - Are "Current State" and "Remaining Work" correct?
+4. Any doc that references the changed feature
+
+**Current status:** All docs updated.
+
+**Files affected:**
+- `CLAUDE.md` - Had stale feature list
+- `README.md` - Had outdated reports table
+- `docs/USER_GUIDE.md` - Had wrong info about Developer Patterns visibility, missing summary cards
+
+---
+
 ## Template for Future Entries
 
 ```markdown
