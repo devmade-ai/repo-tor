@@ -15,9 +15,9 @@ Fixed several inconsistencies in the dashboard layout and improved visibility.
 - Developer Patterns section showed individual names for non-developer views
 
 **Solutions:**
-1. **Chart text visibility**: Changed `Chart.defaults.color` from `#767676` to `#b0b0b0` for better contrast
+1. **Chart text visibility**: Changed `Chart.defaults.color` to `#e5e7eb` to match `--text-secondary` themed variable
 2. **Summary cards**: Added 4-card summary rows to Activity tab (Total Commits, Active Days, Contributors, Avg/Day) and Breakdown tab (Features, Bug Fixes, Refactors, Avg Complexity)
-3. **Section defaults**: First-time users now see primary sections expanded (work breakdown, timeline, distributions, etc.); saved preferences still honored
+3. **Section defaults**: Removed section state persistence - consistent defaults on every page load (primary sections expanded)
 4. **Role-based visibility**: Developer Patterns section now hidden for Executive/Management views
 
 **Files updated:**

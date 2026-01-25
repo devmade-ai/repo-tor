@@ -1899,7 +1899,7 @@
         }
 
         // === Collapsible Sections ===
-        const SECTION_STATE_KEY = 'dashboardSectionState';
+        // Sections use consistent defaults on every page load (no saved state)
 
         function toggleSection(header) {
             const isExpanded = header.getAttribute('aria-expanded') === 'true';
@@ -1907,78 +1907,30 @@
 
             header.setAttribute('aria-expanded', !isExpanded);
             content.classList.toggle('expanded', !isExpanded);
-
-            // Save state
-            saveSectionState();
-        }
-
-        function saveSectionState() {
-            const state = {};
-            document.querySelectorAll('.collapsible-header').forEach(header => {
-                const section = header.closest('[data-section]');
-                if (section) {
-                    state[section.dataset.section] = header.getAttribute('aria-expanded') === 'true';
-                }
-            });
-            localStorage.setItem(SECTION_STATE_KEY, JSON.stringify(state));
-        }
-
-        function loadSectionState() {
-            try {
-                const stored = localStorage.getItem(SECTION_STATE_KEY);
-                if (stored) {
-                    const state = JSON.parse(stored);
-                    document.querySelectorAll('[data-section]').forEach(section => {
-                        const sectionName = section.dataset.section;
-                        const header = section.querySelector('.collapsible-header');
-                        const content = section.querySelector('.collapsible-content');
-                        if (header && content && state[sectionName] !== undefined) {
-                            header.setAttribute('aria-expanded', state[sectionName]);
-                            content.classList.toggle('expanded', state[sectionName]);
-                        }
-                    });
-                }
-            } catch (e) {
-                console.warn('Failed to load section state:', e);
-            }
         }
 
         function initCollapsibleSections() {
-            // Check if user has saved preferences
-            const hasSavedState = localStorage.getItem(SECTION_STATE_KEY);
+            // Always use consistent defaults - primary sections expanded
+            const defaultExpanded = [
+                'work-breakdown', 'highlights',  // Overview tab
+                'activity-timeline',             // Activity tab
+                'work-type-trend',               // Breakdown/Progress tab
+                'commits-by-tag', 'tag-breakdown', // Tags tab
+                'who-does-what',                 // Contributors tab
+                'urgency-distribution', 'impact-distribution', // Health/Risk tab
+                'activity-heatmap'               // Timing tab
+            ];
 
-            if (hasSavedState) {
-                // User has preferences - apply them
-                document.querySelectorAll('.collapsible-header').forEach(header => {
-                    header.setAttribute('aria-expanded', 'false');
-                });
-                document.querySelectorAll('.collapsible-content').forEach(content => {
-                    content.classList.remove('expanded');
-                });
-                loadSectionState();
-            } else {
-                // First-time user: expand primary sections by default
-                const defaultExpanded = [
-                    'work-breakdown', 'highlights',  // Overview tab
-                    'activity-timeline',             // Activity tab
-                    'work-type-trend',               // Breakdown/Progress tab
-                    'commits-by-tag', 'tag-breakdown', // Tags tab
-                    'who-does-what',                 // Contributors tab
-                    'urgency-distribution', 'impact-distribution', // Health/Risk tab
-                    'activity-heatmap'               // Timing tab
-                ];
-
-                document.querySelectorAll('[data-section]').forEach(section => {
-                    const sectionName = section.dataset.section;
-                    const header = section.querySelector('.collapsible-header');
-                    const content = section.querySelector('.collapsible-content');
-                    if (header && content) {
-                        const shouldExpand = defaultExpanded.includes(sectionName);
-                        header.setAttribute('aria-expanded', shouldExpand);
-                        content.classList.toggle('expanded', shouldExpand);
-                    }
-                });
-            }
+            document.querySelectorAll('[data-section]').forEach(section => {
+                const sectionName = section.dataset.section;
+                const header = section.querySelector('.collapsible-header');
+                const content = section.querySelector('.collapsible-content');
+                if (header && content) {
+                    const shouldExpand = defaultExpanded.includes(sectionName);
+                    header.setAttribute('aria-expanded', shouldExpand);
+                    content.classList.toggle('expanded', shouldExpand);
+                }
+            });
         }
 
         // Initialize detail pane event listeners
@@ -2047,9 +1999,9 @@
             if (iconSun) iconSun.classList.add('hidden');
             if (iconMoon) iconMoon.classList.add('hidden');
 
-            // Chart.js defaults for dark theme
-            Chart.defaults.color = '#b0b0b0';  // lighter text for chart labels (improved visibility)
-            Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+            // Chart.js defaults for dark theme - use themed colors
+            Chart.defaults.color = '#e5e7eb';  // matches --text-secondary
+            Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';  // matches --chart-grid
         }
 
         function toggleDarkMode() {

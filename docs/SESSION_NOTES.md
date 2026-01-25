@@ -7,9 +7,9 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels and consistent tab layouts.
 
 **Recent Updates (2026-01-25):**
-- Fixed chart text visibility in dark mode (lighter label colors)
+- Fixed chart text visibility using themed color (`--text-secondary`)
 - Added summary cards to Activity and Breakdown tabs for consistent UX
-- Made section expand/collapse behavior consistent (primary sections expanded by default for first-time users)
+- Removed section state persistence - consistent defaults on every page reload
 - Developer Patterns section now hidden for non-developer views (role-appropriate)
 - Added future enhancement TODOs for: techy theme, date exclusions, filter presets, match all/any filter logic
 
