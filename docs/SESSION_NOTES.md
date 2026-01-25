@@ -7,7 +7,7 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels and consistent tab layouts.
 
 **Recent Updates (2026-01-25):**
-- Fixed chart text visibility using themed color (`--text-secondary`)
+- Fixed chart text visibility by reading CSS variables with `getComputedStyle()` (not hardcoded values)
 - Added summary cards to Activity and Breakdown tabs for consistent UX
 - Removed section state persistence - consistent defaults on every page reload
 - Added role-specific interpretation guidance (Executive/Management see contextual tips)
@@ -164,4 +164,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-25 - Dashboard consistency improvements: chart visibility, summary cards, section defaults, role-based developer patterns.*
+*Last updated: 2026-01-25 - Dashboard consistency: CSS variable chart colors, summary cards, section defaults, role-specific guidance.*

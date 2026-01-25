@@ -15,7 +15,7 @@ Fixed several inconsistencies in the dashboard layout and improved visibility.
 - Non-developer roles lacked context for interpreting detailed data
 
 **Solutions:**
-1. **Chart text visibility**: Changed `Chart.defaults.color` to `#e5e7eb` to match `--text-secondary` themed variable
+1. **Chart text visibility**: Read CSS variables with `getComputedStyle()` instead of hardcoding color values
 2. **Summary cards**: Added 4-card summary rows to Activity tab (Total Commits, Active Days, Contributors, Avg/Day) and Breakdown tab (Features, Bug Fixes, Refactors, Avg Complexity)
 3. **Section defaults**: Removed section state persistence - consistent defaults on every page load (primary sections expanded)
 4. **Role-specific guidance**: Added interpretation hints for Executive/Management views (e.g., "high weekend % may signal burnout risk"). Developers see raw data without hints.
