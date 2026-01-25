@@ -76,6 +76,37 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 
 ---
 
+## 2026-01-25: Not checking all docs after making changes
+
+**What happened:** After implementing dashboard changes (summary cards, section defaults, role-specific guidance), only updated SESSION_NOTES.md and HISTORY.md. Didn't check or update CLAUDE.md, README.md, or USER_GUIDE.md until user asked "nothing in claude.md or readme or any other docs?"
+
+**Why it's a problem:**
+- CLAUDE.md had stale "Remaining Work" listing already-completed features
+- README.md had outdated "Reports Generated" table that didn't match current tabs
+- USER_GUIDE.md said "Developer Patterns: Hidden" when we'd changed it to show with guidance
+- USER_GUIDE.md didn't document the new summary cards
+- Creates drift between code and docs that confuses future sessions
+
+**What should have happened:**
+- CLAUDE.md checklist explicitly says: "Update docs/USER_GUIDE.md if dashboard UI or interpretation changed"
+- Should have checked ALL user-facing docs after UI changes, not just session tracking docs
+- The checklist exists for a reason - follow it completely
+
+**Lesson:** After any UI/feature change, check:
+1. USER_GUIDE.md - Does it describe current behavior?
+2. README.md - Is the overview accurate?
+3. CLAUDE.md - Are "Current State" and "Remaining Work" correct?
+4. Any doc that references the changed feature
+
+**Current status:** All docs updated.
+
+**Files affected:**
+- `CLAUDE.md` - Had stale feature list
+- `README.md` - Had outdated reports table
+- `docs/USER_GUIDE.md` - Had wrong info about Developer Patterns visibility, missing summary cards
+
+---
+
 ## Template for Future Entries
 
 ```markdown
