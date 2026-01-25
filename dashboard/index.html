@@ -1044,6 +1044,30 @@
             </div>
 
             <div id="tab-activity" class="tab-content hidden">
+                <!-- Activity Summary Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-activity-card="total">
+                        <p class="text-sm text-themed-tertiary uppercase tracking-wide">Total Commits</p>
+                        <p class="text-3xl font-bold text-themed-primary" id="activity-total-commits">0</p>
+                        <p class="text-xs text-themed-muted" id="activity-date-range"></p>
+                    </div>
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-activity-card="days">
+                        <p class="text-sm text-themed-tertiary uppercase tracking-wide">Active Days</p>
+                        <p class="text-3xl font-bold text-blue-600" id="activity-active-days">0</p>
+                        <p class="text-xs text-themed-muted" id="activity-days-sub"></p>
+                    </div>
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-activity-card="contributors">
+                        <p class="text-sm text-themed-tertiary uppercase tracking-wide">Contributors</p>
+                        <p class="text-3xl font-bold text-green-600" id="activity-contributors">0</p>
+                        <p class="text-xs text-themed-muted">active in period</p>
+                    </div>
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-activity-card="avg">
+                        <p class="text-sm text-themed-tertiary uppercase tracking-wide">Avg / Day</p>
+                        <p class="text-3xl font-bold text-amber-600" id="activity-avg-per-day">0</p>
+                        <p class="text-xs text-themed-muted">commits per active day</p>
+                    </div>
+                </div>
+
                 <!-- Activity Timeline Chart -->
                 <div class="card mb-6" data-section="activity-timeline">
                     <div class="collapsible-header" aria-expanded="false" onclick="toggleSection(this)">
@@ -1075,6 +1099,30 @@
             </div>
 
             <div id="tab-progress" class="tab-content hidden">
+                <!-- Work Breakdown Summary Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-work-card="features">
+                        <p class="text-sm text-themed-tertiary uppercase tracking-wide">Features</p>
+                        <p class="text-3xl font-bold text-green-600" id="work-features">0</p>
+                        <p class="text-xs text-themed-muted">new functionality</p>
+                    </div>
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-work-card="bugfixes">
+                        <p class="text-sm text-themed-tertiary uppercase tracking-wide">Bug Fixes</p>
+                        <p class="text-3xl font-bold text-red-600" id="work-bugfixes">0</p>
+                        <p class="text-xs text-themed-muted">issues resolved</p>
+                    </div>
+                    <div class="card cursor-pointer hover:shadow-md transition-shadow" data-work-card="refactors">
+                        <p class="text-sm text-themed-tertiary uppercase tracking-wide">Refactors</p>
+                        <p class="text-3xl font-bold text-purple-600" id="work-refactors">0</p>
+                        <p class="text-xs text-themed-muted">code improvements</p>
+                    </div>
+                    <div class="card">
+                        <p class="text-sm text-themed-tertiary uppercase tracking-wide">Avg Complexity</p>
+                        <p class="text-3xl font-bold text-themed-primary" id="work-avg-complexity">-</p>
+                        <p class="text-xs text-themed-muted">1 (trivial) to 5 (complex)</p>
+                    </div>
+                </div>
+
                 <div class="card mb-6" data-section="work-type-trend">
                     <div class="collapsible-header" aria-expanded="false" onclick="toggleSection(this)">
                         <div class="collapsible-title">
@@ -1896,15 +1944,41 @@
         }
 
         function initCollapsibleSections() {
-            // Default all sections to collapsed
-            document.querySelectorAll('.collapsible-header').forEach(header => {
-                header.setAttribute('aria-expanded', 'false');
-            });
-            document.querySelectorAll('.collapsible-content').forEach(content => {
-                content.classList.remove('expanded');
-            });
-            // Then load saved state (will override defaults)
-            loadSectionState();
+            // Check if user has saved preferences
+            const hasSavedState = localStorage.getItem(SECTION_STATE_KEY);
+
+            if (hasSavedState) {
+                // User has preferences - apply them
+                document.querySelectorAll('.collapsible-header').forEach(header => {
+                    header.setAttribute('aria-expanded', 'false');
+                });
+                document.querySelectorAll('.collapsible-content').forEach(content => {
+                    content.classList.remove('expanded');
+                });
+                loadSectionState();
+            } else {
+                // First-time user: expand primary sections by default
+                const defaultExpanded = [
+                    'work-breakdown', 'highlights',  // Overview tab
+                    'activity-timeline',             // Activity tab
+                    'work-type-trend',               // Breakdown/Progress tab
+                    'commits-by-tag', 'tag-breakdown', // Tags tab
+                    'who-does-what',                 // Contributors tab
+                    'urgency-distribution', 'impact-distribution', // Health/Risk tab
+                    'activity-heatmap'               // Timing tab
+                ];
+
+                document.querySelectorAll('[data-section]').forEach(section => {
+                    const sectionName = section.dataset.section;
+                    const header = section.querySelector('.collapsible-header');
+                    const content = section.querySelector('.collapsible-content');
+                    if (header && content) {
+                        const shouldExpand = defaultExpanded.includes(sectionName);
+                        header.setAttribute('aria-expanded', shouldExpand);
+                        content.classList.toggle('expanded', shouldExpand);
+                    }
+                });
+            }
         }
 
         // Initialize detail pane event listeners
@@ -1974,7 +2048,7 @@
             if (iconMoon) iconMoon.classList.add('hidden');
 
             // Chart.js defaults for dark theme
-            Chart.defaults.color = '#767676';  // secondary text
+            Chart.defaults.color = '#b0b0b0';  // lighter text for chart labels (improved visibility)
             Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
         }
 
@@ -2649,9 +2723,77 @@
         }
 
         // === Timeline Tab ===
+        let activityCardHandlersInitialized = false;
+
         function renderTimeline() {
             const filteredCommits = getFilteredCommits();
             const config = getViewConfig();
+
+            // === Activity Summary Cards ===
+            const totalCommits = filteredCommits.length;
+            document.getElementById('activity-total-commits').textContent = totalCommits;
+
+            // Active days (unique dates with commits)
+            const uniqueDays = new Set(filteredCommits.map(c => c.timestamp?.substring(0, 10)).filter(Boolean));
+            const activeDays = uniqueDays.size;
+            document.getElementById('activity-active-days').textContent = activeDays;
+
+            // Date range
+            const sortedDates = [...uniqueDays].sort();
+            if (sortedDates.length > 0) {
+                const earliest = new Date(sortedDates[0]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                const latest = new Date(sortedDates[sortedDates.length - 1]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                document.getElementById('activity-date-range').textContent = `${earliest} — ${latest}`;
+                document.getElementById('activity-days-sub').textContent = `in ${sortedDates.length} day span`;
+            } else {
+                document.getElementById('activity-date-range').textContent = 'No data';
+                document.getElementById('activity-days-sub').textContent = '';
+            }
+
+            // Contributors
+            const uniqueContributors = new Set(filteredCommits.map(c => getAuthorEmail(c)));
+            document.getElementById('activity-contributors').textContent = uniqueContributors.size;
+
+            // Average commits per active day
+            const avgPerDay = activeDays > 0 ? (totalCommits / activeDays).toFixed(1) : '0';
+            document.getElementById('activity-avg-per-day').textContent = avgPerDay;
+
+            // Add click handlers for activity cards (only once)
+            if (!activityCardHandlersInitialized) {
+                activityCardHandlersInitialized = true;
+                document.querySelectorAll('[data-activity-card]').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const cardType = el.dataset.activityCard;
+                        const currentCommits = getFilteredCommits();
+                        if (cardType === 'total') {
+                            openDetailPane('All Commits', `${currentCommits.length} commits`, currentCommits);
+                        } else if (cardType === 'contributors') {
+                            // Show contributor list
+                            const contributors = {};
+                            currentCommits.forEach(c => {
+                                const email = getAuthorEmail(c);
+                                if (!contributors[email]) {
+                                    contributors[email] = { name: getAuthorName(c), count: 0 };
+                                }
+                                contributors[email].count++;
+                            });
+                            const sorted = Object.values(contributors).sort((a, b) => b.count - a.count);
+                            const html = sorted.map(c =>
+                                `<div class="flex justify-between p-2 bg-themed-tertiary rounded mb-2">
+                                    <span class="text-themed-primary">${escapeHtml(c.name)}</span>
+                                    <span class="text-themed-tertiary">${c.count} commits</span>
+                                </div>`
+                            ).join('');
+                            document.getElementById('detail-title').textContent = 'Contributors';
+                            document.getElementById('detail-subtitle').textContent = `${sorted.length} active`;
+                            document.getElementById('detail-content').innerHTML = html;
+                            document.getElementById('detail-overlay').classList.add('open');
+                            document.getElementById('detail-pane').classList.add('open');
+                            detailPaneOpen = true;
+                        }
+                    });
+                });
+            }
 
             // Update count based on view level
             if (config.drilldown === 'commits') {
@@ -2901,8 +3043,62 @@
         }
 
         // === Progress Tab ===
+        let workCardHandlersInitialized = false;
+
         function renderProgress() {
             const commits = getFilteredCommits();
+
+            // === Work Summary Cards ===
+            // Count tags across all commits
+            let featureCount = 0, bugfixCount = 0, refactorCount = 0;
+            let complexitySum = 0, complexityCount = 0;
+
+            commits.forEach(commit => {
+                const tags = getCommitTags(commit);
+                if (tags.includes('feature')) featureCount++;
+                if (tags.includes('bugfix') || tags.includes('fix')) bugfixCount++;
+                if (tags.includes('refactor')) refactorCount++;
+                if (commit.complexity != null) {
+                    complexitySum += commit.complexity;
+                    complexityCount++;
+                }
+            });
+
+            document.getElementById('work-features').textContent = featureCount;
+            document.getElementById('work-bugfixes').textContent = bugfixCount;
+            document.getElementById('work-refactors').textContent = refactorCount;
+            document.getElementById('work-avg-complexity').textContent =
+                complexityCount > 0 ? (complexitySum / complexityCount).toFixed(1) : '-';
+
+            // Add click handlers for work cards (only once)
+            if (!workCardHandlersInitialized) {
+                workCardHandlersInitialized = true;
+                document.querySelectorAll('[data-work-card]').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const cardType = el.dataset.workCard;
+                        const currentCommits = getFilteredCommits();
+                        let filtered, title;
+
+                        if (cardType === 'features') {
+                            filtered = currentCommits.filter(c => (c.tags || []).includes('feature'));
+                            title = 'Feature Commits';
+                        } else if (cardType === 'bugfixes') {
+                            filtered = currentCommits.filter(c =>
+                                (c.tags || []).includes('bugfix') || (c.tags || []).includes('fix')
+                            );
+                            title = 'Bug Fix Commits';
+                        } else if (cardType === 'refactors') {
+                            filtered = currentCommits.filter(c => (c.tags || []).includes('refactor'));
+                            title = 'Refactor Commits';
+                        }
+
+                        if (filtered) {
+                            openDetailPane(title, `${filtered.length} commits`, filtered);
+                        }
+                    });
+                });
+            }
+
             // Get months from filtered commits
             const monthSet = new Set(commits.map(c => c.timestamp?.substring(0, 7)).filter(Boolean));
             const months = [...monthSet].sort();
@@ -4139,6 +4335,19 @@
 
         function renderDeveloperPatterns() {
             const commits = getFilteredCommits();
+            const config = getViewConfig();
+
+            // Hide the entire section for non-developer views
+            const patternSection = document.querySelector('[data-section="developer-patterns"]');
+            if (patternSection) {
+                if (config.contributors !== 'individual') {
+                    patternSection.style.display = 'none';
+                    return;
+                } else {
+                    patternSection.style.display = '';
+                }
+            }
+
             // Get per-author timing data
             const authorPatterns = {};
 

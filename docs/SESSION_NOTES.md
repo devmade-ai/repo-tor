@@ -4,9 +4,16 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete with role-based view levels. Users can now switch between Executive, Management, and Developer views for different data granularity.
+**Dashboard V2:** Implementation complete with role-based view levels and consistent tab layouts.
 
-**Role-Based View Levels:** New feature allows different audiences to see appropriate detail levels:
+**Recent Updates (2026-01-25):**
+- Fixed chart text visibility in dark mode (lighter label colors)
+- Added summary cards to Activity and Breakdown tabs for consistent UX
+- Made section expand/collapse behavior consistent (primary sections expanded by default for first-time users)
+- Developer Patterns section now hidden for non-developer views (role-appropriate)
+- Added future enhancement TODOs for: techy theme, date exclusions, filter presets, match all/any filter logic
+
+**Role-Based View Levels:** Different audiences see appropriate detail levels:
 - **Executive**: Aggregated totals, weekly heatmap, summary drilldowns
 - **Management**: Per-repo groupings, daily heatmap, summary drilldowns
 - **Developer**: Individual contributors, hourly heatmap, full commit lists (default)
@@ -157,4 +164,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-24 - Added role-based view levels (Executive/Management/Developer) for different data granularity.*
+*Last updated: 2026-01-25 - Dashboard consistency improvements: chart visibility, summary cards, section defaults, role-based developer patterns.*

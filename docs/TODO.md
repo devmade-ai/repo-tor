@@ -165,6 +165,17 @@ All repositories processed with `@data feed the chicken`:
 - [ ] Tag / Urgency / Impact filters
 - [ ] Active filter indicator in header
 
+### Filter Enhancements
+- [ ] Exclude data before a certain date (useful for ignoring old/irrelevant history)
+- [ ] Quick select filter presets (e.g., "Last 30 days", "This quarter", "Since v2.0")
+- [ ] Filter exclusions with match logic:
+  - Match all (AND): show commits with ALL selected labels
+  - Match any (OR): show commits with ANY of the selected labels
+  - Exclude mode: hide commits matching selected criteria
+
+### Visual Enhancements
+- [ ] Make theme more "techy" (consider monospace fonts, terminal-inspired styling, glowing accents)
+
 ### Research
 - [ ] Device/platform attribution (mobile vs desktop commits)
 - [ ] Merge commit filtering options
@@ -172,4 +183,4 @@ All repositories processed with `@data feed the chicken`:
 
 ---
 
-*Last updated: 2026-01-24 - Role-based view levels implemented (Executive/Management/Developer).*
+*Last updated: 2026-01-25 - Added filter enhancements and visual improvements to backlog.*

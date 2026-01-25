@@ -2,6 +2,30 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-25
+
+### Feature: Dashboard tab consistency and UX improvements
+
+Fixed several inconsistencies in the dashboard layout and improved visibility.
+
+**Problems addressed:**
+- Chart text (labels, legends) not visible enough in dark mode
+- Activity and Breakdown tabs lacked summary cards (inconsistent with Overview and Risk tabs)
+- All sections collapsed by default, poor first-time user experience
+- Developer Patterns section showed individual names for non-developer views
+
+**Solutions:**
+1. **Chart text visibility**: Changed `Chart.defaults.color` from `#767676` to `#b0b0b0` for better contrast
+2. **Summary cards**: Added 4-card summary rows to Activity tab (Total Commits, Active Days, Contributors, Avg/Day) and Breakdown tab (Features, Bug Fixes, Refactors, Avg Complexity)
+3. **Section defaults**: First-time users now see primary sections expanded (work breakdown, timeline, distributions, etc.); saved preferences still honored
+4. **Role-based visibility**: Developer Patterns section now hidden for Executive/Management views
+
+**Files updated:**
+- `dashboard/index.html` - Chart defaults, new summary cards, section state logic, developer patterns hide
+- `docs/TODO.md` - Added backlog items: techy theme, date exclusions, filter presets, match all/any
+
+---
+
 ## 2026-01-24
 
 ### Feature: Role-based view levels for different audiences
