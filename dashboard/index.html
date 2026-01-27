@@ -1084,6 +1084,22 @@
                     </div>
                 </div>
 
+                <!-- Code Changes Over Time Chart -->
+                <div class="card mb-6" data-section="code-changes-timeline">
+                    <div class="collapsible-header" aria-expanded="false" onclick="toggleSection(this)">
+                        <div class="collapsible-title">
+                            <h2 class="text-lg font-semibold text-themed-primary">Code Changes Over Time</h2>
+                        </div>
+                        <span class="collapsible-subtitle">Lines added/removed by date across all projects</span>
+                        <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="h-48 md:h-64 pt-2">
+                            <canvas id="code-changes-timeline-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card mb-6" data-section="changes-list">
                     <div class="collapsible-header" aria-expanded="false" onclick="toggleSection(this)">
                         <div class="collapsible-title">
@@ -2860,6 +2876,9 @@
             // Render activity timeline chart
             renderActivityTimeline(filteredCommits);
 
+            // Render code changes timeline chart
+            renderCodeChangesTimeline(filteredCommits);
+
             // Commit List - different view based on level
             let listHtml;
 
@@ -3089,6 +3108,119 @@
                             stacked: repos.length > 1,
                             beginAtZero: true,
                             ticks: { stepSize: 1 }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderCodeChangesTimeline(commits) {
+            // Group code changes by date and repo
+            const changesByDate = {};
+            const repoColors = {};
+            const repos = [...new Set(commits.map(c => c.repo_id).filter(Boolean))];
+
+            // Assign colors to repos - same palette as activity timeline
+            const repoColorPalette = ['#2D68FF', '#16A34A', '#EAB308', '#a78bfa', '#EF4444', '#22d3ee'];
+            repos.forEach((repo, i) => {
+                repoColors[repo] = repoColorPalette[i % repoColorPalette.length];
+            });
+
+            commits.forEach(commit => {
+                const dateStr = commit.timestamp?.substring(0, 10);
+                if (!dateStr) return;
+                if (!changesByDate[dateStr]) {
+                    changesByDate[dateStr] = { total: 0, byRepo: {} };
+                }
+                const additions = getAdditions(commit);
+                const deletions = getDeletions(commit);
+                const netChange = additions - deletions;
+
+                changesByDate[dateStr].total += netChange;
+                if (commit.repo_id) {
+                    changesByDate[dateStr].byRepo[commit.repo_id] =
+                        (changesByDate[dateStr].byRepo[commit.repo_id] || 0) + netChange;
+                }
+            });
+
+            // Sort dates and limit to reasonable range (last 60 dates with activity)
+            const sortedDates = Object.keys(changesByDate).sort().slice(-60);
+
+            if (sortedDates.length === 0) {
+                if (charts.codeChangesTimeline) charts.codeChangesTimeline.destroy();
+                return;
+            }
+
+            // Build datasets
+            let datasets;
+            if (repos.length > 1) {
+                // Multi-repo: stacked bar chart by repo
+                datasets = repos.map(repo => ({
+                    label: repo,
+                    data: sortedDates.map(d => changesByDate[d]?.byRepo[repo] || 0),
+                    backgroundColor: repoColors[repo],
+                    borderRadius: 2
+                }));
+            } else {
+                // Single repo: simple bar chart
+                datasets = [{
+                    label: 'Net Lines',
+                    data: sortedDates.map(d => changesByDate[d]?.total || 0),
+                    backgroundColor: '#2D68FF',
+                    borderRadius: 2
+                }];
+            }
+
+            // Format date labels (show month/day for readability)
+            const labels = sortedDates.map(d => {
+                const date = new Date(d);
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            });
+
+            if (charts.codeChangesTimeline) charts.codeChangesTimeline.destroy();
+            charts.codeChangesTimeline = new Chart(document.getElementById('code-changes-timeline-chart'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: repos.length > 1,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.raw;
+                                    const sign = value >= 0 ? '+' : '';
+                                    return `${context.dataset.label}: ${sign}${value.toLocaleString()} lines`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: repos.length > 1,
+                            ticks: {
+                                maxRotation: 45,
+                                callback: function(value, index) {
+                                    const step = Math.ceil(sortedDates.length / 15);
+                                    return index % step === 0 ? this.getLabelForValue(value) : '';
+                                }
+                            }
+                        },
+                        y: {
+                            stacked: repos.length > 1,
+                            ticks: {
+                                callback: function(value) {
+                                    const sign = value >= 0 ? '+' : '';
+                                    return sign + value.toLocaleString();
+                                }
+                            }
                         }
                     }
                 }
