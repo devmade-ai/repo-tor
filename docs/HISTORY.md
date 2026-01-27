@@ -2,6 +2,25 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-27
+
+### Feature: Code Changes Over Time chart
+
+Added a new chart to the Activity tab showing net lines changed (additions - deletions) over time by project.
+
+**Problem:** The dashboard extracted and stored insertions/deletions data per commit and per project totals, but this data was never displayed to users.
+
+**Solution:** Added "Code Changes Over Time" stacked bar chart in the Activity tab, similar to the existing "Activity Timeline" chart:
+- Shows net lines changed (additions - deletions) by date
+- Multi-repo view shows stacked bars by project with same color palette as commits chart
+- Tooltips show "+N lines" or "-N lines" for clarity
+- Y-axis shows positive/negative values with sign prefix
+
+**Files updated:**
+- `dashboard/index.html` - Added chart HTML, `renderCodeChangesTimeline()` function, integration with Activity tab render
+
+---
+
 ## 2026-01-25
 
 ### Feature: Dashboard tab consistency and UX improvements
