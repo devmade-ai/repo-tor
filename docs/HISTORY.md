@@ -2,6 +2,58 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-28
+
+### Removed: Period comparison from Overview tab
+
+Removed the "Compare" dropdown and period-based trend indicators from the Overview tab.
+
+**What was removed:**
+- Compare dropdown (Last 7 Days / Last 30 Days / This Quarter)
+- Trend indicators (↑ 10% vs previous period) from stat cards
+- Period-based filtering of Overview stats
+
+**Why:** Simplifies the Overview tab - stats now show totals from all filtered commits rather than period-restricted values. Use date filters for time-based analysis.
+
+**Files updated:**
+- `dashboard/index.html` - Removed period comparison UI and logic
+- `docs/USER_GUIDE.md` - Updated to remove period comparison documentation
+
+---
+
+### Feature: Settings panel
+
+Consolidated all settings into a dedicated slide-out panel accessible via the gear icon in the header.
+
+**Settings moved to panel:**
+- View Level (Executive/Management/Developer) - moved from filter sidebar
+- Privacy Mode toggle - moved from header icon to toggle switch in panel
+- Timezone (Local/UTC) - moved from Activity tab header
+- Work Hours Start/End - moved from Activity tab collapsible card
+
+**Benefits:**
+- Cleaner filter sidebar (now only contains data filters)
+- Settings are logically grouped together
+- Privacy mode has a proper toggle switch
+- Activity tab is less cluttered
+
+**Files updated:**
+- `dashboard/index.html` - Added settings panel CSS, HTML, and JavaScript
+- `docs/USER_GUIDE.md` - Updated to document settings panel
+
+---
+
+### Improvement: Shortened chart axis labels
+
+Updated the Code Changes Over Time chart to display abbreviated numbers on the y-axis for better readability.
+
+**Change:** Y-axis labels now show "50k" instead of "50,000", "1.5M" instead of "1,500,000".
+
+**Files updated:**
+- `dashboard/index.html` - Updated y-axis tick callback to format large numbers with k/M suffixes
+
+---
+
 ## 2026-01-27
 
 ### Feature: Code Changes Over Time chart
