@@ -103,35 +103,27 @@ The dashboard uses **4 tabs** organized by logical groupings:
 
 The **default tab** designed for executives who need quick, high-level insights.
 
-**Period Comparison**
-- Use the dropdown to compare: This Week vs Last Week, This Month vs Last Month, This Quarter vs Last Quarter
-- All metrics update dynamically when you change the period
-
 **Quick Stats Cards**
 
 | Card | What It Shows | Click Action |
 |------|--------------|--------------|
-| **Features Built** | New features added with trend | Opens detail pane with feature commits |
-| **Bugs Fixed** | Bug fixes completed with trend | Opens detail pane with bugfix commits |
+| **Features Built** | Total features in filtered commits | Opens detail pane with feature commits |
+| **Bugs Fixed** | Total bug fixes in filtered commits | Opens detail pane with bugfix commits |
 | **Avg Urgency** | Average urgency of changes | Opens detail pane with reactive commits |
 | **% Planned** | Ratio of planned work (urgency 1-2) | Opens detail pane with planned commits |
 
-Trend indicators:
-- **↑ Green** = Increase vs previous period
-- **↓ Red** = Decrease vs previous period
-
 **Work Breakdown**
-- Doughnut chart showing top 5 tag categories for the period
+- Doughnut chart showing top 5 tag categories
 - Quick visual of where effort is being spent
 
 **Key Highlights**
-- **Top Contributor** - Most active person in the period
-- **Busiest Day** - Day with most commits
+- **Complex Changes** - High complexity vs simple changes
 - **Most Active Repo** - (For aggregated data) Which project saw most activity
-- **After-Hours Work** - Percentage of commits outside 8am-5pm
+- **Off-Hours Work** - Percentage of commits outside work hours
+- **Quality Work** - Refactors and tests count
 
 **Activity Snapshot**
-- After-hours, weekend, holiday, and complex commit counts
+- After-hours, weekend, and holiday commit counts
 
 ---
 

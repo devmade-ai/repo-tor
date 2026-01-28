@@ -4,6 +4,23 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-28
 
+### Removed: Period comparison from Overview tab
+
+Removed the "Compare" dropdown and period-based trend indicators from the Overview tab.
+
+**What was removed:**
+- Compare dropdown (Last 7 Days / Last 30 Days / This Quarter)
+- Trend indicators (↑ 10% vs previous period) from stat cards
+- Period-based filtering of Overview stats
+
+**Why:** Simplifies the Overview tab - stats now show totals from all filtered commits rather than period-restricted values. Use date filters for time-based analysis.
+
+**Files updated:**
+- `dashboard/index.html` - Removed period comparison UI and logic
+- `docs/USER_GUIDE.md` - Updated to remove period comparison documentation
+
+---
+
 ### Feature: Settings panel
 
 Consolidated all settings into a dedicated slide-out panel accessible via the gear icon in the header.
