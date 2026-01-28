@@ -641,6 +641,206 @@
             }
         }
 
+        /* Settings Panel - Slide-out panel for configuration */
+        .settings-pane-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 998;
+        }
+        .settings-pane-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .settings-pane {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 360px;
+            height: 100%;
+            background: var(--bg-secondary);
+            border-left: 1px solid var(--border-color);
+            transform: translateX(100%);
+            transition: transform 0.3s ease, visibility 0.3s ease;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            visibility: hidden;
+        }
+        .settings-pane.open {
+            transform: translateX(0);
+            visibility: visible;
+        }
+
+        .settings-pane-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .settings-pane-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .settings-pane-close {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            background: transparent;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .settings-pane-close:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .settings-pane-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .settings-section {
+            margin-bottom: 24px;
+        }
+        .settings-section:last-child {
+            margin-bottom: 0;
+        }
+        .settings-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            margin-bottom: 12px;
+        }
+        .settings-group {
+            margin-bottom: 16px;
+        }
+        .settings-group:last-child {
+            margin-bottom: 0;
+        }
+        .settings-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        .settings-group .settings-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .settings-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .settings-toggle:hover {
+            background: var(--bg-hover);
+        }
+        .settings-toggle-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .settings-toggle-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .settings-toggle-switch {
+            width: 44px;
+            height: 24px;
+            background: var(--border-color);
+            border-radius: 12px;
+            position: relative;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .settings-toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+        .settings-toggle.active .settings-toggle-switch {
+            background: var(--color-primary);
+        }
+        .settings-toggle.active .settings-toggle-switch::after {
+            transform: translateX(20px);
+        }
+        .settings-row {
+            display: flex;
+            gap: 12px;
+        }
+        .settings-row .settings-group {
+            flex: 1;
+        }
+
+        /* Mobile: Bottom sheet variant for settings */
+        @media (max-width: 640px) {
+            .settings-pane {
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-width: none;
+                height: 85vh;
+                max-height: 85vh;
+                border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+                border-left: none;
+                border-top: 1px solid var(--border-color);
+                transform: translateY(100%);
+            }
+            .settings-pane.open {
+                transform: translateY(0);
+            }
+            .settings-pane-header {
+                padding: 12px 16px;
+            }
+            .settings-pane-header::before {
+                content: '';
+                position: absolute;
+                top: 8px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 32px;
+                height: 4px;
+                background: var(--border-color);
+                border-radius: 2px;
+            }
+            .settings-pane-content {
+                padding: 16px;
+            }
+        }
+
         /* Stat card label styling - prevent awkward wrapping */
         .stat-label {
             font-size: 12px;
@@ -815,6 +1015,12 @@
                     <p class="text-themed-tertiary mt-1" id="repo-subtitle">Loading data...</p>
                 </div>
                 <div id="export-buttons" class="hidden flex items-center gap-2 no-print">
+                    <button id="btn-settings" class="btn-theme" title="Settings">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                    </button>
                     <button id="btn-sanitize" class="btn-theme" title="Toggle private mode (hide names/messages)">
                         <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.64 0 8.577 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.64 0-8.577-3.007-9.963-7.178z" />
@@ -897,16 +1103,6 @@
                                 Clear
                             </button>
                         </div>
-                        <div class="filter-group">
-                            <label>View Level</label>
-                            <select id="view-level-selector" class="filter-select">
-                                <option value="developer">Developer</option>
-                                <option value="management">Management</option>
-                                <option value="executive">Executive</option>
-                            </select>
-                            <p class="text-xs text-themed-tertiary mt-1">Controls data granularity</p>
-                        </div>
-                        <hr class="border-themed my-3">
                         <div class="filter-group">
                             <label>Tag</label>
                             <select id="filter-tag" class="filter-select">
@@ -1360,18 +1556,9 @@
 
             <div id="tab-timing" class="tab-content hidden">
                 <div class="card mb-6">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                        <div>
-                            <h2 class="text-lg font-semibold text-themed-primary">When Work Happens</h2>
-                            <p class="text-xs text-themed-tertiary">Commit distribution by time of day and day of week</p>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <label class="text-xs text-themed-tertiary">Timezone:</label>
-                            <select id="timezone-select" class="filter-select text-sm">
-                                <option value="local">Local</option>
-                                <option value="utc">UTC</option>
-                            </select>
-                        </div>
+                    <div>
+                        <h2 class="text-lg font-semibold text-themed-primary">When Work Happens</h2>
+                        <p class="text-xs text-themed-tertiary">Commit distribution by time of day and day of week</p>
                     </div>
                 </div>
 
@@ -1446,41 +1633,6 @@
                         <div id="developer-patterns" class="space-y-4 pt-2"></div>
                     </div>
                 </div>
-
-                <!-- Work Hours Settings (collapsed by default - it's config, not content) -->
-                <div class="card" data-section="work-hours-settings">
-                    <div class="collapsible-header" aria-expanded="false" onclick="toggleSection(this)">
-                        <div class="collapsible-title">
-                            <h2 class="text-lg font-semibold text-themed-primary">Work Hours Settings</h2>
-                        </div>
-                        <span class="collapsible-subtitle">Customize what counts as "work hours"</span>
-                        <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </div>
-                    <div class="collapsible-content">
-                        <div class="flex flex-wrap items-center gap-4 pt-3">
-                            <div class="flex items-center gap-2">
-                                <label class="text-xs text-themed-tertiary whitespace-nowrap">Start:</label>
-                                <select id="work-hour-start" class="filter-select text-sm">
-                                    <option value="6">6:00</option>
-                                    <option value="7">7:00</option>
-                                    <option value="8" selected>8:00</option>
-                                    <option value="9">9:00</option>
-                                    <option value="10">10:00</option>
-                                </select>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <label class="text-xs text-themed-tertiary whitespace-nowrap">End:</label>
-                                <select id="work-hour-end" class="filter-select text-sm">
-                                    <option value="16">16:00</option>
-                                    <option value="17" selected>17:00</option>
-                                    <option value="18">18:00</option>
-                                    <option value="19">19:00</option>
-                                    <option value="20">20:00</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
                 </main>
             </div>
@@ -1508,6 +1660,78 @@
             <div class="detail-pane-content" id="detail-content">
                 <div class="detail-pane-loading">
                     <div class="loading-spinner"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Panel (slide-out panel for configuration) -->
+        <div id="settings-overlay" class="settings-pane-overlay"></div>
+        <div id="settings-pane" class="settings-pane">
+            <div class="settings-pane-header">
+                <div class="settings-pane-title">Settings</div>
+                <button class="settings-pane-close" id="settings-close" title="Close settings">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="settings-pane-content">
+                <!-- View Settings -->
+                <div class="settings-section">
+                    <div class="settings-section-title">View</div>
+                    <div class="settings-group">
+                        <label>View Level</label>
+                        <select id="settings-view-level" class="filter-select">
+                            <option value="developer">Developer</option>
+                            <option value="management">Management</option>
+                            <option value="executive">Executive</option>
+                        </select>
+                        <p class="settings-hint">Controls data granularity across all views</p>
+                    </div>
+                    <div class="settings-group" style="margin-top: 16px;">
+                        <div class="settings-toggle" id="settings-privacy-toggle">
+                            <div>
+                                <div class="settings-toggle-label">Privacy Mode</div>
+                                <div class="settings-toggle-hint">Hide names and commit messages</div>
+                            </div>
+                            <div class="settings-toggle-switch"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Settings -->
+                <div class="settings-section">
+                    <div class="settings-section-title">Time</div>
+                    <div class="settings-group">
+                        <label>Timezone</label>
+                        <select id="settings-timezone" class="filter-select">
+                            <option value="local">Local</option>
+                            <option value="utc">UTC</option>
+                        </select>
+                    </div>
+                    <div class="settings-row" style="margin-top: 16px;">
+                        <div class="settings-group">
+                            <label>Work Hours Start</label>
+                            <select id="settings-work-start" class="filter-select">
+                                <option value="6">6:00</option>
+                                <option value="7">7:00</option>
+                                <option value="8" selected>8:00</option>
+                                <option value="9">9:00</option>
+                                <option value="10">10:00</option>
+                            </select>
+                        </div>
+                        <div class="settings-group">
+                            <label>Work Hours End</label>
+                            <select id="settings-work-end" class="filter-select">
+                                <option value="16">16:00</option>
+                                <option value="17" selected>17:00</option>
+                                <option value="18">18:00</option>
+                                <option value="19">19:00</option>
+                                <option value="20">20:00</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p class="settings-hint" style="margin-top: 8px;">Defines what counts as "work hours" for timing analysis</p>
                 </div>
             </div>
         </div>
@@ -1912,6 +2136,115 @@
             document.body.style.overflow = '';
         }
 
+        // === Settings Panel Functions ===
+        let settingsPaneOpen = false;
+
+        function openSettingsPane() {
+            const overlay = document.getElementById('settings-overlay');
+            const pane = document.getElementById('settings-pane');
+
+            // Sync current values to settings panel
+            document.getElementById('settings-view-level').value = currentViewLevel;
+            document.getElementById('settings-timezone').value = useUTC ? 'utc' : 'local';
+            document.getElementById('settings-work-start').value = workHourStart;
+            document.getElementById('settings-work-end').value = workHourEnd;
+
+            // Sync privacy toggle
+            const privacyToggle = document.getElementById('settings-privacy-toggle');
+            if (isSanitized) {
+                privacyToggle.classList.add('active');
+            } else {
+                privacyToggle.classList.remove('active');
+            }
+
+            overlay.classList.add('open');
+            pane.classList.add('open');
+            settingsPaneOpen = true;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSettingsPane() {
+            const overlay = document.getElementById('settings-overlay');
+            const pane = document.getElementById('settings-pane');
+
+            overlay.classList.remove('open');
+            pane.classList.remove('open');
+            settingsPaneOpen = false;
+            document.body.style.overflow = '';
+        }
+
+        function setupSettingsPanel() {
+            // Open settings button
+            document.getElementById('btn-settings').addEventListener('click', openSettingsPane);
+
+            // Close settings button and overlay
+            document.getElementById('settings-close').addEventListener('click', closeSettingsPane);
+            document.getElementById('settings-overlay').addEventListener('click', closeSettingsPane);
+
+            // View Level change
+            document.getElementById('settings-view-level').addEventListener('change', (e) => {
+                currentViewLevel = e.target.value;
+                localStorage.setItem('viewLevel', currentViewLevel);
+                applyFilters();
+                updateAllSectionGuidance();
+            });
+
+            // Privacy toggle
+            document.getElementById('settings-privacy-toggle').addEventListener('click', () => {
+                isSanitized = !isSanitized;
+                localStorage.setItem('sanitized', isSanitized);
+
+                const toggle = document.getElementById('settings-privacy-toggle');
+                if (isSanitized) {
+                    toggle.classList.add('active');
+                    document.getElementById('icon-eye').classList.add('hidden');
+                    document.getElementById('icon-eye-slash').classList.remove('hidden');
+                } else {
+                    toggle.classList.remove('active');
+                    document.getElementById('icon-eye').classList.remove('hidden');
+                    document.getElementById('icon-eye-slash').classList.add('hidden');
+                }
+
+                applyFilters();
+                showToast(isSanitized ? 'Privacy mode enabled' : 'Privacy mode disabled');
+            });
+
+            // Timezone change
+            document.getElementById('settings-timezone').addEventListener('change', (e) => {
+                useUTC = e.target.value === 'utc';
+                saveState();
+                renderTiming();
+                renderDeveloperPatterns();
+            });
+
+            // Work hours start change
+            document.getElementById('settings-work-start').addEventListener('change', (e) => {
+                workHourStart = parseInt(e.target.value);
+                saveState();
+                renderTiming();
+                renderDeveloperPatterns();
+                renderTimeline();
+                renderSummary();
+            });
+
+            // Work hours end change
+            document.getElementById('settings-work-end').addEventListener('change', (e) => {
+                workHourEnd = parseInt(e.target.value);
+                saveState();
+                renderTiming();
+                renderDeveloperPatterns();
+                renderTimeline();
+                renderSummary();
+            });
+
+            // Escape key to close
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && settingsPaneOpen) {
+                    closeSettingsPane();
+                }
+            });
+        }
+
         function renderDetailCommit(commit) {
             const tags = getCommitTags(commit);
             const email = getAuthorEmail(commit);
@@ -2131,6 +2464,12 @@
         function applySanitizeMode() {
             document.getElementById('icon-eye').classList.toggle('hidden', isSanitized);
             document.getElementById('icon-eye-slash').classList.toggle('hidden', !isSanitized);
+
+            // Sync settings panel toggle
+            const toggle = document.getElementById('settings-privacy-toggle');
+            if (toggle) {
+                toggle.classList.toggle('active', isSanitized);
+            }
 
             // Re-render views if data is loaded
             if (data) {
@@ -2532,19 +2871,10 @@
         }
 
         function setupFilterListeners() {
-            // View level selector
-            document.getElementById('view-level-selector').addEventListener('change', (e) => {
-                currentViewLevel = e.target.value;
-                localStorage.setItem('viewLevel', currentViewLevel);
-                applyFilters();
-                updateAllSectionGuidance();
-            });
-
             // Restore saved view level
             const savedViewLevel = localStorage.getItem('viewLevel');
             if (savedViewLevel && VIEW_LEVELS[savedViewLevel]) {
                 currentViewLevel = savedViewLevel;
-                document.getElementById('view-level-selector').value = savedViewLevel;
             }
 
             // Initialize section guidance
@@ -2685,17 +3015,17 @@
                 // Restore timezone
                 if (state.useUTC !== undefined) {
                     useUTC = state.useUTC;
-                    document.getElementById('timezone-select').value = useUTC ? 'utc' : 'local';
+                    document.getElementById('settings-timezone').value = useUTC ? 'utc' : 'local';
                 }
 
                 // Restore work hours
                 if (state.workHourStart !== undefined) {
                     workHourStart = state.workHourStart;
-                    document.getElementById('work-hour-start').value = workHourStart;
+                    document.getElementById('settings-work-start').value = workHourStart;
                 }
                 if (state.workHourEnd !== undefined) {
                     workHourEnd = state.workHourEnd;
-                    document.getElementById('work-hour-end').value = workHourEnd;
+                    document.getElementById('settings-work-end').value = workHourEnd;
                 }
 
                 // Restore active tab
@@ -2752,8 +3082,6 @@
             renderTags();
             renderTiming();
             setupSummaryPeriodToggle();
-            setupTimezoneToggle();
-            setupWorkHoursToggle();
 
             // Initialize collapsible sections
             initCollapsibleSections();
@@ -4502,31 +4830,6 @@
             document.getElementById('heatmap').innerHTML = html;
         }
 
-        function setupTimezoneToggle() {
-            document.getElementById('timezone-select').addEventListener('change', (e) => {
-                useUTC = e.target.value === 'utc';
-                renderTiming();
-                saveFiltersToStorage();
-            });
-        }
-
-        function setupWorkHoursToggle() {
-            document.getElementById('work-hour-start').addEventListener('change', (e) => {
-                workHourStart = parseInt(e.target.value);
-                renderTiming();
-                renderTimeline();
-                renderSummary();
-                saveFiltersToStorage();
-            });
-            document.getElementById('work-hour-end').addEventListener('change', (e) => {
-                workHourEnd = parseInt(e.target.value);
-                renderTiming();
-                renderTimeline();
-                renderSummary();
-                saveFiltersToStorage();
-            });
-        }
-
         function renderDeveloperPatterns() {
             const commits = getFilteredCommits();
 
@@ -5256,7 +5559,7 @@
             // Apply timezone
             if (state.tz === 'utc') {
                 useUTC = true;
-                document.getElementById('timezone-select').value = 'utc';
+                document.getElementById('settings-timezone').value = 'utc';
             }
 
             // Switch to specified tab
@@ -5409,6 +5712,7 @@
         initSanitizeMode();
         initDetailPane();
         initFilterSidebar();
+        setupSettingsPanel();
         tryAutoLoad();
     </script>
 </body>

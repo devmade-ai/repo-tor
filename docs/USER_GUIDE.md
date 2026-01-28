@@ -25,9 +25,25 @@ When multiple files are loaded:
 
 **Tip:** Use the server-side aggregation script (`scripts/aggregate-processed.js`) for better author identity mapping when the same person uses different emails across repositories.
 
+## Settings Panel
+
+Click the **gear icon** in the header to open the Settings panel. This slide-out panel contains all configuration options:
+
+**View Settings:**
+- **View Level** - Controls data granularity (Executive/Management/Developer)
+- **Privacy Mode** - Toggle to hide names and commit messages for sensitive data
+
+**Time Settings:**
+- **Timezone** - Switch between Local and UTC time display
+- **Work Hours Start/End** - Define what counts as "work hours" for timing analysis (affects after-hours calculations)
+
+Settings are saved to your browser and persist across sessions.
+
+---
+
 ## View Levels
 
-The dashboard supports three view levels for different audiences. Select your view level from the filter sidebar:
+The dashboard supports three view levels for different audiences. Select your view level from Settings (gear icon):
 
 | View Level | Best For | What Changes |
 |------------|----------|--------------|

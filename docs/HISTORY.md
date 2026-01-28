@@ -4,6 +4,28 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-28
 
+### Feature: Settings panel
+
+Consolidated all settings into a dedicated slide-out panel accessible via the gear icon in the header.
+
+**Settings moved to panel:**
+- View Level (Executive/Management/Developer) - moved from filter sidebar
+- Privacy Mode toggle - moved from header icon to toggle switch in panel
+- Timezone (Local/UTC) - moved from Activity tab header
+- Work Hours Start/End - moved from Activity tab collapsible card
+
+**Benefits:**
+- Cleaner filter sidebar (now only contains data filters)
+- Settings are logically grouped together
+- Privacy mode has a proper toggle switch
+- Activity tab is less cluttered
+
+**Files updated:**
+- `dashboard/index.html` - Added settings panel CSS, HTML, and JavaScript
+- `docs/USER_GUIDE.md` - Updated to document settings panel
+
+---
+
 ### Improvement: Shortened chart axis labels
 
 Updated the Code Changes Over Time chart to display abbreviated numbers on the y-axis for better readability.
