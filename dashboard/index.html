@@ -1158,16 +1158,11 @@
                 </div>
 
                 <!-- Additional Stats (from global metrics) -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                     <div class="card">
                         <p class="stat-label text-themed-tertiary">Files Changed</p>
                         <p class="text-3xl font-bold text-themed-primary" id="stat-files">0</p>
                         <p class="text-xs text-themed-muted" id="stat-files-sub"></p>
-                    </div>
-                    <div class="card">
-                        <p class="stat-label text-themed-tertiary">Avg Complexity</p>
-                        <p class="text-3xl font-bold text-themed-primary" id="stat-complexity">-</p>
-                        <p class="text-xs text-themed-muted" id="stat-complexity-sub"></p>
                     </div>
                     <div class="card">
                         <p class="stat-label text-themed-tertiary">Contributors</p>
@@ -1175,21 +1170,8 @@
                     </div>
                 </div>
 
-                <!-- Work Breakdown and Highlights -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div class="card" data-section="work-breakdown">
-                        <div class="collapsible-header" aria-expanded="false" onclick="toggleSection(this)">
-                            <div class="collapsible-title">
-                                <h3 class="text-lg font-semibold text-themed-primary">Work Breakdown</h3>
-                            </div>
-                            <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
-                        <div class="collapsible-content">
-                            <div class="h-56 pt-2">
-                                <canvas id="summary-breakdown-chart"></canvas>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Key Highlights -->
+                <div class="mb-6">
                     <div class="card" data-section="highlights">
                         <div class="collapsible-header" aria-expanded="false" onclick="toggleSection(this)">
                             <div class="collapsible-title">
@@ -2749,20 +2731,6 @@
             const uniqueFiles = data.files?.length || 0;
             document.getElementById('stat-files').textContent = totalFileChanges.toLocaleString();
             document.getElementById('stat-files-sub').textContent = uniqueFiles > 0 ? `${uniqueFiles} unique files` : `across ${commits.length} commits`;
-
-            // Average complexity
-            const complexities = commits.map(c => c.complexity).filter(c => c != null);
-            if (complexities.length > 0) {
-                const avgComplexity = (complexities.reduce((a, b) => a + b, 0) / complexities.length).toFixed(1);
-                document.getElementById('stat-complexity').textContent = avgComplexity;
-                // Complexity distribution
-                const high = complexities.filter(c => c >= 4).length;
-                const low = complexities.filter(c => c <= 2).length;
-                document.getElementById('stat-complexity-sub').textContent = `${high} complex, ${low} simple`;
-            } else {
-                document.getElementById('stat-complexity').textContent = '-';
-                document.getElementById('stat-complexity-sub').textContent = 'not available';
-            }
 
             // Contributors - count unique authors in filtered commits
             const uniqueAuthors = new Set(commits.map(c => getAuthorEmail(c)));
@@ -4930,51 +4898,6 @@
             document.getElementById('summary-urgency').textContent = avgUrgency > 0 ? avgUrgency.toFixed(1) : '-';
             document.getElementById('summary-planned').textContent = plannedPct > 0 ? `${plannedPct}%` : '-';
 
-            // Work breakdown chart
-            const tagCounts = {};
-            commits.forEach(c => {
-                getCommitTags(c).forEach(tag => {
-                    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-                });
-            });
-            const sortedTags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
-
-            if (charts.summaryBreakdown) charts.summaryBreakdown.destroy();
-            charts.summaryBreakdown = new Chart(document.getElementById('summary-breakdown-chart'), {
-                type: 'doughnut',
-                data: {
-                    labels: sortedTags.map(t => t[0]),
-                    datasets: [{
-                        data: sortedTags.map(t => t[1]),
-                        backgroundColor: sortedTags.map(t => getTagColor(t[0]))
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                boxWidth: 12,
-                                padding: 8,
-                                font: { size: 11 },
-                                generateLabels: function(chart) {
-                                    const data = chart.data;
-                                    return data.labels.map((label, i) => ({
-                                        text: `${label} (${data.datasets[0].data[i]})`,
-                                        fillStyle: data.datasets[0].backgroundColor[i],
-                                        fontColor: Chart.defaults.color,
-                                        hidden: false,
-                                        index: i
-                                    }));
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
             // Key highlights - focus on meaningful insights
             const highlights = [];
 
@@ -5483,14 +5406,10 @@
                 // Add summary stats
                 const stats = document.createElement('div');
                 stats.innerHTML = `
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;">
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px;">
                         <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
                             <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Files Changed</p>
                             <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-files').textContent}</p>
-                        </div>
-                        <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
-                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Avg Complexity</p>
-                            <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-complexity').textContent}</p>
                         </div>
                         <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
                             <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Contributors</p>

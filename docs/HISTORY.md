@@ -4,6 +4,26 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-28
 
+### Refactor: Remove duplicated content from Overview tab
+
+Removed elements from Overview tab that were duplicated in the Breakdown tab, keeping Overview focused as an executive summary.
+
+**Removed from Overview:**
+- Avg Complexity card (duplicated in Breakdown tab's work summary)
+- Work Breakdown doughnut chart (Breakdown tab has both doughnut and trend over time)
+
+**Overview now shows:**
+- Quick Stats: Features Built, Bugs Fixed, Avg Urgency, % Planned
+- Additional Stats: Files Changed, Contributors (reduced from 3 to 2 cards)
+- Key Highlights (now full width)
+- Activity Snapshot
+
+**Files updated:**
+- `dashboard/index.html` - Removed HTML, JavaScript, and export code
+- `docs/USER_GUIDE.md` - Updated to reflect changes
+
+---
+
 ### Fix: Bug count inconsistency between tabs
 
 Fixed the mismatch where Overview tab only counted 'bugfix' tags while Breakdown tab counted both 'bugfix' and 'fix' tags.

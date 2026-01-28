@@ -77,13 +77,11 @@ When you load a data file, the dashboard displays analytics for that repository.
 
 ### Summary Cards
 
-Four cards at the top provide meaningful metrics about the work being done:
+Two cards at the top provide meaningful metrics about the work being done:
 
 | Card | What It Shows | What It Means |
 |------|--------------|---------------|
 | **Files Changed** | Total unique files modified | Scope of changes across codebase |
-| **Avg Complexity** | Average complexity score (1-5) | How involved the changes are |
-| **Top Work Type** | Most common tag/type of work | Primary focus of development |
 | **Contributors** | Unique contributors | Team size / involvement |
 
 ## Dashboard Tabs (V2)
@@ -111,10 +109,6 @@ The **default tab** designed for executives who need quick, high-level insights.
 | **Bugs Fixed** | Total bug fixes in filtered commits | Opens detail pane with bugfix commits |
 | **Avg Urgency** | Average urgency of changes | Opens detail pane with reactive commits |
 | **% Planned** | Ratio of planned work (urgency 1-2) | Opens detail pane with planned commits |
-
-**Work Breakdown**
-- Doughnut chart showing top 5 tag categories
-- Quick visual of where effort is being spent
 
 **Key Highlights**
 - **Complex Changes** - High complexity vs simple changes
