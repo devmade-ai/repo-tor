@@ -2,6 +2,19 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-28
+
+### Improvement: Shortened chart axis labels
+
+Updated the Code Changes Over Time chart to display abbreviated numbers on the y-axis for better readability.
+
+**Change:** Y-axis labels now show "50k" instead of "50,000", "1.5M" instead of "1,500,000".
+
+**Files updated:**
+- `dashboard/index.html` - Updated y-axis tick callback to format large numbers with k/M suffixes
+
+---
+
 ## 2026-01-27
 
 ### Feature: Code Changes Over Time chart

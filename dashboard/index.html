@@ -3218,7 +3218,16 @@
                             ticks: {
                                 callback: function(value) {
                                     const sign = value >= 0 ? '+' : '';
-                                    return sign + value.toLocaleString();
+                                    const absValue = Math.abs(value);
+                                    let formatted;
+                                    if (absValue >= 1000000) {
+                                        formatted = (absValue / 1000000).toFixed(absValue % 1000000 === 0 ? 0 : 1) + 'M';
+                                    } else if (absValue >= 1000) {
+                                        formatted = (absValue / 1000).toFixed(absValue % 1000 === 0 ? 0 : 1) + 'k';
+                                    } else {
+                                        formatted = absValue.toString();
+                                    }
+                                    return sign + formatted;
                                 }
                             }
                         }

@@ -6,7 +6,10 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels and consistent tab layouts.
 
-**Recent Updates (2026-01-27):**
+**Recent Updates (2026-01-28):**
+- Shortened chart axis labels to use abbreviated format (50k instead of 50,000) in Code Changes Over Time chart
+
+**Previous Updates (2026-01-27):**
 - Added "Code Changes Over Time" chart to Activity tab showing net lines changed by date/project
 
 **Previous Updates (2026-01-25):**
@@ -167,4 +170,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-27 - Added Code Changes Over Time chart to Activity tab.*
+*Last updated: 2026-01-28 - Shortened chart axis labels in Code Changes Over Time chart.*
