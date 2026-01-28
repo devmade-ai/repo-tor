@@ -4,6 +4,31 @@ Log of significant changes to code and documentation.
 
 ## 2026-01-28
 
+### Fix: Bug count inconsistency between tabs
+
+Fixed the mismatch where Overview tab only counted 'bugfix' tags while Breakdown tab counted both 'bugfix' and 'fix' tags.
+
+**Changes:**
+- Overview tab `renderSummary()` now counts both 'bugfix' and 'fix' tags
+- Breakdown tab Work Type Trend chart now counts both tags (was only 'bugfix')
+- Overview tab click handler for fixes card now filters both tags
+
+**Files updated:**
+- `dashboard/index.html` - 3 locations fixed for consistent bug counting
+
+---
+
+### Fix: Chart legend text color on dark background
+
+Fixed Work Breakdown doughnut charts displaying dark text on dark background when using custom `generateLabels()` functions.
+
+**Change:** Added `fontColor: Chart.defaults.color` to all custom legend label generators, ensuring they inherit the theme-aware text color.
+
+**Files updated:**
+- `dashboard/index.html` - 2 chart configurations updated
+
+---
+
 ### Removed: Period comparison from Overview tab
 
 Removed the "Compare" dropdown and period-based trend indicators from the Overview tab.

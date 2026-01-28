@@ -3606,7 +3606,7 @@
                 if (!monthlyComplexity[month]) monthlyComplexity[month] = { total: 0, count: 0 };
                 const tags = getCommitTags(commit);
                 if (tags.includes('feature')) monthlyTagCounts[month].feature++;
-                if (tags.includes('bugfix')) monthlyTagCounts[month].bugfix++;
+                if (tags.includes('bugfix') || tags.includes('fix')) monthlyTagCounts[month].bugfix++;
                 if (commit.complexity != null) {
                     monthlyComplexity[month].total += commit.complexity;
                     monthlyComplexity[month].count++;
@@ -4441,6 +4441,7 @@
                                     return data.labels.map((label, i) => ({
                                         text: `${label} (${data.datasets[0].data[i]})`,
                                         fillStyle: data.datasets[0].backgroundColor[i],
+                                        fontColor: Chart.defaults.color,
                                         hidden: false,
                                         index: i
                                     }));
@@ -4900,7 +4901,10 @@
             ).length;
 
             const features = countTag(commits, 'feature');
-            const fixes = countTag(commits, 'bugfix');
+            const fixes = commits.filter(c => {
+                const tags = getCommitTags(c);
+                return tags.includes('bugfix') || tags.includes('fix');
+            }).length;
 
             // Urgency metrics
             const getAvgUrgency = (commits) => {
@@ -4960,6 +4964,7 @@
                                     return data.labels.map((label, i) => ({
                                         text: `${label} (${data.datasets[0].data[i]})`,
                                         fillStyle: data.datasets[0].backgroundColor[i],
+                                        fontColor: Chart.defaults.color,
                                         hidden: false,
                                         index: i
                                     }));
@@ -5072,7 +5077,9 @@
                             filteredCommits = allCommits.filter(c => (c.tags || []).includes('feature'));
                             title = 'Feature Commits';
                         } else if (cardType === 'fixes') {
-                            filteredCommits = allCommits.filter(c => (c.tags || []).includes('bugfix'));
+                            filteredCommits = allCommits.filter(c =>
+                                (c.tags || []).includes('bugfix') || (c.tags || []).includes('fix')
+                            );
                             title = 'Bug Fix Commits';
                         } else if (cardType === 'urgency') {
                             filteredCommits = allCommits.filter(c => c.urgency >= 4);

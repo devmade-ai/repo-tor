@@ -7,6 +7,8 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels and consistent tab layouts.
 
 **Recent Updates (2026-01-28):**
+- Fixed bug count inconsistency: Overview and Breakdown tabs now both count 'bugfix' OR 'fix' tags
+- Fixed chart legend text color using Chart.defaults.color for proper theme support
 - Shortened chart axis labels to use abbreviated format (50k instead of 50,000) in Code Changes Over Time chart
 
 **Previous Updates (2026-01-27):**
@@ -170,4 +172,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-28 - Shortened chart axis labels in Code Changes Over Time chart.*
+*Last updated: 2026-01-28 - Fixed bug count inconsistency and chart legend text color.*
