@@ -2,6 +2,43 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-29
+
+### Feature: Discover tab
+
+Added a new Discover tab for exploring metrics in a randomized, interactive way.
+
+**Metric Cards:**
+- 4 randomizable cards showing 20+ different metrics
+- Shuffle button to get new random metrics
+- Dropdown to select specific metrics
+- Pin button to keep a metric fixed during shuffle
+- Preferences saved to localStorage
+
+**Metrics available:**
+- Net Code Growth, Avg Commit Size, Deletion Ratio
+- Feature:Bug Ratio, Test/Docs Investment
+- Untagged/Breaking Commits
+- Peak Hour/Day, Top Contributor
+- Avg Files/Commit, Single-File/Large Commits
+- Refactor/Security Work, Weekend/Night/Early patterns
+
+**File Activity:**
+- Top 10 most-changed files with anonymized names
+- Humorous name generator (e.g., "Grumpy Dragon", "Sleepy Unicorn")
+- Names are consistent per file (hash-based) but hide actual paths
+
+**Comparisons:**
+- Visual side-by-side comparisons with progress bars
+- Weekend vs Weekday, Features vs Bugs, Additions vs Deletions
+- Planned vs Reactive, Simple vs Complex
+
+**Files updated:**
+- `dashboard/index.html` - Tab button, content, and all JavaScript
+- `docs/USER_GUIDE.md` - Added Discover tab documentation
+
+---
+
 ## 2026-01-28
 
 ### Refactor: Remove duplicated content from Overview tab

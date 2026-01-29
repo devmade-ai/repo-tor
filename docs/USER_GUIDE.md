@@ -86,7 +86,7 @@ Two cards at the top provide meaningful metrics about the work being done:
 
 ## Dashboard Tabs (V2)
 
-The dashboard uses **4 tabs** organized by logical groupings:
+The dashboard uses **5 tabs** organized by logical groupings:
 
 | Tab | Purpose | Primary User |
 |-----|---------|--------------|
@@ -94,6 +94,7 @@ The dashboard uses **4 tabs** organized by logical groupings:
 | **Activity** | Timeline, heatmap, when work happens | Dev Manager |
 | **Work** | Progress, tags, contributors, what's being built | Dev Manager |
 | **Health** | Security, urgency, operational indicators | Both |
+| **Discover** | Explore metrics, randomized insights, file activity | All |
 
 ---
 
@@ -232,6 +233,53 @@ Shows operational health - security, urgency, work patterns.
 
 **Security Commits List**
 - Detailed view of each security-related commit
+
+---
+
+### Discover Tab (Exploration Mode)
+
+An exploration space for discovering different metrics and patterns in your data.
+
+**Metric Cards**
+
+Four randomizable metric cards that show different data points on each shuffle:
+
+| Metric | What It Shows |
+|--------|---------------|
+| Net Code Growth | Total lines added minus deleted |
+| Avg Commit Size | Average lines changed per commit |
+| Deletion Ratio | Percentage of changes that are deletions |
+| Feature:Bug Ratio | Ratio of features to bug fixes |
+| Test Investment | Percentage of commits with test tag |
+| Docs Investment | Percentage of commits with docs tag |
+| Untagged Commits | Commits without any tags |
+| Breaking Changes | Commits with breaking changes |
+| Peak Hour | Most active hour of day |
+| Peak Day | Most active day of week |
+| Top Contributor | Percentage of commits by top author |
+| Avg Files/Commit | Average files changed per commit |
+| Single-File Commits | Percentage of 1-file commits |
+| Large Commits | Commits over 500 lines |
+| Refactor Work | Percentage of refactor commits |
+| Weekend/Night Owl/Early Bird | Work pattern metrics |
+
+**Card Controls**
+- **Shuffle button** - Randomize non-pinned cards
+- **Dropdown** - Select specific metric or "Random"
+- **Pin button** - Keep a metric fixed during shuffle
+
+**File Activity**
+- Top 10 most-changed files with anonymized names
+- Uses humorous names (e.g., "Grumpy Dragon") for privacy
+- Shows relative activity with progress bars
+
+**Comparisons**
+- Visual comparisons between opposing metrics:
+  - Weekend vs Weekday
+  - Features vs Bug Fixes
+  - Additions vs Deletions
+  - Planned vs Reactive
+  - Simple vs Complex
 
 ---
 
