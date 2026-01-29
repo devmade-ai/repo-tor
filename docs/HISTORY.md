@@ -2,7 +2,89 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-01-29
+
+### Feature: Discover tab
+
+Added a new Discover tab for exploring metrics in a randomized, interactive way.
+
+**Metric Cards:**
+- 4 randomizable cards showing 20+ different metrics
+- Shuffle button to get new random metrics
+- Dropdown to select specific metrics
+- Pin button to keep a metric fixed during shuffle
+- Preferences saved to localStorage
+
+**Metrics available:**
+- Net Code Growth, Avg Commit Size, Deletion Ratio
+- Feature:Bug Ratio, Test/Docs Investment
+- Untagged/Breaking Commits
+- Peak Hour/Day, Top Contributor
+- Avg Files/Commit, Single-File/Large Commits
+- Refactor/Security Work, Weekend/Night/Early patterns
+
+**File Activity:**
+- Top 10 most-changed files with anonymized names
+- Humorous name generator (e.g., "Grumpy Dragon", "Sleepy Unicorn")
+- Names are consistent per file (hash-based) but hide actual paths
+
+**Comparisons:**
+- Visual side-by-side comparisons with progress bars
+- Weekend vs Weekday, Features vs Bugs, Additions vs Deletions
+- Planned vs Reactive, Simple vs Complex
+
+**Files updated:**
+- `dashboard/index.html` - Tab button, content, and all JavaScript
+- `docs/USER_GUIDE.md` - Added Discover tab documentation
+
+---
+
 ## 2026-01-28
+
+### Refactor: Remove duplicated content from Overview tab
+
+Removed elements from Overview tab that were duplicated in the Breakdown tab, keeping Overview focused as an executive summary.
+
+**Removed from Overview:**
+- Avg Complexity card (duplicated in Breakdown tab's work summary)
+- Work Breakdown doughnut chart (Breakdown tab has both doughnut and trend over time)
+
+**Overview now shows:**
+- Quick Stats: Features Built, Bugs Fixed, Avg Urgency, % Planned
+- Additional Stats: Files Changed, Contributors (reduced from 3 to 2 cards)
+- Key Highlights (now full width)
+- Activity Snapshot
+
+**Files updated:**
+- `dashboard/index.html` - Removed HTML, JavaScript, and export code
+- `docs/USER_GUIDE.md` - Updated to reflect changes
+
+---
+
+### Fix: Bug count inconsistency between tabs
+
+Fixed the mismatch where Overview tab only counted 'bugfix' tags while Breakdown tab counted both 'bugfix' and 'fix' tags.
+
+**Changes:**
+- Overview tab `renderSummary()` now counts both 'bugfix' and 'fix' tags
+- Breakdown tab Work Type Trend chart now counts both tags (was only 'bugfix')
+- Overview tab click handler for fixes card now filters both tags
+
+**Files updated:**
+- `dashboard/index.html` - 3 locations fixed for consistent bug counting
+
+---
+
+### Fix: Chart legend text color on dark background
+
+Fixed Work Breakdown doughnut charts displaying dark text on dark background when using custom `generateLabels()` functions.
+
+**Change:** Added `fontColor: Chart.defaults.color` to all custom legend label generators, ensuring they inherit the theme-aware text color.
+
+**Files updated:**
+- `dashboard/index.html` - 2 chart configurations updated
+
+---
 
 ### Removed: Period comparison from Overview tab
 

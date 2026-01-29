@@ -77,18 +77,16 @@ When you load a data file, the dashboard displays analytics for that repository.
 
 ### Summary Cards
 
-Four cards at the top provide meaningful metrics about the work being done:
+Two cards at the top provide meaningful metrics about the work being done:
 
 | Card | What It Shows | What It Means |
 |------|--------------|---------------|
 | **Files Changed** | Total unique files modified | Scope of changes across codebase |
-| **Avg Complexity** | Average complexity score (1-5) | How involved the changes are |
-| **Top Work Type** | Most common tag/type of work | Primary focus of development |
 | **Contributors** | Unique contributors | Team size / involvement |
 
 ## Dashboard Tabs (V2)
 
-The dashboard uses **4 tabs** organized by logical groupings:
+The dashboard uses **5 tabs** organized by logical groupings:
 
 | Tab | Purpose | Primary User |
 |-----|---------|--------------|
@@ -96,6 +94,7 @@ The dashboard uses **4 tabs** organized by logical groupings:
 | **Activity** | Timeline, heatmap, when work happens | Dev Manager |
 | **Work** | Progress, tags, contributors, what's being built | Dev Manager |
 | **Health** | Security, urgency, operational indicators | Both |
+| **Discover** | Explore metrics, randomized insights, file activity | All |
 
 ---
 
@@ -111,10 +110,6 @@ The **default tab** designed for executives who need quick, high-level insights.
 | **Bugs Fixed** | Total bug fixes in filtered commits | Opens detail pane with bugfix commits |
 | **Avg Urgency** | Average urgency of changes | Opens detail pane with reactive commits |
 | **% Planned** | Ratio of planned work (urgency 1-2) | Opens detail pane with planned commits |
-
-**Work Breakdown**
-- Doughnut chart showing top 5 tag categories
-- Quick visual of where effort is being spent
 
 **Key Highlights**
 - **Complex Changes** - High complexity vs simple changes
@@ -238,6 +233,53 @@ Shows operational health - security, urgency, work patterns.
 
 **Security Commits List**
 - Detailed view of each security-related commit
+
+---
+
+### Discover Tab (Exploration Mode)
+
+An exploration space for discovering different metrics and patterns in your data.
+
+**Metric Cards**
+
+Four randomizable metric cards that show different data points on each shuffle:
+
+| Metric | What It Shows |
+|--------|---------------|
+| Net Code Growth | Total lines added minus deleted |
+| Avg Commit Size | Average lines changed per commit |
+| Deletion Ratio | Percentage of changes that are deletions |
+| Feature:Bug Ratio | Ratio of features to bug fixes |
+| Test Investment | Percentage of commits with test tag |
+| Docs Investment | Percentage of commits with docs tag |
+| Untagged Commits | Commits without any tags |
+| Breaking Changes | Commits with breaking changes |
+| Peak Hour | Most active hour of day |
+| Peak Day | Most active day of week |
+| Top Contributor | Percentage of commits by top author |
+| Avg Files/Commit | Average files changed per commit |
+| Single-File Commits | Percentage of 1-file commits |
+| Large Commits | Commits over 500 lines |
+| Refactor Work | Percentage of refactor commits |
+| Weekend/Night Owl/Early Bird | Work pattern metrics |
+
+**Card Controls**
+- **Shuffle button** - Randomize non-pinned cards
+- **Dropdown** - Select specific metric or "Random"
+- **Pin button** - Keep a metric fixed during shuffle
+
+**File Activity**
+- Top 10 most-changed files with anonymized names
+- Uses humorous names (e.g., "Grumpy Dragon") for privacy
+- Shows relative activity with progress bars
+
+**Comparisons**
+- Visual comparisons between opposing metrics:
+  - Weekend vs Weekday
+  - Features vs Bug Fixes
+  - Additions vs Deletions
+  - Planned vs Reactive
+  - Simple vs Complex
 
 ---
 
