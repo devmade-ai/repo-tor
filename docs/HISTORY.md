@@ -2,6 +2,51 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-04
+
+### Feature: Dashboard Polish & PWA Support
+
+Completed all remaining polish items and added PWA offline support.
+
+**Detail Pane:**
+- Loading states with skeleton placeholders
+- Fade-in animation when content loads
+- Shareable URL state (tag, author, impact, urgency drilldowns)
+
+**PDF Export:**
+- Updated for new 4-tab layout
+- Shows all 4 key metrics (Features, Bugs, Urgency, Planned)
+- Fixed tab name references
+
+**Filters:**
+- Added urgency filter dropdown (Planned/Normal/Reactive)
+- Added impact filter dropdown (User-facing/Internal/Infrastructure/API)
+- Added quick select presets (30 days, 90 days, This year, Last year)
+- Added AND/OR/Exclude filter mode selector
+
+**Visual Theme:**
+- Added JetBrains Mono font for headings, numbers, tabs, buttons
+- Added subtle grid pattern background
+- Added glow effects on card hover
+- Added gradient accent line under header
+- Updated tabs with uppercase monospace styling
+
+**PWA Support:**
+- Service worker with cache-first strategy
+- Web app manifest with theme colors
+- Install button (appears when browser supports it)
+- Update prompt when new version available
+- SVG + PNG icons for all platforms
+
+**Files updated:**
+- `dashboard/index.html` - All features above
+- `dashboard/manifest.json` - PWA manifest
+- `dashboard/sw.js` - Service worker
+- `dashboard/icons/` - SVG and PNG icons
+- `docs/TODO.md` - Marked items complete
+
+---
+
 ## 2026-01-29
 
 ### Feature: Discover tab
