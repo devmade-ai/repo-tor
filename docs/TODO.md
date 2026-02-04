@@ -38,7 +38,7 @@ Remaining tasks for Git Analytics Reporting System.
 ### Filters
 4. [x] Add urgency filter dropdown
 5. [x] Add impact filter dropdown
-6. [ ] Quick select filter presets (e.g., "Last 30 days", "This quarter", "Since v2.0")
+6. [x] Quick select filter presets (e.g., "Last 30 days", "This quarter", "Since v2.0")
 7. [ ] Filter exclusions with match logic:
    - Match all (AND): show commits with ALL selected labels
    - Match any (OR): show commits with ANY of the selected labels

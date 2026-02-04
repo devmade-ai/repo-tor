@@ -966,6 +966,21 @@
         .filter-sidebar-inner input {
             width: 100%;
         }
+        .filter-preset-btn {
+            padding: 4px 8px;
+            font-size: 11px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .filter-preset-btn:hover {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+        }
 
         /* Tab content area */
         .tab-content-area {
@@ -1171,6 +1186,15 @@
                         <div class="filter-group">
                             <label>To</label>
                             <input type="date" id="filter-date-to" class="filter-input">
+                        </div>
+                        <div class="filter-group">
+                            <label>Quick Select</label>
+                            <div class="flex flex-wrap gap-1">
+                                <button class="filter-preset-btn" data-preset="30days">30 days</button>
+                                <button class="filter-preset-btn" data-preset="90days">90 days</button>
+                                <button class="filter-preset-btn" data-preset="thisyear">This year</button>
+                                <button class="filter-preset-btn" data-preset="lastyear">Last year</button>
+                            </div>
                         </div>
                         <div id="filter-indicator" class="hidden mt-3 px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded text-center"></div>
                     </div>
@@ -3002,6 +3026,45 @@
                 document.getElementById('filter-date-from').value = '';
                 document.getElementById('filter-date-to').value = '';
                 applyFilters();
+            });
+
+            // Quick select preset handlers
+            document.querySelectorAll('.filter-preset-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const preset = btn.dataset.preset;
+                    const today = new Date();
+                    let fromDate, toDate;
+
+                    switch (preset) {
+                        case '30days':
+                            fromDate = new Date(today);
+                            fromDate.setDate(fromDate.getDate() - 30);
+                            toDate = today;
+                            break;
+                        case '90days':
+                            fromDate = new Date(today);
+                            fromDate.setDate(fromDate.getDate() - 90);
+                            toDate = today;
+                            break;
+                        case 'thisyear':
+                            fromDate = new Date(today.getFullYear(), 0, 1);
+                            toDate = today;
+                            break;
+                        case 'lastyear':
+                            fromDate = new Date(today.getFullYear() - 1, 0, 1);
+                            toDate = new Date(today.getFullYear() - 1, 11, 31);
+                            break;
+                    }
+
+                    if (fromDate && toDate) {
+                        const formatDate = d => d.toISOString().split('T')[0];
+                        filters.dateFrom = formatDate(fromDate);
+                        filters.dateTo = formatDate(toDate);
+                        document.getElementById('filter-date-from').value = filters.dateFrom;
+                        document.getElementById('filter-date-to').value = filters.dateTo;
+                        applyFilters();
+                    }
+                });
             });
         }
 
