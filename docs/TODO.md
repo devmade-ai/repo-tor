@@ -45,7 +45,7 @@ Remaining tasks for Git Analytics Reporting System.
    - Exclude mode: hide commits matching selected criteria
 
 ### Visual Enhancements
-8. [ ] Make theme more "techy" (consider monospace fonts, terminal-inspired styling, glowing accents)
+8. [x] Make theme more "techy" (consider monospace fonts, terminal-inspired styling, glowing accents)
 
 ### Research
 9. [ ] Device/platform attribution (mobile vs desktop commits)
