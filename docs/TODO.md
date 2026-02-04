@@ -50,8 +50,13 @@ Remaining tasks for Git Analytics Reporting System.
 ### Research
 9. [ ] Device/platform attribution (mobile vs desktop commits)
 10. [ ] Merge commit filtering options
-11. [ ] PWA offline support
+11. [x] PWA offline support (service worker + manifest + install prompt)
+
+### PWA Icons Needed
+To complete PWA setup, create these icon files in `dashboard/icons/`:
+- `icon-192.png` (192x192)
+- `icon-512.png` (512x512)
 
 ---
 
-*Last updated: 2026-02-04 - Cleaned up completed items, numbered remaining tasks.*
+*Last updated: 2026-02-04 - Added PWA offline support.*
