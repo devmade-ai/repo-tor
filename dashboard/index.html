@@ -485,6 +485,29 @@
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
+        .skeleton-commit {
+            padding: 12px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            margin-bottom: 12px;
+        }
+        .skeleton-line {
+            height: 14px;
+            margin-bottom: 8px;
+        }
+        .skeleton-line-short {
+            width: 60%;
+        }
+        .skeleton-line-medium {
+            width: 80%;
+        }
+        .detail-pane-content-loaded {
+            animation: fadeIn 0.2s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
         /* Detail Pane - Slide-out panel for drill-down (dark theme) */
         .detail-pane-overlay {
@@ -2112,25 +2135,49 @@
             titleEl.textContent = title;
             subtitleEl.textContent = subtitle || '';
 
-            // Check view level for appropriate drilldown
-            const drilldown = aggregateForDrilldown(commits, { title });
-
-            if (drilldown.type === 'commits') {
-                // Developer view: show commit list (current behavior)
-                if (commits && commits.length > 0) {
-                    contentEl.innerHTML = commits.map(commit => renderDetailCommit(commit)).join('');
-                } else {
-                    contentEl.innerHTML = '<p class="text-themed-tertiary text-center py-8">No commits found</p>';
-                }
-            } else {
-                // Executive/Management: show summary
-                contentEl.innerHTML = renderDrilldownSummary(drilldown.data);
-            }
+            // Show loading state with skeleton placeholders
+            contentEl.innerHTML = `
+                <div class="skeleton-commit">
+                    <div class="skeleton skeleton-line skeleton-line-medium"></div>
+                    <div class="skeleton skeleton-line skeleton-line-short"></div>
+                </div>
+                <div class="skeleton-commit">
+                    <div class="skeleton skeleton-line skeleton-line-medium"></div>
+                    <div class="skeleton skeleton-line skeleton-line-short"></div>
+                </div>
+                <div class="skeleton-commit">
+                    <div class="skeleton skeleton-line skeleton-line-medium"></div>
+                    <div class="skeleton skeleton-line skeleton-line-short"></div>
+                </div>
+            `;
 
             overlay.classList.add('open');
             pane.classList.add('open');
             detailPaneOpen = true;
             document.body.style.overflow = 'hidden';
+
+            // Render content after brief delay to show loading state
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    // Check view level for appropriate drilldown
+                    const drilldown = aggregateForDrilldown(commits, { title });
+
+                    let html = '';
+                    if (drilldown.type === 'commits') {
+                        // Developer view: show commit list (current behavior)
+                        if (commits && commits.length > 0) {
+                            html = commits.map(commit => renderDetailCommit(commit)).join('');
+                        } else {
+                            html = '<p class="text-themed-tertiary text-center py-8">No commits found</p>';
+                        }
+                    } else {
+                        // Executive/Management: show summary
+                        html = renderDrilldownSummary(drilldown.data);
+                    }
+
+                    contentEl.innerHTML = `<div class="detail-pane-content-loaded">${html}</div>`;
+                }, 150);
+            });
         }
 
         function closeDetailPane() {
