@@ -5919,8 +5919,8 @@
             const params = new URLSearchParams();
 
             // Add current tab
-            const activeTab = document.querySelector('.tab-btn.border-blue-500')?.dataset.tab || 'summary';
-            if (activeTab !== 'summary') params.set('tab', activeTab);
+            const activeTab = document.querySelector('.tab-btn.border-blue-500')?.dataset.tab || 'overview';
+            if (activeTab !== 'overview') params.set('tab', activeTab);
 
             // Add filters (only if set)
             if (filters.tag) params.set('tag', filters.tag);
@@ -5998,8 +5998,9 @@
 
             try {
                 // Get current active tab
-                const activeTab = document.querySelector('.tab-btn.border-blue-500')?.dataset.tab || 'summary';
+                const activeTab = document.querySelector('.tab-btn.border-blue-500')?.dataset.tab || 'overview';
                 const tabContent = document.getElementById(`tab-${activeTab}`);
+                const tabNames = { overview: 'Overview', activity: 'Activity', work: 'Breakdown', health: 'Risk', discover: 'Discover' };
 
                 // Create a container for PDF content
                 const pdfContent = document.createElement('div');
@@ -6015,23 +6016,31 @@
                         ${document.getElementById('repo-subtitle').textContent}
                     </p>
                     <p style="color: #9ca3af; font-size: 12px; margin-bottom: 24px;">
-                        Generated: ${new Date().toLocaleString()} | Tab: ${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
+                        Generated: ${new Date().toLocaleString()} | Tab: ${tabNames[activeTab] || activeTab}
                         ${hasActiveFilters() ? ' | Filtered view' : ''}
                     </p>
                 `;
                 pdfContent.appendChild(header);
 
-                // Add summary stats
+                // Add summary stats (4 key metrics from Overview)
                 const stats = document.createElement('div');
                 stats.innerHTML = `
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px;">
-                        <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
-                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Files Changed</p>
-                            <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-files').textContent}</p>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px;">
+                        <div style="background: #f9fafb; padding: 12px; border-radius: 8px;">
+                            <p style="color: #6b7280; font-size: 11px; text-transform: uppercase;">Features Built</p>
+                            <p style="font-size: 20px; font-weight: bold; color: #16a34a;">${document.getElementById('summary-features')?.textContent || '0'}</p>
                         </div>
-                        <div style="background: #f9fafb; padding: 16px; border-radius: 8px;">
-                            <p style="color: #6b7280; font-size: 12px; text-transform: uppercase;">Contributors</p>
-                            <p style="font-size: 24px; font-weight: bold;">${document.getElementById('stat-contributors').textContent}</p>
+                        <div style="background: #f9fafb; padding: 12px; border-radius: 8px;">
+                            <p style="color: #6b7280; font-size: 11px; text-transform: uppercase;">Bugs Fixed</p>
+                            <p style="font-size: 20px; font-weight: bold; color: #d97706;">${document.getElementById('summary-fixes')?.textContent || '0'}</p>
+                        </div>
+                        <div style="background: #f9fafb; padding: 12px; border-radius: 8px;">
+                            <p style="color: #6b7280; font-size: 11px; text-transform: uppercase;">Avg Urgency</p>
+                            <p style="font-size: 20px; font-weight: bold;">${document.getElementById('summary-urgency')?.textContent || '-'}</p>
+                        </div>
+                        <div style="background: #f9fafb; padding: 12px; border-radius: 8px;">
+                            <p style="color: #6b7280; font-size: 11px; text-transform: uppercase;">% Planned</p>
+                            <p style="font-size: 20px; font-weight: bold; color: #16a34a;">${document.getElementById('summary-planned')?.textContent || '0%'}</p>
                         </div>
                     </div>
                 `;
