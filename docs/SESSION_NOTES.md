@@ -4,22 +4,23 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete with role-based view levels and consistent tab layouts.
+**Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-01-28):**
+**Recent Updates (2026-02-04):**
+- Added loading states for detail pane (skeleton placeholders + fade-in)
+- Updated PDF export for new 4-tab layout
+- Added shareable links for detail pane state (URL params)
+- Added urgency and impact filter dropdowns
+- Added quick select filter presets (30 days, 90 days, This year, Last year)
+- Added AND/OR/Exclude filter mode selector
+- Added techy theme (JetBrains Mono font, grid background, glow effects)
+- Added PWA offline support (service worker, manifest, install prompt)
+- Created SVG + PNG icons for PWA
+
+**Previous Updates (2026-01-28):**
 - Fixed bug count inconsistency: Overview and Breakdown tabs now both count 'bugfix' OR 'fix' tags
 - Fixed chart legend text color using Chart.defaults.color for proper theme support
-- Shortened chart axis labels to use abbreviated format (50k instead of 50,000) in Code Changes Over Time chart
-
-**Previous Updates (2026-01-27):**
-- Added "Code Changes Over Time" chart to Activity tab showing net lines changed by date/project
-
-**Previous Updates (2026-01-25):**
-- Fixed chart text visibility by reading CSS variables with `getComputedStyle()` (not hardcoded values)
-- Added summary cards to Activity and Breakdown tabs for consistent UX
-- Removed section state persistence - consistent defaults on every page reload
-- Added role-specific interpretation guidance (Executive/Management see contextual tips)
-- Added future enhancement TODOs for: techy theme, date exclusions, filter presets, match all/any filter logic
+- Shortened chart axis labels to use abbreviated format (50k instead of 50,000)
 
 **Role-Based View Levels:** Different audiences see appropriate detail levels:
 - **Executive**: Aggregated totals, weekly heatmap, summary drilldowns + interpretation guidance
@@ -139,10 +140,9 @@ const TAB_MAPPING = {
 
 ## Remaining Work
 
-### Polish (Optional)
-- [ ] Loading states for detail pane content
-- [ ] PDF export updates for new layout
-- [ ] Shareable links for detail pane state
+### Research (Optional)
+- [ ] Device/platform attribution (mobile vs desktop commits)
+- [ ] Merge commit filtering options
 
 ### Extraction Progress
 
@@ -172,4 +172,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-01-28 - Fixed bug count inconsistency and chart legend text color.*
+*Last updated: 2026-02-04 - Completed polish items, added filters, techy theme, and PWA support.*
