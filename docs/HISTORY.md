@@ -4,6 +4,33 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-04
 
+### Feature: Per-Filter Modes & PWA Help
+
+Improved filter UX with per-filter modes and added PWA install guidance in Settings.
+
+**Filters - Per-Filter Modes:**
+- Removed global AND/OR/Exclude mode selector (didn't make logical sense globally)
+- Added per-filter Include/Exclude toggle for each filter type
+- Converted single-select dropdowns to multi-select checkboxes
+- Filter modes are now: Tag (Inc/Exc), Author (Inc/Exc), Repo (Inc/Exc), Urgency (Inc/Exc), Impact (Inc/Exc)
+- Updated URL shareable links to support multi-select (comma-separated, `!` prefix for exclude)
+- Updated localStorage persistence for new filter structure
+
+**PWA Install Help:**
+- Added "Install App" section to Settings panel
+- Shows install status (Ready/Installed/Unsupported)
+- Includes "Install Dashboard" button
+- Manual install instructions for Chrome, Safari, Firefox
+- Auto-detects if already running as standalone app
+
+**Files updated:**
+- `dashboard/index.html` - Filter UI, filter logic, PWA section in settings
+- `docs/USER_GUIDE.md` - Added Filters and PWA sections
+- `docs/SESSION_NOTES.md` - Updated recent changes
+- `docs/TODO.md` - Marked items complete
+
+---
+
 ### Feature: Dashboard Polish & PWA Support
 
 Completed all remaining polish items and added PWA offline support.
@@ -22,7 +49,6 @@ Completed all remaining polish items and added PWA offline support.
 - Added urgency filter dropdown (Planned/Normal/Reactive)
 - Added impact filter dropdown (User-facing/Internal/Infrastructure/API)
 - Added quick select presets (30 days, 90 days, This year, Last year)
-- Added AND/OR/Exclude filter mode selector
 
 **Visual Theme:**
 - Added JetBrains Mono font for headings, numbers, tabs, buttons

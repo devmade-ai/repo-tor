@@ -39,10 +39,7 @@ Remaining tasks for Git Analytics Reporting System.
 4. [x] Add urgency filter dropdown
 5. [x] Add impact filter dropdown
 6. [x] Quick select filter presets (e.g., "Last 30 days", "This quarter", "Since v2.0")
-7. [x] Filter exclusions with match logic:
-   - Match all (AND): show commits with ALL selected labels
-   - Match any (OR): show commits with ANY of the selected labels
-   - Exclude mode: hide commits matching selected criteria
+7. [x] Per-filter mode toggles (Include/Exclude) with multi-select checkboxes
 
 ### Visual Enhancements
 8. [x] Make theme more "techy" (consider monospace fonts, terminal-inspired styling, glowing accents)
@@ -51,7 +48,8 @@ Remaining tasks for Git Analytics Reporting System.
 9. [ ] Device/platform attribution (mobile vs desktop commits)
 10. [ ] Merge commit filtering options
 11. [x] PWA offline support (service worker + manifest + install prompt + SVG icon)
+12. [x] PWA install help in Settings panel with status and manual instructions
 
 ---
 
-*Last updated: 2026-02-04 - Added PWA offline support with SVG icon.*
+*Last updated: 2026-02-04 - Added per-filter modes and PWA help.*
