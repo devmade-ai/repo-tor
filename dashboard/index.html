@@ -1146,6 +1146,25 @@
                             </select>
                         </div>
                         <div class="filter-group">
+                            <label>Urgency</label>
+                            <select id="filter-urgency" class="filter-select">
+                                <option value="">All Urgency</option>
+                                <option value="planned">Planned (1-2)</option>
+                                <option value="normal">Normal (3)</option>
+                                <option value="reactive">Reactive (4-5)</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Impact</label>
+                            <select id="filter-impact" class="filter-select">
+                                <option value="">All Impact</option>
+                                <option value="user-facing">User-facing</option>
+                                <option value="internal">Internal</option>
+                                <option value="infrastructure">Infrastructure</option>
+                                <option value="api">API</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
                             <label>From</label>
                             <input type="date" id="filter-date-from" class="filter-input">
                         </div>
@@ -1778,6 +1797,8 @@
             tag: '',
             author: '',
             repo: '',
+            urgency: '',
+            impact: '',
             dateFrom: '',
             dateTo: ''
         };
@@ -2856,6 +2877,16 @@
                 // Repo filter
                 if (filters.repo && commit.repo_id !== filters.repo) return false;
 
+                // Urgency filter
+                if (filters.urgency) {
+                    const urgencyMap = { planned: [1, 2], normal: [3], reactive: [4, 5] };
+                    const levels = urgencyMap[filters.urgency] || [];
+                    if (!levels.includes(commit.urgency)) return false;
+                }
+
+                // Impact filter
+                if (filters.impact && commit.impact !== filters.impact) return false;
+
                 // Date range filter
                 if (filters.dateFrom) {
                     const commitDate = commit.timestamp?.substring(0, 10);
@@ -2941,6 +2972,16 @@
                 applyFilters();
             });
 
+            document.getElementById('filter-urgency').addEventListener('change', (e) => {
+                filters.urgency = e.target.value;
+                applyFilters();
+            });
+
+            document.getElementById('filter-impact').addEventListener('change', (e) => {
+                filters.impact = e.target.value;
+                applyFilters();
+            });
+
             document.getElementById('filter-date-from').addEventListener('change', (e) => {
                 filters.dateFrom = e.target.value;
                 applyFilters();
@@ -2952,10 +2993,12 @@
             });
 
             document.getElementById('clear-filters').addEventListener('click', () => {
-                filters = { tag: '', author: '', repo: '', dateFrom: '', dateTo: '' };
+                filters = { tag: '', author: '', repo: '', urgency: '', impact: '', dateFrom: '', dateTo: '' };
                 document.getElementById('filter-tag').value = '';
                 document.getElementById('filter-author').value = '';
                 document.getElementById('filter-repo').value = '';
+                document.getElementById('filter-urgency').value = '';
+                document.getElementById('filter-impact').value = '';
                 document.getElementById('filter-date-from').value = '';
                 document.getElementById('filter-date-to').value = '';
                 applyFilters();
@@ -5912,6 +5955,8 @@
                 tag: params.get('tag') || '',
                 author: params.get('author') || '',
                 repo: params.get('repo') || '',
+                urgency: params.get('urgency') || '',
+                impact: params.get('impact') || '',
                 dateFrom: params.get('from') || '',
                 dateTo: params.get('to') || '',
                 tab: params.get('tab') || 'overview',
@@ -5934,6 +5979,8 @@
             if (filters.tag) params.set('tag', filters.tag);
             if (filters.author) params.set('author', filters.author);
             if (filters.repo) params.set('repo', filters.repo);
+            if (filters.urgency) params.set('urgency', filters.urgency);
+            if (filters.impact) params.set('impact', filters.impact);
             if (filters.dateFrom) params.set('from', filters.dateFrom);
             if (filters.dateTo) params.set('to', filters.dateTo);
 
@@ -5961,6 +6008,8 @@
             filters.tag = state.tag;
             filters.author = state.author;
             filters.repo = state.repo;
+            filters.urgency = state.urgency;
+            filters.impact = state.impact;
             filters.dateFrom = state.dateFrom;
             filters.dateTo = state.dateTo;
 
@@ -5968,6 +6017,8 @@
             document.getElementById('filter-tag').value = state.tag;
             document.getElementById('filter-author').value = state.author;
             document.getElementById('filter-repo').value = state.repo;
+            document.getElementById('filter-urgency').value = state.urgency;
+            document.getElementById('filter-impact').value = state.impact;
             document.getElementById('filter-date-from').value = state.dateFrom;
             document.getElementById('filter-date-to').value = state.dateTo;
 
@@ -6153,7 +6204,7 @@
         }
 
         function hasActiveFilters() {
-            return filters.tag || filters.author || filters.repo || filters.dateFrom || filters.dateTo;
+            return filters.tag || filters.author || filters.repo || filters.urgency || filters.impact || filters.dateFrom || filters.dateTo;
         }
 
         // Setup export/share button handlers
