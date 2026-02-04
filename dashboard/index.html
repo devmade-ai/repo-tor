@@ -981,6 +981,30 @@
             border-color: var(--color-primary);
             color: white;
         }
+        .filter-mode-btns {
+            display: flex;
+            gap: 4px;
+        }
+        .filter-mode-btn {
+            flex: 1;
+            padding: 6px 8px;
+            font-size: 11px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .filter-mode-btn:hover {
+            border-color: var(--color-primary);
+            color: var(--text-primary);
+        }
+        .filter-mode-btn.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+        }
 
         /* Tab content area */
         .tab-content-area {
@@ -1141,6 +1165,14 @@
                             <button id="clear-filters" class="px-2 py-1 text-xs text-themed-secondary hover:text-themed-primary hover:bg-gray-100 dark:hover:bg-gray-700 rounded border border-themed">
                                 Clear
                             </button>
+                        </div>
+                        <div class="filter-group">
+                            <label>Mode</label>
+                            <div class="filter-mode-btns">
+                                <button class="filter-mode-btn active" data-mode="and" title="Show commits matching ALL filters">All</button>
+                                <button class="filter-mode-btn" data-mode="or" title="Show commits matching ANY filter">Any</button>
+                                <button class="filter-mode-btn" data-mode="exclude" title="Hide commits matching filters">Exclude</button>
+                            </div>
                         </div>
                         <div class="filter-group">
                             <label>Tag</label>
@@ -1826,6 +1858,7 @@
             dateFrom: '',
             dateTo: ''
         };
+        let filterMode = 'and'; // 'and', 'or', 'exclude'
         let useUTC = false;
         let isDarkMode = false;
         let workHourStart = 8;
@@ -2886,32 +2919,7 @@
             if (!data || !data.commits) return [];
 
             return data.commits.filter(commit => {
-                // Tag filter - check if any of commit's tags match
-                if (filters.tag) {
-                    const commitTags = getCommitTags(commit);
-                    if (!commitTags.includes(filters.tag)) return false;
-                }
-
-                // Author filter - check both author_id and author.email
-                if (filters.author) {
-                    const authorEmail = getAuthorEmail(commit);
-                    if (authorEmail !== filters.author) return false;
-                }
-
-                // Repo filter
-                if (filters.repo && commit.repo_id !== filters.repo) return false;
-
-                // Urgency filter
-                if (filters.urgency) {
-                    const urgencyMap = { planned: [1, 2], normal: [3], reactive: [4, 5] };
-                    const levels = urgencyMap[filters.urgency] || [];
-                    if (!levels.includes(commit.urgency)) return false;
-                }
-
-                // Impact filter
-                if (filters.impact && commit.impact !== filters.impact) return false;
-
-                // Date range filter
+                // Date range always applies (regardless of mode)
                 if (filters.dateFrom) {
                     const commitDate = commit.timestamp?.substring(0, 10);
                     if (commitDate < filters.dateFrom) return false;
@@ -2921,7 +2929,52 @@
                     if (commitDate > filters.dateTo) return false;
                 }
 
-                return true;
+                // Build array of active filter matches
+                const matches = [];
+
+                // Tag filter
+                if (filters.tag) {
+                    const commitTags = getCommitTags(commit);
+                    matches.push(commitTags.includes(filters.tag));
+                }
+
+                // Author filter
+                if (filters.author) {
+                    const authorEmail = getAuthorEmail(commit);
+                    matches.push(authorEmail === filters.author);
+                }
+
+                // Repo filter
+                if (filters.repo) {
+                    matches.push(commit.repo_id === filters.repo);
+                }
+
+                // Urgency filter
+                if (filters.urgency) {
+                    const urgencyMap = { planned: [1, 2], normal: [3], reactive: [4, 5] };
+                    const levels = urgencyMap[filters.urgency] || [];
+                    matches.push(levels.includes(commit.urgency));
+                }
+
+                // Impact filter
+                if (filters.impact) {
+                    matches.push(commit.impact === filters.impact);
+                }
+
+                // If no filters active, include all
+                if (matches.length === 0) return true;
+
+                // Apply filter mode
+                let result;
+                if (filterMode === 'and') {
+                    result = matches.every(m => m);
+                } else if (filterMode === 'or') {
+                    result = matches.some(m => m);
+                } else { // exclude
+                    result = matches.every(m => m);
+                }
+
+                return filterMode === 'exclude' ? !result : result;
             });
         }
 
@@ -3018,6 +3071,7 @@
 
             document.getElementById('clear-filters').addEventListener('click', () => {
                 filters = { tag: '', author: '', repo: '', urgency: '', impact: '', dateFrom: '', dateTo: '' };
+                filterMode = 'and';
                 document.getElementById('filter-tag').value = '';
                 document.getElementById('filter-author').value = '';
                 document.getElementById('filter-repo').value = '';
@@ -3025,6 +3079,9 @@
                 document.getElementById('filter-impact').value = '';
                 document.getElementById('filter-date-from').value = '';
                 document.getElementById('filter-date-to').value = '';
+                // Reset mode buttons
+                document.querySelectorAll('.filter-mode-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector('.filter-mode-btn[data-mode="and"]').classList.add('active');
                 applyFilters();
             });
 
@@ -3064,6 +3121,17 @@
                         document.getElementById('filter-date-to').value = filters.dateTo;
                         applyFilters();
                     }
+                });
+            });
+
+            // Filter mode button handlers
+            document.querySelectorAll('.filter-mode-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterMode = btn.dataset.mode;
+                    // Update active state
+                    document.querySelectorAll('.filter-mode-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    applyFilters();
                 });
             });
         }
