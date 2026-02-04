@@ -1789,6 +1789,7 @@
         const anonymousNames = ['Developer A', 'Developer B', 'Developer C', 'Developer D', 'Developer E', 'Developer F', 'Developer G', 'Developer H'];
         const authorAnonMap = new Map();
         let detailPaneOpen = false;
+        let currentDetailState = null; // Tracks what's shown in detail pane: { type: 'tag'|'author'|'impact'|..., value: string }
 
         // === View Level Configuration ===
         // Different data granularity for different audiences
@@ -2125,12 +2126,16 @@
         }
 
         // === Detail Pane Functions ===
-        function openDetailPane(title, subtitle, commits) {
+        // detailState: optional { type: 'tag'|'author'|'impact'|'urgency'|'all', value: string }
+        function openDetailPane(title, subtitle, commits, detailState = null) {
             const overlay = document.getElementById('detail-overlay');
             const pane = document.getElementById('detail-pane');
             const titleEl = document.getElementById('detail-title');
             const subtitleEl = document.getElementById('detail-subtitle');
             const contentEl = document.getElementById('detail-content');
+
+            // Store detail state for shareable links
+            currentDetailState = detailState;
 
             titleEl.textContent = title;
             subtitleEl.textContent = subtitle || '';
@@ -2187,6 +2192,7 @@
             overlay.classList.remove('open');
             pane.classList.remove('open');
             detailPaneOpen = false;
+            currentDetailState = null;
             document.body.style.overflow = '';
         }
 
@@ -3195,7 +3201,7 @@
                         const cardType = el.dataset.activityCard;
                         const currentCommits = getFilteredCommits();
                         if (cardType === 'total') {
-                            openDetailPane('All Commits', `${currentCommits.length} commits`, currentCommits);
+                            openDetailPane('All Commits', `${currentCommits.length} commits`, currentCommits, { type: 'all', value: '' });
                         } else if (cardType === 'contributors') {
                             // Show contributor list
                             const contributors = {};
@@ -4067,7 +4073,7 @@
                     const impact = el.dataset.impactFilter;
                     const label = impactLabels[impact]?.label || impact;
                     const filtered = getFilteredCommits().filter(c => c.impact === impact);
-                    openDetailPane(`${label} Impact`, `${filtered.length} commits`, filtered);
+                    openDetailPane(`${label} Impact`, `${filtered.length} commits`, filtered, { type: 'impact', value: impact });
                 });
             });
 
@@ -4276,7 +4282,7 @@
                         const email = el.dataset.contributorUrgency;
                         const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
                         const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
-                        openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered);
+                        openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered, { type: 'author', value: name });
                     });
                 });
             }
@@ -4405,7 +4411,7 @@
                         const email = el.dataset.contributorImpact;
                         const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
                         const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
-                        openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered);
+                        openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered, { type: 'author', value: name });
                     });
                 });
             }
@@ -4529,7 +4535,7 @@
                 el.addEventListener('click', () => {
                     const tag = el.dataset.tagFilter;
                     const filtered = getFilteredCommits().filter(c => (c.tags || []).includes(tag));
-                    openDetailPane(`${tag} Commits`, `${filtered.length} commits`, filtered);
+                    openDetailPane(`${tag} Commits`, `${filtered.length} commits`, filtered, { type: 'tag', value: tag });
                 });
             });
         }
@@ -5910,7 +5916,9 @@
                 dateTo: params.get('to') || '',
                 tab: params.get('tab') || 'overview',
                 period: params.get('period') || '7days',
-                tz: params.get('tz') || 'local'
+                tz: params.get('tz') || 'local',
+                detail: params.get('detail') || '',      // Detail pane type: tag, author, impact, urgency, all
+                detailValue: params.get('dv') || ''      // Detail pane value (e.g., tag name, author name)
             };
         }
 
@@ -5932,6 +5940,14 @@
             // Add timezone if on activity tab (which includes timing) and not local
             if (activeTab === 'activity' && useUTC) {
                 params.set('tz', 'utc');
+            }
+
+            // Add detail pane state if open
+            if (currentDetailState) {
+                params.set('detail', currentDetailState.type);
+                if (currentDetailState.value) {
+                    params.set('dv', currentDetailState.value);
+                }
             }
 
             const paramStr = params.toString();
@@ -5965,6 +5981,44 @@
             if (state.tab) {
                 const tabBtn = document.querySelector(`.tab-btn[data-tab="${state.tab}"]`);
                 if (tabBtn) tabBtn.click();
+            }
+
+            // Open detail pane if specified (after a brief delay to let data load)
+            if (state.detail) {
+                setTimeout(() => openDetailFromUrlState(state.detail, state.detailValue), 300);
+            }
+        }
+
+        // Open detail pane from URL state
+        function openDetailFromUrlState(type, value) {
+            let title, commits, filtered;
+
+            switch (type) {
+                case 'tag':
+                    filtered = currentCommits.filter(c => c.tags && c.tags.includes(value));
+                    title = `${value} Commits`;
+                    openDetailPane(title, `${filtered.length} commits`, filtered, { type, value });
+                    break;
+                case 'author':
+                    filtered = currentCommits.filter(c => c.author === value);
+                    title = `${value}'s Commits`;
+                    openDetailPane(title, `${filtered.length} commits`, filtered, { type, value });
+                    break;
+                case 'impact':
+                    filtered = currentCommits.filter(c => c.impact === value);
+                    title = `${value} Impact`;
+                    openDetailPane(title, `${filtered.length} commits`, filtered, { type, value });
+                    break;
+                case 'urgency':
+                    const urgencyMap = { planned: [1, 2], normal: [3], reactive: [4, 5] };
+                    const levels = urgencyMap[value] || [];
+                    filtered = currentCommits.filter(c => levels.includes(c.urgency));
+                    title = `${value.charAt(0).toUpperCase() + value.slice(1)} Work`;
+                    openDetailPane(title, `${filtered.length} commits`, filtered, { type, value });
+                    break;
+                case 'all':
+                    openDetailPane('All Commits', `${currentCommits.length} commits`, currentCommits, { type: 'all', value: '' });
+                    break;
             }
         }
 

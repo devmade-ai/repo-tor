@@ -10,7 +10,7 @@ Remaining tasks for Git Analytics Reporting System.
 
 1. [x] Loading states for detail pane content
 2. [x] PDF export updates for new layout
-3. [ ] Shareable links for detail pane state (URL hash params for tab, filters, detail view)
+3. [x] Shareable links for detail pane state (URL hash params for tab, filters, detail view)
 
 ---
 
