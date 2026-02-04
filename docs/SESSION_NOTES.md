@@ -12,10 +12,12 @@ Current state for AI assistants to continue work.
 - Added shareable links for detail pane state (URL params)
 - Added urgency and impact filter dropdowns
 - Added quick select filter presets (30 days, 90 days, This year, Last year)
-- Added AND/OR/Exclude filter mode selector
 - Added techy theme (JetBrains Mono font, grid background, glow effects)
 - Added PWA offline support (service worker, manifest, install prompt)
 - Created SVG + PNG icons for PWA
+- **Replaced global filter mode with per-filter Include/Exclude toggles**
+- **Converted filters to multi-select checkboxes**
+- **Added PWA install section to Settings panel with status and manual instructions**
 
 **Previous Updates (2026-01-28):**
 - Fixed bug count inconsistency: Overview and Breakdown tabs now both count 'bugfix' OR 'fix' tags

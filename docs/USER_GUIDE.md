@@ -37,7 +37,56 @@ Click the **gear icon** in the header to open the Settings panel. This slide-out
 - **Timezone** - Switch between Local and UTC time display
 - **Work Hours Start/End** - Define what counts as "work hours" for timing analysis (affects after-hours calculations)
 
+**Install App (PWA):**
+- **Install Dashboard** - Install as a standalone app for offline access
+- Manual install instructions for different browsers
+
 Settings are saved to your browser and persist across sessions.
+
+---
+
+## Filters
+
+Click the **filter icon** in the header to open the filter sidebar. Filters use multi-select checkboxes with per-filter modes:
+
+**Available Filters:**
+- **Tag** - Filter by commit tags (feature, bugfix, refactor, etc.)
+- **Author** - Filter by contributor
+- **Repo** - Filter by repository (only shown when viewing multiple repos)
+- **Urgency** - Filter by urgency level (Planned, Normal, Reactive)
+- **Impact** - Filter by impact type (User-facing, Internal, Infrastructure, API)
+- **Date Range** - Filter by date with quick presets (30 days, 90 days, This year, Last year)
+
+**Per-Filter Modes:**
+Each filter has its own **Inc/Exc** (Include/Exclude) toggle:
+- **Inc (Include)** - Show commits matching ANY selected values
+- **Exc (Exclude)** - Hide commits matching ANY selected values
+
+This allows complex filtering like "show feature commits but exclude bot authors".
+
+**Shareable Links:**
+- Click the **Share** button to copy a link with your current filters
+- Links preserve tab, filters (with modes), and detail pane state
+- Multi-select values are comma-separated in the URL
+- Exclude mode is prefixed with `!` (e.g., `?tag=!test,docs`)
+
+---
+
+## Installing as an App (PWA)
+
+The dashboard can be installed as a Progressive Web App for offline access and a native app experience.
+
+**Automatic Install:**
+1. Open Settings (gear icon)
+2. Scroll to "Install App" section
+3. Click "Install Dashboard" if available
+
+**Manual Install:**
+- **Chrome/Edge:** Click the install icon in the address bar, or Menu → "Install app"
+- **Safari (iOS):** Tap Share → "Add to Home Screen"
+- **Firefox:** Menu → "Install" (if available)
+
+Once installed, the app works offline using cached data from your last visit.
 
 ---
 

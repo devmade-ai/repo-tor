@@ -1049,29 +1049,113 @@
             border-color: var(--color-primary);
             color: white;
         }
-        .filter-mode-btns {
+        .filter-mode-toggle {
             display: flex;
-            gap: 4px;
+            gap: 2px;
+            margin-left: auto;
         }
-        .filter-mode-btn {
-            flex: 1;
-            padding: 6px 8px;
-            font-size: 11px;
+        .filter-mode-toggle button {
+            padding: 2px 6px;
+            font-size: 9px;
             border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
             background: var(--bg-tertiary);
-            color: var(--text-secondary);
+            color: var(--text-tertiary);
             cursor: pointer;
             transition: all 0.15s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .filter-mode-btn:hover {
+        .filter-mode-toggle button:first-child {
+            border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+        }
+        .filter-mode-toggle button:last-child {
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        }
+        .filter-mode-toggle button:hover {
             border-color: var(--color-primary);
             color: var(--text-primary);
         }
-        .filter-mode-btn.active {
+        .filter-mode-toggle button.active {
             background: var(--color-primary);
             border-color: var(--color-primary);
             color: white;
+        }
+        .filter-mode-toggle button.exclude.active {
+            background: var(--color-error);
+            border-color: var(--color-error);
+        }
+        .filter-group-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        .filter-group-header label {
+            margin-bottom: 0;
+        }
+        .filter-multi-select {
+            position: relative;
+        }
+        .filter-multi-select-trigger {
+            width: 100%;
+            padding: 6px 8px;
+            font-size: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 32px;
+        }
+        .filter-multi-select-trigger:hover {
+            border-color: var(--color-primary);
+        }
+        .filter-multi-select-trigger .selected-text {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .filter-multi-select-trigger .arrow {
+            margin-left: 4px;
+            opacity: 0.5;
+        }
+        .filter-multi-select-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-lg);
+            z-index: 100;
+            display: none;
+        }
+        .filter-multi-select-dropdown.open {
+            display: block;
+        }
+        .filter-multi-select-option {
+            display: flex;
+            align-items: center;
+            padding: 6px 8px;
+            cursor: pointer;
+            font-size: 12px;
+            gap: 6px;
+        }
+        .filter-multi-select-option:hover {
+            background: var(--bg-tertiary);
+        }
+        .filter-multi-select-option input[type="checkbox"] {
+            margin: 0;
+            cursor: pointer;
+        }
+        .filter-multi-select-option.selected {
+            background: var(--color-primary-alpha, rgba(45, 104, 255, 0.1));
         }
 
         /* Tab content area */
@@ -1241,49 +1325,93 @@
                             </button>
                         </div>
                         <div class="filter-group">
-                            <label>Mode</label>
-                            <div class="filter-mode-btns">
-                                <button class="filter-mode-btn active" data-mode="and" title="Show commits matching ALL filters">All</button>
-                                <button class="filter-mode-btn" data-mode="or" title="Show commits matching ANY filter">Any</button>
-                                <button class="filter-mode-btn" data-mode="exclude" title="Hide commits matching filters">Exclude</button>
+                            <div class="filter-group-header">
+                                <label>Tag</label>
+                                <div class="filter-mode-toggle" data-filter="tag">
+                                    <button class="active" data-mode="include" title="Include commits with selected tags">Inc</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected tags">Exc</button>
+                                </div>
+                            </div>
+                            <div class="filter-multi-select" id="filter-tag-container">
+                                <div class="filter-multi-select-trigger" tabindex="0">
+                                    <span class="selected-text">All Tags</span>
+                                    <span class="arrow">▾</span>
+                                </div>
+                                <div class="filter-multi-select-dropdown"></div>
                             </div>
                         </div>
                         <div class="filter-group">
-                            <label>Tag</label>
-                            <select id="filter-tag" class="filter-select">
-                                <option value="">All Tags</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label>Author</label>
-                            <select id="filter-author" class="filter-select">
-                                <option value="">All Authors</option>
-                            </select>
+                            <div class="filter-group-header">
+                                <label>Author</label>
+                                <div class="filter-mode-toggle" data-filter="author">
+                                    <button class="active" data-mode="include" title="Include commits by selected authors">Inc</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits by selected authors">Exc</button>
+                                </div>
+                            </div>
+                            <div class="filter-multi-select" id="filter-author-container">
+                                <div class="filter-multi-select-trigger" tabindex="0">
+                                    <span class="selected-text">All Authors</span>
+                                    <span class="arrow">▾</span>
+                                </div>
+                                <div class="filter-multi-select-dropdown"></div>
+                            </div>
                         </div>
                         <div class="filter-group" id="repo-filter-container" style="display: none;">
-                            <label>Repo</label>
-                            <select id="filter-repo" class="filter-select">
-                                <option value="">All Repos</option>
-                            </select>
+                            <div class="filter-group-header">
+                                <label>Repo</label>
+                                <div class="filter-mode-toggle" data-filter="repo">
+                                    <button class="active" data-mode="include" title="Include commits from selected repos">Inc</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits from selected repos">Exc</button>
+                                </div>
+                            </div>
+                            <div class="filter-multi-select" id="filter-repo-multiselect">
+                                <div class="filter-multi-select-trigger" tabindex="0">
+                                    <span class="selected-text">All Repos</span>
+                                    <span class="arrow">▾</span>
+                                </div>
+                                <div class="filter-multi-select-dropdown"></div>
+                            </div>
                         </div>
                         <div class="filter-group">
-                            <label>Urgency</label>
-                            <select id="filter-urgency" class="filter-select">
-                                <option value="">All Urgency</option>
-                                <option value="planned">Planned (1-2)</option>
-                                <option value="normal">Normal (3)</option>
-                                <option value="reactive">Reactive (4-5)</option>
-                            </select>
+                            <div class="filter-group-header">
+                                <label>Urgency</label>
+                                <div class="filter-mode-toggle" data-filter="urgency">
+                                    <button class="active" data-mode="include" title="Include commits with selected urgency">Inc</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected urgency">Exc</button>
+                                </div>
+                            </div>
+                            <div class="filter-multi-select" id="filter-urgency-container">
+                                <div class="filter-multi-select-trigger" tabindex="0">
+                                    <span class="selected-text">All Urgency</span>
+                                    <span class="arrow">▾</span>
+                                </div>
+                                <div class="filter-multi-select-dropdown">
+                                    <label class="filter-multi-select-option"><input type="checkbox" value="planned"> Planned (1-2)</label>
+                                    <label class="filter-multi-select-option"><input type="checkbox" value="normal"> Normal (3)</label>
+                                    <label class="filter-multi-select-option"><input type="checkbox" value="reactive"> Reactive (4-5)</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="filter-group">
-                            <label>Impact</label>
-                            <select id="filter-impact" class="filter-select">
-                                <option value="">All Impact</option>
-                                <option value="user-facing">User-facing</option>
-                                <option value="internal">Internal</option>
-                                <option value="infrastructure">Infrastructure</option>
-                                <option value="api">API</option>
-                            </select>
+                            <div class="filter-group-header">
+                                <label>Impact</label>
+                                <div class="filter-mode-toggle" data-filter="impact">
+                                    <button class="active" data-mode="include" title="Include commits with selected impact">Inc</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected impact">Exc</button>
+                                </div>
+                            </div>
+                            <div class="filter-multi-select" id="filter-impact-container">
+                                <div class="filter-multi-select-trigger" tabindex="0">
+                                    <span class="selected-text">All Impact</span>
+                                    <span class="arrow">▾</span>
+                                </div>
+                                <div class="filter-multi-select-dropdown">
+                                    <label class="filter-multi-select-option"><input type="checkbox" value="user-facing"> User-facing</label>
+                                    <label class="filter-multi-select-option"><input type="checkbox" value="internal"> Internal</label>
+                                    <label class="filter-multi-select-option"><input type="checkbox" value="infrastructure"> Infrastructure</label>
+                                    <label class="filter-multi-select-option"><input type="checkbox" value="api"> API</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="filter-group">
                             <label>From</label>
@@ -1912,6 +2040,33 @@
                     </div>
                     <p class="settings-hint" style="margin-top: 8px;">Defines what counts as "work hours" for timing analysis</p>
                 </div>
+
+                <!-- PWA Install Section -->
+                <div class="settings-section" id="pwa-settings-section">
+                    <div class="settings-section-title">Install App</div>
+                    <div class="settings-group">
+                        <p class="settings-hint" style="margin-bottom: 12px;">
+                            Install this dashboard as an app for offline access and a native experience.
+                        </p>
+                        <button id="btn-pwa-install-settings" class="btn-primary" style="width: 100%; padding: 10px;" onclick="installPWA()">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; margin-right: 6px;">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                            </svg>
+                            Install Dashboard
+                        </button>
+                        <p id="pwa-status-text" class="settings-hint" style="margin-top: 8px; text-align: center;"></p>
+                    </div>
+                    <div class="settings-group" style="margin-top: 12px;">
+                        <details style="font-size: 12px; color: var(--text-secondary);">
+                            <summary style="cursor: pointer; font-weight: 500;">How to install manually</summary>
+                            <div style="margin-top: 8px; padding-left: 8px; border-left: 2px solid var(--border-color);">
+                                <p style="margin-bottom: 6px;"><strong>Chrome/Edge:</strong> Click the install icon in the address bar, or Menu &rarr; "Install app"</p>
+                                <p style="margin-bottom: 6px;"><strong>Safari (iOS):</strong> Tap Share &rarr; "Add to Home Screen"</p>
+                                <p><strong>Firefox:</strong> Menu &rarr; "Install" (if available)</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1923,16 +2078,16 @@
         // === Global State ===
         let data = null;
         let charts = {};
+        // Multi-select filters with per-filter modes
         let filters = {
-            tag: '',
-            author: '',
-            repo: '',
-            urgency: '',
-            impact: '',
+            tag: { values: [], mode: 'include' },
+            author: { values: [], mode: 'include' },
+            repo: { values: [], mode: 'include' },
+            urgency: { values: [], mode: 'include' },
+            impact: { values: [], mode: 'include' },
             dateFrom: '',
             dateTo: ''
         };
-        let filterMode = 'and'; // 'and', 'or', 'exclude'
         let useUTC = false;
         let isDarkMode = false;
         let workHourStart = 8;
@@ -2989,11 +3144,18 @@
         }
 
         // === Filter Functions ===
+        // Helper to check if filter matches with per-filter mode
+        function checkFilter(values, mode, commitValue, matchFn) {
+            if (!values || values.length === 0) return null; // No filter active
+            const matches = matchFn ? matchFn(values, commitValue) : values.includes(commitValue);
+            return mode === 'exclude' ? !matches : matches;
+        }
+
         function getFilteredCommits() {
             if (!data || !data.commits) return [];
 
             return data.commits.filter(commit => {
-                // Date range always applies (regardless of mode)
+                // Date range always applies
                 if (filters.dateFrom) {
                     const commitDate = commit.timestamp?.substring(0, 10);
                     if (commitDate < filters.dateFrom) return false;
@@ -3003,64 +3165,67 @@
                     if (commitDate > filters.dateTo) return false;
                 }
 
-                // Build array of active filter matches
-                const matches = [];
-
-                // Tag filter
-                if (filters.tag) {
-                    const commitTags = getCommitTags(commit);
-                    matches.push(commitTags.includes(filters.tag));
-                }
+                // Tag filter - match if commit has ANY of the selected tags
+                const tagResult = checkFilter(
+                    filters.tag.values,
+                    filters.tag.mode,
+                    getCommitTags(commit),
+                    (selected, commitTags) => selected.some(t => commitTags.includes(t))
+                );
+                if (tagResult === false) return false;
 
                 // Author filter
-                if (filters.author) {
-                    const authorEmail = getAuthorEmail(commit);
-                    matches.push(authorEmail === filters.author);
-                }
+                const authorResult = checkFilter(
+                    filters.author.values,
+                    filters.author.mode,
+                    getAuthorEmail(commit)
+                );
+                if (authorResult === false) return false;
 
                 // Repo filter
-                if (filters.repo) {
-                    matches.push(commit.repo_id === filters.repo);
-                }
+                const repoResult = checkFilter(
+                    filters.repo.values,
+                    filters.repo.mode,
+                    commit.repo_id
+                );
+                if (repoResult === false) return false;
 
                 // Urgency filter
-                if (filters.urgency) {
-                    const urgencyMap = { planned: [1, 2], normal: [3], reactive: [4, 5] };
-                    const levels = urgencyMap[filters.urgency] || [];
-                    matches.push(levels.includes(commit.urgency));
-                }
+                const urgencyResult = checkFilter(
+                    filters.urgency.values,
+                    filters.urgency.mode,
+                    commit.urgency,
+                    (selected, urgency) => {
+                        const urgencyMap = { planned: [1, 2], normal: [3], reactive: [4, 5] };
+                        return selected.some(s => urgencyMap[s]?.includes(urgency));
+                    }
+                );
+                if (urgencyResult === false) return false;
 
                 // Impact filter
-                if (filters.impact) {
-                    matches.push(commit.impact === filters.impact);
-                }
+                const impactResult = checkFilter(
+                    filters.impact.values,
+                    filters.impact.mode,
+                    commit.impact
+                );
+                if (impactResult === false) return false;
 
-                // If no filters active, include all
-                if (matches.length === 0) return true;
-
-                // Apply filter mode
-                let result;
-                if (filterMode === 'and') {
-                    result = matches.every(m => m);
-                } else if (filterMode === 'or') {
-                    result = matches.some(m => m);
-                } else { // exclude
-                    result = matches.every(m => m);
-                }
-
-                return filterMode === 'exclude' ? !result : result;
+                return true;
             });
         }
 
         function populateFilters() {
-            // Tag filter
-            const tagSelect = document.getElementById('filter-tag');
+            // Tag filter - multi-select
+            const tagContainer = document.getElementById('filter-tag-container');
+            const tagDropdown = tagContainer.querySelector('.filter-multi-select-dropdown');
             const tags = getAllTags(data.commits);
-            tagSelect.innerHTML = '<option value="">All Tags</option>' +
-                tags.map(t => `<option value="${t}">${t}</option>`).join('');
+            tagDropdown.innerHTML = tags.map(t =>
+                `<label class="filter-multi-select-option"><input type="checkbox" value="${escapeHtml(t)}"> ${escapeHtml(t)}</label>`
+            ).join('');
 
-            // Author filter - use author resolution
-            const authorSelect = document.getElementById('filter-author');
+            // Author filter - multi-select with author resolution
+            const authorContainer = document.getElementById('filter-author-container');
+            const authorDropdown = authorContainer.querySelector('.filter-multi-select-dropdown');
             const authorMap = {};
             data.commits.forEach(c => {
                 const email = getAuthorEmail(c);
@@ -3070,17 +3235,19 @@
                 }
             });
             const authors = Object.keys(authorMap).sort();
-            authorSelect.innerHTML = '<option value="">All Authors</option>' +
-                authors.map(email => `<option value="${email}">${escapeHtml(authorMap[email] || email)}</option>`).join('');
+            authorDropdown.innerHTML = authors.map(email =>
+                `<label class="filter-multi-select-option"><input type="checkbox" value="${escapeHtml(email)}"> ${escapeHtml(authorMap[email] || email)}</label>`
+            ).join('');
 
             // Repo filter (only show if aggregated data)
             const repos = [...new Set(data.commits.map(c => c.repo_id).filter(Boolean))];
             const repoContainer = document.getElementById('repo-filter-container');
             if (repos.length > 1) {
                 repoContainer.style.display = 'block';
-                const repoSelect = document.getElementById('filter-repo');
-                repoSelect.innerHTML = '<option value="">All Repos</option>' +
-                    repos.sort().map(r => `<option value="${r}">${r}</option>`).join('');
+                const repoDropdown = document.querySelector('#filter-repo-multiselect .filter-multi-select-dropdown');
+                repoDropdown.innerHTML = repos.sort().map(r =>
+                    `<label class="filter-multi-select-option"><input type="checkbox" value="${escapeHtml(r)}"> ${escapeHtml(r)}</label>`
+                ).join('');
             } else {
                 repoContainer.style.display = 'none';
             }
@@ -3096,6 +3263,79 @@
                     toInput.max = data.summary.dateRange.latest.substring(0, 10);
                 }
             }
+
+            // Setup multi-select dropdowns
+            setupMultiSelectDropdowns();
+        }
+
+        function setupMultiSelectDropdowns() {
+            const containers = document.querySelectorAll('.filter-multi-select');
+            containers.forEach(container => {
+                const trigger = container.querySelector('.filter-multi-select-trigger');
+                const dropdown = container.querySelector('.filter-multi-select-dropdown');
+                const filterType = container.id.replace('filter-', '').replace('-container', '').replace('-multiselect', '');
+
+                // Toggle dropdown
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Close other dropdowns
+                    document.querySelectorAll('.filter-multi-select-dropdown.open').forEach(d => {
+                        if (d !== dropdown) d.classList.remove('open');
+                    });
+                    dropdown.classList.toggle('open');
+                });
+
+                // Handle checkbox changes
+                dropdown.addEventListener('change', (e) => {
+                    if (e.target.type === 'checkbox') {
+                        updateFilterFromCheckboxes(container, filterType);
+                        applyFilters();
+                    }
+                });
+
+                // Update option highlight on change
+                dropdown.querySelectorAll('.filter-multi-select-option').forEach(opt => {
+                    opt.addEventListener('click', (e) => {
+                        if (e.target.tagName !== 'INPUT') {
+                            const checkbox = opt.querySelector('input[type="checkbox"]');
+                            checkbox.checked = !checkbox.checked;
+                            checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                    });
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', () => {
+                document.querySelectorAll('.filter-multi-select-dropdown.open').forEach(d => {
+                    d.classList.remove('open');
+                });
+            });
+        }
+
+        function updateFilterFromCheckboxes(container, filterType) {
+            const checkboxes = container.querySelectorAll('input[type="checkbox"]:checked');
+            const values = Array.from(checkboxes).map(cb => cb.value);
+            const trigger = container.querySelector('.filter-multi-select-trigger .selected-text');
+
+            filters[filterType].values = values;
+
+            // Update trigger text
+            if (values.length === 0) {
+                const labels = { tag: 'All Tags', author: 'All Authors', repo: 'All Repos', urgency: 'All Urgency', impact: 'All Impact' };
+                trigger.textContent = labels[filterType] || 'All';
+            } else if (values.length === 1) {
+                const label = container.querySelector(`input[value="${CSS.escape(values[0])}"]`)?.parentElement?.textContent?.trim();
+                trigger.textContent = label || values[0];
+            } else {
+                trigger.textContent = `${values.length} selected`;
+            }
+
+            // Update option highlights
+            container.querySelectorAll('.filter-multi-select-option').forEach(opt => {
+                const cb = opt.querySelector('input[type="checkbox"]');
+                opt.classList.toggle('selected', cb.checked);
+            });
         }
 
         function setupFilterListeners() {
@@ -3108,31 +3348,7 @@
             // Initialize section guidance
             updateAllSectionGuidance();
 
-            document.getElementById('filter-tag').addEventListener('change', (e) => {
-                filters.tag = e.target.value;
-                applyFilters();
-            });
-
-            document.getElementById('filter-author').addEventListener('change', (e) => {
-                filters.author = e.target.value;
-                applyFilters();
-            });
-
-            document.getElementById('filter-repo').addEventListener('change', (e) => {
-                filters.repo = e.target.value;
-                applyFilters();
-            });
-
-            document.getElementById('filter-urgency').addEventListener('change', (e) => {
-                filters.urgency = e.target.value;
-                applyFilters();
-            });
-
-            document.getElementById('filter-impact').addEventListener('change', (e) => {
-                filters.impact = e.target.value;
-                applyFilters();
-            });
-
+            // Date filters
             document.getElementById('filter-date-from').addEventListener('change', (e) => {
                 filters.dateFrom = e.target.value;
                 applyFilters();
@@ -3143,19 +3359,43 @@
                 applyFilters();
             });
 
+            // Clear filters
             document.getElementById('clear-filters').addEventListener('click', () => {
-                filters = { tag: '', author: '', repo: '', urgency: '', impact: '', dateFrom: '', dateTo: '' };
-                filterMode = 'and';
-                document.getElementById('filter-tag').value = '';
-                document.getElementById('filter-author').value = '';
-                document.getElementById('filter-repo').value = '';
-                document.getElementById('filter-urgency').value = '';
-                document.getElementById('filter-impact').value = '';
+                // Reset filter state
+                filters = {
+                    tag: { values: [], mode: 'include' },
+                    author: { values: [], mode: 'include' },
+                    repo: { values: [], mode: 'include' },
+                    urgency: { values: [], mode: 'include' },
+                    impact: { values: [], mode: 'include' },
+                    dateFrom: '',
+                    dateTo: ''
+                };
+
+                // Clear date inputs
                 document.getElementById('filter-date-from').value = '';
                 document.getElementById('filter-date-to').value = '';
-                // Reset mode buttons
-                document.querySelectorAll('.filter-mode-btn').forEach(b => b.classList.remove('active'));
-                document.querySelector('.filter-mode-btn[data-mode="and"]').classList.add('active');
+
+                // Uncheck all checkboxes
+                document.querySelectorAll('.filter-multi-select input[type="checkbox"]').forEach(cb => {
+                    cb.checked = false;
+                });
+
+                // Reset trigger text
+                document.querySelectorAll('.filter-multi-select').forEach(container => {
+                    const trigger = container.querySelector('.filter-multi-select-trigger .selected-text');
+                    const filterType = container.id.replace('filter-', '').replace('-container', '').replace('-multiselect', '');
+                    const labels = { tag: 'All Tags', author: 'All Authors', repo: 'All Repos', urgency: 'All Urgency', impact: 'All Impact' };
+                    trigger.textContent = labels[filterType] || 'All';
+                    container.querySelectorAll('.filter-multi-select-option').forEach(opt => opt.classList.remove('selected'));
+                });
+
+                // Reset mode toggles to Include
+                document.querySelectorAll('.filter-mode-toggle').forEach(toggle => {
+                    toggle.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                    toggle.querySelector('[data-mode="include"]').classList.add('active');
+                });
+
                 applyFilters();
             });
 
@@ -3198,14 +3438,18 @@
                 });
             });
 
-            // Filter mode button handlers
-            document.querySelectorAll('.filter-mode-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterMode = btn.dataset.mode;
-                    // Update active state
-                    document.querySelectorAll('.filter-mode-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    applyFilters();
+            // Per-filter mode toggle handlers
+            document.querySelectorAll('.filter-mode-toggle').forEach(toggle => {
+                const filterType = toggle.dataset.filter;
+                toggle.querySelectorAll('button').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const mode = btn.dataset.mode;
+                        filters[filterType].mode = mode;
+                        // Update active state within this toggle
+                        toggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        applyFilters();
+                    });
                 });
             });
         }
@@ -3230,7 +3474,13 @@
             const indicator = document.getElementById('filter-indicator');
             const filtered = getFilteredCommits();
             const total = data?.commits?.length || 0;
-            const hasFilters = filters.tag || filters.author || filters.repo || filters.dateFrom || filters.dateTo;
+            const hasFilters = filters.tag.values.length > 0 ||
+                               filters.author.values.length > 0 ||
+                               filters.repo.values.length > 0 ||
+                               filters.urgency.values.length > 0 ||
+                               filters.impact.values.length > 0 ||
+                               filters.dateFrom ||
+                               filters.dateTo;
 
             if (hasFilters && filtered.length !== total) {
                 indicator.textContent = `${filtered.length} of ${total}`;
@@ -3262,35 +3512,49 @@
 
                 const state = JSON.parse(stored);
 
-                // Restore filters (only if values are valid options in the new data)
+                // Restore multi-select filters
                 if (state.filters) {
-                    const tagSelect = document.getElementById('filter-tag');
-                    const authorSelect = document.getElementById('filter-author');
-                    const repoSelect = document.getElementById('filter-repo');
+                    // Helper to restore a multi-select filter
+                    const restoreMultiSelectFilter = (filterType, containerSelector) => {
+                        const savedFilter = state.filters[filterType];
+                        if (savedFilter && savedFilter.values && Array.isArray(savedFilter.values)) {
+                            const container = document.querySelector(containerSelector);
+                            if (!container) return;
 
-                    // Restore tag filter if it exists in current options
-                    if (state.filters.tag && [...tagSelect.options].some(o => o.value === state.filters.tag)) {
-                        filters.tag = state.filters.tag;
-                        tagSelect.value = filters.tag;
-                    } else {
-                        filters.tag = '';
-                    }
+                            // Restore values - only include values that exist in current options
+                            const validValues = savedFilter.values.filter(v => {
+                                return container.querySelector(`input[value="${CSS.escape(v)}"]`);
+                            });
 
-                    // Restore author filter if it exists in current options
-                    if (state.filters.author && [...authorSelect.options].some(o => o.value === state.filters.author)) {
-                        filters.author = state.filters.author;
-                        authorSelect.value = filters.author;
-                    } else {
-                        filters.author = '';
-                    }
+                            filters[filterType].values = validValues;
+                            filters[filterType].mode = savedFilter.mode || 'include';
 
-                    // Restore repo filter if it exists in current options
-                    if (state.filters.repo && [...repoSelect.options].some(o => o.value === state.filters.repo)) {
-                        filters.repo = state.filters.repo;
-                        repoSelect.value = filters.repo;
-                    } else {
-                        filters.repo = '';
-                    }
+                            // Update checkboxes
+                            validValues.forEach(v => {
+                                const cb = container.querySelector(`input[value="${CSS.escape(v)}"]`);
+                                if (cb) {
+                                    cb.checked = true;
+                                    cb.closest('.filter-multi-select-option')?.classList.add('selected');
+                                }
+                            });
+
+                            // Update trigger text
+                            updateFilterFromCheckboxes(container, filterType);
+
+                            // Update mode toggle
+                            const toggle = document.querySelector(`.filter-mode-toggle[data-filter="${filterType}"]`);
+                            if (toggle) {
+                                toggle.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                                toggle.querySelector(`[data-mode="${filters[filterType].mode}"]`)?.classList.add('active');
+                            }
+                        }
+                    };
+
+                    restoreMultiSelectFilter('tag', '#filter-tag-container');
+                    restoreMultiSelectFilter('author', '#filter-author-container');
+                    restoreMultiSelectFilter('repo', '#filter-repo-multiselect');
+                    restoreMultiSelectFilter('urgency', '#filter-urgency-container');
+                    restoreMultiSelectFilter('impact', '#filter-impact-container');
 
                     // Date filters don't need validation
                     filters.dateFrom = state.filters.dateFrom || '';
@@ -6156,19 +6420,28 @@
         // === URL State Management (Shareable Links) ===
         function getStateFromUrl() {
             const params = new URLSearchParams(window.location.search);
+            // Helper to parse multi-select filter from URL (values are comma-separated, mode is prefixed with !)
+            const parseFilter = (key) => {
+                const val = params.get(key) || '';
+                if (!val) return { values: [], mode: 'include' };
+                if (val.startsWith('!')) {
+                    return { values: val.slice(1).split(',').filter(Boolean), mode: 'exclude' };
+                }
+                return { values: val.split(',').filter(Boolean), mode: 'include' };
+            };
             return {
-                tag: params.get('tag') || '',
-                author: params.get('author') || '',
-                repo: params.get('repo') || '',
-                urgency: params.get('urgency') || '',
-                impact: params.get('impact') || '',
+                tag: parseFilter('tag'),
+                author: parseFilter('author'),
+                repo: parseFilter('repo'),
+                urgency: parseFilter('urgency'),
+                impact: parseFilter('impact'),
                 dateFrom: params.get('from') || '',
                 dateTo: params.get('to') || '',
                 tab: params.get('tab') || 'overview',
                 period: params.get('period') || '7days',
                 tz: params.get('tz') || 'local',
-                detail: params.get('detail') || '',      // Detail pane type: tag, author, impact, urgency, all
-                detailValue: params.get('dv') || ''      // Detail pane value (e.g., tag name, author name)
+                detail: params.get('detail') || '',
+                detailValue: params.get('dv') || ''
             };
         }
 
@@ -6180,12 +6453,20 @@
             const activeTab = document.querySelector('.tab-btn.border-blue-500')?.dataset.tab || 'overview';
             if (activeTab !== 'overview') params.set('tab', activeTab);
 
+            // Helper to add multi-select filter to params (prefix with ! for exclude mode)
+            const addFilter = (key, filter) => {
+                if (filter.values && filter.values.length > 0) {
+                    const prefix = filter.mode === 'exclude' ? '!' : '';
+                    params.set(key, prefix + filter.values.join(','));
+                }
+            };
+
             // Add filters (only if set)
-            if (filters.tag) params.set('tag', filters.tag);
-            if (filters.author) params.set('author', filters.author);
-            if (filters.repo) params.set('repo', filters.repo);
-            if (filters.urgency) params.set('urgency', filters.urgency);
-            if (filters.impact) params.set('impact', filters.impact);
+            addFilter('tag', filters.tag);
+            addFilter('author', filters.author);
+            addFilter('repo', filters.repo);
+            addFilter('urgency', filters.urgency);
+            addFilter('impact', filters.impact);
             if (filters.dateFrom) params.set('from', filters.dateFrom);
             if (filters.dateTo) params.set('to', filters.dateTo);
 
@@ -6209,21 +6490,47 @@
         function applyUrlState() {
             const state = getStateFromUrl();
 
-            // Apply filters
-            filters.tag = state.tag;
-            filters.author = state.author;
-            filters.repo = state.repo;
-            filters.urgency = state.urgency;
-            filters.impact = state.impact;
+            // Helper to apply multi-select filter from URL state
+            const applyMultiSelectFilter = (filterType, containerSelector, urlState) => {
+                if (!urlState || urlState.values.length === 0) return;
+
+                const container = document.querySelector(containerSelector);
+                if (!container) return;
+
+                // Set filter values and mode
+                filters[filterType].values = urlState.values;
+                filters[filterType].mode = urlState.mode;
+
+                // Update checkboxes
+                urlState.values.forEach(v => {
+                    const cb = container.querySelector(`input[value="${CSS.escape(v)}"]`);
+                    if (cb) {
+                        cb.checked = true;
+                        cb.closest('.filter-multi-select-option')?.classList.add('selected');
+                    }
+                });
+
+                // Update trigger text
+                updateFilterFromCheckboxes(container, filterType);
+
+                // Update mode toggle
+                const toggle = document.querySelector(`.filter-mode-toggle[data-filter="${filterType}"]`);
+                if (toggle) {
+                    toggle.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                    toggle.querySelector(`[data-mode="${urlState.mode}"]`)?.classList.add('active');
+                }
+            };
+
+            // Apply multi-select filters
+            applyMultiSelectFilter('tag', '#filter-tag-container', state.tag);
+            applyMultiSelectFilter('author', '#filter-author-container', state.author);
+            applyMultiSelectFilter('repo', '#filter-repo-multiselect', state.repo);
+            applyMultiSelectFilter('urgency', '#filter-urgency-container', state.urgency);
+            applyMultiSelectFilter('impact', '#filter-impact-container', state.impact);
+
+            // Apply date filters
             filters.dateFrom = state.dateFrom;
             filters.dateTo = state.dateTo;
-
-            // Update filter UI
-            document.getElementById('filter-tag').value = state.tag;
-            document.getElementById('filter-author').value = state.author;
-            document.getElementById('filter-repo').value = state.repo;
-            document.getElementById('filter-urgency').value = state.urgency;
-            document.getElementById('filter-impact').value = state.impact;
             document.getElementById('filter-date-from').value = state.dateFrom;
             document.getElementById('filter-date-to').value = state.dateTo;
 
@@ -6450,32 +6757,77 @@
             e.preventDefault();
             deferredInstallPrompt = e;
             showPWAInstallButton();
+            updatePWAStatus('ready');
         });
 
         window.addEventListener('appinstalled', () => {
             deferredInstallPrompt = null;
             hidePWAInstallButton();
+            updatePWAStatus('installed');
             showToast('App installed successfully!');
         });
 
         function showPWAInstallButton() {
             const btn = document.getElementById('btn-pwa-install');
             if (btn) btn.classList.remove('hidden');
+            const settingsBtn = document.getElementById('btn-pwa-install-settings');
+            if (settingsBtn) settingsBtn.disabled = false;
         }
 
         function hidePWAInstallButton() {
             const btn = document.getElementById('btn-pwa-install');
             if (btn) btn.classList.add('hidden');
+            const settingsBtn = document.getElementById('btn-pwa-install-settings');
+            if (settingsBtn) settingsBtn.disabled = true;
+        }
+
+        function updatePWAStatus(status) {
+            const statusText = document.getElementById('pwa-status-text');
+            const settingsBtn = document.getElementById('btn-pwa-install-settings');
+            if (!statusText) return;
+
+            switch (status) {
+                case 'ready':
+                    statusText.textContent = 'Ready to install';
+                    statusText.style.color = 'var(--color-success, #16a34a)';
+                    if (settingsBtn) settingsBtn.disabled = false;
+                    break;
+                case 'installed':
+                    statusText.textContent = 'App is installed';
+                    statusText.style.color = 'var(--color-success, #16a34a)';
+                    if (settingsBtn) {
+                        settingsBtn.disabled = true;
+                        settingsBtn.textContent = 'Already Installed';
+                    }
+                    break;
+                case 'unsupported':
+                    statusText.textContent = 'Install not available in this browser. See manual instructions below.';
+                    statusText.style.color = 'var(--text-secondary)';
+                    if (settingsBtn) settingsBtn.disabled = true;
+                    break;
+                default:
+                    statusText.textContent = '';
+            }
         }
 
         async function installPWA() {
-            if (!deferredInstallPrompt) return;
+            if (!deferredInstallPrompt) {
+                // If no deferred prompt, show guidance
+                updatePWAStatus('unsupported');
+                return;
+            }
             deferredInstallPrompt.prompt();
             const { outcome } = await deferredInstallPrompt.userChoice;
             if (outcome === 'accepted') {
                 showToast('Installing app...');
             }
             deferredInstallPrompt = null;
+        }
+
+        // Check if already installed (standalone mode)
+        if (window.matchMedia('(display-mode: standalone)').matches ||
+            window.navigator.standalone === true) {
+            updatePWAStatus('installed');
         }
 
         function showPWAUpdatePrompt() {
