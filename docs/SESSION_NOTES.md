@@ -7,6 +7,7 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-04):**
+- **Fixed PWA installation** - Changed manifest scope and start_url from absolute (`/`) to relative (`./`) paths for GitHub Pages compatibility
 - Added loading states for detail pane (skeleton placeholders + fade-in)
 - Updated PDF export for new 4-tab layout
 - Added shareable links for detail pane state (URL params)

@@ -4,6 +4,24 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-04
 
+### Fix: PWA Installation Not Working on GitHub Pages
+
+Fixed the PWA not being installable on GitHub Pages.
+
+**Problem:** The manifest.json used absolute paths (`"scope": "/"`, `"start_url": "/"`) which point to the root of github.io, not the `/repo-tor/` subdirectory where the dashboard is actually served.
+
+**Solution:** Changed to relative paths that work regardless of deployment location:
+- `"scope": "./"` - Scope relative to manifest location
+- `"start_url": "./index.html"` - Start URL relative to manifest location
+
+Also updated service worker precache paths to use relative URLs and bumped cache version to force refresh.
+
+**Files updated:**
+- `dashboard/manifest.json` - Changed scope and start_url to relative paths
+- `dashboard/sw.js` - Changed precache paths to relative, bumped version to v2
+
+---
+
 ### Feature: Per-Filter Modes & PWA Help
 
 Improved filter UX with per-filter modes and added PWA install guidance in Settings.

@@ -1,13 +1,13 @@
 // Git Analytics Dashboard - Service Worker
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = `git-analytics-${CACHE_VERSION}`;
 
 // Assets to cache on install
 const PRECACHE_ASSETS = [
-  '/',
-  '/index.html',
-  '/data.json',
-  '/manifest.json'
+  './',
+  './index.html',
+  './data.json',
+  './manifest.json'
 ];
 
 // External CDN assets to cache
