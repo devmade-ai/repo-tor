@@ -6,19 +6,25 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-04):**
-- **Fixed PWA installation** - Changed manifest scope and start_url from absolute (`/`) to relative (`./`) paths for GitHub Pages compatibility
+**Recent Updates (2026-02-05):**
+- **Vite + PWA Plugin** - Migrated to Vite with vite-plugin-pwa for proper PWA support
+  - `npm run dev` for local development with hot reload
+  - `npm run build` for production build to `dist/`
+  - Workbox-powered service worker with runtime caching for CDN assets
+  - Auto-update service worker (registerType: 'autoUpdate')
+  - GitHub Actions workflow updated to build with Vite
+
+**Previous Updates (2026-02-04):**
+- Fixed PWA installation paths for GitHub Pages compatibility
 - Added loading states for detail pane (skeleton placeholders + fade-in)
 - Updated PDF export for new 4-tab layout
 - Added shareable links for detail pane state (URL params)
 - Added urgency and impact filter dropdowns
 - Added quick select filter presets (30 days, 90 days, This year, Last year)
 - Added techy theme (JetBrains Mono font, grid background, glow effects)
-- Added PWA offline support (service worker, manifest, install prompt)
-- Created SVG + PNG icons for PWA
-- **Replaced global filter mode with per-filter Include/Exclude toggles**
-- **Converted filters to multi-select checkboxes**
-- **Added PWA install section to Settings panel with status and manual instructions**
+- Replaced global filter mode with per-filter Include/Exclude toggles
+- Converted filters to multi-select checkboxes
+- Added PWA install section to Settings panel with status and manual instructions
 
 **Previous Updates (2026-01-28):**
 - Fixed bug count inconsistency: Overview and Breakdown tabs now both count 'bugfix' OR 'fix' tags
@@ -128,6 +134,7 @@ const TAB_MAPPING = {
 
 | File | Purpose |
 |------|---------|
+| `vite.config.js` | Vite + PWA plugin configuration |
 | `dashboard/index.html` | Main dashboard (V2 complete) |
 | `scripts/setup-gh.sh` | GitHub CLI installation and authentication |
 | `scripts/extract-api.js` | GitHub API-based extraction (no cloning) |
@@ -175,4 +182,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-04 - Completed polish items, added filters, techy theme, and PWA support.*
+*Last updated: 2026-02-05 - Migrated to Vite with vite-plugin-pwa for proper PWA support.*
