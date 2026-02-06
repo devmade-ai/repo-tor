@@ -9,6 +9,8 @@
 **Key Components:**
 
 - `scripts/extract.js` - Extracts git log data into structured JSON
+- `scripts/extract-api.js` - GitHub API-based extraction (untested, see TODO.md)
+- `scripts/aggregate-processed.js` - Aggregates processed/ data into dashboard JSON
 - `dashboard/` - Modular dashboard (Vite + Chart.js)
   - `index.html` - HTML structure
   - `styles.css` - Extracted CSS
