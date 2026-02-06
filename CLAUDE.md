@@ -21,6 +21,12 @@
 - `hooks/commit-msg` - Validates conventional commit format
 - `docs/COMMIT_CONVENTION.md` - Team guide for commit messages
 
+**Live Dashboard:** https://devmade-ai.github.io/repo-tor/
+
+**Development:**
+- `npm run dev` — Local dev server with hot reload (http://localhost:5173)
+- `npm run build` — Production build to `dist/`
+
 **Current State:** Dashboard V2 complete with role-based views. See `docs/SESSION_NOTES.md` for details.
 
 **Remaining Work:** See `docs/TODO.md` for backlog items.
