@@ -4,6 +4,32 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-06
 
+### Refactor: Dashboard Modularization
+
+Split the monolithic 6,927-line `dashboard/index.html` into ES modules for maintainability.
+
+**Why:** The single-file dashboard had grown to ~1,200 lines of CSS, ~870 lines of HTML, and ~4,840 lines of JavaScript all inlined. This made it difficult to navigate, edit, or review specific concerns. Splitting into focused modules makes each concern independently readable and editable.
+
+**Changes:**
+- Extracted CSS to `dashboard/styles.css` (1,200 lines)
+- Split JS into 9 ES modules in `dashboard/js/`:
+  - `state.js` - Shared state object, VIEW_LEVELS, SECTION_GUIDANCE
+  - `utils.js` - Tag helpers, author resolution, formatting, holidays, sanitization
+  - `filters.js` - Filter system, persistence, multi-select dropdowns
+  - `ui.js` - Detail pane, settings panel, dark mode, collapsible sections
+  - `charts.js` - Chart.js timeline and heatmap rendering
+  - `tabs.js` - All tab-specific rendering (Overview, Activity, Work, Health, Discover)
+  - `data.js` - Data loading and multi-file combining
+  - `export.js` - PDF export, shareable URLs, PWA support
+  - `main.js` - Entry point, tab navigation, initialization
+- Slimmed `index.html` to 889 lines (HTML structure only)
+- Vite bundles all modules into a single JS file for production
+
+**Files added:** `dashboard/styles.css`, `dashboard/js/*.js` (9 files)
+**Files modified:** `dashboard/index.html`
+
+---
+
 ### Fix: PDF Export, Button Icons, and PWA Updates
 
 Fixed three user-reported issues with the dashboard.

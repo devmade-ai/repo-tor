@@ -7,6 +7,19 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-06):**
+- **Dashboard Modularization** - Split monolithic 6,927-line index.html into ES modules:
+  - `index.html` (889 lines) - HTML structure only
+  - `styles.css` (1,200 lines) - Extracted CSS
+  - `js/state.js` (178) - Shared state and config
+  - `js/utils.js` (524) - Utility functions, tag helpers, holidays, sanitization
+  - `js/filters.js` (479) - Filter system and persistence
+  - `js/ui.js` (448) - Detail pane, settings, dark mode, collapsible sections
+  - `js/charts.js` (475) - Chart.js timeline and heatmap rendering
+  - `js/tabs.js` (2,028) - Tab-specific render functions (largest module)
+  - `js/data.js` (231) - Data loading and combining
+  - `js/export.js` (495) - PDF export, URL state, PWA support
+  - `js/main.js` (107) - Entry point, tab navigation, initialization
+  - Vite build passes cleanly, bundling all modules for production
 - **PDF Export Fix** - Fixed blank white page: uses TAB_MAPPING for correct tab containers, converts canvases to images, overrides dark theme colors for readability
 - **Button Icons** - Install and PDF buttons now have distinct icons (app-install vs document) with always-visible labels
 - **PWA Update Mechanism** - Added "Check for Updates" button in Settings with status feedback and usage instructions
@@ -140,7 +153,11 @@ const TAB_MAPPING = {
 | File | Purpose |
 |------|---------|
 | `vite.config.js` | Vite + PWA plugin configuration |
-| `dashboard/index.html` | Main dashboard (V2 complete) |
+| `dashboard/index.html` | Dashboard HTML structure (modularized) |
+| `dashboard/styles.css` | Dashboard CSS styles |
+| `dashboard/js/main.js` | Dashboard JS entry point |
+| `dashboard/js/state.js` | Shared state and config constants |
+| `dashboard/js/tabs.js` | Tab rendering functions (largest module) |
 | `scripts/setup-gh.sh` | GitHub CLI installation and authentication |
 | `scripts/extract-api.js` | GitHub API-based extraction (no cloning) |
 | `scripts/aggregate-processed.js` | Aggregation from processed/ data |
