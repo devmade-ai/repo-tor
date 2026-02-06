@@ -2,6 +2,24 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-06
+
+### Fix: PDF Export, Button Icons, and PWA Updates
+
+Fixed three user-reported issues with the dashboard.
+
+**Why:** The Install and PDF buttons had identical download-arrow icons with text hidden on mobile, making them indistinguishable. PDF export produced a blank white page due to two bugs: wrong tab ID lookup (using `tab-work` instead of the actual containers from TAB_MAPPING), and dark theme text becoming invisible on the white PDF background. Installed PWA users had no way to check for or trigger updates.
+
+**Changes:**
+- **Button icons:** Install now uses an app-install icon; PDF uses a document icon. Labels always visible (not just on sm+)
+- **PDF export:** Uses TAB_MAPPING to find correct content containers for all tabs. Converts chart canvases to images before cloning. Overrides dark theme colors to ensure text/cards are readable on white background
+- **PWA updates:** Added "Check for Updates" button in Settings with status feedback. Added explanation that the app auto-updates and users should close/reopen to apply
+
+**Files updated:**
+- `dashboard/index.html` - Button icons, PDF export function, PWA settings section
+
+---
+
 ## 2026-02-05
 
 ### Feature: Vite + PWA Plugin Setup

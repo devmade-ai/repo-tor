@@ -6,7 +6,12 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-05):**
+**Recent Updates (2026-02-06):**
+- **PDF Export Fix** - Fixed blank white page: uses TAB_MAPPING for correct tab containers, converts canvases to images, overrides dark theme colors for readability
+- **Button Icons** - Install and PDF buttons now have distinct icons (app-install vs document) with always-visible labels
+- **PWA Update Mechanism** - Added "Check for Updates" button in Settings with status feedback and usage instructions
+
+**Previous Updates (2026-02-05):**
 - **Vite + PWA Plugin** - Migrated to Vite with vite-plugin-pwa for proper PWA support
   - `npm run dev` for local development with hot reload
   - `npm run build` for production build to `dist/`
@@ -182,4 +187,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-05 - Migrated to Vite with vite-plugin-pwa for proper PWA support.*
+*Last updated: 2026-02-06 - Fixed PDF export, button icons, and added PWA update mechanism.*
