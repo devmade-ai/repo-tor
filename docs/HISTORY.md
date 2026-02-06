@@ -14,6 +14,7 @@ Updated documentation that was stale after the Vite migration and dashboard modu
 - **TODO.md** - Removed all completed `[x]` items (already tracked in HISTORY.md), kept only untested warnings and open research items
 - **ADMIN_GUIDE.md** - Updated hosting section: replaced "open index.html" with dev server instructions, updated static host section to reference `dist/` build output
 - **HISTORY.md** - Fixed PDF export entry to reference actual modular files (`export.js`, `ui.js`) instead of just `index.html`
+- **CLAUDE.md** - Updated Key Components to reflect modular dashboard structure and Vite build
 
 ---
 

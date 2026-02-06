@@ -9,7 +9,13 @@
 **Key Components:**
 
 - `scripts/extract.js` - Extracts git log data into structured JSON
-- `dashboard/index.html` - Static HTML dashboard with Chart.js visualizations
+- `dashboard/` - Modular dashboard (Vite + Chart.js)
+  - `index.html` - HTML structure
+  - `styles.css` - Extracted CSS
+  - `js/main.js` - Entry point
+  - `js/tabs.js` - Tab rendering (largest module)
+  - `js/state.js`, `utils.js`, `filters.js`, `ui.js`, `charts.js`, `data.js`, `export.js`
+- `vite.config.js` - Vite build + PWA plugin config
 - `hooks/commit-msg` - Validates conventional commit format
 - `docs/COMMIT_CONVENTION.md` - Team guide for commit messages
 
