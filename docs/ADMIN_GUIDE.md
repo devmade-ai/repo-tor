@@ -99,12 +99,30 @@ For future updates, just ask: "Update all repo data"
    cd repo-tor
    ```
 
-2. No dependencies to install - the extraction script uses only Node.js built-ins.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
 3. Set up GitHub CLI (required for API-based extraction):
    ```bash
    ./scripts/setup-gh.sh
    ```
+
+## Local Development
+
+The dashboard uses Vite for development with hot reload and PWA support:
+
+```bash
+npm run dev      # Start dev server at http://localhost:5173
+npm run build    # Production build to dist/
+npm run preview  # Preview production build locally
+```
+
+The dev server provides:
+- Hot module replacement (instant updates)
+- PWA service worker in dev mode
+- Source maps for debugging
 
 ## GitHub CLI Setup
 

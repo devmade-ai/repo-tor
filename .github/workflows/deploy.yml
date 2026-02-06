@@ -27,27 +27,42 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build with Vite
+        run: npm run build
+
+      - name: Copy data files and icons to dist
+        run: |
+          # Copy JSON data files (not processed by Vite build)
+          cp dashboard/data.json dist/ 2>/dev/null || true
+          cp dashboard/commits.json dist/ 2>/dev/null || true
+          cp dashboard/contributors.json dist/ 2>/dev/null || true
+          cp dashboard/files.json dist/ 2>/dev/null || true
+          cp dashboard/metadata.json dist/ 2>/dev/null || true
+          cp dashboard/summary.json dist/ 2>/dev/null || true
+          # Copy per-repo data
+          mkdir -p dist/repos
+          cp dashboard/repos/*.json dist/repos/ 2>/dev/null || true
+          # Copy icons (referenced by manifest.webmanifest)
+          mkdir -p dist/icons
+          cp dashboard/icons/*.png dist/icons/ 2>/dev/null || true
+          cp dashboard/icons/*.svg dist/icons/ 2>/dev/null || true
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-
-      - name: Prepare deployment folder
-        run: |
-          mkdir -p _site
-          # Get git commit hash for cache-busting
-          COMMIT_HASH=$(git rev-parse --short HEAD)
-          # Copy dashboard as index.html (main page)
-          cp dashboard/index.html _site/index.html
-          # Add cache-busting version to data.json fetch
-          sed -i "s|fetch('data.json')|fetch('data.json?v=${COMMIT_HASH}')|g" _site/index.html
-          # Copy sample data.json for auto-load
-          [ -f "dashboard/data.json" ] && cp dashboard/data.json _site/data.json || true
-          # Copy reports folder if present
-          [ -d "reports" ] && cp -r reports _site/ || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: dist
 
   deploy:
     environment:

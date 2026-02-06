@@ -47,9 +47,11 @@ Remaining tasks for Git Analytics Reporting System.
 ### Research
 9. [ ] Device/platform attribution (mobile vs desktop commits)
 10. [ ] Merge commit filtering options
-11. [x] PWA offline support (service worker + manifest + install prompt + SVG icon)
+
+### Completed
+11. [x] PWA offline support - Now using Vite + vite-plugin-pwa (2026-02-05)
 12. [x] PWA install help in Settings panel with status and manual instructions
 
 ---
 
-*Last updated: 2026-02-04 - Added per-filter modes and PWA help.*
+*Last updated: 2026-02-05 - Migrated to Vite with vite-plugin-pwa.*

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#2D68FF">
     <meta name="description" content="Visual analytics reports for git commit history">
-    <link rel="manifest" href="manifest.json">
+    <!-- manifest injected by vite-plugin-pwa -->
     <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
     <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
     <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
@@ -6729,28 +6729,8 @@
         }
 
         // === PWA Support ===
+        // Service worker registration handled by vite-plugin-pwa
         let deferredInstallPrompt = null;
-        let swRegistration = null;
-
-        // Register service worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js')
-                .then((registration) => {
-                    swRegistration = registration;
-                    console.log('Service Worker registered');
-
-                    // Check for updates
-                    registration.addEventListener('updatefound', () => {
-                        const newWorker = registration.installing;
-                        newWorker.addEventListener('statechange', () => {
-                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                showPWAUpdatePrompt();
-                            }
-                        });
-                    });
-                })
-                .catch((err) => console.log('Service Worker registration failed:', err));
-        }
 
         // Handle install prompt
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -6830,25 +6810,7 @@
             updatePWAStatus('installed');
         }
 
-        function showPWAUpdatePrompt() {
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `
-                <span>Update available!</span>
-                <button onclick="updatePWA()" style="margin-left: 12px; padding: 4px 12px; background: var(--color-primary); border-radius: 4px; font-size: 12px;">
-                    Refresh
-                </button>
-            `;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.classList.add('show'), 10);
-        }
-
-        function updatePWA() {
-            if (swRegistration && swRegistration.waiting) {
-                swRegistration.waiting.postMessage('skipWaiting');
-            }
-            window.location.reload();
-        }
+        // PWA updates handled automatically by vite-plugin-pwa (registerType: 'autoUpdate')
 
         // Initialize
         initDarkMode();
