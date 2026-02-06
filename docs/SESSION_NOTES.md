@@ -7,6 +7,7 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-06):**
+- **Doc Cleanup** - Removed completed items from TODO.md, fixed outdated hosting instructions in ADMIN_GUIDE.md (now references Vite dev server and `dist/` build), corrected HISTORY.md file references post-modularization
 - **Dashboard Modularization** - Split monolithic 6,927-line index.html into ES modules:
   - `index.html` (889 lines) - HTML structure only
   - `styles.css` (1,200 lines) - Extracted CSS
@@ -204,4 +205,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-06 - Fixed PDF export, button icons, and added PWA update mechanism.*
+*Last updated: 2026-02-06 - Doc cleanup: TODO.md, ADMIN_GUIDE.md hosting, HISTORY.md file refs.*
