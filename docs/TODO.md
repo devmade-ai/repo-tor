@@ -9,7 +9,7 @@ Remaining tasks for Git Analytics Reporting System.
 ## Polish
 
 1. [x] Loading states for detail pane content
-2. [x] PDF export updates for new layout
+2. [x] PDF export updates for new layout (fixed blank page bug 2026-02-06)
 3. [x] Shareable links for detail pane state (URL hash params for tab, filters, detail view)
 
 ---
@@ -54,4 +54,4 @@ Remaining tasks for Git Analytics Reporting System.
 
 ---
 
-*Last updated: 2026-02-05 - Migrated to Vite with vite-plugin-pwa.*
+*Last updated: 2026-02-06 - Fixed PDF export, button icons, PWA update check.*

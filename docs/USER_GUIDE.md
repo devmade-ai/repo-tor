@@ -88,6 +88,9 @@ The dashboard can be installed as a Progressive Web App for offline access and a
 
 Once installed, the app works offline using cached data from your last visit.
 
+**Updating the App:**
+The app updates automatically in the background when a new version is deployed. To apply a pending update, close and reopen the app. You can also manually check in Settings → Updates → "Check for Updates".
+
 ---
 
 ## View Levels
@@ -388,7 +391,7 @@ Clicking interactive elements opens a **detail pane** that slides in from the ri
 Click the **Share** button to copy a shareable URL with your current view state.
 
 ### PDF Export
-Click the **Export PDF** button to download a PDF report of the current view.
+Click the **PDF** button (document icon) to download a PDF report of the current tab's content, including charts rendered as images.
 
 ## Theme
 
