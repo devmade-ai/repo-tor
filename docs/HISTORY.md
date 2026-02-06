@@ -4,6 +4,20 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-06
 
+### Docs: Post-Modularization Cleanup
+
+Updated documentation that was stale after the Vite migration and dashboard modularization.
+
+**Why:** Several docs still referenced the pre-modularization single-file dashboard. Hosting instructions told users to open `dashboard/index.html` directly (won't work with ES modules). TODO.md had 10 completed items that should have been removed. HISTORY.md had incorrect file references for the PDF export fix.
+
+**Changes:**
+- **TODO.md** - Removed all completed `[x]` items (already tracked in HISTORY.md), kept only untested warnings and open research items
+- **ADMIN_GUIDE.md** - Updated hosting section: replaced "open index.html" with dev server instructions, updated static host section to reference `dist/` build output
+- **HISTORY.md** - Fixed PDF export entry to reference actual modular files (`export.js`, `ui.js`) instead of just `index.html`
+- **CLAUDE.md** - Updated Key Components to reflect modular dashboard structure and Vite build
+
+---
+
 ### Refactor: Dashboard Modularization
 
 Split the monolithic 6,927-line `dashboard/index.html` into ES modules for maintainability.
@@ -42,7 +56,9 @@ Fixed three user-reported issues with the dashboard.
 - **PWA updates:** Added "Check for Updates" button in Settings with status feedback. Added explanation that the app auto-updates and users should close/reopen to apply
 
 **Files updated:**
-- `dashboard/index.html` - Button icons, PDF export function, PWA settings section
+- `dashboard/index.html` - Button icons, PWA settings section
+- `dashboard/js/export.js` - PDF export fix (TAB_MAPPING, canvas-to-image, dark theme overrides)
+- `dashboard/js/ui.js` - PWA update check button
 
 ---
 

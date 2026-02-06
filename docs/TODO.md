@@ -6,14 +6,6 @@ Remaining tasks for Git Analytics Reporting System.
 
 ---
 
-## Polish
-
-1. [x] Loading states for detail pane content
-2. [x] PDF export updates for new layout (fixed blank page bug 2026-02-06)
-3. [x] Shareable links for detail pane state (URL hash params for tab, filters, detail view)
-
----
-
 ## ⚠️ Untested / Known Issues
 
 **IMPORTANT FOR AI:** These features were built but NOT tested. Test before using or recommending.
@@ -35,23 +27,10 @@ Remaining tasks for Git Analytics Reporting System.
 
 ## Backlog
 
-### Filters
-4. [x] Add urgency filter dropdown
-5. [x] Add impact filter dropdown
-6. [x] Quick select filter presets (e.g., "Last 30 days", "This quarter", "Since v2.0")
-7. [x] Per-filter mode toggles (Include/Exclude) with multi-select checkboxes
-
-### Visual Enhancements
-8. [x] Make theme more "techy" (consider monospace fonts, terminal-inspired styling, glowing accents)
-
 ### Research
-9. [ ] Device/platform attribution (mobile vs desktop commits)
-10. [ ] Merge commit filtering options
-
-### Completed
-11. [x] PWA offline support - Now using Vite + vite-plugin-pwa (2026-02-05)
-12. [x] PWA install help in Settings panel with status and manual instructions
+1. [ ] Device/platform attribution (mobile vs desktop commits)
+2. [ ] Merge commit filtering options
 
 ---
 
-*Last updated: 2026-02-06 - Fixed PDF export, button icons, PWA update check.*
+*Last updated: 2026-02-06 - Removed completed items (tracked in HISTORY.md).*

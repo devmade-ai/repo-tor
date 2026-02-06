@@ -471,11 +471,16 @@ git commit --no-verify -m "emergency fix"
 
 ## Hosting the Dashboard
 
-The dashboard is a static HTML file with no server requirements.
+The dashboard uses Vite for bundling. For production, build first with `npm run build` — this outputs optimized files to `dist/`.
 
-### Option 1: Local File
+### Option 1: Local Development
 
-Simply open `dashboard/index.html` in any browser.
+```bash
+npm run dev      # Dev server with hot reload at http://localhost:5173
+npm run preview  # Preview production build locally
+```
+
+**Note:** Opening `dashboard/index.html` directly won't work since it uses ES modules. Use the dev server instead.
 
 ### Option 2: Static File Server
 
@@ -513,7 +518,13 @@ You can also trigger a deployment manually:
 
 ### Option 4: Any Static Host
 
-Upload `dashboard/index.html` and your `data.json` files to:
+Build and upload the `dist/` folder to any static hosting provider:
+
+```bash
+npm run build    # Creates dist/ with optimized files
+```
+
+Upload the contents of `dist/` to:
 - Netlify
 - Vercel
 - AWS S3

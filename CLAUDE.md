@@ -9,13 +9,50 @@
 **Key Components:**
 
 - `scripts/extract.js` - Extracts git log data into structured JSON
-- `dashboard/index.html` - Static HTML dashboard with Chart.js visualizations
+- `scripts/extract-api.js` - GitHub API-based extraction (untested, see TODO.md)
+- `scripts/aggregate-processed.js` - Aggregates processed/ data into dashboard JSON
+- `dashboard/` - Modular dashboard (Vite + Chart.js)
+  - `index.html` - HTML structure
+  - `styles.css` - Extracted CSS
+  - `js/main.js` - Entry point
+  - `js/tabs.js` - Tab rendering (largest module)
+  - `js/state.js`, `utils.js`, `filters.js`, `ui.js`, `charts.js`, `data.js`, `export.js`
+- `vite.config.js` - Vite build + PWA plugin config
 - `hooks/commit-msg` - Validates conventional commit format
 - `docs/COMMIT_CONVENTION.md` - Team guide for commit messages
 
-**Current State:** Dashboard V2 complete with role-based views. See `docs/SESSION_NOTES.md` for details.
+**Live Dashboard:** https://devmade-ai.github.io/repo-tor/
+
+**Development:**
+- `npm run dev` — Local dev server with hot reload (http://localhost:5173)
+- `npm run build` — Production build to `dist/`
+
+**Current State:** Dashboard V2 complete with role-based views. See `docs/SESSION_NOTES.md` for recent changes.
 
 **Remaining Work:** See `docs/TODO.md` for backlog items.
+
+## Dashboard Architecture
+
+**Tabs** — 4 user-facing tabs mapped to internal content containers:
+
+| Tab | Container IDs |
+|-----|---------------|
+| Overview | `tab-overview` |
+| Activity | `tab-activity`, `tab-timing` |
+| Work | `tab-progress`, `tab-tags`, `tab-contributors` |
+| Health | `tab-security` |
+
+Tab mapping lives in `js/state.js` as `TAB_MAPPING`.
+
+**Role-Based View Levels** — Three audiences with different detail levels:
+
+| View | Contributors | Heatmap | Drilldowns |
+|------|-------------|---------|------------|
+| Executive | Aggregated totals | Weekly blocks | Stats only |
+| Management | Per-repo groupings | Day-of-week bars | Stats + repo split |
+| Developer (default) | Individual names | 24x7 hourly grid | Full commit list |
+
+Executive and Management views show interpretation guidance hints; Developer view shows raw data. Selection persists in localStorage.
 
 ---
 
