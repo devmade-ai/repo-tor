@@ -227,11 +227,13 @@ export function setupFilterListeners() {
     // Date filters
     document.getElementById('filter-date-from').addEventListener('change', (e) => {
         state.filters.dateFrom = e.target.value;
+        document.querySelectorAll('.filter-preset-btn').forEach(b => b.classList.remove('active'));
         applyFilters();
     });
 
     document.getElementById('filter-date-to').addEventListener('change', (e) => {
         state.filters.dateTo = e.target.value;
+        document.querySelectorAll('.filter-preset-btn').forEach(b => b.classList.remove('active'));
         applyFilters();
     });
 
@@ -307,6 +309,9 @@ export function setupFilterListeners() {
                 state.filters.dateTo = formatDate(toDate);
                 document.getElementById('filter-date-from').value = state.filters.dateFrom;
                 document.getElementById('filter-date-to').value = state.filters.dateTo;
+                // Highlight active preset
+                document.querySelectorAll('.filter-preset-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
                 applyFilters();
             }
         });
@@ -369,8 +374,17 @@ export function updateFilterIndicator() {
 
 export function updateFilterBadge() {
     const badge = document.getElementById('filter-badge');
-    const hasFilters = state.filters.tag || state.filters.author || state.filters.repo || state.filters.dateFrom || state.filters.dateTo;
-    if (hasFilters) {
+    let activeCount = 0;
+    if (state.filters.tag.values.length > 0) activeCount++;
+    if (state.filters.author.values.length > 0) activeCount++;
+    if (state.filters.repo.values.length > 0) activeCount++;
+    if (state.filters.urgency.values.length > 0) activeCount++;
+    if (state.filters.impact.values.length > 0) activeCount++;
+    if (state.filters.dateFrom) activeCount++;
+    if (state.filters.dateTo) activeCount++;
+
+    if (activeCount > 0) {
+        badge.textContent = activeCount;
         badge.classList.remove('hidden');
     } else {
         badge.classList.add('hidden');

@@ -65,18 +65,17 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 });
 
 // === File Input Handler ===
-document.getElementById('file-input').addEventListener('change', async (e) => {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
+const fileInput = document.getElementById('file-input');
+const dropZone = document.getElementById('drop-zone');
 
+async function handleFiles(files) {
+    if (!files || files.length === 0) return;
     try {
         if (files.length === 1) {
-            // Single file - load directly
             const text = await files[0].text();
             const jsonData = JSON.parse(text);
             loadData(jsonData);
         } else {
-            // Multiple files - combine them
             const allData = [];
             for (const file of files) {
                 const text = await file.text();
@@ -89,6 +88,24 @@ document.getElementById('file-input').addEventListener('change', async (e) => {
     } catch (error) {
         alert('Error loading file(s): ' + error.message);
     }
+}
+
+fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+// Drop zone: click to open file picker
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+});
+
+// Drop zone: drag and drop
+dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    const files = [...e.dataTransfer.files].filter(f => f.name.endsWith('.json'));
+    if (files.length > 0) handleFiles(files);
 });
 
 // === Shuffle Button Handler (Discover Tab) ===

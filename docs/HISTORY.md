@@ -2,6 +2,34 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-07
+
+### Fix: UI/UX Review — Bugs, Usability, and Accessibility
+
+Comprehensive UI/UX review identified 21 issues. Fixed the 10 most impactful.
+
+**Why:** Several bugs caused incorrect visual state (filter badge always visible, PDF always showing "Filtered view"), toast notifications destroyed their own DOM element, and the detail pane had an unnecessary 150ms skeleton delay. The file upload was a bare `<input>`, collapsible sections weren't keyboard accessible, and icon buttons lacked screen reader labels.
+
+**Bug Fixes:**
+- `filters.js` — `updateFilterBadge()` checked `state.filters.tag` (always-truthy object) instead of `state.filters.tag.values.length > 0`
+- `export.js` — `hasActiveFilters()` had the same truthy-object bug, making PDF export always say "Filtered view"
+- `ui.js` — `showToast()` removed the static `#toast` element from DOM on first call; now reuses it
+- `ui.js` — Removed duplicate `updateFilterBadge()` definition (canonical version is in `filters.js`)
+- `ui.js` — Removed artificial 150ms `setTimeout` delay in `openDetailPane()` (data is already in memory)
+
+**UX Improvements:**
+- `index.html`, `styles.css`, `main.js` — Replaced bare file input with styled drag-and-drop drop zone
+- `filters.js`, `styles.css` — Filter badge now shows active filter count (number) instead of 8px dot
+- `filters.js`, `styles.css` — Quick-select date preset buttons show `.active` state when selected
+
+**Accessibility:**
+- `ui.js` — Collapsible headers now have `tabindex="0"`, `role="button"`, and keyboard handlers (Enter/Space)
+- `index.html` — Added `aria-label` to 6 icon-only buttons (settings, privacy, share, install, export, filter toggle)
+
+**Remaining items** added to `docs/TODO.md` backlog (10 items including tab naming, event listener cleanup, lazy rendering, keyboard-navigable filters).
+
+---
+
 ## 2026-02-06
 
 ### Docs: Post-Modularization Cleanup

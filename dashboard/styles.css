@@ -1030,6 +1030,11 @@
             border-color: var(--color-primary);
             color: white;
         }
+        .filter-preset-btn.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+        }
         .filter-mode-toggle {
             display: flex;
             gap: 2px;
@@ -1188,13 +1193,49 @@
             }
         }
 
+        /* Drop zone for file upload */
+        .drop-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 40px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .drop-zone:hover, .drop-zone:focus-visible {
+            border-color: var(--color-primary);
+            background: rgba(45, 104, 255, 0.05);
+        }
+        .drop-zone.drag-over {
+            border-color: var(--color-primary);
+            background: rgba(45, 104, 255, 0.1);
+            box-shadow: var(--glow-primary);
+        }
+        .drop-zone-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            color: var(--text-tertiary);
+        }
+        .drop-zone:hover .drop-zone-icon,
+        .drop-zone.drag-over .drop-zone-icon {
+            color: var(--color-primary);
+        }
+
         /* Filter badge on toggle button - dark theme */
         .filter-toggle .filter-badge {
             position: absolute;
-            top: 4px;
-            right: 4px;
-            width: 8px;
-            height: 8px;
+            top: -4px;
+            right: -4px;
+            min-width: 16px;
+            height: 16px;
             background: var(--color-primary);
-            border-radius: 50%;
+            border-radius: 9999px;
+            font-size: 10px;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            padding: 0 3px;
         }

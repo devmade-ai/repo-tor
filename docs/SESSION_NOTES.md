@@ -6,7 +6,14 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-06):**
+**Recent Updates (2026-02-07):**
+- **UI/UX Review & Fixes** - Comprehensive review of dashboard identifying 21 issues across bugs, usability, accessibility, performance, and design. Fixed 10 of the most impactful:
+  - **Bug fixes:** Filter badge always visible (truthy check on object), `hasActiveFilters()` always true, toast destroying its own DOM element, removed duplicate `updateFilterBadge()` function, removed artificial 150ms detail pane delay
+  - **UX improvements:** Drag-and-drop file upload drop zone, filter badge now shows active count (not just dot), quick-select date preset buttons show active state
+  - **Accessibility:** Collapsible headers now keyboard-navigable (tabindex, role=button, Enter/Space), aria-labels added to all icon-only buttons
+  - Remaining UI/UX items added to TODO.md backlog
+
+**Previous Updates (2026-02-06):**
 - **Doc Cleanup** - Removed completed items from TODO.md, fixed outdated hosting instructions in ADMIN_GUIDE.md (now references Vite dev server and `dist/` build), corrected HISTORY.md file references post-modularization
 - **Dashboard Modularization** - Split monolithic 6,927-line index.html into ES modules:
   - `index.html` (889 lines) - HTML structure only
@@ -205,4 +212,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-06 - Doc cleanup: TODO.md, ADMIN_GUIDE.md hosting, HISTORY.md file refs.*
+*Last updated: 2026-02-07 - UI/UX review: 3 bugs fixed, 3 UX improvements, 4 accessibility fixes, 10 backlog items added.*
