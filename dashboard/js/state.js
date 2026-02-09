@@ -31,7 +31,10 @@ export const state = {
     healthCardHandlersInitialized: false,
     summaryCardHandlersInitialized: false,
     // Current filtered commits cache
-    currentCommits: []
+    currentCommits: [],
+    // Active tab tracking for lazy rendering
+    activeTab: 'overview',
+    dirtyTabs: new Set()
 };
 
 // === Anonymous Name Mapping ===
@@ -165,6 +168,12 @@ export function updateAllSectionGuidance() {
     Object.entries(sectionMappings).forEach(([section, containerId]) => {
         renderSectionGuidance(section, containerId);
     });
+}
+
+// === Mobile Detection ===
+// Used by chart modules for responsive font sizes, label skipping, etc.
+export function isMobile() {
+    return window.innerWidth < 640;
 }
 
 // === Tab Navigation (V2: 4 grouped tabs) ===

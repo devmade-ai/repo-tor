@@ -2,6 +2,89 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-09
+
+### Improve: Mobile-Optimized Charts and Graphs
+
+All charts, heatmaps, and graph containers optimized for mobile viewports.
+
+**Why:** Fixed-height chart containers, large heatmap cells, and desktop-sized Chart.js fonts made graphs hard to read on mobile devices. Charts were either clipped, overflowed, or had overlapping labels on small screens.
+
+**Chart containers (index.html):**
+- 8 charts changed from fixed `h-64`/`h-80`/`h-48` to responsive heights: `h-48 md:h-64`, `h-56 md:h-80`, `h-40 md:h-48`
+
+**Heatmap (styles.css):**
+- Grid: `min-width` reduced from 400px to 280px on mobile, label column from 50px to 36px
+- Cells: `min-width`/`min-height` reduced from 28px to 20px on mobile
+- Labels and headers: font-size 9px on mobile, 11px on desktop
+
+**Chart.js instances (charts.js, tabs.js):**
+- All 10 charts now use `isMobile()` helper from `state.js` for responsive options
+- Tick/axis font sizes: 9px on mobile, 12px on desktop
+- Legend labels: smaller box widths (8px) and font sizes (9px) on mobile
+- X-axis rotation: 60deg on mobile (vs 45deg) for tighter label fit
+- Label skip frequency increased on mobile (show fewer labels to prevent overlap)
+- Doughnut legend: tighter padding and smaller font on mobile
+
+**Card layout (styles.css):**
+- Card padding: 16px on mobile (vs 24px desktop)
+- Stat numbers: 1.5rem on mobile (vs default 1.875rem)
+
+---
+
+### Improve: Complete UI/UX Backlog — 9 Items
+
+Completed all remaining UI/UX improvements from the 2026-02-07 review.
+
+**Why:** The initial review identified 21 issues and fixed 10. This batch addresses the remaining 9 actionable items (file anonymization kept as-is by design) covering usability, performance, accessibility, and build quality.
+
+**Usability:**
+- `index.html` — Tab buttons renamed from "Breakdown"/"Risk" to "Work"/"Health" to match TAB_MAPPING keys and docs
+- `index.html` — Filter mode toggles now say "Include"/"Exclude" instead of cryptic "Inc"/"Exc"
+- `tabs.js` — Changes list has "Load more" button (100 at a time) instead of hard 100 cap
+
+**Performance:**
+- `filters.js` — `applyFilters()` now only renders the active tab; others marked dirty and re-rendered on switch via `state.activeTab`/`state.dirtyTabs`
+- `tabs.js` — Replaced per-render `addEventListener` calls with single delegated click handler on `#dashboard` (`setupDelegatedHandlers()`) — eliminates listener accumulation across re-renders
+
+**Accessibility:**
+- `charts.js`, `main.js`, `styles.css` — Replaced native `title` heatmap tooltips with custom floating tooltip (instant on mouse, works on touch with 2s display)
+- `filters.js` — Multi-select dropdowns now keyboard navigable: Enter/Space opens, Arrow Up/Down navigates options, Escape closes
+- `tabs.js` — Added percentage text labels below all stacked urgency/impact bars (mgmt + dev views) for color-blind accessibility
+
+**Build:**
+- `vite.config.js`, `package.json`, `styles.css`, `index.html` — Migrated from CDN Tailwind (`cdn.tailwindcss.com` script) to build-time Tailwind v4 via `@tailwindcss/vite` plugin. Removed CDN script tag and runtime caching rule. Added `@import "tailwindcss"` and `@custom-variant dark` for class-based dark mode.
+
+---
+
+## 2026-02-07
+
+### Fix: UI/UX Review — Bugs, Usability, and Accessibility
+
+Comprehensive UI/UX review identified 21 issues. Fixed the 10 most impactful.
+
+**Why:** Several bugs caused incorrect visual state (filter badge always visible, PDF always showing "Filtered view"), toast notifications destroyed their own DOM element, and the detail pane had an unnecessary 150ms skeleton delay. The file upload was a bare `<input>`, collapsible sections weren't keyboard accessible, and icon buttons lacked screen reader labels.
+
+**Bug Fixes:**
+- `filters.js` — `updateFilterBadge()` checked `state.filters.tag` (always-truthy object) instead of `state.filters.tag.values.length > 0`
+- `export.js` — `hasActiveFilters()` had the same truthy-object bug, making PDF export always say "Filtered view"
+- `ui.js` — `showToast()` removed the static `#toast` element from DOM on first call; now reuses it
+- `ui.js` — Removed duplicate `updateFilterBadge()` definition (canonical version is in `filters.js`)
+- `ui.js` — Removed artificial 150ms `setTimeout` delay in `openDetailPane()` (data is already in memory)
+
+**UX Improvements:**
+- `index.html`, `styles.css`, `main.js` — Replaced bare file input with styled drag-and-drop drop zone
+- `filters.js`, `styles.css` — Filter badge now shows active filter count (number) instead of 8px dot
+- `filters.js`, `styles.css` — Quick-select date preset buttons show `.active` state when selected
+
+**Accessibility:**
+- `ui.js` — Collapsible headers now have `tabindex="0"`, `role="button"`, and keyboard handlers (Enter/Space)
+- `index.html` — Added `aria-label` to 6 icon-only buttons (settings, privacy, share, install, export, filter toggle)
+
+**Remaining items** added to `docs/TODO.md` backlog (10 items including tab naming, event listener cleanup, lazy rendering, keyboard-navigable filters).
+
+---
+
 ## 2026-02-06
 
 ### Docs: Post-Modularization Cleanup

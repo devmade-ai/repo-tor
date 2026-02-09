@@ -151,14 +151,50 @@ export function setupMultiSelectDropdowns() {
         const dropdown = container.querySelector('.filter-multi-select-dropdown');
         const filterType = container.id.replace('filter-', '').replace('-container', '').replace('-multiselect', '');
 
-        // Toggle dropdown
+        // Toggle dropdown on click
         trigger.addEventListener('click', (e) => {
             e.stopPropagation();
-            // Close other dropdowns
             document.querySelectorAll('.filter-multi-select-dropdown.open').forEach(d => {
                 if (d !== dropdown) d.classList.remove('open');
             });
             dropdown.classList.toggle('open');
+        });
+
+        // Keyboard: Enter/Space to open, Escape to close, arrows to navigate
+        trigger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                e.stopPropagation();
+                document.querySelectorAll('.filter-multi-select-dropdown.open').forEach(d => {
+                    if (d !== dropdown) d.classList.remove('open');
+                });
+                dropdown.classList.toggle('open');
+                if (dropdown.classList.contains('open')) {
+                    const firstCheckbox = dropdown.querySelector('input[type="checkbox"]');
+                    if (firstCheckbox) firstCheckbox.focus();
+                }
+            } else if (e.key === 'Escape') {
+                dropdown.classList.remove('open');
+                trigger.focus();
+            }
+        });
+
+        // Keyboard navigation within dropdown
+        dropdown.addEventListener('keydown', (e) => {
+            const options = [...dropdown.querySelectorAll('.filter-multi-select-option input[type="checkbox"]')];
+            const idx = options.indexOf(document.activeElement);
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (idx < options.length - 1) options[idx + 1].focus();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (idx > 0) options[idx - 1].focus();
+                else { dropdown.classList.remove('open'); trigger.focus(); }
+            } else if (e.key === 'Escape') {
+                dropdown.classList.remove('open');
+                trigger.focus();
+            }
         });
 
         // Handle checkbox changes
@@ -227,11 +263,13 @@ export function setupFilterListeners() {
     // Date filters
     document.getElementById('filter-date-from').addEventListener('change', (e) => {
         state.filters.dateFrom = e.target.value;
+        document.querySelectorAll('.filter-preset-btn').forEach(b => b.classList.remove('active'));
         applyFilters();
     });
 
     document.getElementById('filter-date-to').addEventListener('change', (e) => {
         state.filters.dateTo = e.target.value;
+        document.querySelectorAll('.filter-preset-btn').forEach(b => b.classList.remove('active'));
         applyFilters();
     });
 
@@ -307,6 +345,9 @@ export function setupFilterListeners() {
                 state.filters.dateTo = formatDate(toDate);
                 document.getElementById('filter-date-from').value = state.filters.dateFrom;
                 document.getElementById('filter-date-to').value = state.filters.dateTo;
+                // Highlight active preset
+                document.querySelectorAll('.filter-preset-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
                 applyFilters();
             }
         });
@@ -331,16 +372,32 @@ export function setupFilterListeners() {
 export function applyFilters() {
     // Update filter indicator
     updateFilterIndicator();
-    // Re-render all tabs with filtered data
     updateSummaryStats();
-    renderTimeline();
-    renderProgress();
-    renderContributors();
-    renderTags();
-    renderHealth();
-    renderSecurity();
-    renderTiming();
-    renderSummary();
+
+    // Only render the active tab; mark others as dirty for lazy re-render on tab switch
+    const allTabs = ['overview', 'activity', 'work', 'health', 'discover'];
+    allTabs.forEach(tab => {
+        if (tab !== state.activeTab) {
+            state.dirtyTabs.add(tab);
+        }
+    });
+
+    // Render the currently active tab
+    if (state.activeTab === 'overview') {
+        renderSummary();
+    } else if (state.activeTab === 'activity') {
+        renderTimeline();
+        renderTiming();
+    } else if (state.activeTab === 'work') {
+        renderProgress();
+        renderContributors();
+        renderTags();
+    } else if (state.activeTab === 'health') {
+        renderHealth();
+        renderSecurity();
+    }
+    // Discover tab re-renders on its own when visited
+
     saveFiltersToStorage();
 }
 
@@ -369,8 +426,17 @@ export function updateFilterIndicator() {
 
 export function updateFilterBadge() {
     const badge = document.getElementById('filter-badge');
-    const hasFilters = state.filters.tag || state.filters.author || state.filters.repo || state.filters.dateFrom || state.filters.dateTo;
-    if (hasFilters) {
+    let activeCount = 0;
+    if (state.filters.tag.values.length > 0) activeCount++;
+    if (state.filters.author.values.length > 0) activeCount++;
+    if (state.filters.repo.values.length > 0) activeCount++;
+    if (state.filters.urgency.values.length > 0) activeCount++;
+    if (state.filters.impact.values.length > 0) activeCount++;
+    if (state.filters.dateFrom) activeCount++;
+    if (state.filters.dateTo) activeCount++;
+
+    if (activeCount > 0) {
+        badge.textContent = activeCount;
         badge.classList.remove('hidden');
     } else {
         badge.classList.add('hidden');

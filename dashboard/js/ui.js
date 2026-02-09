@@ -23,49 +23,26 @@ export function openDetailPane(title, subtitle, commits, detailState = null) {
     titleEl.textContent = title;
     subtitleEl.textContent = subtitle || '';
 
-    // Show loading state with skeleton placeholders
-    contentEl.innerHTML = `
-        <div class="skeleton-commit">
-            <div class="skeleton skeleton-line skeleton-line-medium"></div>
-            <div class="skeleton skeleton-line skeleton-line-short"></div>
-        </div>
-        <div class="skeleton-commit">
-            <div class="skeleton skeleton-line skeleton-line-medium"></div>
-            <div class="skeleton skeleton-line skeleton-line-short"></div>
-        </div>
-        <div class="skeleton-commit">
-            <div class="skeleton skeleton-line skeleton-line-medium"></div>
-            <div class="skeleton skeleton-line skeleton-line-short"></div>
-        </div>
-    `;
+    // Render content immediately (data is already in memory)
+    const drilldown = aggregateForDrilldown(commits, { title });
+
+    let html = '';
+    if (drilldown.type === 'commits') {
+        if (commits && commits.length > 0) {
+            html = commits.map(commit => renderDetailCommit(commit)).join('');
+        } else {
+            html = '<p class="text-themed-tertiary text-center py-8">No commits found</p>';
+        }
+    } else {
+        html = renderDrilldownSummary(drilldown.data);
+    }
+
+    contentEl.innerHTML = `<div class="detail-pane-content-loaded">${html}</div>`;
 
     overlay.classList.add('open');
     pane.classList.add('open');
     state.detailPaneOpen = true;
     document.body.style.overflow = 'hidden';
-
-    // Render content after brief delay to show loading state
-    requestAnimationFrame(() => {
-        setTimeout(() => {
-            // Check view level for appropriate drilldown
-            const drilldown = aggregateForDrilldown(commits, { title });
-
-            let html = '';
-            if (drilldown.type === 'commits') {
-                // Developer view: show commit list (current behavior)
-                if (commits && commits.length > 0) {
-                    html = commits.map(commit => renderDetailCommit(commit)).join('');
-                } else {
-                    html = '<p class="text-themed-tertiary text-center py-8">No commits found</p>';
-                }
-            } else {
-                // Executive/Management: show summary
-                html = renderDrilldownSummary(drilldown.data);
-            }
-
-            contentEl.innerHTML = `<div class="detail-pane-content-loaded">${html}</div>`;
-        }, 150);
-    });
 }
 
 export function closeDetailPane() {
@@ -264,15 +241,7 @@ export function closeFilterSidebar() {
     document.body.style.overflow = '';
 }
 
-export function updateFilterBadge() {
-    const badge = document.getElementById('filter-badge');
-    const hasFilters = state.filters.tag || state.filters.author || state.filters.repo || state.filters.dateFrom || state.filters.dateTo;
-    if (hasFilters) {
-        badge.classList.remove('hidden');
-    } else {
-        badge.classList.add('hidden');
-    }
-}
+// updateFilterBadge is defined in filters.js (single source of truth)
 
 // === Collapsible Sections ===
 // Sections use consistent defaults on every page load (no saved state)
@@ -305,6 +274,16 @@ export function initCollapsibleSections() {
             const shouldExpand = defaultExpanded.includes(sectionName);
             header.setAttribute('aria-expanded', shouldExpand);
             content.classList.toggle('expanded', shouldExpand);
+
+            // Add keyboard accessibility: focusable + Enter/Space to toggle
+            header.setAttribute('tabindex', '0');
+            header.setAttribute('role', 'button');
+            header.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleSection(header);
+                }
+            });
         }
     });
 }
@@ -427,22 +406,21 @@ export function toggleSanitizeMode() {
 // === Toast Notification ===
 
 export function showToast(message, duration = 3000) {
-    // Remove existing toast
-    const existingToast = document.querySelector('.toast');
-    if (existingToast) existingToast.remove();
+    const toast = document.getElementById('toast');
+    if (!toast) return;
 
-    const toast = document.createElement('div');
-    toast.className = 'toast';
+    // Clear any pending hide timer
+    if (toast._hideTimer) clearTimeout(toast._hideTimer);
+    if (toast._removeTimer) clearTimeout(toast._removeTimer);
+
     toast.textContent = message;
-    document.body.appendChild(toast);
 
     // Trigger animation
     requestAnimationFrame(() => {
         toast.classList.add('show');
     });
 
-    setTimeout(() => {
+    toast._hideTimer = setTimeout(() => {
         toast.classList.remove('show');
-        setTimeout(() => toast.remove(), 300);
     }, duration);
 }

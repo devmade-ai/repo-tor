@@ -1,5 +1,4 @@
-import { state } from './state.js';
-import { getViewConfig } from './state.js';
+import { state, getViewConfig, isMobile } from './state.js';
 import {
     escapeHtml, formatDate, formatNumber, getCommitTags, getAllTags, getTagColor, getTagClass, getTagStyle,
     getAuthorEmail, getAuthorName, getCommitSubject, getAdditions, getDeletions, getFilesChanged,
@@ -83,10 +82,17 @@ function renderTimeline() {
         });
     }
 
+    // Track visible count for load-more (reset when filters change commit count)
+    if (!state._commitListVisible || state._commitListTotal !== filteredCommits.length) {
+        state._commitListVisible = 100;
+        state._commitListTotal = filteredCommits.length;
+    }
+
     // Update count based on view level
     if (config.drilldown === 'commits') {
+        const showing = Math.min(filteredCommits.length, state._commitListVisible);
         document.getElementById('commit-count').textContent =
-            `Showing ${Math.min(filteredCommits.length, 100)} of ${filteredCommits.length}`;
+            `Showing ${showing} of ${filteredCommits.length}`;
     } else {
         document.getElementById('commit-count').textContent =
             `${filteredCommits.length} total commits`;
@@ -103,7 +109,7 @@ function renderTimeline() {
 
     if (config.drilldown === 'commits') {
         // Developer view: show individual commits (current behavior)
-        listHtml = filteredCommits.slice(0, 100).map(commit => {
+        listHtml = filteredCommits.slice(0, state._commitListVisible).map(commit => {
             const tags = getCommitTags(commit);
             const tagBadges = tags.slice(0, 3).map(t =>
                 `<span class="tag ${getTagClass(t)} shrink-0" style="${getTagStyle(t)}">${t}</span>`
@@ -175,7 +181,23 @@ function renderTimeline() {
         }, 0);
     }
 
+    // Add "Load more" button if there are more commits to show
+    if (config.drilldown === 'commits' && filteredCommits.length > state._commitListVisible) {
+        const remaining = filteredCommits.length - state._commitListVisible;
+        listHtml += `
+            <button id="load-more-commits" class="w-full py-3 text-sm font-medium text-themed-secondary hover:text-themed-primary bg-themed-tertiary hover:bg-gray-600 rounded-lg transition-colors cursor-pointer border-0">
+                Load ${Math.min(remaining, 100)} more (${remaining} remaining)
+            </button>
+        `;
+    }
+
     document.getElementById('commit-list').innerHTML = listHtml || '<p class="text-themed-tertiary">No changes match the current filters</p>';
+
+    // Attach load-more handler
+    document.getElementById('load-more-commits')?.addEventListener('click', () => {
+        state._commitListVisible += 100;
+        renderTimeline();
+    });
 }
 
 // === Progress Tab ===
@@ -257,6 +279,7 @@ function renderProgress() {
     const featData = months.map(m => monthlyTagCounts[m]?.feature || 0);
     const fixData = months.map(m => monthlyTagCounts[m]?.bugfix || 0);
 
+    const mobileFF = isMobile();
     if (state.charts.featFix) state.charts.featFix.destroy();
     state.charts.featFix = new Chart(document.getElementById('feat-fix-chart'), {
         type: 'line',
@@ -283,7 +306,14 @@ function renderProgress() {
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { labels: { font: { size: mobileFF ? 9 : 12 }, boxWidth: mobileFF ? 8 : 40 } }
+            },
+            scales: {
+                x: { ticks: { font: { size: mobileFF ? 9 : 12 }, maxRotation: mobileFF ? 60 : 45 } },
+                y: { ticks: { font: { size: mobileFF ? 9 : 12 } } }
+            }
         }
     });
 
@@ -293,6 +323,7 @@ function renderProgress() {
         return mc && mc.count > 0 ? (mc.total / mc.count) : null;
     });
 
+    const mobileCT = isMobile();
     if (state.charts.complexityTrend) state.charts.complexityTrend.destroy();
     state.charts.complexityTrend = new Chart(document.getElementById('complexity-trend-chart'), {
         type: 'line',
@@ -313,10 +344,11 @@ function renderProgress() {
             maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
+                x: { ticks: { font: { size: mobileCT ? 9 : 12 }, maxRotation: mobileCT ? 60 : 45 } },
                 y: {
                     min: 1,
                     max: 5,
-                    ticks: { stepSize: 1 }
+                    ticks: { stepSize: 1, font: { size: mobileCT ? 9 : 12 } }
                 }
             }
         }
@@ -360,27 +392,7 @@ function renderContributors() {
         `;
     }).join('');
     document.getElementById('contributor-work-types').innerHTML = workTypesHtml || '<p class="text-themed-tertiary">No contributor data</p>';
-
-    // Add click handlers for cards - drilldown changes by view level
-    document.querySelectorAll('[data-drilldown-label]').forEach(el => {
-        el.addEventListener('click', () => {
-            const label = el.dataset.drilldownLabel;
-            const item = aggregated.find(a => a.label === label);
-            if (!item) return;
-
-            // Get commits for this item based on view level
-            let relevantCommits;
-            if (config.contributors === 'total') {
-                relevantCommits = commits;
-            } else if (config.contributors === 'repo') {
-                relevantCommits = commits.filter(c => (c.repo_id || 'default') === label);
-            } else {
-                relevantCommits = commits.filter(c => getAuthorEmail(c) === label);
-            }
-
-            openDetailPane(item.displayName, `${item.count} commits`, relevantCommits);
-        });
-    });
+    // Click handlers are delegated via setupDelegatedHandlers()
 
     // Complexity chart - same shape, different labels based on view level
     const top8 = aggregated.slice(0, 8);
@@ -394,6 +406,7 @@ function renderContributors() {
         return item.complexities.reduce((a, b) => a + b, 0) / item.complexities.length;
     });
 
+    const mobileCC = isMobile();
     if (state.charts.contributorComplexity) state.charts.contributorComplexity.destroy();
     state.charts.contributorComplexity = new Chart(document.getElementById('contributor-complexity-chart'), {
         type: 'bar',
@@ -411,7 +424,8 @@ function renderContributors() {
             indexAxis: 'y',
             plugins: { legend: { display: false } },
             scales: {
-                x: { min: 0, max: 5, ticks: { stepSize: 1 } }
+                x: { min: 0, max: 5, ticks: { stepSize: 1, font: { size: mobileCC ? 9 : 12 } } },
+                y: { ticks: { font: { size: mobileCC ? 9 : 12 } } }
             }
         }
     });
@@ -586,26 +600,7 @@ function renderHealth() {
         `;
     }).join('');
     document.getElementById('urgency-breakdown').innerHTML = urgencyHtml;
-
-    // Add click handlers for urgency bars
-    document.querySelectorAll('[data-urgency-filter]').forEach(el => {
-        el.addEventListener('click', () => {
-            const filter = el.dataset.urgencyFilter;
-            let filterFn, title;
-            if (filter === 'planned') {
-                filterFn = c => c.urgency <= 2;
-                title = 'Planned Work (Urgency 1-2)';
-            } else if (filter === 'normal') {
-                filterFn = c => c.urgency === 3;
-                title = 'Normal Work (Urgency 3)';
-            } else {
-                filterFn = c => c.urgency >= 4;
-                title = 'Reactive Work (Urgency 4-5)';
-            }
-            const filtered = getFilteredCommits().filter(filterFn);
-            openDetailPane(title, `${filtered.length} commits`, filtered);
-        });
-    });
+    // Click handlers are delegated via setupDelegatedHandlers()
 
     // Impact breakdown
     const impactBreakdown = { 'user-facing': 0, 'internal': 0, 'infrastructure': 0, 'api': 0 };
@@ -640,16 +635,7 @@ function renderHealth() {
             `;
         }).join('');
     document.getElementById('impact-breakdown').innerHTML = impactHtml;
-
-    // Add click handlers for impact bars
-    document.querySelectorAll('[data-impact-filter]').forEach(el => {
-        el.addEventListener('click', () => {
-            const impact = el.dataset.impactFilter;
-            const label = impactLabels[impact]?.label || impact;
-            const filtered = getFilteredCommits().filter(c => c.impact === impact);
-            openDetailPane(`${label} Impact`, `${filtered.length} commits`, filtered, { type: 'impact', value: impact });
-        });
-    });
+    // Click handlers are delegated via setupDelegatedHandlers()
 
     // Urgency Trend Chart (line chart by month)
     const monthlyUrgency = {};
@@ -668,6 +654,7 @@ function renderHealth() {
         Math.round((monthlyUrgency[m].sum / monthlyUrgency[m].count) * 100) / 100
     );
 
+    const mobileUT = isMobile();
     if (state.charts.urgencyTrend) state.charts.urgencyTrend.destroy();
     state.charts.urgencyTrend = new Chart(document.getElementById('urgency-trend-chart'), {
         type: 'line',
@@ -690,7 +677,8 @@ function renderHealth() {
             maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
-                y: { min: 1, max: 5, ticks: { stepSize: 1 } }
+                x: { ticks: { font: { size: mobileUT ? 9 : 12 }, maxRotation: mobileUT ? 60 : 45 } },
+                y: { min: 1, max: 5, ticks: { stepSize: 1, font: { size: mobileUT ? 9 : 12 } } }
             }
         }
     });
@@ -715,6 +703,7 @@ function renderHealth() {
         'api': '#16A34A'
     };
 
+    const mobileIT = isMobile();
     if (state.charts.impactTrend) state.charts.impactTrend.destroy();
     state.charts.impactTrend = new Chart(document.getElementById('impact-trend-chart'), {
         type: 'bar',
@@ -732,8 +721,11 @@ function renderHealth() {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } },
-            scales: { x: { stacked: true }, y: { stacked: true } }
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: mobileIT ? 8 : 12, font: { size: mobileIT ? 8 : 10 }, padding: mobileIT ? 4 : 10 } } },
+            scales: {
+                x: { stacked: true, ticks: { font: { size: mobileIT ? 9 : 12 }, maxRotation: mobileIT ? 60 : 45 } },
+                y: { stacked: true, ticks: { font: { size: mobileIT ? 9 : 12 } } }
+            }
         }
     });
 
@@ -794,23 +786,19 @@ function renderHealth() {
                         <span class="text-themed-tertiary">${data.total} commits</span>
                     </div>
                     <div class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
-                        <div class="bg-green-500 h-full" style="width: ${plannedPct}%" title="Planned: ${data.planned}"></div>
-                        <div class="bg-blue-500 h-full" style="width: ${normalPct}%" title="Normal: ${data.normal}"></div>
-                        <div class="bg-amber-500 h-full" style="width: ${reactivePct}%" title="Reactive: ${data.reactive}"></div>
+                        <div class="bg-green-500 h-full" style="width: ${plannedPct}%"></div>
+                        <div class="bg-blue-500 h-full" style="width: ${normalPct}%"></div>
+                        <div class="bg-amber-500 h-full" style="width: ${reactivePct}%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-themed-tertiary mt-0.5">
+                        <span>Planned ${plannedPct}%</span>
+                        <span>Normal ${normalPct}%</span>
+                        <span>Reactive ${reactivePct}%</span>
                     </div>
                 </div>
             `;
         }).join('');
         document.getElementById('urgency-by-contributor').innerHTML = urgencyByContributorHtml || '<p class="text-themed-tertiary text-sm">No data</p>';
-
-        // Click handlers for repo urgency
-        document.querySelectorAll('[data-repo-urgency]').forEach(el => {
-            el.addEventListener('click', () => {
-                const repo = el.dataset.repoUrgency;
-                const filtered = getFilteredCommits().filter(c => (c.repo_id || 'default') === repo);
-                openDetailPane(`${repo}`, `${filtered.length} commits`, filtered);
-            });
-        });
     } else {
         // Developer view: show by individual contributor (original behavior)
         const contributorUrgency = {};
@@ -841,24 +829,19 @@ function renderHealth() {
                         <span class="text-themed-tertiary">${c.total} commits</span>
                     </div>
                     <div class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
-                        <div class="bg-green-500 h-full" style="width: ${plannedPct}%" title="Planned: ${c.planned}"></div>
-                        <div class="bg-blue-500 h-full" style="width: ${normalPct}%" title="Normal: ${c.normal}"></div>
-                        <div class="bg-amber-500 h-full" style="width: ${reactivePct}%" title="Reactive: ${c.reactive}"></div>
+                        <div class="bg-green-500 h-full" style="width: ${plannedPct}%"></div>
+                        <div class="bg-blue-500 h-full" style="width: ${normalPct}%"></div>
+                        <div class="bg-amber-500 h-full" style="width: ${reactivePct}%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-themed-tertiary mt-0.5">
+                        <span>Planned ${plannedPct}%</span>
+                        <span>Normal ${normalPct}%</span>
+                        <span>Reactive ${reactivePct}%</span>
                     </div>
                 </div>
             `;
         }).join('');
         document.getElementById('urgency-by-contributor').innerHTML = urgencyByContributorHtml || '<p class="text-themed-tertiary text-sm">No data</p>';
-
-        // Click handlers for urgency by contributor
-        document.querySelectorAll('[data-contributor-urgency]').forEach(el => {
-            el.addEventListener('click', () => {
-                const email = el.dataset.contributorUrgency;
-                const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
-                const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
-                openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered, { type: 'author', value: name });
-            });
-        });
     }
 
     // Impact by Contributor (or aggregated based on view level)
@@ -920,24 +903,21 @@ function renderHealth() {
                         <span class="text-themed-tertiary">${data.total} commits</span>
                     </div>
                     <div class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
-                        <div class="bg-blue-500 h-full" style="width: ${userPct}%" title="User-facing: ${data['user-facing']}"></div>
-                        <div class="bg-gray-500 h-full" style="width: ${internalPct}%" title="Internal: ${data['internal']}"></div>
-                        <div class="bg-purple-500 h-full" style="width: ${infraPct}%" title="Infrastructure: ${data['infrastructure']}"></div>
-                        <div class="bg-green-500 h-full" style="width: ${apiPct}%" title="API: ${data['api']}"></div>
+                        <div class="bg-blue-500 h-full" style="width: ${userPct}%"></div>
+                        <div class="bg-gray-500 h-full" style="width: ${internalPct}%"></div>
+                        <div class="bg-purple-500 h-full" style="width: ${infraPct}%"></div>
+                        <div class="bg-green-500 h-full" style="width: ${apiPct}%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-themed-tertiary mt-0.5">
+                        <span>User ${userPct}%</span>
+                        <span>Internal ${internalPct}%</span>
+                        <span>Infra ${infraPct}%</span>
+                        <span>API ${apiPct}%</span>
                     </div>
                 </div>
             `;
         }).join('');
         document.getElementById('impact-by-contributor').innerHTML = impactByContributorHtml || '<p class="text-themed-tertiary text-sm">No data</p>';
-
-        // Click handlers for repo impact
-        document.querySelectorAll('[data-repo-impact]').forEach(el => {
-            el.addEventListener('click', () => {
-                const repo = el.dataset.repoImpact;
-                const filtered = getFilteredCommits().filter(c => (c.repo_id || 'default') === repo);
-                openDetailPane(`${repo}`, `${filtered.length} commits`, filtered);
-            });
-        });
     } else {
         // Developer view: show by individual contributor (original behavior)
         const contributorImpact = {};
@@ -969,25 +949,21 @@ function renderHealth() {
                         <span class="text-themed-tertiary">${c.total} commits</span>
                     </div>
                     <div class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
-                        <div class="bg-blue-500 h-full" style="width: ${userPct}%" title="User-facing: ${c['user-facing']}"></div>
-                        <div class="bg-gray-500 h-full" style="width: ${internalPct}%" title="Internal: ${c['internal']}"></div>
-                        <div class="bg-purple-500 h-full" style="width: ${infraPct}%" title="Infrastructure: ${c['infrastructure']}"></div>
-                        <div class="bg-green-500 h-full" style="width: ${apiPct}%" title="API: ${c['api']}"></div>
+                        <div class="bg-blue-500 h-full" style="width: ${userPct}%"></div>
+                        <div class="bg-gray-500 h-full" style="width: ${internalPct}%"></div>
+                        <div class="bg-purple-500 h-full" style="width: ${infraPct}%"></div>
+                        <div class="bg-green-500 h-full" style="width: ${apiPct}%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-themed-tertiary mt-0.5">
+                        <span>User ${userPct}%</span>
+                        <span>Internal ${internalPct}%</span>
+                        <span>Infra ${infraPct}%</span>
+                        <span>API ${apiPct}%</span>
                     </div>
                 </div>
             `;
         }).join('');
         document.getElementById('impact-by-contributor').innerHTML = impactByContributorHtml || '<p class="text-themed-tertiary text-sm">No data</p>';
-
-        // Click handlers for impact by contributor
-        document.querySelectorAll('[data-contributor-impact]').forEach(el => {
-            el.addEventListener('click', () => {
-                const email = el.dataset.contributorImpact;
-                const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
-                const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
-                openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered, { type: 'author', value: name });
-            });
-        });
     }
 
     // Add click handlers for health cards (only once, using dynamic data)
@@ -1057,6 +1033,7 @@ function renderTags() {
     const total = counts.reduce((a, b) => a + b, 0);
 
     // Tags Pie Chart
+    const mobileTags = isMobile();
     if (state.charts.tags) state.charts.tags.destroy();
     state.charts.tags = new Chart(document.getElementById('tags-chart'), {
         type: 'doughnut',
@@ -1074,9 +1051,9 @@ function renderTags() {
                 legend: {
                     position: 'bottom',
                     labels: {
-                        boxWidth: 12,
-                        padding: 8,
-                        font: { size: 11 },
+                        boxWidth: mobileTags ? 8 : 12,
+                        padding: mobileTags ? 4 : 8,
+                        font: { size: mobileTags ? 9 : 11 },
                         generateLabels: function(chart) {
                             const data = chart.data;
                             return data.labels.map((label, i) => ({
@@ -1104,14 +1081,7 @@ function renderTags() {
     `).join('');
     document.getElementById('tag-breakdown').innerHTML = breakdownHtml;
 
-    // Add click handlers for tag bars
-    document.querySelectorAll('[data-tag-filter]').forEach(el => {
-        el.addEventListener('click', () => {
-            const tag = el.dataset.tagFilter;
-            const filtered = getFilteredCommits().filter(c => (c.tags || []).includes(tag));
-            openDetailPane(`${tag} Commits`, `${filtered.length} commits`, filtered, { type: 'tag', value: tag });
-        });
-    });
+    // Click handlers are delegated via setupDelegatedHandlers()
 }
 
 // === Timing Tab ===
@@ -1148,6 +1118,7 @@ function renderTiming() {
         i.toString().padStart(2, '0') + ':00'
     );
 
+    const mobileHr = isMobile();
     if (state.charts.hour) state.charts.hour.destroy();
     state.charts.hour = new Chart(document.getElementById('hour-chart'), {
         type: 'bar',
@@ -1180,14 +1151,15 @@ function renderTiming() {
             scales: {
                 x: {
                     ticks: {
-                        maxRotation: 45,
+                        maxRotation: mobileHr ? 60 : 45,
+                        font: { size: mobileHr ? 9 : 12 },
                         callback: function(value, index) {
-                            // Show every 3rd label to reduce clutter
-                            return index % 3 === 0 ? this.getLabelForValue(value) : '';
+                            const step = mobileHr ? 4 : 3;
+                            return index % step === 0 ? this.getLabelForValue(value) : '';
                         }
                     }
                 },
-                y: { beginAtZero: true }
+                y: { beginAtZero: true, ticks: { font: { size: mobileHr ? 9 : 12 } } }
             }
         }
     });
@@ -1197,6 +1169,7 @@ function renderTiming() {
     const dayLabels = mondayFirstOrder.map(i => DAY_NAMES_SHORT[i]);
     const dayData = mondayFirstOrder.map(i => byDay[i]);
 
+    const mobileDay = isMobile();
     if (state.charts.day) state.charts.day.destroy();
     state.charts.day = new Chart(document.getElementById('day-chart'), {
         type: 'bar',
@@ -1225,7 +1198,8 @@ function renderTiming() {
                 }
             },
             scales: {
-                y: { beginAtZero: true }
+                x: { ticks: { font: { size: mobileDay ? 9 : 12 } } },
+                y: { beginAtZero: true, ticks: { font: { size: mobileDay ? 9 : 12 } } }
             }
         }
     });
@@ -2007,6 +1981,109 @@ function renderComparisons(commits) {
     }).join('');
 }
 
+// === Delegated Click Handlers ===
+// Single handler on #dashboard for all data-* attribute clicks.
+// Called once during init — no per-render listener accumulation.
+let _delegatedHandlersAttached = false;
+
+function setupDelegatedHandlers() {
+    if (_delegatedHandlersAttached) return;
+    _delegatedHandlersAttached = true;
+
+    document.getElementById('dashboard').addEventListener('click', (e) => {
+        // Urgency distribution bars
+        const urgencyEl = e.target.closest('[data-urgency-filter]');
+        if (urgencyEl) {
+            const filter = urgencyEl.dataset.urgencyFilter;
+            let filterFn, title;
+            if (filter === 'planned') { filterFn = c => c.urgency <= 2; title = 'Planned Work (Urgency 1-2)'; }
+            else if (filter === 'normal') { filterFn = c => c.urgency === 3; title = 'Normal Work (Urgency 3)'; }
+            else { filterFn = c => c.urgency >= 4; title = 'Reactive Work (Urgency 4-5)'; }
+            openDetailPane(title, `${getFilteredCommits().filter(filterFn).length} commits`, getFilteredCommits().filter(filterFn));
+            return;
+        }
+
+        // Impact distribution bars
+        const impactEl = e.target.closest('[data-impact-filter]');
+        if (impactEl) {
+            const impact = impactEl.dataset.impactFilter;
+            const labels = { 'user-facing': 'User-Facing', 'internal': 'Internal', 'infrastructure': 'Infrastructure', 'api': 'API' };
+            const filtered = getFilteredCommits().filter(c => c.impact === impact);
+            openDetailPane(`${labels[impact] || impact} Impact`, `${filtered.length} commits`, filtered, { type: 'impact', value: impact });
+            return;
+        }
+
+        // Tag breakdown bars
+        const tagEl = e.target.closest('[data-tag-filter]');
+        if (tagEl) {
+            const tag = tagEl.dataset.tagFilter;
+            const filtered = getFilteredCommits().filter(c => (c.tags || []).includes(tag));
+            openDetailPane(`${tag} Commits`, `${filtered.length} commits`, filtered, { type: 'tag', value: tag });
+            return;
+        }
+
+        // Urgency by contributor
+        const contribUrgencyEl = e.target.closest('[data-contributor-urgency]');
+        if (contribUrgencyEl) {
+            const email = contribUrgencyEl.dataset.contributorUrgency;
+            const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
+            const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
+            openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered, { type: 'author', value: name });
+            return;
+        }
+
+        // Urgency by repo
+        const repoUrgencyEl = e.target.closest('[data-repo-urgency]');
+        if (repoUrgencyEl) {
+            const repo = repoUrgencyEl.dataset.repoUrgency;
+            const filtered = getFilteredCommits().filter(c => (c.repo_id || 'default') === repo);
+            openDetailPane(`${repo}`, `${filtered.length} commits`, filtered);
+            return;
+        }
+
+        // Impact by contributor
+        const contribImpactEl = e.target.closest('[data-contributor-impact]');
+        if (contribImpactEl) {
+            const email = contribImpactEl.dataset.contributorImpact;
+            const filtered = getFilteredCommits().filter(c => getAuthorEmail(c) === email);
+            const name = filtered.length > 0 ? sanitizeName(getAuthorName(filtered[0]), email) : 'Unknown';
+            openDetailPane(`${name}'s Commits`, `${filtered.length} commits`, filtered, { type: 'author', value: name });
+            return;
+        }
+
+        // Impact by repo
+        const repoImpactEl = e.target.closest('[data-repo-impact]');
+        if (repoImpactEl) {
+            const repo = repoImpactEl.dataset.repoImpact;
+            const filtered = getFilteredCommits().filter(c => (c.repo_id || 'default') === repo);
+            openDetailPane(`${repo}`, `${filtered.length} commits`, filtered);
+            return;
+        }
+
+        // Contributor/repo drilldown cards (Who Does What)
+        const drilldownEl = e.target.closest('[data-drilldown-label]');
+        if (drilldownEl) {
+            const label = drilldownEl.dataset.drilldownLabel;
+            const commits = getFilteredCommits();
+            const config = getViewConfig();
+            let relevantCommits, displayName = label;
+            if (config.contributors === 'total') {
+                relevantCommits = commits;
+                displayName = 'All Contributors';
+            } else if (config.contributors === 'repo') {
+                relevantCommits = commits.filter(c => (c.repo_id || 'default') === label);
+            } else {
+                relevantCommits = commits.filter(c => getAuthorEmail(c) === label);
+                if (relevantCommits.length > 0) {
+                    displayName = sanitizeName(getAuthorName(relevantCommits[0]), label);
+                }
+            }
+            openDetailPane(displayName, `${relevantCommits.length} commits`, relevantCommits);
+            return;
+        }
+    });
+}
+
 // === Exports ===
 export {
     renderTimeline,
@@ -2024,5 +2101,6 @@ export {
     DISCOVER_METRICS,
     getHumorousFileName,
     discoverState,
-    getRandomMetrics
+    getRandomMetrics,
+    setupDelegatedHandlers
 };

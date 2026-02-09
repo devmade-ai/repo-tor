@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   root: 'dashboard',
@@ -9,6 +10,7 @@ export default defineConfig({
     emptyOutDir: true,
   },
   plugins: [
+    tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'script',
@@ -48,17 +50,6 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
         runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/cdn\.tailwindcss\.com/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'tailwind-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
-              },
-            },
-          },
           {
             urlPattern: /^https:\/\/cdn\.jsdelivr\.net/,
             handler: 'CacheFirst',

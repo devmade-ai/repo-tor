@@ -355,7 +355,13 @@ export async function exportToPdf() {
 }
 
 export function hasActiveFilters() {
-    return state.filters.tag || state.filters.author || state.filters.repo || state.filters.urgency || state.filters.impact || state.filters.dateFrom || state.filters.dateTo;
+    return state.filters.tag.values.length > 0 ||
+           state.filters.author.values.length > 0 ||
+           state.filters.repo.values.length > 0 ||
+           state.filters.urgency.values.length > 0 ||
+           state.filters.impact.values.length > 0 ||
+           state.filters.dateFrom ||
+           state.filters.dateTo;
 }
 
 // Setup export/share button handlers

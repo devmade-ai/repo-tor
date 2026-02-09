@@ -13,7 +13,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="./styles.css">
@@ -28,13 +27,13 @@
                     <p class="text-themed-tertiary mt-1" id="repo-subtitle">Loading data...</p>
                 </div>
                 <div id="export-buttons" class="hidden flex items-center gap-2 no-print">
-                    <button id="btn-settings" class="btn-theme" title="Settings">
+                    <button id="btn-settings" class="btn-theme" title="Settings" aria-label="Settings">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
                     </button>
-                    <button id="btn-sanitize" class="btn-theme" title="Toggle private mode (hide names/messages)">
+                    <button id="btn-sanitize" class="btn-theme" title="Toggle private mode (hide names/messages)" aria-label="Toggle private mode">
                         <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.64 0 8.577 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.64 0-8.577-3.007-9.963-7.178z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -52,19 +51,19 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
                         </svg>
                     </button>
-                    <button id="btn-share" class="btn-icon btn-secondary" title="Copy shareable link">
+                    <button id="btn-share" class="btn-icon btn-secondary" title="Copy shareable link" aria-label="Copy shareable link">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                         </svg>
                         <span class="hidden sm:inline">Share</span>
                     </button>
-                    <button id="btn-pwa-install" class="btn-icon btn-secondary hidden" title="Install app" onclick="installPWA()">
+                    <button id="btn-pwa-install" class="btn-icon btn-secondary hidden" title="Install app" aria-label="Install app" onclick="installPWA()">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
                         </svg>
                         Install
                     </button>
-                    <button id="btn-export-pdf" class="btn-icon btn-primary" title="Export as PDF">
+                    <button id="btn-export-pdf" class="btn-icon btn-primary" title="Export as PDF" aria-label="Export as PDF">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
                         </svg>
@@ -77,10 +76,15 @@
         <!-- Data Loader -->
         <div id="loader" class="card text-center py-12">
             <div id="loader-content">
-                <p class="text-themed-tertiary">Select data file(s) to load:</p>
-                <input type="file" id="file-input" accept=".json" multiple class="mt-4 text-sm">
-                <p class="text-sm text-themed-muted mt-2">Select multiple files to combine data from different repositories</p>
-                <p class="text-sm text-themed-muted mt-1">Or place your data.json in the same directory as this file</p>
+                <div id="drop-zone" class="drop-zone" tabindex="0" role="button" aria-label="Click or drag files to load data">
+                    <svg class="drop-zone-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m6.75 12-3-3m0 0-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                    </svg>
+                    <p class="text-themed-secondary font-medium">Drop JSON file(s) here or click to browse</p>
+                    <p class="text-sm text-themed-muted mt-1">Select multiple files to combine data from different repositories</p>
+                </div>
+                <input type="file" id="file-input" accept=".json" multiple class="hidden">
+                <p class="text-xs text-themed-muted mt-3">Or place your data.json in the same directory for auto-loading</p>
             </div>
             <div id="loader-spinner" class="hidden">
                 <div class="loading-spinner mb-3"></div>
@@ -93,7 +97,7 @@
             <!-- Sticky Tabs Bar -->
             <div class="tabs-bar">
                 <div class="flex items-center gap-2 py-2">
-                    <button id="filter-toggle" class="filter-toggle relative no-print" title="Toggle filters">
+                    <button id="filter-toggle" class="filter-toggle relative no-print" title="Toggle filters" aria-label="Toggle filters">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
                         </svg>
@@ -102,8 +106,8 @@
                     <div class="flex overflow-x-auto scrollbar-hide flex-1 min-w-0">
                         <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600 whitespace-nowrap flex-shrink-0" data-tab="overview">Overview</button>
                         <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="activity">Activity</button>
-                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="work">Breakdown</button>
-                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="health">Risk</button>
+                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="work">Work</button>
+                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="health">Health</button>
                         <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="discover">Discover</button>
                     </div>
                 </div>
@@ -127,8 +131,8 @@
                             <div class="filter-group-header">
                                 <label>Tag</label>
                                 <div class="filter-mode-toggle" data-filter="tag">
-                                    <button class="active" data-mode="include" title="Include commits with selected tags">Inc</button>
-                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected tags">Exc</button>
+                                    <button class="active" data-mode="include" title="Include commits with selected tags">Include</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected tags">Exclude</button>
                                 </div>
                             </div>
                             <div class="filter-multi-select" id="filter-tag-container">
@@ -143,8 +147,8 @@
                             <div class="filter-group-header">
                                 <label>Author</label>
                                 <div class="filter-mode-toggle" data-filter="author">
-                                    <button class="active" data-mode="include" title="Include commits by selected authors">Inc</button>
-                                    <button class="exclude" data-mode="exclude" title="Exclude commits by selected authors">Exc</button>
+                                    <button class="active" data-mode="include" title="Include commits by selected authors">Include</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits by selected authors">Exclude</button>
                                 </div>
                             </div>
                             <div class="filter-multi-select" id="filter-author-container">
@@ -159,8 +163,8 @@
                             <div class="filter-group-header">
                                 <label>Repo</label>
                                 <div class="filter-mode-toggle" data-filter="repo">
-                                    <button class="active" data-mode="include" title="Include commits from selected repos">Inc</button>
-                                    <button class="exclude" data-mode="exclude" title="Exclude commits from selected repos">Exc</button>
+                                    <button class="active" data-mode="include" title="Include commits from selected repos">Include</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits from selected repos">Exclude</button>
                                 </div>
                             </div>
                             <div class="filter-multi-select" id="filter-repo-multiselect">
@@ -175,8 +179,8 @@
                             <div class="filter-group-header">
                                 <label>Urgency</label>
                                 <div class="filter-mode-toggle" data-filter="urgency">
-                                    <button class="active" data-mode="include" title="Include commits with selected urgency">Inc</button>
-                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected urgency">Exc</button>
+                                    <button class="active" data-mode="include" title="Include commits with selected urgency">Include</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected urgency">Exclude</button>
                                 </div>
                             </div>
                             <div class="filter-multi-select" id="filter-urgency-container">
@@ -195,8 +199,8 @@
                             <div class="filter-group-header">
                                 <label>Impact</label>
                                 <div class="filter-mode-toggle" data-filter="impact">
-                                    <button class="active" data-mode="include" title="Include commits with selected impact">Inc</button>
-                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected impact">Exc</button>
+                                    <button class="active" data-mode="include" title="Include commits with selected impact">Include</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected impact">Exclude</button>
                                 </div>
                             </div>
                             <div class="filter-multi-select" id="filter-impact-container">
@@ -405,7 +409,7 @@
                         <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                     <div class="collapsible-content">
-                        <div class="h-64 pt-2">
+                        <div class="h-48 md:h-64 pt-2">
                             <canvas id="feat-fix-chart"></canvas>
                         </div>
                     </div>
@@ -419,7 +423,7 @@
                         <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                     <div class="collapsible-content">
-                        <div class="h-64 pt-2">
+                        <div class="h-48 md:h-64 pt-2">
                             <canvas id="complexity-trend-chart"></canvas>
                         </div>
                     </div>
@@ -448,7 +452,7 @@
                         <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                     <div class="collapsible-content">
-                        <div class="h-64 pt-2">
+                        <div class="h-48 md:h-64 pt-2">
                             <canvas id="contributor-complexity-chart"></canvas>
                         </div>
                     </div>
@@ -533,7 +537,7 @@
                             <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </div>
                         <div class="collapsible-content">
-                            <div class="h-48 pt-2">
+                            <div class="h-40 md:h-48 pt-2">
                                 <canvas id="urgency-trend-chart"></canvas>
                             </div>
                         </div>
@@ -547,7 +551,7 @@
                             <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </div>
                         <div class="collapsible-content">
-                            <div class="h-48 pt-2">
+                            <div class="h-40 md:h-48 pt-2">
                                 <canvas id="impact-trend-chart"></canvas>
                             </div>
                         </div>
@@ -595,7 +599,7 @@
                             <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </div>
                         <div class="collapsible-content">
-                            <div class="h-80 pt-2">
+                            <div class="h-56 md:h-80 pt-2">
                                 <canvas id="tags-chart"></canvas>
                             </div>
                         </div>
@@ -660,7 +664,7 @@
                             <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </div>
                         <div class="collapsible-content">
-                            <div class="h-64 pt-2">
+                            <div class="h-48 md:h-64 pt-2">
                                 <canvas id="hour-chart"></canvas>
                             </div>
                         </div>
@@ -674,7 +678,7 @@
                             <svg class="collapsible-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </div>
                         <div class="collapsible-content">
-                            <div class="h-64 pt-2">
+                            <div class="h-48 md:h-64 pt-2">
                                 <canvas id="day-chart"></canvas>
                             </div>
                         </div>
@@ -882,6 +886,7 @@
 
     <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
+    <div id="heatmap-tooltip" class="heatmap-tooltip" aria-hidden="true"></div>
 
 
     <script type="module" src="./js/main.js"></script>
