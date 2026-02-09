@@ -458,6 +458,25 @@ if (window.matchMedia('(display-mode: standalone)').matches ||
 }
 
 // PWA updates handled automatically by vite-plugin-pwa (registerType: 'autoUpdate')
+// Auto-reload when new service worker takes control (enables pull-to-refresh updates)
+if ('serviceWorker' in navigator) {
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+    });
+
+    // Check for SW updates when page regains visibility (e.g., switching back to app)
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            navigator.serviceWorker.getRegistration().then(reg => {
+                if (reg) reg.update();
+            });
+        }
+    });
+}
+
 // Manual check for updates
 export async function checkForUpdate() {
     const statusEl = document.getElementById('pwa-update-status');
@@ -485,10 +504,20 @@ export async function checkForUpdate() {
 
         await reg.update();
 
-        if (reg.waiting) {
-            statusEl.textContent = 'Update available! Close and reopen the app to apply.';
+        if (reg.waiting || reg.installing) {
+            statusEl.textContent = 'Update found! Reloading...';
             statusEl.style.color = 'var(--color-primary, #2D68FF)';
-            showToast('Update available! Close and reopen to apply.');
+            showToast('Updating to latest version...');
+            // With autoUpdate, the new SW calls skipWaiting() automatically.
+            // The controllerchange listener above will reload the page.
+            // If the SW is still installing, wait for it to activate.
+            if (reg.installing) {
+                reg.installing.addEventListener('statechange', (e) => {
+                    if (e.target.state === 'activated') {
+                        window.location.reload();
+                    }
+                });
+            }
         } else {
             statusEl.textContent = 'You are on the latest version.';
             statusEl.style.color = 'var(--color-success, #16a34a)';
