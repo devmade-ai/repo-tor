@@ -7,6 +7,11 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-09):**
+- **PWA Pull-to-Refresh Update Fix** - Pull-to-refresh (and page reload) now properly updates to the latest PWA version:
+  - Added `controllerchange` listener to auto-reload when new service worker takes control
+  - Added `visibilitychange` listener to check for updates when returning to the app
+  - Updated `checkForUpdate()` to reload instead of telling users to "close and reopen"
+  - Updated Settings panel text to reflect new behavior
 - **Mobile Graph Optimization** - All charts and heatmaps optimized for mobile:
   - Chart containers: responsive heights (h-48 md:h-64 pattern) for all 10 charts
   - Heatmap: smaller cells (20px vs 28px), reduced grid min-width (280px vs 400px), smaller labels on mobile
@@ -229,4 +234,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-09 - Mobile graph optimization complete. All charts, heatmaps, and cards responsive for small screens.*
+*Last updated: 2026-02-09 - PWA pull-to-refresh update fix. Pull-to-refresh and reload now apply pending service worker updates automatically.*

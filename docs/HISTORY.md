@@ -4,6 +4,20 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-09
 
+### Fix: PWA Pull-to-Refresh Not Updating to Latest Version
+
+Pull-to-refresh and page reload now properly update the PWA to the latest version.
+
+**Why:** With `registerType: 'autoUpdate'`, the service worker calls `skipWaiting()` on install and takes control automatically. But the page loaded from the old cache was never told to reload when the new SW took over. Users had to fully close and reopen the app to see updates — pull-to-refresh served stale cached content.
+
+**Changes:**
+- `dashboard/js/export.js` — Added `controllerchange` listener that auto-reloads the page when a new service worker takes control. This is the key fix: when the new SW activates (even mid-session), the page reloads to get fresh content from the new cache.
+- `dashboard/js/export.js` — Added `visibilitychange` listener to trigger SW update checks when the user returns to the app (e.g., switching from another app). This ensures updates are detected sooner.
+- `dashboard/js/export.js` — Updated `checkForUpdate()` to show "Reloading..." and auto-reload instead of telling users to "close and reopen."
+- `dashboard/index.html` — Updated Settings panel update description to say "Pull to refresh or reload" instead of "Close and reopen."
+
+---
+
 ### Improve: Mobile-Optimized Charts and Graphs
 
 All charts, heatmaps, and graph containers optimized for mobile viewports.
