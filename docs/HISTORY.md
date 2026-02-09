@@ -4,6 +4,16 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-09
 
+### Fix: PWA Install Button Visible in Standalone Mode + Mobile Button Wrapping
+
+**Why:** The install button could appear when running as an installed PWA because the standalone detection only updated status text without hiding the button or guarding the `beforeinstallprompt` handler. Header buttons also overflowed on mobile due to missing `flex-wrap`.
+
+**Changes:**
+- `dashboard/js/export.js` — Added `isStandalone` flag checked at module load. `beforeinstallprompt` handler now returns early in standalone mode. Standalone detection now calls `hidePWAInstallButton()` and hides the entire PWA settings section.
+- `dashboard/index.html` — Added `flex-wrap` to `#export-buttons` container so buttons wrap on narrow screens.
+
+---
+
 ### Fix: PWA Pull-to-Refresh Not Updating to Latest Version
 
 Pull-to-refresh and page reload now properly update the PWA to the latest version.

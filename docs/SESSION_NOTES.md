@@ -7,6 +7,10 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-09):**
+- **PWA Install Button Fix** - Install button no longer appears when running as an installed PWA:
+  - Added `isStandalone` flag to guard against `beforeinstallprompt` firing in standalone mode
+  - Standalone detection now hides button and entire PWA settings section
+  - Added `flex-wrap` to header buttons so they wrap properly on mobile
 - **PWA Pull-to-Refresh Update Fix** - Pull-to-refresh (and page reload) now properly updates to the latest PWA version:
   - Added `controllerchange` listener to auto-reload when new service worker takes control
   - Added `visibilitychange` listener to check for updates when returning to the app
