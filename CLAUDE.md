@@ -11,13 +11,13 @@
 - `scripts/extract.js` - Extracts git log data into structured JSON
 - `scripts/extract-api.js` - GitHub API-based extraction (untested, see TODO.md)
 - `scripts/aggregate-processed.js` - Aggregates processed/ data into dashboard JSON
-- `dashboard/` - Modular dashboard (Vite + Chart.js)
+- `dashboard/` - Modular dashboard (Vite + Tailwind v4 + Chart.js)
   - `index.html` - HTML structure
   - `styles.css` - Extracted CSS
   - `js/main.js` - Entry point
   - `js/tabs.js` - Tab rendering (largest module)
   - `js/state.js`, `utils.js`, `filters.js`, `ui.js`, `charts.js`, `data.js`, `export.js`
-- `vite.config.js` - Vite build + PWA plugin config
+- `vite.config.js` - Vite build + Tailwind v4 + PWA plugin config
 - `hooks/commit-msg` - Validates conventional commit format
 - `docs/COMMIT_CONVENTION.md` - Team guide for commit messages
 

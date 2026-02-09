@@ -151,14 +151,50 @@ export function setupMultiSelectDropdowns() {
         const dropdown = container.querySelector('.filter-multi-select-dropdown');
         const filterType = container.id.replace('filter-', '').replace('-container', '').replace('-multiselect', '');
 
-        // Toggle dropdown
+        // Toggle dropdown on click
         trigger.addEventListener('click', (e) => {
             e.stopPropagation();
-            // Close other dropdowns
             document.querySelectorAll('.filter-multi-select-dropdown.open').forEach(d => {
                 if (d !== dropdown) d.classList.remove('open');
             });
             dropdown.classList.toggle('open');
+        });
+
+        // Keyboard: Enter/Space to open, Escape to close, arrows to navigate
+        trigger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                e.stopPropagation();
+                document.querySelectorAll('.filter-multi-select-dropdown.open').forEach(d => {
+                    if (d !== dropdown) d.classList.remove('open');
+                });
+                dropdown.classList.toggle('open');
+                if (dropdown.classList.contains('open')) {
+                    const firstCheckbox = dropdown.querySelector('input[type="checkbox"]');
+                    if (firstCheckbox) firstCheckbox.focus();
+                }
+            } else if (e.key === 'Escape') {
+                dropdown.classList.remove('open');
+                trigger.focus();
+            }
+        });
+
+        // Keyboard navigation within dropdown
+        dropdown.addEventListener('keydown', (e) => {
+            const options = [...dropdown.querySelectorAll('.filter-multi-select-option input[type="checkbox"]')];
+            const idx = options.indexOf(document.activeElement);
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (idx < options.length - 1) options[idx + 1].focus();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (idx > 0) options[idx - 1].focus();
+                else { dropdown.classList.remove('open'); trigger.focus(); }
+            } else if (e.key === 'Escape') {
+                dropdown.classList.remove('open');
+                trigger.focus();
+            }
         });
 
         // Handle checkbox changes
@@ -336,16 +372,32 @@ export function setupFilterListeners() {
 export function applyFilters() {
     // Update filter indicator
     updateFilterIndicator();
-    // Re-render all tabs with filtered data
     updateSummaryStats();
-    renderTimeline();
-    renderProgress();
-    renderContributors();
-    renderTags();
-    renderHealth();
-    renderSecurity();
-    renderTiming();
-    renderSummary();
+
+    // Only render the active tab; mark others as dirty for lazy re-render on tab switch
+    const allTabs = ['overview', 'activity', 'work', 'health', 'discover'];
+    allTabs.forEach(tab => {
+        if (tab !== state.activeTab) {
+            state.dirtyTabs.add(tab);
+        }
+    });
+
+    // Render the currently active tab
+    if (state.activeTab === 'overview') {
+        renderSummary();
+    } else if (state.activeTab === 'activity') {
+        renderTimeline();
+        renderTiming();
+    } else if (state.activeTab === 'work') {
+        renderProgress();
+        renderContributors();
+        renderTags();
+    } else if (state.activeTab === 'health') {
+        renderHealth();
+        renderSecurity();
+    }
+    // Discover tab re-renders on its own when visited
+
     saveFiltersToStorage();
 }
 

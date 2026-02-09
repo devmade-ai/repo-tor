@@ -13,7 +13,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <link rel="stylesheet" href="./styles.css">
@@ -107,8 +106,8 @@
                     <div class="flex overflow-x-auto scrollbar-hide flex-1 min-w-0">
                         <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-blue-500 text-blue-600 whitespace-nowrap flex-shrink-0" data-tab="overview">Overview</button>
                         <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="activity">Activity</button>
-                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="work">Breakdown</button>
-                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="health">Risk</button>
+                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="work">Work</button>
+                        <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="health">Health</button>
                         <button class="tab-btn px-4 py-2 text-sm font-medium border-b-2 border-transparent text-themed-tertiary hover:text-themed-secondary whitespace-nowrap flex-shrink-0" data-tab="discover">Discover</button>
                     </div>
                 </div>
@@ -132,8 +131,8 @@
                             <div class="filter-group-header">
                                 <label>Tag</label>
                                 <div class="filter-mode-toggle" data-filter="tag">
-                                    <button class="active" data-mode="include" title="Include commits with selected tags">Inc</button>
-                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected tags">Exc</button>
+                                    <button class="active" data-mode="include" title="Include commits with selected tags">Include</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected tags">Exclude</button>
                                 </div>
                             </div>
                             <div class="filter-multi-select" id="filter-tag-container">
@@ -148,8 +147,8 @@
                             <div class="filter-group-header">
                                 <label>Author</label>
                                 <div class="filter-mode-toggle" data-filter="author">
-                                    <button class="active" data-mode="include" title="Include commits by selected authors">Inc</button>
-                                    <button class="exclude" data-mode="exclude" title="Exclude commits by selected authors">Exc</button>
+                                    <button class="active" data-mode="include" title="Include commits by selected authors">Include</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits by selected authors">Exclude</button>
                                 </div>
                             </div>
                             <div class="filter-multi-select" id="filter-author-container">
@@ -164,8 +163,8 @@
                             <div class="filter-group-header">
                                 <label>Repo</label>
                                 <div class="filter-mode-toggle" data-filter="repo">
-                                    <button class="active" data-mode="include" title="Include commits from selected repos">Inc</button>
-                                    <button class="exclude" data-mode="exclude" title="Exclude commits from selected repos">Exc</button>
+                                    <button class="active" data-mode="include" title="Include commits from selected repos">Include</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits from selected repos">Exclude</button>
                                 </div>
                             </div>
                             <div class="filter-multi-select" id="filter-repo-multiselect">
@@ -180,8 +179,8 @@
                             <div class="filter-group-header">
                                 <label>Urgency</label>
                                 <div class="filter-mode-toggle" data-filter="urgency">
-                                    <button class="active" data-mode="include" title="Include commits with selected urgency">Inc</button>
-                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected urgency">Exc</button>
+                                    <button class="active" data-mode="include" title="Include commits with selected urgency">Include</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected urgency">Exclude</button>
                                 </div>
                             </div>
                             <div class="filter-multi-select" id="filter-urgency-container">
@@ -200,8 +199,8 @@
                             <div class="filter-group-header">
                                 <label>Impact</label>
                                 <div class="filter-mode-toggle" data-filter="impact">
-                                    <button class="active" data-mode="include" title="Include commits with selected impact">Inc</button>
-                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected impact">Exc</button>
+                                    <button class="active" data-mode="include" title="Include commits with selected impact">Include</button>
+                                    <button class="exclude" data-mode="exclude" title="Exclude commits with selected impact">Exclude</button>
                                 </div>
                             </div>
                             <div class="filter-multi-select" id="filter-impact-container">
@@ -887,6 +886,7 @@
 
     <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
+    <div id="heatmap-tooltip" class="heatmap-tooltip" aria-hidden="true"></div>
 
 
     <script type="module" src="./js/main.js"></script>

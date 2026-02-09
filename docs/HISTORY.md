@@ -2,6 +2,33 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-09
+
+### Improve: Complete UI/UX Backlog — 9 Items
+
+Completed all remaining UI/UX improvements from the 2026-02-07 review.
+
+**Why:** The initial review identified 21 issues and fixed 10. This batch addresses the remaining 9 actionable items (file anonymization kept as-is by design) covering usability, performance, accessibility, and build quality.
+
+**Usability:**
+- `index.html` — Tab buttons renamed from "Breakdown"/"Risk" to "Work"/"Health" to match TAB_MAPPING keys and docs
+- `index.html` — Filter mode toggles now say "Include"/"Exclude" instead of cryptic "Inc"/"Exc"
+- `tabs.js` — Changes list has "Load more" button (100 at a time) instead of hard 100 cap
+
+**Performance:**
+- `filters.js` — `applyFilters()` now only renders the active tab; others marked dirty and re-rendered on switch via `state.activeTab`/`state.dirtyTabs`
+- `tabs.js` — Replaced per-render `addEventListener` calls with single delegated click handler on `#dashboard` (`setupDelegatedHandlers()`) — eliminates listener accumulation across re-renders
+
+**Accessibility:**
+- `charts.js`, `main.js`, `styles.css` — Replaced native `title` heatmap tooltips with custom floating tooltip (instant on mouse, works on touch with 2s display)
+- `filters.js` — Multi-select dropdowns now keyboard navigable: Enter/Space opens, Arrow Up/Down navigates options, Escape closes
+- `tabs.js` — Added percentage text labels below all stacked urgency/impact bars (mgmt + dev views) for color-blind accessibility
+
+**Build:**
+- `vite.config.js`, `package.json`, `styles.css`, `index.html` — Migrated from CDN Tailwind (`cdn.tailwindcss.com` script) to build-time Tailwind v4 via `@tailwindcss/vite` plugin. Removed CDN script tag and runtime caching rule. Added `@import "tailwindcss"` and `@custom-variant dark` for class-based dark mode.
+
+---
+
 ## 2026-02-07
 
 ### Fix: UI/UX Review — Bugs, Usability, and Accessibility

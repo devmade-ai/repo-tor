@@ -9,7 +9,7 @@ import {
     setupSettingsPanel, showToast, toggleSection
 } from './ui.js';
 import { loadData, combineDataFiles, tryAutoLoad } from './data.js';
-import { renderSummary, renderTiming, renderTags, renderHealth, renderDiscover, discoverState, getRandomMetrics } from './tabs.js';
+import { renderSummary, renderTimeline, renderProgress, renderContributors, renderSecurity, renderTiming, renderTags, renderHealth, renderDiscover, discoverState, getRandomMetrics } from './tabs.js';
 import { saveFiltersToStorage } from './filters.js';
 // PWA event listeners are in export.js (they need direct access to deferredInstallPrompt)
 import { installPWA, checkForUpdate } from './export.js';
@@ -41,20 +41,16 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
             if (tabEl) tabEl.classList.remove('hidden');
         });
 
-        // Re-render content when tab becomes visible (Chart.js needs visible containers)
-        if (state.data) {
-            const activeTab = btn.dataset.tab;
-            if (activeTab === 'overview') {
-                renderSummary();
-            } else if (activeTab === 'activity') {
-                renderTiming();
-            } else if (activeTab === 'work') {
-                renderTags();
-            } else if (activeTab === 'health') {
-                renderHealth();
-            } else if (activeTab === 'discover') {
-                renderDiscover();
-            }
+        const activeTab = btn.dataset.tab;
+        state.activeTab = activeTab;
+
+        // Re-render if tab is dirty or if Chart.js needs visible containers
+        if (state.data && state.dirtyTabs.has(activeTab)) {
+            renderTab(activeTab);
+            state.dirtyTabs.delete(activeTab);
+        } else if (state.data) {
+            // Charts need a re-render when becoming visible
+            renderTab(activeTab);
         }
 
         // Save state (only if data is loaded)
@@ -63,6 +59,25 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
         }
     });
 });
+
+// Centralized tab renderer — renders all sections within a tab group
+function renderTab(tab) {
+    if (tab === 'overview') {
+        renderSummary();
+    } else if (tab === 'activity') {
+        renderTimeline();
+        renderTiming();
+    } else if (tab === 'work') {
+        renderProgress();
+        renderContributors();
+        renderTags();
+    } else if (tab === 'health') {
+        renderHealth();
+        renderSecurity();
+    } else if (tab === 'discover') {
+        renderDiscover();
+    }
+}
 
 // === File Input Handler ===
 const fileInput = document.getElementById('file-input');
@@ -107,6 +122,39 @@ dropZone.addEventListener('drop', (e) => {
     const files = [...e.dataTransfer.files].filter(f => f.name.endsWith('.json'));
     if (files.length > 0) handleFiles(files);
 });
+
+// === Heatmap Custom Tooltip ===
+const heatmapTooltip = document.getElementById('heatmap-tooltip');
+document.addEventListener('mouseover', (e) => {
+    const cell = e.target.closest('[data-tooltip]');
+    if (cell) {
+        heatmapTooltip.textContent = cell.dataset.tooltip;
+        heatmapTooltip.classList.add('visible');
+    }
+});
+document.addEventListener('mouseout', (e) => {
+    if (e.target.closest('[data-tooltip]')) {
+        heatmapTooltip.classList.remove('visible');
+    }
+});
+document.addEventListener('mousemove', (e) => {
+    if (heatmapTooltip.classList.contains('visible')) {
+        heatmapTooltip.style.left = e.clientX + 12 + 'px';
+        heatmapTooltip.style.top = e.clientY - 8 + 'px';
+    }
+});
+// Touch support
+document.addEventListener('touchstart', (e) => {
+    const cell = e.target.closest('[data-tooltip]');
+    if (cell) {
+        const rect = cell.getBoundingClientRect();
+        heatmapTooltip.textContent = cell.dataset.tooltip;
+        heatmapTooltip.style.left = rect.left + 'px';
+        heatmapTooltip.style.top = rect.top - 30 + 'px';
+        heatmapTooltip.classList.add('visible');
+        setTimeout(() => heatmapTooltip.classList.remove('visible'), 2000);
+    }
+}, { passive: true });
 
 // === Shuffle Button Handler (Discover Tab) ===
 document.getElementById('shuffle-metrics')?.addEventListener('click', () => {

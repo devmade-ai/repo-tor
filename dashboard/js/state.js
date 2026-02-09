@@ -31,7 +31,10 @@ export const state = {
     healthCardHandlersInitialized: false,
     summaryCardHandlersInitialized: false,
     // Current filtered commits cache
-    currentCommits: []
+    currentCommits: [],
+    // Active tab tracking for lazy rendering
+    activeTab: 'overview',
+    dirtyTabs: new Set()
 };
 
 // === Anonymous Name Mapping ===

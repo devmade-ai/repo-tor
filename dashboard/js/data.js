@@ -4,7 +4,7 @@
 import { state } from './state.js';
 import { formatDate, getCommitTags, getAuthorEmail, getAdditions, getDeletions } from './utils.js';
 import { populateFilters, setupFilterListeners, applyFilters, loadFiltersFromStorage, getFilteredCommits, updateSummaryStats } from './filters.js';
-import { renderSummary, renderTimeline, renderProgress, renderContributors, renderSecurity, renderHealth, renderTags, renderTiming } from './tabs.js';
+import { renderSummary, renderTimeline, renderProgress, renderContributors, renderSecurity, renderHealth, renderTags, renderTiming, setupDelegatedHandlers } from './tabs.js';
 import { setupExportButtons, applyUrlState, hasActiveFilters } from './export.js';
 import { initCollapsibleSections } from './ui.js';
 
@@ -51,6 +51,9 @@ export async function loadData(jsonData) {
 
     // Initialize collapsible sections
     initCollapsibleSections();
+
+    // Setup delegated click handlers (once, no per-render accumulation)
+    setupDelegatedHandlers();
 
     // Apply filters from URL after render
     if (hasActiveFilters()) {

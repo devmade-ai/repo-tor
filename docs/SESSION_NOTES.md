@@ -6,12 +6,23 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-07):**
-- **UI/UX Review & Fixes** - Comprehensive review of dashboard identifying 21 issues across bugs, usability, accessibility, performance, and design. Fixed 10 of the most impactful:
-  - **Bug fixes:** Filter badge always visible (truthy check on object), `hasActiveFilters()` always true, toast destroying its own DOM element, removed duplicate `updateFilterBadge()` function, removed artificial 150ms detail pane delay
-  - **UX improvements:** Drag-and-drop file upload drop zone, filter badge now shows active count (not just dot), quick-select date preset buttons show active state
-  - **Accessibility:** Collapsible headers now keyboard-navigable (tabindex, role=button, Enter/Space), aria-labels added to all icon-only buttons
-  - Remaining UI/UX items added to TODO.md backlog
+**Recent Updates (2026-02-09):**
+- **UI/UX Remaining Items** - Completed all 9 remaining UI/UX backlog items:
+  - Tab names fixed: "Breakdown"/"Risk" renamed to "Work"/"Health" to match code/docs
+  - Filter labels: "Inc"/"Exc" replaced with "Include"/"Exclude"
+  - Load More: Changes list now has "Load more" button instead of hard 100 cap
+  - Lazy rendering: `applyFilters()` only re-renders active tab, others marked dirty
+  - Event delegation: Replaced per-render `addEventListener` with single delegated handler on `#dashboard`
+  - Custom heatmap tooltips: `title` attributes replaced with instant custom tooltip (touch + mouse)
+  - Build-time Tailwind: Migrated from CDN to Tailwind v4 Vite plugin (`@tailwindcss/vite`)
+  - Keyboard-navigable filters: Enter/Space to open dropdowns, arrows to navigate, Escape to close
+  - Color-only bars: Added percentage text labels below all urgency/impact stacked bars
+
+**Previous Updates (2026-02-07):**
+- **UI/UX Review & Fixes** - Comprehensive review identifying 21 issues. Fixed 10 most impactful:
+  - **Bug fixes:** Filter badge always visible, `hasActiveFilters()` always true, toast destroying DOM, duplicate function, artificial delay
+  - **UX improvements:** Drag-and-drop file upload, filter badge count, active date preset
+  - **Accessibility:** Keyboard-navigable collapsible headers, aria-labels on icon buttons
 
 **Previous Updates (2026-02-06):**
 - **Doc Cleanup** - Removed completed items from TODO.md, fixed outdated hosting instructions in ADMIN_GUIDE.md (now references Vite dev server and `dist/` build), corrected HISTORY.md file references post-modularization
@@ -212,4 +223,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-07 - UI/UX review: 3 bugs fixed, 3 UX improvements, 4 accessibility fixes, 10 backlog items added.*
+*Last updated: 2026-02-09 - All UI/UX backlog items completed. Tailwind migrated to build-time. Lazy rendering + event delegation for performance.*

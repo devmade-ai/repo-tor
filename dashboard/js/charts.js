@@ -342,7 +342,7 @@ function renderHeatmap() {
             const isWeekday = i < 5;
             const tooltip = `${dayLabels[i]} ${hour}:00 - ${count} commit${count !== 1 ? 's' : ''}`;
 
-            html += `<div class="heatmap-cell heatmap-${intensity}" title="${tooltip}">${count || ''}</div>`;
+            html += `<div class="heatmap-cell heatmap-${intensity}" data-tooltip="${tooltip}">${count || ''}</div>`;
         });
     }
 
@@ -389,7 +389,7 @@ function renderWeeklyHeatmap(commits) {
         const intensity = getIntensity(count);
         const weekDate = new Date(weekKey);
         const weekLabel = weekDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        html += `<div class="heatmap-cell heatmap-${intensity}" style="width: 16px; height: 16px;" title="Week of ${weekLabel}: ${count} commits">${count > 9 ? '' : count || ''}</div>`;
+        html += `<div class="heatmap-cell heatmap-${intensity}" style="width: 16px; height: 16px;" data-tooltip="Week of ${weekLabel}: ${count} commits">${count > 9 ? '' : count || ''}</div>`;
     });
 
     html += '</div>';
