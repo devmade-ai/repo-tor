@@ -7,6 +7,12 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-09):**
+- **Mobile Graph Optimization** - All charts and heatmaps optimized for mobile:
+  - Chart containers: responsive heights (h-48 md:h-64 pattern) for all 10 charts
+  - Heatmap: smaller cells (20px vs 28px), reduced grid min-width (280px vs 400px), smaller labels on mobile
+  - Chart.js: mobile-aware font sizes (9px), increased label skipping, tighter legends
+  - Cards: tighter padding (16px) and smaller stat text on mobile
+  - Added `isMobile()` helper in state.js used across all chart modules
 - **UI/UX Remaining Items** - Completed all 9 remaining UI/UX backlog items:
   - Tab names fixed: "Breakdown"/"Risk" renamed to "Work"/"Health" to match code/docs
   - Filter labels: "Inc"/"Exc" replaced with "Include"/"Exclude"
@@ -223,4 +229,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-09 - All UI/UX backlog items completed. Tailwind migrated to build-time. Lazy rendering + event delegation for performance.*
+*Last updated: 2026-02-09 - Mobile graph optimization complete. All charts, heatmaps, and cards responsive for small screens.*

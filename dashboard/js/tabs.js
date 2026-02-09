@@ -1,5 +1,4 @@
-import { state } from './state.js';
-import { getViewConfig } from './state.js';
+import { state, getViewConfig, isMobile } from './state.js';
 import {
     escapeHtml, formatDate, formatNumber, getCommitTags, getAllTags, getTagColor, getTagClass, getTagStyle,
     getAuthorEmail, getAuthorName, getCommitSubject, getAdditions, getDeletions, getFilesChanged,
@@ -280,6 +279,7 @@ function renderProgress() {
     const featData = months.map(m => monthlyTagCounts[m]?.feature || 0);
     const fixData = months.map(m => monthlyTagCounts[m]?.bugfix || 0);
 
+    const mobileFF = isMobile();
     if (state.charts.featFix) state.charts.featFix.destroy();
     state.charts.featFix = new Chart(document.getElementById('feat-fix-chart'), {
         type: 'line',
@@ -306,7 +306,14 @@ function renderProgress() {
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { labels: { font: { size: mobileFF ? 9 : 12 }, boxWidth: mobileFF ? 8 : 40 } }
+            },
+            scales: {
+                x: { ticks: { font: { size: mobileFF ? 9 : 12 }, maxRotation: mobileFF ? 60 : 45 } },
+                y: { ticks: { font: { size: mobileFF ? 9 : 12 } } }
+            }
         }
     });
 
@@ -316,6 +323,7 @@ function renderProgress() {
         return mc && mc.count > 0 ? (mc.total / mc.count) : null;
     });
 
+    const mobileCT = isMobile();
     if (state.charts.complexityTrend) state.charts.complexityTrend.destroy();
     state.charts.complexityTrend = new Chart(document.getElementById('complexity-trend-chart'), {
         type: 'line',
@@ -336,10 +344,11 @@ function renderProgress() {
             maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
+                x: { ticks: { font: { size: mobileCT ? 9 : 12 }, maxRotation: mobileCT ? 60 : 45 } },
                 y: {
                     min: 1,
                     max: 5,
-                    ticks: { stepSize: 1 }
+                    ticks: { stepSize: 1, font: { size: mobileCT ? 9 : 12 } }
                 }
             }
         }
@@ -397,6 +406,7 @@ function renderContributors() {
         return item.complexities.reduce((a, b) => a + b, 0) / item.complexities.length;
     });
 
+    const mobileCC = isMobile();
     if (state.charts.contributorComplexity) state.charts.contributorComplexity.destroy();
     state.charts.contributorComplexity = new Chart(document.getElementById('contributor-complexity-chart'), {
         type: 'bar',
@@ -414,7 +424,8 @@ function renderContributors() {
             indexAxis: 'y',
             plugins: { legend: { display: false } },
             scales: {
-                x: { min: 0, max: 5, ticks: { stepSize: 1 } }
+                x: { min: 0, max: 5, ticks: { stepSize: 1, font: { size: mobileCC ? 9 : 12 } } },
+                y: { ticks: { font: { size: mobileCC ? 9 : 12 } } }
             }
         }
     });
@@ -643,6 +654,7 @@ function renderHealth() {
         Math.round((monthlyUrgency[m].sum / monthlyUrgency[m].count) * 100) / 100
     );
 
+    const mobileUT = isMobile();
     if (state.charts.urgencyTrend) state.charts.urgencyTrend.destroy();
     state.charts.urgencyTrend = new Chart(document.getElementById('urgency-trend-chart'), {
         type: 'line',
@@ -665,7 +677,8 @@ function renderHealth() {
             maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
-                y: { min: 1, max: 5, ticks: { stepSize: 1 } }
+                x: { ticks: { font: { size: mobileUT ? 9 : 12 }, maxRotation: mobileUT ? 60 : 45 } },
+                y: { min: 1, max: 5, ticks: { stepSize: 1, font: { size: mobileUT ? 9 : 12 } } }
             }
         }
     });
@@ -690,6 +703,7 @@ function renderHealth() {
         'api': '#16A34A'
     };
 
+    const mobileIT = isMobile();
     if (state.charts.impactTrend) state.charts.impactTrend.destroy();
     state.charts.impactTrend = new Chart(document.getElementById('impact-trend-chart'), {
         type: 'bar',
@@ -707,8 +721,11 @@ function renderHealth() {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } },
-            scales: { x: { stacked: true }, y: { stacked: true } }
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: mobileIT ? 8 : 12, font: { size: mobileIT ? 8 : 10 }, padding: mobileIT ? 4 : 10 } } },
+            scales: {
+                x: { stacked: true, ticks: { font: { size: mobileIT ? 9 : 12 }, maxRotation: mobileIT ? 60 : 45 } },
+                y: { stacked: true, ticks: { font: { size: mobileIT ? 9 : 12 } } }
+            }
         }
     });
 
@@ -1016,6 +1033,7 @@ function renderTags() {
     const total = counts.reduce((a, b) => a + b, 0);
 
     // Tags Pie Chart
+    const mobileTags = isMobile();
     if (state.charts.tags) state.charts.tags.destroy();
     state.charts.tags = new Chart(document.getElementById('tags-chart'), {
         type: 'doughnut',
@@ -1033,9 +1051,9 @@ function renderTags() {
                 legend: {
                     position: 'bottom',
                     labels: {
-                        boxWidth: 12,
-                        padding: 8,
-                        font: { size: 11 },
+                        boxWidth: mobileTags ? 8 : 12,
+                        padding: mobileTags ? 4 : 8,
+                        font: { size: mobileTags ? 9 : 11 },
                         generateLabels: function(chart) {
                             const data = chart.data;
                             return data.labels.map((label, i) => ({
@@ -1100,6 +1118,7 @@ function renderTiming() {
         i.toString().padStart(2, '0') + ':00'
     );
 
+    const mobileHr = isMobile();
     if (state.charts.hour) state.charts.hour.destroy();
     state.charts.hour = new Chart(document.getElementById('hour-chart'), {
         type: 'bar',
@@ -1132,14 +1151,15 @@ function renderTiming() {
             scales: {
                 x: {
                     ticks: {
-                        maxRotation: 45,
+                        maxRotation: mobileHr ? 60 : 45,
+                        font: { size: mobileHr ? 9 : 12 },
                         callback: function(value, index) {
-                            // Show every 3rd label to reduce clutter
-                            return index % 3 === 0 ? this.getLabelForValue(value) : '';
+                            const step = mobileHr ? 4 : 3;
+                            return index % step === 0 ? this.getLabelForValue(value) : '';
                         }
                     }
                 },
-                y: { beginAtZero: true }
+                y: { beginAtZero: true, ticks: { font: { size: mobileHr ? 9 : 12 } } }
             }
         }
     });
@@ -1149,6 +1169,7 @@ function renderTiming() {
     const dayLabels = mondayFirstOrder.map(i => DAY_NAMES_SHORT[i]);
     const dayData = mondayFirstOrder.map(i => byDay[i]);
 
+    const mobileDay = isMobile();
     if (state.charts.day) state.charts.day.destroy();
     state.charts.day = new Chart(document.getElementById('day-chart'), {
         type: 'bar',
@@ -1177,7 +1198,8 @@ function renderTiming() {
                 }
             },
             scales: {
-                y: { beginAtZero: true }
+                x: { ticks: { font: { size: mobileDay ? 9 : 12 } } },
+                y: { beginAtZero: true, ticks: { font: { size: mobileDay ? 9 : 12 } } }
             }
         }
     });

@@ -4,6 +4,34 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-09
 
+### Improve: Mobile-Optimized Charts and Graphs
+
+All charts, heatmaps, and graph containers optimized for mobile viewports.
+
+**Why:** Fixed-height chart containers, large heatmap cells, and desktop-sized Chart.js fonts made graphs hard to read on mobile devices. Charts were either clipped, overflowed, or had overlapping labels on small screens.
+
+**Chart containers (index.html):**
+- 8 charts changed from fixed `h-64`/`h-80`/`h-48` to responsive heights: `h-48 md:h-64`, `h-56 md:h-80`, `h-40 md:h-48`
+
+**Heatmap (styles.css):**
+- Grid: `min-width` reduced from 400px to 280px on mobile, label column from 50px to 36px
+- Cells: `min-width`/`min-height` reduced from 28px to 20px on mobile
+- Labels and headers: font-size 9px on mobile, 11px on desktop
+
+**Chart.js instances (charts.js, tabs.js):**
+- All 10 charts now use `isMobile()` helper from `state.js` for responsive options
+- Tick/axis font sizes: 9px on mobile, 12px on desktop
+- Legend labels: smaller box widths (8px) and font sizes (9px) on mobile
+- X-axis rotation: 60deg on mobile (vs 45deg) for tighter label fit
+- Label skip frequency increased on mobile (show fewer labels to prevent overlap)
+- Doughnut legend: tighter padding and smaller font on mobile
+
+**Card layout (styles.css):**
+- Card padding: 16px on mobile (vs 24px desktop)
+- Stat numbers: 1.5rem on mobile (vs default 1.875rem)
+
+---
+
 ### Improve: Complete UI/UX Backlog — 9 Items
 
 Completed all remaining UI/UX improvements from the 2026-02-07 review.

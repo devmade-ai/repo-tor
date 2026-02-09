@@ -1,5 +1,4 @@
-import { state } from './state.js';
-import { getViewConfig } from './state.js';
+import { state, getViewConfig, isMobile } from './state.js';
 import { getAdditions, getDeletions, getCommitTags, getCommitDateTime } from './utils.js';
 import { getFilteredCommits } from './filters.js';
 
@@ -120,6 +119,7 @@ function renderActivityTimeline(commits) {
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     });
 
+    const mobile = isMobile();
     if (state.charts.activityTimeline) state.charts.activityTimeline.destroy();
     state.charts.activityTimeline = new Chart(document.getElementById('activity-timeline-chart'), {
         type: 'bar',
@@ -133,17 +133,18 @@ function renderActivityTimeline(commits) {
             plugins: {
                 legend: {
                     display: repos.length > 1,
-                    position: 'top'
+                    position: 'top',
+                    labels: { font: { size: mobile ? 9 : 12 }, boxWidth: mobile ? 8 : 40 }
                 }
             },
             scales: {
                 x: {
                     stacked: repos.length > 1,
                     ticks: {
-                        maxRotation: 45,
+                        maxRotation: mobile ? 60 : 45,
+                        font: { size: mobile ? 9 : 12 },
                         callback: function(value, index) {
-                            // Show fewer labels on smaller datasets
-                            const step = Math.ceil(sortedDates.length / 15);
+                            const step = Math.ceil(sortedDates.length / (mobile ? 8 : 15));
                             return index % step === 0 ? this.getLabelForValue(value) : '';
                         }
                     }
@@ -151,7 +152,7 @@ function renderActivityTimeline(commits) {
                 y: {
                     stacked: repos.length > 1,
                     beginAtZero: true,
-                    ticks: { stepSize: 1 }
+                    ticks: { stepSize: 1, font: { size: mobile ? 9 : 12 } }
                 }
             }
         }
@@ -221,6 +222,7 @@ function renderCodeChangesTimeline(commits) {
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     });
 
+    const mobile2 = isMobile();
     if (state.charts.codeChangesTimeline) state.charts.codeChangesTimeline.destroy();
     state.charts.codeChangesTimeline = new Chart(document.getElementById('code-changes-timeline-chart'), {
         type: 'bar',
@@ -234,7 +236,8 @@ function renderCodeChangesTimeline(commits) {
             plugins: {
                 legend: {
                     display: repos.length > 1,
-                    position: 'top'
+                    position: 'top',
+                    labels: { font: { size: mobile2 ? 9 : 12 }, boxWidth: mobile2 ? 8 : 40 }
                 },
                 tooltip: {
                     callbacks: {
@@ -250,9 +253,10 @@ function renderCodeChangesTimeline(commits) {
                 x: {
                     stacked: repos.length > 1,
                     ticks: {
-                        maxRotation: 45,
+                        maxRotation: mobile2 ? 60 : 45,
+                        font: { size: mobile2 ? 9 : 12 },
                         callback: function(value, index) {
-                            const step = Math.ceil(sortedDates.length / 15);
+                            const step = Math.ceil(sortedDates.length / (mobile2 ? 8 : 15));
                             return index % step === 0 ? this.getLabelForValue(value) : '';
                         }
                     }
@@ -260,6 +264,7 @@ function renderCodeChangesTimeline(commits) {
                 y: {
                     stacked: repos.length > 1,
                     ticks: {
+                        font: { size: mobile2 ? 9 : 12 },
                         callback: function(value) {
                             const sign = value >= 0 ? '+' : '';
                             const absValue = Math.abs(value);

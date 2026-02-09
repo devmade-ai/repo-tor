@@ -170,6 +170,12 @@ export function updateAllSectionGuidance() {
     });
 }
 
+// === Mobile Detection ===
+// Used by chart modules for responsive font sizes, label skipping, etc.
+export function isMobile() {
+    return window.innerWidth < 640;
+}
+
 // === Tab Navigation (V2: 4 grouped tabs) ===
 // Map new tabs to the content containers they should show
 export const TAB_MAPPING = {
