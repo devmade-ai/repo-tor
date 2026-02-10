@@ -28,35 +28,15 @@
  * Token savings: ~10x reduction in AI output (50-80 tokens vs 500-800 per commit)
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { readManifest, writeManifest, PROCESSED_DIR } from './lib/manifest.js';
+import { readStdin } from './lib/stdin.js';
 
 const REPORTS_DIR = 'reports';
-const PROCESSED_DIR = 'processed';
 
 // Required analysis fields from AI
 const ANALYSIS_FIELDS = ['tags', 'complexity', 'urgency', 'impact'];
-
-// === Manifest Management ===
-
-function getManifestPath(repoId) {
-  return path.join(PROCESSED_DIR, repoId, 'manifest.json');
-}
-
-function readManifest(repoId) {
-  const manifestPath = getManifestPath(repoId);
-  if (fs.existsSync(manifestPath)) {
-    return JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
-  }
-  return { processedShas: [], lastUpdated: null };
-}
-
-function writeManifest(repoId, manifest) {
-  const manifestPath = getManifestPath(repoId);
-  const dir = path.dirname(manifestPath);
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
-}
 
 // === Raw Commit Loading ===
 
@@ -80,14 +60,6 @@ function loadRawCommit(repoId, sha) {
 }
 
 // === Input Parsing ===
-
-async function readStdin() {
-  const chunks = [];
-  for await (const chunk of process.stdin) {
-    chunks.push(chunk);
-  }
-  return Buffer.concat(chunks).toString('utf-8');
-}
 
 function parseAnalysisInput(input) {
   const trimmed = input.trim();
