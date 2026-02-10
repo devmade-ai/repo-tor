@@ -11,13 +11,14 @@ import {
 import { loadData, combineDataFiles, tryAutoLoad } from './data.js';
 import { renderSummary, renderTimeline, renderProgress, renderContributors, renderSecurity, renderTiming, renderTags, renderHealth, renderDiscover, discoverState, getRandomMetrics } from './tabs.js';
 import { saveFiltersToStorage } from './filters.js';
-// PWA event listeners are in export.js (they need direct access to deferredInstallPrompt)
-import { installPWA, checkForUpdate } from './export.js';
+// PWA install + update module (self-initializing, registers SW via virtual:pwa-register)
+import { installPWA, checkForUpdate, applyUpdate } from './pwa.js';
 
 // Expose functions needed by inline onclick handlers in HTML
 window.toggleSection = toggleSection;
 window.installPWA = installPWA;
 window.checkForUpdate = checkForUpdate;
+window.applyUpdate = applyUpdate;
 
 // === Immediate Dark Mode (prevent flash) ===
 document.documentElement.classList.add('dark');

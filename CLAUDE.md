@@ -160,5 +160,7 @@ See `docs/EXTRACTION_PLAYBOOK.md` for details.
 - Clean up completed or obsolete docs/files and remove references to them
 - **Test features before documenting them as working** - if you can't test, say so explicitly
 - **Document your mistakes** in docs/AI_LESSONS.md so future sessions learn from them
+- **Verify before assuming** - Read the actual code before claiming what it does. Don't describe behavior based on file names, comments, or assumptions — check the implementation. If the user describes how something works, compare it against the actual code rather than agreeing without verification.
+- **Ask clarifying questions** - When a task is ambiguous, has multiple valid approaches, or you're unsure about the user's intent, ask before proceeding. Don't guess at requirements or make assumptions about what the user wants. A quick question upfront avoids wasted work and wrong implementations.
 
 ---

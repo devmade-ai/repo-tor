@@ -4,6 +4,19 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-10
 
+### Refactor: PWA Rewrite — Dedicated Module with Prompt-Based Updates
+
+**Why:** Previous PWA implementation (autoUpdate + injectRegister:'script' in export.js) was unreliable. Rewrote to match a proven working pattern from another project, adapted to vanilla JS.
+
+**Changes:**
+- `dashboard/js/pwa.js` — **New module.** Install flow with `beforeinstallprompt` for Chromium + `getInstallInstructions()` fallback modal for Safari/Firefox. Update flow uses `virtual:pwa-register` with `registerType:'prompt'` for explicit SW activation control. Hourly update polling via `setInterval`. Green "Update" button in header when update is available. `visibilitychange` listener for passive update checks.
+- `dashboard/js/export.js` — Removed all PWA code (install prompt, update checks, SW listeners).
+- `dashboard/js/main.js` — Imports `installPWA`, `checkForUpdate`, `applyUpdate` from pwa.js instead of export.js.
+- `vite.config.js` — Changed `registerType` from `'autoUpdate'` to `'prompt'`, removed `injectRegister: 'script'`.
+- `dashboard/index.html` — Added green "Update" button in header (hidden by default, shown when update detected). Updated Settings panel update text.
+
+---
+
 ### Fix: PWA Install Button, Default Filters, Filter Alignment
 
 **Why:** Three UI bugs: (1) PWA install button still visible after installing the app because installed state wasn't persisted across sessions, (2) default date filters were overwritten by `applyUrlState()` even when no URL params existed, (3) filter dropdown checkboxes and text were misaligned due to missing flex-shrink and sizing on checkboxes.

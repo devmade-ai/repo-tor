@@ -107,6 +107,28 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 
 ---
 
+## 2026-02-10: Assumed current implementation matched user's description without checking code
+
+**What happened:** User shared a detailed description of a PWA architecture (React hooks, `registerType: 'prompt'`, `usePWAInstall.js`, `usePWAUpdate.js`, `App.jsx`). AI initially said "yes, this is helpful context" without reading the actual codebase to compare. The real implementation was completely different: vanilla JS in `export.js`, `registerType: 'autoUpdate'`, `injectRegister: 'script'`, no React at all.
+
+**Why it's a problem:**
+- Agreeing without verifying wastes the user's time — they had to ask "are you saying our implementation is the same?"
+- Could have led to incorrect changes if the AI proceeded based on wrong assumptions
+- Shows a pattern of trusting descriptions over code
+
+**What should have happened:**
+1. When the user described how something works, immediately read the actual files to verify
+2. Compare the description against the implementation before responding
+3. If they don't match, say so explicitly with specific differences
+4. When unsure about the user's intent (is this a description of current state? a target? a reference?), ask
+
+**Current status:** Added rules to CLAUDE.md AI Notes: "Verify before assuming" and "Ask clarifying questions."
+
+**Files affected:**
+- `CLAUDE.md` — Added two new AI Notes
+
+---
+
 ## Template for Future Entries
 
 ```markdown
