@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState } from 'react';
-import { state as globalState, FILTER_DEFAULTS, VIEW_LEVELS } from './state.js';
+import { state as globalState, VIEW_LEVELS } from './state.js';
 import { getCommitTags, getAuthorEmail, getUrgencyLabel } from './utils.js';
 
 // Split contexts: DispatchContext is stable (never changes identity),
