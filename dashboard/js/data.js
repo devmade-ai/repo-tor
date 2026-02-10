@@ -3,7 +3,7 @@
 
 import { state } from './state.js';
 import { formatDate, getCommitTags, getAuthorEmail, getAdditions, getDeletions } from './utils.js';
-import { populateFilters, setupFilterListeners, applyFilters, loadFiltersFromStorage, getFilteredCommits, updateSummaryStats } from './filters.js';
+import { populateFilters, setupFilterListeners, applyFilters, loadFiltersFromStorage, applyDefaultFilters, getFilteredCommits, updateSummaryStats } from './filters.js';
 import { renderSummary, renderTimeline, renderProgress, renderContributors, renderSecurity, renderHealth, renderTags, renderTiming, setupDelegatedHandlers } from './tabs.js';
 import { setupExportButtons, applyUrlState, hasActiveFilters } from './export.js';
 import { initCollapsibleSections } from './ui.js';
@@ -33,7 +33,10 @@ export async function loadData(jsonData) {
     // Load saved state from localStorage (URL params will override)
     const hasUrlParams = window.location.search.length > 1;
     if (!hasUrlParams) {
-        loadFiltersFromStorage();
+        const restored = loadFiltersFromStorage();
+        if (!restored) {
+            applyDefaultFilters();
+        }
     }
 
     // Apply URL state (filters, tab, etc.) if present

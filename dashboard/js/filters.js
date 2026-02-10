@@ -1,4 +1,4 @@
-import { state, VIEW_LEVELS } from './state.js';
+import { state, VIEW_LEVELS, FILTER_DEFAULTS } from './state.js';
 import { updateAllSectionGuidance } from './state.js';
 import { escapeHtml, getAllTags, getAuthorEmail, getAuthorName, getCommitTags, getFilesChanged } from './utils.js';
 import { renderTimeline, renderProgress, renderContributors, renderTags, renderHealth, renderSecurity, renderTiming, renderSummary } from './tabs.js';
@@ -539,6 +539,54 @@ export function loadFiltersFromStorage() {
     } catch (e) {
         console.warn('Failed to restore dashboard state:', e);
         return false;
+    }
+}
+
+export function applyDefaultFilters() {
+    // Apply default tag filter (exclude merge)
+    if (FILTER_DEFAULTS.tag) {
+        const { values, mode } = FILTER_DEFAULTS.tag;
+        const container = document.querySelector('#filter-tag-container');
+        if (container) {
+            const validValues = values.filter(v =>
+                container.querySelector(`input[value="${CSS.escape(v)}"]`)
+            );
+            if (validValues.length > 0) {
+                state.filters.tag.values = validValues;
+                state.filters.tag.mode = mode;
+
+                // Check the checkboxes
+                validValues.forEach(v => {
+                    const cb = container.querySelector(`input[value="${CSS.escape(v)}"]`);
+                    if (cb) {
+                        cb.checked = true;
+                        cb.closest('.filter-multi-select-option')?.classList.add('selected');
+                    }
+                });
+
+                // Update trigger text
+                updateFilterFromCheckboxes(container, 'tag');
+
+                // Update mode toggle
+                const toggle = document.querySelector('.filter-mode-toggle[data-filter="tag"]');
+                if (toggle) {
+                    toggle.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                    toggle.querySelector(`[data-mode="${mode}"]`)?.classList.add('active');
+                }
+            }
+        }
+    }
+
+    // Apply default date-from
+    if (FILTER_DEFAULTS.dateFrom) {
+        state.filters.dateFrom = FILTER_DEFAULTS.dateFrom;
+        document.getElementById('filter-date-from').value = FILTER_DEFAULTS.dateFrom;
+    }
+
+    // Apply default date-to
+    if (FILTER_DEFAULTS.dateTo) {
+        state.filters.dateTo = FILTER_DEFAULTS.dateTo;
+        document.getElementById('filter-date-to').value = FILTER_DEFAULTS.dateTo;
     }
 }
 

@@ -170,6 +170,13 @@ export function updateAllSectionGuidance() {
     });
 }
 
+// === Default Filter Configuration ===
+// Applied on first visit (no localStorage, no URL params)
+export const FILTER_DEFAULTS = {
+    tag: { values: ['merge'], mode: 'exclude' },
+    dateFrom: '2025-12-01'
+};
+
 // === Mobile Detection ===
 // Used by chart modules for responsive font sizes, label skipping, etc.
 export function isMobile() {
