@@ -27,11 +27,21 @@ Remaining tasks for Git Analytics Reporting System.
 
 ## Backlog
 
-### React + Tailwind Migration (Evaluated 2026-02-10)
+### React + Tailwind Migration (Implemented 2026-02-10)
 
-**Status:** Assessed, not started. See `docs/ADR-001-vanilla-js.md` for current decision rationale.
+**Status:** Complete. Dashboard migrated from vanilla JS to React + Tailwind. Build passes, all tabs functional.
 
-**Summary:** Medium-sized migration. Tailwind transfers 1:1, but ~3,500 lines of DOM-touching JS need rewriting. Current vanilla JS works well for a read-only dashboard — migration is a "pay now, benefit later" investment with no immediate user-facing value.
+**What was done:**
+- Added React 19, ReactDOM, react-chartjs-2, @vitejs/plugin-react
+- Created AppContext.jsx with useReducer state management (replaces global mutable state)
+- Converted 880-line index.html → simplified root div + 20 React components
+- All 9 tab modules rewritten as React components with useMemo-based computation
+- Charts migrated to react-chartjs-2 declarative components
+- Delegated event handlers eliminated — replaced by React onClick props
+- Filter sidebar converted to controlled React components
+- Detail pane, settings pane, collapsible sections all React components
+- utils.js and styles.css preserved unchanged (global state sync via useEffect for compat)
+- Vite config updated with React plugin; PWA configuration unchanged
 
 #### Scope Breakdown
 

@@ -1,10 +1,14 @@
-# ADR-001: Vanilla JavaScript Instead of a Framework
+# ADR-001: Dashboard Framework Decision
 
-**Status:** Accepted
-**Date:** 2026-02-10
+**Status:** Superseded — migrated to React (2026-02-10)
+**Original Date:** 2026-02-10
 **Context:** Dashboard built as a read-only analytics viewer for git commit data.
 
-## Decision
+## Current Decision
+
+Migrated to **React + Tailwind** with react-chartjs-2 for declarative rendering, component isolation, and better developer ergonomics. The original vanilla JS approach worked well but React provides a cleaner foundation for future development.
+
+## Original Decision (Vanilla JS)
 
 Use vanilla JavaScript with ES modules (bundled by Vite) instead of React, Vue, Svelte, or another UI framework.
 

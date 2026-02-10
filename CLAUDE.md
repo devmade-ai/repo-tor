@@ -11,14 +11,19 @@
 - `scripts/extract.js` - Extracts git log data into structured JSON
 - `scripts/extract-api.js` - GitHub API-based extraction (untested, see TODO.md)
 - `scripts/aggregate-processed.js` - Aggregates processed/ data into dashboard JSON
-- `dashboard/` - Modular dashboard (Vite + Tailwind v4 + Chart.js)
-  - `index.html` - HTML structure
-  - `styles.css` - Extracted CSS
-  - `js/main.js` - Entry point
-  - `js/tabs.js` - Re-export barrel for backward compatibility
-  - `js/tabs/` - Tab render modules (timeline, progress, contributors, security, health, tags, timing, summary, discover, delegated-handlers)
-  - `js/state.js`, `utils.js`, `filters.js`, `ui.js`, `charts.js`, `data.js`, `export.js`, `pwa.js`
-- `vite.config.js` - Vite build + Tailwind v4 + PWA plugin config
+- `dashboard/` - React dashboard (Vite + React + Tailwind v4 + Chart.js via react-chartjs-2)
+  - `index.html` - Minimal HTML (root div + script)
+  - `styles.css` - Tailwind v4 + custom CSS (unchanged from vanilla JS)
+  - `js/main.jsx` - React entry point with Chart.js registration
+  - `js/AppContext.jsx` - React Context + useReducer state management
+  - `js/App.jsx` - Main app component (data loading, tab routing, layout)
+  - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection)
+  - `js/tabs/` - Tab components (SummaryTab, TimelineTab, TimingTab, ProgressTab, ContributorsTab, TagsTab, HealthTab, SecurityTab, DiscoverTab)
+  - `js/state.js` - Constants (TAB_MAPPING, VIEW_LEVELS, etc.) + global state compat shim
+  - `js/utils.js` - Pure utility functions (unchanged)
+  - `js/charts.js` - Chart aggregation helpers
+  - `js/pwa.js` - PWA install/update logic
+- `vite.config.js` - Vite build + React + Tailwind v4 + PWA plugin config
 - `hooks/commit-msg` - Validates conventional commit format
 - `docs/COMMIT_CONVENTION.md` - Team guide for commit messages
 
@@ -43,7 +48,7 @@
 | Work | `tab-progress`, `tab-tags`, `tab-contributors` |
 | Health | `tab-security` |
 
-Tab mapping lives in `js/state.js` as `TAB_MAPPING`.
+Tab routing lives in `js/App.jsx`. Tab constants in `js/state.js` as `TAB_MAPPING`.
 
 **Role-Based View Levels** — Three audiences with different detail levels:
 

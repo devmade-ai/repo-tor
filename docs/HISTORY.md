@@ -4,15 +4,32 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-10
 
-### Docs: React + Tailwind Migration Analysis
+### React + Tailwind Migration
 
-**Why:** Evaluated the effort required to migrate from vanilla JS to React with Tailwind to inform future architecture decisions.
+**Why:** Migrated dashboard from vanilla JS to React for declarative rendering, component isolation, and better developer ergonomics.
 
 **Changes:**
-- `docs/TODO.md` — Added detailed migration scope breakdown (lines affected per module, risks, gains, recommended approach) under "React + Tailwind Migration" backlog section.
-- `docs/ADR-001-vanilla-js.md` — Added "React Migration Cost Assessment" section with summary findings and cross-reference to TODO.md.
+- `vite.config.js` — Added @vitejs/plugin-react
+- `package.json` — Added react, react-dom, react-chartjs-2, @vitejs/plugin-react
+- `dashboard/index.html` — Simplified to root div + script tag (was 880 lines)
+- `dashboard/js/main.jsx` — New React entry point with Chart.js registration
+- `dashboard/js/AppContext.jsx` — React Context + useReducer state management
+- `dashboard/js/App.jsx` — Main app component with data loading and tab routing
+- `dashboard/js/components/` — 7 shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection)
+- `dashboard/js/tabs/*.jsx` — 9 tab components (Summary, Timeline, Timing, Progress, Contributors, Tags, Health, Security, Discover)
 
-**Conclusion:** Migration is feasible (~3,500 lines to rewrite, ~20-25 components) but offers no user-facing value for a read-only dashboard. Recommended incremental approach if proceeding. Consider Preact or Svelte over full React.
+**Architecture:**
+- State: AppContext with useReducer (replaces mutable global state object)
+- Charts: react-chartjs-2 declarative components (replaces manual destroy/recreate)
+- Events: React onClick props (replaces delegated-handlers.js)
+- Filters: Controlled React components
+- Compatibility: useEffect syncs React state → global state object so utils.js works unchanged
+
+---
+
+### Docs: React + Tailwind Migration Analysis
+
+**Why:** Initial effort assessment before implementation.
 
 ---
 
