@@ -12,8 +12,7 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     VitePWA({
-      registerType: 'autoUpdate',
-      injectRegister: 'script',
+      registerType: 'prompt',
       includeAssets: ['icons/*.png', 'icons/*.svg', '*.json', 'repos/*.json'],
       manifest: {
         name: 'Git Analytics Dashboard',

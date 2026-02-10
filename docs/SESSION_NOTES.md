@@ -7,6 +7,12 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-10):**
+- **PWA Rewrite** - Complete rewrite of PWA install + update system in dedicated `dashboard/js/pwa.js` module:
+  - Switched from `registerType: 'autoUpdate'` to `'prompt'` for explicit control over SW activation
+  - Uses `virtual:pwa-register` (vanilla JS) instead of `injectRegister: 'script'`
+  - Install: `beforeinstallprompt` for Chromium + fallback modal with browser-specific instructions for Safari/Firefox
+  - Updates: Hourly polling via `setInterval`, green "Update" button in header when available, `visibilitychange` passive checks
+  - Removed all PWA code from `export.js` — clean separation of concerns
 - **PWA Install Button Fix** - Install button no longer shows after app has been installed:
   - Persist installed state to localStorage (`pwaInstalled` flag)
   - Check both localStorage flag and `display-mode: standalone` media query
@@ -209,6 +215,7 @@ const TAB_MAPPING = {
 | `dashboard/index.html` | Dashboard HTML structure (modularized) |
 | `dashboard/styles.css` | Dashboard CSS styles |
 | `dashboard/js/main.js` | Dashboard JS entry point |
+| `dashboard/js/pwa.js` | PWA install + update module |
 | `dashboard/js/state.js` | Shared state and config constants |
 | `dashboard/js/tabs.js` | Tab rendering functions (largest module) |
 | `scripts/setup-gh.sh` | GitHub CLI installation and authentication |
@@ -257,4 +264,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-10 - Fixed PWA install button persistence, default filter date overwrite, filter checkbox alignment.*
+*Last updated: 2026-02-10 - PWA rewrite (dedicated module, prompt-based updates, Safari/Firefox fallback). Fixed PWA install button persistence, default filter date overwrite, filter checkbox alignment.*
