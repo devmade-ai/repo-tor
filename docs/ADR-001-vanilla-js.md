@@ -1,10 +1,14 @@
-# ADR-001: Vanilla JavaScript Instead of a Framework
+# ADR-001: Dashboard Framework Decision
 
-**Status:** Accepted
-**Date:** 2026-02-10
+**Status:** Superseded — migrated to React (2026-02-10)
+**Original Date:** 2026-02-10
 **Context:** Dashboard built as a read-only analytics viewer for git commit data.
 
-## Decision
+## Current Decision
+
+Migrated to **React + Tailwind** with react-chartjs-2 for declarative rendering, component isolation, and better developer ergonomics. The original vanilla JS approach worked well but React provides a cleaner foundation for future development.
+
+## Original Decision (Vanilla JS)
 
 Use vanilla JavaScript with ES modules (bundled by Vite) instead of React, Vue, Svelte, or another UI framework.
 
@@ -45,6 +49,21 @@ Adopt a framework if the dashboard gains:
 - **Deeply nested reusable components** with shared state
 
 If that happens, **Preact** (3KB, React-compatible API) or **Svelte** (compiles away, minimal runtime) would be the best fits for this project's size and simplicity goals. React/Vue/Angular would be overkill.
+
+## React Migration Cost Assessment (2026-02-10)
+
+A detailed migration analysis was performed. Key findings:
+
+- **~3,500 lines** of DOM-touching code would need rewriting
+- **~1,000 lines** (utils, data loading, PWA) transfer unchanged
+- **~20-25 React components** needed
+- **Tailwind classes** transfer 1:1 into JSX
+- **Highest-risk area:** `filters.js` (593 lines of intertwined state logic)
+- **No automated tests** — all verification would be visual
+
+**Conclusion:** Migration is feasible but offers no user-facing value for a read-only dashboard. The cost is real; the benefit is developer ergonomics for hypothetical future features.
+
+Full breakdown in `docs/TODO.md` under "React + Tailwind Migration".
 
 ## History
 

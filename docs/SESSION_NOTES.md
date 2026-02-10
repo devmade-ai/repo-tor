@@ -7,6 +7,15 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-10):**
+- **React + Tailwind Migration** - Full migration from vanilla JS to React:
+  - Added React 19 + react-chartjs-2 + @vitejs/plugin-react
+  - Created AppContext.jsx (useReducer state management, replaces global state)
+  - 20 React components: App, Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection + 9 tab components
+  - All charts now use react-chartjs-2 declarative components
+  - Delegated handlers eliminated (React onClick props instead)
+  - utils.js and styles.css unchanged; global state sync via useEffect for compat
+  - Build passes, dev server runs successfully
+- **React Migration Analysis** - Initial effort assessment documented in TODO.md and ADR-001
 - **Filter Indicator Fix** - Default filters now show visual indication on load:
   - `updateFilterIndicator()` now shows "X of Y" whenever any filter is active, regardless of whether the filter changes the commit count
   - Previously, the indicator was hidden when `filtered.length === total` (e.g., when no merge commits exist to exclude)

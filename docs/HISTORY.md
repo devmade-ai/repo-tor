@@ -4,6 +4,35 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-10
 
+### React + Tailwind Migration
+
+**Why:** Migrated dashboard from vanilla JS to React for declarative rendering, component isolation, and better developer ergonomics.
+
+**Changes:**
+- `vite.config.js` — Added @vitejs/plugin-react
+- `package.json` — Added react, react-dom, react-chartjs-2, @vitejs/plugin-react
+- `dashboard/index.html` — Simplified to root div + script tag (was 880 lines)
+- `dashboard/js/main.jsx` — New React entry point with Chart.js registration
+- `dashboard/js/AppContext.jsx` — React Context + useReducer state management
+- `dashboard/js/App.jsx` — Main app component with data loading and tab routing
+- `dashboard/js/components/` — 7 shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection)
+- `dashboard/js/tabs/*.jsx` — 9 tab components (Summary, Timeline, Timing, Progress, Contributors, Tags, Health, Security, Discover)
+
+**Architecture:**
+- State: AppContext with useReducer (replaces mutable global state object)
+- Charts: react-chartjs-2 declarative components (replaces manual destroy/recreate)
+- Events: React onClick props (replaces delegated-handlers.js)
+- Filters: Controlled React components
+- Compatibility: useEffect syncs React state → global state object so utils.js works unchanged
+
+---
+
+### Docs: React + Tailwind Migration Analysis
+
+**Why:** Initial effort assessment before implementation.
+
+---
+
 ### Fix: Default Filter Indicator on Load
 
 **Why:** When default filters were applied on first visit (exclude merge, date from 2025-12-01), the filter indicator ("X of Y") and badge didn't show in the UI, giving no visual feedback that filters were active.
