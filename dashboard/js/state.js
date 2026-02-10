@@ -25,11 +25,6 @@ export const state = {
     currentViewLevel: 'developer',
     filterSidebarOpen: false,
     settingsPaneOpen: false,
-    // Handler initialized flags
-    activityCardHandlersInitialized: false,
-    workCardHandlersInitialized: false,
-    healthCardHandlersInitialized: false,
-    summaryCardHandlersInitialized: false,
     // Current filtered commits cache
     currentCommits: [],
     // Active tab tracking for lazy rendering
