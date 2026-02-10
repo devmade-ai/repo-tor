@@ -4,6 +4,21 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-10
 
+### React Migration Review
+
+**Why:** Post-migration review to catch issues missed during the React migration.
+
+**Changes:**
+- `docs/TODO.md` — Replaced migration planning section with 22 categorized post-migration issues (5 critical, 5 functional, 6 accessibility, 6 code quality)
+- `docs/SESSION_NOTES.md` — Added review summary with prioritized findings
+
+**Key Findings:**
+- Dead vanilla JS files (17 files) still in codebase, pulled into bundle via `pwa.js` → `ui.js` import chain (472KB bundle)
+- PWA install/update UI non-functional (targets DOM IDs that don't exist in React components)
+- No error boundaries — any data anomaly crashes entire dashboard
+- `escapeHtml` unnecessary in React, `getTagStyle` returns CSS strings instead of objects
+- Multiple accessibility gaps (ARIA patterns, keyboard support, dialog semantics)
+
 ### React + Tailwind Migration
 
 **Why:** Migrated dashboard from vanilla JS to React for declarative rendering, component isolation, and better developer ergonomics.

@@ -7,6 +7,12 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-10):**
+- **React Migration Review** - Comprehensive post-migration review found 22 issues (see TODO.md):
+  - 5 critical: dead vanilla JS files in bundle (472KB!), pwa.js pulling in old code, no error boundaries
+  - 5 functional: unused state, non-reactive isMobile, unnecessary escapeHtml, duplicated parseInlineStyle
+  - 6 accessibility: missing ARIA patterns on tabs/dialogs/buttons, no keyboard support on clickable divs
+  - 6 code quality: leftover data-* attrs, index-based keys, body overflow conflicts, stale docs
+  - **Highest priority:** Delete dead vanilla JS files and fix pwa.js import chain to cut bundle size
 - **React + Tailwind Migration** - Full migration from vanilla JS to React:
   - Added React 19 + react-chartjs-2 + @vitejs/plugin-react
   - Created AppContext.jsx (useReducer state management, replaces global state)
