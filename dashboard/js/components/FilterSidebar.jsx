@@ -48,7 +48,7 @@ function MultiSelect({ options, selected, onChange }) {
             >
                 <span className="selected-text">{getDisplayText()}</span>
                 <span className="arrow">
-                    <svg width="10" height="10" viewBox="0 0 20 20" fill="currentColor">
+                    <svg width="10" height="10" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                 </span>
@@ -191,9 +191,11 @@ export default function FilterSidebar() {
             </div>
 
             {/* Mobile overlay */}
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
             <div
                 className={`filter-sidebar-overlay ${state.filterSidebarOpen ? 'open' : ''}`}
                 onClick={() => dispatch({ type: 'CLOSE_FILTER_SIDEBAR' })}
+                aria-hidden="true"
             />
         </>
     );

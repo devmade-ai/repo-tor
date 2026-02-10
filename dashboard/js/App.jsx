@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useApp } from './AppContext.jsx';
 import Header from './components/Header.jsx';
 import TabBar from './components/TabBar.jsx';
@@ -60,6 +60,7 @@ function combineDatasets(datasets) {
 
 export default function App() {
     const { state, dispatch } = useApp();
+    const [loadError, setLoadError] = useState(null);
 
     // Lock body scroll when any overlay pane is open
     useEffect(() => {
@@ -71,9 +72,12 @@ export default function App() {
     // Auto-load data.json on mount
     useEffect(() => {
         fetch('./data.json')
-            .then(r => r.json())
+            .then(r => {
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                return r.json();
+            })
             .then(data => dispatch({ type: 'LOAD_DATA', payload: data }))
-            .catch(() => {}); // silently fail, user can upload
+            .catch(() => {}); // 404 is expected — user can upload manually
     }, []);
 
     // PWA initialization
@@ -139,6 +143,12 @@ export default function App() {
                 });
             });
 
+        if (readers.length === 0) {
+            setLoadError('No JSON files found. Please upload .json files.');
+            return;
+        }
+
+        setLoadError(null);
         Promise.all(readers).then(datasets => {
             if (datasets.length === 0) return;
             const combined = combineDatasets(datasets);
@@ -147,12 +157,22 @@ export default function App() {
             }
         }).catch(err => {
             console.error('Error loading files:', err);
+            setLoadError('Failed to parse JSON file. Please check the file format.');
         });
     }, [dispatch]);
 
     // If no data loaded, show the drop zone
     if (!state.data) {
-        return <DropZone onFiles={handleFiles} />;
+        return (
+            <>
+                <DropZone onFiles={handleFiles} />
+                {loadError && (
+                    <div role="alert" className="max-w-2xl mx-auto px-4 -mt-8 mb-8">
+                        <p className="text-sm text-red-500 text-center">{loadError}</p>
+                    </div>
+                )}
+            </>
+        );
     }
 
     return (

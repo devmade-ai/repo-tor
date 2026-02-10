@@ -28,6 +28,7 @@ export default function CollapsibleSection({ title, subtitle, defaultExpanded = 
                     className="collapsible-chevron"
                     viewBox="0 0 20 20"
                     fill="currentColor"
+                    aria-hidden="true"
                 >
                     <path
                         fillRule="evenodd"

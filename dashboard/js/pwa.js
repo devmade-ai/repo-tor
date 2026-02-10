@@ -187,6 +187,6 @@ document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible' && 'serviceWorker' in navigator) {
         navigator.serviceWorker.getRegistration().then(reg => {
             if (reg) reg.update();
-        });
+        }).catch(() => {});
     }
 });
