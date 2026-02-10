@@ -241,6 +241,20 @@ export function getTagStyle(tag) {
     return `--tag-bg: rgba(${r}, ${g}, ${b}, 0.2); --tag-color: ${color}; --tag-border: rgba(${r}, ${g}, ${b}, 0.3);`;
 }
 
+// React-compatible version of getTagStyle — returns a style object
+export function getTagStyleObject(tag) {
+    if (TAG_COLORS[tag]) return {};
+    const color = getDynamicTagColor(tag);
+    const r = parseInt(color.slice(1, 3), 16);
+    const g = parseInt(color.slice(3, 5), 16);
+    const b = parseInt(color.slice(5, 7), 16);
+    return {
+        '--tag-bg': `rgba(${r}, ${g}, ${b}, 0.2)`,
+        '--tag-color': color,
+        '--tag-border': `rgba(${r}, ${g}, ${b}, 0.3)`,
+    };
+}
+
 // === Author Resolution ===
 export function getAuthorName(commit) {
     let name;

@@ -466,7 +466,7 @@ export default function DiscoverTab() {
                     {metricValues.map((metricResult, idx) => {
                         const isPinned = !!pinnedMetrics[idx];
                         return (
-                            <div key={idx} className="card">
+                            <div key={selectedMetrics[idx]} className="card">
                                 <div className="flex items-center justify-between mb-2">
                                     <select
                                         className="metric-selector text-xs bg-transparent border-none text-themed-tertiary cursor-pointer focus:outline-none"
@@ -525,13 +525,13 @@ export default function DiscoverTab() {
             <CollapsibleSection title="Comparisons">
                 {comparisons.length > 0 ? (
                     <div className="space-y-4">
-                        {comparisons.map((comp, idx) => {
+                        {comparisons.map((comp) => {
                             const total = comp.left.value + comp.right.value;
                             const leftPct = total > 0 ? Math.round((comp.left.value / total) * 100) : 50;
                             const rightPct = 100 - leftPct;
 
                             return (
-                                <div key={idx} className="p-3 bg-themed-tertiary rounded">
+                                <div key={comp.label} className="p-3 bg-themed-tertiary rounded">
                                     <p className="text-xs text-themed-tertiary mb-2">{comp.label}</p>
                                     <div className="flex items-center gap-2">
                                         <span className="text-sm font-medium text-themed-primary w-20">{comp.left.label}</span>

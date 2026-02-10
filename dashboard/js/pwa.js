@@ -5,15 +5,19 @@
  *   provides browser-specific manual instructions for Safari/Firefox.
  * Update: Uses virtual:pwa-register with registerType:'prompt' for
  *   explicit control over SW activation. Checks hourly for updates.
+ *
+ * Communicates with React via custom events on `window`:
+ *   - 'pwa-install-ready'   → install prompt is available
+ *   - 'pwa-installed'       → app was installed
+ *   - 'pwa-update-available'→ a new SW is waiting
+ *   - 'pwa-offline-ready'   → app ready for offline use
  */
 
 import { registerSW } from 'virtual:pwa-register';
-import { showToast } from './ui.js';
 
 // === State ===
 let deferredInstallPrompt = null;
-let updateSW = null; // function returned by registerSW to apply updates
-let hasUpdate = false;
+let updateSW = null;
 
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true;
@@ -64,7 +68,7 @@ export function getInstallInstructions() {
                 title: 'Install from Safari',
                 steps: platform === 'ios' || platform === 'ipados'
                     ? ['Tap the Share button (square with arrow)', 'Scroll down and tap "Add to Home Screen"', 'Tap "Add" to confirm']
-                    : ['Click File in the menu bar', 'Click "Add to Dock…"', 'Click "Add" to confirm']
+                    : ['Click File in the menu bar', 'Click "Add to Dock\u2026"', 'Click "Add" to confirm']
             };
         case 'chrome-ios':
         case 'edge-ios':
@@ -82,7 +86,7 @@ export function getInstallInstructions() {
         case 'brave':
             return {
                 title: `Install from ${browser.charAt(0).toUpperCase() + browser.slice(1)}`,
-                steps: ['Click the install icon in the address bar', 'Or open Menu → "Install app"']
+                steps: ['Click the install icon in the address bar', 'Or open Menu \u2192 "Install app"']
             };
         default:
             return {
@@ -94,130 +98,41 @@ export function getInstallInstructions() {
 
 // === Install: Prompt handling ===
 
-function showInstallButton() {
-    const btn = document.getElementById('btn-pwa-install');
-    if (btn) btn.classList.remove('hidden');
-    const settingsBtn = document.getElementById('btn-pwa-install-settings');
-    if (settingsBtn) settingsBtn.disabled = false;
-    updateInstallStatus('ready');
-}
-
-function hideInstallButton() {
-    const btn = document.getElementById('btn-pwa-install');
-    if (btn) btn.classList.add('hidden');
-    const settingsBtn = document.getElementById('btn-pwa-install-settings');
-    if (settingsBtn) settingsBtn.disabled = true;
-}
-
-function updateInstallStatus(status) {
-    const statusText = document.getElementById('pwa-status-text');
-    const settingsBtn = document.getElementById('btn-pwa-install-settings');
-    if (!statusText) return;
-
-    switch (status) {
-        case 'ready':
-            statusText.textContent = 'Ready to install';
-            statusText.style.color = 'var(--color-success, #16a34a)';
-            if (settingsBtn) settingsBtn.disabled = false;
-            break;
-        case 'installed':
-            statusText.textContent = 'App is installed';
-            statusText.style.color = 'var(--color-success, #16a34a)';
-            if (settingsBtn) {
-                settingsBtn.disabled = true;
-                settingsBtn.textContent = 'Already Installed';
-            }
-            break;
-        case 'unsupported':
-            statusText.textContent = 'See manual instructions below for your browser.';
-            statusText.style.color = 'var(--text-secondary)';
-            if (settingsBtn) settingsBtn.disabled = true;
-            break;
-    }
-}
-
-// Capture the browser's deferred install prompt (Chromium only)
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     if (isPWAInstalled) return;
     deferredInstallPrompt = e;
-    showInstallButton();
+    window.dispatchEvent(new CustomEvent('pwa-install-ready'));
 });
 
 window.addEventListener('appinstalled', () => {
     deferredInstallPrompt = null;
     localStorage.setItem('pwaInstalled', 'true');
-    hideInstallButton();
-    updateInstallStatus('installed');
-    showToast('App installed successfully!');
+    window.dispatchEvent(new CustomEvent('pwa-installed'));
 });
 
 /**
- * Trigger native install prompt (Chromium) or show manual instructions.
+ * Trigger native install prompt (Chromium) or return false if unavailable.
+ * Returns true if the prompt was shown, false if caller should show manual instructions.
  */
 export async function installPWA() {
     if (deferredInstallPrompt) {
         deferredInstallPrompt.prompt();
-        const { outcome } = await deferredInstallPrompt.userChoice;
-        if (outcome === 'accepted') {
-            showToast('Installing app...');
-        }
+        await deferredInstallPrompt.userChoice;
         deferredInstallPrompt = null;
-        return;
+        return true;
     }
-    // No native prompt available — show fallback instructions modal
-    showInstallInstructionsModal();
+    return false;
 }
 
-function showInstallInstructionsModal() {
-    const { title, steps } = getInstallInstructions();
-    const stepsHtml = steps.map((s, i) => `<li>${i + 1}. ${s}</li>`).join('');
-
-    // Create modal overlay
-    const modal = document.createElement('div');
-    modal.id = 'pwa-install-modal';
-    modal.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);';
-    modal.innerHTML = `
-        <div style="background:var(--card-bg, #1f2937);border-radius:12px;padding:24px;max-width:380px;width:90%;color:var(--text-primary, #f3f4f6);box-shadow:0 20px 40px rgba(0,0,0,0.3);">
-            <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">${title}</h3>
-            <ul style="list-style:none;padding:0;margin:0 0 20px;font-size:14px;line-height:1.8;color:var(--text-secondary, #d1d5db);">
-                ${stepsHtml}
-            </ul>
-            <button id="pwa-modal-close" style="width:100%;padding:10px;border:none;border-radius:8px;background:var(--color-primary, #2D68FF);color:white;font-size:14px;font-weight:500;cursor:pointer;">Got it</button>
-        </div>
-    `;
-    document.body.appendChild(modal);
-
-    const close = () => modal.remove();
-    modal.querySelector('#pwa-modal-close').addEventListener('click', close);
-    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
-    document.addEventListener('keydown', function handler(e) {
-        if (e.key === 'Escape') { close(); document.removeEventListener('keydown', handler); }
-    });
-
-    updateInstallStatus('unsupported');
+/** Whether the app is running as an installed PWA */
+export function isInstalledPWA() {
+    return isPWAInstalled;
 }
 
-// If already installed, hide install UI immediately
-if (isPWAInstalled) {
-    hideInstallButton();
-    updateInstallStatus('installed');
-    if (isStandalone) {
-        const pwaSection = document.getElementById('pwa-settings-section');
-        if (pwaSection) pwaSection.style.display = 'none';
-    }
-}
-
-// === Update: Service worker registration ===
-
-function showUpdateButton() {
-    const btn = document.getElementById('btn-pwa-update');
-    if (btn) btn.classList.remove('hidden');
-}
-
-function hideUpdateButton() {
-    const btn = document.getElementById('btn-pwa-update');
-    if (btn) btn.classList.add('hidden');
+/** Whether the app is running in standalone mode */
+export function isStandaloneMode() {
+    return isStandalone;
 }
 
 /**
@@ -225,72 +140,41 @@ function hideUpdateButton() {
  */
 export function applyUpdate() {
     if (updateSW) {
-        updateSW(true); // skipWaiting + reload
+        updateSW(true);
     }
 }
 
 /**
- * Manual check for updates (Settings panel button).
+ * Manual check for updates.
+ * Returns: 'update-found' | 'up-to-date' | 'no-sw' | 'error'
  */
 export async function checkForUpdate() {
-    const statusEl = document.getElementById('pwa-update-status');
-    const btn = document.getElementById('btn-pwa-check-update');
-    if (!statusEl || !btn) return;
-
-    if (!('serviceWorker' in navigator)) {
-        statusEl.textContent = 'Service workers not supported in this browser.';
-        statusEl.style.color = 'var(--text-secondary)';
-        return;
-    }
-
-    btn.disabled = true;
-    statusEl.textContent = 'Checking...';
-    statusEl.style.color = 'var(--text-secondary)';
-
+    if (!('serviceWorker' in navigator)) return 'no-sw';
     try {
         const reg = await navigator.serviceWorker.getRegistration();
-        if (!reg) {
-            statusEl.textContent = 'No service worker registered. Try refreshing the page.';
-            statusEl.style.color = 'var(--text-secondary)';
-            btn.disabled = false;
-            return;
-        }
-
+        if (!reg) return 'no-sw';
         await reg.update();
-
         if (reg.waiting || reg.installing) {
-            statusEl.textContent = 'Update found! Click "Update Available" in the header to apply.';
-            statusEl.style.color = 'var(--color-primary, #2D68FF)';
-            hasUpdate = true;
-            showUpdateButton();
-        } else {
-            statusEl.textContent = 'You are on the latest version.';
-            statusEl.style.color = 'var(--color-success, #16a34a)';
+            window.dispatchEvent(new CustomEvent('pwa-update-available'));
+            return 'update-found';
         }
-    } catch (err) {
-        statusEl.textContent = 'Could not check for updates. Check your connection.';
-        statusEl.style.color = 'var(--text-secondary)';
+        return 'up-to-date';
+    } catch {
+        return 'error';
     }
-    btn.disabled = false;
 }
 
 // Register the service worker via vite-plugin-pwa virtual module.
-// registerType:'prompt' means we control when the new SW activates.
 updateSW = registerSW({
     onNeedRefresh() {
-        // A new SW is waiting to activate
-        hasUpdate = true;
-        showUpdateButton();
+        window.dispatchEvent(new CustomEvent('pwa-update-available'));
     },
     onOfflineReady() {
-        showToast('App ready for offline use');
+        window.dispatchEvent(new CustomEvent('pwa-offline-ready'));
     },
     onRegisteredSW(swUrl, registration) {
-        // Check for updates every hour
         if (registration) {
-            setInterval(() => {
-                registration.update();
-            }, 60 * 60 * 1000);
+            setInterval(() => registration.update(), 60 * 60 * 1000);
         }
     },
     onRegisterError(error) {
@@ -298,7 +182,7 @@ updateSW = registerSW({
     }
 });
 
-// Also check for updates when page regains visibility
+// Check for updates when page regains visibility
 document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible' && 'serviceWorker' in navigator) {
         navigator.serviceWorker.getRegistration().then(reg => {

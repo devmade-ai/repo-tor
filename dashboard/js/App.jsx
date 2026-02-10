@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useApp } from './AppContext.jsx';
 import Header from './components/Header.jsx';
 import TabBar from './components/TabBar.jsx';
@@ -6,6 +6,7 @@ import DropZone from './components/DropZone.jsx';
 import FilterSidebar from './components/FilterSidebar.jsx';
 import DetailPane from './components/DetailPane.jsx';
 import SettingsPane from './components/SettingsPane.jsx';
+import ErrorBoundary from './components/ErrorBoundary.jsx';
 import SummaryTab from './tabs/SummaryTab.jsx';
 import TimelineTab from './tabs/TimelineTab.jsx';
 import TimingTab from './tabs/TimingTab.jsx';
@@ -59,8 +60,6 @@ function combineDatasets(datasets) {
 
 export default function App() {
     const { state, dispatch } = useApp();
-    const tooltipRef = useRef(null);
-    const [isDragOver, setIsDragOver] = useState(false);
 
     // Auto-load data.json on mount
     useEffect(() => {
@@ -157,27 +156,29 @@ export default function App() {
                 <div className="dashboard-layout mt-6">
                     <FilterSidebar />
                     <div className="tab-content-area">
-                        {state.activeTab === 'overview' && <SummaryTab />}
-                        {state.activeTab === 'activity' && (
-                            <>
-                                <TimelineTab />
-                                <TimingTab />
-                            </>
-                        )}
-                        {state.activeTab === 'work' && (
-                            <>
-                                <ProgressTab />
-                                <ContributorsTab />
-                                <TagsTab />
-                            </>
-                        )}
-                        {state.activeTab === 'health' && (
-                            <>
-                                <HealthTab />
-                                <SecurityTab />
-                            </>
-                        )}
-                        {state.activeTab === 'discover' && <DiscoverTab />}
+                        <ErrorBoundary key={state.activeTab}>
+                            {state.activeTab === 'overview' && <SummaryTab />}
+                            {state.activeTab === 'activity' && (
+                                <>
+                                    <TimelineTab />
+                                    <TimingTab />
+                                </>
+                            )}
+                            {state.activeTab === 'work' && (
+                                <>
+                                    <ProgressTab />
+                                    <ContributorsTab />
+                                    <TagsTab />
+                                </>
+                            )}
+                            {state.activeTab === 'health' && (
+                                <>
+                                    <HealthTab />
+                                    <SecurityTab />
+                                </>
+                            )}
+                            {state.activeTab === 'discover' && <DiscoverTab />}
+                        </ErrorBoundary>
                     </div>
                 </div>
             </div>

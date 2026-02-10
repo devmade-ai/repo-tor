@@ -129,7 +129,7 @@ export default function SummaryTab() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
                         className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
-                        data-summary-card="features"
+
                         onClick={() => handleCardClick('features')}
                     >
                         <div className="p-4 bg-themed-tertiary rounded-lg text-center">
@@ -139,7 +139,7 @@ export default function SummaryTab() {
                     </div>
                     <div
                         className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
-                        data-summary-card="fixes"
+
                         onClick={() => handleCardClick('fixes')}
                     >
                         <div className="p-4 bg-themed-tertiary rounded-lg text-center">
@@ -149,7 +149,7 @@ export default function SummaryTab() {
                     </div>
                     <div
                         className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
-                        data-summary-card="urgency"
+
                         onClick={() => handleCardClick('urgency')}
                     >
                         <div className="p-4 bg-themed-tertiary rounded-lg text-center">
@@ -161,7 +161,7 @@ export default function SummaryTab() {
                     </div>
                     <div
                         className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
-                        data-summary-card="planned"
+
                         onClick={() => handleCardClick('planned')}
                     >
                         <div className="p-4 bg-themed-tertiary rounded-lg text-center">
@@ -178,8 +178,8 @@ export default function SummaryTab() {
             <CollapsibleSection title="Key Highlights">
                 {highlights.length > 0 ? (
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                        {highlights.map((h, i) => (
-                            <div key={i} className="p-3 bg-themed-tertiary rounded">
+                        {highlights.map((h) => (
+                            <div key={h.label} className="p-3 bg-themed-tertiary rounded">
                                 <p className="text-xs text-themed-tertiary mb-1">{h.label}</p>
                                 <p className="text-sm font-semibold text-themed-primary">{h.value}</p>
                                 {h.subvalue && (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useApp } from '../AppContext.jsx';
 
 const VIEW_LEVEL_DESCRIPTIONS = {
@@ -24,6 +24,16 @@ export default function SettingsPane() {
     function handleClose() {
         dispatch({ type: 'CLOSE_SETTINGS_PANE' });
     }
+
+    // Escape key to close
+    useEffect(() => {
+        if (!state.settingsPaneOpen) return;
+        function handleKey(e) {
+            if (e.key === 'Escape') handleClose();
+        }
+        document.addEventListener('keydown', handleKey);
+        return () => document.removeEventListener('keydown', handleKey);
+    }, [state.settingsPaneOpen]);
 
     function handleViewLevel(level) {
         dispatch({ type: 'SET_VIEW_LEVEL', payload: level });
@@ -55,10 +65,15 @@ export default function SettingsPane() {
                 className={`settings-pane-overlay ${state.settingsPaneOpen ? 'open' : ''}`}
                 onClick={handleClose}
             />
-            <div className={`settings-pane ${state.settingsPaneOpen ? 'open' : ''}`}>
+            <div
+                className={`settings-pane ${state.settingsPaneOpen ? 'open' : ''}`}
+                role="dialog"
+                aria-modal={state.settingsPaneOpen}
+                aria-label="Settings"
+            >
                 <div className="settings-pane-header">
                     <span className="settings-pane-title">Settings</span>
-                    <button className="settings-pane-close" onClick={handleClose}>
+                    <button className="settings-pane-close" onClick={handleClose} aria-label="Close settings">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
@@ -67,7 +82,7 @@ export default function SettingsPane() {
                 </div>
                 <div className="settings-pane-content">
                     {/* View Level */}
-                    <div className="settings-section">
+                    <div className="settings-section" role="radiogroup" aria-label="View level">
                         <div className="settings-section-title">View Level</div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             {['executive', 'management', 'developer'].map(level => {
@@ -76,7 +91,16 @@ export default function SettingsPane() {
                                     <div
                                         key={level}
                                         className={`settings-toggle ${isActive ? 'active' : ''}`}
+                                        role="radio"
+                                        aria-checked={isActive}
+                                        tabIndex={0}
                                         onClick={() => handleViewLevel(level)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                handleViewLevel(level);
+                                            }
+                                        }}
                                     >
                                         <div>
                                             <div className="settings-toggle-label">{capitalize(level)}</div>
@@ -98,7 +122,16 @@ export default function SettingsPane() {
                         <div className="settings-section-title">Timezone</div>
                         <div
                             className={`settings-toggle ${state.useUTC ? 'active' : ''}`}
+                            role="switch"
+                            aria-checked={state.useUTC}
+                            tabIndex={0}
                             onClick={handleToggleUTC}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    handleToggleUTC();
+                                }
+                            }}
                         >
                             <div>
                                 <div className="settings-toggle-label">Use UTC</div>

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
-import { escapeHtml, getAuthorEmail, getAuthorName, sanitizeName } from '../utils.js';
+import { getAuthorEmail, getAuthorName, sanitizeName } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 function UrgencyBar({ counts, total, label, onClick }) {

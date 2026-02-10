@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useApp } from '../AppContext.jsx';
 import {
-    escapeHtml, formatDate, getCommitSubject, getAuthorName,
+    formatDate, getCommitSubject, getAuthorName,
     sanitizeMessage, getCommitDateRange
 } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';

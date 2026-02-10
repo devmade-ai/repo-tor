@@ -1,18 +1,8 @@
 import React, { useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
-import { getCommitTags, getTagColor, getTagClass, getTagStyle } from '../utils.js';
+import { getCommitTags, getTagColor, getTagClass, getTagStyleObject } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
-
-function parseInlineStyle(styleStr) {
-    if (!styleStr) return {};
-    const style = {};
-    styleStr.split(';').forEach(pair => {
-        const [key, val] = pair.split(':').map(s => s.trim());
-        if (key && val) style[key] = val;
-    });
-    return style;
-}
 
 export default function TagsTab() {
     const { filteredCommits, openDetailPane, isMobile } = useApp();
@@ -106,7 +96,7 @@ export default function TagsTab() {
                             >
                                 <span
                                     className={`tag ${getTagClass(tag)}`}
-                                    style={parseInlineStyle(getTagStyle(tag))}
+                                    style={getTagStyleObject(tag)}
                                 >
                                     {tag}
                                 </span>

@@ -1,25 +1,14 @@
 import React, { useEffect } from 'react';
 import { useApp } from '../AppContext.jsx';
 import {
-    escapeHtml,
     formatDate,
     getCommitTags,
     getTagClass,
-    getTagStyle,
+    getTagStyleObject,
     getAuthorName,
     getCommitSubject,
     sanitizeMessage,
 } from '../utils.js';
-
-function parseInlineStyle(styleStr) {
-    if (!styleStr) return {};
-    const style = {};
-    styleStr.split(';').forEach(pair => {
-        const [key, val] = pair.split(':').map(s => s.trim());
-        if (key && val) style[key] = val;
-    });
-    return style;
-}
 
 export default function DetailPane() {
     const { state, dispatch } = useApp();
@@ -37,6 +26,16 @@ export default function DetailPane() {
         };
     }, [open]);
 
+    // Escape key to close
+    useEffect(() => {
+        if (!open) return;
+        function handleKey(e) {
+            if (e.key === 'Escape') dispatch({ type: 'CLOSE_DETAIL_PANE' });
+        }
+        document.addEventListener('keydown', handleKey);
+        return () => document.removeEventListener('keydown', handleKey);
+    }, [open, dispatch]);
+
     function handleClose() {
         dispatch({ type: 'CLOSE_DETAIL_PANE' });
     }
@@ -47,13 +46,18 @@ export default function DetailPane() {
                 className={`detail-pane-overlay ${open ? 'open' : ''}`}
                 onClick={handleClose}
             />
-            <div className={`detail-pane ${open ? 'open' : ''}`}>
+            <div
+                className={`detail-pane ${open ? 'open' : ''}`}
+                role="dialog"
+                aria-modal={open}
+                aria-label={title || 'Detail pane'}
+            >
                 <div className="detail-pane-header">
                     <div>
                         <div className="detail-pane-title">{title}</div>
                         {subtitle && <div className="detail-pane-subtitle">{subtitle}</div>}
                     </div>
-                    <button className="detail-pane-close" onClick={handleClose}>
+                    <button className="detail-pane-close" onClick={handleClose} aria-label="Close detail pane">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
@@ -71,23 +75,20 @@ export default function DetailPane() {
                             return (
                                 <div key={commit.sha || index} className="detail-commit">
                                     <div className="detail-commit-message">
-                                        {escapeHtml(message)}
+                                        {message}
                                     </div>
                                     <div className="detail-commit-meta">
-                                        <span>{escapeHtml(authorName)}</span>
+                                        <span>{authorName}</span>
                                         <span>&middot;</span>
                                         <span>{formatDate(commit.timestamp)}</span>
                                     </div>
                                     <div className="detail-commit-tags">
                                         {tags.map(tag => {
-                                            const tagClass = getTagClass(tag);
-                                            const tagStyleStr = getTagStyle(tag);
-                                            const inlineStyle = parseInlineStyle(tagStyleStr);
                                             return (
                                                 <span
                                                     key={tag}
-                                                    className={`tag ${tagClass}`}
-                                                    style={inlineStyle}
+                                                    className={`tag ${getTagClass(tag)}`}
+                                                    style={getTagStyleObject(tag)}
                                                 >
                                                     {tag}
                                                 </span>

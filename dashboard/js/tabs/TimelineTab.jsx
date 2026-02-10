@@ -2,22 +2,12 @@ import React, { useMemo, useState, useCallback } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
-    escapeHtml, formatDate, getCommitTags, getTagClass, getTagStyle,
+    formatDate, getCommitTags, getTagClass, getTagStyleObject,
     getAuthorEmail, getAuthorName, getCommitSubject,
     sanitizeMessage, getWorkPattern, getAdditions, getDeletions
 } from '../utils.js';
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
-
-function parseInlineStyle(styleStr) {
-    if (!styleStr) return {};
-    const style = {};
-    styleStr.split(';').forEach(pair => {
-        const [key, val] = pair.split(':').map(s => s.trim());
-        if (key && val) style[key] = val;
-    });
-    return style;
-}
 
 export default function TimelineTab() {
     const { state, dispatch, filteredCommits, viewConfig, openDetailPane, isMobile } = useApp();
@@ -292,7 +282,7 @@ export default function TimelineTab() {
                                     <span
                                         key={t}
                                         className={`tag ${getTagClass(t)} shrink-0`}
-                                        style={parseInlineStyle(getTagStyle(t))}
+                                        style={getTagStyleObject(t)}
                                     >
                                         {t}
                                     </span>
@@ -364,7 +354,7 @@ export default function TimelineTab() {
                                 <span
                                     key={tag}
                                     className={`tag ${getTagClass(tag)}`}
-                                    style={parseInlineStyle(getTagStyle(tag))}
+                                    style={getTagStyleObject(tag)}
                                 >
                                     {tag} ({count})
                                 </span>

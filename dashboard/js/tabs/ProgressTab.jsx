@@ -165,7 +165,7 @@ export default function ProgressTab() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
-                        data-work-card="features"
+
                         onClick={() => handleCardClick('features')}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{metrics.featureCount}</div>
@@ -173,7 +173,7 @@ export default function ProgressTab() {
                     </div>
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
-                        data-work-card="bugfixes"
+
                         onClick={() => handleCardClick('bugfixes')}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{metrics.bugfixCount}</div>
@@ -181,7 +181,7 @@ export default function ProgressTab() {
                     </div>
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
-                        data-work-card="refactors"
+
                         onClick={() => handleCardClick('refactors')}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{metrics.refactorCount}</div>

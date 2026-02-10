@@ -4,20 +4,35 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-10
 
+### React Migration Fixes
+
+**Why:** Fixed 15 of 22 issues identified during post-migration review.
+
+**Changes:**
+- Deleted 17 vanilla JS files: `main.js`, `filters.js`, `ui.js`, `export.js`, `data.js`, `tabs.js`, `tabs/*.js`
+- `dashboard/js/pwa.js` — Rewrote: removed `ui.js` import, replaced DOM manipulation with custom events
+- `dashboard/js/charts.js` — Removed `filters.js` import and vanilla render functions; only exports pure data functions
+- `dashboard/js/components/ErrorBoundary.jsx` — New error boundary component
+- `dashboard/js/App.jsx` — Wrapped tab content with ErrorBoundary, removed unused isDragOver state
+- `dashboard/js/AppContext.jsx` — isMobile now tracks window resize via debounced state
+- `dashboard/js/utils.js` — Added `getTagStyleObject()` returning React-compatible style objects
+- `dashboard/js/components/DetailPane.jsx` — Removed escapeHtml/parseInlineStyle, added dialog role, Escape key, aria-label
+- `dashboard/js/components/SettingsPane.jsx` — Added dialog role, Escape key, aria-label, role/tabIndex on toggles
+- `dashboard/js/components/TabBar.jsx` — Added role="tablist"/role="tab"/aria-selected, removed data-tab
+- `dashboard/js/components/CollapsibleSection.jsx` — Added role="button"/tabIndex/keyboard, removed data-section
+- `dashboard/js/components/Header.jsx` — aria-label on settings button
+- `dashboard/js/tabs/TimelineTab.jsx`, `ContributorsTab.jsx`, `TagsTab.jsx` — Removed escapeHtml import, parseInlineStyle, use getTagStyleObject
+- `dashboard/js/tabs/TimingTab.jsx`, `SecurityTab.jsx`, `HealthTab.jsx` — Removed escapeHtml import
+- `dashboard/js/tabs/SummaryTab.jsx` — Removed data-summary-card, fixed index keys
+- `dashboard/js/tabs/ProgressTab.jsx` — Removed data-work-card
+- `dashboard/js/tabs/DiscoverTab.jsx` — Fixed index keys on metric cards and comparisons
+- Build: 70 → 57 modules transformed
+
 ### React Migration Review
 
 **Why:** Post-migration review to catch issues missed during the React migration.
 
-**Changes:**
-- `docs/TODO.md` — Replaced migration planning section with 22 categorized post-migration issues (5 critical, 5 functional, 6 accessibility, 6 code quality)
-- `docs/SESSION_NOTES.md` — Added review summary with prioritized findings
-
-**Key Findings:**
-- Dead vanilla JS files (17 files) still in codebase, pulled into bundle via `pwa.js` → `ui.js` import chain (472KB bundle)
-- PWA install/update UI non-functional (targets DOM IDs that don't exist in React components)
-- No error boundaries — any data anomaly crashes entire dashboard
-- `escapeHtml` unnecessary in React, `getTagStyle` returns CSS strings instead of objects
-- Multiple accessibility gaps (ARIA patterns, keyboard support, dialog semantics)
+**Findings:** 22 issues identified across critical (5), functional (5), accessibility (6), and code quality (6) categories. All documented in TODO.md.
 
 ### React + Tailwind Migration
 
