@@ -48,7 +48,7 @@ export default function ProgressTab() {
 
         if (months.length === 0) return null;
 
-        const mobile = isMobile();
+        const mobile = isMobile;
         return {
             data: {
                 labels: months,
@@ -108,7 +108,7 @@ export default function ProgressTab() {
 
         if (months.length === 0) return null;
 
-        const mobile = isMobile();
+        const mobile = isMobile;
         return {
             data: {
                 labels: months,

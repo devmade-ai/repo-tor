@@ -93,7 +93,7 @@ export default function TimelineTab() {
             }];
         }
 
-        const mobile = isMobile();
+        const mobile = isMobile;
         return {
             data: { labels, datasets },
             options: {
@@ -179,7 +179,7 @@ export default function TimelineTab() {
             }];
         }
 
-        const mobile = isMobile();
+        const mobile = isMobile;
         return {
             data: { labels, datasets },
             options: {

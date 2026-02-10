@@ -138,7 +138,7 @@ export default function HealthTab() {
             Math.round((monthlyUrgency[m].sum / monthlyUrgency[m].count) * 100) / 100
         );
 
-        const mobile = isMobile();
+        const mobile = isMobile;
         return {
             data: {
                 labels: sortedMonths.map(m => {
@@ -191,7 +191,7 @@ export default function HealthTab() {
             'api': '#16A34A',
         };
 
-        const mobile = isMobile();
+        const mobile = isMobile;
         return {
             data: {
                 labels: sortedMonths.map(m => {

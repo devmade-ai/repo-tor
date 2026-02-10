@@ -30,7 +30,7 @@ export default function ContributorsTab() {
             return item.complexities.reduce((a, b) => a + b, 0) / item.complexities.length;
         });
 
-        const mobile = isMobile();
+        const mobile = isMobile;
         return {
             data: {
                 labels: chartLabels,
