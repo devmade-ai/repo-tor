@@ -129,6 +129,24 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 
 ---
 
+## 2026-02-10: React migration dropped CSS without replacing it
+
+**What happened:** During the React migration, the `<link rel="stylesheet" href="./styles.css">` tag was removed from `index.html` (since the old HTML was completely rewritten), but no `import '../styles.css'` was added to `main.jsx`. The build passed, the dev server started, and 22 post-migration issues were identified and fixed — but nobody caught that the build had zero CSS output.
+
+**Why it's a problem:** The PWA served a page with no styles. Since the dark theme defines white text via CSS custom properties, the result was white text on a white background — a completely blank screen. Users who updated their PWA saw nothing.
+
+**What should have happened:**
+1. When migrating HTML to a JS framework, check every `<link>` and `<script>` tag in the old HTML — each one needs a corresponding import or alternative in the new setup
+2. Verify the build output includes expected file types (JS, CSS, HTML) — a build with zero CSS files is a red flag
+3. Visually test the production build, not just confirm "build passes"
+
+**Current status:** Fixed — `import '../styles.css'` added to `main.jsx`. Build now produces 47KB CSS file.
+
+**Files affected:**
+- `dashboard/js/main.jsx` — Missing CSS import
+
+---
+
 ## Template for Future Entries
 
 ```markdown

@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import '../styles.css';
 import { AppProvider } from './AppContext.jsx';
 import App from './App.jsx';
 
