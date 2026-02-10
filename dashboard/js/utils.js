@@ -28,12 +28,10 @@ export function getAnonymousName(email) {
 }
 
 export function sanitizeName(name, email) {
-    if (!state.isSanitized) return name;
     return getAnonymousName(email);
 }
 
 export function sanitizeMessage(message) {
-    if (!state.isSanitized) return message;
     // Show only the type prefix if conventional commit, otherwise generic
     const match = message.match(/^(feat|fix|docs|style|refactor|test|chore|ci|build|perf|security)(\(.+?\))?:/i);
     if (match) {
@@ -491,14 +489,8 @@ export function renderDrilldownSummary(summary) {
         <div class="space-y-6">
             <!-- Summary Stats -->
             <div class="grid grid-cols-2 gap-4">
-                <div class="p-4 bg-themed-tertiary rounded-lg text-center">
-                    <div class="text-2xl font-semibold text-themed-primary">${summary.totalCommits}</div>
-                    <div class="text-sm text-themed-tertiary">Total Commits</div>
-                </div>
-                <div class="p-4 bg-themed-tertiary rounded-lg text-center">
-                    <div class="text-2xl font-semibold text-themed-primary">${summary.contributorCount}</div>
-                    <div class="text-sm text-themed-tertiary">Contributors</div>
-                </div>
+                ${renderStatCard(summary.totalCommits, 'Total Commits')}
+                ${renderStatCard(summary.contributorCount, 'Contributors')}
             </div>
 
             <!-- Date Range -->
@@ -519,6 +511,102 @@ export function renderDrilldownSummary(summary) {
                 <div class="space-y-1">${repoBreakdownHtml}</div>
             </div>
             ` : ''}
+        </div>
+    `;
+}
+
+// === Reusable HTML Template Helpers ===
+// Shared patterns used across multiple render functions to reduce duplication.
+
+/**
+ * Render a stacked urgency bar (planned/normal/reactive)
+ * @param {{ planned: number, normal: number, reactive: number }} counts
+ * @param {number} total
+ * @param {string} label - Display name for the row
+ * @param {string} [dataAttr] - Optional data attribute for click delegation, e.g. 'data-repo-urgency="repo-name"'
+ * @param {{ barHeight?: string, showLabels?: boolean }} [opts]
+ */
+export function renderUrgencyBar(counts, total, label, dataAttr = '', opts = {}) {
+    const barHeight = opts.barHeight || 'h-2';
+    const showLabels = opts.showLabels !== false;
+    const plannedPct = total > 0 ? Math.round((counts.planned / total) * 100) : 0;
+    const normalPct = total > 0 ? Math.round((counts.normal / total) * 100) : 0;
+    const reactivePct = total > 0 ? Math.round((counts.reactive / total) * 100) : 0;
+    const clickable = dataAttr ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded' : '';
+
+    return `
+        <div class="${clickable} p-2 -m-2 transition-colors" ${dataAttr}>
+            <div class="flex justify-between text-sm mb-1">
+                <span class="text-themed-secondary font-medium">${escapeHtml(label)}</span>
+                <span class="text-themed-tertiary">${total} commits</span>
+            </div>
+            <div class="w-full ${barHeight} bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
+                <div class="bg-green-500 h-full" style="width: ${plannedPct}%"${!dataAttr ? ` title="Planned: ${counts.planned}"` : ''}></div>
+                <div class="bg-blue-500 h-full" style="width: ${normalPct}%"${!dataAttr ? ` title="Normal: ${counts.normal}"` : ''}></div>
+                <div class="bg-amber-500 h-full" style="width: ${reactivePct}%"${!dataAttr ? ` title="Reactive: ${counts.reactive}"` : ''}></div>
+            </div>
+            ${showLabels ? `
+            <div class="flex justify-between text-xs text-themed-tertiary mt-${dataAttr ? '0.5' : '1'}">
+                <span>Planned ${plannedPct}%</span>
+                <span>Normal ${normalPct}%</span>
+                <span>Reactive ${reactivePct}%</span>
+            </div>` : ''}
+        </div>
+    `;
+}
+
+/**
+ * Render a stacked impact bar (user-facing/internal/infrastructure/api)
+ * @param {{ 'user-facing': number, internal: number, infrastructure: number, api: number }} counts
+ * @param {number} total
+ * @param {string} label - Display name for the row
+ * @param {string} [dataAttr] - Optional data attribute for click delegation
+ * @param {{ barHeight?: string, showLabels?: boolean }} [opts]
+ */
+export function renderImpactBar(counts, total, label, dataAttr = '', opts = {}) {
+    const barHeight = opts.barHeight || 'h-2';
+    const showLabels = opts.showLabels !== false;
+    const userPct = total > 0 ? Math.round((counts['user-facing'] / total) * 100) : 0;
+    const internalPct = total > 0 ? Math.round((counts['internal'] / total) * 100) : 0;
+    const infraPct = total > 0 ? Math.round((counts['infrastructure'] / total) * 100) : 0;
+    const apiPct = total > 0 ? Math.round((counts['api'] / total) * 100) : 0;
+    const clickable = dataAttr ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded' : '';
+
+    return `
+        <div class="${clickable} p-2 -m-2 transition-colors" ${dataAttr}>
+            <div class="flex justify-between text-sm mb-1">
+                <span class="text-themed-secondary font-medium">${escapeHtml(label)}</span>
+                <span class="text-themed-tertiary">${total} commits</span>
+            </div>
+            <div class="w-full ${barHeight} bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
+                <div class="bg-blue-500 h-full" style="width: ${userPct}%"${!dataAttr ? ` title="User-facing: ${counts['user-facing']}"` : ''}></div>
+                <div class="bg-gray-500 h-full" style="width: ${internalPct}%"${!dataAttr ? ` title="Internal: ${counts['internal']}"` : ''}></div>
+                <div class="bg-purple-500 h-full" style="width: ${infraPct}%"${!dataAttr ? ` title="Infrastructure: ${counts['infrastructure']}"` : ''}></div>
+                <div class="bg-green-500 h-full" style="width: ${apiPct}%"${!dataAttr ? ` title="API: ${counts['api']}"` : ''}></div>
+            </div>
+            ${showLabels ? `
+            <div class="flex justify-between text-xs text-themed-tertiary mt-${dataAttr ? '0.5' : '1'}">
+                <span>User ${userPct}%</span>
+                <span>Internal ${internalPct}%</span>
+                <span>Infra ${infraPct}%</span>
+                <span>API ${apiPct}%</span>
+            </div>` : ''}
+        </div>
+    `;
+}
+
+/**
+ * Render a stat card (value + label, centered)
+ * @param {string|number} value
+ * @param {string} label
+ * @param {string} [bgClass] - Background class, defaults to 'bg-themed-tertiary'
+ * @param {string} [valueClass] - Value text class, defaults to 'text-themed-primary'
+ */
+export function renderStatCard(value, label, bgClass = 'bg-themed-tertiary', valueClass = 'text-themed-primary') {
+    return `
+        <div class="p-4 ${bgClass} rounded-lg text-center">
+            <div class="text-2xl font-semibold ${valueClass}">${value}</div>
+            <div class="text-sm text-themed-tertiary">${label}</div>
         </div>
     `;
 }

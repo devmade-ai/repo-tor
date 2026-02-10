@@ -4,6 +4,57 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-10
 
+### Fix: Default Filter Indicator on Load
+
+**Why:** When default filters were applied on first visit (exclude merge, date from 2025-12-01), the filter indicator ("X of Y") and badge didn't show in the UI, giving no visual feedback that filters were active.
+
+**Changes:**
+- `dashboard/js/filters.js` — `updateFilterIndicator()` now shows the indicator whenever any filter is active, removing the `filtered.length !== total` gate that suppressed it when defaults didn't reduce the commit count.
+
+---
+
+### Remove: Privacy Mode Toggle (Always-On Sanitization)
+
+**Why:** Filenames should never be revealed. The privacy toggle allowed users to disable sanitization, which conflicts with the tool's design goal. Sanitization (anonymized names and messages) should always be active.
+
+**Changes:**
+- `dashboard/index.html` — Removed `btn-sanitize` button (eye icon) from header and `settings-privacy-toggle` from Settings panel.
+- `dashboard/js/utils.js` — `sanitizeName()` and `sanitizeMessage()` now always anonymize (removed `if (!state.isSanitized) return` guards).
+- `dashboard/js/state.js` — Removed `isSanitized` property.
+- `dashboard/js/ui.js` — Removed `initSanitizeMode()`, `applySanitizeMode()`, `toggleSanitizeMode()` functions and privacy toggle handler from `setupSettingsPanel()`. Cleaned up imports.
+- `dashboard/js/main.js` — Removed `initSanitizeMode` import and call.
+- `dashboard/js/export.js` — Removed `toggleSanitizeMode` import and `btn-sanitize` event listener.
+- `dashboard/js/tabs/security.js` — Commit body details always show `[Details hidden]`.
+
+**Impact:** Build reduced from ~112KB to ~111KB. Privacy is now enforced at the code level with no user override.
+
+---
+
+### Docs: Architecture Decision Record — Vanilla JS
+
+**Why:** No documented rationale existed for choosing vanilla JS over a framework. Future contributors need to understand the reasoning and know when to reconsider.
+
+**Changes:**
+- `docs/ADR-001-vanilla-js.md` — **New.** Explains the decision, trade-offs accepted, mitigations (template helpers, event delegation, module split), and criteria for when to adopt a framework.
+
+---
+
+### Refactor: Template Helpers, Event Delegation, tabs.js Split
+
+**Why:** The dashboard had three code organization pain points: (1) duplicated HTML template patterns for urgency/impact bars across 3 view levels each, (2) remaining `addEventListener` with init flags and `setTimeout` workarounds that weren't yet migrated to delegation, (3) a 2,100-line monolithic `tabs.js` file.
+
+**Changes:**
+- `dashboard/js/utils.js` — Added `renderUrgencyBar()`, `renderImpactBar()`, `renderStatCard()` template helpers. Each replaces 15-25 lines of duplicated HTML string building.
+- `dashboard/js/tabs.js` — Now a thin re-export barrel from `./tabs/index.js`. All existing imports from `./tabs.js` continue to work unchanged.
+- `dashboard/js/tabs/` — **New directory.** 10 focused modules + barrel:
+  - `timeline.js`, `progress.js`, `contributors.js`, `security.js`, `health.js`, `tags.js`, `timing.js`, `summary.js`, `discover.js`, `delegated-handlers.js`, `index.js`
+- `dashboard/js/tabs/delegated-handlers.js` — `setupDelegatedHandlers()` now handles ALL click delegation: activity cards, work cards, health cards, summary cards, period cards, security repo, load-more button, plus all previously-delegated urgency/impact/tag/contributor/repo handlers.
+- `dashboard/js/state.js` — Removed 4 handler initialization flags (no longer needed).
+
+**Impact:** Build output unchanged (112KB gzipped ~29KB). 27 modules transformed (up from 16). No functional changes — pure code organization.
+
+---
+
 ### Refactor: PWA Rewrite — Dedicated Module with Prompt-Based Updates
 
 **Why:** Previous PWA implementation (autoUpdate + injectRegister:'script' in export.js) was unreliable. Rewrote to match a proven working pattern from another project, adapted to vanilla JS.

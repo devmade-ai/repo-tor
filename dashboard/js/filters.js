@@ -413,7 +413,7 @@ export function updateFilterIndicator() {
                        state.filters.dateFrom ||
                        state.filters.dateTo;
 
-    if (hasFilters && filtered.length !== total) {
+    if (hasFilters) {
         indicator.textContent = `${filtered.length} of ${total}`;
         indicator.classList.remove('hidden');
     } else {

@@ -19,17 +19,11 @@ export const state = {
     isDarkMode: false,
     workHourStart: 8,
     workHourEnd: 17,
-    isSanitized: false,
     detailPaneOpen: false,
     currentDetailState: null, // Tracks what's shown in detail pane: { type: 'tag'|'author'|'impact'|..., value: string }
     currentViewLevel: 'developer',
     filterSidebarOpen: false,
     settingsPaneOpen: false,
-    // Handler initialized flags
-    activityCardHandlersInitialized: false,
-    workCardHandlersInitialized: false,
-    healthCardHandlersInitialized: false,
-    summaryCardHandlersInitialized: false,
     // Current filtered commits cache
     currentCommits: [],
     // Active tab tracking for lazy rendering

@@ -15,8 +15,9 @@
   - `index.html` - HTML structure
   - `styles.css` - Extracted CSS
   - `js/main.js` - Entry point
-  - `js/tabs.js` - Tab rendering (largest module)
-  - `js/state.js`, `utils.js`, `filters.js`, `ui.js`, `charts.js`, `data.js`, `export.js`
+  - `js/tabs.js` - Re-export barrel for backward compatibility
+  - `js/tabs/` - Tab render modules (timeline, progress, contributors, security, health, tags, timing, summary, discover, delegated-handlers)
+  - `js/state.js`, `utils.js`, `filters.js`, `ui.js`, `charts.js`, `data.js`, `export.js`, `pwa.js`
 - `vite.config.js` - Vite build + Tailwind v4 + PWA plugin config
 - `hooks/commit-msg` - Validates conventional commit format
 - `docs/COMMIT_CONVENTION.md` - Team guide for commit messages

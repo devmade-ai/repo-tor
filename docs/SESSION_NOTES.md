@@ -7,6 +7,36 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-10):**
+- **Filter Indicator Fix** - Default filters now show visual indication on load:
+  - `updateFilterIndicator()` now shows "X of Y" whenever any filter is active, regardless of whether the filter changes the commit count
+  - Previously, the indicator was hidden when `filtered.length === total` (e.g., when no merge commits exist to exclude)
+  - Filter badge (count on toggle button) was already correct — only the text indicator was affected
+- **Privacy Mode Removed** - Sanitization is now always-on (names and messages always anonymized):
+  - Removed `btn-sanitize` eye toggle button from header
+  - Removed Privacy Mode toggle from Settings panel
+  - Removed `initSanitizeMode()`, `applySanitizeMode()`, `toggleSanitizeMode()` functions from ui.js
+  - `sanitizeName()` and `sanitizeMessage()` in utils.js now always anonymize (no `isSanitized` guard)
+  - Removed `isSanitized` from state.js and `sanitized` localStorage key
+  - Security tab commit details always show `[Details hidden]`
+  - Build: 110KB JS bundle (down from 112KB)
+- **Architecture Decision Record** - Documented vanilla JS decision in `docs/ADR-001-vanilla-js.md`:
+  - Explains why no framework was adopted, trade-offs accepted, and when to reconsider
+- **Code Refactoring** - Three improvements to dashboard codebase organization:
+  - **Template helpers**: Added `renderUrgencyBar()`, `renderImpactBar()`, `renderStatCard()` to `utils.js` — eliminates 6 duplicated urgency/impact bar implementations
+  - **Event delegation complete**: Migrated all remaining `addEventListener` with init flags (activity, work, health, summary, period, security repo, load-more) into single `setupDelegatedHandlers()` — removed 4 `*HandlersInitialized` flags from state.js and all `setTimeout` workarounds
+  - **tabs.js split**: Monolithic 2,100-line `tabs.js` split into 10 focused modules under `js/tabs/` (timeline, progress, contributors, security, health, tags, timing, summary, discover, delegated-handlers) + barrel `index.js`. Old `tabs.js` now re-exports from barrel for backward compatibility. Build output unchanged (112KB).
+- **Dashboard module structure** - `js/tabs/` directory:
+  - `timeline.js` (renderTimeline)
+  - `progress.js` (renderProgress)
+  - `contributors.js` (renderContributors)
+  - `security.js` (renderSecurity)
+  - `health.js` (renderHealth)
+  - `tags.js` (renderTags)
+  - `timing.js` (renderTiming, renderDeveloperPatterns)
+  - `summary.js` (renderSummary)
+  - `discover.js` (renderDiscover + metrics + file insights + comparisons)
+  - `delegated-handlers.js` (setupDelegatedHandlers — single click handler for all data-* attrs)
+  - `index.js` (barrel re-export)
 - **PWA Rewrite** - Complete rewrite of PWA install + update system in dedicated `dashboard/js/pwa.js` module:
   - Switched from `registerType: 'autoUpdate'` to `'prompt'` for explicit control over SW activation
   - Uses `virtual:pwa-register` (vanilla JS) instead of `injectRegister: 'script'`
@@ -264,4 +294,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-10 - PWA rewrite (dedicated module, prompt-based updates, Safari/Firefox fallback). Fixed PWA install button persistence, default filter date overwrite, filter checkbox alignment.*
+*Last updated: 2026-02-10 - Fixed filter indicator for defaults on load. Removed privacy mode toggle (sanitization always-on).*
