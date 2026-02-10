@@ -8,13 +8,18 @@
  * Usage: node scripts/fix-malformed.js
  */
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { execFileSync } from 'child_process';
 
 const PROCESSED_DIR = 'processed';
 const REPO_CACHE_DIR = '.repo-cache';
 const CONFIG_PATH = 'config/repos.json';
+
+// Validate SHA format to prevent command injection
+function isValidSha(sha) {
+    return /^[0-9a-f]{7,40}$/i.test(sha);
+}
 
 // Load repo config
 function loadRepoConfig() {
@@ -31,11 +36,11 @@ function ensureRepo(repoName, repoUrl) {
 
   if (fs.existsSync(repoPath)) {
     console.log(`  Updating ${repoName}...`);
-    execSync('git fetch --all', { cwd: repoPath, stdio: 'pipe' });
+    execFileSync('git', ['fetch', '--all'], { cwd: repoPath, stdio: 'pipe' });
   } else {
     console.log(`  Cloning ${repoName}...`);
     fs.mkdirSync(REPO_CACHE_DIR, { recursive: true });
-    execSync(`git clone ${repoUrl} ${repoPath}`, { stdio: 'pipe' });
+    execFileSync('git', ['clone', repoUrl, repoPath], { stdio: 'pipe' });
   }
 
   return repoPath;
@@ -43,6 +48,11 @@ function ensureRepo(repoName, repoUrl) {
 
 // Extract git metadata for a commit
 function extractCommitMetadata(repoPath, sha) {
+  if (!isValidSha(sha)) {
+    console.error(`    Invalid SHA format: ${sha}`);
+    return null;
+  }
+
   try {
     // Get commit info using git log
     const format = [
@@ -57,8 +67,8 @@ function extractCommitMetadata(repoPath, sha) {
       '%b'       // body
     ].join('%x00');
 
-    const output = execSync(
-      `git log -1 --format="${format}" ${sha}`,
+    const output = execFileSync(
+      'git', ['log', '-1', `--format=${format}`, sha],
       { cwd: repoPath, encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
     ).trim();
 
@@ -73,8 +83,8 @@ function extractCommitMetadata(repoPath, sha) {
     // Get stats
     let stats = { filesChanged: 0, additions: 0, deletions: 0 };
     try {
-      const statOutput = execSync(
-        `git diff --shortstat ${sha}^..${sha}`,
+      const statOutput = execFileSync(
+        'git', ['diff', '--shortstat', `${sha}^..${sha}`],
         { cwd: repoPath, encoding: 'utf-8', stdio: ['pipe', 'pipe', 'pipe'] }
       ).trim();
 
@@ -216,7 +226,7 @@ function main() {
   // Re-aggregate
   if (totalFixed > 0) {
     console.log('\nRe-aggregating dashboard data...');
-    execSync('node scripts/aggregate-processed.js', { stdio: 'inherit' });
+    execFileSync('node', ['scripts/aggregate-processed.js'], { stdio: 'inherit' });
   }
 }
 

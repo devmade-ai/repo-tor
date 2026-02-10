@@ -13,8 +13,8 @@
  *   node aggregate.js reports/* --author-map=config/author-map.json
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // === Argument Parsing ===
 const args = process.argv.slice(2);

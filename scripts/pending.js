@@ -18,35 +18,15 @@
  *   4. Generate pending batches (pending/<repo>/batches/batch-NNN.json)
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { getManifestPath, readManifest, writeManifest, PROCESSED_DIR } from './lib/manifest.js';
 
 const BATCH_SIZE = 25;
 const REPORTS_DIR = 'reports';
-const PROCESSED_DIR = 'processed';
 const PENDING_DIR = 'pending';
 
 // === Manifest Management ===
-
-function getManifestPath(repoId) {
-  return path.join(PROCESSED_DIR, repoId, 'manifest.json');
-}
-
-function readManifest(repoId) {
-  const manifestPath = getManifestPath(repoId);
-  if (fs.existsSync(manifestPath)) {
-    return JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
-  }
-  return { processedShas: [], lastUpdated: null };
-}
-
-function writeManifest(repoId, manifest) {
-  const manifestPath = getManifestPath(repoId);
-  const dir = path.dirname(manifestPath);
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
-  console.log(`  Updated manifest: ${manifestPath}`);
-}
 
 function rebuildManifestFromBatches(repoId) {
   const batchDir = path.join(PROCESSED_DIR, repoId, 'batches');
@@ -157,6 +137,7 @@ function processRepo(repoId, rebuildManifest) {
     console.log(`  Rebuilding manifest from processed batches...`);
     manifest = rebuildManifestFromBatches(repoId);
     writeManifest(repoId, manifest);
+    console.log(`  Updated manifest: ${getManifestPath(repoId)}`);
   } else {
     manifest = readManifest(repoId);
   }

@@ -72,9 +72,10 @@ fi
 # Create cache directory
 mkdir -p "$CACHE_DIR"
 
-# Parse repos from JSON (simple parsing without jq dependency)
-REPOS=$(node -e "
-const config = require('$CONFIG_FILE');
+# Parse repos from JSON (ESM-compatible, no jq dependency)
+REPOS=$(node --input-type=module -e "
+import { readFileSync } from 'fs';
+const config = JSON.parse(readFileSync('$CONFIG_FILE', 'utf-8'));
 config.repos.forEach(r => console.log(r.name + '|' + r.url));
 ")
 

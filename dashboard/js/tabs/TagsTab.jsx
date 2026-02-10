@@ -33,7 +33,7 @@ export default function TagsTab() {
     const doughnutChartData = useMemo(() => {
         if (tagData.tags.length === 0) return null;
 
-        const mobile = isMobile();
+        const mobile = isMobile;
         return {
             data: {
                 labels: tagData.tags,

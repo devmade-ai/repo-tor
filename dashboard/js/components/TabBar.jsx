@@ -34,10 +34,10 @@ export default function TabBar() {
                 <button
                     onClick={() => dispatch({ type: 'TOGGLE_FILTER_SIDEBAR' })}
                     className={`filter-toggle relative ${state.filterSidebarOpen ? 'active' : ''}`}
-                    aria-label="Toggle filters"
+                    aria-label={activeFilterCount > 0 ? `Toggle filters (${activeFilterCount} active)` : 'Toggle filters'}
                     aria-expanded={state.filterSidebarOpen}
                 >
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path
                             strokeLinecap="round"
                             strokeLinejoin="round"

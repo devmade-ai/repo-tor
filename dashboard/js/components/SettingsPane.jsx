@@ -63,9 +63,11 @@ export default function SettingsPane() {
 
     return (
         <>
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
             <div
                 className={`settings-pane-overlay ${state.settingsPaneOpen ? 'open' : ''}`}
                 onClick={handleClose}
+                aria-hidden="true"
             />
             <div
                 ref={trapRef}
@@ -77,7 +79,7 @@ export default function SettingsPane() {
                 <div className="settings-pane-header">
                     <span className="settings-pane-title">Settings</span>
                     <button className="settings-pane-close" onClick={handleClose} aria-label="Close settings">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
                         </svg>
@@ -110,7 +112,7 @@ export default function SettingsPane() {
                                             <div className="settings-toggle-hint">{VIEW_LEVEL_DESCRIPTIONS[level]}</div>
                                         </div>
                                         {isActive && (
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                                 <polyline points="20 6 9 17 4 12" />
                                             </svg>
                                         )}

@@ -110,7 +110,7 @@ export default function TimingTab() {
             i.toString().padStart(2, '0') + ':00'
         );
 
-        const mobile = isMobile();
+        const mobile = isMobile;
         return {
             data: {
                 labels: hourLabels,
@@ -167,7 +167,7 @@ export default function TimingTab() {
         const dayLabels = mondayFirstOrder.map(i => DAY_NAMES_SHORT[i]);
         const dayData = mondayFirstOrder.map(i => byDay[i]);
 
-        const mobile = isMobile();
+        const mobile = isMobile;
         return {
             data: {
                 labels: dayLabels,

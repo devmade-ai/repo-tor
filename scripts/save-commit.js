@@ -25,42 +25,15 @@
  *   2. Updates processed/<repo>/manifest.json with new SHAs
  */
 
-const fs = require('fs');
-const path = require('path');
-
-const PROCESSED_DIR = 'processed';
-
-function getManifestPath(repoId) {
-  return path.join(PROCESSED_DIR, repoId, 'manifest.json');
-}
-
-function readManifest(repoId) {
-  const manifestPath = getManifestPath(repoId);
-  if (fs.existsSync(manifestPath)) {
-    return JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
-  }
-  return { processedShas: [], lastUpdated: null };
-}
-
-function writeManifest(repoId, manifest) {
-  const manifestPath = getManifestPath(repoId);
-  const dir = path.dirname(manifestPath);
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
-}
+import fs from 'fs';
+import path from 'path';
+import { getManifestPath, readManifest, writeManifest, PROCESSED_DIR } from './lib/manifest.js';
+import { readStdin } from './lib/stdin.js';
 
 function saveCommit(repoId, commit, commitsDir) {
   const commitPath = path.join(commitsDir, `${commit.sha}.json`);
   fs.writeFileSync(commitPath, JSON.stringify(commit, null, 2));
   return commitPath;
-}
-
-async function readStdin() {
-  const chunks = [];
-  for await (const chunk of process.stdin) {
-    chunks.push(chunk);
-  }
-  return Buffer.concat(chunks).toString('utf-8');
 }
 
 async function main() {

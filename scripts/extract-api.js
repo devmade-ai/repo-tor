@@ -18,9 +18,16 @@
  *   3. gh auth login (interactive)
  */
 
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execFileSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+import { parseCommitMessage, extractBreakingChange, extractReferences } from './lib/commit-parsing.js';
+import { toKebabCase, writeJson } from './lib/utils.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // === Load .env file if present ===
 function loadEnvFile() {
@@ -86,16 +93,17 @@ const [owner, repo] = repoFullName.split('/');
 
 // === GitHub API Helpers ===
 
-function gh(command) {
+function gh(args) {
   try {
-    const result = execSync(`gh ${command}`, {
+    const result = execFileSync('gh', args, {
       encoding: 'utf-8',
       maxBuffer: 50 * 1024 * 1024, // 50MB buffer
-      timeout: 120000 // 2 min timeout
+      timeout: 120000, // 2 min timeout
+      env: { ...process.env }
     });
     return result.trim();
   } catch (error) {
-    if (error.message.includes('gh: command not found')) {
+    if (error.message.includes('gh: command not found') || error.message.includes('ENOENT')) {
       console.error('Error: gh CLI not found. Install from https://cli.github.com/');
       process.exit(1);
     }
@@ -109,16 +117,16 @@ function gh(command) {
 }
 
 function ghApi(endpoint, options = {}) {
-  let cmd = `api "${endpoint}"`;
+  const args = ['api', endpoint];
 
   if (options.paginate) {
-    cmd += ' --paginate';
+    args.push('--paginate');
   }
   if (options.jq) {
-    cmd += ` --jq '${options.jq}'`;
+    args.push('--jq', options.jq);
   }
 
-  const result = gh(cmd);
+  const result = gh(args);
   if (!result) return null;
 
   try {
@@ -155,7 +163,7 @@ function fetchCommitList() {
 
   while (hasMore) {
     const pageEndpoint = `${endpoint}&page=${page}`;
-    const result = gh(`api "${pageEndpoint}"`);
+    const result = gh(['api', pageEndpoint]);
 
     if (!result) break;
 
@@ -179,7 +187,7 @@ function fetchCommitList() {
 }
 
 function fetchCommitDetails(sha) {
-  const result = gh(`api "repos/${owner}/${repo}/commits/${sha}"`);
+  const result = gh(['api', `repos/${owner}/${repo}/commits/${sha}`]);
   if (!result) return null;
   return JSON.parse(result);
 }
@@ -222,7 +230,7 @@ function extractCommits(commitList) {
     const parsed = parseCommitMessage(subject);
 
     // Extract references from message
-    const references = extractReferences(subject + '\n' + body);
+    const references = extractReferences(subject, body);
 
     commits.push({
       sha: item.sha.substring(0, 7),
@@ -245,7 +253,7 @@ function extractCommits(commitList) {
       scope: parsed.scope,
       title: parsed.title,
       is_conventional: parsed.is_conventional,
-      has_breaking_change: parsed.breaking || extractBreakingChange(body),
+      has_breaking_change: parsed.breaking || extractBreakingChange(subject, body),
       references: references,
       stats: {
         filesChanged: details.stats?.total ? details.files?.length || 0 : 0,
@@ -259,51 +267,7 @@ function extractCommits(commitList) {
   return commits;
 }
 
-// === Commit Message Parsing (same as extract.js) ===
-
-function parseCommitMessage(subject) {
-  const result = {
-    tags: [],
-    scope: null,
-    breaking: false,
-    title: subject,
-    is_conventional: false
-  };
-
-  const conventionalMatch = subject.match(/^(\w+)(?:\(([^)]+)\))?(!)?:\s*(.+)$/);
-  if (conventionalMatch) {
-    const [, type, scope, breaking, title] = conventionalMatch;
-    result.scope = scope || null;
-    result.breaking = !!breaking;
-    result.title = title;
-    result.is_conventional = true;
-  }
-
-  return result;
-}
-
-function extractBreakingChange(body) {
-  if (/\bBREAKING\s*CHANGE\b/i.test(body) || /^BREAKING:/im.test(body)) {
-    return true;
-  }
-  return false;
-}
-
-function extractReferences(text) {
-  const refs = [];
-  const hashRefs = text.match(/#\d+/g) || [];
-  refs.push(...hashRefs);
-  const jiraRefs = text.match(/[A-Z]+-\d+/g) || [];
-  refs.push(...jiraRefs);
-  const refsMatch = text.match(/^refs?:\s*(.+)$/im);
-  if (refsMatch) {
-    const lineRefs = refsMatch[1].match(/(#\d+|[A-Z]+-\d+)/g) || [];
-    refs.push(...lineRefs);
-  }
-  return [...new Set(refs)];
-}
-
-// === Aggregation Functions (same as extract.js) ===
+// === Aggregation Functions ===
 
 function extractContributors(commits) {
   console.log('Aggregating contributors...');
@@ -388,10 +352,6 @@ function extractFileStats(commits) {
   return Array.from(fileMap.values())
     .map(f => ({ ...f, authors: Array.from(f.authors) }))
     .sort((a, b) => b.changeCount - a.changeCount);
-}
-
-function toKebabCase(str) {
-  return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
 function generateMetadata(commits) {
@@ -499,7 +459,7 @@ function main() {
 
   // Check gh CLI is available
   try {
-    execSync('gh --version', { encoding: 'utf-8', stdio: 'pipe' });
+    execFileSync('gh', ['--version'], { encoding: 'utf-8', stdio: 'pipe' });
   } catch (e) {
     console.error('Error: gh CLI not found. Install from https://cli.github.com/');
     console.error('       Or run: ./scripts/setup-gh.sh');
@@ -509,7 +469,7 @@ function main() {
   // Check authentication (gh CLI uses GH_TOKEN automatically if set)
   if (!hasToken) {
     try {
-      execSync('gh auth status', { encoding: 'utf-8', stdio: 'pipe' });
+      execFileSync('gh', ['auth', 'status'], { encoding: 'utf-8', stdio: 'pipe' });
       console.log('Authentication: Using gh auth login session');
     } catch (e) {
       console.error('Error: Not authenticated with GitHub.');
@@ -553,18 +513,17 @@ function main() {
   fs.mkdirSync(repoOutputDir, { recursive: true });
 
   // Write JSON files
-  const writeJson = (filename, data) => {
+  const writeReportJson = (filename, data) => {
     const filepath = path.join(repoOutputDir, filename);
-    fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
-    console.log(`Wrote ${filepath}`);
+    writeJson(filepath, data);
   };
 
-  writeJson('metadata.json', metadata);
-  writeJson('commits.json', { commits });
-  writeJson('contributors.json', contributors);
-  writeJson('files.json', files);
-  writeJson('summary.json', summary);
-  writeJson('data.json', { metadata, commits, contributors, files, summary });
+  writeReportJson('metadata.json', metadata);
+  writeReportJson('commits.json', { commits });
+  writeReportJson('contributors.json', contributors);
+  writeReportJson('files.json', files);
+  writeReportJson('summary.json', summary);
+  writeReportJson('data.json', { metadata, commits, contributors, files, summary });
 
   // Write individual commit files
   const commitsDir = path.join(repoOutputDir, 'commits');

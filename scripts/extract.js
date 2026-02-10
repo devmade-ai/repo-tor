@@ -11,9 +11,11 @@
  * Usage: node extract.js [repo-path] [--output=reports/]
  */
 
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execFileSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import { parseCommitMessage, extractBreakingChange, extractReferences } from './lib/commit-parsing.js';
+import { toKebabCase, writeJson } from './lib/utils.js';
 
 // === Argument Parsing ===
 const args = process.argv.slice(2);
@@ -29,74 +31,18 @@ args.forEach(arg => {
 });
 
 // === Git Command Execution ===
-function git(command, options = {}) {
+function git(args, cwd) {
   try {
-    const result = execSync(`git ${command}`, {
-      cwd: repoPath,
+    const result = execFileSync('git', args, {
+      cwd: cwd || repoPath,
       encoding: 'utf-8',
-      maxBuffer: 50 * 1024 * 1024, // 50MB buffer for large repos
-      ...options
+      maxBuffer: 50 * 1024 * 1024
     });
     return result.trim();
-  } catch (error) {
-    console.error(`Git command failed: git ${command}`);
-    console.error(error.message);
+  } catch (err) {
+    console.error(`Git command failed: git ${args.join(' ')}`);
     return '';
   }
-}
-
-// === Commit Message Parsing ===
-// Extracts metadata only - tags are assigned by AI (see EXTRACTION_PLAYBOOK.md)
-function parseCommitMessage(subject, body) {
-  const result = {
-    tags: [],           // Empty - AI will populate
-    scope: null,
-    breaking: false,
-    title: subject,
-    is_conventional: false
-  };
-
-  // Check for conventional commit format: type(scope): subject
-  const conventionalMatch = subject.match(/^(\w+)(?:\(([^)]+)\))?(!)?:\s*(.+)$/);
-
-  if (conventionalMatch) {
-    const [, type, scope, breaking, title] = conventionalMatch;
-    result.scope = scope || null;
-    result.breaking = !!breaking;
-    result.title = title;
-    result.is_conventional = true;
-  }
-
-  return result;
-}
-
-function extractBreakingChange(body) {
-  // Check for breaking change indicators
-  if (/\bBREAKING\s*CHANGE\b/i.test(body) || /^BREAKING:/im.test(body)) {
-    return true;
-  }
-  return false;
-}
-
-function extractReferences(text) {
-  const refs = [];
-
-  // GitHub/GitLab style: #123
-  const hashRefs = text.match(/#\d+/g) || [];
-  refs.push(...hashRefs);
-
-  // Jira style: PROJ-123
-  const jiraRefs = text.match(/[A-Z]+-\d+/g) || [];
-  refs.push(...jiraRefs);
-
-  // Explicit refs line
-  const refsMatch = text.match(/^refs?:\s*(.+)$/im);
-  if (refsMatch) {
-    const lineRefs = refsMatch[1].match(/(#\d+|[A-Z]+-\d+)/g) || [];
-    refs.push(...lineRefs);
-  }
-
-  return [...new Set(refs)]; // Deduplicate
 }
 
 // === Data Extraction ===
@@ -118,7 +64,7 @@ function extractCommits() {
     '%b',      // body
   ].join('%n');
 
-  const logOutput = git(`log --all --pretty=format:'${format}${delimiter}'`);
+  const logOutput = git(['log', '--all', `--pretty=format:${format}${delimiter}`]);
 
   if (!logOutput) {
     console.log('No commits found or git log failed');
@@ -136,11 +82,11 @@ function extractCommits() {
            committerName, committerEmail, commitDate, subject, ...bodyLines] = lines;
 
     const body = bodyLines.join('\n').trim();
-    const parsed = parseCommitMessage(subject, body);
-    const references = extractReferences(subject + '\n' + body);
+    const parsed = parseCommitMessage(subject);
+    const references = extractReferences(subject, body);
 
     // Check for breaking change in body
-    const hasBreakingChange = extractBreakingChange(body) || parsed.breaking;
+    const hasBreakingChange = extractBreakingChange(subject, body) || parsed.breaking;
 
     commits.push({
       sha: shortHash,
@@ -177,7 +123,7 @@ function extractCommits() {
     }
 
     const commit = commits[i];
-    const statsOutput = git(`show ${commit.fullSha} --stat --format=''`);
+    const statsOutput = git(['show', commit.fullSha, '--stat', '--format=']);
 
     // Parse stats from output like: "2 files changed, 10 insertions(+), 5 deletions(-)"
     const statsMatch = statsOutput.match(/(\d+) files? changed(?:, (\d+) insertions?\(\+\))?(?:, (\d+) deletions?\(-\))?/);
@@ -190,7 +136,7 @@ function extractCommits() {
     };
 
     // Extract changed files
-    const filesOutput = git(`show ${commit.fullSha} --name-only --format=''`);
+    const filesOutput = git(['show', commit.fullSha, '--name-only', '--format=']);
     commit.files = filesOutput.split('\n').filter(Boolean);
 
     // Note: complexity is calculated by AI after tagging (see EXTRACTION_PLAYBOOK.md)
@@ -295,19 +241,12 @@ function extractFileStats(commits) {
     .sort((a, b) => b.changeCount - a.changeCount);
 }
 
-function toKebabCase(str) {
-  return str
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
 function generateMetadata() {
   const repoName = path.basename(repoPath);
   const repoId = toKebabCase(repoName);
-  const remoteUrl = git('config --get remote.origin.url') || 'local';
-  const currentBranch = git('rev-parse --abbrev-ref HEAD');
-  const branches = git('branch -a --format="%(refname:short)"').split('\n').filter(Boolean);
+  const remoteUrl = git(['config', '--get', 'remote.origin.url']) || 'local';
+  const currentBranch = git(['rev-parse', '--abbrev-ref', 'HEAD']);
+  const branches = git(['branch', '-a', '--format=%(refname:short)']).split('\n').filter(Boolean);
 
   return {
     repo_id: repoId,
@@ -408,7 +347,7 @@ function main() {
   console.log(`Output: ${outputDir}\n`);
 
   // Verify git repository
-  const gitDir = git('rev-parse --git-dir');
+  const gitDir = git(['rev-parse', '--git-dir']);
   if (!gitDir) {
     console.error('Error: Not a git repository');
     process.exit(1);
@@ -436,20 +375,14 @@ function main() {
   fs.mkdirSync(repoOutputDir, { recursive: true });
 
   // Write JSON files
-  const writeJson = (filename, data) => {
-    const filepath = path.join(repoOutputDir, filename);
-    fs.writeFileSync(filepath, JSON.stringify(data, null, 2));
-    console.log(`Wrote ${filepath}`);
-  };
-
-  writeJson('metadata.json', metadata);
-  writeJson('commits.json', { commits });
-  writeJson('contributors.json', contributors);
-  writeJson('files.json', files);
-  writeJson('summary.json', summary);
+  writeJson(path.join(repoOutputDir, 'metadata.json'), metadata);
+  writeJson(path.join(repoOutputDir, 'commits.json'), { commits });
+  writeJson(path.join(repoOutputDir, 'contributors.json'), contributors);
+  writeJson(path.join(repoOutputDir, 'files.json'), files);
+  writeJson(path.join(repoOutputDir, 'summary.json'), summary);
 
   // Write combined data file for dashboard
-  writeJson('data.json', {
+  writeJson(path.join(repoOutputDir, 'data.json'), {
     metadata,
     commits,
     contributors,

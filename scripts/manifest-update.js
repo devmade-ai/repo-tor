@@ -12,29 +12,9 @@
  *   node manifest-update.js social-ad-creator processed/social-ad-creator/batches/batch-009.json
  */
 
-const fs = require('fs');
-const path = require('path');
-
-const PROCESSED_DIR = 'processed';
-
-function getManifestPath(repoId) {
-  return path.join(PROCESSED_DIR, repoId, 'manifest.json');
-}
-
-function readManifest(repoId) {
-  const manifestPath = getManifestPath(repoId);
-  if (fs.existsSync(manifestPath)) {
-    return JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
-  }
-  return { processedShas: [], lastUpdated: null };
-}
-
-function writeManifest(repoId, manifest) {
-  const manifestPath = getManifestPath(repoId);
-  const dir = path.dirname(manifestPath);
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
-}
+import fs from 'fs';
+import path from 'path';
+import { readManifest, writeManifest } from './lib/manifest.js';
 
 function main() {
   const args = process.argv.slice(2);

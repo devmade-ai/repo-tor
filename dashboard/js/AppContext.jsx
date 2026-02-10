@@ -1,8 +1,22 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState } from 'react';
-import { state as globalState, FILTER_DEFAULTS, VIEW_LEVELS } from './state.js';
+import { state as globalState, VIEW_LEVELS } from './state.js';
 import { getCommitTags, getAuthorEmail, getUrgencyLabel } from './utils.js';
 
-const AppContext = createContext(null);
+// Split contexts: DispatchContext is stable (never changes identity),
+// so components that only dispatch actions won't re-render on state changes.
+const AppStateContext = createContext(null);
+const DispatchContext = createContext(null);
+
+// --- Default filter shape (single source of truth) ---
+const DEFAULT_FILTERS = {
+    tag: { values: ['merge'], mode: 'exclude' },
+    author: { values: [], mode: 'include' },
+    repo: { values: [], mode: 'include' },
+    urgency: { values: [], mode: 'include' },
+    impact: { values: [], mode: 'include' },
+    dateFrom: '',
+    dateTo: '',
+};
 
 // --- Initial State ---
 function loadInitialState() {
@@ -17,20 +31,12 @@ function loadInitialState() {
         activeTab: 'overview',
         currentViewLevel: localStorage.getItem('viewLevel') || 'developer',
         useUTC: localStorage.getItem('useUTC') === 'true',
-        workHourStart: parseInt(localStorage.getItem('workHourStart') || '8'),
-        workHourEnd: parseInt(localStorage.getItem('workHourEnd') || '17'),
+        workHourStart: parseInt(localStorage.getItem('workHourStart') || '8', 10),
+        workHourEnd: parseInt(localStorage.getItem('workHourEnd') || '17', 10),
         detailPane: { open: false, title: '', subtitle: '', commits: [], filterInfo: null },
         filterSidebarOpen: false,
         settingsPaneOpen: false,
-        filters: savedFilters || {
-            tag: { values: ['merge'], mode: 'exclude' },
-            author: { values: [], mode: 'include' },
-            repo: { values: [], mode: 'include' },
-            urgency: { values: [], mode: 'include' },
-            impact: { values: [], mode: 'include' },
-            dateFrom: '',
-            dateTo: '',
-        },
+        filters: savedFilters || { ...DEFAULT_FILTERS },
         commitListVisible: 100,
     };
 }
@@ -66,18 +72,7 @@ function reducer(state, action) {
                 filters: { ...state.filters, [action.payload.field]: action.payload.value },
             };
         case 'CLEAR_FILTERS':
-            return {
-                ...state,
-                filters: {
-                    tag: { values: ['merge'], mode: 'exclude' },
-                    author: { values: [], mode: 'include' },
-                    repo: { values: [], mode: 'include' },
-                    urgency: { values: [], mode: 'include' },
-                    impact: { values: [], mode: 'include' },
-                    dateFrom: '',
-                    dateTo: '',
-                },
-            };
+            return { ...state, filters: { ...DEFAULT_FILTERS } };
         case 'OPEN_DETAIL_PANE':
             return {
                 ...state,
@@ -202,15 +197,13 @@ export function AppProvider({ children }) {
         };
     }, [state.data?.commits]);
 
-    // Sync React state to global state object synchronously (for utils.js compatibility).
-    // Done inline (not in useEffect) so globalState is current before children render.
+    // Sync React state to global state object for utils.js compatibility.
+    // Only the properties that utils.js functions actually read.
     globalState.data = state.data;
     globalState.useUTC = state.useUTC;
     globalState.workHourStart = state.workHourStart;
     globalState.workHourEnd = state.workHourEnd;
     globalState.currentViewLevel = state.currentViewLevel;
-    globalState.filters = state.filters;
-    globalState.activeTab = state.activeTab;
 
     // Persist settings to localStorage
     useEffect(() => {
@@ -243,12 +236,12 @@ export function AppProvider({ children }) {
     }, []);
 
     // Track mobile state reactively so charts recompute on resize
-    const [isMobileView, setIsMobileView] = useState(window.innerWidth < 640);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
     useEffect(() => {
         let timeout;
         function onResize() {
             clearTimeout(timeout);
-            timeout = setTimeout(() => setIsMobileView(window.innerWidth < 640), 150);
+            timeout = setTimeout(() => setIsMobile(window.innerWidth < 640), 150);
         }
         window.addEventListener('resize', onResize);
         return () => {
@@ -256,24 +249,42 @@ export function AppProvider({ children }) {
             window.removeEventListener('resize', onResize);
         };
     }, []);
-    const isMobile = useCallback(() => isMobileView, [isMobileView]);
 
-    const value = useMemo(() => ({
-        state,
+    // Stable dispatch context — never changes identity
+    const dispatchValue = useMemo(() => ({
         dispatch,
+        openDetailPane,
+    }), [openDetailPane]);
+
+    const stateValue = useMemo(() => ({
+        state,
         filteredCommits,
         viewConfig,
         filterOptions,
         activeFilterCount,
-        openDetailPane,
         isMobile,
-    }), [state, filteredCommits, viewConfig, filterOptions, activeFilterCount, openDetailPane, isMobile]);
+    }), [state, filteredCommits, viewConfig, filterOptions, activeFilterCount, isMobile]);
 
-    return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+    return (
+        <DispatchContext.Provider value={dispatchValue}>
+            <AppStateContext.Provider value={stateValue}>
+                {children}
+            </AppStateContext.Provider>
+        </DispatchContext.Provider>
+    );
 }
 
+// Primary hook — returns both state and dispatch (backward compatible)
 export function useApp() {
-    const ctx = useContext(AppContext);
-    if (!ctx) throw new Error('useApp must be used within AppProvider');
+    const stateCtx = useContext(AppStateContext);
+    const dispatchCtx = useContext(DispatchContext);
+    if (!stateCtx || !dispatchCtx) throw new Error('useApp must be used within AppProvider');
+    return { ...stateCtx, ...dispatchCtx };
+}
+
+// Dispatch-only hook — components using this won't re-render on state changes
+export function useAppDispatch() {
+    const ctx = useContext(DispatchContext);
+    if (!ctx) throw new Error('useAppDispatch must be used within AppProvider');
     return ctx;
 }
