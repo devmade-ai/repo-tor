@@ -7,6 +7,18 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-10):**
+- **Filter Indicator Fix** - Default filters now show visual indication on load:
+  - `updateFilterIndicator()` now shows "X of Y" whenever any filter is active, regardless of whether the filter changes the commit count
+  - Previously, the indicator was hidden when `filtered.length === total` (e.g., when no merge commits exist to exclude)
+  - Filter badge (count on toggle button) was already correct — only the text indicator was affected
+- **Privacy Mode Removed** - Sanitization is now always-on (names and messages always anonymized):
+  - Removed `btn-sanitize` eye toggle button from header
+  - Removed Privacy Mode toggle from Settings panel
+  - Removed `initSanitizeMode()`, `applySanitizeMode()`, `toggleSanitizeMode()` functions from ui.js
+  - `sanitizeName()` and `sanitizeMessage()` in utils.js now always anonymize (no `isSanitized` guard)
+  - Removed `isSanitized` from state.js and `sanitized` localStorage key
+  - Security tab commit details always show `[Details hidden]`
+  - Build: 110KB JS bundle (down from 112KB)
 - **Architecture Decision Record** - Documented vanilla JS decision in `docs/ADR-001-vanilla-js.md`:
   - Explains why no framework was adopted, trade-offs accepted, and when to reconsider
 - **Code Refactoring** - Three improvements to dashboard codebase organization:
@@ -282,4 +294,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-10 - PWA rewrite (dedicated module, prompt-based updates, Safari/Firefox fallback). Fixed PWA install button persistence, default filter date overwrite, filter checkbox alignment.*
+*Last updated: 2026-02-10 - Fixed filter indicator for defaults on load. Removed privacy mode toggle (sanitization always-on).*

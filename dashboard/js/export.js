@@ -1,7 +1,7 @@
 import { state, TAB_MAPPING } from './state.js';
 import { escapeHtml } from './utils.js';
 import { getFilteredCommits, updateFilterFromCheckboxes, saveFiltersToStorage } from './filters.js';
-import { openDetailPane, showToast, toggleDarkMode, toggleSanitizeMode } from './ui.js';
+import { openDetailPane, showToast, toggleDarkMode } from './ui.js';
 
 // === URL State Management (Shareable Links) ===
 export function getStateFromUrl() {
@@ -374,6 +374,5 @@ export function setupExportButtons() {
     document.getElementById('btn-share').addEventListener('click', copyShareableLink);
     document.getElementById('btn-export-pdf').addEventListener('click', exportToPdf);
     document.getElementById('btn-theme').addEventListener('click', toggleDarkMode);
-    document.getElementById('btn-sanitize').addEventListener('click', toggleSanitizeMode);
 }
 

@@ -5,7 +5,7 @@
 
 import { state, TAB_MAPPING } from './state.js';
 import {
-    initDarkMode, initSanitizeMode, initDetailPane, initFilterSidebar,
+    initDarkMode, initDetailPane, initFilterSidebar,
     setupSettingsPanel, showToast, toggleSection
 } from './ui.js';
 import { loadData, combineDataFiles, tryAutoLoad } from './data.js';
@@ -166,7 +166,6 @@ document.getElementById('shuffle-metrics')?.addEventListener('click', () => {
 
 // === Initialize ===
 initDarkMode();
-initSanitizeMode();
 initDetailPane();
 initFilterSidebar();
 setupSettingsPanel();

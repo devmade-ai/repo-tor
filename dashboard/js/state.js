@@ -19,7 +19,6 @@ export const state = {
     isDarkMode: false,
     workHourStart: 8,
     workHourEnd: 17,
-    isSanitized: false,
     detailPaneOpen: false,
     currentDetailState: null, // Tracks what's shown in detail pane: { type: 'tag'|'author'|'impact'|..., value: string }
     currentViewLevel: 'developer',

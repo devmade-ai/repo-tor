@@ -1,12 +1,12 @@
 // === UI Interaction Functions ===
 // Detail pane, settings panel, filter sidebar, collapsible sections,
-// dark mode, sanitize mode, and toast notifications.
+// dark mode, and toast notifications.
 
-import { state, anonymousNames, authorAnonMap } from './state.js';
+import { state } from './state.js';
 import { updateAllSectionGuidance } from './state.js';
 import { escapeHtml, getCommitTags, getAuthorEmail, getAuthorName, sanitizeName, sanitizeMessage, getCommitSubject, getTagClass, getTagStyle, getUrgencyLabel, aggregateForDrilldown, renderDrilldownSummary } from './utils.js';
 import { getFilteredCommits, applyFilters, saveFiltersToStorage } from './filters.js';
-import { renderTimeline, renderContributors, renderTiming, renderDeveloperPatterns, renderSummary } from './tabs.js';
+import { renderTimeline, renderTiming, renderDeveloperPatterns, renderSummary } from './tabs.js';
 
 // === Detail Pane Functions ===
 // detailState: optional { type: 'tag'|'author'|'impact'|'urgency'|'all', value: string }
@@ -68,14 +68,6 @@ export function openSettingsPane() {
     document.getElementById('settings-work-start').value = state.workHourStart;
     document.getElementById('settings-work-end').value = state.workHourEnd;
 
-    // Sync privacy toggle
-    const privacyToggle = document.getElementById('settings-privacy-toggle');
-    if (state.isSanitized) {
-        privacyToggle.classList.add('active');
-    } else {
-        privacyToggle.classList.remove('active');
-    }
-
     overlay.classList.add('open');
     pane.classList.add('open');
     state.settingsPaneOpen = true;
@@ -106,26 +98,6 @@ export function setupSettingsPanel() {
         localStorage.setItem('viewLevel', state.currentViewLevel);
         applyFilters();
         updateAllSectionGuidance();
-    });
-
-    // Privacy toggle
-    document.getElementById('settings-privacy-toggle').addEventListener('click', () => {
-        state.isSanitized = !state.isSanitized;
-        localStorage.setItem('sanitized', state.isSanitized);
-
-        const toggle = document.getElementById('settings-privacy-toggle');
-        if (state.isSanitized) {
-            toggle.classList.add('active');
-            document.getElementById('icon-eye').classList.add('hidden');
-            document.getElementById('icon-eye-slash').classList.remove('hidden');
-        } else {
-            toggle.classList.remove('active');
-            document.getElementById('icon-eye').classList.remove('hidden');
-            document.getElementById('icon-eye-slash').classList.add('hidden');
-        }
-
-        applyFilters();
-        showToast(state.isSanitized ? 'Privacy mode enabled' : 'Privacy mode disabled');
     });
 
     // Timezone change
@@ -368,39 +340,6 @@ export function applyDarkMode() {
 export function toggleDarkMode() {
     // No-op: dark theme is dark-only
     // Kept for compatibility but does nothing
-}
-
-// === Sanitization Mode ===
-
-export function initSanitizeMode() {
-    state.isSanitized = localStorage.getItem('sanitized') === 'true';
-    applySanitizeMode();
-}
-
-export function applySanitizeMode() {
-    document.getElementById('icon-eye').classList.toggle('hidden', state.isSanitized);
-    document.getElementById('icon-eye-slash').classList.toggle('hidden', !state.isSanitized);
-
-    // Sync settings panel toggle
-    const toggle = document.getElementById('settings-privacy-toggle');
-    if (toggle) {
-        toggle.classList.toggle('active', state.isSanitized);
-    }
-
-    // Re-render views if data is loaded
-    if (state.data) {
-        renderTimeline();
-        renderContributors();
-        renderTiming();
-        renderSummary();
-    }
-}
-
-export function toggleSanitizeMode() {
-    state.isSanitized = !state.isSanitized;
-    localStorage.setItem('sanitized', state.isSanitized);
-    applySanitizeMode();
-    showToast(state.isSanitized ? 'Private mode enabled' : 'Private mode disabled');
 }
 
 // === Toast Notification ===

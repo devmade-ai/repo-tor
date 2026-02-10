@@ -4,6 +4,32 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-10
 
+### Fix: Default Filter Indicator on Load
+
+**Why:** When default filters were applied on first visit (exclude merge, date from 2025-12-01), the filter indicator ("X of Y") and badge didn't show in the UI, giving no visual feedback that filters were active.
+
+**Changes:**
+- `dashboard/js/filters.js` — `updateFilterIndicator()` now shows the indicator whenever any filter is active, removing the `filtered.length !== total` gate that suppressed it when defaults didn't reduce the commit count.
+
+---
+
+### Remove: Privacy Mode Toggle (Always-On Sanitization)
+
+**Why:** Filenames should never be revealed. The privacy toggle allowed users to disable sanitization, which conflicts with the tool's design goal. Sanitization (anonymized names and messages) should always be active.
+
+**Changes:**
+- `dashboard/index.html` — Removed `btn-sanitize` button (eye icon) from header and `settings-privacy-toggle` from Settings panel.
+- `dashboard/js/utils.js` — `sanitizeName()` and `sanitizeMessage()` now always anonymize (removed `if (!state.isSanitized) return` guards).
+- `dashboard/js/state.js` — Removed `isSanitized` property.
+- `dashboard/js/ui.js` — Removed `initSanitizeMode()`, `applySanitizeMode()`, `toggleSanitizeMode()` functions and privacy toggle handler from `setupSettingsPanel()`. Cleaned up imports.
+- `dashboard/js/main.js` — Removed `initSanitizeMode` import and call.
+- `dashboard/js/export.js` — Removed `toggleSanitizeMode` import and `btn-sanitize` event listener.
+- `dashboard/js/tabs/security.js` — Commit body details always show `[Details hidden]`.
+
+**Impact:** Build reduced from ~112KB to ~111KB. Privacy is now enforced at the code level with no user override.
+
+---
+
 ### Docs: Architecture Decision Record — Vanilla JS
 
 **Why:** No documented rationale existed for choosing vanilla JS over a framework. Future contributors need to understand the reasoning and know when to reconsider.

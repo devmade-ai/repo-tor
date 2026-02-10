@@ -85,7 +85,7 @@ export function renderSecurity() {
                         <span class="tag tag-security">security</span>
                         <div class="flex-1">
                             <p class="font-medium text-themed-primary">${escapeHtml(sanitizeMessage(getCommitSubject(commit)))}</p>
-                            <p class="text-sm text-themed-secondary mt-1">${state.isSanitized ? '[Details hidden]' : (escapeHtml(commit.body || '').substring(0, 200) || 'No description')}</p>
+                            <p class="text-sm text-themed-secondary mt-1">[Details hidden]</p>
                             <p class="text-xs text-themed-tertiary mt-2">
                                 ${commit.sha} by ${escapeHtml(getAuthorName(commit))} on ${formatDate(commit.timestamp)}
                                 ${commit.repo_id ? `in ${commit.repo_id}` : ''}

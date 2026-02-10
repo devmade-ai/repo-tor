@@ -28,12 +28,10 @@ export function getAnonymousName(email) {
 }
 
 export function sanitizeName(name, email) {
-    if (!state.isSanitized) return name;
     return getAnonymousName(email);
 }
 
 export function sanitizeMessage(message) {
-    if (!state.isSanitized) return message;
     // Show only the type prefix if conventional commit, otherwise generic
     const match = message.match(/^(feat|fix|docs|style|refactor|test|chore|ci|build|perf|security)(\(.+?\))?:/i);
     if (match) {
