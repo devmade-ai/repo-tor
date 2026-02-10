@@ -114,11 +114,15 @@ export function applyUrlState() {
     applyMultiSelectFilter('urgency', '#filter-urgency-container', urlState.urgency);
     applyMultiSelectFilter('impact', '#filter-impact-container', urlState.impact);
 
-    // Apply date filters
-    state.filters.dateFrom = urlState.dateFrom;
-    state.filters.dateTo = urlState.dateTo;
-    document.getElementById('filter-date-from').value = urlState.dateFrom;
-    document.getElementById('filter-date-to').value = urlState.dateTo;
+    // Apply date filters (only if URL has date params, to avoid overwriting defaults)
+    if (urlState.dateFrom) {
+        state.filters.dateFrom = urlState.dateFrom;
+        document.getElementById('filter-date-from').value = urlState.dateFrom;
+    }
+    if (urlState.dateTo) {
+        state.filters.dateTo = urlState.dateTo;
+        document.getElementById('filter-date-to').value = urlState.dateTo;
+    }
 
     // Apply timezone
     if (urlState.tz === 'utc') {
@@ -378,13 +382,14 @@ export function setupExportButtons() {
 let deferredInstallPrompt = null;
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true;
+const isPWAInstalled = isStandalone || localStorage.getItem('pwaInstalled') === 'true';
 export function getDeferredInstallPrompt() { return deferredInstallPrompt; }
 export function setDeferredInstallPrompt(val) { deferredInstallPrompt = val; }
 
 // Handle install prompt
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
-    if (isStandalone) return;
+    if (isPWAInstalled) return;
     deferredInstallPrompt = e;
     showPWAInstallButton();
     updatePWAStatus('ready');
@@ -392,6 +397,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 window.addEventListener('appinstalled', () => {
     deferredInstallPrompt = null;
+    localStorage.setItem('pwaInstalled', 'true');
     hidePWAInstallButton();
     updatePWAStatus('installed');
     showToast('App installed successfully!');
@@ -454,13 +460,15 @@ export async function installPWA() {
     deferredInstallPrompt = null;
 }
 
-// Check if already installed (standalone mode)
-if (isStandalone) {
+// Check if already installed (standalone mode or previously installed)
+if (isPWAInstalled) {
     hidePWAInstallButton();
     updatePWAStatus('installed');
-    // Hide the entire PWA install section in settings
-    const pwaSection = document.getElementById('pwa-settings-section');
-    if (pwaSection) pwaSection.style.display = 'none';
+    // Hide the entire PWA install section in settings when running as standalone app
+    if (isStandalone) {
+        const pwaSection = document.getElementById('pwa-settings-section');
+        if (pwaSection) pwaSection.style.display = 'none';
+    }
 }
 
 // PWA updates handled automatically by vite-plugin-pwa (registerType: 'autoUpdate')

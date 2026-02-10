@@ -7,6 +7,17 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-10):**
+- **PWA Install Button Fix** - Install button no longer shows after app has been installed:
+  - Persist installed state to localStorage (`pwaInstalled` flag)
+  - Check both localStorage flag and `display-mode: standalone` media query
+  - `beforeinstallprompt` handler guarded against both conditions
+  - Settings panel still shows install section in browser (for reference) but hides it in standalone
+- **Default Filters Fix** - `applyUrlState()` no longer overwrites default date filters:
+  - Date filters now only applied from URL when URL actually contains date params
+  - Previously, empty URL params would clear the defaults set by `applyDefaultFilters()`
+- **Filter Checkbox Alignment** - Dropdown checkboxes now properly align with text:
+  - Added `flex-shrink: 0` and explicit `width`/`height` (14px) to checkboxes
+  - Added `line-height: 1.25` to option labels for consistent vertical alignment
 - **Default Filters** - First-time visitors now see sensible defaults:
   - Tag filter: exclude `merge` commits by default
   - Date filter: starts at December 1, 2025 by default
@@ -246,4 +257,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-10 - Added default filters (exclude merges, date from Dec 2025). Fixed PWA install button in standalone mode and mobile button wrapping.*
+*Last updated: 2026-02-10 - Fixed PWA install button persistence, default filter date overwrite, filter checkbox alignment.*
