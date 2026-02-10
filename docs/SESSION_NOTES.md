@@ -6,7 +6,19 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
+**Recent Updates (2026-02-10):**
+- **Default Filters** - First-time visitors now see sensible defaults:
+  - Tag filter: exclude `merge` commits by default
+  - Date filter: starts at December 1, 2025 by default
+  - Defaults only apply on first visit (no localStorage, no URL params)
+  - User changes are saved to localStorage and override defaults on return visits
+  - Config lives in `FILTER_DEFAULTS` in `js/state.js` for easy adjustment
+
 **Recent Updates (2026-02-09):**
+- **PWA Install Button Fix** - Install button no longer appears when running as an installed PWA:
+  - Added `isStandalone` flag to guard against `beforeinstallprompt` firing in standalone mode
+  - Standalone detection now hides button and entire PWA settings section
+  - Added `flex-wrap` to header buttons so they wrap properly on mobile
 - **PWA Pull-to-Refresh Update Fix** - Pull-to-refresh (and page reload) now properly updates to the latest PWA version:
   - Added `controllerchange` listener to auto-reload when new service worker takes control
   - Added `visibilitychange` listener to check for updates when returning to the app
@@ -234,4 +246,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-09 - PWA pull-to-refresh update fix. Pull-to-refresh and reload now apply pending service worker updates automatically.*
+*Last updated: 2026-02-10 - Added default filters (exclude merges, date from Dec 2025). Fixed PWA install button in standalone mode and mobile button wrapping.*

@@ -376,12 +376,15 @@ export function setupExportButtons() {
 // === PWA Support ===
 // Service worker registration handled by vite-plugin-pwa
 let deferredInstallPrompt = null;
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true;
 export function getDeferredInstallPrompt() { return deferredInstallPrompt; }
 export function setDeferredInstallPrompt(val) { deferredInstallPrompt = val; }
 
 // Handle install prompt
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
+    if (isStandalone) return;
     deferredInstallPrompt = e;
     showPWAInstallButton();
     updatePWAStatus('ready');
@@ -452,9 +455,12 @@ export async function installPWA() {
 }
 
 // Check if already installed (standalone mode)
-if (window.matchMedia('(display-mode: standalone)').matches ||
-    window.navigator.standalone === true) {
+if (isStandalone) {
+    hidePWAInstallButton();
     updatePWAStatus('installed');
+    // Hide the entire PWA install section in settings
+    const pwaSection = document.getElementById('pwa-settings-section');
+    if (pwaSection) pwaSection.style.display = 'none';
 }
 
 // PWA updates handled automatically by vite-plugin-pwa (registerType: 'autoUpdate')
