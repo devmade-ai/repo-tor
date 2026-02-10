@@ -1180,6 +1180,7 @@
             cursor: pointer;
             font-size: 12px;
             gap: 6px;
+            line-height: 1.25;
         }
         .filter-multi-select-option:hover {
             background: var(--bg-tertiary);
@@ -1187,6 +1188,9 @@
         .filter-multi-select-option input[type="checkbox"] {
             margin: 0;
             cursor: pointer;
+            flex-shrink: 0;
+            width: 14px;
+            height: 14px;
         }
         .filter-multi-select-option.selected {
             background: var(--color-primary-alpha, rgba(45, 104, 255, 0.1));

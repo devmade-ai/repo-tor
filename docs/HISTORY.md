@@ -4,6 +4,16 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-10
 
+### Fix: PWA Install Button, Default Filters, Filter Alignment
+
+**Why:** Three UI bugs: (1) PWA install button still visible after installing the app because installed state wasn't persisted across sessions, (2) default date filters were overwritten by `applyUrlState()` even when no URL params existed, (3) filter dropdown checkboxes and text were misaligned due to missing flex-shrink and sizing on checkboxes.
+
+**Changes:**
+- `dashboard/js/export.js` — Persist PWA installed state in localStorage (`pwaInstalled`). Check both localStorage and `display-mode: standalone` media query. Guard `beforeinstallprompt` against both. Fix `applyUrlState()` to only set date filters when URL params actually contain date values.
+- `dashboard/styles.css` — Add `flex-shrink: 0`, explicit `width`/`height` (14px), and `line-height` to filter dropdown options for consistent checkbox/text alignment.
+
+---
+
 ### Feature: Default Filters (Exclude Merges, Date from Dec 2025)
 
 **Why:** First-time visitors saw all data including merge commits and old history. Sensible defaults provide a better out-of-box experience while still being overridable.
