@@ -4,6 +4,18 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-10
 
+### Docs: React + Tailwind Migration Analysis
+
+**Why:** Evaluated the effort required to migrate from vanilla JS to React with Tailwind to inform future architecture decisions.
+
+**Changes:**
+- `docs/TODO.md` — Added detailed migration scope breakdown (lines affected per module, risks, gains, recommended approach) under "React + Tailwind Migration" backlog section.
+- `docs/ADR-001-vanilla-js.md` — Added "React Migration Cost Assessment" section with summary findings and cross-reference to TODO.md.
+
+**Conclusion:** Migration is feasible (~3,500 lines to rewrite, ~20-25 components) but offers no user-facing value for a read-only dashboard. Recommended incremental approach if proceeding. Consider Preact or Svelte over full React.
+
+---
+
 ### Fix: Default Filter Indicator on Load
 
 **Why:** When default filters were applied on first visit (exclude merge, date from 2025-12-01), the filter indicator ("X of Y") and badge didn't show in the UI, giving no visual feedback that filters were active.

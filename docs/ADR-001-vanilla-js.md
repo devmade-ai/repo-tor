@@ -46,6 +46,21 @@ Adopt a framework if the dashboard gains:
 
 If that happens, **Preact** (3KB, React-compatible API) or **Svelte** (compiles away, minimal runtime) would be the best fits for this project's size and simplicity goals. React/Vue/Angular would be overkill.
 
+## React Migration Cost Assessment (2026-02-10)
+
+A detailed migration analysis was performed. Key findings:
+
+- **~3,500 lines** of DOM-touching code would need rewriting
+- **~1,000 lines** (utils, data loading, PWA) transfer unchanged
+- **~20-25 React components** needed
+- **Tailwind classes** transfer 1:1 into JSX
+- **Highest-risk area:** `filters.js` (593 lines of intertwined state logic)
+- **No automated tests** — all verification would be visual
+
+**Conclusion:** Migration is feasible but offers no user-facing value for a read-only dashboard. The cost is real; the benefit is developer ergonomics for hypothetical future features.
+
+Full breakdown in `docs/TODO.md` under "React + Tailwind Migration".
+
 ## History
 
 The dashboard started as a monolithic 6,927-line `index.html` (2026-02-05), was modularized into 10 ES modules with Vite (2026-02-06), and has since been refined with event delegation, lazy rendering, and role-based views — all in vanilla JS.
