@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
     getTagClass, getTagStyleObject, getTagColor,
-    aggregateContributors, getAuthorEmail, getAuthorName, sanitizeName
+    aggregateContributors, getAuthorEmail, getAuthorName, sanitizeName, handleKeyActivate
 } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
@@ -90,7 +90,10 @@ export default function ContributorsTab() {
                                 <div
                                     key={item.label || idx}
                                     className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                                    role="button"
+                                    tabIndex={0}
                                     onClick={() => handleCardClick(item)}
+                                    onKeyDown={handleKeyActivate(() => handleCardClick(item))}
                                 >
                                     <p className="font-medium text-themed-primary mb-1">{item.displayName}</p>
                                     <p className="text-xs text-themed-tertiary mb-2">{item.count} commits</p>

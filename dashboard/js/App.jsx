@@ -61,6 +61,13 @@ function combineDatasets(datasets) {
 export default function App() {
     const { state, dispatch } = useApp();
 
+    // Lock body scroll when any overlay pane is open
+    useEffect(() => {
+        const anyOpen = state.detailPane.open || state.settingsPaneOpen;
+        document.body.style.overflow = anyOpen ? 'hidden' : '';
+        return () => { document.body.style.overflow = ''; };
+    }, [state.detailPane.open, state.settingsPaneOpen]);
+
     // Auto-load data.json on mount
     useEffect(() => {
         fetch('./data.json')

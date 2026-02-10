@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
-import { getCommitTags, getTagColor, getTagClass, getTagStyleObject } from '../utils.js';
+import { getCommitTags, getTagColor, getTagClass, getTagStyleObject, handleKeyActivate } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 export default function TagsTab() {
@@ -92,7 +92,10 @@ export default function TagsTab() {
                             <div
                                 key={tag}
                                 className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                role="button"
+                                tabIndex={0}
                                 onClick={() => handleTagClick(tag)}
+                                onKeyDown={handleKeyActivate(() => handleTagClick(tag))}
                             >
                                 <span
                                     className={`tag ${getTagClass(tag)}`}

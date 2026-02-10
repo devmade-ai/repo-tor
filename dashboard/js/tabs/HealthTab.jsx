@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
-import { getAuthorEmail, getAuthorName, sanitizeName } from '../utils.js';
+import { getAuthorEmail, getAuthorName, sanitizeName, handleKeyActivate } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 function UrgencyBar({ counts, total, label, onClick }) {
@@ -12,6 +12,7 @@ function UrgencyBar({ counts, total, label, onClick }) {
     return (
         <div
             className={`p-2 -m-2 transition-colors ${onClick ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded' : ''}`}
+            {...(onClick ? { role: 'button', tabIndex: 0, onKeyDown: handleKeyActivate(onClick) } : {})}
             onClick={onClick}
         >
             <div className="flex justify-between text-sm mb-1">
@@ -41,6 +42,7 @@ function ImpactBar({ counts, total, label, onClick }) {
     return (
         <div
             className={`p-2 -m-2 transition-colors ${onClick ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded' : ''}`}
+            {...(onClick ? { role: 'button', tabIndex: 0, onKeyDown: handleKeyActivate(onClick) } : {})}
             onClick={onClick}
         >
             <div className="flex justify-between text-sm mb-1">
@@ -411,28 +413,40 @@ export default function HealthTab() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleSummaryCardClick('security')}
+                        onKeyDown={handleKeyActivate(() => handleSummaryCardClick('security'))}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{metrics.securityCount}</div>
                         <div className="text-sm text-themed-tertiary">Security</div>
                     </div>
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleSummaryCardClick('reactive')}
+                        onKeyDown={handleKeyActivate(() => handleSummaryCardClick('reactive'))}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{metrics.reactivePct}%</div>
                         <div className="text-sm text-themed-tertiary">Reactive</div>
                     </div>
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleSummaryCardClick('weekend')}
+                        onKeyDown={handleKeyActivate(() => handleSummaryCardClick('weekend'))}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{metrics.weekendPct}%</div>
                         <div className="text-sm text-themed-tertiary">Weekend</div>
                     </div>
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleSummaryCardClick('afterhours')}
+                        onKeyDown={handleKeyActivate(() => handleSummaryCardClick('afterhours'))}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{metrics.afterHoursPct}%</div>
                         <div className="text-sm text-themed-tertiary">After Hours</div>
@@ -449,7 +463,10 @@ export default function HealthTab() {
                             <div
                                 key={filter}
                                 className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                role="button"
+                                tabIndex={0}
                                 onClick={() => handleUrgencyFilterClick(filter)}
+                                onKeyDown={handleKeyActivate(() => handleUrgencyFilterClick(filter))}
                             >
                                 <div className="flex justify-between text-sm mb-1">
                                     <span className="text-themed-secondary">{label}</span>
@@ -473,7 +490,10 @@ export default function HealthTab() {
                             <div
                                 key={key}
                                 className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                role="button"
+                                tabIndex={0}
                                 onClick={() => handleImpactFilterClick(key)}
+                                onKeyDown={handleKeyActivate(() => handleImpactFilterClick(key))}
                             >
                                 <div className="flex justify-between text-sm mb-1">
                                     <span className="text-themed-secondary">{label}</span>

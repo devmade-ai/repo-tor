@@ -4,7 +4,7 @@ import { useApp } from '../AppContext.jsx';
 import {
     formatDate, getCommitTags, getTagClass, getTagStyleObject,
     getAuthorEmail, getAuthorName, getCommitSubject,
-    sanitizeMessage, getWorkPattern, getAdditions, getDeletions
+    sanitizeMessage, getWorkPattern, getAdditions, getDeletions, handleKeyActivate
 } from '../utils.js';
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
@@ -343,7 +343,10 @@ export default function TimelineTab() {
                     <div
                         key={period.key}
                         className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handlePeriodClick(period.key)}
+                        onKeyDown={handleKeyActivate(() => handlePeriodClick(period.key))}
                     >
                         <div className="flex items-center justify-between mb-2">
                             <span className="text-sm font-medium text-themed-primary">{period.label}</span>
@@ -383,7 +386,10 @@ export default function TimelineTab() {
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleCardClick('total')}
+                        onKeyDown={handleKeyActivate(() => handleCardClick('total'))}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{summaryData.totalCommits}</div>
                         <div className="text-sm text-themed-tertiary">Total Commits</div>
@@ -402,7 +408,10 @@ export default function TimelineTab() {
                     </div>
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleCardClick('contributors')}
+                        onKeyDown={handleKeyActivate(() => handleCardClick('contributors'))}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{summaryData.contributors}</div>
                         <div className="text-sm text-themed-tertiary">Contributors</div>

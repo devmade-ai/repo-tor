@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useApp } from '../AppContext.jsx';
+import useFocusTrap from '../hooks/useFocusTrap.js';
 import {
     formatDate,
     getCommitTags,
@@ -13,18 +14,7 @@ import {
 export default function DetailPane() {
     const { state, dispatch } = useApp();
     const { open, title, subtitle, commits } = state.detailPane;
-
-    // Manage body overflow when detail pane opens/closes
-    useEffect(() => {
-        if (open) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-        return () => {
-            document.body.style.overflow = '';
-        };
-    }, [open]);
+    const trapRef = useFocusTrap(open);
 
     // Escape key to close
     useEffect(() => {
@@ -47,6 +37,7 @@ export default function DetailPane() {
                 onClick={handleClose}
             />
             <div
+                ref={trapRef}
                 className={`detail-pane ${open ? 'open' : ''}`}
                 role="dialog"
                 aria-modal={open}

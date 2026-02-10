@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useCallback } from 'react';
+import React, { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getAuthorEmail, getCommitDateTime, getFilesChanged } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
@@ -15,10 +15,8 @@ const FILE_NAME_NOUNS = [
     'Cyclops', 'Hydra', 'Chimera', 'Basilisk', 'Troll', 'Ogre', 'Fairy', 'Gnome', 'Sprite',
 ];
 
-const fileNameCache = {};
-
-function getHumorousFileName(path) {
-    if (fileNameCache[path]) return fileNameCache[path];
+function getHumorousFileName(path, cache) {
+    if (cache[path]) return cache[path];
     let hash = 0;
     for (let i = 0; i < path.length; i++) {
         hash = ((hash << 5) - hash) + path.charCodeAt(i);
@@ -27,7 +25,7 @@ function getHumorousFileName(path) {
     const adjIdx = Math.abs(hash) % FILE_NAME_ADJECTIVES.length;
     const nounIdx = Math.abs(hash >> 8) % FILE_NAME_NOUNS.length;
     const name = `${FILE_NAME_ADJECTIVES[adjIdx]} ${FILE_NAME_NOUNS[nounIdx]}`;
-    fileNameCache[path] = name;
+    cache[path] = name;
     return name;
 }
 
@@ -292,6 +290,7 @@ function getRandomMetrics(count, pinned) {
 
 export default function DiscoverTab() {
     const { filteredCommits } = useApp();
+    const fileNameCacheRef = useRef({});
 
     const [pinnedMetrics, setPinnedMetrics] = useState(() => loadPinnedMetrics());
     const [selectedMetrics, setSelectedMetrics] = useState(() =>
@@ -374,7 +373,7 @@ export default function DiscoverTab() {
         const maxCount = topFiles[0][1];
         return topFiles.map(([path, count]) => ({
             path,
-            name: getHumorousFileName(path),
+            name: getHumorousFileName(path, fileNameCacheRef.current),
             count,
             pct: Math.round((count / maxCount) * 100),
         }));

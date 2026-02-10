@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useApp } from '../AppContext.jsx';
+import useFocusTrap from '../hooks/useFocusTrap.js';
 
 const VIEW_LEVEL_DESCRIPTIONS = {
     executive: 'High-level summary, aggregated metrics',
@@ -20,6 +21,7 @@ function formatHour(h) {
 
 export default function SettingsPane() {
     const { state, dispatch } = useApp();
+    const trapRef = useFocusTrap(state.settingsPaneOpen);
 
     function handleClose() {
         dispatch({ type: 'CLOSE_SETTINGS_PANE' });
@@ -66,6 +68,7 @@ export default function SettingsPane() {
                 onClick={handleClose}
             />
             <div
+                ref={trapRef}
                 className={`settings-pane ${state.settingsPaneOpen ? 'open' : ''}`}
                 role="dialog"
                 aria-modal={state.settingsPaneOpen}

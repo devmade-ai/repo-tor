@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useApp } from '../AppContext.jsx';
 import {
     formatDate, getCommitSubject, getAuthorName,
-    sanitizeMessage, getCommitDateRange
+    sanitizeMessage, getCommitDateRange, handleKeyActivate,
 } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
@@ -93,7 +93,10 @@ export default function SecurityTab() {
                         <div
                             key={repo}
                             className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                            role="button"
+                            tabIndex={0}
                             onClick={() => handleRepoClick(repo)}
+                            onKeyDown={handleKeyActivate(() => handleRepoClick(repo))}
                         >
                             <div className="flex justify-between items-center">
                                 <span className="text-themed-primary font-medium">{repo}</span>

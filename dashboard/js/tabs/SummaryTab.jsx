@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useApp } from '../AppContext.jsx';
-import { getCommitTags, getWorkPattern } from '../utils.js';
+import { getCommitTags, getWorkPattern, handleKeyActivate } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 export default function SummaryTab() {
@@ -129,8 +129,10 @@ export default function SummaryTab() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
                         className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
-
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleCardClick('features')}
+                        onKeyDown={handleKeyActivate(() => handleCardClick('features'))}
                     >
                         <div className="p-4 bg-themed-tertiary rounded-lg text-center">
                             <div className="text-2xl font-semibold text-themed-primary">{metrics.features}</div>
@@ -139,8 +141,10 @@ export default function SummaryTab() {
                     </div>
                     <div
                         className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
-
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleCardClick('fixes')}
+                        onKeyDown={handleKeyActivate(() => handleCardClick('fixes'))}
                     >
                         <div className="p-4 bg-themed-tertiary rounded-lg text-center">
                             <div className="text-2xl font-semibold text-themed-primary">{metrics.fixes}</div>
@@ -149,8 +153,10 @@ export default function SummaryTab() {
                     </div>
                     <div
                         className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
-
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleCardClick('urgency')}
+                        onKeyDown={handleKeyActivate(() => handleCardClick('urgency'))}
                     >
                         <div className="p-4 bg-themed-tertiary rounded-lg text-center">
                             <div className="text-2xl font-semibold text-themed-primary">
@@ -161,8 +167,10 @@ export default function SummaryTab() {
                     </div>
                     <div
                         className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
-
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleCardClick('planned')}
+                        onKeyDown={handleKeyActivate(() => handleCardClick('planned'))}
                     >
                         <div className="p-4 bg-themed-tertiary rounded-lg text-center">
                             <div className="text-2xl font-semibold text-themed-primary">

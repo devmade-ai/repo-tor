@@ -202,16 +202,15 @@ export function AppProvider({ children }) {
         };
     }, [state.data?.commits]);
 
-    // Sync React state to global state object (for utils.js compatibility)
-    useEffect(() => {
-        globalState.data = state.data;
-        globalState.useUTC = state.useUTC;
-        globalState.workHourStart = state.workHourStart;
-        globalState.workHourEnd = state.workHourEnd;
-        globalState.currentViewLevel = state.currentViewLevel;
-        globalState.filters = state.filters;
-        globalState.activeTab = state.activeTab;
-    }, [state.data, state.useUTC, state.workHourStart, state.workHourEnd, state.currentViewLevel, state.filters, state.activeTab]);
+    // Sync React state to global state object synchronously (for utils.js compatibility).
+    // Done inline (not in useEffect) so globalState is current before children render.
+    globalState.data = state.data;
+    globalState.useUTC = state.useUTC;
+    globalState.workHourStart = state.workHourStart;
+    globalState.workHourEnd = state.workHourEnd;
+    globalState.currentViewLevel = state.currentViewLevel;
+    globalState.filters = state.filters;
+    globalState.activeTab = state.activeTab;
 
     // Persist settings to localStorage
     useEffect(() => {

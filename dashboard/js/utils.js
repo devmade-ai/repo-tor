@@ -3,12 +3,14 @@
 
 import { state, anonymousNames, authorAnonMap, getViewConfig } from './state.js';
 
-// --- escapeHtml (with null check) ---
-export function escapeHtml(text) {
-    if (!text) return '';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+// Keyboard handler for clickable non-button elements (Enter/Space activates click)
+export function handleKeyActivate(callback) {
+    return (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            callback();
+        }
+    };
 }
 
 // --- getUrgencyLabel ---

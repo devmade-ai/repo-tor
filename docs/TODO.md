@@ -25,25 +25,6 @@ Remaining tasks for Git Analytics Reporting System.
 
 ---
 
-## React Migration -- Remaining Issues
-
-Issues identified during post-migration review that are not yet fixed.
-
-### Accessibility (remaining)
-
-1. [ ] **Clickable `<div>` elements without keyboard support in tab components** — Stat cards, bars, contributor cards, tag rows across all tabs use `<div onClick>` without `role="button"`, `tabIndex={0}`, or keyboard handlers. (Fixed in SettingsPane and CollapsibleSection; remaining in tab JSX.)
-2. [ ] **Filter dropdowns have no ARIA attributes** — No `aria-expanded`, `aria-haspopup`, arrow-key navigation in `FilterSidebar.jsx`.
-3. [ ] **Focus trap missing in DetailPane and SettingsPane** — Escape key and dialog roles added, but Tab key can still escape the pane.
-
-### Code Quality (remaining)
-
-4. [ ] **Body overflow conflict between overlays** — Both `DetailPane.jsx` and `SettingsPane.jsx` independently set `document.body.style.overflow`. If both are open and one closes, overflow is restored prematurely.
-5. [ ] **Bidirectional state sync is fragile** — `AppContext.jsx` syncs React state to `globalState` (from `state.js`) via `useEffect` for `utils.js` compatibility. Global object lags behind React state by one render cycle.
-6. [ ] **Module-level mutable cache in DiscoverTab** — `DiscoverTab.jsx:18` has `const fileNameCache = {}` that grows unboundedly and persists across data set changes.
-7. [ ] **`escapeHtml()` still exported from `utils.js`** — No longer called anywhere; can be removed from `utils.js` entirely.
-
----
-
 ## Backlog
 
 ### Research
@@ -52,4 +33,4 @@ Issues identified during post-migration review that are not yet fixed.
 
 ---
 
-*Last updated: 2026-02-10 - Fixed 15 of 22 post-migration issues. 7 remaining (accessibility depth, overflow conflict, state sync, cache, dead export).*
+*Last updated: 2026-02-10 - All 22 post-migration issues fixed. React migration complete.*
