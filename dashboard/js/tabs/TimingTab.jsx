@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
-    escapeHtml, getAuthorEmail, getAuthorName, getCommitDateTime, DAY_NAMES_SHORT
+    getAuthorEmail, getAuthorName, getCommitDateTime, DAY_NAMES_SHORT
 } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
@@ -380,10 +380,10 @@ export default function TimingTab() {
 
             {/* Developer Patterns - only for developer view */}
             {viewConfig.timing === 'hour' && developerPatterns.length > 0 && (
-                <CollapsibleSection title="Developer Patterns" data-section="developer-patterns">
+                <CollapsibleSection title="Developer Patterns">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {developerPatterns.map((author, idx) => (
-                            <div key={idx} className="p-3 bg-themed-tertiary rounded-lg">
+                        {developerPatterns.map((author) => (
+                            <div key={author.name} className="p-3 bg-themed-tertiary rounded-lg">
                                 <div className="flex items-center justify-between mb-2">
                                     <span className="font-medium text-themed-primary">{author.name}</span>
                                     <span className="text-xs text-themed-tertiary">{author.commitCount} commits</span>

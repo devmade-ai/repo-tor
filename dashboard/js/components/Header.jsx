@@ -30,7 +30,7 @@ export default function Header() {
                         <button
                             onClick={() => dispatch({ type: 'TOGGLE_SETTINGS_PANE' })}
                             className="btn-theme"
-                            title="Settings"
+                            aria-label="Settings"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path

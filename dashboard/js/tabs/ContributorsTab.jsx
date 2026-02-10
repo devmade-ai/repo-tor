@@ -2,20 +2,10 @@ import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
-    escapeHtml, getTagClass, getTagStyle, getTagColor,
-    aggregateContributors, getAuthorEmail, getAuthorName, sanitizeName
+    getTagClass, getTagStyleObject, getTagColor,
+    aggregateContributors, getAuthorEmail, getAuthorName, sanitizeName, handleKeyActivate
 } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
-
-function parseInlineStyle(styleStr) {
-    if (!styleStr) return {};
-    const style = {};
-    styleStr.split(';').forEach(pair => {
-        const [key, val] = pair.split(':').map(s => s.trim());
-        if (key && val) style[key] = val;
-    });
-    return style;
-}
 
 export default function ContributorsTab() {
     const { filteredCommits, viewConfig, openDetailPane, isMobile } = useApp();
@@ -100,7 +90,10 @@ export default function ContributorsTab() {
                                 <div
                                     key={item.label || idx}
                                     className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                                    role="button"
+                                    tabIndex={0}
                                     onClick={() => handleCardClick(item)}
+                                    onKeyDown={handleKeyActivate(() => handleCardClick(item))}
                                 >
                                     <p className="font-medium text-themed-primary mb-1">{item.displayName}</p>
                                     <p className="text-xs text-themed-tertiary mb-2">{item.count} commits</p>
@@ -111,7 +104,7 @@ export default function ContributorsTab() {
                                                 <div key={tag} className="flex items-center gap-2">
                                                     <span
                                                         className={`tag ${getTagClass(tag)}`}
-                                                        style={parseInlineStyle(getTagStyle(tag))}
+                                                        style={getTagStyleObject(tag)}
                                                     >
                                                         {tag}
                                                     </span>

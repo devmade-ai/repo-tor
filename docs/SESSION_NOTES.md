@@ -7,6 +7,28 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-10):**
+- **React Migration Fixes (Final 7)** - Completed all remaining post-migration issues:
+  - FilterSidebar ARIA: added aria-expanded, aria-haspopup="listbox", role="listbox", role="option", aria-selected, aria-pressed, Escape to close dropdown
+  - Focus trap: created shared `useFocusTrap` hook (`js/hooks/useFocusTrap.js`), applied to DetailPane and SettingsPane
+  - Body overflow: centralized in App.jsx (single useEffect watches both panes), removed from DetailPane
+  - State sync: replaced async useEffect sync with synchronous inline assignment in AppProvider render path — eliminates one-frame lag
+  - fileNameCache: moved from module-level to useRef inside DiscoverTab — GC'd on unmount
+  - escapeHtml removed, handleKeyActivate added to all 17 clickable divs across 6 tab files
+  - Build: 58 modules, 475KB bundle
+- **React Migration Fixes (First 15)** - Fixed 15 of 22 post-migration issues:
+  - Deleted 17 dead vanilla JS files (main.js, filters.js, ui.js, export.js, data.js, tabs.js, all tabs/*.js)
+  - Rewrote pwa.js to use custom events instead of DOM manipulation (removed ui.js import chain)
+  - Cleaned charts.js to only export pure data functions (removed filters.js import)
+  - Added ErrorBoundary component wrapping tab content in App.jsx
+  - Removed unused isDragOver state from App.jsx
+  - Removed escapeHtml from all .jsx imports and usage (React auto-escapes)
+  - Added getTagStyleObject() to utils.js, eliminated parseInlineStyle duplication from 4 files
+  - Fixed isMobile to track resize events via debounced state in AppContext
+  - Added ARIA: tablist/tab/aria-selected on TabBar, dialog/aria-modal/Escape on DetailPane & SettingsPane, role/tabIndex/keyboard on CollapsibleSection and settings toggles, aria-label on close buttons
+  - Removed leftover data-* attributes from TabBar, SummaryTab, ProgressTab, TimingTab, CollapsibleSection
+  - Fixed index-based React keys in SummaryTab, TimingTab, DiscoverTab
+  - Build: 70 → 57 modules, PWA chunk now separate (4.5KB)
+- **React Migration Review** - Comprehensive review identified all 22 issues
 - **React + Tailwind Migration** - Full migration from vanilla JS to React:
   - Added React 19 + react-chartjs-2 + @vitejs/plugin-react
   - Created AppContext.jsx (useReducer state management, replaces global state)
@@ -253,10 +275,11 @@ const TAB_MAPPING = {
 | `vite.config.js` | Vite + PWA plugin configuration |
 | `dashboard/index.html` | Dashboard HTML structure (modularized) |
 | `dashboard/styles.css` | Dashboard CSS styles |
-| `dashboard/js/main.js` | Dashboard JS entry point |
-| `dashboard/js/pwa.js` | PWA install + update module |
-| `dashboard/js/state.js` | Shared state and config constants |
-| `dashboard/js/tabs.js` | Tab rendering functions (largest module) |
+| `dashboard/js/main.jsx` | React entry point with Chart.js registration |
+| `dashboard/js/AppContext.jsx` | React Context + useReducer state management |
+| `dashboard/js/App.jsx` | Main app component (data loading, tab routing, layout) |
+| `dashboard/js/pwa.js` | PWA install + update module (custom events) |
+| `dashboard/js/state.js` | Constants (VIEW_LEVELS, TAB_MAPPING) + global state compat shim |
 | `scripts/setup-gh.sh` | GitHub CLI installation and authentication |
 | `scripts/extract-api.js` | GitHub API-based extraction (no cloning) |
 | `scripts/aggregate-processed.js` | Aggregation from processed/ data |

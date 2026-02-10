@@ -3,12 +3,14 @@
 
 import { state, anonymousNames, authorAnonMap, getViewConfig } from './state.js';
 
-// --- escapeHtml (with null check) ---
-export function escapeHtml(text) {
-    if (!text) return '';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+// Keyboard handler for clickable non-button elements (Enter/Space activates click)
+export function handleKeyActivate(callback) {
+    return (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            callback();
+        }
+    };
 }
 
 // --- getUrgencyLabel ---
@@ -239,6 +241,20 @@ export function getTagStyle(tag) {
     const g = parseInt(color.slice(3, 5), 16);
     const b = parseInt(color.slice(5, 7), 16);
     return `--tag-bg: rgba(${r}, ${g}, ${b}, 0.2); --tag-color: ${color}; --tag-border: rgba(${r}, ${g}, ${b}, 0.3);`;
+}
+
+// React-compatible version of getTagStyle — returns a style object
+export function getTagStyleObject(tag) {
+    if (TAG_COLORS[tag]) return {};
+    const color = getDynamicTagColor(tag);
+    const r = parseInt(color.slice(1, 3), 16);
+    const g = parseInt(color.slice(3, 5), 16);
+    const b = parseInt(color.slice(5, 7), 16);
+    return {
+        '--tag-bg': `rgba(${r}, ${g}, ${b}, 0.2)`,
+        '--tag-color': color,
+        '--tag-border': `rgba(${r}, ${g}, ${b}, 0.3)`,
+    };
 }
 
 // === Author Resolution ===

@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useCallback } from 'react';
+import React, { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getAuthorEmail, getCommitDateTime, getFilesChanged } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
@@ -15,10 +15,8 @@ const FILE_NAME_NOUNS = [
     'Cyclops', 'Hydra', 'Chimera', 'Basilisk', 'Troll', 'Ogre', 'Fairy', 'Gnome', 'Sprite',
 ];
 
-const fileNameCache = {};
-
-function getHumorousFileName(path) {
-    if (fileNameCache[path]) return fileNameCache[path];
+function getHumorousFileName(path, cache) {
+    if (cache[path]) return cache[path];
     let hash = 0;
     for (let i = 0; i < path.length; i++) {
         hash = ((hash << 5) - hash) + path.charCodeAt(i);
@@ -27,7 +25,7 @@ function getHumorousFileName(path) {
     const adjIdx = Math.abs(hash) % FILE_NAME_ADJECTIVES.length;
     const nounIdx = Math.abs(hash >> 8) % FILE_NAME_NOUNS.length;
     const name = `${FILE_NAME_ADJECTIVES[adjIdx]} ${FILE_NAME_NOUNS[nounIdx]}`;
-    fileNameCache[path] = name;
+    cache[path] = name;
     return name;
 }
 
@@ -292,6 +290,7 @@ function getRandomMetrics(count, pinned) {
 
 export default function DiscoverTab() {
     const { filteredCommits } = useApp();
+    const fileNameCacheRef = useRef({});
 
     const [pinnedMetrics, setPinnedMetrics] = useState(() => loadPinnedMetrics());
     const [selectedMetrics, setSelectedMetrics] = useState(() =>
@@ -374,7 +373,7 @@ export default function DiscoverTab() {
         const maxCount = topFiles[0][1];
         return topFiles.map(([path, count]) => ({
             path,
-            name: getHumorousFileName(path),
+            name: getHumorousFileName(path, fileNameCacheRef.current),
             count,
             pct: Math.round((count / maxCount) * 100),
         }));
@@ -466,7 +465,7 @@ export default function DiscoverTab() {
                     {metricValues.map((metricResult, idx) => {
                         const isPinned = !!pinnedMetrics[idx];
                         return (
-                            <div key={idx} className="card">
+                            <div key={selectedMetrics[idx]} className="card">
                                 <div className="flex items-center justify-between mb-2">
                                     <select
                                         className="metric-selector text-xs bg-transparent border-none text-themed-tertiary cursor-pointer focus:outline-none"
@@ -525,13 +524,13 @@ export default function DiscoverTab() {
             <CollapsibleSection title="Comparisons">
                 {comparisons.length > 0 ? (
                     <div className="space-y-4">
-                        {comparisons.map((comp, idx) => {
+                        {comparisons.map((comp) => {
                             const total = comp.left.value + comp.right.value;
                             const leftPct = total > 0 ? Math.round((comp.left.value / total) * 100) : 50;
                             const rightPct = 100 - leftPct;
 
                             return (
-                                <div key={idx} className="p-3 bg-themed-tertiary rounded">
+                                <div key={comp.label} className="p-3 bg-themed-tertiary rounded">
                                     <p className="text-xs text-themed-tertiary mb-2">{comp.label}</p>
                                     <div className="flex items-center gap-2">
                                         <span className="text-sm font-medium text-themed-primary w-20">{comp.left.label}</span>

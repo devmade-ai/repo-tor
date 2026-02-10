@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
-import { getCommitTags } from '../utils.js';
+import { getCommitTags, handleKeyActivate } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 export default function ProgressTab() {
@@ -165,24 +165,30 @@ export default function ProgressTab() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
-                        data-work-card="features"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleCardClick('features')}
+                        onKeyDown={handleKeyActivate(() => handleCardClick('features'))}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{metrics.featureCount}</div>
                         <div className="text-sm text-themed-tertiary">Features</div>
                     </div>
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
-                        data-work-card="bugfixes"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleCardClick('bugfixes')}
+                        onKeyDown={handleKeyActivate(() => handleCardClick('bugfixes'))}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{metrics.bugfixCount}</div>
                         <div className="text-sm text-themed-tertiary">Bug Fixes</div>
                     </div>
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
-                        data-work-card="refactors"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleCardClick('refactors')}
+                        onKeyDown={handleKeyActivate(() => handleCardClick('refactors'))}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{metrics.refactorCount}</div>
                         <div className="text-sm text-themed-tertiary">Refactors</div>

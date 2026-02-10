@@ -6,11 +6,19 @@ export default function CollapsibleSection({ title, subtitle, defaultExpanded = 
     const sectionId = title.toLowerCase().replace(/\s+/g, '-');
 
     return (
-        <div className="card" data-section={sectionId}>
+        <div className="card">
             <div
                 className="collapsible-header"
+                role="button"
+                tabIndex={0}
                 aria-expanded={expanded}
                 onClick={() => setExpanded(!expanded)}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setExpanded(!expanded);
+                    }
+                }}
             >
                 <div className="collapsible-title">
                     <h3 className="text-lg font-semibold text-themed-primary">{title}</h3>

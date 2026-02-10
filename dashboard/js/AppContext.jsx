@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState } from 'react';
 import { state as globalState, FILTER_DEFAULTS, VIEW_LEVELS } from './state.js';
 import { getCommitTags, getAuthorEmail, getUrgencyLabel } from './utils.js';
 
@@ -202,16 +202,15 @@ export function AppProvider({ children }) {
         };
     }, [state.data?.commits]);
 
-    // Sync React state to global state object (for utils.js compatibility)
-    useEffect(() => {
-        globalState.data = state.data;
-        globalState.useUTC = state.useUTC;
-        globalState.workHourStart = state.workHourStart;
-        globalState.workHourEnd = state.workHourEnd;
-        globalState.currentViewLevel = state.currentViewLevel;
-        globalState.filters = state.filters;
-        globalState.activeTab = state.activeTab;
-    }, [state.data, state.useUTC, state.workHourStart, state.workHourEnd, state.currentViewLevel, state.filters, state.activeTab]);
+    // Sync React state to global state object synchronously (for utils.js compatibility).
+    // Done inline (not in useEffect) so globalState is current before children render.
+    globalState.data = state.data;
+    globalState.useUTC = state.useUTC;
+    globalState.workHourStart = state.workHourStart;
+    globalState.workHourEnd = state.workHourEnd;
+    globalState.currentViewLevel = state.currentViewLevel;
+    globalState.filters = state.filters;
+    globalState.activeTab = state.activeTab;
 
     // Persist settings to localStorage
     useEffect(() => {
@@ -243,7 +242,21 @@ export function AppProvider({ children }) {
         dispatch({ type: 'OPEN_DETAIL_PANE', payload: { title, subtitle, commits, filterInfo } });
     }, []);
 
-    const isMobile = useCallback(() => window.innerWidth < 640, []);
+    // Track mobile state reactively so charts recompute on resize
+    const [isMobileView, setIsMobileView] = useState(window.innerWidth < 640);
+    useEffect(() => {
+        let timeout;
+        function onResize() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => setIsMobileView(window.innerWidth < 640), 150);
+        }
+        window.addEventListener('resize', onResize);
+        return () => {
+            clearTimeout(timeout);
+            window.removeEventListener('resize', onResize);
+        };
+    }, []);
+    const isMobile = useCallback(() => isMobileView, [isMobileView]);
 
     const value = useMemo(() => ({
         state,

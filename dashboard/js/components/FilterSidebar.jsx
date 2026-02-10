@@ -6,15 +6,21 @@ function MultiSelect({ options, selected, onChange }) {
     const containerRef = useRef(null);
 
     useEffect(() => {
+        if (!open) return;
         function handleClickOutside(e) {
             if (containerRef.current && !containerRef.current.contains(e.target)) {
                 setOpen(false);
             }
         }
-        if (open) {
-            document.addEventListener('mousedown', handleClickOutside);
+        function handleKeyDown(e) {
+            if (e.key === 'Escape') setOpen(false);
         }
-        return () => document.removeEventListener('mousedown', handleClickOutside);
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleKeyDown);
+        };
     }, [open]);
 
     function getDisplayText() {
@@ -36,6 +42,8 @@ function MultiSelect({ options, selected, onChange }) {
             <button
                 type="button"
                 className="filter-multi-select-trigger"
+                aria-haspopup="listbox"
+                aria-expanded={open}
                 onClick={() => setOpen(!open)}
             >
                 <span className="selected-text">{getDisplayText()}</span>
@@ -45,11 +53,13 @@ function MultiSelect({ options, selected, onChange }) {
                     </svg>
                 </span>
             </button>
-            <div className={`filter-multi-select-dropdown ${open ? 'open' : ''}`}>
+            <div className={`filter-multi-select-dropdown ${open ? 'open' : ''}`} role="listbox">
                 {options.map(option => (
                     <label
                         key={option}
                         className={`filter-multi-select-option ${selected.includes(option) ? 'selected' : ''}`}
+                        role="option"
+                        aria-selected={selected.includes(option)}
                         onClick={(e) => {
                             e.preventDefault();
                             toggleOption(option);
@@ -100,6 +110,7 @@ function FilterGroup({ label, filterType, options }) {
                     <button
                         type="button"
                         className={filter.mode === 'include' ? 'active' : ''}
+                        aria-pressed={filter.mode === 'include'}
                         onClick={() => handleModeChange('include')}
                     >
                         Inc
@@ -107,6 +118,7 @@ function FilterGroup({ label, filterType, options }) {
                     <button
                         type="button"
                         className={`exclude ${filter.mode === 'exclude' ? 'active' : ''}`}
+                        aria-pressed={filter.mode === 'exclude'}
                         onClick={() => handleModeChange('exclude')}
                     >
                         Exc

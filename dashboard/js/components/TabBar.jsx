@@ -15,13 +15,14 @@ export default function TabBar() {
     return (
         <div className="tabs-bar">
             <div className="flex items-center gap-2">
-                <div className="flex overflow-x-auto scrollbar-hide flex-1">
+                <div className="flex overflow-x-auto scrollbar-hide flex-1" role="tablist">
                     {TABS.map(tab => {
                         const isActive = state.activeTab === tab.id;
                         return (
                             <button
                                 key={tab.id}
-                                data-tab={tab.id}
+                                role="tab"
+                                aria-selected={isActive}
                                 className={`tab-btn ${isActive ? 'border-blue-500 text-blue-600' : ''}`}
                                 onClick={() => dispatch({ type: 'SET_ACTIVE_TAB', payload: tab.id })}
                             >
@@ -33,7 +34,8 @@ export default function TabBar() {
                 <button
                     onClick={() => dispatch({ type: 'TOGGLE_FILTER_SIDEBAR' })}
                     className={`filter-toggle relative ${state.filterSidebarOpen ? 'active' : ''}`}
-                    title="Toggle filters"
+                    aria-label="Toggle filters"
+                    aria-expanded={state.filterSidebarOpen}
                 >
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path

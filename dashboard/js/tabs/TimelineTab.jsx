@@ -2,22 +2,12 @@ import React, { useMemo, useState, useCallback } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
-    escapeHtml, formatDate, getCommitTags, getTagClass, getTagStyle,
+    formatDate, getCommitTags, getTagClass, getTagStyleObject,
     getAuthorEmail, getAuthorName, getCommitSubject,
-    sanitizeMessage, getWorkPattern, getAdditions, getDeletions
+    sanitizeMessage, getWorkPattern, getAdditions, getDeletions, handleKeyActivate
 } from '../utils.js';
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
-
-function parseInlineStyle(styleStr) {
-    if (!styleStr) return {};
-    const style = {};
-    styleStr.split(';').forEach(pair => {
-        const [key, val] = pair.split(':').map(s => s.trim());
-        if (key && val) style[key] = val;
-    });
-    return style;
-}
 
 export default function TimelineTab() {
     const { state, dispatch, filteredCommits, viewConfig, openDetailPane, isMobile } = useApp();
@@ -292,7 +282,7 @@ export default function TimelineTab() {
                                     <span
                                         key={t}
                                         className={`tag ${getTagClass(t)} shrink-0`}
-                                        style={parseInlineStyle(getTagStyle(t))}
+                                        style={getTagStyleObject(t)}
                                     >
                                         {t}
                                     </span>
@@ -353,7 +343,10 @@ export default function TimelineTab() {
                     <div
                         key={period.key}
                         className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handlePeriodClick(period.key)}
+                        onKeyDown={handleKeyActivate(() => handlePeriodClick(period.key))}
                     >
                         <div className="flex items-center justify-between mb-2">
                             <span className="text-sm font-medium text-themed-primary">{period.label}</span>
@@ -364,7 +357,7 @@ export default function TimelineTab() {
                                 <span
                                     key={tag}
                                     className={`tag ${getTagClass(tag)}`}
-                                    style={parseInlineStyle(getTagStyle(tag))}
+                                    style={getTagStyleObject(tag)}
                                 >
                                     {tag} ({count})
                                 </span>
@@ -393,7 +386,10 @@ export default function TimelineTab() {
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleCardClick('total')}
+                        onKeyDown={handleKeyActivate(() => handleCardClick('total'))}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{summaryData.totalCommits}</div>
                         <div className="text-sm text-themed-tertiary">Total Commits</div>
@@ -412,7 +408,10 @@ export default function TimelineTab() {
                     </div>
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => handleCardClick('contributors')}
+                        onKeyDown={handleKeyActivate(() => handleCardClick('contributors'))}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{summaryData.contributors}</div>
                         <div className="text-sm text-themed-tertiary">Contributors</div>

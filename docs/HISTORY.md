@@ -4,6 +4,50 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-10
 
+### React Migration Fixes (Final 7)
+
+**Why:** Completed all remaining post-migration issues (22/22 done).
+
+**Changes:**
+- `dashboard/js/components/FilterSidebar.jsx` — Added `aria-expanded`, `aria-haspopup="listbox"`, `role="listbox"`, `role="option"`, `aria-selected`, `aria-pressed` on mode toggles, Escape to close dropdown
+- `dashboard/js/hooks/useFocusTrap.js` — New shared hook: traps Tab/Shift+Tab within a container, auto-focuses first element
+- `dashboard/js/components/DetailPane.jsx` — Added focus trap ref, removed body overflow management (centralized)
+- `dashboard/js/components/SettingsPane.jsx` — Added focus trap ref
+- `dashboard/js/App.jsx` — Centralized body overflow: single useEffect watches both `detailPane.open` and `settingsPaneOpen`
+- `dashboard/js/AppContext.jsx` — Replaced async `useEffect` global state sync with synchronous inline assignment (eliminates one-frame lag)
+- `dashboard/js/tabs/DiscoverTab.jsx` — Moved `fileNameCache` from module-level to `useRef` (GC'd on unmount, no unbounded growth)
+- Build: 58 modules, 475KB bundle
+
+### React Migration Fixes (First 15)
+
+**Why:** Fixed 15 of 22 issues identified during post-migration review.
+
+**Changes:**
+- Deleted 17 vanilla JS files: `main.js`, `filters.js`, `ui.js`, `export.js`, `data.js`, `tabs.js`, `tabs/*.js`
+- `dashboard/js/pwa.js` — Rewrote: removed `ui.js` import, replaced DOM manipulation with custom events
+- `dashboard/js/charts.js` — Removed `filters.js` import and vanilla render functions; only exports pure data functions
+- `dashboard/js/components/ErrorBoundary.jsx` — New error boundary component
+- `dashboard/js/App.jsx` — Wrapped tab content with ErrorBoundary, removed unused isDragOver state
+- `dashboard/js/AppContext.jsx` — isMobile now tracks window resize via debounced state
+- `dashboard/js/utils.js` — Added `getTagStyleObject()` returning React-compatible style objects
+- `dashboard/js/components/DetailPane.jsx` — Removed escapeHtml/parseInlineStyle, added dialog role, Escape key, aria-label
+- `dashboard/js/components/SettingsPane.jsx` — Added dialog role, Escape key, aria-label, role/tabIndex on toggles
+- `dashboard/js/components/TabBar.jsx` — Added role="tablist"/role="tab"/aria-selected, removed data-tab
+- `dashboard/js/components/CollapsibleSection.jsx` — Added role="button"/tabIndex/keyboard, removed data-section
+- `dashboard/js/components/Header.jsx` — aria-label on settings button
+- `dashboard/js/tabs/TimelineTab.jsx`, `ContributorsTab.jsx`, `TagsTab.jsx` — Removed escapeHtml import, parseInlineStyle, use getTagStyleObject
+- `dashboard/js/tabs/TimingTab.jsx`, `SecurityTab.jsx`, `HealthTab.jsx` — Removed escapeHtml import
+- `dashboard/js/tabs/SummaryTab.jsx` — Removed data-summary-card, fixed index keys
+- `dashboard/js/tabs/ProgressTab.jsx` — Removed data-work-card
+- `dashboard/js/tabs/DiscoverTab.jsx` — Fixed index keys on metric cards and comparisons
+- Build: 70 → 57 modules transformed
+
+### React Migration Review
+
+**Why:** Post-migration review to catch issues missed during the React migration.
+
+**Findings:** 22 issues identified across critical (5), functional (5), accessibility (6), and code quality (6) categories. All documented in TODO.md.
+
 ### React + Tailwind Migration
 
 **Why:** Migrated dashboard from vanilla JS to React for declarative rendering, component isolation, and better developer ergonomics.
