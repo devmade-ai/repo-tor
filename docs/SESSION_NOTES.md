@@ -7,6 +7,7 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-11):**
+- **Fix Pie Chart Legend Text Color** - Tag distribution doughnut legend text was colored to match each slice's background color (e.g., green text for "feature"), making it hard to read. Chart.js doughnut defaults use segment colors for legend text when `generateLabels` doesn't specify `fontColor`. Fixed by setting both `color` on the labels config and `fontColor` on each generated label to use `--text-secondary`.
 - **Tab Renames & Discover UI Fixes** - Reviewed all tab names vs content and fixed Discover first section:
   - Tab renames: Overview→Summary, Activity→Timeline, Work→Breakdown (internal IDs unchanged)
   - Discover first section: title "Discover"→"Metrics" (was redundant with tab name)
