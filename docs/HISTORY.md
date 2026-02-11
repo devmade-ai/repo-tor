@@ -4,6 +4,15 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-11
 
+### Fix PWA Install Button Missing After Uninstall
+
+**Why:** After uninstalling the PWA, the install button didn't reappear. The `appinstalled` event sets `localStorage.pwaInstalled = 'true'`, but nothing cleared it on uninstall. The `beforeinstallprompt` handler checked this stale flag and bailed out, suppressing the install prompt.
+
+**Fix:** `beforeinstallprompt` is the browser's authoritative signal that the app is NOT installed. The handler now clears the stale `pwaInstalled` localStorage flag when this event fires, then proceeds normally to capture the prompt and show the install button. Also made `isInstalledPWA()` read live state instead of a one-time const.
+
+**Changes:**
+- `dashboard/js/pwa.js` — Removed `isPWAInstalled` const (was computed once at load, became stale). `beforeinstallprompt` handler now clears `localStorage.pwaInstalled` instead of checking it. `isInstalledPWA()` now reads `isStandalone` and localStorage live.
+
 ### Sticky Tabs & Filter Button Relocation
 
 **Why:** The tab bar scrolled out of view on long pages, making tab navigation inconvenient. The filter toggle button was awkwardly placed inside the tab bar — filters are a global action that affects all tabs, not a tab navigation concern.

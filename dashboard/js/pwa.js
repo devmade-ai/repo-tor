@@ -23,7 +23,6 @@ let _updateAvailable = false;
 
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true;
-const isPWAInstalled = isStandalone || localStorage.getItem('pwaInstalled') === 'true';
 
 // === Install: Browser detection ===
 
@@ -102,7 +101,9 @@ export function getInstallInstructions() {
 
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
-    if (isPWAInstalled) return;
+    // The browser only fires this event when the app is NOT installed.
+    // Clear any stale flag from a previous install that was since removed.
+    localStorage.removeItem('pwaInstalled');
     deferredInstallPrompt = e;
     _installReady = true;
     window.dispatchEvent(new CustomEvent('pwa-install-ready'));
@@ -136,7 +137,7 @@ export function getPWAState() {
 
 /** Whether the app is running as an installed PWA */
 export function isInstalledPWA() {
-    return isPWAInstalled;
+    return isStandalone || localStorage.getItem('pwaInstalled') === 'true';
 }
 
 /** Whether the app is running in standalone mode */

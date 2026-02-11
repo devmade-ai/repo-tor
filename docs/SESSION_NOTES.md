@@ -7,6 +7,9 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-11):**
+- **Fix PWA Install Button After Uninstall** - Install button didn't reappear after uninstalling the PWA:
+  - Root cause: `appinstalled` event sets `localStorage.pwaInstalled = 'true'`, but nothing cleared it on uninstall. `beforeinstallprompt` handler checked this stale flag and suppressed the install prompt.
+  - Fix: `beforeinstallprompt` is the browser's signal the app is NOT installed — handler now clears the stale localStorage flag and proceeds normally. Removed one-time `isPWAInstalled` const; `isInstalledPWA()` now reads live state.
 - **Sticky Tabs & Filter Relocation** - Two layout improvements:
   - Tab bar now sticks to top of viewport when scrolling (full-width background)
   - Filter toggle button moved from tab bar to header, next to settings gear — filters are a global action, not a tab concern
