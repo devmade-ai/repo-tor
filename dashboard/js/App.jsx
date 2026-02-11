@@ -164,7 +164,13 @@ export default function App() {
     }, [dispatch]);
 
     // Wait for initial data.json fetch before deciding what to show
-    if (initialLoading) return null;
+    if (initialLoading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="loading-spinner" style={{ width: 36, height: 36 }} />
+            </div>
+        );
+    }
 
     // If no data loaded, show the drop zone
     if (!state.data) {

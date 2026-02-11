@@ -9,7 +9,7 @@ Current state for AI assistants to continue work.
 **Recent Updates (2026-02-10):**
 - **Fix DropZone flash on reload** - Pull-to-refresh briefly showed "Drop JSON here" before data loaded:
   - On mount, `state.data` is `null` so DropZone rendered immediately; `data.json` fetch ran in useEffect (after first paint)
-  - Fix: added `initialLoading` state — renders nothing until fetch completes, then shows dashboard or DropZone
+  - Fix: added `initialLoading` state — shows centered spinner (existing `.loading-spinner` CSS) until fetch completes, then shows dashboard or DropZone
 - **Fix PWA White Screen** - CSS was missing from production build:
   - React migration removed `<link rel="stylesheet">` from `index.html` but never added `import '../styles.css'` to `main.jsx`
   - Build produced no CSS file → dark theme white text on default white background = white screen
