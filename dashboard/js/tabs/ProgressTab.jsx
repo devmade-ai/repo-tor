@@ -161,7 +161,7 @@ export default function ProgressTab() {
     return (
         <div className="space-y-6">
             {/* Work Summary Cards */}
-            <CollapsibleSection title="Work Summary">
+            <CollapsibleSection title="Summary">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"

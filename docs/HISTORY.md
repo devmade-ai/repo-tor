@@ -4,6 +4,16 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-11
 
+### Tab Renames & Discover UI Fixes
+
+**Why:** Tab names didn't accurately describe their content. "Overview" was vague for a summary page. "Activity" could mean anything — the content is temporal (timeline charts, heatmaps, timing patterns). "Work" was too generic since every tab is about work — the content specifically decomposes data by type, person, and category. The Discover tab's first section had multiple UI issues: redundant title, accessibility violation (interactive button nested in interactive collapsible header), unlabeled pin buttons, and inconsistent select styling.
+
+**Changes:**
+- `dashboard/js/components/TabBar.jsx` — Tab labels renamed: Overview→Summary, Activity→Timeline, Work→Breakdown (internal IDs unchanged for backward compatibility)
+- `dashboard/js/tabs/DiscoverTab.jsx` — Section title "Discover"→"Metrics". Shuffle button moved from CollapsibleSection subtitle to content area. Pin buttons given `aria-label`. Select dropdown restyled with `bg-themed-tertiary rounded` instead of `bg-transparent border-none`.
+- `dashboard/js/tabs/ProgressTab.jsx` — "Work Summary" section renamed to "Summary" (avoid repeating tab name in section title)
+- Updated docs: CLAUDE.md, USER_GUIDE.md, USER_TESTING.md, SESSION_NOTES.md
+
 ### Fix PWA Install Button Missing After Uninstall
 
 **Why:** After uninstalling the PWA, the install button didn't reappear. The `appinstalled` event sets `localStorage.pwaInstalled = 'true'`, but nothing cleared it on uninstall. The `beforeinstallprompt` handler checked this stale flag and bailed out, suppressing the install prompt.

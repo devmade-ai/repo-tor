@@ -447,20 +447,15 @@ export default function DiscoverTab() {
     return (
         <div className="space-y-6">
             {/* Metric Cards */}
-            <CollapsibleSection
-                title="Discover"
-                subtitle={
+            <CollapsibleSection title="Metrics">
+                <div className="flex justify-end mb-3">
                     <button
-                        className="text-xs text-themed-secondary hover:text-themed-primary ml-2"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            handleShuffle();
-                        }}
+                        className="text-xs text-themed-secondary hover:text-themed-primary"
+                        onClick={handleShuffle}
                     >
                         Shuffle
                     </button>
-                }
-            >
+                </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     {metricValues.map((metricResult, idx) => {
                         const isPinned = !!pinnedMetrics[idx];
@@ -468,7 +463,7 @@ export default function DiscoverTab() {
                             <div key={selectedMetrics[idx]} className="card">
                                 <div className="flex items-center justify-between mb-2">
                                     <select
-                                        className="metric-selector text-xs bg-transparent border-none text-themed-tertiary cursor-pointer focus:outline-none"
+                                        className="metric-selector text-xs bg-themed-tertiary text-themed-secondary rounded px-1 py-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500"
                                         value={isPinned ? selectedMetrics[idx] : 'random'}
                                         onChange={(e) => handleSelectChange(idx, e.target.value)}
                                     >
@@ -479,6 +474,7 @@ export default function DiscoverTab() {
                                     </select>
                                     <button
                                         className={`pin-btn text-xs ${isPinned ? 'text-blue-500' : 'text-themed-muted'} hover:text-blue-500`}
+                                        aria-label={isPinned ? 'Unpin this metric' : 'Pin this metric'}
                                         title={isPinned ? 'Unpin' : 'Pin this metric'}
                                         onClick={() => handlePinToggle(idx)}
                                     >
