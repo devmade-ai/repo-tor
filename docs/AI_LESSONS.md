@@ -208,6 +208,32 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 
 ---
 
+## 2026-02-11: Assumed fixes without understanding the actual problems
+
+**What happened:** User reported two issues: (1) install button not visible in header, (2) debug "0 errors" pill doesn't do anything when clicked. Instead of asking what they expected to see and investigating why, the AI jumped to wrong conclusions: made the install button always-visible (wrong — it's supposed to be conditional, the real bug was a `beforeinstallprompt` race condition) and hid the debug banner entirely (wrong — it should always show and be interactive).
+
+**Why it's a problem:**
+- Wasted a commit on wrong fixes that had to be reverted
+- Showed a pattern of "fix the symptom, not the cause"
+- CLAUDE.md explicitly says to ask clarifying questions and verify before assuming
+- The user had to correct the AI twice before the right fixes were made
+
+**What should have happened:**
+1. Ask: "What browser are you using? Is this on the live site or dev?" to understand context
+2. Read the code to understand the install button's conditional logic and trace why `beforeinstallprompt` might not fire
+3. Ask about the debug pill: "Should it expand to show some info, or do you want different behavior?"
+4. Investigate the root cause before proposing a fix
+
+**Current status:** First "fix" was also wrong (global `window.__pwaInstallPrompt` hack across three files — a workaround, not a fix). Proper fix: static `import './pwa.js'` in main.jsx instead of dynamic import. No race condition, no globals, no duplicate listeners.
+
+**Files affected:**
+- `dashboard/js/main.jsx` — Static import of pwa.js + interactive debug banner
+- `dashboard/js/App.jsx` — Removed dynamic pwa.js import
+- `dashboard/js/pwa.js` — Reverted to clean state
+- `dashboard/js/components/Header.jsx` — Static imports from pwa.js
+
+---
+
 ## Template for Future Entries
 
 ```markdown

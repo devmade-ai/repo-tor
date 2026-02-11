@@ -4,6 +4,45 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-11
 
+### Sticky Tabs & Filter Button Relocation
+
+**Why:** The tab bar scrolled out of view on long pages, making tab navigation inconvenient. The filter toggle button was awkwardly placed inside the tab bar — filters are a global action that affects all tabs, not a tab navigation concern.
+
+**Changes:**
+- `dashboard/js/App.jsx` — Moved `<TabBar />` above the `max-w-7xl` container so it sits at the top level, allowing the sticky background to span full viewport width.
+- `dashboard/js/components/TabBar.jsx` — Removed the filter toggle button. Added inner `max-w-7xl` container to align tab buttons with page content. Simplified to only tab navigation concerns.
+- `dashboard/js/components/Header.jsx` — Added filter toggle button (with badge) next to the settings gear. Filters now live alongside other global controls (install, update, settings).
+- `dashboard/styles.css` — Removed negative margin/padding hack from `.tabs-bar` (no longer needed since it's full-width at top level). Sticky positioning preserved.
+
+### Eliminate PWA Event Race Condition
+
+**Why:** Header's `useEffect` event listeners could miss `pwa-install-ready` or `pwa-update-available` events if they fired before React mounted. The static import fix made this unlikely but not impossible — the race still existed in theory between module-level code execution and React's first useEffect run.
+
+**Fix:** `pwa.js` now tracks its own state with `_installReady` and `_updateAvailable` booleans, updated whenever events fire. A new `getPWAState()` export returns the current values. Header calls this on mount to seed its local state, with event listeners still handling subsequent changes. No globals, no hacks — just a getter function.
+
+**Changes:**
+- `dashboard/js/pwa.js` — Added `_installReady`/`_updateAvailable` state booleans, exported `getPWAState()`. State updated in `beforeinstallprompt`, `appinstalled`, `onNeedRefresh`, and `checkForUpdate`.
+- `dashboard/js/components/Header.jsx` — Imported `getPWAState`, calls it at the start of the PWA useEffect to seed `installReady`/`updateAvailable` state.
+
+### Fix Install Button Not Appearing
+
+**Why:** `pwa.js` was dynamically imported in a `useEffect` — it loaded after React rendered, so `beforeinstallprompt` could fire before the listener existed. The prompt was lost and the install button never appeared.
+
+**Fix:** Static `import './pwa.js'` in `main.jsx`. Module loads synchronously with everything else, listener is ready before the browser fires the event. No race condition.
+
+**Changes:**
+- `dashboard/js/main.jsx` — Static import of `pwa.js` (replaces early-capture hack)
+- `dashboard/js/App.jsx` — Removed dynamic `import('./pwa.js')` useEffect
+- `dashboard/js/components/Header.jsx` — Static import of `installPWA`/`applyUpdate` from pwa.js (replaces dynamic imports)
+- `dashboard/js/pwa.js` — Reverted to clean state (no global variable sync)
+
+### Interactive Debug Banner
+
+**Why:** The "0 errors" debug pill was non-interactive — clicking it did nothing. A debug banner should always provide useful info.
+
+**Changes:**
+- `dashboard/js/main.jsx` — Clicking the "0 errors" pill now expands to a diagnostics panel showing: SW support, SW controller status, standalone mode, PWA install state, install prompt status, error count, and user agent. Has Copy and Close buttons.
+
 ### Fix Missing UI Elements (Post-Migration)
 
 **Why:** Several UI elements were lost during the React migration: (1) the debug error banner was hidden by default (display:none until first error), so users couldn't see it existed; (2) the Install and Update PWA buttons were never ported from vanilla JS to the React Header component — only the Settings gear button remained; (3) multi-component tabs (Activity, Work, Health) had no spacing between their sub-components because React fragments don't add layout; (4) Chart.js legend text was invisible on dark background because Chart.defaults.color was never set (defaulted to #666 instead of reading --text-secondary).

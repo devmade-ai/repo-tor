@@ -168,5 +168,6 @@ See `docs/EXTRACTION_PLAYBOOK.md` for details.
 - **Document your mistakes** in docs/AI_LESSONS.md so future sessions learn from them
 - **Verify before assuming** - Read the actual code before claiming what it does. Don't describe behavior based on file names, comments, or assumptions — check the implementation. If the user describes how something works, compare it against the actual code rather than agreeing without verification.
 - **Ask clarifying questions** - When a task is ambiguous, has multiple valid approaches, or you're unsure about the user's intent, ask before proceeding. Don't guess at requirements or make assumptions about what the user wants. A quick question upfront avoids wasted work and wrong implementations.
+- **Fix root causes, not symptoms** - When something isn't working, find out WHY before writing code. Don't add workarounds (globals, duplicate listeners, flag variables) to patch over an architectural issue. If the fix requires touching 3+ files to coordinate shared state, that's a smell — look for a simpler structural change. Example: if a module loads too late, make it load earlier — don't add a global cache to bridge the gap.
 
 ---

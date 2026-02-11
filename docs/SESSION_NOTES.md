@@ -7,8 +7,14 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-11):**
+- **Sticky Tabs & Filter Relocation** - Two layout improvements:
+  - Tab bar now sticks to top of viewport when scrolling (full-width background)
+  - Filter toggle button moved from tab bar to header, next to settings gear — filters are a global action, not a tab concern
+- **Fix Install Button Not Appearing** - `pwa.js` was dynamically imported (useEffect), so `beforeinstallprompt` could fire before the listener existed. Fixed by making it a static import in `main.jsx` — loads synchronously, no race condition.
+- **Eliminate PWA Event Race Condition** - Header's useEffect listeners could miss events dispatched before React mounts. Added `getPWAState()` export to `pwa.js` that returns current `{installReady, updateAvailable}` booleans. Header seeds state on mount from this, with event listeners for subsequent changes.
+- **Interactive Debug Banner** - "0 errors" pill now clickable: expands to show diagnostics (SW status, standalone mode, install prompt state, user agent) with Copy/Close buttons.
 - **Fix Missing UI Elements** - Four post-migration issues fixed:
-  - Debug banner now always visible: green "0 errors" pill at bottom-right; expands to red error log on errors
+  - Debug banner captures all JS errors with copy-paste support
   - Install + Update PWA buttons restored in Header (were lost in React migration, only Settings showed)
   - Multi-component tab spacing fixed: Activity, Work, Health tabs now have consistent 24px gaps between sections
   - Chart legend/axis text now readable: `Chart.defaults.color` set from CSS `--text-secondary`, `borderColor` from `--chart-grid`

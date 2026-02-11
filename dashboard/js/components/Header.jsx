@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../AppContext.jsx';
+import { installPWA, applyUpdate, getPWAState } from '../pwa.js';
 
 export default function Header() {
-    const { state, dispatch } = useApp();
+    const { state, dispatch, activeFilterCount } = useApp();
     const [installReady, setInstallReady] = useState(false);
     const [updateAvailable, setUpdateAvailable] = useState(false);
 
@@ -18,8 +19,13 @@ export default function Header() {
         ? `${repoDisplay} \u2014 ${commitCount.toLocaleString()} commits`
         : `${commitCount.toLocaleString()} commits`;
 
-    // Listen for PWA events dispatched by pwa.js
+    // Seed from pwa.js module state (catches events that fired before mount),
+    // then listen for subsequent changes.
     useEffect(() => {
+        const current = getPWAState();
+        if (current.installReady) setInstallReady(true);
+        if (current.updateAvailable) setUpdateAvailable(true);
+
         const handleInstallReady = () => setInstallReady(true);
         const handleInstalled = () => setInstallReady(false);
         const handleUpdateAvailable = () => setUpdateAvailable(true);
@@ -36,25 +42,14 @@ export default function Header() {
     }, []);
 
     const handleInstall = useCallback(async () => {
-        try {
-            const { installPWA } = await import('../pwa.js');
-            const prompted = await installPWA();
-            if (!prompted) {
-                // No native prompt — open settings for manual instructions
-                dispatch({ type: 'TOGGLE_SETTINGS_PANE' });
-            }
-        } catch {
-            // PWA module not available
+        const prompted = await installPWA();
+        if (!prompted) {
+            dispatch({ type: 'TOGGLE_SETTINGS_PANE' });
         }
     }, [dispatch]);
 
-    const handleUpdate = useCallback(async () => {
-        try {
-            const { applyUpdate } = await import('../pwa.js');
-            applyUpdate();
-        } catch {
-            // PWA module not available
-        }
+    const handleUpdate = useCallback(() => {
+        applyUpdate();
     }, []);
 
     return (
@@ -92,6 +87,24 @@ export default function Header() {
                                 Install
                             </button>
                         )}
+                        <button
+                            onClick={() => dispatch({ type: 'TOGGLE_FILTER_SIDEBAR' })}
+                            className={`filter-toggle relative ${state.filterSidebarOpen ? 'active' : ''}`}
+                            aria-label={activeFilterCount > 0 ? `Toggle filters (${activeFilterCount} active)` : 'Toggle filters'}
+                            aria-expanded={state.filterSidebarOpen}
+                        >
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                                />
+                            </svg>
+                            {activeFilterCount > 0 && (
+                                <span className="filter-badge">{activeFilterCount}</span>
+                            )}
+                        </button>
                         <button
                             onClick={() => dispatch({ type: 'TOGGLE_SETTINGS_PANE' })}
                             className="btn-theme"
