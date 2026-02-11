@@ -52,11 +52,14 @@ export default function TagsTab() {
                             boxWidth: mobile ? 8 : 12,
                             padding: mobile ? 4 : 8,
                             font: { size: mobile ? 9 : 11 },
-                            generateLabels: function (chart) {
+                            color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary').trim() || '#e5e7eb',
+                        generateLabels: function (chart) {
                                 const data = chart.data;
+                                const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-secondary').trim() || '#e5e7eb';
                                 return data.labels.map((label, i) => ({
                                     text: `${label} (${data.datasets[0].data[i]})`,
                                     fillStyle: data.datasets[0].backgroundColor[i],
+                                    fontColor: textColor,
                                     hidden: false,
                                     index: i,
                                 }));

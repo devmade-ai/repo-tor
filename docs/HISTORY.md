@@ -4,6 +4,13 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-11
 
+### Fix Pie Chart Legend Text Color
+
+**Why:** The tag distribution doughnut chart legend text was coloured to match each slice's background colour (e.g., green for "feature", red for "bugfix"), making labels hard to read against the dark background. Chart.js doughnut/pie defaults use segment colours for legend text when a custom `generateLabels` doesn't explicitly set `fontColor`.
+
+**Changes:**
+- `dashboard/js/tabs/TagsTab.jsx` — Added `color` to legend labels config and `fontColor` to each label returned by `generateLabels`, both reading `--text-secondary` CSS variable for theme consistency.
+
 ### Tab Renames & Discover UI Fixes
 
 **Why:** Tab names didn't accurately describe their content. "Overview" was vague for a summary page. "Activity" could mean anything — the content is temporal (timeline charts, heatmaps, timing patterns). "Work" was too generic since every tab is about work — the content specifically decomposes data by type, person, and category. The Discover tab's first section had multiple UI issues: redundant title, accessibility violation (interactive button nested in interactive collapsible header), unlabeled pin buttons, and inconsistent select styling.
