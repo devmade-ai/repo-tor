@@ -10,8 +10,10 @@ Current state for AI assistants to continue work.
 - **Sticky Tabs & Filter Relocation** - Two layout improvements:
   - Tab bar now sticks to top of viewport when scrolling (full-width background)
   - Filter toggle button moved from tab bar to header, next to settings gear — filters are a global action, not a tab concern
+- **Always-Visible Install Button** - Install button now always shows in header (not just Chromium). Triggers native prompt when available, falls back to Settings with browser-specific instructions. Hidden only when running as installed PWA.
+- **Hide Debug Banner** - "0 errors" pill removed (confused users). Debug banner now only appears when actual errors occur.
 - **Fix Missing UI Elements** - Four post-migration issues fixed:
-  - Debug banner now always visible: green "0 errors" pill at bottom-right; expands to red error log on errors
+  - Debug banner captures all JS errors with copy-paste support
   - Install + Update PWA buttons restored in Header (were lost in React migration, only Settings showed)
   - Multi-component tab spacing fixed: Activity, Work, Health tabs now have consistent 24px gaps between sections
   - Chart legend/axis text now readable: `Chart.defaults.color` set from CSS `--text-secondary`, `borderColor` from `--chart-grid`

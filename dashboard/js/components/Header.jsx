@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../AppContext.jsx';
 
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+    window.navigator.standalone === true;
+
 export default function Header() {
     const { state, dispatch, activeFilterCount } = useApp();
-    const [installReady, setInstallReady] = useState(false);
     const [updateAvailable, setUpdateAvailable] = useState(false);
 
     const repoName = state.data?.metadata?.repo_name;
@@ -20,17 +22,11 @@ export default function Header() {
 
     // Listen for PWA events dispatched by pwa.js
     useEffect(() => {
-        const handleInstallReady = () => setInstallReady(true);
-        const handleInstalled = () => setInstallReady(false);
         const handleUpdateAvailable = () => setUpdateAvailable(true);
 
-        window.addEventListener('pwa-install-ready', handleInstallReady);
-        window.addEventListener('pwa-installed', handleInstalled);
         window.addEventListener('pwa-update-available', handleUpdateAvailable);
 
         return () => {
-            window.removeEventListener('pwa-install-ready', handleInstallReady);
-            window.removeEventListener('pwa-installed', handleInstalled);
             window.removeEventListener('pwa-update-available', handleUpdateAvailable);
         };
     }, []);
@@ -44,7 +40,8 @@ export default function Header() {
                 dispatch({ type: 'TOGGLE_SETTINGS_PANE' });
             }
         } catch {
-            // PWA module not available
+            // PWA module not available — show settings with manual instructions
+            dispatch({ type: 'TOGGLE_SETTINGS_PANE' });
         }
     }, [dispatch]);
 
@@ -80,7 +77,7 @@ export default function Header() {
                                 Update
                             </button>
                         )}
-                        {installReady && (
+                        {!isStandalone && (
                             <button
                                 onClick={handleInstall}
                                 className="btn-icon btn-secondary"

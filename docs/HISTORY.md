@@ -14,6 +14,20 @@ Log of significant changes to code and documentation.
 - `dashboard/js/components/Header.jsx` — Added filter toggle button (with badge) next to the settings gear. Filters now live alongside other global controls (install, update, settings).
 - `dashboard/styles.css` — Removed negative margin/padding hack from `.tabs-bar` (no longer needed since it's full-width at top level). Sticky positioning preserved.
 
+### Always-Visible Install Button
+
+**Why:** Install button was conditional on `beforeinstallprompt` event (Chromium-only). On Safari and Firefox, the button never appeared, so users had no way to discover the install option.
+
+**Changes:**
+- `dashboard/js/components/Header.jsx` — Install button now always shows in header (hidden only when running as installed PWA). On Chromium, clicking triggers native install prompt. On other browsers, falls back to Settings pane with browser-specific manual instructions.
+
+### Hide Debug Banner When No Errors
+
+**Why:** The "0 errors" pill at bottom-right confused users — showed constantly but did nothing when clicked.
+
+**Changes:**
+- `dashboard/js/main.jsx` — Debug banner now hidden when there are 0 errors. Only shows when an actual error occurs.
+
 ### Fix Missing UI Elements (Post-Migration)
 
 **Why:** Several UI elements were lost during the React migration: (1) the debug error banner was hidden by default (display:none until first error), so users couldn't see it existed; (2) the Install and Update PWA buttons were never ported from vanilla JS to the React Header component — only the Settings gear button remained; (3) multi-component tabs (Activity, Work, Health) had no spacing between their sub-components because React fragments don't add layout; (4) Chart.js legend text was invisible on dark background because Chart.defaults.color was never set (defaulted to #666 instead of reading --text-secondary).

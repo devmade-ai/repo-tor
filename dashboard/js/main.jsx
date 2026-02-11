@@ -87,16 +87,9 @@ function renderBannerState() {
             debugBannerEl.style.display = 'none';
         });
     } else {
-        Object.assign(debugBannerEl.style, {
-            position: 'fixed', bottom: '0', right: '0', left: 'auto', zIndex: '99999',
-            maxHeight: 'none', overflow: 'visible', background: 'transparent',
-            borderTop: 'none', fontFamily: 'monospace', fontSize: '10px',
-            color: '#4ade80', padding: '8px 12px',
-            display: debugDismissed ? 'none' : 'block',
-        });
-        debugBannerEl.innerHTML = `
-            <span style="background:rgba(22,163,74,0.15);border:1px solid rgba(22,163,74,0.3);border-radius:4px;padding:3px 8px;color:#4ade80;font-size:10px;">0 errors</span>
-        `;
+        // No errors — hide the banner entirely (only show when there are actual errors)
+        debugBannerEl.style.display = 'none';
+        debugBannerEl.innerHTML = '';
     }
 }
 
