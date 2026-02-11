@@ -2,6 +2,17 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-11
+
+### Fix Black Screen — Loading Feedback & Error Recovery
+
+**Why:** Users could see a black screen with no feedback if: (1) React failed to mount or crashed during render, (2) the loading spinner was too subtle to notice (thin 2px border on dark background), or (3) JavaScript failed to load entirely.
+
+**Changes:**
+- `dashboard/index.html` — Added HTML-level loading indicator inside `#root` (spinner + "Loading dashboard..." text + noscript fallback). Visible immediately before JS loads; replaced when React mounts.
+- `dashboard/js/main.jsx` — Added `RootErrorBoundary` wrapping the entire app. Catches any unhandled React error and shows an error message with reload button instead of a blank screen.
+- `dashboard/js/App.jsx` — Improved React loading state: thicker spinner border (3px), added "Loading dashboard..." text below spinner.
+
 ## 2026-02-10
 
 ### Fix DropZone Flash on Pull-to-Refresh
