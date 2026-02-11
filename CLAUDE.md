@@ -39,14 +39,15 @@
 
 ## Dashboard Architecture
 
-**Tabs** — 4 user-facing tabs mapped to internal content containers:
+**Tabs** — 5 user-facing tabs mapped to internal content containers:
 
 | Tab | Container IDs |
 |-----|---------------|
-| Overview | `tab-overview` |
-| Activity | `tab-activity`, `tab-timing` |
-| Work | `tab-progress`, `tab-tags`, `tab-contributors` |
+| Summary | `tab-overview` |
+| Timeline | `tab-activity`, `tab-timing` |
+| Breakdown | `tab-progress`, `tab-tags`, `tab-contributors` |
 | Health | `tab-security` |
+| Discover | `tab-discover` |
 
 Tab routing lives in `js/App.jsx`. Tab constants in `js/state.js` as `TAB_MAPPING`.
 

@@ -142,15 +142,15 @@ The dashboard uses **5 tabs** organized by logical groupings:
 
 | Tab | Purpose | Primary User |
 |-----|---------|--------------|
-| **Overview** | Executive summary, quick stats, highlights | Executive |
-| **Activity** | Timeline, heatmap, when work happens | Dev Manager |
-| **Work** | Progress, tags, contributors, what's being built | Dev Manager |
+| **Summary** | Executive summary, quick stats, highlights | Executive |
+| **Timeline** | Timeline, heatmap, when work happens | Dev Manager |
+| **Breakdown** | Progress, tags, contributors, what's being built | Dev Manager |
 | **Health** | Security, urgency, operational indicators | Both |
 | **Discover** | Explore metrics, randomized insights, file activity | All |
 
 ---
 
-### Overview Tab (Executive Landing)
+### Summary Tab (Executive Landing)
 
 The **default tab** designed for executives who need quick, high-level insights.
 
@@ -174,7 +174,7 @@ The **default tab** designed for executives who need quick, high-level insights.
 
 ---
 
-### Activity Tab (When Things Happen)
+### Timeline Tab (When Things Happen)
 
 Shows **when** commits happened and **what** was recently committed.
 
@@ -216,7 +216,7 @@ Shows **when** commits happened and **what** was recently committed.
 
 ---
 
-### Work Tab (What's Being Done)
+### Breakdown Tab (What's Being Done)
 
 Shows **how** work is evolving and **who does what**.
 

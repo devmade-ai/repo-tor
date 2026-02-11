@@ -7,6 +7,13 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-11):**
+- **Tab Renames & Discover UI Fixes** - Reviewed all tab names vs content and fixed Discover first section:
+  - Tab renames: Overview→Summary, Activity→Timeline, Work→Breakdown (internal IDs unchanged)
+  - Discover first section: title "Discover"→"Metrics" (was redundant with tab name)
+  - Moved Shuffle button out of CollapsibleSection header (was interactive element inside interactive element — accessibility violation)
+  - Added aria-label to pin/unpin buttons
+  - Fixed select dropdown styling: `bg-transparent border-none` → `bg-themed-tertiary rounded` for consistent rendering
+  - Renamed "Work Summary" section to "Summary" in ProgressTab (don't repeat tab name)
 - **Fix PWA Install Button After Uninstall** - Install button didn't reappear after uninstalling the PWA:
   - Root cause: `appinstalled` event sets `localStorage.pwaInstalled = 'true'`, but nothing cleared it on uninstall. `beforeinstallprompt` handler checked this stale flag and suppressed the install prompt.
   - Fix: `beforeinstallprompt` is the browser's signal the app is NOT installed — handler now clears the stale localStorage flag and proceeds normally. Removed one-time `isPWAInstalled` const; `isInstalledPWA()` now reads live state.
@@ -242,10 +249,10 @@ Current state for AI assistants to continue work.
 ### Completed
 
 - [x] **Aggregation script** - `scripts/aggregate-processed.js` reads from processed/ data
-- [x] **4-tab structure** - Overview, Activity, Work, Health
+- [x] **5-tab structure** - Summary, Timeline, Breakdown, Health, Discover
 - [x] **Tab mapping** - JavaScript maps new tabs to show multiple content containers
 - [x] **Urgency/Impact in Health tab** - Distribution bars, operational health cards
-- [x] **Urgency/Planned in Overview** - Executive summary cards
+- [x] **Urgency/Planned in Summary** - Executive summary cards
 - [x] **Detail pane** - Slide-out panel (desktop) / bottom sheet (mobile)
 - [x] **Urgency trend chart** - Line chart showing average urgency by month
 - [x] **Impact over time chart** - Stacked bar chart by month
@@ -283,7 +290,7 @@ Access via the "View Level" selector in the filter sidebar. Selection persists i
 
 The following elements open the detail pane:
 
-**Overview Tab:**
+**Summary Tab:**
 - Features Built card → shows feature commits
 - Bugs Fixed card → shows bugfix commits
 - Avg Urgency card → shows reactive commits
@@ -296,7 +303,7 @@ The following elements open the detail pane:
 - Urgency by contributor → contributor's commits
 - Impact by contributor → contributor's commits
 
-**Work Tab:**
+**Breakdown Tab:**
 - Tag breakdown bars → commits with that tag
 - Contributor cards → contributor's commits
 
@@ -306,10 +313,11 @@ The following elements open the detail pane:
 
 ```javascript
 const TAB_MAPPING = {
-    'overview': ['tab-overview'],
-    'activity': ['tab-activity', 'tab-timing'],
-    'work': ['tab-progress', 'tab-tags', 'tab-contributors'],
-    'health': ['tab-security']
+    'overview': ['tab-overview'],       // Summary tab
+    'activity': ['tab-activity', 'tab-timing'],  // Timeline tab
+    'work': ['tab-progress', 'tab-tags', 'tab-contributors'],  // Breakdown tab
+    'health': ['tab-security'],         // Health tab
+    'discover': ['tab-discover']        // Discover tab
 };
 ```
 

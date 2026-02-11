@@ -40,13 +40,13 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Auto-load works when `data.json` is in same directory
 
 **Tab Navigation:**
-- [ ] Overview tab shows executive summary cards
-- [ ] Activity tab shows timeline + timing content
-- [ ] Work tab shows progress + tags + contributors content
+- [ ] Summary tab shows executive summary cards
+- [ ] Timeline tab shows timeline + timing content
+- [ ] Breakdown tab shows progress + tags + contributors content
 - [ ] Health tab shows security + urgency content
 - [ ] Tab state persists when switching between tabs
 
-**Overview Tab:**
+**Summary Tab:**
 - [ ] Features Built card shows count with trend
 - [ ] Bugs Fixed card shows count with trend
 - [ ] Avg Urgency card shows value
@@ -55,7 +55,7 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Work breakdown donut chart renders
 - [ ] Key highlights section displays
 
-**Activity Tab:**
+**Timeline Tab:**
 - [ ] Filters work (tag, author, repo, date range)
 - [ ] Activity timeline chart renders
 - [ ] Changes list shows commits with badges
@@ -63,7 +63,7 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Heatmap shows hour × day grid
 - [ ] Hour/day charts render with correct colors
 
-**Work Tab:**
+**Breakdown Tab:**
 - [ ] Features vs Fixes trend chart renders
 - [ ] Complexity over time chart renders
 - [ ] Who Does What section shows contributors

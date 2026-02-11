@@ -2,9 +2,9 @@ import React from 'react';
 import { useApp } from '../AppContext.jsx';
 
 const TABS = [
-    { id: 'overview', label: 'Overview' },
-    { id: 'activity', label: 'Activity' },
-    { id: 'work', label: 'Work' },
+    { id: 'overview', label: 'Summary' },
+    { id: 'activity', label: 'Timeline' },
+    { id: 'work', label: 'Breakdown' },
     { id: 'health', label: 'Health' },
     { id: 'discover', label: 'Discover' },
 ];
