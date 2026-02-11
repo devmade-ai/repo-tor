@@ -7,6 +7,12 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-11):**
+- **Fix Loading Indicator Flash & Black Screen** - After previous fix, loading indicator flashed briefly then black screen returned:
+  - Root cause: `.catch(() => {})` silently swallowed ALL data loading errors (network failures, JSON parse errors, CORS issues) — not just 404
+  - Fix: only 404 silently handled (no data file expected); all other errors show visible error card with "Could not load dashboard data" message + retry button
+  - Added `dashboard-enter` fade-in animation (0.3s) for smooth transition from loading to content
+  - Fixed PWA dynamic import — `try/catch` doesn't catch promise rejections; now properly uses `.catch()`
+  - Made DropZone more visible: added title heading, vertical centering (min-height 60vh)
 - **Fix Black Screen / Loading Feedback** - Users reported only seeing a black screen with grid pattern, no content:
   - Added HTML-level loading indicator inside `#root` div — visible before JS loads, replaced when React mounts via `createRoot`
   - Added `RootErrorBoundary` in `main.jsx` wrapping the entire app — catches any unhandled React error and shows error message + reload button

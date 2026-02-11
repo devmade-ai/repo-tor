@@ -4,6 +4,15 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-11
 
+### Fix Loading Indicator Flash & Black Screen
+
+**Why:** After the previous loading indicator fix, users saw the loading indicator flash briefly before the screen went black again. Root causes: (1) data loading errors were silently swallowed — `.catch(() => {})` hid real failures (network errors, JSON parse errors, CORS issues), leaving users with an invisible DropZone on a dark background; (2) no visual transition between loading and content states; (3) PWA import error not properly caught (try/catch on a promise); (4) DropZone was too subtle on dark background when shown as fallback.
+
+**Changes:**
+- `dashboard/js/App.jsx` — Proper error handling: only 404 is silently ignored (expected when no data file), all other errors show a visible error card with retry button. Added `dashboard-enter` fade-in class to both dashboard and no-data states. Fixed PWA import to properly handle promise rejection.
+- `dashboard/styles.css` — Added `dashboard-enter` fade-in animation (0.3s ease-out) for smooth loading-to-content transition.
+- `dashboard/js/components/DropZone.jsx` — Added title heading and vertical centering so the DropZone is clearly visible when no data is loaded.
+
 ### Fix Black Screen — Loading Feedback & Error Recovery
 
 **Why:** Users could see a black screen with no feedback if: (1) React failed to mount or crashed during render, (2) the loading spinner was too subtle to notice (thin 2px border on dark background), or (3) JavaScript failed to load entirely.

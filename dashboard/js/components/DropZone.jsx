@@ -41,7 +41,10 @@ export default function DropZone({ onFiles }) {
     }, [onFiles]);
 
     return (
-        <div className="max-w-2xl mx-auto px-4 py-16">
+        <div className="max-w-2xl mx-auto px-4 py-16" style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <h1 style={{ color: '#e5e7eb', fontSize: '20px', fontWeight: 600, textAlign: 'center', marginBottom: '24px', fontFamily: 'var(--font-mono, monospace)' }}>
+                Git Analytics Dashboard
+            </h1>
             <div
                 className={`drop-zone ${isDragOver ? 'drag-over' : ''}`}
                 onClick={handleClick}

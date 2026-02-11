@@ -74,22 +74,25 @@ export default function App() {
     useEffect(() => {
         fetch('./data.json')
             .then(r => {
+                if (r.status === 404) return null; // No data file — user can upload
                 if (!r.ok) throw new Error(`HTTP ${r.status}`);
                 return r.json();
             })
-            .then(data => dispatch({ type: 'LOAD_DATA', payload: data }))
-            .catch(() => {}) // 404 is expected — user can upload manually
+            .then(data => {
+                if (data) dispatch({ type: 'LOAD_DATA', payload: data });
+            })
+            .catch(err => {
+                console.error('Failed to load data.json:', err);
+                setLoadError(`Failed to load dashboard data: ${err.message}`);
+            })
             .finally(() => setInitialLoading(false));
     }, []);
 
     // PWA initialization
     useEffect(() => {
-        let pwaModule = null;
-        try {
-            pwaModule = import('./pwa.js');
-        } catch (e) {
-            // PWA module not available in dev
-        }
+        import('./pwa.js').catch(() => {
+            // PWA module not available (e.g. dev server, missing virtual module)
+        });
     }, []);
 
     // Heatmap tooltip handler
@@ -173,22 +176,38 @@ export default function App() {
         );
     }
 
-    // If no data loaded, show the drop zone
+    // If no data loaded, show the drop zone (or error)
     if (!state.data) {
         return (
-            <>
-                <DropZone onFiles={handleFiles} />
+            <div className="dashboard-enter">
                 {loadError && (
-                    <div role="alert" className="max-w-2xl mx-auto px-4 -mt-8 mb-8">
-                        <p className="text-sm text-red-500 text-center">{loadError}</p>
+                    <div role="alert" className="max-w-2xl mx-auto px-4 pt-12 pb-4">
+                        <div className="card" style={{ textAlign: 'center', padding: '24px' }}>
+                            <p style={{ color: '#e5e7eb', fontSize: '16px', marginBottom: '8px' }}>
+                                Could not load dashboard data
+                            </p>
+                            <p style={{ color: '#767676', fontSize: '13px', marginBottom: '16px' }}>
+                                {loadError}
+                            </p>
+                            <button
+                                onClick={() => window.location.reload()}
+                                style={{
+                                    padding: '8px 24px', background: '#2D68FF', color: '#fff',
+                                    border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '13px',
+                                }}
+                            >
+                                Retry
+                            </button>
+                        </div>
                     </div>
                 )}
-            </>
+                <DropZone onFiles={handleFiles} />
+            </div>
         );
     }
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen dashboard-enter">
             <Header />
             <div className="max-w-7xl mx-auto px-4 md:px-8">
                 <TabBar />

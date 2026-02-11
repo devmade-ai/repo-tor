@@ -167,6 +167,28 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 
 ---
 
+## 2026-02-11: Silent .catch(() => {}) masked real errors
+
+**What happened:** The data loading code used `.catch(() => {})` to silently ignore ALL fetch errors, with a comment saying "404 is expected." But this also swallowed network failures, JSON parse errors, CORS issues, and service worker cache misses. When data failed to load for any non-404 reason, the app silently fell through to the DropZone — which on the dark background looked like a "black screen" to users.
+
+**Why it's a problem:**
+- Users got a blank-looking screen with no explanation of what went wrong
+- The loading indicator fix (HTML fallback, ErrorBoundary, better spinner) addressed symptoms but not the root cause
+- Developers couldn't diagnose the issue because errors were invisible
+
+**What should have happened:**
+1. Only catch the SPECIFIC expected error (404 status) — let all other errors propagate
+2. Show error feedback to the user when data fails to load unexpectedly
+3. `.catch(() => {})` should almost never be used — it's a code smell that hides real bugs
+4. When a `try/catch` wraps a Promise (like `import()`), remember it only catches synchronous errors; use `.catch()` on the promise instead
+
+**Current status:** Fixed — 404 handled separately via `r.status === 404` check before `r.json()`. All other errors show a visible error card with retry button. PWA import properly uses `.catch()` on the promise.
+
+**Files affected:**
+- `dashboard/js/App.jsx` — Fixed data loading error handling and PWA import
+
+---
+
 ## Template for Future Entries
 
 ```markdown
