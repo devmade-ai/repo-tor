@@ -4,6 +4,29 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-11
 
+### Debug Error Banner
+
+**Why:** Diagnosing dashboard issues required users to open browser dev tools to see error messages. Added a visible error banner that captures all errors and lets users copy-paste them for bug reports.
+
+**Changes:**
+- `dashboard/js/main.jsx` — Added global error capture (`window.onerror`, `unhandledrejection`) and a fixed-position red banner at the bottom of the screen. Shows error messages with timestamps, has "Copy" and "Close" buttons. Works independently of React (vanilla DOM). `RootErrorBoundary.componentDidCatch` now feeds errors into the banner with component stack traces.
+
+### Force Fresh JS/CSS on Pull-to-Refresh
+
+**Why:** PWA served cached JS/CSS on pull-to-refresh even after a new build was deployed. Users had to manually click "Update" in settings or wait for the hourly check.
+
+**Changes:**
+- `vite.config.js` — Added `skipWaiting: true` + `clientsClaim: true` to workbox config so new service workers activate immediately instead of waiting.
+- `dashboard/js/pwa.js` — Added `controllerchange` listener that reloads the page when a new SW takes control, ensuring the reload picks up fresh assets.
+
+### Fix Dashboard Null Metadata Crash
+
+**Why:** Dashboard crashed on load with "Cannot read properties of null (reading 'metadata')". The `RootErrorBoundary` caught it and showed "Something went wrong loading the dashboard." The root cause was a timing issue: in `AppContext.jsx`, the global state sync (`globalState.data = state.data`) ran after the `useMemo` hooks that depend on it. When `LOAD_DATA` triggered a re-render, `filterOptions` useMemo called `getAuthorEmail()`, which read `globalState.data.metadata` — but `globalState.data` was still `null` from the previous render.
+
+**Changes:**
+- `dashboard/js/AppContext.jsx` — Moved global state sync to run before all `useMemo` hooks so utility functions always see current data.
+- `dashboard/js/utils.js` — Added defensive optional chaining (`state.data?.metadata`) in `getAuthorName` and `getAuthorEmail` as a safety net.
+
 ### Fix Loading Indicator Flash & Black Screen
 
 **Why:** After the previous loading indicator fix, users saw the loading indicator flash briefly before the screen went black again. Root causes: (1) data loading errors were silently swallowed — `.catch(() => {})` hid real failures (network errors, JSON parse errors, CORS issues), leaving users with an invisible DropZone on a dark background; (2) no visual transition between loading and content states; (3) PWA import error not properly caught (try/catch on a promise); (4) DropZone was too subtle on dark background when shown as fallback.

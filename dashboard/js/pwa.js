@@ -182,6 +182,17 @@ updateSW = registerSW({
     }
 });
 
+// Reload when a new service worker takes control — ensures pull-to-refresh
+// gets fresh JS/CSS assets instead of stale cached versions.
+let refreshing = false;
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+    });
+}
+
 // Check for updates when page regains visibility
 document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible' && 'serviceWorker' in navigator) {

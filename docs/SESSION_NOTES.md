@@ -7,6 +7,19 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-11):**
+- **Debug Error Banner** - Added global error capture with copy-paste support:
+  - Catches all JS errors: `window.onerror`, `unhandledrejection`, and React ErrorBoundary
+  - Fixed red banner at bottom of screen with "Copy" button for easy bug reporting
+  - Works even if React crashes — uses vanilla DOM, created lazily on first error
+  - `RootErrorBoundary` now feeds errors into the banner with component stack traces
+- **Force Fresh JS/CSS on Pull-to-Refresh** - PWA now auto-activates new service workers:
+  - Added `skipWaiting: true` + `clientsClaim: true` to workbox config — new SW activates immediately
+  - Added `controllerchange` listener in `pwa.js` — page reloads when new SW takes control
+  - Result: pull-to-refresh (or any reload) gets fresh JS/CSS when a new build is deployed
+- **Fix Dashboard Null Metadata Crash** - Dashboard crashed with "Cannot read properties of null (reading 'metadata')":
+  - Root cause: In `AppContext.jsx`, global state sync (`globalState.data = state.data`) ran AFTER useMemo hooks that called `getAuthorEmail`/`getAuthorName`. When LOAD_DATA fired, the useMemo hooks re-executed and read `globalState.data.metadata` while it was still `null` from the previous render.
+  - Fix: Moved global state sync BEFORE the useMemo hooks so `globalState.data` is current when utility functions read it.
+  - Also added defensive `?.` optional chaining in `getAuthorName`/`getAuthorEmail` in `utils.js` as a safety net.
 - **Fix Loading Indicator Flash & Black Screen** - After previous fix, loading indicator flashed briefly then black screen returned:
   - Root cause: `.catch(() => {})` silently swallowed ALL data loading errors (network failures, JSON parse errors, CORS issues) — not just 404
   - Fix: only 404 silently handled (no data file expected); all other errors show visible error card with "Could not load dashboard data" message + retry button

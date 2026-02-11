@@ -161,6 +161,15 @@ function filterCommits(commits, filters) {
 export function AppProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, null, loadInitialState);
 
+    // Sync React state to global state object for utils.js compatibility.
+    // MUST run before useMemo hooks — getAuthorEmail/getAuthorName read
+    // globalState.data, so it needs to be current before those run.
+    globalState.data = state.data;
+    globalState.useUTC = state.useUTC;
+    globalState.workHourStart = state.workHourStart;
+    globalState.workHourEnd = state.workHourEnd;
+    globalState.currentViewLevel = state.currentViewLevel;
+
     // Memoized filtered commits
     const filteredCommits = useMemo(
         () => filterCommits(state.data?.commits, state.filters),
@@ -196,14 +205,6 @@ export function AppProvider({ children }) {
             impacts: [...impacts].sort(),
         };
     }, [state.data?.commits]);
-
-    // Sync React state to global state object for utils.js compatibility.
-    // Only the properties that utils.js functions actually read.
-    globalState.data = state.data;
-    globalState.useUTC = state.useUTC;
-    globalState.workHourStart = state.workHourStart;
-    globalState.workHourEnd = state.workHourEnd;
-    globalState.currentViewLevel = state.currentViewLevel;
 
     // Persist settings to localStorage
     useEffect(() => {

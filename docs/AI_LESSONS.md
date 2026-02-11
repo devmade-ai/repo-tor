@@ -189,6 +189,25 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 
 ---
 
+## 2026-02-11: Global state sync must run before hooks that depend on it
+
+**What happened:** In `AppContext.jsx`, the global state sync (`globalState.data = state.data`) was placed after `useMemo` hooks that called `getAuthorEmail`/`getAuthorName`. These utility functions read `globalState.data.metadata` from the global state object (not React state). On the render triggered by `LOAD_DATA`, the useMemo hooks re-executed and called these functions before the global sync ran — crashing because `globalState.data` was still `null` from the prior render.
+
+**Why it's a problem:** The dashboard crashed immediately after data loaded, every time. The `RootErrorBoundary` caught the error and showed "Something went wrong loading the dashboard" with the null reference message.
+
+**What should have happened:**
+1. Side effects that other code depends on during the same render must run before that code
+2. When utility functions read from a shared mutable object, the sync to that object must happen first
+3. Optional chaining (`?.`) should be used as a safety net on any access to nullable shared state
+
+**Current status:** Fixed — global sync moved before useMemo hooks, optional chaining added to `getAuthorName`/`getAuthorEmail`.
+
+**Files affected:**
+- `dashboard/js/AppContext.jsx` — Reordered global state sync
+- `dashboard/js/utils.js` — Added defensive `?.` on `state.data`
+
+---
+
 ## Template for Future Entries
 
 ```markdown
