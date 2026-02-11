@@ -61,6 +61,7 @@ function combineDatasets(datasets) {
 export default function App() {
     const { state, dispatch } = useApp();
     const [loadError, setLoadError] = useState(null);
+    const [initialLoading, setInitialLoading] = useState(true);
 
     // Lock body scroll when any overlay pane is open
     useEffect(() => {
@@ -77,7 +78,8 @@ export default function App() {
                 return r.json();
             })
             .then(data => dispatch({ type: 'LOAD_DATA', payload: data }))
-            .catch(() => {}); // 404 is expected — user can upload manually
+            .catch(() => {}) // 404 is expected — user can upload manually
+            .finally(() => setInitialLoading(false));
     }, []);
 
     // PWA initialization
@@ -160,6 +162,15 @@ export default function App() {
             setLoadError('Failed to parse JSON file. Please check the file format.');
         });
     }, [dispatch]);
+
+    // Wait for initial data.json fetch before deciding what to show
+    if (initialLoading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="loading-spinner" style={{ width: 36, height: 36 }} />
+            </div>
+        );
+    }
 
     // If no data loaded, show the drop zone
     if (!state.data) {

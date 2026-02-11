@@ -4,6 +4,21 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-10
 
+### Fix DropZone Flash on Pull-to-Refresh
+
+**Why:** Pull-to-refresh briefly flashed the "Drop JSON here" DropZone before data loaded, because `state.data` starts as `null` and the `data.json` fetch runs in a `useEffect` (after first render).
+
+**Changes:**
+- `dashboard/js/App.jsx` — Added `initialLoading` state; shows centered spinner (reuses existing `.loading-spinner` CSS) until initial fetch completes, then shows dashboard or DropZone
+
+### Fix PWA White Screen — Missing CSS Import
+
+**Why:** React migration removed `<link rel="stylesheet" href="./styles.css">` from `index.html` but never added a JS import in `main.jsx`. The build produced no CSS file, causing white text on white background (dark theme colors undefined).
+
+**Changes:**
+- `dashboard/js/main.jsx` — Added `import '../styles.css'` so Vite includes CSS in the build
+- Build: 59 modules, 475KB JS + 47KB CSS, 14 precache entries
+
 ### React Migration Fixes (Final 7)
 
 **Why:** Completed all remaining post-migration issues (22/22 done).

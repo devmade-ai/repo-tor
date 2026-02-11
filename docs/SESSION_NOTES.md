@@ -7,6 +7,13 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-10):**
+- **Fix DropZone flash on reload** - Pull-to-refresh briefly showed "Drop JSON here" before data loaded:
+  - On mount, `state.data` is `null` so DropZone rendered immediately; `data.json` fetch ran in useEffect (after first paint)
+  - Fix: added `initialLoading` state — shows centered spinner (existing `.loading-spinner` CSS) until fetch completes, then shows dashboard or DropZone
+- **Fix PWA White Screen** - CSS was missing from production build:
+  - React migration removed `<link rel="stylesheet">` from `index.html` but never added `import '../styles.css'` to `main.jsx`
+  - Build produced no CSS file → dark theme white text on default white background = white screen
+  - Fix: added CSS import to `main.jsx`. Build now outputs 47KB CSS file, 14 precache entries
 - **React Migration Fixes (Final 7)** - Completed all remaining post-migration issues:
   - FilterSidebar ARIA: added aria-expanded, aria-haspopup="listbox", role="listbox", role="option", aria-selected, aria-pressed, Escape to close dropdown
   - Focus trap: created shared `useFocusTrap` hook (`js/hooks/useFocusTrap.js`), applied to DetailPane and SettingsPane
