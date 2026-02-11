@@ -166,8 +166,9 @@ export default function App() {
     // Wait for initial data.json fetch before deciding what to show
     if (initialLoading) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="loading-spinner" style={{ width: 36, height: 36 }} />
+            <div className="flex items-center justify-center min-h-screen flex-col gap-4">
+                <div className="loading-spinner" style={{ width: 36, height: 36, borderWidth: 3 }} />
+                <p className="text-sm text-themed-tertiary">Loading dashboard&hellip;</p>
             </div>
         );
     }

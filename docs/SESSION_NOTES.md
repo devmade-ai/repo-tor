@@ -6,7 +6,14 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-10):**
+**Recent Updates (2026-02-11):**
+- **Fix Black Screen / Loading Feedback** - Users reported only seeing a black screen with grid pattern, no content:
+  - Added HTML-level loading indicator inside `#root` div — visible before JS loads, replaced when React mounts via `createRoot`
+  - Added `RootErrorBoundary` in `main.jsx` wrapping the entire app — catches any unhandled React error and shows error message + reload button
+  - Improved React loading spinner: thicker border (3px vs 2px), added "Loading dashboard..." text below spinner
+  - Added `<noscript>` fallback for users without JavaScript
+
+**Previous Updates (2026-02-10):**
 - **Fix DropZone flash on reload** - Pull-to-refresh briefly showed "Drop JSON here" before data loaded:
   - On mount, `state.data` is `null` so DropZone rendered immediately; `data.json` fetch ran in useEffect (after first paint)
   - Fix: added `initialLoading` state — shows centered spinner (existing `.loading-spinner` CSS) until fetch completes, then shows dashboard or DropZone

@@ -147,6 +147,26 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 
 ---
 
+## 2026-02-11: No fallback when React fails to mount or render
+
+**What happened:** The app showed a completely black screen with only the CSS grid background visible. The loading spinner (a thin 2px blue border circle on a near-black background) was too subtle to notice. There was no HTML-level fallback for when JavaScript fails to load, and no top-level ErrorBoundary to catch React crashes outside the tab-level boundary.
+
+**Why it's a problem:** If React crashes for ANY reason (network error, runtime error, browser incompatibility), the user sees nothing — just a dark background. Three layers of failure had no user feedback: (1) JS not loading, (2) React failing to mount, (3) React component errors outside the tab ErrorBoundary.
+
+**What should have happened:**
+1. Always put a visible loading indicator IN THE HTML (not in React) — it shows before JS loads and gets replaced when React mounts
+2. Always wrap the entire React tree in a top-level ErrorBoundary, not just individual sections
+3. Loading states should be obviously visible — text labels, not just subtle spinners
+
+**Current status:** Fixed all three layers: HTML fallback in `#root`, `RootErrorBoundary` in main.jsx, improved spinner with text label.
+
+**Files affected:**
+- `dashboard/index.html` — Added HTML loading indicator
+- `dashboard/js/main.jsx` — Added RootErrorBoundary
+- `dashboard/js/App.jsx` — Improved loading spinner visibility
+
+---
+
 ## Template for Future Entries
 
 ```markdown
