@@ -7,6 +7,9 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-11):**
+- **Sticky Tabs & Filter Relocation** - Two layout improvements:
+  - Tab bar now sticks to top of viewport when scrolling (full-width background)
+  - Filter toggle button moved from tab bar to header, next to settings gear — filters are a global action, not a tab concern
 - **Fix Missing UI Elements** - Four post-migration issues fixed:
   - Debug banner now always visible: green "0 errors" pill at bottom-right; expands to red error log on errors
   - Install + Update PWA buttons restored in Header (were lost in React migration, only Settings showed)

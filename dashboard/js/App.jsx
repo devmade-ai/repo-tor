@@ -209,8 +209,8 @@ export default function App() {
     return (
         <div className="min-h-screen dashboard-enter">
             <Header />
+            <TabBar />
             <div className="max-w-7xl mx-auto px-4 md:px-8">
-                <TabBar />
                 <div className="dashboard-layout mt-6">
                     <FilterSidebar />
                     <div className="tab-content-area">

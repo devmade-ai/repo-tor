@@ -4,6 +4,16 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-11
 
+### Sticky Tabs & Filter Button Relocation
+
+**Why:** The tab bar scrolled out of view on long pages, making tab navigation inconvenient. The filter toggle button was awkwardly placed inside the tab bar — filters are a global action that affects all tabs, not a tab navigation concern.
+
+**Changes:**
+- `dashboard/js/App.jsx` — Moved `<TabBar />` above the `max-w-7xl` container so it sits at the top level, allowing the sticky background to span full viewport width.
+- `dashboard/js/components/TabBar.jsx` — Removed the filter toggle button. Added inner `max-w-7xl` container to align tab buttons with page content. Simplified to only tab navigation concerns.
+- `dashboard/js/components/Header.jsx` — Added filter toggle button (with badge) next to the settings gear. Filters now live alongside other global controls (install, update, settings).
+- `dashboard/styles.css` — Removed negative margin/padding hack from `.tabs-bar` (no longer needed since it's full-width at top level). Sticky positioning preserved.
+
 ### Fix Missing UI Elements (Post-Migration)
 
 **Why:** Several UI elements were lost during the React migration: (1) the debug error banner was hidden by default (display:none until first error), so users couldn't see it existed; (2) the Install and Update PWA buttons were never ported from vanilla JS to the React Header component — only the Settings gear button remained; (3) multi-component tabs (Activity, Work, Health) had no spacing between their sub-components because React fragments don't add layout; (4) Chart.js legend text was invisible on dark background because Chart.defaults.color was never set (defaulted to #666 instead of reading --text-secondary).
