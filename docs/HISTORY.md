@@ -4,6 +4,15 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-11
 
+### Fix Missing UI Elements (Post-Migration)
+
+**Why:** Several UI elements were lost during the React migration: (1) the debug error banner was hidden by default (display:none until first error), so users couldn't see it existed; (2) the Install and Update PWA buttons were never ported from vanilla JS to the React Header component — only the Settings gear button remained; (3) multi-component tabs (Activity, Work, Health) had no spacing between their sub-components because React fragments don't add layout; (4) Chart.js legend text was invisible on dark background because Chart.defaults.color was never set (defaulted to #666 instead of reading --text-secondary).
+
+**Changes:**
+- `dashboard/js/main.jsx` — Debug banner now creates eagerly on page load and always shows: a small green "0 errors" pill in the bottom-right when clean, expanding to the full red error log when errors occur. Also added `Chart.defaults.color` and `Chart.defaults.borderColor` read from CSS variables for proper dark theme support.
+- `dashboard/js/components/Header.jsx` — Restored Install and Update buttons. Listens for `pwa-install-ready`, `pwa-installed`, and `pwa-update-available` custom events from pwa.js. Install button triggers native prompt (Chromium) or falls back to opening Settings. Update button applies pending SW update. Buttons use existing `btn-icon` / `btn-primary` / `btn-secondary` CSS. Added `flex-wrap` for mobile.
+- `dashboard/js/App.jsx` — Wrapped multi-component tab content in `<div className="space-y-6">` instead of bare fragments, so there's consistent 24px spacing between TimelineTab/TimingTab, ProgressTab/ContributorsTab/TagsTab, and HealthTab/SecurityTab.
+
 ### Debug Error Banner
 
 **Why:** Diagnosing dashboard issues required users to open browser dev tools to see error messages. Added a visible error banner that captures all errors and lets users copy-paste them for bug reports.
