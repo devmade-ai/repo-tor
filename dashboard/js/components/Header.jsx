@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../AppContext.jsx';
 
 export default function Header() {
     const { state, dispatch } = useApp();
+    const [installReady, setInstallReady] = useState(false);
+    const [updateAvailable, setUpdateAvailable] = useState(false);
 
     const repoName = state.data?.metadata?.repo_name;
     const commitCount = state.data?.commits?.length || 0;
@@ -16,6 +18,45 @@ export default function Header() {
         ? `${repoDisplay} \u2014 ${commitCount.toLocaleString()} commits`
         : `${commitCount.toLocaleString()} commits`;
 
+    // Listen for PWA events dispatched by pwa.js
+    useEffect(() => {
+        const handleInstallReady = () => setInstallReady(true);
+        const handleInstalled = () => setInstallReady(false);
+        const handleUpdateAvailable = () => setUpdateAvailable(true);
+
+        window.addEventListener('pwa-install-ready', handleInstallReady);
+        window.addEventListener('pwa-installed', handleInstalled);
+        window.addEventListener('pwa-update-available', handleUpdateAvailable);
+
+        return () => {
+            window.removeEventListener('pwa-install-ready', handleInstallReady);
+            window.removeEventListener('pwa-installed', handleInstalled);
+            window.removeEventListener('pwa-update-available', handleUpdateAvailable);
+        };
+    }, []);
+
+    const handleInstall = useCallback(async () => {
+        try {
+            const { installPWA } = await import('../pwa.js');
+            const prompted = await installPWA();
+            if (!prompted) {
+                // No native prompt — open settings for manual instructions
+                dispatch({ type: 'TOGGLE_SETTINGS_PANE' });
+            }
+        } catch {
+            // PWA module not available
+        }
+    }, [dispatch]);
+
+    const handleUpdate = useCallback(async () => {
+        try {
+            const { applyUpdate } = await import('../pwa.js');
+            applyUpdate();
+        } catch {
+            // PWA module not available
+        }
+    }, []);
+
     return (
         <header className="dashboard-header px-4 md:px-8 py-6">
             <div className="max-w-7xl mx-auto">
@@ -26,7 +67,31 @@ export default function Header() {
                             {subtitle}
                         </p>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
+                        {updateAvailable && (
+                            <button
+                                onClick={handleUpdate}
+                                className="btn-icon btn-primary"
+                                aria-label="Update available"
+                            >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                Update
+                            </button>
+                        )}
+                        {installReady && (
+                            <button
+                                onClick={handleInstall}
+                                className="btn-icon btn-secondary"
+                                aria-label="Install app"
+                            >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                Install
+                            </button>
+                        )}
                         <button
                             onClick={() => dispatch({ type: 'TOGGLE_SETTINGS_PANE' })}
                             className="btn-theme"

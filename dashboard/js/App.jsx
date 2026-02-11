@@ -217,23 +217,23 @@ export default function App() {
                         <ErrorBoundary key={state.activeTab}>
                             {state.activeTab === 'overview' && <SummaryTab />}
                             {state.activeTab === 'activity' && (
-                                <>
+                                <div className="space-y-6">
                                     <TimelineTab />
                                     <TimingTab />
-                                </>
+                                </div>
                             )}
                             {state.activeTab === 'work' && (
-                                <>
+                                <div className="space-y-6">
                                     <ProgressTab />
                                     <ContributorsTab />
                                     <TagsTab />
-                                </>
+                                </div>
                             )}
                             {state.activeTab === 'health' && (
-                                <>
+                                <div className="space-y-6">
                                     <HealthTab />
                                     <SecurityTab />
-                                </>
+                                </div>
                             )}
                             {state.activeTab === 'discover' && <DiscoverTab />}
                         </ErrorBoundary>

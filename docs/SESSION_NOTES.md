@@ -7,10 +7,15 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-11):**
+- **Fix Missing UI Elements** - Four post-migration issues fixed:
+  - Debug banner now always visible: green "0 errors" pill at bottom-right; expands to red error log on errors
+  - Install + Update PWA buttons restored in Header (were lost in React migration, only Settings showed)
+  - Multi-component tab spacing fixed: Activity, Work, Health tabs now have consistent 24px gaps between sections
+  - Chart legend/axis text now readable: `Chart.defaults.color` set from CSS `--text-secondary`, `borderColor` from `--chart-grid`
 - **Debug Error Banner** - Added global error capture with copy-paste support:
   - Catches all JS errors: `window.onerror`, `unhandledrejection`, and React ErrorBoundary
-  - Fixed red banner at bottom of screen with "Copy" button for easy bug reporting
-  - Works even if React crashes — uses vanilla DOM, created lazily on first error
+  - Always-visible banner at bottom of screen with "Copy" button for easy bug reporting
+  - Works even if React crashes — uses vanilla DOM, created eagerly on page load
   - `RootErrorBoundary` now feeds errors into the banner with component stack traces
 - **Force Fresh JS/CSS on Pull-to-Refresh** - PWA now auto-activates new service workers:
   - Added `skipWaiting: true` + `clientsClaim: true` to workbox config — new SW activates immediately
