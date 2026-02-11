@@ -14,19 +14,21 @@ Log of significant changes to code and documentation.
 - `dashboard/js/components/Header.jsx` — Added filter toggle button (with badge) next to the settings gear. Filters now live alongside other global controls (install, update, settings).
 - `dashboard/styles.css` — Removed negative margin/padding hack from `.tabs-bar` (no longer needed since it's full-width at top level). Sticky positioning preserved.
 
-### Always-Visible Install Button
+### Fix Install Button Race Condition
 
-**Why:** Install button was conditional on `beforeinstallprompt` event (Chromium-only). On Safari and Firefox, the button never appeared, so users had no way to discover the install option.
-
-**Changes:**
-- `dashboard/js/components/Header.jsx` — Install button now always shows in header (hidden only when running as installed PWA). On Chromium, clicking triggers native install prompt. On other browsers, falls back to Settings pane with browser-specific manual instructions.
-
-### Hide Debug Banner When No Errors
-
-**Why:** The "0 errors" pill at bottom-right confused users — showed constantly but did nothing when clicked.
+**Why:** The `beforeinstallprompt` event could fire before `pwa.js` was dynamically imported, causing the event to be missed entirely. The install button never appeared because the prompt was lost.
 
 **Changes:**
-- `dashboard/js/main.jsx` — Debug banner now hidden when there are 0 errors. Only shows when an actual error occurs.
+- `dashboard/js/main.jsx` — Added early `beforeinstallprompt` capture (synchronous, runs before React). Stores the prompt on `window.__pwaInstallPrompt` and dispatches `pwa-install-ready` immediately.
+- `dashboard/js/pwa.js` — On load, checks `window.__pwaInstallPrompt` for an already-captured prompt. Both listeners (main.jsx early + pwa.js late) keep `window.__pwaInstallPrompt` in sync.
+- `dashboard/js/components/Header.jsx` — On mount, checks `window.__pwaInstallPrompt` to show install button even if event fired before Header rendered.
+
+### Interactive Debug Banner
+
+**Why:** The "0 errors" debug pill was non-interactive — clicking it did nothing. A debug banner should always provide useful info.
+
+**Changes:**
+- `dashboard/js/main.jsx` — Clicking the "0 errors" pill now expands to a diagnostics panel showing: SW support, SW controller status, standalone mode, PWA install state, install prompt status, error count, and user agent. Has Copy and Close buttons.
 
 ### Fix Missing UI Elements (Post-Migration)
 

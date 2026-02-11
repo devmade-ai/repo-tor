@@ -10,8 +10,8 @@ Current state for AI assistants to continue work.
 - **Sticky Tabs & Filter Relocation** - Two layout improvements:
   - Tab bar now sticks to top of viewport when scrolling (full-width background)
   - Filter toggle button moved from tab bar to header, next to settings gear — filters are a global action, not a tab concern
-- **Always-Visible Install Button** - Install button now always shows in header (not just Chromium). Triggers native prompt when available, falls back to Settings with browser-specific instructions. Hidden only when running as installed PWA.
-- **Hide Debug Banner** - "0 errors" pill removed (confused users). Debug banner now only appears when actual errors occur.
+- **Fix Install Button Race Condition** - `beforeinstallprompt` could fire before `pwa.js` was dynamically imported, losing the prompt. Now captured early in `main.jsx` (synchronous, before React), stored on `window.__pwaInstallPrompt`. Header checks for already-captured prompt on mount.
+- **Interactive Debug Banner** - "0 errors" pill now clickable: expands to show diagnostics (SW status, standalone mode, install prompt state, user agent) with Copy/Close buttons.
 - **Fix Missing UI Elements** - Four post-migration issues fixed:
   - Debug banner captures all JS errors with copy-paste support
   - Install + Update PWA buttons restored in Header (were lost in React migration, only Settings showed)
