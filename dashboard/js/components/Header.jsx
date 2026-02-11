@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../AppContext.jsx';
-import { installPWA, applyUpdate } from '../pwa.js';
+import { installPWA, applyUpdate, getPWAState } from '../pwa.js';
 
 export default function Header() {
     const { state, dispatch, activeFilterCount } = useApp();
@@ -19,8 +19,13 @@ export default function Header() {
         ? `${repoDisplay} \u2014 ${commitCount.toLocaleString()} commits`
         : `${commitCount.toLocaleString()} commits`;
 
-    // Listen for PWA events dispatched by pwa.js
+    // Seed from pwa.js module state (catches events that fired before mount),
+    // then listen for subsequent changes.
     useEffect(() => {
+        const current = getPWAState();
+        if (current.installReady) setInstallReady(true);
+        if (current.updateAvailable) setUpdateAvailable(true);
+
         const handleInstallReady = () => setInstallReady(true);
         const handleInstalled = () => setInstallReady(false);
         const handleUpdateAvailable = () => setUpdateAvailable(true);

@@ -18,6 +18,8 @@ import { registerSW } from 'virtual:pwa-register';
 // === State ===
 let deferredInstallPrompt = null;
 let updateSW = null;
+let _installReady = false;
+let _updateAvailable = false;
 
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true;
@@ -102,11 +104,13 @@ window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     if (isPWAInstalled) return;
     deferredInstallPrompt = e;
+    _installReady = true;
     window.dispatchEvent(new CustomEvent('pwa-install-ready'));
 });
 
 window.addEventListener('appinstalled', () => {
     deferredInstallPrompt = null;
+    _installReady = false;
     localStorage.setItem('pwaInstalled', 'true');
     window.dispatchEvent(new CustomEvent('pwa-installed'));
 });
@@ -123,6 +127,11 @@ export async function installPWA() {
         return true;
     }
     return false;
+}
+
+/** Current PWA state — safe to call at any time, no race conditions. */
+export function getPWAState() {
+    return { installReady: _installReady, updateAvailable: _updateAvailable };
 }
 
 /** Whether the app is running as an installed PWA */
@@ -155,6 +164,7 @@ export async function checkForUpdate() {
         if (!reg) return 'no-sw';
         await reg.update();
         if (reg.waiting || reg.installing) {
+            _updateAvailable = true;
             window.dispatchEvent(new CustomEvent('pwa-update-available'));
             return 'update-found';
         }
@@ -167,6 +177,7 @@ export async function checkForUpdate() {
 // Register the service worker via vite-plugin-pwa virtual module.
 updateSW = registerSW({
     onNeedRefresh() {
+        _updateAvailable = true;
         window.dispatchEvent(new CustomEvent('pwa-update-available'));
     },
     onOfflineReady() {

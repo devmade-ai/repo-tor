@@ -14,6 +14,16 @@ Log of significant changes to code and documentation.
 - `dashboard/js/components/Header.jsx` — Added filter toggle button (with badge) next to the settings gear. Filters now live alongside other global controls (install, update, settings).
 - `dashboard/styles.css` — Removed negative margin/padding hack from `.tabs-bar` (no longer needed since it's full-width at top level). Sticky positioning preserved.
 
+### Eliminate PWA Event Race Condition
+
+**Why:** Header's `useEffect` event listeners could miss `pwa-install-ready` or `pwa-update-available` events if they fired before React mounted. The static import fix made this unlikely but not impossible — the race still existed in theory between module-level code execution and React's first useEffect run.
+
+**Fix:** `pwa.js` now tracks its own state with `_installReady` and `_updateAvailable` booleans, updated whenever events fire. A new `getPWAState()` export returns the current values. Header calls this on mount to seed its local state, with event listeners still handling subsequent changes. No globals, no hacks — just a getter function.
+
+**Changes:**
+- `dashboard/js/pwa.js` — Added `_installReady`/`_updateAvailable` state booleans, exported `getPWAState()`. State updated in `beforeinstallprompt`, `appinstalled`, `onNeedRefresh`, and `checkForUpdate`.
+- `dashboard/js/components/Header.jsx` — Imported `getPWAState`, calls it at the start of the PWA useEffect to seed `installReady`/`updateAvailable` state.
+
 ### Fix Install Button Not Appearing
 
 **Why:** `pwa.js` was dynamically imported in a `useEffect` — it loaded after React rendered, so `beforeinstallprompt` could fire before the listener existed. The prompt was lost and the install button never appeared.
