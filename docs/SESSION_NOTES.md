@@ -10,7 +10,7 @@ Current state for AI assistants to continue work.
 - **Sticky Tabs & Filter Relocation** - Two layout improvements:
   - Tab bar now sticks to top of viewport when scrolling (full-width background)
   - Filter toggle button moved from tab bar to header, next to settings gear — filters are a global action, not a tab concern
-- **Fix Install Button Race Condition** - `beforeinstallprompt` could fire before `pwa.js` was dynamically imported, losing the prompt. Now captured early in `main.jsx` (synchronous, before React), stored on `window.__pwaInstallPrompt`. Header checks for already-captured prompt on mount.
+- **Fix Install Button Not Appearing** - `pwa.js` was dynamically imported (useEffect), so `beforeinstallprompt` could fire before the listener existed. Fixed by making it a static import in `main.jsx` — loads synchronously, no race condition.
 - **Interactive Debug Banner** - "0 errors" pill now clickable: expands to show diagnostics (SW status, standalone mode, install prompt state, user agent) with Copy/Close buttons.
 - **Fix Missing UI Elements** - Four post-migration issues fixed:
   - Debug banner captures all JS errors with copy-paste support

@@ -224,12 +224,13 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 3. Ask about the debug pill: "Should it expand to show some info, or do you want different behavior?"
 4. Investigate the root cause before proposing a fix
 
-**Current status:** Fixed correctly — early `beforeinstallprompt` capture in main.jsx, interactive debug pill with diagnostics.
+**Current status:** First "fix" was also wrong (global `window.__pwaInstallPrompt` hack across three files — a workaround, not a fix). Proper fix: static `import './pwa.js'` in main.jsx instead of dynamic import. No race condition, no globals, no duplicate listeners.
 
 **Files affected:**
-- `dashboard/js/main.jsx` — Early PWA prompt capture + interactive debug banner
-- `dashboard/js/pwa.js` — Reads early-captured prompt
-- `dashboard/js/components/Header.jsx` — Checks for already-captured prompt on mount
+- `dashboard/js/main.jsx` — Static import of pwa.js + interactive debug banner
+- `dashboard/js/App.jsx` — Removed dynamic pwa.js import
+- `dashboard/js/pwa.js` — Reverted to clean state
+- `dashboard/js/components/Header.jsx` — Static imports from pwa.js
 
 ---
 

@@ -88,13 +88,6 @@ export default function App() {
             .finally(() => setInitialLoading(false));
     }, []);
 
-    // PWA initialization
-    useEffect(() => {
-        import('./pwa.js').catch(() => {
-            // PWA module not available (e.g. dev server, missing virtual module)
-        });
-    }, []);
-
     // Heatmap tooltip handler
     useEffect(() => {
         const tooltip = document.getElementById('heatmap-tooltip');

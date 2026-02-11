@@ -14,14 +14,17 @@ Log of significant changes to code and documentation.
 - `dashboard/js/components/Header.jsx` — Added filter toggle button (with badge) next to the settings gear. Filters now live alongside other global controls (install, update, settings).
 - `dashboard/styles.css` — Removed negative margin/padding hack from `.tabs-bar` (no longer needed since it's full-width at top level). Sticky positioning preserved.
 
-### Fix Install Button Race Condition
+### Fix Install Button Not Appearing
 
-**Why:** The `beforeinstallprompt` event could fire before `pwa.js` was dynamically imported, causing the event to be missed entirely. The install button never appeared because the prompt was lost.
+**Why:** `pwa.js` was dynamically imported in a `useEffect` — it loaded after React rendered, so `beforeinstallprompt` could fire before the listener existed. The prompt was lost and the install button never appeared.
+
+**Fix:** Static `import './pwa.js'` in `main.jsx`. Module loads synchronously with everything else, listener is ready before the browser fires the event. No race condition.
 
 **Changes:**
-- `dashboard/js/main.jsx` — Added early `beforeinstallprompt` capture (synchronous, runs before React). Stores the prompt on `window.__pwaInstallPrompt` and dispatches `pwa-install-ready` immediately.
-- `dashboard/js/pwa.js` — On load, checks `window.__pwaInstallPrompt` for an already-captured prompt. Both listeners (main.jsx early + pwa.js late) keep `window.__pwaInstallPrompt` in sync.
-- `dashboard/js/components/Header.jsx` — On mount, checks `window.__pwaInstallPrompt` to show install button even if event fired before Header rendered.
+- `dashboard/js/main.jsx` — Static import of `pwa.js` (replaces early-capture hack)
+- `dashboard/js/App.jsx` — Removed dynamic `import('./pwa.js')` useEffect
+- `dashboard/js/components/Header.jsx` — Static import of `installPWA`/`applyUpdate` from pwa.js (replaces dynamic imports)
+- `dashboard/js/pwa.js` — Reverted to clean state (no global variable sync)
 
 ### Interactive Debug Banner
 

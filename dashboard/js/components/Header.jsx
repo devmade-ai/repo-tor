@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../AppContext.jsx';
+import { installPWA, applyUpdate } from '../pwa.js';
 
 export default function Header() {
     const { state, dispatch, activeFilterCount } = useApp();
@@ -18,7 +19,7 @@ export default function Header() {
         ? `${repoDisplay} \u2014 ${commitCount.toLocaleString()} commits`
         : `${commitCount.toLocaleString()} commits`;
 
-    // Listen for PWA events dispatched by pwa.js (and early capture in main.jsx)
+    // Listen for PWA events dispatched by pwa.js
     useEffect(() => {
         const handleInstallReady = () => setInstallReady(true);
         const handleInstalled = () => setInstallReady(false);
@@ -28,11 +29,6 @@ export default function Header() {
         window.addEventListener('pwa-installed', handleInstalled);
         window.addEventListener('pwa-update-available', handleUpdateAvailable);
 
-        // Check if beforeinstallprompt was already captured before this component mounted
-        if (window.__pwaInstallPrompt) {
-            setInstallReady(true);
-        }
-
         return () => {
             window.removeEventListener('pwa-install-ready', handleInstallReady);
             window.removeEventListener('pwa-installed', handleInstalled);
@@ -41,25 +37,14 @@ export default function Header() {
     }, []);
 
     const handleInstall = useCallback(async () => {
-        try {
-            const { installPWA } = await import('../pwa.js');
-            const prompted = await installPWA();
-            if (!prompted) {
-                // No native prompt — open settings for manual instructions
-                dispatch({ type: 'TOGGLE_SETTINGS_PANE' });
-            }
-        } catch {
-            // PWA module not available
+        const prompted = await installPWA();
+        if (!prompted) {
+            dispatch({ type: 'TOGGLE_SETTINGS_PANE' });
         }
     }, [dispatch]);
 
-    const handleUpdate = useCallback(async () => {
-        try {
-            const { applyUpdate } = await import('../pwa.js');
-            applyUpdate();
-        } catch {
-            // PWA module not available
-        }
+    const handleUpdate = useCallback(() => {
+        applyUpdate();
     }, []);
 
     return (

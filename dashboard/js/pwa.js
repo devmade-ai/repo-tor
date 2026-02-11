@@ -16,9 +16,7 @@
 import { registerSW } from 'virtual:pwa-register';
 
 // === State ===
-// Use the early-captured prompt from main.jsx (if beforeinstallprompt fired
-// before this module was dynamically imported), otherwise fall back to null.
-let deferredInstallPrompt = window.__pwaInstallPrompt || null;
+let deferredInstallPrompt = null;
 let updateSW = null;
 
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
@@ -99,21 +97,16 @@ export function getInstallInstructions() {
 }
 
 // === Install: Prompt handling ===
-// The beforeinstallprompt listener is also set up early in main.jsx
-// (before React renders) to avoid missing the event. This listener
-// handles the case where the event fires after pwa.js is loaded.
 
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     if (isPWAInstalled) return;
     deferredInstallPrompt = e;
-    window.__pwaInstallPrompt = e;
     window.dispatchEvent(new CustomEvent('pwa-install-ready'));
 });
 
 window.addEventListener('appinstalled', () => {
     deferredInstallPrompt = null;
-    window.__pwaInstallPrompt = null;
     localStorage.setItem('pwaInstalled', 'true');
     window.dispatchEvent(new CustomEvent('pwa-installed'));
 });

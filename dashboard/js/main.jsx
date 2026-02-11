@@ -6,6 +6,7 @@ import { createRoot } from 'react-dom/client';
 import '../styles.css';
 import { AppProvider } from './AppContext.jsx';
 import App from './App.jsx';
+import './pwa.js';
 
 // Chart.js registration
 import {
@@ -32,27 +33,6 @@ ChartJS.register(
 const computedStyles = getComputedStyle(document.documentElement);
 ChartJS.defaults.color = computedStyles.getPropertyValue('--text-secondary').trim() || '#e5e7eb';
 ChartJS.defaults.borderColor = computedStyles.getPropertyValue('--chart-grid').trim() || 'rgba(255,255,255,0.1)';
-
-// === Early PWA install prompt capture ===
-// beforeinstallprompt can fire before pwa.js is dynamically imported.
-// Capture it here (synchronous, runs before React) so it's never missed.
-window.__pwaInstallPrompt = null;
-const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
-    window.navigator.standalone === true;
-const isPWAInstalled = isStandalone || localStorage.getItem('pwaInstalled') === 'true';
-
-if (!isPWAInstalled) {
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        window.__pwaInstallPrompt = e;
-        window.dispatchEvent(new CustomEvent('pwa-install-ready'));
-    });
-}
-window.addEventListener('appinstalled', () => {
-    window.__pwaInstallPrompt = null;
-    localStorage.setItem('pwaInstalled', 'true');
-    window.dispatchEvent(new CustomEvent('pwa-installed'));
-});
 
 // === Debug Error Banner ===
 // Always-visible indicator at the bottom of the screen.
@@ -130,7 +110,6 @@ function showDebugInfo() {
     const sw = 'serviceWorker' in navigator;
     const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
     const pwaInstalled = standalone || localStorage.getItem('pwaInstalled') === 'true';
-    const installPrompt = !!window.__pwaInstallPrompt;
     const swController = navigator.serviceWorker?.controller ? 'active' : 'none';
 
     const lines = [
@@ -138,7 +117,6 @@ function showDebugInfo() {
         `SW controller: ${swController}`,
         `Standalone mode: ${standalone}`,
         `PWA installed flag: ${pwaInstalled}`,
-        `Install prompt captured: ${installPrompt}`,
         `Errors: ${debugErrors.length}`,
         `User agent: ${navigator.userAgent}`,
     ];
