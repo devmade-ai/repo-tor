@@ -4,6 +4,13 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-10
 
+### Fix DropZone Flash on Pull-to-Refresh
+
+**Why:** Pull-to-refresh briefly flashed the "Drop JSON here" DropZone before data loaded, because `state.data` starts as `null` and the `data.json` fetch runs in a `useEffect` (after first render).
+
+**Changes:**
+- `dashboard/js/App.jsx` — Added `initialLoading` state; renders nothing until initial fetch completes, then shows dashboard or DropZone
+
 ### Fix PWA White Screen — Missing CSS Import
 
 **Why:** React migration removed `<link rel="stylesheet" href="./styles.css">` from `index.html` but never added a JS import in `main.jsx`. The build produced no CSS file, causing white text on white background (dark theme colors undefined).
