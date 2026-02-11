@@ -7,6 +7,10 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-11):**
+- **Fix Dashboard Null Metadata Crash** - Dashboard crashed with "Cannot read properties of null (reading 'metadata')":
+  - Root cause: In `AppContext.jsx`, global state sync (`globalState.data = state.data`) ran AFTER useMemo hooks that called `getAuthorEmail`/`getAuthorName`. When LOAD_DATA fired, the useMemo hooks re-executed and read `globalState.data.metadata` while it was still `null` from the previous render.
+  - Fix: Moved global state sync BEFORE the useMemo hooks so `globalState.data` is current when utility functions read it.
+  - Also added defensive `?.` optional chaining in `getAuthorName`/`getAuthorEmail` in `utils.js` as a safety net.
 - **Fix Loading Indicator Flash & Black Screen** - After previous fix, loading indicator flashed briefly then black screen returned:
   - Root cause: `.catch(() => {})` silently swallowed ALL data loading errors (network failures, JSON parse errors, CORS issues) — not just 404
   - Fix: only 404 silently handled (no data file expected); all other errors show visible error card with "Could not load dashboard data" message + retry button

@@ -4,6 +4,14 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-11
 
+### Fix Dashboard Null Metadata Crash
+
+**Why:** Dashboard crashed on load with "Cannot read properties of null (reading 'metadata')". The `RootErrorBoundary` caught it and showed "Something went wrong loading the dashboard." The root cause was a timing issue: in `AppContext.jsx`, the global state sync (`globalState.data = state.data`) ran after the `useMemo` hooks that depend on it. When `LOAD_DATA` triggered a re-render, `filterOptions` useMemo called `getAuthorEmail()`, which read `globalState.data.metadata` — but `globalState.data` was still `null` from the previous render.
+
+**Changes:**
+- `dashboard/js/AppContext.jsx` — Moved global state sync to run before all `useMemo` hooks so utility functions always see current data.
+- `dashboard/js/utils.js` — Added defensive optional chaining (`state.data?.metadata`) in `getAuthorName` and `getAuthorEmail` as a safety net.
+
 ### Fix Loading Indicator Flash & Black Screen
 
 **Why:** After the previous loading indicator fix, users saw the loading indicator flash briefly before the screen went black again. Root causes: (1) data loading errors were silently swallowed — `.catch(() => {})` hid real failures (network errors, JSON parse errors, CORS issues), leaving users with an invisible DropZone on a dark background; (2) no visual transition between loading and content states; (3) PWA import error not properly caught (try/catch on a promise); (4) DropZone was too subtle on dark background when shown as fallback.

@@ -236,7 +236,7 @@ export function getTagStyleObject(tag) {
 export function getAuthorName(commit) {
     let name;
     // Try to resolve from metadata.authors using author_id
-    if (commit.author_id && state.data.metadata?.authors?.[commit.author_id]) {
+    if (commit.author_id && state.data?.metadata?.authors?.[commit.author_id]) {
         name = state.data.metadata.authors[commit.author_id].name;
     } else {
         // Fall back to embedded author object
@@ -248,7 +248,7 @@ export function getAuthorName(commit) {
 
 export function getAuthorEmail(commit) {
     // Try to resolve from metadata.authors using author_id
-    if (commit.author_id && state.data.metadata?.authors?.[commit.author_id]) {
+    if (commit.author_id && state.data?.metadata?.authors?.[commit.author_id]) {
         return state.data.metadata.authors[commit.author_id].email;
     }
     // Fall back to embedded author object or author_id
