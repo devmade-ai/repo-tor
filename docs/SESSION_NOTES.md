@@ -6,7 +6,10 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-11):**
+**Recent Updates (2026-02-13):**
+- **CLAUDE.md — Merge Development Standards** - Merged a reference template of coding standards into the existing CLAUDE.md. Added: HARD RULES section (Before Making Changes, Best Practices, Code Organization thresholds, Decision Documentation format, UX guidelines for non-technical users, Frontend rules adapted for React + Tailwind, Documentation, Cleanup, Quality Checks), Project-Specific Configuration (paths, stack, conventions filled in), Communication Style, Testing, and Prohibitions sections. Existing Principles updated to cross-reference expanded Hard Rules. AI Notes trimmed to avoid duplication.
+
+**Previous Updates (2026-02-11):**
 - **Fix Pie Chart Legend Text Color** - Tag distribution doughnut legend text was colored to match each slice's background color (e.g., green text for "feature"), making it hard to read. Chart.js doughnut defaults use segment colors for legend text when `generateLabels` doesn't specify `fontColor`. Fixed by setting both `color` on the labels config and `fontColor` on each generated label to use `--text-secondary`.
 - **Tab Renames & Discover UI Fixes** - Reviewed all tab names vs content and fixed Discover first section:
   - Tab renames: Overview→Summary, Activity→Timeline, Work→Breakdown (internal IDs unchanged)

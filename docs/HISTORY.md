@@ -2,6 +2,25 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-13
+
+### CLAUDE.md — Merge Development Standards
+
+**Why:** The existing CLAUDE.md had strong project-specific documentation and AI session management but lacked explicit coding standards (best practices, code organization thresholds, cleanup rules, quality checks, UX guidelines, prohibitions). Merged a reference template of development standards to fill these gaps.
+
+**Changes:**
+- `CLAUDE.md` — Added 9 new sections from reference template:
+  - **HARD RULES** at top: Before Making Changes, Best Practices (SOLID/DRY), Code Organization (line thresholds), Decision Documentation in Code (with project-specific example), User Experience (non-technical users, good/bad examples), Frontend: Styles and Scripts (adapted for React + Tailwind), Documentation, Cleanup, Quality Checks
+  - **Project-Specific Configuration**: Paths, Stack, and Conventions filled in with actual project values
+  - **Communication Style**: Direct, concise, no filler
+  - **Testing**: Rules + note about no current test framework
+  - **Prohibitions**: 12 "never" rules including 4 drawn from AI Lessons
+  - Updated Principles #1, #3, #8 to cross-reference their expanded Hard Rules sections
+  - Added cleanup check to Before Each Commit checklist
+  - Trimmed AI Notes to 3 items (others now covered by Hard Rules/Prohibitions)
+
+---
+
 ## 2026-02-11
 
 ### Fix Pie Chart Legend Text Color
