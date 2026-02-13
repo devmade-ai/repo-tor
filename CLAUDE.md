@@ -1,5 +1,107 @@
 # Git Analytics Reporting System
 
+## HARD RULES
+
+These rules are non-negotiable. Stop and ask before proceeding if any rule would be violated.
+
+### Before Making Changes
+
+- [ ] Read relevant existing code and documentation first
+- [ ] Ask clarifying questions if scope, approach, or intent is unclear
+- [ ] Confirm understanding before implementing non-trivial changes
+- [ ] Never assume — when in doubt, ask
+
+### Best Practices
+
+- [ ] Follow established patterns and conventions in the codebase
+- [ ] Use industry-standard solutions over custom implementations when available
+- [ ] Apply SOLID principles, DRY, and separation of concerns
+- [ ] Prefer well-maintained, widely-adopted libraries over obscure alternatives
+- [ ] Follow security best practices (input validation, sanitization, principle of least privilege)
+- [ ] Handle errors gracefully with meaningful messages
+- [ ] Write self-documenting code with clear naming
+
+### Code Organization
+
+- [ ] Prefer smaller, focused files and functions
+- [ ] Pause and consider extraction at: 500 lines (file), 100 lines (function), 400 lines (class)
+- [ ] Strongly consider refactoring at: 800+ lines (file), 150+ lines (function), 600+ lines (class)
+- [ ] Extract reusable logic into separate modules/files immediately
+- [ ] Group related functionality into logical directories
+- [ ] Split large classes into smaller, focused classes when responsibilities diverge
+
+### Decision Documentation in Code
+
+Non-trivial code changes must include comments explaining:
+- **What** was the requirement or instruction
+- **Why** this approach was chosen
+- **What alternatives** were considered and why they were rejected
+
+Example:
+```javascript
+// Requirement: Show loading state before React mounts
+// Approach: HTML-level spinner inside #root div, replaced by createRoot()
+// Alternatives:
+//   - React Suspense only: Rejected - no fallback if JS fails to load
+//   - Blank screen + ErrorBoundary: Rejected - no feedback during load
+```
+
+### User Experience (CRITICAL)
+
+Assume all dashboard users are non-technical. This is non-negotiable.
+
+- [ ] UI must be intuitive without instructions
+- [ ] Use plain language — no jargon, technical terms, or developer-speak
+- [ ] Error messages must tell users what went wrong AND what to do next, in simple terms
+- [ ] Labels, buttons, and instructions should be clear to someone unfamiliar with git analytics
+- [ ] Prioritize clarity over brevity in user-facing text
+- [ ] Confirm destructive actions with clear consequences explained
+- [ ] Provide feedback for all user actions (loading states, success confirmations, etc.)
+- [ ] Design for the least technical person who will use this
+
+Bad: "Error 500: Internal server exception"
+Good: "Something went wrong loading the dashboard. Please try again, or check your data file."
+
+Bad: "Invalid JSON schema"
+Good: "This file doesn't look like a dashboard data file. Try exporting from the extraction script first."
+
+### Frontend: Styles and Scripts
+
+- [ ] All custom styles in `dashboard/styles.css` — Tailwind utility classes in JSX are fine (framework convention)
+- [ ] No inline `style={}` objects in JSX unless values are dynamic/computed
+- [ ] Use CSS variables for theming (colors, spacing, typography) — never hardcode theme values
+- [ ] No `<script>` tags — all JS through ES module imports
+- [ ] Maintain light/dark mode support through CSS variables
+
+### Documentation
+
+- [ ] Update relevant documentation with every code change
+- [ ] All documentation lives in `/docs` directory
+- [ ] README must reflect current project state at all times
+- [ ] Follow the After Each Significant Task checklist (see AI Checklists below)
+
+### Cleanup
+
+- [ ] Remove all temporary files after implementation is complete
+- [ ] Delete unused imports, variables, and dead code immediately
+- [ ] Remove commented-out code unless explicitly marked for preservation
+- [ ] Clean up console.log/print statements before marking work complete
+
+### Quality Checks
+
+During every change, actively scan for:
+- [ ] Error handling gaps
+- [ ] Edge cases not covered
+- [ ] Inconsistent naming
+- [ ] Code duplication that should be extracted
+- [ ] Missing validation
+- [ ] Security concerns
+- [ ] Performance issues
+
+Report findings even if not directly related to current task.
+
+---
+
 ## Project Overview
 
 **Purpose:** Extract git history from repositories and generate visual analytics reports.
@@ -63,6 +165,37 @@ Executive and Management views show interpretation guidance hints; Developer vie
 
 ---
 
+## Project-Specific Configuration
+
+### Paths
+```
+DOCS_PATH=/docs
+COMPONENTS_PATH=dashboard/js/components
+TABS_PATH=dashboard/js/tabs
+STYLES_PATH=dashboard/styles.css
+SCRIPTS_PATH=scripts
+```
+
+### Stack
+```
+LANGUAGE=JavaScript (ES modules)
+FRAMEWORK=React 19 + Vite + Tailwind v4
+CHARTS=Chart.js via react-chartjs-2
+PACKAGE_MANAGER=npm
+BUILD=npm run build (output: dist/)
+DEV=npm run dev (http://localhost:5173)
+```
+
+### Conventions
+```
+NAMING_CONVENTION=camelCase (variables/functions), PascalCase (components)
+FILE_NAMING=PascalCase.jsx (components), camelCase.js (utilities)
+COMPONENT_STRUCTURE=feature-based (js/tabs/, js/components/)
+COMMIT_FORMAT=conventional commits (see docs/COMMIT_CONVENTION.md)
+```
+
+---
+
 # My Preferences
 
 ## Process
@@ -73,14 +206,14 @@ Executive and Management views show interpretation guidance hints; Developer vie
 
 ## Principles
 
-1. **User-first design** - Align with how real people will use the tool (top priority)
+1. **User-first design** — see Hard Rules > User Experience for specifics (top priority)
 2. **Simplicity** - Simple flow, clear guidance, non-overwhelming visuals, accurate interpretation
-3. **Document WHY** - Explain decisions and how they align with tool goals
+3. **Document WHY** — see Hard Rules > Decision Documentation for format
 4. **Keep docs updated immediately** - Update relevant docs right after each change, before moving to the next task (sessions can end abruptly)
 5. **Testability** - Ensure correctness and alignment with usage goals can be verified
 6. **Know the purpose** - Always be aware of what the tool is for
 7. **Preserve session context** - Update docs/SESSION_NOTES.md after each significant task (not at the end - sessions can end abruptly)
-8. **Follow conventions** - Best practices and consistent patterns
+8. **Follow conventions** — see Hard Rules > Best Practices
 9. **Capture ideas** - Add lower priority items and improvements to docs/TODO.md so they persist between sessions
 10. **Repeatable process** - Follow consistent steps to ensure all the above
 11. **Document user actions** - When manual user action is required (external dashboards, credentials, etc.), add detailed instructions to docs/USER_ACTIONS.md
@@ -112,6 +245,7 @@ Executive and Management views show interpretation guidance hints; Developer vie
 - [ ] docs/HISTORY.md entry added (if significant change)
 - [ ] docs/SESSION_NOTES.md reflects current state
 - [ ] Commit message is clear and descriptive
+- [ ] No unused imports, dead code, or console.log statements (see Hard Rules > Cleanup)
 
 ### Before Each Push
 
@@ -158,17 +292,52 @@ Default mode is development. Use `@data` to switch when needed.
 
 See `docs/EXTRACTION_PLAYBOOK.md` for details.
 
+---
+
+## Communication Style
+
+- Direct, concise responses
+- No filler phrases or conversational padding
+- State facts and actions, not opinions
+- Ask specific questions with concrete options when clarification needed
+- Never proceed with assumptions on ambiguous requests
+
+---
+
+## Testing
+
+- Write tests for critical paths and core business logic
+- Test error handling and edge cases for critical functions
+- Tests are not required for trivial getters/setters or UI-only code
+- Run existing tests before and after changes
+- **Note:** No test framework currently configured. If tests are added, update this section with the runner and conventions.
+
+---
+
+## Prohibitions
+
+Never:
+- Start implementation without understanding full scope
+- Create files outside established project structure
+- Leave TODO comments without tracking them in docs/TODO.md
+- Ignore errors or warnings in output
+- Make "while I'm here" changes without asking
+- Use placeholder data that looks like real data
+- Skip error handling "for now"
+- Write code without decision context comments for non-trivial changes
+- Add workarounds for architectural issues — fix root causes (see AI Lessons)
+- Use silent `.catch(() => {})` — always handle specific errors (see AI Lessons)
+- Hardcode values that should come from CSS variables or config (see AI Lessons)
+- Document or recommend features that haven't been tested (see AI Lessons)
+
+---
+
 ## AI Notes
 
 <!-- Reminders and learnings for AI assistants - add to this as needed -->
 
-- Always read a file before attempting to edit it
-- Check for existing patterns in the codebase before creating new ones
-- Clean up completed or obsolete docs/files and remove references to them
-- **Test features before documenting them as working** - if you can't test, say so explicitly
 - **Document your mistakes** in docs/AI_LESSONS.md so future sessions learn from them
 - **Verify before assuming** - Read the actual code before claiming what it does. Don't describe behavior based on file names, comments, or assumptions — check the implementation. If the user describes how something works, compare it against the actual code rather than agreeing without verification.
-- **Ask clarifying questions** - When a task is ambiguous, has multiple valid approaches, or you're unsure about the user's intent, ask before proceeding. Don't guess at requirements or make assumptions about what the user wants. A quick question upfront avoids wasted work and wrong implementations.
 - **Fix root causes, not symptoms** - When something isn't working, find out WHY before writing code. Don't add workarounds (globals, duplicate listeners, flag variables) to patch over an architectural issue. If the fix requires touching 3+ files to coordinate shared state, that's a smell — look for a simpler structural change. Example: if a module loads too late, make it load earlier — don't add a global cache to bridge the gap.
 
 ---
