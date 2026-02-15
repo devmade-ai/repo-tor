@@ -1,0 +1,40 @@
+{
+  "sha": "d86226f",
+  "fullSha": "d86226fb9d85d2583bfd9727ee845f57fee0ba08",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-06T13:30:59Z",
+  "commitDate": "2026-02-06T13:30:59Z",
+  "subject": "fix: improve chat scroll performance by reducing unnecessary re-renders",
+  "body": "- Reduce reactions polling from 3s to 30s (realtime is primary, polling is safety net)\n- Memoize renderItem and message IDs to prevent defeating MessageBubble memo()\n- Remove permanent CSS transition on message bubbles that caused animation jank during scroll\n- Replace expensive backdrop-filter blur on chat header with opaque background\n\nhttps://claude.ai/code/session_01RuhY87xataw2wxCkMvW18n",
+  "tags": [
+    "bugfix",
+    "performance"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "improve chat scroll performance by reducing unnecessary re-renders",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 46,
+    "deletions": 36
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "components/MessageBubble.tsx",
+    "hooks/useReactions.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

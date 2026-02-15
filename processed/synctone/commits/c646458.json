@@ -1,0 +1,40 @@
+{
+  "sha": "c646458",
+  "fullSha": "c64645816cfd7dd1ce4779d6231166f178bcda5a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T23:41:11Z",
+  "commitDate": "2026-02-04T23:41:11Z",
+  "subject": "fix: simplify PWA update logic to eliminate race conditions",
+  "body": "The previous implementation had multiple layers of flags (sessionStorage,\nstatechange listeners, suppressUpdateBannerRef) trying to work around\nrace conditions that resulted from the fundamental approach.\n\nThe new approach is simpler and more reliable:\n1. Register SW and detect waiting workers normally\n2. On update click: send SKIP_WAITING, set flag, clear UI state\n3. Reload ONLY on controllerchange AND only if user initiated\n\nKey changes:\n- Removed sessionStorage UPDATE_RELOAD_KEY hack\n- Removed statechange listener waiting for 'activated'\n- Use controllerchange as the sole reload trigger\n- Single userClickedUpdateRef flag gates reload behavior\n- Bumped SW cache version to v5 for clean slate\n\nhttps://claude.ai/code/session_01YbKxdaTUQVeq8u4arrhstf",
+  "tags": [
+    "bugfix",
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "simplify PWA update logic to eliminate race conditions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 43,
+    "deletions": 112
+  },
+  "files": [
+    "hooks/usePWAUpdate.ts",
+    "public/sw.js"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

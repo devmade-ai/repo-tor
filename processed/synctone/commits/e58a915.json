@@ -1,0 +1,38 @@
+{
+  "sha": "e58a915",
+  "fullSha": "e58a9155e71028a74b454e1b2fea42c707198c94",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T22:40:44Z",
+  "commitDate": "2026-02-04T22:40:44Z",
+  "subject": "fix: remove auto-skipWaiting so update banner works",
+  "body": "The service worker was auto-activating on install, leaving no\nwaiting worker for the update mechanism. Now waits for explicit\nSKIP_WAITING message from app when user clicks Update.\n\nhttps://claude.ai/code/session_01ALNf4Yu8id9JqyPF1mQb3m",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "remove auto-skipWaiting so update banner works",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 4,
+    "deletions": 5
+  },
+  "files": [
+    "public/sw.js"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "infrastructure"
+}
