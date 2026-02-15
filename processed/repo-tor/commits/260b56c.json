@@ -1,0 +1,39 @@
+{
+  "sha": "260b56c",
+  "fullSha": "260b56cfeff5b781c0eb2914496f66afd2281a49",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-11T06:14:10Z",
+  "commitDate": "2026-02-11T06:14:10Z",
+  "subject": "fix: show install button after PWA uninstall",
+  "body": "beforeinstallprompt is the browser's signal that the app is NOT\ninstalled. Clear stale localStorage.pwaInstalled flag when it fires\ninstead of bailing out. Makes isInstalledPWA() read live state.\n\nhttps://claude.ai/code/session_019BXGKTfx5qUNRv3hYLW6wH",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "show install button after PWA uninstall",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 16,
+    "deletions": 3
+  },
+  "files": [
+    "dashboard/js/pwa.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "2b3121a",
+  "fullSha": "2b3121af65d978e87b3802c41870b544d60833a8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-24T22:02:52Z",
+  "commitDate": "2026-01-24T22:02:52Z",
+  "subject": "feat: add role-based view levels (Executive/Management/Developer)",
+  "body": "Add view level selector that changes data granularity for different audiences\nwhile keeping the same dashboard layout:\n\n- Executive: aggregated totals, weekly heatmap, summary-only drilldowns\n- Management: per-repo groupings, daily heatmap, summary drilldowns\n- Developer: individual contributors, hourly heatmap, full commit lists (default)\n\nImplementation includes:\n- VIEW_LEVELS config with granularity settings per level\n- Aggregation functions (aggregateContributors, aggregateForDrilldown, etc.)\n- Modified renderContributors to use aggregation layer\n- Modified detail pane to show summaries for non-developer views\n- Added renderWeeklyHeatmap and renderDailyHeatmap for different time views\n- UI selector in filter sidebar with localStorage persistence\n\nFilters still apply across all view levels. Layout remains consistent.",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "add role-based view levels (Executive/Management/Developer)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 574,
+    "deletions": 61
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

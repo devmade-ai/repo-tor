@@ -1,0 +1,40 @@
+{
+  "sha": "63154f0",
+  "fullSha": "63154f0ec26bd214275822fe28cb99092a7a8ea8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T18:45:31Z",
+  "commitDate": "2026-02-10T18:45:31Z",
+  "subject": "fix: add app/+html.tsx so PWA manifest link appears in served HTML",
+  "body": "Expo Router with output: \"static\" ignores web/index.html and generates\nits own HTML. The manifest link, PWA meta tags, and OneSignal setup\nnever made it into the actual page, so Chrome couldn't fire\nbeforeinstallprompt. Created app/+html.tsx (Expo Router's standard\nHTML customization mechanism) with all necessary head content.\n\nhttps://claude.ai/code/session_0121eGTTB8ExkCz2aikbkCER",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "add app/+html.tsx so PWA manifest link appears in served HTML",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 136,
+    "deletions": 0
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/+html.tsx",
+    "docs/HISTORY.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

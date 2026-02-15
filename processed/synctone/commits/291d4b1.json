@@ -1,0 +1,40 @@
+{
+  "sha": "291d4b1",
+  "fullSha": "291d4b18906407890633fafc0e13b7f622d8744e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T06:19:11Z",
+  "commitDate": "2026-02-04T06:19:11Z",
+  "subject": "feat: improve PWA install prompt visibility for all browsers",
+  "body": "- Added shouldShowInstall flag to always show install UI on mobile\n- Added isMobile detection to usePWAInstall hook\n- Updated PWABanner to show \"How to Install\" for all non-Chromium browsers\n- Added comprehensive manual install instructions for:\n  - Chrome on Android (menu → Add to Home screen)\n  - Chrome on iOS (redirect to Safari since WebKit required)\n  - Safari on iOS/macOS\n  - Firefox on mobile/desktop\n  - Generic fallback for other browsers\n\nPreviously install banner only showed when beforeinstallprompt fired\n(Chromium only), now it shows for all mobile browsers with manual\ninstructions.\n\nhttps://claude.ai/code/session_018rFRZaLfJy9YKPWE9AeeCJ",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "improve PWA install prompt visibility for all browsers",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 80,
+    "deletions": 23
+  },
+  "files": [
+    "components/PWABanner.tsx",
+    "hooks/usePWAInstall.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

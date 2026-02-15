@@ -1,0 +1,39 @@
+{
+  "sha": "3ba51a6",
+  "fullSha": "3ba51a6ec2480415ead5b3a0c559fb2163da6f25",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-27T22:32:05Z",
+  "commitDate": "2026-01-27T22:32:05Z",
+  "subject": "Fix Looks error and sample image paths for GitHub Pages",
+  "body": "- Fix LookSwatch accessing non-existent preset.settings property\n  (now correctly accesses preset.imageFilters and preset.layouts)\n- Fix sample image paths to use BASE_URL for GitHub Pages subdirectory\n\nhttps://claude.ai/code/session_014uJiZXFAJMcGEUck8wfzvz",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix Looks error and sample image paths for GitHub Pages",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 14,
+    "deletions": 11
+  },
+  "files": [
+    "src/components/TemplatesTab.jsx",
+    "src/config/sampleImages.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

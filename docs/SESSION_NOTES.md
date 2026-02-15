@@ -6,7 +6,10 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-13):**
+**Recent Updates (2026-02-15):**
+- **Fix extract-api.js Missing Commits** - API extraction was missing 6 commits in canva-grid and 1 in model-pear. Root cause: `fetchCommitList()` used a manual `?page=N` loop instead of the `ghApi()` helper's `--paginate` flag. Manual pagination misses commits when the API reorders results between page requests. Fixed by replacing the manual loop with `ghApi(endpoint, { paginate: true })`. Removed untested warning from TODO.md.
+
+**Previous Updates (2026-02-13):**
 - **CLAUDE.md — Merge Development Standards** - Merged a reference template of coding standards into the existing CLAUDE.md. Added: HARD RULES section (Before Making Changes, Best Practices, Code Organization thresholds, Decision Documentation format, UX guidelines for non-technical users, Frontend rules adapted for React + Tailwind, Documentation, Cleanup, Quality Checks), Project-Specific Configuration (paths, stack, conventions filled in), Communication Style, Testing, and Prohibitions sections. Existing Principles updated to cross-reference expanded Hard Rules. AI Notes trimmed to avoid duplication.
 
 **Previous Updates (2026-02-11):**
@@ -235,8 +238,8 @@ Current state for AI assistants to continue work.
 **Extraction System:** AI analysis complete. 1163 commits processed across 6 repositories. All previously malformed commits have been fixed.
 
 **Feed Optimization:**
-- Added `extract-api.js` for API-based extraction (no cloning required, faster)
-- Added `merge-analysis.js` for ~10x token reduction during "feed the chicken" workflow
+- `extract-api.js` for API-based extraction (no cloning required, faster) — pagination bug fixed 2026-02-15
+- `merge-analysis.js` for ~10x token reduction during "feed the chicken" workflow
 
 **GitHub CLI Setup:** Authentication for API extraction with multiple options:
 - `.env` file support - Store `GH_TOKEN` for AI sessions (gitignored)

@@ -1,0 +1,42 @@
+{
+  "sha": "7f37322",
+  "fullSha": "7f3732242a6f1d1998e4cc784bf0c1acfb62c498",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-13T08:17:13+00:00",
+  "commitDate": "2026-01-13T08:17:13+00:00",
+  "subject": "Add Text tab sub-tabs, expand themes, and update documentation",
+  "body": "Text Tab Improvements:\n- Split into 3 sub-tabs: Content, Style, Placement\n- Content: text inputs with visibility toggles\n- Style: color and size controls per layer\n- Placement: assign text groups to layout cells\n\nTheme System:\n- Expanded from 4 to 12 preset themes\n- Added: Corporate, Slate, Sunset, Ocean, Forest, Earth, Neon, Candy\n\nDocumentation:\n- Reorganized TODO.md with clear sections\n- Added planned features: image presets, per-cell overlays, padding controls\n- Added ideas: merge Logo/Image tabs, sample images",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Add Text tab sub-tabs, expand themes, and update documentation",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 393,
+    "deletions": 175
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/App.jsx",
+    "src/components/TextEditor.jsx",
+    "src/config/themes.js"
+  ],
+  "repo_id": "canva-grid"
+}

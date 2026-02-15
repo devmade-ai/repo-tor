@@ -1,0 +1,40 @@
+{
+  "sha": "d882e19",
+  "fullSha": "d882e19316d4d5795e63cefe68b90516d64051ef",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T07:02:19Z",
+  "commitDate": "2026-02-04T07:02:19Z",
+  "subject": "fix: improve PWA manifest for better installability",
+  "body": "- Add explicit scope and prefer_related_applications fields to manifest\n- Change PNG icons to 'any maskable' purpose (combined)\n- Remove SVG maskable icon (not well supported)\n- Add Content-Type: application/manifest+json header in vercel.json\n- Bump service worker cache version to v2 to clear stale caches\n\nhttps://claude.ai/code/session_01ALNf4Yu8id9JqyPF1mQb3m",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "improve PWA manifest for better installability",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 9,
+    "deletions": 9
+  },
+  "files": [
+    "public/manifest.json",
+    "public/sw.js",
+    "vercel.json"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

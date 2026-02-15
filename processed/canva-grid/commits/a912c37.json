@@ -1,0 +1,16 @@
+{
+  "sha": "a912c37",
+  "fullSha": "a912c37da179a9fe65a457d4e355e3935fad7154",
+  "author_id": "noreply@anthropic.com",
+  "timestamp": "2026-01-18T18:01:13+00:00",
+  "subject": "Add dynamic size constraints for layout sections and cells",
+  "body": "- Add MIN_SIZE (10%) and MAX_SIZE (90%) constants\n- Dynamic max based on number of items: 100 - (n-1) * 10\n  - 2 items: max 90%\n  - 3 items: max 80%\n  - 4 items: max 70%\n- Prevents any section/cell from going below 10%\n- Update slider min/max to reflect dynamic constraints\n- Show constraint range in slider labels for clarity",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "urgency": 1,
+  "impact": "user-facing",
+  "repo_id": "canva-grid"
+}

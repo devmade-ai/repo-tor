@@ -1,0 +1,42 @@
+{
+  "sha": "85c0e49",
+  "fullSha": "85c0e49777837cc70ca5da39a3a128a5410a6d44",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T16:59:54Z",
+  "commitDate": "2026-02-10T16:59:54Z",
+  "subject": "Fix context bar/page selector conflict, sample image cell assignment, and reader mode sizing",
+  "body": "- Remove page navigation from ContextBar to eliminate confusion with PageStrip's\n  similar-looking move/navigate arrows. PageStrip remains the sole page manager.\n- Add targetCell parameter to addImage() so sample images and uploads assign to\n  the currently selected cell instead of auto-picking the first unoccupied one.\n- Pass selectedCell through TemplatesTab and MediaTab to addImage calls.\n- Make reader mode use full viewport: remove max-w-4xl cap, increase canvas\n  height to fill screen minus header, and reduce padding.\n\nhttps://claude.ai/code/session_017Y5hXaBivUh539YJtWtwvm",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Fix context bar/page selector conflict, sample image cell assignment, and reader mode sizing",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 26,
+    "deletions": 52
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/ContextBar.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/TemplatesTab.jsx",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

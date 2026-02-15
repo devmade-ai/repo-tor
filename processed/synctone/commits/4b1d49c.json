@@ -1,0 +1,40 @@
+{
+  "sha": "4b1d49c",
+  "fullSha": "4b1d49c28e205f5c7913995abb8a15dd1647d2d9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T06:41:45Z",
+  "commitDate": "2026-02-04T06:41:45Z",
+  "subject": "fix: add icon rewrites to vercel.json for proper PWA installation",
+  "body": "The catch-all rewrite was redirecting icon requests to the root HTML page,\npreventing Chrome from validating the icons required for PWA installation.\nThis caused the app to install as a browser shortcut instead of a standalone PWA.\n\n- Add explicit rewrites for icon.svg, icon-192.png, icon-512.png, apple-touch-icon.png\n- Add manifest id field for better PWA identity\n\nhttps://claude.ai/code/session_01N1eLhnSC2xo3XpfTdtxPvb",
+  "tags": [
+    "bugfix",
+    "hosting",
+    "config"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "add icon rewrites to vercel.json for proper PWA installation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 17,
+    "deletions": 0
+  },
+  "files": [
+    "public/manifest.json",
+    "vercel.json"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

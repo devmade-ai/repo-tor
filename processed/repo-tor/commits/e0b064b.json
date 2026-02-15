@@ -1,0 +1,41 @@
+{
+  "sha": "e0b064b",
+  "fullSha": "e0b064b74968754d2810528f18bd253e0e53de0e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T23:58:33Z",
+  "commitDate": "2026-02-10T23:58:33Z",
+  "subject": "fix: add missing CSS import to main.jsx — fixes PWA white screen",
+  "body": "The React migration removed <link rel=\"stylesheet\" href=\"./styles.css\">\nfrom index.html but never added the equivalent JS import in main.jsx.\nThe build produced zero CSS files, causing white text on white background.\n\nhttps://claude.ai/code/session_01PDHt8q4AsuqeBkuofa65pr",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 1,
+  "scope": null,
+  "title": "add missing CSS import to main.jsx — fixes PWA white screen",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 31,
+    "deletions": 0
+  },
+  "files": [
+    "dashboard/js/main.jsx",
+    "docs/AI_LESSONS.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 4,
+  "impact": "user-facing"
+}

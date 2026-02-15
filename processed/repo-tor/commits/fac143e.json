@@ -1,0 +1,43 @@
+{
+  "sha": "fac143e",
+  "fullSha": "fac143e641fc3ca755d9af5d8da0cc5ecb93aa3a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-11T00:52:57Z",
+  "commitDate": "2026-02-11T00:52:57Z",
+  "subject": "fix: stop silently swallowing data loading errors causing black screen",
+  "body": "The loading indicator flashed briefly then disappeared into a black screen\nbecause .catch(() => {}) silently swallowed ALL fetch errors — not just the\nexpected 404 when no data file exists. Network failures, JSON parse errors,\nand CORS issues were all hidden, leaving users with an invisible DropZone\non the dark background.\n\nChanges:\n- Only treat HTTP 404 as expected (no data file); show error card + retry\n  button for all other failures\n- Add dashboard-enter fade-in animation (0.3s) for smooth loading transition\n- Fix PWA dynamic import to properly catch promise rejection\n- Make DropZone more visible with title heading and vertical centering\n\nhttps://claude.ai/code/session_01EonWf8AagsDmpDkFMoUmq7",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "stop silently swallowing data loading errors causing black screen",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 84,
+    "deletions": 16
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/components/DropZone.jsx",
+    "dashboard/styles.css",
+    "docs/AI_LESSONS.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 4,
+  "impact": "user-facing"
+}

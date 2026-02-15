@@ -1,0 +1,41 @@
+{
+  "sha": "0112258",
+  "fullSha": "0112258592df100328e4fd1f26af2ceefbc85fa5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T00:20:01Z",
+  "commitDate": "2026-02-10T00:20:01Z",
+  "subject": "fix: PWA install button persistence, default filter dates, checkbox alignment",
+  "body": "- Persist PWA installed state in localStorage so install button stays\n  hidden after installation even when revisiting in browser\n- Fix applyUrlState() overwriting default date filters with empty values\n  when no URL params are present\n- Fix filter dropdown checkbox/text misalignment with flex-shrink and\n  explicit sizing\n\nhttps://claude.ai/code/session_01WCk7yHqtsxs5bYBo2xdb7m",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "PWA install button persistence, default filter dates, checkbox alignment",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 45,
+    "deletions": 12
+  },
+  "files": [
+    "dashboard/js/export.js",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

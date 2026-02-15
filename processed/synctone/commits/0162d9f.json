@@ -1,0 +1,44 @@
+{
+  "sha": "0162d9f",
+  "fullSha": "0162d9f44c2d1eafca8e3bcd9f566ee515322288",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T21:29:52Z",
+  "commitDate": "2026-02-10T21:29:52Z",
+  "subject": "fix: back button and deep link navigation for join flow",
+  "body": "Back buttons on join/create screens used router.back() which fails when\nthe screen is the entry point (opened via shared link). Deep link handler\nalso caused double navigation on web since Expo Router already handles\nURL routing. Both issues could crash the app or strand users.\n\n- Replace router.back() with router.replace('/home') on all cancel buttons\n- Skip initial URL handling on web (Expo Router handles it already)\n- Use router.replace() instead of push() in deep link handler\n- Add back button to validation loading state on join/[code]\n- Show user-friendly error on joinChat race conditions\n\nhttps://claude.ai/code/session_018NrJiMtPGf7KmYUgKG9yCq",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "back button and deep link navigation for join flow",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 58,
+    "deletions": 14
+  },
+  "files": [
+    "app/(app)/create.tsx",
+    "app/(app)/join/[code].tsx",
+    "app/(app)/join/index.tsx",
+    "app/_layout.tsx",
+    "docs/HISTORY.md",
+    "services/chat.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

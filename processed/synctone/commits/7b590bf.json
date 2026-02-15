@@ -1,0 +1,42 @@
+{
+  "sha": "7b590bf",
+  "fullSha": "7b590bfdb6a2206935a819bbe0b650ebb0a4c16c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T23:55:11Z",
+  "commitDate": "2026-02-04T23:55:11Z",
+  "subject": "refactor: replace PWA banners with header buttons",
+  "body": "Simpler, user-initiated approach to PWA install and update:\n\n**Install button** (download icon):\n- Shows when app is installable and not already installed\n- Chromium: triggers native install prompt\n- Safari/Firefox: shows browser-specific instructions via alert\n\n**Update button** (sparkles icon):\n- Shows when service worker update is available\n- Click to apply update and reload\n\nBenefits:\n- No banner dismiss/reappear bugs\n- No timing issues or race conditions\n- User initiates action when ready\n- Cleaner header UI\n- Less code to maintain\n\nRemoved:\n- components/PWABanner.tsx (346 lines)\n- Complex banner show/hide/dismiss state\n\nhttps://claude.ai/code/session_01YbKxdaTUQVeq8u4arrhstf",
+  "tags": [
+    "refactor",
+    "ui",
+    "simplify",
+    "removal"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "replace PWA banners with header buttons",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 100,
+    "deletions": 359
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/home.tsx",
+    "components/PWABanner.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

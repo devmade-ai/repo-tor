@@ -1,0 +1,40 @@
+{
+  "sha": "67ff91a",
+  "fullSha": "67ff91ab410481c179ed660195c938ab4bd8297d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T23:06:29Z",
+  "commitDate": "2026-02-04T23:06:29Z",
+  "subject": "fix: prevent PWA update banner from reappearing on hard refresh",
+  "body": "- Move sessionStorage check before service worker registration so the SW\n  still registers but the update banner is suppressed for that session\n- Separate manifest icon purposes into distinct entries (any vs maskable)\n  for better browser installability detection\n- Add display_override to manifest for better display mode fallback\n- Bump service worker cache version to v4\n\nhttps://claude.ai/code/session_01GUfugGW8LaBR6KEXNf7664",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "prevent PWA update banner from reappearing on hard refresh",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 43,
+    "deletions": 18
+  },
+  "files": [
+    "hooks/usePWAUpdate.ts",
+    "public/manifest.json",
+    "public/sw.js"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

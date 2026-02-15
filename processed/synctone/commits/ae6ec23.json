@@ -1,0 +1,42 @@
+{
+  "sha": "ae6ec23",
+  "fullSha": "ae6ec239866e40fac499f325ee72ba98310295e6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-06T20:16:23Z",
+  "commitDate": "2026-02-06T20:16:23Z",
+  "subject": "fix: merge OneSignal into sw.js to fix PWA install prompt on Chrome",
+  "body": "Chrome showed \"Add to Home screen\" instead of \"Install app\" because\nbeforeinstallprompt never fired. Root cause: OneSignal SDK registered\nOneSignalSDKWorker.js at scope /, replacing sw.js as the active service\nworker. Since OneSignalSDKWorker.js has no fetch handler, Chrome didn't\nconsider the site an installable PWA.\n\nFix: import OneSignal SDK directly into sw.js via importScripts() and\nconfigure OneSignal init() with serviceWorkerPath: '/sw.js' so it uses\nour SW instead of registering its own. Removed duplicate push handlers\nfrom sw.js (OneSignal SDK handles those). Bumped cache version to v7.\n\nhttps://claude.ai/code/session_01XxJYwPmaaPobqUUoDbvqrB",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "merge OneSignal into sw.js to fix PWA install prompt on Chrome",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 31,
+    "deletions": 78
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "public/sw.js",
+    "services/onesignal.ts",
+    "web/index.html"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

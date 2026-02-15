@@ -1,0 +1,44 @@
+{
+  "sha": "d0f03c0",
+  "fullSha": "d0f03c0a02b51d9475c6e5bc2d88e9af41c6414c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-11T00:23:59Z",
+  "commitDate": "2026-02-11T00:23:59Z",
+  "subject": "fix: add loading fallback and error recovery for black screen issue",
+  "body": "Users could see a black screen if React failed to mount, crashed during\nrender, or the loading spinner was too subtle. Three layers of defense:\n1. HTML-level loading indicator visible before JS loads\n2. Top-level RootErrorBoundary catches any React crash\n3. Improved spinner with text label for visibility\n\nhttps://claude.ai/code/session_01UDnCUQSjNMhLL7sCu5Qo86",
+  "tags": [
+    "bugfix",
+    "error-handling",
+    "ui"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "add loading fallback and error recovery for black screen issue",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 104,
+    "deletions": 7
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/js/App.jsx",
+    "dashboard/js/main.jsx",
+    "docs/AI_LESSONS.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 4,
+  "impact": "user-facing"
+}

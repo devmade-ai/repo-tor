@@ -1,0 +1,47 @@
+{
+  "sha": "837b764",
+  "fullSha": "837b764a046ee905073641a669fa77bc2d4f6ad9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T22:32:27Z",
+  "commitDate": "2026-02-10T22:32:27Z",
+  "subject": "fix: accessibility improvements, error feedback, PWA error handler",
+  "body": "Accessibility:\n- Add aria-hidden=\"true\" to all decorative SVGs (Header, TabBar,\n  CollapsibleSection, SettingsPane, DetailPane, DropZone, FilterSidebar)\n- Add aria-hidden=\"true\" to overlay backdrop divs (FilterSidebar,\n  SettingsPane, DetailPane) — keyboard users close via Escape key\n- Make filter toggle aria-label dynamic to include active filter count\n\nError handling:\n- Show user-visible error message when JSON file upload fails to parse\n- Show message when non-JSON files are dropped\n- Add .catch() to PWA visibility-change SW update check\n\nhttps://claude.ai/code/session_01FkGCpwdZKh3mpjJbisGYHs",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "accessibility improvements, error feedback, PWA error handler",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 40,
+    "deletions": 12
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/components/CollapsibleSection.jsx",
+    "dashboard/js/components/DetailPane.jsx",
+    "dashboard/js/components/DropZone.jsx",
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/Header.jsx",
+    "dashboard/js/components/SettingsPane.jsx",
+    "dashboard/js/components/TabBar.jsx",
+    "dashboard/js/pwa.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

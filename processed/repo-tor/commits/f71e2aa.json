@@ -1,0 +1,41 @@
+{
+  "sha": "f71e2aa",
+  "fullSha": "f71e2aa44fb62c398b82011b7a94e10692c4eb10",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-11T04:44:33Z",
+  "commitDate": "2026-02-11T04:44:33Z",
+  "subject": "fix: resolve null metadata crash on dashboard load",
+  "body": "Global state sync ran after useMemo hooks that depend on it, causing\ngetAuthorEmail/getAuthorName to read null globalState.data.metadata\nwhen LOAD_DATA triggered a re-render. Moved sync before hooks and\nadded defensive optional chaining as safety net.\n\nhttps://claude.ai/code/session_01VdNhbijTAneNuV1vhiNbqL",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "resolve null metadata crash on dashboard load",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 42,
+    "deletions": 10
+  },
+  "files": [
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/utils.js",
+    "docs/AI_LESSONS.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 4,
+  "impact": "user-facing"
+}

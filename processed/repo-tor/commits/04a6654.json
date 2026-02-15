@@ -1,0 +1,42 @@
+{
+  "sha": "04a6654",
+  "fullSha": "04a6654412eca2c91cfda70eacd3c2b3b7bf015c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T06:47:56Z",
+  "commitDate": "2026-02-04T06:47:56Z",
+  "subject": "fix: use relative paths in PWA manifest for GitHub Pages",
+  "body": "The manifest used absolute paths (scope: \"/\", start_url: \"/\") which\npointed to the root of github.io instead of the /repo-tor/ subdirectory.\nChanged to relative paths (\"./\", \"./index.html\") for proper PWA installation.\n\nAlso updated service worker precache paths and bumped cache version.\n\nhttps://claude.ai/code/session_019STw2NTQcvUZCfNv3kycME",
+  "tags": [
+    "bugfix",
+    "config",
+    "hosting"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "use relative paths in PWA manifest for GitHub Pages",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 26,
+    "deletions": 7
+  },
+  "files": [
+    "dashboard/manifest.json",
+    "dashboard/sw.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

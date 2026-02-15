@@ -1,0 +1,42 @@
+{
+  "sha": "22cdca9",
+  "fullSha": "22cdca95bd744fbf6fad4dfc71479e9f5e6cb6ab",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "committer": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2026-01-10T16:40:36+02:00",
+  "commitDate": "2026-01-10T16:40:36+02:00",
+  "subject": "Fix layout bugs, logo drag-drop, and text overlay issues",
+  "body": "- Fix image not displaying in column/row layouts (use flex sizing)\n- Fix text duplication in 3-section layouts\n- Remove redundant layout preview from Layout tab\n- Fix logo drag-drop (add onDrop/onDragOver handlers)\n- Fix text vertical align on image (respect user setting)\n- Fix text sizes on image (use consistent font multipliers)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 3,
+  "urgency": 3,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Fix layout bugs, logo drag-drop, and text overlay issues",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 97,
+    "deletions": 122
+  },
+  "files": [
+    "HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/AdCanvas.jsx",
+    "src/components/LayoutSelector.jsx",
+    "src/components/LogoUploader.jsx"
+  ],
+  "repo_id": "canva-grid"
+}

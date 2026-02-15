@@ -1,0 +1,47 @@
+{
+  "sha": "829bd5c",
+  "fullSha": "829bd5cdb56de36a2f17aa5aabbc974e79663fc5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T22:48:07Z",
+  "commitDate": "2026-02-10T22:48:07Z",
+  "subject": "feat: add independent tone editing with separate limits from text editing",
+  "body": "Add \"Change Tones\" action to message action sheet, separate from \"Edit\nMessage\". Tone changes use their own counter (tone_edit_count, max 5)\nindependent of text edit count, sharing the same 15-minute window. No\n\"(edited)\" label shown for tone-only changes since the message content\ndidn't change. New ToneEditModal wraps ToneSelector in a modal with\npre-populated current tones and Save/Cancel buttons.\n\nhttps://claude.ai/code/session_018NrJiMtPGf7KmYUgKG9yCq",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "add independent tone editing with separate limits from text editing",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 346,
+    "deletions": 6
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "components/ChatPanel.tsx",
+    "components/MessageActionSheet.tsx",
+    "components/ToneEditModal.tsx",
+    "docs/HISTORY.md",
+    "hooks/useMessages.ts",
+    "services/messages.ts",
+    "supabase/migrations/20260210120000_add_tone_edit_count.sql",
+    "types/database.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 1,
+  "impact": "user-facing"
+}

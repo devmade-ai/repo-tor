@@ -1,0 +1,48 @@
+{
+  "sha": "74cb27e",
+  "fullSha": "74cb27e12d17d22e5dd0a83ec691740a09231dd5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-09T21:03:55Z",
+  "commitDate": "2026-02-09T21:03:55Z",
+  "subject": "Add multi-page support, reader mode, freeform text with markdown",
+  "body": "- Multi-page state management: pages array in useAdState with\n  add/duplicate/delete/reorder/switch. Active page data at top-level\n  so all existing components work unchanged.\n- PageStrip component: horizontal strip with page thumbnails,\n  content indicators, and page management controls.\n- Reader mode: clean full-screen view with arrow key navigation,\n  Previous/Next buttons, dot indicators, and Escape to exit.\n- Freeform text mode: Structured/Freeform toggle on Content tab.\n  Freeform provides per-cell text editors with independent content,\n  color, size, alignment. Optional markdown toggle per cell using\n  marked library.\n- Multi-page export: \"Download All Pages (ZIP)\" exports numbered\n  PNGs for each page.\n\nhttps://claude.ai/code/session_016gkiEHfLZuxcENumd4QSz1",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "Add multi-page support, reader mode, freeform text with markdown",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 1260,
+    "deletions": 141
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "package-lock.json",
+    "package.json",
+    "src/App.jsx",
+    "src/components/AdCanvas.jsx",
+    "src/components/ContentTab.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/PageStrip.jsx",
+    "src/hooks/useAdState.js",
+    "src/index.css"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

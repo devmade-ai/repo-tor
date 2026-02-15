@@ -1,0 +1,44 @@
+{
+  "sha": "9c88d3f",
+  "fullSha": "9c88d3fd1d1ce60c2bdb78bef03aa0802b5fabd2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T16:20:36Z",
+  "commitDate": "2026-02-10T16:20:36Z",
+  "subject": "refactor: rewrite PWA with dedicated module, prompt-based updates, and Safari/Firefox fallback",
+  "body": "Previous autoUpdate + injectRegister:'script' approach was unreliable.\nNew implementation uses virtual:pwa-register with registerType:'prompt'\nfor explicit SW control, hourly update polling, a green \"Update\" button\nin the header, and browser-specific install instructions for non-Chromium\nbrowsers.\n\nhttps://claude.ai/code/session_0167SDAxxvML8iE9sLJGgmVa",
+  "tags": [
+    "refactor",
+    "feature"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "rewrite PWA with dedicated module, prompt-based updates, and Safari/Firefox fallback",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 340,
+    "deletions": 171
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/js/export.js",
+    "dashboard/js/main.js",
+    "dashboard/js/pwa.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

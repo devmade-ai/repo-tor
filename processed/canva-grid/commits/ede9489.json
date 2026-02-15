@@ -1,0 +1,42 @@
+{
+  "sha": "ede9489",
+  "fullSha": "ede9489be7e120ab7a71ab2c6379dd74dd99e3d4",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-14T17:16:00+00:00",
+  "commitDate": "2026-01-14T17:16:00+00:00",
+  "subject": "Add global style presets for one-click professional looks",
+  "body": "Style presets combine layout, theme, fonts, overlay, and image filters\ninto cohesive design packages. This replaces the layout-only presets\nwith comprehensive styling that users can apply with a single click.\n\n- Add 16 style presets across 7 categories (Modern, Professional, Elegant, Warm, Fresh, Retro, Grid)\n- Create StylePresetSelector component at top of preview area\n- Remove Presets sub-tab from Layout (now handled by global presets)\n- Add applyStylePreset function to useAdState hook\n- Track active preset ID to highlight selected style",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "urgency": 1,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Add global style presets for one-click professional looks",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 830,
+    "deletions": 120
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/LayoutSelector.jsx",
+    "src/components/StylePresetSelector.jsx",
+    "src/config/stylePresets.js",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid"
+}

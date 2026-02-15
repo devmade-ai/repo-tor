@@ -1,0 +1,43 @@
+{
+  "sha": "5f9b48a",
+  "fullSha": "5f9b48a68951ba565a8126963905b546dc0424b7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-06T20:18:01Z",
+  "commitDate": "2026-02-06T20:18:01Z",
+  "subject": "fix: differentiate install/PDF buttons, fix blank PDF export, add PWA update check",
+  "body": "- Install button: changed to app-install icon, always-visible \"Install\" label\n- PDF button: changed to document icon, always-visible \"PDF\" label\n- PDF export: use TAB_MAPPING for correct content containers (was looking up\n  nonexistent tab-work/tab-health IDs), convert chart canvases to images before\n  cloning, override dark theme colors for white background readability\n- PWA: added \"Check for Updates\" button in Settings with manual service worker\n  update check and status feedback\n\nhttps://claude.ai/code/session_014e2qbNvzy3DgCeuAo4ZB1x",
+  "tags": [
+    "bugfix",
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "differentiate install/PDF buttons, fix blank PDF export, add PWA update check",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 162,
+    "deletions": 33
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

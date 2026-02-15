@@ -1,0 +1,41 @@
+{
+  "sha": "418c85d",
+  "fullSha": "418c85d77796f2038ee8a770bedb0e4c21544b06",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T05:14:56Z",
+  "commitDate": "2026-02-04T05:14:56Z",
+  "subject": "feat: add PWA offline support",
+  "body": "- Add manifest.json with app metadata and icon references\n- Add service worker with cache-first strategy for local assets\n- Cache CDN assets (Tailwind, Chart.js, fonts) for offline use\n- Add install button (appears when browser supports install)\n- Add update prompt when new version available\n- Add PWA meta tags to index.html\n\nNote: Icon files (icon-192.png, icon-512.png) need to be created\n\nhttps://claude.ai/code/session_018w7ThuzVv2QNHpRDmtwQDA",
+  "tags": [
+    "feature",
+    "config"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "add PWA offline support",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 259,
+    "deletions": 2
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/manifest.json",
+    "dashboard/sw.js",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

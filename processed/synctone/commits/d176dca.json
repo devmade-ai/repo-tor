@@ -1,0 +1,37 @@
+{
+  "sha": "d176dca",
+  "fullSha": "d176dca197d3aca19e5918cf1903ed64c739f106",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T23:24:33Z",
+  "commitDate": "2026-02-04T23:24:33Z",
+  "subject": "fix: wait for service worker activation before reload",
+  "body": "The previous fix suppressed the banner but didn't address the root cause.\nThis fix properly waits for the waiting worker to reach 'activated' state\nbefore reloading the page, ensuring registration.waiting is cleared.\n\n- Use statechange event on waiting worker to detect full activation\n- Only reload when worker.state === 'activated'\n- Clear waitingWorkerRef and hasUpdate before reload\n- Simplified controllerchange handler (now just clears state)\n\nhttps://claude.ai/code/session_01GUfugGW8LaBR6KEXNf7664",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "wait for service worker activation before reload",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 30,
+    "deletions": 15
+  },
+  "files": [
+    "hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

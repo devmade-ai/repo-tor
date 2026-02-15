@@ -1,0 +1,44 @@
+{
+  "sha": "2f326d0",
+  "fullSha": "2f326d01d36bdb6c2db4f0114349fea1f3451e7c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-11T05:46:17Z",
+  "commitDate": "2026-02-11T05:46:17Z",
+  "subject": "fix: install button race condition + interactive debug banner",
+  "body": "beforeinstallprompt could fire before pwa.js was dynamically imported,\ncausing the install prompt to be lost. Now captured early in main.jsx\n(synchronous, before React renders) and stored on window.__pwaInstallPrompt.\nHeader checks for already-captured prompt on mount. pwa.js reads it on load.\n\nDebug \"0 errors\" pill is now clickable — expands to show diagnostics\n(SW support, controller status, standalone mode, install prompt state,\nuser agent) with Copy and Close buttons.\n\nhttps://claude.ai/code/session_01Pce19VqQjN1ncvuMaJxsUM",
+  "tags": [
+    "bugfix",
+    "feature",
+    "monitoring"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "install button race condition + interactive debug banner",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 140,
+    "deletions": 19
+  },
+  "files": [
+    "dashboard/js/components/Header.jsx",
+    "dashboard/js/main.jsx",
+    "dashboard/js/pwa.js",
+    "docs/AI_LESSONS.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

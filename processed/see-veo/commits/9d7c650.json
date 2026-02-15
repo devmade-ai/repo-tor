@@ -1,0 +1,45 @@
+{
+  "sha": "9d7c650",
+  "fullSha": "9d7c650e6b5cd2bcb42eb20e9bad451173c0a47d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-15T15:41:40Z",
+  "commitDate": "2026-02-15T15:41:40Z",
+  "subject": "fix(pwa): update manifest text and icons from John Doe to Jaco Theron",
+  "body": "PWA install prompt and icons still showed placeholder \"John Doe\" / \"JD\"\nfrom the initial scaffold. Updated manifest name, short_name, and\ndescription to match the actual CV owner. Regenerated all icon assets\n(pwa-192x192, pwa-512x512, apple-touch-icon, favicon.ico, mask-icon.svg)\nwith \"JT\" initials.\n\nTags: pwa, icons, branding, bugfix\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-branding\nSemver: patch\n\nhttps://claude.ai/code/session_01FrLabDj26DFdqqE1JAMbBo",
+  "tags": [
+    "bugfix",
+    "pwa",
+    "branding",
+    "icons"
+  ],
+  "complexity": 1,
+  "scope": "pwa",
+  "title": "update manifest text and icons from John Doe to Jaco Theron",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 4,
+    "deletions": 4
+  },
+  "files": [
+    "public/apple-touch-icon.png",
+    "public/favicon.ico",
+    "public/mask-icon.svg",
+    "public/pwa-192x192.png",
+    "public/pwa-512x512.png",
+    "vite.config.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

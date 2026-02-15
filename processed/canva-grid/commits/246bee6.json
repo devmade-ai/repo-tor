@@ -1,0 +1,40 @@
+{
+  "sha": "246bee6",
+  "fullSha": "246bee640b0a7ef922792143ee438ebc9b51474a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-29T20:47:34Z",
+  "commitDate": "2026-01-29T20:47:34Z",
+  "subject": "Refactor: use text-ui-text instead of dark:text-zinc-100",
+  "body": "Standardized text color handling across input fields to use semantic\ntext-ui-text class which auto-switches via CSS variables, instead of\nexplicit dark:text-zinc-100 overrides.\n\nFiles updated:\n- MediaTab.jsx (2 inputs)\n- ContentTab.jsx (1 textarea)\n- StyleTab.jsx (2 selects)\n- TemplatesTab.jsx (1 input)\n\nhttps://claude.ai/code/session_01GrK9zUuPidgSigBR9kMuSn",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 1,
+  "scope": null,
+  "title": "use text-ui-text instead of dark:text-zinc-100",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 6,
+    "deletions": 6
+  },
+  "files": [
+    "src/components/ContentTab.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/StyleTab.jsx",
+    "src/components/TemplatesTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

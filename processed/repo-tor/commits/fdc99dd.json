@@ -1,0 +1,40 @@
+{
+  "sha": "fdc99dd",
+  "fullSha": "fdc99dd5b6d435b84c4ea2523c16c91d68ecdfa2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-11T00:03:49Z",
+  "commitDate": "2026-02-11T00:03:49Z",
+  "subject": "fix: show spinner during initial data load instead of blank screen",
+  "body": "Reuses the existing .loading-spinner CSS for a centered spinner while\ndata.json is being fetched, replacing the empty return null.\n\nhttps://claude.ai/code/session_01PDHt8q4AsuqeBkuofa65pr",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "scope": null,
+  "title": "show spinner during initial data load instead of blank screen",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 9,
+    "deletions": 3
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,67 @@
+{
+  "sha": "d660a2f",
+  "fullSha": "d660a2f91230cda1972393725c747380d3b20488",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "committer": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2026-02-11T22:06:53Z",
+  "commitDate": "2026-02-11T22:06:53Z",
+  "subject": "Add Phase 1 core engine: React + Cytoscape.js graph workspace",
+  "body": "Set up the Graphiki project with Vite, React 19, TypeScript, and PWA support.\nImplements the core data model (nodes/arcs), IndexedDB persistence via Dexie.js,\nCytoscape.js graph visualization with touch support, split-panel responsive layout,\ncontext menu interactions, and markdown content editing.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+  "tags": [
+    "feature",
+    "ui",
+    "graph-engine",
+    "data-model",
+    "persistence",
+    "pwa"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "Add Phase 1 core engine: React + Cytoscape.js graph workspace",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 26,
+    "additions": 11990,
+    "deletions": 0
+  },
+  "files": [
+    ".gitignore",
+    "CLAUDE.md",
+    "docs/graph-wiki-discovery.md",
+    "eslint.config.js",
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/layout/SplitPanel.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/ui/ConnectModal.tsx",
+    "src/components/ui/ContextMenu.tsx",
+    "src/db/database.ts",
+    "src/hooks/useGraphData.ts",
+    "src/hooks/useSelection.ts",
+    "src/index.css",
+    "src/main.tsx",
+    "src/services/graphService.ts",
+    "src/types/index.ts",
+    "src/utils/factory.ts",
+    "tsconfig.app.json",
+    "tsconfig.json",
+    "tsconfig.node.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}

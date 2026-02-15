@@ -1,0 +1,66 @@
+{
+  "sha": "566b812",
+  "fullSha": "566b812bf3d8aed80755a9f3db0b5a5e17f85249",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T18:25:30Z",
+  "commitDate": "2026-02-10T18:25:30Z",
+  "subject": "feat: migrate dashboard from vanilla JS to React + Tailwind",
+  "body": "Complete migration of the dashboard from imperative vanilla JS to React:\n\n- Add React 19, react-dom, react-chartjs-2, @vitejs/plugin-react\n- Create AppContext.jsx with useReducer state management\n  (replaces mutable global state object)\n- Simplify index.html from 880 lines to minimal root div\n- Create 20 React components:\n  - App.jsx (data loading, tab routing, layout)\n  - 7 shared: Header, TabBar, DropZone, FilterSidebar,\n    DetailPane, SettingsPane, CollapsibleSection\n  - 9 tabs: Summary, Timeline, Timing, Progress, Contributors,\n    Tags, Health, Security, Discover\n- Charts use react-chartjs-2 declarative components\n  (replaces manual destroy/recreate lifecycle)\n- Delegated event handlers eliminated\n  (React onClick props replace data-* routing)\n- Filter sidebar uses controlled React components\n- Global state sync via useEffect (utils.js compat)\n- styles.css and utils.js preserved unchanged\n- Build passes, dev server runs successfully\n\nhttps://claude.ai/code/session_01756njStDoAQpfoPRvoL9rC",
+  "tags": [
+    "feature",
+    "refactor",
+    "migration"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "migrate dashboard from vanilla JS to React + Tailwind",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 28,
+    "additions": 4318,
+    "deletions": 900
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/index.html",
+    "dashboard/js/App.jsx",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/components/CollapsibleSection.jsx",
+    "dashboard/js/components/DetailPane.jsx",
+    "dashboard/js/components/DropZone.jsx",
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/Header.jsx",
+    "dashboard/js/components/SettingsPane.jsx",
+    "dashboard/js/components/TabBar.jsx",
+    "dashboard/js/main.jsx",
+    "dashboard/js/tabs/ContributorsTab.jsx",
+    "dashboard/js/tabs/DiscoverTab.jsx",
+    "dashboard/js/tabs/HealthTab.jsx",
+    "dashboard/js/tabs/ProgressTab.jsx",
+    "dashboard/js/tabs/SecurityTab.jsx",
+    "dashboard/js/tabs/SummaryTab.jsx",
+    "dashboard/js/tabs/TagsTab.jsx",
+    "dashboard/js/tabs/TimelineTab.jsx",
+    "dashboard/js/tabs/TimingTab.jsx",
+    "docs/ADR-001-vanilla-js.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "package-lock.json",
+    "package.json",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "user-facing"
+}

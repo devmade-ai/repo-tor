@@ -1,0 +1,54 @@
+{
+  "sha": "61d47f8",
+  "fullSha": "61d47f8bb6870486b9081753893542aee3daa04a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-09T17:20:12Z",
+  "commitDate": "2026-02-09T17:20:12Z",
+  "subject": "feat: complete UI/UX backlog — lazy rendering, Tailwind v4, accessibility",
+  "body": "- Rename tab buttons: \"Breakdown\"/\"Risk\" → \"Work\"/\"Health\" to match code\n- Replace \"Inc\"/\"Exc\" filter labels with \"Include\"/\"Exclude\"\n- Add \"Load more\" button to changes list (no more hard 100 cap)\n- Lazy tab rendering: applyFilters() only re-renders active tab\n- Event delegation: single handler on #dashboard replaces per-render adds\n- Custom heatmap tooltip: replaces native title (touch + instant mouse)\n- Migrate from CDN Tailwind to build-time Tailwind v4 (@tailwindcss/vite)\n- Keyboard-navigable filter dropdowns (Enter/Space/arrows/Escape)\n- Text labels on all urgency/impact stacked bars for accessibility\n\nhttps://claude.ai/code/session_011YVw3u1EAcfS9JBtmHGGmG",
+  "tags": [
+    "feature",
+    "refactor",
+    "accessibility",
+    "performance"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "complete UI/UX backlog — lazy rendering, Tailwind v4, accessibility",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 987,
+    "deletions": 192
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/index.html",
+    "dashboard/js/charts.js",
+    "dashboard/js/data.js",
+    "dashboard/js/filters.js",
+    "dashboard/js/main.js",
+    "dashboard/js/state.js",
+    "dashboard/js/tabs.js",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "package-lock.json",
+    "package.json",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

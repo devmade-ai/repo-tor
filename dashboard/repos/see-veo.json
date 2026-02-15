@@ -1,0 +1,951 @@
+{
+  "metadata": {
+    "generatedAt": "2026-02-15T21:27:44.117Z",
+    "repository": "see-veo",
+    "scope": "see-veo",
+    "repoCount": 1,
+    "commitCount": 17,
+    "authors": {
+      "devmade.ai@gmail.com": {
+        "name": "devmade.ai@gmail.com",
+        "email": "devmade.ai@gmail.com"
+      }
+    }
+  },
+  "commits": [
+    {
+      "sha": "000cdb8",
+      "fullSha": "000cdb824a1669a3718b44e406f4f31472cebff2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-15T15:48:16Z",
+      "commitDate": "2026-02-15T15:48:16Z",
+      "subject": "Merge pull request #5 from devmade-ai/claude/add-commit-guidelines-FJT0L",
+      "body": "Update portfolio branding and add commit message guidelines",
+      "tags": [
+        "bugfix",
+        "branding",
+        "documentation",
+        "merge"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/add-commit-guidelines-FJT0L",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 34,
+        "deletions": 4
+      },
+      "files": [
+        "CLAUDE.md",
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "vite.config.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "9d7c650",
+      "fullSha": "9d7c650e6b5cd2bcb42eb20e9bad451173c0a47d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T15:41:40Z",
+      "commitDate": "2026-02-15T15:41:40Z",
+      "subject": "fix(pwa): update manifest text and icons from John Doe to Jaco Theron",
+      "body": "PWA install prompt and icons still showed placeholder \"John Doe\" / \"JD\"\nfrom the initial scaffold. Updated manifest name, short_name, and\ndescription to match the actual CV owner. Regenerated all icon assets\n(pwa-192x192, pwa-512x512, apple-touch-icon, favicon.ico, mask-icon.svg)\nwith \"JT\" initials.\n\nTags: pwa, icons, branding, bugfix\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-branding\nSemver: patch\n\nhttps://claude.ai/code/session_01FrLabDj26DFdqqE1JAMbBo",
+      "tags": [
+        "bugfix",
+        "pwa",
+        "branding",
+        "icons"
+      ],
+      "complexity": 1,
+      "scope": "pwa",
+      "title": "update manifest text and icons from John Doe to Jaco Theron",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 4,
+        "deletions": 4
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "vite.config.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "c84c883",
+      "fullSha": "c84c883615b6d7945aed9cc63f662bd65bc1e8fe",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T14:35:19Z",
+      "commitDate": "2026-02-15T14:35:19Z",
+      "subject": "docs(claude-md): add commit message format guidelines",
+      "body": "Add structured commit metadata footer requirements to CLAUDE.md\nunder Hard Rules. Defines required footers: Tags, Complexity,\nUrgency, Impact, Risk, Debt, Epic, and Semver.\n\nTags: documentation, developer-experience, standards\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: commit-guidelines\nSemver: patch\n\nhttps://claude.ai/code/session_01FrLabDj26DFdqqE1JAMbBo",
+      "tags": [
+        "documentation",
+        "conventions",
+        "developer-experience"
+      ],
+      "complexity": 1,
+      "scope": "claude-md",
+      "title": "add commit message format guidelines",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 30,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "2ffceb2",
+      "fullSha": "2ffceb2559532cf6db2bac9d728e4f5502d4a474",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-15T14:01:17Z",
+      "commitDate": "2026-02-15T14:01:17Z",
+      "subject": "Merge pull request #4 from devmade-ai/claude/update-profile-remove-tabs-GI579",
+      "body": "Update CV data and simplify app layout for Jaco Theron",
+      "tags": [
+        "feature",
+        "content",
+        "merge"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Merge pull request #4 from devmade-ai/claude/update-profile-remove-tabs-GI579",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 164,
+        "deletions": 129
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/About.tsx",
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "a2b7a39",
+      "fullSha": "a2b7a39e3c72e1fac83ca2e4d72ead40840311aa",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T13:52:37Z",
+      "commitDate": "2026-02-15T13:52:37Z",
+      "subject": "feat: rename app, add alpha label, and download as PDF button",
+      "body": "- Change app name from \"see-veo (CV oh!)\" to \"this is a cv\"\n- Add alpha badge next to the app name in the header\n- Add \"Download as PDF\" button that triggers the browser print dialog\n  (users can select \"Save as PDF\" as the destination)\n\nhttps://claude.ai/code/session_011ELn2hpezhmBTxpKbDqkkp",
+      "tags": [
+        "feature",
+        "ui",
+        "branding"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "rename app, add alpha label, and download as PDF button",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 14,
+        "deletions": 4
+      },
+      "files": [
+        "src/App.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "eb5e81b",
+      "fullSha": "eb5e81b12d25a16e4dce0f999f281c855839b5ae",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T13:41:48Z",
+      "commitDate": "2026-02-15T13:41:48Z",
+      "subject": "fix: update project descriptions with accurate content",
+      "body": "- CanvaGrid: grid-based visual design tool for social posts, ads, etc.\n- SyncTone: anonymous tone-tagged messaging app\n- Repo-Tor: git analytics reporting system with interactive dashboards\n\nhttps://claude.ai/code/session_011ELn2hpezhmBTxpKbDqkkp",
+      "tags": [
+        "bugfix",
+        "content"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "update project descriptions with accurate content",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 4,
+        "deletions": 4
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "6cf99f7",
+      "fullSha": "6cf99f7d1409c8207b729ef02d02e7d3dbedb3ef",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T11:38:50Z",
+      "commitDate": "2026-02-15T11:38:50Z",
+      "subject": "feat: update profile to Jaco Theron and remove tab navigation",
+      "body": "- Replace placeholder CV data with Jaco Theron's profile (experience,\n  education, skills, contact info)\n- Add three project links: Canva Grid, SyncTone, Repo-Tor\n- Remove \"Boring CV\" / \"Cool Story\" tab navigation, show CV directly\n- Update About component to render code snippets in a styled code block\n- Change install button text to \"Install as an App\"\n\nhttps://claude.ai/code/session_011ELn2hpezhmBTxpKbDqkkp",
+      "tags": [
+        "feature",
+        "content",
+        "ui",
+        "refactor"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "update profile to Jaco Theron and remove tab navigation",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 152,
+        "deletions": 127
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/About.tsx",
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "feedf28",
+      "fullSha": "feedf28cedd026aabc83c9b3792f872b51deb258",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-13T07:41:19Z",
+      "commitDate": "2026-02-13T07:41:19Z",
+      "subject": "Merge pull request #3 from devmade-ai/claude/review-claude-md-rvoJo",
+      "body": "Add comprehensive development guidelines to CLAUDE.md",
+      "tags": [
+        "documentation",
+        "ai-guidelines",
+        "merge"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "Merge pull request #3 from devmade-ai/claude/review-claude-md-rvoJo",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 173,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ba551e9",
+      "fullSha": "ba551e988ae142b702acc78253129e60b0317526",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-13T07:36:02Z",
+      "commitDate": "2026-02-13T07:36:02Z",
+      "subject": "docs: align CLAUDE.md with template — add missing sections and rules",
+      "body": "Adds sections and rules that were dropped during the initial merge:\n- Best Practices: well-maintained libraries preference\n- Code Organization: class size thresholds (400/600 lines)\n- Decision Documentation: strengthened to \"must\", added example\n- User Experience: full section (with project note for static site)\n- Documentation: /docs structure and rules\n- Testing: guidelines (with project note for no test runner yet)\n- Paths config: DOCS_PATH, WORKING_DOCS_PATH, etc.\n- Workflow: plan path, test step, docs step\n- Prohibitions: decision context comments\n\nKeeps intentional project adaptations (Tailwind styling, dark-only theme).\n\nhttps://claude.ai/code/session_01CBwkaYuxkkviJXsqGh7AXs",
+      "tags": [
+        "documentation",
+        "ai-guidelines"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "align CLAUDE.md with template — add missing sections and rules",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 65,
+        "deletions": 6
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ecf1382",
+      "fullSha": "ecf1382231637f3546b859d57c1aad5c58a40ade",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-13T07:04:38Z",
+      "commitDate": "2026-02-13T07:04:38Z",
+      "subject": "docs: merge project-specific and general guardrails into CLAUDE.md",
+      "body": "Integrate useful rules from a general-purpose CLAUDE.md template while\npreserving project-specific context (dark-only theme, Tailwind utility\nclasses, no test runner). Key additions: hard rules, coding standards,\nstyling guidance, decision documentation, cleanup/quality checks,\nworkflow, and prohibitions — all adapted to the see-veo stack.\n\nhttps://claude.ai/code/session_01CBwkaYuxkkviJXsqGh7AXs",
+      "tags": [
+        "documentation",
+        "ai-guidelines"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "merge project-specific and general guardrails into CLAUDE.md",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 114,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "dd03282",
+      "fullSha": "dd032821e99869a88b2b769e7cf9be86b3ca18be",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-13T01:10:26Z",
+      "commitDate": "2026-02-13T01:10:26Z",
+      "subject": "Merge pull request #2 from devmade-ai/claude/implement-pwa-vite-react-wyd5C",
+      "body": "Add PWA installation and update prompts with multi-browser support",
+      "tags": [
+        "feature",
+        "pwa",
+        "merge"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "Merge pull request #2 from devmade-ai/claude/implement-pwa-vite-react-wyd5C",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#2"
+      ],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 353,
+        "deletions": 10
+      },
+      "files": [
+        "index.html",
+        "src/App.tsx",
+        "src/components/InstallInstructionsModal.tsx",
+        "src/components/UpdatePrompt.tsx",
+        "src/hooks/usePWAInstall.ts",
+        "src/hooks/usePWAUpdate.ts",
+        "src/vite-env.d.ts",
+        "vite.config.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "21e694f",
+      "fullSha": "21e694f8a637c95bdb320ca1900ce89ddf39d1c7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-13T01:07:48Z",
+      "commitDate": "2026-02-13T01:07:48Z",
+      "subject": "feat: add app header with tabs for Boring CV and Cool Story",
+      "body": "- Replace old footer-based layout with a sticky header showing\n  \"see-veo (CV oh!)\" title and install/manual-install buttons\n- Add tab navigation between \"Boring CV\" (existing CV content)\n  and \"Cool Story\" (placeholder for now)\n- Active tab uses background color match for a connected-panel look\n- Footer simplified to just copyright\n\nhttps://claude.ai/code/session_01GRU82B1cQNnm31qQisoxYv",
+      "tags": [
+        "feature",
+        "ui",
+        "navigation"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "add app header with tabs for Boring CV and Cool Story",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 63,
+        "deletions": 14
+      },
+      "files": [
+        "src/App.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "da5cef9",
+      "fullSha": "da5cef9ee8370862ca416b5220527dd62ce521b3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-13T00:52:43Z",
+      "commitDate": "2026-02-13T00:52:43Z",
+      "subject": "feat: add PWA install/update UI with prompt-based service worker",
+      "body": "- Change registerType from 'autoUpdate' to 'prompt' so users control updates\n- Add usePWAUpdate hook with 60-minute update polling and user-triggered refresh\n- Add usePWAInstall hook with auto-install (Chromium) and manual instructions (Safari/Firefox)\n- Add UpdatePrompt toast component for new version notifications\n- Add InstallInstructionsModal with browser-specific install steps\n- Add runtime caching rules for Google Fonts\n- Add apple-mobile-web-app meta tags for iOS support\n- Integrate install button and update prompt into App footer\n\nhttps://claude.ai/code/session_01GRU82B1cQNnm31qQisoxYv",
+      "tags": [
+        "feature",
+        "pwa",
+        "service-worker",
+        "ui"
+      ],
+      "complexity": 3,
+      "scope": null,
+      "title": "add PWA install/update UI with prompt-based service worker",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 295,
+        "deletions": 1
+      },
+      "files": [
+        "index.html",
+        "src/App.tsx",
+        "src/components/InstallInstructionsModal.tsx",
+        "src/components/UpdatePrompt.tsx",
+        "src/hooks/usePWAInstall.ts",
+        "src/hooks/usePWAUpdate.ts",
+        "src/vite-env.d.ts",
+        "vite.config.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "68e0c08",
+      "fullSha": "68e0c080223eed1ee399b3f22289f1ece6023e77",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-13T00:35:21Z",
+      "commitDate": "2026-02-13T00:35:21Z",
+      "subject": "Merge pull request #1 from devmade-ai/claude/create-cv-pwa-Kw5tg",
+      "body": "Initial commit: Build PWA CV/resume site with React, TypeScript, and Vite",
+      "tags": [
+        "feature",
+        "pwa",
+        "merge"
+      ],
+      "complexity": 5,
+      "scope": null,
+      "title": "Merge pull request #1 from devmade-ai/claude/create-cv-pwa-Kw5tg",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#1"
+      ],
+      "stats": {
+        "filesChanged": 32,
+        "additions": 9041,
+        "deletions": 1
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        ".gitignore",
+        "CLAUDE.md",
+        "README.md",
+        "eslint.config.js",
+        "index.html",
+        "package-lock.json",
+        "package.json",
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "src/App.tsx",
+        "src/components/About.tsx",
+        "src/components/Contact.tsx",
+        "src/components/Education.tsx",
+        "src/components/Experience.tsx",
+        "src/components/Hero.tsx",
+        "src/components/Projects.tsx",
+        "src/components/Section.tsx",
+        "src/components/SkillBadge.tsx",
+        "src/components/Skills.tsx",
+        "src/components/TimelineItem.tsx",
+        "src/data/cv-data.ts",
+        "src/index.css",
+        "src/main.tsx",
+        "src/vite-env.d.ts",
+        "tsconfig.app.json",
+        "tsconfig.json",
+        "tsconfig.node.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "8e12cd0",
+      "fullSha": "8e12cd01b2f38cc40e32d7a3249adc4382be263b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-13T00:32:48Z",
+      "commitDate": "2026-02-13T00:32:48Z",
+      "subject": "chore: add CLAUDE.md and update .gitignore",
+      "body": "Add CLAUDE.md with project context, structure, commands, and key decisions.\nUpdate .gitignore with TypeScript cache, PWA dev artifacts, and .env entries.\n\nhttps://claude.ai/code/session_01PMUu183L6Vd9RRJskrTWhL",
+      "tags": [
+        "documentation",
+        "ai-guidelines",
+        "config"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "add CLAUDE.md and update .gitignore",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 41,
+        "deletions": 0
+      },
+      "files": [
+        ".gitignore",
+        "CLAUDE.md"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "b65a0fd",
+      "fullSha": "b65a0fdd49a98ff9c8f040605644d8eb5e4ad29a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-13T00:17:35Z",
+      "commitDate": "2026-02-13T00:17:35Z",
+      "subject": "feat: create CV PWA with React, Vite, TypeScript, and Tailwind CSS",
+      "body": "Set up a complete Progressive Web App for displaying a personal CV/resume:\n- React + TypeScript + Vite scaffold with Tailwind CSS v4 dark theme\n- PWA support via vite-plugin-pwa (service worker, manifest, offline caching)\n- 7 CV sections: Hero, About, Experience, Education, Skills, Projects, Contact\n- Centralized CV data in src/data/cv-data.ts for easy content updates\n- GitHub Actions workflow for automated deployment to GitHub Pages\n- Print-friendly styles with white background override\n- Responsive design with mobile-first approach\n\nhttps://claude.ai/code/session_01PMUu183L6Vd9RRJskrTWhL",
+      "tags": [
+        "feature",
+        "pwa",
+        "ui",
+        "scaffold",
+        "deployment"
+      ],
+      "complexity": 5,
+      "scope": null,
+      "title": "create CV PWA with React, Vite, TypeScript, and Tailwind CSS",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 31,
+        "additions": 9000,
+        "deletions": 1
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        ".gitignore",
+        "README.md",
+        "eslint.config.js",
+        "index.html",
+        "package-lock.json",
+        "package.json",
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "src/App.tsx",
+        "src/components/About.tsx",
+        "src/components/Contact.tsx",
+        "src/components/Education.tsx",
+        "src/components/Experience.tsx",
+        "src/components/Hero.tsx",
+        "src/components/Projects.tsx",
+        "src/components/Section.tsx",
+        "src/components/SkillBadge.tsx",
+        "src/components/Skills.tsx",
+        "src/components/TimelineItem.tsx",
+        "src/data/cv-data.ts",
+        "src/index.css",
+        "src/main.tsx",
+        "src/vite-env.d.ts",
+        "tsconfig.app.json",
+        "tsconfig.json",
+        "tsconfig.node.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "24c9306",
+      "fullSha": "24c9306e936d976a0eb9db65514a6a3a806d5552",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-12T23:14:08Z",
+      "commitDate": "2026-02-12T23:14:08Z",
+      "subject": "Initial commit",
+      "body": "",
+      "tags": [
+        "initial-commit",
+        "repository-setup"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Initial commit",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 675,
+        "deletions": 0
+      },
+      "files": [
+        "LICENSE",
+        "README.md"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    }
+  ],
+  "contributors": [
+    {
+      "author_id": "devmade.ai@gmail.com",
+      "name": "devmade.ai@gmail.com",
+      "email": "devmade.ai@gmail.com",
+      "commits": 17,
+      "avgComplexity": 2.24,
+      "avgUrgency": 2.12,
+      "tagBreakdown": {
+        "bugfix": 3,
+        "branding": 3,
+        "documentation": 6,
+        "merge": 5,
+        "pwa": 5,
+        "icons": 1,
+        "conventions": 1,
+        "developer-experience": 1,
+        "feature": 8,
+        "content": 3,
+        "ui": 5,
+        "refactor": 1,
+        "ai-guidelines": 4,
+        "navigation": 1,
+        "service-worker": 1,
+        "config": 1,
+        "scaffold": 1,
+        "deployment": 1,
+        "initial-commit": 1,
+        "repository-setup": 1
+      },
+      "impactBreakdown": {
+        "internal": 6,
+        "user-facing": 11,
+        "infrastructure": 0,
+        "api": 0
+      },
+      "repos": [
+        "see-veo"
+      ],
+      "repoCount": 1,
+      "firstCommit": "2026-02-12T23:14:08Z",
+      "lastCommit": "2026-02-15T15:48:16Z"
+    }
+  ],
+  "summary": {
+    "totalCommits": 17,
+    "totalContributors": 1,
+    "tagBreakdown": {
+      "bugfix": 3,
+      "branding": 3,
+      "documentation": 6,
+      "merge": 5,
+      "pwa": 5,
+      "icons": 1,
+      "conventions": 1,
+      "developer-experience": 1,
+      "feature": 8,
+      "content": 3,
+      "ui": 5,
+      "refactor": 1,
+      "ai-guidelines": 4,
+      "navigation": 1,
+      "service-worker": 1,
+      "config": 1,
+      "scaffold": 1,
+      "deployment": 1,
+      "initial-commit": 1,
+      "repository-setup": 1
+    },
+    "complexityBreakdown": {
+      "1": 6,
+      "2": 5,
+      "3": 4,
+      "4": 0,
+      "5": 2
+    },
+    "urgencyBreakdown": {
+      "1": 2,
+      "2": 11,
+      "3": 4,
+      "4": 0,
+      "5": 0
+    },
+    "impactBreakdown": {
+      "internal": 6,
+      "user-facing": 11,
+      "infrastructure": 0,
+      "api": 0
+    },
+    "avgComplexity": 2.24,
+    "avgUrgency": 2.12,
+    "monthly": {
+      "2026-02": {
+        "commits": 17,
+        "tags": {
+          "bugfix": 3,
+          "branding": 3,
+          "documentation": 6,
+          "merge": 5,
+          "pwa": 5,
+          "icons": 1,
+          "conventions": 1,
+          "developer-experience": 1,
+          "feature": 8,
+          "content": 3,
+          "ui": 5,
+          "refactor": 1,
+          "ai-guidelines": 4,
+          "navigation": 1,
+          "service-worker": 1,
+          "config": 1,
+          "scaffold": 1,
+          "deployment": 1,
+          "initial-commit": 1,
+          "repository-setup": 1
+        },
+        "impact": {
+          "internal": 6,
+          "user-facing": 11,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "avgComplexity": 2.24,
+        "avgUrgency": 2.12
+      }
+    },
+    "monthlyCommits": {
+      "2026-02": {
+        "commits": 17,
+        "tags": {
+          "bugfix": 3,
+          "branding": 3,
+          "documentation": 6,
+          "merge": 5,
+          "pwa": 5,
+          "icons": 1,
+          "conventions": 1,
+          "developer-experience": 1,
+          "feature": 8,
+          "content": 3,
+          "ui": 5,
+          "refactor": 1,
+          "ai-guidelines": 4,
+          "navigation": 1,
+          "service-worker": 1,
+          "config": 1,
+          "scaffold": 1,
+          "deployment": 1,
+          "initial-commit": 1,
+          "repository-setup": 1
+        },
+        "impact": {
+          "internal": 6,
+          "user-facing": 11,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "avgComplexity": 2.24,
+        "avgUrgency": 2.12
+      }
+    },
+    "dateRange": {
+      "earliest": "2026-02-12T23:14:08Z",
+      "latest": "2026-02-15T15:48:16Z"
+    },
+    "security_events": []
+  }
+}

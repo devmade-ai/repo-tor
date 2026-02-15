@@ -1,0 +1,16 @@
+{
+  "sha": "9876080",
+  "fullSha": "98760803790606610d5295a1252787ebc8b2c511",
+  "author_id": "jacotheron87@gmail.com",
+  "timestamp": "2026-01-14T21:45:44+02:00",
+  "subject": "Fix cell grid rendering for fullbleed and small sizes",
+  "body": "- Normalize structure to single cell when layout type is fullbleed\n- Use fixed dimensions (60x40px) for small grids instead of flexible sizing\n- Prevents grid collapse in flex containers on Placement tab\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "urgency": 2,
+  "impact": "user-facing",
+  "repo_id": "canva-grid"
+}

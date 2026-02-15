@@ -1,0 +1,38 @@
+{
+  "sha": "db02cd3",
+  "fullSha": "db02cd36cc1e0a02fb0c22653463e83e02063335",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-13T07:57:17+00:00",
+  "commitDate": "2026-01-13T07:57:17+00:00",
+  "subject": "Improve Structure sub-tab with contextual cell/section selection",
+  "body": "- Add StructureGrid component with clickable section labels (R1, R2... or C1, C2...)\n- Click section label to edit row/column: height/width slider + subdivision count\n- Click cell in subdivided section to edit that cell's width/height\n- Click same element again to deselect (toggle behavior)\n- Shows only relevant control for current selection:\n  - Section selected: height/width + split count + delete option\n  - Cell selected: width/height + \"Edit Parent\" button\n  - Nothing selected: overview + \"Add Row/Column\" button\n- Purple highlighting for selected elements, lighter purple for sibling cells\n- Cells show their size percentage when subdivided",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Improve Structure sub-tab with contextual cell/section selection",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 303,
+    "deletions": 97
+  },
+  "files": [
+    "src/components/LayoutSelector.jsx"
+  ],
+  "repo_id": "canva-grid"
+}

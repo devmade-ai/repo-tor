@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-23T10:06:35.163Z",
+    "generatedAt": "2026-02-15T21:27:44.103Z",
     "repository": "model-pear",
     "scope": "model-pear",
     "repoCount": 1,
-    "commitCount": 318,
+    "commitCount": 322,
     "authors": {
       "noreply@anthropic.com": {
         "name": "noreply@anthropic.com",
@@ -21,6 +21,166 @@
     }
   },
   "commits": [
+    {
+      "sha": "81a9433",
+      "fullSha": "81a9433ed4b387d5fc3a1a0b59df68df011cc0bf",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-15T17:51:45Z",
+      "commitDate": "2026-02-15T17:51:45Z",
+      "subject": "Merge pull request #106 from devmade-ai/claude/add-commit-guidelines-dsfCV",
+      "body": "docs: add commit message format requirements to CLAUDE.md",
+      "tags": [
+        "merge",
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Merge pull request #106 from devmade-ai/claude/add-commit-guidelines-dsfCV",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#106"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 30,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "3cae953",
+      "fullSha": "3cae9530c1e53f92a05dd69e838d5416a45a34c8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T15:22:56Z",
+      "commitDate": "2026-02-15T15:22:56Z",
+      "subject": "docs(claude): add commit message format guidelines",
+      "body": "Add structured commit message format section to CLAUDE.md under\nAI SESSION MANAGEMENT. Defines required metadata footers including\nTags, Complexity, Urgency, Impact, Risk, Debt, Epic, and Semver\nfields for every commit.\n\nTags: docs, process, standards\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: commit-guidelines\nSemver: patch\n\nhttps://claude.ai/code/session_01V2NhhpMQ1osNER3yTh58pA",
+      "tags": [
+        "docs",
+        "config"
+      ],
+      "complexity": 1,
+      "scope": "claude",
+      "title": "add commit message format guidelines",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 30,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f4a9aa8",
+      "fullSha": "f4a9aa808410bd008cbcd1d9c0602102b2ea4f72",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-13T07:42:49Z",
+      "commitDate": "2026-02-13T07:42:49Z",
+      "subject": "Merge pull request #105 from devmade-ai/claude/review-claude-md-atO3w",
+      "body": "Restructure CLAUDE.md: merge engineering standards with project context",
+      "tags": [
+        "merge",
+        "docs"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Merge pull request #105 from devmade-ai/claude/review-claude-md-atO3w",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#105"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 277,
+        "deletions": 96
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "a7321c4",
+      "fullSha": "a7321c4d417a8e22a4e824d3a426783c735608c9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-13T07:20:58Z",
+      "commitDate": "2026-02-13T07:20:58Z",
+      "subject": "docs: restructure CLAUDE.md merging engineering standards with project context",
+      "body": "Merged a proposed engineering standards template with the existing project-specific\nCLAUDE.md. Adds hard rules (code organization limits, decision documentation, UX\nguidelines, security, cleanup, quality checks), communication style, testing\nguidelines, project config, workflow, and prohibitions while preserving all existing\nsession management, domain context, and project documentation.\n\nFixed stale \"keep vanilla JS\" instruction - project uses TypeScript/SvelteKit.\n\nhttps://claude.ai/code/session_01AXav1nwVybvmofE6Hca7KF",
+      "tags": [
+        "docs",
+        "config"
+      ],
+      "complexity": 2,
+      "scope": null,
+      "title": "restructure CLAUDE.md merging engineering standards with project context",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 277,
+        "deletions": 96
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "internal"
+    },
     {
       "sha": "a618194",
       "fullSha": "a618194738a3229ccde7ede7e77b20ac5caecaa9",
@@ -7746,26 +7906,26 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 120,
-      "avgComplexity": 1.08,
+      "commits": 124,
+      "avgComplexity": 1.09,
       "avgUrgency": 1.83,
       "tagBreakdown": {
-        "merge": 103,
-        "docs": 4,
+        "merge": 105,
+        "docs": 8,
+        "config": 3,
         "removal": 1,
         "bugfix": 10,
         "ui": 2,
         "feature": 3,
         "ux": 1,
         "ci": 2,
-        "config": 1,
         "cd": 1,
         "naming": 1,
         "chore": 1,
         "init": 1
       },
       "impactBreakdown": {
-        "internal": 112,
+        "internal": 116,
         "user-facing": 5,
         "infrastructure": 3,
         "api": 0
@@ -7775,7 +7935,7 @@
       ],
       "repoCount": 1,
       "firstCommit": "2025-12-25T14:09:06+02:00",
-      "lastCommit": "2026-01-21T23:04:08+02:00"
+      "lastCommit": "2026-02-15T17:51:45Z"
     },
     {
       "author_id": "jacotheron87",
@@ -7803,11 +7963,12 @@
     }
   ],
   "summary": {
-    "totalCommits": 318,
+    "totalCommits": 322,
     "totalContributors": 3,
     "tagBreakdown": {
-      "merge": 104,
-      "docs": 93,
+      "merge": 106,
+      "docs": 97,
+      "config": 12,
       "removal": 16,
       "bugfix": 37,
       "ui": 58,
@@ -7817,7 +7978,6 @@
       "refactor": 28,
       "hosting": 2,
       "ci": 2,
-      "config": 10,
       "cd": 1,
       "dependency-add": 1,
       "types": 3,
@@ -7852,28 +8012,44 @@
       "init": 1
     },
     "complexityBreakdown": {
-      "1": 160,
-      "2": 60,
+      "1": 163,
+      "2": 61,
       "3": 40,
       "4": 32,
       "5": 26
     },
     "urgencyBreakdown": {
       "1": 124,
-      "2": 169,
+      "2": 173,
       "3": 24,
       "4": 1,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 217,
+      "internal": 221,
       "user-facing": 96,
       "infrastructure": 5,
       "api": 0
     },
-    "avgComplexity": 2.07,
-    "avgUrgency": 1.69,
+    "avgComplexity": 2.06,
+    "avgUrgency": 1.7,
     "monthly": {
+      "2026-02": {
+        "commits": 4,
+        "tags": {
+          "merge": 2,
+          "docs": 4,
+          "config": 2
+        },
+        "impact": {
+          "internal": 4,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "avgComplexity": 1.25,
+        "avgUrgency": 2
+      },
       "2026-01": {
         "commits": 273,
         "tags": {
@@ -7956,6 +8132,22 @@
       }
     },
     "monthlyCommits": {
+      "2026-02": {
+        "commits": 4,
+        "tags": {
+          "merge": 2,
+          "docs": 4,
+          "config": 2
+        },
+        "impact": {
+          "internal": 4,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "avgComplexity": 1.25,
+        "avgUrgency": 2
+      },
       "2026-01": {
         "commits": 273,
         "tags": {
@@ -8039,7 +8231,7 @@
     },
     "dateRange": {
       "earliest": "2025-12-25T12:20:42+00:00",
-      "latest": "2026-01-21T23:04:08+02:00"
+      "latest": "2026-02-15T17:51:45Z"
     },
     "security_events": []
   }

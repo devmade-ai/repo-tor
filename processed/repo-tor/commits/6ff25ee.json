@@ -1,0 +1,54 @@
+{
+  "sha": "6ff25ee",
+  "fullSha": "6ff25ee5ce916ab29e5c8996dc0110240a42ee76",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-05T00:12:13Z",
+  "commitDate": "2026-02-05T00:12:13Z",
+  "subject": "feat: migrate to Vite with vite-plugin-pwa",
+  "body": "Replace manual PWA setup with vite-plugin-pwa for proper offline support.\n\nChanges:\n- Add Vite as build tool (npm run dev/build/preview)\n- Add vite-plugin-pwa with Workbox for service worker generation\n- Configure runtime caching for CDN assets (Tailwind, Chart.js, fonts)\n- Update GitHub Actions to build with Vite before deploying\n- Remove manual sw.js and manifest.json (now auto-generated)\n- Add dashboard/public/icons/ for static asset copying\n\nDevelopment:\n- npm run dev: Start dev server with hot reload\n- npm run build: Production build to dist/\n- npm run preview: Preview production build\n\nhttps://claude.ai/code/session_01CuVdcuJLkaFbXhTvoTF6Ra",
+  "tags": [
+    "feature",
+    "config",
+    "build"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "migrate to Vite with vite-plugin-pwa",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 16,
+    "additions": 7046,
+    "deletions": 672
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    ".gitignore",
+    "dashboard/index.html",
+    "dashboard/manifest.json",
+    "dashboard/public/icons/apple-touch-icon.png",
+    "dashboard/public/icons/icon-192.png",
+    "dashboard/public/icons/icon-512.png",
+    "dashboard/public/icons/icon.svg",
+    "dashboard/sw.js",
+    "docs/ADMIN_GUIDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "package-lock.json",
+    "package.json",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

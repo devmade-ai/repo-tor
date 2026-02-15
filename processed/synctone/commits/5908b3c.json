@@ -1,0 +1,38 @@
+{
+  "sha": "5908b3c",
+  "fullSha": "5908b3c41a5f56f51d6c632dfacd2c37eaa1d83f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-06T14:07:01Z",
+  "commitDate": "2026-02-06T14:07:01Z",
+  "subject": "fix: register service worker early in root layout for PWA installability",
+  "body": "The service worker was only being registered when the home screen mounted\n(via usePWAUpdate hook), which happens after auth initialization completes.\nChrome requires a controlling service worker before firing the\nbeforeinstallprompt event that enables PWA installation.\n\nBy registering at module load time in the root layout, the SW is available\nbefore React even mounts, giving Chrome enough time to evaluate\ninstallability criteria. The register() call is idempotent, so\nusePWAUpdate in home.tsx still works correctly with the same registration.\n\nhttps://claude.ai/code/session_012nvsRGG6qvCXSbHiTPwmgX",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "register service worker early in root layout for PWA installability",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 11,
+    "deletions": 0
+  },
+  "files": [
+    "app/_layout.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

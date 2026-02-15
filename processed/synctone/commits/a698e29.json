@@ -1,0 +1,39 @@
+{
+  "sha": "a698e29",
+  "fullSha": "a698e29078a51344054798f7c4a66106b311d40b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T20:10:45Z",
+  "commitDate": "2026-02-10T20:10:45Z",
+  "subject": "fix: wrap OneSignal importScripts in try/catch for SW resilience",
+  "body": "If OneSignal CDN is blocked (Brave tracker blocking, ad blockers, CDN\ndown), importScripts() throws and halts the entire SW script — no fetch\nhandler registers, breaking PWA caching and installability. Now degrades\ngracefully: PWA features work, only push notifications degrade.\n\nBump CACHE_VERSION to v8 to pick up the change.\n\nhttps://claude.ai/code/session_01C2aoWesvTNUkcParTjnLst",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "wrap OneSignal importScripts in try/catch for SW resilience",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 14,
+    "deletions": 2
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "public/sw.js"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "infrastructure"
+}
