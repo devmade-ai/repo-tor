@@ -1,0 +1,40 @@
+{
+  "sha": "4fde60a",
+  "fullSha": "4fde60ab7fa4ff2b75e01425f03806022bac3898",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-25T00:25:21Z",
+  "commitDate": "2026-01-25T00:25:21Z",
+  "subject": "feat: extend role-based view levels to all dashboard tabs",
+  "body": "Extended view level support to remaining sections:\n\nHealth tab:\n- Urgency/Impact by Contributor adapts to view level\n- Executive: single aggregated bar with percentages\n- Management: grouped by repo with click-to-drill\n- Developer: individual contributors (original)\n\nSecurity tab:\n- Executive: count and date range summary only\n- Management: per-repo breakdown cards\n- Developer: full commit details (original)\n\nTimeline:\n- Executive: weekly period summaries with tag breakdown\n- Management: daily period summaries with tag breakdown\n- Developer: individual commit list (original)\n- Period cards are clickable to open detail pane\n\nTags/Progress tabs already worked via openDetailPane changes.",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "extend role-based view levels to all dashboard tabs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 481,
+    "deletions": 123
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,41 @@
+{
+  "sha": "391e68d",
+  "fullSha": "391e68d04bd102500d7da04344b1b8aa05c1f8e2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-25T12:06:38Z",
+  "commitDate": "2026-01-25T12:06:38Z",
+  "subject": "feat: add role-specific interpretation guidance to sections",
+  "body": "Instead of hiding sections from certain roles, show contextual guidance\nthat helps Executive/Management users interpret detailed data:\n\n- Developer Patterns: \"high weekend % may signal burnout risk\"\n- Who Does What: \"balanced distribution indicates healthy knowledge sharing\"\n- Urgency by Contributor: \"high urgency indicates process gaps\"\n- Activity Heatmap: \"significant off-hours work may indicate staffing issues\"\n- etc.\n\nDevelopers see raw data without hints (they understand it).\nGuidance updates automatically when view level changes.",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "add role-specific interpretation guidance to sections",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 107,
+    "deletions": 19
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}
