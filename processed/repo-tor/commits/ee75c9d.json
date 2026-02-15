@@ -1,0 +1,40 @@
+{
+  "sha": "ee75c9d",
+  "fullSha": "ee75c9dbdd5764b6bd91fd83ad9d65c2bc8ab901",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-28T22:32:22Z",
+  "commitDate": "2026-01-28T22:32:22Z",
+  "subject": "refactor: remove period comparison from Overview tab",
+  "body": "Remove the Compare dropdown and trend indicators from Overview tab.\nStats now show totals from all filtered commits rather than period-\nrestricted values.\n\n- Removed Compare dropdown (Last 7 Days / Last 30 Days / Quarter)\n- Removed trend indicators from stat cards (↑/↓ vs previous period)\n- Simplified renderSummary to use all filtered commits\n- Cleaned up related state save/restore and URL params\n\nUse date filters in the filter sidebar for time-based analysis.\n\nhttps://claude.ai/code/session_01L7a5ghmo78JkckK4qqY2m3",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "remove period comparison from Overview tab",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 55,
+    "deletions": 195
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

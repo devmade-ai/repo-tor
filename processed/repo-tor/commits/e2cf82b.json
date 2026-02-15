@@ -1,0 +1,42 @@
+{
+  "sha": "e2cf82b",
+  "fullSha": "e2cf82b70cc68b6ce20b58fb41dbab075079fd3d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T05:28:33Z",
+  "commitDate": "2026-02-04T05:28:33Z",
+  "subject": "feat: add PNG icon fallbacks for PWA compatibility",
+  "body": "- Generate 192x192, 512x512, and 180x180 (apple-touch) PNGs from SVG\n- Update manifest.json with PNG icons alongside SVG\n- Use PNG for apple-touch-icon (better iOS support)\n- Add PNG fallback favicon for older browsers\n\nhttps://claude.ai/code/session_018w7ThuzVv2QNHpRDmtwQDA",
+  "tags": [
+    "feature",
+    "config"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "add PNG icon fallbacks for PWA compatibility",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 14,
+    "deletions": 3
+  },
+  "files": [
+    "dashboard/icons/apple-touch-icon.png",
+    "dashboard/icons/icon-192.png",
+    "dashboard/icons/icon-512.png",
+    "dashboard/index.html",
+    "dashboard/manifest.json"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}
