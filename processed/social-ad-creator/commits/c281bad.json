@@ -1,0 +1,42 @@
+{
+  "sha": "c281bad",
+  "fullSha": "c281bade0d1f70cfce57ee746973506bc6c69c16",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T15:18:51Z",
+  "commitDate": "2026-02-10T15:18:51Z",
+  "subject": "Auto-assign images to cells, add page nav to header, fix multi-page export",
+  "body": "- addImage now auto-assigns to first unoccupied image cell based on layout\n- Header split: title + page selector (top), action buttons (bottom)\n- Mobile header: compact page nav (arrows + count) on right side\n- Multi-page export: use double rAF + increased delay for reliable capture\n- Always restore original page after export (was stale closure comparison)\n\nhttps://claude.ai/code/session_019YL8HqtDyFThqCbsD6PaYo",
+  "tags": [
+    "feature",
+    "bugfix"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Auto-assign images to cells, add page nav to header, fix multi-page export",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 124,
+    "deletions": 52
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/App.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "social-ad-creator",
+  "urgency": 3,
+  "impact": "user-facing"
+}

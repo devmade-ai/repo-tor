@@ -1,0 +1,42 @@
+{
+  "sha": "306e835",
+  "fullSha": "306e8358a58c7706fa34442c2929060880086b1f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T05:34:07Z",
+  "commitDate": "2026-02-04T05:34:07Z",
+  "subject": "Implement high-priority TODO items: save/load and position sliders",
+  "body": "Save/Load Designs:\n- Add saveDesign, loadDesign, getSavedDesigns, deleteDesign to useAdState\n- Create SaveLoadModal component with tabbed save/load UI\n- Add Save button to desktop and mobile headers\n- Designs stored in localStorage as JSON with timestamps\n\nImage Position Sliders:\n- Add X/Y range sliders (0-100%) below 3x3 preset grid in MediaTab\n- Shows current percentage value, works alongside preset buttons\n\nAlso:\n- Update TODO.md to remove completed items\n- Update HISTORY.md with implementation details\n\nhttps://claude.ai/code/session_01X4ZcaqUfzVWJ6yK8eHb94G",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Implement high-priority TODO items: save/load and position sliders",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 317,
+    "deletions": 7
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/TODO.md",
+    "src/App.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/SaveLoadModal.jsx",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "social-ad-creator",
+  "urgency": 2,
+  "impact": "user-facing"
+}

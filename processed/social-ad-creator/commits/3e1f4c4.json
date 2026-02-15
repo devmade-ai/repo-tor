@@ -1,0 +1,43 @@
+{
+  "sha": "3e1f4c4",
+  "fullSha": "3e1f4c4c8a5e70a3f4aa9433e919ec5b081eccf6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T15:48:19Z",
+  "commitDate": "2026-02-10T15:48:19Z",
+  "subject": "Add global cell selection with sticky ContextBar and canvas click-to-select",
+  "body": "- New ContextBar component: sticky bar with page nav, miniature cell grid, undo/redo\n- Global selectedCell state in App.jsx drives which cell tabs operate on\n- CanvasCellOverlay: click cells in preview to select them (highlight border)\n- Header is no longer sticky (ContextBar replaces it as the persistent UI)\n- StyleTab overlay/spacing and ContentTab freeform now use global selectedCell\n- Removed local cell selection state from StyleTab and ContentTab\n\nhttps://claude.ai/code/session_019YL8HqtDyFThqCbsD6PaYo",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add global cell selection with sticky ContextBar and canvas click-to-select",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 360,
+    "deletions": 152
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/App.jsx",
+    "src/components/ContentTab.jsx",
+    "src/components/ContextBar.jsx",
+    "src/components/StyleTab.jsx"
+  ],
+  "repo_id": "social-ad-creator",
+  "urgency": 2,
+  "impact": "user-facing"
+}

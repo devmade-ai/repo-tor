@@ -1,0 +1,39 @@
+{
+  "sha": "5a8110d",
+  "fullSha": "5a8110d6842fd674a824dddefc087b45fdd009e6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-09T16:46:12Z",
+  "commitDate": "2026-02-09T16:46:12Z",
+  "subject": "Add platform, OS, referrer, and session duration to install tracking",
+  "body": "Enriches the app_install GA4 event with additional context:\n- platform (mobile/desktop)\n- os (ios/android/windows/macos/linux)\n- referrer (where the user came from)\n- session_duration (seconds from page load to install)\n\nhttps://claude.ai/code/session_015XJcpvmaUAWnwQuvFi6Wy1",
+  "tags": [
+    "feature",
+    "monitoring"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Add platform, OS, referrer, and session duration to install tracking",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 17,
+    "deletions": 1
+  },
+  "files": [
+    "index.html",
+    "src/hooks/usePWAInstall.js"
+  ],
+  "repo_id": "social-ad-creator",
+  "urgency": 2,
+  "impact": "infrastructure"
+}
