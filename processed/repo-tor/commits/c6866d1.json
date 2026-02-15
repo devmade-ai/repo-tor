@@ -1,0 +1,42 @@
+{
+  "sha": "c6866d1",
+  "fullSha": "c6866d1aa80be765f33e5d2503102b51a9ea0ad5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T06:20:36Z",
+  "commitDate": "2026-02-04T06:20:36Z",
+  "subject": "feat: add per-filter modes and PWA install help",
+  "body": "Filters:\n- Remove global AND/OR/Exclude mode (didn't make logical sense)\n- Add per-filter Include/Exclude toggle for each filter type\n- Convert single-select dropdowns to multi-select checkboxes\n- Update URL shareable links for multi-select (comma-separated, ! prefix for exclude)\n- Update localStorage persistence for new filter structure\n\nPWA:\n- Add \"Install App\" section to Settings panel\n- Show install status (Ready/Installed/Unsupported)\n- Include manual install instructions for Chrome, Safari, Firefox\n- Auto-detect if already running as standalone app\n\nhttps://claude.ai/code/session_01ErtrASov4hPBhD8ZfxrjfF",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "add per-filter modes and PWA install help",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 629,
+    "deletions": 202
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

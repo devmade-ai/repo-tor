@@ -1,0 +1,45 @@
+{
+  "sha": "2759c22",
+  "fullSha": "2759c22799188167f18d84b0eecc67db1e9920ed",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-09T19:03:08Z",
+  "commitDate": "2026-02-09T19:03:08Z",
+  "subject": "fix: optimize all charts and graphs for mobile viewports",
+  "body": "- Chart containers: responsive heights (h-48 md:h-64) for all 10 charts\n- Heatmap: smaller cells (20px), reduced grid min-width (280px), compact labels on mobile\n- Chart.js: mobile-aware font sizes (9px), increased label skipping, tighter legends\n- Doughnut: smaller box widths and padding in legend on mobile\n- Cards: tighter padding (16px) and smaller stat numbers on small screens\n- Added isMobile() helper in state.js for consistent mobile detection\n\nhttps://claude.ai/code/session_011YVw3u1EAcfS9JBtmHGGmG",
+  "tags": [
+    "bugfix",
+    "ui",
+    "performance"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "optimize all charts and graphs for mobile viewports",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 147,
+    "deletions": 43
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/js/charts.js",
+    "dashboard/js/state.js",
+    "dashboard/js/tabs.js",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

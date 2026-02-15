@@ -1,0 +1,49 @@
+{
+  "sha": "e98625e",
+  "fullSha": "e98625e27f6f41cf2bda86d66a0a0fa9eca92d68",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-06T20:49:56Z",
+  "commitDate": "2026-02-06T20:49:56Z",
+  "subject": "refactor: split monolithic dashboard into ES modules",
+  "body": "Extract the 6,927-line dashboard/index.html into focused modules:\n- CSS → styles.css (1,200 lines)\n- JS → 9 ES modules in js/ (state, utils, filters, ui, charts, tabs, data, export, main)\n- HTML → slimmed index.html (889 lines, structure only)\n\nVite bundles all modules for production. No functionality changes.\n\nhttps://claude.ai/code/session_01Vgswf2QVj1u7eBxdN3jsAg",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "split monolithic dashboard into ES modules",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 6211,
+    "deletions": 6041
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/js/charts.js",
+    "dashboard/js/data.js",
+    "dashboard/js/export.js",
+    "dashboard/js/filters.js",
+    "dashboard/js/main.js",
+    "dashboard/js/state.js",
+    "dashboard/js/tabs.js",
+    "dashboard/js/ui.js",
+    "dashboard/js/utils.js",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

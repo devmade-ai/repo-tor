@@ -1,0 +1,42 @@
+{
+  "sha": "1849261",
+  "fullSha": "1849261051868d0dd5e218814bfa54fde0e129a2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T00:03:41Z",
+  "commitDate": "2026-02-10T00:03:41Z",
+  "subject": "feat: add default filters to exclude merges and start from Dec 2025",
+  "body": "First-time visitors now see sensible defaults: merge commits excluded\nand date range starting from 2025-12-01. Defaults only apply when no\nlocalStorage or URL params exist, so returning users keep their choices.\n\nConfig is in FILTER_DEFAULTS in js/state.js for easy adjustment.\n\nhttps://claude.ai/code/session_01C7qfuPrYhWtPw1gokenMjc",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "add default filters to exclude merges and start from Dec 2025",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 85,
+    "deletions": 4
+  },
+  "files": [
+    "dashboard/js/data.js",
+    "dashboard/js/filters.js",
+    "dashboard/js/state.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

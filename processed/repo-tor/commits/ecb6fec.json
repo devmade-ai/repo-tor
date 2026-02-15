@@ -1,0 +1,41 @@
+{
+  "sha": "ecb6fec",
+  "fullSha": "ecb6fec4093ddc5f108292215c46359ab9edce17",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-09T20:13:47Z",
+  "commitDate": "2026-02-09T20:13:47Z",
+  "subject": "fix: enable PWA updates on pull-to-refresh and page reload",
+  "body": "Added controllerchange listener to auto-reload when new service worker\ntakes control, visibilitychange listener to check for updates when\nreturning to the app, and updated checkForUpdate() to reload instead\nof telling users to close and reopen.\n\nhttps://claude.ai/code/session_01JFtzBuaCobeKQJxkdY7fzZ",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "enable PWA updates on pull-to-refresh and page reload",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 53,
+    "deletions": 5
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/js/export.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}
