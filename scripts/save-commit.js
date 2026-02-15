@@ -113,6 +113,26 @@ async function main() {
       errors.push('missing author_id or author');
     }
 
+    // Validate optional fields when present (don't require them)
+    const validRisk = ['low', 'medium', 'high'];
+    if (commit.risk !== undefined && commit.risk !== null && !validRisk.includes(commit.risk)) {
+      errors.push(`risk must be one of: ${validRisk.join(', ')}`);
+    }
+
+    const validDebt = ['added', 'paid', 'neutral'];
+    if (commit.debt !== undefined && commit.debt !== null && !validDebt.includes(commit.debt)) {
+      errors.push(`debt must be one of: ${validDebt.join(', ')}`);
+    }
+
+    if (commit.epic !== undefined && commit.epic !== null && typeof commit.epic !== 'string') {
+      errors.push('epic must be a string');
+    }
+
+    const validSemver = ['patch', 'minor', 'major'];
+    if (commit.semver !== undefined && commit.semver !== null && !validSemver.includes(commit.semver)) {
+      errors.push(`semver must be one of: ${validSemver.join(', ')}`);
+    }
+
     if (errors.length > 0) {
       failedCommits.push({
         sha: commit.sha || '(unknown)',

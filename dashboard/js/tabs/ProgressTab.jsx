@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Line } from 'react-chartjs-2';
+import { Line, Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, handleKeyActivate } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
@@ -138,6 +138,63 @@ export default function ProgressTab() {
         };
     }, [filteredCommits, isMobile]);
 
+    // Epic breakdown — groups commits by epic label
+    const epicBreakdown = useMemo(() => {
+        const epics = {};
+        filteredCommits.forEach(c => {
+            if (c.epic && typeof c.epic === 'string') {
+                const epic = c.epic.trim().toLowerCase();
+                if (epic) {
+                    epics[epic] = (epics[epic] || 0) + 1;
+                }
+            }
+        });
+        return Object.entries(epics)
+            .sort((a, b) => b[1] - a[1]);
+    }, [filteredCommits]);
+
+    const hasEpicData = epicBreakdown.length > 0;
+
+    // Semver breakdown — patch/minor/major distribution
+    const semverBreakdown = useMemo(() => {
+        const breakdown = { patch: 0, minor: 0, major: 0 };
+        filteredCommits.forEach(c => {
+            if (c.semver && breakdown.hasOwnProperty(c.semver)) {
+                breakdown[c.semver]++;
+            }
+        });
+        return breakdown;
+    }, [filteredCommits]);
+
+    const hasSemverData = semverBreakdown.patch + semverBreakdown.minor + semverBreakdown.major > 0;
+    const semverTotal = semverBreakdown.patch + semverBreakdown.minor + semverBreakdown.major;
+
+    // Semver doughnut chart data
+    const semverChartData = useMemo(() => {
+        if (!hasSemverData) return null;
+
+        return {
+            data: {
+                labels: ['Patch', 'Minor', 'Major'],
+                datasets: [{
+                    data: [semverBreakdown.patch, semverBreakdown.minor, semverBreakdown.major],
+                    backgroundColor: ['#3B82F6', '#16A34A', '#ef4444'],
+                    borderWidth: 0,
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, font: { size: 11 }, padding: 10 },
+                    },
+                },
+            },
+        };
+    }, [semverBreakdown, hasSemverData]);
+
     const handleCardClick = (type) => {
         let filtered, title;
         if (type === 'features') {
@@ -156,6 +213,19 @@ export default function ProgressTab() {
         if (filtered) {
             openDetailPane(title, `${filtered.length} commits`, filtered);
         }
+    };
+
+    const handleEpicClick = (epicName) => {
+        const filtered = filteredCommits.filter(c =>
+            c.epic && c.epic.trim().toLowerCase() === epicName
+        );
+        openDetailPane(`Epic: ${epicName}`, `${filtered.length} commits`, filtered);
+    };
+
+    const handleSemverClick = (level) => {
+        const labels = { patch: 'Patch Changes', minor: 'Minor Changes', major: 'Major Changes' };
+        const filtered = filteredCommits.filter(c => c.semver === level);
+        openDetailPane(labels[level] || level, `${filtered.length} commits`, filtered);
     };
 
     return (
@@ -214,6 +284,74 @@ export default function ProgressTab() {
                 <CollapsibleSection title="Complexity Over Time">
                     <div style={{ height: '300px' }}>
                         <Line data={complexityChartData.data} options={complexityChartData.options} />
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Epic Breakdown — only shown when commits have epic labels */}
+            {hasEpicData && (
+                <CollapsibleSection title="Work by Initiative">
+                    <div className="space-y-3">
+                        {epicBreakdown.map(([epic, count]) => {
+                            const pct = filteredCommits.length > 0
+                                ? Math.round((count / filteredCommits.length) * 100) : 0;
+                            return (
+                                <div
+                                    key={epic}
+                                    className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => handleEpicClick(epic)}
+                                    onKeyDown={handleKeyActivate(() => handleEpicClick(epic))}
+                                >
+                                    <div className="flex justify-between text-sm mb-1">
+                                        <span className="text-themed-secondary font-medium">{epic}</span>
+                                        <span className="text-themed-primary font-medium">{count} commits ({pct}%)</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                        <div className="bg-indigo-500 h-2 rounded-full" style={{ width: `${pct}%` }} />
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Semver Breakdown — only shown when commits have semver data */}
+            {hasSemverData && (
+                <CollapsibleSection title="Change Types">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div style={{ height: '200px' }}>
+                            <Doughnut data={semverChartData.data} options={semverChartData.options} />
+                        </div>
+                        <div className="space-y-3 flex flex-col justify-center">
+                            {[
+                                { key: 'patch', label: 'Patches', desc: 'Bug fixes', colorClass: 'bg-blue-500' },
+                                { key: 'minor', label: 'Minor', desc: 'New features', colorClass: 'bg-green-500' },
+                                { key: 'major', label: 'Major', desc: 'Breaking changes', colorClass: 'bg-red-500' },
+                            ].map(({ key, label, desc, colorClass }) => {
+                                const count = semverBreakdown[key];
+                                const pct = semverTotal > 0 ? Math.round((count / semverTotal) * 100) : 0;
+                                return (
+                                    <div
+                                        key={key}
+                                        className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                        role="button"
+                                        tabIndex={0}
+                                        onClick={() => handleSemverClick(key)}
+                                        onKeyDown={handleKeyActivate(() => handleSemverClick(key))}
+                                    >
+                                        <div className="flex items-center gap-2">
+                                            <div className={`w-3 h-3 rounded-full ${colorClass}`} />
+                                            <span className="text-sm text-themed-secondary font-medium">{label}</span>
+                                            <span className="text-xs text-themed-tertiary">({desc})</span>
+                                            <span className="ml-auto text-sm text-themed-primary font-medium">{count} ({pct}%)</span>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
                 </CollapsibleSection>
             )}

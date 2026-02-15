@@ -52,12 +52,22 @@ export default function SummaryTab() {
         const refactorCount = commits.filter(c => getCommitTags(c).includes('refactor')).length;
         const testCount = commits.filter(c => getCommitTags(c).includes('test')).length;
 
+        // Risk and Debt summary — only meaningful when commits have these fields
+        const highRiskCount = commits.filter(c => c.risk === 'high').length;
+        const mediumRiskCount = commits.filter(c => c.risk === 'medium').length;
+        const debtAdded = commits.filter(c => c.debt === 'added').length;
+        const debtPaid = commits.filter(c => c.debt === 'paid').length;
+        const hasRiskData = commits.some(c => c.risk);
+        const hasDebtData = commits.some(c => c.debt);
+
         return {
             features, fixes, avgUrgency, plannedPct,
             complexChanges, simpleChanges,
             topRepo, topRepoPct,
             afterHoursCount, weekendCount, holidayCount, afterHoursPct,
             refactorCount, testCount,
+            highRiskCount, mediumRiskCount, debtAdded, debtPaid,
+            hasRiskData, hasDebtData,
         };
     }, [filteredCommits]);
 
@@ -93,6 +103,25 @@ export default function SummaryTab() {
                 label: 'Quality Work',
                 value: `${metrics.refactorCount} refactors`,
                 subvalue: `${metrics.testCount} tests`,
+            });
+        }
+
+        // Risk highlight — only when risk data exists
+        if (metrics.hasRiskData && (metrics.highRiskCount > 0 || metrics.mediumRiskCount > 0)) {
+            items.push({
+                label: 'Risky Changes',
+                value: `${metrics.highRiskCount} high risk`,
+                subvalue: `${metrics.mediumRiskCount} medium risk`,
+            });
+        }
+
+        // Debt highlight — only when debt data exists
+        if (metrics.hasDebtData && (metrics.debtAdded > 0 || metrics.debtPaid > 0)) {
+            const net = metrics.debtAdded - metrics.debtPaid;
+            items.push({
+                label: 'Tech Debt',
+                value: net > 0 ? `+${net} accumulating` : net < 0 ? `${net} shrinking` : 'Balanced',
+                subvalue: `${metrics.debtAdded} added, ${metrics.debtPaid} paid`,
             });
         }
 

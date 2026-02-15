@@ -106,6 +106,10 @@ function extractCommits() {
       body: body,
       tags: [],              // Empty - AI will populate via @data persona
       complexity: null,      // Null - AI will calculate after tagging
+      risk: null,            // Null - AI will assess (low|medium|high)
+      debt: null,            // Null - AI will assess (added|paid|neutral)
+      epic: null,            // Null - AI will assign free-text grouping label
+      semver: null,          // Null - AI will assess (patch|minor|major)
       scope: parsed.scope,
       title: parsed.title,
       is_conventional: parsed.is_conventional,

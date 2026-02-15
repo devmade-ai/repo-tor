@@ -4,6 +4,29 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-15
 
+### Add Risk, Debt, Epic, Semver Fields (Full Pipeline)
+
+**Why:** Commit metadata only tracked tags, complexity, urgency, and impact. Risk (how dangerous a change is), Debt (whether tech debt is accumulating), Epic (grouping commits to initiatives), and Semver (release type) provide richer reporting — enabling questions like "how much risky work happened this sprint" or "is tech debt growing."
+
+**Changes:**
+- `scripts/extract.js` + `scripts/extract-api.js` — Initialize `risk`, `debt`, `epic`, `semver` as `null` on raw commits
+- `scripts/merge-analysis.js` — Validate optional fields (risk: low|medium|high, debt: added|paid|neutral, epic: string, semver: patch|minor|major); merge into commit objects when present
+- `scripts/save-commit.js` — Validate optional fields when present (don't require them)
+- `scripts/aggregate-processed.js` — Add `calcRiskBreakdown()`, `calcDebtBreakdown()`, `calcEpicBreakdown()`, `calcSemverBreakdown()`; include in summary, monthly, and contributor aggregations
+- `dashboard/js/tabs/HealthTab.jsx` — Risk Assessment section (bars: high/medium/low), Debt Balance section (bars + net indicator), Debt Trend chart (monthly added vs paid)
+- `dashboard/js/tabs/ProgressTab.jsx` — "Work by Initiative" (epic bars), "Change Types" (semver doughnut + detail)
+- `dashboard/js/tabs/SummaryTab.jsx` — Risk and Debt highlights in Key Highlights (conditional)
+- `hooks/commit-msg` — Added tips for risk/debt when tags footer is present
+- `docs/COMMIT_CONVENTION.md` — Full documentation of all 4 new fields with examples
+- `docs/EXTRACTION_PLAYBOOK.md` — Updated schema, review format, guidelines, validation, examples table
+
+**Design decisions:**
+- Fields are optional everywhere for backward compatibility (1163 existing commits have no data)
+- Dashboard sections only render when data exists (conditional `hasRiskData`/`hasDebtData`/etc.)
+- Epic is normalized to lowercase for consistent grouping
+
+---
+
 ### Fix extract-api.js Missing Commits (Pagination Bug)
 
 **Why:** GitHub API extraction was missing commits — 6 in canva-grid (all by `jacotheron87@gmail.com`) and 1 in model-pear (by `noreply@anthropic.com`). Root cause: `fetchCommitList()` used a manual `?page=N` loop calling `gh()` directly, bypassing the `ghApi()` helper that already supported `--paginate`. Manual pagination can miss commits when the API reorders results between page requests.

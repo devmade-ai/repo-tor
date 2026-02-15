@@ -9,7 +9,7 @@ Step-by-step instructions for AI-driven data extraction and analysis.
 Two-stage process with persistent storage of AI-analyzed commits:
 
 1. **Extract** raw git data (ephemeral)
-2. **AI analyzes** each commit message and assigns tags, complexity, urgency, and impact
+2. **AI analyzes** each commit message and assigns tags, complexity, urgency, impact, and optionally risk, debt, epic, semver
 3. **Store** in `processed/` folder (persistent, source of truth)
 4. **Aggregate** to dashboard (generated from processed)
 
@@ -45,7 +45,7 @@ Body:
 - Update help documentation to reflect UI changes
 
 Tags: refactor, bugfix, performance, docs
-Complexity: 4 | Urgency: 3 | Impact: user-facing
+Complexity: 4 | Urgency: 3 | Impact: user-facing | Risk: medium | Debt: neutral
 ---
 [2/25] def456
 ...
@@ -188,6 +188,10 @@ ls processed/<repo>/commits/ # Completed commits
 - [ ] Every commit has complexity 1-5
 - [ ] Every commit has urgency 1-5
 - [ ] Every commit has impact (internal/user-facing/infrastructure/api)
+- [ ] Every commit has risk (low/medium/high) if applicable
+- [ ] Every commit has debt (added/paid/neutral) if applicable
+- [ ] Epic assigned for commits part of multi-commit initiatives
+- [ ] Semver assigned (patch/minor/major) if applicable
 - [ ] Tags reflect FULL message content (subject + body)
 
 ### Step 5: Aggregate to Dashboard
@@ -256,8 +260,8 @@ Process pending batch files one at a time:
    ```bash
    cat <<'EOF' | node scripts/merge-analysis.js <repo>
    {"commits": [
-     {"sha": "abc123", "tags": ["feature", "ui"], "complexity": 2, "urgency": 1, "impact": "user-facing"},
-     {"sha": "def456", "tags": ["bugfix"], "complexity": 1, "urgency": 3, "impact": "user-facing"}
+     {"sha": "abc123", "tags": ["feature", "ui"], "complexity": 2, "urgency": 1, "impact": "user-facing", "risk": "medium", "debt": "neutral", "epic": "dashboard-redesign", "semver": "minor"},
+     {"sha": "def456", "tags": ["bugfix"], "complexity": 1, "urgency": 3, "impact": "user-facing", "risk": "low", "semver": "patch"}
    ]}
    EOF
    ```
@@ -270,7 +274,7 @@ Process pending batch files one at a time:
 - `stop` - End session (progress saved via manifest)
 
 **Why merge-analysis.js? (Optimized workflow)**
-- AI outputs **only analysis fields** (sha, tags, complexity, urgency, impact)
+- AI outputs **only analysis fields** (sha, tags, complexity, urgency, impact, and optionally risk, debt, epic, semver)
 - Script merges with full git data from `reports/<repo>/commits/<sha>.json`
 - **~10x reduction in AI output tokens** (50-80 vs 500-800 per commit)
 - Faster processing, lower cost, same quality
@@ -342,6 +346,12 @@ The local extraction (`extract.js --clone`) does not have these limitations sinc
 - `complexity` - Score 1-5
 - `urgency` - Score 1-5
 - `impact` - One of: internal, user-facing, infrastructure, api
+
+**Optional analysis fields (validated when present):**
+- `risk` - One of: low, medium, high
+- `debt` - One of: added, paid, neutral
+- `epic` - Free-text string (initiative grouping)
+- `semver` - One of: patch, minor, major
 
 ### When Validation Fails
 
@@ -571,22 +581,65 @@ Based on who/what is affected by the change:
 - `merge` commits are typically `internal` unless the PR description indicates otherwise
 - Documentation about user features is `user-facing`; dev docs are `internal`
 
+### Risk Level
+
+Separate from complexity — measures how dangerous the change is if something goes wrong.
+
+| Risk | Description | When to Use |
+|------|-------------|-------------|
+| `low` | Minimal chance of breakage | Docs, formatting, config, UI-only CSS, comments |
+| `medium` | Could cause issues if incorrect | New features, refactors, dependency updates, moderate logic changes |
+| `high` | Touches critical paths | Auth, payments, data integrity, security fixes, database schemas, production infrastructure |
+
+**Key question:** "What's the worst that happens if this is wrong?" Low = minor inconvenience. Medium = some users affected. High = security breach, data loss, or outage.
+
+### Debt Tracking
+
+Tracks whether tech debt is accumulating or shrinking over time.
+
+| Debt | Description | When to Use |
+|------|-------------|-------------|
+| `added` | Introduced shortcuts or known limitations | TODOs, workarounds, hacks, "good enough for now" solutions |
+| `paid` | Cleaned up existing tech debt | Refactored hacks, removed workarounds, fixed long-standing issues |
+| `neutral` | Neither added nor reduced tech debt | Standard feature work, bug fixes, most commits |
+
+**Default:** Most commits are `neutral`. Only use `added` for conscious shortcuts, and `paid` for deliberate cleanup work.
+
+### Epic Assignment
+
+Groups commits to multi-commit initiatives for effort tracking.
+
+- Use a short, lowercase, hyphenated label (e.g., `dark-mode`, `auth-v2`, `react-migration`)
+- Reuse the same label across all commits for one initiative
+- Leave blank for standalone commits not tied to a larger effort
+- Epics can span multiple repos
+
+### Semver Classification
+
+Classifies changes by release type for changelog and release tracking.
+
+| Semver | Description | Signals |
+|--------|-------------|---------|
+| `patch` | Bug fix, no new functionality | Fix commits, corrections, typos |
+| `minor` | New feature, backward compatible | Feature commits, enhancements |
+| `major` | Breaking change | API changes, schema migrations, tag `api-breaking` |
+
 ### Examples
 
-| Commit Subject | Tags | Complexity | Urgency | Impact |
-|----------------|------|------------|---------|--------|
-| "Add dark mode toggle" | `feature`, `ui` | 2 | 1 | user-facing |
-| "Fix crash on startup" | `bugfix` | 2 | 4 | user-facing |
-| "Fix XSS vulnerability in login" | `bugfix`, `vulnerability`, `sanitization` | 3 | 5 | user-facing |
-| "Refactor auth module" | `refactor`, `types` | 3 | 1 | internal |
-| "Update session notes" | `docs` | 1 | 2 | internal |
-| "Add comments explaining auth flow" | `comments` | 1 | 1 | internal |
-| "Merge pull request #42" | `merge` | 1 | 2 | internal |
-| "Upgrade React to v19" | `dependency-update`, `migration` | 4 | 2 | internal |
-| "Add user API endpoint" | `feature`, `endpoint`, `api` | 3 | 2 | api |
-| "Optimize image loading" | `performance`, `ux` | 2 | 2 | user-facing |
-| "HOTFIX: Production DB timeout" | `hotfix`, `database`, `performance` | 2 | 5 | infrastructure |
-| "Add GitHub Actions workflow" | `ci` | 2 | 1 | infrastructure |
+| Commit Subject | Tags | Complexity | Urgency | Impact | Risk | Debt | Epic | Semver |
+|----------------|------|------------|---------|--------|------|------|------|--------|
+| "Add dark mode toggle" | `feature`, `ui` | 2 | 1 | user-facing | low | neutral | dark-mode | minor |
+| "Fix crash on startup" | `bugfix` | 2 | 4 | user-facing | medium | neutral | | patch |
+| "Fix XSS vulnerability in login" | `bugfix`, `vulnerability`, `sanitization` | 3 | 5 | user-facing | high | neutral | | patch |
+| "Refactor auth module" | `refactor`, `types` | 3 | 1 | internal | medium | paid | auth-v2 | |
+| "Update session notes" | `docs` | 1 | 2 | internal | low | neutral | | |
+| "Add comments explaining auth flow" | `comments` | 1 | 1 | internal | low | neutral | | |
+| "Merge pull request #42" | `merge` | 1 | 2 | internal | low | neutral | | |
+| "Upgrade React to v19" | `dependency-update`, `migration` | 4 | 2 | internal | medium | paid | react-migration | minor |
+| "Add user API endpoint" | `feature`, `endpoint`, `api` | 3 | 2 | api | medium | neutral | auth-v2 | minor |
+| "Optimize image loading" | `performance`, `ux` | 2 | 2 | user-facing | low | neutral | | patch |
+| "HOTFIX: Production DB timeout" | `hotfix`, `database`, `performance` | 2 | 5 | infrastructure | high | added | | patch |
+| "Add GitHub Actions workflow" | `ci` | 2 | 1 | infrastructure | low | neutral | | |
 
 ---
 
@@ -604,17 +657,27 @@ Based on who/what is affected by the change:
   "complexity": 3,
   "urgency": 2,
   "impact": "user-facing",
+  "risk": "high",
+  "debt": "neutral",
+  "epic": "auth-v2",
+  "semver": "minor",
   "files_changed": 5,
   "lines_added": 120,
   "lines_deleted": 15
 }
 ```
 
-**Field descriptions:**
+**Required fields:**
 - `tags` - Array of strings from the tag list (multiple allowed)
 - `complexity` - Integer 1-5 (scope/difficulty of change)
 - `urgency` - Integer 1-5 (how critical was this change)
 - `impact` - One of: `internal`, `user-facing`, `infrastructure`, `api`
+
+**Optional fields (recommended for richer reporting):**
+- `risk` - One of: `low`, `medium`, `high` — how risky is the change, independent of complexity
+- `debt` - One of: `added`, `paid`, `neutral` — does this commit add or pay down tech debt
+- `epic` - Free-text string — groups commits to a feature/initiative (e.g., `auth-v2`, `dashboard-redesign`)
+- `semver` - One of: `patch`, `minor`, `major` — what release type this change warrants
 
 ### Metadata Object
 
@@ -634,4 +697,4 @@ Based on who/what is affected by the change:
 
 ---
 
-*Last updated: 2026-01-23 - Updated batch size to 25, fixed markdown formatting*
+*Last updated: 2026-02-15 - Added optional fields: risk, debt, epic, semver*

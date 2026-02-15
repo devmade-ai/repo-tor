@@ -7,6 +7,15 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-15):**
+- **Add Risk, Debt, Epic, Semver Fields** - Four new optional commit metadata fields added end-to-end:
+  - **Risk** (`low|medium|high`) — Change risk level independent of complexity
+  - **Debt** (`added|paid|neutral`) — Tech debt tracking for trend analysis
+  - **Epic** (free-text) — Group commits to initiatives for effort reporting
+  - **Semver** (`patch|minor|major`) — Release type classification
+  - Pipeline: extract.js, extract-api.js initialize null; merge-analysis.js and save-commit.js validate when present; aggregate-processed.js computes breakdowns (overall, monthly, per-contributor)
+  - Dashboard: HealthTab shows Risk Assessment bars and Debt Balance with net indicator + Debt Trend chart; ProgressTab shows Epic ("Work by Initiative") breakdown and Semver ("Change Types") doughnut; SummaryTab shows risk/debt in Key Highlights when data exists
+  - All sections conditionally render — existing data without these fields works unchanged
+  - Docs: COMMIT_CONVENTION.md, EXTRACTION_PLAYBOOK.md, commit-msg hook all updated
 - **Fix extract-api.js Missing Commits** - API extraction was missing 6 commits in canva-grid and 1 in model-pear. Root cause: `fetchCommitList()` used a manual `?page=N` loop instead of the `ghApi()` helper's `--paginate` flag. Manual pagination misses commits when the API reorders results between page requests. Fixed by replacing the manual loop with `ghApi(endpoint, { paginate: true })`. Removed untested warning from TODO.md.
 
 **Previous Updates (2026-02-13):**
