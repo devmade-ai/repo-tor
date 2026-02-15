@@ -1,0 +1,38 @@
+{
+  "sha": "58ccdf8",
+  "fullSha": "58ccdf8cca5aba70f857318fe2a881209f31069b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-13T07:48:01+00:00",
+  "commitDate": "2026-01-13T07:48:01+00:00",
+  "subject": "Redesign Layout tab with sub-tabs and unified cell selector",
+  "body": "- Add sub-tabs: Presets, Structure, Alignment, Placement\n- Create reusable CellGrid component for consistent cell selection\n- Presets tab: quick layout type + preset selection with image position\n- Structure tab: fine-tune rows/columns, sizes, subdivisions\n- Alignment tab: click cell to edit (none = all cells), H/V alignment\n- Placement tab: click cell then assign text groups with quick buttons\n- Purple highlight for selected editing cell, blue for image cell\n- Reduces visual clutter by organizing controls by purpose",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Redesign Layout tab with sub-tabs and unified cell selector",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 555,
+    "deletions": 333
+  },
+  "files": [
+    "src/components/LayoutSelector.jsx"
+  ],
+  "repo_id": "canva-grid"
+}

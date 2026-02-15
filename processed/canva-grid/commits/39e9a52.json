@@ -1,0 +1,31 @@
+{
+  "sha": "39e9a52",
+  "fullSha": "39e9a521b61e91ca1c3614dce172bf2af35f290d",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "author_id": "devmade.ai@gmail.com",
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T23:16:34+00:00",
+  "commitDate": "2026-01-21T23:16:34+00:00",
+  "subject": "Fix pull-to-refresh more aggressively",
+  "body": "- Add overscroll-behavior: none to html element inline\n- Add overscroll-behavior-y: contain to html and #root in CSS\n- Add touch-action: pan-x pan-y to prevent browser gesture hijacking\n\nThe previous fix only applied to body which isn't enough for all browsers.",
+  "stats": {
+    "filesChanged": 2,
+    "additions": 10,
+    "deletions": 1
+  },
+  "tags": [
+    "fix",
+    "ui",
+    "mobile"
+  ],
+  "complexity": 2,
+  "urgency": 2,
+  "impact": "user-facing",
+  "repo_id": "canva-grid"
+}

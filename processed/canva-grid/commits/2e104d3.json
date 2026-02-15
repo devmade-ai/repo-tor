@@ -1,0 +1,41 @@
+{
+  "sha": "2e104d3",
+  "fullSha": "2e104d32c95481a1977b51079b8a55c9ff136085",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-03T21:03:12Z",
+  "commitDate": "2026-02-03T21:03:12Z",
+  "subject": "Add PWA install instructions for Firefox and Safari",
+  "body": "- Add browser detection to usePWAInstall hook\n- Create InstallInstructionsModal with browser-specific steps\n- Show manual install button for browsers without beforeinstallprompt\n- Update user guide with comprehensive PWA installation section\n- Support Chrome, Edge, Brave (automatic), Safari, Firefox (manual)\n\nhttps://claude.ai/code/session_01SAWXEw6gLFRXxhYet6GSxp",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Add PWA install instructions for Firefox and Safari",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 327,
+    "deletions": 8
+  },
+  "files": [
+    "docs/USER_GUIDE.md",
+    "src/App.jsx",
+    "src/components/InstallInstructionsModal.jsx",
+    "src/hooks/usePWAInstall.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

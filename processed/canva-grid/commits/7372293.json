@@ -1,0 +1,50 @@
+{
+  "sha": "7372293",
+  "fullSha": "7372293eba3d2057e75656d999732dc5ea397182",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-28T21:10:24Z",
+  "commitDate": "2026-01-28T21:10:24Z",
+  "subject": "Add semantic color tokens for light/dark mode",
+  "body": "Created CSS variables and Tailwind tokens for consistent theming:\n\nCSS Variables (in index.css):\n- --color-text-default/muted/subtle/faint for text\n- --color-surface/elevated/inset/hover for backgrounds\n- --color-border/subtle/strong for borders\n\nTailwind Config (ui namespace):\n- text-ui-text, text-ui-text-muted, etc.\n- bg-ui-surface, bg-ui-surface-elevated, etc.\n- border-ui-border, border-ui-border-subtle, etc.\n\nRefactored components to use semantic classes instead of\npaired light/dark classes (e.g., text-ui-text-muted instead\nof text-zinc-600 dark:text-zinc-300).\n\nThis makes color maintenance easier and ensures consistency.\n\nhttps://claude.ai/code/session_01AQxUcta7zmziDFsrmzzuTm",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "Add semantic color tokens for light/dark mode",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 266,
+    "deletions": 206
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/CollapsibleSection.jsx",
+    "src/components/ContentTab.jsx",
+    "src/components/ErrorBoundary.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/LayoutTab.jsx",
+    "src/components/LogoUploader.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/PlatformPreview.jsx",
+    "src/components/StyleTab.jsx",
+    "src/components/TemplatesTab.jsx",
+    "src/index.css",
+    "tailwind.config.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

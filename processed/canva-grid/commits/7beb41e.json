@@ -1,0 +1,41 @@
+{
+  "sha": "7beb41e",
+  "fullSha": "7beb41e5e73587cc449db8a0f0251d192a4d051b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-13T06:39:12Z",
+  "commitDate": "2026-02-13T06:39:12Z",
+  "subject": "Replace technical jargon with plain language across all UI tabs",
+  "body": "StyleTab:\n- Typography → Fonts\n- Overlay → Color Tint, Enable Overlay → Enable Color Tint\n- Opacity → Transparency\n- Global Padding → Overall Spacing, Custom padding → Custom spacing\n- Frame % → Border %, % of padding as border → % of spacing used as border\n\nMediaTab:\n- Image Overlay → Image Color Tint\n- Overlay → Color Tint\n- Opacity → Transparency\n\nTemplatesTab:\n- Aspect Ratio → Shape\n- \"Looks apply overlay\" → \"Looks apply color tints\"\n\nContentTab:\n- \"Supports **markdown** formatting\" → \"Supports **bold** and *italic* formatting\"\n- Freeform placeholder: \"Write text or **markdown**...\" → \"Write text here... use **bold** or *italic*\"\n\nhttps://claude.ai/code/session_013hywBGVNYi6RR3sQcDG3b7",
+  "tags": [
+    "ux",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Replace technical jargon with plain language across all UI tabs",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 18,
+    "deletions": 18
+  },
+  "files": [
+    "src/components/ContentTab.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/StyleTab.jsx",
+    "src/components/TemplatesTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

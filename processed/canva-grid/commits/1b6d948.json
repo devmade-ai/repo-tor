@@ -1,0 +1,45 @@
+{
+  "sha": "1b6d948",
+  "fullSha": "1b6d948e4bf477e809bf4fc3e8edbe32aa9ece57",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-13T15:41:15+00:00",
+  "commitDate": "2026-01-13T15:41:15+00:00",
+  "subject": "Add image presets, filters, per-cell overlays, padding, and merge media tabs",
+  "body": "Features:\n- Image style presets (Dramatic Dark, Vintage, Cinematic, etc.)\n- Image filters (sepia, blur, contrast, brightness)\n- Per-cell overlay controls in Layout > Overlay sub-tab\n- Global and per-cell padding in Layout > Spacing sub-tab\n- Merged Logo tab into Media tab for unified controls\n\nState changes:\n- imageGrayscale -> imageFilters object\n- Added layout.cellOverlays for per-cell overlay config\n- Added padding state with global and cellOverrides",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "urgency": 2,
+  "impact": "user-facing",
+  "scope": null,
+  "title": "Add image presets, filters, per-cell overlays, padding, and merge media tabs",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 778,
+    "deletions": 72
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/App.jsx",
+    "src/components/AdCanvas.jsx",
+    "src/components/ImageUploader.jsx",
+    "src/components/LayoutSelector.jsx",
+    "src/config/layouts.js",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid"
+}

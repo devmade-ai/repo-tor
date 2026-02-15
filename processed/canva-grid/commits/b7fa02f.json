@@ -1,0 +1,40 @@
+{
+  "sha": "b7fa02f",
+  "fullSha": "b7fa02f5f75d219a30014d66154176048ac3e51e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T15:58:17Z",
+  "commitDate": "2026-02-10T15:58:17Z",
+  "subject": "Fix tab wiring for global selectedCell model",
+  "body": "- StyleTab: Remove toggle-to-null handlers, null guards, deselect buttons,\n  and overview sections since selectedCell is always valid (never null)\n- ContentTab: Add lower bound check for activeCell clamping\n- MediaTab: Accept selectedCell prop, auto-select image assigned to the\n  globally selected cell when cell changes\n- Fix extra closing div in StyleTab Spacing section\n\nhttps://claude.ai/code/session_019YL8HqtDyFThqCbsD6PaYo",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Fix tab wiring for global selectedCell model",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 27,
+    "deletions": 93
+  },
+  "files": [
+    "src/components/ContentTab.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/StyleTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

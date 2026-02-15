@@ -1,0 +1,39 @@
+{
+  "sha": "d54b9f1",
+  "fullSha": "d54b9f1ecf3c65c11c88aba06a4243d7617be574",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-13T07:22:46Z",
+  "commitDate": "2026-02-13T07:22:46Z",
+  "subject": "Apply code standards audit: track TODO in docs, remove inline TODO comment",
+  "body": "- Removed inline TODO comment from App.jsx:94 (tracked in docs/TODO.md)\n- Added 3 audit findings to docs/TODO.md:\n  - Calculate imageAspectRatio from first image (was untracked TODO)\n  - Sanitize markdown HTML output (dangerouslySetInnerHTML security note)\n  - Extract large components exceeding 800-line threshold\n\nhttps://claude.ai/code/session_01EKjReTMSAX1XsGEtZxhQuf",
+  "tags": [
+    "refactor",
+    "cleanup"
+  ],
+  "complexity": 1,
+  "scope": null,
+  "title": "Apply code standards audit: track TODO in docs, remove inline TODO comment",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 4,
+    "deletions": 1
+  },
+  "files": [
+    "docs/TODO.md",
+    "src/App.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}
