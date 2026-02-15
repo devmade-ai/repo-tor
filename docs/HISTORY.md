@@ -2,6 +2,17 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-15
+
+### Fix extract-api.js Missing Commits (Pagination Bug)
+
+**Why:** GitHub API extraction was missing commits — 6 in canva-grid (all by `jacotheron87@gmail.com`) and 1 in model-pear (by `noreply@anthropic.com`). Root cause: `fetchCommitList()` used a manual `?page=N` loop calling `gh()` directly, bypassing the `ghApi()` helper that already supported `--paginate`. Manual pagination can miss commits when the API reorders results between page requests.
+
+**Changes:**
+- `scripts/extract-api.js` — Replaced manual pagination loop with single `ghApi(endpoint, { paginate: true })` call. The `gh` CLI's `--paginate` flag follows Link headers for reliable cursor-based traversal, eliminating page boundary gaps.
+
+---
+
 ## 2026-02-13
 
 ### CLAUDE.md — Merge Development Standards

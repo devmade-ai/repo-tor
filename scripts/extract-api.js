@@ -156,33 +156,20 @@ function fetchCommitList() {
     endpoint += `&since=${sinceDate}T00:00:00Z`;
   }
 
-  // Use pagination to get all commits
-  const commits = [];
-  let page = 1;
-  let hasMore = true;
+  // Requirement: Fetch all commits reliably across all pages
+  // Approach: Use gh CLI's built-in --paginate flag via ghApi() helper
+  // Alternatives:
+  //   - Manual ?page=N loop: Rejected - caused missing commits (6 in canva-grid,
+  //     1 in model-pear) when API result ordering shifted between page requests
+  //   - GraphQL API: Rejected - more complex, cursor-based pagination has same
+  //     reliability as gh --paginate with no added benefit
+  const commits = ghApi(endpoint, { paginate: true });
 
-  while (hasMore) {
-    const pageEndpoint = `${endpoint}&page=${page}`;
-    const result = gh(['api', pageEndpoint]);
-
-    if (!result) break;
-
-    const pageCommits = JSON.parse(result);
-    if (pageCommits.length === 0) {
-      hasMore = false;
-    } else {
-      commits.push(...pageCommits);
-      console.log(`  Fetched page ${page} (${commits.length} commits so far)...`);
-      page++;
-
-      // Safety limit
-      if (page > 100) {
-        console.log('  Warning: Hit 100 page limit (10,000 commits)');
-        hasMore = false;
-      }
-    }
+  if (!commits || !Array.isArray(commits)) {
+    return [];
   }
 
+  console.log(`  Fetched ${commits.length} commits`);
   return commits;
 }
 

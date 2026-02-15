@@ -314,6 +314,17 @@ git push
 
 ---
 
+## GitHub API Limitations
+
+The API extraction (`extract-api.js`) has these constraints:
+
+- **Default branch only** — The GitHub REST API commits endpoint returns commits from the default branch (main/master). Commits on unmerged feature branches are not included.
+- **Rate limits** — Authenticated requests: 5,000/hour. Each commit needs a detail fetch, so repos with 5,000+ commits may hit limits.
+
+The local extraction (`extract.js --clone`) does not have these limitations since it uses `git log` directly.
+
+---
+
 ## Validation & Reprocessing
 
 ### What Gets Validated
