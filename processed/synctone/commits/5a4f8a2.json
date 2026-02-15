@@ -1,0 +1,43 @@
+{
+  "sha": "5a4f8a2",
+  "fullSha": "5a4f8a22c8fe83347c3143cc9982fd469d0b6cd0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-06T20:44:06Z",
+  "commitDate": "2026-02-06T20:44:06Z",
+  "subject": "fix: move beforeinstallprompt capture to root layout and collapse tone selector",
+  "body": "PWA install: The beforeinstallprompt listener was in usePWAInstall.ts\nmodule scope, but that module isn't imported until home.tsx mounts -\nby then the event has already fired. Move the capture to _layout.tsx\n(the first module to load) using window globals.\n\nTone selector: The full tone panel appeared on first keystroke, causing\na jarring layout shift that pushed the input down. Replace with a\ncollapsed toggle bar showing \"Add tone\" or selected tone pills. Users\ntap to expand the full selector only when they want it.\n\nhttps://claude.ai/code/session_018ZB9XMkqc1vAptBu6iusNY",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux",
+    "refactor"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "move beforeinstallprompt capture to root layout and collapse tone selector",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 108,
+    "deletions": 46
+  },
+  "files": [
+    "app/_layout.tsx",
+    "components/ComposeBar.tsx",
+    "docs/HISTORY.md",
+    "hooks/usePWAInstall.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,52 @@
+{
+  "sha": "0cfacef",
+  "fullSha": "0cfacef61306cf13c72668a541f7e3b52fb2a204",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-11T06:26:48Z",
+  "commitDate": "2026-02-11T06:26:48Z",
+  "subject": "fix: resolve 5 race conditions and replace hacks with proper solutions",
+  "body": "Race conditions fixed:\n- useMessages: stale closure in sendMessage via messagesRef\n- useMessages: polling version counter to skip stale results\n- useMessages: subscribe-before-fetch to close subscription gap\n- useChats: debounce + fetch counter for concurrent fetchChats\n- useReactions: pending ops tracking to prevent realtime double-count\n\nHacks replaced:\n- onesignal: OneSignalDeferred callbacks instead of 100ms polling loop\n- onesignal: state-checking loop instead of arbitrary setTimeout(500)\n- ComposeBar: requestAnimationFrame instead of setTimeout(100)\n- home: removed temporary PWADebugBanner component\n\nCode quality:\n- Extracted magic numbers to named constants across 6 files\n- Added \"Fix root causes\" principle to CLAUDE.md\n\nhttps://claude.ai/code/session_015eDAMCyYtCCyqrg7YDhveR",
+  "tags": [
+    "bugfix",
+    "refactor",
+    "performance"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "resolve 5 race conditions and replace hacks with proper solutions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 298,
+    "deletions": 597
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/home.tsx",
+    "components/ChatHeaderMenu.tsx",
+    "components/ChatPanel.tsx",
+    "components/ComposeBar.tsx",
+    "components/InAppNotification.tsx",
+    "components/MessageBubble.tsx",
+    "components/PWADebugBanner.tsx",
+    "docs/HISTORY.md",
+    "hooks/useChats.ts",
+    "hooks/useMessages.ts",
+    "hooks/useReactions.ts",
+    "services/onesignal.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "internal"
+}

@@ -1,0 +1,41 @@
+{
+  "sha": "b562b7a",
+  "fullSha": "b562b7aca68e7cfe7259409e19954a75b6b8ad20",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T21:36:31Z",
+  "commitDate": "2026-02-10T21:36:31Z",
+  "subject": "fix: suppress OneSignal auto-prompt slidedown",
+  "body": "OneSignal SDK was auto-showing its \"subscribe to news and updates\"\nslidedown prompt independently of our Settings modal. Added autoPrompt\nand autoRegister flags to suppress it in both init locations.\n\nhttps://claude.ai/code/session_018NrJiMtPGf7KmYUgKG9yCq",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "suppress OneSignal auto-prompt slidedown",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 34,
+    "deletions": 1
+  },
+  "files": [
+    "app/+html.tsx",
+    "docs/HISTORY.md",
+    "docs/USER_ACTIONS.md",
+    "services/onesignal.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

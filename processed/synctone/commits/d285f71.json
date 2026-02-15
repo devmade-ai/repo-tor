@@ -1,0 +1,44 @@
+{
+  "sha": "d285f71",
+  "fullSha": "d285f7179223a3eaa243e428b865b00078cc0f00",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-11T08:44:38Z",
+  "commitDate": "2026-02-11T08:44:38Z",
+  "subject": "Add app diagnostics tab to debug banner for testing race condition fixes",
+  "body": "- Created utils/debugLog.ts: lightweight in-memory event log with subscriber pattern\n- Added diagnostic logging to useMessages: subscribe-before-fetch, merge logic,\n  poll staleness detection, realtime dedup, messagesRef usage\n- Added diagnostic logging to useChats: fetch counter staleness, debounce coalescing\n- Added diagnostic logging to useReactions: pending ops tracking, poll skip reasons\n- Added diagnostic logging to onesignal.ts: SDK deferred callback, subscription\n  state-checking loop with iteration count and timing\n- Updated PWADebugBanner with two tabs (App/PWA), color-coded sources, clear/copy\n\nhttps://claude.ai/code/session_015eDAMCyYtCCyqrg7YDhveR",
+  "tags": [
+    "feature",
+    "monitoring",
+    "logging"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Add app diagnostics tab to debug banner for testing race condition fixes",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 279,
+    "deletions": 78
+  },
+  "files": [
+    "components/PWADebugBanner.tsx",
+    "hooks/useChats.ts",
+    "hooks/useMessages.ts",
+    "hooks/useReactions.ts",
+    "services/onesignal.ts",
+    "utils/debugLog.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}
