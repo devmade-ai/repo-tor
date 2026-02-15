@@ -1,0 +1,44 @@
+{
+  "sha": "8ecb202",
+  "fullSha": "8ecb202a2e817b8f6bd4901088f40c6df9bd4471",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-24T22:05:02Z",
+  "commitDate": "2026-01-24T22:05:02Z",
+  "subject": "Add multi-image system and frame borders",
+  "body": "Multi-image system:\n- Image library: Upload multiple images to shared pool\n- Per-cell assignment: Assign different images to different cells\n- Per-cell settings: fit, position, filters per image\n- Redesigned MediaTab with cell selector and image library\n\nFrame system:\n- Outer frame: Colored border around entire canvas\n- Per-cell frames: Colored borders within individual cells\n- Frame width as percentage of padding (keeps dimensions stable)\n- Controls added to Style > Spacing section\n\nBreaking changes:\n- Removed: image, imageObjectFit, imagePosition, imageFilters, layout.imageCell\n- Added: images[], cellImages{}, frame{}",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "Add multi-image system and frame borders",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 792,
+    "deletions": 300
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/App.jsx",
+    "src/components/AdCanvas.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/StyleTab.jsx",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "social-ad-creator",
+  "urgency": 2,
+  "impact": "user-facing"
+}

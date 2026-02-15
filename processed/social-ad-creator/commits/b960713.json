@@ -1,0 +1,39 @@
+{
+  "sha": "b960713",
+  "fullSha": "b9607133a00f27875d8cf651b70e2d982ddd3f6a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-27T17:23:07Z",
+  "commitDate": "2026-01-27T17:23:07Z",
+  "subject": "Rename Complete Designs to Looks with simplified presets",
+  "body": "Replace complex style presets with focused \"Looks\" that only apply:\n- Overlay (type, color, opacity)\n- Fonts (title/body)\n- Text alignment (horizontal/vertical)\n- Image filters (grayscale, sepia, blur, contrast, brightness)\n\nLooks no longer change theme or layout structure - those are now\nindependent preset categories in the Presets tab.\n\n12 looks organized into 4 categories:\n- Clean: Clean, Minimal, Soft\n- Bold: Bold, Dramatic, Punch\n- Vintage: Vintage, Retro, Film\n- Noir: Noir, Mono, Duotone\n\nhttps://claude.ai/code/session_01UGQ1gnJBpkhWY5hT3GXvNF",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Rename Complete Designs to Looks with simplified presets",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 210,
+    "deletions": 733
+  },
+  "files": [
+    "src/components/TemplatesTab.jsx",
+    "src/config/stylePresets.js",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "social-ad-creator",
+  "urgency": 2,
+  "impact": "user-facing"
+}
