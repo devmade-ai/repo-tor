@@ -1,0 +1,56 @@
+{
+  "sha": "b4bda0a",
+  "fullSha": "b4bda0a865f3f8db0353b4364fb534078eb2fa7c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T19:26:40Z",
+  "commitDate": "2026-02-10T19:26:40Z",
+  "subject": "fix: complete remaining 7 post-migration issues (22/22 done)",
+  "body": "- FilterSidebar ARIA: aria-expanded, aria-haspopup, role=\"listbox\",\n  role=\"option\", aria-selected, aria-pressed, Escape to close\n- Focus trap: shared useFocusTrap hook for DetailPane and SettingsPane\n- Body overflow: centralized in App.jsx (watches both panes)\n- State sync: synchronous inline assignment replaces async useEffect\n- fileNameCache: moved to useRef in DiscoverTab (no unbounded growth)\n- Clickable divs: handleKeyActivate on all 17 interactive elements\n- Dead escapeHtml removed from utils.js\n\nhttps://claude.ai/code/session_019r6spa5nEWMTFU4BeyoAwk",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "refactor"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "complete remaining 7 post-migration issues (22/22 done)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 18,
+    "additions": 195,
+    "deletions": 79
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/components/DetailPane.jsx",
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/SettingsPane.jsx",
+    "dashboard/js/hooks/useFocusTrap.js",
+    "dashboard/js/tabs/ContributorsTab.jsx",
+    "dashboard/js/tabs/DiscoverTab.jsx",
+    "dashboard/js/tabs/HealthTab.jsx",
+    "dashboard/js/tabs/ProgressTab.jsx",
+    "dashboard/js/tabs/SecurityTab.jsx",
+    "dashboard/js/tabs/SummaryTab.jsx",
+    "dashboard/js/tabs/TagsTab.jsx",
+    "dashboard/js/tabs/TimelineTab.jsx",
+    "dashboard/js/utils.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

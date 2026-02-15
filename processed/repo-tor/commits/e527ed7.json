@@ -1,0 +1,57 @@
+{
+  "sha": "e527ed7",
+  "fullSha": "e527ed77bb7cf2c7cbd827b828d51b910b97dfdc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T17:03:51Z",
+  "commitDate": "2026-02-10T17:03:51Z",
+  "subject": "refactor: split tabs.js into modules, add template helpers, complete event delegation",
+  "body": "Document the vanilla JS architecture decision in ADR-001. Extract repeated\nurgency/impact bar HTML into renderUrgencyBar() and renderImpactBar() helpers.\nMigrate all remaining addEventListener with init flags into the single delegated\nhandler on #dashboard. Split the 2,100-line tabs.js into 10 focused modules\nunder js/tabs/ with a barrel re-export for backward compatibility.\n\nhttps://claude.ai/code/session_01Cj739F753Y8g8Ba6PG7nvR",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "split tabs.js into modules, add template helpers, complete event delegation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "ADR-001"
+  ],
+  "stats": {
+    "filesChanged": 19,
+    "additions": 2179,
+    "deletions": 2104
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/state.js",
+    "dashboard/js/tabs.js",
+    "dashboard/js/tabs/contributors.js",
+    "dashboard/js/tabs/delegated-handlers.js",
+    "dashboard/js/tabs/discover.js",
+    "dashboard/js/tabs/health.js",
+    "dashboard/js/tabs/index.js",
+    "dashboard/js/tabs/progress.js",
+    "dashboard/js/tabs/security.js",
+    "dashboard/js/tabs/summary.js",
+    "dashboard/js/tabs/tags.js",
+    "dashboard/js/tabs/timeline.js",
+    "dashboard/js/tabs/timing.js",
+    "dashboard/js/utils.js",
+    "docs/ADR-001-vanilla-js.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

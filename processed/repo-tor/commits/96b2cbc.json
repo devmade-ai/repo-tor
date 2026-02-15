@@ -1,0 +1,53 @@
+{
+  "sha": "96b2cbc",
+  "fullSha": "96b2cbc6e758a3cf7b8610eae8e554c81b9b7f8f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T20:32:47Z",
+  "commitDate": "2026-02-10T20:32:47Z",
+  "subject": "fix: convert all scripts to ESM, fix command injection, extract shared modules",
+  "body": "Security fixes:\n- Replace all execSync() with execFileSync() in extract.js, extract-api.js,\n  and fix-malformed.js — eliminates shell injection risk by passing args as\n  arrays instead of interpolated strings\n- Add SHA validation in fix-malformed.js before using in git commands\n\nESM conversion:\n- Convert all 11 scripts from CommonJS (require) to ESM (import/export)\n- Add __dirname workaround where needed (extract-api.js, aggregate-processed.js,\n  migrate-batches-to-commits.js)\n- Fix update-all.sh inline node command to use --input-type=module with\n  JSON.parse instead of require()\n\nShared modules (scripts/lib/):\n- manifest.js: getManifestPath, readManifest, writeManifest, PROCESSED_DIR\n  (was duplicated across 5 files)\n- commit-parsing.js: parseCommitMessage, extractBreakingChange,\n  extractReferences (was duplicated in extract.js and extract-api.js)\n- stdin.js: readStdin (was duplicated across 3 files)\n- utils.js: toKebabCase, writeJson (was duplicated across 4 files)\n\nNet: -211 lines (325 deleted, 114 added in scripts + 4 new lib files)\nAll scripts pass syntax checks. Dashboard build unchanged.\n\nhttps://claude.ai/code/session_01FkGCpwdZKh3mpjJbisGYHs",
+  "tags": [
+    "security",
+    "refactor"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "convert all scripts to ESM, fix command injection, extract shared modules",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 16,
+    "additions": 225,
+    "deletions": 328
+  },
+  "files": [
+    "scripts/aggregate-processed.js",
+    "scripts/aggregate.js",
+    "scripts/extract-api.js",
+    "scripts/extract.js",
+    "scripts/fix-malformed.js",
+    "scripts/lib/commit-parsing.js",
+    "scripts/lib/manifest.js",
+    "scripts/lib/stdin.js",
+    "scripts/lib/utils.js",
+    "scripts/manifest-update.js",
+    "scripts/merge-analysis.js",
+    "scripts/migrate-batches-to-commits.js",
+    "scripts/pending.js",
+    "scripts/save-batch.js",
+    "scripts/save-commit.js",
+    "scripts/update-all.sh"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

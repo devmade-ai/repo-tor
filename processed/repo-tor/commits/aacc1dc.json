@@ -1,0 +1,47 @@
+{
+  "sha": "aacc1dc",
+  "fullSha": "aacc1dc5a29c1dffc23c2e8f7017cd40ec8bd4d4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T20:21:22Z",
+  "commitDate": "2026-02-10T20:21:22Z",
+  "subject": "fix: remove dead code, split React context, fix isMobile",
+  "body": "- Remove dead HTML template functions from utils.js that called\n  undefined escapeHtml (renderDrilldownSummary, renderUrgencyBar,\n  renderImpactBar, renderStatCard, getWorkPatternBadges, getTagStyle)\n- Remove dead DOM manipulation functions from state.js\n  (renderSectionGuidance, updateAllSectionGuidance)\n- Trim global state object to only properties read by utils.js\n- Split React context into DispatchContext (stable) and AppStateContext\n  to prevent dispatch-only consumers from re-rendering on state changes\n- Add useAppDispatch() hook for components that only dispatch\n- Change isMobile from useCallback function wrapper to plain boolean\n- Consolidate triplicated default filter definition into DEFAULT_FILTERS\n- Add explicit radix to parseInt calls\n- Build passes: 58 modules, 475KB bundle\n\nhttps://claude.ai/code/session_01FkGCpwdZKh3mpjJbisGYHs",
+  "tags": [
+    "refactor",
+    "performance",
+    "cleanup"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "remove dead code, split React context, fix isMobile",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 62,
+    "deletions": 282
+  },
+  "files": [
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/state.js",
+    "dashboard/js/tabs/ContributorsTab.jsx",
+    "dashboard/js/tabs/HealthTab.jsx",
+    "dashboard/js/tabs/ProgressTab.jsx",
+    "dashboard/js/tabs/TagsTab.jsx",
+    "dashboard/js/tabs/TimelineTab.jsx",
+    "dashboard/js/tabs/TimingTab.jsx",
+    "dashboard/js/utils.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

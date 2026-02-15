@@ -1,0 +1,48 @@
+{
+  "sha": "332a819",
+  "fullSha": "332a8191aab08abf7231984277e9ef90a33e82c3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T17:17:47Z",
+  "commitDate": "2026-02-10T17:17:47Z",
+  "subject": "fix: show filter indicator for defaults, remove privacy mode toggle",
+  "body": "Filter indicator now shows \"X of Y\" whenever any filter is active,\neven when defaults don't reduce the commit count. Privacy mode toggle\nremoved — sanitization is now always-on (names/messages always anonymized).\n\nhttps://claude.ai/code/session_01Cj739F753Y8g8Ba6PG7nvR",
+  "tags": [
+    "bugfix",
+    "ui",
+    "simplify"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "show filter indicator for defaults, remove privacy mode toggle",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 46,
+    "deletions": 92
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/js/export.js",
+    "dashboard/js/filters.js",
+    "dashboard/js/main.js",
+    "dashboard/js/state.js",
+    "dashboard/js/tabs/security.js",
+    "dashboard/js/ui.js",
+    "dashboard/js/utils.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

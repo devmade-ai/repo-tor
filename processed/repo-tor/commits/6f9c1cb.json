@@ -1,0 +1,39 @@
+{
+  "sha": "6f9c1cb",
+  "fullSha": "6f9c1cb53cf22785ecf82804ee7f59250d9dc7d7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-10T21:31:58Z",
+  "commitDate": "2026-02-10T21:31:58Z",
+  "subject": "fix: remove unused exports from state.js and dead import from AppContext",
+  "body": "- Remove SECTION_GUIDANCE, getSectionGuidance(), FILTER_DEFAULTS,\n  and isMobile() from state.js — none were imported after the React\n  migration (section guidance is now in React components, filters use\n  DEFAULT_FILTERS in AppContext, isMobile is a state variable)\n- Remove unused FILTER_DEFAULTS import from AppContext.jsx\n\nhttps://claude.ai/code/session_01FkGCpwdZKh3mpjJbisGYHs",
+  "tags": [
+    "refactor",
+    "cleanup"
+  ],
+  "complexity": 1,
+  "scope": null,
+  "title": "remove unused exports from state.js and dead import from AppContext",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 1,
+    "deletions": 71
+  },
+  "files": [
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/state.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "internal"
+}
