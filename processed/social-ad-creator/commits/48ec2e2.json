@@ -1,0 +1,44 @@
+{
+  "sha": "48ec2e2",
+  "fullSha": "48ec2e287d3f358fedd3a5d94924d1028d94f1ac",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-28T21:34:11Z",
+  "commitDate": "2026-01-28T21:34:11Z",
+  "subject": "Migrate all components to semantic color tokens",
+  "body": "- Convert text colors: text-zinc-* dark:text-zinc-* → text-ui-text-*\n- Convert backgrounds: bg-zinc-* dark:bg-dark-* → bg-ui-surface-*\n- Convert borders: border-zinc-* dark:border-zinc-* → border-ui-border-*\n\nComponents updated:\n- LogoUploader, ContentTab, PlatformPreview\n- TemplatesTab, MediaTab, LayoutTab\n- ExportButtons, StyleTab\n\nCSS reduced from 32.98 kB to 32.13 kB due to fewer classes\n\nhttps://claude.ai/code/session_01AQxUcta7zmziDFsrmzzuTm",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "Migrate all components to semantic color tokens",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 90,
+    "deletions": 90
+  },
+  "files": [
+    "src/components/ContentTab.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/LayoutTab.jsx",
+    "src/components/LogoUploader.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/PlatformPreview.jsx",
+    "src/components/StyleTab.jsx",
+    "src/components/TemplatesTab.jsx"
+  ],
+  "repo_id": "social-ad-creator",
+  "urgency": 2,
+  "impact": "user-facing"
+}

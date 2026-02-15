@@ -1,0 +1,37 @@
+{
+  "sha": "9a498ad",
+  "fullSha": "9a498ad43d4062cdb5227d6227347d9fbc767359",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-27T23:01:42Z",
+  "commitDate": "2026-01-27T23:01:42Z",
+  "subject": "Fix layout presets: text distribution and icon accuracy",
+  "body": "Text overcrowding fixes (moved bodyHeading/bodyText to image cells):\n- stacked-quad: cell 0 had 4 texts in 20% → now 2 texts, others on cell 1\n- tall-feature: cell 0 had 4 texts in 15% → now 2 texts, others on cell 2\n- wide-feature: cell 1 had 4 texts in 20% → now 2 texts, others on cell 2\n- columns-four: cell 3 had 4 texts in 25% → now 2 texts, others on cell 2\n\nSVG icon fixes (show all image cells in blue):\n- quad-grid: cell 3 now blue (diagonal layout)\n- stacked-quad: cell 2 now blue (dual image)\n- header-quad: cell 4 now blue (diagonal layout)\n- wide-feature: cell 0 now blue (dual image)\n- tall-feature: cell 1 now blue (dual image)\n- columns-four: cell 2 now blue (alternating)\n- asymmetric-grid: cell 3 now blue (diagonal layout)\n\nhttps://claude.ai/code/session_01HZt7SXYRodiKgWRiU7R4yL",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "Fix layout presets: text distribution and icon accuracy",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 12,
+    "deletions": 12
+  },
+  "files": [
+    "src/config/layoutPresets.js"
+  ],
+  "repo_id": "social-ad-creator",
+  "urgency": 2,
+  "impact": "user-facing"
+}
