@@ -15,8 +15,8 @@
   "subject": "fix: improve chat scroll performance by reducing unnecessary re-renders",
   "body": "- Reduce reactions polling from 3s to 30s (realtime is primary, polling is safety net)\n- Memoize renderItem and message IDs to prevent defeating MessageBubble memo()\n- Remove permanent CSS transition on message bubbles that caused animation jank during scroll\n- Replace expensive backdrop-filter blur on chat header with opaque background\n\nhttps://claude.ai/code/session_01RuhY87xataw2wxCkMvW18n",
   "tags": [
-    "bugfix",
-    "performance"
+    "performance",
+    "bugfix"
   ],
   "complexity": 3,
   "scope": null,

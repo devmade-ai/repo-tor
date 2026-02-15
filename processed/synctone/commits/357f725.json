@@ -16,7 +16,6 @@
   "body": "Update button was showing after every hard reload even when there was\nno actual update. Root cause: checking registration.waiting on initial\nload which can be a stale worker from same version.\n\nFix: Only show update banner when updatefound event fires (genuinely\nnew SW detected after page load).\n\nAlso improved PWA install on Android Chrome:\n- Added early global event listener to capture beforeinstallprompt\n- Added promptWasReceived flag for better debugging\n- Improved install instructions with context-aware messaging\n\nhttps://claude.ai/code/session_01UG8FWDodaPS8BawVMEsLbc",
   "tags": [
     "bugfix",
-    "ui",
     "ux"
   ],
   "complexity": 3,

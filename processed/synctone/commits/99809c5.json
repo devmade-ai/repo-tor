@@ -1,0 +1,39 @@
+{
+  "sha": "99809c5",
+  "fullSha": "99809c54b4c92451f5a83c6824a9aa4e64624ba9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-04T06:01:42Z",
+  "commitDate": "2026-02-04T06:01:42Z",
+  "subject": "fix: prevent PWA update reload loop and use native notification prompt",
+  "body": "1. PWA Update reload loop fix (usePWAUpdate.ts):\n   - Only reload on controllerchange if user explicitly clicked \"Update Now\"\n   - Use sessionStorage flag to prevent re-triggering after reload\n   - Skip showing update banner after successful update reload\n\n2. Notification prompt fix (onesignal.ts):\n   - Replace OneSignal.Slidedown.promptPush() with native Notification.requestPermission()\n   - Shows clean browser prompt instead of generic \"newsletters and updates\" text\n   - Still properly opts user into OneSignal after permission granted\n\nhttps://claude.ai/code/session_018rFRZaLfJy9YKPWE9AeeCJ",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "prevent PWA update reload loop and use native notification prompt",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 38,
+    "deletions": 9
+  },
+  "files": [
+    "hooks/usePWAUpdate.ts",
+    "services/onesignal.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 4,
+  "impact": "user-facing"
+}

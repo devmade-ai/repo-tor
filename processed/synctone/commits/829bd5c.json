@@ -16,9 +16,7 @@
   "body": "Add \"Change Tones\" action to message action sheet, separate from \"Edit\nMessage\". Tone changes use their own counter (tone_edit_count, max 5)\nindependent of text edit count, sharing the same 15-minute window. No\n\"(edited)\" label shown for tone-only changes since the message content\ndidn't change. New ToneEditModal wraps ToneSelector in a modal with\npre-populated current tones and Save/Cancel buttons.\n\nhttps://claude.ai/code/session_018NrJiMtPGf7KmYUgKG9yCq",
   "tags": [
     "feature",
-    "ui",
-    "database",
-    "schema"
+    "ui"
   ],
   "complexity": 3,
   "scope": null,
@@ -44,6 +42,6 @@
     "types/database.ts"
   ],
   "repo_id": "synctone",
-  "urgency": 2,
+  "urgency": 1,
   "impact": "user-facing"
 }

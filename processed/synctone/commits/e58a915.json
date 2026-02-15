@@ -15,10 +15,9 @@
   "subject": "fix: remove auto-skipWaiting so update banner works",
   "body": "The service worker was auto-activating on install, leaving no\nwaiting worker for the update mechanism. Now waits for explicit\nSKIP_WAITING message from app when user clicks Update.\n\nhttps://claude.ai/code/session_01ALNf4Yu8id9JqyPF1mQb3m",
   "tags": [
-    "bugfix",
-    "config"
+    "bugfix"
   ],
-  "complexity": 2,
+  "complexity": 1,
   "scope": null,
   "title": "remove auto-skipWaiting so update banner works",
   "is_conventional": true,

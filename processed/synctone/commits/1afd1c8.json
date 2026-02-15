@@ -1,0 +1,47 @@
+{
+  "sha": "1afd1c8",
+  "fullSha": "1afd1c810e36faacfb8122b01078c7f61e547cae",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-23T09:47:09Z",
+  "commitDate": "2026-01-23T09:47:09Z",
+  "subject": "feat: reorganize tones by function and improve chat interface",
+  "body": "- Reorganize 37 tones into 29 tones across 4 functional categories:\n  - How I Feel (emotional state): neutral, happy, sad, etc.\n  - What I Mean (intent): joking, serious, sincere, venting, etc.\n  - How I'm Saying It (delivery): casual, direct, gentle, etc.\n  - My Energy (intensity): calm, excited, urgent, hesitant, bold\n- Add tone descriptions shown on hover (web) / long-press (native)\n- Add ChatHeaderMenu with quick actions: edit name, copy code, share, end chat\n- Improve SettingsModal for desktop (centered card, X close button)\n- Add updateChatDisplayName() service function\n- Update documentation\n\nhttps://claude.ai/code/session_01G7zTw1pbENiyx1z9kMCv14",
+  "tags": [
+    "feature",
+    "ui",
+    "ux",
+    "refactor"
+  ],
+  "complexity": 4,
+  "scope": null,
+  "title": "reorganize tones by function and improve chat interface",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 669,
+    "deletions": 170
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "components/ChatHeaderMenu.tsx",
+    "components/SettingsModal.tsx",
+    "components/ToneSelector.tsx",
+    "constants/tones.ts",
+    "docs/HISTORY.md",
+    "services/chat.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 1,
+  "impact": "user-facing"
+}

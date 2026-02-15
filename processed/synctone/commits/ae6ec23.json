@@ -16,8 +16,7 @@
   "body": "Chrome showed \"Add to Home screen\" instead of \"Install app\" because\nbeforeinstallprompt never fired. Root cause: OneSignal SDK registered\nOneSignalSDKWorker.js at scope /, replacing sw.js as the active service\nworker. Since OneSignalSDKWorker.js has no fetch handler, Chrome didn't\nconsider the site an installable PWA.\n\nFix: import OneSignal SDK directly into sw.js via importScripts() and\nconfigure OneSignal init() with serviceWorkerPath: '/sw.js' so it uses\nour SW instead of registering its own. Removed duplicate push handlers\nfrom sw.js (OneSignal SDK handles those). Bumped cache version to v7.\n\nhttps://claude.ai/code/session_01XxJYwPmaaPobqUUoDbvqrB",
   "tags": [
     "bugfix",
-    "config",
-    "hosting"
+    "config"
   ],
   "complexity": 3,
   "scope": null,

@@ -16,8 +16,7 @@
   "body": "The service worker was using stale-while-revalidate for JS/CSS, which\nreturns cached content before checking the network. This meant hard\nreload (Ctrl+Shift+R) still served stale app code from CacheStorage,\nsince CacheStorage is separate from the browser HTTP cache.\n\nChanged to network-first: always fetch latest from network, only fall\nback to cache when offline. Bumped cache version to v6 to clear stale\ncaches for existing users. Also fixed \"banner\" references to \"button\"\nin docs and sw.js comments.\n\nhttps://claude.ai/code/session_012nvsRGG6qvCXSbHiTPwmgX",
   "tags": [
     "bugfix",
-    "caching",
-    "performance"
+    "caching"
   ],
   "complexity": 2,
   "scope": null,

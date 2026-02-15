@@ -16,9 +16,9 @@
   "body": "Simpler, user-initiated approach to PWA install and update:\n\n**Install button** (download icon):\n- Shows when app is installable and not already installed\n- Chromium: triggers native install prompt\n- Safari/Firefox: shows browser-specific instructions via alert\n\n**Update button** (sparkles icon):\n- Shows when service worker update is available\n- Click to apply update and reload\n\nBenefits:\n- No banner dismiss/reappear bugs\n- No timing issues or race conditions\n- User initiates action when ready\n- Cleaner header UI\n- Less code to maintain\n\nRemoved:\n- components/PWABanner.tsx (346 lines)\n- Complex banner show/hide/dismiss state\n\nhttps://claude.ai/code/session_01YbKxdaTUQVeq8u4arrhstf",
   "tags": [
     "refactor",
+    "ui",
     "simplify",
-    "removal",
-    "ui"
+    "removal"
   ],
   "complexity": 3,
   "scope": null,
