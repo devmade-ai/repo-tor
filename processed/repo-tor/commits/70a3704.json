@@ -1,0 +1,40 @@
+{
+  "sha": "70a3704",
+  "fullSha": "70a3704b8be1cc9273df9e1718f05c70781e8bae",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-11T12:28:13Z",
+  "commitDate": "2026-02-11T12:28:13Z",
+  "subject": "fix: use themed text color for tag distribution pie chart legend",
+  "body": "The doughnut chart's generateLabels callback didn't set fontColor, so\nChart.js fell back to using each slice's background color as legend text\ncolor (e.g. green text for \"feature\"). Now explicitly sets fontColor\nfrom --text-secondary CSS variable for readable legend text.\n\nhttps://claude.ai/code/session_018LVcaZpo45DzVqThVLvX6y",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "scope": null,
+  "title": "use themed text color for tag distribution pie chart legend",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 12,
+    "deletions": 1
+  },
+  "files": [
+    "dashboard/js/tabs/TagsTab.jsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

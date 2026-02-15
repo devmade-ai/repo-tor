@@ -1,0 +1,43 @@
+{
+  "sha": "b53215b",
+  "fullSha": "b53215b74d38c88fdb4fe40618546bf929c0c4db",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-11T05:10:45Z",
+  "commitDate": "2026-02-11T05:10:45Z",
+  "subject": "fix: restore missing UI elements lost in React migration",
+  "body": "- Debug banner: now always visible (green \"0 errors\" pill; red error\n  log on errors) instead of hidden until first error\n- Header buttons: restored Install + Update PWA buttons that were\n  dropped during React migration (only Settings gear remained)\n- Tab spacing: wrapped multi-component tabs in space-y-6 divs to add\n  consistent 24px gaps between Activity, Work, and Health sub-sections\n- Chart text: set Chart.defaults.color from --text-secondary and\n  borderColor from --chart-grid for readable legends on dark theme\n\nhttps://claude.ai/code/session_01Tje4UvAHLg9dwTQBsk241a",
+  "tags": [
+    "bugfix",
+    "ui",
+    "migration"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "restore missing UI elements lost in React migration",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 162,
+    "deletions": 46
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/components/Header.jsx",
+    "dashboard/js/main.jsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

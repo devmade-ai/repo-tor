@@ -1,0 +1,43 @@
+{
+  "sha": "826673c",
+  "fullSha": "826673c4adc565bf763d4fc3c39b023e19ba3d76",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-11T04:50:01Z",
+  "commitDate": "2026-02-11T04:50:01Z",
+  "subject": "feat: add debug error banner and force fresh JS/CSS on refresh",
+  "body": "Debug banner captures all JS errors (window.onerror, unhandled\nrejections, React ErrorBoundary) in a fixed red banner with copy\nbutton for easy bug reporting. Works even if React crashes.\n\nPWA now auto-activates new service workers (skipWaiting +\nclientsClaim) with controllerchange reload, so pull-to-refresh\ngets fresh JS/CSS when a new build is deployed.\n\nhttps://claude.ai/code/session_01VdNhbijTAneNuV1vhiNbqL",
+  "tags": [
+    "feature",
+    "monitoring",
+    "config"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "add debug error banner and force fresh JS/CSS on refresh",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 105,
+    "deletions": 0
+  },
+  "files": [
+    "dashboard/js/main.jsx",
+    "dashboard/js/pwa.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

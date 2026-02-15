@@ -1,0 +1,46 @@
+{
+  "sha": "686622c",
+  "fullSha": "686622c210e0cc138057b6c541576e50c07279b3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-11T08:48:56Z",
+  "commitDate": "2026-02-11T08:48:56Z",
+  "subject": "refactor: rename tabs and fix Discover section layout",
+  "body": "Tab renames to better reflect content:\n- Overview → Summary (it summarizes stats from other tabs)\n- Activity → Timeline (content is temporal: charts, heatmaps, timing)\n- Work → Breakdown (decomposes data by type, person, category)\n\nDiscover tab first section fixes:\n- Section title \"Discover\" → \"Metrics\" (redundant with tab name)\n- Move Shuffle button out of CollapsibleSection header (a11y: interactive inside interactive)\n- Add aria-label to pin/unpin buttons\n- Fix select dropdown styling for consistent cross-browser rendering\n\nAlso rename \"Work Summary\" section to \"Summary\" in ProgressTab.\n\nhttps://claude.ai/code/session_01GMATPXzqrajHVAfNycyCuX",
+  "tags": [
+    "refactor",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "scope": null,
+  "title": "rename tabs and fix Discover section layout",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 54,
+    "deletions": 39
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/components/TabBar.jsx",
+    "dashboard/js/tabs/DiscoverTab.jsx",
+    "dashboard/js/tabs/ProgressTab.jsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_GUIDE.md",
+    "docs/USER_TESTING.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}
