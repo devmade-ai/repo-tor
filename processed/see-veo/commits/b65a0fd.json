@@ -1,0 +1,71 @@
+{
+  "sha": "b65a0fd",
+  "fullSha": "b65a0fdd49a98ff9c8f040605644d8eb5e4ad29a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-13T00:17:35Z",
+  "commitDate": "2026-02-13T00:17:35Z",
+  "subject": "feat: create CV PWA with React, Vite, TypeScript, and Tailwind CSS",
+  "body": "Set up a complete Progressive Web App for displaying a personal CV/resume:\n- React + TypeScript + Vite scaffold with Tailwind CSS v4 dark theme\n- PWA support via vite-plugin-pwa (service worker, manifest, offline caching)\n- 7 CV sections: Hero, About, Experience, Education, Skills, Projects, Contact\n- Centralized CV data in src/data/cv-data.ts for easy content updates\n- GitHub Actions workflow for automated deployment to GitHub Pages\n- Print-friendly styles with white background override\n- Responsive design with mobile-first approach\n\nhttps://claude.ai/code/session_01PMUu183L6Vd9RRJskrTWhL",
+  "tags": [
+    "feature",
+    "pwa",
+    "ui",
+    "scaffold",
+    "deployment"
+  ],
+  "complexity": 5,
+  "scope": null,
+  "title": "create CV PWA with React, Vite, TypeScript, and Tailwind CSS",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 31,
+    "additions": 9000,
+    "deletions": 1
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    ".gitignore",
+    "README.md",
+    "eslint.config.js",
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "public/apple-touch-icon.png",
+    "public/favicon.ico",
+    "public/mask-icon.svg",
+    "public/pwa-192x192.png",
+    "public/pwa-512x512.png",
+    "src/App.tsx",
+    "src/components/About.tsx",
+    "src/components/Contact.tsx",
+    "src/components/Education.tsx",
+    "src/components/Experience.tsx",
+    "src/components/Hero.tsx",
+    "src/components/Projects.tsx",
+    "src/components/Section.tsx",
+    "src/components/SkillBadge.tsx",
+    "src/components/Skills.tsx",
+    "src/components/TimelineItem.tsx",
+    "src/data/cv-data.ts",
+    "src/index.css",
+    "src/main.tsx",
+    "src/vite-env.d.ts",
+    "tsconfig.app.json",
+    "tsconfig.json",
+    "tsconfig.node.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "user-facing"
+}
