@@ -10,16 +10,16 @@
  *
  * Input JSON format (from stdin):
  *   {"commits": [
- *     {"sha": "abc123", "tags": ["feature"], "complexity": 2, "urgency": 1, "impact": "user-facing"},
+ *     {"sha": "abc123", "tags": ["feature"], "complexity": 2, "urgency": 1, "impact": "user-facing", "risk": "low", "debt": "neutral", "epic": "dark-mode", "semver": "minor"},
  *     {"sha": "def456", "tags": ["bugfix"], "complexity": 1, "urgency": 3, "impact": "user-facing"}
  *   ]}
  *
  * Or newline-delimited JSON (NDJSON):
- *   {"sha": "abc123", "tags": ["feature"], "complexity": 2, "urgency": 1, "impact": "user-facing"}
+ *   {"sha": "abc123", "tags": ["feature"], "complexity": 2, "urgency": 1, "impact": "user-facing", "risk": "low", "debt": "neutral"}
  *   {"sha": "def456", "tags": ["bugfix"], "complexity": 1, "urgency": 3, "impact": "user-facing"}
  *
  * This script:
- *   1. Reads AI analysis from stdin (minimal: sha + tags + complexity + urgency + impact)
+ *   1. Reads AI analysis from stdin (required: sha + tags + complexity + urgency + impact; optional: risk, debt, epic, semver)
  *   2. Loads raw git data from reports/<repo>/commits/<sha>.json
  *   3. Merges analysis into raw data
  *   4. Saves complete commit to processed/<repo>/commits/<sha>.json
@@ -37,6 +37,15 @@ const REPORTS_DIR = 'reports';
 
 // Required analysis fields from AI
 const ANALYSIS_FIELDS = ['tags', 'complexity', 'urgency', 'impact'];
+
+// Optional analysis fields — validated when present, not required (backward compatible)
+// Requirement: New metadata fields for richer reporting (risk assessment, debt tracking,
+//   epic grouping, semver classification)
+// Approach: Optional fields that validate when present but don't break existing workflows
+// Alternatives: Making them required — rejected because 1163 existing commits lack these fields
+const VALID_RISK = ['low', 'medium', 'high'];
+const VALID_DEBT = ['added', 'paid', 'neutral'];
+const VALID_SEMVER = ['patch', 'minor', 'major'];
 
 // === Raw Commit Loading ===
 
@@ -136,6 +145,23 @@ function validateAnalysis(analysis) {
     errors.push(`impact must be one of: ${validImpacts.join(', ')}`);
   }
 
+  // Optional fields — validate type/value when present
+  if (analysis.risk !== undefined && !VALID_RISK.includes(analysis.risk)) {
+    errors.push(`risk must be one of: ${VALID_RISK.join(', ')}`);
+  }
+
+  if (analysis.debt !== undefined && !VALID_DEBT.includes(analysis.debt)) {
+    errors.push(`debt must be one of: ${VALID_DEBT.join(', ')}`);
+  }
+
+  if (analysis.epic !== undefined && typeof analysis.epic !== 'string') {
+    errors.push('epic must be a string');
+  }
+
+  if (analysis.semver !== undefined && !VALID_SEMVER.includes(analysis.semver)) {
+    errors.push(`semver must be one of: ${VALID_SEMVER.join(', ')}`);
+  }
+
   return errors;
 }
 
@@ -211,7 +237,7 @@ async function main() {
       continue;
     }
 
-    // Merge analysis into raw commit
+    // Merge analysis into raw commit (required + optional fields)
     const mergedCommit = {
       ...rawCommit,
       tags: analysis.tags,
@@ -219,6 +245,12 @@ async function main() {
       urgency: analysis.urgency,
       impact: analysis.impact
     };
+
+    // Merge optional fields when present
+    if (analysis.risk !== undefined) mergedCommit.risk = analysis.risk;
+    if (analysis.debt !== undefined) mergedCommit.debt = analysis.debt;
+    if (analysis.epic !== undefined) mergedCommit.epic = analysis.epic;
+    if (analysis.semver !== undefined) mergedCommit.semver = analysis.semver;
 
     // Check if already exists
     const commitPath = path.join(commitsDir, `${analysis.sha}.json`);

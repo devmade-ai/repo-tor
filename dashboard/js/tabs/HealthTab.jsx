@@ -118,6 +118,34 @@ export default function HealthTab() {
         return breakdown;
     }, [filteredCommits]);
 
+    // Risk breakdown — only count commits that have a risk value
+    const riskBreakdown = useMemo(() => {
+        const breakdown = { low: 0, medium: 0, high: 0 };
+        filteredCommits.forEach(c => {
+            if (c.risk && breakdown.hasOwnProperty(c.risk)) {
+                breakdown[c.risk]++;
+            }
+        });
+        return breakdown;
+    }, [filteredCommits]);
+
+    const hasRiskData = riskBreakdown.low + riskBreakdown.medium + riskBreakdown.high > 0;
+    const riskTotal = riskBreakdown.low + riskBreakdown.medium + riskBreakdown.high;
+
+    // Debt breakdown — tracks whether tech debt is accumulating or shrinking
+    const debtBreakdown = useMemo(() => {
+        const breakdown = { added: 0, paid: 0, neutral: 0 };
+        filteredCommits.forEach(c => {
+            if (c.debt && breakdown.hasOwnProperty(c.debt)) {
+                breakdown[c.debt]++;
+            }
+        });
+        return breakdown;
+    }, [filteredCommits]);
+
+    const hasDebtData = debtBreakdown.added + debtBreakdown.paid + debtBreakdown.neutral > 0;
+    const debtTotal = debtBreakdown.added + debtBreakdown.paid + debtBreakdown.neutral;
+
     // Urgency Trend chart
     const urgencyTrendData = useMemo(() => {
         const monthlyUrgency = {};
@@ -220,6 +248,68 @@ export default function HealthTab() {
             },
         };
     }, [filteredCommits, urgencyTrendData, isMobile]);
+
+    // Debt Trend chart — monthly added vs paid
+    const debtTrendData = useMemo(() => {
+        if (!hasDebtData) return null;
+
+        const monthlyDebt = {};
+        filteredCommits.forEach(c => {
+            if (!c.timestamp || !c.debt) return;
+            const month = c.timestamp.substring(0, 7);
+            if (!monthlyDebt[month]) {
+                monthlyDebt[month] = { added: 0, paid: 0, neutral: 0 };
+            }
+            if (monthlyDebt[month].hasOwnProperty(c.debt)) {
+                monthlyDebt[month][c.debt]++;
+            }
+        });
+
+        const sortedMonths = Object.keys(monthlyDebt).sort();
+        if (sortedMonths.length === 0) return null;
+
+        const mobile = isMobile;
+        return {
+            data: {
+                labels: sortedMonths.map(m => {
+                    const [year, month] = m.split('-');
+                    return new Date(year, month - 1).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+                }),
+                datasets: [
+                    {
+                        label: 'Debt Added',
+                        data: sortedMonths.map(m => monthlyDebt[m]?.added || 0),
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                    },
+                    {
+                        label: 'Debt Paid',
+                        data: sortedMonths.map(m => monthlyDebt[m]?.paid || 0),
+                        borderColor: '#16A34A',
+                        backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: mobile ? 8 : 12, font: { size: mobile ? 8 : 10 }, padding: mobile ? 4 : 10 },
+                    },
+                },
+                scales: {
+                    x: { ticks: { font: { size: mobile ? 9 : 12 }, maxRotation: mobile ? 60 : 45 } },
+                    y: { ticks: { font: { size: mobile ? 9 : 12 } } },
+                },
+            },
+        };
+    }, [filteredCommits, hasDebtData, isMobile]);
 
     // Urgency by contributor/group
     const urgencyByGroup = useMemo(() => {
@@ -374,6 +464,18 @@ export default function HealthTab() {
         openDetailPane(title, `${filtered.length} commits`, filtered);
     };
 
+    const handleRiskFilterClick = (risk) => {
+        const labels = { low: 'Low Risk', medium: 'Medium Risk', high: 'High Risk' };
+        const filtered = filteredCommits.filter(c => c.risk === risk);
+        openDetailPane(`${labels[risk] || risk} Changes`, `${filtered.length} commits`, filtered);
+    };
+
+    const handleDebtFilterClick = (debt) => {
+        const labels = { added: 'Debt Added', paid: 'Debt Paid Down', neutral: 'Debt Neutral' };
+        const filtered = filteredCommits.filter(c => c.debt === debt);
+        openDetailPane(`${labels[debt] || debt}`, `${filtered.length} commits`, filtered);
+    };
+
     const handleImpactFilterClick = (impact) => {
         const labels = { 'user-facing': 'User-Facing', 'internal': 'Internal', 'infrastructure': 'Infrastructure', 'api': 'API' };
         const filtered = filteredCommits.filter(c => c.impact === impact);
@@ -507,6 +609,98 @@ export default function HealthTab() {
                     })}
                 </div>
             </CollapsibleSection>
+
+            {/* Risk Assessment — only shown when commits have risk data */}
+            {hasRiskData && (
+                <CollapsibleSection title="Risk Assessment">
+                    <div className="space-y-4">
+                        {[
+                            { key: 'high', label: 'High Risk', colorClass: 'bg-red-500' },
+                            { key: 'medium', label: 'Medium Risk', colorClass: 'bg-amber-500' },
+                            { key: 'low', label: 'Low Risk', colorClass: 'bg-green-500' },
+                        ].map(({ key, label, colorClass }) => {
+                            const count = riskBreakdown[key];
+                            const pct = riskTotal > 0 ? Math.round((count / riskTotal) * 100) : 0;
+                            return (
+                                <div
+                                    key={key}
+                                    className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => handleRiskFilterClick(key)}
+                                    onKeyDown={handleKeyActivate(() => handleRiskFilterClick(key))}
+                                >
+                                    <div className="flex justify-between text-sm mb-1">
+                                        <span className="text-themed-secondary">{label}</span>
+                                        <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                        <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Debt Balance — only shown when commits have debt data */}
+            {hasDebtData && (
+                <CollapsibleSection title="Tech Debt Balance">
+                    <div className="space-y-4">
+                        {[
+                            { key: 'added', label: 'Debt Added', colorClass: 'bg-red-500' },
+                            { key: 'paid', label: 'Debt Paid Down', colorClass: 'bg-green-500' },
+                            { key: 'neutral', label: 'No Change', colorClass: 'bg-gray-400' },
+                        ].map(({ key, label, colorClass }) => {
+                            const count = debtBreakdown[key];
+                            const pct = debtTotal > 0 ? Math.round((count / debtTotal) * 100) : 0;
+                            return (
+                                <div
+                                    key={key}
+                                    className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => handleDebtFilterClick(key)}
+                                    onKeyDown={handleKeyActivate(() => handleDebtFilterClick(key))}
+                                >
+                                    <div className="flex justify-between text-sm mb-1">
+                                        <span className="text-themed-secondary">{label}</span>
+                                        <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                        <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
+                                    </div>
+                                </div>
+                            );
+                        })}
+                        {/* Net debt indicator */}
+                        <div className="mt-2 p-3 bg-themed-tertiary rounded text-center">
+                            <span className="text-sm text-themed-secondary">Net: </span>
+                            <span className={`text-sm font-semibold ${
+                                debtBreakdown.added > debtBreakdown.paid ? 'text-red-500' :
+                                debtBreakdown.paid > debtBreakdown.added ? 'text-green-500' :
+                                'text-themed-tertiary'
+                            }`}>
+                                {debtBreakdown.added > debtBreakdown.paid
+                                    ? `+${debtBreakdown.added - debtBreakdown.paid} debt accumulating`
+                                    : debtBreakdown.paid > debtBreakdown.added
+                                    ? `-${debtBreakdown.paid - debtBreakdown.added} debt shrinking`
+                                    : 'Balanced'}
+                            </span>
+                        </div>
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Debt Trend Over Time */}
+            {debtTrendData && (
+                <CollapsibleSection title="Debt Trend">
+                    <div style={{ height: '300px' }}>
+                        <Line data={debtTrendData.data} options={debtTrendData.options} />
+                    </div>
+                </CollapsibleSection>
+            )}
 
             {/* Urgency Trend */}
             {urgencyTrendData && (

@@ -168,6 +168,8 @@ The **default tab** designed for executives who need quick, high-level insights.
 - **Most Active Repo** - (For aggregated data) Which project saw most activity
 - **Off-Hours Work** - Percentage of commits outside work hours
 - **Quality Work** - Refactors and tests count
+- **Risky Changes** - High and medium risk commit counts *(shown when risk data exists)*
+- **Tech Debt** - Net debt balance and added/paid counts *(shown when debt data exists)*
 
 **Activity Snapshot**
 - After-hours, weekend, and holiday commit counts
@@ -235,6 +237,18 @@ Shows **how** work is evolving and **who does what**.
 **Complexity Over Time**
 - Average complexity by month (rising = architectural changes)
 
+**Work by Initiative (Epics)** *(shown when commits have epic labels)*
+- Groups commits by initiative/feature (e.g., "dashboard-redesign", "auth-v2")
+- Shows commit count and percentage for each epic
+- **Click any epic bar** → Opens detail pane with all commits for that initiative
+- **What to look for:** Which initiatives received the most effort
+
+**Change Types (Semver)** *(shown when commits have semver data)*
+- Doughnut chart showing patch/minor/major distribution
+- Patches = bug fixes, Minor = new features, Major = breaking changes
+- **Click any type** → Opens detail pane with matching commits
+- **What to look for:** Healthy projects have mostly minor + patch; lots of major = instability
+
 **Who Does What**
 - Work type breakdown per contributor
 - **Click any contributor card** → Opens detail pane with their commits
@@ -250,7 +264,7 @@ Shows **how** work is evolving and **who does what**.
 
 ### Health Tab (Operational Concerns)
 
-Shows operational health - security, urgency, work patterns.
+Shows operational health - security, urgency, risk, tech debt, and work patterns.
 
 **Health Cards** (all clickable)
 
@@ -268,6 +282,22 @@ Shows operational health - security, urgency, work patterns.
 **Impact Distribution**
 - Horizontal bars: user-facing, internal, infrastructure, api
 - **Click any bar** → Opens detail pane with commits at that impact level
+
+**Risk Assessment** *(shown when commits have risk data)*
+- Horizontal bars: High, Medium, Low risk
+- Risk is separate from complexity — a 1-line auth change is low complexity but high risk
+- **Click any bar** → Opens detail pane with commits at that risk level
+- **What to look for:** High % of high-risk changes = more review and testing needed
+
+**Tech Debt Balance** *(shown when commits have debt data)*
+- Horizontal bars: Debt Added, Debt Paid Down, No Change
+- Net debt indicator shows whether debt is accumulating or shrinking
+- **Click any bar** → Opens detail pane with matching commits
+- **What to look for:** Net positive = debt accumulating; net negative = debt shrinking
+
+**Debt Trend** *(shown when commits have debt data)*
+- Line chart showing debt added vs debt paid down by month
+- When the red line (added) is above green (paid), debt is growing
 
 **Urgency Trend**
 - Line chart showing average urgency by month (lower is better)
@@ -382,6 +412,41 @@ Clicking interactive elements opens a **detail pane** that slides in from the ri
 - user-facing dominant = product development focus
 - infrastructure heavy = platform investment
 - Balanced mix = healthy full-stack work
+
+### Risk (low / medium / high)
+
+| Level | Meaning |
+|-------|---------|
+| Low | Minimal chance of breakage (docs, formatting, config) |
+| Medium | Could cause issues if incorrect (features, refactors) |
+| High | Touches critical paths (auth, data, security) |
+
+**What to look for:**
+- High % of high-risk changes = needs more review and testing
+- Most commits should be low-medium risk
+- Sudden spike in high-risk work may indicate infrastructure changes
+
+### Tech Debt (added / paid / neutral)
+
+| Status | Meaning |
+|--------|---------|
+| Added | Shortcuts, TODOs, workarounds introduced |
+| Paid | Cleaned up existing tech debt |
+| Neutral | Standard work, no debt impact |
+
+**What to look for:**
+- Net debt growing (added > paid) = debt accumulating, may need cleanup sprint
+- Net debt shrinking (paid > added) = healthy debt management
+- Sustained "added" without "paid" = increasing maintenance burden
+
+### Epics (Initiative Grouping)
+
+Shows how much effort went into multi-commit initiatives like feature builds or migrations.
+
+**What to look for:**
+- Large epic = significant investment in one area
+- Many small epics = diverse, distributed work
+- Unassigned commits = standalone work not tied to larger efforts
 
 ---
 

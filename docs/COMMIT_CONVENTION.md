@@ -295,6 +295,54 @@ Who/what is affected by this change?
 | `infrastructure` | Affects deployment/operations (CI/CD, Docker, monitoring) |
 | `api` | Affects external integrations (endpoints, breaking changes) |
 
+### Risk
+
+How risky is this change? Separate from complexity — a 1-line auth change is low complexity but high risk, while a 200-line CSS refactor is high complexity but low risk.
+
+| Value | When to Use |
+|-------|-------------|
+| `low` | Safe change with minimal chance of breaking anything (formatting, docs, config) |
+| `medium` | Could cause issues if incorrect (new features, refactors, dependency updates) |
+| `high` | Touches critical paths — auth, payments, data integrity, security, database schemas |
+
+**Tip:** Ask "what's the worst that happens if this is wrong?" Low = minor inconvenience. Medium = some users affected. High = security breach, data loss, or outage.
+
+### Debt
+
+Did this commit introduce tech debt, pay some down, or neither? Tracks whether debt is accumulating or shrinking over time.
+
+| Value | When to Use |
+|-------|-------------|
+| `added` | Introduced shortcuts, TODOs, workarounds, or known limitations |
+| `paid` | Cleaned up tech debt — refactored hacks, removed workarounds, fixed long-standing issues |
+| `neutral` | Neither added nor reduced tech debt (most standard work) |
+
+**Tip:** Most commits are `neutral`. Only use `added` for conscious shortcuts, and `paid` for deliberate cleanup.
+
+### Epic
+
+A free-text grouping label that ties multiple commits to one feature or initiative. Enables reporting like "how much effort went into feature X."
+
+| Value | When to Use |
+|-------|-------------|
+| *(any string)* | Use a short, consistent label for a multi-commit initiative |
+
+**Examples:** `dark-mode`, `react-migration`, `auth-v2`, `dashboard-redesign`, `api-v3`
+
+**Tip:** Keep labels lowercase with hyphens. Reuse the same label across all commits for one initiative. Leave blank for standalone commits not tied to a larger effort.
+
+### Semver
+
+What kind of release would this change warrant? Useful for changelog generation and release tracking.
+
+| Value | When to Use |
+|-------|-------------|
+| `patch` | Bug fix, no new functionality (e.g., fix typo, correct behavior) |
+| `minor` | New feature or enhancement, backward compatible |
+| `major` | Breaking change requiring consumer updates |
+
+**Tip:** Map roughly to conventional commit types: `fix` → patch, `feat` → minor, `feat!` → major.
+
 ### Full Example
 
 ```
@@ -307,6 +355,10 @@ tags: feature, auth, security, api, migration
 complexity: 4
 urgency: 2
 impact: user-facing
+risk: high
+debt: neutral
+epic: auth-v2
+semver: major
 ```
 
 ## Quick Reference
@@ -317,12 +369,18 @@ feat(scope): add new capability
 
 tags: feature, ui
 impact: user-facing
+risk: medium
+debt: neutral
+epic: dashboard-redesign
+semver: minor
 
 # Bug fix (normal priority)
 fix(scope): correct specific behavior
 
 tags: bugfix
 impact: user-facing
+risk: low
+semver: patch
 
 # Security fix (critical!)
 fix(auth): patch vulnerability
@@ -330,6 +388,8 @@ fix(auth): patch vulnerability
 tags: bugfix, security, vulnerability
 urgency: 5
 impact: user-facing
+risk: high
+semver: patch
 
 # Production hotfix
 fix(api): restore service after timeout
@@ -337,12 +397,15 @@ fix(api): restore service after timeout
 tags: hotfix, bugfix, performance
 urgency: 5
 impact: infrastructure
+risk: high
+debt: added
 
 # Documentation (internal)
 docs: update guides
 
 tags: docs
 impact: internal
+risk: low
 
 # Refactor (planned, internal)
 refactor(scope): improve structure
@@ -350,12 +413,16 @@ refactor(scope): improve structure
 tags: refactor, simplify
 urgency: 1
 impact: internal
+risk: medium
+debt: paid
 
 # API endpoint (affects integrations)
 feat(api): add endpoint with validation
 
 tags: feature, endpoint, api, validation
 impact: api
+risk: medium
+semver: minor
 ```
 
 ## Commit Checklist
@@ -374,6 +441,10 @@ Before committing:
 - [ ] `urgency:` added for time-sensitive work (3-5)
 - [ ] `impact:` specified (internal/user-facing/infrastructure/api)
 - [ ] `complexity:` added for significant changes (3-5)
+- [ ] `risk:` assessed (low/medium/high) — especially for auth, data, or infrastructure
+- [ ] `debt:` tracked (added/paid/neutral) — especially for shortcuts or cleanup
+- [ ] `epic:` assigned for multi-commit initiatives
+- [ ] `semver:` classified (patch/minor/major) — for release tracking
 
 ---
 

@@ -76,10 +76,22 @@ if ! echo "$COMMIT_MSG_CLEAN" | grep -qiE "^tags:"; then
     echo ""
     echo "Example footer:"
     echo "  tags: feature, ui, ux"
+    echo "  risk: low"
+    echo "  debt: neutral"
     echo ""
-    echo "See docs/EXTRACTION_PLAYBOOK.md for 55+ available tags."
+    echo "See docs/EXTRACTION_PLAYBOOK.md for available tags."
     echo "(Proceeding without tags - this is optional but recommended)"
     echo ""
+fi
+
+# Check for risk/debt footers when tags are present (suggest, don't block)
+if echo "$COMMIT_MSG_CLEAN" | grep -qiE "^tags:"; then
+    if ! echo "$COMMIT_MSG_CLEAN" | grep -qiE "^risk:"; then
+        echo "TIP: Consider adding 'risk: low|medium|high' for risk tracking."
+    fi
+    if ! echo "$COMMIT_MSG_CLEAN" | grep -qiE "^debt:"; then
+        echo "TIP: Consider adding 'debt: added|paid|neutral' for debt tracking."
+    fi
 fi
 
 exit 0

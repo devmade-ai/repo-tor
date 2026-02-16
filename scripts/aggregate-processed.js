@@ -258,6 +258,72 @@ function calcImpactBreakdown(commits) {
 }
 
 /**
+ * Calculate risk breakdown (low|medium|high)
+ * Only counts commits that have a risk value set
+ */
+function calcRiskBreakdown(commits) {
+  const breakdown = { low: 0, medium: 0, high: 0 };
+
+  for (const commit of commits) {
+    if (commit.risk && breakdown.hasOwnProperty(commit.risk)) {
+      breakdown[commit.risk]++;
+    }
+  }
+
+  return breakdown;
+}
+
+/**
+ * Calculate debt breakdown (added|paid|neutral)
+ * Tracks whether commits introduce tech debt, pay it down, or are neutral
+ */
+function calcDebtBreakdown(commits) {
+  const breakdown = { added: 0, paid: 0, neutral: 0 };
+
+  for (const commit of commits) {
+    if (commit.debt && breakdown.hasOwnProperty(commit.debt)) {
+      breakdown[commit.debt]++;
+    }
+  }
+
+  return breakdown;
+}
+
+/**
+ * Calculate epic breakdown — free-text grouping labels
+ * Returns { epicName: commitCount, ... } sorted by count descending
+ */
+function calcEpicBreakdown(commits) {
+  const breakdown = {};
+
+  for (const commit of commits) {
+    if (commit.epic && typeof commit.epic === 'string') {
+      const epic = commit.epic.trim().toLowerCase();
+      if (epic) {
+        breakdown[epic] = (breakdown[epic] || 0) + 1;
+      }
+    }
+  }
+
+  return breakdown;
+}
+
+/**
+ * Calculate semver breakdown (patch|minor|major)
+ */
+function calcSemverBreakdown(commits) {
+  const breakdown = { patch: 0, minor: 0, major: 0 };
+
+  for (const commit of commits) {
+    if (commit.semver && breakdown.hasOwnProperty(commit.semver)) {
+      breakdown[commit.semver]++;
+    }
+  }
+
+  return breakdown;
+}
+
+/**
  * Calculate average of a numeric field
  */
 function calcAverage(commits, field) {
@@ -295,7 +361,10 @@ function calcMonthlyAggregations(commits) {
           'user-facing': 0,
           'infrastructure': 0,
           'api': 0
-        }
+        },
+        risk: { low: 0, medium: 0, high: 0 },
+        debt: { added: 0, paid: 0, neutral: 0 },
+        semver: { patch: 0, minor: 0, major: 0 }
       };
     }
 
@@ -322,6 +391,21 @@ function calcMonthlyAggregations(commits) {
     // Impact
     if (commit.impact && m.impact.hasOwnProperty(commit.impact)) {
       m.impact[commit.impact]++;
+    }
+
+    // Risk
+    if (commit.risk && m.risk.hasOwnProperty(commit.risk)) {
+      m.risk[commit.risk]++;
+    }
+
+    // Debt
+    if (commit.debt && m.debt.hasOwnProperty(commit.debt)) {
+      m.debt[commit.debt]++;
+    }
+
+    // Semver
+    if (commit.semver && m.semver.hasOwnProperty(commit.semver)) {
+      m.semver[commit.semver]++;
     }
   }
 
@@ -375,6 +459,8 @@ function calcContributorAggregations(commits) {
           'infrastructure': 0,
           'api': 0
         },
+        riskBreakdown: { low: 0, medium: 0, high: 0 },
+        debtBreakdown: { added: 0, paid: 0, neutral: 0 },
         repos: new Set(),
         firstCommit: commit.timestamp,
         lastCommit: commit.timestamp
@@ -408,6 +494,16 @@ function calcContributorAggregations(commits) {
       c.impactBreakdown[commit.impact]++;
     }
 
+    // Risk
+    if (commit.risk && c.riskBreakdown.hasOwnProperty(commit.risk)) {
+      c.riskBreakdown[commit.risk]++;
+    }
+
+    // Debt
+    if (commit.debt && c.debtBreakdown.hasOwnProperty(commit.debt)) {
+      c.debtBreakdown[commit.debt]++;
+    }
+
     // Date range
     if (commit.timestamp < c.firstCommit) c.firstCommit = commit.timestamp;
     if (commit.timestamp > c.lastCommit) c.lastCommit = commit.timestamp;
@@ -430,6 +526,8 @@ function calcContributorAggregations(commits) {
         : null,
       tagBreakdown: c.tagBreakdown,
       impactBreakdown: c.impactBreakdown,
+      riskBreakdown: c.riskBreakdown,
+      debtBreakdown: c.debtBreakdown,
       repos: Array.from(c.repos),
       repoCount: c.repos.size,
       firstCommit: c.firstCommit,
@@ -511,6 +609,10 @@ function generateAggregation(commits, scope, repoCount = 1) {
       complexityBreakdown: calcComplexityBreakdown(sortedCommits),
       urgencyBreakdown: calcUrgencyBreakdown(sortedCommits),
       impactBreakdown: calcImpactBreakdown(sortedCommits),
+      riskBreakdown: calcRiskBreakdown(sortedCommits),
+      debtBreakdown: calcDebtBreakdown(sortedCommits),
+      epicBreakdown: calcEpicBreakdown(sortedCommits),
+      semverBreakdown: calcSemverBreakdown(sortedCommits),
       avgComplexity: calcAverage(sortedCommits, 'complexity'),
       avgUrgency: calcAverage(sortedCommits, 'urgency'),
       monthly: monthly,
