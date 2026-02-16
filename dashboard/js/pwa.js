@@ -18,6 +18,7 @@ import { registerSW } from 'virtual:pwa-register';
 // === State ===
 let deferredInstallPrompt = null;
 let updateSW = null;
+let updateInterval = null;
 let _installReady = false;
 let _updateAvailable = false;
 
@@ -155,6 +156,18 @@ export function applyUpdate() {
 }
 
 /**
+ * Stop the hourly update polling interval.
+ * Defensive cleanup — the interval is created once at module level,
+ * but storing the handle lets us clear it if ever needed.
+ */
+export function stopUpdatePolling() {
+    if (updateInterval) {
+        clearInterval(updateInterval);
+        updateInterval = null;
+    }
+}
+
+/**
  * Manual check for updates.
  * Returns: 'update-found' | 'up-to-date' | 'no-sw' | 'error'
  */
@@ -186,7 +199,7 @@ updateSW = registerSW({
     },
     onRegisteredSW(swUrl, registration) {
         if (registration) {
-            setInterval(() => registration.update(), 60 * 60 * 1000);
+            updateInterval = setInterval(() => registration.update(), 60 * 60 * 1000);
         }
     },
     onRegisterError(error) {

@@ -6,7 +6,10 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-15):**
+**Recent Updates (2026-02-16):**
+- **Fix SW Update Interval Cleanup** - Stored `setInterval` handle in `pwa.js` and added `stopUpdatePolling()` export. The interval was created without saving a reference, making it impossible to clear. While the module-level execution means it only fires once (no React mount/unmount leak), storing the handle is defensive hygiene that enables cleanup if ever needed.
+
+**Previous Updates (2026-02-15):**
 - **Add Risk, Debt, Epic, Semver Fields** - Four new optional commit metadata fields added end-to-end:
   - **Risk** (`low|medium|high`) — Change risk level independent of complexity
   - **Debt** (`added|paid|neutral`) — Tech debt tracking for trend analysis

@@ -2,6 +2,21 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-16
+
+### Fix SW Update Interval Cleanup
+
+**Why:** The hourly `setInterval` in `pwa.js` `onRegisteredSW` was created without storing its handle, making it impossible to clear. While the module-level execution means it only fires once (no React mount/unmount leak risk), storing the handle is defensive hygiene that enables cleanup if ever needed.
+
+**Changes:**
+- `dashboard/js/pwa.js` — Store `setInterval` return value in `updateInterval` variable; added `stopUpdatePolling()` export to clear the interval
+
+**Design decisions:**
+- Kept the fix in module-level JS rather than converting to a React hook — SW registration is a global singleton, not component-scoped
+- `stopUpdatePolling()` exported but not currently called anywhere — available for future use (e.g., test teardown, manual pause)
+
+---
+
 ## 2026-02-15
 
 ### Add Risk, Debt, Epic, Semver Fields (Full Pipeline)
