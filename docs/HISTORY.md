@@ -2,6 +2,26 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-16
+
+### Self-Installing commit-msg Hook
+
+**Why:** The hook system used two files (`hooks/commit-msg` for validation, `hooks/setup.sh` for installation) — two files for one concern. Merging them reduces maintenance and simplifies the install command.
+
+**Changes:**
+- `hooks/commit-msg` — Now self-installing: detects `install`/`uninstall` subcommands vs git hook mode (receives commit message file path). Added `set -euo pipefail`, repo root detection by walking up from script location, and `uninstall` subcommand to remove the hook.
+- Deleted `hooks/setup.sh` — functionality absorbed into `commit-msg`
+- `README.md` — Updated install command and project structure (removed `setup.sh` line)
+- `docs/ADMIN_GUIDE.md` — Replaced Quick Setup and Manual Setup sections with single `./hooks/commit-msg install` + uninstall
+- `docs/USER_TESTING.md` — Updated hook installation test step
+
+**Design decisions:**
+- Detect mode via `$1` value: `install`/`uninstall` = self-install mode, anything else = git hook mode (git passes the commit message file path)
+- Added `uninstall` subcommand since `setup.sh` only had install — useful for troubleshooting
+- Historical references in dashboard JSON data files left unchanged (they record past commit messages)
+
+---
+
 ## 2026-02-15
 
 ### Add Risk, Debt, Epic, Semver Fields (Full Pipeline)
