@@ -430,16 +430,22 @@ Optional hooks to enforce conventional commit format:
 ### Quick Setup
 
 ```bash
-./hooks/commit-msg install
+./hooks/setup.sh
 ```
 
 This installs:
 - `commit-msg` hook - Validates format on every commit
-- Commit template - Pre-filled structure when you run `git commit` (if `.gitmessage` exists)
+- Commit template - Pre-filled structure when you run `git commit`
 
-To remove:
+### Manual Setup
+
 ```bash
-./hooks/commit-msg uninstall
+# Copy hook to git hooks directory
+cp hooks/commit-msg .git/hooks/commit-msg
+chmod +x .git/hooks/commit-msg
+
+# Configure commit template
+git config commit.template .gitmessage
 ```
 
 ### Hook Behavior

@@ -112,7 +112,7 @@ Guidelines and checklists for testing features from a user perspective.
 ### Commit Hooks
 
 **Hook installation:**
-- [ ] Run `./hooks/commit-msg install`
+- [ ] Run `./hooks/setup.sh`
 - [ ] Verify `.git/hooks/commit-msg` exists
 - [ ] Verify `git config commit.template` set
 

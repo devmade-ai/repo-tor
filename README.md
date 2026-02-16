@@ -23,7 +23,7 @@ open dashboard/index.html
 ## Setup Commit Validation (Optional)
 
 ```bash
-./hooks/commit-msg install
+./hooks/setup.sh
 ```
 
 ## Documentation
@@ -42,7 +42,8 @@ scripts/
 dashboard/
   index.html       # Analytics dashboard
 hooks/
-  commit-msg       # Validation hook (self-installing)
+  commit-msg       # Validation hook
+  setup.sh         # Hook installer
 docs/
   USER_GUIDE.md    # Usage documentation
   COMMIT_CONVENTION.md  # Commit format guide

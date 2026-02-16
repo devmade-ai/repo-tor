@@ -6,10 +6,7 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-16):**
-- **Self-Installing commit-msg Hook** - Merged `hooks/setup.sh` into `hooks/commit-msg`. Single file now handles both installation (`./hooks/commit-msg install`) and validation (as git hook). Added `uninstall` subcommand. Deleted `setup.sh`. Updated README, ADMIN_GUIDE, USER_TESTING references.
-
-**Previous Updates (2026-02-15):**
+**Recent Updates (2026-02-15):**
 - **Add Risk, Debt, Epic, Semver Fields** - Four new optional commit metadata fields added end-to-end:
   - **Risk** (`low|medium|high`) — Change risk level independent of complexity
   - **Debt** (`added|paid|neutral`) — Tech debt tracking for trend analysis
