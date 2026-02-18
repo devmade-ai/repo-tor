@@ -34,6 +34,17 @@ const computedStyles = getComputedStyle(document.documentElement);
 ChartJS.defaults.color = computedStyles.getPropertyValue('--text-secondary').trim() || '#e5e7eb';
 ChartJS.defaults.borderColor = computedStyles.getPropertyValue('--chart-grid').trim() || 'rgba(255,255,255,0.1)';
 
+// Set --chart-accent-rgb CSS variable from chartColors.js so heatmap CSS
+// classes can use the embed-overridden accent color. This bridges the URL
+// param (parsed in JS) to the CSS heatmap intensity classes.
+import { accentColor } from './chartColors.js';
+(() => {
+    const r = parseInt(accentColor.slice(1, 3), 16);
+    const g = parseInt(accentColor.slice(3, 5), 16);
+    const b = parseInt(accentColor.slice(5, 7), 16);
+    document.documentElement.style.setProperty('--chart-accent-rgb', `${r}, ${g}, ${b}`);
+})();
+
 // === Debug Error Banner ===
 // Always-visible indicator at the bottom of the screen.
 // Shows "0 errors" pill when clean; expands to full error log when errors occur.

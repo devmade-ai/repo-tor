@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import { getAuthorEmail, getAuthorName, sanitizeName, handleKeyActivate } from '../utils.js';
+import { getSeriesColor, withOpacity, mutedColor } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 function UrgencyBar({ counts, total, label, onClick }) {
@@ -176,8 +177,8 @@ export default function HealthTab() {
                 datasets: [{
                     label: 'Avg Urgency',
                     data: urgencyData,
-                    borderColor: '#EAB308',
-                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                    borderColor: getSeriesColor(2),
+                    backgroundColor: withOpacity(getSeriesColor(2), 0.1),
                     fill: true,
                     tension: 0.3,
                 }],
@@ -213,10 +214,10 @@ export default function HealthTab() {
         if (sortedMonths.length === 0) return null;
 
         const impactColors = {
-            'user-facing': '#2D68FF',
-            'internal': '#767676',
-            'infrastructure': '#a78bfa',
-            'api': '#16A34A',
+            'user-facing': getSeriesColor(0),
+            'internal': mutedColor,
+            'infrastructure': getSeriesColor(3),
+            'api': getSeriesColor(1),
         };
 
         const mobile = isMobile;
@@ -279,16 +280,16 @@ export default function HealthTab() {
                     {
                         label: 'Debt Added',
                         data: sortedMonths.map(m => monthlyDebt[m]?.added || 0),
-                        borderColor: '#ef4444',
-                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderColor: getSeriesColor(4),
+                        backgroundColor: withOpacity(getSeriesColor(4), 0.1),
                         fill: true,
                         tension: 0.3,
                     },
                     {
                         label: 'Debt Paid',
                         data: sortedMonths.map(m => monthlyDebt[m]?.paid || 0),
-                        borderColor: '#16A34A',
-                        backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                        borderColor: getSeriesColor(1),
+                        backgroundColor: withOpacity(getSeriesColor(1), 0.1),
                         fill: true,
                         tension: 0.3,
                     },

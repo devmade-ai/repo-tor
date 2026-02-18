@@ -62,6 +62,69 @@ For showcasing development activity on a CV or portfolio site, these charts tell
 
 ---
 
+## Custom Colors
+
+Embedding apps can customize chart colors via URL parameters. This is useful when the dashboard's default blue doesn't match the embedding site's brand.
+
+### URL Parameters
+
+| Parameter | Format | Example | Description |
+|-----------|--------|---------|-------------|
+| `palette` | preset name | `palette=warm` | Apply a named color palette |
+| `colors` | comma-separated hex | `colors=FF6B35,004E89,1A936F` | Custom series colors for multi-dataset charts |
+| `accent` | hex | `accent=FF6B35` | Primary color for single-dataset charts and heatmaps |
+| `muted` | hex | `muted=999999` | Secondary color for contrast elements (after-hours, weekends) |
+
+Hex values work with or without the `#` prefix.
+
+### Quick Examples
+
+```html
+<!-- Match your brand color -->
+?embed=activity-timeline&accent=FF6B35
+
+<!-- Use a preset palette -->
+?embed=activity-timeline&palette=warm
+
+<!-- Full control: custom series + accent + light theme -->
+?embed=activity-timeline&colors=FF6B35,004E89,1A936F&accent=FF6B35&theme=light
+```
+
+### Available Palettes
+
+| Name | Style | Accent |
+|------|-------|--------|
+| `default` | Dashboard blue-first palette | `#2D68FF` |
+| `warm` | Warm reds and oranges | `#E63946` |
+| `cool` | Corporate blues and teals | `#0077B6` |
+| `earth` | Natural greens and browns | `#606C38` |
+| `vibrant` | High contrast, colorful | `#FF006E` |
+| `mono` | Single-hue blue variations | `#1D4ED8` |
+
+### What Colors Affect
+
+| Chart Type | What Changes | Parameter |
+|------------|-------------|-----------|
+| Stacked bars (activity, code changes, impact) | Bar segment colors for each dataset/repo | `colors` or `palette` |
+| Single bars (hourly, daily distribution) | Work-hours bar color | `accent` |
+| Single bars (hourly, daily distribution) | After-hours / weekend bar color | `muted` |
+| Line charts (features, bugfix, complexity, urgency, debt) | Line and fill colors | `colors` or `palette` |
+| Doughnut (semver) | Segment colors | `colors` or `palette` |
+| Heatmap (activity) | Cell intensity color | `accent` |
+| Complexity bars (contributor) | High/medium complexity bar colors | `colors` or `palette` |
+| Tag distribution doughnut | **Not affected** — uses semantic tag colors | — |
+
+### Priority Order
+
+1. Default palette (built-in)
+2. `palette=name` replaces defaults
+3. `colors=...` overrides the series (from default or palette)
+4. `accent=...` overrides the accent (from default or palette)
+
+See [EMBED_IMPLEMENTATION.md](EMBED_IMPLEMENTATION.md) for full technical details.
+
+---
+
 ## How to Find an Element in the DOM
 
 Each embeddable element can be selected with:
@@ -91,4 +154,4 @@ Or in CSS:
 
 ---
 
-*Last updated: 2026-02-18 — Initial catalog of 13 embeddable elements.*
+*Last updated: 2026-02-18 — Added custom color support (palette, colors, accent, muted URL params).*

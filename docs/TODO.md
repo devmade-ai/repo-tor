@@ -12,6 +12,7 @@ Remaining tasks for Git Analytics Reporting System.
 1. [ ] Optional: Accept data URL via `?data=` query param
 2. [ ] Optional: postMessage API for parent-to-iframe data push
 3. [ ] Optional: Vite library build for direct React component import
+4. [ ] Optional: Light theme CSS variables (currently only dark theme is fully defined)
 
 ### Research
 1. [ ] Device/platform attribution (mobile vs desktop commits)
@@ -19,4 +20,4 @@ Remaining tasks for Git Analytics Reporting System.
 
 ---
 
-*Last updated: 2026-02-15 - Fixed extract-api.js pagination bug. Removed untested warning (pagination was the known issue).*
+*Last updated: 2026-02-18 - Added custom graph color support for embeds (palette, colors, accent, muted URL params).*

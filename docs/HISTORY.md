@@ -4,6 +4,29 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-18
 
+### Custom Graph Colors for Embeds
+
+**Why:** Embedding apps need to match chart colors to their own brand. The dashboard's default blue palette doesn't suit every context. Hardcoded hex values were scattered across 6 tab files with no central control.
+
+**Changes:**
+- Created `dashboard/js/chartColors.js` — centralized color config with URL parameter parsing
+- Added 4 new URL parameters: `palette`, `colors`, `accent`, `muted`
+- Added 6 named palette presets (default, warm, cool, earth, vibrant, mono)
+- Updated 5 tab components (TimelineTab, TimingTab, ProgressTab, ContributorsTab, HealthTab) to import from `chartColors.js`
+- Updated heatmap CSS to use `--chart-accent-rgb` CSS variable (set from resolved accent color in main.jsx)
+- Tag distribution doughnut colors remain semantic (green=feature, red=bugfix) — not overridden
+- Updated `docs/EMBED_IMPLEMENTATION.md` with color architecture, parameters, palettes, testing checklist
+- Updated `docs/EMBED_REFERENCE.md` with custom colors section, quick examples, and "what affects what" table
+
+**Files:**
+- `dashboard/js/chartColors.js` (new)
+- `dashboard/js/main.jsx` (set --chart-accent-rgb CSS variable)
+- `dashboard/styles.css` (heatmap classes use CSS variable)
+- `dashboard/js/tabs/TimelineTab.jsx`, `TimingTab.jsx`, `ProgressTab.jsx`, `ContributorsTab.jsx`, `HealthTab.jsx`
+- `docs/EMBED_IMPLEMENTATION.md`, `docs/EMBED_REFERENCE.md`
+
+---
+
 ### Feed the Chicken — Incremental Extraction (156 new commits)
 
 **Why:** New commits accumulated across 6 repos since last extraction. Incremental analysis keeps dashboard data current.

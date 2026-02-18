@@ -441,12 +441,14 @@
                 font-size: 11px;
             }
         }
-        /* Heatmap intensity levels - primary blue */
+        /* Heatmap intensity levels — uses --chart-accent-rgb (set by chartColors.js)
+           so embedding apps can override the heatmap color via ?accent= URL param.
+           Falls back to primary blue (45, 104, 255) when no override is present. */
         .heatmap-0 { background-color: var(--bg-tertiary); }
-        .heatmap-1 { background-color: rgba(45, 104, 255, 0.15); }
-        .heatmap-2 { background-color: rgba(45, 104, 255, 0.35); }
-        .heatmap-3 { background-color: rgba(45, 104, 255, 0.6); color: white; }
-        .heatmap-4 { background-color: var(--color-primary); color: white; }
+        .heatmap-1 { background-color: rgba(var(--chart-accent-rgb, 45, 104, 255), 0.15); }
+        .heatmap-2 { background-color: rgba(var(--chart-accent-rgb, 45, 104, 255), 0.35); }
+        .heatmap-3 { background-color: rgba(var(--chart-accent-rgb, 45, 104, 255), 0.6); color: white; }
+        .heatmap-4 { background-color: rgb(var(--chart-accent-rgb, 45, 104, 255)); color: white; }
 
         /* Tailwind gray class overrides for dark theme */
         .bg-gray-50 { background-color: var(--bg-tertiary) !important; }
