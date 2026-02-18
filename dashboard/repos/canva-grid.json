@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-02-18T10:48:07.205Z",
+    "generatedAt": "2026-02-18T11:07:29.151Z",
     "repository": "canva-grid",
     "scope": "canva-grid",
     "repoCount": 1,
-    "commitCount": 329,
+    "commitCount": 332,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -21,6 +21,89 @@
     }
   },
   "commits": [
+    {
+      "sha": "efcad23",
+      "fullSha": "efcad2384afb527afbf850fdbf870aea7bf8e280",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-16T22:39:43+02:00",
+      "commitDate": "2026-02-16T22:39:43+02:00",
+      "subject": "Merge pull request #77 from devmade-ai/claude/fix-sw-update-interval-v67Ki",
+      "body": "Fix memory leak in PWA update interval by moving to useEffect",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #77 from devmade-ai/claude/fix-sw-update-interval-v67Ki",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#77"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 22,
+        "deletions": 2
+      },
+      "files": [],
+      "repo_id": "canva-grid",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "1eff278",
+      "fullSha": "1eff278d07c47a7848d8862e9a687e50cb947d17",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T19:58:18+00:00",
+      "commitDate": "2026-02-16T19:58:18+00:00",
+      "subject": "fix(pwa): prevent setInterval leak in usePWAUpdate hook",
+      "body": "The original code called setInterval directly inside the onRegistered\ncallback. Since onRegistered fires on every component mount, this\nleaked intervals on remounts (React Strict Mode, hot reload, etc.)\nwith no cleanup path.\n\nMove interval management into a useEffect with a cleanup function\nthat calls clearInterval on unmount. The SW registration is stored\nin a ref and a boolean state flag triggers the effect.\n\nTags: pwa, hooks, bug-fix\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pwa-reliability\nSemver: patch\n\nhttps://claude.ai/code/session_01Azk9rAeHUcE47qwhF8mgrM",
+      "tags": [
+        "bugfix",
+        "performance"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pwa-reliability",
+      "semver": "patch",
+      "scope": "pwa",
+      "title": "prevent setInterval leak in usePWAUpdate hook",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 22,
+        "deletions": 2
+      },
+      "files": [
+        "src/hooks/usePWAUpdate.js"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
     {
       "sha": "844e34f",
       "fullSha": "844e34ff3098a8ec0fbf90cf1d38ec30a1371339",
@@ -4807,6 +4890,51 @@
       ],
       "repo_id": "canva-grid",
       "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "8b9c584",
+      "fullSha": "8b9c584d2e78f6bdd4e1b81465920f4fc023e823",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-01-28T06:19:57+00:00",
+      "commitDate": "2026-01-28T06:19:57+00:00",
+      "subject": "Add fill layout with samples button for multi-image layouts",
+      "body": "- Modified loadSampleImage to support filling empty cells without replacing existing images\n- Added \"Fill layout with samples\" button when library is empty (shows image count for multi-image layouts)\n- Added \"Fill X empty cells with samples\" link when some image cells are unassigned\n- Changed label from \"Or try a sample\" to \"Or pick a sample\" for clarity\n\nhttps://claude.ai/code/session_01MjuTGP4b61W9NrBeqx5DeN",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "minor",
+      "scope": null,
+      "title": "Add fill layout with samples button for multi-image layouts",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 87,
+        "deletions": 40
+      },
+      "files": [
+        "src/App.jsx",
+        "src/components/MediaTab.jsx",
+        "src/hooks/useAdState.js"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 1,
       "impact": "user-facing"
     },
     {
@@ -10625,20 +10753,21 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 200,
+      "commits": 203,
       "avgComplexity": 1.57,
       "avgUrgency": 1.9,
       "tagBreakdown": {
-        "merge": 76,
+        "merge": 77,
+        "bugfix": 26,
+        "performance": 1,
         "docs": 37,
         "refactor": 19,
         "cleanup": 4,
-        "bugfix": 25,
-        "ux": 18,
-        "ui": 41,
+        "ux": 19,
+        "ui": 42,
         "migration": 1,
         "chore": 2,
-        "feature": 25,
+        "feature": 26,
         "simplify": 2,
         "config": 4,
         "monitoring": 2,
@@ -10650,27 +10779,27 @@
         "seed": 1
       },
       "impactBreakdown": {
-        "internal": 111,
-        "user-facing": 86,
-        "infrastructure": 3,
+        "internal": 112,
+        "user-facing": 87,
+        "infrastructure": 4,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 0,
+        "low": 3,
         "medium": 0,
         "high": 0
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 0,
-        "neutral": 0
+        "paid": 1,
+        "neutral": 2
       },
       "repos": [
         "canva-grid"
       ],
       "repoCount": 1,
       "firstCommit": "2026-01-10T12:01:03+02:00",
-      "lastCommit": "2026-02-15T17:32:48Z"
+      "lastCommit": "2026-02-16T22:39:43+02:00"
     },
     {
       "author_id": "noreply@anthropic.com",
@@ -10763,18 +10892,18 @@
     }
   ],
   "summary": {
-    "totalCommits": 329,
+    "totalCommits": 332,
     "totalContributors": 3,
     "tagBreakdown": {
-      "merge": 76,
+      "merge": 77,
+      "bugfix": 51,
+      "performance": 3,
       "docs": 64,
       "refactor": 28,
       "cleanup": 4,
-      "bugfix": 50,
-      "ux": 29,
-      "ui": 100,
-      "feature": 70,
-      "performance": 2,
+      "ux": 30,
+      "ui": 101,
+      "feature": 71,
       "config": 5,
       "chore": 9,
       "migration": 1,
@@ -10792,56 +10921,58 @@
       "seed": 2
     },
     "complexityBreakdown": {
-      "1": 166,
-      "2": 82,
+      "1": 168,
+      "2": 83,
       "3": 47,
       "4": 27,
       "5": 7
     },
     "urgencyBreakdown": {
-      "1": 82,
-      "2": 223,
-      "3": 24,
+      "1": 83,
+      "2": 224,
+      "3": 25,
       "4": 0,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 145,
-      "user-facing": 177,
-      "infrastructure": 5,
+      "internal": 146,
+      "user-facing": 178,
+      "infrastructure": 6,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 0,
+      "low": 3,
       "medium": 0,
       "high": 0
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 0,
-      "neutral": 0
+      "paid": 1,
+      "neutral": 2
     },
-    "epicBreakdown": {},
+    "epicBreakdown": {
+      "pwa-reliability": 1
+    },
     "semverBreakdown": {
-      "patch": 0,
-      "minor": 0,
+      "patch": 1,
+      "minor": 1,
       "major": 0
     },
-    "avgComplexity": 1.87,
-    "avgUrgency": 1.82,
+    "avgComplexity": 1.86,
+    "avgUrgency": 1.83,
     "monthly": {
       "2026-02": {
-        "commits": 95,
+        "commits": 97,
         "tags": {
-          "merge": 22,
+          "merge": 23,
+          "bugfix": 12,
+          "performance": 2,
           "docs": 23,
           "refactor": 10,
           "cleanup": 3,
-          "bugfix": 11,
           "ux": 10,
           "ui": 28,
           "feature": 13,
-          "performance": 1,
           "config": 3,
           "chore": 3,
           "migration": 1,
@@ -10849,41 +10980,41 @@
           "monitoring": 2
         },
         "impact": {
-          "internal": 45,
+          "internal": 46,
           "user-facing": 45,
-          "infrastructure": 5,
+          "infrastructure": 6,
           "api": 0
         },
         "risk": {
-          "low": 0,
+          "low": 2,
           "medium": 0,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 0,
-          "neutral": 0
+          "paid": 1,
+          "neutral": 1
         },
         "semver": {
-          "patch": 0,
+          "patch": 1,
           "minor": 0,
           "major": 0
         },
-        "avgComplexity": 1.64,
-        "avgUrgency": 1.86
+        "avgComplexity": 1.63,
+        "avgUrgency": 1.88
       },
       "2026-01": {
-        "commits": 234,
+        "commits": 235,
         "tags": {
           "merge": 54,
           "docs": 41,
-          "ui": 72,
+          "ui": 73,
           "refactor": 18,
           "bugfix": 39,
           "cleanup": 1,
           "config": 2,
-          "ux": 19,
-          "feature": 57,
+          "ux": 20,
+          "feature": 58,
           "fix": 2,
           "mobile": 1,
           "accessibility": 1,
@@ -10900,42 +11031,42 @@
         },
         "impact": {
           "internal": 100,
-          "user-facing": 132,
+          "user-facing": 133,
           "infrastructure": 0,
           "api": 0
         },
         "risk": {
-          "low": 0,
+          "low": 1,
           "medium": 0,
           "high": 0
         },
         "debt": {
           "added": 0,
           "paid": 0,
-          "neutral": 0
+          "neutral": 1
         },
         "semver": {
           "patch": 0,
-          "minor": 0,
+          "minor": 1,
           "major": 0
         },
         "avgComplexity": 1.96,
-        "avgUrgency": 1.81
+        "avgUrgency": 1.8
       }
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 95,
+        "commits": 97,
         "tags": {
-          "merge": 22,
+          "merge": 23,
+          "bugfix": 12,
+          "performance": 2,
           "docs": 23,
           "refactor": 10,
           "cleanup": 3,
-          "bugfix": 11,
           "ux": 10,
           "ui": 28,
           "feature": 13,
-          "performance": 1,
           "config": 3,
           "chore": 3,
           "migration": 1,
@@ -10943,41 +11074,41 @@
           "monitoring": 2
         },
         "impact": {
-          "internal": 45,
+          "internal": 46,
           "user-facing": 45,
-          "infrastructure": 5,
+          "infrastructure": 6,
           "api": 0
         },
         "risk": {
-          "low": 0,
+          "low": 2,
           "medium": 0,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 0,
-          "neutral": 0
+          "paid": 1,
+          "neutral": 1
         },
         "semver": {
-          "patch": 0,
+          "patch": 1,
           "minor": 0,
           "major": 0
         },
-        "avgComplexity": 1.64,
-        "avgUrgency": 1.86
+        "avgComplexity": 1.63,
+        "avgUrgency": 1.88
       },
       "2026-01": {
-        "commits": 234,
+        "commits": 235,
         "tags": {
           "merge": 54,
           "docs": 41,
-          "ui": 72,
+          "ui": 73,
           "refactor": 18,
           "bugfix": 39,
           "cleanup": 1,
           "config": 2,
-          "ux": 19,
-          "feature": 57,
+          "ux": 20,
+          "feature": 58,
           "fix": 2,
           "mobile": 1,
           "accessibility": 1,
@@ -10994,32 +11125,32 @@
         },
         "impact": {
           "internal": 100,
-          "user-facing": 132,
+          "user-facing": 133,
           "infrastructure": 0,
           "api": 0
         },
         "risk": {
-          "low": 0,
+          "low": 1,
           "medium": 0,
           "high": 0
         },
         "debt": {
           "added": 0,
           "paid": 0,
-          "neutral": 0
+          "neutral": 1
         },
         "semver": {
           "patch": 0,
-          "minor": 0,
+          "minor": 1,
           "major": 0
         },
         "avgComplexity": 1.96,
-        "avgUrgency": 1.81
+        "avgUrgency": 1.8
       }
     },
     "dateRange": {
       "earliest": "2026-01-10T12:01:03+02:00",
-      "latest": "2026-02-15T17:32:48Z"
+      "latest": "2026-02-16T22:39:43+02:00"
     },
     "security_events": []
   }

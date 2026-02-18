@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-02-18T10:48:07.240Z",
+    "generatedAt": "2026-02-18T11:07:29.193Z",
     "repository": "see-veo",
     "scope": "see-veo",
     "repoCount": 1,
-    "commitCount": 17,
+    "commitCount": 68,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -13,6 +13,2215 @@
     }
   },
   "commits": [
+    {
+      "sha": "58b7fde",
+      "fullSha": "58b7fde449a4b889ec7c093d14bddae12c9ec93e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T10:45:02+00:00",
+      "commitDate": "2026-02-18T10:45:02+00:00",
+      "subject": "fix(pwa): replace update toast with top banner and move interest form after skills",
+      "body": "The bottom-right PWA update toast was not visible to users. Replaced it with\na full-width fixed banner pinned to the top of the viewport for maximum\nvisibility. Also moved InterestForm from after Experience to after Skills\nper user request. Cleaned up DebugBanner — removed hasUpdate offset logic\nsince the update prompt no longer occupies the bottom-right corner.\n\nTags: pwa, ux, layout\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-update-flow\nSemver: patch\n\nhttps://claude.ai/code/session_01AWEaaGBjitoLRrqQJacxBL",
+      "tags": [
+        "pwa",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pwa-update-flow",
+      "semver": "patch",
+      "scope": "pwa",
+      "title": "replace update toast with top banner and move interest form after skills",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 25,
+        "deletions": 31
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/DebugBanner.tsx",
+        "src/components/UpdatePrompt.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "696856b",
+      "fullSha": "696856bffc1c996c4487dd701a1ec49cae6b6082",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-18T12:30:04+02:00",
+      "commitDate": "2026-02-18T12:30:04+02:00",
+      "subject": "Merge pull request #18 from devmade-ai/claude/update-contact-charts-9LXng",
+      "body": "Refactor contact section: move form inline and links to footer",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #18 from devmade-ai/claude/update-contact-charts-9LXng",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#18"
+      ],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 31,
+        "deletions": 64
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "7e32b4f",
+      "fullSha": "7e32b4fe76756430e0ee31dcb67e73e4c9b80050",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T10:29:15+00:00",
+      "commitDate": "2026-02-18T10:29:15+00:00",
+      "subject": "fix(charts): add spacing between chart title and iframe",
+      "body": "The title was flush against the chart below. Added mb-2 to create an\n8px gap between the title and the iframe, while keeping pt-3 so the\ntitle stays close to the card top.\n\nTags: charts, spacing, layout\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-layout\nSemver: patch\n\nhttps://claude.ai/code/session_019bm6erfPZp9TJKsctKDmFu",
+      "tags": [
+        "ui",
+        "layout"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "charts",
+      "title": "add spacing between chart title and iframe",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/components/ActivityCharts.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "5ca6a59",
+      "fullSha": "5ca6a5984646a2686d73d71659408911d2932980",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T10:26:33+00:00",
+      "commitDate": "2026-02-18T10:26:33+00:00",
+      "subject": "refactor(contact): restructure contact layout and fix chart sizing",
+      "body": "Remove the Contact section heading and split its contents: LinkedIn and\nGitHub links move to the site footer, the interest form moves to after\nthe Experience section, and the personal email is removed entirely.\nAlso increase chart iframe height (h-80/sm:h-96) so embedded charts\nare fully visible without scrolling, and tighten chart title spacing.\n\nTags: layout, contact, charts, footer, cleanup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cv-layout\nSemver: minor\n\nhttps://claude.ai/code/session_019bm6erfPZp9TJKsctKDmFu",
+      "tags": [
+        "layout",
+        "refactor"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "cv-layout",
+      "semver": "minor",
+      "scope": "contact",
+      "title": "restructure contact layout and fix chart sizing",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 31,
+        "deletions": 64
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/ActivityCharts.tsx",
+        "src/components/Contact.tsx",
+        "src/components/InterestForm.tsx",
+        "src/data/cv-data.ts",
+        "src/test/cv-data.test.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "f802f34",
+      "fullSha": "f802f34914e78591864e6ef4e9663a6a2ae5a92b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-18T11:46:53+02:00",
+      "commitDate": "2026-02-18T11:46:53+02:00",
+      "subject": "Merge pull request #17 from devmade-ai/claude/update-readme-projects-S5XBZ",
+      "body": "Update CV data with new projects and refined about section",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #17 from devmade-ai/claude/update-readme-projects-S5XBZ",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#17"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 56,
+        "deletions": 11
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "bdcbe0b",
+      "fullSha": "bdcbe0b6d438e9a444eab7ec56c9deb323851ad8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T09:45:47+00:00",
+      "commitDate": "2026-02-18T09:45:47+00:00",
+      "subject": "content(about): reference embedded analytics dashboard in about text",
+      "body": "Mention that the activity charts are embedded live from a separate\nanalytics dashboard built to track personal Git history, framing it\nas an additional project demonstration.\n\nTags: content, about, cv-data\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01V3DNos1CLaJJD7eygUT2sB",
+      "tags": [
+        "content"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "about",
+      "title": "reference embedded analytics dashboard in about text",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "c4ec734",
+      "fullSha": "c4ec73493591a4cf25aa705e76127682636a610e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T09:43:12+00:00",
+      "commitDate": "2026-02-18T09:43:12+00:00",
+      "subject": "fix(activity): hide entire activity section when printing",
+      "body": "Cross-origin iframes render as empty boxes in print. Wrap the full\nActivity section (heading included) with no-print so it's cleanly\nexcluded. Revert the about text to avoid referencing charts that\nwon't appear in the printed version.\n\nTags: fix, print, activity\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01V3DNos1CLaJJD7eygUT2sB",
+      "tags": [
+        "bugfix",
+        "print"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "activity",
+      "title": "hide entire activity section when printing",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 3,
+        "deletions": 1
+      },
+      "files": [
+        "src/components/ActivityCharts.tsx",
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "c59ff43",
+      "fullSha": "c59ff43c3d27ac4a2977708bf3bd29ea788117cf",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T09:39:38+00:00",
+      "commitDate": "2026-02-18T09:39:38+00:00",
+      "subject": "fix(activity): remove no-print and reference charts in about text",
+      "body": "Remove no-print class from activity charts — iframes should be\nprintable like any other section. Update about text to reference\nthe live activity charts and bridge into the projects list.\n\nTags: fix, content, about, activity\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01V3DNos1CLaJJD7eygUT2sB",
+      "tags": [
+        "bugfix",
+        "content"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "activity",
+      "title": "remove no-print and reference charts in about text",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 2,
+        "deletions": 2
+      },
+      "files": [
+        "src/components/ActivityCharts.tsx",
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "3553d20",
+      "fullSha": "3553d20934aeeebbd95a915bc47da281d6feeb9d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T09:34:17+00:00",
+      "commitDate": "2026-02-18T09:34:17+00:00",
+      "subject": "feat(activity): embed daily and hourly distribution charts from repo-tor",
+      "body": "Add Activity section between About and Projects showing two repo-tor\ndashboard charts via iframes — days of the week and hours of the day\ncommit distributions. Side-by-side on desktop, stacked on mobile.\nHidden when printing.\n\nTags: feature, embed, activity, charts\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: minor\n\nhttps://claude.ai/code/session_01V3DNos1CLaJJD7eygUT2sB",
+      "tags": [
+        "feature",
+        "embed"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "cv-content",
+      "semver": "minor",
+      "scope": "activity",
+      "title": "embed daily and hourly distribution charts from repo-tor",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 43,
+        "deletions": 0
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/ActivityCharts.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "b2445db",
+      "fullSha": "b2445db14737089acaf9042c0935b4e270a8865f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T09:26:01+00:00",
+      "commitDate": "2026-02-18T09:26:01+00:00",
+      "subject": "content(about): update closing line to reflect private repos",
+      "body": "Replace \"source code is open for anyone to read\" with \"every project\nlisted below is live and available to try\" since some repositories are\nnow private.\n\nTags: content, about, cv-data\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01V3DNos1CLaJJD7eygUT2sB",
+      "tags": [
+        "content"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": "about",
+      "title": "update closing line to reflect private repos",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "973146d",
+      "fullSha": "973146dd3cb733efcb72ff83187a1754b5cf5332",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T09:23:30+00:00",
+      "commitDate": "2026-02-18T09:23:30+00:00",
+      "subject": "content(projects): point project links to live sites instead of repos",
+      "body": "Update Graphiki and model-pear links to their GitHub Pages deployments\nso visitors can see the projects in action rather than hitting private\nrepository 404s.\n\nTags: content, projects, cv-data\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01V3DNos1CLaJJD7eygUT2sB",
+      "tags": [
+        "content"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "projects",
+      "title": "point project links to live sites instead of repos",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 2,
+        "deletions": 2
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "5387bac",
+      "fullSha": "5387bacad39cfa44301bca783041e99871f6de01",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T09:18:22+00:00",
+      "commitDate": "2026-02-18T09:18:22+00:00",
+      "subject": "content(projects): replace see-veo with Graphiki in projects section",
+      "body": "Replace the see-veo project entry with Graphiki — a visual graph-based\nknowledge workspace for building, exploring, and analysing networks of\nideas, people, companies, and concepts. Runs entirely in-browser as a\nPWA with no server or account required. Project info sourced from the\nGraphiki repository README.\n\nTags: content, projects, cv-data\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01V3DNos1CLaJJD7eygUT2sB",
+      "tags": [
+        "content"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "projects",
+      "title": "replace see-veo with Graphiki in projects section",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 5,
+        "deletions": 5
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "9273a34",
+      "fullSha": "9273a34d4c35c479a6fe9d2b9ccdf7095bcc0a08",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T09:02:43+00:00",
+      "commitDate": "2026-02-18T09:02:43+00:00",
+      "subject": "content(projects): replace Repo-Tor with model-pear in projects section",
+      "body": "Replace the Repo-Tor project entry with model-pear, a dual-mode pricing\nand deal structuring tool for South African B2B software companies.\nProject info sourced from the model-pear repository README.\n\nTags: content, projects, cv-data\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01V3DNos1CLaJJD7eygUT2sB",
+      "tags": [
+        "content"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "projects",
+      "title": "replace Repo-Tor with model-pear in projects section",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 5,
+        "deletions": 5
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "1ac8fcd",
+      "fullSha": "1ac8fcd238cbe905e0eb068faef19113497f5172",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T15:39:45+02:00",
+      "commitDate": "2026-02-17T15:39:45+02:00",
+      "subject": "Merge pull request #16 from devmade-ai/claude/fix-pill-overlap-4j3sy",
+      "body": "Update CV content, skills, and improve UI layout",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #16 from devmade-ai/claude/fix-pill-overlap-4j3sy",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#16"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 38,
+        "deletions": 15
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "e2ba82a",
+      "fullSha": "e2ba82a199c74caddf693e4868529315bbfa1645",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T13:38:52+00:00",
+      "commitDate": "2026-02-17T13:38:52+00:00",
+      "subject": "update(skills): balance Core and Development categories with new entries",
+      "body": "Add Requirements Engineering, Technical Documentation, Product\nDemonstrations, and Process Optimisation to Core (4 → 8). Add Node.js,\nNext.js, Tailwind CSS, and Git / CI/CD to Development (6 → 10). Brings\nboth categories in line with Data & Integration (10) for a balanced\npresentation.\n\nTags: content, skills\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01U5us3PjeFKio5psiBj7a7U",
+      "tags": [
+        "content",
+        "skills"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "skills",
+      "title": "balance Core and Development categories with new entries",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 8,
+        "deletions": 0
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "49f1f89",
+      "fullSha": "49f1f899f9784e2d77c976f20cc5fb512d74b146",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T13:34:41+00:00",
+      "commitDate": "2026-02-17T13:34:41+00:00",
+      "subject": "update(skills): add Supabase, Firebase, and PL/SQL to Data & Integration",
+      "body": "Expand the Data & Integration skill set with Supabase, Firebase, and\nPL/SQL to better reflect current capabilities alongside the existing\nSQL and serverless entries.\n\nTags: content, skills\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01U5us3PjeFKio5psiBj7a7U",
+      "tags": [
+        "content",
+        "skills"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "skills",
+      "title": "add Supabase, Firebase, and PL/SQL to Data & Integration",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 0
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "20a6f8c",
+      "fullSha": "20a6f8c3b82860e97d7090ab24c5327351a873e5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T13:32:43+00:00",
+      "commitDate": "2026-02-17T13:32:43+00:00",
+      "subject": "update(skills): replace dated tools with modern technologies",
+      "body": "Remove SoapUI, QlikView, and BPMN from Data & Integration skills.\nAdd Neo4j, Graph Databases, Postman, and Vercel / Serverless to\nreflect current toolset. Historical references to removed tools in\nExperience highlights are preserved since they describe past roles.\n\nTags: content, skills\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01U5us3PjeFKio5psiBj7a7U",
+      "tags": [
+        "content",
+        "skills"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "skills",
+      "title": "replace dated tools with modern technologies",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 4,
+        "deletions": 3
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "d794223",
+      "fullSha": "d794223ba7323e4cb5b1454b2d57a6c8af809a33",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T13:26:42+00:00",
+      "commitDate": "2026-02-17T13:26:42+00:00",
+      "subject": "refactor(layout): move Contact section after Projects for better CTA placement",
+      "body": "Place the Contact section (email, LinkedIn, GitHub, interest form) directly\nafter Projects instead of at the very bottom. Visitors see the call-to-action\nat peak engagement — right after reading the story (About) and seeing proof\nof work (Projects) — rather than after scrolling through Skills, Experience,\nand Education.\n\nTags: layout, ux, section-order\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01U5us3PjeFKio5psiBj7a7U",
+      "tags": [
+        "layout",
+        "ux"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "layout",
+      "title": "move Contact section after Projects for better CTA placement",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 6,
+        "deletions": 6
+      },
+      "files": [
+        "src/App.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "eb2e3dc",
+      "fullSha": "eb2e3dca96c5bd04d7e0f92a4593908bee6c27a8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T13:16:51+00:00",
+      "commitDate": "2026-02-17T13:16:51+00:00",
+      "subject": "fix(ui): update tagline, fix pill overlap, add Vercel deploy info",
+      "body": "Replace professional tagline with the full \"Jack of all trades\" proverb.\nFix DebugBanner pill overlapping UpdatePrompt toast by shifting the\ndebug banner upward when a PWA update is available. Add mention of\nbackend auto-deploying to Vercel on push/merge to main in the About\nsection text.\n\nTags: ui, content, pwa, debug\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01U5us3PjeFKio5psiBj7a7U",
+      "tags": [
+        "ui",
+        "content"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "ui",
+      "title": "update tagline, fix pill overlap, add Vercel deploy info",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 17,
+        "deletions": 6
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/DebugBanner.tsx",
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "de562ed",
+      "fullSha": "de562eddda621132137f4086c84ebed72a11d661",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T13:59:16+02:00",
+      "commitDate": "2026-02-17T13:59:16+02:00",
+      "subject": "Merge pull request #15 from devmade-ai/claude/document-backend-service-lAgwB",
+      "body": "Restructure layout: replace PortfolioCallout with About section",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #15 from devmade-ai/claude/document-backend-service-lAgwB",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#15"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 9,
+        "deletions": 53
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "bec4899",
+      "fullSha": "bec4899434aae4d59d77af04776cce680d1808a3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T11:57:27+00:00",
+      "commitDate": "2026-02-17T11:57:27+00:00",
+      "subject": "docs(about): replace code snippet with prose about building the app",
+      "body": "Replace the Java code snippet in the About section with a first-person\nnarrative explaining why this site was built as a living CV instead of\na static PDF. Covers the frontend stack (React 19, TypeScript, Vite,\nTailwind CSS v4, PWA), the backend service (Vercel serverless functions\nwith self-hosted SMTP, designed as a shared multi-app API platform),\nand the deployment pipeline (GitHub Pages via GitHub Actions).\n\nAdd the About component to App.tsx after Hero, before Projects.\nRemove the PortfolioCallout component — the new About section covers\nthe same ground with more detail.\n\nTags: about, content, documentation, ux\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: about-section\nSemver: minor\n\nhttps://claude.ai/code/session_01Tuzgyu7qzwipyPCoqKXUVa",
+      "tags": [
+        "content",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "about-section",
+      "semver": "minor",
+      "scope": "about",
+      "title": "replace code snippet with prose about building the app",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 9,
+        "deletions": 53
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/PortfolioCallout.tsx",
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "5f89ce4",
+      "fullSha": "5f89ce4ebd3b7f1e52ee2efc82bc4ce156420c65",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T06:18:59+02:00",
+      "commitDate": "2026-02-17T06:18:59+02:00",
+      "subject": "Merge pull request #14 from devmade-ai/claude/remove-api-references-KA5Ja",
+      "body": "Enforce non-empty messages and reposition portfolio callout",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #14 from devmade-ai/claude/remove-api-references-KA5Ja",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#14"
+      ],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 30,
+        "deletions": 23
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "97b717a",
+      "fullSha": "97b717ab0c7d7628b9fe82f4960f842c95ec2852",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T04:15:26+00:00",
+      "commitDate": "2026-02-17T04:15:26+00:00",
+      "subject": "fix(interest-form): align with external API contract",
+      "body": "Two mismatches with the API's expected payload:\n\n1. _honeypot field: The frontend did a client-side check but never sent\n   the field to the server. Now sends _honeypot: '' in every request so\n   bots bypassing frontend JS still get caught by the server's 400.\n\n2. message field: Frontend marked it as \"(optional)\" but the API requires\n   it. Now required with HTML validation. Test updated to match — empty\n   message is rejected.\n\nTags: api-contract, bugfix, forms\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: portfolio-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01LBdfT4HpA5cgo1Db7Exd7c",
+      "tags": [
+        "bugfix",
+        "api"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "portfolio-polish",
+      "semver": "patch",
+      "scope": "interest-form",
+      "title": "align with external API contract",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 13,
+        "deletions": 8
+      },
+      "files": [
+        "src/components/InterestForm.tsx",
+        "src/test/validate-payload.test.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "07837cf",
+      "fullSha": "07837cf6992eac4bdaf180af7a8fc2039c23ba1a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T04:07:53+00:00",
+      "commitDate": "2026-02-17T04:07:53+00:00",
+      "subject": "fix(docs): remove references treating API as part of this project",
+      "body": "The interest notification API is a separate project deployed independently.\nUpdated DebugBanner diagnostic message, test comments, and CLAUDE.md to\nstop referencing the API as if it lives in this repo. Also moved the\nPortfolioCallout from before Contact to after Projects where it's more\ncontextually relevant — \"here's my work, and this site is one too.\"\n\nTags: cleanup, docs, ux\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: portfolio-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01LBdfT4HpA5cgo1Db7Exd7c",
+      "tags": [
+        "docs",
+        "removal"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": "docs",
+      "title": "remove references treating API as part of this project",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 17,
+        "deletions": 15
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/App.tsx",
+        "src/components/DebugBanner.tsx",
+        "src/components/PortfolioCallout.tsx",
+        "src/test/validate-payload.test.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "3c19674",
+      "fullSha": "3c19674404e3022aca4d52825b9422dfe222ff90",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T05:43:25+02:00",
+      "commitDate": "2026-02-17T05:43:25+02:00",
+      "subject": "Merge pull request #13 from devmade-ai/claude/debug-mobile-chrome-mFIKy",
+      "body": "Remove self-hosted API, improve failure diagnostics",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #13 from devmade-ai/claude/debug-mobile-chrome-mFIKy",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#13"
+      ],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 206,
+        "deletions": 2363
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0a5b092",
+      "fullSha": "0a5b0928cf3dea3740732e9a7ca58c18bb661881",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T03:40:46+00:00",
+      "commitDate": "2026-02-17T03:40:46+00:00",
+      "subject": "chore: remove api/ directory — separate Vercel project",
+      "body": "The api/ directory is a standalone project deployed independently to\nVercel. It does not belong in this frontend repository. Removed:\n\n- api/ directory (vercel.json, package.json, tsconfig, serverless functions)\n- docs/interest-api-setup.md (deployment docs for the API project)\n- Updated CLAUDE.md to note the API is a separate project\n\nTags: cleanup, project-structure\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: interest-form\nSemver: patch\n\nhttps://claude.ai/code/session_018JkxSHN3SsV57HYmUB2kSs",
+      "tags": [
+        "removal",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "interest-form",
+      "semver": "patch",
+      "scope": null,
+      "title": "remove api/ directory — separate Vercel project",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 1,
+        "deletions": 2352
+      },
+      "files": [
+        "CLAUDE.md",
+        "api/.env.example",
+        "api/api/health.ts",
+        "api/api/send-interest.ts",
+        "api/package-lock.json",
+        "api/package.json",
+        "api/tsconfig.json",
+        "api/vercel.json",
+        "docs/interest-api-setup.md"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 3,
+      "impact": "internal"
+    },
+    {
+      "sha": "f60d9ab",
+      "fullSha": "f60d9ab07a6947f846f4a0ff68b52e920fd96647",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T03:37:56+00:00",
+      "commitDate": "2026-02-17T03:37:56+00:00",
+      "subject": "revert(api): restore original vercel.json builds config",
+      "body": "The api/ directory is a separate project deployed independently to Vercel.\nThe previous commit incorrectly removed the legacy builds configuration\nas part of frontend debugging. Reverting to the original config that the\nAPI project maintainer controls.\n\nTags: vercel, revert\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: interest-form\nSemver: patch\n\nhttps://claude.ai/code/session_018JkxSHN3SsV57HYmUB2kSs",
+      "tags": [
+        "revert"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "api",
+      "title": "restore original vercel.json builds config",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 7,
+        "deletions": 1
+      },
+      "files": [
+        "api/vercel.json"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "b5a2ceb",
+      "fullSha": "b5a2ceb61b5d8ed0f250baf1d887e67c5712d0ca",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T03:17:51+00:00",
+      "commitDate": "2026-02-17T03:17:51+00:00",
+      "subject": "fix(interest-form): detect API-not-deployed and show actionable errors",
+      "body": "Root cause: Vercel logs show all requests to /api/send-interest return\n404 — the API serverless functions are not deployed. Vercel serves 404\nwithout CORS headers, so the browser throws \"TypeError: Failed to fetch\"\nwhich is indistinguishable from a network failure on mobile Chrome.\n\nThree changes:\n\n1. DebugBanner diagnostics: Add \"API Deployed\" check that hits the\n   /api/health endpoint before checking CORS. When health returns 404,\n   the diagnostic clearly shows \"API not deployed — redeploy with:\n   cd api && npx vercel --prod\". CORS check is skipped when not deployed\n   to avoid a confusing secondary failure.\n\n2. InterestForm error handling: Replace single CORS probe with\n   three-phase diagnoseFailure() that distinguishes not-deployed (health\n   endpoint 404), CORS misconfigured (health OK but form fetch blocked),\n   and network failure (server unreachable). Each gets a specific\n   user-facing message.\n\n3. api/vercel.json: Remove legacy \"builds\" configuration in favor of\n   Vercel zero-config auto-detection. The legacy format can cause\n   deployment issues and is no longer needed for the api/ directory\n   structure.\n\nTags: vercel, deployment, debug, cors, error-handling\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: interest-form\nSemver: patch\n\nhttps://claude.ai/code/session_018JkxSHN3SsV57HYmUB2kSs",
+      "tags": [
+        "bugfix",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "interest-form",
+      "semver": "patch",
+      "scope": "interest-form",
+      "title": "detect API-not-deployed and show actionable errors",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 158,
+        "deletions": 78
+      },
+      "files": [
+        "api/vercel.json",
+        "src/components/DebugBanner.tsx",
+        "src/components/InterestForm.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 4,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "0a6926a",
+      "fullSha": "0a6926a82e697a13dcfd48e2affcd60cbc0d41e9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T03:06:10+00:00",
+      "commitDate": "2026-02-17T03:06:10+00:00",
+      "subject": "fix(interest-form): resolve mobile Chrome CORS/SW fetch failures",
+      "body": "Three changes to fix \"Failed to fetch\" TypeErrors on mobile Chrome:\n\n1. Add explicit NetworkOnly runtimeCaching strategy for Vercel API\n   endpoints in the service worker config. The navigateFallbackDenylist\n   only controls navigation fallback — it does not prevent the SW fetch\n   handler from intercepting cross-origin requests, which can break\n   CORS preflight on some mobile Chrome versions.\n\n2. Add CORS-aware error detection in InterestForm: after all fetch\n   attempts fail with TypeError, a mode:'no-cors' probe differentiates\n   \"server unreachable\" from \"CORS misconfigured\", giving users a more\n   actionable error message instead of the generic network error.\n\n3. Split DebugBanner \"API Reachable\" diagnostic into two checks:\n   a no-cors reachability probe and a cors OPTIONS request. This\n   separates network failures from CORS misconfigurations in the\n   diagnostics panel, making future debugging clearer.\n\nTags: pwa, cors, mobile, service-worker, debug\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: interest-form\nSemver: patch\n\nhttps://claude.ai/code/session_018JkxSHN3SsV57HYmUB2kSs",
+      "tags": [
+        "bugfix",
+        "pwa",
+        "mobile"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "interest-form",
+      "semver": "patch",
+      "scope": "interest-form",
+      "title": "resolve mobile Chrome CORS/SW fetch failures",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 119,
+        "deletions": 11
+      },
+      "files": [
+        "src/components/DebugBanner.tsx",
+        "src/components/InterestForm.tsx",
+        "vite.config.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "f6c9613",
+      "fullSha": "f6c96131adb975a578e3e7ebc7f645bbe994be39",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T01:45:45+02:00",
+      "commitDate": "2026-02-17T01:45:45+02:00",
+      "subject": "Merge pull request #12 from devmade-ai/claude/debug-mobile-performance-xGEHQ",
+      "body": "Add retry logic and offline detection for form submission",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #12 from devmade-ai/claude/debug-mobile-performance-xGEHQ",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#12"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 141,
+        "deletions": 54
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "ded5a32",
+      "fullSha": "ded5a321ca586f0c1fc4ec0a94cd68e054234c8e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T23:43:20+00:00",
+      "commitDate": "2026-02-16T23:43:20+00:00",
+      "subject": "fix(interest-form): add retry logic and mobile resilience for fetch failures",
+      "body": "Debug report from mobile Chrome Android showed TypeError: Failed to fetch\nafter 628ms with API Reachable diagnostic also failing. Root cause is\nlikely transient mobile network failure or CORS preflight rejection.\n\nChanges:\n- Add single retry with 1.5s backoff for network-level TypeErrors\n- Add navigator.onLine pre-check before attempting fetch\n- Set explicit mode: 'cors' on fetch for mobile browser compat\n- Add navigateFallbackDenylist to Workbox config to prevent service\n  worker from interfering with cross-origin API requests\n- Differentiate error messages: offline, connection dropped, server\n  unreachable (with actionable guidance for each)\n- Log attempt numbers and retry state in debug events\n\nTags: interest-form, mobile, fetch, retry, service-worker, cors\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: interest-form\nSemver: patch\n\nhttps://claude.ai/code/session_01RRKyPScNsjNwNpZbZKeymn",
+      "tags": [
+        "bugfix",
+        "mobile"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "interest-form",
+      "semver": "patch",
+      "scope": "interest-form",
+      "title": "add retry logic and mobile resilience for fetch failures",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 141,
+        "deletions": 54
+      },
+      "files": [
+        "src/components/InterestForm.tsx",
+        "vite.config.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "b1885c9",
+      "fullSha": "b1885c9be04fb8a0764e4ceabcc1d0467bb68c0c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T01:29:28+02:00",
+      "commitDate": "2026-02-17T01:29:28+02:00",
+      "subject": "Merge pull request #11 from devmade-ai/claude/fix-lint-github-pages-JM9m5",
+      "body": "Move diagnostics trigger from useEffect to click handler",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #11 from devmade-ai/claude/fix-lint-github-pages-JM9m5",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#11"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 8,
+        "deletions": 7
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "b19f49a",
+      "fullSha": "b19f49aadfd0ccaa39ba541e7ad0d59cc196c2c4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T23:28:12+00:00",
+      "commitDate": "2026-02-16T23:28:12+00:00",
+      "subject": "fix(lint): move setState out of useEffect in DebugBanner",
+      "body": "The react-hooks/set-state-in-effect rule (eslint-plugin-react-hooks v7)\nflagged runDiagnostics() being called inside useEffect because it calls\nsetDiagnostics (setState) synchronously within the effect body.\n\nMoved the diagnostics trigger from the useEffect into the expand button's\nonClick handler, which is the only call site for setExpanded(true). This\npreserves the same behavior (diagnostics run on first expand) while\nsatisfying the lint rule.\n\nTags: lint, react-hooks, eslint, ci\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: ci-pipeline\nSemver: patch\n\nhttps://claude.ai/code/session_01Dcz4tejeWf4mDuiB7oDk47",
+      "tags": [
+        "bugfix",
+        "lint"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": "lint",
+      "title": "move setState out of useEffect in DebugBanner",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 8,
+        "deletions": 7
+      },
+      "files": [
+        "src/components/DebugBanner.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "869e814",
+      "fullSha": "869e81497b0478d483a2cbd6ca50152f31fb5cae",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T01:06:31+02:00",
+      "commitDate": "2026-02-17T01:06:31+02:00",
+      "subject": "Merge pull request #10 from devmade-ai/claude/fix-ui-email-debug-BPUpt",
+      "body": "Add debug banner for mobile diagnostics and event logging",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #10 from devmade-ai/claude/fix-ui-email-debug-BPUpt",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#10"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 634,
+        "deletions": 54
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "a7d4b2f",
+      "fullSha": "a7d4b2f5885bd2245d4f39306cc0f04ee9a3f436",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T23:05:29+00:00",
+      "commitDate": "2026-02-16T23:05:29+00:00",
+      "subject": "refactor(layout): remove About section",
+      "body": "About section removed from page layout. Component file kept\nin case it's reintroduced later.\n\nTags: layout, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-layout\nSemver: minor\n\nhttps://claude.ai/code/session_01XRjc4wHALhzDUsSos5WjvP",
+      "tags": [
+        "layout",
+        "removal"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "minor",
+      "scope": "layout",
+      "title": "remove About section",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 2
+      },
+      "files": [
+        "src/App.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "f82eee7",
+      "fullSha": "f82eee72c074cdf9c6ba9ee42adf580cdb90de2f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T23:03:20+00:00",
+      "commitDate": "2026-02-16T23:03:20+00:00",
+      "subject": "refactor(layout): reorder sections for visitor engagement",
+      "body": "Hero → Projects → About → Skills → Experience → Education →\nPortfolioCallout → Contact.\n\nLead with projects (show don't tell), personality and skills for\ncontext, then credentials. Portfolio CTA moved after engagement\ninstead of before visitors know who they're looking at.\n\nTags: ux, layout\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-layout\nSemver: minor\n\nhttps://claude.ai/code/session_01XRjc4wHALhzDUsSos5WjvP",
+      "tags": [
+        "layout",
+        "ux"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "minor",
+      "scope": "layout",
+      "title": "reorder sections for visitor engagement",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 9,
+        "deletions": 3
+      },
+      "files": [
+        "src/App.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "c2e8cef",
+      "fullSha": "c2e8cefff807103284a9e20ed77ed309a1efb80b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T22:51:27+00:00",
+      "commitDate": "2026-02-16T22:51:27+00:00",
+      "subject": "fix(debug): always show debug banner, remove activation gating",
+      "body": "Debug banner is now always visible — no URL parameter, no tap gesture,\nno localStorage toggle. It's alpha, just show it.\n\nRemoved useDebugMode hook and onAvatarTap prop from Hero.\n\nTags: debug, ux\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: contact-form\nSemver: patch\n\nhttps://claude.ai/code/session_01XRjc4wHALhzDUsSos5WjvP",
+      "tags": [
+        "debug"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": "debug",
+      "title": "always show debug banner, remove activation gating",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 2,
+        "deletions": 12
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/DebugBanner.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 3,
+      "impact": "internal"
+    },
+    {
+      "sha": "621de94",
+      "fullSha": "621de943fc4a8764b4b41b908b2af559a11d4344",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T22:46:03+00:00",
+      "commitDate": "2026-02-16T22:46:03+00:00",
+      "subject": "feat(debug): add floating debug banner with diagnostics and event log",
+      "body": "Replace the single-button EmailDebugModal with a proper debug system\nmodeled after PWADebugBanner from another project. The system has three\nparts:\n\n1. debugLog utility (src/utils/debugLog.ts) — pub/sub in-memory event\n   store capped at 200 entries. Global singleton so logs survive\n   component re-renders. Any module can call debugLog() to emit events.\n\n2. DebugBanner component (src/components/DebugBanner.tsx) — floating\n   pill on the bottom-right that expands to a two-tab panel:\n   - Diagnostics tab: runs health checks (HTTPS, network, API URL\n     config, API reachability, service worker, install state, user agent)\n   - Event Log tab: real-time color-coded entries from InterestForm\n     (info=gray, success=green, warn=amber, error=red) with expandable\n     details and source labels\n   Controls: re-run diagnostics, clear log, copy-all-to-clipboard, close\n   Clipboard fallback: shows selectable textarea if API fails on mobile\n\n3. InterestForm integration — emits debugLog events at each lifecycle\n   point: submit, request, response-ok, response-error, timeout,\n   fetch-failed, api-url-missing, honeypot-triggered\n\nActivated via ?debug=true URL parameter. Hidden from regular users.\nThe \"Copy All\" button produces a complete plain-text report (environment\n+ full event log) formatted for pasting into another session.\n\nTags: debug, email, ux, mobile, diagnostics\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: contact-form\nSemver: minor\n\nhttps://claude.ai/code/session_01XRjc4wHALhzDUsSos5WjvP",
+      "tags": [
+        "feature",
+        "debug"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "minor",
+      "scope": "debug",
+      "title": "add floating debug banner with diagnostics and event log",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 660,
+        "deletions": 355
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/DebugBanner.tsx",
+        "src/components/EmailDebugModal.tsx",
+        "src/components/InterestForm.tsx",
+        "src/utils/debugLog.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "8ae676f",
+      "fullSha": "8ae676f8b560d8f63148e2bc450386bd63971266",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T22:37:15+00:00",
+      "commitDate": "2026-02-16T22:37:15+00:00",
+      "subject": "refactor(debug): replace modal with one-tap copy debug report",
+      "body": "The previous debug modal required opening a scrollable log, finding\nentries, and copying them individually — too many steps on mobile.\n\nReplaced with a single \"Copy Debug Report\" button that copies a\ncomplete plain-text diagnostic report to clipboard in one tap.\nThe report includes environment (URL, user agent), API endpoint,\nrequest summary, HTTP response (status, body, elapsed time), and\nerror details — formatted for pasting into another session to\ndiagnose email sending issues.\n\nFallback: if clipboard API fails on mobile, shows a pre-selected\ntextarea for manual copy.\n\nTags: debug, email, ux, mobile\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: contact-form\nSemver: patch\n\nhttps://claude.ai/code/session_01XRjc4wHALhzDUsSos5WjvP",
+      "tags": [
+        "refactor",
+        "debug"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": "debug",
+      "title": "replace modal with one-tap copy debug report",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 213,
+        "deletions": 239
+      },
+      "files": [
+        "src/components/EmailDebugModal.tsx",
+        "src/components/InterestForm.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "64dba1a",
+      "fullSha": "64dba1ab33dd0b539afc2f3967c2fd89b02d63d2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T22:31:34+00:00",
+      "commitDate": "2026-02-16T22:31:34+00:00",
+      "subject": "fix(ui): remove site header, add email debug modal",
+      "body": "Remove the separate site header (\"this is a cv\" + Alpha badge) which\ncreated a competing h1 and used developer jargon that confused\nnon-technical users. Action buttons (Install, PDF) now live in the\nHero component where they contextually belong.\n\nAdd an EmailDebugModal component for diagnosing email send failures\non mobile. Activated via ?debug=true URL parameter — captures full\nrequest/response lifecycle with timestamps, HTTP status, elapsed time,\nand response bodies. Includes copy-to-clipboard for individual entries\nor all logs.\n\nTags: ux, ui, debug, email, forms\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: contact-form\nSemver: minor\n\nhttps://claude.ai/code/session_01XRjc4wHALhzDUsSos5WjvP",
+      "tags": [
+        "ui",
+        "debug"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "minor",
+      "scope": "ui",
+      "title": "remove site header, add email debug modal",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 465,
+        "deletions": 158
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/EmailDebugModal.tsx",
+        "src/components/Hero.tsx",
+        "src/components/InterestForm.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "c26ff4e",
+      "fullSha": "c26ff4ed86517499504699d51fc0370c25a31fcd",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-16T16:25:29+02:00",
+      "commitDate": "2026-02-16T16:25:29+02:00",
+      "subject": "Merge pull request #9 from devmade-ai/claude/add-interest-api-config-PkuKy",
+      "body": "Configure interest API endpoint for tool-till-tees project",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #9 from devmade-ai/claude/add-interest-api-config-PkuKy",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#9"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 6,
+        "deletions": 4
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "323c936",
+      "fullSha": "323c936adb1e05960c2e4645921d357d4527175e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T13:00:50+00:00",
+      "commitDate": "2026-02-16T13:00:50+00:00",
+      "subject": "config(ci): hardcode interest API URL instead of using secret",
+      "body": "The API URL is a public endpoint that ends up in the client-side bundle\nanyway — no reason to treat it as a secret. Hardcoding it in the\nworkflow removes the manual secret setup step.\n\nTags: config, ci, docs\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: interest-notification\nSemver: patch\n\nhttps://claude.ai/code/session_017XZCUS7G1Lr6MExvZ62tLs",
+      "tags": [
+        "config",
+        "ci"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": "ci",
+      "title": "hardcode interest API URL instead of using secret",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 1,
+        "deletions": 10
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "docs/interest-api-setup.md"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "14eaf8a",
+      "fullSha": "14eaf8ad5000eef2d7d051a64116727e2681f53f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T12:56:38+00:00",
+      "commitDate": "2026-02-16T12:56:38+00:00",
+      "subject": "config(interest-api): configure VITE_INTEREST_API_URL for tool-till-tees endpoint",
+      "body": "Set the interest notification API URL to the deployed Vercel endpoint\nat tool-till-tees.vercel.app. Updated .env.example with the actual URL,\nadded the env var injection to the GitHub Actions deploy workflow via\nrepository secret, and documented the GitHub Actions secret setup step.\n\nTags: config, ci, docs, interest-api\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: interest-notification\nSemver: patch\n\nhttps://claude.ai/code/session_017XZCUS7G1Lr6MExvZ62tLs",
+      "tags": [
+        "config",
+        "ci"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "interest-api",
+      "title": "configure VITE_INTEREST_API_URL for tool-till-tees endpoint",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 15,
+        "deletions": 4
+      },
+      "files": [
+        ".env.example",
+        ".github/workflows/deploy.yml",
+        "docs/interest-api-setup.md"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "c10d054",
+      "fullSha": "c10d054e720900acd7432303bce868310f8683a8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-16T13:14:42+02:00",
+      "commitDate": "2026-02-16T13:14:42+02:00",
+      "subject": "Merge pull request #8 from devmade-ai/claude/code-review-improvements-jkIYY",
+      "body": "Add comprehensive test suite and improve form/PWA UX",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #8 from devmade-ai/claude/code-review-improvements-jkIYY",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#8"
+      ],
+      "stats": {
+        "filesChanged": 23,
+        "additions": 1728,
+        "deletions": 86
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "28a59cd",
+      "fullSha": "28a59cdae0f97c660200ccda7dc264c3ac116834",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T02:03:36+00:00",
+      "commitDate": "2026-02-16T02:03:36+00:00",
+      "subject": "fix(quality): comprehensive code review improvements across codebase",
+      "body": "Fix metadata mismatch (index.html had \"John Doe\" instead of actual name),\nmemory leak in usePWAUpdate.ts (setInterval without cleanup), array index\nReact keys in 6 components, missing fetch timeout in InterestForm, and\nseveral accessibility gaps.\n\nAdded Vitest test suite with 42 tests covering API payload validation,\nemail regex, browser detection, and CV data integrity. Improved API\nsecurity with explicit CORS origin rejection and stricter email validation.\nEnhanced UX with error auto-dismiss, UpdatePrompt error handling, and\nproper ARIA attributes. Added lint step to CI/CD pipeline.\n\nTags: quality, testing, accessibility, security, ux, ci\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-review-improvements\nSemver: minor\n\nhttps://claude.ai/code/session_01Sx74RdGUuRWr2j6eKPZ7iw",
+      "tags": [
+        "quality",
+        "testing",
+        "accessibility"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "minor",
+      "scope": "quality",
+      "title": "comprehensive code review improvements across codebase",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 23,
+        "additions": 1728,
+        "deletions": 86
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "api/api/send-interest.ts",
+        "index.html",
+        "package-lock.json",
+        "package.json",
+        "src/App.tsx",
+        "src/components/Education.tsx",
+        "src/components/Experience.tsx",
+        "src/components/InstallInstructionsModal.tsx",
+        "src/components/InterestForm.tsx",
+        "src/components/Projects.tsx",
+        "src/components/Skills.tsx",
+        "src/components/TimelineItem.tsx",
+        "src/components/UpdatePrompt.tsx",
+        "src/data/cv-data.ts",
+        "src/hooks/usePWAInstall.ts",
+        "src/hooks/usePWAUpdate.ts",
+        "src/test/cv-data.test.ts",
+        "src/test/detect-browser.test.ts",
+        "src/test/setup.ts",
+        "src/test/validate-payload.test.ts",
+        "vitest.config.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "c7f5e19",
+      "fullSha": "c7f5e197396d703e8d35d0d932ed8c77115a3aa1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-16T03:43:42+02:00",
+      "commitDate": "2026-02-16T03:43:42+02:00",
+      "subject": "Merge pull request #7 from devmade-ai/claude/email-interest-notification-dwUjh",
+      "body": "Add interest notification system with email API",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #7 from devmade-ai/claude/email-interest-notification-dwUjh",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#7"
+      ],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 2528,
+        "deletions": 3
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "b1595a6",
+      "fullSha": "b1595a6614d42ae00be2da30187b2c10e8e47ea5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T01:38:33+00:00",
+      "commitDate": "2026-02-16T01:38:33+00:00",
+      "subject": "refactor(api): restructure from standalone server to Vercel serverless functions",
+      "body": "Replaced the standalone Node.js HTTP server with Vercel-compatible\nserverless functions. The API can now be deployed to Vercel with\n`vercel --prod` from the api/ directory.\n\nKey changes:\n- api/api/send-interest.ts: Vercel serverless function for email sending\n- api/api/health.ts: Health check endpoint\n- api/vercel.json: Vercel build configuration\n- Removed in-memory rate limiting (doesn't persist across serverless\n  invocations) — CORS + honeypot + Vercel DDoS protection is sufficient\n  for a personal CV site\n- Updated docs with Vercel deployment instructions\n\nTags: refactor, api, vercel, serverless, deployment\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: email-interest-notification\nSemver: minor\n\nhttps://claude.ai/code/session_014ZbSF8aTapJ8iUUt3fVJJX",
+      "tags": [
+        "refactor",
+        "serverless"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "email-interest-notification",
+      "semver": "minor",
+      "scope": "api",
+      "title": "restructure from standalone server to Vercel serverless functions",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 2178,
+        "deletions": 317
+      },
+      "files": [
+        ".env.example",
+        "api/.env.example",
+        "api/api/health.ts",
+        "api/api/send-interest.ts",
+        "api/package-lock.json",
+        "api/package.json",
+        "api/src/server.ts",
+        "api/tsconfig.json",
+        "api/vercel.json",
+        "docs/interest-api-setup.md"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "f5e33bd",
+      "fullSha": "f5e33bdb7962f6ab4497cadfc921845ee61adaf2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T00:21:52+00:00",
+      "commitDate": "2026-02-16T00:21:52+00:00",
+      "subject": "chore(api): add package-lock.json for dependency pinning",
+      "body": "Lock nodemailer and dev dependency versions for reproducible installs.\n\nTags: chore, dependencies, api\nComplexity: 1\nUrgency: 1\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: email-interest-notification\nSemver: patch\n\nhttps://claude.ai/code/session_014ZbSF8aTapJ8iUUt3fVJJX",
+      "tags": [
+        "chore"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": "api",
+      "title": "add package-lock.json for dependency pinning",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 70,
+        "deletions": 0
+      },
+      "files": [
+        "api/package-lock.json"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "e24189d",
+      "fullSha": "e24189d801fa494b2178d735369d055021b6599a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T00:21:06+00:00",
+      "commitDate": "2026-02-16T00:21:06+00:00",
+      "subject": "feat(contact): add interest notification form with SMTP email API",
+      "body": "Allow visitors to send a one-off \"I'm interested\" message directly from\nthe CV site. The frontend form (InterestForm component) POSTs to a\nconfigurable API endpoint. A standalone Node.js server in api/ validates\ninput, applies rate limiting, and delivers the email via the user's own\nSMTP server.\n\nFrontend: InterestForm with name, email, optional message, honeypot spam\nprotection, and loading/success/error states. Hidden when printing.\nDegrades gracefully when VITE_INTEREST_API_URL is not configured.\n\nBackend: Pure Node.js HTTP server with nodemailer. CORS-protected,\ninput-validated, rate-limited (5/hr/IP). Deployable anywhere — VPS,\nDocker, or any serverless platform.\n\nTags: feature, contact, email, smtp, form, api\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: email-interest-notification\nSemver: minor\n\nhttps://claude.ai/code/session_014ZbSF8aTapJ8iUUt3fVJJX",
+      "tags": [
+        "feature",
+        "email",
+        "api"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "email-interest-notification",
+      "semver": "minor",
+      "scope": "contact",
+      "title": "add interest notification form with SMTP email API",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 597,
+        "deletions": 3
+      },
+      "files": [
+        ".env.example",
+        "CLAUDE.md",
+        "api/.env.example",
+        "api/package.json",
+        "api/src/server.ts",
+        "api/tsconfig.json",
+        "docs/interest-api-setup.md",
+        "src/components/Contact.tsx",
+        "src/components/InterestForm.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "e541d62",
+      "fullSha": "e541d6207c4bb505526889b5c976f88f6be48f9a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-16T01:50:10+02:00",
+      "commitDate": "2026-02-16T01:50:10+02:00",
+      "subject": "Merge pull request #6 from devmade-ai/claude/add-portfolio-attribution-NFTVn",
+      "body": "Add portfolio callout and self-reference to highlight site as portfolio piece",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #6 from devmade-ai/claude/add-portfolio-attribution-NFTVn",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 58,
+        "deletions": 0
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "441340b",
+      "fullSha": "441340ba2b420aa3daaf2456a130bb396fa4fc3c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T23:33:22+00:00",
+      "commitDate": "2026-02-15T23:33:22+00:00",
+      "subject": "feat(portfolio): add attribution showing this app is proof of skills",
+      "body": "Three-layer approach to make it clear the site itself is a portfolio piece:\n- Header subline: \"a hand-coded portfolio — built from scratch, not from a template\"\n- PortfolioCallout component between Hero and About with GitHub link\n- Footer \"Designed & built by\" line with source code link\n- Self-referential project entry in the Projects section listing the tech stack\n\nTags: portfolio, attribution, ux, branding\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: portfolio-attribution\nSemver: minor\n\nhttps://claude.ai/code/session_016eETRutkZLMS87wDNaaXrc",
+      "tags": [
+        "feature",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "portfolio-attribution",
+      "semver": "minor",
+      "scope": "portfolio",
+      "title": "add attribution showing this app is proof of skills",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 58,
+        "deletions": 0
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/PortfolioCallout.tsx",
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
     {
       "sha": "000cdb8",
       "fullSha": "000cdb824a1669a3718b44e406f4f31472cebff2",
@@ -786,221 +2995,306 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 17,
-      "avgComplexity": 2.24,
-      "avgUrgency": 2.12,
+      "commits": 68,
+      "avgComplexity": 1.69,
+      "avgUrgency": 2,
       "tagBreakdown": {
-        "bugfix": 3,
+        "pwa": 7,
+        "ux": 6,
+        "merge": 18,
+        "ui": 8,
+        "layout": 5,
+        "refactor": 4,
+        "content": 14,
+        "bugfix": 10,
+        "print": 1,
+        "feature": 12,
+        "embed": 1,
+        "skills": 3,
+        "api": 2,
+        "docs": 1,
+        "removal": 3,
+        "config": 4,
+        "revert": 1,
+        "mobile": 2,
+        "lint": 1,
+        "debug": 4,
+        "ci": 2,
+        "quality": 1,
+        "testing": 1,
+        "accessibility": 1,
+        "serverless": 1,
+        "chore": 1,
+        "email": 1,
         "branding": 3,
         "documentation": 6,
-        "merge": 5,
-        "pwa": 5,
         "icons": 1,
         "conventions": 1,
         "developer-experience": 1,
-        "feature": 8,
-        "content": 3,
-        "ui": 5,
-        "refactor": 1,
         "ai-guidelines": 4,
         "navigation": 1,
         "service-worker": 1,
-        "config": 1,
         "scaffold": 1,
         "deployment": 1,
         "initial-commit": 1,
         "repository-setup": 1
       },
       "impactBreakdown": {
-        "internal": 6,
-        "user-facing": 11,
-        "infrastructure": 0,
+        "internal": 23,
+        "user-facing": 39,
+        "infrastructure": 6,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 0,
-        "medium": 0,
+        "low": 49,
+        "medium": 2,
         "high": 0
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 0,
-        "neutral": 0
+        "paid": 18,
+        "neutral": 33
       },
       "repos": [
         "see-veo"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-12T23:14:08Z",
-      "lastCommit": "2026-02-15T15:48:16Z"
+      "lastCommit": "2026-02-18T12:30:04+02:00"
     }
   ],
   "summary": {
-    "totalCommits": 17,
+    "totalCommits": 68,
     "totalContributors": 1,
     "tagBreakdown": {
-      "bugfix": 3,
+      "pwa": 7,
+      "ux": 6,
+      "merge": 18,
+      "ui": 8,
+      "layout": 5,
+      "refactor": 4,
+      "content": 14,
+      "bugfix": 10,
+      "print": 1,
+      "feature": 12,
+      "embed": 1,
+      "skills": 3,
+      "api": 2,
+      "docs": 1,
+      "removal": 3,
+      "config": 4,
+      "revert": 1,
+      "mobile": 2,
+      "lint": 1,
+      "debug": 4,
+      "ci": 2,
+      "quality": 1,
+      "testing": 1,
+      "accessibility": 1,
+      "serverless": 1,
+      "chore": 1,
+      "email": 1,
       "branding": 3,
       "documentation": 6,
-      "merge": 5,
-      "pwa": 5,
       "icons": 1,
       "conventions": 1,
       "developer-experience": 1,
-      "feature": 8,
-      "content": 3,
-      "ui": 5,
-      "refactor": 1,
       "ai-guidelines": 4,
       "navigation": 1,
       "service-worker": 1,
-      "config": 1,
       "scaffold": 1,
       "deployment": 1,
       "initial-commit": 1,
       "repository-setup": 1
     },
     "complexityBreakdown": {
-      "1": 6,
-      "2": 5,
-      "3": 4,
+      "1": 40,
+      "2": 13,
+      "3": 13,
       "4": 0,
       "5": 2
     },
     "urgencyBreakdown": {
-      "1": 2,
-      "2": 11,
-      "3": 4,
-      "4": 0,
+      "1": 15,
+      "2": 40,
+      "3": 11,
+      "4": 2,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 6,
-      "user-facing": 11,
-      "infrastructure": 0,
+      "internal": 23,
+      "user-facing": 39,
+      "infrastructure": 6,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 0,
-      "medium": 0,
+      "low": 49,
+      "medium": 2,
       "high": 0
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 0,
-      "neutral": 0
+      "paid": 18,
+      "neutral": 33
     },
-    "epicBreakdown": {},
+    "epicBreakdown": {
+      "pwa-update-flow": 1,
+      "cv-layout": 1,
+      "cv-content": 1,
+      "about-section": 1,
+      "portfolio-polish": 1,
+      "interest-form": 4,
+      "email-interest-notification": 2,
+      "portfolio-attribution": 1
+    },
     "semverBreakdown": {
-      "patch": 0,
-      "minor": 0,
+      "patch": 27,
+      "minor": 11,
       "major": 0
     },
-    "avgComplexity": 2.24,
-    "avgUrgency": 2.12,
+    "avgComplexity": 1.69,
+    "avgUrgency": 2,
     "monthly": {
       "2026-02": {
-        "commits": 17,
+        "commits": 68,
         "tags": {
-          "bugfix": 3,
+          "pwa": 7,
+          "ux": 6,
+          "merge": 18,
+          "ui": 8,
+          "layout": 5,
+          "refactor": 4,
+          "content": 14,
+          "bugfix": 10,
+          "print": 1,
+          "feature": 12,
+          "embed": 1,
+          "skills": 3,
+          "api": 2,
+          "docs": 1,
+          "removal": 3,
+          "config": 4,
+          "revert": 1,
+          "mobile": 2,
+          "lint": 1,
+          "debug": 4,
+          "ci": 2,
+          "quality": 1,
+          "testing": 1,
+          "accessibility": 1,
+          "serverless": 1,
+          "chore": 1,
+          "email": 1,
           "branding": 3,
           "documentation": 6,
-          "merge": 5,
-          "pwa": 5,
           "icons": 1,
           "conventions": 1,
           "developer-experience": 1,
-          "feature": 8,
-          "content": 3,
-          "ui": 5,
-          "refactor": 1,
           "ai-guidelines": 4,
           "navigation": 1,
           "service-worker": 1,
-          "config": 1,
           "scaffold": 1,
           "deployment": 1,
           "initial-commit": 1,
           "repository-setup": 1
         },
         "impact": {
-          "internal": 6,
-          "user-facing": 11,
-          "infrastructure": 0,
+          "internal": 23,
+          "user-facing": 39,
+          "infrastructure": 6,
           "api": 0
         },
         "risk": {
-          "low": 0,
-          "medium": 0,
+          "low": 49,
+          "medium": 2,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 0,
-          "neutral": 0
+          "paid": 18,
+          "neutral": 33
         },
         "semver": {
-          "patch": 0,
-          "minor": 0,
+          "patch": 27,
+          "minor": 11,
           "major": 0
         },
-        "avgComplexity": 2.24,
-        "avgUrgency": 2.12
+        "avgComplexity": 1.69,
+        "avgUrgency": 2
       }
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 17,
+        "commits": 68,
         "tags": {
-          "bugfix": 3,
+          "pwa": 7,
+          "ux": 6,
+          "merge": 18,
+          "ui": 8,
+          "layout": 5,
+          "refactor": 4,
+          "content": 14,
+          "bugfix": 10,
+          "print": 1,
+          "feature": 12,
+          "embed": 1,
+          "skills": 3,
+          "api": 2,
+          "docs": 1,
+          "removal": 3,
+          "config": 4,
+          "revert": 1,
+          "mobile": 2,
+          "lint": 1,
+          "debug": 4,
+          "ci": 2,
+          "quality": 1,
+          "testing": 1,
+          "accessibility": 1,
+          "serverless": 1,
+          "chore": 1,
+          "email": 1,
           "branding": 3,
           "documentation": 6,
-          "merge": 5,
-          "pwa": 5,
           "icons": 1,
           "conventions": 1,
           "developer-experience": 1,
-          "feature": 8,
-          "content": 3,
-          "ui": 5,
-          "refactor": 1,
           "ai-guidelines": 4,
           "navigation": 1,
           "service-worker": 1,
-          "config": 1,
           "scaffold": 1,
           "deployment": 1,
           "initial-commit": 1,
           "repository-setup": 1
         },
         "impact": {
-          "internal": 6,
-          "user-facing": 11,
-          "infrastructure": 0,
+          "internal": 23,
+          "user-facing": 39,
+          "infrastructure": 6,
           "api": 0
         },
         "risk": {
-          "low": 0,
-          "medium": 0,
+          "low": 49,
+          "medium": 2,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 0,
-          "neutral": 0
+          "paid": 18,
+          "neutral": 33
         },
         "semver": {
-          "patch": 0,
-          "minor": 0,
+          "patch": 27,
+          "minor": 11,
           "major": 0
         },
-        "avgComplexity": 2.24,
-        "avgUrgency": 2.12
+        "avgComplexity": 1.69,
+        "avgUrgency": 2
       }
     },
     "dateRange": {
       "earliest": "2026-02-12T23:14:08Z",
-      "latest": "2026-02-15T15:48:16Z"
+      "latest": "2026-02-18T12:30:04+02:00"
     },
     "security_events": []
   }
