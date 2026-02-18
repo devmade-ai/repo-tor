@@ -1,0 +1,52 @@
+{
+  "sha": "c651068",
+  "fullSha": "c65106822b9cbbb6e41bac65e21be800565418e3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T11:42:39+00:00",
+  "commitDate": "2026-02-17T11:42:39+00:00",
+  "subject": "feat(import,selection): add import preview, multi-select, bulk delete, and undo import",
+  "body": "Three features addressing data persistence safety and selection UX gaps:\n\n1. Import visual preview: New visual-preview step in ImportModal shows a\n   read-only Cytoscape graph with existing items (dimmed) alongside imported\n   items (green dashed borders) before persisting. Users approve or cancel.\n\n2. Multi-select & bulk delete: useSelection hook extended with toggleNodeSelection\n   and toggleArcSelection for Ctrl/Cmd+click. GraphCanvas detects modifier keys.\n   Context menu and DetailPanel show bulk delete when multiple items selected.\n   graphService.bulkDeleteNodes cascades arc deletion.\n\n3. Undo import: snapshotService takes an in-memory structuredClone of all\n   data before import. Done step shows \"Undo Import\" button that restores\n   workspace via graphService.restoreFromSnapshot using a Dexie transaction.\n\nTags: import, selection, multi-select, bulk-delete, undo, preview\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: data-persistence-nodes\nSemver: minor\n\nhttps://claude.ai/code/session_01DVdJxFenUrMeuYYuHvXis6",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "data-persistence-nodes",
+  "semver": "minor",
+  "scope": "import,selection",
+  "title": "add import preview, multi-select, bulk delete, and undo import",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 919,
+    "deletions": 90
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/importExport/ImportPreviewCanvas.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/hooks/useSelection.ts",
+    "src/services/graphService.ts",
+    "src/services/snapshotService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

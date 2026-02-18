@@ -1,0 +1,50 @@
+{
+  "sha": "40bf297",
+  "fullSha": "40bf297cf8ff07be865b4d02ff56e8437ab927ea",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T09:14:03+00:00",
+  "commitDate": "2026-02-18T09:14:03+00:00",
+  "subject": "docs(all): update documentation to reflect current architecture",
+  "body": "README was a placeholder with just \"# graphiki\". Now includes project\noverview, features, tech stack, getting started, project structure,\ndata model, configuration, and license.\n\nDiscovery doc had stale references to tab-based navigation, split-panel\nlayout, editable conventions page, ConventionRules interface, and\nAppState type — all artifacts of the pre-realignment architecture.\nUpdated to reflect single-view layout with drawer overlay, read-only\nconventions modal, and removed obsolete type definitions.\n\nCLAUDE.md docs tree was missing markdown-import-format.md and\nai-research-output-guide.md. Also listed historical working docs.\nFixed JSON export version reference from \"1\" to \"2\".\n\nMarkdown import format doc referenced schema-based type resolution.\nUpdated to reflect label-based system where tags/type/labels frontmatter\nfields all become labels.\n\nAdded SUPERSEDED/COMPLETED status banners to all 6 historical working\ndocs (phase-2 through phase-6, mode-differentiation-alignment).\n\nTags: docs, readme, discovery, conventions, architecture\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_01GNAcWQsJLvaecBNw4ya2Xa",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "documentation",
+  "semver": "patch",
+  "scope": "all",
+  "title": "update documentation to reflect current architecture",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 173,
+    "deletions": 43
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/graph-wiki-discovery.md",
+    "docs/markdown-import-format.md",
+    "docs/working/mode-differentiation-alignment.md",
+    "docs/working/phase-2-schema-layer.md",
+    "docs/working/phase-3-query-views.md",
+    "docs/working/phase-4-import-export.md",
+    "docs/working/phase-5-analysis-algorithms.md",
+    "docs/working/phase-6-polish-distribution.md"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

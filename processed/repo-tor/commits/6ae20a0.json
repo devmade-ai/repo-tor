@@ -1,0 +1,49 @@
+{
+  "sha": "6ae20a0",
+  "fullSha": "6ae20a07c44cbda488d9696553e76f5bf39d17b6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T08:24:17+00:00",
+  "commitDate": "2026-02-18T08:24:17+00:00",
+  "subject": "feat: implement iframe embed mode with multi-chart and theme support",
+  "body": "Add ?embed=<chart-id> URL parameter support. When present, the dashboard\nrenders only the requested chart(s) with no header, tabs, sidebar, or\ndebug banner. Supports comma-separated IDs (?embed=id1,id2) for multiple\ncharts in a single iframe, and ?theme=light|dark for theme override.\n\nNew EmbedRenderer component maps embed IDs to tab components, renders\nonly the needed tabs (deduplicated), and uses useLayoutEffect to hide\nnon-target CollapsibleSections before paint. Invalid IDs show a helpful\nerror linking to EMBED_REFERENCE.md.\n\nBuild: 61 modules, 497KB JS, 51KB CSS (unchanged from before).\n\nhttps://claude.ai/code/session_01FQWKFpGxdXJth6d6oA8E8S",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "embed-mode",
+  "semver": "minor",
+  "scope": null,
+  "title": "implement iframe embed mode with multi-chart and theme support",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 311,
+    "deletions": 112
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/components/EmbedRenderer.jsx",
+    "dashboard/js/main.jsx",
+    "dashboard/styles.css",
+    "docs/EMBED_IMPLEMENTATION.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "user-facing"
+}

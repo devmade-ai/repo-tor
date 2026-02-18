@@ -1,0 +1,42 @@
+{
+  "sha": "e3ea67b",
+  "fullSha": "e3ea67bbeca7f9767d0fa6c42dc9b5b14f8ef9a3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T08:33:07+00:00",
+  "commitDate": "2026-02-18T08:33:07+00:00",
+  "subject": "feat(conventions): add strict naming and consistency rules for imports",
+  "body": "Extracted a shared NAMING_CONVENTIONS block appended to both JSON and\nMarkdown convention content. The rules are prescriptive enough that two\nindependent AI sessions given the same real-world data should produce\nidentical titles, labels, arc titles, and property keys — enabling\nreliable duplicate detection by the merge service.\n\nKey additions:\n- Title rules: most widely recognized name, no legal suffixes, no\n  honorifics, no abbreviations unless the acronym IS the common name\n- Label rules: singular PascalCase, standard vocabulary of 19 common\n  labels, broad-over-narrow preference\n- Arc title rules: lowercase verb phrases, active voice, present/past\n  tense distinction, standard vocabulary of 26 common relationships\n- Property rules: camelCase keys, standard vocabulary, typed values\n  (real numbers, booleans, ISO dates, arrays instead of CSV strings)\n- Deduplication guidance: reuse IDs for same entity, merge aliases,\n  no duplicate arcs\n\nTags: conventions, naming, consistency, import, merge\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: conventions\nSemver: minor\n\nhttps://claude.ai/code/session_01TqYv4V9ccQCb5F6ZhnubYn",
+  "tags": [
+    "feature",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "conventions",
+  "semver": "minor",
+  "scope": "conventions",
+  "title": "add strict naming and consistency rules for imports",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 137,
+    "deletions": 20
+  },
+  "files": [
+    "src/data/conventions.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

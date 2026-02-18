@@ -1,0 +1,42 @@
+{
+  "sha": "b1c4a7d",
+  "fullSha": "b1c4a7dd2792b8a95c0d6ff2be9f03854ba9b27c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-15T22:52:08+00:00",
+  "commitDate": "2026-02-15T22:52:08+00:00",
+  "subject": "fix(hooks): output CLAUDE.md to stdout instead of writing to disk",
+  "body": "Hook now just fetches and prints the content for Claude Code to read\ndirectly, rather than writing it to ~/.claude/CLAUDE.md.\n\nTags: hooks, cleanup\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: session-hooks\nSemver: patch",
+  "tags": [
+    "refactor",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "session-hooks",
+  "semver": "patch",
+  "scope": "hooks",
+  "title": "output CLAUDE.md to stdout instead of writing to disk",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 6
+  },
+  "files": [
+    ".claude/hooks/session-start.sh"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,45 @@
+{
+  "sha": "0a6926a",
+  "fullSha": "0a6926a82e697a13dcfd48e2affcd60cbc0d41e9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T03:06:10+00:00",
+  "commitDate": "2026-02-17T03:06:10+00:00",
+  "subject": "fix(interest-form): resolve mobile Chrome CORS/SW fetch failures",
+  "body": "Three changes to fix \"Failed to fetch\" TypeErrors on mobile Chrome:\n\n1. Add explicit NetworkOnly runtimeCaching strategy for Vercel API\n   endpoints in the service worker config. The navigateFallbackDenylist\n   only controls navigation fallback — it does not prevent the SW fetch\n   handler from intercepting cross-origin requests, which can break\n   CORS preflight on some mobile Chrome versions.\n\n2. Add CORS-aware error detection in InterestForm: after all fetch\n   attempts fail with TypeError, a mode:'no-cors' probe differentiates\n   \"server unreachable\" from \"CORS misconfigured\", giving users a more\n   actionable error message instead of the generic network error.\n\n3. Split DebugBanner \"API Reachable\" diagnostic into two checks:\n   a no-cors reachability probe and a cors OPTIONS request. This\n   separates network failures from CORS misconfigurations in the\n   diagnostics panel, making future debugging clearer.\n\nTags: pwa, cors, mobile, service-worker, debug\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: interest-form\nSemver: patch\n\nhttps://claude.ai/code/session_018JkxSHN3SsV57HYmUB2kSs",
+  "tags": [
+    "bugfix",
+    "pwa",
+    "mobile"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "interest-form",
+  "semver": "patch",
+  "scope": "interest-form",
+  "title": "resolve mobile Chrome CORS/SW fetch failures",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 119,
+    "deletions": 11
+  },
+  "files": [
+    "src/components/DebugBanner.tsx",
+    "src/components/InterestForm.tsx",
+    "vite.config.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "user-facing"
+}

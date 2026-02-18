@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-02-15T21:27:44.098Z",
+    "generatedAt": "2026-02-18T11:07:29.168Z",
     "repository": "glow-props",
     "scope": "glow-props",
     "repoCount": 1,
-    "commitCount": 1,
+    "commitCount": 15,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -13,6 +13,597 @@
     }
   },
   "commits": [
+    {
+      "sha": "f535ed1",
+      "fullSha": "f535ed1c7d9d3e70dd66623afc5b9696a4e3472c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-16T01:02:42+02:00",
+      "commitDate": "2026-02-16T01:02:42+02:00",
+      "subject": "Merge pull request #2 from devmade-ai/claude/add-session-start-hooks-pA0Tg",
+      "body": "Simplify session-start hook to remove file persistence",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #2 from devmade-ai/claude/add-session-start-hooks-pA0Tg",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#2"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 12
+      },
+      "files": [],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "93eb650",
+      "fullSha": "93eb650e72f5ad916424d75aa05d5946fac2ad5d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T22:58:15+00:00",
+      "commitDate": "2026-02-15T22:58:15+00:00",
+      "subject": "fix(hooks): just fetch CLAUDE.md, nothing else",
+      "body": "Simple HTTP GET for the global rules file.\n\nTags: hooks, cleanup\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: session-hooks\nSemver: patch",
+      "tags": [
+        "simplify",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "session-hooks",
+      "semver": "patch",
+      "scope": "hooks",
+      "title": "just fetch CLAUDE.md, nothing else",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        ".claude/hooks/session-start.sh"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "5f67bb1",
+      "fullSha": "5f67bb1b1728f807365c266b5cb9fd7b46c9b6c7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T22:57:00+00:00",
+      "commitDate": "2026-02-15T22:57:00+00:00",
+      "subject": "fix(hooks): fetch CLAUDE.md to ~/.claude/ on session start",
+      "body": "Just fetches the global rules file. Nothing else.\n\nTags: hooks, bugfix\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: session-hooks\nSemver: patch",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "session-hooks",
+      "semver": "patch",
+      "scope": "hooks",
+      "title": "fetch CLAUDE.md to ~/.claude/ on session start",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        ".claude/hooks/session-start.sh"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "b6432e0",
+      "fullSha": "b6432e0bcb5cbebd796390a0c3b22d37054f6c66",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T22:54:52+00:00",
+      "commitDate": "2026-02-15T22:54:52+00:00",
+      "subject": "fix(hooks): output fetched rules to stdout for Claude Code to read",
+      "body": "SessionStart hook stdout is read directly by Claude Code as context.\nNo need to write to disk.\n\nTags: hooks, bugfix\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: session-hooks\nSemver: patch",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "session-hooks",
+      "semver": "patch",
+      "scope": "hooks",
+      "title": "output fetched rules to stdout for Claude Code to read",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        ".claude/hooks/session-start.sh"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "d47f595",
+      "fullSha": "d47f5952bedaf1a1b8f68d7253c9ead9ea246ba9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T22:53:40+00:00",
+      "commitDate": "2026-02-15T22:53:40+00:00",
+      "subject": "fix(hooks): restore writing fetched rules to ~/.claude/CLAUDE.md",
+      "body": "The hook must write the fetched content to disk so Claude Code\nreads it as global rules. Reverts the incorrect stdout-only change.\n\nTags: hooks, bugfix\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: session-hooks\nSemver: patch",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "session-hooks",
+      "semver": "patch",
+      "scope": "hooks",
+      "title": "restore writing fetched rules to ~/.claude/CLAUDE.md",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        ".claude/hooks/session-start.sh"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "b1c4a7d",
+      "fullSha": "b1c4a7dd2792b8a95c0d6ff2be9f03854ba9b27c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T22:52:08+00:00",
+      "commitDate": "2026-02-15T22:52:08+00:00",
+      "subject": "fix(hooks): output CLAUDE.md to stdout instead of writing to disk",
+      "body": "Hook now just fetches and prints the content for Claude Code to read\ndirectly, rather than writing it to ~/.claude/CLAUDE.md.\n\nTags: hooks, cleanup\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: session-hooks\nSemver: patch",
+      "tags": [
+        "refactor",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "session-hooks",
+      "semver": "patch",
+      "scope": "hooks",
+      "title": "output CLAUDE.md to stdout instead of writing to disk",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 6
+      },
+      "files": [
+        ".claude/hooks/session-start.sh"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "e77a364",
+      "fullSha": "e77a36425190417ce6a83363f1d8cb445604653b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T22:48:44+00:00",
+      "commitDate": "2026-02-15T22:48:44+00:00",
+      "subject": "fix(hooks): remove unnecessary mkdir from session-start hook",
+      "body": "~/.claude/ already exists when Claude Code is running, so creating\nit is redundant.\n\nTags: hooks, cleanup\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: session-hooks\nSemver: patch",
+      "tags": [
+        "simplify",
+        "removal"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "session-hooks",
+      "semver": "patch",
+      "scope": "hooks",
+      "title": "remove unnecessary mkdir from session-start hook",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 1
+      },
+      "files": [
+        ".claude/hooks/session-start.sh"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "6731689",
+      "fullSha": "6731689f5af85c0e1fba29079bbc8f081c84cb75",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T22:45:14+00:00",
+      "commitDate": "2026-02-15T22:45:14+00:00",
+      "subject": "fix(hooks): fetch global rules on every session, not just web",
+      "body": "Removed the CLAUDE_CODE_REMOTE guard so the SessionStart hook\nfetches CLAUDE.md into ~/.claude/ on both local CLI and web sessions.\n\nTags: hooks, config\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: session-hooks\nSemver: patch",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "session-hooks",
+      "semver": "patch",
+      "scope": "hooks",
+      "title": "fetch global rules on every session, not just web",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 5
+      },
+      "files": [
+        ".claude/hooks/session-start.sh"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "05fae71",
+      "fullSha": "05fae716ef441302749533560525a825228f3038",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-16T00:14:02+02:00",
+      "commitDate": "2026-02-16T00:14:02+02:00",
+      "subject": "Merge pull request #1 from devmade-ai/claude/fetchable-text-delivery-PSFAq",
+      "body": "Initialize glow-props as GitHub Pages static file host",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #1 from devmade-ai/claude/fetchable-text-delivery-PSFAq",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#1"
+      ],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 405,
+        "deletions": 1
+      },
+      "files": [],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "a0411f5",
+      "fullSha": "a0411f5b5ca875ce3b195f636e4eb0402b0be1c2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T21:52:41+00:00",
+      "commitDate": "2026-02-15T21:52:41+00:00",
+      "subject": "feat(hooks): add SessionStart hook to fetch global rules on web",
+      "body": "Adds a SessionStart hook that runs in Claude Code web sessions,\nfetching CLAUDE.md from GitHub Pages and writing it to\n~/.claude/CLAUDE.md. This lets any project that includes the\n.claude/ directory automatically pull shared rules at session start.\n\nTags: hooks, session-start, claude-code-web\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: developer-tooling\nSemver: minor\n\nhttps://claude.ai/code/session_01Ffm42hU9KHVqbYk3XPaQDk",
+      "tags": [
+        "feature",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "session-hooks",
+      "semver": "minor",
+      "scope": "hooks",
+      "title": "add SessionStart hook to fetch global rules on web",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 42,
+        "deletions": 0
+      },
+      "files": [
+        ".claude/hooks/session-start.sh",
+        ".claude/settings.json",
+        "README.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "1768f98",
+      "fullSha": "1768f984bced1baf64062d18c444a029acb38598",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T21:46:09+00:00",
+      "commitDate": "2026-02-15T21:46:09+00:00",
+      "subject": "docs(readme): document repo purpose and usage",
+      "body": "Explains that glow-props is a static file host for serving\nfetchable config files (like CLAUDE.md) to Claude Code sessions\nacross projects via GitHub Pages.\n\nTags: docs, readme\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: developer-tooling\nSemver: patch\n\nhttps://claude.ai/code/session_01Ffm42hU9KHVqbYk3XPaQDk",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "session-hooks",
+      "semver": "patch",
+      "scope": "readme",
+      "title": "document repo purpose and usage",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 18,
+        "deletions": 13
+      },
+      "files": [
+        "README.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "c91dc57",
+      "fullSha": "c91dc57742c2a788e6f55f5c3f03bca300992e73",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T21:20:20+00:00",
+      "commitDate": "2026-02-15T21:20:20+00:00",
+      "subject": "chore(config): add global Claude rules file to repo",
+      "body": "Provides a deliverable CLAUDE.md with process, principles, code\nstandards, documentation guidelines, AI notes, and prohibitions\nthat can be applied across all projects.\n\nTags: config, ai-rules, standards\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: developer-tooling\nSemver: minor\n\nhttps://claude.ai/code/session_01Ffm42hU9KHVqbYk3XPaQDk",
+      "tags": [
+        "docs",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "session-hooks",
+      "semver": "minor",
+      "scope": "config",
+      "title": "add global Claude rules file to repo",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 272,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "3400f04",
+      "fullSha": "3400f04dff48f5bc48f6fb054c651754462f3c2d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T20:18:18+00:00",
+      "commitDate": "2026-02-15T20:18:18+00:00",
+      "subject": "Add GitHub Pages deployment workflow",
+      "body": "Uses the official GitHub Pages actions to deploy on push\nto main. Requires Pages source set to \"GitHub Actions\" in\nrepo settings.\n\nhttps://claude.ai/code/session_01Ffm42hU9KHVqbYk3XPaQDk",
+      "tags": [
+        "ci",
+        "hosting"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "session-hooks",
+      "semver": "minor",
+      "scope": null,
+      "title": "Add GitHub Pages deployment workflow",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 30,
+        "deletions": 0
+      },
+      "files": [
+        ".github/workflows/deploy.yml"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "1b1866f",
+      "fullSha": "1b1866f82b647974efccc8a09b4a7089599c6b30",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T20:13:23+00:00",
+      "commitDate": "2026-02-15T20:13:23+00:00",
+      "subject": "Add static site for fetchable text delivery",
+      "body": "Set up project structure with index.html landing page,\ntexts/ directory for content, and a sample hello.txt file.\nDeployable to GitHub Pages or any static host.\n\nhttps://claude.ai/code/session_01Ffm42hU9KHVqbYk3XPaQDk",
+      "tags": [
+        "feature",
+        "init",
+        "hosting"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "session-hooks",
+      "semver": "minor",
+      "scope": null,
+      "title": "Add static site for fetchable text delivery",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 56,
+        "deletions": 1
+      },
+      "files": [
+        ".gitignore",
+        "README.md",
+        "index.html",
+        "texts/hello.txt"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 1,
+      "impact": "infrastructure"
+    },
     {
       "sha": "3c930c9",
       "fullSha": "3c930c9ed36b208cbee7f92758162d71723ae47c",
@@ -57,93 +648,195 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 1,
-      "avgComplexity": 1,
-      "avgUrgency": 1,
+      "commits": 15,
+      "avgComplexity": 1.2,
+      "avgUrgency": 2.2,
       "tagBreakdown": {
+        "merge": 2,
+        "simplify": 2,
+        "config": 8,
+        "bugfix": 4,
+        "refactor": 1,
+        "removal": 1,
+        "feature": 2,
+        "docs": 2,
+        "ci": 1,
+        "hosting": 2,
+        "init": 1,
         "initial-commit": 1,
         "repository-setup": 1
       },
       "impactBreakdown": {
-        "internal": 1,
+        "internal": 4,
         "user-facing": 0,
-        "infrastructure": 0,
+        "infrastructure": 11,
         "api": 0
+      },
+      "riskBreakdown": {
+        "low": 14,
+        "medium": 0,
+        "high": 0
+      },
+      "debtBreakdown": {
+        "added": 0,
+        "paid": 6,
+        "neutral": 8
       },
       "repos": [
         "glow-props"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-15T15:43:18Z",
-      "lastCommit": "2026-02-15T15:43:18Z"
+      "lastCommit": "2026-02-16T01:02:42+02:00"
     }
   ],
   "summary": {
-    "totalCommits": 1,
+    "totalCommits": 15,
     "totalContributors": 1,
     "tagBreakdown": {
+      "merge": 2,
+      "simplify": 2,
+      "config": 8,
+      "bugfix": 4,
+      "refactor": 1,
+      "removal": 1,
+      "feature": 2,
+      "docs": 2,
+      "ci": 1,
+      "hosting": 2,
+      "init": 1,
       "initial-commit": 1,
       "repository-setup": 1
     },
     "complexityBreakdown": {
-      "1": 1,
-      "2": 0,
+      "1": 12,
+      "2": 3,
       "3": 0,
       "4": 0,
       "5": 0
     },
     "urgencyBreakdown": {
-      "1": 1,
-      "2": 0,
-      "3": 0,
+      "1": 2,
+      "2": 8,
+      "3": 5,
       "4": 0,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 1,
+      "internal": 4,
       "user-facing": 0,
-      "infrastructure": 0,
+      "infrastructure": 11,
       "api": 0
     },
-    "avgComplexity": 1,
-    "avgUrgency": 1,
+    "riskBreakdown": {
+      "low": 14,
+      "medium": 0,
+      "high": 0
+    },
+    "debtBreakdown": {
+      "added": 0,
+      "paid": 6,
+      "neutral": 8
+    },
+    "epicBreakdown": {
+      "session-hooks": 12
+    },
+    "semverBreakdown": {
+      "patch": 8,
+      "minor": 4,
+      "major": 0
+    },
+    "avgComplexity": 1.2,
+    "avgUrgency": 2.2,
     "monthly": {
       "2026-02": {
-        "commits": 1,
+        "commits": 15,
         "tags": {
+          "merge": 2,
+          "simplify": 2,
+          "config": 8,
+          "bugfix": 4,
+          "refactor": 1,
+          "removal": 1,
+          "feature": 2,
+          "docs": 2,
+          "ci": 1,
+          "hosting": 2,
+          "init": 1,
           "initial-commit": 1,
           "repository-setup": 1
         },
         "impact": {
-          "internal": 1,
+          "internal": 4,
           "user-facing": 0,
-          "infrastructure": 0,
+          "infrastructure": 11,
           "api": 0
         },
-        "avgComplexity": 1,
-        "avgUrgency": 1
+        "risk": {
+          "low": 14,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 6,
+          "neutral": 8
+        },
+        "semver": {
+          "patch": 8,
+          "minor": 4,
+          "major": 0
+        },
+        "avgComplexity": 1.2,
+        "avgUrgency": 2.2
       }
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 1,
+        "commits": 15,
         "tags": {
+          "merge": 2,
+          "simplify": 2,
+          "config": 8,
+          "bugfix": 4,
+          "refactor": 1,
+          "removal": 1,
+          "feature": 2,
+          "docs": 2,
+          "ci": 1,
+          "hosting": 2,
+          "init": 1,
           "initial-commit": 1,
           "repository-setup": 1
         },
         "impact": {
-          "internal": 1,
+          "internal": 4,
           "user-facing": 0,
-          "infrastructure": 0,
+          "infrastructure": 11,
           "api": 0
         },
-        "avgComplexity": 1,
-        "avgUrgency": 1
+        "risk": {
+          "low": 14,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 6,
+          "neutral": 8
+        },
+        "semver": {
+          "patch": 8,
+          "minor": 4,
+          "major": 0
+        },
+        "avgComplexity": 1.2,
+        "avgUrgency": 2.2
       }
     },
     "dateRange": {
       "earliest": "2026-02-15T15:43:18Z",
-      "latest": "2026-02-15T15:43:18Z"
+      "latest": "2026-02-16T01:02:42+02:00"
     },
     "security_events": []
   }

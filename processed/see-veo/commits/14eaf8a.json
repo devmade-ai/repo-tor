@@ -1,0 +1,44 @@
+{
+  "sha": "14eaf8a",
+  "fullSha": "14eaf8ad5000eef2d7d051a64116727e2681f53f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T12:56:38+00:00",
+  "commitDate": "2026-02-16T12:56:38+00:00",
+  "subject": "config(interest-api): configure VITE_INTEREST_API_URL for tool-till-tees endpoint",
+  "body": "Set the interest notification API URL to the deployed Vercel endpoint\nat tool-till-tees.vercel.app. Updated .env.example with the actual URL,\nadded the env var injection to the GitHub Actions deploy workflow via\nrepository secret, and documented the GitHub Actions secret setup step.\n\nTags: config, ci, docs, interest-api\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: interest-notification\nSemver: patch\n\nhttps://claude.ai/code/session_017XZCUS7G1Lr6MExvZ62tLs",
+  "tags": [
+    "config",
+    "ci"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": "patch",
+  "scope": "interest-api",
+  "title": "configure VITE_INTEREST_API_URL for tool-till-tees endpoint",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 15,
+    "deletions": 4
+  },
+  "files": [
+    ".env.example",
+    ".github/workflows/deploy.yml",
+    "docs/interest-api-setup.md"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

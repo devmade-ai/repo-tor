@@ -1,0 +1,51 @@
+{
+  "sha": "b3abaf6",
+  "fullSha": "b3abaf6e692fdd2578265e30464d51ae1f9d9057",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T21:17:47+00:00",
+  "commitDate": "2026-02-16T21:17:47+00:00",
+  "subject": "fix(review): resolve remaining design issues, add service + hook tests",
+  "body": "Design fixes:\n- deleteNode now emits arc:deleted for each cascade-deleted arc instead\n  of silently bulk-deleting. Collects arc IDs first, then deletes and\n  emits per-arc events so arc-specific listeners stay consistent.\n- loadAllData now filters system nodes/arcs via getAllNodes/getAllArcs\n  instead of raw db.toArray(), preventing system items from leaking\n  into the graph canvas and views.\n- getAllNodes/getAllArcs changed from .where().equals(0) to .filter()\n  for boolean isSystem fields — .equals(0) fails in fake-indexeddb\n  which preserves JS booleans instead of coercing to 0/1.\n- Analysis panel source/target validated against current filtered nodes\n  via derived validSourceId/validTargetId. Stale selections (from nodes\n  removed by query filter) are treated as empty, disabling Run button.\n- Config changed from eager module-load evaluation to lazy Proxy-based\n  access. window.__GRAPHIKI_CONFIG__ is now read on first property access,\n  supporting override scripts loaded after the app bundle.\n\nNew tests (48 added, 109 → 157):\n- graphService: 22 tests covering CRUD, events, cascade delete,\n  system filtering, bulk upsert, event unsubscribe\n- viewService: 10 tests covering CRUD, events, unsubscribe\n- useSelection: 7 tests covering all selection state transitions\n- useAppMode: 9 tests covering mode toggle, schema persistence,\n  localStorage read/write, null handling\n\nDev dependency added: fake-indexeddb (in-memory IndexedDB for tests)\n\nTags: review, bugfix, tests, services, hooks\nComplexity: 3\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: quality-review\nSemver: patch\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+  "tags": [
+    "bugfix",
+    "testing"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "quality-review",
+  "semver": "patch",
+  "scope": "review",
+  "title": "resolve remaining design issues, add service + hook tests",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 600,
+    "deletions": 18
+  },
+  "files": [
+    "package-lock.json",
+    "package.json",
+    "src/components/analysis/AnalysisPanel.tsx",
+    "src/config.ts",
+    "src/hooks/useAppMode.test.ts",
+    "src/hooks/useSelection.test.ts",
+    "src/services/graphService.test.ts",
+    "src/services/graphService.ts",
+    "src/services/viewService.test.ts",
+    "src/test/setup.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "internal"
+}

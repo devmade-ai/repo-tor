@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-02-15T21:27:44.099Z",
+    "generatedAt": "2026-02-18T11:07:29.169Z",
     "repository": "graphiki",
     "scope": "graphiki",
     "repoCount": 1,
-    "commitCount": 6,
+    "commitCount": 65,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -17,6 +17,2764 @@
     }
   },
   "commits": [
+    {
+      "sha": "f07a0e9",
+      "fullSha": "f07a0e9070494799df33d0010e0a6ea0a5ea7f3c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-18T12:31:19+02:00",
+      "commitDate": "2026-02-18T12:31:19+02:00",
+      "subject": "Merge pull request #16 from devmade-ai/claude/add-alpha-label-update-notification-fJctZ",
+      "body": "Add alpha badge and persistent PWA update banner",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #16 from devmade-ai/claude/add-alpha-label-update-notification-fJctZ",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#16"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 79,
+        "deletions": 10
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "182d95c",
+      "fullSha": "182d95c9b70df9a9b3ce8f7d9fdec7ec18fb342e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T10:28:14+00:00",
+      "commitDate": "2026-02-18T10:28:14+00:00",
+      "subject": "feat(ui): add alpha badge to title and persistent PWA update banner",
+      "body": "The app title now displays an \"Alpha\" badge next to \"Graphiki\" to signal\nthe current development phase. The PWA update notification is moved from\nthe hamburger menu (where it was hidden on mobile) to a persistent\nfull-width banner below the header, ensuring users always see when a new\nversion is available — critical for PWA installs where the browser\nrefresh button is not accessible.\n\nTags: ui, pwa, alpha\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: alpha-polish\nSemver: minor\n\nhttps://claude.ai/code/session_01MnASdMBY1R1QdTZM3PBR4Q",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "alpha-polish",
+      "semver": "minor",
+      "scope": "ui",
+      "title": "add alpha badge to title and persistent PWA update banner",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 79,
+        "deletions": 10
+      },
+      "files": [
+        "src/App.css",
+        "src/App.tsx"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "9ad35df",
+      "fullSha": "9ad35df4f04b6b1a1ee6bc9c7c6016032165033d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-18T11:16:52+02:00",
+      "commitDate": "2026-02-18T11:16:52+02:00",
+      "subject": "Merge pull request #15 from devmade-ai/claude/update-all-docs-ZQbTQ",
+      "body": "Documentation update: comprehensive README and discovery doc refresh",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #15 from devmade-ai/claude/update-all-docs-ZQbTQ",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#15"
+      ],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 174,
+        "deletions": 43
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "7322d9b",
+      "fullSha": "7322d9b1798ca0448d2a31eea6823026cb912df1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T09:14:25+00:00",
+      "commitDate": "2026-02-18T09:14:25+00:00",
+      "subject": "docs(claude): add do-not-modify rule for ai-research-output-guide",
+      "body": "The AI research output guide is a user-facing document pasted into AI\nassistant contexts. Changes to it require explicit approval. Added a\nhard rule in the Documentation section of CLAUDE.md to prevent\nunintentional modifications.\n\nTags: docs, claude-md, conventions\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_01GNAcWQsJLvaecBNw4ya2Xa",
+      "tags": [
+        "docs",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "documentation",
+      "semver": "patch",
+      "scope": "claude",
+      "title": "add do-not-modify rule for ai-research-output-guide",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "40bf297",
+      "fullSha": "40bf297cf8ff07be865b4d02ff56e8437ab927ea",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T09:14:03+00:00",
+      "commitDate": "2026-02-18T09:14:03+00:00",
+      "subject": "docs(all): update documentation to reflect current architecture",
+      "body": "README was a placeholder with just \"# graphiki\". Now includes project\noverview, features, tech stack, getting started, project structure,\ndata model, configuration, and license.\n\nDiscovery doc had stale references to tab-based navigation, split-panel\nlayout, editable conventions page, ConventionRules interface, and\nAppState type — all artifacts of the pre-realignment architecture.\nUpdated to reflect single-view layout with drawer overlay, read-only\nconventions modal, and removed obsolete type definitions.\n\nCLAUDE.md docs tree was missing markdown-import-format.md and\nai-research-output-guide.md. Also listed historical working docs.\nFixed JSON export version reference from \"1\" to \"2\".\n\nMarkdown import format doc referenced schema-based type resolution.\nUpdated to reflect label-based system where tags/type/labels frontmatter\nfields all become labels.\n\nAdded SUPERSEDED/COMPLETED status banners to all 6 historical working\ndocs (phase-2 through phase-6, mode-differentiation-alignment).\n\nTags: docs, readme, discovery, conventions, architecture\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_01GNAcWQsJLvaecBNw4ya2Xa",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "documentation",
+      "semver": "patch",
+      "scope": "all",
+      "title": "update documentation to reflect current architecture",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 173,
+        "deletions": 43
+      },
+      "files": [
+        "CLAUDE.md",
+        "README.md",
+        "docs/graph-wiki-discovery.md",
+        "docs/markdown-import-format.md",
+        "docs/working/mode-differentiation-alignment.md",
+        "docs/working/phase-2-schema-layer.md",
+        "docs/working/phase-3-query-views.md",
+        "docs/working/phase-4-import-export.md",
+        "docs/working/phase-5-analysis-algorithms.md",
+        "docs/working/phase-6-polish-distribution.md"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "7957c04",
+      "fullSha": "7957c040bee2a31ff0c000142922e0fa0d6d05e3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-18T10:49:11+02:00",
+      "commitDate": "2026-02-18T10:49:11+02:00",
+      "subject": "Merge pull request #14 from devmade-ai/claude/convention-files-purpose-2yaA4",
+      "body": "Extract shared naming conventions to avoid drift between import formats",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #14 from devmade-ai/claude/convention-files-purpose-2yaA4",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#14"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 134,
+        "deletions": 24
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "899e2b6",
+      "fullSha": "899e2b618be01b0b904b14126281e2ca9397303a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T08:48:18+00:00",
+      "commitDate": "2026-02-18T08:48:18+00:00",
+      "subject": "fix(conventions): replace internal jargon with plain language",
+      "body": "The convention text is given to external AIs that have no knowledge of\nGraphiki internals. Replaced \"node\" with \"item\" and \"arc\" with\n\"connection\" throughout the naming rules. In the JSON format section,\nkept the JSON field names (\"nodes\", \"arcs\") but introduced them with\nplain language (\"Each item in the 'nodes' array\", \"Each connection in\nthe 'arcs' array\") so the AI understands what the fields represent.\n\nTags: conventions, naming, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: conventions\nSemver: patch\n\nhttps://claude.ai/code/session_01TqYv4V9ccQCb5F6ZhnubYn",
+      "tags": [
+        "ux",
+        "naming"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "conventions",
+      "semver": "patch",
+      "scope": "conventions",
+      "title": "replace internal jargon with plain language",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 18,
+        "deletions": 18
+      },
+      "files": [
+        "src/data/conventions.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "ac7d4ed",
+      "fullSha": "ac7d4edc338802de85ec95fe457ad50491622550",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T08:43:34+00:00",
+      "commitDate": "2026-02-18T08:43:34+00:00",
+      "subject": "refactor(conventions): remove deduplication section, keep alias rule",
+      "body": "The DEDUPLICATION section conflated two concerns: cross-import dedup\n(handled by mergeService, not controllable by the AI generating the\nfile) and within-file dedup (basic AI competence, not worth spelling\nout). Removed the section entirely. The one non-obvious case — alias\nmerging when source data uses multiple names for the same entity —\nis now a bullet under TITLES where it logically belongs.\n\nTags: conventions, naming, cleanup\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: conventions\nSemver: patch\n\nhttps://claude.ai/code/session_01TqYv4V9ccQCb5F6ZhnubYn",
+      "tags": [
+        "simplify",
+        "removal"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "conventions",
+      "semver": "patch",
+      "scope": "conventions",
+      "title": "remove deduplication section, keep alias rule",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 10
+      },
+      "files": [
+        "src/data/conventions.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "e3ea67b",
+      "fullSha": "e3ea67bbeca7f9767d0fa6c42dc9b5b14f8ef9a3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T08:33:07+00:00",
+      "commitDate": "2026-02-18T08:33:07+00:00",
+      "subject": "feat(conventions): add strict naming and consistency rules for imports",
+      "body": "Extracted a shared NAMING_CONVENTIONS block appended to both JSON and\nMarkdown convention content. The rules are prescriptive enough that two\nindependent AI sessions given the same real-world data should produce\nidentical titles, labels, arc titles, and property keys — enabling\nreliable duplicate detection by the merge service.\n\nKey additions:\n- Title rules: most widely recognized name, no legal suffixes, no\n  honorifics, no abbreviations unless the acronym IS the common name\n- Label rules: singular PascalCase, standard vocabulary of 19 common\n  labels, broad-over-narrow preference\n- Arc title rules: lowercase verb phrases, active voice, present/past\n  tense distinction, standard vocabulary of 26 common relationships\n- Property rules: camelCase keys, standard vocabulary, typed values\n  (real numbers, booleans, ISO dates, arrays instead of CSV strings)\n- Deduplication guidance: reuse IDs for same entity, merge aliases,\n  no duplicate arcs\n\nTags: conventions, naming, consistency, import, merge\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: conventions\nSemver: minor\n\nhttps://claude.ai/code/session_01TqYv4V9ccQCb5F6ZhnubYn",
+      "tags": [
+        "feature",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "conventions",
+      "semver": "minor",
+      "scope": "conventions",
+      "title": "add strict naming and consistency rules for imports",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 137,
+        "deletions": 20
+      },
+      "files": [
+        "src/data/conventions.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "4afb7b7",
+      "fullSha": "4afb7b7e9d3a195289011b1c9c94c34453258585",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-18T09:45:43+02:00",
+      "commitDate": "2026-02-18T09:45:43+02:00",
+      "subject": "Merge pull request #13 from devmade-ai/claude/setup-pwa-vite-react-Dpbta",
+      "body": "Fix timeline marker positioning and graph selection handling",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #13 from devmade-ai/claude/setup-pwa-vite-react-Dpbta",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#13"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 29,
+        "deletions": 7
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "5393813",
+      "fullSha": "5393813d651a03dc00dee8a6c34a5ecf20fd6ee8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T07:44:30+00:00",
+      "commitDate": "2026-02-18T07:44:30+00:00",
+      "subject": "fix(ui): detail drawer opens on click, timeline dots aligned on line",
+      "body": "Two bugs fixed:\n\n1. Detail drawer never opened when clicking a node or arc. Root cause:\n   cy.on('tap', handleTapBackground) fires on ALL taps, including\n   bubbled events from nodes and edges. The background handler cleared\n   the selection immediately after the node handler set it. Fix: check\n   evt.target === cy before clearing selection.\n\n2. Timeline marker dots were positioned ~15px to the right of the\n   vertical track line. Root cause: negative margin math was incorrect\n   under box-sizing: border-box (margin-left: -22px produced a dot\n   center at 24px, but the line center is at 9px). Fix: switch to\n   absolute positioning (left: -25px) for precise geometric alignment.\n\nTags: ui, graph-canvas, timeline, event-handling, css\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: polish\nSemver: patch",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "polish",
+      "semver": "patch",
+      "scope": "ui",
+      "title": "detail drawer opens on click, timeline dots aligned on line",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 29,
+        "deletions": 7
+      },
+      "files": [
+        "src/components/graph/GraphCanvas.tsx",
+        "src/components/views/TimelineView.css"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 4,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "53d5841",
+      "fullSha": "53d58416259d09a6dcbb2de3c0c3420954128aa8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-18T09:17:30+02:00",
+      "commitDate": "2026-02-18T09:17:30+02:00",
+      "subject": "Merge pull request #12 from devmade-ai/claude/add-detail-drawer-auYYK",
+      "body": "Refactor layout: move conventions & analysis to modals, detail to drawer",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #12 from devmade-ai/claude/add-detail-drawer-auYYK",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#12"
+      ],
+      "stats": {
+        "filesChanged": 22,
+        "additions": 867,
+        "deletions": 845
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "676e76a",
+      "fullSha": "676e76aa38a86af1a827ef35e2975dc1c96434a2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T07:16:39+00:00",
+      "commitDate": "2026-02-18T07:16:39+00:00",
+      "subject": "chore(db): drop conventions table in schema version 3",
+      "body": "Add Dexie version 3 that sets conventions table to null, dropping it\nfrom IndexedDB. Conventions are now static data shipped with the app.\nUser confirmed they will reinstall, so no migration needed.\n\nTags: db, cleanup\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: ui-refinement\nSemver: patch",
+      "tags": [
+        "database",
+        "schema",
+        "removal"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "ui-refinement",
+      "semver": "patch",
+      "scope": "db",
+      "title": "drop conventions table in schema version 3",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 10,
+        "deletions": 8
+      },
+      "files": [
+        "src/db/database.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "aabf662",
+      "fullSha": "aabf662e9975f02f3ade3936f9914f51571c3de1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T07:12:18+00:00",
+      "commitDate": "2026-02-18T07:12:18+00:00",
+      "subject": "chore(cleanup): remove legacy conventions, tabs, and split panel code",
+      "body": "Delete 8 files no longer used after the UI restructure:\n- ConventionsPage.tsx/.css (replaced by ConventionsModal)\n- SplitPanel.tsx (replaced by DetailDrawer)\n- useConventions.ts (conventions are now static data)\n- useAppMode.ts + test (tab navigation removed)\n- conventionService.ts + test (IndexedDB persistence no longer needed)\n\nAlso removed from shared modules:\n- ConventionRules interface from types\n- AppTab type and AppState interface from types\n- createConventionRules factory function\n- ConventionRules import from database (table kept in schema\n  for IndexedDB compatibility but no longer typed)\n\nTags: cleanup, conventions, tabs, split-panel\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ui-refinement\nSemver: patch",
+      "tags": [
+        "removal",
+        "refactor"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "ui-refinement",
+      "semver": "patch",
+      "scope": "cleanup",
+      "title": "remove legacy conventions, tabs, and split panel code",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 13,
+        "additions": 7,
+        "deletions": 642
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/components/conventions/ConventionsPage.css",
+        "src/components/conventions/ConventionsPage.tsx",
+        "src/components/layout/SplitPanel.tsx",
+        "src/components/views/ViewContainer.tsx",
+        "src/db/database.ts",
+        "src/hooks/useAppMode.test.ts",
+        "src/hooks/useAppMode.ts",
+        "src/hooks/useConventions.ts",
+        "src/services/conventionService.test.ts",
+        "src/services/conventionService.ts",
+        "src/types/index.ts",
+        "src/utils/factory.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "2dc5453",
+      "fullSha": "2dc5453cadbed42ebac4efadc528681ecf13d43c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T07:07:31+00:00",
+      "commitDate": "2026-02-18T07:07:31+00:00",
+      "subject": "refactor(conventions): make conventions static and read-only",
+      "body": "Conventions are now static text per import format (JSON, Markdown),\nnot user-editable. Users select a format tab, read the rules, and\ncopy them into an AI prompt alongside raw data.\n\nConvention content lives in src/data/conventions.ts as constants\nderived from the actual import service specs. The ConventionsModal\nno longer uses useConventions hook or IndexedDB persistence.\n\nPrevious editable textarea replaced with a read-only <pre> display\nwith format selector tabs and copy-to-clipboard button.\n\nTags: conventions, ui, data\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ui-refinement\nSemver: minor",
+      "tags": [
+        "refactor",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "ui-refinement",
+      "semver": "minor",
+      "scope": "conventions",
+      "title": "make conventions static and read-only",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 246,
+        "deletions": 64
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/components/conventions/ConventionsModal.css",
+        "src/components/conventions/ConventionsModal.tsx",
+        "src/data/conventions.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "7f5c8fb",
+      "fullSha": "7f5c8fb054a3f60772b78784ff233ef799ad66dd",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T06:55:45+00:00",
+      "commitDate": "2026-02-18T06:55:45+00:00",
+      "subject": "refactor(ui): replace tabs and split panel with drawer and modals",
+      "body": "Remove tab navigation (Graph/Conventions tabs). Graph is now always\nvisible as the primary view. Conventions and Analysis moved from\ninline panels/tabs to modals accessible via the burger menu.\n\nDetail panel replaced with an overlay DetailDrawer component:\n- Mobile: bottom sheet sliding up with drag handle and backdrop\n- Desktop: side panel sliding in from right with close button\n- Uses CSS transforms for GPU-accelerated animation instead of\n  width/height transitions that caused layout reflow\n\nPrevious SplitPanel push-layout was too subtle — users reported\nnot seeing any detail view when clicking nodes/arcs.\n\nTags: ui, layout, drawer, modal, conventions, analysis\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: ui-refinement\nSemver: minor",
+      "tags": [
+        "refactor",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "ui-refinement",
+      "semver": "minor",
+      "scope": "ui",
+      "title": "replace tabs and split panel with drawer and modals",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 673,
+        "deletions": 200
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/analysis/AnalysisModal.css",
+        "src/components/analysis/AnalysisModal.tsx",
+        "src/components/conventions/ConventionsModal.css",
+        "src/components/conventions/ConventionsModal.tsx",
+        "src/components/layout/DetailDrawer.css",
+        "src/components/layout/DetailDrawer.tsx"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "c69c73b",
+      "fullSha": "c69c73b267bd74daa72b1038eccc6c45889d671f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-18T02:02:14+02:00",
+      "commitDate": "2026-02-18T02:02:14+02:00",
+      "subject": "Merge pull request #11 from devmade-ai/claude/update-documentation-tutorial-0SovV",
+      "body": "Complete Product Realignment: Label-based model, graph+timeline views, merge review import",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #11 from devmade-ai/claude/update-documentation-tutorial-0SovV",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#11"
+      ],
+      "stats": {
+        "filesChanged": 21,
+        "additions": 729,
+        "deletions": 905
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f8b8661",
+      "fullSha": "f8b8661d57d790bf7f65f0bbb7bdd8f3fabd80c7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T23:40:04+00:00",
+      "commitDate": "2026-02-17T23:40:04+00:00",
+      "subject": "fix(quality): resolve 16 best-practice and convention issues",
+      "body": "Critical bugs:\n- mergeService: fix arc inclusion logic (|| → &&) — arcs with one dangling\n  endpoint were incorrectly included in merge results\n- mergeService: remove unused _existingArcs parameter from buildMergeProposal\n- useConventions: fix nested timeout leak on unmount + add save error handling\n\nHigh (CLAUDE.md rule violations):\n- ConnectNodeModal: move inline styles to CSS classes (connect-modal,\n  modal-list-item.selected, modal-list-item-labels)\n- ContextMenu: replace document.querySelector anti-pattern with useRef\n- graphService: wrap emit() listener calls in try/catch to prevent one\n  failing listener from breaking all subscribers\n- Add :focus-visible styles on buttons, context menu items, modal list\n  items, view switcher tabs, and timeline entries\n\nMedium:\n- App.tsx + DetailPanel.tsx: add try/catch with user-friendly error messages\n  to all async operations (create, connect, duplicate, delete, save)\n- Remove dead CSS classes (.modal-list-item-warning, .create-node-properties,\n  .create-node-checkbox)\n- Add --color-success/--color-success-hover CSS variables, replace hardcoded\n  #059669/#047857 in btn-update\n- Fix mobile touch targets below 44px for context-menu-item, modal-list-item,\n  app-tab\n\nLow:\n- GraphCanvas: extract 11 magic numbers into named constants\n- DebugPill.css: fix low-contrast text (#475569 → #64748b) for WCAG AA\n- graphService: bulkDeleteNodes emits single data:changed instead of N\n  individual events\n\nTags: quality, best-practice, conventions, bugfix, accessibility\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: quality-audit\nSemver: patch\n\nhttps://claude.ai/code/session_016xsjTMjavoQa1P26ivfZ6A",
+      "tags": [
+        "bugfix",
+        "accessibility",
+        "refactor"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "quality-audit",
+      "semver": "patch",
+      "scope": "quality",
+      "title": "resolve 16 best-practice and convention issues",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "#059669",
+        "#047857",
+        "#475569",
+        "#64748"
+      ],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 219,
+        "deletions": 130
+      },
+      "files": [
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/debug/DebugPill.css",
+        "src/components/graph/GraphCanvas.tsx",
+        "src/components/importExport/ImportModal.tsx",
+        "src/components/panels/DetailPanel.tsx",
+        "src/components/ui/ConnectNodeModal.tsx",
+        "src/components/ui/ContextMenu.tsx",
+        "src/hooks/useConventions.ts",
+        "src/services/graphService.ts",
+        "src/services/mergeService.test.ts",
+        "src/services/mergeService.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "d1f272c",
+      "fullSha": "d1f272c8bd904696f1283969439ff438fcbdb231",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T23:21:10+00:00",
+      "commitDate": "2026-02-17T23:21:10+00:00",
+      "subject": "fix(ui): resolve 7 UX/UI issues found during review",
+      "body": "1. Node labels unreadable: Changed Cytoscape node label color from\n   #1f2937 (near-black) to #e2e8f0 (light gray) so text is readable\n   on the dark #0f172a canvas background.\n\n2. btn-small class mismatch: DetailPanel used \"btn-small\" but CSS only\n   defines \"btn-sm\". Renamed to btn-sm so property editor buttons\n   (+ Add, ×) render with correct compact sizing.\n\n3. Dead CSV CSS removed: Deleted ~110 lines of unused .import-csv-*\n   and .csv-mapper-* styles left over from CSV import removal during\n   Product Realignment.\n\n4. Mobile menu touch-close: Added touchstart listener alongside\n   mousedown so the hamburger dropdown closes when tapping outside\n   on touch-only mobile devices.\n\n5. Context menu off-screen: Added viewport bounds checking via ref\n   callback that adjusts left/top when the menu would overflow the\n   right or bottom viewport edge.\n\n6. Arc creation UI: Added ConnectNodeModal with searchable node picker\n   and optional relationship name. Accessible via \"Connect to...\" in\n   the right-click/long-press context menu. Creates directed arc from\n   source to selected target. Updated tutorial step 2 to reference\n   the new connection flow.\n\n7. Stale comment: Fixed App.tsx comment that still referenced\n   \"Upload/Query/Graph/Conventions\" tabs (only Graph/Conventions exist).\n\nTags: ui, ux, accessibility, arc-creation, cleanup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: polish\nSemver: minor\n\nhttps://claude.ai/code/session_016xsjTMjavoQa1P26ivfZ6A",
+      "tags": [
+        "bugfix",
+        "ui",
+        "ux",
+        "accessibility"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "polish",
+      "semver": "minor",
+      "scope": "ui",
+      "title": "resolve 7 UX/UI issues found during review",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "#1",
+        "#0"
+      ],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 229,
+        "deletions": 110
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/graph/GraphCanvas.tsx",
+        "src/components/panels/DetailPanel.tsx",
+        "src/components/ui/ConnectNodeModal.tsx",
+        "src/components/ui/ContextMenu.tsx",
+        "src/components/ui/TutorialModal.tsx"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "a11034a",
+      "fullSha": "a11034a9809114840daedce5959c16fb8c48287b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T23:11:34+00:00",
+      "commitDate": "2026-02-17T23:11:34+00:00",
+      "subject": "fix(docs): correct inaccuracies found during review",
+      "body": "Tutorial Step 2: Removed false claim that long-press connects items.\nThe context menu only has Edit/Duplicate/Delete — there is no UI for\nmanually creating arcs between existing nodes. Reworded to \"Create and\nExplore\" focusing on what actually works (selecting, viewing details).\n\nAppTab type: Removed dead 'upload' and 'query' values from the union.\nThese tabs were planned in the Product Realignment Phase 2 but never\nbuilt — import and query were integrated into the Graph tab instead\n(import via modals, query bar inline). Updated useAppMode to stop\naccepting stale values, and updated tests to match.\n\nArc count: Corrected \"~50 arcs\" to \"44 arcs\" in CLAUDE.md and\ndiscovery doc to match actual demoArcs array length.\n\nTags: docs, types, cleanup, accuracy\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_016xsjTMjavoQa1P26ivfZ6A",
+      "tags": [
+        "docs",
+        "types",
+        "removal"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "documentation",
+      "semver": "patch",
+      "scope": "docs",
+      "title": "correct inaccuracies found during review",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 27,
+        "deletions": 17
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/graph-wiki-discovery.md",
+        "src/components/ui/TutorialModal.tsx",
+        "src/hooks/useAppMode.test.ts",
+        "src/hooks/useAppMode.ts",
+        "src/types/index.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "26b943f",
+      "fullSha": "26b943f75a4745ea6b09e2ebf025ed8d7c6c5307",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T23:02:51+00:00",
+      "commitDate": "2026-02-17T23:02:51+00:00",
+      "subject": "fix(types): add 'seed' to DebugSource union type",
+      "body": "seedService uses debugLog with source 'seed', but the DebugSource type\nunion in debugLog.ts did not include it. Added 'seed' to the union and\nthe corresponding color entry in DebugPill's SOURCE_COLORS map.\n\nTags: types, debug, seed\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_016xsjTMjavoQa1P26ivfZ6A",
+      "tags": [
+        "types",
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "documentation",
+      "semver": "patch",
+      "scope": "types",
+      "title": "add 'seed' to DebugSource union type",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 3,
+        "deletions": 1
+      },
+      "files": [
+        "src/components/debug/DebugPill.tsx",
+        "src/utils/debugLog.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "internal"
+    },
+    {
+      "sha": "7ca8eeb",
+      "fullSha": "7ca8eeb87682688bfa57ecf425e487378bd06e49",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T23:00:31+00:00",
+      "commitDate": "2026-02-17T23:00:31+00:00",
+      "subject": "docs(tutorial): update all documentation to reflect current architecture",
+      "body": "Update TutorialModal steps to accurately describe the current feature set:\n- Graph and Timeline views (was: Graph, Kanban, List, Table)\n- Label-based filtering with boolean operators (was: name, tag, or type)\n- JSON and Markdown import with merge review (was: JSON, CSV, or Markdown)\n- Added analysis algorithms step\n- Added conventions page mention\n- Mention demo data in welcome step\n\nRewrite discovery document (graph-wiki-discovery.md) to match current\nlabel-based architecture after Product Realignment. Removed all references\nto schema-centric model (SchemaBlueprint, NodeType, ArcType, designer mode,\nKanban/List/Table views, CSV import, ImportRuleSets). Document now accurately\ndescribes: label-based classification, recursive-descent query engine,\nGraph+Timeline views, merge review import system, analysis algorithms,\nconventions page, and PWA capabilities.\n\nMark product-realignment-plan.md as COMPLETED with historical reference note.\n\nTags: docs, tutorial, discovery, phase-complete\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_016xsjTMjavoQa1P26ivfZ6A",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "documentation",
+      "semver": "patch",
+      "scope": "tutorial",
+      "title": "update all documentation to reflect current architecture",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 273,
+        "deletions": 669
+      },
+      "files": [
+        "docs/graph-wiki-discovery.md",
+        "docs/working/product-realignment-plan.md",
+        "src/components/ui/TutorialModal.tsx"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "a395355",
+      "fullSha": "a3953550637558e98b524d62900b1ab4c25895c0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-18T00:53:44+02:00",
+      "commitDate": "2026-02-18T00:53:44+02:00",
+      "subject": "Merge pull request #10 from devmade-ai/claude/integrate-graphiki-6YgKo",
+      "body": "Migrate from schema-centric to label-based knowledge model",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #10 from devmade-ai/claude/integrate-graphiki-6YgKo",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#10"
+      ],
+      "stats": {
+        "filesChanged": 67,
+        "additions": 4311,
+        "deletions": 7401
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "20d4586",
+      "fullSha": "20d45861c8eaf1894ee2370f00d05382db4b8790",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T22:18:45+00:00",
+      "commitDate": "2026-02-17T22:18:45+00:00",
+      "subject": "feat(seed): auto-seed real tech industry demo data on first visit",
+      "body": "When IndexedDB is empty on first visit, seeds 40 nodes (12 companies,\n10 people, 10 products, 8 acquisitions) and ~50 arcs with real,\npublicly available data about major tech companies. Uses localStorage\nflag to avoid re-checking after first load. Demonstrates labels,\nproperties, relationships, timeline dates, and graph analysis features.\n\nTags: seed, demo-data, first-visit, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: demo-data\nSemver: minor\n\nhttps://claude.ai/code/session_01MJJT4w8YukfxVmCpcMZeZB",
+      "tags": [
+        "feature",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "demo-data",
+      "semver": "minor",
+      "scope": "seed",
+      "title": "auto-seed real tech industry demo data on first visit",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 889,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/data/demoData.ts",
+        "src/hooks/useGraphData.ts",
+        "src/services/seedService.test.ts",
+        "src/services/seedService.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "641e3f8",
+      "fullSha": "641e3f8b8b4e1aa6993a48591afd08554b66b187",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T21:42:40+00:00",
+      "commitDate": "2026-02-17T21:42:40+00:00",
+      "subject": "docs(cleanup): update CLAUDE.md and remove stale references",
+      "body": "Updated project structure, milestones, and conventions to reflect the\ncompleted product realignment. Removed all references to deleted\nschema/designer/kanban/list/table components. Fixed stale schemaService\nreference in viewService comment.\n\nTags: phase-7, docs, cleanup\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: product-realignment\nSemver: patch\n\nhttps://claude.ai/code/session_01MJJT4w8YukfxVmCpcMZeZB",
+      "tags": [
+        "docs",
+        "removal"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "product-realignment",
+      "semver": "patch",
+      "scope": "cleanup",
+      "title": "update CLAUDE.md and remove stale references",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 56,
+        "deletions": 83
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/services/viewService.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "f9fc56b",
+      "fullSha": "f9fc56b6b1987ddda1b8dc458b14eec839560c42",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T21:36:18+00:00",
+      "commitDate": "2026-02-17T21:36:18+00:00",
+      "subject": "feat(views): implement timeline view with property-based time axis",
+      "body": "Vertical timeline visualization that orders nodes by a selected date\nproperty (or creation date as default). Groups entries by month,\nshows labels, supports selection for detail panel integration.\nExcluded items (missing the date property) shown in a collapsible\nsection. Responsive for mobile with iOS auto-zoom prevention.\n\nTags: phase-6, timeline, views, ui\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: product-realignment\nSemver: minor\n\nhttps://claude.ai/code/session_01MJJT4w8YukfxVmCpcMZeZB",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "product-realignment",
+      "semver": "minor",
+      "scope": "views",
+      "title": "implement timeline view with property-based time axis",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 523,
+        "deletions": 6
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/views/TimelineView.css",
+        "src/components/views/TimelineView.tsx",
+        "src/components/views/ViewContainer.tsx"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "db380d5",
+      "fullSha": "db380d500bdfcd4c33489a9ab3e839b040a9734c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T21:33:31+00:00",
+      "commitDate": "2026-02-17T21:33:31+00:00",
+      "subject": "feat(query): add boolean logic to query engine (AND/OR/NOT with grouping)",
+      "body": "Rewrote query engine with recursive-descent parser supporting boolean\noperators. Queries like `label:Person OR label:Company NOT status:Done`\nand parenthetical grouping `(label:Task OR label:Docs) status:Done`\nnow work. Backward-compatible with existing token syntax.\n\nTags: phase-5, query, parser, boolean-logic\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: product-realignment\nSemver: minor\n\nhttps://claude.ai/code/session_01MJJT4w8YukfxVmCpcMZeZB",
+      "tags": [
+        "feature",
+        "enhancement"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "product-realignment",
+      "semver": "minor",
+      "scope": "query",
+      "title": "add boolean logic to query engine (AND/OR/NOT with grouping)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 349,
+        "deletions": 51
+      },
+      "files": [
+        "src/components/query/QueryBar.tsx",
+        "src/services/queryEngine.test.ts",
+        "src/services/queryEngine.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "5b0b43b",
+      "fullSha": "5b0b43b7e69bdc64a044333dfa2946f8f88a4044",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T21:28:27+00:00",
+      "commitDate": "2026-02-17T21:28:27+00:00",
+      "subject": "feat(import): add merge review with duplicate/conflict detection",
+      "body": "Phase 4 of the product realignment: import rework with merge system.\n\nNew files:\n- mergeService.ts: Pure-function merge engine. Matches imported nodes\n  to existing by normalized title. Categorizes as new/duplicate/conflict.\n  Duplicate = same title+labels+content+properties. Conflict = same title,\n  different data. Generates per-item property diffs. getApprovedItems()\n  remaps IDs for conflict overwrites and filters accepted items.\n- MergeReview.tsx + CSS: Three collapsible sections (New, Already Exists,\n  Changed). Per-item checkboxes. Accept/Skip All bulk toggles. Property\n  diffs shown inline for conflicts. Non-technical language throughout.\n- mergeService.test.ts: 14 tests covering proposal building, status\n  categorization, ID remapping, and count helpers.\n\nImportModal changes:\n- Flow now: Upload → Parse → Merge Review → Import → Done\n- CSV import removed (spec focuses on markdown from AI preprocessing)\n- Visual preview step removed (merge review provides sufficient info)\n- Merge review replaces direct-to-persist flow\n\nDeleted files:\n- CsvColumnMapper.tsx: No longer needed without CSV import\n- ImportPreviewCanvas.tsx: No longer needed without visual preview step\n\nBuild: passes (tsc + vite)\nTests: 192/192 passing (11 test files)\n\nTags: phase-4, import, merge-review, duplicate-detection\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: product-realignment\nSemver: minor\n\nhttps://claude.ai/code/session_01MJJT4w8YukfxVmCpcMZeZB",
+      "tags": [
+        "feature",
+        "import"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "product-realignment",
+      "semver": "minor",
+      "scope": "import",
+      "title": "add merge review with duplicate/conflict detection",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 1001,
+        "deletions": 561
+      },
+      "files": [
+        "src/components/importExport/CsvColumnMapper.tsx",
+        "src/components/importExport/ImportModal.tsx",
+        "src/components/importExport/ImportPreviewCanvas.tsx",
+        "src/components/importExport/MergeReview.css",
+        "src/components/importExport/MergeReview.tsx",
+        "src/services/mergeService.test.ts",
+        "src/services/mergeService.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "40cb24d",
+      "fullSha": "40cb24da1caacd94b21999d4184edd3bc960cd81",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T21:21:12+00:00",
+      "commitDate": "2026-02-17T21:21:12+00:00",
+      "subject": "feat(conventions): add conventions page with CRUD, auto-save, and clipboard",
+      "body": "Phase 3 of the product realignment: conventions naming rules management.\n\nNew files:\n- conventionService.ts: Single-document CRUD in IndexedDB, pub/sub events,\n  clipboard copy. Uses same event pattern as graphService/viewService.\n- useConventions.ts: React hook with load, debounced auto-save (800ms),\n  clipboard copy, and save status feedback.\n- ConventionsPage.tsx + CSS: Full-width textarea editor with copy-to-clipboard\n  button, save status indicator, and mobile-responsive layout.\n- conventionService.test.ts: 12 tests covering CRUD, events, clipboard.\n\nApp.tsx changes:\n- Tab navigation in header (Graph, Conventions) replaces void placeholders\n- Graph-specific UI (toolbar, analysis, split panel) only renders on Graph tab\n- Conventions tab renders ConventionsPage full-width\n- \"+ New Item\" button only shows on Graph tab\n\nApp.css cleanup:\n- Removed ~900 lines of dead CSS (designer panel, schema editor, type editor,\n  property editor, connection rules, view builder, view config editor, kanban,\n  list view, table view, mode toggle, schema selector, template actions)\n- Added app-tabs navigation styles\n- CSS reduced from 40.7KB to 27.8KB\n\nBuild: passes (tsc + vite)\nTests: 178/178 passing (10 test files)\n\nTags: phase-3, conventions, tabs, css-cleanup\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: product-realignment\nSemver: minor\n\nhttps://claude.ai/code/session_01MJJT4w8YukfxVmCpcMZeZB",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "product-realignment",
+      "semver": "minor",
+      "scope": "conventions",
+      "title": "add conventions page with CRUD, auto-save, and clipboard",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 578,
+        "deletions": 1156
+      },
+      "files": [
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/conventions/ConventionsPage.css",
+        "src/components/conventions/ConventionsPage.tsx",
+        "src/hooks/useConventions.ts",
+        "src/services/conventionService.test.ts",
+        "src/services/conventionService.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "4acee93",
+      "fullSha": "4acee930af0f04518af8ee626874050522d46496",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T20:44:56+00:00",
+      "commitDate": "2026-02-17T20:44:56+00:00",
+      "subject": "refactor(core): migrate from schema-based to label-based data model",
+      "body": "Replace the schema/type system with a simpler label-based model.\nThis is Phase 1 (Data Model Foundation) and Phase 2 (Layout Restructure)\nof the product realignment plan.\n\nKey changes:\n- GraphNode/Arc use labels[] instead of typeId/tags\n- Removed SchemaBlueprint, NodeType, ArcType, PropertyDefinition types\n- Added ConventionRules type and AppTab union for tab navigation\n- Database v2: dropped schemas table, renamed tag indexes to label indexes\n- Factory functions simplified: removed createSchema, createNodeType, etc.\n- Query engine uses label: prefix instead of type:/tag:\n- Import/export uses 2-param exportToJson (no schemas), 1-param resolveMarkdownImport\n- Snapshot service uses 2-param takeSnapshot (no schemas)\n- useAppMode returns {activeTab, setActiveTab} instead of mode/schema state\n- useGraphData simplified: no includeSystem parameter\n- App.tsx rewritten with tab-based navigation (no designer/user mode)\n- Removed: schema components, DesignerPanel, ConnectModal, KanbanView,\n  ListView, TableView, ViewBuilder, ViewConfigEditor\n- Graph coloring uses label-hash-based palette instead of schema types\n- All 166 tests pass, lint clean, build succeeds\n\nTags: product-realignment, phase-1, phase-2, labels, migration\nComplexity: 5\nUrgency: 3\nImpact: user-facing\nRisk: high\nDebt: paid\nEpic: product-realignment\nSemver: major\n\nhttps://claude.ai/code/session_01MJJT4w8YukfxVmCpcMZeZB",
+      "tags": [
+        "refactor",
+        "migration"
+      ],
+      "complexity": 5,
+      "risk": "high",
+      "debt": "paid",
+      "epic": "product-realignment",
+      "semver": "major",
+      "scope": "core",
+      "title": "migrate from schema-based to label-based data model",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 50,
+        "additions": 1010,
+        "deletions": 5639
+      },
+      "files": [
+        "docs/working/product-realignment-plan.md",
+        "src/App.tsx",
+        "src/components/graph/GraphCanvas.tsx",
+        "src/components/importExport/CsvColumnMapper.tsx",
+        "src/components/importExport/ExportModal.tsx",
+        "src/components/importExport/ImportModal.tsx",
+        "src/components/importExport/ImportPreviewCanvas.tsx",
+        "src/components/panels/DesignerPanel.tsx",
+        "src/components/panels/DetailPanel.tsx",
+        "src/components/query/QueryBar.tsx",
+        "src/components/schema/ArcTypeEditor.tsx",
+        "src/components/schema/ConnectionRuleEditor.tsx",
+        "src/components/schema/NodeTypeEditor.tsx",
+        "src/components/schema/PropertyDefEditor.tsx",
+        "src/components/schema/SchemaEditor.tsx",
+        "src/components/schema/SchemaList.tsx",
+        "src/components/schema/TemplateActions.tsx",
+        "src/components/ui/ConnectModal.tsx",
+        "src/components/ui/CreateNodeModal.tsx",
+        "src/components/views/KanbanView.tsx",
+        "src/components/views/ListView.tsx",
+        "src/components/views/TableView.tsx",
+        "src/components/views/ViewBuilder.tsx",
+        "src/components/views/ViewConfigEditor.tsx",
+        "src/components/views/ViewContainer.tsx",
+        "src/components/views/ViewSwitcher.tsx",
+        "src/config.ts",
+        "src/db/database.ts",
+        "src/hooks/useAppMode.test.ts",
+        "src/hooks/useAppMode.ts",
+        "src/hooks/useGraphData.ts",
+        "src/hooks/useSchemaData.ts",
+        "src/services/graphService.test.ts",
+        "src/services/graphService.ts",
+        "src/services/importExportService.test.ts",
+        "src/services/importExportService.ts",
+        "src/services/markdownImportService.test.ts",
+        "src/services/markdownImportService.ts",
+        "src/services/queryEngine.test.ts",
+        "src/services/queryEngine.ts",
+        "src/services/schemaService.test.ts",
+        "src/services/schemaService.ts",
+        "src/services/snapshotService.ts",
+        "src/services/templateService.ts",
+        "src/services/typeResolutionService.test.ts",
+        "src/services/typeResolutionService.ts",
+        "src/services/viewService.test.ts",
+        "src/types/index.ts",
+        "src/utils/factory.test.ts",
+        "src/utils/factory.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "61e710b",
+      "fullSha": "61e710bf605f3f523b65579c4e024d76cb24f1c0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T20:19:54+02:00",
+      "commitDate": "2026-02-17T20:19:54+02:00",
+      "subject": "Merge pull request #9 from devmade-ai/claude/data-persistence-nodes-LLQmC",
+      "body": "Add visual preview and undo for imports with multi-select support",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #9 from devmade-ai/claude/data-persistence-nodes-LLQmC",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#9"
+      ],
+      "stats": {
+        "filesChanged": 20,
+        "additions": 4031,
+        "deletions": 116
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "3a8633d",
+      "fullSha": "3a8633d2fbbcad8a2f391c7fbc22a94a9f363a25",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T15:35:47+00:00",
+      "commitDate": "2026-02-17T15:35:47+00:00",
+      "subject": "feat(import): auto-create unknown types during import",
+      "body": "Adds typeResolutionService that post-processes import results to auto-create\nmissing node types, arc types, and infer property definitions. Runs as pure\nfunctions between parsing and persistence, preserving existing function purity.\n\nMarkdown import: `type: Person` in frontmatter now auto-creates a \"Person\"\nNodeType if it doesn't exist. Arc labels (\"contains\", \"links to\") become\nArcTypes. Frontmatter keys (role, department, etc.) are inferred as string\nPropertyDefinitions on auto-created types.\n\nJSON import: Optional `typeName` field on nodes/arcs enables name-based type\nresolution (extracted as hints in ImportResult, keeping GraphNode clean).\nValid typeId takes precedence over typeName.\n\nWhen no schema is active, a new schema is created (named after the import\nfile) and set as active. Undo import restores the previous active schema.\n\nImportModal shows informational banner about auto-created types in the\nvisual preview step before the user approves.\n\nTags: import, types, schema, auto-creation, type-resolution\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: markdown-import\nSemver: minor\n\nhttps://claude.ai/code/session_01DVdJxFenUrMeuYYuHvXis6",
+      "tags": [
+        "feature",
+        "import"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": "markdown-import",
+      "semver": "minor",
+      "scope": "import",
+      "title": "auto-create unknown types during import",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 1148,
+        "deletions": 36
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/ai-research-output-guide.md",
+        "docs/markdown-import-format.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/importExport/ImportModal.tsx",
+        "src/services/importExportService.ts",
+        "src/services/markdownImportService.test.ts",
+        "src/services/markdownImportService.ts",
+        "src/services/typeResolutionService.test.ts",
+        "src/services/typeResolutionService.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "738b7d5",
+      "fullSha": "738b7d5116da2fa8d64aadecf5f8c7658a412b46",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T14:48:01+00:00",
+      "commitDate": "2026-02-17T14:48:01+00:00",
+      "subject": "docs(guide): add naming conventions and type handling guidance",
+      "body": "Adds three new sections to the AI research output guide:\n\n- Naming conventions: exact consistency rules, Title Case recommendation,\n  no abbreviation mixing, wiki-link matching, no trailing punctuation.\n  Explains that no format auto-merges duplicates and cross-import\n  deduplication does not exist.\n\n- Type assignment (per format): types must pre-exist in the active\n  schema, unknown types are not auto-created, only use type: when user\n  specifies their schema types. JSON typeId requires exact schema IDs.\n  CSV type assignment happens via UI dropdown.\n\n- Connection naming (JSON): consistent labels, consistent direction,\n  clear inverse pairs, short lowercase labels.\n\nAlso updates the quick reference table for type assignment accuracy.\n\nTags: docs, import, ai-workflow, naming, types\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: markdown-import\nSemver: patch\n\nhttps://claude.ai/code/session_01DVdJxFenUrMeuYYuHvXis6",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "markdown-import",
+      "semver": "patch",
+      "scope": "guide",
+      "title": "add naming conventions and type handling guidance",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 43,
+        "deletions": 1
+      },
+      "files": [
+        "docs/ai-research-output-guide.md"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "08aaaaf",
+      "fullSha": "08aaaafa3b06b7db1188865a18b6c103c4a9945c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T14:26:05+00:00",
+      "commitDate": "2026-02-17T14:26:05+00:00",
+      "subject": "docs: add AI research output guide for all import formats",
+      "body": "Guide document designed to be pasted into AI assistant context\n(ChatGPT, Claude, etc.) so research output can be imported directly\ninto Graphiki. Covers all three supported formats with exact syntax,\nrules, templates, and real-world examples:\n\n- Markdown: headings as items, hierarchy, wiki-links, YAML frontmatter\n- JSON: versioned envelope with nodes, arcs, custom relationship labels\n- CSV: flat item lists with tags and custom properties\n\nIncludes format selection decision table and quick reference matrix.\n\nTags: docs, import, ai-workflow, guide\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: markdown-import\nSemver: patch\n\nhttps://claude.ai/code/session_01DVdJxFenUrMeuYYuHvXis6",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "markdown-import",
+      "semver": "patch",
+      "scope": null,
+      "title": "add AI research output guide for all import formats",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 349,
+        "deletions": 0
+      },
+      "files": [
+        "docs/ai-research-output-guide.md"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "02e8885",
+      "fullSha": "02e888500bc49dd05cfae4545458568876519ee8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T13:43:03+00:00",
+      "commitDate": "2026-02-17T13:43:03+00:00",
+      "subject": "feat(import): add heading hierarchy to markdown import",
+      "body": "All headings (h1-h6) now become nodes instead of only h1. Heading\ndepth creates parent-child \"contains\" arcs (e.g., h2 under h1 gets a\n\"contains\" arc from h1 to h2). Wiki-links still create \"links to\" arcs.\n\nAdded setext frontmatter artifact detection to filter fake h2 headings\nthat remark generates from post-heading YAML blocks. Updated tutorial\nmodal step 5 to mention markdown import. Created comprehensive format\ndocumentation at docs/markdown-import-format.md.\n\nTags: markdown, import, hierarchy, parser, docs\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: markdown-import\nSemver: minor\n\nhttps://claude.ai/code/session_01DVdJxFenUrMeuYYuHvXis6",
+      "tags": [
+        "feature",
+        "import"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "markdown-import",
+      "semver": "minor",
+      "scope": "import",
+      "title": "add heading hierarchy to markdown import",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 627,
+        "deletions": 102
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/markdown-import-format.md",
+        "src/components/importExport/ImportModal.tsx",
+        "src/components/ui/TutorialModal.tsx",
+        "src/services/markdownImportService.test.ts",
+        "src/services/markdownImportService.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "66cf1e4",
+      "fullSha": "66cf1e421659a41378cfe40a8e2fb39ef9dcf39f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T13:18:10+00:00",
+      "commitDate": "2026-02-17T13:18:10+00:00",
+      "subject": "feat(import): add markdown import with wiki-link arc creation",
+      "body": "Add markdown import support to the import modal. Users can upload .md files\nor paste markdown text directly. H1 headings become nodes, [[wiki-links]]\nbecome arcs, and optional YAML frontmatter sets tags/type/properties.\n\nHybrid parsing approach: remark AST for reliable heading detection (ignores\n# in code blocks), raw text slicing for section content and section-level\nfrontmatter (remark misparses post-heading --- as setext h2).\n\nMissing link targets are auto-created as empty nodes with warnings.\nType names in frontmatter are resolved case-insensitively against the\nactive schema.\n\nTags: markdown, import, wiki-links, parsing, phase-4\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: import-export\nSemver: minor",
+      "tags": [
+        "feature",
+        "import"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "import-export",
+      "semver": "minor",
+      "scope": "import",
+      "title": "add markdown import with wiki-link arc creation",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 1091,
+        "deletions": 33
+      },
+      "files": [
+        "CLAUDE.md",
+        "package-lock.json",
+        "package.json",
+        "src/App.css",
+        "src/components/importExport/ImportModal.tsx",
+        "src/services/markdownImportService.test.ts",
+        "src/services/markdownImportService.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "c651068",
+      "fullSha": "c65106822b9cbbb6e41bac65e21be800565418e3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T11:42:39+00:00",
+      "commitDate": "2026-02-17T11:42:39+00:00",
+      "subject": "feat(import,selection): add import preview, multi-select, bulk delete, and undo import",
+      "body": "Three features addressing data persistence safety and selection UX gaps:\n\n1. Import visual preview: New visual-preview step in ImportModal shows a\n   read-only Cytoscape graph with existing items (dimmed) alongside imported\n   items (green dashed borders) before persisting. Users approve or cancel.\n\n2. Multi-select & bulk delete: useSelection hook extended with toggleNodeSelection\n   and toggleArcSelection for Ctrl/Cmd+click. GraphCanvas detects modifier keys.\n   Context menu and DetailPanel show bulk delete when multiple items selected.\n   graphService.bulkDeleteNodes cascades arc deletion.\n\n3. Undo import: snapshotService takes an in-memory structuredClone of all\n   data before import. Done step shows \"Undo Import\" button that restores\n   workspace via graphService.restoreFromSnapshot using a Dexie transaction.\n\nTags: import, selection, multi-select, bulk-delete, undo, preview\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: data-persistence-nodes\nSemver: minor\n\nhttps://claude.ai/code/session_01DVdJxFenUrMeuYYuHvXis6",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": "data-persistence-nodes",
+      "semver": "minor",
+      "scope": "import,selection",
+      "title": "add import preview, multi-select, bulk delete, and undo import",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 919,
+        "deletions": 90
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/graph/GraphCanvas.tsx",
+        "src/components/importExport/ImportModal.tsx",
+        "src/components/importExport/ImportPreviewCanvas.tsx",
+        "src/components/panels/DetailPanel.tsx",
+        "src/hooks/useSelection.ts",
+        "src/services/graphService.ts",
+        "src/services/snapshotService.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "4c07bb0",
+      "fullSha": "4c07bb06a3c92d5de459403c6c6e94dd3c7b14a4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T09:34:17+02:00",
+      "commitDate": "2026-02-17T09:34:17+02:00",
+      "subject": "Merge pull request #8 from devmade-ai/claude/reopen-tutorial-modal-YxmnW",
+      "body": "Add Quick Tour button to reopen tutorial walkthrough",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #8 from devmade-ai/claude/reopen-tutorial-modal-YxmnW",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#8"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 13,
+        "deletions": 0
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "88ce4c5",
+      "fullSha": "88ce4c5c5ec45ff12571664e6cd002e27384bd05",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T07:33:10+00:00",
+      "commitDate": "2026-02-17T07:33:10+00:00",
+      "subject": "feat(ui): add Quick Tour button to reopen tutorial modal",
+      "body": "The tutorial walkthrough had no way to be revisited after first\ndismissal. Adds a \"Quick Tour\" button in the header secondary\nactions area that reopens the TutorialModal at step 1. The button\nis always visible and collapses into the hamburger menu on mobile.\n\nTags: ui, tutorial, accessibility\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: phase-6-polish\nSemver: minor\n\nhttps://claude.ai/code/session_01X1FdnF4UQw3XrYp4YM1QfR",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "phase-6-polish",
+      "semver": "minor",
+      "scope": "ui",
+      "title": "add Quick Tour button to reopen tutorial modal",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 13,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/App.tsx"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "e6f1383",
+      "fullSha": "e6f13837b1d33460d8a7114136639000b1046931",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T08:20:57+02:00",
+      "commitDate": "2026-02-17T08:20:57+02:00",
+      "subject": "Merge pull request #7 from devmade-ai/claude/investigate-button-ui-buFWW",
+      "body": "Implement designer mode UI and view builder with template packaging",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #7 from devmade-ai/claude/investigate-button-ui-buFWW",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#7"
+      ],
+      "stats": {
+        "filesChanged": 13,
+        "additions": 1185,
+        "deletions": 33
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "6b8b403",
+      "fullSha": "6b8b40327a33e87782e810c4b936886b25df8374",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T05:21:50+00:00",
+      "commitDate": "2026-02-17T05:21:50+00:00",
+      "subject": "feat(ui): align mode switching with discovery doc specification",
+      "body": "Implements five missing features from the original discovery document\nto make Designer and User modes visually and functionally distinct:\n\n1. Persistent designer mode indicator — accent-colored banner strip\n   below header always visible when in designer mode, plus header\n   border tint. Ensures mode is obvious on mobile without opening\n   the hamburger menu.\n\n2. Schema selector dropdown — replaces static badge with interactive\n   native <select> for switching schemas inline. Mobile-friendly via\n   OS-native picker.\n\n3. System node/arc rendering — useGraphData now accepts includeSystem\n   flag. Designer mode loads system items rendered with 35% opacity\n   and dashed borders. User mode filters them out entirely.\n\n4. View Builder UI — new DesignerPanel with three tabs (Schemas,\n   Views, Templates). ViewBuilder lists/creates ViewConfigurations;\n   ViewConfigEditor provides full form for type, query, groupBy,\n   sortBy, and applicable node types.\n\n5. Template packaging — templateService exports schema + associated\n   views as versioned JSON envelope. TemplateActions component\n   provides export/import with validation and error handling.\n\nTags: mode-differentiation, designer-mode, views, templates, ui\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mode-differentiation\nSemver: minor\n\nhttps://claude.ai/code/session_01WbnJnQTfcHKUya2GP1Qquk",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "mode-differentiation",
+      "semver": "minor",
+      "scope": "ui",
+      "title": "align mode switching with discovery doc specification",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 13,
+        "additions": 1185,
+        "deletions": 33
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/working/mode-differentiation-alignment.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/graph/GraphCanvas.tsx",
+        "src/components/panels/DesignerPanel.tsx",
+        "src/components/schema/TemplateActions.tsx",
+        "src/components/views/ViewBuilder.tsx",
+        "src/components/views/ViewConfigEditor.tsx",
+        "src/hooks/useGraphData.ts",
+        "src/services/graphService.ts",
+        "src/services/templateService.ts",
+        "src/types/index.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "0b16daf",
+      "fullSha": "0b16daf9c2c2bc1331721eebc4bb320cd4ca33f3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T05:17:45+02:00",
+      "commitDate": "2026-02-17T05:17:45+02:00",
+      "subject": "Merge pull request #6 from devmade-ai/claude/mobile-friendly-header-QLDhg",
+      "body": "Add mobile-responsive header with overflow menu for secondary actions",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #6 from devmade-ai/claude/mobile-friendly-header-QLDhg",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 213,
+        "deletions": 28
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "5ba645c",
+      "fullSha": "5ba645ceaf1ceaa5c09b9d1c787b83944890e2a1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T03:08:22+00:00",
+      "commitDate": "2026-02-17T03:08:22+00:00",
+      "subject": "feat(ui): add mobile-friendly header with overflow menu",
+      "body": "Secondary actions (import, export, schema badge, mode toggle) collapse\ninto a hamburger dropdown menu on screens <768px. The primary action\n(\"+ New Item\") stays always visible in the header row. Click outside\nthe menu closes it.\n\nAdditional mobile improvements:\n- Touch-friendly 40-44px minimum hit targets (WCAG compliant)\n- CSS hamburger icon (no icon library dependency)\n- Dropdown slides in with subtle animation\n- Input font bumped to 16px on mobile to prevent iOS auto-zoom\n- View switcher tabs expand to equal-width on mobile\n\nDesktop layout is unchanged — the secondary container uses\ndisplay:contents so its children flow inline as before.\n\nTags: mobile, header, responsive, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-responsive\nSemver: minor\n\nhttps://claude.ai/code/session_01FGoFw3SCHhy1vxrCVXcHUt",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "mobile-responsive",
+      "semver": "minor",
+      "scope": "ui",
+      "title": "add mobile-friendly header with overflow menu",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 213,
+        "deletions": 28
+      },
+      "files": [
+        "src/App.css",
+        "src/App.tsx"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "99527df",
+      "fullSha": "99527df4eefc2c1b32c0debae7b5bf15b48225cd",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T01:18:18+02:00",
+      "commitDate": "2026-02-17T01:18:18+02:00",
+      "subject": "Merge pull request #5 from devmade-ai/claude/fix-white-screen-base-url-KTXy4",
+      "body": "Fix white screen on GitHub Pages by setting Vite base path",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/fix-white-screen-base-url-KTXy4",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 17,
+        "deletions": 4
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ccaba1e",
+      "fullSha": "ccaba1e5076de496dd6d2b7363ce9f76e5796fc8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T23:16:05+00:00",
+      "commitDate": "2026-02-16T23:16:05+00:00",
+      "subject": "fix(deploy): set Vite base URL to /graphiki/ for GitHub Pages",
+      "body": "GitHub Pages serves this repo at /graphiki/ subpath. Without an\nexplicit base, Vite defaults to '/' — all asset, icon, and service\nworker paths resolve to the site root, causing 404s and a white screen.\n\nAlso switches manifest icon src from absolute (/icon.svg) to relative\n(icon.svg) so they resolve correctly relative to the manifest URL\nunder the base path.\n\nTags: deploy, github-pages, pwa, white-screen\nComplexity: 1\nUrgency: 5\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: phase-6-polish\nSemver: patch",
+      "tags": [
+        "bugfix",
+        "deploy"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "phase-6-polish",
+      "semver": "patch",
+      "scope": "deploy",
+      "title": "set Vite base URL to /graphiki/ for GitHub Pages",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 17,
+        "deletions": 4
+      },
+      "files": [
+        "vite.config.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 5,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "c35a2f8",
+      "fullSha": "c35a2f852f5728867e7f77a83d68b88b20d3b39a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T01:08:48+02:00",
+      "commitDate": "2026-02-17T01:08:48+02:00",
+      "subject": "Merge pull request #4 from devmade-ai/claude/add-debug-pill-JDbxY",
+      "body": "Add alpha-phase debug pill for diagnosing blank-screen issues",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #4 from devmade-ai/claude/add-debug-pill-JDbxY",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 680,
+        "deletions": 12
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "076c7ed",
+      "fullSha": "076c7edd8094eb39f9084a2d7bc95df44e1d310a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T23:02:20+00:00",
+      "commitDate": "2026-02-16T23:02:20+00:00",
+      "subject": "feat(debug): add alpha-phase debug pill for diagnosing blank-screen issues",
+      "body": "Mobile GitHub Pages deployments show a blank white screen with no way\nto inspect errors. This adds a floating debug pill (bottom-right corner)\nthat captures the full app boot sequence, DB init, data loading, PWA\nlifecycle, and unhandled errors/rejections in an in-memory event store.\n\nThe DebugPill renders in its own React root so it survives App-level\ncrashes. Two tabs: Log (color-coded event stream) and Environment\n(URL, UA, screen, protocol, standalone mode, SW/IDB support). Includes\ncopy-to-clipboard for sharing debug reports.\n\nIntegrated logging points:\n- main.tsx: boot sequence, root element, React render\n- database.ts: Dexie constructor, IndexedDB ready\n- useGraphData.ts: data load start/success/failure\n- usePWAUpdate.ts: SW registration success/failure\n\nTags: debug, alpha, diagnostics, pwa, mobile\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: added\nEpic: alpha-debug\nSemver: minor\n\nhttps://claude.ai/code/session_0182VBdaq8gUALYNGrUAkMhD",
+      "tags": [
+        "feature",
+        "debug"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "added",
+      "epic": "alpha-debug",
+      "semver": "minor",
+      "scope": "debug",
+      "title": "add alpha-phase debug pill for diagnosing blank-screen issues",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 680,
+        "deletions": 12
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/components/debug/DebugPill.css",
+        "src/components/debug/DebugPill.tsx",
+        "src/db/database.ts",
+        "src/hooks/useGraphData.ts",
+        "src/hooks/usePWAUpdate.ts",
+        "src/main.tsx",
+        "src/utils/debugLog.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 4,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "689a5d7",
+      "fullSha": "689a5d77c54a3cff0f462f7724911cc80d32347b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T00:18:24+02:00",
+      "commitDate": "2026-02-17T00:18:24+02:00",
+      "subject": "Merge pull request #3 from devmade-ai/claude/plan-next-priorities-N7qdc",
+      "body": "Add schema layer, analysis algorithms, import/export, and multi-view system",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #3 from devmade-ai/claude/plan-next-priorities-N7qdc",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 68,
+        "additions": 11054,
+        "deletions": 123
+      },
+      "files": [],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "659948f",
+      "fullSha": "659948f12d7b0baa087faf333b7d763050687c83",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T22:15:54+00:00",
+      "commitDate": "2026-02-16T22:15:54+00:00",
+      "subject": "ci(deploy): add GitHub Pages deployment workflow",
+      "body": "Automated deploy pipeline: lint → test → build → deploy to GitHub Pages\non push to main. Uses official GitHub actions (configure-pages, upload-pages-artifact,\ndeploy-pages) with OIDC token auth — no PAT or deploy key needed.\n\nRequires enabling Pages with \"GitHub Actions\" source in repo settings.\n\nTags: ci, deploy, github-pages, infrastructure\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+      "tags": [
+        "ci",
+        "deploy"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "pwa-hardening",
+      "semver": "minor",
+      "scope": "deploy",
+      "title": "add GitHub Pages deployment workflow",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 66,
+        "deletions": 0
+      },
+      "files": [
+        ".github/workflows/deploy.yml"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "18cf8a1",
+      "fullSha": "18cf8a15f85cf1508aa44a8a9bf34b586543a100",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T22:05:37+00:00",
+      "commitDate": "2026-02-16T22:05:37+00:00",
+      "subject": "feat(pwa): add app icons (SVG + PNG) and update favicon",
+      "body": "Custom graph-nodes icon: 4 indigo corner nodes connected by arcs with\nan amber center node on dark background. Matches the app theme.\n\n- icon.svg: scalable vector for favicon and modern manifest\n- icon-192.png, icon-512.png: rasterized for PWA manifest\n- icon-512-maskable.png: padded safe-zone variant for Android adaptive icons\n- index.html: favicon now points to icon.svg, added apple-touch-icon\n\nTags: pwa, icons, branding\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pwa-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+      "tags": [
+        "feature",
+        "pwa"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "pwa-hardening",
+      "semver": "patch",
+      "scope": "pwa",
+      "title": "add app icons (SVG + PNG) and update favicon",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 49,
+        "deletions": 1
+      },
+      "files": [
+        "index.html",
+        "public/icon-192.png",
+        "public/icon-512-maskable.png",
+        "public/icon-512.png",
+        "public/icon-maskable.svg",
+        "public/icon.svg",
+        "vite.config.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "b864bfa",
+      "fullSha": "b864bfa5d40bbc0404fd787c93999fce26cc6ba3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T21:56:27+00:00",
+      "commitDate": "2026-02-16T21:56:27+00:00",
+      "subject": "feat(pwa): add update notification, cross-browser install, standalone detection",
+      "body": "Six PWA improvements:\n\n1. Switch registerType from autoUpdate to prompt — users see an\n   \"Update Available\" button and control when reloads happen.\n2. Add usePWAUpdate hook with 60-minute periodic SW update checks.\n3. Add usePWAInstall hook with UA-based browser detection (Chrome,\n   Edge, Brave, Safari, Firefox), standalone mode detection via\n   display-mode media query + iOS navigator.standalone.\n4. Add InstallInstructionsModal with step-by-step guides for Safari\n   (iOS + macOS) and Firefox (Android + desktop).\n5. Add maskable icon entry to manifest for adaptive Android icons.\n6. Add install analytics tracking in localStorage (last 50 events).\n\nTags: pwa, install, update, cross-browser, analytics\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+      "tags": [
+        "feature",
+        "pwa"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "pwa-hardening",
+      "semver": "minor",
+      "scope": "pwa",
+      "title": "add update notification, cross-browser install, standalone detection",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 457,
+        "deletions": 64
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/pwa/InstallInstructionsModal.css",
+        "src/components/pwa/InstallInstructionsModal.tsx",
+        "src/components/pwa/InstallPrompt.tsx",
+        "src/hooks/usePWAInstall.ts",
+        "src/hooks/usePWAUpdate.ts",
+        "tsconfig.app.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "044c020",
+      "fullSha": "044c0205a45f9e6043bf5f1bf92d2bc89564df76",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T21:42:03+00:00",
+      "commitDate": "2026-02-16T21:42:03+00:00",
+      "subject": "feat(ui): add first-visit tutorial modal with 6-step walkthrough",
+      "body": "Welcomes new users with a step-by-step modal explaining what Graphiki\ndoes and how to use it. Covers: creating/connecting items, multiple\nviews, search/filter, import/export, and offline support. Uses\nlocalStorage flag to show only on first visit.\n\nTags: tutorial, onboarding, ui, modal\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: tutorial-onboarding\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "tutorial-onboarding",
+      "semver": "minor",
+      "scope": "ui",
+      "title": "add first-visit tutorial modal with 6-step walkthrough",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 197,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/App.tsx",
+        "src/components/ui/TutorialModal.css",
+        "src/components/ui/TutorialModal.tsx"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "b3abaf6",
+      "fullSha": "b3abaf6e692fdd2578265e30464d51ae1f9d9057",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T21:17:47+00:00",
+      "commitDate": "2026-02-16T21:17:47+00:00",
+      "subject": "fix(review): resolve remaining design issues, add service + hook tests",
+      "body": "Design fixes:\n- deleteNode now emits arc:deleted for each cascade-deleted arc instead\n  of silently bulk-deleting. Collects arc IDs first, then deletes and\n  emits per-arc events so arc-specific listeners stay consistent.\n- loadAllData now filters system nodes/arcs via getAllNodes/getAllArcs\n  instead of raw db.toArray(), preventing system items from leaking\n  into the graph canvas and views.\n- getAllNodes/getAllArcs changed from .where().equals(0) to .filter()\n  for boolean isSystem fields — .equals(0) fails in fake-indexeddb\n  which preserves JS booleans instead of coercing to 0/1.\n- Analysis panel source/target validated against current filtered nodes\n  via derived validSourceId/validTargetId. Stale selections (from nodes\n  removed by query filter) are treated as empty, disabling Run button.\n- Config changed from eager module-load evaluation to lazy Proxy-based\n  access. window.__GRAPHIKI_CONFIG__ is now read on first property access,\n  supporting override scripts loaded after the app bundle.\n\nNew tests (48 added, 109 → 157):\n- graphService: 22 tests covering CRUD, events, cascade delete,\n  system filtering, bulk upsert, event unsubscribe\n- viewService: 10 tests covering CRUD, events, unsubscribe\n- useSelection: 7 tests covering all selection state transitions\n- useAppMode: 9 tests covering mode toggle, schema persistence,\n  localStorage read/write, null handling\n\nDev dependency added: fake-indexeddb (in-memory IndexedDB for tests)\n\nTags: review, bugfix, tests, services, hooks\nComplexity: 3\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: quality-review\nSemver: patch\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+      "tags": [
+        "bugfix",
+        "testing"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "quality-review",
+      "semver": "patch",
+      "scope": "review",
+      "title": "resolve remaining design issues, add service + hook tests",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 600,
+        "deletions": 18
+      },
+      "files": [
+        "package-lock.json",
+        "package.json",
+        "src/components/analysis/AnalysisPanel.tsx",
+        "src/config.ts",
+        "src/hooks/useAppMode.test.ts",
+        "src/hooks/useSelection.test.ts",
+        "src/services/graphService.test.ts",
+        "src/services/graphService.ts",
+        "src/services/viewService.test.ts",
+        "src/test/setup.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "internal"
+    },
+    {
+      "sha": "4a9e236",
+      "fullSha": "4a9e236cef4ac14c31b96396dbe28b5ca5343126",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T21:08:59+00:00",
+      "commitDate": "2026-02-16T21:08:59+00:00",
+      "subject": "fix(review): fix 4 bugs, 3 cleanups, add 6 tests from 6-phase review",
+      "body": "Bug fixes:\n- JSON import now uses bulkPut (upsert) instead of add, preventing\n  ConstraintError on duplicate IDs when re-importing the same file.\n  Added bulkUpsertNodes/Arcs/Schemas to service layer.\n- queryResultCount derived from inline queryResult instead of computed\n  separately in handleRunQuery callback. Previous approach could show\n  a count that didn't match the actually-rendered filtered data when\n  nodes/arcs changed between callback run and next render.\n- Betweenness centrality normalization corrected from (n-1)*(n-2) to\n  (n-1)*(n-2)/2 for undirected graphs. Previous normalization produced\n  values 2x too high because each pair is traversed from both directions.\n\nCleanups:\n- Merged duplicate .modal-list-item CSS rule into single declaration.\n- Removed unused `arcs` prop from KanbanView, TableView, ViewContainer.\n\nTests:\n- Added 6 tests for autoSuggestMappings (title/name/label mapping,\n  tags/labels/categories, ID skipping, schema property matching,\n  fallback to lowercase, empty headers).\n\n109 tests passing, lint clean, build clean.\n\nTags: review, bugfix, cleanup, tests, phase-1-6\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: quality-review\nSemver: patch\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+      "tags": [
+        "bugfix",
+        "testing",
+        "removal"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "quality-review",
+      "semver": "patch",
+      "scope": "review",
+      "title": "fix 4 bugs, 3 cleanups, add 6 tests from 6-phase review",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 108,
+        "deletions": 43
+      },
+      "files": [
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/importExport/ImportModal.tsx",
+        "src/components/views/KanbanView.tsx",
+        "src/components/views/TableView.tsx",
+        "src/components/views/ViewContainer.tsx",
+        "src/services/analysisService.ts",
+        "src/services/graphService.ts",
+        "src/services/importExportService.test.ts",
+        "src/services/schemaService.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "1351c1a",
+      "fullSha": "1351c1a6436999f8bc5263f07a46dba4518614f9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T20:02:35+00:00",
+      "commitDate": "2026-02-16T20:02:35+00:00",
+      "subject": "feat(polish): add Phase 6 — code splitting, PWA hardening, config system",
+      "body": "Code splitting via Vite manualChunks splits vendor-cytoscape (442KB) and\nvendor-core (React, Dexie, markdown) into separate cacheable chunks.\nHeavy modals (ExportModal, ImportModal) lazy-loaded with React.lazy().\n\nLarge-graph performance guard uses grid layout for 500+ nodes instead of\nexpensive cose force-directed layout (O(n) vs O(n²)).\n\nPWA hardened with workbox runtime caching, iOS meta tags, and\nBeforeInstallPrompt install banner with localStorage dismissal.\n\nApp configuration system (config.ts) provides typed defaults overridable\nat runtime via window.__GRAPHIKI_CONFIG__ for custom deployments.\n\nTags: phase-6, performance, pwa, code-splitting, config, distribution\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: polish-distribution\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+      "tags": [
+        "feature",
+        "performance"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "polish-distribution",
+      "semver": "minor",
+      "scope": "polish",
+      "title": "add Phase 6 — code splitting, PWA hardening, config system",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 352,
+        "deletions": 41
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/working/phase-6-polish-distribution.md",
+        "index.html",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/graph/GraphCanvas.tsx",
+        "src/components/pwa/InstallPrompt.tsx",
+        "src/config.ts",
+        "vite.config.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "b3be72b",
+      "fullSha": "b3be72ba2b91707ec5c271e99d101383b639f32f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T19:48:19+00:00",
+      "commitDate": "2026-02-16T19:48:19+00:00",
+      "subject": "feat(analysis): add Phase 5 graph analysis algorithms + visualization",
+      "body": "Implements six graph algorithms as pure functions on adjacency lists,\nwith a collapsible UI panel for running them and visual overlays on\nthe graph canvas for displaying results.\n\nAlgorithms implemented:\n- Degree centrality: identifies hub nodes by connection count\n- Betweenness centrality (Brandes): finds bridge nodes between clusters\n- PageRank (power iteration): ranks nodes by network influence\n- Connected components (BFS): partitions graph into disconnected groups\n- Shortest path (BFS): finds shortest route between two selected nodes\n- Clustering coefficient: measures local triangle density\n\nVisualization:\n- Score-based node sizing (30-70px scaled by normalized score)\n- Path highlighting with accent color on nodes and arcs\n- Component coloring with 10-color palette\n- Non-highlighted elements dimmed to 20% opacity\n- Cytoscape class-based styling (analysis-dimmed, analysis-highlighted)\n\nUI:\n- AnalysisPanel with algorithm dropdown, description, source/target pickers\n- Top-20 results table sorted by score\n- Path display with arrow notation\n- Component count summary\n- Collapsible panel (visible only in graph view)\n\nAlso removes stale reference to nonexistent docs/EXTRACTION_PLAYBOOK.md.\n\nTest coverage: 103 total (29 new analysis tests covering all algorithms\nwith star/chain/triangle/disconnected graph fixtures).\n\nTags: phase-5, analysis, algorithms, centrality, pagerank, pathfinding\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: analysis-algorithms\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+      "tags": [
+        "feature",
+        "enhancement"
+      ],
+      "complexity": 4,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "analysis-algorithms",
+      "semver": "minor",
+      "scope": "analysis",
+      "title": "add Phase 5 graph analysis algorithms + visualization",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 1397,
+        "deletions": 9
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/working/phase-5-analysis-algorithms.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/analysis/AnalysisPanel.tsx",
+        "src/components/graph/GraphCanvas.tsx",
+        "src/services/analysisService.test.ts",
+        "src/services/analysisService.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "b019f4b",
+      "fullSha": "b019f4b1533038b9d715147aa7ed7ef312487eb2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T14:39:35+00:00",
+      "commitDate": "2026-02-16T14:39:35+00:00",
+      "subject": "feat(import-export): add Phase 4 import/export system + expand test coverage",
+      "body": "Implements JSON and CSV import/export with a pure-function service\nlayer (no DB dependency) for easy testing. JSON exports use a versioned\nenvelope for future migration. CSV import includes column-to-property\nmapping with auto-suggest from schema definitions.\n\nPhase 4 additions:\n- importExportService.ts: exportToJson, validateJsonImport, exportNodesToCsv,\n  parseCsvString, mapCsvToNodeData, autoSuggestMappings, downloadFile\n- ExportModal: format selection (JSON full backup / CSV current view)\n- ImportModal: multi-step flow with file upload, JSON preview, CSV column mapping\n- CsvColumnMapper: table UI for mapping CSV headers to node fields\n\nTest coverage expansion (74 total, up from 38):\n- importExportService.test.ts: 33 tests covering JSON roundtrip, CSV parsing,\n  column mapping, validation, edge cases (quoted fields, Windows line endings)\n- factory.test.ts: 3 new tests for createView factory\n\nTags: phase-4, import, export, csv, json, testing\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: import-export\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+      "tags": [
+        "feature",
+        "import"
+      ],
+      "complexity": 4,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "import-export",
+      "semver": "minor",
+      "scope": "import-export",
+      "title": "add Phase 4 import/export system + expand test coverage",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 1682,
+        "deletions": 7
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/working/phase-4-import-export.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/importExport/CsvColumnMapper.tsx",
+        "src/components/importExport/ExportModal.tsx",
+        "src/components/importExport/ImportModal.tsx",
+        "src/services/importExportService.test.ts",
+        "src/services/importExportService.ts",
+        "src/utils/factory.test.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "06f5283",
+      "fullSha": "06f5283b7f9f56bbf9edd7770b36c65294469da1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T13:17:17+00:00",
+      "commitDate": "2026-02-16T13:17:17+00:00",
+      "subject": "feat(views): add Phase 3 query and view system + Vitest test runner",
+      "body": "Implements the full Phase 3 query and view system alongside Vitest\ntest infrastructure. Query bar filters nodes/arcs with a simple token\nsyntax (type:X, tag:Y, property:value, title:~term). View switcher\nenables toggling between graph, kanban board, list, and table views.\nAll views consume filtered data from the query engine.\n\nPhase 3 additions:\n- Query engine with parseQuery/executeQuery (token-based, AND-combined)\n- View service layer (CRUD + events, same pattern as graph/schema)\n- QueryBar component with explicit run, clear, result count\n- ViewSwitcher with graph/board/list/table tabs\n- ViewContainer routing to correct view component\n- KanbanView: groupBy enum property, HTML5 drag-drop between columns\n- ListView: sortable columns, click-to-select, inline title editing\n- TableView: dynamic columns from schema, per-cell editing, sort\n\nTest infrastructure:\n- Vitest configured inline in vite.config.ts (jsdom environment)\n- 38 tests: factory (10), schemaService (13), queryEngine (15)\n- createView factory for ViewConfiguration objects\n\nTags: phase-3, query, views, kanban, list, table, testing, vitest\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: query-views\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+      "tags": [
+        "feature",
+        "testing"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": "query-views",
+      "semver": "minor",
+      "scope": "views",
+      "title": "add Phase 3 query and view system + Vitest test runner",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 21,
+        "additions": 3431,
+        "deletions": 38
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/working/phase-3-query-views.md",
+        "package-lock.json",
+        "package.json",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/query/QueryBar.tsx",
+        "src/components/views/KanbanView.tsx",
+        "src/components/views/ListView.tsx",
+        "src/components/views/TableView.tsx",
+        "src/components/views/ViewContainer.tsx",
+        "src/components/views/ViewSwitcher.tsx",
+        "src/hooks/useViewData.ts",
+        "src/services/queryEngine.test.ts",
+        "src/services/queryEngine.ts",
+        "src/services/schemaService.test.ts",
+        "src/services/viewService.ts",
+        "src/test/setup.ts",
+        "src/utils/factory.test.ts",
+        "src/utils/factory.ts",
+        "vite.config.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "1584578",
+      "fullSha": "158457871cc1fb7db761b809b5a2efc3e4d03874",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T11:51:02+00:00",
+      "commitDate": "2026-02-16T11:51:02+00:00",
+      "subject": "feat(schema): add Phase 2 schema layer — types, builder UI, and schema-aware creation",
+      "body": "Implements the full schema layer for Graphiki, enabling structured graph\ndata through user-defined schemas with node types, arc types, connection\nrules, and property definitions.\n\nService layer:\n- schemaService.ts: Schema CRUD, type lookups, connection validation\n- factory.ts: Factories for schemas, node types, arc types, properties\n\nHooks:\n- useAppMode: User/designer mode toggle with localStorage persistence\n- useSchemaData: Live-updating schema list with event subscription\n\nSchema Builder UI (designer mode):\n- SchemaList: Create, edit, delete, activate schemas\n- SchemaEditor: Tabbed editor for details, types, and rules\n- NodeTypeEditor/ArcTypeEditor: Name, color, properties editing\n- PropertyDefEditor: Dynamic property type configuration\n- ConnectionRuleEditor: Define valid arc-to-node connections\n\nSchema-aware data creation:\n- CreateNodeModal: Type selector + dynamic property form\n- ConnectModal: Arc type dropdown with connection rule validation (permissive)\n\nGraph visualization:\n- GraphCanvas: Type-based node colors and arc styles via Cytoscape data attributes\n- DetailPanel: Type badges, schema-defined property display and editing\n\nApp shell:\n- Mode toggle button (User/Designer) in header\n- Active schema badge display\n- Designer mode shows Schema Builder in side panel\n\nAlso adds delete confirmation dialogs for destructive actions and\nfixes React 19 lint compliance (key-based remounting over useEffect setState).\n\nTags: schema, types, builder, designer-mode, phase-2\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: schema-layer\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": "schema-layer",
+      "semver": "minor",
+      "scope": "schema",
+      "title": "add Phase 2 schema layer — types, builder UI, and schema-aware creation",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 19,
+        "additions": 2913,
+        "deletions": 99
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/working/phase-2-schema-layer.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/graph/GraphCanvas.tsx",
+        "src/components/panels/DetailPanel.tsx",
+        "src/components/schema/ArcTypeEditor.tsx",
+        "src/components/schema/ConnectionRuleEditor.tsx",
+        "src/components/schema/NodeTypeEditor.tsx",
+        "src/components/schema/PropertyDefEditor.tsx",
+        "src/components/schema/SchemaEditor.tsx",
+        "src/components/schema/SchemaList.tsx",
+        "src/components/ui/ConnectModal.tsx",
+        "src/components/ui/CreateNodeModal.tsx",
+        "src/hooks/useAppMode.ts",
+        "src/hooks/useGraphData.ts",
+        "src/hooks/useSchemaData.ts",
+        "src/services/schemaService.ts",
+        "src/utils/factory.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
     {
       "sha": "8c58ad9",
       "fullSha": "8c58ad96b12fc7342e9b1650bde8ec10ce2a16cc",
@@ -291,30 +3049,63 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 5,
-      "avgComplexity": 1.4,
-      "avgUrgency": 1.8,
+      "commits": 64,
+      "avgComplexity": 2.16,
+      "avgUrgency": 2.22,
       "tagBreakdown": {
+        "merge": 16,
+        "feature": 23,
+        "ui": 13,
+        "docs": 7,
+        "config": 2,
+        "ux": 7,
+        "naming": 1,
+        "simplify": 1,
+        "removal": 6,
+        "bugfix": 7,
+        "database": 1,
+        "schema": 1,
+        "refactor": 5,
+        "accessibility": 2,
+        "types": 2,
+        "enhancement": 2,
+        "import": 5,
+        "migration": 1,
+        "deploy": 2,
+        "debug": 1,
+        "ci": 1,
+        "pwa": 2,
+        "testing": 3,
+        "performance": 1,
         "documentation": 4,
         "conventions": 2,
-        "merge": 2,
         "developer-experience": 2,
         "ai-guidelines": 2,
         "initial-commit": 1,
         "repository-setup": 1
       },
       "impactBreakdown": {
-        "internal": 5,
-        "user-facing": 0,
-        "infrastructure": 0,
+        "internal": 25,
+        "user-facing": 37,
+        "infrastructure": 2,
         "api": 0
+      },
+      "riskBreakdown": {
+        "low": 48,
+        "medium": 10,
+        "high": 1
+      },
+      "debtBreakdown": {
+        "added": 1,
+        "paid": 24,
+        "neutral": 34
       },
       "repos": [
         "graphiki"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-11T21:17:42Z",
-      "lastCommit": "2026-02-15T17:50:03Z"
+      "lastCommit": "2026-02-18T12:31:19+02:00"
     },
     {
       "author_id": "jacotheron87",
@@ -337,6 +3128,16 @@
         "infrastructure": 0,
         "api": 0
       },
+      "riskBreakdown": {
+        "low": 0,
+        "medium": 0,
+        "high": 0
+      },
+      "debtBreakdown": {
+        "added": 0,
+        "paid": 0,
+        "neutral": 0
+      },
       "repos": [
         "graphiki"
       ],
@@ -346,104 +3147,233 @@
     }
   ],
   "summary": {
-    "totalCommits": 6,
+    "totalCommits": 65,
     "totalContributors": 2,
     "tagBreakdown": {
+      "merge": 16,
+      "feature": 24,
+      "ui": 14,
+      "docs": 7,
+      "config": 2,
+      "ux": 7,
+      "naming": 1,
+      "simplify": 1,
+      "removal": 6,
+      "bugfix": 7,
+      "database": 1,
+      "schema": 1,
+      "refactor": 5,
+      "accessibility": 2,
+      "types": 2,
+      "enhancement": 2,
+      "import": 5,
+      "migration": 1,
+      "deploy": 2,
+      "debug": 1,
+      "ci": 1,
+      "pwa": 3,
+      "testing": 3,
+      "performance": 1,
       "documentation": 4,
       "conventions": 2,
-      "merge": 2,
       "developer-experience": 2,
       "ai-guidelines": 2,
-      "feature": 1,
-      "ui": 1,
       "graph-engine": 1,
       "data-model": 1,
       "persistence": 1,
-      "pwa": 1,
       "initial-commit": 1,
       "repository-setup": 1
     },
     "complexityBreakdown": {
-      "1": 3,
-      "2": 2,
-      "3": 0,
-      "4": 0,
-      "5": 1
+      "1": 24,
+      "2": 16,
+      "3": 15,
+      "4": 8,
+      "5": 2
     },
     "urgencyBreakdown": {
-      "1": 1,
-      "2": 4,
-      "3": 1,
-      "4": 0,
-      "5": 0
+      "1": 3,
+      "2": 48,
+      "3": 11,
+      "4": 2,
+      "5": 1
     },
     "impactBreakdown": {
-      "internal": 5,
-      "user-facing": 1,
-      "infrastructure": 0,
+      "internal": 25,
+      "user-facing": 38,
+      "infrastructure": 2,
       "api": 0
     },
-    "avgComplexity": 2,
-    "avgUrgency": 2,
+    "riskBreakdown": {
+      "low": 48,
+      "medium": 10,
+      "high": 1
+    },
+    "debtBreakdown": {
+      "added": 1,
+      "paid": 24,
+      "neutral": 34
+    },
+    "epicBreakdown": {
+      "alpha-polish": 1,
+      "documentation": 5,
+      "conventions": 3,
+      "polish": 2,
+      "ui-refinement": 4,
+      "quality-audit": 1,
+      "demo-data": 1,
+      "product-realignment": 6,
+      "markdown-import": 4,
+      "import-export": 2,
+      "data-persistence-nodes": 1,
+      "phase-6-polish": 2,
+      "mode-differentiation": 1,
+      "mobile-responsive": 1,
+      "alpha-debug": 1,
+      "pwa-hardening": 3,
+      "tutorial-onboarding": 1,
+      "quality-review": 2,
+      "polish-distribution": 1,
+      "analysis-algorithms": 1,
+      "query-views": 1,
+      "schema-layer": 1
+    },
+    "semverBreakdown": {
+      "patch": 18,
+      "minor": 26,
+      "major": 1
+    },
+    "avgComplexity": 2.2,
+    "avgUrgency": 2.23,
     "monthly": {
       "2026-02": {
-        "commits": 6,
+        "commits": 65,
         "tags": {
+          "merge": 16,
+          "feature": 24,
+          "ui": 14,
+          "docs": 7,
+          "config": 2,
+          "ux": 7,
+          "naming": 1,
+          "simplify": 1,
+          "removal": 6,
+          "bugfix": 7,
+          "database": 1,
+          "schema": 1,
+          "refactor": 5,
+          "accessibility": 2,
+          "types": 2,
+          "enhancement": 2,
+          "import": 5,
+          "migration": 1,
+          "deploy": 2,
+          "debug": 1,
+          "ci": 1,
+          "pwa": 3,
+          "testing": 3,
+          "performance": 1,
           "documentation": 4,
           "conventions": 2,
-          "merge": 2,
           "developer-experience": 2,
           "ai-guidelines": 2,
-          "feature": 1,
-          "ui": 1,
           "graph-engine": 1,
           "data-model": 1,
           "persistence": 1,
-          "pwa": 1,
           "initial-commit": 1,
           "repository-setup": 1
         },
         "impact": {
-          "internal": 5,
-          "user-facing": 1,
-          "infrastructure": 0,
+          "internal": 25,
+          "user-facing": 38,
+          "infrastructure": 2,
           "api": 0
         },
-        "avgComplexity": 2,
-        "avgUrgency": 2
+        "risk": {
+          "low": 48,
+          "medium": 10,
+          "high": 1
+        },
+        "debt": {
+          "added": 1,
+          "paid": 24,
+          "neutral": 34
+        },
+        "semver": {
+          "patch": 18,
+          "minor": 26,
+          "major": 1
+        },
+        "avgComplexity": 2.2,
+        "avgUrgency": 2.23
       }
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 6,
+        "commits": 65,
         "tags": {
+          "merge": 16,
+          "feature": 24,
+          "ui": 14,
+          "docs": 7,
+          "config": 2,
+          "ux": 7,
+          "naming": 1,
+          "simplify": 1,
+          "removal": 6,
+          "bugfix": 7,
+          "database": 1,
+          "schema": 1,
+          "refactor": 5,
+          "accessibility": 2,
+          "types": 2,
+          "enhancement": 2,
+          "import": 5,
+          "migration": 1,
+          "deploy": 2,
+          "debug": 1,
+          "ci": 1,
+          "pwa": 3,
+          "testing": 3,
+          "performance": 1,
           "documentation": 4,
           "conventions": 2,
-          "merge": 2,
           "developer-experience": 2,
           "ai-guidelines": 2,
-          "feature": 1,
-          "ui": 1,
           "graph-engine": 1,
           "data-model": 1,
           "persistence": 1,
-          "pwa": 1,
           "initial-commit": 1,
           "repository-setup": 1
         },
         "impact": {
-          "internal": 5,
-          "user-facing": 1,
-          "infrastructure": 0,
+          "internal": 25,
+          "user-facing": 38,
+          "infrastructure": 2,
           "api": 0
         },
-        "avgComplexity": 2,
-        "avgUrgency": 2
+        "risk": {
+          "low": 48,
+          "medium": 10,
+          "high": 1
+        },
+        "debt": {
+          "added": 1,
+          "paid": 24,
+          "neutral": 34
+        },
+        "semver": {
+          "patch": 18,
+          "minor": 26,
+          "major": 1
+        },
+        "avgComplexity": 2.2,
+        "avgUrgency": 2.23
       }
     },
     "dateRange": {
       "earliest": "2026-02-11T21:17:42Z",
-      "latest": "2026-02-15T17:50:03Z"
+      "latest": "2026-02-18T12:31:19+02:00"
     },
     "security_events": []
   }

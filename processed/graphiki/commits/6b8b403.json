@@ -1,0 +1,54 @@
+{
+  "sha": "6b8b403",
+  "fullSha": "6b8b40327a33e87782e810c4b936886b25df8374",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T05:21:50+00:00",
+  "commitDate": "2026-02-17T05:21:50+00:00",
+  "subject": "feat(ui): align mode switching with discovery doc specification",
+  "body": "Implements five missing features from the original discovery document\nto make Designer and User modes visually and functionally distinct:\n\n1. Persistent designer mode indicator — accent-colored banner strip\n   below header always visible when in designer mode, plus header\n   border tint. Ensures mode is obvious on mobile without opening\n   the hamburger menu.\n\n2. Schema selector dropdown — replaces static badge with interactive\n   native <select> for switching schemas inline. Mobile-friendly via\n   OS-native picker.\n\n3. System node/arc rendering — useGraphData now accepts includeSystem\n   flag. Designer mode loads system items rendered with 35% opacity\n   and dashed borders. User mode filters them out entirely.\n\n4. View Builder UI — new DesignerPanel with three tabs (Schemas,\n   Views, Templates). ViewBuilder lists/creates ViewConfigurations;\n   ViewConfigEditor provides full form for type, query, groupBy,\n   sortBy, and applicable node types.\n\n5. Template packaging — templateService exports schema + associated\n   views as versioned JSON envelope. TemplateActions component\n   provides export/import with validation and error handling.\n\nTags: mode-differentiation, designer-mode, views, templates, ui\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mode-differentiation\nSemver: minor\n\nhttps://claude.ai/code/session_01WbnJnQTfcHKUya2GP1Qquk",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "mode-differentiation",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "align mode switching with discovery doc specification",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 1185,
+    "deletions": 33
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/working/mode-differentiation-alignment.md",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/panels/DesignerPanel.tsx",
+    "src/components/schema/TemplateActions.tsx",
+    "src/components/views/ViewBuilder.tsx",
+    "src/components/views/ViewConfigEditor.tsx",
+    "src/hooks/useGraphData.ts",
+    "src/services/graphService.ts",
+    "src/services/templateService.ts",
+    "src/types/index.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,41 @@
+{
+  "sha": "738b7d5",
+  "fullSha": "738b7d5116da2fa8d64aadecf5f8c7658a412b46",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T14:48:01+00:00",
+  "commitDate": "2026-02-17T14:48:01+00:00",
+  "subject": "docs(guide): add naming conventions and type handling guidance",
+  "body": "Adds three new sections to the AI research output guide:\n\n- Naming conventions: exact consistency rules, Title Case recommendation,\n  no abbreviation mixing, wiki-link matching, no trailing punctuation.\n  Explains that no format auto-merges duplicates and cross-import\n  deduplication does not exist.\n\n- Type assignment (per format): types must pre-exist in the active\n  schema, unknown types are not auto-created, only use type: when user\n  specifies their schema types. JSON typeId requires exact schema IDs.\n  CSV type assignment happens via UI dropdown.\n\n- Connection naming (JSON): consistent labels, consistent direction,\n  clear inverse pairs, short lowercase labels.\n\nAlso updates the quick reference table for type assignment accuracy.\n\nTags: docs, import, ai-workflow, naming, types\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: markdown-import\nSemver: patch\n\nhttps://claude.ai/code/session_01DVdJxFenUrMeuYYuHvXis6",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "markdown-import",
+  "semver": "patch",
+  "scope": "guide",
+  "title": "add naming conventions and type handling guidance",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 43,
+    "deletions": 1
+  },
+  "files": [
+    "docs/ai-research-output-guide.md"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,45 @@
+{
+  "sha": "64dba1a",
+  "fullSha": "64dba1ab33dd0b539afc2f3967c2fd89b02d63d2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T22:31:34+00:00",
+  "commitDate": "2026-02-16T22:31:34+00:00",
+  "subject": "fix(ui): remove site header, add email debug modal",
+  "body": "Remove the separate site header (\"this is a cv\" + Alpha badge) which\ncreated a competing h1 and used developer jargon that confused\nnon-technical users. Action buttons (Install, PDF) now live in the\nHero component where they contextually belong.\n\nAdd an EmailDebugModal component for diagnosing email send failures\non mobile. Activated via ?debug=true URL parameter — captures full\nrequest/response lifecycle with timestamps, HTTP status, elapsed time,\nand response bodies. Includes copy-to-clipboard for individual entries\nor all logs.\n\nTags: ux, ui, debug, email, forms\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: contact-form\nSemver: minor\n\nhttps://claude.ai/code/session_01XRjc4wHALhzDUsSos5WjvP",
+  "tags": [
+    "ui",
+    "debug"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": "minor",
+  "scope": "ui",
+  "title": "remove site header, add email debug modal",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 465,
+    "deletions": 158
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/EmailDebugModal.tsx",
+    "src/components/Hero.tsx",
+    "src/components/InterestForm.tsx"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

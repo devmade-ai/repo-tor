@@ -4,6 +4,26 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-18
 
+### Feed the Chicken — Incremental Extraction (156 new commits)
+
+**Why:** New commits accumulated across 6 repos since last extraction. Incremental analysis keeps dashboard data current.
+
+**Changes:**
+- Extracted fresh git data from all 12 repos via `--clone` mode
+- Generated pending batches: 156 new commits across 6 repos in 11 batches
+- AI analyzed all batches with human review/approval
+- Re-aggregated all 1,702 commits into dashboard JSON
+
+**Repos updated:**
+- canva-grid: +3 (332 total) — PWA fix, fill layout feature
+- glow-props: +14 (15 total) — session-start hooks, CI, static hosting
+- graphiki: +59 (65 total) — full product build (schema, query, import, analysis, PWA, conventions, UI refinement)
+- repo-tor: +28 (393 total) — embed mode, PWA fix, metadata fields, extraction fixes, feed-the-chicken chores
+- see-veo: +51 (68 total) — CV content/layout/skills, interest form, debug banner, email API, portfolio attribution
+- synctone: +1 (359 total) — CLAUDE.md coding standards
+
+---
+
 ### Implement Embed Mode
 
 **Why:** With `data-embed-id` attributes in place (see below), the dashboard now needs to actually support rendering individual charts in isolation for iframe embedding. External apps should be able to use `?embed=activity-timeline` to get just that chart, with no dashboard chrome.

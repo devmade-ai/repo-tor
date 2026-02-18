@@ -1,0 +1,42 @@
+{
+  "sha": "6731689",
+  "fullSha": "6731689f5af85c0e1fba29079bbc8f081c84cb75",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-15T22:45:14+00:00",
+  "commitDate": "2026-02-15T22:45:14+00:00",
+  "subject": "fix(hooks): fetch global rules on every session, not just web",
+  "body": "Removed the CLAUDE_CODE_REMOTE guard so the SessionStart hook\nfetches CLAUDE.md into ~/.claude/ on both local CLI and web sessions.\n\nTags: hooks, config\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: session-hooks\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "session-hooks",
+  "semver": "patch",
+  "scope": "hooks",
+  "title": "fetch global rules on every session, not just web",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 0,
+    "deletions": 5
+  },
+  "files": [
+    ".claude/hooks/session-start.sh"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "e77a364",
+  "fullSha": "e77a36425190417ce6a83363f1d8cb445604653b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-15T22:48:44+00:00",
+  "commitDate": "2026-02-15T22:48:44+00:00",
+  "subject": "fix(hooks): remove unnecessary mkdir from session-start hook",
+  "body": "~/.claude/ already exists when Claude Code is running, so creating\nit is redundant.\n\nTags: hooks, cleanup\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: session-hooks\nSemver: patch",
+  "tags": [
+    "simplify",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "session-hooks",
+  "semver": "patch",
+  "scope": "hooks",
+  "title": "remove unnecessary mkdir from session-start hook",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 0,
+    "deletions": 1
+  },
+  "files": [
+    ".claude/hooks/session-start.sh"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

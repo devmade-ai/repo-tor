@@ -1,0 +1,42 @@
+{
+  "sha": "d47f595",
+  "fullSha": "d47f5952bedaf1a1b8f68d7253c9ead9ea246ba9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-15T22:53:40+00:00",
+  "commitDate": "2026-02-15T22:53:40+00:00",
+  "subject": "fix(hooks): restore writing fetched rules to ~/.claude/CLAUDE.md",
+  "body": "The hook must write the fetched content to disk so Claude Code\nreads it as global rules. Reverts the incorrect stdout-only change.\n\nTags: hooks, bugfix\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: session-hooks\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "session-hooks",
+  "semver": "patch",
+  "scope": "hooks",
+  "title": "restore writing fetched rules to ~/.claude/CLAUDE.md",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    ".claude/hooks/session-start.sh"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

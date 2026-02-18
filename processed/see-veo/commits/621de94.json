@@ -1,0 +1,46 @@
+{
+  "sha": "621de94",
+  "fullSha": "621de943fc4a8764b4b41b908b2af559a11d4344",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T22:46:03+00:00",
+  "commitDate": "2026-02-16T22:46:03+00:00",
+  "subject": "feat(debug): add floating debug banner with diagnostics and event log",
+  "body": "Replace the single-button EmailDebugModal with a proper debug system\nmodeled after PWADebugBanner from another project. The system has three\nparts:\n\n1. debugLog utility (src/utils/debugLog.ts) — pub/sub in-memory event\n   store capped at 200 entries. Global singleton so logs survive\n   component re-renders. Any module can call debugLog() to emit events.\n\n2. DebugBanner component (src/components/DebugBanner.tsx) — floating\n   pill on the bottom-right that expands to a two-tab panel:\n   - Diagnostics tab: runs health checks (HTTPS, network, API URL\n     config, API reachability, service worker, install state, user agent)\n   - Event Log tab: real-time color-coded entries from InterestForm\n     (info=gray, success=green, warn=amber, error=red) with expandable\n     details and source labels\n   Controls: re-run diagnostics, clear log, copy-all-to-clipboard, close\n   Clipboard fallback: shows selectable textarea if API fails on mobile\n\n3. InterestForm integration — emits debugLog events at each lifecycle\n   point: submit, request, response-ok, response-error, timeout,\n   fetch-failed, api-url-missing, honeypot-triggered\n\nActivated via ?debug=true URL parameter. Hidden from regular users.\nThe \"Copy All\" button produces a complete plain-text report (environment\n+ full event log) formatted for pasting into another session.\n\nTags: debug, email, ux, mobile, diagnostics\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: contact-form\nSemver: minor\n\nhttps://claude.ai/code/session_01XRjc4wHALhzDUsSos5WjvP",
+  "tags": [
+    "feature",
+    "debug"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": null,
+  "semver": "minor",
+  "scope": "debug",
+  "title": "add floating debug banner with diagnostics and event log",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 660,
+    "deletions": 355
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/DebugBanner.tsx",
+    "src/components/EmailDebugModal.tsx",
+    "src/components/InterestForm.tsx",
+    "src/utils/debugLog.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "internal"
+}

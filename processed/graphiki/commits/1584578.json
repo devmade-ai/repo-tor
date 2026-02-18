@@ -1,0 +1,60 @@
+{
+  "sha": "1584578",
+  "fullSha": "158457871cc1fb7db761b809b5a2efc3e4d03874",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T11:51:02+00:00",
+  "commitDate": "2026-02-16T11:51:02+00:00",
+  "subject": "feat(schema): add Phase 2 schema layer — types, builder UI, and schema-aware creation",
+  "body": "Implements the full schema layer for Graphiki, enabling structured graph\ndata through user-defined schemas with node types, arc types, connection\nrules, and property definitions.\n\nService layer:\n- schemaService.ts: Schema CRUD, type lookups, connection validation\n- factory.ts: Factories for schemas, node types, arc types, properties\n\nHooks:\n- useAppMode: User/designer mode toggle with localStorage persistence\n- useSchemaData: Live-updating schema list with event subscription\n\nSchema Builder UI (designer mode):\n- SchemaList: Create, edit, delete, activate schemas\n- SchemaEditor: Tabbed editor for details, types, and rules\n- NodeTypeEditor/ArcTypeEditor: Name, color, properties editing\n- PropertyDefEditor: Dynamic property type configuration\n- ConnectionRuleEditor: Define valid arc-to-node connections\n\nSchema-aware data creation:\n- CreateNodeModal: Type selector + dynamic property form\n- ConnectModal: Arc type dropdown with connection rule validation (permissive)\n\nGraph visualization:\n- GraphCanvas: Type-based node colors and arc styles via Cytoscape data attributes\n- DetailPanel: Type badges, schema-defined property display and editing\n\nApp shell:\n- Mode toggle button (User/Designer) in header\n- Active schema badge display\n- Designer mode shows Schema Builder in side panel\n\nAlso adds delete confirmation dialogs for destructive actions and\nfixes React 19 lint compliance (key-based remounting over useEffect setState).\n\nTags: schema, types, builder, designer-mode, phase-2\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: schema-layer\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "schema-layer",
+  "semver": "minor",
+  "scope": "schema",
+  "title": "add Phase 2 schema layer — types, builder UI, and schema-aware creation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 19,
+    "additions": 2913,
+    "deletions": 99
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/working/phase-2-schema-layer.md",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/schema/ArcTypeEditor.tsx",
+    "src/components/schema/ConnectionRuleEditor.tsx",
+    "src/components/schema/NodeTypeEditor.tsx",
+    "src/components/schema/PropertyDefEditor.tsx",
+    "src/components/schema/SchemaEditor.tsx",
+    "src/components/schema/SchemaList.tsx",
+    "src/components/ui/ConnectModal.tsx",
+    "src/components/ui/CreateNodeModal.tsx",
+    "src/hooks/useAppMode.ts",
+    "src/hooks/useGraphData.ts",
+    "src/hooks/useSchemaData.ts",
+    "src/services/schemaService.ts",
+    "src/utils/factory.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

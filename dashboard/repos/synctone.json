@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-02-15T21:27:44.123Z",
+    "generatedAt": "2026-02-18T11:07:29.197Z",
     "repository": "synctone",
     "scope": "synctone",
     "repoCount": 1,
-    "commitCount": 358,
+    "commitCount": 359,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -96,6 +96,48 @@
       ],
       "repo_id": "synctone",
       "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "2964aac",
+      "fullSha": "2964aac8fd99746362d5fb5f2160789c9754069f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-13T08:53:55+00:00",
+      "commitDate": "2026-02-13T08:53:55+00:00",
+      "subject": "Add hard rules, quality gates, and coding standards to CLAUDE.md",
+      "body": "Integrate missing coding standards from reference template:\n- Hard Rules section (checklist format) at top: before-making-changes,\n  best practices, cleanup, quality checks\n- Expanded Principle 1 with concrete UX enforcement (good/bad examples)\n- Expanded Principle 3 with alternatives-considered comment requirements\n- Code Organization subsection with file/function size limits\n- Testing requirements section\n- Explicit Prohibitions list\n\nhttps://claude.ai/code/session_01XAhPQqNvqM8Pj2ZCfcLAMv",
+      "tags": [
+        "docs",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Add hard rules, quality gates, and coding standards to CLAUDE.md",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 86,
+        "deletions": 2
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "synctone",
+      "urgency": 1,
       "impact": "internal"
     },
     {
@@ -14908,20 +14950,20 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 233,
-      "avgComplexity": 1.73,
+      "commits": 234,
+      "avgComplexity": 1.74,
       "avgUrgency": 2.11,
       "tagBreakdown": {
         "merge": 91,
-        "docs": 31,
+        "docs": 32,
         "conventions": 1,
+        "config": 12,
         "ui": 42,
         "refactor": 26,
         "feature": 25,
         "monitoring": 3,
         "bugfix": 54,
         "performance": 8,
-        "config": 11,
         "ux": 23,
         "error-handling": 2,
         "caching": 1,
@@ -14941,10 +14983,20 @@
         "types": 1
       },
       "impactBreakdown": {
-        "internal": 130,
+        "internal": 131,
         "user-facing": 89,
         "infrastructure": 14,
         "api": 0
+      },
+      "riskBreakdown": {
+        "low": 1,
+        "medium": 0,
+        "high": 0
+      },
+      "debtBreakdown": {
+        "added": 0,
+        "paid": 0,
+        "neutral": 1
       },
       "repos": [
         "synctone"
@@ -14988,6 +15040,16 @@
         "infrastructure": 6,
         "api": 0
       },
+      "riskBreakdown": {
+        "low": 0,
+        "medium": 0,
+        "high": 0
+      },
+      "debtBreakdown": {
+        "added": 0,
+        "paid": 0,
+        "neutral": 0
+      },
       "repos": [
         "synctone"
       ],
@@ -15027,6 +15089,16 @@
         "infrastructure": 2,
         "api": 0
       },
+      "riskBreakdown": {
+        "low": 0,
+        "medium": 0,
+        "high": 0
+      },
+      "debtBreakdown": {
+        "added": 0,
+        "paid": 0,
+        "neutral": 0
+      },
       "repos": [
         "synctone"
       ],
@@ -15036,19 +15108,19 @@
     }
   ],
   "summary": {
-    "totalCommits": 358,
+    "totalCommits": 359,
     "totalContributors": 3,
     "tagBreakdown": {
       "merge": 92,
-      "docs": 64,
+      "docs": 65,
       "conventions": 1,
+      "config": 16,
       "ui": 76,
       "refactor": 41,
       "feature": 56,
       "monitoring": 3,
       "bugfix": 93,
       "performance": 12,
-      "config": 15,
       "ux": 48,
       "error-handling": 4,
       "caching": 1,
@@ -15074,40 +15146,56 @@
     },
     "complexityBreakdown": {
       "1": 169,
-      "2": 84,
+      "2": 85,
       "3": 65,
       "4": 35,
       "5": 5
     },
     "urgencyBreakdown": {
-      "1": 35,
+      "1": 36,
       "2": 265,
       "3": 52,
       "4": 5,
       "5": 1
     },
     "impactBreakdown": {
-      "internal": 173,
+      "internal": 174,
       "user-facing": 163,
       "infrastructure": 22,
       "api": 0
+    },
+    "riskBreakdown": {
+      "low": 1,
+      "medium": 0,
+      "high": 0
+    },
+    "debtBreakdown": {
+      "added": 0,
+      "paid": 0,
+      "neutral": 1
+    },
+    "epicBreakdown": {},
+    "semverBreakdown": {
+      "patch": 0,
+      "minor": 0,
+      "major": 0
     },
     "avgComplexity": 1.95,
     "avgUrgency": 2.08,
     "monthly": {
       "2026-02": {
-        "commits": 68,
+        "commits": 69,
         "tags": {
           "merge": 18,
-          "docs": 15,
+          "docs": 16,
           "conventions": 1,
+          "config": 10,
           "ui": 15,
           "refactor": 5,
           "feature": 9,
           "monitoring": 3,
           "bugfix": 21,
           "performance": 2,
-          "config": 9,
           "ux": 6,
           "error-handling": 2,
           "caching": 1,
@@ -15118,13 +15206,28 @@
           "build": 1
         },
         "impact": {
-          "internal": 35,
+          "internal": 36,
           "user-facing": 24,
           "infrastructure": 9,
           "api": 0
         },
+        "risk": {
+          "low": 1,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 0,
+          "neutral": 1
+        },
+        "semver": {
+          "patch": 0,
+          "minor": 0,
+          "major": 0
+        },
         "avgComplexity": 1.75,
-        "avgUrgency": 2.18
+        "avgUrgency": 2.16
       },
       "2026-01": {
         "commits": 72,
@@ -15149,6 +15252,21 @@
           "user-facing": 33,
           "infrastructure": 0,
           "api": 0
+        },
+        "risk": {
+          "low": 0,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 0,
+          "neutral": 0
+        },
+        "semver": {
+          "patch": 0,
+          "minor": 0,
+          "major": 0
         },
         "avgComplexity": 1.76,
         "avgUrgency": 1.99
@@ -15188,6 +15306,21 @@
           "user-facing": 106,
           "infrastructure": 13,
           "api": 0
+        },
+        "risk": {
+          "low": 0,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 0,
+          "neutral": 0
+        },
+        "semver": {
+          "patch": 0,
+          "minor": 0,
+          "major": 0
         },
         "avgComplexity": 2.07,
         "avgUrgency": 2.09
@@ -15195,18 +15328,18 @@
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 68,
+        "commits": 69,
         "tags": {
           "merge": 18,
-          "docs": 15,
+          "docs": 16,
           "conventions": 1,
+          "config": 10,
           "ui": 15,
           "refactor": 5,
           "feature": 9,
           "monitoring": 3,
           "bugfix": 21,
           "performance": 2,
-          "config": 9,
           "ux": 6,
           "error-handling": 2,
           "caching": 1,
@@ -15217,13 +15350,28 @@
           "build": 1
         },
         "impact": {
-          "internal": 35,
+          "internal": 36,
           "user-facing": 24,
           "infrastructure": 9,
           "api": 0
         },
+        "risk": {
+          "low": 1,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 0,
+          "neutral": 1
+        },
+        "semver": {
+          "patch": 0,
+          "minor": 0,
+          "major": 0
+        },
         "avgComplexity": 1.75,
-        "avgUrgency": 2.18
+        "avgUrgency": 2.16
       },
       "2026-01": {
         "commits": 72,
@@ -15248,6 +15396,21 @@
           "user-facing": 33,
           "infrastructure": 0,
           "api": 0
+        },
+        "risk": {
+          "low": 0,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 0,
+          "neutral": 0
+        },
+        "semver": {
+          "patch": 0,
+          "minor": 0,
+          "major": 0
         },
         "avgComplexity": 1.76,
         "avgUrgency": 1.99
@@ -15287,6 +15450,21 @@
           "user-facing": 106,
           "infrastructure": 13,
           "api": 0
+        },
+        "risk": {
+          "low": 0,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 0,
+          "neutral": 0
+        },
+        "semver": {
+          "patch": 0,
+          "minor": 0,
+          "major": 0
         },
         "avgComplexity": 2.07,
         "avgUrgency": 2.09

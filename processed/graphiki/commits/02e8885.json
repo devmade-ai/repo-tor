@@ -1,0 +1,47 @@
+{
+  "sha": "02e8885",
+  "fullSha": "02e888500bc49dd05cfae4545458568876519ee8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T13:43:03+00:00",
+  "commitDate": "2026-02-17T13:43:03+00:00",
+  "subject": "feat(import): add heading hierarchy to markdown import",
+  "body": "All headings (h1-h6) now become nodes instead of only h1. Heading\ndepth creates parent-child \"contains\" arcs (e.g., h2 under h1 gets a\n\"contains\" arc from h1 to h2). Wiki-links still create \"links to\" arcs.\n\nAdded setext frontmatter artifact detection to filter fake h2 headings\nthat remark generates from post-heading YAML blocks. Updated tutorial\nmodal step 5 to mention markdown import. Created comprehensive format\ndocumentation at docs/markdown-import-format.md.\n\nTags: markdown, import, hierarchy, parser, docs\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: markdown-import\nSemver: minor\n\nhttps://claude.ai/code/session_01DVdJxFenUrMeuYYuHvXis6",
+  "tags": [
+    "feature",
+    "import"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "markdown-import",
+  "semver": "minor",
+  "scope": "import",
+  "title": "add heading hierarchy to markdown import",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 627,
+    "deletions": 102
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/markdown-import-format.md",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/ui/TutorialModal.tsx",
+    "src/services/markdownImportService.test.ts",
+    "src/services/markdownImportService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

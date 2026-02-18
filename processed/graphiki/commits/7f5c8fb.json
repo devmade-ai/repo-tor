@@ -1,0 +1,51 @@
+{
+  "sha": "7f5c8fb",
+  "fullSha": "7f5c8fb054a3f60772b78784ff233ef799ad66dd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T06:55:45+00:00",
+  "commitDate": "2026-02-18T06:55:45+00:00",
+  "subject": "refactor(ui): replace tabs and split panel with drawer and modals",
+  "body": "Remove tab navigation (Graph/Conventions tabs). Graph is now always\nvisible as the primary view. Conventions and Analysis moved from\ninline panels/tabs to modals accessible via the burger menu.\n\nDetail panel replaced with an overlay DetailDrawer component:\n- Mobile: bottom sheet sliding up with drag handle and backdrop\n- Desktop: side panel sliding in from right with close button\n- Uses CSS transforms for GPU-accelerated animation instead of\n  width/height transitions that caused layout reflow\n\nPrevious SplitPanel push-layout was too subtle — users reported\nnot seeing any detail view when clicking nodes/arcs.\n\nTags: ui, layout, drawer, modal, conventions, analysis\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: ui-refinement\nSemver: minor",
+  "tags": [
+    "refactor",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "ui-refinement",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "replace tabs and split panel with drawer and modals",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 673,
+    "deletions": 200
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/analysis/AnalysisModal.css",
+    "src/components/analysis/AnalysisModal.tsx",
+    "src/components/conventions/ConventionsModal.css",
+    "src/components/conventions/ConventionsModal.tsx",
+    "src/components/layout/DetailDrawer.css",
+    "src/components/layout/DetailDrawer.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}

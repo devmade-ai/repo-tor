@@ -1,0 +1,42 @@
+{
+  "sha": "899e2b6",
+  "fullSha": "899e2b618be01b0b904b14126281e2ca9397303a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T08:48:18+00:00",
+  "commitDate": "2026-02-18T08:48:18+00:00",
+  "subject": "fix(conventions): replace internal jargon with plain language",
+  "body": "The convention text is given to external AIs that have no knowledge of\nGraphiki internals. Replaced \"node\" with \"item\" and \"arc\" with\n\"connection\" throughout the naming rules. In the JSON format section,\nkept the JSON field names (\"nodes\", \"arcs\") but introduced them with\nplain language (\"Each item in the 'nodes' array\", \"Each connection in\nthe 'arcs' array\") so the AI understands what the fields represent.\n\nTags: conventions, naming, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: conventions\nSemver: patch\n\nhttps://claude.ai/code/session_01TqYv4V9ccQCb5F6ZhnubYn",
+  "tags": [
+    "ux",
+    "naming"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "conventions",
+  "semver": "patch",
+  "scope": "conventions",
+  "title": "replace internal jargon with plain language",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 18,
+    "deletions": 18
+  },
+  "files": [
+    "src/data/conventions.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

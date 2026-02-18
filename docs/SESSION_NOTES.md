@@ -251,7 +251,7 @@ Current state for AI assistants to continue work.
 - **Management**: Per-repo groupings, daily heatmap, summary drilldowns + interpretation guidance
 - **Developer**: Individual contributors, hourly heatmap, full commit lists (no hints needed)
 
-**Extraction System:** AI analysis complete. 1163 commits processed across 6 repositories. All previously malformed commits have been fixed.
+**Extraction System:** AI analysis complete. 1702 commits processed across 12 repositories. All previously malformed commits have been fixed.
 
 **Feed Optimization:**
 - `extract-api.js` for API-based extraction (no cloning required, faster) — pagination bug fixed 2026-02-15
@@ -380,14 +380,20 @@ const TAB_MAPPING = {
 
 | Repo | Status | Commits |
 |------|--------|---------|
+| canva-grid | Complete | 332 |
+| canva-grid-assets | Complete | 2 |
 | chatty-chart | Complete | 42 |
-| repo-tor | Complete | 250 |
-| social-ad-creator | Complete | 184 |
-| model-pear | Complete | 318 |
 | coin-zapp | Complete | 81 |
-| synctone | Complete | 288 |
+| few-lap | Complete | 5 |
+| glow-props | Complete | 15 |
+| graphiki | Complete | 65 |
+| model-pear | Complete | 322 |
+| plant-fur | Complete | 18 |
+| repo-tor | Complete | 393 |
+| see-veo | Complete | 68 |
+| synctone | Complete | 359 |
 
-**Total Processed:** 1163 commits
+**Total Processed:** 1702 commits
 **Remaining:** 0 - All repos complete!
 
 ### Storage Migration
@@ -404,4 +410,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-10 - Fixed filter indicator for defaults on load. Removed privacy mode toggle (sanitization always-on).*
+*Last updated: 2026-02-18 - Feed the chicken: 156 new commits across 6 repos (canva-grid +3, glow-props +14, graphiki +59, repo-tor +28, see-veo +51, synctone +1). Total: 1702 commits across 12 repos.*

@@ -1,0 +1,42 @@
+{
+  "sha": "ac7d4ed",
+  "fullSha": "ac7d4edc338802de85ec95fe457ad50491622550",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T08:43:34+00:00",
+  "commitDate": "2026-02-18T08:43:34+00:00",
+  "subject": "refactor(conventions): remove deduplication section, keep alias rule",
+  "body": "The DEDUPLICATION section conflated two concerns: cross-import dedup\n(handled by mergeService, not controllable by the AI generating the\nfile) and within-file dedup (basic AI competence, not worth spelling\nout). Removed the section entirely. The one non-obvious case — alias\nmerging when source data uses multiple names for the same entity —\nis now a bullet under TITLES where it logically belongs.\n\nTags: conventions, naming, cleanup\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: conventions\nSemver: patch\n\nhttps://claude.ai/code/session_01TqYv4V9ccQCb5F6ZhnubYn",
+  "tags": [
+    "simplify",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "conventions",
+  "semver": "patch",
+  "scope": "conventions",
+  "title": "remove deduplication section, keep alias rule",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 10
+  },
+  "files": [
+    "src/data/conventions.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "user-facing"
+}

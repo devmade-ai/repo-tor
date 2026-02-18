@@ -1,0 +1,48 @@
+{
+  "sha": "a11034a",
+  "fullSha": "a11034a9809114840daedce5959c16fb8c48287b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T23:11:34+00:00",
+  "commitDate": "2026-02-17T23:11:34+00:00",
+  "subject": "fix(docs): correct inaccuracies found during review",
+  "body": "Tutorial Step 2: Removed false claim that long-press connects items.\nThe context menu only has Edit/Duplicate/Delete — there is no UI for\nmanually creating arcs between existing nodes. Reworded to \"Create and\nExplore\" focusing on what actually works (selecting, viewing details).\n\nAppTab type: Removed dead 'upload' and 'query' values from the union.\nThese tabs were planned in the Product Realignment Phase 2 but never\nbuilt — import and query were integrated into the Graph tab instead\n(import via modals, query bar inline). Updated useAppMode to stop\naccepting stale values, and updated tests to match.\n\nArc count: Corrected \"~50 arcs\" to \"44 arcs\" in CLAUDE.md and\ndiscovery doc to match actual demoArcs array length.\n\nTags: docs, types, cleanup, accuracy\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_016xsjTMjavoQa1P26ivfZ6A",
+  "tags": [
+    "docs",
+    "types",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "documentation",
+  "semver": "patch",
+  "scope": "docs",
+  "title": "correct inaccuracies found during review",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 27,
+    "deletions": 17
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/graph-wiki-discovery.md",
+    "src/components/ui/TutorialModal.tsx",
+    "src/hooks/useAppMode.test.ts",
+    "src/hooks/useAppMode.ts",
+    "src/types/index.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}
