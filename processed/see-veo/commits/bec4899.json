@@ -1,0 +1,44 @@
+{
+  "sha": "bec4899",
+  "fullSha": "bec4899434aae4d59d77af04776cce680d1808a3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T11:57:27+00:00",
+  "commitDate": "2026-02-17T11:57:27+00:00",
+  "subject": "docs(about): replace code snippet with prose about building the app",
+  "body": "Replace the Java code snippet in the About section with a first-person\nnarrative explaining why this site was built as a living CV instead of\na static PDF. Covers the frontend stack (React 19, TypeScript, Vite,\nTailwind CSS v4, PWA), the backend service (Vercel serverless functions\nwith self-hosted SMTP, designed as a shared multi-app API platform),\nand the deployment pipeline (GitHub Pages via GitHub Actions).\n\nAdd the About component to App.tsx after Hero, before Projects.\nRemove the PortfolioCallout component — the new About section covers\nthe same ground with more detail.\n\nTags: about, content, documentation, ux\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: about-section\nSemver: minor\n\nhttps://claude.ai/code/session_01Tuzgyu7qzwipyPCoqKXUVa",
+  "tags": [
+    "content",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "about-section",
+  "semver": "minor",
+  "scope": "about",
+  "title": "replace code snippet with prose about building the app",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 9,
+    "deletions": 53
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/PortfolioCallout.tsx",
+    "src/data/cv-data.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

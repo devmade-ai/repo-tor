@@ -1,0 +1,51 @@
+{
+  "sha": "b864bfa",
+  "fullSha": "b864bfa5d40bbc0404fd787c93999fce26cc6ba3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T21:56:27+00:00",
+  "commitDate": "2026-02-16T21:56:27+00:00",
+  "subject": "feat(pwa): add update notification, cross-browser install, standalone detection",
+  "body": "Six PWA improvements:\n\n1. Switch registerType from autoUpdate to prompt — users see an\n   \"Update Available\" button and control when reloads happen.\n2. Add usePWAUpdate hook with 60-minute periodic SW update checks.\n3. Add usePWAInstall hook with UA-based browser detection (Chrome,\n   Edge, Brave, Safari, Firefox), standalone mode detection via\n   display-mode media query + iOS navigator.standalone.\n4. Add InstallInstructionsModal with step-by-step guides for Safari\n   (iOS + macOS) and Firefox (Android + desktop).\n5. Add maskable icon entry to manifest for adaptive Android icons.\n6. Add install analytics tracking in localStorage (last 50 events).\n\nTags: pwa, install, update, cross-browser, analytics\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+  "tags": [
+    "feature",
+    "pwa"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa-hardening",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "add update notification, cross-browser install, standalone detection",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 457,
+    "deletions": 64
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/pwa/InstallInstructionsModal.css",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/pwa/InstallPrompt.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "tsconfig.app.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

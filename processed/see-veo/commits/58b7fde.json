@@ -1,0 +1,44 @@
+{
+  "sha": "58b7fde",
+  "fullSha": "58b7fde449a4b889ec7c093d14bddae12c9ec93e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T10:45:02+00:00",
+  "commitDate": "2026-02-18T10:45:02+00:00",
+  "subject": "fix(pwa): replace update toast with top banner and move interest form after skills",
+  "body": "The bottom-right PWA update toast was not visible to users. Replaced it with\na full-width fixed banner pinned to the top of the viewport for maximum\nvisibility. Also moved InterestForm from after Experience to after Skills\nper user request. Cleaned up DebugBanner — removed hasUpdate offset logic\nsince the update prompt no longer occupies the bottom-right corner.\n\nTags: pwa, ux, layout\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-update-flow\nSemver: patch\n\nhttps://claude.ai/code/session_01AWEaaGBjitoLRrqQJacxBL",
+  "tags": [
+    "pwa",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-update-flow",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "replace update toast with top banner and move interest form after skills",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 25,
+    "deletions": 31
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/DebugBanner.tsx",
+    "src/components/UpdatePrompt.tsx"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,47 @@
+{
+  "sha": "5ca6a59",
+  "fullSha": "5ca6a5984646a2686d73d71659408911d2932980",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T10:26:33+00:00",
+  "commitDate": "2026-02-18T10:26:33+00:00",
+  "subject": "refactor(contact): restructure contact layout and fix chart sizing",
+  "body": "Remove the Contact section heading and split its contents: LinkedIn and\nGitHub links move to the site footer, the interest form moves to after\nthe Experience section, and the personal email is removed entirely.\nAlso increase chart iframe height (h-80/sm:h-96) so embedded charts\nare fully visible without scrolling, and tighten chart title spacing.\n\nTags: layout, contact, charts, footer, cleanup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cv-layout\nSemver: minor\n\nhttps://claude.ai/code/session_019bm6erfPZp9TJKsctKDmFu",
+  "tags": [
+    "layout",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cv-layout",
+  "semver": "minor",
+  "scope": "contact",
+  "title": "restructure contact layout and fix chart sizing",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 31,
+    "deletions": 64
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/ActivityCharts.tsx",
+    "src/components/Contact.tsx",
+    "src/components/InterestForm.tsx",
+    "src/data/cv-data.ts",
+    "src/test/cv-data.test.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

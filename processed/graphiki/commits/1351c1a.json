@@ -1,0 +1,50 @@
+{
+  "sha": "1351c1a",
+  "fullSha": "1351c1a6436999f8bc5263f07a46dba4518614f9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T20:02:35+00:00",
+  "commitDate": "2026-02-16T20:02:35+00:00",
+  "subject": "feat(polish): add Phase 6 — code splitting, PWA hardening, config system",
+  "body": "Code splitting via Vite manualChunks splits vendor-cytoscape (442KB) and\nvendor-core (React, Dexie, markdown) into separate cacheable chunks.\nHeavy modals (ExportModal, ImportModal) lazy-loaded with React.lazy().\n\nLarge-graph performance guard uses grid layout for 500+ nodes instead of\nexpensive cose force-directed layout (O(n) vs O(n²)).\n\nPWA hardened with workbox runtime caching, iOS meta tags, and\nBeforeInstallPrompt install banner with localStorage dismissal.\n\nApp configuration system (config.ts) provides typed defaults overridable\nat runtime via window.__GRAPHIKI_CONFIG__ for custom deployments.\n\nTags: phase-6, performance, pwa, code-splitting, config, distribution\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: polish-distribution\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+  "tags": [
+    "feature",
+    "performance"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "polish-distribution",
+  "semver": "minor",
+  "scope": "polish",
+  "title": "add Phase 6 — code splitting, PWA hardening, config system",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 352,
+    "deletions": 41
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/working/phase-6-polish-distribution.md",
+    "index.html",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/pwa/InstallPrompt.tsx",
+    "src/config.ts",
+    "vite.config.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

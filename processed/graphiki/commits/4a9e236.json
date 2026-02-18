@@ -1,0 +1,52 @@
+{
+  "sha": "4a9e236",
+  "fullSha": "4a9e236cef4ac14c31b96396dbe28b5ca5343126",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T21:08:59+00:00",
+  "commitDate": "2026-02-16T21:08:59+00:00",
+  "subject": "fix(review): fix 4 bugs, 3 cleanups, add 6 tests from 6-phase review",
+  "body": "Bug fixes:\n- JSON import now uses bulkPut (upsert) instead of add, preventing\n  ConstraintError on duplicate IDs when re-importing the same file.\n  Added bulkUpsertNodes/Arcs/Schemas to service layer.\n- queryResultCount derived from inline queryResult instead of computed\n  separately in handleRunQuery callback. Previous approach could show\n  a count that didn't match the actually-rendered filtered data when\n  nodes/arcs changed between callback run and next render.\n- Betweenness centrality normalization corrected from (n-1)*(n-2) to\n  (n-1)*(n-2)/2 for undirected graphs. Previous normalization produced\n  values 2x too high because each pair is traversed from both directions.\n\nCleanups:\n- Merged duplicate .modal-list-item CSS rule into single declaration.\n- Removed unused `arcs` prop from KanbanView, TableView, ViewContainer.\n\nTests:\n- Added 6 tests for autoSuggestMappings (title/name/label mapping,\n  tags/labels/categories, ID skipping, schema property matching,\n  fallback to lowercase, empty headers).\n\n109 tests passing, lint clean, build clean.\n\nTags: review, bugfix, cleanup, tests, phase-1-6\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: quality-review\nSemver: patch\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+  "tags": [
+    "bugfix",
+    "testing",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "quality-review",
+  "semver": "patch",
+  "scope": "review",
+  "title": "fix 4 bugs, 3 cleanups, add 6 tests from 6-phase review",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 108,
+    "deletions": 43
+  },
+  "files": [
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/views/KanbanView.tsx",
+    "src/components/views/TableView.tsx",
+    "src/components/views/ViewContainer.tsx",
+    "src/services/analysisService.ts",
+    "src/services/graphService.ts",
+    "src/services/importExportService.test.ts",
+    "src/services/schemaService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,49 @@
+{
+  "sha": "b3be72b",
+  "fullSha": "b3be72ba2b91707ec5c271e99d101383b639f32f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T19:48:19+00:00",
+  "commitDate": "2026-02-16T19:48:19+00:00",
+  "subject": "feat(analysis): add Phase 5 graph analysis algorithms + visualization",
+  "body": "Implements six graph algorithms as pure functions on adjacency lists,\nwith a collapsible UI panel for running them and visual overlays on\nthe graph canvas for displaying results.\n\nAlgorithms implemented:\n- Degree centrality: identifies hub nodes by connection count\n- Betweenness centrality (Brandes): finds bridge nodes between clusters\n- PageRank (power iteration): ranks nodes by network influence\n- Connected components (BFS): partitions graph into disconnected groups\n- Shortest path (BFS): finds shortest route between two selected nodes\n- Clustering coefficient: measures local triangle density\n\nVisualization:\n- Score-based node sizing (30-70px scaled by normalized score)\n- Path highlighting with accent color on nodes and arcs\n- Component coloring with 10-color palette\n- Non-highlighted elements dimmed to 20% opacity\n- Cytoscape class-based styling (analysis-dimmed, analysis-highlighted)\n\nUI:\n- AnalysisPanel with algorithm dropdown, description, source/target pickers\n- Top-20 results table sorted by score\n- Path display with arrow notation\n- Component count summary\n- Collapsible panel (visible only in graph view)\n\nAlso removes stale reference to nonexistent docs/EXTRACTION_PLAYBOOK.md.\n\nTest coverage: 103 total (29 new analysis tests covering all algorithms\nwith star/chain/triangle/disconnected graph fixtures).\n\nTags: phase-5, analysis, algorithms, centrality, pagerank, pathfinding\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: analysis-algorithms\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+  "tags": [
+    "feature",
+    "enhancement"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "analysis-algorithms",
+  "semver": "minor",
+  "scope": "analysis",
+  "title": "add Phase 5 graph analysis algorithms + visualization",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 1397,
+    "deletions": 9
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/working/phase-5-analysis-algorithms.md",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/analysis/AnalysisPanel.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/services/analysisService.test.ts",
+    "src/services/analysisService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

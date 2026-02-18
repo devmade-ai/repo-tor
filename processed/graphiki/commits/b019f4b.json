@@ -1,0 +1,51 @@
+{
+  "sha": "b019f4b",
+  "fullSha": "b019f4b1533038b9d715147aa7ed7ef312487eb2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T14:39:35+00:00",
+  "commitDate": "2026-02-16T14:39:35+00:00",
+  "subject": "feat(import-export): add Phase 4 import/export system + expand test coverage",
+  "body": "Implements JSON and CSV import/export with a pure-function service\nlayer (no DB dependency) for easy testing. JSON exports use a versioned\nenvelope for future migration. CSV import includes column-to-property\nmapping with auto-suggest from schema definitions.\n\nPhase 4 additions:\n- importExportService.ts: exportToJson, validateJsonImport, exportNodesToCsv,\n  parseCsvString, mapCsvToNodeData, autoSuggestMappings, downloadFile\n- ExportModal: format selection (JSON full backup / CSV current view)\n- ImportModal: multi-step flow with file upload, JSON preview, CSV column mapping\n- CsvColumnMapper: table UI for mapping CSV headers to node fields\n\nTest coverage expansion (74 total, up from 38):\n- importExportService.test.ts: 33 tests covering JSON roundtrip, CSV parsing,\n  column mapping, validation, edge cases (quoted fields, Windows line endings)\n- factory.test.ts: 3 new tests for createView factory\n\nTags: phase-4, import, export, csv, json, testing\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: import-export\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+  "tags": [
+    "feature",
+    "import"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "import-export",
+  "semver": "minor",
+  "scope": "import-export",
+  "title": "add Phase 4 import/export system + expand test coverage",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 1682,
+    "deletions": 7
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/working/phase-4-import-export.md",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/importExport/CsvColumnMapper.tsx",
+    "src/components/importExport/ExportModal.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts",
+    "src/utils/factory.test.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

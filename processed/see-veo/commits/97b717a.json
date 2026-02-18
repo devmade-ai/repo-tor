@@ -1,0 +1,43 @@
+{
+  "sha": "97b717a",
+  "fullSha": "97b717ab0c7d7628b9fe82f4960f842c95ec2852",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T04:15:26+00:00",
+  "commitDate": "2026-02-17T04:15:26+00:00",
+  "subject": "fix(interest-form): align with external API contract",
+  "body": "Two mismatches with the API's expected payload:\n\n1. _honeypot field: The frontend did a client-side check but never sent\n   the field to the server. Now sends _honeypot: '' in every request so\n   bots bypassing frontend JS still get caught by the server's 400.\n\n2. message field: Frontend marked it as \"(optional)\" but the API requires\n   it. Now required with HTML validation. Test updated to match — empty\n   message is rejected.\n\nTags: api-contract, bugfix, forms\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: portfolio-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01LBdfT4HpA5cgo1Db7Exd7c",
+  "tags": [
+    "bugfix",
+    "api"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "portfolio-polish",
+  "semver": "patch",
+  "scope": "interest-form",
+  "title": "align with external API contract",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 13,
+    "deletions": 8
+  },
+  "files": [
+    "src/components/InterestForm.tsx",
+    "src/test/validate-payload.test.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "user-facing"
+}

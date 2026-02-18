@@ -1,0 +1,62 @@
+{
+  "sha": "06f5283",
+  "fullSha": "06f5283b7f9f56bbf9edd7770b36c65294469da1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T13:17:17+00:00",
+  "commitDate": "2026-02-16T13:17:17+00:00",
+  "subject": "feat(views): add Phase 3 query and view system + Vitest test runner",
+  "body": "Implements the full Phase 3 query and view system alongside Vitest\ntest infrastructure. Query bar filters nodes/arcs with a simple token\nsyntax (type:X, tag:Y, property:value, title:~term). View switcher\nenables toggling between graph, kanban board, list, and table views.\nAll views consume filtered data from the query engine.\n\nPhase 3 additions:\n- Query engine with parseQuery/executeQuery (token-based, AND-combined)\n- View service layer (CRUD + events, same pattern as graph/schema)\n- QueryBar component with explicit run, clear, result count\n- ViewSwitcher with graph/board/list/table tabs\n- ViewContainer routing to correct view component\n- KanbanView: groupBy enum property, HTML5 drag-drop between columns\n- ListView: sortable columns, click-to-select, inline title editing\n- TableView: dynamic columns from schema, per-cell editing, sort\n\nTest infrastructure:\n- Vitest configured inline in vite.config.ts (jsdom environment)\n- 38 tests: factory (10), schemaService (13), queryEngine (15)\n- createView factory for ViewConfiguration objects\n\nTags: phase-3, query, views, kanban, list, table, testing, vitest\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: query-views\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+  "tags": [
+    "feature",
+    "testing"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "query-views",
+  "semver": "minor",
+  "scope": "views",
+  "title": "add Phase 3 query and view system + Vitest test runner",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 21,
+    "additions": 3431,
+    "deletions": 38
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/working/phase-3-query-views.md",
+    "package-lock.json",
+    "package.json",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/query/QueryBar.tsx",
+    "src/components/views/KanbanView.tsx",
+    "src/components/views/ListView.tsx",
+    "src/components/views/TableView.tsx",
+    "src/components/views/ViewContainer.tsx",
+    "src/components/views/ViewSwitcher.tsx",
+    "src/hooks/useViewData.ts",
+    "src/services/queryEngine.test.ts",
+    "src/services/queryEngine.ts",
+    "src/services/schemaService.test.ts",
+    "src/services/viewService.ts",
+    "src/test/setup.ts",
+    "src/utils/factory.test.ts",
+    "src/utils/factory.ts",
+    "vite.config.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}
