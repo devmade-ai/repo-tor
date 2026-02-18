@@ -171,11 +171,15 @@ window.addEventListener('unhandledrejection', (e) => {
     );
 });
 
-// Create the banner eagerly so it's visible on page load
-if (document.body) {
-    createDebugBanner();
-} else {
-    document.addEventListener('DOMContentLoaded', () => createDebugBanner());
+// Create the banner eagerly so it's visible on page load — skip in embed mode
+// (embedded charts shouldn't show debug diagnostics to the consuming app)
+const isEmbedMode = new URLSearchParams(window.location.search).has('embed');
+if (!isEmbedMode) {
+    if (document.body) {
+        createDebugBanner();
+    } else {
+        document.addEventListener('DOMContentLoaded', () => createDebugBanner());
+    }
 }
 
 // Top-level ErrorBoundary — catches any unhandled React error

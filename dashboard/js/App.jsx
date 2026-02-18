@@ -7,6 +7,7 @@ import FilterSidebar from './components/FilterSidebar.jsx';
 import DetailPane from './components/DetailPane.jsx';
 import SettingsPane from './components/SettingsPane.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
+import EmbedRenderer from './components/EmbedRenderer.jsx';
 import SummaryTab from './tabs/SummaryTab.jsx';
 import TimelineTab from './tabs/TimelineTab.jsx';
 import TimingTab from './tabs/TimingTab.jsx';
@@ -56,6 +57,26 @@ function combineDatasets(datasets) {
     }
 
     return combined;
+}
+
+// Detect embed mode from URL: ?embed=chart-id or ?embed=id1,id2
+const embedIds = (() => {
+    const params = new URLSearchParams(window.location.search);
+    const raw = params.get('embed');
+    if (!raw) return null;
+    return raw.split(',').map(s => s.trim()).filter(Boolean);
+})();
+
+// Apply theme override from URL: ?theme=light or ?theme=dark
+if (embedIds) {
+    const themeParam = new URLSearchParams(window.location.search).get('theme');
+    if (themeParam === 'light') {
+        document.documentElement.classList.remove('dark');
+    }
+    // dark is already the default, but be explicit if requested
+    if (themeParam === 'dark') {
+        document.documentElement.classList.add('dark');
+    }
 }
 
 export default function App() {
@@ -167,6 +188,19 @@ export default function App() {
                 <p className="text-sm text-themed-tertiary">Loading dashboard&hellip;</p>
             </div>
         );
+    }
+
+    // Embed mode: render only the requested chart(s), no dashboard chrome
+    if (embedIds && !initialLoading) {
+        if (!state.data) {
+            return (
+                <div className="embed-error">
+                    <p>No data available to display this chart.</p>
+                    <p>Make sure data.json is deployed.</p>
+                </div>
+            );
+        }
+        return <EmbedRenderer embedIds={embedIds} />;
     }
 
     // If no data loaded, show the drop zone (or error)

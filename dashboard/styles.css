@@ -1286,6 +1286,77 @@
             }
         }
 
+        /* ===== Embed Mode =====
+         * Minimal chrome for iframe embedding. Hides all dashboard UI except
+         * the target chart(s). JS adds .embed-target to visible .card elements.
+         */
+        .embed-mode {
+            padding: 16px;
+            background: var(--bg-primary);
+        }
+
+        /* Hide collapsible section headers — chart only, no title */
+        .embed-mode .collapsible-header {
+            display: none;
+        }
+
+        /* Remove card styling — chart floats cleanly in the iframe */
+        .embed-mode .card.embed-target {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+        }
+
+        .embed-mode .card.embed-target:hover {
+            border-color: transparent;
+            box-shadow: none;
+        }
+
+        /* Remove inner padding from collapsible content */
+        .embed-mode .collapsible-content .pt-2 {
+            padding-top: 0;
+        }
+
+        /* Ensure collapsible content is always expanded in embed mode */
+        .embed-mode .collapsible-content {
+            max-height: none;
+            opacity: 1;
+        }
+
+        /* Error state for invalid embed IDs */
+        .embed-error {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            padding: 24px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-family: system-ui, sans-serif;
+            font-size: 14px;
+            gap: 8px;
+        }
+
+        .embed-error code {
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .embed-error a {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+
+        /* Hide debug banner in embed mode */
+        .embed-mode ~ #debug-error-banner,
+        body:has(.embed-mode) #debug-error-banner {
+            display: none !important;
+        }
+
         /* Filter badge on toggle button - dark theme */
         .filter-toggle .filter-badge {
             position: absolute;

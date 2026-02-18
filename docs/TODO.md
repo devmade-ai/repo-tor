@@ -9,11 +9,9 @@ Remaining tasks for Git Analytics Reporting System.
 ## Backlog
 
 ### Embedding
-1. [ ] Implement embed mode in App.jsx (read `?embed=<chart-id>`, render only target chart)
-2. [ ] Create EmbedRenderer component
-3. [ ] Add embed-specific CSS (`.embed-container` styles)
-4. [ ] Optional: Accept data URL via `?data=` query param
-5. [ ] Optional: postMessage API for parent-to-iframe data push
+1. [ ] Optional: Accept data URL via `?data=` query param
+2. [ ] Optional: postMessage API for parent-to-iframe data push
+3. [ ] Optional: Vite library build for direct React component import
 
 ### Research
 1. [ ] Device/platform attribution (mobile vs desktop commits)
