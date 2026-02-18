@@ -1,0 +1,65 @@
+{
+  "sha": "28a59cd",
+  "fullSha": "28a59cdae0f97c660200ccda7dc264c3ac116834",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T02:03:36+00:00",
+  "commitDate": "2026-02-16T02:03:36+00:00",
+  "subject": "fix(quality): comprehensive code review improvements across codebase",
+  "body": "Fix metadata mismatch (index.html had \"John Doe\" instead of actual name),\nmemory leak in usePWAUpdate.ts (setInterval without cleanup), array index\nReact keys in 6 components, missing fetch timeout in InterestForm, and\nseveral accessibility gaps.\n\nAdded Vitest test suite with 42 tests covering API payload validation,\nemail regex, browser detection, and CV data integrity. Improved API\nsecurity with explicit CORS origin rejection and stricter email validation.\nEnhanced UX with error auto-dismiss, UpdatePrompt error handling, and\nproper ARIA attributes. Added lint step to CI/CD pipeline.\n\nTags: quality, testing, accessibility, security, ux, ci\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-review-improvements\nSemver: minor\n\nhttps://claude.ai/code/session_01Sx74RdGUuRWr2j6eKPZ7iw",
+  "tags": [
+    "quality",
+    "testing",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": null,
+  "semver": "minor",
+  "scope": "quality",
+  "title": "comprehensive code review improvements across codebase",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 23,
+    "additions": 1728,
+    "deletions": 86
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "CLAUDE.md",
+    "api/api/send-interest.ts",
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "src/App.tsx",
+    "src/components/Education.tsx",
+    "src/components/Experience.tsx",
+    "src/components/InstallInstructionsModal.tsx",
+    "src/components/InterestForm.tsx",
+    "src/components/Projects.tsx",
+    "src/components/Skills.tsx",
+    "src/components/TimelineItem.tsx",
+    "src/components/UpdatePrompt.tsx",
+    "src/data/cv-data.ts",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "src/test/cv-data.test.ts",
+    "src/test/detect-browser.test.ts",
+    "src/test/setup.ts",
+    "src/test/validate-payload.test.ts",
+    "vitest.config.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "ded5a32",
+  "fullSha": "ded5a321ca586f0c1fc4ec0a94cd68e054234c8e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T23:43:20+00:00",
+  "commitDate": "2026-02-16T23:43:20+00:00",
+  "subject": "fix(interest-form): add retry logic and mobile resilience for fetch failures",
+  "body": "Debug report from mobile Chrome Android showed TypeError: Failed to fetch\nafter 628ms with API Reachable diagnostic also failing. Root cause is\nlikely transient mobile network failure or CORS preflight rejection.\n\nChanges:\n- Add single retry with 1.5s backoff for network-level TypeErrors\n- Add navigator.onLine pre-check before attempting fetch\n- Set explicit mode: 'cors' on fetch for mobile browser compat\n- Add navigateFallbackDenylist to Workbox config to prevent service\n  worker from interfering with cross-origin API requests\n- Differentiate error messages: offline, connection dropped, server\n  unreachable (with actionable guidance for each)\n- Log attempt numbers and retry state in debug events\n\nTags: interest-form, mobile, fetch, retry, service-worker, cors\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: interest-form\nSemver: patch\n\nhttps://claude.ai/code/session_01RRKyPScNsjNwNpZbZKeymn",
+  "tags": [
+    "bugfix",
+    "mobile"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "interest-form",
+  "semver": "patch",
+  "scope": "interest-form",
+  "title": "add retry logic and mobile resilience for fetch failures",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 141,
+    "deletions": 54
+  },
+  "files": [
+    "src/components/InterestForm.tsx",
+    "vite.config.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "user-facing"
+}

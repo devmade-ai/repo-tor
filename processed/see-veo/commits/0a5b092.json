@@ -1,0 +1,50 @@
+{
+  "sha": "0a5b092",
+  "fullSha": "0a5b0928cf3dea3740732e9a7ca58c18bb661881",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T03:40:46+00:00",
+  "commitDate": "2026-02-17T03:40:46+00:00",
+  "subject": "chore: remove api/ directory — separate Vercel project",
+  "body": "The api/ directory is a standalone project deployed independently to\nVercel. It does not belong in this frontend repository. Removed:\n\n- api/ directory (vercel.json, package.json, tsconfig, serverless functions)\n- docs/interest-api-setup.md (deployment docs for the API project)\n- Updated CLAUDE.md to note the API is a separate project\n\nTags: cleanup, project-structure\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: interest-form\nSemver: patch\n\nhttps://claude.ai/code/session_018JkxSHN3SsV57HYmUB2kSs",
+  "tags": [
+    "removal",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "interest-form",
+  "semver": "patch",
+  "scope": null,
+  "title": "remove api/ directory — separate Vercel project",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 1,
+    "deletions": 2352
+  },
+  "files": [
+    "CLAUDE.md",
+    "api/.env.example",
+    "api/api/health.ts",
+    "api/api/send-interest.ts",
+    "api/package-lock.json",
+    "api/package.json",
+    "api/tsconfig.json",
+    "api/vercel.json",
+    "docs/interest-api-setup.md"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "internal"
+}

@@ -1,0 +1,51 @@
+{
+  "sha": "e24189d",
+  "fullSha": "e24189d801fa494b2178d735369d055021b6599a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T00:21:06+00:00",
+  "commitDate": "2026-02-16T00:21:06+00:00",
+  "subject": "feat(contact): add interest notification form with SMTP email API",
+  "body": "Allow visitors to send a one-off \"I'm interested\" message directly from\nthe CV site. The frontend form (InterestForm component) POSTs to a\nconfigurable API endpoint. A standalone Node.js server in api/ validates\ninput, applies rate limiting, and delivers the email via the user's own\nSMTP server.\n\nFrontend: InterestForm with name, email, optional message, honeypot spam\nprotection, and loading/success/error states. Hidden when printing.\nDegrades gracefully when VITE_INTEREST_API_URL is not configured.\n\nBackend: Pure Node.js HTTP server with nodemailer. CORS-protected,\ninput-validated, rate-limited (5/hr/IP). Deployable anywhere — VPS,\nDocker, or any serverless platform.\n\nTags: feature, contact, email, smtp, form, api\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: email-interest-notification\nSemver: minor\n\nhttps://claude.ai/code/session_014ZbSF8aTapJ8iUUt3fVJJX",
+  "tags": [
+    "feature",
+    "email",
+    "api"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "email-interest-notification",
+  "semver": "minor",
+  "scope": "contact",
+  "title": "add interest notification form with SMTP email API",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 597,
+    "deletions": 3
+  },
+  "files": [
+    ".env.example",
+    "CLAUDE.md",
+    "api/.env.example",
+    "api/package.json",
+    "api/src/server.ts",
+    "api/tsconfig.json",
+    "docs/interest-api-setup.md",
+    "src/components/Contact.tsx",
+    "src/components/InterestForm.tsx"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

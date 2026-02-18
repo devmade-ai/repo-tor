@@ -1,0 +1,51 @@
+{
+  "sha": "b1595a6",
+  "fullSha": "b1595a6614d42ae00be2da30187b2c10e8e47ea5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T01:38:33+00:00",
+  "commitDate": "2026-02-16T01:38:33+00:00",
+  "subject": "refactor(api): restructure from standalone server to Vercel serverless functions",
+  "body": "Replaced the standalone Node.js HTTP server with Vercel-compatible\nserverless functions. The API can now be deployed to Vercel with\n`vercel --prod` from the api/ directory.\n\nKey changes:\n- api/api/send-interest.ts: Vercel serverless function for email sending\n- api/api/health.ts: Health check endpoint\n- api/vercel.json: Vercel build configuration\n- Removed in-memory rate limiting (doesn't persist across serverless\n  invocations) — CORS + honeypot + Vercel DDoS protection is sufficient\n  for a personal CV site\n- Updated docs with Vercel deployment instructions\n\nTags: refactor, api, vercel, serverless, deployment\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: email-interest-notification\nSemver: minor\n\nhttps://claude.ai/code/session_014ZbSF8aTapJ8iUUt3fVJJX",
+  "tags": [
+    "refactor",
+    "serverless"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "email-interest-notification",
+  "semver": "minor",
+  "scope": "api",
+  "title": "restructure from standalone server to Vercel serverless functions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 2178,
+    "deletions": 317
+  },
+  "files": [
+    ".env.example",
+    "api/.env.example",
+    "api/api/health.ts",
+    "api/api/send-interest.ts",
+    "api/package-lock.json",
+    "api/package.json",
+    "api/src/server.ts",
+    "api/tsconfig.json",
+    "api/vercel.json",
+    "docs/interest-api-setup.md"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

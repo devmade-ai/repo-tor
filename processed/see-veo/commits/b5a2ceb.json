@@ -1,0 +1,44 @@
+{
+  "sha": "b5a2ceb",
+  "fullSha": "b5a2ceb61b5d8ed0f250baf1d887e67c5712d0ca",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T03:17:51+00:00",
+  "commitDate": "2026-02-17T03:17:51+00:00",
+  "subject": "fix(interest-form): detect API-not-deployed and show actionable errors",
+  "body": "Root cause: Vercel logs show all requests to /api/send-interest return\n404 — the API serverless functions are not deployed. Vercel serves 404\nwithout CORS headers, so the browser throws \"TypeError: Failed to fetch\"\nwhich is indistinguishable from a network failure on mobile Chrome.\n\nThree changes:\n\n1. DebugBanner diagnostics: Add \"API Deployed\" check that hits the\n   /api/health endpoint before checking CORS. When health returns 404,\n   the diagnostic clearly shows \"API not deployed — redeploy with:\n   cd api && npx vercel --prod\". CORS check is skipped when not deployed\n   to avoid a confusing secondary failure.\n\n2. InterestForm error handling: Replace single CORS probe with\n   three-phase diagnoseFailure() that distinguishes not-deployed (health\n   endpoint 404), CORS misconfigured (health OK but form fetch blocked),\n   and network failure (server unreachable). Each gets a specific\n   user-facing message.\n\n3. api/vercel.json: Remove legacy \"builds\" configuration in favor of\n   Vercel zero-config auto-detection. The legacy format can cause\n   deployment issues and is no longer needed for the api/ directory\n   structure.\n\nTags: vercel, deployment, debug, cors, error-handling\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: interest-form\nSemver: patch\n\nhttps://claude.ai/code/session_018JkxSHN3SsV57HYmUB2kSs",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "interest-form",
+  "semver": "patch",
+  "scope": "interest-form",
+  "title": "detect API-not-deployed and show actionable errors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 158,
+    "deletions": 78
+  },
+  "files": [
+    "api/vercel.json",
+    "src/components/DebugBanner.tsx",
+    "src/components/InterestForm.tsx"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 4,
+  "impact": "user-facing"
+}

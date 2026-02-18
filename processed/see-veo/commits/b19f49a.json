@@ -1,0 +1,42 @@
+{
+  "sha": "b19f49a",
+  "fullSha": "b19f49aadfd0ccaa39ba541e7ad0d59cc196c2c4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T23:28:12+00:00",
+  "commitDate": "2026-02-16T23:28:12+00:00",
+  "subject": "fix(lint): move setState out of useEffect in DebugBanner",
+  "body": "The react-hooks/set-state-in-effect rule (eslint-plugin-react-hooks v7)\nflagged runDiagnostics() being called inside useEffect because it calls\nsetDiagnostics (setState) synchronously within the effect body.\n\nMoved the diagnostics trigger from the useEffect into the expand button's\nonClick handler, which is the only call site for setExpanded(true). This\npreserves the same behavior (diagnostics run on first expand) while\nsatisfying the lint rule.\n\nTags: lint, react-hooks, eslint, ci\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: ci-pipeline\nSemver: patch\n\nhttps://claude.ai/code/session_01Dcz4tejeWf4mDuiB7oDk47",
+  "tags": [
+    "bugfix",
+    "lint"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": null,
+  "semver": "patch",
+  "scope": "lint",
+  "title": "move setState out of useEffect in DebugBanner",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 8,
+    "deletions": 7
+  },
+  "files": [
+    "src/components/DebugBanner.tsx"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

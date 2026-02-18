@@ -1,0 +1,41 @@
+{
+  "sha": "f60d9ab",
+  "fullSha": "f60d9ab07a6947f846f4a0ff68b52e920fd96647",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T03:37:56+00:00",
+  "commitDate": "2026-02-17T03:37:56+00:00",
+  "subject": "revert(api): restore original vercel.json builds config",
+  "body": "The api/ directory is a separate project deployed independently to Vercel.\nThe previous commit incorrectly removed the legacy builds configuration\nas part of frontend debugging. Reverting to the original config that the\nAPI project maintainer controls.\n\nTags: vercel, revert\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: interest-form\nSemver: patch\n\nhttps://claude.ai/code/session_018JkxSHN3SsV57HYmUB2kSs",
+  "tags": [
+    "revert"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": "patch",
+  "scope": "api",
+  "title": "restore original vercel.json builds config",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 7,
+    "deletions": 1
+  },
+  "files": [
+    "api/vercel.json"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "infrastructure"
+}
