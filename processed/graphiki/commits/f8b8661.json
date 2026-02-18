@@ -1,0 +1,59 @@
+{
+  "sha": "f8b8661",
+  "fullSha": "f8b8661d57d790bf7f65f0bbb7bdd8f3fabd80c7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T23:40:04+00:00",
+  "commitDate": "2026-02-17T23:40:04+00:00",
+  "subject": "fix(quality): resolve 16 best-practice and convention issues",
+  "body": "Critical bugs:\n- mergeService: fix arc inclusion logic (|| → &&) — arcs with one dangling\n  endpoint were incorrectly included in merge results\n- mergeService: remove unused _existingArcs parameter from buildMergeProposal\n- useConventions: fix nested timeout leak on unmount + add save error handling\n\nHigh (CLAUDE.md rule violations):\n- ConnectNodeModal: move inline styles to CSS classes (connect-modal,\n  modal-list-item.selected, modal-list-item-labels)\n- ContextMenu: replace document.querySelector anti-pattern with useRef\n- graphService: wrap emit() listener calls in try/catch to prevent one\n  failing listener from breaking all subscribers\n- Add :focus-visible styles on buttons, context menu items, modal list\n  items, view switcher tabs, and timeline entries\n\nMedium:\n- App.tsx + DetailPanel.tsx: add try/catch with user-friendly error messages\n  to all async operations (create, connect, duplicate, delete, save)\n- Remove dead CSS classes (.modal-list-item-warning, .create-node-properties,\n  .create-node-checkbox)\n- Add --color-success/--color-success-hover CSS variables, replace hardcoded\n  #059669/#047857 in btn-update\n- Fix mobile touch targets below 44px for context-menu-item, modal-list-item,\n  app-tab\n\nLow:\n- GraphCanvas: extract 11 magic numbers into named constants\n- DebugPill.css: fix low-contrast text (#475569 → #64748b) for WCAG AA\n- graphService: bulkDeleteNodes emits single data:changed instead of N\n  individual events\n\nTags: quality, best-practice, conventions, bugfix, accessibility\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: quality-audit\nSemver: patch\n\nhttps://claude.ai/code/session_016xsjTMjavoQa1P26ivfZ6A",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "quality-audit",
+  "semver": "patch",
+  "scope": "quality",
+  "title": "resolve 16 best-practice and convention issues",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#059669",
+    "#047857",
+    "#475569",
+    "#64748"
+  ],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 219,
+    "deletions": 130
+  },
+  "files": [
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/debug/DebugPill.css",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/ui/ConnectNodeModal.tsx",
+    "src/components/ui/ContextMenu.tsx",
+    "src/hooks/useConventions.ts",
+    "src/services/graphService.ts",
+    "src/services/mergeService.test.ts",
+    "src/services/mergeService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

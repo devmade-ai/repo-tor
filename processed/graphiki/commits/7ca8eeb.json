@@ -1,0 +1,43 @@
+{
+  "sha": "7ca8eeb",
+  "fullSha": "7ca8eeb87682688bfa57ecf425e487378bd06e49",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T23:00:31+00:00",
+  "commitDate": "2026-02-17T23:00:31+00:00",
+  "subject": "docs(tutorial): update all documentation to reflect current architecture",
+  "body": "Update TutorialModal steps to accurately describe the current feature set:\n- Graph and Timeline views (was: Graph, Kanban, List, Table)\n- Label-based filtering with boolean operators (was: name, tag, or type)\n- JSON and Markdown import with merge review (was: JSON, CSV, or Markdown)\n- Added analysis algorithms step\n- Added conventions page mention\n- Mention demo data in welcome step\n\nRewrite discovery document (graph-wiki-discovery.md) to match current\nlabel-based architecture after Product Realignment. Removed all references\nto schema-centric model (SchemaBlueprint, NodeType, ArcType, designer mode,\nKanban/List/Table views, CSV import, ImportRuleSets). Document now accurately\ndescribes: label-based classification, recursive-descent query engine,\nGraph+Timeline views, merge review import system, analysis algorithms,\nconventions page, and PWA capabilities.\n\nMark product-realignment-plan.md as COMPLETED with historical reference note.\n\nTags: docs, tutorial, discovery, phase-complete\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_016xsjTMjavoQa1P26ivfZ6A",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "documentation",
+  "semver": "patch",
+  "scope": "tutorial",
+  "title": "update all documentation to reflect current architecture",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 273,
+    "deletions": 669
+  },
+  "files": [
+    "docs/graph-wiki-discovery.md",
+    "docs/working/product-realignment-plan.md",
+    "src/components/ui/TutorialModal.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

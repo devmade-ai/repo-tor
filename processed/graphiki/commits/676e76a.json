@@ -1,0 +1,43 @@
+{
+  "sha": "676e76a",
+  "fullSha": "676e76aa38a86af1a827ef35e2975dc1c96434a2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T07:16:39+00:00",
+  "commitDate": "2026-02-18T07:16:39+00:00",
+  "subject": "chore(db): drop conventions table in schema version 3",
+  "body": "Add Dexie version 3 that sets conventions table to null, dropping it\nfrom IndexedDB. Conventions are now static data shipped with the app.\nUser confirmed they will reinstall, so no migration needed.\n\nTags: db, cleanup\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: ui-refinement\nSemver: patch",
+  "tags": [
+    "database",
+    "schema",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ui-refinement",
+  "semver": "patch",
+  "scope": "db",
+  "title": "drop conventions table in schema version 3",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 10,
+    "deletions": 8
+  },
+  "files": [
+    "src/db/database.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

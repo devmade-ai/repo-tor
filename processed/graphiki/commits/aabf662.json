@@ -1,0 +1,54 @@
+{
+  "sha": "aabf662",
+  "fullSha": "aabf662e9975f02f3ade3936f9914f51571c3de1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T07:12:18+00:00",
+  "commitDate": "2026-02-18T07:12:18+00:00",
+  "subject": "chore(cleanup): remove legacy conventions, tabs, and split panel code",
+  "body": "Delete 8 files no longer used after the UI restructure:\n- ConventionsPage.tsx/.css (replaced by ConventionsModal)\n- SplitPanel.tsx (replaced by DetailDrawer)\n- useConventions.ts (conventions are now static data)\n- useAppMode.ts + test (tab navigation removed)\n- conventionService.ts + test (IndexedDB persistence no longer needed)\n\nAlso removed from shared modules:\n- ConventionRules interface from types\n- AppTab type and AppState interface from types\n- createConventionRules factory function\n- ConventionRules import from database (table kept in schema\n  for IndexedDB compatibility but no longer typed)\n\nTags: cleanup, conventions, tabs, split-panel\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ui-refinement\nSemver: patch",
+  "tags": [
+    "removal",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ui-refinement",
+  "semver": "patch",
+  "scope": "cleanup",
+  "title": "remove legacy conventions, tabs, and split panel code",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 7,
+    "deletions": 642
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/conventions/ConventionsPage.css",
+    "src/components/conventions/ConventionsPage.tsx",
+    "src/components/layout/SplitPanel.tsx",
+    "src/components/views/ViewContainer.tsx",
+    "src/db/database.ts",
+    "src/hooks/useAppMode.test.ts",
+    "src/hooks/useAppMode.ts",
+    "src/hooks/useConventions.ts",
+    "src/services/conventionService.test.ts",
+    "src/services/conventionService.ts",
+    "src/types/index.ts",
+    "src/utils/factory.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

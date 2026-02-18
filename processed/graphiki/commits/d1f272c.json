@@ -1,0 +1,54 @@
+{
+  "sha": "d1f272c",
+  "fullSha": "d1f272c8bd904696f1283969439ff438fcbdb231",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T23:21:10+00:00",
+  "commitDate": "2026-02-17T23:21:10+00:00",
+  "subject": "fix(ui): resolve 7 UX/UI issues found during review",
+  "body": "1. Node labels unreadable: Changed Cytoscape node label color from\n   #1f2937 (near-black) to #e2e8f0 (light gray) so text is readable\n   on the dark #0f172a canvas background.\n\n2. btn-small class mismatch: DetailPanel used \"btn-small\" but CSS only\n   defines \"btn-sm\". Renamed to btn-sm so property editor buttons\n   (+ Add, ×) render with correct compact sizing.\n\n3. Dead CSV CSS removed: Deleted ~110 lines of unused .import-csv-*\n   and .csv-mapper-* styles left over from CSV import removal during\n   Product Realignment.\n\n4. Mobile menu touch-close: Added touchstart listener alongside\n   mousedown so the hamburger dropdown closes when tapping outside\n   on touch-only mobile devices.\n\n5. Context menu off-screen: Added viewport bounds checking via ref\n   callback that adjusts left/top when the menu would overflow the\n   right or bottom viewport edge.\n\n6. Arc creation UI: Added ConnectNodeModal with searchable node picker\n   and optional relationship name. Accessible via \"Connect to...\" in\n   the right-click/long-press context menu. Creates directed arc from\n   source to selected target. Updated tutorial step 2 to reference\n   the new connection flow.\n\n7. Stale comment: Fixed App.tsx comment that still referenced\n   \"Upload/Query/Graph/Conventions\" tabs (only Graph/Conventions exist).\n\nTags: ui, ux, accessibility, arc-creation, cleanup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: polish\nSemver: minor\n\nhttps://claude.ai/code/session_016xsjTMjavoQa1P26ivfZ6A",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "polish",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "resolve 7 UX/UI issues found during review",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#1",
+    "#0"
+  ],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 229,
+    "deletions": 110
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/ui/ConnectNodeModal.tsx",
+    "src/components/ui/ContextMenu.tsx",
+    "src/components/ui/TutorialModal.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}
