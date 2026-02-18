@@ -1,0 +1,49 @@
+{
+  "sha": "076c7ed",
+  "fullSha": "076c7edd8094eb39f9084a2d7bc95df44e1d310a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T23:02:20+00:00",
+  "commitDate": "2026-02-16T23:02:20+00:00",
+  "subject": "feat(debug): add alpha-phase debug pill for diagnosing blank-screen issues",
+  "body": "Mobile GitHub Pages deployments show a blank white screen with no way\nto inspect errors. This adds a floating debug pill (bottom-right corner)\nthat captures the full app boot sequence, DB init, data loading, PWA\nlifecycle, and unhandled errors/rejections in an in-memory event store.\n\nThe DebugPill renders in its own React root so it survives App-level\ncrashes. Two tabs: Log (color-coded event stream) and Environment\n(URL, UA, screen, protocol, standalone mode, SW/IDB support). Includes\ncopy-to-clipboard for sharing debug reports.\n\nIntegrated logging points:\n- main.tsx: boot sequence, root element, React render\n- database.ts: Dexie constructor, IndexedDB ready\n- useGraphData.ts: data load start/success/failure\n- usePWAUpdate.ts: SW registration success/failure\n\nTags: debug, alpha, diagnostics, pwa, mobile\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: added\nEpic: alpha-debug\nSemver: minor\n\nhttps://claude.ai/code/session_0182VBdaq8gUALYNGrUAkMhD",
+  "tags": [
+    "feature",
+    "debug"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "added",
+  "epic": "alpha-debug",
+  "semver": "minor",
+  "scope": "debug",
+  "title": "add alpha-phase debug pill for diagnosing blank-screen issues",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 680,
+    "deletions": 12
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/debug/DebugPill.css",
+    "src/components/debug/DebugPill.tsx",
+    "src/db/database.ts",
+    "src/hooks/useGraphData.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "src/main.tsx",
+    "src/utils/debugLog.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 4,
+  "impact": "user-facing"
+}

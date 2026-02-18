@@ -1,0 +1,52 @@
+{
+  "sha": "3a8633d",
+  "fullSha": "3a8633d2fbbcad8a2f391c7fbc22a94a9f363a25",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T15:35:47+00:00",
+  "commitDate": "2026-02-17T15:35:47+00:00",
+  "subject": "feat(import): auto-create unknown types during import",
+  "body": "Adds typeResolutionService that post-processes import results to auto-create\nmissing node types, arc types, and infer property definitions. Runs as pure\nfunctions between parsing and persistence, preserving existing function purity.\n\nMarkdown import: `type: Person` in frontmatter now auto-creates a \"Person\"\nNodeType if it doesn't exist. Arc labels (\"contains\", \"links to\") become\nArcTypes. Frontmatter keys (role, department, etc.) are inferred as string\nPropertyDefinitions on auto-created types.\n\nJSON import: Optional `typeName` field on nodes/arcs enables name-based type\nresolution (extracted as hints in ImportResult, keeping GraphNode clean).\nValid typeId takes precedence over typeName.\n\nWhen no schema is active, a new schema is created (named after the import\nfile) and set as active. Undo import restores the previous active schema.\n\nImportModal shows informational banner about auto-created types in the\nvisual preview step before the user approves.\n\nTags: import, types, schema, auto-creation, type-resolution\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: markdown-import\nSemver: minor\n\nhttps://claude.ai/code/session_01DVdJxFenUrMeuYYuHvXis6",
+  "tags": [
+    "feature",
+    "import"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "markdown-import",
+  "semver": "minor",
+  "scope": "import",
+  "title": "auto-create unknown types during import",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 1148,
+    "deletions": 36
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/ai-research-output-guide.md",
+    "docs/markdown-import-format.md",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/services/importExportService.ts",
+    "src/services/markdownImportService.test.ts",
+    "src/services/markdownImportService.ts",
+    "src/services/typeResolutionService.test.ts",
+    "src/services/typeResolutionService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

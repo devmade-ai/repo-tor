@@ -1,0 +1,48 @@
+{
+  "sha": "40cb24d",
+  "fullSha": "40cb24da1caacd94b21999d4184edd3bc960cd81",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T21:21:12+00:00",
+  "commitDate": "2026-02-17T21:21:12+00:00",
+  "subject": "feat(conventions): add conventions page with CRUD, auto-save, and clipboard",
+  "body": "Phase 3 of the product realignment: conventions naming rules management.\n\nNew files:\n- conventionService.ts: Single-document CRUD in IndexedDB, pub/sub events,\n  clipboard copy. Uses same event pattern as graphService/viewService.\n- useConventions.ts: React hook with load, debounced auto-save (800ms),\n  clipboard copy, and save status feedback.\n- ConventionsPage.tsx + CSS: Full-width textarea editor with copy-to-clipboard\n  button, save status indicator, and mobile-responsive layout.\n- conventionService.test.ts: 12 tests covering CRUD, events, clipboard.\n\nApp.tsx changes:\n- Tab navigation in header (Graph, Conventions) replaces void placeholders\n- Graph-specific UI (toolbar, analysis, split panel) only renders on Graph tab\n- Conventions tab renders ConventionsPage full-width\n- \"+ New Item\" button only shows on Graph tab\n\nApp.css cleanup:\n- Removed ~900 lines of dead CSS (designer panel, schema editor, type editor,\n  property editor, connection rules, view builder, view config editor, kanban,\n  list view, table view, mode toggle, schema selector, template actions)\n- Added app-tabs navigation styles\n- CSS reduced from 40.7KB to 27.8KB\n\nBuild: passes (tsc + vite)\nTests: 178/178 passing (10 test files)\n\nTags: phase-3, conventions, tabs, css-cleanup\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: product-realignment\nSemver: minor\n\nhttps://claude.ai/code/session_01MJJT4w8YukfxVmCpcMZeZB",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "product-realignment",
+  "semver": "minor",
+  "scope": "conventions",
+  "title": "add conventions page with CRUD, auto-save, and clipboard",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 578,
+    "deletions": 1156
+  },
+  "files": [
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/conventions/ConventionsPage.css",
+    "src/components/conventions/ConventionsPage.tsx",
+    "src/hooks/useConventions.ts",
+    "src/services/conventionService.test.ts",
+    "src/services/conventionService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}

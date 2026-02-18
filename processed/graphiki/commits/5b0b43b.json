@@ -1,0 +1,48 @@
+{
+  "sha": "5b0b43b",
+  "fullSha": "5b0b43b7e69bdc64a044333dfa2946f8f88a4044",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T21:28:27+00:00",
+  "commitDate": "2026-02-17T21:28:27+00:00",
+  "subject": "feat(import): add merge review with duplicate/conflict detection",
+  "body": "Phase 4 of the product realignment: import rework with merge system.\n\nNew files:\n- mergeService.ts: Pure-function merge engine. Matches imported nodes\n  to existing by normalized title. Categorizes as new/duplicate/conflict.\n  Duplicate = same title+labels+content+properties. Conflict = same title,\n  different data. Generates per-item property diffs. getApprovedItems()\n  remaps IDs for conflict overwrites and filters accepted items.\n- MergeReview.tsx + CSS: Three collapsible sections (New, Already Exists,\n  Changed). Per-item checkboxes. Accept/Skip All bulk toggles. Property\n  diffs shown inline for conflicts. Non-technical language throughout.\n- mergeService.test.ts: 14 tests covering proposal building, status\n  categorization, ID remapping, and count helpers.\n\nImportModal changes:\n- Flow now: Upload → Parse → Merge Review → Import → Done\n- CSV import removed (spec focuses on markdown from AI preprocessing)\n- Visual preview step removed (merge review provides sufficient info)\n- Merge review replaces direct-to-persist flow\n\nDeleted files:\n- CsvColumnMapper.tsx: No longer needed without CSV import\n- ImportPreviewCanvas.tsx: No longer needed without visual preview step\n\nBuild: passes (tsc + vite)\nTests: 192/192 passing (11 test files)\n\nTags: phase-4, import, merge-review, duplicate-detection\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: product-realignment\nSemver: minor\n\nhttps://claude.ai/code/session_01MJJT4w8YukfxVmCpcMZeZB",
+  "tags": [
+    "feature",
+    "import"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "product-realignment",
+  "semver": "minor",
+  "scope": "import",
+  "title": "add merge review with duplicate/conflict detection",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 1001,
+    "deletions": 561
+  },
+  "files": [
+    "src/components/importExport/CsvColumnMapper.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/importExport/ImportPreviewCanvas.tsx",
+    "src/components/importExport/MergeReview.css",
+    "src/components/importExport/MergeReview.tsx",
+    "src/services/mergeService.test.ts",
+    "src/services/mergeService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}

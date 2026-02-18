@@ -1,0 +1,42 @@
+{
+  "sha": "659948f",
+  "fullSha": "659948f12d7b0baa087faf333b7d763050687c83",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T22:15:54+00:00",
+  "commitDate": "2026-02-16T22:15:54+00:00",
+  "subject": "ci(deploy): add GitHub Pages deployment workflow",
+  "body": "Automated deploy pipeline: lint → test → build → deploy to GitHub Pages\non push to main. Uses official GitHub actions (configure-pages, upload-pages-artifact,\ndeploy-pages) with OIDC token auth — no PAT or deploy key needed.\n\nRequires enabling Pages with \"GitHub Actions\" source in repo settings.\n\nTags: ci, deploy, github-pages, infrastructure\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_018HMdQnMHEiZkN2JkoXuu9E",
+  "tags": [
+    "ci",
+    "deploy"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa-hardening",
+  "semver": "minor",
+  "scope": "deploy",
+  "title": "add GitHub Pages deployment workflow",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 66,
+    "deletions": 0
+  },
+  "files": [
+    ".github/workflows/deploy.yml"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "infrastructure"
+}
