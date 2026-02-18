@@ -1,0 +1,42 @@
+{
+  "sha": "b6432e0",
+  "fullSha": "b6432e0bcb5cbebd796390a0c3b22d37054f6c66",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-15T22:54:52+00:00",
+  "commitDate": "2026-02-15T22:54:52+00:00",
+  "subject": "fix(hooks): output fetched rules to stdout for Claude Code to read",
+  "body": "SessionStart hook stdout is read directly by Claude Code as context.\nNo need to write to disk.\n\nTags: hooks, bugfix\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: session-hooks\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "session-hooks",
+  "semver": "patch",
+  "scope": "hooks",
+  "title": "output fetched rules to stdout for Claude Code to read",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    ".claude/hooks/session-start.sh"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,44 @@
+{
+  "sha": "a0411f5",
+  "fullSha": "a0411f5b5ca875ce3b195f636e4eb0402b0be1c2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-15T21:52:41+00:00",
+  "commitDate": "2026-02-15T21:52:41+00:00",
+  "subject": "feat(hooks): add SessionStart hook to fetch global rules on web",
+  "body": "Adds a SessionStart hook that runs in Claude Code web sessions,\nfetching CLAUDE.md from GitHub Pages and writing it to\n~/.claude/CLAUDE.md. This lets any project that includes the\n.claude/ directory automatically pull shared rules at session start.\n\nTags: hooks, session-start, claude-code-web\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: developer-tooling\nSemver: minor\n\nhttps://claude.ai/code/session_01Ffm42hU9KHVqbYk3XPaQDk",
+  "tags": [
+    "feature",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "session-hooks",
+  "semver": "minor",
+  "scope": "hooks",
+  "title": "add SessionStart hook to fetch global rules on web",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 42,
+    "deletions": 0
+  },
+  "files": [
+    ".claude/hooks/session-start.sh",
+    ".claude/settings.json",
+    "README.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "infrastructure"
+}
