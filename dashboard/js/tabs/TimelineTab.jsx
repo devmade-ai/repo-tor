@@ -7,6 +7,7 @@ import {
     sanitizeMessage, getWorkPattern, getAdditions, getDeletions, handleKeyActivate
 } from '../utils.js';
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
+import { seriesColors, accentColor, getSeriesColor } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 export default function TimelineTab() {
@@ -48,11 +49,10 @@ export default function TimelineTab() {
     // Activity timeline chart data
     const activityChartData = useMemo(() => {
         const commitsByDate = {};
-        const repoColorPalette = ['#2D68FF', '#16A34A', '#EAB308', '#a78bfa', '#EF4444', '#22d3ee'];
         const repos = [...new Set(filteredCommits.map(c => c.repo_id).filter(Boolean))];
         const repoColors = {};
         repos.forEach((repo, i) => {
-            repoColors[repo] = repoColorPalette[i % repoColorPalette.length];
+            repoColors[repo] = getSeriesColor(i);
         });
 
         filteredCommits.forEach(commit => {
@@ -88,7 +88,7 @@ export default function TimelineTab() {
             datasets = [{
                 label: 'Commits',
                 data: sortedDates.map(d => commitsByDate[d]?.total || 0),
-                backgroundColor: '#2D68FF',
+                backgroundColor: accentColor,
                 borderRadius: 2,
             }];
         }
@@ -131,11 +131,10 @@ export default function TimelineTab() {
     // Code changes timeline chart data
     const codeChangesChartData = useMemo(() => {
         const changesByDate = {};
-        const repoColorPalette = ['#2D68FF', '#16A34A', '#EAB308', '#a78bfa', '#EF4444', '#22d3ee'];
         const repos = [...new Set(filteredCommits.map(c => c.repo_id).filter(Boolean))];
         const repoColors = {};
         repos.forEach((repo, i) => {
-            repoColors[repo] = repoColorPalette[i % repoColorPalette.length];
+            repoColors[repo] = getSeriesColor(i);
         });
 
         filteredCommits.forEach(commit => {
@@ -174,7 +173,7 @@ export default function TimelineTab() {
             datasets = [{
                 label: 'Net Lines',
                 data: sortedDates.map(d => changesByDate[d]?.total || 0),
-                backgroundColor: '#2D68FF',
+                backgroundColor: accentColor,
                 borderRadius: 2,
             }];
         }

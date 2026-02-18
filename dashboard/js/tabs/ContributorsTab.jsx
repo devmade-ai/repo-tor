@@ -5,6 +5,7 @@ import {
     getTagClass, getTagStyleObject, getTagColor,
     aggregateContributors, getAuthorEmail, getAuthorName, sanitizeName, handleKeyActivate
 } from '../utils.js';
+import { getSeriesColor, mutedColor } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 export default function ContributorsTab() {
@@ -38,7 +39,7 @@ export default function ContributorsTab() {
                     label: 'Avg Complexity',
                     data: avgComplexities,
                     backgroundColor: avgComplexities.map(c =>
-                        c >= 3.5 ? '#8b5cf6' : c >= 2.5 ? '#2D68FF' : '#94a3b8'
+                        c >= 3.5 ? getSeriesColor(3) : c >= 2.5 ? getSeriesColor(0) : mutedColor
                     ),
                 }],
             },

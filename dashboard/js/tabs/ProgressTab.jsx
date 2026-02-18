@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Line, Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, handleKeyActivate } from '../utils.js';
+import { getSeriesColor, withOpacity } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 export default function ProgressTab() {
@@ -56,16 +57,16 @@ export default function ProgressTab() {
                     {
                         label: 'Features',
                         data: featData,
-                        borderColor: '#16A34A',
-                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderColor: getSeriesColor(1),
+                        backgroundColor: withOpacity(getSeriesColor(1), 0.1),
                         fill: true,
                         tension: 0.3,
                     },
                     {
                         label: 'Bug Fixes',
                         data: fixData,
-                        borderColor: '#ef4444',
-                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderColor: getSeriesColor(4),
+                        backgroundColor: withOpacity(getSeriesColor(4), 0.1),
                         fill: true,
                         tension: 0.3,
                     },
@@ -115,8 +116,8 @@ export default function ProgressTab() {
                 datasets: [{
                     label: 'Avg Complexity',
                     data: complexityData,
-                    borderColor: '#8b5cf6',
-                    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                    borderColor: getSeriesColor(3),
+                    backgroundColor: withOpacity(getSeriesColor(3), 0.1),
                     fill: true,
                     tension: 0.3,
                     spanGaps: true,
@@ -178,7 +179,7 @@ export default function ProgressTab() {
                 labels: ['Patch', 'Minor', 'Major'],
                 datasets: [{
                     data: [semverBreakdown.patch, semverBreakdown.minor, semverBreakdown.major],
-                    backgroundColor: ['#3B82F6', '#16A34A', '#ef4444'],
+                    backgroundColor: [getSeriesColor(0), getSeriesColor(1), getSeriesColor(4)],
                     borderWidth: 0,
                 }],
             },

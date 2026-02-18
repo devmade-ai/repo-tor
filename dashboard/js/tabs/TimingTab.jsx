@@ -4,6 +4,7 @@ import { useApp } from '../AppContext.jsx';
 import {
     getAuthorEmail, getAuthorName, getCommitDateTime, DAY_NAMES_SHORT
 } from '../utils.js';
+import { accentColor, mutedColor } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 function getHeatmapLevel(count, maxCount) {
@@ -118,7 +119,7 @@ export default function TimingTab() {
                     label: 'Commits',
                     data: byHour,
                     backgroundColor: byHour.map((_, i) =>
-                        (i >= state.workHourStart && i < state.workHourEnd) ? '#2D68FF' : '#94a3b8'
+                        (i >= state.workHourStart && i < state.workHourEnd) ? accentColor : mutedColor
                     ),
                     borderRadius: 2,
                 }],
@@ -175,7 +176,7 @@ export default function TimingTab() {
                     label: 'Commits',
                     data: dayData,
                     backgroundColor: dayData.map((_, i) =>
-                        (i < 5) ? '#2D68FF' : '#94a3b8'
+                        (i < 5) ? accentColor : mutedColor
                     ),
                     borderRadius: 2,
                 }],
