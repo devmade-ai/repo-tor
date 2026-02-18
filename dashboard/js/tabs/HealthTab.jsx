@@ -696,7 +696,7 @@ export default function HealthTab() {
             {/* Debt Trend Over Time */}
             {debtTrendData && (
                 <CollapsibleSection title="Debt Trend">
-                    <div style={{ height: '300px' }}>
+                    <div data-embed-id="debt-trend" style={{ height: '300px' }}>
                         <Line data={debtTrendData.data} options={debtTrendData.options} />
                     </div>
                 </CollapsibleSection>
@@ -705,7 +705,7 @@ export default function HealthTab() {
             {/* Urgency Trend */}
             {urgencyTrendData && (
                 <CollapsibleSection title="Urgency Trend">
-                    <div style={{ height: '300px' }}>
+                    <div data-embed-id="urgency-trend" style={{ height: '300px' }}>
                         <Line data={urgencyTrendData.data} options={urgencyTrendData.options} />
                     </div>
                 </CollapsibleSection>
@@ -714,7 +714,7 @@ export default function HealthTab() {
             {/* Impact Over Time */}
             {impactTrendData && (
                 <CollapsibleSection title="Impact Over Time">
-                    <div style={{ height: '300px' }}>
+                    <div data-embed-id="impact-over-time" style={{ height: '300px' }}>
                         <Bar data={impactTrendData.data} options={impactTrendData.options} />
                     </div>
                 </CollapsibleSection>

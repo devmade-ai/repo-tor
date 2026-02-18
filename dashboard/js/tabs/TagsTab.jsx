@@ -81,7 +81,7 @@ export default function TagsTab() {
             {/* Tag Distribution Chart */}
             {doughnutChartData && (
                 <CollapsibleSection title="Tag Distribution">
-                    <div style={{ height: '350px' }}>
+                    <div data-embed-id="tag-distribution" style={{ height: '350px' }}>
                         <Doughnut data={doughnutChartData.data} options={doughnutChartData.options} />
                     </div>
                 </CollapsibleSection>

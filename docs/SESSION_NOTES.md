@@ -6,7 +6,10 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-16):**
+**Recent Updates (2026-02-18):**
+- **Enable Element Embedding** - Added `data-embed-id` attributes to all 13 embeddable chart/visualization containers across 6 tab files. Created `docs/EMBED_REFERENCE.md` (quick-reference catalog of all embeddable elements with IDs, types, tabs, and CV recommendations) and `docs/EMBED_IMPLEMENTATION.md` (implementation plan for URL-based embed mode via `?embed=<chart-id>` iframe approach). No runtime behavior changes yet — this lays the groundwork for the embed feature.
+
+**Previous Updates (2026-02-16):**
 - **Fix SW Update Interval Cleanup** - Stored `setInterval` handle in `pwa.js` and added `stopUpdatePolling()` export. The interval was created without saving a reference, making it impossible to clear. While the module-level execution means it only fires once (no React mount/unmount leak), storing the handle is defensive hygiene that enables cleanup if ever needed.
 
 **Previous Updates (2026-02-15):**
