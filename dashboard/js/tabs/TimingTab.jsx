@@ -359,13 +359,15 @@ export default function TimingTab() {
         <div className="space-y-6">
             {/* Activity Heatmap */}
             <CollapsibleSection title="Activity Heatmap">
-                {renderHeatmap()}
+                <div data-embed-id="activity-heatmap">
+                    {renderHeatmap()}
+                </div>
             </CollapsibleSection>
 
             {/* Hourly Distribution - only for developer view */}
             {viewConfig.timing === 'hour' && hourChartData && (
                 <CollapsibleSection title="Hourly Distribution">
-                    <div style={{ height: '250px' }}>
+                    <div data-embed-id="hourly-distribution" style={{ height: '250px' }}>
                         <Bar data={hourChartData.data} options={hourChartData.options} />
                     </div>
                 </CollapsibleSection>
@@ -373,7 +375,7 @@ export default function TimingTab() {
 
             {/* Daily Distribution */}
             <CollapsibleSection title="Daily Distribution">
-                <div style={{ height: '250px' }}>
+                <div data-embed-id="daily-distribution" style={{ height: '250px' }}>
                     <Bar data={dayChartData.data} options={dayChartData.options} />
                 </div>
             </CollapsibleSection>

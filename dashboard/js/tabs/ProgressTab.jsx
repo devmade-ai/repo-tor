@@ -273,7 +273,7 @@ export default function ProgressTab() {
             {/* Feature vs Bug Fix Trend */}
             {featFixChartData && (
                 <CollapsibleSection title="Feature vs Bug Fix Trend">
-                    <div style={{ height: '300px' }}>
+                    <div data-embed-id="feature-vs-bugfix-trend" style={{ height: '300px' }}>
                         <Line data={featFixChartData.data} options={featFixChartData.options} />
                     </div>
                 </CollapsibleSection>
@@ -282,7 +282,7 @@ export default function ProgressTab() {
             {/* Complexity Over Time */}
             {complexityChartData && (
                 <CollapsibleSection title="Complexity Over Time">
-                    <div style={{ height: '300px' }}>
+                    <div data-embed-id="complexity-over-time" style={{ height: '300px' }}>
                         <Line data={complexityChartData.data} options={complexityChartData.options} />
                     </div>
                 </CollapsibleSection>
@@ -322,7 +322,7 @@ export default function ProgressTab() {
             {hasSemverData && (
                 <CollapsibleSection title="Change Types">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div style={{ height: '200px' }}>
+                        <div data-embed-id="semver-distribution" style={{ height: '200px' }}>
                             <Doughnut data={semverChartData.data} options={semverChartData.options} />
                         </div>
                         <div className="space-y-3 flex flex-col justify-center">

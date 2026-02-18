@@ -131,7 +131,7 @@ export default function ContributorsTab() {
             {/* Complexity by Contributor */}
             {complexityChartData && (
                 <CollapsibleSection title="Complexity by Contributor">
-                    <div style={{ height: `${Math.max(200, aggregated.slice(0, 8).length * 40)}px` }}>
+                    <div data-embed-id="contributor-complexity" style={{ height: `${Math.max(200, aggregated.slice(0, 8).length * 40)}px` }}>
                         <Bar data={complexityChartData.data} options={complexityChartData.options} />
                     </div>
                 </CollapsibleSection>

@@ -2,6 +2,50 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-18
+
+### Implement Embed Mode
+
+**Why:** With `data-embed-id` attributes in place (see below), the dashboard now needs to actually support rendering individual charts in isolation for iframe embedding. External apps should be able to use `?embed=activity-timeline` to get just that chart, with no dashboard chrome.
+
+**Changes:**
+- `dashboard/js/components/EmbedRenderer.jsx` — **New file** — Maps embed IDs to tab components, renders only needed tabs, uses `useLayoutEffect` to hide non-target CollapsibleSections via DOM traversal
+- `dashboard/js/App.jsx` — Reads `?embed=` and `?theme=` query params; when embed mode active, renders `EmbedRenderer` instead of full dashboard; shows error state if data missing
+- `dashboard/js/main.jsx` — Skips debug error banner creation in embed mode
+- `dashboard/styles.css` — Added `.embed-mode` styles (transparent card backgrounds, hidden section headers, forced expanded content, error state styling, debug banner hiding)
+
+**Design decisions:**
+- DOM traversal (`closest('.card')`) to hide non-target sections rather than CSS `:has()` — more reliable across enterprise browser environments
+- `useLayoutEffect` (not `useEffect`) to hide cards before paint — prevents flash of all charts before hiding
+- Theme override via `?theme=light|dark` so embeds can match the consuming app's theme
+- Multi-chart support via comma-separated IDs: `?embed=id1,id2` renders both in one iframe (single bundle load)
+- Tab deduplication: if two requested charts are in the same tab, the tab renders only once
+- Invalid IDs show a friendly error with link to EMBED_REFERENCE.md rather than blank iframe
+
+---
+
+### Enable Element Embedding (Groundwork)
+
+**Why:** Need the ability to pull individual dashboard charts (e.g., activity timeline, tag distribution) into external apps like a CV site. This requires each chart to be individually addressable, plus documentation of what's available and how to implement the embed feature.
+
+**Changes:**
+- `dashboard/js/tabs/TimelineTab.jsx` — Added `data-embed-id` to `activity-timeline` and `code-changes-timeline` chart containers
+- `dashboard/js/tabs/TimingTab.jsx` — Added `data-embed-id` to `activity-heatmap`, `hourly-distribution`, `daily-distribution`
+- `dashboard/js/tabs/ProgressTab.jsx` — Added `data-embed-id` to `feature-vs-bugfix-trend`, `complexity-over-time`, `semver-distribution`
+- `dashboard/js/tabs/ContributorsTab.jsx` — Added `data-embed-id` to `contributor-complexity`
+- `dashboard/js/tabs/TagsTab.jsx` — Added `data-embed-id` to `tag-distribution`
+- `dashboard/js/tabs/HealthTab.jsx` — Added `data-embed-id` to `urgency-trend`, `impact-over-time`, `debt-trend`
+- `docs/EMBED_REFERENCE.md` — **New file** — Quick-reference catalog of all 13 embeddable elements
+- `docs/EMBED_IMPLEMENTATION.md` — **New file** — Implementation plan for URL-based embed mode
+
+**Design decisions:**
+- Used `data-embed-id` (not `id`) to avoid collisions with any existing DOM IDs and to clearly signal these are for the embed system
+- IDs use kebab-case matching the chart's purpose (e.g., `activity-timeline` not `timeline-bar-1`) for readability
+- Chose iframe-based embed mode (Option 1) as simplest first step; Web Components documented as upgrade path
+- No runtime changes yet — the `data-embed-id` attributes are passive (no JS reads them until embed mode is implemented)
+
+---
+
 ## 2026-02-16
 
 ### Fix SW Update Interval Cleanup

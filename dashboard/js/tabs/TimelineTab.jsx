@@ -426,7 +426,7 @@ export default function TimelineTab() {
             {/* Activity Timeline Chart */}
             {activityChartData && (
                 <CollapsibleSection title="Activity Timeline">
-                    <div style={{ height: '300px' }}>
+                    <div data-embed-id="activity-timeline" style={{ height: '300px' }}>
                         <Bar data={activityChartData.data} options={activityChartData.options} />
                     </div>
                 </CollapsibleSection>
@@ -435,7 +435,7 @@ export default function TimelineTab() {
             {/* Code Changes Timeline Chart */}
             {codeChangesChartData && (
                 <CollapsibleSection title="Code Changes Timeline">
-                    <div style={{ height: '300px' }}>
+                    <div data-embed-id="code-changes-timeline" style={{ height: '300px' }}>
                         <Bar data={codeChangesChartData.data} options={codeChangesChartData.options} />
                     </div>
                 </CollapsibleSection>
