@@ -1,0 +1,45 @@
+{
+  "sha": "8b9c584",
+  "fullSha": "8b9c584d2e78f6bdd4e1b81465920f4fc023e823",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-28T06:19:57+00:00",
+  "commitDate": "2026-01-28T06:19:57+00:00",
+  "subject": "Add fill layout with samples button for multi-image layouts",
+  "body": "- Modified loadSampleImage to support filling empty cells without replacing existing images\n- Added \"Fill layout with samples\" button when library is empty (shows image count for multi-image layouts)\n- Added \"Fill X empty cells with samples\" link when some image cells are unassigned\n- Changed label from \"Or try a sample\" to \"Or pick a sample\" for clarity\n\nhttps://claude.ai/code/session_01MjuTGP4b61W9NrBeqx5DeN",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": "minor",
+  "scope": null,
+  "title": "Add fill layout with samples button for multi-image layouts",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 87,
+    "deletions": 40
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/MediaTab.jsx",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 1,
+  "impact": "user-facing"
+}
