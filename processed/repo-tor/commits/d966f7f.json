@@ -1,0 +1,45 @@
+{
+  "sha": "d966f7f",
+  "fullSha": "d966f7f2d5c30160320aae83d5395104a6caa455",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-15T21:58:14+00:00",
+  "commitDate": "2026-02-15T21:58:14+00:00",
+  "subject": "fix: replace manual pagination with --paginate in extract-api.js",
+  "body": "Manual ?page=N loop was missing commits at page boundaries (6 in\ncanva-grid, 1 in model-pear). Switched to ghApi() helper with\ngh CLI's built-in --paginate flag which follows Link headers for\nreliable cursor-based traversal.\n\nhttps://claude.ai/code/session_018BcCfE3cazZpUbqZZof2rz",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": null,
+  "semver": "patch",
+  "scope": null,
+  "title": "replace manual pagination with --paginate in extract-api.js",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 41,
+    "deletions": 48
+  },
+  "files": [
+    "docs/EXTRACTION_PLAYBOOK.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "scripts/extract-api.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "internal"
+}

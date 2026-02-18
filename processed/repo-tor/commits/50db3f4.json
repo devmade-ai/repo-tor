@@ -1,0 +1,52 @@
+{
+  "sha": "50db3f4",
+  "fullSha": "50db3f45a21dabba9289aa954b0eebf1ceb479ef",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T07:48:47+00:00",
+  "commitDate": "2026-02-18T07:48:47+00:00",
+  "subject": "feat: add data-embed-id attributes and embedding docs",
+  "body": "Add data-embed-id attributes to all 13 embeddable chart/visualization\ncontainers across 6 tab files, enabling individual elements to be\ntargeted for embedding in external apps (e.g., CV sites via iframe).\n\nCreated EMBED_REFERENCE.md (chart ID catalog with types, tabs, and\nCV recommendations) and EMBED_IMPLEMENTATION.md (implementation plan\nfor URL-based embed mode via ?embed=<chart-id>).\n\nNo runtime behavior changes — groundwork for embed feature.\n\nhttps://claude.ai/code/session_01FQWKFpGxdXJth6d6oA8E8S",
+  "tags": [
+    "feature",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "embed-mode",
+  "semver": "minor",
+  "scope": null,
+  "title": "add data-embed-id attributes and embedding docs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 340,
+    "deletions": 14
+  },
+  "files": [
+    "dashboard/js/tabs/ContributorsTab.jsx",
+    "dashboard/js/tabs/HealthTab.jsx",
+    "dashboard/js/tabs/ProgressTab.jsx",
+    "dashboard/js/tabs/TagsTab.jsx",
+    "dashboard/js/tabs/TimelineTab.jsx",
+    "dashboard/js/tabs/TimingTab.jsx",
+    "docs/EMBED_IMPLEMENTATION.md",
+    "docs/EMBED_REFERENCE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "user-facing"
+}

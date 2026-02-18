@@ -1,0 +1,55 @@
+{
+  "sha": "7241b9e",
+  "fullSha": "7241b9e474cd36bd8240fc8a6ca70897ff310c3e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-15T23:59:13+00:00",
+  "commitDate": "2026-02-15T23:59:13+00:00",
+  "subject": "feat: add risk, debt, epic, semver commit metadata fields",
+  "body": "Add four new optional commit metadata fields through the full pipeline:\n- Risk (low|medium|high): change risk independent of complexity\n- Debt (added|paid|neutral): tech debt trend tracking\n- Epic (free-text): group commits to initiatives for effort reporting\n- Semver (patch|minor|major): release type classification\n\nPipeline: extract initializes null, merge-analysis/save-commit validate\nwhen present, aggregate-processed computes breakdowns (overall, monthly,\nper-contributor). Dashboard: HealthTab shows Risk Assessment + Debt\nBalance + Debt Trend; ProgressTab shows Epic breakdown + Semver doughnut;\nSummaryTab shows risk/debt in highlights. All sections conditionally\nrender — existing data without these fields works unchanged.\n\nhttps://claude.ai/code/session_01PYSxbw8zuDUFdtcFPF36ek",
+  "tags": [
+    "feature",
+    "enhancement"
+  ],
+  "complexity": 5,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "analytics-metadata",
+  "semver": "minor",
+  "scope": null,
+  "title": "add risk, debt, epic, semver commit metadata fields",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 795,
+    "deletions": 29
+  },
+  "files": [
+    "dashboard/js/tabs/HealthTab.jsx",
+    "dashboard/js/tabs/ProgressTab.jsx",
+    "dashboard/js/tabs/SummaryTab.jsx",
+    "docs/COMMIT_CONVENTION.md",
+    "docs/EXTRACTION_PLAYBOOK.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_GUIDE.md",
+    "hooks/commit-msg",
+    "scripts/aggregate-processed.js",
+    "scripts/extract-api.js",
+    "scripts/extract.js",
+    "scripts/merge-analysis.js",
+    "scripts/save-commit.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "user-facing"
+}
