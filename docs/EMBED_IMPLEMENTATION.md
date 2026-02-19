@@ -2,7 +2,7 @@
 
 How to embed individual dashboard charts in external apps (e.g., a CV site).
 
-**Status:** Implemented (Phase 1 — iframe-based embed mode with custom color support)
+**Status:** Implemented (Phase 1 — iframe-based embed mode with custom colors and auto-height)
 
 ---
 
@@ -130,6 +130,7 @@ Hex values can include or omit the `#` prefix (e.g., `FF6B35` or `#FF6B35`).
 10. `useLayoutEffect` hides all `.card` elements, then shows only those containing a matching `data-embed-id`
 11. CSS removes card borders, section headers, and padding for clean chart display
 12. Debug banner is suppressed entirely in embed mode
+13. A `ResizeObserver` watches the embed container and posts `{ type: 'repo-tor:resize', height }` to the parent window whenever content size changes
 
 ### Color Architecture
 
@@ -154,9 +155,75 @@ Chart colors are centralized in `dashboard/js/chartColors.js`. This module:
 | `dashboard/js/chartColors.js` | Centralized color config, URL param parsing, palette presets |
 | `dashboard/js/App.jsx` | Reads `?embed=` and `?theme=` params, routes to `EmbedRenderer` |
 | `dashboard/js/main.jsx` | Sets `--chart-accent-rgb` CSS variable, skips debug banner in embed mode |
-| `dashboard/js/components/EmbedRenderer.jsx` | Maps IDs to tabs, renders tabs, hides non-target sections |
+| `dashboard/js/components/EmbedRenderer.jsx` | Maps IDs to tabs, renders tabs, hides non-target sections, posts height to parent |
 | `dashboard/styles.css` | `.embed-mode` styles, heatmap intensity uses `--chart-accent-rgb` |
 | `dashboard/js/tabs/*.jsx` | Import from `chartColors.js` instead of hardcoding hex values |
+
+---
+
+## Auto-Height (postMessage)
+
+Embedded charts post their content height to the parent window so the iframe can resize automatically — no need to guess a `height` value.
+
+### How It Works
+
+1. `EmbedRenderer` attaches a `ResizeObserver` to the embed container
+2. Whenever the content size changes (initial render, chart animation, viewport resize), the iframe posts a message to `window.parent`
+3. The message format is: `{ type: 'repo-tor:resize', height: <number> }`
+4. The parent page listens for this message and sets the iframe height
+
+The observer fires are debounced via `requestAnimationFrame` to avoid flooding the parent during animations.
+
+### Parent Page Snippet
+
+Add this to the page that contains the iframe:
+
+```html
+<iframe
+  id="repo-tor-embed"
+  src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline"
+  width="100%"
+  height="400"
+  frameborder="0"
+  style="border: none; border-radius: 8px;"
+></iframe>
+
+<script>
+window.addEventListener('message', function (event) {
+  if (event.data && event.data.type === 'repo-tor:resize') {
+    document.getElementById('repo-tor-embed').style.height = event.data.height + 'px';
+  }
+});
+</script>
+```
+
+The initial `height="400"` acts as a fallback while the chart loads. Once the chart renders, the iframe resizes to fit exactly.
+
+### Multiple Iframes
+
+If you embed multiple charts in separate iframes, use the iframe's `contentWindow` to match the message source:
+
+```html
+<iframe id="chart-1" src="...?embed=activity-timeline" width="100%" height="400" frameborder="0"></iframe>
+<iframe id="chart-2" src="...?embed=tag-distribution" width="100%" height="400" frameborder="0"></iframe>
+
+<script>
+var iframes = document.querySelectorAll('iframe');
+window.addEventListener('message', function (event) {
+  if (event.data && event.data.type === 'repo-tor:resize') {
+    iframes.forEach(function (iframe) {
+      if (event.source === iframe.contentWindow) {
+        iframe.style.height = event.data.height + 'px';
+      }
+    });
+  }
+});
+</script>
+```
+
+### Opting Out
+
+If you don't want auto-height, simply don't add the `message` event listener. The iframe will use whatever `height` attribute you set. The postMessage calls are harmless if nobody is listening.
 
 ---
 
@@ -170,9 +237,9 @@ Chart colors are centralized in `dashboard/js/chartColors.js`. This module:
 
 App.jsx would fetch from this URL instead of the default `./data.json`.
 
-### postMessage API
+### postMessage API (data push)
 
-For tighter integration with a parent app:
+Currently, postMessage is used for resize notifications (iframe → parent). A future enhancement could add parent → iframe data push:
 
 ```javascript
 const iframe = document.querySelector('iframe');
@@ -223,7 +290,8 @@ import { ActivityTimeline } from 'repo-tor/charts';
 - **CORS:** The iframe approach works cross-origin by default (no server-side changes needed for GitHub Pages)
 - **Color params:** Only hex color values are accepted; values are prefixed with `#` if missing. No script injection vector.
 - **Data URL param:** If implemented, validate the URL and consider an allowlist to prevent loading arbitrary data
-- **postMessage:** Validate `event.origin` before accepting data from the parent frame
+- **postMessage (resize):** The iframe sends height data outward — no security risk. The parent should still check `event.data.type === 'repo-tor:resize'` to avoid acting on unrelated messages
+- **postMessage (data push):** If implemented, validate `event.origin` before accepting data from the parent frame
 - **Content-Security-Policy:** The dashboard's CSP (if any) should allow `frame-ancestors` for the domains that will embed it
 
 ---
@@ -244,7 +312,11 @@ import { ActivityTimeline } from 'repo-tor/charts';
 - [ ] `?palette=warm&colors=FF0000` — colors param overrides palette series
 - [ ] `?palette=warm&accent=0000FF` — accent param overrides palette accent
 - [ ] Full dashboard (no embed/color params) renders with default colors unchanged
+- [ ] Auto-height: iframe receives `repo-tor:resize` message with correct height after chart renders
+- [ ] Auto-height: iframe resizes when browser window is resized
+- [ ] Auto-height: no messages sent when not in an iframe (normal dashboard)
+- [ ] Auto-height: multiple iframes each report their own height independently
 
 ---
 
-*Last updated: 2026-02-18 — Added custom color support (URL params: palette, colors, accent, muted) with centralized chartColors.js module.*
+*Last updated: 2026-02-19 — Added custom color support (URL params: palette, colors, accent, muted) with centralized chartColors.js module.*

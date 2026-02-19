@@ -11,7 +11,7 @@
  *   - CSS :has() selector: Rejected — still limited browser support in some
  *     enterprise environments; DOM traversal is more reliable
  */
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import ErrorBoundary from './ErrorBoundary.jsx';
 import SummaryTab from '../tabs/SummaryTab.jsx';
 import TimelineTab from '../tabs/TimelineTab.jsx';
@@ -84,6 +84,40 @@ export default function EmbedRenderer({ embedIds }) {
             }
         });
     }, [validIds.join(',')]);
+
+    // Requirement: Embedding apps need to know the content height to size their iframe
+    // Approach: ResizeObserver on the container + postMessage to parent window
+    // Alternatives:
+    //   - Fixed height per chart ID: Rejected — heights vary with data, filters, and viewport
+    //   - CSS-only (height: fit-content on iframe): Rejected — iframes can't auto-size cross-origin
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container || !window.parent || window.parent === window) return;
+
+        let rafId = null;
+        const postHeight = () => {
+            // Use scrollHeight of the document to capture full content including margins
+            const height = document.documentElement.scrollHeight;
+            window.parent.postMessage({ type: 'repo-tor:resize', height }, '*');
+        };
+
+        // Debounce via requestAnimationFrame — avoids flooding during chart animations
+        const onResize = () => {
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(postHeight);
+        };
+
+        const observer = new ResizeObserver(onResize);
+        observer.observe(container);
+
+        // Send initial height after first paint
+        postHeight();
+
+        return () => {
+            observer.disconnect();
+            if (rafId) cancelAnimationFrame(rafId);
+        };
+    }, []);
 
     // No valid IDs — show error
     if (validIds.length === 0) {

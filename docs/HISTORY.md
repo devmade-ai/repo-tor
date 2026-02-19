@@ -2,6 +2,26 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-19
+
+### Auto-Height for Embed Mode
+
+**Why:** Embedding apps had to guess an iframe `height` value. Charts vary in height depending on data, view level, and viewport width — a fixed height either clips content or wastes space.
+
+**Changes:**
+- Added `ResizeObserver` + `postMessage` to `EmbedRenderer.jsx` — posts `{ type: 'repo-tor:resize', height }` to parent window whenever content size changes
+- Debounced via `requestAnimationFrame` to avoid flooding during chart animations
+- Only activates when running inside an iframe (`window.parent !== window`)
+- Updated `docs/EMBED_IMPLEMENTATION.md` with Auto-Height section (protocol, single/multi-iframe parent snippets, opt-out), security note, testing checklist items, and updated status/files
+- Updated `docs/EMBED_REFERENCE.md` with Auto-Height quick-reference section
+
+**Files:**
+- `dashboard/js/components/EmbedRenderer.jsx`
+- `docs/EMBED_IMPLEMENTATION.md`
+- `docs/EMBED_REFERENCE.md`
+
+---
+
 ## 2026-02-18
 
 ### Custom Graph Colors for Embeds
