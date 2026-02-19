@@ -1353,6 +1353,12 @@
             text-decoration: underline;
         }
 
+        /* Hide decorative grid pattern in embed mode — would leak through
+           when embedder sets ?bg=transparent to inherit their page background */
+        body:has(.embed-mode)::before {
+            display: none;
+        }
+
         /* Hide debug banner in embed mode */
         .embed-mode ~ #debug-error-banner,
         body:has(.embed-mode) #debug-error-banner {
