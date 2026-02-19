@@ -137,23 +137,17 @@ See [EMBED_IMPLEMENTATION.md](EMBED_IMPLEMENTATION.md) for full technical detail
 
 ## Auto-Height
 
-Embedded charts automatically tell the parent page how tall they are, so the iframe can resize to fit without scrollbars or wasted space.
+Embedded charts resize their iframe automatically. Include the helper script on your page:
 
-Add this listener to your page:
-
-```javascript
-window.addEventListener('message', function (event) {
-  if (event.data && event.data.type === 'repo-tor:resize') {
-    document.getElementById('my-iframe').style.height = event.data.height + 'px';
-  }
-});
+```html
+<script src="https://devmade-ai.github.io/repo-tor/embed.js"></script>
 ```
 
-The message format is `{ type: 'repo-tor:resize', height: <number> }`. Height updates fire whenever the chart content changes size (initial render, window resize, animations).
+Include it once — it handles all repo-tor iframes on the page. Height updates fire whenever chart content changes size (initial render, window resize, animations).
 
-If you don't add the listener, nothing happens — the iframe uses whatever fixed `height` you set.
+If you don't include the script, nothing happens — the iframe uses whatever fixed `height` you set.
 
-See [EMBED_IMPLEMENTATION.md](EMBED_IMPLEMENTATION.md) for multi-iframe examples and details.
+See [EMBED_IMPLEMENTATION.md](EMBED_IMPLEMENTATION.md) for manual listener examples and details.
 
 ---
 
@@ -186,4 +180,4 @@ Or in CSS:
 
 ---
 
-*Last updated: 2026-02-19 — Added `bg` parameter for custom embed background color.*
+*Last updated: 2026-02-19 — Added embed.js auto-resize helper script.*

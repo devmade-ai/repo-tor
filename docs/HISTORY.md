@@ -4,6 +4,22 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-19
 
+### Embed Auto-Resize Helper Script
+
+**Why:** The auto-height mechanism required embedders to write their own `postMessage` listener in JavaScript. This was documented but easy to miss — the iframe would load and show the chart, but the height wouldn't adjust because no listener was in place on the parent page.
+
+**Changes:**
+- Created `dashboard/public/embed.js` — standalone helper script (no dependencies, <1KB) that listens for `repo-tor:resize` messages and auto-sizes all repo-tor iframes on the page
+- Updated `docs/EMBED_IMPLEMENTATION.md` — script-tag approach is now the primary method; manual listener moved to "Advanced" section; added `embed.js` to files table
+- Updated `docs/EMBED_REFERENCE.md` — auto-height section now shows script-tag approach
+
+**Files:**
+- `dashboard/public/embed.js` (new)
+- `docs/EMBED_IMPLEMENTATION.md`
+- `docs/EMBED_REFERENCE.md`
+
+---
+
 ### Fix Embed Resize Height Measurement
 
 **Why:** The auto-height `postMessage` was using `document.documentElement.scrollHeight` to measure content height. This included elements outside the embed container (the `#heatmap-tooltip` div, `body` pseudo-elements), reporting incorrect heights to the parent iframe. Additionally, the initial height was posted immediately via `postHeight()` before Chart.js had finished its first `requestAnimationFrame`-based render, so the parent could receive a pre-chart height.

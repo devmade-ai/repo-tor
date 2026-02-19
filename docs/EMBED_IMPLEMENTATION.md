@@ -18,7 +18,14 @@ How to embed individual dashboard charts in external apps (e.g., a CV site).
   frameborder="0"
   style="border: none; border-radius: 8px;"
 ></iframe>
+
+<!-- Auto-resize: the iframe height adjusts to fit the chart -->
+<script src="https://devmade-ai.github.io/repo-tor/embed.js"></script>
 ```
+
+The `embed.js` script listens for resize messages from the iframe and adjusts its height automatically. Include it once — it handles all repo-tor iframes on the page.
+
+The `height="400"` acts as a fallback while the chart loads. Once the chart renders, the iframe resizes to fit exactly.
 
 ### Multiple charts (single iframe, one bundle load)
 
@@ -30,6 +37,8 @@ How to embed individual dashboard charts in external apps (e.g., a CV site).
   frameborder="0"
   style="border: none; border-radius: 8px;"
 ></iframe>
+
+<script src="https://devmade-ai.github.io/repo-tor/embed.js"></script>
 ```
 
 ### Light theme override
@@ -188,29 +197,20 @@ Chart colors are centralized in `dashboard/js/chartColors.js`. This module:
 | `dashboard/js/components/EmbedRenderer.jsx` | Maps IDs to tabs, renders tabs, hides non-target sections, posts height to parent |
 | `dashboard/styles.css` | `.embed-mode` styles, heatmap intensity uses `--chart-accent-rgb` |
 | `dashboard/js/tabs/*.jsx` | Import from `chartColors.js` instead of hardcoding hex values |
+| `dashboard/public/embed.js` | Standalone auto-resize helper for parent pages (copied to `dist/embed.js`) |
 
 ---
 
-## Auto-Height (postMessage)
+## Auto-Height
 
-Embedded charts post their content height to the parent window so the iframe can resize automatically — no need to guess a `height` value.
+Embedded charts resize their iframe automatically — no need to guess a `height` value.
 
-### How It Works
+### Quick Setup
 
-1. `EmbedRenderer` attaches a `ResizeObserver` to the embed container
-2. Whenever the content size changes (initial render, chart animation, viewport resize), the iframe posts a message to `window.parent`
-3. The message format is: `{ type: 'repo-tor:resize', height: <number> }`
-4. The parent page listens for this message and sets the iframe height
-
-The observer fires are debounced via `requestAnimationFrame` to avoid flooding the parent during animations.
-
-### Parent Page Snippet
-
-Add this to the page that contains the iframe:
+Add the `embed.js` script to your page. It handles all repo-tor iframes automatically:
 
 ```html
 <iframe
-  id="repo-tor-embed"
   src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline"
   width="100%"
   height="400"
@@ -218,34 +218,35 @@ Add this to the page that contains the iframe:
   style="border: none; border-radius: 8px;"
 ></iframe>
 
-<script>
-window.addEventListener('message', function (event) {
-  if (event.data && event.data.type === 'repo-tor:resize') {
-    document.getElementById('repo-tor-embed').style.height = event.data.height + 'px';
-  }
-});
-</script>
+<script src="https://devmade-ai.github.io/repo-tor/embed.js"></script>
 ```
 
-The initial `height="400"` acts as a fallback while the chart loads. Once the chart renders, the iframe resizes to fit exactly.
+Include the script once — it handles any number of repo-tor iframes on the page. The `height="400"` acts as a fallback while the chart loads.
 
-### Multiple Iframes
+### How It Works
 
-If you embed multiple charts in separate iframes, use the iframe's `contentWindow` to match the message source:
+1. `EmbedRenderer` attaches a `ResizeObserver` to the embed container
+2. Whenever the content size changes (initial render, chart animation, viewport resize), the iframe posts a message to `window.parent`
+3. The message format is: `{ type: 'repo-tor:resize', height: <number> }`
+4. `embed.js` on the parent page listens for this message and sets the iframe height
+
+The observer fires are debounced via `requestAnimationFrame` to avoid flooding the parent during animations.
+
+### Manual Listener (Advanced)
+
+If you prefer not to include the helper script, add your own listener:
 
 ```html
-<iframe id="chart-1" src="...?embed=activity-timeline" width="100%" height="400" frameborder="0"></iframe>
-<iframe id="chart-2" src="...?embed=tag-distribution" width="100%" height="400" frameborder="0"></iframe>
-
 <script>
-var iframes = document.querySelectorAll('iframe');
 window.addEventListener('message', function (event) {
-  if (event.data && event.data.type === 'repo-tor:resize') {
-    iframes.forEach(function (iframe) {
-      if (event.source === iframe.contentWindow) {
-        iframe.style.height = event.data.height + 'px';
-      }
-    });
+  if (!event.data || event.data.type !== 'repo-tor:resize') return;
+  // Find the iframe that sent this message
+  var iframes = document.querySelectorAll('iframe');
+  for (var i = 0; i < iframes.length; i++) {
+    if (iframes[i].contentWindow === event.source) {
+      iframes[i].style.height = event.data.height + 'px';
+      break;
+    }
   }
 });
 </script>
@@ -253,7 +254,7 @@ window.addEventListener('message', function (event) {
 
 ### Opting Out
 
-If you don't want auto-height, simply don't add the `message` event listener. The iframe will use whatever `height` attribute you set. The postMessage calls are harmless if nobody is listening.
+If you don't want auto-height, simply don't include `embed.js` and don't add a `message` event listener. The iframe will use whatever `height` attribute you set. The postMessage calls are harmless if nobody is listening.
 
 ---
 
@@ -354,4 +355,4 @@ import { ActivityTimeline } from 'repo-tor/charts';
 
 ---
 
-*Last updated: 2026-02-19 — Added `bg` parameter for custom embed background color.*
+*Last updated: 2026-02-19 — Added embed.js auto-resize helper script.*
