@@ -7,6 +7,7 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-19):**
+- **Fix Embed Resize Height Measurement** — Auto-height was measuring `document.documentElement.scrollHeight` (full page including tooltip divs and pseudo-elements outside the embed container) instead of `container.scrollHeight`. Also added 100ms delay before initial height post to let Chart.js finish its first `requestAnimationFrame` render, and de-duplicates messages by tracking last posted height.
 - **Custom Background Color for Embeds** — New `?bg=` URL parameter lets embedder apps set the background color of the embedded element. Accepts hex values (`?bg=FFFFFF`) or `transparent` to inherit from the parent page. Overrides the `--bg-primary` CSS variable. Decorative grid pattern (`body::before`) is now hidden in embed mode to prevent visual artifacts with custom backgrounds.
 - **Auto-Height for Embed Mode** — Embedded iframes now post their content height to the parent window via `postMessage({ type: 'repo-tor:resize', height })`. Uses `ResizeObserver` on the embed container, debounced with `requestAnimationFrame`. Parent pages add a simple `message` event listener to resize the iframe. Works with single or multiple iframes. No effect when not embedded.
 
@@ -415,4 +416,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-19 - Added ?bg= parameter for custom embed background color.*
+*Last updated: 2026-02-19 - Fixed embed resize height measurement and timing.*

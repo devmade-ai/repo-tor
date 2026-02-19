@@ -90,15 +90,23 @@ export default function EmbedRenderer({ embedIds }) {
     // Alternatives:
     //   - Fixed height per chart ID: Rejected — heights vary with data, filters, and viewport
     //   - CSS-only (height: fit-content on iframe): Rejected — iframes can't auto-size cross-origin
+    //   - document.documentElement.scrollHeight: Rejected — includes elements outside the
+    //     embed container (#heatmap-tooltip, body pseudo-elements) causing incorrect height
     useEffect(() => {
         const container = containerRef.current;
         if (!container || !window.parent || window.parent === window) return;
 
         let rafId = null;
+        let lastHeight = 0;
         const postHeight = () => {
-            // Use scrollHeight of the document to capture full content including margins
-            const height = document.documentElement.scrollHeight;
-            window.parent.postMessage({ type: 'repo-tor:resize', height }, '*');
+            // Measure the container itself, not the full document — avoids picking up
+            // stray elements outside #root (tooltip divs, pseudo-elements, etc.)
+            const height = container.scrollHeight;
+            // Only post when height actually changes to avoid unnecessary parent reflows
+            if (height !== lastHeight) {
+                lastHeight = height;
+                window.parent.postMessage({ type: 'repo-tor:resize', height }, '*');
+            }
         };
 
         // Debounce via requestAnimationFrame — avoids flooding during chart animations
@@ -110,12 +118,15 @@ export default function EmbedRenderer({ embedIds }) {
         const observer = new ResizeObserver(onResize);
         observer.observe(container);
 
-        // Send initial height after first paint
-        postHeight();
+        // Delay initial height post to let Chart.js finish its first render.
+        // Chart.js uses requestAnimationFrame internally, so a short timeout
+        // ensures canvases have their final dimensions before we measure.
+        const initialTimer = setTimeout(postHeight, 100);
 
         return () => {
             observer.disconnect();
             if (rafId) cancelAnimationFrame(rafId);
+            clearTimeout(initialTimer);
         };
     }, []);
 

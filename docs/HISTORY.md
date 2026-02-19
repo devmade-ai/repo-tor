@@ -4,6 +4,21 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-19
 
+### Fix Embed Resize Height Measurement
+
+**Why:** The auto-height `postMessage` was using `document.documentElement.scrollHeight` to measure content height. This included elements outside the embed container (the `#heatmap-tooltip` div, `body` pseudo-elements), reporting incorrect heights to the parent iframe. Additionally, the initial height was posted immediately via `postHeight()` before Chart.js had finished its first `requestAnimationFrame`-based render, so the parent could receive a pre-chart height.
+
+**Changes:**
+- Changed height measurement from `document.documentElement.scrollHeight` to `container.scrollHeight` in `EmbedRenderer.jsx` — only measures the embed container itself
+- Added `lastHeight` tracking to skip duplicate `postMessage` calls when height hasn't changed
+- Replaced immediate `postHeight()` with `setTimeout(postHeight, 100)` to let Chart.js complete its initial render before measuring
+- Added `clearTimeout` cleanup in the effect teardown
+
+**Files:**
+- `dashboard/js/components/EmbedRenderer.jsx`
+
+---
+
 ### Custom Background Color for Embeds
 
 **Why:** Embedded charts showed the dashboard's dark background (`#1B1B1B`) inside the iframe, clashing with light-themed or custom-themed embedding sites. Embedders had no way to change it.
