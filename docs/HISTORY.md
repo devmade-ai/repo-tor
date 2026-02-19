@@ -4,6 +4,24 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-19
 
+### Custom Background Color for Embeds
+
+**Why:** Embedded charts showed the dashboard's dark background (`#1B1B1B`) inside the iframe, clashing with light-themed or custom-themed embedding sites. Embedders had no way to change it.
+
+**Changes:**
+- Added `?bg=hex` URL parameter in `App.jsx` — overrides `--bg-primary` CSS variable (read by `body` and `.embed-mode` styles). Accepts hex values or `transparent`
+- Added CSS rule to hide decorative `body::before` grid pattern in embed mode — prevents it from leaking through with `?bg=transparent`
+- Updated `docs/EMBED_REFERENCE.md` with `bg` parameter in URL table and quick examples
+- Updated `docs/EMBED_IMPLEMENTATION.md` with `bg` parameter, usage examples, How It Works step, and test cases
+
+**Files:**
+- `dashboard/js/App.jsx`
+- `dashboard/styles.css`
+- `docs/EMBED_REFERENCE.md`
+- `docs/EMBED_IMPLEMENTATION.md`
+
+---
+
 ### Auto-Height for Embed Mode
 
 **Why:** Embedding apps had to guess an iframe `height` value. Charts vary in height depending on data, view level, and viewport width — a fixed height either clips content or wastes space.

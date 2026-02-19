@@ -67,15 +67,29 @@ const embedIds = (() => {
     return raw.split(',').map(s => s.trim()).filter(Boolean);
 })();
 
-// Apply theme override from URL: ?theme=light or ?theme=dark
+// Apply embed overrides from URL: ?theme=light|dark, ?bg=hex|transparent
+// Requirement: Let embedder apps match the embedded element's background to their site
+// Approach: Override --bg-primary CSS variable (read by body and .embed-mode styles)
+// Alternatives:
+//   - postMessage from parent: Rejected — adds complexity, URL param is simpler and stateless
+//   - CSS variable injection from parent: Rejected — CSS can't cross iframe boundaries
 if (embedIds) {
-    const themeParam = new URLSearchParams(window.location.search).get('theme');
+    const params = new URLSearchParams(window.location.search);
+
+    const themeParam = params.get('theme');
     if (themeParam === 'light') {
         document.documentElement.classList.remove('dark');
     }
     // dark is already the default, but be explicit if requested
     if (themeParam === 'dark') {
         document.documentElement.classList.add('dark');
+    }
+
+    const bgParam = params.get('bg');
+    if (bgParam) {
+        const bgValue = bgParam === 'transparent' ? 'transparent'
+            : bgParam.startsWith('#') ? bgParam : `#${bgParam}`;
+        document.documentElement.style.setProperty('--bg-primary', bgValue);
     }
 }
 

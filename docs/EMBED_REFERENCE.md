@@ -70,6 +70,7 @@ Embedding apps can customize chart colors via URL parameters. This is useful whe
 
 | Parameter | Format | Example | Description |
 |-----------|--------|---------|-------------|
+| `bg` | hex or `transparent` | `bg=FFFFFF` | Background color of the embedded element (default: dark `#1B1B1B`) |
 | `palette` | preset name | `palette=warm` | Apply a named color palette |
 | `colors` | comma-separated hex | `colors=FF6B35,004E89,1A936F` | Custom series colors for multi-dataset charts |
 | `accent` | hex | `accent=FF6B35` | Primary color for single-dataset charts and heatmaps |
@@ -80,14 +81,23 @@ Hex values work with or without the `#` prefix.
 ### Quick Examples
 
 ```html
+<!-- White background for a light-themed site -->
+?embed=activity-timeline&bg=FFFFFF&theme=light
+
+<!-- Transparent background — inherits from your page -->
+?embed=activity-timeline&bg=transparent&theme=light
+
+<!-- Custom dark background to match your site -->
+?embed=activity-timeline&bg=0D1117
+
 <!-- Match your brand color -->
 ?embed=activity-timeline&accent=FF6B35
 
 <!-- Use a preset palette -->
 ?embed=activity-timeline&palette=warm
 
-<!-- Full control: custom series + accent + light theme -->
-?embed=activity-timeline&colors=FF6B35,004E89,1A936F&accent=FF6B35&theme=light
+<!-- Full control: background + series + accent + light theme -->
+?embed=activity-timeline&bg=FFFFFF&colors=FF6B35,004E89,1A936F&accent=FF6B35&theme=light
 ```
 
 ### Available Palettes
@@ -176,4 +186,4 @@ Or in CSS:
 
 ---
 
-*Last updated: 2026-02-19 — Added auto-height (ResizeObserver + postMessage) for iframe container sizing.*
+*Last updated: 2026-02-19 — Added `bg` parameter for custom embed background color.*

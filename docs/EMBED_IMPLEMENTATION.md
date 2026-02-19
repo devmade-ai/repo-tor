@@ -43,6 +43,34 @@ How to embed individual dashboard charts in external apps (e.g., a CV site).
 ></iframe>
 ```
 
+### Custom background color
+
+```html
+<!-- White background for a light-themed site -->
+<iframe
+  src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline&bg=FFFFFF&theme=light"
+  width="100%"
+  height="400"
+  frameborder="0"
+></iframe>
+
+<!-- Transparent — chart inherits the parent page's background -->
+<iframe
+  src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline&bg=transparent&theme=light"
+  width="100%"
+  height="400"
+  frameborder="0"
+></iframe>
+
+<!-- Match a custom dark background -->
+<iframe
+  src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline&bg=0D1117"
+  width="100%"
+  height="400"
+  frameborder="0"
+></iframe>
+```
+
 ### Custom colors
 
 ```html
@@ -89,6 +117,7 @@ See [EMBED_REFERENCE.md](EMBED_REFERENCE.md) for the full list of available char
 |-----------|--------|-------------|
 | `embed` | `chart-id` or `id1,id2,id3` | Required. Chart ID(s) to display |
 | `theme` | `light` or `dark` | Optional. Override the default dark theme |
+| `bg` | `hex` or `transparent` | Optional. Background color of the embedded element (default: `#1B1B1B`). Use `transparent` to inherit from your page |
 | `palette` | preset name | Optional. Named color palette (see below) |
 | `colors` | `hex1,hex2,...` | Optional. Custom series colors for multi-dataset charts. Overrides palette series |
 | `accent` | `hex` | Optional. Primary accent color for single-dataset charts and heatmaps. Overrides palette accent |
@@ -119,18 +148,19 @@ Hex values can include or omit the `#` prefix (e.g., `FF6B35` or `#FF6B35`).
 ## How It Works
 
 1. `App.jsx` reads `?embed=` from the URL at module load time
-2. If present, `?theme=` is also checked and applied to `<html>` class
-3. `chartColors.js` parses `?palette=`, `?colors=`, `?accent=`, and `?muted=` at module load
-4. `main.jsx` sets `--chart-accent-rgb` CSS variable from the resolved accent color (for heatmap CSS)
-5. Data loads normally from `./data.json`
-6. Instead of the full dashboard, `EmbedRenderer` is rendered
-7. `EmbedRenderer` maps each embed ID to the tab component(s) that contain it
-8. Only the required tabs render (deduplicated — two charts in one tab = one tab render)
-9. Tab components import colors from `chartColors.js` instead of using hardcoded values
-10. `useLayoutEffect` hides all `.card` elements, then shows only those containing a matching `data-embed-id`
-11. CSS removes card borders, section headers, and padding for clean chart display
-12. Debug banner is suppressed entirely in embed mode
-13. A `ResizeObserver` watches the embed container and posts `{ type: 'repo-tor:resize', height }` to the parent window whenever content size changes
+2. If present, `?theme=` is checked and applied to `<html>` class
+3. If present, `?bg=` overrides the `--bg-primary` CSS variable (read by `body` and `.embed-mode` styles). Accepts hex or `transparent`
+4. `chartColors.js` parses `?palette=`, `?colors=`, `?accent=`, and `?muted=` at module load
+5. `main.jsx` sets `--chart-accent-rgb` CSS variable from the resolved accent color (for heatmap CSS)
+6. Data loads normally from `./data.json`
+7. Instead of the full dashboard, `EmbedRenderer` is rendered
+8. `EmbedRenderer` maps each embed ID to the tab component(s) that contain it
+9. Only the required tabs render (deduplicated — two charts in one tab = one tab render)
+10. Tab components import colors from `chartColors.js` instead of using hardcoded values
+11. `useLayoutEffect` hides all `.card` elements, then shows only those containing a matching `data-embed-id`
+12. CSS removes card borders, section headers, padding, and decorative grid pattern for clean chart display
+13. Debug banner is suppressed entirely in embed mode
+14. A `ResizeObserver` watches the embed container and posts `{ type: 'repo-tor:resize', height }` to the parent window whenever content size changes
 
 ### Color Architecture
 
@@ -311,6 +341,11 @@ import { ActivityTimeline } from 'repo-tor/charts';
 - [ ] `?embed=hourly-distribution&accent=FF6B35&muted=999999` uses custom accent and muted
 - [ ] `?palette=warm&colors=FF0000` — colors param overrides palette series
 - [ ] `?palette=warm&accent=0000FF` — accent param overrides palette accent
+- [ ] `?embed=activity-timeline&bg=FFFFFF` uses white background
+- [ ] `?embed=activity-timeline&bg=transparent` has no background (inherits from page)
+- [ ] `?embed=activity-timeline&bg=0D1117` uses custom dark background
+- [ ] `?embed=activity-timeline&bg=FFFFFF&theme=light` white bg with light text/grid colors
+- [ ] Decorative grid pattern (body::before) is hidden in all embed mode views
 - [ ] Full dashboard (no embed/color params) renders with default colors unchanged
 - [ ] Auto-height: iframe receives `repo-tor:resize` message with correct height after chart renders
 - [ ] Auto-height: iframe resizes when browser window is resized
@@ -319,4 +354,4 @@ import { ActivityTimeline } from 'repo-tor/charts';
 
 ---
 
-*Last updated: 2026-02-19 — Added custom color support (URL params: palette, colors, accent, muted) with centralized chartColors.js module.*
+*Last updated: 2026-02-19 — Added `bg` parameter for custom embed background color.*
