@@ -125,6 +125,28 @@ See [EMBED_IMPLEMENTATION.md](EMBED_IMPLEMENTATION.md) for full technical detail
 
 ---
 
+## Auto-Height
+
+Embedded charts automatically tell the parent page how tall they are, so the iframe can resize to fit without scrollbars or wasted space.
+
+Add this listener to your page:
+
+```javascript
+window.addEventListener('message', function (event) {
+  if (event.data && event.data.type === 'repo-tor:resize') {
+    document.getElementById('my-iframe').style.height = event.data.height + 'px';
+  }
+});
+```
+
+The message format is `{ type: 'repo-tor:resize', height: <number> }`. Height updates fire whenever the chart content changes size (initial render, window resize, animations).
+
+If you don't add the listener, nothing happens — the iframe uses whatever fixed `height` you set.
+
+See [EMBED_IMPLEMENTATION.md](EMBED_IMPLEMENTATION.md) for multi-iframe examples and details.
+
+---
+
 ## How to Find an Element in the DOM
 
 Each embeddable element can be selected with:
@@ -154,4 +176,4 @@ Or in CSS:
 
 ---
 
-*Last updated: 2026-02-18 — Added custom color support (palette, colors, accent, muted URL params).*
+*Last updated: 2026-02-19 — Added auto-height (ResizeObserver + postMessage) for iframe container sizing.*

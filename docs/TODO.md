@@ -10,7 +10,7 @@ Remaining tasks for Git Analytics Reporting System.
 
 ### Embedding
 1. [ ] Optional: Accept data URL via `?data=` query param
-2. [ ] Optional: postMessage API for parent-to-iframe data push
+2. [ ] Optional: postMessage API for parent-to-iframe data push (resize messages already implemented)
 3. [ ] Optional: Vite library build for direct React component import
 4. [ ] Optional: Light theme CSS variables (currently only dark theme is fully defined)
 
@@ -20,4 +20,4 @@ Remaining tasks for Git Analytics Reporting System.
 
 ---
 
-*Last updated: 2026-02-18 - Added custom graph color support for embeds (palette, colors, accent, muted URL params).*
+*Last updated: 2026-02-19 - Auto-height postMessage implemented; data-push postMessage still optional.*

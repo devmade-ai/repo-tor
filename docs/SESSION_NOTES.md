@@ -6,7 +6,10 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-18):**
+**Recent Updates (2026-02-19):**
+- **Auto-Height for Embed Mode** — Embedded iframes now post their content height to the parent window via `postMessage({ type: 'repo-tor:resize', height })`. Uses `ResizeObserver` on the embed container, debounced with `requestAnimationFrame`. Parent pages add a simple `message` event listener to resize the iframe. Works with single or multiple iframes. No effect when not embedded.
+
+**Previous Updates (2026-02-18):**
 - **Custom Graph Colors for Embeds** - Embedding apps can now customize chart colors via URL parameters. Created centralized `chartColors.js` module that all tab components import from. Supports: `?palette=warm` (6 named presets), `?colors=hex1,hex2` (custom series), `?accent=hex` (primary color for heatmaps/single-dataset charts), `?muted=hex` (secondary color). Heatmap CSS updated to use `--chart-accent-rgb` CSS variable. Tag distribution colors remain semantic (not overridden). All 5 chart tab files updated to use centralized colors.
 - **Implement Embed Mode** - Full iframe-based embed mode. Append `?embed=<chart-id>` to the dashboard URL to render only the requested chart(s), no header/tabs/sidebar. Supports comma-separated IDs (`?embed=id1,id2`) and theme override (`?theme=light`). Created `EmbedRenderer.jsx` component, modified `App.jsx` for embed detection, added embed CSS, and suppressed debug banner in embed mode. Invalid IDs show a helpful error linking to EMBED_REFERENCE.md.
 - **Enable Element Embedding (Groundwork)** - Added `data-embed-id` attributes to all 13 embeddable chart/visualization containers across 6 tab files. Created `docs/EMBED_REFERENCE.md` (quick-reference catalog of all embeddable elements with IDs, types, tabs, and CV recommendations) and `docs/EMBED_IMPLEMENTATION.md` (implementation plan).
@@ -411,4 +414,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-18 - Feed the chicken: 156 new commits across 6 repos (canva-grid +3, glow-props +14, graphiki +59, repo-tor +28, see-veo +51, synctone +1). Total: 1702 commits across 12 repos.*
+*Last updated: 2026-02-19 - Added auto-height for embed mode (ResizeObserver + postMessage).*
