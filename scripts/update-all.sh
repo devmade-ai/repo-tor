@@ -93,17 +93,19 @@ if [ "$USE_API" = true ]; then
     echo "Step 1: Extracting via GitHub API"
     echo "-------------------------------------------"
 
-    # Check gh CLI is available and authenticated
-    if ! command -v gh &> /dev/null; then
-        echo -e "${RED}Error: gh CLI not found. Install from https://cli.github.com/${NC}"
-        echo "Or use --clone flag to extract via cloning instead."
-        exit 1
-    fi
-
-    if ! gh auth status &> /dev/null; then
-        echo -e "${RED}Error: Not authenticated with GitHub. Run: gh auth login${NC}"
-        echo "Or use --clone flag to extract via cloning instead."
-        exit 1
+    # Token check — extract-api.js finds it automatically from
+    # GH_TOKEN, GITHUB_TOKEN, or GITHUB_ALL_REPO_TOKEN
+    if [[ -z "${GH_TOKEN:-}" && -z "${GITHUB_TOKEN:-}" && -z "${GITHUB_ALL_REPO_TOKEN:-}" ]]; then
+        # Check .env file before failing
+        if [[ -f "$ROOT_DIR/.env" ]]; then
+            echo "  (will use token from .env file)"
+        else
+            echo -e "${RED}Error: No GitHub token found.${NC}"
+            echo "Set GH_TOKEN, GITHUB_TOKEN, or GITHUB_ALL_REPO_TOKEN env var."
+            echo "Or create a .env file with: GH_TOKEN=ghp_..."
+            echo "Or use --clone flag to extract via cloning instead."
+            exit 1
+        fi
     fi
 
     while IFS='|' read -r NAME URL; do

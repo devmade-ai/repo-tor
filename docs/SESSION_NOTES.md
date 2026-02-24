@@ -9,6 +9,7 @@ Current state for AI assistants to continue work.
 **Recent Updates (2026-02-24):**
 - **Add New Repos & Projects Tab** — Added `budgy-ting` and `tool-till-tees` to config/repos.json. Created new Projects tab in dashboard showing all 14 projects with live site links and GitHub repo links. Projects split into "Live Projects" (8 with deployed sites) and "Other Repositories" (6 repo-only).
 - **Feed the Chicken — 206 New Commits** — Incremental extraction and AI analysis of 206 new commits across 7 repos: glow-props (6), few-lap (16), budgy-ting (19), repo-tor (22), see-veo (41), tool-till-tees (39), graphiki (63). All batches human-approved. Dashboard re-aggregated: 14 repos, 1908 total commits.
+- **Refactor extract-api.js — Remove gh CLI dependency** — Rewrote `extract-api.js` to use curl instead of `gh` CLI. Added multi-token discovery (`GH_TOKEN`, `GITHUB_TOKEN`, `GITHUB_ALL_REPO_TOKEN`). Updated `update-all.sh` to match. Tested and confirmed working. No more cloning needed for extraction.
 
 **Previous Updates (2026-02-19):**
 - **Embed Auto-Resize Helper Script** — Added `dashboard/public/embed.js`, a standalone script that parent pages include to auto-resize all repo-tor iframes. Eliminates need for embedders to write their own `postMessage` listener. One `<script>` tag handles everything. Docs updated to use this as the primary approach.
@@ -424,4 +425,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-24 - Added budgy-ting + tool-till-tees repos, Projects tab, fed 206 new commits.*
+*Last updated: 2026-02-24 - Added repos, Projects tab, fed 206 commits, refactored extract-api.js to remove gh CLI dependency.*

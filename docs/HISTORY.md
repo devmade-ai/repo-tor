@@ -26,6 +26,27 @@ Log of significant changes to code and documentation.
 
 ---
 
+### Refactor extract-api.js — Remove gh CLI Dependency
+
+**Why:** `extract-api.js` required `gh` CLI which is often not installed in CI/cloud environments. This caused AI sessions to fall back to cloning entire repos just to get git history, which is slow and wasteful. Also, the script only checked `GH_TOKEN` but the available env var was `GITHUB_ALL_REPO_TOKEN`.
+
+**Changes:**
+- Rewrote all GitHub API calls to use `curl` instead of `gh` CLI — curl is universally available and handles HTTP proxies correctly
+- Added multi-token discovery: checks `GH_TOKEN`, `GITHUB_TOKEN`, `GITHUB_ALL_REPO_TOKEN` (in order)
+- Updated `update-all.sh` to remove `gh` CLI check, replaced with token presence check
+- Updated `docs/USER_ACTIONS.md` — removed gh CLI setup instructions (no longer needed)
+- Updated `docs/ADMIN_GUIDE.md` — prerequisites now list token + curl instead of gh CLI
+- Added AI lesson about cloning vs API and env var discovery
+
+**Files:**
+- `scripts/extract-api.js` — Rewritten HTTP layer
+- `scripts/update-all.sh` — Removed gh CLI check
+- `docs/USER_ACTIONS.md`
+- `docs/ADMIN_GUIDE.md`
+- `docs/AI_LESSONS.md`
+
+---
+
 ### Feed the Chicken — 206 New Commits (7 repos)
 
 **Why:** Incremental extraction to process new commits not yet analyzed across all tracked repositories.

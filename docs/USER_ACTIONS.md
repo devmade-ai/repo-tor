@@ -4,87 +4,26 @@ Manual steps that require user action (external dashboards, credentials, configu
 
 ## Pending Actions
 
-### Set Up GitHub CLI for API Extraction
-
-**Why:** The API-based extraction (`extract-api.js`) requires GitHub authentication. This enables faster extraction without cloning repositories.
-
----
-
-#### Option A: Interactive Setup (Human Users)
-
-1. Run the setup script:
-   ```bash
-   ./scripts/setup-gh.sh
-   ```
-
-2. The script will:
-   - Install `gh` CLI if not present (requires sudo on Linux)
-   - Guide you through GitHub authentication
-   - Verify API access is working
-
-3. After setup, test the API extraction:
-   ```bash
-   node scripts/extract-api.js devmade-ai/repo-tor --output=reports/
-   ```
-
----
-
-#### Option B: .env File Setup (AI Sessions / Non-Interactive)
-
-For AI assistants that can't use interactive authentication:
-
-1. **Create a Personal Access Token** at https://github.com/settings/tokens/new
-   - Select scopes: `repo` (for private repos) or `public_repo` (public only)
-   - Copy the token (starts with `ghp_`)
-
-2. **Create .env file:**
-   ```bash
-   cp .env.example .env
-   ```
-
-3. **Edit .env** and set your token:
-   ```
-   GH_TOKEN=ghp_your_token_here
-   ```
-
-4. **Test extraction:**
-   ```bash
-   node scripts/extract-api.js devmade-ai/repo-tor --output=reports/
-   ```
-
-The scripts automatically load `.env` from the project root.
-
----
-
-#### Option C: One-liner with Token
-
-```bash
-# Save token to .env for future sessions
-./scripts/setup-gh.sh --token=ghp_xxxx --save-env
-
-# Or just set it for this run
-GH_TOKEN=ghp_xxxx node scripts/extract-api.js owner/repo
-```
-
----
-
-**Verification:**
-```bash
-# Check if .env has token
-cat .env | grep GH_TOKEN
-
-# Test API access
-GH_TOKEN=$(grep GH_TOKEN .env | cut -d= -f2) gh api user --jq '.login'
-```
-
-**If this fails:** Use `--clone` flag for clone-based extraction instead:
-```bash
-./scripts/update-all.sh --clone
-```
+None currently.
 
 ## Completed Actions
 
-None yet.
+### Set Up GitHub Token for API Extraction (Completed 2026-02-24)
+
+**What:** `extract-api.js` now uses curl + GitHub REST API directly (no `gh` CLI required). It auto-discovers tokens from `GH_TOKEN`, `GITHUB_TOKEN`, or `GITHUB_ALL_REPO_TOKEN` environment variables, or from a `.env` file.
+
+**Setup:** Set any of these env vars with a GitHub personal access token:
+```bash
+export GH_TOKEN=ghp_your_token_here
+# Or: GITHUB_TOKEN, GITHUB_ALL_REPO_TOKEN
+```
+
+Or create a `.env` file in the project root:
+```
+GH_TOKEN=ghp_your_token_here
+```
+
+**Test:** `node scripts/extract-api.js devmade-ai/repo-tor --output=reports/`
 
 ---
 
