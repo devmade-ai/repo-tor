@@ -4,6 +4,15 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-24
 
+### Fix TagsTab CHART_TEXT_COLOR TDZ Crash
+
+**Why:** The dashboard crashed on load with `ReferenceError: Cannot access 'vf' before initialization`. In the production build, `const CHART_TEXT_COLOR = CHART_TEXT_COLOR;` in TagsTab.jsx was a self-referencing `const` declaration (temporal dead zone error). The variable was intended to hold the CSS `--text-secondary` color for the doughnut chart legend, but was accidentally assigned to itself instead of reading the CSS variable.
+
+**Changes:**
+- `dashboard/js/tabs/TagsTab.jsx` — Line 13: Replaced `const CHART_TEXT_COLOR = CHART_TEXT_COLOR;` with `const CHART_TEXT_COLOR = getComputedStyle(document.documentElement).getPropertyValue('--text-secondary').trim() || '#e5e7eb';`. This reads the CSS variable once at module load (avoiding per-render getComputedStyle), matching the pattern used in `main.jsx` line 33-34.
+
+**Files:** `dashboard/js/tabs/TagsTab.jsx`
+
 ### Move Debug Pill to HTML Level (Fix: Pill Not Showing During Loading Issues)
 
 **Why:** Debug pill was created inside the JS bundle (`main.jsx`). If the bundle failed to load, parse, or execute (stale service worker cache, network error, JS runtime error), the debug pill never appeared — defeating its purpose. Users saw an infinite loading spinner with no way to diagnose the problem.
