@@ -1,0 +1,45 @@
+{
+  "sha": "0df4b46",
+  "fullSha": "0df4b46778e5c4555304b546c9a6012dd4396694",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-19T04:37:00+00:00",
+  "commitDate": "2026-02-19T04:37:00+00:00",
+  "subject": "feat(charts): auto-resize iframe containers via postMessage protocol",
+  "body": "Chart iframes now dynamically size to their content height using\nrepo-tor's new repo-tor:resize postMessage protocol instead of fixed\nTailwind height classes. Adds useIframeAutoResize hook that validates\nmessage origin, matches event.source to the correct iframe ref, and\nfalls back to static heights until the first message arrives.\n\nTags: charts, iframe, responsive, hooks\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: activity-charts\nSemver: minor\n\nhttps://claude.ai/code/session_01Hb16aUhqzc9JxKpQKGXG2j",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "charts",
+  "title": "auto-resize iframe containers via postMessage protocol",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 90,
+    "deletions": 3
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/EXTERNAL_REFERENCES.md",
+    "src/components/ActivityCharts.tsx",
+    "src/components/ActivityTimeline.tsx",
+    "src/hooks/useIframeAutoResize.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 1,
+  "impact": "user-facing"
+}

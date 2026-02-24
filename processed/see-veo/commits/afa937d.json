@@ -1,0 +1,47 @@
+{
+  "sha": "afa937d",
+  "fullSha": "afa937d548c588df424c1583cc83fb211530f616",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-19T05:53:35+00:00",
+  "commitDate": "2026-02-19T05:53:35+00:00",
+  "subject": "fix(charts): use repo-tor embed.js for iframe auto-sizing",
+  "body": "Replace custom useIframeAutoResize hook with repo-tor's new embed.js\nhelper script. The script auto-discovers all repo-tor iframes and\nhandles resize messages natively, eliminating the need for manual\norigin validation, source matching, and per-iframe React state.\n\n- Delete useIframeAutoResize hook (custom postMessage listener)\n- Add useRepoTorEmbed hook (loads embed.js script once, idempotent)\n- Simplify ActivityCharts and ActivityTimeline (remove refs, state,\n  conditional styles — static Tailwind classes act as fallback until\n  embed.js sets inline height)\n- Update EXTERNAL_REFERENCES.md and CLAUDE.md\n\nTags: charts, embed, iframe, upstream-sync\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: chart-embeds\nSemver: patch\n\nhttps://claude.ai/code/session_01TH4W6au8CEGNmTNSKoB8qU",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "charts",
+  "title": "use repo-tor embed.js for iframe auto-sizing",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 63,
+    "deletions": 78
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/EXTERNAL_REFERENCES.md",
+    "src/components/ActivityCharts.tsx",
+    "src/components/ActivityTimeline.tsx",
+    "src/hooks/useIframeAutoResize.ts",
+    "src/hooks/useRepoTorEmbed.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}
