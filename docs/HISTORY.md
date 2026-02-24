@@ -4,6 +4,23 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-24
 
+### Move Debug Pill to HTML Level (Fix: Pill Not Showing During Loading Issues)
+
+**Why:** Debug pill was created inside the JS bundle (`main.jsx`). If the bundle failed to load, parse, or execute (stale service worker cache, network error, JS runtime error), the debug pill never appeared — defeating its purpose. Users saw an infinite loading spinner with no way to diagnose the problem.
+
+**Changes:**
+- `index.html` — Added inline `<script>` that creates the debug pill and error capture at the HTML level, independent of the JS bundle. Features:
+  - Circular buffer event store (200-entry max) for error logging
+  - `window.onerror` and `unhandledrejection` listeners (work before bundle loads)
+  - Clickable pill: "0 errors" (green) or "N errors" (red), expandable to diagnostics/error log
+  - Copy and close actions via event delegation (`data-action` attributes)
+  - 10-second loading timeout: warns user if React hasn't mounted yet
+  - Exposes `window.__debugPushError()`, `window.__debugErrors`, `window.__debugClearLoadTimer()` for the bundle to enhance
+  - Skipped in embed mode (`?embed=`)
+- `main.jsx` — Removed ~170 lines of duplicate debug banner code. Now bridges to the HTML pill via `window.__debugPushError()` for React-specific errors (component stacks from `RootErrorBoundary`). Signals mount via `window.__debugClearLoadTimer()`.
+
+**Files:** `dashboard/index.html`, `dashboard/js/main.jsx`
+
 ### Comprehensive Code Review & Bug Fixes (24 issues)
 
 **Why:** Full project audit to identify and fix security vulnerabilities, performance bottlenecks, accessibility gaps, and code quality issues across all project files.

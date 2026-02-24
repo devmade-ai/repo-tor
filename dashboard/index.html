@@ -20,6 +20,202 @@
         <noscript><p style="color:#e5e7eb;text-align:center;padding:48px;font-family:system-ui,sans-serif">JavaScript is required to run this dashboard.</p></noscript>
     </div>
     <div id="heatmap-tooltip" class="heatmap-tooltip"></div>
+    <!--
+      Debug pill & loading timeout: inline script so it works even when the
+      JS bundle fails to load. Captures errors, shows diagnostics, and warns
+      the user if loading takes too long. The main.jsx bundle enhances this
+      once it mounts (adds React component stacks, etc.).
+      Skipped in embed mode (?embed=) — embedded charts shouldn't show debug UI.
+    -->
+    <script>
+    (function() {
+      if (new URLSearchParams(location.search).has('embed')) return;
+
+      // --- Circular buffer event store (200 entries max) ---
+      var MAX_ENTRIES = 200;
+      var errors = [];
+      var dismissed = false;
+      var expanded = false;
+      var banner = null;
+      var loadTimerId = null;
+      // Track whether the main JS bundle has mounted React
+      window.__debugReactMounted = false;
+
+      function pushError(msg, stack) {
+        if (errors.length >= MAX_ENTRIES) errors.shift();
+        errors.push({ time: new Date().toLocaleTimeString(), message: msg, stack: stack || '' });
+        dismissed = false;
+        render();
+      }
+
+      // Expose for main.jsx to push React-specific errors (component stacks)
+      window.__debugErrors = errors;
+      window.__debugPushError = pushError;
+
+      // --- Error listeners (work before JS bundle loads) ---
+      window.addEventListener('error', function(e) {
+        pushError(e.message || 'Unknown error', e.error && e.error.stack);
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        var r = e.reason;
+        pushError('Unhandled Promise: ' + (r && r.message || String(r)), r && r.stack);
+      });
+
+      // --- DOM helpers ---
+      function el(tag, styles, text) {
+        var node = document.createElement(tag);
+        for (var k in styles) node.style[k] = styles[k];
+        if (text) node.textContent = text;
+        return node;
+      }
+
+      function getDiagnostics() {
+        var sw = 'serviceWorker' in navigator;
+        var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        var ctrl = navigator.serviceWorker && navigator.serviceWorker.controller ? 'active' : 'none';
+        return [
+          'Service Worker support: ' + (sw ? 'yes' : 'no'),
+          'SW controller: ' + ctrl,
+          'Standalone mode: ' + standalone,
+          'PWA installed flag: ' + (standalone || localStorage.getItem('pwaInstalled') === 'true'),
+          'React mounted: ' + !!window.__debugReactMounted,
+          'Errors: ' + errors.length,
+          'User agent: ' + navigator.userAgent,
+        ].join('\n');
+      }
+
+      // --- Render the banner ---
+      function render() {
+        if (!banner) {
+          banner = document.createElement('div');
+          banner.id = 'debug-error-banner';
+          banner.addEventListener('click', handleClick);
+          document.body.appendChild(banner);
+        }
+        banner.textContent = '';
+
+        var hasErrors = errors.length > 0;
+
+        if (expanded) {
+          // Expanded diagnostics / error log view
+          var isErrorView = hasErrors;
+          Object.assign(banner.style, {
+            position:'fixed', bottom:'0', left:'0', right:'0', zIndex:'99999',
+            maxHeight:'40vh', overflow:'auto',
+            background: isErrorView ? '#1a0000' : '#001a00',
+            borderTop: '2px solid ' + (isErrorView ? '#ff4444' : '#4ade80'),
+            fontFamily:'monospace', fontSize:'12px',
+            color: isErrorView ? '#ff9999' : '#4ade80',
+            padding:'0', display:'block',
+          });
+          var hdr = el('div', {display:'flex', justifyContent:'space-between', alignItems:'center', padding:'6px 12px', background: isErrorView ? '#2a0000' : '#002a00', position:'sticky', top:'0'});
+          hdr.appendChild(el('span', {fontWeight:'bold', color: isErrorView ? '#ff6666' : '#4ade80'},
+            isErrorView ? errors.length + ' error' + (errors.length !== 1 ? 's' : '') : 'Diagnostics'));
+          var btns = el('div', {display:'flex', gap:'8px'});
+          var copyBtn = el('button', {padding:'2px 10px', background: isErrorView ? '#ff4444' : '#16a34a', color:'#fff', border:'none', borderRadius:'3px', cursor:'pointer', fontSize:'11px'}, 'Copy');
+          copyBtn.setAttribute('data-action', isErrorView ? 'copy-errors' : 'copy-diagnostics');
+          var closeBtn = el('button', {padding:'2px 10px', background:'#333', color:'#ccc', border:'none', borderRadius:'3px', cursor:'pointer', fontSize:'11px'}, 'Close');
+          closeBtn.setAttribute('data-action', 'collapse');
+          btns.appendChild(copyBtn);
+          btns.appendChild(closeBtn);
+          hdr.appendChild(btns);
+          banner.appendChild(hdr);
+
+          var log = el('pre', {padding:'8px 12px', margin:'0', whiteSpace:'pre-wrap', wordBreak:'break-word'});
+          log.id = isErrorView ? 'debug-error-log' : 'debug-info-log';
+          if (isErrorView) {
+            log.textContent = errors.map(function(e) {
+              return '[' + e.time + '] ' + e.message + (e.stack ? '\n' + e.stack : '');
+            }).join('\n---\n');
+          } else {
+            log.textContent = getDiagnostics();
+          }
+          banner.appendChild(log);
+        } else if (hasErrors) {
+          // Collapsed error pill
+          Object.assign(banner.style, {
+            position:'fixed', bottom:'0', right:'0', left:'auto', zIndex:'99999',
+            maxHeight:'none', overflow:'visible', background:'transparent',
+            borderTop:'none', fontFamily:'monospace', fontSize:'10px',
+            color:'#ff6666', padding:'8px 12px',
+            display: dismissed ? 'none' : 'block',
+          });
+          var pill = el('span', {background:'rgba(255,68,68,0.15)', border:'1px solid rgba(255,68,68,0.3)', borderRadius:'4px', padding:'3px 8px', color:'#ff6666', fontSize:'10px', cursor:'pointer'},
+            errors.length + ' error' + (errors.length !== 1 ? 's' : ''));
+          pill.setAttribute('data-action', 'expand');
+          banner.appendChild(pill);
+        } else {
+          // Collapsed "0 errors" pill
+          Object.assign(banner.style, {
+            position:'fixed', bottom:'0', right:'0', left:'auto', zIndex:'99999',
+            maxHeight:'none', overflow:'visible', background:'transparent',
+            borderTop:'none', fontFamily:'monospace', fontSize:'10px',
+            color:'#4ade80', padding:'8px 12px',
+            display: dismissed ? 'none' : 'block',
+          });
+          var pill = el('span', {background:'rgba(22,163,74,0.15)', border:'1px solid rgba(22,163,74,0.3)', borderRadius:'4px', padding:'3px 8px', color:'#4ade80', fontSize:'10px', cursor:'pointer'}, '0 errors');
+          pill.setAttribute('data-action', 'show-diagnostics');
+          banner.appendChild(pill);
+        }
+      }
+
+      function handleClick(e) {
+        var target = e.target.closest ? e.target.closest('[data-action]') : null;
+        if (!target) return;
+        var action = target.getAttribute('data-action');
+
+        if (action === 'copy-errors') {
+          var text = errors.map(function(e) { return '[' + e.time + '] ' + e.message + '\n' + (e.stack || ''); }).join('\n---\n');
+          navigator.clipboard.writeText(text).then(function() { target.textContent = 'Copied!'; setTimeout(function(){ target.textContent = 'Copy'; }, 1500); });
+        } else if (action === 'copy-diagnostics') {
+          var log = banner.querySelector('#debug-info-log');
+          if (log) navigator.clipboard.writeText(log.textContent).then(function() { target.textContent = 'Copied!'; setTimeout(function(){ target.textContent = 'Copy'; }, 1500); });
+        } else if (action === 'close') {
+          dismissed = true;
+          banner.style.display = 'none';
+          expanded = false;
+        } else if (action === 'collapse') {
+          expanded = false;
+          render();
+        } else if (action === 'show-diagnostics') {
+          expanded = true;
+          render();
+        } else if (action === 'expand') {
+          expanded = true;
+          render();
+        }
+      }
+
+      // Create banner immediately
+      render();
+
+      // --- Loading timeout ---
+      // If React hasn't mounted after 10 seconds, show a warning in the
+      // loading indicator so the user knows something may be wrong.
+      loadTimerId = setTimeout(function() {
+        if (window.__debugReactMounted) return;
+        var root = document.getElementById('root');
+        if (!root) return;
+        // Only add the warning if the loading spinner is still showing
+        // (React would have replaced #root contents on mount)
+        var msg = root.querySelector('.loading-timeout-msg');
+        if (msg) return;
+        var warning = document.createElement('p');
+        warning.className = 'loading-timeout-msg';
+        warning.style.cssText = 'color:#f59e0b;font-size:13px;font-family:system-ui,sans-serif;text-align:center;max-width:400px;padding:0 16px';
+        warning.textContent = 'This is taking longer than usual. Check the debug pill in the bottom-right corner for errors, or try reloading.';
+        // Append inside the flex container
+        var flex = root.querySelector('div');
+        if (flex) flex.appendChild(warning);
+      }, 10000);
+
+      // Let main.jsx signal when React is mounted
+      window.__debugClearLoadTimer = function() {
+        window.__debugReactMounted = true;
+        if (loadTimerId) { clearTimeout(loadTimerId); loadTimerId = null; }
+      };
+    })();
+    </script>
     <script type="module" src="./js/main.jsx"></script>
 </body>
 </html>
