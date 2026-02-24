@@ -30,6 +30,14 @@ function getHumorousFileName(path, cache) {
 }
 
 // --- Metrics pool ---
+// Requirement: Make all metric labels understandable to non-technical users
+// Approach: Replace dev jargon ("commit", "ratio", "refactor", "untagged") with
+//   plain language ("change", "per", "cleanup", "uncategorized"). Keep labels concise
+//   since they appear in small metric cards and dropdown selectors.
+// Alternatives:
+//   - Add tooltips explaining jargon: Rejected — extra click/hover, CLAUDE.md says
+//     "UI must be intuitive without instructions"
+//   - Keep dev terms: Rejected — violates "no jargon, technical terms" hard rule
 const DISCOVER_METRICS = [
     {
         id: 'net-growth',
@@ -43,56 +51,56 @@ const DISCOVER_METRICS = [
     },
     {
         id: 'avg-commit-size',
-        label: 'Avg Commit Size',
+        label: 'Avg Change Size',
         calculate: (commits) => {
             const total = commits.reduce((sum, c) => sum + (c.stats?.additions || 0) + (c.stats?.deletions || 0), 0);
             const avg = commits.length > 0 ? Math.round(total / commits.length) : 0;
-            return { value: avg.toLocaleString(), sub: 'lines/commit' };
+            return { value: avg.toLocaleString(), sub: 'lines per change' };
         },
     },
     {
         id: 'deletion-ratio',
-        label: 'Deletion Ratio',
+        label: 'Code Removed',
         calculate: (commits) => {
             const adds = commits.reduce((sum, c) => sum + (c.stats?.additions || 0), 0);
             const dels = commits.reduce((sum, c) => sum + (c.stats?.deletions || 0), 0);
             const total = adds + dels;
             const pct = total > 0 ? Math.round((dels / total) * 100) : 0;
-            return { value: `${pct}%`, sub: 'of changes' };
+            return { value: `${pct}%`, sub: 'of all changes were deletions' };
         },
     },
     {
         id: 'feature-bug-ratio',
-        label: 'Feature:Bug Ratio',
+        label: 'Features per Bug Fix',
         calculate: (commits) => {
             const features = commits.filter(c => getCommitTags(c).includes('feature')).length;
             const bugs = commits.filter(c => getCommitTags(c).includes('bugfix') || getCommitTags(c).includes('fix')).length;
-            if (bugs === 0) return { value: features > 0 ? `${features}:0` : '0:0', sub: 'features to bugs' };
+            if (bugs === 0) return { value: features > 0 ? `${features}:0` : '0:0', sub: 'features to bug fixes' };
             const ratio = (features / bugs).toFixed(1);
-            return { value: `${ratio}:1`, sub: 'features to bugs' };
+            return { value: `${ratio}:1`, sub: 'features to bug fixes' };
         },
     },
     {
         id: 'test-investment',
-        label: 'Test Investment',
+        label: 'Testing Effort',
         calculate: (commits) => {
             const tests = commits.filter(c => getCommitTags(c).includes('test')).length;
             const pct = commits.length > 0 ? Math.round((tests / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${tests} test commits` };
+            return { value: `${pct}%`, sub: `${tests} test changes` };
         },
     },
     {
         id: 'docs-investment',
-        label: 'Docs Investment',
+        label: 'Documentation Effort',
         calculate: (commits) => {
             const docs = commits.filter(c => getCommitTags(c).includes('docs')).length;
             const pct = commits.length > 0 ? Math.round((docs / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${docs} doc commits` };
+            return { value: `${pct}%`, sub: `${docs} doc changes` };
         },
     },
     {
         id: 'untagged-commits',
-        label: 'Untagged Commits',
+        label: 'Uncategorized Changes',
         calculate: (commits) => {
             const untagged = commits.filter(c => !c.tags || c.tags.length === 0).length;
             const pct = commits.length > 0 ? Math.round((untagged / commits.length) * 100) : 0;
@@ -101,10 +109,10 @@ const DISCOVER_METRICS = [
     },
     {
         id: 'breaking-changes',
-        label: 'Breaking Changes',
+        label: 'Major Updates',
         calculate: (commits) => {
             const breaking = commits.filter(c => c.has_breaking_change).length;
-            return { value: breaking.toLocaleString(), sub: 'commits' };
+            return { value: breaking.toLocaleString(), sub: 'changes that may affect users' };
         },
     },
     {
@@ -121,7 +129,7 @@ const DISCOVER_METRICS = [
             const hour = parseInt(peak[0]);
             const ampm = hour >= 12 ? 'PM' : 'AM';
             const h12 = hour % 12 || 12;
-            return { value: `${h12}${ampm}`, sub: `${peak[1]} commits` };
+            return { value: `${h12}${ampm}`, sub: `${peak[1]} changes` };
         },
     },
     {
@@ -136,7 +144,7 @@ const DISCOVER_METRICS = [
             });
             const peak = Object.entries(dayCounts).sort((a, b) => b[1] - a[1])[0];
             if (!peak) return { value: '-', sub: '' };
-            return { value: days[parseInt(peak[0])], sub: `${peak[1]} commits` };
+            return { value: days[parseInt(peak[0])], sub: `${peak[1]} changes` };
         },
     },
     {
@@ -151,7 +159,7 @@ const DISCOVER_METRICS = [
             const top = Object.entries(authorCounts).sort((a, b) => b[1] - a[1])[0];
             if (!top) return { value: '-', sub: '' };
             const pct = Math.round((top[1] / commits.length) * 100);
-            return { value: `${pct}%`, sub: 'of commits' };
+            return { value: `${pct}%`, sub: 'of all changes' };
         },
     },
     {
@@ -159,30 +167,30 @@ const DISCOVER_METRICS = [
         label: 'Active Contributors',
         calculate: (commits) => {
             const authors = new Set(commits.map(c => getAuthorEmail(c)));
-            return { value: authors.size.toLocaleString(), sub: 'unique authors' };
+            return { value: authors.size.toLocaleString(), sub: 'people' };
         },
     },
     {
         id: 'avg-files-per-commit',
-        label: 'Avg Files/Commit',
+        label: 'Files per Change',
         calculate: (commits) => {
             const total = commits.reduce((sum, c) => sum + getFilesChanged(c), 0);
             const avg = commits.length > 0 ? (total / commits.length).toFixed(1) : 0;
-            return { value: avg, sub: 'files changed' };
+            return { value: avg, sub: 'average files touched' };
         },
     },
     {
         id: 'single-file-commits',
-        label: 'Single-File Commits',
+        label: 'Focused Changes',
         calculate: (commits) => {
             const single = commits.filter(c => getFilesChanged(c) === 1).length;
             const pct = commits.length > 0 ? Math.round((single / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${single} commits` };
+            return { value: `${pct}%`, sub: `${single} touched just 1 file` };
         },
     },
     {
         id: 'large-commits',
-        label: 'Large Commits',
+        label: 'Large Changes',
         calculate: (commits) => {
             const large = commits.filter(c => (c.stats?.additions || 0) + (c.stats?.deletions || 0) > 500).length;
             const pct = commits.length > 0 ? Math.round((large / commits.length) * 100) : 0;
@@ -191,11 +199,11 @@ const DISCOVER_METRICS = [
     },
     {
         id: 'refactor-ratio',
-        label: 'Refactor Work',
+        label: 'Code Cleanup',
         calculate: (commits) => {
             const refactors = commits.filter(c => getCommitTags(c).includes('refactor')).length;
             const pct = commits.length > 0 ? Math.round((refactors / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${refactors} refactors` };
+            return { value: `${pct}%`, sub: `${refactors} cleanup changes` };
         },
     },
     {
@@ -203,7 +211,7 @@ const DISCOVER_METRICS = [
         label: 'Security Work',
         calculate: (commits) => {
             const security = commits.filter(c => getCommitTags(c).includes('security')).length;
-            return { value: security.toLocaleString(), sub: 'security commits' };
+            return { value: security.toLocaleString(), sub: 'security changes' };
         },
     },
     {
@@ -215,7 +223,7 @@ const DISCOVER_METRICS = [
                 return day === 0 || day === 6;
             }).length;
             const pct = commits.length > 0 ? Math.round((weekend / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${weekend} commits` };
+            return { value: `${pct}%`, sub: `${weekend} changes` };
         },
     },
     {
@@ -227,7 +235,7 @@ const DISCOVER_METRICS = [
                 return hour >= 22 || hour < 6;
             }).length;
             const pct = commits.length > 0 ? Math.round((night / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${night} commits (10PM-6AM)` };
+            return { value: `${pct}%`, sub: `${night} changes (10PM-6AM)` };
         },
     },
     {
@@ -239,7 +247,7 @@ const DISCOVER_METRICS = [
                 return hour >= 5 && hour < 9;
             }).length;
             const pct = commits.length > 0 ? Math.round((early / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${early} commits (5-9AM)` };
+            return { value: `${pct}%`, sub: `${early} changes (5-9AM)` };
         },
     },
 ];

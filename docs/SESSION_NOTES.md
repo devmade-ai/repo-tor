@@ -7,6 +7,7 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-24 — Mobile Tab Layout):**
+- **Discover Metric Labels Clarified** — Replaced developer jargon in all 20 Discover tab metric labels/sub-text with plain language for non-technical users: "Avg Commit Size"→"Avg Change Size", "Deletion Ratio"→"Code Removed", "Feature:Bug Ratio"→"Features per Bug Fix", "Test Investment"→"Testing Effort", "Docs Investment"→"Documentation Effort", "Untagged Commits"→"Uncategorized Changes", "Breaking Changes"→"Major Updates", "Avg Files/Commit"→"Files per Change", "Single-File Commits"→"Focused Changes", "Refactor Work"→"Code Cleanup". All "commits" sub-text→"changes".
 - **Section Reordering by Interest** — Reordered sections within each tab from most interesting/engaging to least interesting:
   - **SummaryTab**: Key Highlights → Activity Snapshot → Key Stats (insights first, raw numbers last)
   - **TimelineTab**: Commit Activity chart → Recent Changes → Lines Changed → Activity Summary (visual hook first, stats last)

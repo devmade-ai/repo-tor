@@ -4,6 +4,17 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-24
 
+### Discover Metric Labels Clarified for Non-Technical Users
+
+**Why:** Discover tab metric cards used developer jargon ("commit", "ratio", "refactor", "untagged") that violates the CLAUDE.md hard rule: "no jargon, technical terms, or developer-speak" for non-technical users.
+
+**Changes:**
+- Labels: "Avg Commit Size"→"Avg Change Size", "Deletion Ratio"→"Code Removed", "Feature:Bug Ratio"→"Features per Bug Fix", "Test Investment"→"Testing Effort", "Docs Investment"→"Documentation Effort", "Untagged Commits"→"Uncategorized Changes", "Breaking Changes"→"Major Updates", "Avg Files/Commit"→"Files per Change", "Single-File Commits"→"Focused Changes", "Refactor Work"→"Code Cleanup"
+- Sub-text: Replaced all "commits" with "changes" (e.g., "5 test commits"→"5 test changes", "of commits"→"of all changes")
+- Added descriptive sub-text where missing (e.g., "commits"→"changes that may affect users" for Major Updates)
+
+**Files:** `dashboard/js/tabs/DiscoverTab.jsx`
+
 ### Section Reordering by Interest Level
 
 **Why:** Sections within each tab were ordered structurally (stats first, then charts, then details) rather than by what a user would find most engaging. Stats/numbers are reference data — useful but not interesting. Charts, insights, and actionable breakdowns are what draw users in.
