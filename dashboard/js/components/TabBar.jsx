@@ -7,6 +7,7 @@ const TABS = [
     { id: 'work', label: 'Breakdown' },
     { id: 'health', label: 'Health' },
     { id: 'discover', label: 'Discover' },
+    { id: 'projects', label: 'Projects' },
 ];
 
 export default function TabBar() {

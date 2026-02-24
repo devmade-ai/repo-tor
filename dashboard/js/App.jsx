@@ -17,6 +17,7 @@ import TagsTab from './tabs/TagsTab.jsx';
 import HealthTab from './tabs/HealthTab.jsx';
 import SecurityTab from './tabs/SecurityTab.jsx';
 import DiscoverTab from './tabs/DiscoverTab.jsx';
+import ProjectsTab from './tabs/ProjectsTab.jsx';
 
 function combineDatasets(datasets) {
     if (datasets.length === 0) return null;
@@ -277,6 +278,7 @@ export default function App() {
                                 </div>
                             )}
                             {state.activeTab === 'discover' && <DiscoverTab />}
+                            {state.activeTab === 'projects' && <ProjectsTab />}
                         </ErrorBoundary>
                     </div>
                 </div>

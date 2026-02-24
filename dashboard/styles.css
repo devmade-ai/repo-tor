@@ -1365,6 +1365,58 @@
             display: none !important;
         }
 
+        /* Project cards — directory listing for live projects */
+        .project-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .project-card:hover {
+            border-color: rgba(45, 104, 255, 0.4);
+        }
+        .project-lang-badge {
+            font-size: 10px;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            background: var(--bg-tertiary);
+            color: var(--text-tertiary);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+        .project-link-primary {
+            background: var(--color-primary);
+            color: white;
+        }
+        .project-link-primary:hover {
+            box-shadow: var(--glow-primary);
+            opacity: 0.9;
+        }
+        .project-link-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+        .project-link-secondary:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
         /* Filter badge on toggle button - dark theme */
         .filter-toggle .filter-badge {
             position: absolute;
