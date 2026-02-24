@@ -1,0 +1,60 @@
+{
+  "sha": "00266d2",
+  "fullSha": "00266d2bfc6363670a2bace9fe4207ca71475ebf",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-19T21:16:05+00:00",
+  "commitDate": "2026-02-19T21:16:05+00:00",
+  "subject": "feat(ux): add pull-to-refresh, operating hours, unit tests, and cleanup",
+  "body": "- Add pull-to-refresh on home screen station list via FlatList onRefresh\n- Add operating hours display on station detail (day-by-day table)\n- Remove unused Expo template files (modal, EditScreenInfo, StyledText, ExternalLink)\n- Set up Jest + ts-jest, write 21 unit tests for formatting utilities\n- Update docs: TODO (move completed), HISTORY, SESSION_NOTES, TESTING_GUIDE\n\nTags: ux, testing, cleanup, station-detail, home-screen\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: few-lap-mvp\nSemver: minor\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+  "tags": [
+    "feature",
+    "ux",
+    "test-unit",
+    "removal"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "ux",
+  "title": "add pull-to-refresh, operating hours, unit tests, and cleanup",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 17,
+    "additions": 8984,
+    "deletions": 2764
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "app/_layout.tsx",
+    "app/modal.tsx",
+    "app/station/[id].tsx",
+    "components/EditScreenInfo.tsx",
+    "components/ExternalLink.tsx",
+    "components/StyledText.tsx",
+    "components/__tests__/StyledText-test.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "jest.config.js",
+    "package-lock.json",
+    "package.json",
+    "src/components/station/StationList.tsx",
+    "src/lib/__tests__/formatting.test.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "user-facing"
+}

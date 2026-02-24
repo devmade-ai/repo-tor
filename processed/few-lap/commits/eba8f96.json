@@ -1,0 +1,51 @@
+{
+  "sha": "eba8f96",
+  "fullSha": "eba8f96bf39a5a46ba5c4071cab54706c9c7ed8c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-19T22:51:58+00:00",
+  "commitDate": "2026-02-19T22:51:58+00:00",
+  "subject": "fix(core): resolve 8 runtime and quality issues from code review",
+  "body": "- Fix station detail coordinate extraction: parse PostGIS GeoJSON\n  instead of accessing non-existent .latitude/.longitude properties\n  (was sending users to 0,0 for directions)\n- Fix fuel type names: query fuel_prices table (has FK for PostgREST\n  join) instead of current_prices materialized view (no FK, join\n  silently fails, shows \"Unknown\" for all fuel types)\n- Fix Mapbox token init: FuelMap and StationMarker now import from\n  lib/mapbox init module instead of @rnmapbox/maps directly, ensuring\n  setAccessToken is called before map renders\n- Fix map/list toggle: make views mutually exclusive (list was always\n  visible regardless of toggle state)\n- Add admin auth warning banner: persistent banner in admin layout\n  warns that edits may fail without a valid admin session\n- Add updated_at trigger: new migration auto-sets stations.updated_at\n  on row update, removing fragile client-side timestamp setting\n- Remove dead dark mode branching: root layout hardcodes DefaultTheme\n  since all components use light-only styles\n- Fix inconsistent imports: standardize to relative paths (was mixing\n  @/ alias with ../../ relative paths)\n\nTags: bugfix, code-review, database, mapbox, admin, ux\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: code-review\nSemver: patch\n\nhttps://claude.ai/code/session_01AGD98nV46FWHZyb1SmQjEd",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "core",
+  "title": "resolve 8 runtime and quality issues from code review",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 112,
+    "deletions": 47
+  },
+  "files": [
+    "app/(tabs)/_layout.tsx",
+    "app/(tabs)/index.tsx",
+    "app/+not-found.tsx",
+    "app/_layout.tsx",
+    "app/admin/_layout.tsx",
+    "app/admin/station/[id].tsx",
+    "app/station/[id].tsx",
+    "src/components/map/FuelMap.tsx",
+    "src/components/map/StationMarker.tsx",
+    "supabase/migrations/20260219000004_updated_at_trigger.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}
