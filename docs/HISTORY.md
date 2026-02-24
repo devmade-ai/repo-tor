@@ -4,6 +4,18 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-24
 
+### Fix Projects Tab Loading Error in Production
+
+**Why:** ProjectsTab fetched `./projects.json` at runtime, but the file was never copied to the `dist/` build output. It worked in dev mode (Vite serves from the root directory) but failed on GitHub Pages with "Could not load project list. The file may not be deployed yet."
+
+**Root cause:** When the Projects tab was added, `projects.json` was placed in `dashboard/` alongside other data files, but was not added to the deploy workflow's copy step (`deploy.yml` lines 43-50). Unlike `data.json` and other data files which were listed there, `projects.json` was missed.
+
+**Changes:**
+- Moved `dashboard/projects.json` → `dashboard/public/projects.json` so Vite automatically includes it in build output (same pattern as `embed.js` and icons)
+- Added explicit copy of `projects.json` in `.github/workflows/deploy.yml` as a safety net
+
+**Files:** `dashboard/public/projects.json` (moved from `dashboard/`), `.github/workflows/deploy.yml`
+
 ### Fix TagsTab Initialization Crash (ReferenceError: Cannot access 'vf' before initialization)
 
 **Why:** Production build crashed immediately on load. The minified error `Cannot access 'vf' before initialization` traced back to `TagsTab.jsx` line 13: `const CHART_TEXT_COLOR = CHART_TEXT_COLOR;` — a self-referential assignment that reads the variable during its own initialization (temporal dead zone). The intent was to read the `--text-secondary` CSS variable once at module load.
