@@ -151,9 +151,55 @@ export default function SummaryTab() {
         }
     };
 
+    // Requirement: Order sections from most interesting to least interesting
+    // Approach: Highlights first (surprising patterns), then colorful snapshot, then raw stats
+    // Alternatives:
+    //   - Stats first: Rejected — numbers without context are the least engaging opener
+    //   - Snapshot first: Rejected — highlights surface actionable insights better
     return (
         <div className="space-y-6">
-            {/* Stats Cards */}
+            {/* Key Highlights — most interesting: surfaces notable patterns and surprises */}
+            <CollapsibleSection title="Key Highlights" subtitle="Notable patterns in recent work">
+                {highlights.length > 0 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        {highlights.map((h) => (
+                            <div key={h.label} className="p-3 bg-themed-tertiary rounded">
+                                <p className="text-xs text-themed-tertiary mb-1">{h.label}</p>
+                                <p className="text-sm font-semibold text-themed-primary">{h.value}</p>
+                                {h.subvalue && (
+                                    <p className="text-xs text-themed-tertiary">{h.subvalue}</p>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-themed-tertiary text-sm">No highlights to show for the current data</p>
+                )}
+            </CollapsibleSection>
+
+            {/* Activity Snapshot — colorful attention-grabbing cards */}
+            <CollapsibleSection title="Activity Snapshot" subtitle="Work timing and complexity signals">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div className="text-center p-3 bg-amber-50 dark:bg-amber-900/20 rounded">
+                        <p className="text-2xl font-bold text-amber-600">{metrics.afterHoursCount}</p>
+                        <p className="text-xs text-themed-tertiary">After-hours</p>
+                    </div>
+                    <div className="text-center p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded">
+                        <p className="text-2xl font-bold text-indigo-600">{metrics.weekendCount}</p>
+                        <p className="text-xs text-themed-tertiary">Weekend</p>
+                    </div>
+                    <div className="text-center p-3 bg-pink-50 dark:bg-pink-900/20 rounded">
+                        <p className="text-2xl font-bold text-pink-600">{metrics.holidayCount}</p>
+                        <p className="text-xs text-themed-tertiary">Holiday</p>
+                    </div>
+                    <div className="text-center p-3 bg-purple-50 dark:bg-purple-900/20 rounded">
+                        <p className="text-2xl font-bold text-purple-600">{metrics.complexChanges}</p>
+                        <p className="text-xs text-themed-tertiary">Complex</p>
+                    </div>
+                </div>
+            </CollapsibleSection>
+
+            {/* Key Stats — reference numbers, least engaging but useful for context */}
             <CollapsibleSection title="Key Stats" subtitle="Overall project numbers">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
@@ -211,47 +257,6 @@ export default function SummaryTab() {
                             </div>
                             <div className="text-sm text-themed-tertiary">% Planned</div>
                         </div>
-                    </div>
-                </div>
-            </CollapsibleSection>
-
-            {/* Key Highlights */}
-            <CollapsibleSection title="Key Highlights" subtitle="Notable patterns in recent work">
-                {highlights.length > 0 ? (
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                        {highlights.map((h) => (
-                            <div key={h.label} className="p-3 bg-themed-tertiary rounded">
-                                <p className="text-xs text-themed-tertiary mb-1">{h.label}</p>
-                                <p className="text-sm font-semibold text-themed-primary">{h.value}</p>
-                                {h.subvalue && (
-                                    <p className="text-xs text-themed-tertiary">{h.subvalue}</p>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <p className="text-themed-tertiary text-sm">No highlights to show for the current data</p>
-                )}
-            </CollapsibleSection>
-
-            {/* Activity Snapshot */}
-            <CollapsibleSection title="Activity Snapshot" subtitle="Work timing and complexity signals">
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    <div className="text-center p-3 bg-amber-50 dark:bg-amber-900/20 rounded">
-                        <p className="text-2xl font-bold text-amber-600">{metrics.afterHoursCount}</p>
-                        <p className="text-xs text-themed-tertiary">After-hours</p>
-                    </div>
-                    <div className="text-center p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded">
-                        <p className="text-2xl font-bold text-indigo-600">{metrics.weekendCount}</p>
-                        <p className="text-xs text-themed-tertiary">Weekend</p>
-                    </div>
-                    <div className="text-center p-3 bg-pink-50 dark:bg-pink-900/20 rounded">
-                        <p className="text-2xl font-bold text-pink-600">{metrics.holidayCount}</p>
-                        <p className="text-xs text-themed-tertiary">Holiday</p>
-                    </div>
-                    <div className="text-center p-3 bg-purple-50 dark:bg-purple-900/20 rounded">
-                        <p className="text-2xl font-bold text-purple-600">{metrics.complexChanges}</p>
-                        <p className="text-xs text-themed-tertiary">Complex</p>
                     </div>
                 </div>
             </CollapsibleSection>

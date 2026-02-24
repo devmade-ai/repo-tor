@@ -4,6 +4,22 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-24
 
+### Section Reordering by Interest Level
+
+**Why:** Sections within each tab were ordered structurally (stats first, then charts, then details) rather than by what a user would find most engaging. Stats/numbers are reference data — useful but not interesting. Charts, insights, and actionable breakdowns are what draw users in.
+
+**Changes:**
+- **SummaryTab**: Key Highlights → Activity Snapshot → Key Stats (insights/patterns first, raw counts last)
+- **TimelineTab**: Commit Activity chart → Recent Changes → Lines Changed → Activity Summary (visual hook first, reference stats last)
+- **TimingTab**: Commits by Hour → When Work Happens → Developer Patterns → Commits by Day (peak hours most interesting, "busiest day" least surprising)
+- **ProgressTab**: Features vs Bug Fixes → Change Types → Work by Initiative → Complexity Over Time → Summary (main story first, niche detail and reference numbers last)
+- **TagsTab**: Fixed CSS order bug — parent `div` used `order-*` classes without being a flex container. Changed `space-y-6` to `flex flex-col gap-6`. Chart shows first on desktop (visually engaging), list shows first on mobile (more scannable)
+- **HealthTab**: Health Overview (anchor) → Risk Assessment → Tech Debt Balance → Prioritization → Impact → trend charts → per-person detail. Moved "red flag" sections (risk, debt) right after overview; trend charts and per-contributor breakdowns pushed to the end
+- **DiscoverTab**: Swapped last two sections — Head to Head (visually engaging comparisons) now before Most Changed Files (niche file list)
+- **ContributorsTab/SecurityTab**: No change needed
+
+**Files:** `dashboard/js/tabs/SummaryTab.jsx`, `TimelineTab.jsx`, `TimingTab.jsx`, `ProgressTab.jsx`, `TagsTab.jsx`, `HealthTab.jsx`, `DiscoverTab.jsx`
+
 ### Mobile Tab Layout Improvements
 
 **Why:** Dashboard tabs were too long and content-heavy on mobile. Charts at fixed 300px height took up too much vertical space, all sections expanded by default created excessive scrolling (especially HealthTab with 10 sections), and some section titles were unclear for non-technical users.

@@ -518,9 +518,17 @@ export default function HealthTab() {
 
     const chartHeight = isMobile ? '220px' : '300px';
 
+    // Requirement: Order sections from most interesting to least interesting
+    // Approach: Overview stats first (anchor), then "red flag" sections (risk, debt) that
+    //   answer "are we in trouble?", then current-state breakdowns, then trend charts, then
+    //   per-person detail last.
+    // Alternatives:
+    //   - Risk/debt first: Rejected — they're conditional and may not render, so overview
+    //     anchors the page consistently
+    //   - Trend charts before breakdowns: Rejected — breakdowns are more scannable
     return (
         <div className="space-y-6">
-            {/* Summary Cards — always visible, most important at-a-glance info */}
+            {/* Summary Cards — anchor for context, always visible */}
             <CollapsibleSection title="Health Overview">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
@@ -566,7 +574,90 @@ export default function HealthTab() {
                 </div>
             </CollapsibleSection>
 
-            {/* Urgency Breakdown — how much work is planned vs reactive */}
+            {/* Risk Assessment — "are we in trouble?" — most attention-grabbing */}
+            {hasRiskData && (
+                <CollapsibleSection title="Risk Assessment" subtitle="How risky are recent changes?" defaultExpanded={!isMobile}>
+                    <div className="space-y-4">
+                        {[
+                            { key: 'high', label: 'High Risk', colorClass: 'bg-red-500' },
+                            { key: 'medium', label: 'Medium Risk', colorClass: 'bg-amber-500' },
+                            { key: 'low', label: 'Low Risk', colorClass: 'bg-green-500' },
+                        ].map(({ key, label, colorClass }) => {
+                            const count = riskBreakdown[key];
+                            const pct = riskTotal > 0 ? Math.round((count / riskTotal) * 100) : 0;
+                            return (
+                                <div
+                                    key={key}
+                                    className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => handleRiskFilterClick(key)}
+                                    onKeyDown={handleKeyActivate(() => handleRiskFilterClick(key))}
+                                >
+                                    <div className="flex justify-between text-sm mb-1">
+                                        <span className="text-themed-secondary">{label}</span>
+                                        <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                        <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Debt Balance — "is debt growing?" — actionable red/green indicator */}
+            {hasDebtData && (
+                <CollapsibleSection title="Tech Debt Balance" subtitle="Is debt growing or shrinking?" defaultExpanded={!isMobile}>
+                    <div className="space-y-4">
+                        {[
+                            { key: 'added', label: 'Debt Added', colorClass: 'bg-red-500' },
+                            { key: 'paid', label: 'Debt Paid Down', colorClass: 'bg-green-500' },
+                            { key: 'neutral', label: 'No Change', colorClass: 'bg-gray-400' },
+                        ].map(({ key, label, colorClass }) => {
+                            const count = debtBreakdown[key];
+                            const pct = debtTotal > 0 ? Math.round((count / debtTotal) * 100) : 0;
+                            return (
+                                <div
+                                    key={key}
+                                    className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => handleDebtFilterClick(key)}
+                                    onKeyDown={handleKeyActivate(() => handleDebtFilterClick(key))}
+                                >
+                                    <div className="flex justify-between text-sm mb-1">
+                                        <span className="text-themed-secondary">{label}</span>
+                                        <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                        <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
+                                    </div>
+                                </div>
+                            );
+                        })}
+                        {/* Net debt indicator */}
+                        <div className="mt-2 p-3 bg-themed-tertiary rounded text-center">
+                            <span className="text-sm text-themed-secondary">Net: </span>
+                            <span className={`text-sm font-semibold ${
+                                debtBreakdown.added > debtBreakdown.paid ? 'text-red-500' :
+                                debtBreakdown.paid > debtBreakdown.added ? 'text-green-500' :
+                                'text-themed-tertiary'
+                            }`}>
+                                {debtBreakdown.added > debtBreakdown.paid
+                                    ? `+${debtBreakdown.added - debtBreakdown.paid} debt accumulating`
+                                    : debtBreakdown.paid > debtBreakdown.added
+                                    ? `-${debtBreakdown.paid - debtBreakdown.added} debt shrinking`
+                                    : 'Balanced'}
+                            </span>
+                        </div>
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Urgency Breakdown — planned vs reactive split */}
             <CollapsibleSection title="How Work Gets Prioritized" subtitle="Planned vs reactive changes">
                 <div className="space-y-4">
                     {urgencyItems.map(({ label, count, colorClass, filter }) => {
@@ -620,103 +711,11 @@ export default function HealthTab() {
                 </div>
             </CollapsibleSection>
 
-            {/* Urgency Trend — collapsed on mobile since the breakdown above tells the key story */}
+            {/* Urgency Trend — collapsed on mobile */}
             {urgencyTrendData && (
                 <CollapsibleSection title="Urgency Over Time" subtitle="Is urgency increasing or decreasing?" defaultExpanded={!isMobile}>
                     <div data-embed-id="urgency-trend" style={{ height: chartHeight }}>
                         <Line data={urgencyTrendData.data} options={urgencyTrendData.options} />
-                    </div>
-                </CollapsibleSection>
-            )}
-
-            {/* Impact Over Time — collapsed on mobile */}
-            {impactTrendData && (
-                <CollapsibleSection title="Impact Over Time" subtitle="Monthly breakdown by area" defaultExpanded={!isMobile}>
-                    <div data-embed-id="impact-over-time" style={{ height: chartHeight }}>
-                        <Bar data={impactTrendData.data} options={impactTrendData.options} />
-                    </div>
-                </CollapsibleSection>
-            )}
-
-            {/* Risk Assessment — only shown when commits have risk data, collapsed on mobile */}
-            {hasRiskData && (
-                <CollapsibleSection title="Risk Assessment" subtitle="How risky are recent changes?" defaultExpanded={!isMobile}>
-                    <div className="space-y-4">
-                        {[
-                            { key: 'high', label: 'High Risk', colorClass: 'bg-red-500' },
-                            { key: 'medium', label: 'Medium Risk', colorClass: 'bg-amber-500' },
-                            { key: 'low', label: 'Low Risk', colorClass: 'bg-green-500' },
-                        ].map(({ key, label, colorClass }) => {
-                            const count = riskBreakdown[key];
-                            const pct = riskTotal > 0 ? Math.round((count / riskTotal) * 100) : 0;
-                            return (
-                                <div
-                                    key={key}
-                                    className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
-                                    role="button"
-                                    tabIndex={0}
-                                    onClick={() => handleRiskFilterClick(key)}
-                                    onKeyDown={handleKeyActivate(() => handleRiskFilterClick(key))}
-                                >
-                                    <div className="flex justify-between text-sm mb-1">
-                                        <span className="text-themed-secondary">{label}</span>
-                                        <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
-                                    </div>
-                                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-                                        <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </CollapsibleSection>
-            )}
-
-            {/* Debt Balance — only shown when commits have debt data, collapsed on mobile */}
-            {hasDebtData && (
-                <CollapsibleSection title="Tech Debt Balance" subtitle="Is debt growing or shrinking?" defaultExpanded={!isMobile}>
-                    <div className="space-y-4">
-                        {[
-                            { key: 'added', label: 'Debt Added', colorClass: 'bg-red-500' },
-                            { key: 'paid', label: 'Debt Paid Down', colorClass: 'bg-green-500' },
-                            { key: 'neutral', label: 'No Change', colorClass: 'bg-gray-400' },
-                        ].map(({ key, label, colorClass }) => {
-                            const count = debtBreakdown[key];
-                            const pct = debtTotal > 0 ? Math.round((count / debtTotal) * 100) : 0;
-                            return (
-                                <div
-                                    key={key}
-                                    className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
-                                    role="button"
-                                    tabIndex={0}
-                                    onClick={() => handleDebtFilterClick(key)}
-                                    onKeyDown={handleKeyActivate(() => handleDebtFilterClick(key))}
-                                >
-                                    <div className="flex justify-between text-sm mb-1">
-                                        <span className="text-themed-secondary">{label}</span>
-                                        <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
-                                    </div>
-                                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-                                        <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
-                                    </div>
-                                </div>
-                            );
-                        })}
-                        {/* Net debt indicator */}
-                        <div className="mt-2 p-3 bg-themed-tertiary rounded text-center">
-                            <span className="text-sm text-themed-secondary">Net: </span>
-                            <span className={`text-sm font-semibold ${
-                                debtBreakdown.added > debtBreakdown.paid ? 'text-red-500' :
-                                debtBreakdown.paid > debtBreakdown.added ? 'text-green-500' :
-                                'text-themed-tertiary'
-                            }`}>
-                                {debtBreakdown.added > debtBreakdown.paid
-                                    ? `+${debtBreakdown.added - debtBreakdown.paid} debt accumulating`
-                                    : debtBreakdown.paid > debtBreakdown.added
-                                    ? `-${debtBreakdown.paid - debtBreakdown.added} debt shrinking`
-                                    : 'Balanced'}
-                            </span>
-                        </div>
                     </div>
                 </CollapsibleSection>
             )}
@@ -730,7 +729,16 @@ export default function HealthTab() {
                 </CollapsibleSection>
             )}
 
-            {/* Urgency by Contributor — collapsed on mobile since it's detailed breakdown */}
+            {/* Impact Over Time — collapsed on mobile */}
+            {impactTrendData && (
+                <CollapsibleSection title="Impact Over Time" subtitle="Monthly breakdown by area" defaultExpanded={!isMobile}>
+                    <div data-embed-id="impact-over-time" style={{ height: chartHeight }}>
+                        <Bar data={impactTrendData.data} options={impactTrendData.options} />
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Urgency by Contributor — per-person detail, collapsed on mobile */}
             <CollapsibleSection title="Urgency by Contributor" subtitle="Who handles planned vs reactive work?" defaultExpanded={!isMobile}>
                 {urgencyByGroup.length > 0 ? (
                     <div className="space-y-4">
@@ -749,7 +757,7 @@ export default function HealthTab() {
                 )}
             </CollapsibleSection>
 
-            {/* Impact by Contributor — collapsed on mobile since it's detailed breakdown */}
+            {/* Impact by Contributor — per-person detail, collapsed on mobile */}
             <CollapsibleSection title="Impact by Contributor" subtitle="Who works on what areas?" defaultExpanded={!isMobile}>
                 {impactByGroup.length > 0 ? (
                     <div className="space-y-4">

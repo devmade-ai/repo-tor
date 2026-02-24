@@ -85,16 +85,19 @@ export default function TagsTab() {
         openDetailPane(`${tag} Commits`, `${filtered.length} commits`, filtered, { type: 'tag', value: tag });
     };
 
-    // Requirement: On mobile, show the tag list first (more scannable) and the chart second.
-    // Approach: Render both but swap order on mobile — list is primary, chart is secondary.
+    // Requirement: Order by interest — chart is more visually engaging on desktop,
+    //   but list is more scannable/actionable on mobile.
+    // Approach: Use flex+order to swap section order between mobile and desktop.
+    //   Previous implementation used order classes without a flex parent (bug — order
+    //   only works in flex/grid contexts). Fixed by adding flex flex-col to parent.
     // Alternatives:
-    //   - Conditionally reorder in JSX: Rejected — duplicates code and harder to maintain
-    //   - Hide chart on mobile: Rejected — chart is still useful, just secondary
+    //   - Duplicate JSX: Rejected — harder to maintain
+    //   - Chart always first: Rejected — list is more practical on small screens
     const chartHeight = isMobile ? '250px' : '350px';
 
     return (
-        <div className="space-y-6">
-            {/* Tag Breakdown List — shown first on mobile (more scannable), second on desktop */}
+        <div className="flex flex-col gap-6">
+            {/* Tag Breakdown List — more scannable on mobile (order-1), secondary on desktop (order-2) */}
             <div className={isMobile ? 'order-1' : 'order-2'}>
                 <CollapsibleSection title="Tag Breakdown" subtitle="Tap any tag to see its commits">
                     {tagData.sortedTags.length > 0 ? (
@@ -135,7 +138,7 @@ export default function TagsTab() {
                 </CollapsibleSection>
             </div>
 
-            {/* Tag Distribution Chart — collapsed on mobile to save space */}
+            {/* Tag Distribution Chart — visually engaging on desktop (order-1), secondary on mobile (order-2) */}
             {doughnutChartData && (
                 <div className={isMobile ? 'order-2' : 'order-1'}>
                     <CollapsibleSection title="Tag Distribution" subtitle="Visual breakdown of commit types" defaultExpanded={!isMobile}>

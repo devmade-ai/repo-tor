@@ -7,6 +7,15 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-24 — Mobile Tab Layout):**
+- **Section Reordering by Interest** — Reordered sections within each tab from most interesting/engaging to least interesting:
+  - **SummaryTab**: Key Highlights → Activity Snapshot → Key Stats (insights first, raw numbers last)
+  - **TimelineTab**: Commit Activity chart → Recent Changes → Lines Changed → Activity Summary (visual hook first, stats last)
+  - **TimingTab**: Commits by Hour → When Work Happens → Developer Patterns → Commits by Day (peak hours first, "it's weekdays" last)
+  - **ProgressTab**: Features vs Bug Fixes → Change Types → Work by Initiative → Complexity Over Time → Summary (main story first, stats last)
+  - **TagsTab**: Fixed CSS order bug (parent needed `flex flex-col` for `order-*` classes to work); chart first on desktop (eye-catching), list first on mobile (scannable)
+  - **HealthTab**: Health Overview → Risk Assessment → Tech Debt Balance → Prioritization → Impact → trend charts → per-person detail (red flags after overview, detailed breakdowns last)
+  - **DiscoverTab**: Metrics → Head to Head → Most Changed Files (interactive cards first, file list last)
+  - **ContributorsTab/SecurityTab**: No change needed (already well-ordered)
 - **Mobile Tab Layout Improvements** — Comprehensive mobile UX pass across all 9 tab components:
   - **HealthTab** (biggest improvement): Collapsed 7 of 10 sections by default on mobile (trends, risk, debt, per-contributor breakdowns), improved section titles with descriptive subtitles ("How Work Gets Prioritized", "Where Changes Land"), reduced chart heights from 300px→220px
   - **TimelineTab**: Collapsed commit list and code changes chart on mobile, reduced chart heights, renamed sections for clarity ("Commit Activity", "Lines Changed", "Recent Changes")

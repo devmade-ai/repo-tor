@@ -491,32 +491,7 @@ export default function DiscoverTab() {
                 </div>
             </CollapsibleSection>
 
-            {/* File Insights — most changed files (with fun names) */}
-            <CollapsibleSection title="Most Changed Files" subtitle="Top 10 files by number of changes">
-                {fileInsights ? (
-                    <div className="space-y-3">
-                        {fileInsights.map(({ path, name, count, pct }) => (
-                            <div key={path} className="flex items-center gap-3">
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex items-center justify-between mb-1 gap-2">
-                                        <span className="text-sm font-medium text-themed-primary truncate" title={path}>
-                                            {name}
-                                        </span>
-                                        <span className="text-xs text-themed-tertiary whitespace-nowrap">{count} changes</span>
-                                    </div>
-                                    <div className="h-2 bg-themed-tertiary rounded-full overflow-hidden">
-                                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${pct}%` }} />
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <p className="text-themed-tertiary text-sm">No file data available</p>
-                )}
-            </CollapsibleSection>
-
-            {/* Comparisons — side-by-side bars */}
+            {/* Comparisons — visually engaging side-by-side bars */}
             <CollapsibleSection title="Head to Head" subtitle="Key metrics compared side by side">
                 {comparisons.length > 0 ? (
                     <div className="space-y-4">
@@ -546,6 +521,31 @@ export default function DiscoverTab() {
                     </div>
                 ) : (
                     <p className="text-themed-tertiary text-sm">No comparison data available</p>
+                )}
+            </CollapsibleSection>
+
+            {/* File Insights — most changed files (with fun names), least engaging */}
+            <CollapsibleSection title="Most Changed Files" subtitle="Top 10 files by number of changes">
+                {fileInsights ? (
+                    <div className="space-y-3">
+                        {fileInsights.map(({ path, name, count, pct }) => (
+                            <div key={path} className="flex items-center gap-3">
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center justify-between mb-1 gap-2">
+                                        <span className="text-sm font-medium text-themed-primary truncate" title={path}>
+                                            {name}
+                                        </span>
+                                        <span className="text-xs text-themed-tertiary whitespace-nowrap">{count} changes</span>
+                                    </div>
+                                    <div className="h-2 bg-themed-tertiary rounded-full overflow-hidden">
+                                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${pct}%` }} />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-themed-tertiary text-sm">No file data available</p>
                 )}
             </CollapsibleSection>
         </div>
