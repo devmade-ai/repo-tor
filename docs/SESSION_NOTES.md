@@ -6,7 +6,20 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-24):**
+**Recent Updates (2026-02-24 — Mobile Tab Layout):**
+- **Mobile Tab Layout Improvements** — Comprehensive mobile UX pass across all 9 tab components:
+  - **HealthTab** (biggest improvement): Collapsed 7 of 10 sections by default on mobile (trends, risk, debt, per-contributor breakdowns), improved section titles with descriptive subtitles ("How Work Gets Prioritized", "Where Changes Land"), reduced chart heights from 300px→220px
+  - **TimelineTab**: Collapsed commit list and code changes chart on mobile, reduced chart heights, renamed sections for clarity ("Commit Activity", "Lines Changed", "Recent Changes")
+  - **TimingTab**: Collapsed Developer Patterns on mobile, reduced chart heights from 250px→200px, renamed sections ("When Work Happens", "Commits by Hour/Day"), bumped chart font sizes from 9px→10px
+  - **TagsTab**: Reordered sections — Tag Breakdown list shown first on mobile (more scannable), chart collapsed by default. Reduced doughnut height from 350px→250px
+  - **ProgressTab**: Collapsed Complexity Over Time on mobile, reduced chart heights, added descriptive subtitles
+  - **ContributorsTab**: Collapsed Complexity chart on mobile, added subtitles
+  - **DiscoverTab**: Improved metric card layout (truncating selector, responsive value size), tighter comparison bar labels on mobile (w-16 vs w-20), renamed sections ("Most Changed Files", "Head to Head")
+  - **SummaryTab**: Added descriptive subtitles to all sections
+  - **CSS**: Tighter section spacing on mobile (24px→16px gap), reduced collapsible header padding, hidden subtitles on mobile to save space
+  - **Chart fonts**: All tabs bumped from 9px→10px minimum for mobile readability
+
+**Previous Updates (2026-02-24):**
 - **Fix Projects Tab Loading in Production** — `projects.json` was missing from the build output because it was in `dashboard/` (not `public/`) and wasn't listed in the deploy workflow's copy step. Moved to `dashboard/public/projects.json` so Vite includes it automatically, and added it to `deploy.yml` as a safety net.
 - **Fix TagsTab Initialization Crash** — Production build crashed with `ReferenceError: Cannot access 'vf' before initialization`. Root cause: `TagsTab.jsx` line 13 had `const CHART_TEXT_COLOR = CHART_TEXT_COLOR;` — a self-referential assignment that triggered the temporal dead zone. The minifier renamed the variable to `vf`, making the error opaque. Fixed by reading the `--text-secondary` CSS variable via `getComputedStyle()` at module load (matching the approach in `main.jsx` for Chart.js defaults).
 - **Move Debug Pill to HTML Level** — Debug pill was part of the JS bundle (`main.jsx`), so it didn't show when the bundle failed to load — exactly when you need it most. Moved all debug pill code (error capture, diagnostics, circular buffer, click handlers) to an inline `<script>` in `index.html`. Added 10-second loading timeout that warns the user if React hasn't mounted. `main.jsx` now bridges to the HTML pill via `window.__debugPushError()` for React-specific errors (component stacks). Removed ~170 lines of duplicate code from `main.jsx`.

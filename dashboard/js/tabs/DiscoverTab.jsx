@@ -446,8 +446,8 @@ export default function DiscoverTab() {
 
     return (
         <div className="space-y-6">
-            {/* Metric Cards */}
-            <CollapsibleSection title="Metrics">
+            {/* Metric Cards — pick a metric from the dropdown, or shuffle for surprise */}
+            <CollapsibleSection title="Metrics" subtitle="Pick a metric or shuffle for surprises">
                 <div className="flex justify-end mb-3">
                     <button
                         className="text-xs text-themed-secondary hover:text-themed-primary"
@@ -461,9 +461,9 @@ export default function DiscoverTab() {
                         const isPinned = !!pinnedMetrics[idx];
                         return (
                             <div key={selectedMetrics[idx]} className="card">
-                                <div className="flex items-center justify-between mb-2">
+                                <div className="flex items-center justify-between mb-2 gap-1">
                                     <select
-                                        className="metric-selector text-xs bg-themed-tertiary text-themed-secondary rounded px-1 py-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                        className="metric-selector text-xs bg-themed-tertiary text-themed-secondary rounded px-1 py-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500 min-w-0 truncate"
                                         value={isPinned ? selectedMetrics[idx] : 'random'}
                                         onChange={(e) => handleSelectChange(idx, e.target.value)}
                                     >
@@ -473,7 +473,7 @@ export default function DiscoverTab() {
                                         ))}
                                     </select>
                                     <button
-                                        className={`pin-btn text-xs ${isPinned ? 'text-blue-500' : 'text-themed-muted'} hover:text-blue-500`}
+                                        className={`pin-btn text-xs flex-shrink-0 ${isPinned ? 'text-blue-500' : 'text-themed-muted'} hover:text-blue-500`}
                                         aria-label={isPinned ? 'Unpin this metric' : 'Pin this metric'}
                                         title={isPinned ? 'Unpin' : 'Pin this metric'}
                                         onClick={() => handlePinToggle(idx)}
@@ -483,7 +483,7 @@ export default function DiscoverTab() {
                                         </svg>
                                     </button>
                                 </div>
-                                <p className="text-3xl font-bold text-themed-primary">{metricResult.value}</p>
+                                <p className="text-2xl sm:text-3xl font-bold text-themed-primary">{metricResult.value}</p>
                                 <p className="text-xs text-themed-muted">{metricResult.sub}</p>
                             </div>
                         );
@@ -491,18 +491,18 @@ export default function DiscoverTab() {
                 </div>
             </CollapsibleSection>
 
-            {/* File Insights */}
-            <CollapsibleSection title="File Insights">
+            {/* File Insights — most changed files (with fun names) */}
+            <CollapsibleSection title="Most Changed Files" subtitle="Top 10 files by number of changes">
                 {fileInsights ? (
                     <div className="space-y-3">
                         {fileInsights.map(({ path, name, count, pct }) => (
                             <div key={path} className="flex items-center gap-3">
-                                <div className="flex-1">
-                                    <div className="flex items-center justify-between mb-1">
-                                        <span className="text-sm font-medium text-themed-primary" title={path}>
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center justify-between mb-1 gap-2">
+                                        <span className="text-sm font-medium text-themed-primary truncate" title={path}>
                                             {name}
                                         </span>
-                                        <span className="text-xs text-themed-tertiary">{count} changes</span>
+                                        <span className="text-xs text-themed-tertiary whitespace-nowrap">{count} changes</span>
                                     </div>
                                     <div className="h-2 bg-themed-tertiary rounded-full overflow-hidden">
                                         <div className="h-full bg-blue-500 rounded-full" style={{ width: `${pct}%` }} />
@@ -516,8 +516,8 @@ export default function DiscoverTab() {
                 )}
             </CollapsibleSection>
 
-            {/* Comparisons */}
-            <CollapsibleSection title="Comparisons">
+            {/* Comparisons — side-by-side bars */}
+            <CollapsibleSection title="Head to Head" subtitle="Key metrics compared side by side">
                 {comparisons.length > 0 ? (
                     <div className="space-y-4">
                         {comparisons.map((comp) => {
@@ -529,12 +529,12 @@ export default function DiscoverTab() {
                                 <div key={comp.label} className="p-3 bg-themed-tertiary rounded">
                                     <p className="text-xs text-themed-tertiary mb-2">{comp.label}</p>
                                     <div className="flex items-center gap-2">
-                                        <span className="text-sm font-medium text-themed-primary w-20">{comp.left.label}</span>
+                                        <span className="text-xs sm:text-sm font-medium text-themed-primary w-16 sm:w-20 flex-shrink-0">{comp.left.label}</span>
                                         <div className="flex-1 h-4 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden flex">
                                             <div className="h-full bg-green-500" style={{ width: `${leftPct}%` }} />
                                             <div className="h-full bg-amber-500" style={{ width: `${rightPct}%` }} />
                                         </div>
-                                        <span className="text-sm font-medium text-themed-primary w-20 text-right">{comp.right.label}</span>
+                                        <span className="text-xs sm:text-sm font-medium text-themed-primary w-16 sm:w-20 text-right flex-shrink-0">{comp.right.label}</span>
                                     </div>
                                     <div className="flex justify-between text-xs text-themed-muted mt-1">
                                         <span>{comp.left.value.toLocaleString()} ({leftPct}%)</span>

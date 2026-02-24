@@ -103,7 +103,7 @@ export default function TimelineTab() {
                     legend: {
                         display: repos.length > 1,
                         position: 'top',
-                        labels: { font: { size: mobile ? 9 : 12 }, boxWidth: mobile ? 8 : 40 },
+                        labels: { font: { size: mobile ? 10 : 12 }, boxWidth: mobile ? 8 : 40 },
                     },
                 },
                 scales: {
@@ -111,7 +111,7 @@ export default function TimelineTab() {
                         stacked: repos.length > 1,
                         ticks: {
                             maxRotation: mobile ? 60 : 45,
-                            font: { size: mobile ? 9 : 12 },
+                            font: { size: mobile ? 10 : 12 },
                             callback: function (value, index) {
                                 const step = Math.ceil(sortedDates.length / (mobile ? 8 : 15));
                                 return index % step === 0 ? this.getLabelForValue(value) : '';
@@ -121,7 +121,7 @@ export default function TimelineTab() {
                     y: {
                         stacked: repos.length > 1,
                         beginAtZero: true,
-                        ticks: { stepSize: 1, font: { size: mobile ? 9 : 12 } },
+                        ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } },
                     },
                 },
             },
@@ -188,7 +188,7 @@ export default function TimelineTab() {
                     legend: {
                         display: repos.length > 1,
                         position: 'top',
-                        labels: { font: { size: mobile ? 9 : 12 }, boxWidth: mobile ? 8 : 40 },
+                        labels: { font: { size: mobile ? 10 : 12 }, boxWidth: mobile ? 8 : 40 },
                     },
                     tooltip: {
                         callbacks: {
@@ -205,7 +205,7 @@ export default function TimelineTab() {
                         stacked: repos.length > 1,
                         ticks: {
                             maxRotation: mobile ? 60 : 45,
-                            font: { size: mobile ? 9 : 12 },
+                            font: { size: mobile ? 10 : 12 },
                             callback: function (value, index) {
                                 const step = Math.ceil(sortedDates.length / (mobile ? 8 : 15));
                                 return index % step === 0 ? this.getLabelForValue(value) : '';
@@ -215,7 +215,7 @@ export default function TimelineTab() {
                     y: {
                         stacked: repos.length > 1,
                         ticks: {
-                            font: { size: mobile ? 9 : 12 },
+                            font: { size: mobile ? 10 : 12 },
                             callback: function (value) {
                                 const sign = value >= 0 ? '+' : '';
                                 const absValue = Math.abs(value);
@@ -378,6 +378,8 @@ export default function TimelineTab() {
     const hasMore = viewConfig.drilldown === 'commits' && filteredCommits.length > visibleCount;
     const remaining = filteredCommits.length - visibleCount;
 
+    const chartHeight = isMobile ? '220px' : '300px';
+
     return (
         <div className="space-y-6">
             {/* Summary Cards */}
@@ -424,24 +426,24 @@ export default function TimelineTab() {
 
             {/* Activity Timeline Chart */}
             {activityChartData && (
-                <CollapsibleSection title="Activity Timeline">
-                    <div data-embed-id="activity-timeline" style={{ height: '300px' }}>
+                <CollapsibleSection title="Commit Activity" subtitle="Daily commit count over time">
+                    <div data-embed-id="activity-timeline" style={{ height: chartHeight }}>
                         <Bar data={activityChartData.data} options={activityChartData.options} />
                     </div>
                 </CollapsibleSection>
             )}
 
-            {/* Code Changes Timeline Chart */}
+            {/* Code Changes Timeline Chart — collapsed on mobile since Activity chart covers the key story */}
             {codeChangesChartData && (
-                <CollapsibleSection title="Code Changes Timeline">
-                    <div data-embed-id="code-changes-timeline" style={{ height: '300px' }}>
+                <CollapsibleSection title="Lines Changed" subtitle="Net code additions and deletions" defaultExpanded={!isMobile}>
+                    <div data-embed-id="code-changes-timeline" style={{ height: chartHeight }}>
                         <Bar data={codeChangesChartData.data} options={codeChangesChartData.options} />
                     </div>
                 </CollapsibleSection>
             )}
 
-            {/* Commit List */}
-            <CollapsibleSection title="Commits" subtitle={showingText}>
+            {/* Commit List — collapsed on mobile to reduce scroll length */}
+            <CollapsibleSection title="Recent Changes" subtitle={showingText} defaultExpanded={!isMobile}>
                 <div className="space-y-2">
                     {commitListContent.length > 0 ? (
                         commitListContent

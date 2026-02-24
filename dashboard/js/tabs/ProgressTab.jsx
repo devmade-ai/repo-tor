@@ -76,11 +76,11 @@ export default function ProgressTab() {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { labels: { font: { size: mobile ? 9 : 12 }, boxWidth: mobile ? 8 : 40 } },
+                    legend: { labels: { font: { size: mobile ? 10 : 12 }, boxWidth: mobile ? 8 : 40 } },
                 },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 9 : 12 }, maxRotation: mobile ? 60 : 45 } },
-                    y: { ticks: { font: { size: mobile ? 9 : 12 } } },
+                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
+                    y: { ticks: { font: { size: mobile ? 10 : 12 } } },
                 },
             },
         };
@@ -128,11 +128,11 @@ export default function ProgressTab() {
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 9 : 12 }, maxRotation: mobile ? 60 : 45 } },
+                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
                     y: {
                         min: 1,
                         max: 5,
-                        ticks: { stepSize: 1, font: { size: mobile ? 9 : 12 } },
+                        ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } },
                     },
                 },
             },
@@ -229,6 +229,8 @@ export default function ProgressTab() {
         openDetailPane(labels[level] || level, `${filtered.length} commits`, filtered);
     };
 
+    const chartHeight = isMobile ? '220px' : '300px';
+
     return (
         <div className="space-y-6">
             {/* Work Summary Cards */}
@@ -273,17 +275,17 @@ export default function ProgressTab() {
 
             {/* Feature vs Bug Fix Trend */}
             {featFixChartData && (
-                <CollapsibleSection title="Feature vs Bug Fix Trend">
-                    <div data-embed-id="feature-vs-bugfix-trend" style={{ height: '300px' }}>
+                <CollapsibleSection title="Features vs Bug Fixes Over Time" subtitle="Monthly trend">
+                    <div data-embed-id="feature-vs-bugfix-trend" style={{ height: chartHeight }}>
                         <Line data={featFixChartData.data} options={featFixChartData.options} />
                     </div>
                 </CollapsibleSection>
             )}
 
-            {/* Complexity Over Time */}
+            {/* Complexity Over Time — collapsed on mobile since the summary card covers the key metric */}
             {complexityChartData && (
-                <CollapsibleSection title="Complexity Over Time">
-                    <div data-embed-id="complexity-over-time" style={{ height: '300px' }}>
+                <CollapsibleSection title="Complexity Over Time" subtitle="Average complexity per month" defaultExpanded={!isMobile}>
+                    <div data-embed-id="complexity-over-time" style={{ height: chartHeight }}>
                         <Line data={complexityChartData.data} options={complexityChartData.options} />
                     </div>
                 </CollapsibleSection>
@@ -291,7 +293,7 @@ export default function ProgressTab() {
 
             {/* Epic Breakdown — only shown when commits have epic labels */}
             {hasEpicData && (
-                <CollapsibleSection title="Work by Initiative">
+                <CollapsibleSection title="Work by Initiative" subtitle="Commits grouped by initiative">
                     <div className="space-y-3">
                         {epicBreakdown.map(([epic, count]) => {
                             const pct = filteredCommits.length > 0
@@ -321,9 +323,9 @@ export default function ProgressTab() {
 
             {/* Semver Breakdown — only shown when commits have semver data */}
             {hasSemverData && (
-                <CollapsibleSection title="Change Types">
+                <CollapsibleSection title="Change Types" subtitle="Patch, minor, and major releases">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div data-embed-id="semver-distribution" style={{ height: '200px' }}>
+                        <div data-embed-id="semver-distribution" style={{ height: isMobile ? '180px' : '200px' }}>
                             <Doughnut data={semverChartData.data} options={semverChartData.options} />
                         </div>
                         <div className="space-y-3 flex flex-col justify-center">

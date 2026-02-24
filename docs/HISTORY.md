@@ -4,6 +4,24 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-24
 
+### Mobile Tab Layout Improvements
+
+**Why:** Dashboard tabs were too long and content-heavy on mobile. Charts at fixed 300px height took up too much vertical space, all sections expanded by default created excessive scrolling (especially HealthTab with 10 sections), and some section titles were unclear for non-technical users.
+
+**Changes:**
+- **All tabs**: Added descriptive subtitles to CollapsibleSection headers (hidden on mobile via CSS to save space, visible on desktop for context)
+- **HealthTab**: Collapsed 7 of 10 sections on mobile (trends, risk, debt, per-contributor); improved titles ("How Work Gets Prioritized", "Where Changes Land"); reduced chart heights 300px→220px
+- **TimelineTab**: Collapsed commit list and code changes chart on mobile; renamed sections ("Commit Activity", "Lines Changed", "Recent Changes"); reduced chart heights
+- **TimingTab**: Collapsed Developer Patterns on mobile; renamed sections ("When Work Happens", "Commits by Hour/Day"); reduced chart heights 250px→200px
+- **TagsTab**: Reordered — list shown first on mobile (more scannable), chart collapsed by default; reduced doughnut 350px→250px
+- **ProgressTab**: Collapsed Complexity Over Time on mobile; reduced chart heights; added subtitles
+- **ContributorsTab**: Collapsed complexity chart on mobile; added subtitles
+- **DiscoverTab**: Improved metric card layout for narrow screens (truncating selector, responsive value size text-2xl vs text-3xl); tighter comparison labels (w-16 on mobile); renamed "File Insights"→"Most Changed Files", "Comparisons"→"Head to Head"
+- **CSS**: Tighter section spacing on mobile (24px→16px gap), reduced header padding, subtitles hidden on mobile
+- **Chart fonts**: All tabs bumped from 9px→10px minimum for mobile readability
+
+**Files:** `dashboard/js/tabs/HealthTab.jsx`, `TimelineTab.jsx`, `TimingTab.jsx`, `TagsTab.jsx`, `ProgressTab.jsx`, `ContributorsTab.jsx`, `DiscoverTab.jsx`, `SummaryTab.jsx`, `dashboard/styles.css`
+
 ### Fix Projects Tab Loading Error in Production
 
 **Why:** ProjectsTab fetched `./projects.json` at runtime, but the file was never copied to the `dist/` build output. It worked in dev mode (Vite serves from the root directory) but failed on GitHub Pages with "Could not load project list. The file may not be deployed yet."

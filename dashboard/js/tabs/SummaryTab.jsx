@@ -154,7 +154,7 @@ export default function SummaryTab() {
     return (
         <div className="space-y-6">
             {/* Stats Cards */}
-            <CollapsibleSection title="Key Stats">
+            <CollapsibleSection title="Key Stats" subtitle="Overall project numbers">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
                         className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
@@ -216,7 +216,7 @@ export default function SummaryTab() {
             </CollapsibleSection>
 
             {/* Key Highlights */}
-            <CollapsibleSection title="Key Highlights">
+            <CollapsibleSection title="Key Highlights" subtitle="Notable patterns in recent work">
                 {highlights.length > 0 ? (
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                         {highlights.map((h) => (
@@ -235,7 +235,7 @@ export default function SummaryTab() {
             </CollapsibleSection>
 
             {/* Activity Snapshot */}
-            <CollapsibleSection title="Activity Snapshot">
+            <CollapsibleSection title="Activity Snapshot" subtitle="Work timing and complexity signals">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div className="text-center p-3 bg-amber-50 dark:bg-amber-900/20 rounded">
                         <p className="text-2xl font-bold text-amber-600">{metrics.afterHoursCount}</p>
