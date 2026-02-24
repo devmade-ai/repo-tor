@@ -48,6 +48,8 @@ jobs:
           cp dashboard/files.json dist/ 2>/dev/null || true
           cp dashboard/metadata.json dist/ 2>/dev/null || true
           cp dashboard/summary.json dist/ 2>/dev/null || true
+          # Copy projects list (fetched by ProjectsTab at runtime)
+          cp dashboard/public/projects.json dist/ 2>/dev/null || true
           # Copy per-repo data
           mkdir -p dist/repos
           cp dashboard/repos/*.json dist/repos/ 2>/dev/null || true
