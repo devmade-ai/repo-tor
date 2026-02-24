@@ -58,28 +58,42 @@ export const SA_HOLIDAYS = {
         { month: 12, day: 25, name: "Christmas Day" },
         { month: 12, day: 26, name: "Day of Goodwill" }
     ],
-    // Easter-based holidays (Good Friday, Family Day) - pre-calculated for 2020-2030
-    // Must cover same range as buildHolidaySet's year loop (2020-2030)
-    easter: {
-        2020: { goodFriday: '2020-04-10', familyDay: '2020-04-13' },
-        2021: { goodFriday: '2021-04-02', familyDay: '2021-04-05' },
-        2022: { goodFriday: '2022-04-15', familyDay: '2022-04-18' },
-        2023: { goodFriday: '2023-04-07', familyDay: '2023-04-10' },
-        2024: { goodFriday: '2024-03-29', familyDay: '2024-04-01' },
-        2025: { goodFriday: '2025-04-18', familyDay: '2025-04-21' },
-        2026: { goodFriday: '2026-04-03', familyDay: '2026-04-06' },
-        2027: { goodFriday: '2027-03-26', familyDay: '2027-03-29' },
-        2028: { goodFriday: '2028-04-14', familyDay: '2028-04-17' },
-        2029: { goodFriday: '2029-03-30', familyDay: '2029-04-02' },
-        2030: { goodFriday: '2030-04-19', familyDay: '2030-04-22' }
-    }
 };
+
+// Compute Easter Sunday for a given year using the Anonymous Gregorian algorithm.
+// Fix: Previously Easter dates were hardcoded for 2020-2030 only. This computes
+// them algorithmically for any year, so holiday detection never silently expires.
+// Alternatives:
+//   - Extend hardcoded table: Rejected — same problem recurs at new boundary
+//   - External library: Rejected — over-engineered for one calculation
+function computeEasterSunday(year) {
+    const a = year % 19;
+    const b = Math.floor(year / 100);
+    const c = year % 100;
+    const d = Math.floor(b / 4);
+    const e = b % 4;
+    const f = Math.floor((b + 8) / 25);
+    const g = Math.floor((b - f + 1) / 3);
+    const h = (19 * a + b - d - g + 15) % 30;
+    const i = Math.floor(c / 4);
+    const k = c % 4;
+    const l = (32 + 2 * e + 2 * i - h - k) % 7;
+    const m = Math.floor((a + 11 * h + 22 * l) / 451);
+    const month = Math.floor((h + l - 7 * m + 114) / 31);
+    const day = ((h + l - 7 * m + 114) % 31) + 1;
+    return new Date(year, month - 1, day);
+}
 
 // Build holiday lookup set for quick checking
 export function buildHolidaySet() {
     const holidays = new Set();
-    // Add fixed holidays for years 2020-2030
-    for (let year = 2020; year <= 2030; year++) {
+    const currentYear = new Date().getFullYear();
+    // Cover a wide range: historical data (2015) through 5 years into the future
+    const startYear = 2015;
+    const endYear = currentYear + 5;
+
+    for (let year = startYear; year <= endYear; year++) {
+        // Add fixed holidays
         SA_HOLIDAYS.fixed.forEach(h => {
             const dateStr = `${year}-${String(h.month).padStart(2, '0')}-${String(h.day).padStart(2, '0')}`;
             holidays.add(dateStr);
@@ -91,12 +105,16 @@ export function buildHolidaySet() {
                 holidays.add(monday.toISOString().substring(0, 10));
             }
         });
+
+        // Add Easter-based holidays (Good Friday = Easter - 2, Family Day = Easter + 1)
+        const easter = computeEasterSunday(year);
+        const goodFriday = new Date(easter);
+        goodFriday.setDate(easter.getDate() - 2);
+        const familyDay = new Date(easter);
+        familyDay.setDate(easter.getDate() + 1);
+        holidays.add(goodFriday.toISOString().substring(0, 10));
+        holidays.add(familyDay.toISOString().substring(0, 10));
     }
-    // Add Easter-based holidays
-    Object.values(SA_HOLIDAYS.easter).forEach(e => {
-        holidays.add(e.goodFriday);
-        holidays.add(e.familyDay);
-    });
     return holidays;
 }
 export const holidaySet = buildHolidaySet();

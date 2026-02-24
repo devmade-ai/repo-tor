@@ -43,9 +43,19 @@ function combineDatasets(datasets) {
                     : [dataset.metadata.repo_name];
                 combined.metadata.repo_name = combined.metadata.repo_name.concat(names);
             }
+            // Fix: Merge metadata instead of overwriting. Previously, later datasets
+            // silently overwrote metadata from earlier ones (e.g., authors map).
             Object.keys(dataset.metadata).forEach(key => {
                 if (key !== 'repo_name' && key !== 'generated_at' && key !== 'total_commits') {
-                    combined.metadata[key] = dataset.metadata[key];
+                    const existing = combined.metadata[key];
+                    const incoming = dataset.metadata[key];
+                    // Deep merge plain objects (e.g., authors maps); overwrite primitives
+                    if (existing && typeof existing === 'object' && !Array.isArray(existing)
+                        && incoming && typeof incoming === 'object' && !Array.isArray(incoming)) {
+                        combined.metadata[key] = { ...existing, ...incoming };
+                    } else {
+                        combined.metadata[key] = incoming;
+                    }
                 }
             });
         }
@@ -169,8 +179,17 @@ export default function App() {
     }, []);
 
     const handleFiles = useCallback((files) => {
-        const readers = Array.from(files)
-            .filter(f => f.name.endsWith('.json'))
+        // Fix: Validate file size before reading to prevent browser tab hanging
+        // on very large files. 50MB matches the maxBuffer used in extract scripts.
+        const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+        const jsonFiles = Array.from(files).filter(f => f.name.endsWith('.json'));
+        const oversized = jsonFiles.find(f => f.size > MAX_FILE_SIZE);
+        if (oversized) {
+            setLoadError(`File "${oversized.name}" is too large (${(oversized.size / 1024 / 1024).toFixed(0)}MB). Maximum size is 50MB.`);
+            return;
+        }
+
+        const readers = jsonFiles
             .map(file => {
                 return new Promise((resolve, reject) => {
                     const reader = new FileReader();
@@ -215,7 +234,7 @@ export default function App() {
     }
 
     // Embed mode: render only the requested chart(s), no dashboard chrome
-    if (embedIds && !initialLoading) {
+    if (embedIds) {
         if (!state.data) {
             return (
                 <div className="embed-error">
@@ -233,19 +252,16 @@ export default function App() {
             <div className="dashboard-enter">
                 {loadError && (
                     <div role="alert" className="max-w-2xl mx-auto px-4 pt-12 pb-4">
-                        <div className="card" style={{ textAlign: 'center', padding: '24px' }}>
-                            <p style={{ color: '#e5e7eb', fontSize: '16px', marginBottom: '8px' }}>
+                        <div className="card text-center">
+                            <p className="text-themed-primary text-base mb-2">
                                 Could not load dashboard data
                             </p>
-                            <p style={{ color: '#767676', fontSize: '13px', marginBottom: '16px' }}>
+                            <p className="text-themed-tertiary text-sm mb-4">
                                 {loadError}
                             </p>
                             <button
                                 onClick={() => window.location.reload()}
-                                style={{
-                                    padding: '8px 24px', background: '#2D68FF', color: '#fff',
-                                    border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '13px',
-                                }}
+                                className="btn-icon btn-primary"
                             >
                                 Retry
                             </button>

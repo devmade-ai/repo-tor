@@ -1,20 +1,32 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef, useLayoutEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getTagColor, getTagClass, getTagStyleObject, handleKeyActivate } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
-// Requirement: Avoid getComputedStyle in render path (causes layout thrashing)
-// Approach: Read CSS variable once at module load; safe because styles.css is
-//   imported synchronously and dark class is on <html> in index.html.
+// Requirement: Read CSS variable for chart text color without layout thrashing
+// Approach: useRef + useLayoutEffect reads the value once after first paint,
+//   guaranteeing stylesheets have applied. Falls back to theme default until then.
 // Alternatives:
-//   - getComputedStyle inside useMemo: Rejected — forces layout recalc on every render
+//   - Module-level getComputedStyle: Rejected — can execute before stylesheets apply,
+//     returning empty/wrong value (see codebase review)
 //   - Hardcoded color: Rejected — breaks theme changes
-const CHART_TEXT_COLOR = getComputedStyle(document.documentElement)
-    .getPropertyValue('--text-secondary').trim() || '#e5e7eb';
+//   - getComputedStyle inside useMemo: Rejected — forces layout recalc on every render
+
+function useChartTextColor() {
+    const colorRef = useRef('#e5e7eb');
+    useLayoutEffect(() => {
+        const val = getComputedStyle(document.documentElement)
+            .getPropertyValue('--text-secondary').trim();
+        if (val) colorRef.current = val;
+    }, []);
+    return colorRef;
+}
 
 export default function TagsTab() {
     const { filteredCommits, openDetailPane, isMobile } = useApp();
+    const chartTextColorRef = useChartTextColor();
+    const CHART_TEXT_COLOR = chartTextColorRef.current;
 
     // Tag breakdown data
     const tagData = useMemo(() => {

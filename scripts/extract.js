@@ -153,7 +153,11 @@ function extractCommits() {
         }
       }
     }
-    // Save last commit
+    // Requirement: Ensure the last commit's stats are always saved
+    // Approach: Explicitly flush the last accumulated stats after the loop ends,
+    //   because the loop only saves when it encounters the NEXT commit boundary
+    // Alternatives: Sentinel value at end of output — rejected because it couples
+    //   parsing logic to git format assumptions
     if (currentSha) {
       statsByFullSha.set(currentSha, { ...currentStats, filesChanged: currentStats.files.length });
     }
@@ -174,7 +178,14 @@ function extractCommits() {
       }
     }
   } else {
-    // Fallback: no numstat output available
+    // Requirement: Clarify this fallback is intentional, not dead code
+    // Approach: This branch runs when `git log --numstat` returns empty output,
+    //   which happens if git() fails (returns '') or the repo has no diffable history.
+    //   The merge loop above (lines 162-175) already handles individual commits missing
+    //   from statsByFullSha, but this branch covers the case where numstatOutput itself
+    //   is falsy — zero commits would be in the map, so all would get zeroed individually.
+    //   Keeping this explicit fallback avoids commits having undefined stats/files fields.
+    console.warn('Warning: git log --numstat returned no output, stats will be zeroed');
     for (const commit of commits) {
       commit.stats = { filesChanged: 0, additions: 0, deletions: 0 };
       commit.files = [];

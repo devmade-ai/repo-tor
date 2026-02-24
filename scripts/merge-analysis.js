@@ -88,8 +88,13 @@ function parseAnalysisInput(input) {
   }
 
   // Try parsing as newline-delimited JSON (NDJSON)
+  // Requirement: Make data loss visible when skipping invalid JSON lines
+  // Approach: Track skipped count and log a summary after the loop
+  // Alternatives: Fail on first invalid line — rejected because partial data is
+  //   better than no data, but the summary makes the loss visible
   const lines = trimmed.split('\n').filter(line => line.trim());
   const commits = [];
+  let skippedCount = 0;
 
   for (const line of lines) {
     try {
@@ -98,9 +103,13 @@ function parseAnalysisInput(input) {
         commits.push(obj);
       }
     } catch (e) {
-      // Skip invalid lines
+      skippedCount++;
       console.error(`Warning: Skipping invalid JSON line: ${line.substring(0, 50)}...`);
     }
+  }
+
+  if (skippedCount > 0) {
+    console.error(`Warning: Skipped ${skippedCount} of ${lines.length} lines (invalid JSON)`);
   }
 
   return commits;

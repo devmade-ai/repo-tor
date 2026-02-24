@@ -93,6 +93,10 @@ class RootErrorBoundary extends React.Component {
         logDebugError(error.message, error.stack + '\n\nComponent Stack:' + info.componentStack);
     }
 
+    // Fix: Replaced hardcoded inline style colors with CSS variable-based classes.
+    // Error boundary fallback intentionally uses minimal inline layout styles
+    // (flexbox centering) because the CSS file may not have loaded when this
+    // renders, but colors now come from CSS variables via utility classes.
     render() {
         if (this.state.hasError) {
             return (
@@ -101,23 +105,19 @@ class RootErrorBoundary extends React.Component {
                     minHeight: '100vh', flexDirection: 'column', gap: '16px',
                     padding: '24px', textAlign: 'center',
                 }}>
-                    <p style={{ color: '#e5e7eb', fontSize: '16px', fontFamily: 'system-ui, sans-serif' }}>
+                    <p className="text-themed-secondary" style={{ fontSize: '16px', fontFamily: 'system-ui, sans-serif' }}>
                         Something went wrong loading the dashboard.
                     </p>
-                    <p style={{ color: '#767676', fontSize: '13px', fontFamily: 'monospace', maxWidth: '480px', wordBreak: 'break-word' }}>
+                    <p className="text-themed-tertiary" style={{ fontSize: '13px', fontFamily: 'monospace', maxWidth: '480px', wordBreak: 'break-word' }}>
                         {this.state.error?.message || 'Unknown error'}
                     </p>
-                    <p style={{ color: '#555', fontSize: '11px', fontFamily: 'system-ui, sans-serif', marginTop: '-8px' }}>
-                        Error details are in the banner below. Use "Copy" to share.
+                    <p className="text-themed-muted" style={{ fontSize: '11px', fontFamily: 'system-ui, sans-serif', marginTop: '-8px' }}>
+                        Error details are in the banner below. Use &ldquo;Copy&rdquo; to share.
                     </p>
                     <button
                         onClick={() => window.location.reload()}
-                        style={{
-                            marginTop: '8px', padding: '8px 24px',
-                            background: '#2D68FF', color: '#fff', border: 'none',
-                            borderRadius: '4px', cursor: 'pointer', fontSize: '13px',
-                            fontFamily: 'system-ui, sans-serif',
-                        }}
+                        className="btn-icon btn-primary"
+                        style={{ marginTop: '8px' }}
                     >
                         Reload
                     </button>

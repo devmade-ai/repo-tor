@@ -260,14 +260,14 @@ function loadPinnedMetrics() {
             const parsed = JSON.parse(saved);
             return parsed.pinnedMetrics || {};
         }
-    } catch (e) { /* ignore */ }
+    } catch (e) { console.warn('Failed to load pinned metrics:', e.message); }
     return {};
 }
 
 function savePinnedMetrics(pinned) {
     try {
         localStorage.setItem('discoverState', JSON.stringify({ pinnedMetrics: pinned }));
-    } catch (e) { /* ignore */ }
+    } catch (e) { console.warn('Failed to save pinned metrics:', e.message); }
 }
 
 function getRandomMetrics(count, pinned) {

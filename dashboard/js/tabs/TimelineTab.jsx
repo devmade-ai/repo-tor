@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
@@ -14,12 +14,13 @@ export default function TimelineTab() {
     const { state, dispatch, filteredCommits, viewConfig, openDetailPane, isMobile } = useApp();
     const [visibleCount, setVisibleCount] = useState(100);
 
-    // Reset visible count when filtered commits change
-    const commitCountRef = React.useRef(filteredCommits.length);
-    if (commitCountRef.current !== filteredCommits.length) {
-        commitCountRef.current = filteredCommits.length;
-        if (visibleCount !== 100) setVisibleCount(100);
-    }
+    // Reset visible count when filtered commits change.
+    // Fix: Previously used a useRef + conditional setState during render, which is a
+    // React anti-pattern that can cause infinite render loops. Moved to useEffect
+    // so the reset happens after render, not during it.
+    useEffect(() => {
+        setVisibleCount(100);
+    }, [filteredCommits.length]);
 
     // Summary card data
     const summaryData = useMemo(() => {

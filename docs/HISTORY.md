@@ -4,6 +4,37 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-24
 
+### Comprehensive Codebase Review — 20 Issues Fixed
+
+**Why:** Full codebase audit identified bugs, security issues, performance concerns, and code quality problems across dashboard components, scripts, and CSS.
+
+**Dashboard fixes (12 files):**
+- **TimelineTab.jsx** — Fixed render-time side effect: setState during render moved to useEffect (prevented potential infinite loop)
+- **App.jsx** — Added 50MB file size validation on upload; fixed combineDatasets metadata merge (was overwriting, now deep-merges); replaced hardcoded inline styles with CSS classes
+- **chartColors.js** — Added hex color validation for URL params; invalid values now silently ignored
+- **TagsTab.jsx** — Moved module-level getComputedStyle into useLayoutEffect hook
+- **AppContext.jsx** — Replaced silent catch with console.warn
+- **DiscoverTab.jsx** — Fixed stale closure in handlePinToggle; replaced silent localStorage catches
+- **ProjectsTab.jsx** — Added AbortController to fetch with cleanup on unmount
+- **main.jsx** — Replaced hardcoded color inline styles in error boundary with CSS classes
+- **utils.js** — Computed Easter algorithmically replacing hardcoded 2020-2030 table
+- **state.js** — Extended anonymous names from 8 to 20
+- **styles.css** — Removed 30+ `!important` overrides (Tailwind v4 layers make them unnecessary)
+- **index.html** — Documented intentional duplicate @keyframes spin
+
+**HealthTab decomposition (780 → 630 lines):**
+- Extracted HealthBars.jsx (89 lines), HealthAnomalies.jsx (124 lines), HealthWorkPatterns.jsx (51 lines)
+
+**Script fixes (6 files):**
+- **update-all.sh** — Fixed command injection via sed → bash parameter substitution
+- **extract-api.js** — Added API response validation and improved pagination handling
+- **merge-analysis.js** — Added skip count tracking for invalid JSON lines
+- **pending.js** — Added recovery logic for interrupted atomic renames
+- **aggregate-processed.js** — Added unmapped author tracking with summary warning
+- **extract.js** — Documented fallback code path; added warning for empty numstat
+
+**Files:** 19 modified, 3 new components created
+
 ### Discover Metric Labels Clarified for Non-Technical Users
 
 **Why:** Discover tab metric cards used developer jargon ("commit", "ratio", "refactor", "untagged") that violates the CLAUDE.md hard rule: "no jargon, technical terms, or developer-speak" for non-technical users.

@@ -14,8 +14,12 @@ export default function ProjectsTab() {
     const [projects, setProjects] = useState([]);
     const [loadError, setLoadError] = useState(null);
 
+    // Fix: Added AbortController to prevent setState on unmounted component.
+    // Without cleanup, if the component unmounts during fetch, React warns about
+    // memory leaks and state updates on unmounted components.
     useEffect(() => {
-        fetch('./projects.json')
+        const controller = new AbortController();
+        fetch('./projects.json', { signal: controller.signal })
             .then(r => {
                 if (!r.ok) throw new Error(`HTTP ${r.status}`);
                 return r.json();
@@ -24,9 +28,11 @@ export default function ProjectsTab() {
                 if (data?.projects) setProjects(data.projects);
             })
             .catch(err => {
+                if (err.name === 'AbortError') return;
                 console.error('Failed to load projects.json:', err);
                 setLoadError('Could not load project list. The file may not be deployed yet.');
             });
+        return () => controller.abort();
     }, []);
 
     // Enrich projects with commit counts from loaded analytics data

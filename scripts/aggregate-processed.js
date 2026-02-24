@@ -29,9 +29,15 @@ const AUTHOR_MAP_PATH = path.join(__dirname, '..', 'config', 'author-map.json');
 let authorMap = null;
 let emailToCanonical = {};
 
+// Requirement: Track unmapped authors so silent fallbacks are visible
+// Approach: Collect unique unmapped author IDs during aggregation and log a summary
+// Alternatives: Warn per-commit — rejected because it would produce thousands of lines
+//   for repos with many commits by unmapped authors
+const unmappedAuthors = new Set();
+
 function loadAuthorMap() {
   if (!fs.existsSync(AUTHOR_MAP_PATH)) {
-    console.log('No author-map.json found, using raw author IDs');
+    console.warn('Warning: author-map.json not found at ' + AUTHOR_MAP_PATH + ', using raw author IDs');
     return;
   }
 
@@ -53,11 +59,18 @@ function loadAuthorMap() {
 }
 
 /**
- * Resolve an email/author_id to its canonical author ID
+ * Resolve an email/author_id to its canonical author ID.
+ * Requirement: Log when authors aren't found in author-map.json
+ * Approach: Track unique unmapped authors in a Set; summary logged at end of main()
+ * Alternatives: Warn per-call — rejected because it would flood output for large repos
  */
 function resolveAuthorId(authorId) {
   if (!authorId) return 'unknown';
   const canonical = emailToCanonical[authorId.toLowerCase()];
+  if (!canonical && authorMap) {
+    // Only track as unmapped if author-map.json was loaded (otherwise all are "unmapped")
+    unmappedAuthors.add(authorId.toLowerCase());
+  }
   return canonical || authorId;
 }
 
@@ -698,6 +711,16 @@ function main() {
   console.log(`  Total commits: ${allCommits.length}`);
   console.log(`  Contributors: ${overallData.contributors.length}`);
   console.log(`  Output: ${outputDir}/`);
+
+  // Requirement: Make unmapped author fallbacks visible
+  // Approach: Log a summary of unique unmapped authors after all aggregation is done
+  // Alternatives: Log per-commit — rejected because it floods output
+  if (unmappedAuthors.size > 0) {
+    console.warn(`\n  Warning: ${unmappedAuthors.size} author(s) not found in author-map.json`);
+    for (const author of Array.from(unmappedAuthors).sort()) {
+      console.warn(`    - ${author}`);
+    }
+  }
 
   if (malformedRepos.length > 0) {
     console.log(`\n  WARNING: Some commits were skipped due to missing fields.`);

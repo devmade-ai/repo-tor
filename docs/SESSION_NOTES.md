@@ -6,7 +6,17 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-24 — Mobile Tab Layout):**
+**Recent Updates (2026-02-24 — Codebase Review & 20 Fixes):**
+- **Full Codebase Audit** — Reviewed all dashboard components, scripts, CSS, and configuration. Identified and fixed 20 issues across bugs, security, performance, and code quality:
+  - **Bugs fixed**: TimelineTab render-time setState (infinite loop risk), combineDatasets metadata overwrite, stale closure in DiscoverTab handlePinToggle
+  - **Security**: Command injection in update-all.sh (sed→bash param substitution), API response validation in extract-api.js, hex color URL param validation
+  - **UX**: File size validation on upload (50MB limit), extended anonymous names (8→20), Easter computed algorithmically (no more 2030 expiry)
+  - **Code quality**: Removed 30+ CSS !important overrides, replaced hardcoded colors with CSS variables, eliminated silent error catches, added AbortController to ProjectsTab fetch
+  - **Architecture**: HealthTab decomposed from 780→630 lines (extracted HealthBars, HealthAnomalies, HealthWorkPatterns components)
+  - **Scripts**: Recovery logic for pending.js atomic renames, skip count tracking in merge-analysis.js, unmapped author warnings in aggregate-processed.js
+- Build passes: 66 modules, 500KB bundle
+
+**Previous Updates (2026-02-24 — Mobile Tab Layout):**
 - **Discover Metric Labels Clarified** — Replaced developer jargon in all 20 Discover tab metric labels/sub-text with plain language for non-technical users: "Avg Commit Size"→"Avg Change Size", "Deletion Ratio"→"Code Removed", "Feature:Bug Ratio"→"Features per Bug Fix", "Test Investment"→"Testing Effort", "Docs Investment"→"Documentation Effort", "Untagged Commits"→"Uncategorized Changes", "Breaking Changes"→"Major Updates", "Avg Files/Commit"→"Files per Change", "Single-File Commits"→"Focused Changes", "Refactor Work"→"Code Cleanup". All "commits" sub-text→"changes".
 - **Section Reordering by Interest** — Reordered sections within each tab from most interesting/engaging to least interesting:
   - **SummaryTab**: Key Highlights → Activity Snapshot → Key Stats (insights first, raw numbers last)
