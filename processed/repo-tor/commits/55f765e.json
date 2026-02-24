@@ -1,0 +1,45 @@
+{
+  "sha": "55f765e",
+  "fullSha": "55f765e0b8a7a3151dafc9697cd1faeb84ffe597",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-19T05:45:04+00:00",
+  "commitDate": "2026-02-19T05:45:04+00:00",
+  "subject": "feat: add embed.js auto-resize helper script",
+  "body": "Embedders previously had to write their own postMessage listener to\nget iframe auto-height working. Now they include one script tag:\n  <script src=\".../embed.js\"></script>\n\nThe script auto-discovers all repo-tor iframes on the page and resizes\nthem when charts report their content height.\n\nDocs updated to use script-tag as the primary approach, with the manual\nlistener moved to an \"Advanced\" section.\n\nhttps://claude.ai/code/session_01G3sd64KAF9sQT7HnjsVrCe",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "add embed.js auto-resize helper script",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 90,
+    "deletions": 50
+  },
+  "files": [
+    "dashboard/public/embed.js",
+    "docs/EMBED_IMPLEMENTATION.md",
+    "docs/EMBED_REFERENCE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "user-facing"
+}

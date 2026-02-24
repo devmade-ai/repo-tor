@@ -1,0 +1,54 @@
+{
+  "sha": "9b2bb8a",
+  "fullSha": "9b2bb8a9d6ba401473955a7442080943a60d34ad",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T21:17:28+00:00",
+  "commitDate": "2026-02-18T21:17:28+00:00",
+  "subject": "feat: add custom graph colors for embedded charts",
+  "body": "Allow embedding apps to customize chart colors via URL parameters:\n- ?palette=warm (6 named presets: default, warm, cool, earth, vibrant, mono)\n- ?colors=hex1,hex2 (custom series for multi-dataset charts)\n- ?accent=hex (primary color for single-dataset charts and heatmaps)\n- ?muted=hex (secondary color for after-hours/weekend bars)\n\nCreated centralized chartColors.js module that parses URL params at load\ntime and exports resolved colors. All 5 chart tab components now import\nfrom this module instead of hardcoding hex values. Heatmap CSS uses\n--chart-accent-rgb CSS variable set from the resolved accent color.\n\nTag distribution colors remain semantic (not overridden by custom colors).\n\nhttps://claude.ai/code/session_014ri1BGY4tMVaHniaAiJxF5",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "embed-mode",
+  "semver": "minor",
+  "scope": null,
+  "title": "add custom graph colors for embedded charts",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 389,
+    "deletions": 46
+  },
+  "files": [
+    "dashboard/js/chartColors.js",
+    "dashboard/js/main.jsx",
+    "dashboard/js/tabs/ContributorsTab.jsx",
+    "dashboard/js/tabs/HealthTab.jsx",
+    "dashboard/js/tabs/ProgressTab.jsx",
+    "dashboard/js/tabs/TimelineTab.jsx",
+    "dashboard/js/tabs/TimingTab.jsx",
+    "dashboard/styles.css",
+    "docs/EMBED_IMPLEMENTATION.md",
+    "docs/EMBED_REFERENCE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "user-facing"
+}
