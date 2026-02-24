@@ -138,9 +138,18 @@ export default function App() {
             tooltip.textContent = target.getAttribute('data-tooltip');
             tooltip.classList.add('visible');
 
+            // Fix: Clamp tooltip position to viewport bounds to prevent clipping
             const rect = target.getBoundingClientRect();
-            tooltip.style.left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px';
-            tooltip.style.top = rect.top - tooltip.offsetHeight - 6 + 'px';
+            let left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2;
+            let top = rect.top - tooltip.offsetHeight - 6;
+            // Clamp horizontal: keep within viewport with 4px padding
+            left = Math.max(4, Math.min(left, window.innerWidth - tooltip.offsetWidth - 4));
+            // If tooltip would go above viewport, show below the target instead
+            if (top < 4) {
+                top = rect.bottom + 6;
+            }
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + 'px';
         }
 
         function handleMouseOut(e) {

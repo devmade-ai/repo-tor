@@ -52,18 +52,64 @@ const debugErrors = [];
 let debugBannerEl = null;
 let debugDismissed = false;
 
+// Requirement: Debug banner must be safe from XSS and not leak event listeners
+// Approach: Use DOM API (textContent/createElement) instead of innerHTML, and a
+//   single delegated click handler on the banner root instead of per-render listeners.
+// Alternatives:
+//   - innerHTML with sanitization: Rejected — error prone, DOM API is safer by default
+//   - Re-attaching listeners with removeEventListener: Rejected — delegation is simpler
+
 function createDebugBanner() {
     if (debugBannerEl) return debugBannerEl;
     debugBannerEl = document.createElement('div');
     debugBannerEl.id = 'debug-error-banner';
+    // Single delegated click handler — routes actions via data-action attributes
+    debugBannerEl.addEventListener('click', handleBannerClick);
     document.body.appendChild(debugBannerEl);
     renderBannerState();
     return debugBannerEl;
 }
 
+function handleBannerClick(e) {
+    const actionEl = e.target.closest('[data-action]');
+    if (!actionEl) return;
+    const action = actionEl.dataset.action;
+
+    if (action === 'copy-errors') {
+        const text = debugErrors.map(e => `[${e.time}] ${e.message}\n${e.stack || ''}`).join('\n---\n');
+        navigator.clipboard.writeText(text).then(() => {
+            actionEl.textContent = 'Copied!';
+            setTimeout(() => { actionEl.textContent = 'Copy'; }, 1500);
+        });
+    } else if (action === 'copy-diagnostics') {
+        const log = debugBannerEl.querySelector('#debug-info-log');
+        if (log) {
+            navigator.clipboard.writeText(log.textContent).then(() => {
+                actionEl.textContent = 'Copied!';
+                setTimeout(() => { actionEl.textContent = 'Copy'; }, 1500);
+            });
+        }
+    } else if (action === 'close') {
+        debugDismissed = true;
+        debugBannerEl.style.display = 'none';
+    } else if (action === 'show-diagnostics') {
+        showDebugInfo();
+    } else if (action === 'collapse') {
+        renderBannerState();
+    }
+}
+
+function createStyledEl(tag, styles, text) {
+    const el = document.createElement(tag);
+    Object.assign(el.style, styles);
+    if (text) el.textContent = text;
+    return el;
+}
+
 function renderBannerState() {
     if (!debugBannerEl) return;
     const hasErrors = debugErrors.length > 0;
+    debugBannerEl.textContent = '';
 
     if (hasErrors) {
         Object.assign(debugBannerEl.style, {
@@ -72,32 +118,21 @@ function renderBannerState() {
             borderTop: '2px solid #ff4444', fontFamily: 'monospace', fontSize: '12px',
             color: '#ff9999', padding: '0', display: 'block',
         });
-        debugBannerEl.innerHTML = `
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:#2a0000;position:sticky;top:0;">
-                <span style="font-weight:bold;color:#ff6666;">${debugErrors.length} error${debugErrors.length !== 1 ? 's' : ''}</span>
-                <div style="display:flex;gap:8px;">
-                    <button id="debug-copy-btn" style="padding:2px 10px;background:#ff4444;color:#fff;border:none;border-radius:3px;cursor:pointer;font-size:11px;">Copy</button>
-                    <button id="debug-close-btn" style="padding:2px 10px;background:#333;color:#ccc;border:none;border-radius:3px;cursor:pointer;font-size:11px;">Close</button>
-                </div>
-            </div>
-            <pre id="debug-error-log" style="padding:8px 12px;margin:0;white-space:pre-wrap;word-break:break-word;"></pre>
-        `;
-        const log = debugBannerEl.querySelector('#debug-error-log');
-        log.textContent = debugErrors
-            .map(e => `[${e.time}] ${e.message}${e.stack ? '\n' + e.stack : ''}`)
-            .join('\n---\n');
-        debugBannerEl.querySelector('#debug-copy-btn').addEventListener('click', () => {
-            const text = debugErrors.map(e => `[${e.time}] ${e.message}\n${e.stack || ''}`).join('\n---\n');
-            navigator.clipboard.writeText(text).then(() => {
-                const btn = debugBannerEl.querySelector('#debug-copy-btn');
-                btn.textContent = 'Copied!';
-                setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
-            });
-        });
-        debugBannerEl.querySelector('#debug-close-btn').addEventListener('click', () => {
-            debugDismissed = true;
-            debugBannerEl.style.display = 'none';
-        });
+        const header = createStyledEl('div', { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 12px', background: '#2a0000', position: 'sticky', top: '0' });
+        header.appendChild(createStyledEl('span', { fontWeight: 'bold', color: '#ff6666' }, `${debugErrors.length} error${debugErrors.length !== 1 ? 's' : ''}`));
+        const btnGroup = createStyledEl('div', { display: 'flex', gap: '8px' });
+        const copyBtn = createStyledEl('button', { padding: '2px 10px', background: '#ff4444', color: '#fff', border: 'none', borderRadius: '3px', cursor: 'pointer', fontSize: '11px' }, 'Copy');
+        copyBtn.dataset.action = 'copy-errors';
+        const closeBtn = createStyledEl('button', { padding: '2px 10px', background: '#333', color: '#ccc', border: 'none', borderRadius: '3px', cursor: 'pointer', fontSize: '11px' }, 'Close');
+        closeBtn.dataset.action = 'close';
+        btnGroup.append(copyBtn, closeBtn);
+        header.appendChild(btnGroup);
+        debugBannerEl.appendChild(header);
+
+        const log = createStyledEl('pre', { padding: '8px 12px', margin: '0', whiteSpace: 'pre-wrap', wordBreak: 'break-word' });
+        log.id = 'debug-error-log';
+        log.textContent = debugErrors.map(e => `[${e.time}] ${e.message}${e.stack ? '\n' + e.stack : ''}`).join('\n---\n');
+        debugBannerEl.appendChild(log);
     } else {
         Object.assign(debugBannerEl.style, {
             position: 'fixed', bottom: '0', right: '0', left: 'auto', zIndex: '99999',
@@ -106,59 +141,49 @@ function renderBannerState() {
             color: '#4ade80', padding: '8px 12px',
             display: debugDismissed ? 'none' : 'block',
         });
-        debugBannerEl.innerHTML = `
-            <span id="debug-pill" style="background:rgba(22,163,74,0.15);border:1px solid rgba(22,163,74,0.3);border-radius:4px;padding:3px 8px;color:#4ade80;font-size:10px;cursor:pointer;">0 errors</span>
-        `;
-        debugBannerEl.querySelector('#debug-pill').addEventListener('click', () => {
-            showDebugInfo();
-        });
+        const pill = createStyledEl('span', { background: 'rgba(22,163,74,0.15)', border: '1px solid rgba(22,163,74,0.3)', borderRadius: '4px', padding: '3px 8px', color: '#4ade80', fontSize: '10px', cursor: 'pointer' }, '0 errors');
+        pill.dataset.action = 'show-diagnostics';
+        debugBannerEl.appendChild(pill);
     }
 }
 
 function showDebugInfo() {
     if (!debugBannerEl) return;
-    // Gather diagnostic info
     const sw = 'serviceWorker' in navigator;
     const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
     const pwaInstalled = standalone || localStorage.getItem('pwaInstalled') === 'true';
     const swController = navigator.serviceWorker?.controller ? 'active' : 'none';
-
-    const lines = [
+    const diagText = [
         `Service Worker support: ${sw ? 'yes' : 'no'}`,
         `SW controller: ${swController}`,
         `Standalone mode: ${standalone}`,
         `PWA installed flag: ${pwaInstalled}`,
         `Errors: ${debugErrors.length}`,
         `User agent: ${navigator.userAgent}`,
-    ];
+    ].join('\n');
 
+    debugBannerEl.textContent = '';
     Object.assign(debugBannerEl.style, {
         position: 'fixed', bottom: '0', left: '0', right: '0', zIndex: '99999',
         maxHeight: '40vh', overflow: 'auto', background: '#001a00',
         borderTop: '2px solid #4ade80', fontFamily: 'monospace', fontSize: '12px',
         color: '#4ade80', padding: '0', display: 'block',
     });
-    debugBannerEl.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:#002a00;position:sticky;top:0;">
-            <span style="font-weight:bold;color:#4ade80;">Diagnostics</span>
-            <div style="display:flex;gap:8px;">
-                <button id="debug-info-copy-btn" style="padding:2px 10px;background:#16a34a;color:#fff;border:none;border-radius:3px;cursor:pointer;font-size:11px;">Copy</button>
-                <button id="debug-info-close-btn" style="padding:2px 10px;background:#333;color:#ccc;border:none;border-radius:3px;cursor:pointer;font-size:11px;">Close</button>
-            </div>
-        </div>
-        <pre id="debug-info-log" style="padding:8px 12px;margin:0;white-space:pre-wrap;word-break:break-word;"></pre>
-    `;
-    debugBannerEl.querySelector('#debug-info-log').textContent = lines.join('\n');
-    debugBannerEl.querySelector('#debug-info-copy-btn').addEventListener('click', () => {
-        navigator.clipboard.writeText(lines.join('\n')).then(() => {
-            const btn = debugBannerEl.querySelector('#debug-info-copy-btn');
-            btn.textContent = 'Copied!';
-            setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
-        });
-    });
-    debugBannerEl.querySelector('#debug-info-close-btn').addEventListener('click', () => {
-        renderBannerState(); // collapse back to pill
-    });
+    const header = createStyledEl('div', { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 12px', background: '#002a00', position: 'sticky', top: '0' });
+    header.appendChild(createStyledEl('span', { fontWeight: 'bold', color: '#4ade80' }, 'Diagnostics'));
+    const btnGroup = createStyledEl('div', { display: 'flex', gap: '8px' });
+    const copyBtn = createStyledEl('button', { padding: '2px 10px', background: '#16a34a', color: '#fff', border: 'none', borderRadius: '3px', cursor: 'pointer', fontSize: '11px' }, 'Copy');
+    copyBtn.dataset.action = 'copy-diagnostics';
+    const closeBtn = createStyledEl('button', { padding: '2px 10px', background: '#333', color: '#ccc', border: 'none', borderRadius: '3px', cursor: 'pointer', fontSize: '11px' }, 'Close');
+    closeBtn.dataset.action = 'collapse';
+    btnGroup.append(copyBtn, closeBtn);
+    header.appendChild(btnGroup);
+    debugBannerEl.appendChild(header);
+
+    const log = createStyledEl('pre', { padding: '8px 12px', margin: '0', whiteSpace: 'pre-wrap', wordBreak: 'break-word' });
+    log.id = 'debug-info-log';
+    log.textContent = diagText;
+    debugBannerEl.appendChild(log);
 }
 
 function logDebugError(message, stack) {

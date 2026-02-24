@@ -93,6 +93,7 @@ export default function ContributorsTab() {
                                     className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                                     role="button"
                                     tabIndex={0}
+                                    aria-label={`${item.displayName}, ${item.count} commits — click for details`}
                                     onClick={() => handleCardClick(item)}
                                     onKeyDown={handleKeyActivate(() => handleCardClick(item))}
                                 >
@@ -125,7 +126,7 @@ export default function ContributorsTab() {
                         })}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary">No contributor data</p>
+                    <p className="text-themed-tertiary">No data matches the current filters</p>
                 )}
             </CollapsibleSection>
 

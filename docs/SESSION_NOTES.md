@@ -7,6 +7,13 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-24):**
+- **Comprehensive Code Review & Bug Fixes (24 issues)** — Full project audit identifying security, performance, accessibility, and code quality issues. All fixes applied:
+  - **Security:** XSS fix in debug banner (innerHTML→DOM API), predictable temp file path→os.tmpdir(), event delegation replaces per-render listeners
+  - **Performance:** Batched git stat extraction (1 command vs 2n), concurrent API fetching (5-worker pool vs sequential), getComputedStyle moved out of render path
+  - **Data integrity:** Atomic pending batch deletion (write-to-temp-then-rename), fixed filesChanged calculation, added repo_id to API security events, added metadata fields (branches, currentBranch) to API extractor
+  - **Accessibility:** aria-labels on stat cards/contributor cards/drop zone/date inputs, aria-controls on CollapsibleSection, consistent empty state messages
+  - **Code quality:** Silent catch blocks→proper error logging (localStorage, pwa.js), stale closure fix in SettingsPane, inline styles→CSS classes, Easter dates extended 2020-2030, unused sharp dependency removed
+  - **CSS/Config:** Defined missing --shadow-lg and --color-primary-alpha variables, collapsible max-height cap removed, woff2 added to PWA precache
 - **Add New Repos & Projects Tab** — Added `budgy-ting` and `tool-till-tees` to config/repos.json. Created new Projects tab in dashboard showing all 14 projects with live site links and GitHub repo links. Projects split into "Live Projects" (8 with deployed sites) and "Other Repositories" (6 repo-only).
 - **Feed the Chicken — 206 New Commits** — Incremental extraction and AI analysis of 206 new commits across 7 repos: glow-props (6), few-lap (16), budgy-ting (19), repo-tor (22), see-veo (41), tool-till-tees (39), graphiki (63). All batches human-approved. Dashboard re-aggregated: 14 repos, 1908 total commits.
 - **Refactor extract-api.js — Remove gh CLI dependency** — Rewrote `extract-api.js` to use curl instead of `gh` CLI. Added multi-token discovery (`GH_TOKEN`, `GITHUB_TOKEN`, `GITHUB_ALL_REPO_TOKEN`). Updated `update-all.sh` to match. Tested and confirmed working. No more cloning needed for extraction.
@@ -424,4 +431,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-24 - Added repos, Projects tab, fed 206 commits, refactored extract-api.js to remove gh CLI dependency.*
+*Last updated: 2026-02-24 - Comprehensive code review and 24 bug fixes (security, perf, a11y, code quality). Added repos, Projects tab, fed 206 commits, refactored extract-api.js.*

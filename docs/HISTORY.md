@@ -4,6 +4,46 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-24
 
+### Comprehensive Code Review & Bug Fixes (24 issues)
+
+**Why:** Full project audit to identify and fix security vulnerabilities, performance bottlenecks, accessibility gaps, and code quality issues across all project files.
+
+**Security fixes:**
+- `main.jsx` — Replaced `innerHTML` with DOM API (`textContent`/`createElement`) to prevent XSS via error messages. Added event delegation on banner root instead of per-render `addEventListener` calls (eliminated listener leak).
+- `extract-api.js` — Temp header file moved from predictable project-root path to `os.tmpdir()` with unique PID+timestamp suffix (prevents TOCTOU race condition).
+
+**Performance fixes:**
+- `extract.js` — Batched git stat extraction: single `git log --numstat` command replaces 2×N individual `git show` calls. For 1000 commits, this is ~2000× fewer process spawns.
+- `extract-api.js` — Concurrent API fetching: 5-worker pool using async `execFile` + `pMap()` instead of sequential `execFileSync`. Reduces detail fetch time by ~5×.
+- `TagsTab.jsx` — Moved `getComputedStyle()` call from inside `useMemo` (runs on every render) to module-level constant.
+
+**Data integrity fixes:**
+- `pending.js` — Atomic batch deletion: writes to temp dir, then renames. If interrupted mid-write, old data survives.
+- `extract-api.js` — Fixed `filesChanged` calculation (was gated on `stats.total` which is additions+deletions sum, not file count). Added `repo_id` to security events. Added `branches`/`currentBranch` to metadata.
+
+**Accessibility fixes:**
+- `SummaryTab.jsx`, `ContributorsTab.jsx` — Added descriptive `aria-label` to all stat cards and contributor cards.
+- `DropZone.jsx` — Added `aria-label` describing the upload action.
+- `FilterSidebar.jsx` — Added `aria-label` to date filter inputs.
+- `CollapsibleSection.jsx` — Added `aria-controls` linking header to content panel.
+- Empty state messages standardized across all tabs to "No data matches the current filters".
+
+**Code quality fixes:**
+- `AppContext.jsx` — Silent `catch { /* ignore */ }` replaced with `console.warn` for localStorage quota errors.
+- `pwa.js` — Silent `.catch(() => {})` replaced with `console.warn` logging.
+- `SettingsPane.jsx` — Fixed stale closure: Escape handler now uses `dispatch` directly (stable ref) instead of capturing `handleClose`.
+- `DropZone.jsx`, `FilterSidebar.jsx`, `SettingsPane.jsx` — Inline `style={{}}` objects moved to CSS classes per CLAUDE.md convention.
+- `utils.js` — Easter dates extended from 2024-2027 to 2020-2030 to match `buildHolidaySet()` year range.
+- `package.json` — Removed unused `sharp` devDependency.
+
+**CSS/Config fixes:**
+- `styles.css` — Defined missing `--shadow-lg` and `--color-primary-alpha` variables. Replaced `max-height: 2000px` cap on collapsible content with `max-height: none`.
+- `vite.config.js` — Added `woff2` to PWA precache glob patterns.
+
+**Files changed:** main.jsx, extract-api.js, extract.js, pending.js, TagsTab.jsx, AppContext.jsx, pwa.js, SettingsPane.jsx, CollapsibleSection.jsx, DropZone.jsx, FilterSidebar.jsx, SummaryTab.jsx, ContributorsTab.jsx, HealthTab.jsx, App.jsx, utils.js, state.js (via utils.js), styles.css, vite.config.js, package.json
+
+---
+
 ### Show Commit Messages in Detail View
 
 **Why:** Commit subjects were hidden behind `[message hidden]` text in all detail views. User wanted to see the actual commit messages.

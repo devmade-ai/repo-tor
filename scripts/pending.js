@@ -66,16 +66,29 @@ function getExtractedCommits(repoId) {
   return data.commits || [];
 }
 
+// Requirement: Clear pending batches safely without data loss on interruption
+// Approach: Write to temp directory, then swap via rename (atomic on same filesystem).
+// Alternatives:
+//   - Direct rmSync + mkdirSync: Rejected — interruption between them loses data
+//   - In-place file-by-file delete: Rejected — still non-atomic, more complex
 function writePendingBatches(repoId, commits) {
   const pendingDir = path.join(PENDING_DIR, repoId, 'batches');
+  const pendingTmp = path.join(PENDING_DIR, repoId, 'batches-tmp');
+  const pendingOld = path.join(PENDING_DIR, repoId, 'batches-old');
 
-  // Clear existing pending batches
-  if (fs.existsSync(pendingDir)) {
-    fs.rmSync(pendingDir, { recursive: true });
-  }
-  fs.mkdirSync(pendingDir, { recursive: true });
+  // Clean up any leftover temp/old dirs from previous interrupted runs
+  if (fs.existsSync(pendingTmp)) fs.rmSync(pendingTmp, { recursive: true });
+  if (fs.existsSync(pendingOld)) fs.rmSync(pendingOld, { recursive: true });
+
+  fs.mkdirSync(pendingTmp, { recursive: true });
 
   if (commits.length === 0) {
+    // Still swap to ensure clean state
+    if (fs.existsSync(pendingDir)) {
+      fs.renameSync(pendingDir, pendingOld);
+      fs.rmSync(pendingOld, { recursive: true });
+    }
+    fs.renameSync(pendingTmp, pendingDir);
     console.log(`  No pending commits for ${repoId}`);
     return 0;
   }
@@ -85,7 +98,7 @@ function writePendingBatches(repoId, commits) {
   for (let i = 0; i < commits.length; i += BATCH_SIZE) {
     const batchNum = Math.floor(i / BATCH_SIZE) + 1;
     const batchCommits = commits.slice(i, i + BATCH_SIZE);
-    const batchFile = path.join(pendingDir, `batch-${String(batchNum).padStart(3, '0')}.json`);
+    const batchFile = path.join(pendingTmp, `batch-${String(batchNum).padStart(3, '0')}.json`);
 
     fs.writeFileSync(batchFile, JSON.stringify({
       batch: batchNum,
@@ -94,6 +107,15 @@ function writePendingBatches(repoId, commits) {
       count: batchCommits.length,
       commits: batchCommits
     }, null, 2));
+  }
+
+  // Atomic swap: rename old → old-backup, rename tmp → final, remove old-backup
+  if (fs.existsSync(pendingDir)) {
+    fs.renameSync(pendingDir, pendingOld);
+  }
+  fs.renameSync(pendingTmp, pendingDir);
+  if (fs.existsSync(pendingOld)) {
+    fs.rmSync(pendingOld, { recursive: true });
   }
 
   console.log(`  Generated ${totalBatches} pending batches for ${repoId} (${commits.length} commits)`);
