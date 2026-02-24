@@ -1,0 +1,44 @@
+{
+  "sha": "60f06ac",
+  "fullSha": "60f06ac1b4d333e593b497a58785631261cb3665",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-23T13:07:04+00:00",
+  "commitDate": "2026-02-23T13:07:04+00:00",
+  "subject": "feat(import): add pre-import validation gate with warnings",
+  "body": "Surface actionable feedback before merge review: unresolved arc endpoints\n(connections referencing items not in the file), duplicate node titles,\nand file size guard (10 MB limit). Warnings are non-blocking — users see\nthem in the JSON preview step but can still proceed to review.\n\nAdds `warnings` field to ImportValidation interface. The buildImportWarnings\nhelper runs after title-based arc resolution to detect dangling connections\nand duplicate titles. ImportModal shows warnings using the existing amber\nwarning styling pattern.\n\nTags: import, validation, ux, pre-import-gate\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: import-validation\nSemver: minor\n\nhttps://claude.ai/code/session_01GaKLJf4f3BgXWZbuiABFUB",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "import",
+  "title": "add pre-import validation gate with warnings",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 237,
+    "deletions": 3
+  },
+  "files": [
+    "src/components/importExport/ImportModal.tsx",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "user-facing"
+}

@@ -1,0 +1,44 @@
+{
+  "sha": "2976744",
+  "fullSha": "2976744c958d297cdb2c9b9cc668adaf9d69d0db",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T07:00:24+00:00",
+  "commitDate": "2026-02-20T07:00:24+00:00",
+  "subject": "feat(query): default connections to any direction, hops respect NOT filters",
+  "body": "Connection filters (\"Connected by\") now default to \"Any direction\" instead\nof \"Incoming\" — the most intuitive starting point for non-technical users.\nDropdown reordered so \"Any direction\" appears first.\n\nHop expansion now respects negated (NOT) filters from the query. Nodes\nexplicitly excluded via NOT filters won't be pulled back in through hop\ntraversal. The exclusion predicate is built from negated BuilderFilter\nASTs in QueryBuilder and passed to expandByHops as a generic predicate.\n\nTags: query, builder, hops, direction, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: query-builder\nSemver: minor\n\nhttps://claude.ai/code/session_016ER2awSc4Gv5Zpt9Xr8iz5",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "query",
+  "title": "default connections to any direction, hops respect NOT filters",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 68,
+    "deletions": 18
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/query/QueryBuilder.tsx",
+    "src/components/query/QueryFilterRow.tsx",
+    "src/services/queryEngine.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "user-facing"
+}

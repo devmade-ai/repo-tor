@@ -1,0 +1,44 @@
+{
+  "sha": "beaa85d",
+  "fullSha": "beaa85d9f648e74f1548964eb9ca30f9dd46b7a5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T12:47:15+00:00",
+  "commitDate": "2026-02-20T12:47:15+00:00",
+  "subject": "feat(import): accept `target:` as alias for `to:` in connections + improve AI output guide",
+  "body": "Parser now accepts both `to:` and `target:` in frontmatter connections blocks.\nAI models frequently produce `target:` despite the guide specifying `to:`,\ncausing silent data loss on import. Both keys now work, with `to:` taking\npriority when both are present.\n\nGuide improvements based on real-world AI output testing:\n- Added context section explaining what the output becomes (visual graph)\n- Emphasized `to:` field requirement (not `target:`)\n- Added guidance to create headings for all wiki-linked entities (avoid stubs)\n- Strengthened connection labels guidance (default: always include one)\n- Added Unicode characters note (use actual chars, not escape sequences)\n\nTags: import, guide, connections, ai-output\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ai-research-output\nSemver: minor\n\nhttps://claude.ai/code/session_0166oa9msWRq48KCJ6pyca4J",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "import",
+  "title": "accept `target:` as alias for `to:` in connections + improve AI output guide",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 80,
+    "deletions": 8
+  },
+  "files": [
+    "docs/ai-research-output-guide.md",
+    "src/services/markdownImportService.test.ts",
+    "src/services/markdownImportService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "user-facing"
+}

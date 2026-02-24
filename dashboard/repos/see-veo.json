@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-02-24T16:19:10.378Z",
+    "generatedAt": "2026-02-24T16:34:52.055Z",
     "repository": "see-veo",
     "scope": "see-veo",
     "repoCount": 1,
-    "commitCount": 68,
+    "commitCount": 109,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -13,6 +13,1789 @@
     }
   },
   "commits": [
+    {
+      "sha": "e914149",
+      "fullSha": "e91414998e057a85c9c9d97c78f26bc215ab8e9a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-19T07:55:47+02:00",
+      "commitDate": "2026-02-19T07:55:47+02:00",
+      "subject": "Merge pull request #27 from devmade-ai/claude/fix-chart-auto-sizing-0UnR7",
+      "body": "Replace custom iframe resize hook with repo-tor's embed.js",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #27 from devmade-ai/claude/fix-chart-auto-sizing-0UnR7",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#27"
+      ],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 63,
+        "deletions": 78
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "afa937d",
+      "fullSha": "afa937d548c588df424c1583cc83fb211530f616",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T05:53:35+00:00",
+      "commitDate": "2026-02-19T05:53:35+00:00",
+      "subject": "fix(charts): use repo-tor embed.js for iframe auto-sizing",
+      "body": "Replace custom useIframeAutoResize hook with repo-tor's new embed.js\nhelper script. The script auto-discovers all repo-tor iframes and\nhandles resize messages natively, eliminating the need for manual\norigin validation, source matching, and per-iframe React state.\n\n- Delete useIframeAutoResize hook (custom postMessage listener)\n- Add useRepoTorEmbed hook (loads embed.js script once, idempotent)\n- Simplify ActivityCharts and ActivityTimeline (remove refs, state,\n  conditional styles — static Tailwind classes act as fallback until\n  embed.js sets inline height)\n- Update EXTERNAL_REFERENCES.md and CLAUDE.md\n\nTags: charts, embed, iframe, upstream-sync\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: chart-embeds\nSemver: patch\n\nhttps://claude.ai/code/session_01TH4W6au8CEGNmTNSKoB8qU",
+      "tags": [
+        "bugfix",
+        "refactor"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": "charts",
+      "title": "use repo-tor embed.js for iframe auto-sizing",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 63,
+        "deletions": 78
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/EXTERNAL_REFERENCES.md",
+        "src/components/ActivityCharts.tsx",
+        "src/components/ActivityTimeline.tsx",
+        "src/hooks/useIframeAutoResize.ts",
+        "src/hooks/useRepoTorEmbed.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "e45d1f5",
+      "fullSha": "e45d1f531fc28bc0a1a0c24047ad4182a03b8eec",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-19T07:08:29+02:00",
+      "commitDate": "2026-02-19T07:08:29+02:00",
+      "subject": "Merge pull request #26 from devmade-ai/claude/responsive-chart-containers-QKeYB",
+      "body": "Add iframe auto-resize via postMessage protocol",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #26 from devmade-ai/claude/responsive-chart-containers-QKeYB",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#26"
+      ],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 111,
+        "deletions": 18
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "603236a",
+      "fullSha": "603236af7c8c454602fa5a8d95d581e65aff145a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T05:07:08+00:00",
+      "commitDate": "2026-02-19T05:07:08+00:00",
+      "subject": "style(charts): add bg=transparent to repo-tor embed URLs",
+      "body": "Chart iframe backgrounds now inherit the card's bg-surface color\ninstead of repo-tor's default #1B1B1B, eliminating the visible\nmismatch between chart backgrounds and the site's dark theme.\n\nTags: charts, embed, theming\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: activity-charts\nSemver: patch\n\nhttps://claude.ai/code/session_01Hb16aUhqzc9JxKpQKGXG2j",
+      "tags": [
+        "style"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "charts",
+      "title": "add bg=transparent to repo-tor embed URLs",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "#1"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 14,
+        "deletions": 9
+      },
+      "files": [
+        "docs/EXTERNAL_REFERENCES.md",
+        "src/components/ActivityCharts.tsx",
+        "src/components/ActivityTimeline.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "6f575ff",
+      "fullSha": "6f575ff82d36875e0e18da7783193e3ae850e4b4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T04:46:58+00:00",
+      "commitDate": "2026-02-19T04:46:58+00:00",
+      "subject": "style(layout): move InterestForm to after Education",
+      "body": "Places the interest/contact form at the bottom of the main content,\nafter Experience and Education sections.\n\nTags: layout, sections\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: activity-charts\nSemver: patch\n\nhttps://claude.ai/code/session_01Hb16aUhqzc9JxKpQKGXG2j",
+      "tags": [
+        "style",
+        "ux"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "layout",
+      "title": "move InterestForm to after Education",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 3
+      },
+      "files": [
+        "src/App.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "b3a2b43",
+      "fullSha": "b3a2b430d658ad19b9c687602e7fd2033abd8c50",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T04:45:33+00:00",
+      "commitDate": "2026-02-19T04:45:33+00:00",
+      "subject": "style(layout): move Skills section to right after About",
+      "body": "Places Skills immediately after About so readers see capabilities\nearly, before diving into Projects and Activity details.\n\nTags: layout, sections\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: activity-charts\nSemver: patch\n\nhttps://claude.ai/code/session_01Hb16aUhqzc9JxKpQKGXG2j",
+      "tags": [
+        "style",
+        "ux"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "layout",
+      "title": "move Skills section to right after About",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 4,
+        "deletions": 4
+      },
+      "files": [
+        "src/App.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "792b55e",
+      "fullSha": "792b55e10a6fd3e1a54138d3854b5cbd9e7d5afe",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T04:39:33+00:00",
+      "commitDate": "2026-02-19T04:39:33+00:00",
+      "subject": "style(layout): move ActivityTimeline below ActivityCharts",
+      "body": "Groups the two activity sections together — distribution charts\nfollowed by the commit timeline — instead of having the timeline\nseparated above Skills.\n\nTags: layout, sections\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: activity-charts\nSemver: patch\n\nhttps://claude.ai/code/session_01Hb16aUhqzc9JxKpQKGXG2j",
+      "tags": [
+        "style",
+        "ux"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "layout",
+      "title": "move ActivityTimeline below ActivityCharts",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 5,
+        "deletions": 4
+      },
+      "files": [
+        "src/App.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "0df4b46",
+      "fullSha": "0df4b46778e5c4555304b546c9a6012dd4396694",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T04:37:00+00:00",
+      "commitDate": "2026-02-19T04:37:00+00:00",
+      "subject": "feat(charts): auto-resize iframe containers via postMessage protocol",
+      "body": "Chart iframes now dynamically size to their content height using\nrepo-tor's new repo-tor:resize postMessage protocol instead of fixed\nTailwind height classes. Adds useIframeAutoResize hook that validates\nmessage origin, matches event.source to the correct iframe ref, and\nfalls back to static heights until the first message arrives.\n\nTags: charts, iframe, responsive, hooks\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: activity-charts\nSemver: minor\n\nhttps://claude.ai/code/session_01Hb16aUhqzc9JxKpQKGXG2j",
+      "tags": [
+        "feature"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "charts",
+      "title": "auto-resize iframe containers via postMessage protocol",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 90,
+        "deletions": 3
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/EXTERNAL_REFERENCES.md",
+        "src/components/ActivityCharts.tsx",
+        "src/components/ActivityTimeline.tsx",
+        "src/hooks/useIframeAutoResize.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "f21c952",
+      "fullSha": "f21c952cf59621c6f60c8e1702a3f46bf4dd66de",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-19T06:09:44+02:00",
+      "commitDate": "2026-02-19T06:09:44+02:00",
+      "subject": "Merge pull request #25 from devmade-ai/claude/align-charts-bottom-lhLl5",
+      "body": "Refactor About section to support multiple paragraphs",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #25 from devmade-ai/claude/align-charts-bottom-lhLl5",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#25"
+      ],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 19,
+        "deletions": 24
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "c935aaf",
+      "fullSha": "c935aaf0aa9af79d942b74a505442c098fd66295",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T04:08:30+00:00",
+      "commitDate": "2026-02-19T04:08:30+00:00",
+      "subject": "content(about): rewrite About section with non-technical multi-paragraph copy",
+      "body": "Replace the single technical paragraph with four plain-language paragraphs\nthat describe the site from a visitor's perspective. Change the data type\nfrom string to string[] and update the About component to render each\nparagraph separately with vertical spacing.\n\nTags: content, ux, about\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cv-content\nSemver: minor\n\nhttps://claude.ai/code/session_012pzRncJJMNHkgHMXFSPC2Z",
+      "tags": [
+        "docs",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "about",
+      "title": "rewrite About section with non-technical multi-paragraph copy",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 17,
+        "deletions": 22
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/About.tsx",
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "dc0cf74",
+      "fullSha": "dc0cf744c4058d3745432c645d3038df826be38c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T04:05:10+00:00",
+      "commitDate": "2026-02-19T04:05:10+00:00",
+      "subject": "style(charts): align chart iframes to bottom of card containers",
+      "body": "Add flexbox column layout to chart cards so iframes sit at the bottom\nwhen CSS grid stretches cards to equal row height.\n\nTags: ui, layout, charts\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: activity-charts\nSemver: patch\n\nhttps://claude.ai/code/session_012pzRncJJMNHkgHMXFSPC2Z",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "charts",
+      "title": "align chart iframes to bottom of card containers",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 2,
+        "deletions": 2
+      },
+      "files": [
+        "src/components/ActivityCharts.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "48a503a",
+      "fullSha": "48a503a62270829736c789111956cad2550f6499",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-19T05:52:47+02:00",
+      "commitDate": "2026-02-19T05:52:47+02:00",
+      "subject": "Merge pull request #24 from devmade-ai/claude/reorganize-sections-charts-Jpw96",
+      "body": "Add ActivityTimeline component with repo-tor embed integration",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #24 from devmade-ai/claude/reorganize-sections-charts-Jpw96",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#24"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 146,
+        "deletions": 4
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f86fcf3",
+      "fullSha": "f86fcf36d4bfd25d78a00f3124458847f582081e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T03:49:15+00:00",
+      "commitDate": "2026-02-19T03:49:15+00:00",
+      "subject": "style(charts): increase timeline iframe height for multi-repo legend",
+      "body": "The activity timeline has a legend entry per repo. With 12+ repos the\nlegend wraps and eats into chart space at the default h-80/h-96 size.\nBumped to h-96 (384px) mobile / h-[28rem] (448px) desktop to avoid\ninternal scrolling.\n\nTags: charts, layout\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01BAdMnozqT352jPPZqjFxzU",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "charts",
+      "title": "increase timeline iframe height for multi-repo legend",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/components/ActivityTimeline.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "7ad80e3",
+      "fullSha": "7ad80e326f574315e1e7963d2a0a50baebaa7522",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T03:45:47+00:00",
+      "commitDate": "2026-02-19T03:45:47+00:00",
+      "subject": "refactor(layout): restore single main wrapper for all sections",
+      "body": "The timeline doesn't need to be wider than other sections, so the\nsplit into two constrained divs was unnecessary complexity. Restored\nthe original single <main> with max-w-4xl. Removed max-w-7xl from\nActivityTimeline — it now fills its parent like every other component.\n\nTags: layout, simplify\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cv-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01BAdMnozqT352jPPZqjFxzU",
+      "tags": [
+        "refactor"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": "layout",
+      "title": "restore single main wrapper for all sections",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 18,
+        "deletions": 23
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/ActivityTimeline.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "2437fda",
+      "fullSha": "2437fdacd4c989c4cebd9b98fe6727aa89917ffb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T03:35:04+00:00",
+      "commitDate": "2026-02-19T03:35:04+00:00",
+      "subject": "fix(charts): expand timeline color series from 6 to 15",
+      "body": "6 colors cycle at 7+ repos making segments indistinguishable. Expanded\nto 15 visually distinct hues — still anchored on theme tokens (primary,\nsecondary, accent) first, with enough headroom for repo count growth.\n\nTags: charts, embed, colors\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01BAdMnozqT352jPPZqjFxzU",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "charts",
+      "title": "expand timeline color series from 6 to 15",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 23,
+        "deletions": 5
+      },
+      "files": [
+        "src/components/ActivityTimeline.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "2c18fb0",
+      "fullSha": "2c18fb06fd8bdc11d37e8bf1f003c9a49264d775",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T03:29:34+00:00",
+      "commitDate": "2026-02-19T03:29:34+00:00",
+      "subject": "feat(charts): add full-width activity timeline below Projects",
+      "body": "Embed repo-tor's activity-timeline stacked bar chart (60-day commit\nhistory by repo) between Projects and Skills. Uses full-width layout\n(max-w-7xl) since the 60-day timeline benefits from extra horizontal\nspace. Colors series built from theme tokens: primary, secondary,\naccent, plus complementary tones.\n\nRestructured <main> into two constrained sections (max-w-4xl) with\nthe timeline sitting between them at wider width.\n\nTags: charts, embed, layout\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-layout\nSemver: minor\n\nhttps://claude.ai/code/session_01BAdMnozqT352jPPZqjFxzU",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "charts",
+      "title": "add full-width activity timeline below Projects",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 63,
+        "deletions": 19
+      },
+      "files": [
+        "docs/EXTERNAL_REFERENCES.md",
+        "src/App.tsx",
+        "src/components/ActivityTimeline.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "0babf38",
+      "fullSha": "0babf384947d14b2772668dbf9346339f34203e9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T03:17:36+00:00",
+      "commitDate": "2026-02-19T03:17:36+00:00",
+      "subject": "docs: add repo-tor embed reference and fetch instructions",
+      "body": "Document how to fetch the repo-tor EMBED_IMPLEMENTATION.md and\nEMBED_REFERENCE.md files during sessions, with a local summary of\nall available embed IDs, URL params, and palettes.\n\nTags: docs, embed, cross-repo\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cv-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01BAdMnozqT352jPPZqjFxzU",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "add repo-tor embed reference and fetch instructions",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 84,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/EXTERNAL_REFERENCES.md"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "e1fa5fa",
+      "fullSha": "e1fa5fa387882d1bd72ca5400ef4df3205502453",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T03:00:14+00:00",
+      "commitDate": "2026-02-19T03:00:14+00:00",
+      "subject": "refactor(layout): move Activity below Skills and rename chart titles",
+      "body": "Move ActivityCharts section from above Projects to below Skills so the\npage flows: About → Projects → Skills → Activity → CTA. Rename chart\ntitles from \"Days I work\" / \"Hours I work\" to \"Most Active Days\" /\n\"Peak Working Hours\" for clarity.\n\nTags: layout, charts, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01BAdMnozqT352jPPZqjFxzU",
+      "tags": [
+        "refactor",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "layout",
+      "title": "move Activity below Skills and rename chart titles",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 5,
+        "deletions": 4
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/ActivityCharts.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "789121d",
+      "fullSha": "789121d02e4f8181574f368a88dc34488cb64fb0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-19T01:04:25+02:00",
+      "commitDate": "2026-02-19T01:04:25+02:00",
+      "subject": "Merge pull request #23 from devmade-ai/claude/update-chart-colors-ThMva",
+      "body": "Sync activity chart colors with see-veo theme palette",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #23 from devmade-ai/claude/update-chart-colors-ThMva",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#23"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 13,
+        "deletions": 1
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "e63a835",
+      "fullSha": "e63a8355dc04ed73a1ffb52e59d8b5a1210797a2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T22:40:03+00:00",
+      "commitDate": "2026-02-18T22:40:03+00:00",
+      "subject": "style(charts): match embed chart colors to see-veo theme",
+      "body": "Pass accent and muted URL params to repo-tor iframes so the\ndaily-distribution and hourly-distribution bar charts use our\nprimary (#38bdf8) and secondary (#818cf8) theme colors instead\nof the dashboard defaults.\n\nTags: styling, embed, theme\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: theme-consistency\nSemver: patch\n\nhttps://claude.ai/code/session_01FXF2rC9AdCiUCkubgzzCWz",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "charts",
+      "title": "match embed chart colors to see-veo theme",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "#38",
+        "#818"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 13,
+        "deletions": 1
+      },
+      "files": [
+        "src/components/ActivityCharts.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "35fcac3",
+      "fullSha": "35fcac3c67783c1700626f0d30c06349472798c0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-18T22:28:21+02:00",
+      "commitDate": "2026-02-18T22:28:21+02:00",
+      "subject": "Merge pull request #22 from devmade-ai/claude/add-missing-project-tags-XXIHd",
+      "body": "Add technology stack details to CanvaGrid and SyncTone projects",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #22 from devmade-ai/claude/add-missing-project-tags-XXIHd",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#22"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 2,
+        "deletions": 2
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0284f0a",
+      "fullSha": "0284f0a0fabf019056695d2da7e6d7dc0913e8b8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T20:26:50+00:00",
+      "commitDate": "2026-02-18T20:26:50+00:00",
+      "subject": "content(projects): add missing tech tags for CanvaGrid and SyncTone",
+      "body": "CanvaGrid and SyncTone projects had empty tech arrays while Graphiki\nand model-pear already had tags. Added tags derived from each project's\nactual package.json and repo structure via the GitHub API.\n\n- CanvaGrid: React, Vite, Tailwind CSS, PWA\n- SyncTone: React Native, Expo, TypeScript, Supabase, NativeWind\n\nTags: cv-data, projects, content\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01D8qWmo4Q36fifbxtL6BwMF",
+      "tags": [
+        "docs",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "projects",
+      "title": "add missing tech tags for CanvaGrid and SyncTone",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 2,
+        "deletions": 2
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "daf134f",
+      "fullSha": "daf134f82346470f95b0e8d7db29dc2744e1634e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-18T21:48:21+02:00",
+      "commitDate": "2026-02-18T21:48:21+02:00",
+      "subject": "Merge pull request #21 from devmade-ai/claude/create-custom-icon-alsUu",
+      "body": "Replace avatar initials with SVG icon and automate icon generation",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #21 from devmade-ai/claude/create-custom-icon-alsUu",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#21"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 71,
+        "deletions": 63
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "227830b",
+      "fullSha": "227830bb76a921a6d7e5b5ad3e1bc9200714850b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T19:47:54+00:00",
+      "commitDate": "2026-02-18T19:47:54+00:00",
+      "subject": "style(icons): refine glasses with rounded corners and curved bridge",
+      "body": "Added rounded corners to frames and cutouts, curved arc bridge between\nlenses, and tapered temple arms with rounded ends for a more polished\nlook.\n\nTags: ui, branding, asset\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: branding\nSemver: patch\n\nhttps://claude.ai/code/session_01GoSqLd26VPUJtguYj4xs5z",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "icons",
+      "title": "refine glasses with rounded corners and curved bridge",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 14,
+        "deletions": 12
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "0251eb2",
+      "fullSha": "0251eb25e06f6d0cd1596b7fad444d4fc64a32c6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T19:46:06+00:00",
+      "commitDate": "2026-02-18T19:46:06+00:00",
+      "subject": "feat(hero): replace initials avatar with glasses icon",
+      "body": "Swap the text-based initials circle for the mask-icon.svg glasses image.\nStill rendered in a circle via rounded-full with padding for breathing\nroom.\n\nTags: ui, branding\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: branding\nSemver: minor\n\nhttps://claude.ai/code/session_01GoSqLd26VPUJtguYj4xs5z",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "hero",
+      "title": "replace initials avatar with glasses icon",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 5,
+        "deletions": 3
+      },
+      "files": [
+        "src/components/Hero.tsx"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "bac610c",
+      "fullSha": "bac610c825a31d00f419888e36ac921e71ba1527",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T19:42:00+00:00",
+      "commitDate": "2026-02-18T19:42:00+00:00",
+      "subject": "asset(icons): simplify to glasses-only icon",
+      "body": "Stripped everything down to just square glasses — solid filled frames\nwith negative space lens cutouts, bridge, and temple arms. Clean,\nminimal, iconic.\n\nTags: ui, branding, asset\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: branding\nSemver: patch\n\nhttps://claude.ai/code/session_01GoSqLd26VPUJtguYj4xs5z",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "icons",
+      "title": "simplify to glasses-only icon",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 12,
+        "deletions": 49
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "0a7a1d7",
+      "fullSha": "0a7a1d7b5d7456e84bc80fa21aebfbcbabf0babc",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T19:27:21+00:00",
+      "commitDate": "2026-02-18T19:27:21+00:00",
+      "subject": "asset(icons): rebuild with solid fills and negative space cuts only",
+      "body": "Eliminated all stroke-based rendering. Every element is now a solid\nfilled shape. Details (hair texture, beard contour, glasses lens holes)\nare created via negative space cutout shapes filled with background\ncolor. Matches the reference clipart/vector illustration style.\n\nTags: ui, branding, asset\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: branding\nSemver: patch\n\nhttps://claude.ai/code/session_01GoSqLd26VPUJtguYj4xs5z",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "icons",
+      "title": "rebuild with solid fills and negative space cuts only",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 53,
+        "deletions": 62
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "404866e",
+      "fullSha": "404866ea8f72b157498643c5d756ea4a9bd1c665",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T19:12:10+00:00",
+      "commitDate": "2026-02-18T19:12:10+00:00",
+      "subject": "asset(icons): redesign as single-color stencil silhouette",
+      "body": "Complete redesign based on reference images. Face is negative space\n(dark background), all features (hair, beard, glasses, mustache) are\nsolid #38bdf8 shapes. Hair has dark carved texture streaks, beard has\nconcentric detail lines. Square glasses with bridge and temple arms.\n\nTags: ui, branding, asset\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: branding\nSemver: patch\n\nhttps://claude.ai/code/session_01GoSqLd26VPUJtguYj4xs5z",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "icons",
+      "title": "redesign as single-color stencil silhouette",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "#38"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 50,
+        "deletions": 55
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "93073a5",
+      "fullSha": "93073a5214a2e550f6c0787fa70f3bfc3b50f475",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T19:05:52+00:00",
+      "commitDate": "2026-02-18T19:05:52+00:00",
+      "subject": "asset(icons): redesign icon as flat illustration avatar with square glasses",
+      "body": "Recreated the SVG icon from scratch to match a flat design avatar style\nwith square glasses, full beard, shoulders/shirt, and the project's blue\ncolor palette. Regenerated all PNG sizes and favicon.\n\nTags: ui, branding, asset\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: branding\nSemver: patch\n\nhttps://claude.ai/code/session_01GoSqLd26VPUJtguYj4xs5z",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "icons",
+      "title": "redesign icon as flat illustration avatar with square glasses",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 103,
+        "deletions": 48
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "scripts/generate-icons.mjs"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "52eb2f5",
+      "fullSha": "52eb2f57fb9805a14404a66a6dbecf1882906864",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-18T17:33:01+02:00",
+      "commitDate": "2026-02-18T17:33:01+02:00",
+      "subject": "Merge pull request #20 from devmade-ai/claude/update-about-section-g4emT",
+      "body": "Redesign avatar icon and refine hero section layout",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #20 from devmade-ai/claude/update-about-section-g4emT",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#20"
+      ],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 674,
+        "deletions": 4
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ae76f6d",
+      "fullSha": "ae76f6db554611c00c021f67e9f6aca86c8d281c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T15:24:56+00:00",
+      "commitDate": "2026-02-18T15:24:56+00:00",
+      "subject": "asset(icons): add visible mouth gap between mustache and beard",
+      "body": "Added a skin-colored strip and lip line between the mustache and beard\nso the three facial zones (mustache, mouth, beard) are clearly distinct.\n\nTags: asset, icon, branding\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01UePTQKjFG36FhPh6z9e2mK",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "icons",
+      "title": "add visible mouth gap between mustache and beard",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 6,
+        "deletions": 4
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "4acb461",
+      "fullSha": "4acb461fa70cb5d9e6bc618dd4ca0a023b8b4a44",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T15:20:50+00:00",
+      "commitDate": "2026-02-18T15:20:50+00:00",
+      "subject": "asset(icons): tuck ears closer and add subtle mouth",
+      "body": "Reduced ear size/offset to sit tighter against the head. Added a small\nsmile curve above the mustache for a friendlier expression.\n\nTags: asset, icon, branding\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01UePTQKjFG36FhPh6z9e2mK",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "icons",
+      "title": "tuck ears closer and add subtle mouth",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 6,
+        "deletions": 3
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "2f93472",
+      "fullSha": "2f93472e280201ec99f3e33be06b1f869c74d1f2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T15:18:35+00:00",
+      "commitDate": "2026-02-18T15:18:35+00:00",
+      "subject": "chore(deps): add sharp and png-to-ico dev dependencies",
+      "body": "Added for regenerating PWA icons and favicon from SVG source.\n\nTags: deps, tooling\nComplexity: 1\nUrgency: 1\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01UePTQKjFG36FhPh6z9e2mK",
+      "tags": [
+        "dependency-add"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "deps",
+      "title": "add sharp and png-to-ico dev dependencies",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 607,
+        "deletions": 0
+      },
+      "files": [
+        "package-lock.json",
+        "package.json"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "c2ff07b",
+      "fullSha": "c2ff07b1e881bc047ab8ef80f817451789b444c8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T15:12:56+00:00",
+      "commitDate": "2026-02-18T15:12:56+00:00",
+      "subject": "asset(icons): change glasses from round to square frames",
+      "body": "Swapped round circle glasses for square rectangular frames with slight\ncorner rounding. All image sizes regenerated.\n\nTags: asset, icon, branding\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01UePTQKjFG36FhPh6z9e2mK",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "icons",
+      "title": "change glasses from round to square frames",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 6,
+        "deletions": 6
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "157d556",
+      "fullSha": "157d55677209059a03edd638326e6c7f61b3e377",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T15:09:48+00:00",
+      "commitDate": "2026-02-18T15:09:48+00:00",
+      "subject": "asset(icons): hipster style — faded sides, swept top, triangular beard",
+      "body": "Undercut/fade sides, long voluminous top combed left-to-right with side\npart, round glasses, triangular beard tapering to a point, mustache.\nAll blue tones, generic simple style. All image sizes regenerated.\n\nTags: asset, icon, branding\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01UePTQKjFG36FhPh6z9e2mK",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "icons",
+      "title": "hipster style — faded sides, swept top, triangular beard",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 39,
+        "deletions": 36
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "38a00c0",
+      "fullSha": "38a00c0f8591bcceb7ef5a7ada1b8b0b5eae0dbc",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T15:06:24+00:00",
+      "commitDate": "2026-02-18T15:06:24+00:00",
+      "subject": "asset(icons): redesign SVG — blue tones, short sides, comb-over, bushy beard",
+      "body": "Replaced yellow emoji skin with monochrome blue palette. Hair now has\nshort cropped sides with a side part and top combed left-to-right.\nRemoved neck and shoulders — head only. Kept bushy beard, rounded\nrectangle glasses, and generic simple style.\n\nTags: asset, icon, branding, wip\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01UePTQKjFG36FhPh6z9e2mK",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "icons",
+      "title": "redesign SVG — blue tones, short sides, comb-over, bushy beard",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 43,
+        "deletions": 48
+      },
+      "files": [
+        "public/mask-icon.svg"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "1902491",
+      "fullSha": "190249108195adda6d195b88002caf4d324632c7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T15:02:24+00:00",
+      "commitDate": "2026-02-18T15:02:24+00:00",
+      "subject": "asset(icons): rework SVG to hipster emoji style — head only, no body",
+      "body": "Stripped neck and shoulders. Redesigned as a hipster emoji: round\nglasses, big bushy beard with texture, combed sides/back hair with a\nswept quiff, thick handlebar mustache, warm skin tone, brown hair.\nPNG regeneration pending user approval of the design.\n\nTags: asset, icon, branding, wip\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01UePTQKjFG36FhPh6z9e2mK",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "icons",
+      "title": "rework SVG to hipster emoji style — head only, no body",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 50,
+        "deletions": 57
+      },
+      "files": [
+        "public/mask-icon.svg"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "1b2bf0a",
+      "fullSha": "1b2bf0ab528834dd2b49468e5a8dbb47570e2b4a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T14:57:32+00:00",
+      "commitDate": "2026-02-18T14:57:32+00:00",
+      "subject": "asset(icons): redesign avatar with bushy beard and combed hair in emoji style",
+      "body": "Reworked the avatar SVG to be more emoji-like with warm skin tones,\na large bushy beard with texture lines, combed sides/back hair with\nvolume, bigger sparkly eyes, thick eyebrows, and a bushy mustache.\nRegenerated all PNG sizes and favicon.\n\nTags: asset, icon, pwa, branding\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01UePTQKjFG36FhPh6z9e2mK",
+      "tags": [
+        "style",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "icons",
+      "title": "redesign avatar with bushy beard and combed hair in emoji style",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 52,
+        "deletions": 28
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "e44dd89",
+      "fullSha": "e44dd8945bcc90142925d66a10571dcbdf8b8d19",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T14:54:24+00:00",
+      "commitDate": "2026-02-18T14:54:24+00:00",
+      "subject": "asset(icons): replace text icons with avatar of man with glasses and beard",
+      "body": "Created a new SVG avatar icon depicting a man with glasses and a beard,\nusing the project's existing color palette (dark navy #0f172a background,\nlight blue #38bdf8 face, dark teal #0c4a6e for hair/beard). Converted\nto PNG at all required PWA sizes (192x192, 512x512, 180x180 apple-touch)\nand regenerated favicon.ico.\n\nTags: asset, icon, pwa, branding\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01UePTQKjFG36FhPh6z9e2mK",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "icons",
+      "title": "replace text icons with avatar of man with glasses and beard",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "#0",
+        "#38"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 45,
+        "deletions": 1
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/mask-icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "fb93f60",
+      "fullSha": "fb93f6029225d03dc591f92dca97346b81c7baf5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-18T14:48:15+00:00",
+      "commitDate": "2026-02-18T14:48:15+00:00",
+      "subject": "content(about, hero): update about section text and remove location from header",
+      "body": "Replaces first-person about text with third-person copy provided by the\nproject owner. Removes the location line from the Hero header to\ndeclutter the top of the page.\n\nTags: content, ui, hero, about\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01UePTQKjFG36FhPh6z9e2mK",
+      "tags": [
+        "docs",
+        "ux"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "about, hero",
+      "title": "update about section text and remove location from header",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 2,
+        "deletions": 3
+      },
+      "files": [
+        "src/components/Hero.tsx",
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "18f1de6",
+      "fullSha": "18f1de61a79cdafdc4bfc816991f7bad7996816f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-18T13:11:27+02:00",
+      "commitDate": "2026-02-18T13:11:27+02:00",
+      "subject": "Merge pull request #19 from devmade-ai/claude/fix-pwa-update-button-83a6o",
+      "body": "Redesign update prompt as top banner and simplify debug overlay",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #19 from devmade-ai/claude/fix-pwa-update-button-83a6o",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#19"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 25,
+        "deletions": 31
+      },
+      "files": [],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
     {
       "sha": "58b7fde",
       "fullSha": "58b7fde449a4b889ec7c093d14bddae12c9ec93e",
@@ -2995,26 +4778,28 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 68,
-      "avgComplexity": 1.69,
-      "avgUrgency": 2,
+      "commits": 109,
+      "avgComplexity": 1.66,
+      "avgUrgency": 1.72,
       "tagBreakdown": {
+        "merge": 27,
+        "bugfix": 12,
+        "refactor": 7,
+        "style": 19,
+        "ux": 12,
+        "feature": 16,
+        "docs": 5,
+        "ui": 27,
+        "config": 5,
+        "dependency-add": 1,
         "pwa": 7,
-        "ux": 6,
-        "merge": 18,
-        "ui": 8,
         "layout": 5,
-        "refactor": 4,
         "content": 14,
-        "bugfix": 10,
         "print": 1,
-        "feature": 12,
         "embed": 1,
         "skills": 3,
         "api": 2,
-        "docs": 1,
         "removal": 3,
-        "config": 4,
         "revert": 1,
         "mobile": 2,
         "lint": 1,
@@ -3040,49 +4825,51 @@
         "repository-setup": 1
       },
       "impactBreakdown": {
-        "internal": 23,
-        "user-facing": 39,
+        "internal": 35,
+        "user-facing": 68,
         "infrastructure": 6,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 49,
+        "low": 90,
         "medium": 2,
         "high": 0
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 18,
-        "neutral": 33
+        "paid": 20,
+        "neutral": 72
       },
       "repos": [
         "see-veo"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-12T23:14:08Z",
-      "lastCommit": "2026-02-18T12:30:04+02:00"
+      "lastCommit": "2026-02-19T07:55:47+02:00"
     }
   ],
   "summary": {
-    "totalCommits": 68,
+    "totalCommits": 109,
     "totalContributors": 1,
     "tagBreakdown": {
+      "merge": 27,
+      "bugfix": 12,
+      "refactor": 7,
+      "style": 19,
+      "ux": 12,
+      "feature": 16,
+      "docs": 5,
+      "ui": 27,
+      "config": 5,
+      "dependency-add": 1,
       "pwa": 7,
-      "ux": 6,
-      "merge": 18,
-      "ui": 8,
       "layout": 5,
-      "refactor": 4,
       "content": 14,
-      "bugfix": 10,
       "print": 1,
-      "feature": 12,
       "embed": 1,
       "skills": 3,
       "api": 2,
-      "docs": 1,
       "removal": 3,
-      "config": 4,
       "revert": 1,
       "mobile": 2,
       "lint": 1,
@@ -3108,34 +4895,34 @@
       "repository-setup": 1
     },
     "complexityBreakdown": {
-      "1": 40,
-      "2": 13,
-      "3": 13,
+      "1": 61,
+      "2": 28,
+      "3": 18,
       "4": 0,
       "5": 2
     },
     "urgencyBreakdown": {
-      "1": 15,
-      "2": 40,
+      "1": 45,
+      "2": 51,
       "3": 11,
       "4": 2,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 23,
-      "user-facing": 39,
+      "internal": 35,
+      "user-facing": 68,
       "infrastructure": 6,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 49,
+      "low": 90,
       "medium": 2,
       "high": 0
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 18,
-      "neutral": 33
+      "paid": 20,
+      "neutral": 72
     },
     "epicBreakdown": {
       "pwa-update-flow": 1,
@@ -3152,28 +4939,30 @@
       "minor": 11,
       "major": 0
     },
-    "avgComplexity": 1.69,
-    "avgUrgency": 2,
+    "avgComplexity": 1.66,
+    "avgUrgency": 1.72,
     "monthly": {
       "2026-02": {
-        "commits": 68,
+        "commits": 109,
         "tags": {
+          "merge": 27,
+          "bugfix": 12,
+          "refactor": 7,
+          "style": 19,
+          "ux": 12,
+          "feature": 16,
+          "docs": 5,
+          "ui": 27,
+          "config": 5,
+          "dependency-add": 1,
           "pwa": 7,
-          "ux": 6,
-          "merge": 18,
-          "ui": 8,
           "layout": 5,
-          "refactor": 4,
           "content": 14,
-          "bugfix": 10,
           "print": 1,
-          "feature": 12,
           "embed": 1,
           "skills": 3,
           "api": 2,
-          "docs": 1,
           "removal": 3,
-          "config": 4,
           "revert": 1,
           "mobile": 2,
           "lint": 1,
@@ -3199,50 +4988,52 @@
           "repository-setup": 1
         },
         "impact": {
-          "internal": 23,
-          "user-facing": 39,
+          "internal": 35,
+          "user-facing": 68,
           "infrastructure": 6,
           "api": 0
         },
         "risk": {
-          "low": 49,
+          "low": 90,
           "medium": 2,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 18,
-          "neutral": 33
+          "paid": 20,
+          "neutral": 72
         },
         "semver": {
           "patch": 27,
           "minor": 11,
           "major": 0
         },
-        "avgComplexity": 1.69,
-        "avgUrgency": 2
+        "avgComplexity": 1.66,
+        "avgUrgency": 1.72
       }
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 68,
+        "commits": 109,
         "tags": {
+          "merge": 27,
+          "bugfix": 12,
+          "refactor": 7,
+          "style": 19,
+          "ux": 12,
+          "feature": 16,
+          "docs": 5,
+          "ui": 27,
+          "config": 5,
+          "dependency-add": 1,
           "pwa": 7,
-          "ux": 6,
-          "merge": 18,
-          "ui": 8,
           "layout": 5,
-          "refactor": 4,
           "content": 14,
-          "bugfix": 10,
           "print": 1,
-          "feature": 12,
           "embed": 1,
           "skills": 3,
           "api": 2,
-          "docs": 1,
           "removal": 3,
-          "config": 4,
           "revert": 1,
           "mobile": 2,
           "lint": 1,
@@ -3268,33 +5059,33 @@
           "repository-setup": 1
         },
         "impact": {
-          "internal": 23,
-          "user-facing": 39,
+          "internal": 35,
+          "user-facing": 68,
           "infrastructure": 6,
           "api": 0
         },
         "risk": {
-          "low": 49,
+          "low": 90,
           "medium": 2,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 18,
-          "neutral": 33
+          "paid": 20,
+          "neutral": 72
         },
         "semver": {
           "patch": 27,
           "minor": 11,
           "major": 0
         },
-        "avgComplexity": 1.69,
-        "avgUrgency": 2
+        "avgComplexity": 1.66,
+        "avgUrgency": 1.72
       }
     },
     "dateRange": {
       "earliest": "2026-02-12T23:14:08Z",
-      "latest": "2026-02-18T12:30:04+02:00"
+      "latest": "2026-02-19T07:55:47+02:00"
     },
     "security_events": []
   }

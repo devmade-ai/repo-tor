@@ -1,0 +1,53 @@
+{
+  "sha": "d0d6cfa",
+  "fullSha": "d0d6cfaf7e91d1c7f17490e7ed2a9ea32d360fc5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T20:05:55+00:00",
+  "commitDate": "2026-02-18T20:05:55+00:00",
+  "subject": "refactor(import): remove all type/schema concepts from codebase",
+  "body": "The app uses labels and properties — there are no types, schemas,\ntypeName, typeId, isSystemNode, or isSystemArc. Removed every reference\nto these dead concepts across code, tests, and documentation.\n\nCode changes:\n- importExportService: removed typeName→label conversion from JSON\n  normalization, updated buildLabelsFromRaw to only merge labels+tags\n- markdownImportService: removed type: frontmatter→label handling,\n  type: in frontmatter is now treated as a regular property\n- Cleaned up comments in types/index.ts, factory.ts, snapshotService.ts,\n  database.ts, ExportModal.tsx\n\nTest changes:\n- Removed typeName conversion tests from importExportService.test.ts\n- Updated markdown import tests to use tags: instead of type: for labels\n\nDocumentation changes:\n- ai-research-output-guide.md: removed Type Assignment section,\n  isSystemNode/isSystemArc, schemas, typeName/typeId references\n- markdown-import-format.md: removed type: as recognized frontmatter\n- CLAUDE.md: removed schema/type references from conventions\n\nOnly surviving references are in database.ts v1 migration (required by\nDexie for database upgrade path — cannot be removed).\n\nTags: import, labels, cleanup, type-removal\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: import-compatibility\nSemver: minor\n\nhttps://claude.ai/code/session_01GmBxqTbwGYpy2GUF4TGDLk",
+  "tags": [
+    "refactor",
+    "removal"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "import",
+  "title": "remove all type/schema concepts from codebase",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 63,
+    "deletions": 165
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/ai-research-output-guide.md",
+    "docs/markdown-import-format.md",
+    "src/components/importExport/ExportModal.tsx",
+    "src/db/database.ts",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts",
+    "src/services/markdownImportService.test.ts",
+    "src/services/markdownImportService.ts",
+    "src/services/snapshotService.ts",
+    "src/types/index.ts",
+    "src/utils/factory.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

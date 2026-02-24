@@ -1,0 +1,42 @@
+{
+  "sha": "053573b",
+  "fullSha": "053573b994c71d5595ef25a38cb424405b5e75d2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T22:59:48+00:00",
+  "commitDate": "2026-02-18T22:59:48+00:00",
+  "subject": "docs(guide): expand vocabulary and add cross-domain guidance",
+  "body": "Expand the standard label vocabulary with 6 cross-domain additions\n(Theory, Law, Process, Movement, Artwork, Era) so AIs researching\nnon-business topics have anchors to standardize against instead of\ninventing labels from scratch.\n\nExpand connection title vocabulary with 9 cross-domain verbs\n(caused, led to, influenced, opposes, supports, discovered,\nreferences, governs, studied) covering causal, analytical,\nscientific, and comparative relationships.\n\nExpand property key vocabulary with 6 additions (medium, era,\njurisdiction, field, methodology, outcome) for arts, legal,\nand scientific domains.\n\nAdd \"Applying to other domains\" section with a table showing how\nthe format maps to science, history, arts, law, and philosophy.\n\nAdd source attribution guidance to both Markdown and JSON tips\n(use `source` property for primary references, inline citations\nin body text).\n\nAdd \"What deserves its own item\" heuristic so AIs can decide\nwhen to create a heading vs keep something as body text or a\nproperty.\n\nTags: docs, guide, conventions, vocabulary, cross-domain\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: output-guide\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "guide",
+  "title": "expand vocabulary and add cross-domain guidance",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 42,
+    "deletions": 3
+  },
+  "files": [
+    "docs/ai-research-output-guide.md",
+    "src/data/conventions.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

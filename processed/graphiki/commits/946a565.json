@@ -1,0 +1,43 @@
+{
+  "sha": "946a565",
+  "fullSha": "946a565afa9ebd6d5297d05065af426ddb4dabb3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T12:59:47+00:00",
+  "commitDate": "2026-02-20T12:59:47+00:00",
+  "subject": "feat(import): make id, version, timestamps optional in JSON import",
+  "body": "AI-generated JSON output no longer needs to invent IDs. Nodes only\nrequire `title`, connections only require `sourceId` and `targetId`.\nMissing `id` fields get auto-generated UUIDs. Missing `version`,\n`created`, `modified`, and `contentType` get sensible defaults.\n\nConnections can reference items by title in `sourceId`/`targetId`\n(title-based fallback was added in previous commit), so the full\nminimal AI output is just titles + labels + content + connections.\n\nGuide updated: JSON structure, rules, template, and tips all\nsimplified to show the ID-free format as the default.\n\nTags: import, json, ai-output, simplification\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ai-research-output\nSemver: minor\n\nhttps://claude.ai/code/session_0166oa9msWRq48KCJ6pyca4J",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "import",
+  "title": "make id, version, timestamps optional in JSON import",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 86,
+    "deletions": 59
+  },
+  "files": [
+    "docs/ai-research-output-guide.md",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "user-facing"
+}

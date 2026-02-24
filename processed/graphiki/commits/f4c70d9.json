@@ -1,0 +1,44 @@
+{
+  "sha": "f4c70d9",
+  "fullSha": "f4c70d9739a4fa7c6ff77ed285fe496be793c0bb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T22:21:19+00:00",
+  "commitDate": "2026-02-18T22:21:19+00:00",
+  "subject": "feat(import): add pipe syntax and frontmatter connections to markdown import",
+  "body": "Markdown import previously limited connections to auto-generated\n\"contains\" (heading hierarchy) and \"links to\" (wiki-links) arcs with\nno labels or properties. This meant all enriched connection metadata\nrequired JSON format, undermining the recommended Markdown workflow.\n\nPipe syntax: [[Target|relationship title]]\n  - Splits on first \"|\" — left = target name, right = relationship title\n  - No pipe = default \"links to\" (backward compatible)\n  - Example: [[Google|works at]] creates a \"works at\" arc\n\nFrontmatter connections: block\n  - Parsed from section-level YAML frontmatter\n  - Each entry: to: (required), title: (optional), labels: (optional),\n    plus any other key becomes a connection property\n  - Example: connections: [{to: Acme, title: works at, role: CTO}]\n\nAlso fixes:\n  - `tags:` now accepted as alias for `labels:` in frontmatter\n    (guide told AIs to use `tags:` but code only recognized `labels:`)\n  - `tags` and `connections` excluded from node properties (reserved keys)\n\n16 new tests added (231 total, all passing).\nGuide updated with both features: rules, template, tips, real-world\nexample, quick reference table, and connection metadata section.\n\nTags: import, markdown, connections, pipe-syntax, frontmatter\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: fix-import-compatibility\nSemver: minor\n\nhttps://claude.ai/code/session_01GmBxqTbwGYpy2GUF4TGDLk",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "import",
+  "title": "add pipe syntax and frontmatter connections to markdown import",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 461,
+    "deletions": 39
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/ai-research-output-guide.md",
+    "src/services/markdownImportService.test.ts",
+    "src/services/markdownImportService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "user-facing"
+}

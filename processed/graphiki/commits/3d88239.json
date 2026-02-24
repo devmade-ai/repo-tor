@@ -1,0 +1,41 @@
+{
+  "sha": "3d88239",
+  "fullSha": "3d88239d0665feea867fb662a74a0a4c42f7110b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T21:44:07+00:00",
+  "commitDate": "2026-02-18T21:44:07+00:00",
+  "subject": "docs(guide): add tags vs properties decision guide",
+  "body": "AI authors and users had no guidance on when to use tags (labels) vs\nproperties for item metadata. This led to inconsistent tagging, which\ndegrades import matching quality since tags are used for disambiguation.\n\nAdded a \"Tags vs properties\" section with:\n- Clear distinction: tags = \"what kind of thing\" / properties = \"facts about it\"\n- Decision rule: filter by it → tag, read it on detail card → property\n- 10 concrete examples (Person, CEO, revenue, founded, etc.)\n- Three tiebreaker rules for ambiguous cases\n\nTags: docs, guide, conventions\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: import-compatibility\nSemver: patch\n\nhttps://claude.ai/code/session_01GmBxqTbwGYpy2GUF4TGDLk",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "guide",
+  "title": "add tags vs properties decision guide",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 41,
+    "deletions": 0
+  },
+  "files": [
+    "docs/ai-research-output-guide.md"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

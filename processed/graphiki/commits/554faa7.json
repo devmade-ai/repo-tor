@@ -1,0 +1,48 @@
+{
+  "sha": "554faa7",
+  "fullSha": "554faa72921fadb4885fca62578cc3710ea45a25",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T11:08:03+00:00",
+  "commitDate": "2026-02-20T11:08:03+00:00",
+  "subject": "feat(query): add connect mode for dual-query path discovery",
+  "body": "Users can now define two independent queries (A and B) and see how their\nresults connect across the graph. The mode toggle (Search / Connect) in\nthe QueryBuilder header switches between existing search and new connect\nmode.\n\nConnect mode features:\n- Two pipeline panels (Find A / Connect to B) with full step support\n- Connection settings: max hops (1–5) and arc-label exclusion checkboxes\n- Bidirectional BFS engine (findConnections) finds bridge nodes\n- Color-coded graph visualization: A=blue, B=green, bridge=orange,\n  overlap=purple, connecting arcs=amber, internal arcs dimmed\n- Dual result and analysis result are mutually exclusive overlays\n\nExtracted QueryStepPanel as reusable component shared by both modes.\ncreateStepOps() factory generates step CRUD callbacks bound to any\nuseState setter, avoiding callback duplication across three step arrays.\n\nTags: query, connect-mode, dual-query, graph-visualization\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: dual-query\nSemver: minor\n\nhttps://claude.ai/code/session_01QaVBrY3ZbkWqho5derxeJw",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "query",
+  "title": "add connect mode for dual-query path discovery",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 960,
+    "deletions": 338
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/working/dual-query-connect-mode.md",
+    "src/App.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/query/QueryBuilder.css",
+    "src/components/query/QueryBuilder.tsx",
+    "src/components/query/QueryStepPanel.tsx",
+    "src/services/queryEngine.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "user-facing"
+}

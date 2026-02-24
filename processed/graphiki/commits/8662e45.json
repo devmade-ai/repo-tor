@@ -1,0 +1,46 @@
+{
+  "sha": "8662e45",
+  "fullSha": "8662e459d395af8ad7c7adbee5fd7dcb94ebeaeb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T21:09:51+00:00",
+  "commitDate": "2026-02-18T21:16:56+00:00",
+  "subject": "fix(import): rename JSON format \"arcs\" to \"connections\", add property type coercion",
+  "body": "Three user-facing fixes:\n\n1. JSON export/import format uses \"connections\" instead of \"arcs\" — matches\n   the terminology used everywhere else in the UI and documentation.\n\n2. Property type coercion on save — numbers, booleans, and JSON arrays/objects\n   typed into text inputs are preserved as their correct types instead of being\n   stored as strings. Critical for boolean logic, calculations, and timeline\n   date-based sorting.\n\n3. Terminology cleanup: \"Select a node or arc\" → \"Select an item\",\n   \"Untitled Arc\" → \"Untitled Connection\".\n\nAlso removes CSV from the AI research output guide since CSV import was never\nwired up and markdown/JSON cover all use cases (CSV can't express connections).\n\nTags: import, json, types, ui, guide\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: import-compatibility\nSemver: minor\n\nhttps://claude.ai/code/session_01GmBxqTbwGYpy2GUF4TGDLk",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "import",
+  "title": "rename JSON format \"arcs\" to \"connections\", add property type coercion",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 169,
+    "deletions": 119
+  },
+  "files": [
+    "docs/ai-research-output-guide.md",
+    "src/components/panels/DetailPanel.tsx",
+    "src/data/conventions.ts",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

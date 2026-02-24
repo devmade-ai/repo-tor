@@ -1,0 +1,67 @@
+{
+  "sha": "65bdc4c",
+  "fullSha": "65bdc4c4464a7d9e73fe4657b1eee8fb2ddfa611",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T13:27:55+00:00",
+  "commitDate": "2026-02-20T13:27:55+00:00",
+  "subject": "refactor(types): rename Arc sourceId/targetId to source/target",
+  "body": "Breaking change (alpha): renamed Arc.sourceId → Arc.source and\nArc.targetId → Arc.target across the entire codebase (26 files).\n\nThe old names implied IDs but the import format uses item titles.\nThe new names are clearer — `source` and `target` describe what they\nhold without implying a specific type. The import parser still accepts\n`sourceId`/`targetId` as aliases for backward compatibility.\n\nAlso added \"Alpha Phase — Breaking Changes Expected\" section to\nCLAUDE.md so future decisions aren't blocked by backwards compatibility\nconcerns. Updated conventions.ts to remove required id/timestamp\nfields from the JSON format description, matching the simplified\nAI output guide.\n\nDexie schema bumped to v2 for index rename (source, target).\n\nTags: types, arc, rename, alpha, breaking-change\nComplexity: 3\nUrgency: 3\nImpact: api\nRisk: medium\nDebt: paid\nEpic: ai-research-output\nSemver: major\n\nhttps://claude.ai/code/session_0166oa9msWRq48KCJ6pyca4J",
+  "tags": [
+    "refactor",
+    "naming"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "types",
+  "title": "rename Arc sourceId/targetId to source/target",
+  "is_conventional": true,
+  "has_breaking_change": true,
+  "references": [],
+  "stats": {
+    "filesChanged": 26,
+    "additions": 258,
+    "deletions": 248
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/App.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/importExport/MergeReview.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/query/QueryBuilder.tsx",
+    "src/data/conventions.ts",
+    "src/data/demoData.ts",
+    "src/db/database.ts",
+    "src/services/analysisService.test.ts",
+    "src/services/analysisService.ts",
+    "src/services/graphService.test.ts",
+    "src/services/graphService.ts",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts",
+    "src/services/markdownImportService.test.ts",
+    "src/services/markdownImportService.ts",
+    "src/services/mergeService.test.ts",
+    "src/services/mergeService.ts",
+    "src/services/queryEngine.integration.test.ts",
+    "src/services/queryEngine.test.ts",
+    "src/services/queryEngine.ts",
+    "src/services/seedService.test.ts",
+    "src/types/index.ts",
+    "src/utils/factory.test.ts",
+    "src/utils/factory.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

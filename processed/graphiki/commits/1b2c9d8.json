@@ -1,0 +1,44 @@
+{
+  "sha": "1b2c9d8",
+  "fullSha": "1b2c9d8b8fedfd9ed1f0a0b845ab6724aa29966f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T20:43:29+00:00",
+  "commitDate": "2026-02-18T20:43:29+00:00",
+  "subject": "refactor(markdown-parser): rename ParsedLink.label to ParsedLink.title",
+  "body": "Eliminates \"label\" ambiguity — previously used for both `labels[]`\n(categorization array) and relationship names on links. Now `label`\nmeans exactly one thing: the `labels[]` categorization array. Link\nrelationship names use `title`, matching the Arc data model field\nthey map to during resolution.\n\nAlso renames constants ARC_LABEL_CONTAINS/ARC_LABEL_LINKS_TO to\nARC_TITLE_CONTAINS/ARC_TITLE_LINKS_TO for consistency.\n\nTags: terminology, markdown-parser, consistency\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: terminology-consistency\nSemver: patch\n\nhttps://claude.ai/code/session_01GmBxqTbwGYpy2GUF4TGDLk",
+  "tags": [
+    "refactor",
+    "naming"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "markdown-parser",
+  "title": "rename ParsedLink.label to ParsedLink.title",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 38,
+    "deletions": 33
+  },
+  "files": [
+    "src/components/importExport/ImportModal.tsx",
+    "src/services/markdownImportService.test.ts",
+    "src/services/markdownImportService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

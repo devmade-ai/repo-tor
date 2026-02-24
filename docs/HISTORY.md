@@ -2,6 +2,49 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-24
+
+### Add New Repos and Projects Tab
+
+**Why:** User requested adding all latest repos to the tracked list and creating a page to access all live projects from the dashboard.
+
+**Changes:**
+- Added `budgy-ting` (public) and `tool-till-tees` (private) to `config/repos.json` — discovered via GitHub API
+- Created `dashboard/projects.json` with all 14 projects, live URLs (GitHub Pages/Vercel), repo URLs, and language info
+- Created `dashboard/js/tabs/ProjectsTab.jsx` — fetches projects.json, enriches with commit counts from analytics data, splits into "Live Projects" and "Other Repositories" sections
+- Added project card CSS to `dashboard/styles.css`
+- Updated `dashboard/js/state.js` TAB_MAPPING, `dashboard/js/components/TabBar.jsx` TABS array, `dashboard/js/App.jsx` imports and render
+
+**Files:**
+- `config/repos.json`
+- `dashboard/projects.json` (new)
+- `dashboard/js/tabs/ProjectsTab.jsx` (new)
+- `dashboard/styles.css`
+- `dashboard/js/state.js`
+- `dashboard/js/components/TabBar.jsx`
+- `dashboard/js/App.jsx`
+
+---
+
+### Feed the Chicken — 206 New Commits (7 repos)
+
+**Why:** Incremental extraction to process new commits not yet analyzed across all tracked repositories.
+
+**Changes:**
+- Extracted git data from all 14 repos (clone-based, gh CLI unavailable)
+- Generated 206 pending commits across 11 batches in 7 repos
+- AI-analyzed all batches with human approval: glow-props (6), few-lap (16), budgy-ting (19), repo-tor (22), see-veo (41), tool-till-tees (39), graphiki (63)
+- Merged via `scripts/merge-analysis.js`, re-aggregated via `scripts/aggregate-processed.js`
+- Final totals: 14 repos, 1908 commits
+
+**Files:**
+- `processed/*/commits/*.json` — 206 new commit files across 7 repos
+- `processed/*/manifest.json` — updated manifests for 7 repos
+- `dashboard/data.json` — re-aggregated
+- `dashboard/repos/*.json` — 16 files (14 repos + 2 new)
+
+---
+
 ## 2026-02-19
 
 ### Embed Auto-Resize Helper Script

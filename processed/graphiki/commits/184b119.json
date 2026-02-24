@@ -1,0 +1,45 @@
+{
+  "sha": "184b119",
+  "fullSha": "184b119b93b96a192d2fc9adacbd626c3f3fb0ce",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-19T22:58:45+00:00",
+  "commitDate": "2026-02-19T22:58:45+00:00",
+  "subject": "fix(query): improve query builder UX for non-technical users",
+  "body": "Six fixes from a UX audit of the query builder:\n\n1. Rename \"Run\" button to \"Search\" — plain language for non-technical users\n2. Replace date-biased comparison operators (\"is before\"/\"is after\") with\n   universal labels (\"less than\"/\"greater than\") that work for all types\n3. Align help modal terminology with actual UI labels — \"Has label\" not\n   \"Label\", \"Connected by\" not \"Connection\", operator names match dropdowns\n4. Add mobile touch target overrides for all interactive elements that were\n   below the 36-44px guideline (mode toggle, NOT, AND/OR, remove, add buttons)\n5. Fix accessibility gaps: focus-visible on remove/action buttons, aria-labels\n   on remove buttons, ARIA tab roles on help modal tabs\n6. Add \"no results\" feedback message with plain-language guidance when a\n   search returns zero matches\n\nTags: query, ux, accessibility, mobile\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: interactive-query-builder\nSemver: patch\n\nhttps://claude.ai/code/session_014Wiyxz1YhpqftgctiarRyv",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "query",
+  "title": "improve query builder UX for non-technical users",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 130,
+    "deletions": 30
+  },
+  "files": [
+    "src/components/query/QueryBuilder.css",
+    "src/components/query/QueryBuilder.tsx",
+    "src/components/query/QueryFilterRow.tsx",
+    "src/components/query/QueryHelpModal.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

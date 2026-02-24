@@ -1,0 +1,41 @@
+{
+  "sha": "bd6baaa",
+  "fullSha": "bd6baaa7f676145966ed1266cf8b18279d2d33f3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T22:05:20+00:00",
+  "commitDate": "2026-02-18T22:05:20+00:00",
+  "subject": "docs(guide): add connection labels and properties guidance",
+  "body": "The guide listed labels and properties as required connection fields\nbut gave no guidance on when to use them. AI assistants defaulted to\nempty arrays/objects with no understanding of what could go there.\n\nAdds \"Connection labels and properties\" subsection under Connection\nnaming with:\n- Three-field breakdown (title, labels, properties) mirroring item\n  guidance but adapted for relationship semantics\n- \"When to use\" tables for labels and properties with concrete examples\n- Rule of thumb for deciding whether data belongs on the connection\n  or on one of its endpoint items\n- Note that connection labels/properties are JSON-only (Markdown\n  auto-generates connections without metadata)\n\nTags: docs, ai-guide, import, connections\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: fix-import-compatibility\nSemver: patch\n\nhttps://claude.ai/code/session_01GmBxqTbwGYpy2GUF4TGDLk",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "guide",
+  "title": "add connection labels and properties guidance",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 41,
+    "deletions": 0
+  },
+  "files": [
+    "docs/ai-research-output-guide.md"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

@@ -6,7 +6,11 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-19):**
+**Recent Updates (2026-02-24):**
+- **Add New Repos & Projects Tab** — Added `budgy-ting` and `tool-till-tees` to config/repos.json. Created new Projects tab in dashboard showing all 14 projects with live site links and GitHub repo links. Projects split into "Live Projects" (8 with deployed sites) and "Other Repositories" (6 repo-only).
+- **Feed the Chicken — 206 New Commits** — Incremental extraction and AI analysis of 206 new commits across 7 repos: glow-props (6), few-lap (16), budgy-ting (19), repo-tor (22), see-veo (41), tool-till-tees (39), graphiki (63). All batches human-approved. Dashboard re-aggregated: 14 repos, 1908 total commits.
+
+**Previous Updates (2026-02-19):**
 - **Embed Auto-Resize Helper Script** — Added `dashboard/public/embed.js`, a standalone script that parent pages include to auto-resize all repo-tor iframes. Eliminates need for embedders to write their own `postMessage` listener. One `<script>` tag handles everything. Docs updated to use this as the primary approach.
 - **Fix Embed Resize Height Measurement** — Auto-height was measuring `document.documentElement.scrollHeight` (full page including tooltip divs and pseudo-elements outside the embed container) instead of `container.scrollHeight`. Also added 100ms delay before initial height post to let Chart.js finish its first `requestAnimationFrame` render, and de-duplicates messages by tracking last posted height.
 - **Custom Background Color for Embeds** — New `?bg=` URL parameter lets embedder apps set the background color of the embedded element. Accepts hex values (`?bg=FFFFFF`) or `transparent` to inherit from the parent page. Overrides the `--bg-primary` CSS variable. Decorative grid pattern (`body::before`) is now hidden in embed mode to prevent visual artifacts with custom backgrounds.
@@ -258,7 +262,7 @@ Current state for AI assistants to continue work.
 - **Management**: Per-repo groupings, daily heatmap, summary drilldowns + interpretation guidance
 - **Developer**: Individual contributors, hourly heatmap, full commit lists (no hints needed)
 
-**Extraction System:** AI analysis complete. 1702 commits processed across 12 repositories. All previously malformed commits have been fixed.
+**Extraction System:** AI analysis complete. 1908 commits processed across 14 repositories. All previously malformed commits have been fixed.
 
 **Feed Optimization:**
 - `extract-api.js` for API-based extraction (no cloning required, faster) — pagination bug fixed 2026-02-15
@@ -347,7 +351,8 @@ const TAB_MAPPING = {
     'activity': ['tab-activity', 'tab-timing'],  // Timeline tab
     'work': ['tab-progress', 'tab-tags', 'tab-contributors'],  // Breakdown tab
     'health': ['tab-security'],         // Health tab
-    'discover': ['tab-discover']        // Discover tab
+    'discover': ['tab-discover'],       // Discover tab
+    'projects': ['tab-projects']        // Projects tab
 };
 ```
 
@@ -387,20 +392,22 @@ const TAB_MAPPING = {
 
 | Repo | Status | Commits |
 |------|--------|---------|
+| budgy-ting | Complete | 19 |
 | canva-grid | Complete | 332 |
 | canva-grid-assets | Complete | 2 |
 | chatty-chart | Complete | 42 |
 | coin-zapp | Complete | 81 |
-| few-lap | Complete | 5 |
-| glow-props | Complete | 15 |
-| graphiki | Complete | 65 |
+| few-lap | Complete | 21 |
+| glow-props | Complete | 21 |
+| graphiki | Complete | 128 |
 | model-pear | Complete | 322 |
 | plant-fur | Complete | 18 |
-| repo-tor | Complete | 393 |
-| see-veo | Complete | 68 |
+| repo-tor | Complete | 415 |
+| see-veo | Complete | 109 |
 | synctone | Complete | 359 |
+| tool-till-tees | Complete | 39 |
 
-**Total Processed:** 1702 commits
+**Total Processed:** 1908 commits
 **Remaining:** 0 - All repos complete!
 
 ### Storage Migration
@@ -417,4 +424,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-19 - Added embed.js auto-resize helper script.*
+*Last updated: 2026-02-24 - Added budgy-ting + tool-till-tees repos, Projects tab, fed 206 new commits.*

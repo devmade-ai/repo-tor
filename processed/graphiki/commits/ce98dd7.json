@@ -1,0 +1,47 @@
+{
+  "sha": "ce98dd7",
+  "fullSha": "ce98dd7ca0455950c59f428c6bcb0dfed50de547",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-23T13:35:57+00:00",
+  "commitDate": "2026-02-23T13:35:57+00:00",
+  "subject": "feat(timeline,detail): multi-date field selection and clickable connections",
+  "body": "Timeline view now supports selecting multiple date properties simultaneously\nvia a collapsible checkbox picker. Nodes appear at each date point where they\nhave a value, with a property-source badge when multiple fields are active.\nThis gives users a richer chronological view across different date dimensions.\n\nDetail panel connections now render target node names as clickable buttons\nthat navigate to the connected node, enabling graph traversal directly from\nthe detail view without returning to the canvas.\n\nTags: timeline, detail-panel, navigation, multi-select, ui\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: timeline-enhancement\nSemver: minor\n\nhttps://claude.ai/code/session_01MWFCxhRtoWqQ1pvk7UUsGa",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "timeline,detail",
+  "title": "multi-date field selection and clickable connections",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 295,
+    "deletions": 63
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/views/TimelineView.css",
+    "src/components/views/TimelineView.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "user-facing"
+}

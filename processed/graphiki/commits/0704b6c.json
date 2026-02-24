@@ -1,0 +1,44 @@
+{
+  "sha": "0704b6c",
+  "fullSha": "0704b6c6d2a89b974745c9769979f786e60624e5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T15:53:24+00:00",
+  "commitDate": "2026-02-20T15:53:24+00:00",
+  "subject": "refactor(conventions): consolidate AI import guide into single source of truth",
+  "body": "Previously, AI import formatting guidance existed in two places:\nsrc/data/conventions.ts (displayed in-app) and\ndocs/ai-research-output-guide.md (standalone doc). Both served the\nsame audience (AI assistants) for the same purpose (formatting import\ndata) but had divergent content — the guide contained title vs tags\nvs properties decision rules, item heuristics, connection guidance,\nand import matching explanations that the conventions text lacked.\n\nMerged all guide content into conventions.ts as shared constants\n(FIELD_GUIDANCE, ITEM_GUIDANCE, CONNECTION_GUIDANCE, IMPORT_MATCHING)\ncomposed into each format's content. Both JSON and Markdown documents\nare now identical except for the format-specific section. Deleted the\nduplicate guide file. Updated CLAUDE.md references.\n\nTags: conventions, import, documentation, single-source-of-truth\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: conventions\nSemver: minor\n\nhttps://claude.ai/code/session_018xmmk3wFrVweq9EJkNXLFo",
+  "tags": [
+    "refactor",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "conventions",
+  "title": "consolidate AI import guide into single source of truth",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 347,
+    "deletions": 466
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/ai-research-output-guide.md",
+    "src/data/conventions.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "c4e6d41",
+  "fullSha": "c4e6d41529995e86314c6cfde52b11358048db3b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T19:53:14+00:00",
+  "commitDate": "2026-02-18T19:53:14+00:00",
+  "subject": "fix(import): normalize JSON import to handle AI output guide format",
+  "body": "The JSON import was blindly casting raw data as GraphNode[]/Arc[] without\ntransformation. When AI assistants followed the output guide (which uses\n`tags`, `typeName`, `isSystemNode`, `schemas`, version \"1\"), the data\nwas silently malformed — `tags` were lost, `typeName` ignored, and\nrequired fields like `labels`, `viewData`, `properties` left undefined.\n\nAdded normalization layer in validateJsonImport that:\n- Maps `tags` → `labels` (AI guide uses `tags`, internal model uses `labels`)\n- Maps `typeName` → appends to `labels` (type classification as label)\n- Merges `labels` + `tags` + `typeName` with deduplication\n- Defaults missing fields: labels=[], properties={}, viewData={},\n  content='', contentType='text/markdown', timestamps=now\n- Strips legacy fields (isSystemNode, isSystemArc, schemas)\n- Accepts both version \"1\" (guide format) and \"2\" (native export)\n\nMarkdown and CSV imports were already correct — only JSON path was broken.\n\nTags: import, json, normalization, ai-guide, compatibility\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: import-compatibility\nSemver: patch",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "import",
+  "title": "normalize JSON import to handle AI output guide format",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 313,
+    "deletions": 6
+  },
+  "files": [
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

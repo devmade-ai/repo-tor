@@ -1,0 +1,44 @@
+{
+  "sha": "ca760c1",
+  "fullSha": "ca760c1d0666b1c58b15240deeb78a496aac4a88",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T22:46:44+00:00",
+  "commitDate": "2026-02-18T22:46:44+00:00",
+  "subject": "docs(guide): fix output guide consistency and add missing guidance",
+  "body": "Fix duplicate arcs in the Acme Corp example where wiki-links to\nSequoia Capital and Y Combinator created redundant \"links to\" arcs\nalongside the explicit \"funded by\" connections: entries. Add a new\ntip warning against wiki-linking targets that already have a\nconnections: block.\n\nAlign tags/labels terminology across all three documentation\nsurfaces (output guide, markdown-import-format, conventions modal)\nso they consistently use \"tags:\" as the primary user-facing term\nwith a note that \"labels:\" also works.\n\nRemove viewData from the JSON conventions required fields list\nsince the parser defaults it to {} when missing.\n\nAdd output size guidance (under 200 items per import) and body\ncontent formatting guidance (1-3 paragraphs, bullet points for\nstructured facts).\n\nTags: docs, guide, conventions, import, consistency\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: output-guide\nSemver: patch",
+  "tags": [
+    "docs",
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "guide",
+  "title": "fix output guide consistency and add missing guidance",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 13,
+    "deletions": 9
+  },
+  "files": [
+    "docs/ai-research-output-guide.md",
+    "docs/markdown-import-format.md",
+    "src/data/conventions.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}
