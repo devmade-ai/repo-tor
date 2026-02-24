@@ -4,6 +4,21 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-24
 
+### Show Commit Messages in Detail View
+
+**Why:** Commit subjects were hidden behind `[message hidden]` text in all detail views. User wanted to see the actual commit messages.
+
+**Changes:**
+- Updated `sanitizeMessage()` in `utils.js` to return the full subject line instead of masking it
+- Removed `[Details hidden]` text from SecurityTab commit list
+- Applies to all view levels (Executive, Management, Developer)
+
+**Files:**
+- `dashboard/js/utils.js` — `sanitizeMessage()` now returns message as-is
+- `dashboard/js/tabs/SecurityTab.jsx` — Removed `[Details hidden]` line
+
+---
+
 ### Add New Repos and Projects Tab
 
 **Why:** User requested adding all latest repos to the tracked list and creating a page to access all live projects from the dashboard.

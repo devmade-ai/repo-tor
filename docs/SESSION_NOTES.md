@@ -10,6 +10,7 @@ Current state for AI assistants to continue work.
 - **Add New Repos & Projects Tab** — Added `budgy-ting` and `tool-till-tees` to config/repos.json. Created new Projects tab in dashboard showing all 14 projects with live site links and GitHub repo links. Projects split into "Live Projects" (8 with deployed sites) and "Other Repositories" (6 repo-only).
 - **Feed the Chicken — 206 New Commits** — Incremental extraction and AI analysis of 206 new commits across 7 repos: glow-props (6), few-lap (16), budgy-ting (19), repo-tor (22), see-veo (41), tool-till-tees (39), graphiki (63). All batches human-approved. Dashboard re-aggregated: 14 repos, 1908 total commits.
 - **Refactor extract-api.js — Remove gh CLI dependency** — Rewrote `extract-api.js` to use curl instead of `gh` CLI. Added multi-token discovery (`GH_TOKEN`, `GITHUB_TOKEN`, `GITHUB_ALL_REPO_TOKEN`). Updated `update-all.sh` to match. Tested and confirmed working. No more cloning needed for extraction.
+- **Show commit messages in detail view** — `sanitizeMessage()` was hiding commit subjects with `[message hidden]`. Updated to show the full subject line in all view levels (DetailPane, TimelineTab, SecurityTab). Removed `[Details hidden]` text from SecurityTab.
 
 **Previous Updates (2026-02-19):**
 - **Embed Auto-Resize Helper Script** — Added `dashboard/public/embed.js`, a standalone script that parent pages include to auto-resize all repo-tor iframes. Eliminates need for embedders to write their own `postMessage` listener. One `<script>` tag handles everything. Docs updated to use this as the primary approach.
@@ -131,14 +132,12 @@ Current state for AI assistants to continue work.
   - `updateFilterIndicator()` now shows "X of Y" whenever any filter is active, regardless of whether the filter changes the commit count
   - Previously, the indicator was hidden when `filtered.length === total` (e.g., when no merge commits exist to exclude)
   - Filter badge (count on toggle button) was already correct — only the text indicator was affected
-- **Privacy Mode Removed** - Sanitization is now always-on (names and messages always anonymized):
+- **Privacy Mode Removed** - Sanitization always-on for names (anonymized), commit messages now shown:
   - Removed `btn-sanitize` eye toggle button from header
   - Removed Privacy Mode toggle from Settings panel
   - Removed `initSanitizeMode()`, `applySanitizeMode()`, `toggleSanitizeMode()` functions from ui.js
-  - `sanitizeName()` and `sanitizeMessage()` in utils.js now always anonymize (no `isSanitized` guard)
+  - `sanitizeName()` always anonymizes; `sanitizeMessage()` now shows full subject (updated 2026-02-24)
   - Removed `isSanitized` from state.js and `sanitized` localStorage key
-  - Security tab commit details always show `[Details hidden]`
-  - Build: 110KB JS bundle (down from 112KB)
 - **Architecture Decision Record** - Documented vanilla JS decision in `docs/ADR-001-vanilla-js.md`:
   - Explains why no framework was adopted, trade-offs accepted, and when to reconsider
 - **Code Refactoring** - Three improvements to dashboard codebase organization:

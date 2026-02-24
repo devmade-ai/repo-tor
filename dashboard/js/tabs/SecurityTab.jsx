@@ -125,7 +125,6 @@ export default function SecurityTab() {
                                     <p className="font-medium text-themed-primary">
                                         {sanitizeMessage(getCommitSubject(commit))}
                                     </p>
-                                    <p className="text-sm text-themed-secondary mt-1">[Details hidden]</p>
                                     <p className="text-xs text-themed-tertiary mt-2">
                                         {commit.sha} by {getAuthorName(commit)} on {formatDate(commit.timestamp)}
                                         {commit.repo_id && ` in ${commit.repo_id}`}

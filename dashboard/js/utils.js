@@ -34,12 +34,12 @@ export function sanitizeName(name, email) {
 }
 
 export function sanitizeMessage(message) {
-    // Show only the type prefix if conventional commit, otherwise generic
-    const match = message.match(/^(feat|fix|docs|style|refactor|test|chore|ci|build|perf|security)(\(.+?\))?:/i);
-    if (match) {
-        return match[0] + ' [message hidden]';
-    }
-    return '[Commit message hidden]';
+    // Requirement: Show the full commit subject line in all views
+    // Approach: Return the message as-is (subject line only, no body)
+    // Alternatives:
+    //   - Keep hiding: Rejected - user wants to see commit messages in detail view
+    //   - Show per view level: Rejected - user chose full subject for all levels
+    return message || '[No commit message]';
 }
 
 // === South African Public Holidays ===
