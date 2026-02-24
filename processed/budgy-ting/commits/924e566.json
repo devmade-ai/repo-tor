@@ -1,0 +1,51 @@
+{
+  "sha": "924e566",
+  "fullSha": "924e566672ebe21f5da7826e5cdc3f344d0aee8b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T11:47:54+00:00",
+  "commitDate": "2026-02-24T11:47:54+00:00",
+  "subject": "feat(pwa,debug): split PWA composables, add install instructions, add debug system",
+  "body": "PWA:\n- Replace monolithic usePWA.ts with usePWAUpdate.ts (wraps useRegisterSW\n  with 60-min periodic checks, offline-ready auto-dismiss) and\n  usePWAInstall.ts (browser detection, beforeinstallprompt capture,\n  localStorage analytics + dismiss persistence)\n- Add InstallPrompt.vue banner — \"Install\" on Chromium, \"How to Install\"\n  on Safari/Firefox, \"Not now\" dismiss. Hidden when standalone/dismissed.\n- Add InstallInstructionsModal.vue — four browser-specific step-by-step\n  guides (Safari iOS, Safari macOS, Firefox Android, Firefox desktop)\n  written in plain language for non-technical users\n- Add vite-plugin-pwa/client type reference to env.d.ts\n\nDebug:\n- Add debugLog.ts — pub/sub event store with 200-entry circular buffer,\n  typed sources (boot/db/pwa/import/engine/global) and severities\n  (info/success/warn/error). Global error + unhandledrejection listeners\n  installed at module load. generateReport() for clipboard export.\n- Add DebugPill.vue — floating pill showing entry count + error/warn\n  badges. Expanded panel has Log tab (color-coded, auto-scrolling) and\n  Environment tab (URL, UA, screen, online, SW support, etc.).\n  Copy exports full report, Clear wipes entries.\n- Mount DebugPill in separate Vue root (survives main app crashes)\n- Alpha-phase only — intended to be removed post-alpha\n\nTags: pwa, debug, ux, install\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: pwa\nSemver: minor\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+  "tags": [
+    "feature",
+    "refactor"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "pwa,debug",
+  "title": "split PWA composables, add install instructions, add debug system",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 900,
+    "deletions": 84
+  },
+  "files": [
+    "env.d.ts",
+    "src/components/AppLayout.vue",
+    "src/components/InstallInstructionsModal.vue",
+    "src/components/InstallPrompt.vue",
+    "src/composables/usePWA.ts",
+    "src/composables/usePWAInstall.ts",
+    "src/composables/usePWAUpdate.ts",
+    "src/debug/DebugPill.vue",
+    "src/debug/debugLog.ts",
+    "src/main.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

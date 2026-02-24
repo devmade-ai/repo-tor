@@ -1,0 +1,43 @@
+{
+  "sha": "71bdab7",
+  "fullSha": "71bdab7fb8c61dbc6864ae7f075c7261aa43e073",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T09:27:00+00:00",
+  "commitDate": "2026-02-24T09:27:00+00:00",
+  "subject": "fix(deploy): router base path and SVG font for GitHub Pages",
+  "body": "createWebHistory() needs import.meta.env.BASE_URL so vue-router\nresolves routes correctly under a sub-path like /budgy-ting/.\nSVG icon switched from Georgia (proprietary, absent in CI) to\ngeneric serif so sharp/librsvg renders the B glyph on Ubuntu.\n\nTags: router, pwa, ci, deployment\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "deploy",
+  "title": "router base path and SVG font for GitHub Pages",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 5,
+    "deletions": 3
+  },
+  "files": [
+    "public/icon.svg",
+    "src/router/index.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 3,
+  "impact": "infrastructure"
+}
