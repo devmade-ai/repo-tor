@@ -7,6 +7,7 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-24):**
+- **Fix TagsTab Initialization Crash** — Production build crashed with `ReferenceError: Cannot access 'vf' before initialization`. Root cause: `TagsTab.jsx` line 13 had `const CHART_TEXT_COLOR = CHART_TEXT_COLOR;` — a self-referential assignment that triggered the temporal dead zone. The minifier renamed the variable to `vf`, making the error opaque. Fixed by reading the `--text-secondary` CSS variable via `getComputedStyle()` at module load (matching the approach in `main.jsx` for Chart.js defaults).
 - **Move Debug Pill to HTML Level** — Debug pill was part of the JS bundle (`main.jsx`), so it didn't show when the bundle failed to load — exactly when you need it most. Moved all debug pill code (error capture, diagnostics, circular buffer, click handlers) to an inline `<script>` in `index.html`. Added 10-second loading timeout that warns the user if React hasn't mounted. `main.jsx` now bridges to the HTML pill via `window.__debugPushError()` for React-specific errors (component stacks). Removed ~170 lines of duplicate code from `main.jsx`.
 - **Comprehensive Code Review & Bug Fixes (24 issues)** — Full project audit identifying security, performance, accessibility, and code quality issues. All fixes applied:
   - **Security:** XSS fix in debug banner (innerHTML→DOM API), predictable temp file path→os.tmpdir(), event delegation replaces per-render listeners
