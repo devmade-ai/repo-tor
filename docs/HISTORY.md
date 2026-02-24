@@ -4,6 +4,15 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-24
 
+### Fix TagsTab Initialization Crash (ReferenceError: Cannot access 'vf' before initialization)
+
+**Why:** Production build crashed immediately on load. The minified error `Cannot access 'vf' before initialization` traced back to `TagsTab.jsx` line 13: `const CHART_TEXT_COLOR = CHART_TEXT_COLOR;` — a self-referential assignment that reads the variable during its own initialization (temporal dead zone). The intent was to read the `--text-secondary` CSS variable once at module load.
+
+**Changes:**
+- `TagsTab.jsx` — Replaced self-referential `const CHART_TEXT_COLOR = CHART_TEXT_COLOR` with `getComputedStyle(document.documentElement).getPropertyValue('--text-secondary').trim() || '#e5e7eb'`. Matches the same pattern used in `main.jsx` for Chart.js defaults.
+
+**Files:** `dashboard/js/tabs/TagsTab.jsx`
+
 ### Move Debug Pill to HTML Level (Fix: Pill Not Showing During Loading Issues)
 
 **Why:** Debug pill was created inside the JS bundle (`main.jsx`). If the bundle failed to load, parse, or execute (stale service worker cache, network error, JS runtime error), the debug pill never appeared — defeating its purpose. Users saw an infinite loading spinner with no way to diagnose the problem.

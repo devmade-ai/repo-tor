@@ -10,7 +10,8 @@ import CollapsibleSection from '../components/CollapsibleSection.jsx';
 // Alternatives:
 //   - getComputedStyle inside useMemo: Rejected — forces layout recalc on every render
 //   - Hardcoded color: Rejected — breaks theme changes
-const CHART_TEXT_COLOR = CHART_TEXT_COLOR;
+const CHART_TEXT_COLOR = getComputedStyle(document.documentElement)
+    .getPropertyValue('--text-secondary').trim() || '#e5e7eb';
 
 export default function TagsTab() {
     const { filteredCommits, openDetailPane, isMobile } = useApp();
