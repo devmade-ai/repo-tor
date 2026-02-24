@@ -2,6 +2,125 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-24
+
+### Comprehensive Code Review & Bug Fixes (24 issues)
+
+**Why:** Full project audit to identify and fix security vulnerabilities, performance bottlenecks, accessibility gaps, and code quality issues across all project files.
+
+**Security fixes:**
+- `main.jsx` — Replaced `innerHTML` with DOM API (`textContent`/`createElement`) to prevent XSS via error messages. Added event delegation on banner root instead of per-render `addEventListener` calls (eliminated listener leak).
+- `extract-api.js` — Temp header file moved from predictable project-root path to `os.tmpdir()` with unique PID+timestamp suffix (prevents TOCTOU race condition).
+
+**Performance fixes:**
+- `extract.js` — Batched git stat extraction: single `git log --numstat` command replaces 2×N individual `git show` calls. For 1000 commits, this is ~2000× fewer process spawns.
+- `extract-api.js` — Concurrent API fetching: 5-worker pool using async `execFile` + `pMap()` instead of sequential `execFileSync`. Reduces detail fetch time by ~5×.
+- `TagsTab.jsx` — Moved `getComputedStyle()` call from inside `useMemo` (runs on every render) to module-level constant.
+
+**Data integrity fixes:**
+- `pending.js` — Atomic batch deletion: writes to temp dir, then renames. If interrupted mid-write, old data survives.
+- `extract-api.js` — Fixed `filesChanged` calculation (was gated on `stats.total` which is additions+deletions sum, not file count). Added `repo_id` to security events. Added `branches`/`currentBranch` to metadata.
+
+**Accessibility fixes:**
+- `SummaryTab.jsx`, `ContributorsTab.jsx` — Added descriptive `aria-label` to all stat cards and contributor cards.
+- `DropZone.jsx` — Added `aria-label` describing the upload action.
+- `FilterSidebar.jsx` — Added `aria-label` to date filter inputs.
+- `CollapsibleSection.jsx` — Added `aria-controls` linking header to content panel.
+- Empty state messages standardized across all tabs to "No data matches the current filters".
+
+**Code quality fixes:**
+- `AppContext.jsx` — Silent `catch { /* ignore */ }` replaced with `console.warn` for localStorage quota errors.
+- `pwa.js` — Silent `.catch(() => {})` replaced with `console.warn` logging.
+- `SettingsPane.jsx` — Fixed stale closure: Escape handler now uses `dispatch` directly (stable ref) instead of capturing `handleClose`.
+- `DropZone.jsx`, `FilterSidebar.jsx`, `SettingsPane.jsx` — Inline `style={{}}` objects moved to CSS classes per CLAUDE.md convention.
+- `utils.js` — Easter dates extended from 2024-2027 to 2020-2030 to match `buildHolidaySet()` year range.
+- `package.json` — Removed unused `sharp` devDependency.
+
+**CSS/Config fixes:**
+- `styles.css` — Defined missing `--shadow-lg` and `--color-primary-alpha` variables. Replaced `max-height: 2000px` cap on collapsible content with `max-height: none`.
+- `vite.config.js` — Added `woff2` to PWA precache glob patterns.
+
+**Files changed:** main.jsx, extract-api.js, extract.js, pending.js, TagsTab.jsx, AppContext.jsx, pwa.js, SettingsPane.jsx, CollapsibleSection.jsx, DropZone.jsx, FilterSidebar.jsx, SummaryTab.jsx, ContributorsTab.jsx, HealthTab.jsx, App.jsx, utils.js, state.js (via utils.js), styles.css, vite.config.js, package.json
+
+---
+
+### Show Commit Messages in Detail View
+
+**Why:** Commit subjects were hidden behind `[message hidden]` text in all detail views. User wanted to see the actual commit messages.
+
+**Changes:**
+- Updated `sanitizeMessage()` in `utils.js` to return the full subject line instead of masking it
+- Removed `[Details hidden]` text from SecurityTab commit list
+- Applies to all view levels (Executive, Management, Developer)
+
+**Files:**
+- `dashboard/js/utils.js` — `sanitizeMessage()` now returns message as-is
+- `dashboard/js/tabs/SecurityTab.jsx` — Removed `[Details hidden]` line
+
+---
+
+### Add New Repos and Projects Tab
+
+**Why:** User requested adding all latest repos to the tracked list and creating a page to access all live projects from the dashboard.
+
+**Changes:**
+- Added `budgy-ting` (public) and `tool-till-tees` (private) to `config/repos.json` — discovered via GitHub API
+- Created `dashboard/projects.json` with all 14 projects, live URLs (GitHub Pages/Vercel), repo URLs, and language info
+- Created `dashboard/js/tabs/ProjectsTab.jsx` — fetches projects.json, enriches with commit counts from analytics data, splits into "Live Projects" and "Other Repositories" sections
+- Added project card CSS to `dashboard/styles.css`
+- Updated `dashboard/js/state.js` TAB_MAPPING, `dashboard/js/components/TabBar.jsx` TABS array, `dashboard/js/App.jsx` imports and render
+
+**Files:**
+- `config/repos.json`
+- `dashboard/projects.json` (new)
+- `dashboard/js/tabs/ProjectsTab.jsx` (new)
+- `dashboard/styles.css`
+- `dashboard/js/state.js`
+- `dashboard/js/components/TabBar.jsx`
+- `dashboard/js/App.jsx`
+
+---
+
+### Refactor extract-api.js — Remove gh CLI Dependency
+
+**Why:** `extract-api.js` required `gh` CLI which is often not installed in CI/cloud environments. This caused AI sessions to fall back to cloning entire repos just to get git history, which is slow and wasteful. Also, the script only checked `GH_TOKEN` but the available env var was `GITHUB_ALL_REPO_TOKEN`.
+
+**Changes:**
+- Rewrote all GitHub API calls to use `curl` instead of `gh` CLI — curl is universally available and handles HTTP proxies correctly
+- Added multi-token discovery: checks `GH_TOKEN`, `GITHUB_TOKEN`, `GITHUB_ALL_REPO_TOKEN` (in order)
+- Updated `update-all.sh` to remove `gh` CLI check, replaced with token presence check
+- Updated `docs/USER_ACTIONS.md` — removed gh CLI setup instructions (no longer needed)
+- Updated `docs/ADMIN_GUIDE.md` — prerequisites now list token + curl instead of gh CLI
+- Added AI lesson about cloning vs API and env var discovery
+
+**Files:**
+- `scripts/extract-api.js` — Rewritten HTTP layer
+- `scripts/update-all.sh` — Removed gh CLI check
+- `docs/USER_ACTIONS.md`
+- `docs/ADMIN_GUIDE.md`
+- `docs/AI_LESSONS.md`
+
+---
+
+### Feed the Chicken — 206 New Commits (7 repos)
+
+**Why:** Incremental extraction to process new commits not yet analyzed across all tracked repositories.
+
+**Changes:**
+- Extracted git data from all 14 repos (clone-based, gh CLI unavailable)
+- Generated 206 pending commits across 11 batches in 7 repos
+- AI-analyzed all batches with human approval: glow-props (6), few-lap (16), budgy-ting (19), repo-tor (22), see-veo (41), tool-till-tees (39), graphiki (63)
+- Merged via `scripts/merge-analysis.js`, re-aggregated via `scripts/aggregate-processed.js`
+- Final totals: 14 repos, 1908 commits
+
+**Files:**
+- `processed/*/commits/*.json` — 206 new commit files across 7 repos
+- `processed/*/manifest.json` — updated manifests for 7 repos
+- `dashboard/data.json` — re-aggregated
+- `dashboard/repos/*.json` — 16 files (14 repos + 2 new)
+
+---
+
 ## 2026-02-19
 
 ### Embed Auto-Resize Helper Script

@@ -736,7 +736,7 @@ export default function HealthTab() {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary text-sm">No data</p>
+                    <p className="text-themed-tertiary text-sm">No data matches the current filters</p>
                 )}
             </CollapsibleSection>
 
@@ -755,7 +755,7 @@ export default function HealthTab() {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary text-sm">No data</p>
+                    <p className="text-themed-tertiary text-sm">No data matches the current filters</p>
                 )}
             </CollapsibleSection>
         </div>

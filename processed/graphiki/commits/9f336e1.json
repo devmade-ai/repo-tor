@@ -1,0 +1,45 @@
+{
+  "sha": "9f336e1",
+  "fullSha": "9f336e1049ea2b772ad2f02d2b304532f82411e8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T06:03:26+00:00",
+  "commitDate": "2026-02-20T06:03:26+00:00",
+  "subject": "feat(query): fix collapse arrow spacing and add hop expansion",
+  "body": "Increase spacing between Clear button and collapse/expand chevron on the\nmobile summary bar to prevent accidental taps. The chevron now has a\n28px min tap zone with additional margin separating it from Clear.\n\nAdd hop expansion feature: after running a query pipeline, users can\nselect 1–3 hops to expand the visible graph to include connected\nneighbors of the result nodes. BFS-style expansion in queryEngine\ntraverses the full graph's arcs. The \"Show connected items\" dropdown\nappears below the last pipeline step. Cleared on query reset.\n\nTags: query, hops, mobile, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: query-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01T6R8chN1GdiBvwao3hfLWv",
+  "tags": [
+    "feature",
+    "bugfix"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "query",
+  "title": "fix collapse arrow spacing and add hop expansion",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 194,
+    "deletions": 9
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/query/QueryBuilder.css",
+    "src/components/query/QueryBuilder.tsx",
+    "src/services/queryEngine.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,51 @@
+{
+  "sha": "b6ab4d3",
+  "fullSha": "b6ab4d34f6ce6657fbcc1e50a888650053db9833",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-19T19:46:37+00:00",
+  "commitDate": "2026-02-19T19:46:37+00:00",
+  "subject": "feat(setup): configure Mapbox SDK and Supabase credentials",
+  "body": "Install @rnmapbox/maps and register as Expo plugin.\nCreate .env with EXPO_PUBLIC_* variables mapped to project credentials.\nAdd src/lib/mapbox.ts for centralized Mapbox initialization.\nUpdate USER_ACTIONS.md with Supabase link/push steps (blocked by network).\n\nTags: mapbox, supabase, config, setup\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: project-setup\nSemver: minor\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+  "tags": [
+    "config",
+    "dependency-add"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "setup",
+  "title": "configure Mapbox SDK and Supabase credentials",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 368,
+    "deletions": 46
+  },
+  "files": [
+    ".env.example",
+    "CLAUDE.md",
+    "app.json",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_ACTIONS.md",
+    "package-lock.json",
+    "package.json",
+    "src/lib/mapbox.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "infrastructure"
+}

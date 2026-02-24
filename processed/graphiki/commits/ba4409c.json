@@ -1,0 +1,43 @@
+{
+  "sha": "ba4409c",
+  "fullSha": "ba4409c77465fbcf683ec8623fdb5d1688265b48",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T13:32:18+00:00",
+  "commitDate": "2026-02-20T13:32:18+00:00",
+  "subject": "refactor(import): remove sourceId/targetId backwards-compat aliasing",
+  "body": "Alpha phase — no backwards compatibility needed. Connections must use\n`source` and `target` fields directly. Removed alias fallback code and\ncorresponding tests.\n\nTags: import, alpha, cleanup\nComplexity: 1\nUrgency: 3\nImpact: api\nRisk: low\nDebt: paid\nEpic: ai-prompt-formatted-output\nSemver: major\n\nhttps://claude.ai/code/session_0166oa9msWRq48KCJ6pyca4J",
+  "tags": [
+    "refactor",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "import",
+  "title": "remove sourceId/targetId backwards-compat aliasing",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 0,
+    "deletions": 43
+  },
+  "files": [
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

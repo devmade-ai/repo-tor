@@ -87,7 +87,8 @@ For future updates, just ask: "Update all repo data"
 ## Prerequisites
 
 - **Node.js** v14 or higher
-- **GitHub CLI (`gh`)** installed and authenticated - for API-based extraction (see setup below)
+- **GitHub token** - set `GH_TOKEN`, `GITHUB_TOKEN`, or `GITHUB_ALL_REPO_TOKEN` env var (or `.env` file) for API-based extraction
+- **curl** - for API-based extraction (pre-installed on most systems)
 - **Git** (optional) - only needed if using `--clone` flag
 - Access to the repository/repositories you want to analyze
 
@@ -104,9 +105,10 @@ For future updates, just ask: "Update all repo data"
    npm install
    ```
 
-3. Set up GitHub CLI (required for API-based extraction):
+3. Set up a GitHub token for API extraction:
    ```bash
-   ./scripts/setup-gh.sh
+   export GH_TOKEN=ghp_your_token_here
+   # Or add to .env file: GH_TOKEN=ghp_your_token_here
    ```
 
 ## Local Development

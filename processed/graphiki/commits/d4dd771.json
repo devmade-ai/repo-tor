@@ -1,0 +1,42 @@
+{
+  "sha": "d4dd771",
+  "fullSha": "d4dd771af4c1038a568169399f2dcf358ca9cea7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T13:06:19+00:00",
+  "commitDate": "2026-02-20T13:06:19+00:00",
+  "subject": "docs(guide): make JSON the default format, remove ID concept entirely",
+  "body": "JSON is now the default format for AI research output. Markdown is\ndocumented as an alternative for when explicitly requested.\n\nRemoved all references to `id` fields from the JSON format:\n- Structure, rules, template, and tips no longer mention IDs\n- Connection endpoints use item titles directly in sourceId/targetId\n- The \"applying to other domains\" table uses JSON syntax\n\nThe workflow is: AI researches → formats as JSON → user validates →\nimports into Graphiki. JSON is preferred because it can be validated\nbefore import, catching errors early.\n\nTags: guide, json, ai-output, simplification\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ai-research-output\nSemver: patch\n\nhttps://claude.ai/code/session_0166oa9msWRq48KCJ6pyca4J",
+  "tags": [
+    "docs",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "guide",
+  "title": "make JSON the default format, remove ID concept entirely",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 56,
+    "deletions": 219
+  },
+  "files": [
+    "docs/ai-research-output-guide.md"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

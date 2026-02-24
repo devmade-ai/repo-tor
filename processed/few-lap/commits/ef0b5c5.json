@@ -1,0 +1,63 @@
+{
+  "sha": "ef0b5c5",
+  "fullSha": "ef0b5c53b28a893d177b64935cdb558ea9844228",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-19T20:56:07+00:00",
+  "commitDate": "2026-02-19T20:56:07+00:00",
+  "subject": "feat(ui): build home screen, station detail, and core components (Deliverables 3-4)",
+  "body": "Implement the full user-facing app shell with search, map, list, and detail views.\n\nHome screen: location detection → fuel type chips → radius chips → map/list\ntoggle → station cards sorted by distance or cheapest price.\n\nStation detail: full price list with staleness indicators, Get Directions\nbutton (deep link to native maps), phone tap-to-call, amenity chips.\n\nComponents: FuelMap, StationMarker, StationCard, StationList, PriceDisplay,\nFuelTypeSelector, RadiusSelector.\n\nHooks: useLocation (GPS + JHB fallback), useStations (RPC + grouping),\nuseFuelTypes (Supabase query).\n\nUtilities: navigation.ts (platform deep links), formatting.ts (prices,\ndistances, dates, staleness).\n\nTags: ui, home-screen, station-detail, map, components, hooks\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: app-shell\nSemver: minor\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 5,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "ui",
+  "title": "build home screen, station detail, and core components (Deliverables 3-4)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 21,
+    "additions": 1765,
+    "deletions": 129
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(tabs)/_layout.tsx",
+    "app/(tabs)/index.tsx",
+    "app/(tabs)/two.tsx",
+    "app/station/[id].tsx",
+    "constants/Colors.ts",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/map/FuelMap.tsx",
+    "src/components/map/StationMarker.tsx",
+    "src/components/search/FuelTypeSelector.tsx",
+    "src/components/search/RadiusSelector.tsx",
+    "src/components/station/PriceDisplay.tsx",
+    "src/components/station/StationCard.tsx",
+    "src/components/station/StationList.tsx",
+    "src/hooks/useFuelTypes.ts",
+    "src/hooks/useLocation.ts",
+    "src/hooks/useStations.ts",
+    "src/lib/formatting.ts",
+    "src/lib/navigation.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "user-facing"
+}

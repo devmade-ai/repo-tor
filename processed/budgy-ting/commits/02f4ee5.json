@@ -1,0 +1,72 @@
+{
+  "sha": "02f4ee5",
+  "fullSha": "02f4ee586ab5e63298e6f9d4778eeb1974527f38",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-23T21:44:36+00:00",
+  "commitDate": "2026-02-23T21:44:36+00:00",
+  "subject": "feat(mvp): implement full MVP — phases 1-7",
+  "body": "Complete implementation of all 7 phases of the budgy-ting product definition:\n\nPhase 1 — Budget Management:\n  - BudgetForm (create/edit), BudgetCreateView, BudgetEditView\n  - Cascade delete (expenses + actuals), ConfirmDialog component\n\nPhase 2 — Expense Management:\n  - ExpenseForm with category autocomplete from IndexedDB\n  - ExpensesTab grouped by category, edit/delete per item\n  - useCategoryAutocomplete composable\n\nPhase 3 — Projection Engine:\n  - Pure TypeScript engine handling all 6 frequency types\n  - Partial month and boundary clamping logic\n  - ProjectedTab with by-item/by-category toggle\n\nPhase 4 — Import Wizard:\n  - CSV parser (RFC 4180), JSON parser, column auto-detection\n  - 3-pass matching engine (exact, fuzzy, amount-only)\n  - 4-step wizard: upload, map, review/approve, confirm\n\nPhase 5 — Comparison Views:\n  - Variance calculation engine\n  - Line item, category, monthly views with CSS bar charts\n  - Overspend/underspend colour coding with 5% tolerance\n\nPhase 6 — Export/Import:\n  - JSON export with comparison snapshot, browser download\n  - Restore from backup (replace/merge), schema validation\n  - Clear all data with confirmation\n\nPhase 7 — PWA Polish:\n  - usePWA composable (install prompt, SW update detection)\n  - Install app button in header, update banner\n\nTags: mvp, vue3, budget, expenses, projection, import, comparison, export, pwa\nComplexity: 5\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: added\nEpic: mvp-implementation\nSemver: minor\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+  "tags": [
+    "feature",
+    "ui",
+    "ux",
+    "database"
+  ],
+  "complexity": 5,
+  "risk": "high",
+  "debt": "neutral",
+  "epic": "budgy-mvp",
+  "semver": "minor",
+  "scope": "mvp",
+  "title": "implement full MVP — phases 1-7",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 29,
+    "additions": 3776,
+    "deletions": 152
+  },
+  "files": [
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_ACTIONS.md",
+    "src/components/AppLayout.vue",
+    "src/components/BudgetForm.vue",
+    "src/components/ConfirmDialog.vue",
+    "src/components/ExpenseForm.vue",
+    "src/composables/useCategoryAutocomplete.ts",
+    "src/composables/useId.ts",
+    "src/composables/usePWA.ts",
+    "src/composables/useTimestamp.ts",
+    "src/engine/csvParser.ts",
+    "src/engine/exportImport.ts",
+    "src/engine/matching.ts",
+    "src/engine/projection.ts",
+    "src/engine/variance.ts",
+    "src/router/index.ts",
+    "src/views/BudgetCreateView.vue",
+    "src/views/BudgetDetailView.vue",
+    "src/views/BudgetEditView.vue",
+    "src/views/BudgetListView.vue",
+    "src/views/CompareTab.vue",
+    "src/views/ExpenseCreateView.vue",
+    "src/views/ExpenseEditView.vue",
+    "src/views/ExpensesTab.vue",
+    "src/views/ImportWizardView.vue",
+    "src/views/ProjectedTab.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "user-facing"
+}

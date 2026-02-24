@@ -1,0 +1,44 @@
+{
+  "sha": "83b22c0",
+  "fullSha": "83b22c0a796d3ba63049170f0508299d8ceade16",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T04:58:09+00:00",
+  "commitDate": "2026-02-20T04:58:09+00:00",
+  "subject": "feat(query): make query builder collapsible on mobile",
+  "body": "On mobile (<768px), the query builder consumed too much vertical space,\npushing the graph off-screen. Now it starts collapsed with a compact\nsummary bar showing filter count and result summary. Tapping expands\nthe full builder; running a search auto-collapses back to the summary.\nDesktop layout is unchanged — collapsed bar is hidden via CSS.\n\nTags: ui, query, mobile, responsive\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01FiCM1CyEDUQ7VmuNM7oMY7",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "query",
+  "title": "make query builder collapsible on mobile",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 270,
+    "deletions": 110
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/query/QueryBuilder.css",
+    "src/components/query/QueryBuilder.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "user-facing"
+}

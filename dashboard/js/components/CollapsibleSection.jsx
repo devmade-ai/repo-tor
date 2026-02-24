@@ -4,6 +4,7 @@ export default function CollapsibleSection({ title, subtitle, defaultExpanded = 
     const [expanded, setExpanded] = useState(defaultExpanded);
 
     const sectionId = title.toLowerCase().replace(/\s+/g, '-');
+    const contentId = `${sectionId}-content`;
 
     return (
         <div className="card">
@@ -12,6 +13,7 @@ export default function CollapsibleSection({ title, subtitle, defaultExpanded = 
                 role="button"
                 tabIndex={0}
                 aria-expanded={expanded}
+                aria-controls={contentId}
                 onClick={() => setExpanded(!expanded)}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -37,7 +39,7 @@ export default function CollapsibleSection({ title, subtitle, defaultExpanded = 
                     />
                 </svg>
             </div>
-            <div className={`collapsible-content ${expanded ? 'expanded' : ''}`}>
+            <div id={contentId} className={`collapsible-content ${expanded ? 'expanded' : ''}`}>
                 <div className="pt-2">{children}</div>
             </div>
         </div>

@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-02-18T11:07:29.168Z",
+    "generatedAt": "2026-02-24T16:34:52.030Z",
     "repository": "glow-props",
     "scope": "glow-props",
     "repoCount": 1,
-    "commitCount": 15,
+    "commitCount": 21,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -13,6 +13,255 @@
     }
   },
   "commits": [
+    {
+      "sha": "83849f9",
+      "fullSha": "83849f94a67f1f591bd915213ef5011cf103d3f9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T14:16:27+02:00",
+      "commitDate": "2026-02-24T14:16:27+02:00",
+      "subject": "Merge pull request #3 from devmade-ai/claude/document-pwa-guidelines-1Xzc1",
+      "body": "docs: add PWA and debug system patterns, improve CLAUDE.md",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #3 from devmade-ai/claude/document-pwa-guidelines-1Xzc1",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 39,
+        "deletions": 3
+      },
+      "files": [],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "b330d21",
+      "fullSha": "b330d212c6ad484a96369a8d69244577f23f1413",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T12:14:47+00:00",
+      "commitDate": "2026-02-24T12:14:47+00:00",
+      "subject": "docs(claude): remove auto-fetch session hook instructions",
+      "body": "Keep only the direct curl fetch URL. Auto-fetch setup details\nbelong in the README, not in CLAUDE.md.\n\nTags: documentation, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: project-standards\nSemver: patch\n\nhttps://claude.ai/code/session_0134ZudgxBX6s6AqnKxCszsU",
+      "tags": [
+        "docs",
+        "removal"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "claude",
+      "title": "remove auto-fetch session hook instructions",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 2
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "f97434b",
+      "fullSha": "f97434b25c086d66eb4b6b19811cedc3d290b2df",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T12:12:09+00:00",
+      "commitDate": "2026-02-24T12:12:09+00:00",
+      "subject": "docs(claude): add fetch URL and usage instructions",
+      "body": "Document how to fetch CLAUDE.md directly via curl and how to set up\nthe SessionStart hook in other projects for auto-fetching.\n\nTags: documentation, setup\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: project-standards\nSemver: patch\n\nhttps://claude.ai/code/session_0134ZudgxBX6s6AqnKxCszsU",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "claude",
+      "title": "add fetch URL and usage instructions",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 11,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "2356eac",
+      "fullSha": "2356eacbe5799eb077d581dddccf19deb45651c4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T12:09:13+00:00",
+      "commitDate": "2026-02-24T12:09:13+00:00",
+      "subject": "docs(claude): remove HTML comment from AI Notes section",
+      "body": "Unnecessary HTML comment providing no value — the section heading\nis self-explanatory.\n\nTags: documentation, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: project-standards\nSemver: patch\n\nhttps://claude.ai/code/session_0134ZudgxBX6s6AqnKxCszsU",
+      "tags": [
+        "docs",
+        "removal"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "claude",
+      "title": "remove HTML comment from AI Notes section",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 2
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "28dd029",
+      "fullSha": "28dd029bb758cf59026cf03dbb8df0318f2c9429",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T12:04:24+00:00",
+      "commitDate": "2026-02-24T12:04:24+00:00",
+      "subject": "docs(claude): remove reference to nonexistent EXTRACTION_PLAYBOOK.md",
+      "body": "Replace the tag guidance that pointed to docs/EXTRACTION_PLAYBOOK.md\n(which doesn't exist in this repo) with inline examples.\n\nTags: documentation, cleanup\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: project-standards\nSemver: patch\n\nhttps://claude.ai/code/session_0134ZudgxBX6s6AqnKxCszsU",
+      "tags": [
+        "docs",
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": "claude",
+      "title": "remove reference to nonexistent EXTRACTION_PLAYBOOK.md",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "652af3d",
+      "fullSha": "652af3d278b337c324caec3d42cbce8155fd10ff",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T12:02:13+00:00",
+      "commitDate": "2026-02-24T12:02:13+00:00",
+      "subject": "docs(claude): add PWA and Debug System suggested implementation guidelines",
+      "body": "Document PWA system (service worker updates, install detection, install\nprompt UI, manual install instructions) and Debug System (in-memory event\nstore, floating debug pill) as reference patterns for all projects.\n\nTags: documentation, pwa, debug, patterns\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: project-standards\nSemver: patch\n\nhttps://claude.ai/code/session_0134ZudgxBX6s6AqnKxCszsU",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "claude",
+      "title": "add PWA and Debug System suggested implementation guidelines",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 29,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 1,
+      "impact": "internal"
+    },
     {
       "sha": "f535ed1",
       "fullSha": "f535ed1c7d9d3e70dd66623afc5b9696a4e3472c",
@@ -648,18 +897,18 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 15,
-      "avgComplexity": 1.2,
-      "avgUrgency": 2.2,
+      "commits": 21,
+      "avgComplexity": 1.19,
+      "avgUrgency": 1.95,
       "tagBreakdown": {
-        "merge": 2,
+        "merge": 3,
+        "docs": 7,
+        "removal": 3,
+        "bugfix": 5,
         "simplify": 2,
         "config": 8,
-        "bugfix": 4,
         "refactor": 1,
-        "removal": 1,
         "feature": 2,
-        "docs": 2,
         "ci": 1,
         "hosting": 2,
         "init": 1,
@@ -667,41 +916,41 @@
         "repository-setup": 1
       },
       "impactBreakdown": {
-        "internal": 4,
+        "internal": 10,
         "user-facing": 0,
         "infrastructure": 11,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 14,
+        "low": 20,
         "medium": 0,
         "high": 0
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 6,
-        "neutral": 8
+        "paid": 7,
+        "neutral": 13
       },
       "repos": [
         "glow-props"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-15T15:43:18Z",
-      "lastCommit": "2026-02-16T01:02:42+02:00"
+      "lastCommit": "2026-02-24T14:16:27+02:00"
     }
   ],
   "summary": {
-    "totalCommits": 15,
+    "totalCommits": 21,
     "totalContributors": 1,
     "tagBreakdown": {
-      "merge": 2,
+      "merge": 3,
+      "docs": 7,
+      "removal": 3,
+      "bugfix": 5,
       "simplify": 2,
       "config": 8,
-      "bugfix": 4,
       "refactor": 1,
-      "removal": 1,
       "feature": 2,
-      "docs": 2,
       "ci": 1,
       "hosting": 2,
       "init": 1,
@@ -709,34 +958,34 @@
       "repository-setup": 1
     },
     "complexityBreakdown": {
-      "1": 12,
-      "2": 3,
+      "1": 17,
+      "2": 4,
       "3": 0,
       "4": 0,
       "5": 0
     },
     "urgencyBreakdown": {
-      "1": 2,
-      "2": 8,
+      "1": 6,
+      "2": 10,
       "3": 5,
       "4": 0,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 4,
+      "internal": 10,
       "user-facing": 0,
       "infrastructure": 11,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 14,
+      "low": 20,
       "medium": 0,
       "high": 0
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 6,
-      "neutral": 8
+      "paid": 7,
+      "neutral": 13
     },
     "epicBreakdown": {
       "session-hooks": 12
@@ -746,20 +995,20 @@
       "minor": 4,
       "major": 0
     },
-    "avgComplexity": 1.2,
-    "avgUrgency": 2.2,
+    "avgComplexity": 1.19,
+    "avgUrgency": 1.95,
     "monthly": {
       "2026-02": {
-        "commits": 15,
+        "commits": 21,
         "tags": {
-          "merge": 2,
+          "merge": 3,
+          "docs": 7,
+          "removal": 3,
+          "bugfix": 5,
           "simplify": 2,
           "config": 8,
-          "bugfix": 4,
           "refactor": 1,
-          "removal": 1,
           "feature": 2,
-          "docs": 2,
           "ci": 1,
           "hosting": 2,
           "init": 1,
@@ -767,42 +1016,42 @@
           "repository-setup": 1
         },
         "impact": {
-          "internal": 4,
+          "internal": 10,
           "user-facing": 0,
           "infrastructure": 11,
           "api": 0
         },
         "risk": {
-          "low": 14,
+          "low": 20,
           "medium": 0,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 6,
-          "neutral": 8
+          "paid": 7,
+          "neutral": 13
         },
         "semver": {
           "patch": 8,
           "minor": 4,
           "major": 0
         },
-        "avgComplexity": 1.2,
-        "avgUrgency": 2.2
+        "avgComplexity": 1.19,
+        "avgUrgency": 1.95
       }
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 15,
+        "commits": 21,
         "tags": {
-          "merge": 2,
+          "merge": 3,
+          "docs": 7,
+          "removal": 3,
+          "bugfix": 5,
           "simplify": 2,
           "config": 8,
-          "bugfix": 4,
           "refactor": 1,
-          "removal": 1,
           "feature": 2,
-          "docs": 2,
           "ci": 1,
           "hosting": 2,
           "init": 1,
@@ -810,33 +1059,33 @@
           "repository-setup": 1
         },
         "impact": {
-          "internal": 4,
+          "internal": 10,
           "user-facing": 0,
           "infrastructure": 11,
           "api": 0
         },
         "risk": {
-          "low": 14,
+          "low": 20,
           "medium": 0,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 6,
-          "neutral": 8
+          "paid": 7,
+          "neutral": 13
         },
         "semver": {
           "patch": 8,
           "minor": 4,
           "major": 0
         },
-        "avgComplexity": 1.2,
-        "avgUrgency": 2.2
+        "avgComplexity": 1.19,
+        "avgUrgency": 1.95
       }
     },
     "dateRange": {
       "earliest": "2026-02-15T15:43:18Z",
-      "latest": "2026-02-16T01:02:42+02:00"
+      "latest": "2026-02-24T14:16:27+02:00"
     },
     "security_events": []
   }

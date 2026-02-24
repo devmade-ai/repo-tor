@@ -1,0 +1,42 @@
+{
+  "sha": "d674b8a",
+  "fullSha": "d674b8a1820042c3d6ca337d6a45336f2edd8a4a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T21:30:49+00:00",
+  "commitDate": "2026-02-18T21:30:49+00:00",
+  "subject": "fix(import): handle multiple existing nodes with same title in merge",
+  "body": "The merge service used Map<string, GraphNode> for title-based matching,\nwhich silently dropped all but the last existing node when multiple shared\na title (e.g., \"Apple\" [Company] vs \"Apple\" [Fruit]). Imported \"Apple\"\nwould match whichever was stored last, ignoring labels entirely.\n\nNow uses Map<string, GraphNode[]> and ranks candidates by label overlap:\nexact label match first, then most shared labels, then first candidate\nas fallback. Each imported node independently picks its best match.\n\nTags: import, merge, deduplication\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: import-compatibility\nSemver: patch\n\nhttps://claude.ai/code/session_01GmBxqTbwGYpy2GUF4TGDLk",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "import",
+  "title": "handle multiple existing nodes with same title in merge",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 118,
+    "deletions": 8
+  },
+  "files": [
+    "src/services/mergeService.test.ts",
+    "src/services/mergeService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "e50fbba",
+  "fullSha": "e50fbbaa0de0d4bfcb2bd90399d1377f85ae66c7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T12:53:16+00:00",
+  "commitDate": "2026-02-20T12:53:16+00:00",
+  "subject": "feat(import): add title-based fallback and field aliases for JSON connections",
+  "body": "JSON import now resolves arc endpoints by title when sourceId/targetId\ndon't match any node ID. AI models frequently put titles in ID fields\nbecause the ID indirection is unintuitive for generated output.\n\nAlso accepts `source`/`target` as aliases for `sourceId`/`targetId`,\nmatching the same defensive pattern as the Markdown `to:`/`target:` fix.\n\nGuide updated: JSON tips now mention title-as-ID option and Unicode note.\n\nTags: import, json, connections, ai-output\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ai-research-output\nSemver: minor\n\nhttps://claude.ai/code/session_0166oa9msWRq48KCJ6pyca4J",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "import",
+  "title": "add title-based fallback and field aliases for JSON connections",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 144,
+    "deletions": 2
+  },
+  "files": [
+    "docs/ai-research-output-guide.md",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "user-facing"
+}

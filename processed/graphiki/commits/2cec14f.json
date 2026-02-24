@@ -1,0 +1,45 @@
+{
+  "sha": "2cec14f",
+  "fullSha": "2cec14faf36ce90e5b3994dab370cc97baf0e0e3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T21:54:41+00:00",
+  "commitDate": "2026-02-18T21:54:41+00:00",
+  "subject": "feat(import): add arc deduplication to merge service",
+  "body": "Previously, arcs were blindly accepted on every import — re-importing\nthe same data created duplicate connections every time. Now arcs go\nthrough the same new/duplicate/conflict detection as nodes.\n\nArc matching: after node matching builds an ID remap (imported → existing),\narc endpoints are remapped and compared against existing arcs by\nsource+target+normalized title. Direction matters; reversed endpoints\nare treated as distinct.\n\nChanges:\n- mergeService: MergeArcItem now has existingMatch, status, propertyDiffs.\n  buildMergeProposal accepts existingArcs parameter. getApprovedItems\n  preserves existing arc ID for accepted conflicts.\n- countByStatus returns nested { nodes, arcs } counts.\n- ImportModal: accepts and passes existingArcs prop.\n- App.tsx: passes arcs to ImportModal.\n- MergeReview: shows connection sections (new/duplicate/conflict) with\n  human-readable \"Source → Target (relationship)\" labels, per-item\n  toggle, and bulk accept/skip.\n\nTags: import, merge, arcs, deduplication\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: import-compatibility\nSemver: minor\n\nhttps://claude.ai/code/session_01GmBxqTbwGYpy2GUF4TGDLk",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "import",
+  "title": "add arc deduplication to merge service",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 610,
+    "deletions": 67
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/importExport/MergeReview.tsx",
+    "src/services/mergeService.test.ts",
+    "src/services/mergeService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

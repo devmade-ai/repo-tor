@@ -1,0 +1,45 @@
+{
+  "sha": "168f7b5",
+  "fullSha": "168f7b59c03e57182a573905ac1f95a8580b4293",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-23T12:55:21+00:00",
+  "commitDate": "2026-02-23T12:55:21+00:00",
+  "subject": "feat(data): replace demo dataset with comprehensive tech industry data",
+  "body": "Replace the 40-node demo dataset with a 109-node, 149-arc dataset\ncovering major tech companies, executives, founders, acquisitions,\nlegal cases, partnerships, supply chain relationships, and competition.\n\nAlso fixes a pre-existing bug in queryEngine compare evaluator where\nthe builder path preserved camelCase property keys but the evaluator\nonly lowercased the data side, causing mismatches on camelCase keys\nlike `marketCap`.\n\nTags: demo-data, seed, query-engine, bugfix\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: demo-data-refresh\nSemver: minor\n\nhttps://claude.ai/code/session_01GaKLJf4f3BgXWZbuiABFUB",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "data",
+  "title": "replace demo dataset with comprehensive tech industry data",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 710,
+    "deletions": 827
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/data/demoData.ts",
+    "src/services/queryEngine.integration.test.ts",
+    "src/services/queryEngine.ts",
+    "src/services/seedService.test.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "user-facing"
+}

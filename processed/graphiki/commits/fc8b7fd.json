@@ -1,0 +1,53 @@
+{
+  "sha": "fc8b7fd",
+  "fullSha": "fc8b7fdfc35148e986d9b5f7237047d8e8e91404",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T20:21:46+00:00",
+  "commitDate": "2026-02-18T20:21:46+00:00",
+  "subject": "refactor(terminology): standardize on 'labels' and 'properties' across codebase",
+  "body": "Eliminate terminology inconsistency where 'tags' and 'labels' were used\ninterchangeably. 'labels' is now the single canonical term everywhere —\nin docs, conventions, UI code, CSS, and comments. 'tags' is retained only\nas a silent backwards-compat alias in import normalization code.\n\nChanges:\n- CSS: --color-tag-* → --color-label-*, .detail-tags → .detail-labels,\n  .tag → .label-badge\n- Components: DetailPanel, MergeReview updated to use new class names\n- Conventions: markdown format now shows `labels:` not `tags:` in examples,\n  removed stale `type:` reference\n- AI guide: all JSON/Markdown/CSV examples updated to use `labels`\n- Import services: comments clarified that `tags` is a compat alias\n- Tests: descriptions updated to reflect compat-alias framing\n- Docs: markdown-import-format.md and CLAUDE.md updated\n\nTags: terminology, consistency, labels, refactor\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: import-compatibility\nSemver: minor\n\nhttps://claude.ai/code/session_01GmBxqTbwGYpy2GUF4TGDLk",
+  "tags": [
+    "refactor",
+    "naming"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "terminology",
+  "title": "standardize on 'labels' and 'properties' across codebase",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 72,
+    "deletions": 74
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/ai-research-output-guide.md",
+    "docs/markdown-import-format.md",
+    "src/App.css",
+    "src/components/importExport/MergeReview.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/views/TimelineView.css",
+    "src/data/conventions.ts",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts",
+    "src/services/markdownImportService.test.ts",
+    "src/services/markdownImportService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

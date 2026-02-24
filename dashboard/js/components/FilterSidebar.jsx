@@ -75,7 +75,7 @@ function MultiSelect({ options, selected, onChange }) {
                     </label>
                 ))}
                 {options.length === 0 && (
-                    <div className="filter-multi-select-option" style={{ color: 'var(--text-muted)', cursor: 'default' }}>
+                    <div className="filter-multi-select-option filter-empty-option">
                         No options available
                     </div>
                 )}
@@ -161,28 +161,27 @@ export default function FilterSidebar() {
 
                     <div className="filter-group">
                         <label>Date Range</label>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                        <div className="filter-date-group">
                             <input
                                 type="date"
-                                className="filter-input"
+                                className="filter-input filter-date-input"
                                 value={state.filters.dateFrom}
                                 onChange={(e) => handleDateChange('dateFrom', e.target.value)}
-                                style={{ width: '100%', paddingLeft: '8px' }}
+                                aria-label="Filter from date"
                             />
                             <input
                                 type="date"
-                                className="filter-input"
+                                className="filter-input filter-date-input"
                                 value={state.filters.dateTo}
                                 onChange={(e) => handleDateChange('dateTo', e.target.value)}
-                                style={{ width: '100%', paddingLeft: '8px' }}
+                                aria-label="Filter to date"
                             />
                         </div>
                     </div>
 
                     <button
                         type="button"
-                        className="btn-icon btn-secondary"
-                        style={{ width: '100%', marginTop: '12px', justifyContent: 'center' }}
+                        className="btn-icon btn-secondary filter-clear-btn"
                         onClick={() => dispatch({ type: 'CLEAR_FILTERS' })}
                     >
                         Clear All

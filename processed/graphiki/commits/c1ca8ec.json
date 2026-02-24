@@ -1,0 +1,45 @@
+{
+  "sha": "c1ca8ec",
+  "fullSha": "c1ca8ec04d6bb32fb96e902a2bee2f96359bd9a2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T10:33:00+00:00",
+  "commitDate": "2026-02-20T10:33:00+00:00",
+  "subject": "fix(query): move AND/OR toggle from per-filter-row to step header",
+  "body": "The AND/OR connector buttons between filter rows all shared the same\nstep.logic value, so toggling any one changed all of them. This confused\nusers into thinking the buttons were independent per-filter-pair.\n\nFix: Replace per-row interactive connector buttons with a single\n\"Match all\" / \"Match any\" toggle in the step header (only shown when\n2+ filters exist). Between filter rows, a non-interactive AND/OR label\nstill shows the current logic for visual context.\n\nTags: query, builder, ux, filters\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: query-builder\nSemver: patch\n\nhttps://claude.ai/code/session_01QaVBrY3ZbkWqho5derxeJw",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "query",
+  "title": "move AND/OR toggle from per-filter-row to step header",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 70,
+    "deletions": 23
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/query/QueryBuilder.css",
+    "src/components/query/QueryBuilder.tsx",
+    "src/components/query/QueryFilterRow.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

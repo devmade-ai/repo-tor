@@ -1,0 +1,51 @@
+{
+  "sha": "dd2664c",
+  "fullSha": "dd2664cfd1641db6c88ed9984a3d3bce57d3897e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-19T21:06:43+00:00",
+  "commitDate": "2026-02-19T21:06:43+00:00",
+  "subject": "feat(admin): build station management interface (Deliverable 6)",
+  "body": "Admin station list with search, active/inactive status badges,\nand activate/deactivate toggle with confirmation dialog.\n\nAdmin station edit form with validation (name, address, city required),\nbrand, postal code, phone, active toggle, and save with error feedback.\n\nPriceEditor component: inline per-fuel-type price editing with upsert\nto fuel_prices table. Tap any price to edit, save/cancel per row.\n\nAdmin accessible via gear icon in home screen header. Dark-themed\nheader distinguishes admin from user-facing screens.\n\nAuth deferred — RLS policies enforce admin-only writes at the database\nlevel. Login UI will be added when Supabase Auth is configured.\n\nTags: admin, station-management, prices, forms, rls\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: added\nEpic: admin-interface\nSemver: minor\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "admin",
+  "title": "build station management interface (Deliverable 6)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 1225,
+    "deletions": 32
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(tabs)/_layout.tsx",
+    "app/_layout.tsx",
+    "app/admin/_layout.tsx",
+    "app/admin/index.tsx",
+    "app/admin/station/[id].tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/admin/PriceEditor.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "user-facing"
+}

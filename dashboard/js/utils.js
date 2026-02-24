@@ -34,12 +34,12 @@ export function sanitizeName(name, email) {
 }
 
 export function sanitizeMessage(message) {
-    // Show only the type prefix if conventional commit, otherwise generic
-    const match = message.match(/^(feat|fix|docs|style|refactor|test|chore|ci|build|perf|security)(\(.+?\))?:/i);
-    if (match) {
-        return match[0] + ' [message hidden]';
-    }
-    return '[Commit message hidden]';
+    // Requirement: Show the full commit subject line in all views
+    // Approach: Return the message as-is (subject line only, no body)
+    // Alternatives:
+    //   - Keep hiding: Rejected - user wants to see commit messages in detail view
+    //   - Show per view level: Rejected - user chose full subject for all levels
+    return message || '[No commit message]';
 }
 
 // === South African Public Holidays ===
@@ -58,12 +58,20 @@ export const SA_HOLIDAYS = {
         { month: 12, day: 25, name: "Christmas Day" },
         { month: 12, day: 26, name: "Day of Goodwill" }
     ],
-    // Easter-based holidays (Good Friday, Family Day) - pre-calculated for 2024-2027
+    // Easter-based holidays (Good Friday, Family Day) - pre-calculated for 2020-2030
+    // Must cover same range as buildHolidaySet's year loop (2020-2030)
     easter: {
+        2020: { goodFriday: '2020-04-10', familyDay: '2020-04-13' },
+        2021: { goodFriday: '2021-04-02', familyDay: '2021-04-05' },
+        2022: { goodFriday: '2022-04-15', familyDay: '2022-04-18' },
+        2023: { goodFriday: '2023-04-07', familyDay: '2023-04-10' },
         2024: { goodFriday: '2024-03-29', familyDay: '2024-04-01' },
         2025: { goodFriday: '2025-04-18', familyDay: '2025-04-21' },
         2026: { goodFriday: '2026-04-03', familyDay: '2026-04-06' },
-        2027: { goodFriday: '2027-03-26', familyDay: '2027-03-29' }
+        2027: { goodFriday: '2027-03-26', familyDay: '2027-03-29' },
+        2028: { goodFriday: '2028-04-14', familyDay: '2028-04-17' },
+        2029: { goodFriday: '2029-03-30', familyDay: '2029-04-02' },
+        2030: { goodFriday: '2030-04-19', familyDay: '2030-04-22' }
     }
 };
 

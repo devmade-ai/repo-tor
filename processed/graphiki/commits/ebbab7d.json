@@ -1,0 +1,42 @@
+{
+  "sha": "ebbab7d",
+  "fullSha": "ebbab7d6729500a51ccdfa58df4343593f571191",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T14:15:45+00:00",
+  "commitDate": "2026-02-20T14:15:45+00:00",
+  "subject": "fix(debug): add 'graph' to DebugSource type",
+  "body": "GraphCanvas.tsx calls debugLog('graph', ...) but 'graph' was missing\nfrom the DebugSource union type, causing TS2345. Added 'graph' to the\nunion and the corresponding SOURCE_COLORS entry in DebugPill.\n\nTags: typescript, debug, graph\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: type-safety\nSemver: patch\n\nhttps://claude.ai/code/session_016hJEozrRjNVMc9RS5pnq8b",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "debug",
+  "title": "add 'graph' to DebugSource type",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 2,
+    "deletions": 0
+  },
+  "files": [
+    "src/components/debug/DebugPill.tsx",
+    "src/utils/debugLog.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,68 @@
+{
+  "sha": "3065aa6",
+  "fullSha": "3065aa6fbdd7b4a328805c77651614e5b51789c7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-23T21:28:48+00:00",
+  "commitDate": "2026-02-23T21:28:48+00:00",
+  "subject": "feat(scaffold): Phase 0 — project scaffolding with Vue 3, Vite, TypeScript",
+  "body": "Set up the complete project structure for budgy-ting PWA. This establishes the\nfoundation that all subsequent phases build on: build tooling, routing, database\nschema, type definitions, and the app shell UI.\n\nScaffolding includes:\n- Vite + Vue 3 + TypeScript project (package.json, tsconfigs)\n- UnoCSS with Tailwind preset, brand colours, utility shortcuts\n- vite-plugin-pwa with manifest configuration\n- Dexie.js v4 schema v1 (budgets, expenses, actuals, categoryCache)\n- TypeScript data models matching product definition\n- Vue Router with budget list and budget detail (3 nested tabs)\n- AppLayout component (header, max-width content area)\n- BudgetListView with empty/loading/list states\n- BudgetDetailView with tab navigation\n- Stub tab views (Expenses, Projected, Compare)\n- Product definition saved to docs/PRODUCT_DEFINITION.md\n- Updated README, TODO, SESSION_NOTES, HISTORY, USER_ACTIONS\n\nTags: scaffolding, vue3, vite, typescript, unocss, pwa, dexie, routing\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: phase-0-scaffolding\nSemver: minor\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+  "tags": [
+    "init",
+    "config",
+    "build"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "budgy-mvp",
+  "semver": null,
+  "scope": "scaffold",
+  "title": "Phase 0 — project scaffolding with Vue 3, Vite, TypeScript",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 26,
+    "additions": 1388,
+    "deletions": 12
+  },
+  "files": [
+    ".gitignore",
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/PRODUCT_DEFINITION.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_ACTIONS.md",
+    "env.d.ts",
+    "index.html",
+    "package.json",
+    "src/App.vue",
+    "src/components/AppLayout.vue",
+    "src/db/index.ts",
+    "src/main.ts",
+    "src/router/index.ts",
+    "src/types/models.ts",
+    "src/views/BudgetDetailView.vue",
+    "src/views/BudgetListView.vue",
+    "src/views/CompareTab.vue",
+    "src/views/ExpensesTab.vue",
+    "src/views/ProjectedTab.vue",
+    "tsconfig.app.json",
+    "tsconfig.json",
+    "tsconfig.node.json",
+    "uno.config.ts",
+    "vite.config.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "infrastructure"
+}

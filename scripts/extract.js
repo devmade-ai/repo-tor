@@ -118,32 +118,67 @@ function extractCommits() {
     });
   }
 
-  // Get stats for each commit (this is slower, so we do it separately)
-  console.log(`Extracting stats for ${commits.length} commits...`);
+  // Requirement: Batch git stat extraction for performance
+  // Approach: Single `git log --numstat` command to get all stats+files in one pass,
+  //   then merge results into the existing commits array by SHA lookup.
+  // Alternatives:
+  //   - Per-commit `git show --stat` + `git show --name-only` (2 calls/commit):
+  //     Rejected — O(2n) git processes, extremely slow for 1000+ commits
+  //   - `git diff-tree --numstat`: Rejected — needs per-commit calls for boundary handling
+  console.log(`Extracting stats for ${commits.length} commits (batched)...`);
 
-  for (let i = 0; i < commits.length; i++) {
-    if (i % 50 === 0 && i > 0) {
-      console.log(`  Processed ${i}/${commits.length} commits...`);
+  const numstatOutput = git(['log', '--all', '--numstat', '--format=COMMIT_BOUNDARY:%H']);
+  if (numstatOutput) {
+    const statsByFullSha = new Map();
+    let currentSha = null;
+    let currentStats = { additions: 0, deletions: 0, files: [] };
+
+    for (const line of numstatOutput.split('\n')) {
+      if (line.startsWith('COMMIT_BOUNDARY:')) {
+        // Save previous commit's stats
+        if (currentSha) {
+          statsByFullSha.set(currentSha, { ...currentStats, filesChanged: currentStats.files.length });
+        }
+        currentSha = line.substring('COMMIT_BOUNDARY:'.length).trim();
+        currentStats = { additions: 0, deletions: 0, files: [] };
+      } else if (line.trim() && currentSha) {
+        // numstat format: "additions\tdeletions\tfilename" (binary files show "-\t-\t")
+        const parts = line.split('\t');
+        if (parts.length >= 3) {
+          const add = parts[0] === '-' ? 0 : parseInt(parts[0]) || 0;
+          const del = parts[1] === '-' ? 0 : parseInt(parts[1]) || 0;
+          currentStats.additions += add;
+          currentStats.deletions += del;
+          currentStats.files.push(parts.slice(2).join('\t'));
+        }
+      }
+    }
+    // Save last commit
+    if (currentSha) {
+      statsByFullSha.set(currentSha, { ...currentStats, filesChanged: currentStats.files.length });
     }
 
-    const commit = commits[i];
-    const statsOutput = git(['show', commit.fullSha, '--stat', '--format=']);
-
-    // Parse stats from output like: "2 files changed, 10 insertions(+), 5 deletions(-)"
-    const statsMatch = statsOutput.match(/(\d+) files? changed(?:, (\d+) insertions?\(\+\))?(?:, (\d+) deletions?\(-\))?/);
-
-    const filesChanged = statsMatch ? parseInt(statsMatch[1]) || 0 : 0;
-    commit.stats = {
-      filesChanged: filesChanged,
-      additions: statsMatch ? parseInt(statsMatch[2]) || 0 : 0,
-      deletions: statsMatch ? parseInt(statsMatch[3]) || 0 : 0
-    };
-
-    // Extract changed files
-    const filesOutput = git(['show', commit.fullSha, '--name-only', '--format=']);
-    commit.files = filesOutput.split('\n').filter(Boolean);
-
-    // Note: complexity is calculated by AI after tagging (see EXTRACTION_PLAYBOOK.md)
+    // Merge stats into commits
+    for (const commit of commits) {
+      const stats = statsByFullSha.get(commit.fullSha);
+      if (stats) {
+        commit.stats = {
+          filesChanged: stats.filesChanged,
+          additions: stats.additions,
+          deletions: stats.deletions
+        };
+        commit.files = stats.files;
+      } else {
+        commit.stats = { filesChanged: 0, additions: 0, deletions: 0 };
+        commit.files = [];
+      }
+    }
+  } else {
+    // Fallback: no numstat output available
+    for (const commit of commits) {
+      commit.stats = { filesChanged: 0, additions: 0, deletions: 0 };
+      commit.files = [];
+    }
   }
 
   return commits;

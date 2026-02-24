@@ -223,6 +223,8 @@ document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible' && 'serviceWorker' in navigator) {
         navigator.serviceWorker.getRegistration().then(reg => {
             if (reg) reg.update();
-        }).catch(() => {});
+        }).catch(err => {
+            console.warn('Failed to check for SW updates:', err.message || err);
+        });
     }
 });

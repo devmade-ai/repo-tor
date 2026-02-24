@@ -1,0 +1,42 @@
+{
+  "sha": "1f506d4",
+  "fullSha": "1f506d48b28a0e0e9317ae0096850784ea8e5a9d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T05:00:59+00:00",
+  "commitDate": "2026-02-20T05:00:59+00:00",
+  "subject": "fix(query): add scrollable max-height to expanded builder on mobile",
+  "body": "Without a height cap, adding multiple pipeline steps causes the builder\nto grow unbounded inside the flex-shrink:0 toolbar. The bottom controls\n(Add step, last filter rows) become unreachable since the parent .app\nhas overflow:hidden. Caps .qb-body at 50vh with overflow-y:auto so\nusers can scroll within the builder while keeping the graph visible.\n\nTags: ui, query, mobile, responsive\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01FiCM1CyEDUQ7VmuNM7oMY7",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "query",
+  "title": "add scrollable max-height to expanded builder on mobile",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 15,
+    "deletions": 0
+  },
+  "files": [
+    "src/components/query/QueryBuilder.css"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

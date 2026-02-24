@@ -2,8 +2,8 @@
 /**
  * Git Analytics API Extractor
  *
- * Extracts commit data from GitHub repositories using the GitHub API.
- * No cloning required - fetches data directly via gh CLI.
+ * Extracts commit data from GitHub repositories using the GitHub REST API.
+ * No cloning required - fetches data directly via HTTP.
  *
  * Usage: node extract-api.js <owner/repo> [--output=reports/]
  *
@@ -12,16 +12,30 @@
  *   node extract-api.js devmade-ai/repo-tor --output=reports/
  *   node extract-api.js devmade-ai/repo-tor --since=2026-01-01
  *
- * Authentication (in priority order):
+ * Authentication (checked in order):
  *   1. GH_TOKEN environment variable
- *   2. .env file in project root (GH_TOKEN=...)
- *   3. gh auth login (interactive)
+ *   2. GITHUB_TOKEN environment variable
+ *   3. GITHUB_ALL_REPO_TOKEN environment variable
+ *   4. .env file in project root (any of the above keys)
+ *
+ * Requirement: Remove gh CLI dependency for API extraction
+ * Approach: Use curl for HTTP requests to the GitHub REST API. curl is
+ *   universally available, handles proxies correctly, and has no install step.
+ * Alternatives:
+ *   - gh CLI: Rejected - often not installed in CI/cloud environments
+ *   - Node native fetch: Rejected - doesn't respect HTTP_PROXY env vars,
+ *     would need undici ProxyAgent which isn't always available
+ *   - node-fetch/axios packages: Rejected - unnecessary dependency
  */
 
-import { execFileSync } from 'child_process';
+import { execFileSync, execFile as execFileCb } from 'child_process';
+import { promisify } from 'util';
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
+const execFileAsync = promisify(execFileCb);
 
 import { parseCommitMessage, extractBreakingChange, extractReferences } from './lib/commit-parsing.js';
 import { toKebabCase, writeJson } from './lib/utils.js';
@@ -41,15 +55,12 @@ function loadEnvFile() {
       const content = fs.readFileSync(envPath, 'utf-8');
       for (const line of content.split('\n')) {
         const trimmed = line.trim();
-        // Skip comments and empty lines
         if (!trimmed || trimmed.startsWith('#')) continue;
 
         const match = trimmed.match(/^([A-Z_][A-Z0-9_]*)=(.*)$/);
         if (match) {
           const [, key, value] = match;
-          // Don't override existing env vars
           if (!process.env[key]) {
-            // Remove quotes if present
             process.env[key] = value.replace(/^["']|["']$/g, '');
           }
         }
@@ -61,6 +72,20 @@ function loadEnvFile() {
 }
 
 const loadedEnvFile = loadEnvFile();
+
+// === Token Discovery ===
+// Requirement: Find the GitHub token from common env var names
+// Checks multiple conventions since different environments use different names
+function findGitHubToken() {
+  const tokenVars = ['GH_TOKEN', 'GITHUB_TOKEN', 'GITHUB_ALL_REPO_TOKEN'];
+  for (const varName of tokenVars) {
+    const value = process.env[varName]?.trim();
+    if (value) {
+      return { token: value, source: varName };
+    }
+  }
+  return null;
+}
 
 // === Argument Parsing ===
 const args = process.argv.slice(2);
@@ -85,65 +110,138 @@ if (!repoFullName) {
   console.log('  node extract-api.js devmade-ai/repo-tor');
   console.log('  node extract-api.js devmade-ai/repo-tor --since=2026-01-01');
   console.log('');
-  console.log('Requires: gh CLI installed and authenticated');
+  console.log('Requires: GitHub token in GH_TOKEN, GITHUB_TOKEN, or GITHUB_ALL_REPO_TOKEN env var');
   process.exit(1);
 }
 
 const [owner, repo] = repoFullName.split('/');
 
-// === GitHub API Helpers ===
+// === GitHub API via curl ===
 
-function gh(args) {
+const API_BASE = 'https://api.github.com';
+let authToken = null;
+
+/**
+ * Make a GitHub API request via curl.
+ * Returns { body, headers } where body is parsed JSON and headers is a string.
+ */
+// Requirement: Temp header file must not be predictable or in project root
+// Approach: Use os.tmpdir() with process.pid for unique, system-appropriate temp path
+// Alternatives:
+//   - Project root .curl-headers-tmp: Rejected — predictable path, TOCTOU race condition
+//   - Node's -i flag for headers: Rejected — curl doesn't have an in-memory header option
+function curlGitHub(url, { includeHeaders = false } = {}) {
+  const curlArgs = [
+    '-s',             // silent
+    '-f',             // fail on HTTP errors (returns exit code 22)
+    '-L',             // follow redirects
+    '-H', 'Accept: application/vnd.github+json',
+    '-H', 'X-GitHub-Api-Version: 2022-11-28',
+    '-H', `Authorization: Bearer ${authToken}`,
+  ];
+
+  const headerFile = includeHeaders
+    ? path.join(os.tmpdir(), `.curl-headers-${process.pid}-${Date.now()}`)
+    : null;
+
+  if (includeHeaders) {
+    curlArgs.push('-D', headerFile);
+  }
+
+  curlArgs.push(url.startsWith('http') ? url : `${API_BASE}${url}`);
+
   try {
-    const result = execFileSync('gh', args, {
+    const result = execFileSync('curl', curlArgs, {
       encoding: 'utf-8',
-      maxBuffer: 50 * 1024 * 1024, // 50MB buffer
-      timeout: 120000, // 2 min timeout
-      env: { ...process.env }
+      maxBuffer: 50 * 1024 * 1024,
+      timeout: 120000,
     });
-    return result.trim();
+
+    if (includeHeaders) {
+      const headers = fs.existsSync(headerFile) ? fs.readFileSync(headerFile, 'utf-8') : '';
+      try { fs.unlinkSync(headerFile); } catch {}
+      return { headers, body: JSON.parse(result) };
+    }
+
+    return JSON.parse(result);
   } catch (error) {
-    if (error.message.includes('gh: command not found') || error.message.includes('ENOENT')) {
-      console.error('Error: gh CLI not found. Install from https://cli.github.com/');
-      process.exit(1);
+    if (headerFile) {
+      try { fs.unlinkSync(headerFile); } catch {}
     }
-    if (error.message.includes('not logged in')) {
-      console.error('Error: Not authenticated. Run: gh auth login');
-      process.exit(1);
+    if (error.status === 22) {
+      throw new Error(`GitHub API request failed: ${url}`);
     }
-    console.error(`GitHub API error: ${error.message}`);
-    return null;
+    throw error;
   }
 }
 
-function ghApi(endpoint, options = {}) {
-  const args = ['api', endpoint];
+/**
+ * Async curl for concurrent API requests.
+ * Requirement: Speed up commit detail fetching with concurrent requests
+ * Approach: Use execFile (async) with concurrency pool instead of sequential execFileSync
+ * Alternatives:
+ *   - Sequential execFileSync: Rejected — too slow for 300+ commits
+ *   - Node fetch: Rejected — doesn't respect HTTP_PROXY (same reason as sync curl)
+ */
+function curlGitHubAsync(url) {
+  const curlArgs = [
+    '-s', '-f', '-L',
+    '-H', 'Accept: application/vnd.github+json',
+    '-H', 'X-GitHub-Api-Version: 2022-11-28',
+    '-H', `Authorization: Bearer ${authToken}`,
+    url.startsWith('http') ? url : `${API_BASE}${url}`,
+  ];
 
-  if (options.paginate) {
-    args.push('--paginate');
-  }
-  if (options.jq) {
-    args.push('--jq', options.jq);
-  }
+  return execFileAsync('curl', curlArgs, {
+    encoding: 'utf-8',
+    maxBuffer: 50 * 1024 * 1024,
+    timeout: 120000,
+  }).then(({ stdout }) => JSON.parse(stdout));
+}
 
-  const result = gh(args);
-  if (!result) return null;
-
-  try {
-    return JSON.parse(result);
-  } catch (e) {
-    // If jq was used, result might be newline-delimited JSON
-    if (options.jq) {
-      return result.split('\n').filter(Boolean).map(line => {
-        try {
-          return JSON.parse(line);
-        } catch (e) {
-          return line;
-        }
-      });
+/** Run async tasks with a concurrency limit */
+async function pMap(items, fn, concurrency = 5) {
+  const results = new Array(items.length);
+  let idx = 0;
+  async function worker() {
+    while (idx < items.length) {
+      const i = idx++;
+      results[i] = await fn(items[i], i);
     }
-    return result;
   }
+  await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, () => worker()));
+  return results;
+}
+
+/**
+ * Fetch all pages of a paginated GitHub API endpoint.
+ * Parses Link header for next page URL.
+ */
+function fetchAllPages(endpoint) {
+  let url = `${API_BASE}${endpoint}`;
+  const allItems = [];
+
+  while (url) {
+    const { headers, body } = curlGitHub(url, { includeHeaders: true });
+
+    if (Array.isArray(body)) {
+      allItems.push(...body);
+    } else {
+      return body;
+    }
+
+    // Parse Link header for next page
+    url = null;
+    const linkLine = headers.split(/\r?\n/).find(h => h.toLowerCase().startsWith('link:'));
+    if (linkLine) {
+      const nextMatch = linkLine.match(/<([^>]+)>;\s*rel="next"/);
+      if (nextMatch) {
+        url = nextMatch[1];
+      }
+    }
+  }
+
+  return allItems;
 }
 
 // === Data Extraction ===
@@ -151,19 +249,12 @@ function ghApi(endpoint, options = {}) {
 function fetchCommitList() {
   console.log('Fetching commit list...');
 
-  let endpoint = `repos/${owner}/${repo}/commits?per_page=100`;
+  let endpoint = `/repos/${owner}/${repo}/commits?per_page=100`;
   if (sinceDate) {
     endpoint += `&since=${sinceDate}T00:00:00Z`;
   }
 
-  // Requirement: Fetch all commits reliably across all pages
-  // Approach: Use gh CLI's built-in --paginate flag via ghApi() helper
-  // Alternatives:
-  //   - Manual ?page=N loop: Rejected - caused missing commits (6 in canva-grid,
-  //     1 in model-pear) when API result ordering shifted between page requests
-  //   - GraphQL API: Rejected - more complex, cursor-based pagination has same
-  //     reliability as gh --paginate with no added benefit
-  const commits = ghApi(endpoint, { paginate: true });
+  const commits = fetchAllPages(endpoint);
 
   if (!commits || !Array.isArray(commits)) {
     return [];
@@ -174,30 +265,10 @@ function fetchCommitList() {
 }
 
 function fetchCommitDetails(sha) {
-  const result = gh(['api', `repos/${owner}/${repo}/commits/${sha}`]);
-  if (!result) return null;
-  return JSON.parse(result);
+  return curlGitHub(`/repos/${owner}/${repo}/commits/${sha}`);
 }
 
-function extractCommits(commitList) {
-  console.log(`Extracting details for ${commitList.length} commits...`);
-
-  const commits = [];
-
-  for (let i = 0; i < commitList.length; i++) {
-    const item = commitList[i];
-
-    if (i % 25 === 0 && i > 0) {
-      console.log(`  Processed ${i}/${commitList.length} commits...`);
-    }
-
-    // Fetch full commit details (includes stats and files)
-    const details = fetchCommitDetails(item.sha);
-    if (!details) {
-      console.error(`  Warning: Failed to fetch details for ${item.sha.substring(0, 7)}`);
-      continue;
-    }
-
+function detailToCommit(item, details) {
     // Parse commit message into subject and body
     const messageParts = (details.commit.message || '').split('\n');
     const subject = messageParts[0] || '';
@@ -219,7 +290,7 @@ function extractCommits(commitList) {
     // Extract references from message
     const references = extractReferences(subject, body);
 
-    commits.push({
+    return {
       sha: item.sha.substring(0, 7),
       fullSha: item.sha,
       author_id: authorEmail.toLowerCase(),
@@ -246,15 +317,41 @@ function extractCommits(commitList) {
       is_conventional: parsed.is_conventional,
       has_breaking_change: parsed.breaking || extractBreakingChange(subject, body),
       references: references,
+      // Fix: filesChanged should directly use files array length, not gate on stats.total
+      // which is the sum of additions+deletions (unrelated to file count)
       stats: {
-        filesChanged: details.stats?.total ? details.files?.length || 0 : 0,
+        filesChanged: details.files?.length || 0,
         additions: details.stats?.additions || 0,
         deletions: details.stats?.deletions || 0
       },
       files: (details.files || []).map(f => f.filename)
-    });
-  }
+    };
+}
 
+// Requirement: Speed up commit detail fetching
+// Approach: Concurrent API requests with configurable pool size (default 5).
+//   Falls back to sequential if async fails (e.g. curl not supporting concurrent use).
+// Alternatives:
+//   - Sequential for loop: Rejected — too slow for 300+ commits (1 req/s = 5+ min)
+//   - Unbounded Promise.all: Rejected — would hit GitHub rate limits immediately
+async function extractCommits(commitList) {
+  console.log(`Extracting details for ${commitList.length} commits (concurrent)...`);
+
+  const results = await pMap(commitList, async (item, i) => {
+    if (i % 25 === 0 && i > 0) {
+      console.log(`  Processed ${i}/${commitList.length} commits...`);
+    }
+    try {
+      const details = await curlGitHubAsync(`/repos/${owner}/${repo}/commits/${item.sha}`);
+      return detailToCommit(item, details);
+    } catch (err) {
+      console.error(`  Warning: Failed to fetch details for ${item.sha.substring(0, 7)}: ${err.message}`);
+      return null;
+    }
+  }, 5);
+
+  const commits = results.filter(Boolean);
+  console.log(`  Extracted ${commits.length}/${commitList.length} commits`);
   return commits;
 }
 
@@ -345,14 +442,26 @@ function extractFileStats(commits) {
     .sort((a, b) => b.changeCount - a.changeCount);
 }
 
+// Fix: Add branches and currentBranch fields that dashboard expects for some features.
+// API extraction doesn't have local git info, so we fetch default branch from the API
+// and note that the branch list may be incomplete (API doesn't always list all branches).
 function generateMetadata(commits) {
   const repoId = toKebabCase(repo);
+  let defaultBranch = 'main';
+  try {
+    const repoInfo = curlGitHub(`/repos/${owner}/${repo}`);
+    defaultBranch = repoInfo.default_branch || 'main';
+  } catch {
+    // Non-critical — use default
+  }
   return {
     repo_id: repoId,
     repository: repo,
     remoteUrl: `https://github.com/${owner}/${repo}`,
     extractedAt: new Date().toISOString(),
-    extractionMethod: 'github-api'
+    extractionMethod: 'github-api',
+    currentBranch: defaultBranch,
+    branches: [defaultBranch],
   };
 }
 
@@ -389,11 +498,14 @@ function generateSummary(commits, contributors) {
   }
 
   const securityCommits = commits.filter(c => (c.tags || []).includes('security'));
+  // Fix: Include repo_id for consistency with extract.js — needed for multi-repo aggregation
+  const repoId = toKebabCase(repo);
   const security_events = securityCommits.map(c => ({
     sha: c.sha,
     subject: c.subject,
     timestamp: c.timestamp,
-    author_id: c.author_id
+    author_id: c.author_id,
+    repo_id: repoId
   }));
 
   return {
@@ -430,7 +542,7 @@ function writeCommitFiles(commits, commitsDir) {
 
 // === Main Execution ===
 
-function main() {
+async function main() {
   console.log(`\nGit Analytics API Extraction`);
   console.log(`Repository: ${owner}/${repo}`);
   console.log(`Output: ${outputDir}`);
@@ -442,37 +554,33 @@ function main() {
     console.log(`Loaded environment from: ${loadedEnvFile}`);
   }
 
-  // Check authentication method
-  const hasToken = !!process.env.GH_TOKEN;
-  if (hasToken) {
-    console.log('Authentication: Using GH_TOKEN from environment');
-  }
-
-  // Check gh CLI is available
-  try {
-    execFileSync('gh', ['--version'], { encoding: 'utf-8', stdio: 'pipe' });
-  } catch (e) {
-    console.error('Error: gh CLI not found. Install from https://cli.github.com/');
-    console.error('       Or run: ./scripts/setup-gh.sh');
+  // Find authentication token
+  const tokenInfo = findGitHubToken();
+  if (!tokenInfo) {
+    console.error('Error: No GitHub token found.');
+    console.error('');
+    console.error('Set one of these environment variables:');
+    console.error('  GH_TOKEN=ghp_...');
+    console.error('  GITHUB_TOKEN=ghp_...');
+    console.error('  GITHUB_ALL_REPO_TOKEN=ghp_...');
+    console.error('');
+    console.error('Or add it to a .env file in the project root.');
+    console.error('Create a token at: https://github.com/settings/tokens/new');
     process.exit(1);
   }
 
-  // Check authentication (gh CLI uses GH_TOKEN automatically if set)
-  if (!hasToken) {
-    try {
-      execFileSync('gh', ['auth', 'status'], { encoding: 'utf-8', stdio: 'pipe' });
-      console.log('Authentication: Using gh auth login session');
-    } catch (e) {
-      console.error('Error: Not authenticated with GitHub.');
-      console.error('');
-      console.error('Options:');
-      console.error('  1. Set GH_TOKEN in .env file (recommended for AI sessions)');
-      console.error('  2. Run: gh auth login (interactive)');
-      console.error('  3. Run: ./scripts/setup-gh.sh');
-      console.error('');
-      console.error('Create a token at: https://github.com/settings/tokens/new');
-      process.exit(1);
-    }
+  authToken = tokenInfo.token;
+  console.log(`Authentication: Using ${tokenInfo.source} from environment`);
+
+  // Verify token works by checking rate limit
+  try {
+    const rateLimit = curlGitHub('/rate_limit');
+    const remaining = rateLimit.resources?.core?.remaining ?? '?';
+    console.log(`API rate limit remaining: ${remaining}`);
+  } catch (err) {
+    console.error(`Error: Token authentication failed: ${err.message}`);
+    console.error('Check that your token is valid and has repo access.');
+    process.exit(1);
   }
 
   // Fetch commits
@@ -482,8 +590,8 @@ function main() {
     process.exit(0);
   }
 
-  // Extract full details
-  const commits = extractCommits(commitList);
+  // Extract full details (async — concurrent API fetching)
+  const commits = await extractCommits(commitList);
 
   // Add repo_id to each commit
   const repoId = toKebabCase(repo);
@@ -528,4 +636,7 @@ function main() {
   console.log(`\nData written to: ${repoOutputDir}/`);
 }
 
-main();
+main().catch(err => {
+  console.error('Fatal error:', err.message || err);
+  process.exit(1);
+});

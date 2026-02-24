@@ -1,0 +1,42 @@
+{
+  "sha": "e10812c",
+  "fullSha": "e10812c12bced0b52998e7e2ac8ad4c13bc7189e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T07:38:25+00:00",
+  "commitDate": "2026-02-17T07:38:25+00:00",
+  "subject": "Fix build: use mkdir for output dir instead of skipping build",
+  "body": "buildCommand: \"\" skips the entire install+build pipeline, so Vercel\ntries a per-function npm install in api/ which fails (no package.json\nthere). Instead, let the normal pipeline run and create an empty\npublic/ at build time to satisfy the output directory check.\n\nhttps://claude.ai/code/session_018GdxVNVycPS8x1KTytw3hi",
+  "tags": [
+    "bugfix",
+    "deploy"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Fix build: use mkdir for output dir instead of skipping build",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "vercel.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

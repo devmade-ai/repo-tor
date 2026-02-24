@@ -1,0 +1,47 @@
+{
+  "sha": "71532f8",
+  "fullSha": "71532f805ba9ff62aba65e2fb30a6ea0b7c2ca0d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-19T22:01:02+00:00",
+  "commitDate": "2026-02-19T22:01:02+00:00",
+  "subject": "refactor(formatting): extract helpers to formatting.ts, add decision docs",
+  "body": "- Move formatOperatingHours, formatAmenity, DAY_ORDER, DAY_LABELS from\n  station/[id].tsx to src/lib/formatting.ts for reusability\n- Add decision documentation to jest.config.js (What/Why/Alternatives)\n- Add 9 unit tests for formatOperatingHours and formatAmenity (30 total)\n- Update TESTING_GUIDE to reflect new test count\n\nStation detail drops from 395 to 348 lines, well under the 500-line threshold.\n\nTags: refactor, formatting, testing, code-standards\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: few-lap-mvp\nSemver: patch\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+  "tags": [
+    "refactor",
+    "test-unit",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "formatting",
+  "title": "extract helpers to formatting.ts, add decision docs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 142,
+    "deletions": 52
+  },
+  "files": [
+    "app/station/[id].tsx",
+    "docs/TESTING_GUIDE.md",
+    "jest.config.js",
+    "src/lib/__tests__/formatting.test.ts",
+    "src/lib/formatting.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}

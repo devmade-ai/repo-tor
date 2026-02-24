@@ -1,0 +1,48 @@
+{
+  "sha": "b72be04",
+  "fullSha": "b72be0404cd77d97a7ce0b1c2c622160ab2f6e15",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T04:51:10+00:00",
+  "commitDate": "2026-02-17T04:51:10+00:00",
+  "subject": "Move CORS configuration to vercel.json for zero-config deploys",
+  "body": "CORS headers are now handled at the Vercel infrastructure level via\nvercel.json, so the API works automatically on deploy from GitHub\nwithout needing ALLOWED_ORIGINS env var. Handlers still respond to\nOPTIONS preflight with 204. Deleted the in-code cors.ts module.\n\nhttps://claude.ai/code/session_01XfRMoBtpQLXVTWNanmyv6J",
+  "tags": [
+    "config",
+    "security"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Move CORS configuration to vercel.json for zero-config deploys",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 8,
+    "deletions": 97
+  },
+  "files": [
+    "api/.env.example",
+    "api/api/__tests__/health.test.ts",
+    "api/api/__tests__/send-interest.test.ts",
+    "api/api/cors.ts",
+    "api/api/health.ts",
+    "api/api/send-interest.ts",
+    "api/vercel.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

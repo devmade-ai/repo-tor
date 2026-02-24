@@ -1,0 +1,42 @@
+{
+  "sha": "0284f0a",
+  "fullSha": "0284f0a0fabf019056695d2da7e6d7dc0913e8b8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T20:26:50+00:00",
+  "commitDate": "2026-02-18T20:26:50+00:00",
+  "subject": "content(projects): add missing tech tags for CanvaGrid and SyncTone",
+  "body": "CanvaGrid and SyncTone projects had empty tech arrays while Graphiki\nand model-pear already had tags. Added tags derived from each project's\nactual package.json and repo structure via the GitHub API.\n\n- CanvaGrid: React, Vite, Tailwind CSS, PWA\n- SyncTone: React Native, Expo, TypeScript, Supabase, NativeWind\n\nTags: cv-data, projects, content\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01D8qWmo4Q36fifbxtL6BwMF",
+  "tags": [
+    "docs",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "projects",
+  "title": "add missing tech tags for CanvaGrid and SyncTone",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "src/data/cv-data.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 1,
+  "impact": "user-facing"
+}

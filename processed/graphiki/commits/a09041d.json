@@ -1,0 +1,42 @@
+{
+  "sha": "a09041d",
+  "fullSha": "a09041d2b5d91c33c21dc34774e926f993024ade",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T15:30:51+00:00",
+  "commitDate": "2026-02-20T15:30:51+00:00",
+  "subject": "fix(conventions): rewrite import conventions with purpose context and examples",
+  "body": "The convention text that users copy into AI prompts was a bare format\nspec with no explanation of what Graphiki is, what happens with the\noutput, or why structure matters. The AI reading it had zero context\nabout purpose. Additionally, the JSON conventions referenced \"Markdown\nformat\" confusingly and required a `version` field that the import\nservice treats as optional.\n\nChanges:\n- Add PURPOSE_CONTEXT preamble shared across formats explaining what\n  Graphiki is, how the output becomes an interactive knowledge graph,\n  and why structure quality matters\n- Rewrite JSON conventions with a concrete complete example (Google +\n  Larry Page) instead of placeholder `[ ... ]` arrays\n- Clarify that `content` \"supports markdown formatting\" within the\n  string value, rather than the confusing \"in Markdown format\"\n- Remove `version: \"2\"` from required fields (importExportService\n  treats it as optional)\n- Add tips section covering Unicode, paragraph breaks, source\n  citation, and connection property guidance\n- Rewrite Markdown conventions with enriched connections example,\n  explicit tips, and same purpose context\n- Add decision context comments explaining the design rationale\n\nTags: conventions, ai-prompt, import, documentation\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: conventions\nSemver: minor\n\nhttps://claude.ai/code/session_018xmmk3wFrVweq9EJkNXLFo",
+  "tags": [
+    "bugfix",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "conventions",
+  "title": "rewrite import conventions with purpose context and examples",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 167,
+    "deletions": 36
+  },
+  "files": [
+    "src/data/conventions.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

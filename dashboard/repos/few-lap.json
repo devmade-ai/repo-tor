@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-02-18T11:07:29.167Z",
+    "generatedAt": "2026-02-24T16:34:52.028Z",
     "repository": "few-lap",
     "scope": "few-lap",
     "repoCount": 1,
-    "commitCount": 5,
+    "commitCount": 21,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -13,6 +13,794 @@
     }
   },
   "commits": [
+    {
+      "sha": "61f6333",
+      "fullSha": "61f63330b79067b9f4b1990831b63957d6af4773",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-20T00:53:08+02:00",
+      "commitDate": "2026-02-20T00:53:08+02:00",
+      "subject": "Merge pull request #5 from devmade-ai/claude/code-review-QxGqV",
+      "body": "Add auth warning banner and fix data fetching issues",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/code-review-QxGqV",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 112,
+        "deletions": 47
+      },
+      "files": [],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "eba8f96",
+      "fullSha": "eba8f96bf39a5a46ba5c4071cab54706c9c7ed8c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T22:51:58+00:00",
+      "commitDate": "2026-02-19T22:51:58+00:00",
+      "subject": "fix(core): resolve 8 runtime and quality issues from code review",
+      "body": "- Fix station detail coordinate extraction: parse PostGIS GeoJSON\n  instead of accessing non-existent .latitude/.longitude properties\n  (was sending users to 0,0 for directions)\n- Fix fuel type names: query fuel_prices table (has FK for PostgREST\n  join) instead of current_prices materialized view (no FK, join\n  silently fails, shows \"Unknown\" for all fuel types)\n- Fix Mapbox token init: FuelMap and StationMarker now import from\n  lib/mapbox init module instead of @rnmapbox/maps directly, ensuring\n  setAccessToken is called before map renders\n- Fix map/list toggle: make views mutually exclusive (list was always\n  visible regardless of toggle state)\n- Add admin auth warning banner: persistent banner in admin layout\n  warns that edits may fail without a valid admin session\n- Add updated_at trigger: new migration auto-sets stations.updated_at\n  on row update, removing fragile client-side timestamp setting\n- Remove dead dark mode branching: root layout hardcodes DefaultTheme\n  since all components use light-only styles\n- Fix inconsistent imports: standardize to relative paths (was mixing\n  @/ alias with ../../ relative paths)\n\nTags: bugfix, code-review, database, mapbox, admin, ux\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: code-review\nSemver: patch\n\nhttps://claude.ai/code/session_01AGD98nV46FWHZyb1SmQjEd",
+      "tags": [
+        "bugfix",
+        "refactor"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": "core",
+      "title": "resolve 8 runtime and quality issues from code review",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 112,
+        "deletions": 47
+      },
+      "files": [
+        "app/(tabs)/_layout.tsx",
+        "app/(tabs)/index.tsx",
+        "app/+not-found.tsx",
+        "app/_layout.tsx",
+        "app/admin/_layout.tsx",
+        "app/admin/station/[id].tsx",
+        "app/station/[id].tsx",
+        "src/components/map/FuelMap.tsx",
+        "src/components/map/StationMarker.tsx",
+        "supabase/migrations/20260219000004_updated_at_trigger.sql"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "bac21c0",
+      "fullSha": "bac21c096b416a24c2fc987544a4c3385977f71a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-20T00:34:24+02:00",
+      "commitDate": "2026-02-20T00:34:24+02:00",
+      "subject": "Merge pull request #4 from devmade-ai/claude/setup-mapbox-supabase-NlnlL",
+      "body": "Implement home screen, station detail, and admin management UI",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #4 from devmade-ai/claude/setup-mapbox-supabase-NlnlL",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 40,
+        "additions": 12230,
+        "deletions": 2769
+      },
+      "files": [],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "71532f8",
+      "fullSha": "71532f805ba9ff62aba65e2fb30a6ea0b7c2ca0d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T22:01:02+00:00",
+      "commitDate": "2026-02-19T22:01:02+00:00",
+      "subject": "refactor(formatting): extract helpers to formatting.ts, add decision docs",
+      "body": "- Move formatOperatingHours, formatAmenity, DAY_ORDER, DAY_LABELS from\n  station/[id].tsx to src/lib/formatting.ts for reusability\n- Add decision documentation to jest.config.js (What/Why/Alternatives)\n- Add 9 unit tests for formatOperatingHours and formatAmenity (30 total)\n- Update TESTING_GUIDE to reflect new test count\n\nStation detail drops from 395 to 348 lines, well under the 500-line threshold.\n\nTags: refactor, formatting, testing, code-standards\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: few-lap-mvp\nSemver: patch\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+      "tags": [
+        "refactor",
+        "test-unit",
+        "docs"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": "formatting",
+      "title": "extract helpers to formatting.ts, add decision docs",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 142,
+        "deletions": 52
+      },
+      "files": [
+        "app/station/[id].tsx",
+        "docs/TESTING_GUIDE.md",
+        "jest.config.js",
+        "src/lib/__tests__/formatting.test.ts",
+        "src/lib/formatting.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "00266d2",
+      "fullSha": "00266d2bfc6363670a2bace9fe4207ca71475ebf",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T21:16:05+00:00",
+      "commitDate": "2026-02-19T21:16:05+00:00",
+      "subject": "feat(ux): add pull-to-refresh, operating hours, unit tests, and cleanup",
+      "body": "- Add pull-to-refresh on home screen station list via FlatList onRefresh\n- Add operating hours display on station detail (day-by-day table)\n- Remove unused Expo template files (modal, EditScreenInfo, StyledText, ExternalLink)\n- Set up Jest + ts-jest, write 21 unit tests for formatting utilities\n- Update docs: TODO (move completed), HISTORY, SESSION_NOTES, TESTING_GUIDE\n\nTags: ux, testing, cleanup, station-detail, home-screen\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: few-lap-mvp\nSemver: minor\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+      "tags": [
+        "feature",
+        "ux",
+        "test-unit",
+        "removal"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "ux",
+      "title": "add pull-to-refresh, operating hours, unit tests, and cleanup",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 17,
+        "additions": 8984,
+        "deletions": 2764
+      },
+      "files": [
+        "app/(tabs)/index.tsx",
+        "app/_layout.tsx",
+        "app/modal.tsx",
+        "app/station/[id].tsx",
+        "components/EditScreenInfo.tsx",
+        "components/ExternalLink.tsx",
+        "components/StyledText.tsx",
+        "components/__tests__/StyledText-test.js",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "jest.config.js",
+        "package-lock.json",
+        "package.json",
+        "src/components/station/StationList.tsx",
+        "src/lib/__tests__/formatting.test.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "dd2664c",
+      "fullSha": "dd2664cfd1641db6c88ed9984a3d3bce57d3897e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T21:06:43+00:00",
+      "commitDate": "2026-02-19T21:06:43+00:00",
+      "subject": "feat(admin): build station management interface (Deliverable 6)",
+      "body": "Admin station list with search, active/inactive status badges,\nand activate/deactivate toggle with confirmation dialog.\n\nAdmin station edit form with validation (name, address, city required),\nbrand, postal code, phone, active toggle, and save with error feedback.\n\nPriceEditor component: inline per-fuel-type price editing with upsert\nto fuel_prices table. Tap any price to edit, save/cancel per row.\n\nAdmin accessible via gear icon in home screen header. Dark-themed\nheader distinguishes admin from user-facing screens.\n\nAuth deferred — RLS policies enforce admin-only writes at the database\nlevel. Login UI will be added when Supabase Auth is configured.\n\nTags: admin, station-management, prices, forms, rls\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: added\nEpic: admin-interface\nSemver: minor\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "admin",
+      "title": "build station management interface (Deliverable 6)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 1225,
+        "deletions": 32
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(tabs)/_layout.tsx",
+        "app/_layout.tsx",
+        "app/admin/_layout.tsx",
+        "app/admin/index.tsx",
+        "app/admin/station/[id].tsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/admin/PriceEditor.tsx"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "ef0b5c5",
+      "fullSha": "ef0b5c53b28a893d177b64935cdb558ea9844228",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T20:56:07+00:00",
+      "commitDate": "2026-02-19T20:56:07+00:00",
+      "subject": "feat(ui): build home screen, station detail, and core components (Deliverables 3-4)",
+      "body": "Implement the full user-facing app shell with search, map, list, and detail views.\n\nHome screen: location detection → fuel type chips → radius chips → map/list\ntoggle → station cards sorted by distance or cheapest price.\n\nStation detail: full price list with staleness indicators, Get Directions\nbutton (deep link to native maps), phone tap-to-call, amenity chips.\n\nComponents: FuelMap, StationMarker, StationCard, StationList, PriceDisplay,\nFuelTypeSelector, RadiusSelector.\n\nHooks: useLocation (GPS + JHB fallback), useStations (RPC + grouping),\nuseFuelTypes (Supabase query).\n\nUtilities: navigation.ts (platform deep links), formatting.ts (prices,\ndistances, dates, staleness).\n\nTags: ui, home-screen, station-detail, map, components, hooks\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: app-shell\nSemver: minor\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 5,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "ui",
+      "title": "build home screen, station detail, and core components (Deliverables 3-4)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 21,
+        "additions": 1765,
+        "deletions": 129
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(tabs)/_layout.tsx",
+        "app/(tabs)/index.tsx",
+        "app/(tabs)/two.tsx",
+        "app/station/[id].tsx",
+        "constants/Colors.ts",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/map/FuelMap.tsx",
+        "src/components/map/StationMarker.tsx",
+        "src/components/search/FuelTypeSelector.tsx",
+        "src/components/search/RadiusSelector.tsx",
+        "src/components/station/PriceDisplay.tsx",
+        "src/components/station/StationCard.tsx",
+        "src/components/station/StationList.tsx",
+        "src/hooks/useFuelTypes.ts",
+        "src/hooks/useLocation.ts",
+        "src/hooks/useStations.ts",
+        "src/lib/formatting.ts",
+        "src/lib/navigation.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "b6ab4d3",
+      "fullSha": "b6ab4d34f6ce6657fbcc1e50a888650053db9833",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T19:46:37+00:00",
+      "commitDate": "2026-02-19T19:46:37+00:00",
+      "subject": "feat(setup): configure Mapbox SDK and Supabase credentials",
+      "body": "Install @rnmapbox/maps and register as Expo plugin.\nCreate .env with EXPO_PUBLIC_* variables mapped to project credentials.\nAdd src/lib/mapbox.ts for centralized Mapbox initialization.\nUpdate USER_ACTIONS.md with Supabase link/push steps (blocked by network).\n\nTags: mapbox, supabase, config, setup\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: project-setup\nSemver: minor\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+      "tags": [
+        "config",
+        "dependency-add"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "setup",
+      "title": "configure Mapbox SDK and Supabase credentials",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 368,
+        "deletions": 46
+      },
+      "files": [
+        ".env.example",
+        "CLAUDE.md",
+        "app.json",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "package-lock.json",
+        "package.json",
+        "src/lib/mapbox.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "c51630f",
+      "fullSha": "c51630fcd37bb44baad6346c23ae1a7bb47c8377",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-19T21:04:37+02:00",
+      "commitDate": "2026-02-19T21:04:37+02:00",
+      "subject": "Merge pull request #3 from devmade-ai/claude/update-claude-md-8k0DO",
+      "body": "Initialize Few Lap: Expo project, Supabase schema, and geospatial API",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #3 from devmade-ai/claude/update-claude-md-8k0DO",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 55,
+        "additions": 12373,
+        "deletions": 90
+      },
+      "files": [],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "1025ea0",
+      "fullSha": "1025ea0826aa04522e3a6ba43cd63aee78bde618",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T18:34:39+00:00",
+      "commitDate": "2026-02-19T18:34:39+00:00",
+      "subject": "docs(all): add project-specific sections to CLAUDE.md, update session docs",
+      "body": "CLAUDE.md now includes project-specific context alongside the shared glow-props\nrules: Project Status, Architecture (full file tree), Key State Structures\n(SearchParams, RadiusSearchResult, StationWithPrices), and updated AI Notes\nwith project-relevant items replacing glow-props-specific ones (TutorialModal,\nVite references removed).\n\nSESSION_NOTES and HISTORY updated to reflect all work done this session\nincluding documentation creation.\n\nTags: docs, claude-md, session\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fuel-station-finder\nSemver: patch\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "all",
+      "title": "add project-specific sections to CLAUDE.md, update session docs",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 128,
+        "deletions": 18
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "bd2f83b",
+      "fullSha": "bd2f83b107acd606f3028bd525f4a7ad848e73f5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T18:30:22+00:00",
+      "commitDate": "2026-02-19T18:30:22+00:00",
+      "subject": "docs(all): create all maintained documents per CLAUDE.md standards",
+      "body": "Created all documents specified in the Documentation section of CLAUDE.md:\n- SESSION_NOTES.md: current session context snapshot\n- TODO.md: pending work across features, technical, UX, testing\n- HISTORY.md: record of completed work\n- USER_ACTIONS.md: pending manual actions (Supabase setup, Mapbox token)\n- AI_MISTAKES.md: learnings to prevent repeated errors\n- USER_GUIDE.md: placeholder user documentation\n- TESTING_GUIDE.md: build and database verification steps\n- README.md: updated with project overview, setup, and structure\n\nRemoved .gitkeep placeholders since directories now have real content.\n\nTags: docs, documentation, process\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fuel-station-finder\nSemver: patch\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "all",
+      "title": "create all maintained documents per CLAUDE.md standards",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 301,
+        "deletions": 1
+      },
+      "files": [
+        "README.md",
+        "docs/.gitkeep",
+        "docs/AI_MISTAKES.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "docs/USER_GUIDE.md",
+        "docs/working/.gitkeep"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "3eb009d",
+      "fullSha": "3eb009d4a8c978549a4dbbb402144450271e90c8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T18:26:01+00:00",
+      "commitDate": "2026-02-19T18:26:01+00:00",
+      "subject": "feat(init): scaffold Expo project with Supabase schema and geospatial queries",
+      "body": "Project initialization for the fuel station finder app:\n- Expo SDK 54 with TypeScript, file-based routing (expo-router), tabs template\n- Supabase schema: fuel_types, stations (PostGIS), fuel_prices, price_history\n- Materialized view (current_prices) with auto-refresh trigger\n- RLS policies: public read for active data, admin full access via JWT role\n- find_stations_in_radius() PostgreSQL function for geospatial radius search\n- Seed data: 6 SA fuel types, 12 Gauteng stations with sample prices\n- Supabase client (src/lib/supabase.ts) and app-level TypeScript types\n- Route stubs for station detail and admin views\n- .env.example with required env var names\n\nDocker daemon unavailable in this environment so migrations are untested\nagainst a live database — SQL follows the spec exactly and is ready to run\nvia `supabase start` or against a remote Supabase project.\n\nTags: expo, supabase, postgis, schema, init\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: fuel-station-finder\nSemver: minor\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "init",
+        "feature",
+        "database",
+        "schema"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "init",
+      "title": "scaffold Expo project with Supabase schema and geospatial queries",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 42,
+        "additions": 10878,
+        "deletions": 0
+      },
+      "files": [
+        ".env.example",
+        ".gitignore",
+        ".vscode/extensions.json",
+        ".vscode/settings.json",
+        "app.json",
+        "app/(tabs)/_layout.tsx",
+        "app/(tabs)/index.tsx",
+        "app/(tabs)/two.tsx",
+        "app/+html.tsx",
+        "app/+not-found.tsx",
+        "app/_layout.tsx",
+        "app/admin/_layout.tsx",
+        "app/admin/station/[id].tsx",
+        "app/modal.tsx",
+        "app/station/[id].tsx",
+        "assets/fonts/SpaceMono-Regular.ttf",
+        "assets/images/adaptive-icon.png",
+        "assets/images/favicon.png",
+        "assets/images/icon.png",
+        "assets/images/splash-icon.png",
+        "components/EditScreenInfo.tsx",
+        "components/ExternalLink.tsx",
+        "components/StyledText.tsx",
+        "components/Themed.tsx",
+        "components/__tests__/StyledText-test.js",
+        "components/useClientOnlyValue.ts",
+        "components/useClientOnlyValue.web.ts",
+        "components/useColorScheme.ts",
+        "components/useColorScheme.web.ts",
+        "constants/Colors.ts",
+        "package-lock.json",
+        "package.json",
+        "src/constants/fuelTypes.ts",
+        "src/lib/supabase.ts",
+        "src/types/index.ts",
+        "supabase/.gitignore",
+        "supabase/config.toml",
+        "supabase/migrations/20260219000001_schema.sql",
+        "supabase/migrations/20260219000002_rls_policies.sql",
+        "supabase/migrations/20260219000003_geospatial_function.sql",
+        "supabase/seed.sql",
+        "tsconfig.json"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "01ee029",
+      "fullSha": "01ee02966d2e3f0f882fb9dc8ab86ddd88c88aba",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T12:20:41+00:00",
+      "commitDate": "2026-02-19T12:20:41+00:00",
+      "subject": "docs(spec): save full project specification for fuel station finder",
+      "body": "Complete technical spec covering all 6 deliverables, tech stack justification,\ndata model, deployment architecture, cost estimates, risks, testing requirements,\nand development timeline. This is the source of truth for the project.\n\nTags: docs, spec, planning\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: fuel-station-finder\nSemver: patch\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "spec",
+      "title": "save full project specification for fuel station finder",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 803,
+        "deletions": 0
+      },
+      "files": [
+        "docs/working/project-spec.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "a2d8260",
+      "fullSha": "a2d82601205213c4116bd23abc7a00d11d91c04a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T12:17:18+00:00",
+      "commitDate": "2026-02-19T12:17:18+00:00",
+      "subject": "docs(plan): add implementation plan for Deliverable 1",
+      "body": "Covers project initialization (Expo + TypeScript), Supabase schema with\nPostGIS, RLS policies, geospatial query function, seed data, and client\nsetup. Combines spec Deliverables 1 and 2 since they're tightly coupled.\n\nTags: docs, planning, supabase, expo\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: fuel-station-finder\nSemver: patch\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "plan",
+      "title": "add implementation plan for Deliverable 1",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 89,
+        "deletions": 0
+      },
+      "files": [
+        "docs/working/plan-deliverable-1.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "ad885f0",
+      "fullSha": "ad885f06be80242786e43eed09723c05302bc7b8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T11:52:46+00:00",
+      "commitDate": "2026-02-19T11:52:46+00:00",
+      "subject": "docs(claude): use visible markdown for source reference",
+      "body": "HTML comments are stripped by some parsers and invisible to AI assistants.\nSwitched to a blockquote so the source URL and update command are always visible.\n\nTags: docs, claude-md\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: shared-config\nSemver: patch\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "claude",
+      "title": "use visible markdown for source reference",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 4
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "45d8363",
+      "fullSha": "45d83632033e12300b9966d6352a8de1219053e4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T11:37:48+00:00",
+      "commitDate": "2026-02-19T11:37:48+00:00",
+      "subject": "docs(claude): sync CLAUDE.md with glow-props canonical source",
+      "body": "Replace local CLAUDE.md with the shared version from devmade-ai/glow-props,\nwhich serves as the single source of truth for AI assistant rules across\nall projects. Added source reference comments at the top for future updates.\n\nTags: docs, claude-md, sync\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: shared-config\nSemver: patch\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "claude",
+      "title": "sync CLAUDE.md with glow-props canonical source",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 195,
+        "deletions": 91
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
     {
       "sha": "e2f7e89",
       "fullSha": "e2f7e89435683ddf12ded790c30627d64233b6dd",
@@ -223,83 +1011,109 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 5,
-      "avgComplexity": 1,
-      "avgUrgency": 1.8,
+      "commits": 21,
+      "avgComplexity": 2,
+      "avgUrgency": 1.43,
       "tagBreakdown": {
+        "merge": 5,
+        "bugfix": 1,
+        "refactor": 2,
+        "test-unit": 2,
+        "docs": 7,
+        "feature": 4,
+        "ux": 2,
+        "removal": 1,
+        "ui": 2,
+        "config": 1,
+        "dependency-add": 1,
+        "init": 1,
+        "database": 1,
+        "schema": 1,
         "documentation": 4,
         "conventions": 2,
-        "merge": 2,
         "developer-experience": 3,
         "ai-guidelines": 2,
         "initial-commit": 1,
         "repository-setup": 1
       },
       "impactBreakdown": {
-        "internal": 5,
-        "user-facing": 0,
-        "infrastructure": 0,
+        "internal": 15,
+        "user-facing": 4,
+        "infrastructure": 2,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 0,
-        "medium": 0,
+        "low": 12,
+        "medium": 4,
         "high": 0
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 0,
-        "neutral": 0
+        "paid": 2,
+        "neutral": 14
       },
       "repos": [
         "few-lap"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-11T13:06:50Z",
-      "lastCommit": "2026-02-15T17:49:10Z"
+      "lastCommit": "2026-02-20T00:53:08+02:00"
     }
   ],
   "summary": {
-    "totalCommits": 5,
+    "totalCommits": 21,
     "totalContributors": 1,
     "tagBreakdown": {
+      "merge": 5,
+      "bugfix": 1,
+      "refactor": 2,
+      "test-unit": 2,
+      "docs": 7,
+      "feature": 4,
+      "ux": 2,
+      "removal": 1,
+      "ui": 2,
+      "config": 1,
+      "dependency-add": 1,
+      "init": 1,
+      "database": 1,
+      "schema": 1,
       "documentation": 4,
       "conventions": 2,
-      "merge": 2,
       "developer-experience": 3,
       "ai-guidelines": 2,
       "initial-commit": 1,
       "repository-setup": 1
     },
     "complexityBreakdown": {
-      "1": 5,
-      "2": 0,
-      "3": 0,
-      "4": 0,
-      "5": 0
+      "1": 11,
+      "2": 4,
+      "3": 2,
+      "4": 3,
+      "5": 1
     },
     "urgencyBreakdown": {
-      "1": 1,
-      "2": 4,
-      "3": 0,
+      "1": 13,
+      "2": 7,
+      "3": 1,
       "4": 0,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 5,
-      "user-facing": 0,
-      "infrastructure": 0,
+      "internal": 15,
+      "user-facing": 4,
+      "infrastructure": 2,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 0,
-      "medium": 0,
+      "low": 12,
+      "medium": 4,
       "high": 0
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 0,
-      "neutral": 0
+      "paid": 2,
+      "neutral": 14
     },
     "epicBreakdown": {},
     "semverBreakdown": {
@@ -307,85 +1121,111 @@
       "minor": 0,
       "major": 0
     },
-    "avgComplexity": 1,
-    "avgUrgency": 1.8,
+    "avgComplexity": 2,
+    "avgUrgency": 1.43,
     "monthly": {
       "2026-02": {
-        "commits": 5,
+        "commits": 21,
         "tags": {
+          "merge": 5,
+          "bugfix": 1,
+          "refactor": 2,
+          "test-unit": 2,
+          "docs": 7,
+          "feature": 4,
+          "ux": 2,
+          "removal": 1,
+          "ui": 2,
+          "config": 1,
+          "dependency-add": 1,
+          "init": 1,
+          "database": 1,
+          "schema": 1,
           "documentation": 4,
           "conventions": 2,
-          "merge": 2,
           "developer-experience": 3,
           "ai-guidelines": 2,
           "initial-commit": 1,
           "repository-setup": 1
         },
         "impact": {
-          "internal": 5,
-          "user-facing": 0,
-          "infrastructure": 0,
+          "internal": 15,
+          "user-facing": 4,
+          "infrastructure": 2,
           "api": 0
         },
         "risk": {
-          "low": 0,
-          "medium": 0,
+          "low": 12,
+          "medium": 4,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 0,
-          "neutral": 0
+          "paid": 2,
+          "neutral": 14
         },
         "semver": {
           "patch": 0,
           "minor": 0,
           "major": 0
         },
-        "avgComplexity": 1,
-        "avgUrgency": 1.8
+        "avgComplexity": 2,
+        "avgUrgency": 1.43
       }
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 5,
+        "commits": 21,
         "tags": {
+          "merge": 5,
+          "bugfix": 1,
+          "refactor": 2,
+          "test-unit": 2,
+          "docs": 7,
+          "feature": 4,
+          "ux": 2,
+          "removal": 1,
+          "ui": 2,
+          "config": 1,
+          "dependency-add": 1,
+          "init": 1,
+          "database": 1,
+          "schema": 1,
           "documentation": 4,
           "conventions": 2,
-          "merge": 2,
           "developer-experience": 3,
           "ai-guidelines": 2,
           "initial-commit": 1,
           "repository-setup": 1
         },
         "impact": {
-          "internal": 5,
-          "user-facing": 0,
-          "infrastructure": 0,
+          "internal": 15,
+          "user-facing": 4,
+          "infrastructure": 2,
           "api": 0
         },
         "risk": {
-          "low": 0,
-          "medium": 0,
+          "low": 12,
+          "medium": 4,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 0,
-          "neutral": 0
+          "paid": 2,
+          "neutral": 14
         },
         "semver": {
           "patch": 0,
           "minor": 0,
           "major": 0
         },
-        "avgComplexity": 1,
-        "avgUrgency": 1.8
+        "avgComplexity": 2,
+        "avgUrgency": 1.43
       }
     },
     "dateRange": {
       "earliest": "2026-02-11T13:06:50Z",
-      "latest": "2026-02-15T17:49:10Z"
+      "latest": "2026-02-20T00:53:08+02:00"
     },
     "security_events": []
   }

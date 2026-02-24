@@ -218,7 +218,11 @@ export function AppProvider({ children }) {
         localStorage.setItem('workHourEnd', String(state.workHourEnd));
     }, [state.workHourStart, state.workHourEnd]);
     useEffect(() => {
-        try { localStorage.setItem('dashboardFilters', JSON.stringify(state.filters)); } catch (e) { /* ignore */ }
+        try {
+            localStorage.setItem('dashboardFilters', JSON.stringify(state.filters));
+        } catch (e) {
+            console.warn('Failed to save filters to localStorage:', e.message);
+        }
     }, [state.filters]);
 
     // Helper to count active filters

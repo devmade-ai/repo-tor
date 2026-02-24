@@ -1,0 +1,45 @@
+{
+  "sha": "70ee074",
+  "fullSha": "70ee0741d97b7b5ce8cce5540b247a95889753aa",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T09:28:28+00:00",
+  "commitDate": "2026-02-24T09:28:28+00:00",
+  "subject": "chore(deploy): review fixes — node 22, sharp 0.34, split maskable icon",
+  "body": "- Bump CI node version from 20 (EOL April 2026) to 22 (LTS)\n- Bump sharp from ^0.33.0 to ^0.34.5 (latest stable, better librsvg)\n- Split 'any maskable' icon purpose into separate entry to avoid\n  Chrome DevTools warning about combined purpose values\n\nTags: ci, pwa, dependencies\nComplexity: 1\nUrgency: 1\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+  "tags": [
+    "ci",
+    "dependency-update",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "deploy",
+  "title": "review fixes — node 22, sharp 0.34, split maskable icon",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 3,
+    "deletions": 3
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "package.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

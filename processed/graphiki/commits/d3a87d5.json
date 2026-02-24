@@ -1,0 +1,41 @@
+{
+  "sha": "d3a87d5",
+  "fullSha": "d3a87d519a77fa06833940b301acfd1ec7cf389a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-19T22:33:47+00:00",
+  "commitDate": "2026-02-19T22:33:47+00:00",
+  "subject": "test(query): add integration tests against demo dataset",
+  "body": "Exercise the query engine (executeQuery + executePipeline) against the\nfull demoData fixture (~40 nodes, ~44 arcs) to catch issues that small\nhandcrafted fixtures miss. Covers label/property/title filters, boolean\nlogic (AND/OR/NOT), parenthetical grouping, comparison operators,\nrelationship predicates (IN/OUT/CONN), compound queries, and multi-step\npipelines.\n\nSurfaced a known limitation: text parser cannot query labels containing\nspaces (e.g. \"competes with\") — documented in test comments.\n\nTags: query, testing, integration, demo-data\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: interactive-query-builder\nSemver: patch\n\nhttps://claude.ai/code/session_014Wiyxz1YhpqftgctiarRyv",
+  "tags": [
+    "test-unit"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "query",
+  "title": "add integration tests against demo dataset",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 418,
+    "deletions": 0
+  },
+  "files": [
+    "src/services/queryEngine.integration.test.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

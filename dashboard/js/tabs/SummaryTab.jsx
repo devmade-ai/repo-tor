@@ -160,6 +160,7 @@ export default function SummaryTab() {
                         className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
                         role="button"
                         tabIndex={0}
+                        aria-label={`${metrics.features} features built — click to see details`}
                         onClick={() => handleCardClick('features')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('features'))}
                     >
@@ -172,6 +173,7 @@ export default function SummaryTab() {
                         className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
                         role="button"
                         tabIndex={0}
+                        aria-label={`${metrics.fixes} bugs fixed — click to see details`}
                         onClick={() => handleCardClick('fixes')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('fixes'))}
                     >
@@ -184,6 +186,7 @@ export default function SummaryTab() {
                         className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
                         role="button"
                         tabIndex={0}
+                        aria-label={`Average urgency ${metrics.avgUrgency > 0 ? metrics.avgUrgency.toFixed(1) : 'not available'} — click to see reactive commits`}
                         onClick={() => handleCardClick('urgency')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('urgency'))}
                     >
@@ -198,6 +201,7 @@ export default function SummaryTab() {
                         className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
                         role="button"
                         tabIndex={0}
+                        aria-label={`${metrics.plannedPct > 0 ? metrics.plannedPct + '% planned work' : 'No planned work data'} — click to see details`}
                         onClick={() => handleCardClick('planned')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('planned'))}
                     >
@@ -226,7 +230,7 @@ export default function SummaryTab() {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary text-sm">No activity</p>
+                    <p className="text-themed-tertiary text-sm">No highlights to show for the current data</p>
                 )}
             </CollapsibleSection>
 

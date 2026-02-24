@@ -1,0 +1,49 @@
+{
+  "sha": "32e4f74",
+  "fullSha": "32e4f744e33596bd02aa0a5028a0e97a47131268",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-18T20:30:23+00:00",
+  "commitDate": "2026-02-18T20:30:23+00:00",
+  "subject": "refactor(terminology): remove all traces of 'tags' — labels is the only term",
+  "body": "No backwards-compat, no aliases. The word 'tags' no longer exists anywhere\nin src/. Import services only accept 'labels'. Database schema collapsed\nto a single clean version with no legacy migration path.\n\nChanges:\n- importExportService: buildLabelsFromRaw only reads `labels` field,\n  removed all `tags` parsing. CSV auto-suggest no longer detects `tags`\n  column.\n- markdownImportService: extractLabels only reads `labels` frontmatter,\n  extractProperties only reserves `labels` key.\n- database.ts: collapsed 3 Dexie versions into 1 clean schema (no legacy\n  v1 with *tags, no v2/v3 migration chain).\n- Tests: all mock data uses `labels`, removed tags-specific compat tests.\n- types/index.ts: removed 'tags' from comment.\n- Docs: removed last tags reference from AI guide CSV section and CLAUDE.md.\n\nTags: terminology, consistency, labels, cleanup\nComplexity: 2\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: import-compatibility\nSemver: minor\n\nhttps://claude.ai/code/session_01GmBxqTbwGYpy2GUF4TGDLk",
+  "tags": [
+    "refactor",
+    "naming"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "terminology",
+  "title": "remove all traces of 'tags' — labels is the only term",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 59,
+    "deletions": 140
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/ai-research-output-guide.md",
+    "src/db/database.ts",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts",
+    "src/services/markdownImportService.test.ts",
+    "src/services/markdownImportService.ts",
+    "src/types/index.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

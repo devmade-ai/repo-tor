@@ -1,0 +1,44 @@
+{
+  "sha": "953f342",
+  "fullSha": "953f3428661d1a9fa9ace2a7f2325ca2d50355b0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-23T14:01:21+00:00",
+  "commitDate": "2026-02-23T14:01:21+00:00",
+  "subject": "fix(seed): version demo data so updates reach existing users",
+  "body": "Previously, seedIfEmpty() checked only a localStorage flag. Once set,\ndemo data in IndexedDB was never refreshed — users who visited before\na demoData.ts update kept seeing stale content.\n\nNow seedService stores DEMO_DATA_VERSION alongside the seeded flag.\nOn version mismatch, stale demo entries (ID prefix \"demo-\") are removed\nand current data is re-inserted in a single transaction. User-created\ndata is preserved.\n\nTags: seed, demo-data, versioning\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: demo-data\nSemver: minor\n\nhttps://claude.ai/code/session_016EmMgbxu5RSTFm4TBsNx5i",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "seed",
+  "title": "version demo data so updates reach existing users",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 155,
+    "deletions": 13
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/data/demoData.ts",
+    "src/services/seedService.test.ts",
+    "src/services/seedService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

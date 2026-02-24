@@ -38,6 +38,8 @@
             --border-color: #333333;
             --border-light: #2a2a2a;
             --shadow: none;
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+            --color-primary-alpha: rgba(45, 104, 255, 0.1);
             --chart-grid: rgba(255, 255, 255, 0.1);
 
             /* Spacing (8px base) */
@@ -535,8 +537,12 @@
             max-height: 0;
             opacity: 0;
         }
+        /* Fix: max-height: 2000px was an arbitrary cap that would clip long content.
+           Using max-height: none disables the cap while still allowing the CSS
+           transition to animate from 0. The transition only animates on collapse
+           (expanded→0) since none→0 doesn't interpolate, which is acceptable. */
         .collapsible-content.expanded {
-            max-height: 2000px;
+            max-height: none;
             opacity: 1;
         }
         .collapsible-subtitle {
@@ -1363,6 +1369,106 @@
         .embed-mode ~ #debug-error-banner,
         body:has(.embed-mode) #debug-error-banner {
             display: none !important;
+        }
+
+        /* Project cards — directory listing for live projects */
+        .project-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .project-card:hover {
+            border-color: rgba(45, 104, 255, 0.4);
+        }
+        .project-lang-badge {
+            font-size: 10px;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            background: var(--bg-tertiary);
+            color: var(--text-tertiary);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            transition: all 0.15s;
+        }
+        .project-link-primary {
+            background: var(--color-primary);
+            color: white;
+        }
+        .project-link-primary:hover {
+            box-shadow: var(--glow-primary);
+            opacity: 0.9;
+        }
+        .project-link-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+        .project-link-secondary:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        /* Drop zone container — centered layout for the file upload screen */
+        .drop-zone-container {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .drop-zone-heading {
+            color: #e5e7eb;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 24px;
+            font-family: var(--font-mono, monospace);
+        }
+
+        /* Filter sidebar layout helpers */
+        .filter-date-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .filter-date-input {
+            width: 100%;
+            padding-left: 8px;
+        }
+        .filter-clear-btn {
+            width: 100%;
+            margin-top: 12px;
+            justify-content: center;
+        }
+        .filter-empty-option {
+            color: var(--text-muted);
+            cursor: default;
+        }
+
+        /* Settings pane layout helpers */
+        .settings-view-level-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .settings-work-hours-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 8px;
         }
 
         /* Filter badge on toggle button - dark theme */

@@ -20,7 +20,7 @@ Mistakes and oversights made by AI assistants during development. Document these
 3. Don't make untested code the default path
 4. Don't document features as if they work when they haven't been run
 
-**Current status:** Feature exists but is marked as untested in `docs/TODO.md`. Use `--clone` flag until someone authenticates and tests it.
+**Current status:** Fixed — script rewritten to use curl instead of gh CLI (2026-02-24). Now tested and working. No longer requires `--clone` fallback.
 
 **Files affected:**
 - `scripts/extract-api.js` - The untested script
@@ -231,6 +231,30 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 - `dashboard/js/App.jsx` — Removed dynamic pwa.js import
 - `dashboard/js/pwa.js` — Reverted to clean state
 - `dashboard/js/components/Header.jsx` — Static imports from pwa.js
+
+---
+
+## 2026-02-24: Cloned repos instead of using API extraction, fumbled finding env token
+
+**What happened:** Two recurring mistakes during data extraction:
+1. Used `--clone` flag to clone entire repositories instead of using `extract-api.js` which fetches git history via the GitHub REST API. The justification was "gh CLI isn't installed" — but the script should never have depended on `gh` CLI in the first place when `fetch()` is available natively.
+2. Failed to find `GITHUB_ALL_REPO_TOKEN` in environment variables on the first attempt, requiring the user to point it out. Then when using the token, tried multiple auth header formats before getting it right.
+
+**Why it's a problem:**
+- Cloning repos is slow, wastes bandwidth and disk, and is completely unnecessary when all we need is git history data available via the API
+- The token was right there in `env` — a simple `env | grep -i github` would have found it immediately
+- User had to correct both mistakes, which is frustrating when the tools exist
+
+**What should have happened:**
+1. ALWAYS prefer API extraction over cloning. The extract-api.js script exists for exactly this purpose.
+2. Before any GitHub API work, immediately run `env | grep -i github` (or equivalent) to find available tokens. Don't guess variable names — check what's actually set.
+3. If extract-api.js has a dependency issue (like requiring `gh` CLI), fix the script rather than falling back to cloning.
+
+**Current status:** Fixed — `extract-api.js` now uses curl instead of `gh` CLI. Token discovery checks `GH_TOKEN`, `GITHUB_TOKEN`, and `GITHUB_ALL_REPO_TOKEN` automatically. `update-all.sh` updated to match. Tested and working.
+
+**Files affected:**
+- `scripts/extract-api.js` — Rewrote to use curl, multi-token discovery
+- `scripts/update-all.sh` — Removed gh CLI dependency check
 
 ---
 

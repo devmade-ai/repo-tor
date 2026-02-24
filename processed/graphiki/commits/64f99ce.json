@@ -1,0 +1,43 @@
+{
+  "sha": "64f99ce",
+  "fullSha": "64f99cea30243062f4fb63e17d8db8d7b65ac58a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T14:02:07+00:00",
+  "commitDate": "2026-02-20T14:07:02+00:00",
+  "subject": "fix(db): add Dexie v3 migration for sourceId/targetId → source/target data",
+  "body": "The v2 schema bump (commit 65bdc4c) renamed the Dexie *indexes* from\nsourceId/targetId to source/target but did not migrate the actual stored\nobjects. Users who visited before that rename have arcs in IndexedDB with\nsourceId/targetId properties — arc.source is undefined, crashing\nCytoscape with \"Can not create edge with unspecified source\".\n\nAdds a Dexie version 3 upgrade callback that renames sourceId→source\nand targetId→target in all stored arcs. Also adds defensive filtering\nin GraphCanvas to skip arcs with falsy or dangling source/target\nreferences, logging skipped arcs via debugLog so the debug pill\nsurfaces the issue rather than silently swallowing it.\n\nTags: db, migration, cytoscape, defensive-coding\nComplexity: 2\nUrgency: 5\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: alpha-stability\nSemver: patch\n\nhttps://claude.ai/code/session_01CXQKau85Rde7L3bNxDpQXo",
+  "tags": [
+    "bugfix",
+    "database"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "db",
+  "title": "add Dexie v3 migration for sourceId/targetId → source/target data",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 49,
+    "deletions": 3
+  },
+  "files": [
+    "src/components/graph/GraphCanvas.tsx",
+    "src/db/database.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

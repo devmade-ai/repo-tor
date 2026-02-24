@@ -1,0 +1,42 @@
+{
+  "sha": "5e8daf6",
+  "fullSha": "5e8daf648c89b80f63d678103deea665d5ee0ecd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-20T14:29:59+00:00",
+  "commitDate": "2026-02-20T14:29:59+00:00",
+  "subject": "fix(db): restore version(1) and add v4 migration for sourceId→source rename",
+  "body": "The v3 migration (commit 64f99ce) failed to migrate arc data from\nsourceId/targetId to source/target for two reasons:\n\n1. The version(1) declaration was removed in commit 65bdc4c, breaking\n   the Dexie upgrade chain for users whose IndexedDB was created at v1.\n   Without the v1 schema definition, Dexie cannot properly compute the\n   upgrade path.\n\n2. The v3 upgrade condition `!('source' in arc)` fails when Dexie adds\n   an undefined `source` key during the v2 index rename — the `in`\n   operator returns true even when the value is undefined, causing the\n   migration to silently skip every arc.\n\nFixes:\n- Restores the version(1) declaration with the original sourceId/targetId\n  indexed schema so the full v1→v2→v3→v4 upgrade chain works.\n- Adds version(4) with a robust migration using value-based checks\n  (`!arc.source`) instead of key-existence checks. This catches all\n  users — including those already at v3 whose data was never migrated.\n\nSymptom: on mobile (Android Chrome 145), all 44 demo arcs logged\n\"Skipping arc — missing source or target\" and the graph rendered\nwith nodes only, no edges.\n\nTags: db, migration, dexie, mobile, bug\nComplexity: 2\nUrgency: 5\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: alpha-stability\nSemver: patch\n\nhttps://claude.ai/code/session_01KJP9dXxJydNU5FbvFLSweK",
+  "tags": [
+    "bugfix",
+    "database"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "db",
+  "title": "restore version(1) and add v4 migration for sourceId→source rename",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 51,
+    "deletions": 11
+  },
+  "files": [
+    "src/db/database.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,58 @@
+{
+  "sha": "ab8b929",
+  "fullSha": "ab8b929a19ddbf10d4d2668363d898bd8756710a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T12:31:39+00:00",
+  "commitDate": "2026-02-24T12:31:39+00:00",
+  "subject": "fix(resilience): add DB error handling to all views, remove phantom dep, deduplicate period logic",
+  "body": "All IndexedDB operations across 10 views now have try/catch with\nuser-friendly error banners. Previously, if IndexedDB failed (quota\nexceeded, corruption, private browsing restrictions), users saw no\nfeedback at all — loading spinners hung or actions silently failed.\n\n- Removed `date-fns` from package.json (listed but never imported)\n- Extracted `resolveBudgetPeriod()` in projection.ts to eliminate\n  identical 6-line period resolution duplicated in 3 files\n- Added silent error handling to useCategoryAutocomplete (non-critical)\n\nTags: error-handling, indexeddb, resilience, cleanup, deduplication\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": "resilience",
+  "title": "add DB error handling to all views, remove phantom dep, deduplicate period logic",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 17,
+    "additions": 425,
+    "deletions": 227
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "package.json",
+    "src/composables/useCategoryAutocomplete.ts",
+    "src/engine/exportImport.ts",
+    "src/engine/projection.ts",
+    "src/views/BudgetCreateView.vue",
+    "src/views/BudgetDetailView.vue",
+    "src/views/BudgetEditView.vue",
+    "src/views/BudgetListView.vue",
+    "src/views/CompareTab.vue",
+    "src/views/ExpenseCreateView.vue",
+    "src/views/ExpenseEditView.vue",
+    "src/views/ExpensesTab.vue",
+    "src/views/ImportWizardView.vue",
+    "src/views/ProjectedTab.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

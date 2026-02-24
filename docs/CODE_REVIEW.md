@@ -369,9 +369,9 @@ The git log format uses `---COMMIT_DELIMITER---` as a separator. If a commit mes
 
 ## 8. Documentation & Project Hygiene
 
-### 8.1 Untested feature marked as available (MEDIUM)
+### 8.1 ~~Untested feature marked as available~~ RESOLVED (2026-02-24)
 
-`extract-api.js` is documented in guides and set as the default in `update-all.sh`, but has never been successfully run. The TODO.md warning helps, but the default extraction path should not be untested code.
+`extract-api.js` was rewritten to use curl instead of `gh` CLI, tested, and confirmed working. No longer untested.
 
 ### 8.2 Documentation is excellent (POSITIVE)
 

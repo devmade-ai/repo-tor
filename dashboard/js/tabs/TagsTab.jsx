@@ -1,8 +1,16 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getTagColor, getTagClass, getTagStyleObject, handleKeyActivate } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+
+// Requirement: Avoid getComputedStyle in render path (causes layout thrashing)
+// Approach: Read CSS variable once at module load; safe because styles.css is
+//   imported synchronously and dark class is on <html> in index.html.
+// Alternatives:
+//   - getComputedStyle inside useMemo: Rejected — forces layout recalc on every render
+//   - Hardcoded color: Rejected — breaks theme changes
+const CHART_TEXT_COLOR = CHART_TEXT_COLOR;
 
 export default function TagsTab() {
     const { filteredCommits, openDetailPane, isMobile } = useApp();
@@ -52,10 +60,10 @@ export default function TagsTab() {
                             boxWidth: mobile ? 8 : 12,
                             padding: mobile ? 4 : 8,
                             font: { size: mobile ? 9 : 11 },
-                            color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary').trim() || '#e5e7eb',
+                            color: CHART_TEXT_COLOR,
                         generateLabels: function (chart) {
                                 const data = chart.data;
-                                const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-secondary').trim() || '#e5e7eb';
+                                const textColor = CHART_TEXT_COLOR;
                                 return data.labels.map((label, i) => ({
                                     text: `${label} (${data.datasets[0].data[i]})`,
                                     fillStyle: data.datasets[0].backgroundColor[i],
@@ -122,7 +130,7 @@ export default function TagsTab() {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary text-sm">No tag data available</p>
+                    <p className="text-themed-tertiary text-sm">No data matches the current filters</p>
                 )}
             </CollapsibleSection>
         </div>

@@ -28,14 +28,16 @@ export default function SettingsPane() {
     }
 
     // Escape key to close
+    // Fix: Include dispatch in deps instead of handleClose to avoid stale closure.
+    // dispatch is stable (from useReducer), so this effect only re-runs when pane opens/closes.
     useEffect(() => {
         if (!state.settingsPaneOpen) return;
         function handleKey(e) {
-            if (e.key === 'Escape') handleClose();
+            if (e.key === 'Escape') dispatch({ type: 'CLOSE_SETTINGS_PANE' });
         }
         document.addEventListener('keydown', handleKey);
         return () => document.removeEventListener('keydown', handleKey);
-    }, [state.settingsPaneOpen]);
+    }, [state.settingsPaneOpen, dispatch]);
 
     function handleViewLevel(level) {
         dispatch({ type: 'SET_VIEW_LEVEL', payload: level });
@@ -89,7 +91,7 @@ export default function SettingsPane() {
                     {/* View Level */}
                     <div className="settings-section" role="radiogroup" aria-label="View level">
                         <div className="settings-section-title">View Level</div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <div className="settings-view-level-group">
                             {['executive', 'management', 'developer'].map(level => {
                                 const isActive = state.currentViewLevel === level;
                                 return (
@@ -175,7 +177,7 @@ export default function SettingsPane() {
                                 </select>
                             </div>
                         </div>
-                        <div className="settings-hint" style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '8px' }}>
+                        <div className="settings-hint settings-work-hours-hint">
                             Commits outside these hours are flagged as after-hours
                         </div>
                     </div>

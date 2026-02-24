@@ -1,0 +1,49 @@
+{
+  "sha": "b8741e0",
+  "fullSha": "b8741e033034c30fdcf58823e884bc1152c412b1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-19T22:14:57+00:00",
+  "commitDate": "2026-02-19T22:14:57+00:00",
+  "subject": "feat(query): add interactive query builder with relationship predicates and pipeline",
+  "body": "Replace plain-text QueryBar with interactive QueryBuilder that supports visual\nfilter rows, pipeline chaining, and an advanced text mode. Extend the query\nengine with relationship predicates (IN/OUT/CONN for arc-aware node filtering),\ncomparison operators (<, >, <=, >= with date/number/string auto-detection), and\na pipeline executor where each step narrows results while preserving full graph\ncontext for relationship evaluation.\n\nNew files:\n- QueryBuilder.tsx: Visual builder with filter rows, pipeline steps, dual mode\n- QueryFilterRow.tsx: Individual filter row (label, property, title, relationship)\n- QueryBuilder.css: Dark theme styles for builder components\n- useGraphMetadata.ts: Hook extracting distinct labels/keys/values for autocomplete\n- docs/working/interactive-query-builder.md: Architecture and design plan\n\nKey design decisions:\n- Builder produces AST directly via builderFilterToAST/builderStepToAST,\n  bypassing text parsing for reliable structured query construction\n- Pipeline executor uses full graph context (all arcs/nodes) for relationship\n  predicates even when candidate nodes have been narrowed by prior steps\n- Case-insensitive property key lookup in evaluator to handle parser lowercasing\n  vs camelCase data model keys\n\nTags: query-builder, pipeline, relationship-predicates, interactive-ui\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: interactive-query-builder\nSemver: minor\n\nhttps://claude.ai/code/session_014Wiyxz1YhpqftgctiarRyv",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 5,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": "query",
+  "title": "add interactive query builder with relationship predicates and pipeline",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 2019,
+    "deletions": 79
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/working/interactive-query-builder.md",
+    "src/App.tsx",
+    "src/components/query/QueryBuilder.css",
+    "src/components/query/QueryBuilder.tsx",
+    "src/components/query/QueryFilterRow.tsx",
+    "src/hooks/useGraphMetadata.ts",
+    "src/services/queryEngine.test.ts",
+    "src/services/queryEngine.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "user-facing"
+}

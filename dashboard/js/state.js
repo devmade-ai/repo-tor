@@ -49,12 +49,13 @@ export function getViewConfig() {
     return VIEW_LEVELS[state.currentViewLevel] || VIEW_LEVELS.developer;
 }
 
-// === Tab Navigation (V2: 4 grouped tabs) ===
+// === Tab Navigation (V2: 4 grouped tabs + Projects directory) ===
 // Map new tabs to the content containers they should show
 export const TAB_MAPPING = {
     'overview': ['tab-overview'],
     'activity': ['tab-activity', 'tab-timing'],
     'work': ['tab-progress', 'tab-tags', 'tab-contributors'],
     'health': ['tab-security'],
-    'discover': ['tab-discover']
+    'discover': ['tab-discover'],
+    'projects': ['tab-projects']
 };

@@ -1,0 +1,46 @@
+{
+  "sha": "15caabf",
+  "fullSha": "15caabfa7002caba829fb8ad9405b402e538897a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T04:43:01+00:00",
+  "commitDate": "2026-02-17T04:43:01+00:00",
+  "subject": "Add CORS support to health endpoint for cross-origin diagnostics",
+  "body": "The frontend health check from devmade-ai.github.io was failing because\nthe /api/health endpoint had no CORS headers. Extract shared CORS logic\ninto api/cors.ts and apply it to both health and send-interest handlers.\n\nhttps://claude.ai/code/session_01XfRMoBtpQLXVTWNanmyv6J",
+  "tags": [
+    "bugfix",
+    "security"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Add CORS support to health endpoint for cross-origin diagnostics",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 87,
+    "deletions": 22
+  },
+  "files": [
+    "api/api/__tests__/health.test.ts",
+    "api/api/__tests__/send-interest.test.ts",
+    "api/api/cors.ts",
+    "api/api/health.ts",
+    "api/api/send-interest.ts"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "user-facing"
+}
