@@ -1,0 +1,45 @@
+{
+  "sha": "6a2962b",
+  "fullSha": "6a2962bb59ff003b7445173c3b02a2b3331e5ce2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T07:11:36+00:00",
+  "commitDate": "2026-02-17T07:11:36+00:00",
+  "subject": "Configure Vercel for API-only deployment, remove unused favicons",
+  "body": "This is a pure serverless API with no frontend — favicons were never\nreferenced by any code. Instead of keeping dead static files to satisfy\nVercel's output directory check, configure vercel.json properly:\n- \"framework\": null declares no frontend framework\n- \"buildCommand\": \"\" skips the build step entirely, so Vercel never\n  looks for an output directory\n\nReplaces the workaround from 7fc7936 that moved favicons to public/.\n\nhttps://claude.ai/code/session_018GdxVNVycPS8x1KTytw3hi",
+  "tags": [
+    "config",
+    "deploy",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Configure Vercel for API-only deployment, remove unused favicons",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 2,
+    "deletions": 0
+  },
+  "files": [
+    "public/favicon.ico",
+    "public/favicon.png",
+    "vercel.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

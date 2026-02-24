@@ -1,0 +1,56 @@
+{
+  "sha": "50cb3bd",
+  "fullSha": "50cb3bde2ad34086ebf4ac41e9f84c669e4956de",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T05:14:07+00:00",
+  "commitDate": "2026-02-17T05:14:07+00:00",
+  "subject": "Fix Vercel 404s by restructuring project to standard layout",
+  "body": "All routes (/, /favicon.ico, /favicon.png, /api/*) returned 404\nbecause the Vercel project files were nested inside an api/\nsubdirectory. Vercel's default root directory is the repo root,\nso it couldn't find vercel.json, the serverless functions, or\nstatic assets.\n\nRestructure to the standard Vercel layout:\n- vercel.json, package.json, tsconfig.json at repo root\n- api/ contains serverless function handlers\n- public/ contains static assets (favicon.ico, favicon.png)\n\nhttps://claude.ai/code/session_017jorRZB6ANxXDQhyH1Xdom",
+  "tags": [
+    "refactor",
+    "deploy"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Fix Vercel 404s by restructuring project to standard layout",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 0,
+    "deletions": 0
+  },
+  "files": [
+    ".env.example",
+    ".gitignore",
+    "api/__tests__/health.test.ts",
+    "api/__tests__/send-interest.test.ts",
+    "api/constants.ts",
+    "api/health.ts",
+    "api/index.ts",
+    "api/send-interest.ts",
+    "openapi.yaml",
+    "package-lock.json",
+    "package.json",
+    "public/favicon.ico",
+    "public/favicon.png",
+    "tsconfig.json",
+    "vercel.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "77b025d",
+  "fullSha": "77b025dfc02615ecc0f6178d5b1264b79c4a891e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T07:31:11+00:00",
+  "commitDate": "2026-02-17T07:31:11+00:00",
+  "subject": "Move constants.ts out of api/ to prevent stray Vercel endpoint",
+  "body": "Vercel treats every file in api/ as a serverless function. constants.ts\nis a helper module (no handler), so it was being exposed as a broken\n/api/constants endpoint. Move it to lib/ where Vercel won't touch it.\n\nhttps://claude.ai/code/session_018GdxVNVycPS8x1KTytw3hi",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Move constants.ts out of api/ to prevent stray Vercel endpoint",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "api/send-interest.ts",
+    "lib/constants.ts",
+    "tsconfig.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

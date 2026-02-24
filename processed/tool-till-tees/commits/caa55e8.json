@@ -1,0 +1,41 @@
+{
+  "sha": "caa55e8",
+  "fullSha": "caa55e8ff380a4f5e0296304f4a5ec1869215bf2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T11:24:40+00:00",
+  "commitDate": "2026-02-17T11:24:40+00:00",
+  "subject": "Fix send-interest crash: add .js extension to ESM import of lib/constants",
+  "body": "The extensionless import from \"../lib/constants\" worked in dev/test (Vite/Vitest\nhandle resolution) but failed at Vercel's Node.js ESM runtime which requires\nexplicit .js extensions for relative imports. This caused every request to\n/api/send-interest to crash before any code ran—including CORS preflight—which\nthe mobile frontend diagnosed as a CORS failure.\n\nhttps://claude.ai/code/session_01KJvPZM9yZQvKhdk1TkDe38",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Fix send-interest crash: add .js extension to ESM import of lib/constants",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "api/send-interest.ts"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

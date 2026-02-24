@@ -1,0 +1,41 @@
+{
+  "sha": "f9a72f3",
+  "fullSha": "f9a72f3bc2223861078951d813bee8d258333603",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T10:50:48+00:00",
+  "commitDate": "2026-02-17T10:50:48+00:00",
+  "subject": "Set framework to vite and outputDirectory to dist in vercel.json",
+  "body": "Vercel's auto-detection didn't pick up Vite — the build succeeded\nbut it looked for output in public/ instead of dist/. Setting both\nexplicitly resolves the \"No Output Directory named public\" error.\n\nhttps://claude.ai/code/session_01UaGdKLgaAMkoTv4G1ga8sc",
+  "tags": [
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Set framework to vite and outputDirectory to dist in vercel.json",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 0
+  },
+  "files": [
+    "vercel.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

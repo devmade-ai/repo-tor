@@ -1,0 +1,43 @@
+{
+  "sha": "19ada1b",
+  "fullSha": "19ada1bc0674d0133e2fa63e7fb22c72a0b563a0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T05:27:08+00:00",
+  "commitDate": "2026-02-17T05:27:08+00:00",
+  "subject": "Fix serverless function deployment by removing vercel devDep and adding build script",
+  "body": "Two issues were preventing successful Vercel builds:\n\n1. `vercel` in devDependencies caused Vercel to warn \"will be\n   ignored\" and strip it before npm install, creating a mismatch\n   with the lockfile. Removed it since the Vercel CLI is provided\n   by the platform.\n\n2. No `build` script existed — if the Vercel project has a build\n   command configured (even the default `npm run build`), it would\n   fail. Added a no-op build script since serverless functions\n   don't need a build step (Vercel compiles TypeScript automatically).\n\nhttps://claude.ai/code/session_017jorRZB6ANxXDQhyH1Xdom",
+  "tags": [
+    "bugfix",
+    "deploy"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Fix serverless function deployment by removing vercel devDep and adding build script",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 223,
+    "deletions": 3052
+  },
+  "files": [
+    "api/package-lock.json",
+    "api/package.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

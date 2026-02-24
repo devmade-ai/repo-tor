@@ -1,0 +1,43 @@
+{
+  "sha": "6e87333",
+  "fullSha": "6e8733366a7eaa2991a231ff9ddbabc5d71e4f36",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T08:04:58+00:00",
+  "commitDate": "2026-02-17T08:04:58+00:00",
+  "subject": "Add \"type\": \"module\" to fix ES module runtime error on Vercel",
+  "body": "The TypeScript config outputs ES2020 module syntax but package.json\nlacked \"type\": \"module\", causing Node.js to load compiled .js files\nas CommonJS and fail with \"SyntaxError: Unexpected token 'export'\".\n\nhttps://claude.ai/code/session_017Chg9Fvh8hJ94SLg26umaY",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Add \"type\": \"module\" to fix ES module runtime error on Vercel",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 2,
+    "deletions": 0
+  },
+  "files": [
+    "api/package.json",
+    "package.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,50 @@
+{
+  "sha": "173c886",
+  "fullSha": "173c88616b421f9f8f531c031f882e521788b324",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T09:15:50+00:00",
+  "commitDate": "2026-02-17T09:15:50+00:00",
+  "subject": "Add Vite + React + Tailwind frontend to fix Vercel API 404s",
+  "body": "Instead of more config-only fixes, give Vercel a real framework it\nnatively understands. Vite builds the landing page and Vercel\nauto-detects api/ functions alongside it — no ambiguous build pipeline.\n\n- Add minimal landing page with API health indicator and see-veo link\n- Remove framework:null and root→api rewrite from vercel.json\n- Update build script from no-op to vite build\n- Update moduleResolution to bundler for Vite plugin types\n\nhttps://claude.ai/code/session_01UaGdKLgaAMkoTv4G1ga8sc",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Add Vite + React + Tailwind frontend to fix Vercel API 404s",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 1302,
+    "deletions": 22
+  },
+  "files": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "src/App.tsx",
+    "src/index.css",
+    "src/main.tsx",
+    "tsconfig.json",
+    "vercel.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "user-facing"
+}

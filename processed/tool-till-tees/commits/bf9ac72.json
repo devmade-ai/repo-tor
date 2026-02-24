@@ -1,0 +1,43 @@
+{
+  "sha": "bf9ac72",
+  "fullSha": "bf9ac7269eb3b4e5aa16e3bb7e1cde5e783adce9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T09:01:00+00:00",
+  "commitDate": "2026-02-17T09:01:00+00:00",
+  "subject": "Fix API 404s by switching from legacy builds to zero-config Vercel",
+  "body": "The legacy `builds` property in vercel.json combined with api/package.json\ncaused Vercel to treat the api/ directory as a single function unit (only\nexposing index.ts), making /api/health and /api/send-interest return 404.\n\n- Remove `builds` array to use Vercel's modern auto-detection pipeline\n- Add `framework: null` to prevent framework auto-detection\n- Delete api/package.json (redundant — root package.json already provides\n  \"type\": \"module\" and nodemailer dependency)\n\nhttps://claude.ai/code/session_01UaGdKLgaAMkoTv4G1ga8sc",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Fix API 404s by switching from legacy builds to zero-config Vercel",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 1,
+    "deletions": 10
+  },
+  "files": [
+    "api/package.json",
+    "vercel.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

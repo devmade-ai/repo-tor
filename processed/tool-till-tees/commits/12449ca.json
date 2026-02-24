@@ -1,0 +1,42 @@
+{
+  "sha": "12449ca",
+  "fullSha": "12449ca374516263d6c478d2d8cdcc664fc800e2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T07:48:16+00:00",
+  "commitDate": "2026-02-17T07:48:16+00:00",
+  "subject": "Use builds config to bypass static-site pipeline entirely",
+  "body": "The zero-config pipeline assumes a static site and demands an output\ndirectory. Previous attempts to satisfy it (buildCommand: \"\", mkdir,\nplaceholder files) kept hitting the next check. Switch to the builds\nallowlist model: only api/*.ts files are built via @vercel/node, no\noutput directory needed. Root npm install still runs for dependencies.\n\nhttps://claude.ai/code/session_018GdxVNVycPS8x1KTytw3hi",
+  "tags": [
+    "config",
+    "deploy"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Use builds config to bypass static-site pipeline entirely",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 2
+  },
+  "files": [
+    "vercel.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

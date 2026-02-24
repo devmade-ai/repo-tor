@@ -1,0 +1,51 @@
+{
+  "sha": "17d6905",
+  "fullSha": "17d690549c9a2a95b999d242df2f93090d2036cb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-16T11:37:35+00:00",
+  "commitDate": "2026-02-16T11:37:35+00:00",
+  "subject": "Add interest notification API and frontend form",
+  "body": "Set up Vercel serverless functions for an interest/contact notification\nsystem. The send-interest endpoint validates input (name, email, message),\nenforces CORS origin restrictions, includes honeypot spam protection, and\nsends emails via SMTP using nodemailer. A health endpoint is included for\ndeployment verification. The frontend InterestForm React component handles\nform state, submission, and gracefully degrades when the API URL is not\nconfigured.\n\nhttps://claude.ai/code/session_01Gw4Mev3VZzsYEcxPYsUFzA",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Add interest notification API and frontend form",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 2511,
+    "deletions": 0
+  },
+  "files": [
+    ".env.example",
+    ".gitignore",
+    "api/api/health.ts",
+    "api/api/send-interest.ts",
+    "api/package-lock.json",
+    "api/package.json",
+    "api/tsconfig.json",
+    "api/vercel.json",
+    "frontend/InterestForm.css",
+    "frontend/InterestForm.tsx"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 1,
+  "impact": "user-facing"
+}

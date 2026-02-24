@@ -1,0 +1,43 @@
+{
+  "sha": "ac76cf4",
+  "fullSha": "ac76cf4600fe036439bc6a9f0255b40f98dd9e05",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-17T05:34:49+00:00",
+  "commitDate": "2026-02-17T05:34:49+00:00",
+  "subject": "Add @vercel/node to devDependencies to fix build type errors",
+  "body": "The Vercel build was failing because all three API handler files\nimport types from @vercel/node but the package was not listed as\na dependency.\n\nhttps://claude.ai/code/session_01StphBcdNxi7nKg8aHFbT3D",
+  "tags": [
+    "bugfix",
+    "dependency-add"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": null,
+  "scope": null,
+  "title": "Add @vercel/node to devDependencies to fix build type errors",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 1978,
+    "deletions": 60
+  },
+  "files": [
+    "api/package-lock.json",
+    "api/package.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "infrastructure"
+}
