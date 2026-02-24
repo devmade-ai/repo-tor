@@ -4,6 +4,51 @@ Log of significant changes to code and documentation.
 
 ## 2026-02-24
 
+### Discover Metric Labels Clarified for Non-Technical Users
+
+**Why:** Discover tab metric cards used developer jargon ("commit", "ratio", "refactor", "untagged") that violates the CLAUDE.md hard rule: "no jargon, technical terms, or developer-speak" for non-technical users.
+
+**Changes:**
+- Labels: "Avg Commit Size"→"Avg Change Size", "Deletion Ratio"→"Code Removed", "Feature:Bug Ratio"→"Features per Bug Fix", "Test Investment"→"Testing Effort", "Docs Investment"→"Documentation Effort", "Untagged Commits"→"Uncategorized Changes", "Breaking Changes"→"Major Updates", "Avg Files/Commit"→"Files per Change", "Single-File Commits"→"Focused Changes", "Refactor Work"→"Code Cleanup"
+- Sub-text: Replaced all "commits" with "changes" (e.g., "5 test commits"→"5 test changes", "of commits"→"of all changes")
+- Added descriptive sub-text where missing (e.g., "commits"→"changes that may affect users" for Major Updates)
+
+**Files:** `dashboard/js/tabs/DiscoverTab.jsx`
+
+### Section Reordering by Interest Level
+
+**Why:** Sections within each tab were ordered structurally (stats first, then charts, then details) rather than by what a user would find most engaging. Stats/numbers are reference data — useful but not interesting. Charts, insights, and actionable breakdowns are what draw users in.
+
+**Changes:**
+- **SummaryTab**: Key Highlights → Activity Snapshot → Key Stats (insights/patterns first, raw counts last)
+- **TimelineTab**: Commit Activity chart → Recent Changes → Lines Changed → Activity Summary (visual hook first, reference stats last)
+- **TimingTab**: Commits by Hour → When Work Happens → Developer Patterns → Commits by Day (peak hours most interesting, "busiest day" least surprising)
+- **ProgressTab**: Features vs Bug Fixes → Change Types → Work by Initiative → Complexity Over Time → Summary (main story first, niche detail and reference numbers last)
+- **TagsTab**: Fixed CSS order bug — parent `div` used `order-*` classes without being a flex container. Changed `space-y-6` to `flex flex-col gap-6`. Chart shows first on desktop (visually engaging), list shows first on mobile (more scannable)
+- **HealthTab**: Health Overview (anchor) → Risk Assessment → Tech Debt Balance → Prioritization → Impact → trend charts → per-person detail. Moved "red flag" sections (risk, debt) right after overview; trend charts and per-contributor breakdowns pushed to the end
+- **DiscoverTab**: Swapped last two sections — Head to Head (visually engaging comparisons) now before Most Changed Files (niche file list)
+- **ContributorsTab/SecurityTab**: No change needed
+
+**Files:** `dashboard/js/tabs/SummaryTab.jsx`, `TimelineTab.jsx`, `TimingTab.jsx`, `ProgressTab.jsx`, `TagsTab.jsx`, `HealthTab.jsx`, `DiscoverTab.jsx`
+
+### Mobile Tab Layout Improvements
+
+**Why:** Dashboard tabs were too long and content-heavy on mobile. Charts at fixed 300px height took up too much vertical space, all sections expanded by default created excessive scrolling (especially HealthTab with 10 sections), and some section titles were unclear for non-technical users.
+
+**Changes:**
+- **All tabs**: Added descriptive subtitles to CollapsibleSection headers (hidden on mobile via CSS to save space, visible on desktop for context)
+- **HealthTab**: Collapsed 7 of 10 sections on mobile (trends, risk, debt, per-contributor); improved titles ("How Work Gets Prioritized", "Where Changes Land"); reduced chart heights 300px→220px
+- **TimelineTab**: Collapsed commit list and code changes chart on mobile; renamed sections ("Commit Activity", "Lines Changed", "Recent Changes"); reduced chart heights
+- **TimingTab**: Collapsed Developer Patterns on mobile; renamed sections ("When Work Happens", "Commits by Hour/Day"); reduced chart heights 250px→200px
+- **TagsTab**: Reordered — list shown first on mobile (more scannable), chart collapsed by default; reduced doughnut 350px→250px
+- **ProgressTab**: Collapsed Complexity Over Time on mobile; reduced chart heights; added subtitles
+- **ContributorsTab**: Collapsed complexity chart on mobile; added subtitles
+- **DiscoverTab**: Improved metric card layout for narrow screens (truncating selector, responsive value size text-2xl vs text-3xl); tighter comparison labels (w-16 on mobile); renamed "File Insights"→"Most Changed Files", "Comparisons"→"Head to Head"
+- **CSS**: Tighter section spacing on mobile (24px→16px gap), reduced header padding, subtitles hidden on mobile
+- **Chart fonts**: All tabs bumped from 9px→10px minimum for mobile readability
+
+**Files:** `dashboard/js/tabs/HealthTab.jsx`, `TimelineTab.jsx`, `TimingTab.jsx`, `TagsTab.jsx`, `ProgressTab.jsx`, `ContributorsTab.jsx`, `DiscoverTab.jsx`, `SummaryTab.jsx`, `dashboard/styles.css`
+
 ### Fix Projects Tab Loading Error in Production
 
 **Why:** ProjectsTab fetched `./projects.json` at runtime, but the file was never copied to the `dist/` build output. It worked in dev mode (Vite serves from the root directory) but failed on GitHub Pages with "Could not load project list. The file may not be deployed yet."

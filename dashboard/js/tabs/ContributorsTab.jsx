@@ -49,8 +49,8 @@ export default function ContributorsTab() {
                 indexAxis: 'y',
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: { min: 0, max: 5, ticks: { stepSize: 1, font: { size: mobile ? 9 : 12 } } },
-                    y: { ticks: { font: { size: mobile ? 9 : 12 } } },
+                    x: { min: 0, max: 5, ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } } },
+                    y: { ticks: { font: { size: mobile ? 10 : 12 } } },
                 },
             },
         };
@@ -78,7 +78,7 @@ export default function ContributorsTab() {
     return (
         <div className="space-y-6">
             {/* Who Does What */}
-            <CollapsibleSection title="Who Does What">
+            <CollapsibleSection title="Who Does What" subtitle="Top contributors and their focus areas">
                 {aggregated.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {aggregated.slice(0, 8).map((item, idx) => {
@@ -130,10 +130,10 @@ export default function ContributorsTab() {
                 )}
             </CollapsibleSection>
 
-            {/* Complexity by Contributor */}
+            {/* Complexity by Contributor — collapsed on mobile since the cards above show the key info */}
             {complexityChartData && (
-                <CollapsibleSection title="Complexity by Contributor">
-                    <div data-embed-id="contributor-complexity" style={{ height: `${Math.max(200, aggregated.slice(0, 8).length * 40)}px` }}>
+                <CollapsibleSection title="Complexity by Contributor" subtitle="Average complexity of each person's work" defaultExpanded={!isMobile}>
+                    <div data-embed-id="contributor-complexity" style={{ height: `${Math.max(200, aggregated.slice(0, 8).length * (isMobile ? 35 : 40))}px` }}>
                         <Bar data={complexityChartData.data} options={complexityChartData.options} />
                     </div>
                 </CollapsibleSection>

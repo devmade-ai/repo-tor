@@ -5,6 +5,13 @@ import { getAuthorEmail, getAuthorName, sanitizeName, handleKeyActivate } from '
 import { getSeriesColor, withOpacity, mutedColor } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
+// Requirement: Mobile-friendly Health tab layout
+// Approach: Reorder sections by importance, collapse less-critical sections on mobile,
+//   reduce chart heights on small screens, improve labels for non-technical users.
+// Alternatives:
+//   - Hide sections entirely on mobile: Rejected — data is still useful, just not primary
+//   - Tab sub-navigation: Rejected — adds complexity, collapsing is simpler
+
 function UrgencyBar({ counts, total, label, onClick }) {
     const plannedPct = total > 0 ? Math.round((counts.planned / total) * 100) : 0;
     const normalPct = total > 0 ? Math.round((counts.normal / total) * 100) : 0;
@@ -188,8 +195,8 @@ export default function HealthTab() {
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 9 : 12 }, maxRotation: mobile ? 60 : 45 } },
-                    y: { min: 1, max: 5, ticks: { stepSize: 1, font: { size: mobile ? 9 : 12 } } },
+                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
+                    y: { min: 1, max: 5, ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } } },
                 },
             },
             sortedMonths,
@@ -239,12 +246,12 @@ export default function HealthTab() {
                 plugins: {
                     legend: {
                         position: 'bottom',
-                        labels: { boxWidth: mobile ? 8 : 12, font: { size: mobile ? 8 : 10 }, padding: mobile ? 4 : 10 },
+                        labels: { boxWidth: mobile ? 8 : 12, font: { size: mobile ? 9 : 10 }, padding: mobile ? 4 : 10 },
                     },
                 },
                 scales: {
-                    x: { stacked: true, ticks: { font: { size: mobile ? 9 : 12 }, maxRotation: mobile ? 60 : 45 } },
-                    y: { stacked: true, ticks: { font: { size: mobile ? 9 : 12 } } },
+                    x: { stacked: true, ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
+                    y: { stacked: true, ticks: { font: { size: mobile ? 10 : 12 } } },
                 },
             },
         };
@@ -301,12 +308,12 @@ export default function HealthTab() {
                 plugins: {
                     legend: {
                         position: 'bottom',
-                        labels: { boxWidth: mobile ? 8 : 12, font: { size: mobile ? 8 : 10 }, padding: mobile ? 4 : 10 },
+                        labels: { boxWidth: mobile ? 8 : 12, font: { size: mobile ? 9 : 10 }, padding: mobile ? 4 : 10 },
                     },
                 },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 9 : 12 }, maxRotation: mobile ? 60 : 45 } },
-                    y: { ticks: { font: { size: mobile ? 9 : 12 } } },
+                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
+                    y: { ticks: { font: { size: mobile ? 10 : 12 } } },
                 },
             },
         };
@@ -509,9 +516,19 @@ export default function HealthTab() {
         count: impactBreakdown[item.key],
     })).sort((a, b) => b.count - a.count);
 
+    const chartHeight = isMobile ? '220px' : '300px';
+
+    // Requirement: Order sections from most interesting to least interesting
+    // Approach: Overview stats first (anchor), then "red flag" sections (risk, debt) that
+    //   answer "are we in trouble?", then current-state breakdowns, then trend charts, then
+    //   per-person detail last.
+    // Alternatives:
+    //   - Risk/debt first: Rejected — they're conditional and may not render, so overview
+    //     anchors the page consistently
+    //   - Trend charts before breakdowns: Rejected — breakdowns are more scannable
     return (
         <div className="space-y-6">
-            {/* Summary Cards */}
+            {/* Summary Cards — anchor for context, always visible */}
             <CollapsibleSection title="Health Overview">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
@@ -557,63 +574,9 @@ export default function HealthTab() {
                 </div>
             </CollapsibleSection>
 
-            {/* Urgency Breakdown */}
-            <CollapsibleSection title="Urgency Breakdown">
-                <div className="space-y-4">
-                    {urgencyItems.map(({ label, count, colorClass, filter }) => {
-                        const pct = metrics.total > 0 ? Math.round((count / metrics.total) * 100) : 0;
-                        return (
-                            <div
-                                key={filter}
-                                className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
-                                role="button"
-                                tabIndex={0}
-                                onClick={() => handleUrgencyFilterClick(filter)}
-                                onKeyDown={handleKeyActivate(() => handleUrgencyFilterClick(filter))}
-                            >
-                                <div className="flex justify-between text-sm mb-1">
-                                    <span className="text-themed-secondary">{label}</span>
-                                    <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
-                                </div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-                                    <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </CollapsibleSection>
-
-            {/* Impact Breakdown */}
-            <CollapsibleSection title="Impact Breakdown">
-                <div className="space-y-4">
-                    {impactItems.map(({ key, label, count, colorClass }) => {
-                        const pct = metrics.total > 0 ? Math.round((count / metrics.total) * 100) : 0;
-                        return (
-                            <div
-                                key={key}
-                                className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
-                                role="button"
-                                tabIndex={0}
-                                onClick={() => handleImpactFilterClick(key)}
-                                onKeyDown={handleKeyActivate(() => handleImpactFilterClick(key))}
-                            >
-                                <div className="flex justify-between text-sm mb-1">
-                                    <span className="text-themed-secondary">{label}</span>
-                                    <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
-                                </div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-                                    <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            </CollapsibleSection>
-
-            {/* Risk Assessment — only shown when commits have risk data */}
+            {/* Risk Assessment — "are we in trouble?" — most attention-grabbing */}
             {hasRiskData && (
-                <CollapsibleSection title="Risk Assessment">
+                <CollapsibleSection title="Risk Assessment" subtitle="How risky are recent changes?" defaultExpanded={!isMobile}>
                     <div className="space-y-4">
                         {[
                             { key: 'high', label: 'High Risk', colorClass: 'bg-red-500' },
@@ -645,9 +608,9 @@ export default function HealthTab() {
                 </CollapsibleSection>
             )}
 
-            {/* Debt Balance — only shown when commits have debt data */}
+            {/* Debt Balance — "is debt growing?" — actionable red/green indicator */}
             {hasDebtData && (
-                <CollapsibleSection title="Tech Debt Balance">
+                <CollapsibleSection title="Tech Debt Balance" subtitle="Is debt growing or shrinking?" defaultExpanded={!isMobile}>
                     <div className="space-y-4">
                         {[
                             { key: 'added', label: 'Debt Added', colorClass: 'bg-red-500' },
@@ -694,35 +657,89 @@ export default function HealthTab() {
                 </CollapsibleSection>
             )}
 
-            {/* Debt Trend Over Time */}
-            {debtTrendData && (
-                <CollapsibleSection title="Debt Trend">
-                    <div data-embed-id="debt-trend" style={{ height: '300px' }}>
-                        <Line data={debtTrendData.data} options={debtTrendData.options} />
-                    </div>
-                </CollapsibleSection>
-            )}
+            {/* Urgency Breakdown — planned vs reactive split */}
+            <CollapsibleSection title="How Work Gets Prioritized" subtitle="Planned vs reactive changes">
+                <div className="space-y-4">
+                    {urgencyItems.map(({ label, count, colorClass, filter }) => {
+                        const pct = metrics.total > 0 ? Math.round((count / metrics.total) * 100) : 0;
+                        return (
+                            <div
+                                key={filter}
+                                className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                role="button"
+                                tabIndex={0}
+                                onClick={() => handleUrgencyFilterClick(filter)}
+                                onKeyDown={handleKeyActivate(() => handleUrgencyFilterClick(filter))}
+                            >
+                                <div className="flex justify-between text-sm mb-1">
+                                    <span className="text-themed-secondary">{label}</span>
+                                    <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
+                                </div>
+                                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                    <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </CollapsibleSection>
 
-            {/* Urgency Trend */}
+            {/* Impact Breakdown — where changes land */}
+            <CollapsibleSection title="Where Changes Land" subtitle="What parts of the product are affected">
+                <div className="space-y-4">
+                    {impactItems.map(({ key, label, count, colorClass }) => {
+                        const pct = metrics.total > 0 ? Math.round((count / metrics.total) * 100) : 0;
+                        return (
+                            <div
+                                key={key}
+                                className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                role="button"
+                                tabIndex={0}
+                                onClick={() => handleImpactFilterClick(key)}
+                                onKeyDown={handleKeyActivate(() => handleImpactFilterClick(key))}
+                            >
+                                <div className="flex justify-between text-sm mb-1">
+                                    <span className="text-themed-secondary">{label}</span>
+                                    <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
+                                </div>
+                                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                    <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </CollapsibleSection>
+
+            {/* Urgency Trend — collapsed on mobile */}
             {urgencyTrendData && (
-                <CollapsibleSection title="Urgency Trend">
-                    <div data-embed-id="urgency-trend" style={{ height: '300px' }}>
+                <CollapsibleSection title="Urgency Over Time" subtitle="Is urgency increasing or decreasing?" defaultExpanded={!isMobile}>
+                    <div data-embed-id="urgency-trend" style={{ height: chartHeight }}>
                         <Line data={urgencyTrendData.data} options={urgencyTrendData.options} />
                     </div>
                 </CollapsibleSection>
             )}
 
-            {/* Impact Over Time */}
+            {/* Debt Trend Over Time — collapsed on mobile */}
+            {debtTrendData && (
+                <CollapsibleSection title="Debt Trend" subtitle="Monthly debt added vs paid" defaultExpanded={!isMobile}>
+                    <div data-embed-id="debt-trend" style={{ height: chartHeight }}>
+                        <Line data={debtTrendData.data} options={debtTrendData.options} />
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Impact Over Time — collapsed on mobile */}
             {impactTrendData && (
-                <CollapsibleSection title="Impact Over Time">
-                    <div data-embed-id="impact-over-time" style={{ height: '300px' }}>
+                <CollapsibleSection title="Impact Over Time" subtitle="Monthly breakdown by area" defaultExpanded={!isMobile}>
+                    <div data-embed-id="impact-over-time" style={{ height: chartHeight }}>
                         <Bar data={impactTrendData.data} options={impactTrendData.options} />
                     </div>
                 </CollapsibleSection>
             )}
 
-            {/* Urgency by Contributor */}
-            <CollapsibleSection title="Urgency by Contributor">
+            {/* Urgency by Contributor — per-person detail, collapsed on mobile */}
+            <CollapsibleSection title="Urgency by Contributor" subtitle="Who handles planned vs reactive work?" defaultExpanded={!isMobile}>
                 {urgencyByGroup.length > 0 ? (
                     <div className="space-y-4">
                         {urgencyByGroup.map((group, idx) => (
@@ -740,8 +757,8 @@ export default function HealthTab() {
                 )}
             </CollapsibleSection>
 
-            {/* Impact by Contributor */}
-            <CollapsibleSection title="Impact by Contributor">
+            {/* Impact by Contributor — per-person detail, collapsed on mobile */}
+            <CollapsibleSection title="Impact by Contributor" subtitle="Who works on what areas?" defaultExpanded={!isMobile}>
                 {impactByGroup.length > 0 ? (
                     <div className="space-y-4">
                         {impactByGroup.map((group, idx) => (

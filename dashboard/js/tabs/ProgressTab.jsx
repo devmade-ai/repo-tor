@@ -76,11 +76,11 @@ export default function ProgressTab() {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { labels: { font: { size: mobile ? 9 : 12 }, boxWidth: mobile ? 8 : 40 } },
+                    legend: { labels: { font: { size: mobile ? 10 : 12 }, boxWidth: mobile ? 8 : 40 } },
                 },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 9 : 12 }, maxRotation: mobile ? 60 : 45 } },
-                    y: { ticks: { font: { size: mobile ? 9 : 12 } } },
+                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
+                    y: { ticks: { font: { size: mobile ? 10 : 12 } } },
                 },
             },
         };
@@ -128,11 +128,11 @@ export default function ProgressTab() {
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 9 : 12 }, maxRotation: mobile ? 60 : 45 } },
+                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
                     y: {
                         min: 1,
                         max: 5,
-                        ticks: { stepSize: 1, font: { size: mobile ? 9 : 12 } },
+                        ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } },
                     },
                 },
             },
@@ -229,9 +229,103 @@ export default function ProgressTab() {
         openDetailPane(labels[level] || level, `${filtered.length} commits`, filtered);
     };
 
+    const chartHeight = isMobile ? '220px' : '300px';
+
+    // Requirement: Order sections from most interesting to least interesting
+    // Approach: Trend chart first (tells the main story), then visual doughnut, then
+    //   initiative breakdown, then complexity trend, then reference stats last
+    // Alternatives:
+    //   - Summary first: Rejected — raw counts are least engaging
+    //   - Complexity before initiatives: Rejected — epic groupings are more actionable
     return (
         <div className="space-y-6">
-            {/* Work Summary Cards */}
+            {/* Feature vs Bug Fix Trend — the main story: are we building or fixing? */}
+            {featFixChartData && (
+                <CollapsibleSection title="Features vs Bug Fixes Over Time" subtitle="Monthly trend">
+                    <div data-embed-id="feature-vs-bugfix-trend" style={{ height: chartHeight }}>
+                        <Line data={featFixChartData.data} options={featFixChartData.options} />
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Semver Breakdown — glanceable pie chart showing what kind of releases */}
+            {hasSemverData && (
+                <CollapsibleSection title="Change Types" subtitle="Patch, minor, and major releases">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div data-embed-id="semver-distribution" style={{ height: isMobile ? '180px' : '200px' }}>
+                            <Doughnut data={semverChartData.data} options={semverChartData.options} />
+                        </div>
+                        <div className="space-y-3 flex flex-col justify-center">
+                            {[
+                                { key: 'patch', label: 'Patches', desc: 'Bug fixes', colorClass: 'bg-blue-500' },
+                                { key: 'minor', label: 'Minor', desc: 'New features', colorClass: 'bg-green-500' },
+                                { key: 'major', label: 'Major', desc: 'Breaking changes', colorClass: 'bg-red-500' },
+                            ].map(({ key, label, desc, colorClass }) => {
+                                const count = semverBreakdown[key];
+                                const pct = semverTotal > 0 ? Math.round((count / semverTotal) * 100) : 0;
+                                return (
+                                    <div
+                                        key={key}
+                                        className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                        role="button"
+                                        tabIndex={0}
+                                        onClick={() => handleSemverClick(key)}
+                                        onKeyDown={handleKeyActivate(() => handleSemverClick(key))}
+                                    >
+                                        <div className="flex items-center gap-2">
+                                            <div className={`w-3 h-3 rounded-full ${colorClass}`} />
+                                            <span className="text-sm text-themed-secondary font-medium">{label}</span>
+                                            <span className="text-xs text-themed-tertiary">({desc})</span>
+                                            <span className="ml-auto text-sm text-themed-primary font-medium">{count} ({pct}%)</span>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Epic Breakdown — where effort goes, actionable groupings */}
+            {hasEpicData && (
+                <CollapsibleSection title="Work by Initiative" subtitle="Commits grouped by initiative">
+                    <div className="space-y-3">
+                        {epicBreakdown.map(([epic, count]) => {
+                            const pct = filteredCommits.length > 0
+                                ? Math.round((count / filteredCommits.length) * 100) : 0;
+                            return (
+                                <div
+                                    key={epic}
+                                    className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => handleEpicClick(epic)}
+                                    onKeyDown={handleKeyActivate(() => handleEpicClick(epic))}
+                                >
+                                    <div className="flex justify-between text-sm mb-1">
+                                        <span className="text-themed-secondary font-medium">{epic}</span>
+                                        <span className="text-themed-primary font-medium">{count} commits ({pct}%)</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                        <div className="bg-indigo-500 h-2 rounded-full" style={{ width: `${pct}%` }} />
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Complexity Over Time — niche trend, collapsed on mobile */}
+            {complexityChartData && (
+                <CollapsibleSection title="Complexity Over Time" subtitle="Average complexity per month" defaultExpanded={!isMobile}>
+                    <div data-embed-id="complexity-over-time" style={{ height: chartHeight }}>
+                        <Line data={complexityChartData.data} options={complexityChartData.options} />
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Work Summary Cards — reference numbers, least engaging */}
             <CollapsibleSection title="Summary">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
@@ -270,92 +364,6 @@ export default function ProgressTab() {
                     </div>
                 </div>
             </CollapsibleSection>
-
-            {/* Feature vs Bug Fix Trend */}
-            {featFixChartData && (
-                <CollapsibleSection title="Feature vs Bug Fix Trend">
-                    <div data-embed-id="feature-vs-bugfix-trend" style={{ height: '300px' }}>
-                        <Line data={featFixChartData.data} options={featFixChartData.options} />
-                    </div>
-                </CollapsibleSection>
-            )}
-
-            {/* Complexity Over Time */}
-            {complexityChartData && (
-                <CollapsibleSection title="Complexity Over Time">
-                    <div data-embed-id="complexity-over-time" style={{ height: '300px' }}>
-                        <Line data={complexityChartData.data} options={complexityChartData.options} />
-                    </div>
-                </CollapsibleSection>
-            )}
-
-            {/* Epic Breakdown — only shown when commits have epic labels */}
-            {hasEpicData && (
-                <CollapsibleSection title="Work by Initiative">
-                    <div className="space-y-3">
-                        {epicBreakdown.map(([epic, count]) => {
-                            const pct = filteredCommits.length > 0
-                                ? Math.round((count / filteredCommits.length) * 100) : 0;
-                            return (
-                                <div
-                                    key={epic}
-                                    className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
-                                    role="button"
-                                    tabIndex={0}
-                                    onClick={() => handleEpicClick(epic)}
-                                    onKeyDown={handleKeyActivate(() => handleEpicClick(epic))}
-                                >
-                                    <div className="flex justify-between text-sm mb-1">
-                                        <span className="text-themed-secondary font-medium">{epic}</span>
-                                        <span className="text-themed-primary font-medium">{count} commits ({pct}%)</span>
-                                    </div>
-                                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-                                        <div className="bg-indigo-500 h-2 rounded-full" style={{ width: `${pct}%` }} />
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </CollapsibleSection>
-            )}
-
-            {/* Semver Breakdown — only shown when commits have semver data */}
-            {hasSemverData && (
-                <CollapsibleSection title="Change Types">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div data-embed-id="semver-distribution" style={{ height: '200px' }}>
-                            <Doughnut data={semverChartData.data} options={semverChartData.options} />
-                        </div>
-                        <div className="space-y-3 flex flex-col justify-center">
-                            {[
-                                { key: 'patch', label: 'Patches', desc: 'Bug fixes', colorClass: 'bg-blue-500' },
-                                { key: 'minor', label: 'Minor', desc: 'New features', colorClass: 'bg-green-500' },
-                                { key: 'major', label: 'Major', desc: 'Breaking changes', colorClass: 'bg-red-500' },
-                            ].map(({ key, label, desc, colorClass }) => {
-                                const count = semverBreakdown[key];
-                                const pct = semverTotal > 0 ? Math.round((count / semverTotal) * 100) : 0;
-                                return (
-                                    <div
-                                        key={key}
-                                        className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
-                                        role="button"
-                                        tabIndex={0}
-                                        onClick={() => handleSemverClick(key)}
-                                        onKeyDown={handleKeyActivate(() => handleSemverClick(key))}
-                                    >
-                                        <div className="flex items-center gap-2">
-                                            <div className={`w-3 h-3 rounded-full ${colorClass}`} />
-                                            <span className="text-sm text-themed-secondary font-medium">{label}</span>
-                                            <span className="text-xs text-themed-tertiary">({desc})</span>
-                                            <span className="ml-auto text-sm text-themed-primary font-medium">{count} ({pct}%)</span>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </CollapsibleSection>
-            )}
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getTagColor, getTagClass, getTagStyleObject, handleKeyActivate } from '../utils.js';
@@ -60,7 +60,7 @@ export default function TagsTab() {
                         labels: {
                             boxWidth: mobile ? 8 : 12,
                             padding: mobile ? 4 : 8,
-                            font: { size: mobile ? 9 : 11 },
+                            font: { size: mobile ? 10 : 11 },
                             color: CHART_TEXT_COLOR,
                         generateLabels: function (chart) {
                                 const data = chart.data;
@@ -85,55 +85,69 @@ export default function TagsTab() {
         openDetailPane(`${tag} Commits`, `${filtered.length} commits`, filtered, { type: 'tag', value: tag });
     };
 
-    return (
-        <div className="space-y-6">
-            {/* Tag Distribution Chart */}
-            {doughnutChartData && (
-                <CollapsibleSection title="Tag Distribution">
-                    <div data-embed-id="tag-distribution" style={{ height: '350px' }}>
-                        <Doughnut data={doughnutChartData.data} options={doughnutChartData.options} />
-                    </div>
-                </CollapsibleSection>
-            )}
+    // Requirement: Order by interest — chart is more visually engaging on desktop,
+    //   but list is more scannable/actionable on mobile.
+    // Approach: Use flex+order to swap section order between mobile and desktop.
+    //   Previous implementation used order classes without a flex parent (bug — order
+    //   only works in flex/grid contexts). Fixed by adding flex flex-col to parent.
+    // Alternatives:
+    //   - Duplicate JSX: Rejected — harder to maintain
+    //   - Chart always first: Rejected — list is more practical on small screens
+    const chartHeight = isMobile ? '250px' : '350px';
 
-            {/* Tag Breakdown List */}
-            <CollapsibleSection title="Tag Breakdown">
-                {tagData.sortedTags.length > 0 ? (
-                    <div className="space-y-3">
-                        {tagData.sortedTags.map(({ tag, count }) => (
-                            <div
-                                key={tag}
-                                className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
-                                role="button"
-                                tabIndex={0}
-                                onClick={() => handleTagClick(tag)}
-                                onKeyDown={handleKeyActivate(() => handleTagClick(tag))}
-                            >
-                                <span
-                                    className={`tag ${getTagClass(tag)}`}
-                                    style={getTagStyleObject(tag)}
+    return (
+        <div className="flex flex-col gap-6">
+            {/* Tag Breakdown List — more scannable on mobile (order-1), secondary on desktop (order-2) */}
+            <div className={isMobile ? 'order-1' : 'order-2'}>
+                <CollapsibleSection title="Tag Breakdown" subtitle="Tap any tag to see its commits">
+                    {tagData.sortedTags.length > 0 ? (
+                        <div className="space-y-3">
+                            {tagData.sortedTags.map(({ tag, count }) => (
+                                <div
+                                    key={tag}
+                                    className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => handleTagClick(tag)}
+                                    onKeyDown={handleKeyActivate(() => handleTagClick(tag))}
                                 >
-                                    {tag}
-                                </span>
-                                <div className="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-                                    <div
-                                        className="h-2 rounded-full"
-                                        style={{
-                                            width: `${(count / tagData.total * 100).toFixed(1)}%`,
-                                            backgroundColor: getTagColor(tag),
-                                        }}
-                                    />
+                                    <span
+                                        className={`tag ${getTagClass(tag)}`}
+                                        style={getTagStyleObject(tag)}
+                                    >
+                                        {tag}
+                                    </span>
+                                    <div className="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                        <div
+                                            className="h-2 rounded-full"
+                                            style={{
+                                                width: `${(count / tagData.total * 100).toFixed(1)}%`,
+                                                backgroundColor: getTagColor(tag),
+                                            }}
+                                        />
+                                    </div>
+                                    <span className="text-sm text-themed-secondary whitespace-nowrap">
+                                        {count} ({(count / tagData.total * 100).toFixed(0)}%)
+                                    </span>
                                 </div>
-                                <span className="text-sm text-themed-secondary">
-                                    {count} ({(count / tagData.total * 100).toFixed(1)}%)
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <p className="text-themed-tertiary text-sm">No data matches the current filters</p>
-                )}
-            </CollapsibleSection>
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="text-themed-tertiary text-sm">No data matches the current filters</p>
+                    )}
+                </CollapsibleSection>
+            </div>
+
+            {/* Tag Distribution Chart — visually engaging on desktop (order-1), secondary on mobile (order-2) */}
+            {doughnutChartData && (
+                <div className={isMobile ? 'order-2' : 'order-1'}>
+                    <CollapsibleSection title="Tag Distribution" subtitle="Visual breakdown of commit types" defaultExpanded={!isMobile}>
+                        <div data-embed-id="tag-distribution" style={{ height: chartHeight }}>
+                            <Doughnut data={doughnutChartData.data} options={doughnutChartData.options} />
+                        </div>
+                    </CollapsibleSection>
+                </div>
+            )}
         </div>
     );
 }

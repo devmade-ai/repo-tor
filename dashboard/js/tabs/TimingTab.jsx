@@ -143,14 +143,14 @@ export default function TimingTab() {
                     x: {
                         ticks: {
                             maxRotation: mobile ? 60 : 45,
-                            font: { size: mobile ? 9 : 12 },
+                            font: { size: mobile ? 10 : 12 },
                             callback: function (value, index) {
                                 const step = mobile ? 4 : 3;
                                 return index % step === 0 ? this.getLabelForValue(value) : '';
                             },
                         },
                     },
-                    y: { beginAtZero: true, ticks: { font: { size: mobile ? 9 : 12 } } },
+                    y: { beginAtZero: true, ticks: { font: { size: mobile ? 10 : 12 } } },
                 },
             },
         };
@@ -195,8 +195,8 @@ export default function TimingTab() {
                     },
                 },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 9 : 12 } } },
-                    y: { beginAtZero: true, ticks: { font: { size: mobile ? 9 : 12 } } },
+                    x: { ticks: { font: { size: mobile ? 10 : 12 } } },
+                    y: { beginAtZero: true, ticks: { font: { size: mobile ? 10 : 12 } } },
                 },
             },
         };
@@ -356,34 +356,36 @@ export default function TimingTab() {
         }
     };
 
+    const chartHeight = isMobile ? '200px' : '250px';
+
+    // Requirement: Order sections from most interesting to least interesting
+    // Approach: Hour chart first (reveals peak hours — immediately engaging), then heatmap
+    //   (rich visual), then per-person patterns (fascinating detail), then day chart last
+    //   (least surprising — it's always weekdays)
+    // Alternatives:
+    //   - Heatmap first: Rejected — dense grid is harder to parse than a simple bar chart
+    //   - Day chart higher: Rejected — "busiest day is Tuesday" is the least surprising insight
     return (
         <div className="space-y-6">
-            {/* Activity Heatmap */}
-            <CollapsibleSection title="Activity Heatmap">
-                <div data-embed-id="activity-heatmap">
-                    {renderHeatmap()}
-                </div>
-            </CollapsibleSection>
-
-            {/* Hourly Distribution - only for developer view */}
+            {/* Hourly Distribution — most interesting: reveals peak hours, early birds, night owls */}
             {viewConfig.timing === 'hour' && hourChartData && (
-                <CollapsibleSection title="Hourly Distribution">
-                    <div data-embed-id="hourly-distribution" style={{ height: '250px' }}>
+                <CollapsibleSection title="Commits by Hour" subtitle="Which hours are busiest?">
+                    <div data-embed-id="hourly-distribution" style={{ height: chartHeight }}>
                         <Bar data={hourChartData.data} options={hourChartData.options} />
                     </div>
                 </CollapsibleSection>
             )}
 
-            {/* Daily Distribution */}
-            <CollapsibleSection title="Daily Distribution">
-                <div data-embed-id="daily-distribution" style={{ height: '250px' }}>
-                    <Bar data={dayChartData.data} options={dayChartData.options} />
+            {/* Activity Heatmap — engaging visual pattern */}
+            <CollapsibleSection title="When Work Happens" subtitle="Commit activity patterns">
+                <div data-embed-id="activity-heatmap">
+                    {renderHeatmap()}
                 </div>
             </CollapsibleSection>
 
-            {/* Developer Patterns - only for developer view */}
+            {/* Developer Patterns — fascinating per-person detail, collapsed on mobile */}
             {viewConfig.timing === 'hour' && developerPatterns.length > 0 && (
-                <CollapsibleSection title="Developer Patterns">
+                <CollapsibleSection title="Developer Patterns" subtitle="Individual work habits" defaultExpanded={!isMobile}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {developerPatterns.map((author) => (
                             <div key={author.name} className="p-3 bg-themed-tertiary rounded-lg">
@@ -428,6 +430,13 @@ export default function TimingTab() {
                     </div>
                 </CollapsibleSection>
             )}
+
+            {/* Daily Distribution — least surprising: it's always weekdays */}
+            <CollapsibleSection title="Commits by Day" subtitle="Which days are busiest?">
+                <div data-embed-id="daily-distribution" style={{ height: chartHeight }}>
+                    <Bar data={dayChartData.data} options={dayChartData.options} />
+                </div>
+            </CollapsibleSection>
         </div>
     );
 }

@@ -30,6 +30,14 @@ function getHumorousFileName(path, cache) {
 }
 
 // --- Metrics pool ---
+// Requirement: Make all metric labels understandable to non-technical users
+// Approach: Replace dev jargon ("commit", "ratio", "refactor", "untagged") with
+//   plain language ("change", "per", "cleanup", "uncategorized"). Keep labels concise
+//   since they appear in small metric cards and dropdown selectors.
+// Alternatives:
+//   - Add tooltips explaining jargon: Rejected — extra click/hover, CLAUDE.md says
+//     "UI must be intuitive without instructions"
+//   - Keep dev terms: Rejected — violates "no jargon, technical terms" hard rule
 const DISCOVER_METRICS = [
     {
         id: 'net-growth',
@@ -43,56 +51,56 @@ const DISCOVER_METRICS = [
     },
     {
         id: 'avg-commit-size',
-        label: 'Avg Commit Size',
+        label: 'Avg Change Size',
         calculate: (commits) => {
             const total = commits.reduce((sum, c) => sum + (c.stats?.additions || 0) + (c.stats?.deletions || 0), 0);
             const avg = commits.length > 0 ? Math.round(total / commits.length) : 0;
-            return { value: avg.toLocaleString(), sub: 'lines/commit' };
+            return { value: avg.toLocaleString(), sub: 'lines per change' };
         },
     },
     {
         id: 'deletion-ratio',
-        label: 'Deletion Ratio',
+        label: 'Code Removed',
         calculate: (commits) => {
             const adds = commits.reduce((sum, c) => sum + (c.stats?.additions || 0), 0);
             const dels = commits.reduce((sum, c) => sum + (c.stats?.deletions || 0), 0);
             const total = adds + dels;
             const pct = total > 0 ? Math.round((dels / total) * 100) : 0;
-            return { value: `${pct}%`, sub: 'of changes' };
+            return { value: `${pct}%`, sub: 'of all changes were deletions' };
         },
     },
     {
         id: 'feature-bug-ratio',
-        label: 'Feature:Bug Ratio',
+        label: 'Features per Bug Fix',
         calculate: (commits) => {
             const features = commits.filter(c => getCommitTags(c).includes('feature')).length;
             const bugs = commits.filter(c => getCommitTags(c).includes('bugfix') || getCommitTags(c).includes('fix')).length;
-            if (bugs === 0) return { value: features > 0 ? `${features}:0` : '0:0', sub: 'features to bugs' };
+            if (bugs === 0) return { value: features > 0 ? `${features}:0` : '0:0', sub: 'features to bug fixes' };
             const ratio = (features / bugs).toFixed(1);
-            return { value: `${ratio}:1`, sub: 'features to bugs' };
+            return { value: `${ratio}:1`, sub: 'features to bug fixes' };
         },
     },
     {
         id: 'test-investment',
-        label: 'Test Investment',
+        label: 'Testing Effort',
         calculate: (commits) => {
             const tests = commits.filter(c => getCommitTags(c).includes('test')).length;
             const pct = commits.length > 0 ? Math.round((tests / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${tests} test commits` };
+            return { value: `${pct}%`, sub: `${tests} test changes` };
         },
     },
     {
         id: 'docs-investment',
-        label: 'Docs Investment',
+        label: 'Documentation Effort',
         calculate: (commits) => {
             const docs = commits.filter(c => getCommitTags(c).includes('docs')).length;
             const pct = commits.length > 0 ? Math.round((docs / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${docs} doc commits` };
+            return { value: `${pct}%`, sub: `${docs} doc changes` };
         },
     },
     {
         id: 'untagged-commits',
-        label: 'Untagged Commits',
+        label: 'Uncategorized Changes',
         calculate: (commits) => {
             const untagged = commits.filter(c => !c.tags || c.tags.length === 0).length;
             const pct = commits.length > 0 ? Math.round((untagged / commits.length) * 100) : 0;
@@ -101,10 +109,10 @@ const DISCOVER_METRICS = [
     },
     {
         id: 'breaking-changes',
-        label: 'Breaking Changes',
+        label: 'Major Updates',
         calculate: (commits) => {
             const breaking = commits.filter(c => c.has_breaking_change).length;
-            return { value: breaking.toLocaleString(), sub: 'commits' };
+            return { value: breaking.toLocaleString(), sub: 'changes that may affect users' };
         },
     },
     {
@@ -121,7 +129,7 @@ const DISCOVER_METRICS = [
             const hour = parseInt(peak[0]);
             const ampm = hour >= 12 ? 'PM' : 'AM';
             const h12 = hour % 12 || 12;
-            return { value: `${h12}${ampm}`, sub: `${peak[1]} commits` };
+            return { value: `${h12}${ampm}`, sub: `${peak[1]} changes` };
         },
     },
     {
@@ -136,7 +144,7 @@ const DISCOVER_METRICS = [
             });
             const peak = Object.entries(dayCounts).sort((a, b) => b[1] - a[1])[0];
             if (!peak) return { value: '-', sub: '' };
-            return { value: days[parseInt(peak[0])], sub: `${peak[1]} commits` };
+            return { value: days[parseInt(peak[0])], sub: `${peak[1]} changes` };
         },
     },
     {
@@ -151,7 +159,7 @@ const DISCOVER_METRICS = [
             const top = Object.entries(authorCounts).sort((a, b) => b[1] - a[1])[0];
             if (!top) return { value: '-', sub: '' };
             const pct = Math.round((top[1] / commits.length) * 100);
-            return { value: `${pct}%`, sub: 'of commits' };
+            return { value: `${pct}%`, sub: 'of all changes' };
         },
     },
     {
@@ -159,30 +167,30 @@ const DISCOVER_METRICS = [
         label: 'Active Contributors',
         calculate: (commits) => {
             const authors = new Set(commits.map(c => getAuthorEmail(c)));
-            return { value: authors.size.toLocaleString(), sub: 'unique authors' };
+            return { value: authors.size.toLocaleString(), sub: 'people' };
         },
     },
     {
         id: 'avg-files-per-commit',
-        label: 'Avg Files/Commit',
+        label: 'Files per Change',
         calculate: (commits) => {
             const total = commits.reduce((sum, c) => sum + getFilesChanged(c), 0);
             const avg = commits.length > 0 ? (total / commits.length).toFixed(1) : 0;
-            return { value: avg, sub: 'files changed' };
+            return { value: avg, sub: 'average files touched' };
         },
     },
     {
         id: 'single-file-commits',
-        label: 'Single-File Commits',
+        label: 'Focused Changes',
         calculate: (commits) => {
             const single = commits.filter(c => getFilesChanged(c) === 1).length;
             const pct = commits.length > 0 ? Math.round((single / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${single} commits` };
+            return { value: `${pct}%`, sub: `${single} touched just 1 file` };
         },
     },
     {
         id: 'large-commits',
-        label: 'Large Commits',
+        label: 'Large Changes',
         calculate: (commits) => {
             const large = commits.filter(c => (c.stats?.additions || 0) + (c.stats?.deletions || 0) > 500).length;
             const pct = commits.length > 0 ? Math.round((large / commits.length) * 100) : 0;
@@ -191,11 +199,11 @@ const DISCOVER_METRICS = [
     },
     {
         id: 'refactor-ratio',
-        label: 'Refactor Work',
+        label: 'Code Cleanup',
         calculate: (commits) => {
             const refactors = commits.filter(c => getCommitTags(c).includes('refactor')).length;
             const pct = commits.length > 0 ? Math.round((refactors / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${refactors} refactors` };
+            return { value: `${pct}%`, sub: `${refactors} cleanup changes` };
         },
     },
     {
@@ -203,7 +211,7 @@ const DISCOVER_METRICS = [
         label: 'Security Work',
         calculate: (commits) => {
             const security = commits.filter(c => getCommitTags(c).includes('security')).length;
-            return { value: security.toLocaleString(), sub: 'security commits' };
+            return { value: security.toLocaleString(), sub: 'security changes' };
         },
     },
     {
@@ -215,7 +223,7 @@ const DISCOVER_METRICS = [
                 return day === 0 || day === 6;
             }).length;
             const pct = commits.length > 0 ? Math.round((weekend / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${weekend} commits` };
+            return { value: `${pct}%`, sub: `${weekend} changes` };
         },
     },
     {
@@ -227,7 +235,7 @@ const DISCOVER_METRICS = [
                 return hour >= 22 || hour < 6;
             }).length;
             const pct = commits.length > 0 ? Math.round((night / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${night} commits (10PM-6AM)` };
+            return { value: `${pct}%`, sub: `${night} changes (10PM-6AM)` };
         },
     },
     {
@@ -239,7 +247,7 @@ const DISCOVER_METRICS = [
                 return hour >= 5 && hour < 9;
             }).length;
             const pct = commits.length > 0 ? Math.round((early / commits.length) * 100) : 0;
-            return { value: `${pct}%`, sub: `${early} commits (5-9AM)` };
+            return { value: `${pct}%`, sub: `${early} changes (5-9AM)` };
         },
     },
 ];
@@ -446,8 +454,8 @@ export default function DiscoverTab() {
 
     return (
         <div className="space-y-6">
-            {/* Metric Cards */}
-            <CollapsibleSection title="Metrics">
+            {/* Metric Cards — pick a metric from the dropdown, or shuffle for surprise */}
+            <CollapsibleSection title="Metrics" subtitle="Pick a metric or shuffle for surprises">
                 <div className="flex justify-end mb-3">
                     <button
                         className="text-xs text-themed-secondary hover:text-themed-primary"
@@ -461,9 +469,9 @@ export default function DiscoverTab() {
                         const isPinned = !!pinnedMetrics[idx];
                         return (
                             <div key={selectedMetrics[idx]} className="card">
-                                <div className="flex items-center justify-between mb-2">
+                                <div className="flex items-center justify-between mb-2 gap-1">
                                     <select
-                                        className="metric-selector text-xs bg-themed-tertiary text-themed-secondary rounded px-1 py-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                        className="metric-selector text-xs bg-themed-tertiary text-themed-secondary rounded px-1 py-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500 min-w-0 truncate"
                                         value={isPinned ? selectedMetrics[idx] : 'random'}
                                         onChange={(e) => handleSelectChange(idx, e.target.value)}
                                     >
@@ -473,7 +481,7 @@ export default function DiscoverTab() {
                                         ))}
                                     </select>
                                     <button
-                                        className={`pin-btn text-xs ${isPinned ? 'text-blue-500' : 'text-themed-muted'} hover:text-blue-500`}
+                                        className={`pin-btn text-xs flex-shrink-0 ${isPinned ? 'text-blue-500' : 'text-themed-muted'} hover:text-blue-500`}
                                         aria-label={isPinned ? 'Unpin this metric' : 'Pin this metric'}
                                         title={isPinned ? 'Unpin' : 'Pin this metric'}
                                         onClick={() => handlePinToggle(idx)}
@@ -483,7 +491,7 @@ export default function DiscoverTab() {
                                         </svg>
                                     </button>
                                 </div>
-                                <p className="text-3xl font-bold text-themed-primary">{metricResult.value}</p>
+                                <p className="text-2xl sm:text-3xl font-bold text-themed-primary">{metricResult.value}</p>
                                 <p className="text-xs text-themed-muted">{metricResult.sub}</p>
                             </div>
                         );
@@ -491,33 +499,8 @@ export default function DiscoverTab() {
                 </div>
             </CollapsibleSection>
 
-            {/* File Insights */}
-            <CollapsibleSection title="File Insights">
-                {fileInsights ? (
-                    <div className="space-y-3">
-                        {fileInsights.map(({ path, name, count, pct }) => (
-                            <div key={path} className="flex items-center gap-3">
-                                <div className="flex-1">
-                                    <div className="flex items-center justify-between mb-1">
-                                        <span className="text-sm font-medium text-themed-primary" title={path}>
-                                            {name}
-                                        </span>
-                                        <span className="text-xs text-themed-tertiary">{count} changes</span>
-                                    </div>
-                                    <div className="h-2 bg-themed-tertiary rounded-full overflow-hidden">
-                                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${pct}%` }} />
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <p className="text-themed-tertiary text-sm">No file data available</p>
-                )}
-            </CollapsibleSection>
-
-            {/* Comparisons */}
-            <CollapsibleSection title="Comparisons">
+            {/* Comparisons — visually engaging side-by-side bars */}
+            <CollapsibleSection title="Head to Head" subtitle="Key metrics compared side by side">
                 {comparisons.length > 0 ? (
                     <div className="space-y-4">
                         {comparisons.map((comp) => {
@@ -529,12 +512,12 @@ export default function DiscoverTab() {
                                 <div key={comp.label} className="p-3 bg-themed-tertiary rounded">
                                     <p className="text-xs text-themed-tertiary mb-2">{comp.label}</p>
                                     <div className="flex items-center gap-2">
-                                        <span className="text-sm font-medium text-themed-primary w-20">{comp.left.label}</span>
+                                        <span className="text-xs sm:text-sm font-medium text-themed-primary w-16 sm:w-20 flex-shrink-0">{comp.left.label}</span>
                                         <div className="flex-1 h-4 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden flex">
                                             <div className="h-full bg-green-500" style={{ width: `${leftPct}%` }} />
                                             <div className="h-full bg-amber-500" style={{ width: `${rightPct}%` }} />
                                         </div>
-                                        <span className="text-sm font-medium text-themed-primary w-20 text-right">{comp.right.label}</span>
+                                        <span className="text-xs sm:text-sm font-medium text-themed-primary w-16 sm:w-20 text-right flex-shrink-0">{comp.right.label}</span>
                                     </div>
                                     <div className="flex justify-between text-xs text-themed-muted mt-1">
                                         <span>{comp.left.value.toLocaleString()} ({leftPct}%)</span>
@@ -546,6 +529,31 @@ export default function DiscoverTab() {
                     </div>
                 ) : (
                     <p className="text-themed-tertiary text-sm">No comparison data available</p>
+                )}
+            </CollapsibleSection>
+
+            {/* File Insights — most changed files (with fun names), least engaging */}
+            <CollapsibleSection title="Most Changed Files" subtitle="Top 10 files by number of changes">
+                {fileInsights ? (
+                    <div className="space-y-3">
+                        {fileInsights.map(({ path, name, count, pct }) => (
+                            <div key={path} className="flex items-center gap-3">
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center justify-between mb-1 gap-2">
+                                        <span className="text-sm font-medium text-themed-primary truncate" title={path}>
+                                            {name}
+                                        </span>
+                                        <span className="text-xs text-themed-tertiary whitespace-nowrap">{count} changes</span>
+                                    </div>
+                                    <div className="h-2 bg-themed-tertiary rounded-full overflow-hidden">
+                                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${pct}%` }} />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-themed-tertiary text-sm">No file data available</p>
                 )}
             </CollapsibleSection>
         </div>

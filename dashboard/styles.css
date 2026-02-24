@@ -1281,7 +1281,13 @@
             color: var(--color-primary);
         }
 
-        /* Mobile: tighter card padding and smaller stat text */
+        /* Mobile: tighter card padding and smaller stat text
+         * Requirement: Reduce visual weight on mobile — smaller cards, tighter spacing,
+         *   section gaps reduced so collapsed sections feel compact.
+         * Approach: Override card padding, stat text, and section spacing at 640px.
+         * Alternatives:
+         *   - Separate mobile stylesheet: Rejected — over-engineered for a few rules
+         *   - Tailwind responsive classes only: Rejected — card class is used in CSS already */
         @media (max-width: 640px) {
             .card {
                 padding: 16px;
@@ -1291,6 +1297,19 @@
             }
             .card .text-lg {
                 font-size: 0.9375rem;
+            }
+            /* Reduce gap between collapsible sections on mobile */
+            .space-y-6 > * + * {
+                margin-top: 16px;
+            }
+            /* Collapsed section cards take less space on mobile */
+            .collapsible-header {
+                padding: 8px 0;
+            }
+            /* Subtitle line in collapsible header — smaller on mobile */
+            .collapsible-subtitle {
+                font-size: 11px;
+                display: none;
             }
         }
 

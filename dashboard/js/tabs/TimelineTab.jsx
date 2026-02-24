@@ -103,7 +103,7 @@ export default function TimelineTab() {
                     legend: {
                         display: repos.length > 1,
                         position: 'top',
-                        labels: { font: { size: mobile ? 9 : 12 }, boxWidth: mobile ? 8 : 40 },
+                        labels: { font: { size: mobile ? 10 : 12 }, boxWidth: mobile ? 8 : 40 },
                     },
                 },
                 scales: {
@@ -111,7 +111,7 @@ export default function TimelineTab() {
                         stacked: repos.length > 1,
                         ticks: {
                             maxRotation: mobile ? 60 : 45,
-                            font: { size: mobile ? 9 : 12 },
+                            font: { size: mobile ? 10 : 12 },
                             callback: function (value, index) {
                                 const step = Math.ceil(sortedDates.length / (mobile ? 8 : 15));
                                 return index % step === 0 ? this.getLabelForValue(value) : '';
@@ -121,7 +121,7 @@ export default function TimelineTab() {
                     y: {
                         stacked: repos.length > 1,
                         beginAtZero: true,
-                        ticks: { stepSize: 1, font: { size: mobile ? 9 : 12 } },
+                        ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } },
                     },
                 },
             },
@@ -188,7 +188,7 @@ export default function TimelineTab() {
                     legend: {
                         display: repos.length > 1,
                         position: 'top',
-                        labels: { font: { size: mobile ? 9 : 12 }, boxWidth: mobile ? 8 : 40 },
+                        labels: { font: { size: mobile ? 10 : 12 }, boxWidth: mobile ? 8 : 40 },
                     },
                     tooltip: {
                         callbacks: {
@@ -205,7 +205,7 @@ export default function TimelineTab() {
                         stacked: repos.length > 1,
                         ticks: {
                             maxRotation: mobile ? 60 : 45,
-                            font: { size: mobile ? 9 : 12 },
+                            font: { size: mobile ? 10 : 12 },
                             callback: function (value, index) {
                                 const step = Math.ceil(sortedDates.length / (mobile ? 8 : 15));
                                 return index % step === 0 ? this.getLabelForValue(value) : '';
@@ -215,7 +215,7 @@ export default function TimelineTab() {
                     y: {
                         stacked: repos.length > 1,
                         ticks: {
-                            font: { size: mobile ? 9 : 12 },
+                            font: { size: mobile ? 10 : 12 },
                             callback: function (value) {
                                 const sign = value >= 0 ? '+' : '';
                                 const absValue = Math.abs(value);
@@ -378,9 +378,54 @@ export default function TimelineTab() {
     const hasMore = viewConfig.drilldown === 'commits' && filteredCommits.length > visibleCount;
     const remaining = filteredCommits.length - visibleCount;
 
+    const chartHeight = isMobile ? '220px' : '300px';
+
+    // Requirement: Order sections from most interesting to least interesting
+    // Approach: Visual chart first (shows activity bursts), then browsable commit list,
+    //   then secondary chart, then reference stats last
+    // Alternatives:
+    //   - Stats first: Rejected — raw numbers are least engaging
+    //   - Commit list first: Rejected — chart gives a faster visual overview
     return (
         <div className="space-y-6">
-            {/* Summary Cards */}
+            {/* Activity Timeline Chart — most engaging: visual pattern of activity bursts */}
+            {activityChartData && (
+                <CollapsibleSection title="Commit Activity" subtitle="Daily commit count over time">
+                    <div data-embed-id="activity-timeline" style={{ height: chartHeight }}>
+                        <Bar data={activityChartData.data} options={activityChartData.options} />
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Commit List — browsable real content, collapsed on mobile */}
+            <CollapsibleSection title="Recent Changes" subtitle={showingText} defaultExpanded={!isMobile}>
+                <div className="space-y-2">
+                    {commitListContent.length > 0 ? (
+                        commitListContent
+                    ) : (
+                        <p className="text-themed-tertiary">No changes match the current filters</p>
+                    )}
+                    {hasMore && (
+                        <button
+                            className="w-full py-3 text-sm font-medium text-themed-secondary hover:text-themed-primary bg-themed-tertiary hover:bg-gray-600 rounded-lg transition-colors cursor-pointer border-0"
+                            onClick={() => setVisibleCount(v => v + 100)}
+                        >
+                            Load {Math.min(remaining, 100)} more ({remaining} remaining)
+                        </button>
+                    )}
+                </div>
+            </CollapsibleSection>
+
+            {/* Code Changes Timeline Chart — secondary chart, collapsed on mobile */}
+            {codeChangesChartData && (
+                <CollapsibleSection title="Lines Changed" subtitle="Net code additions and deletions" defaultExpanded={!isMobile}>
+                    <div data-embed-id="code-changes-timeline" style={{ height: chartHeight }}>
+                        <Bar data={codeChangesChartData.data} options={codeChangesChartData.options} />
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Summary Cards — reference numbers, least engaging */}
             <CollapsibleSection title="Activity Summary">
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
                     <div
@@ -419,43 +464,6 @@ export default function TimelineTab() {
                         <div className="text-2xl font-semibold text-themed-primary">{summaryData.avgPerDay}</div>
                         <div className="text-sm text-themed-tertiary">Avg/Day</div>
                     </div>
-                </div>
-            </CollapsibleSection>
-
-            {/* Activity Timeline Chart */}
-            {activityChartData && (
-                <CollapsibleSection title="Activity Timeline">
-                    <div data-embed-id="activity-timeline" style={{ height: '300px' }}>
-                        <Bar data={activityChartData.data} options={activityChartData.options} />
-                    </div>
-                </CollapsibleSection>
-            )}
-
-            {/* Code Changes Timeline Chart */}
-            {codeChangesChartData && (
-                <CollapsibleSection title="Code Changes Timeline">
-                    <div data-embed-id="code-changes-timeline" style={{ height: '300px' }}>
-                        <Bar data={codeChangesChartData.data} options={codeChangesChartData.options} />
-                    </div>
-                </CollapsibleSection>
-            )}
-
-            {/* Commit List */}
-            <CollapsibleSection title="Commits" subtitle={showingText}>
-                <div className="space-y-2">
-                    {commitListContent.length > 0 ? (
-                        commitListContent
-                    ) : (
-                        <p className="text-themed-tertiary">No changes match the current filters</p>
-                    )}
-                    {hasMore && (
-                        <button
-                            className="w-full py-3 text-sm font-medium text-themed-secondary hover:text-themed-primary bg-themed-tertiary hover:bg-gray-600 rounded-lg transition-colors cursor-pointer border-0"
-                            onClick={() => setVisibleCount(v => v + 100)}
-                        >
-                            Load {Math.min(remaining, 100)} more ({remaining} remaining)
-                        </button>
-                    )}
                 </div>
             </CollapsibleSection>
         </div>
