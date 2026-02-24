@@ -45,176 +45,34 @@ import { accentColor } from './chartColors.js';
     document.documentElement.style.setProperty('--chart-accent-rgb', `${r}, ${g}, ${b}`);
 })();
 
-// === Debug Error Banner ===
-// Always-visible indicator at the bottom of the screen.
-// Shows "0 errors" pill when clean; expands to full error log when errors occur.
-const debugErrors = [];
-let debugBannerEl = null;
-let debugDismissed = false;
-
-// Requirement: Debug banner must be safe from XSS and not leak event listeners
-// Approach: Use DOM API (textContent/createElement) instead of innerHTML, and a
-//   single delegated click handler on the banner root instead of per-render listeners.
+// === Debug Banner Bridge ===
+// Requirement: Debug pill must work even when JS bundle fails to load
+// Approach: The debug pill is created in index.html as an inline script (no bundle
+//   dependency). This module only enhances it with React-specific error info
+//   (component stacks from ErrorBoundary). The HTML script exposes:
+//   - window.__debugPushError(msg, stack)  — push errors into the HTML pill
+//   - window.__debugErrors                 — shared error array
+//   - window.__debugClearLoadTimer()       — signal React mounted successfully
 // Alternatives:
-//   - innerHTML with sanitization: Rejected — error prone, DOM API is safer by default
-//   - Re-attaching listeners with removeEventListener: Rejected — delegation is simpler
+//   - Keep debug banner in main.jsx: Rejected — pill doesn't show when bundle fails,
+//     which is exactly when you need it most (see AI_LESSONS.md: "No fallback when
+//     React fails to mount")
+//   - Duplicate error listeners: Rejected — HTML script already captures window.onerror
+//     and unhandledrejection; adding them here would double-count errors
 
-function createDebugBanner() {
-    if (debugBannerEl) return debugBannerEl;
-    debugBannerEl = document.createElement('div');
-    debugBannerEl.id = 'debug-error-banner';
-    // Single delegated click handler — routes actions via data-action attributes
-    debugBannerEl.addEventListener('click', handleBannerClick);
-    document.body.appendChild(debugBannerEl);
-    renderBannerState();
-    return debugBannerEl;
+// Signal that the JS bundle loaded and React is about to mount.
+// Clears the 10-second loading timeout warning from the HTML script.
+if (typeof window.__debugClearLoadTimer === 'function') {
+    window.__debugClearLoadTimer();
 }
 
-function handleBannerClick(e) {
-    const actionEl = e.target.closest('[data-action]');
-    if (!actionEl) return;
-    const action = actionEl.dataset.action;
-
-    if (action === 'copy-errors') {
-        const text = debugErrors.map(e => `[${e.time}] ${e.message}\n${e.stack || ''}`).join('\n---\n');
-        navigator.clipboard.writeText(text).then(() => {
-            actionEl.textContent = 'Copied!';
-            setTimeout(() => { actionEl.textContent = 'Copy'; }, 1500);
-        });
-    } else if (action === 'copy-diagnostics') {
-        const log = debugBannerEl.querySelector('#debug-info-log');
-        if (log) {
-            navigator.clipboard.writeText(log.textContent).then(() => {
-                actionEl.textContent = 'Copied!';
-                setTimeout(() => { actionEl.textContent = 'Copy'; }, 1500);
-            });
-        }
-    } else if (action === 'close') {
-        debugDismissed = true;
-        debugBannerEl.style.display = 'none';
-    } else if (action === 'show-diagnostics') {
-        showDebugInfo();
-    } else if (action === 'collapse') {
-        renderBannerState();
-    }
-}
-
-function createStyledEl(tag, styles, text) {
-    const el = document.createElement(tag);
-    Object.assign(el.style, styles);
-    if (text) el.textContent = text;
-    return el;
-}
-
-function renderBannerState() {
-    if (!debugBannerEl) return;
-    const hasErrors = debugErrors.length > 0;
-    debugBannerEl.textContent = '';
-
-    if (hasErrors) {
-        Object.assign(debugBannerEl.style, {
-            position: 'fixed', bottom: '0', left: '0', right: '0', zIndex: '99999',
-            maxHeight: '40vh', overflow: 'auto', background: '#1a0000',
-            borderTop: '2px solid #ff4444', fontFamily: 'monospace', fontSize: '12px',
-            color: '#ff9999', padding: '0', display: 'block',
-        });
-        const header = createStyledEl('div', { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 12px', background: '#2a0000', position: 'sticky', top: '0' });
-        header.appendChild(createStyledEl('span', { fontWeight: 'bold', color: '#ff6666' }, `${debugErrors.length} error${debugErrors.length !== 1 ? 's' : ''}`));
-        const btnGroup = createStyledEl('div', { display: 'flex', gap: '8px' });
-        const copyBtn = createStyledEl('button', { padding: '2px 10px', background: '#ff4444', color: '#fff', border: 'none', borderRadius: '3px', cursor: 'pointer', fontSize: '11px' }, 'Copy');
-        copyBtn.dataset.action = 'copy-errors';
-        const closeBtn = createStyledEl('button', { padding: '2px 10px', background: '#333', color: '#ccc', border: 'none', borderRadius: '3px', cursor: 'pointer', fontSize: '11px' }, 'Close');
-        closeBtn.dataset.action = 'close';
-        btnGroup.append(copyBtn, closeBtn);
-        header.appendChild(btnGroup);
-        debugBannerEl.appendChild(header);
-
-        const log = createStyledEl('pre', { padding: '8px 12px', margin: '0', whiteSpace: 'pre-wrap', wordBreak: 'break-word' });
-        log.id = 'debug-error-log';
-        log.textContent = debugErrors.map(e => `[${e.time}] ${e.message}${e.stack ? '\n' + e.stack : ''}`).join('\n---\n');
-        debugBannerEl.appendChild(log);
-    } else {
-        Object.assign(debugBannerEl.style, {
-            position: 'fixed', bottom: '0', right: '0', left: 'auto', zIndex: '99999',
-            maxHeight: 'none', overflow: 'visible', background: 'transparent',
-            borderTop: 'none', fontFamily: 'monospace', fontSize: '10px',
-            color: '#4ade80', padding: '8px 12px',
-            display: debugDismissed ? 'none' : 'block',
-        });
-        const pill = createStyledEl('span', { background: 'rgba(22,163,74,0.15)', border: '1px solid rgba(22,163,74,0.3)', borderRadius: '4px', padding: '3px 8px', color: '#4ade80', fontSize: '10px', cursor: 'pointer' }, '0 errors');
-        pill.dataset.action = 'show-diagnostics';
-        debugBannerEl.appendChild(pill);
-    }
-}
-
-function showDebugInfo() {
-    if (!debugBannerEl) return;
-    const sw = 'serviceWorker' in navigator;
-    const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-    const pwaInstalled = standalone || localStorage.getItem('pwaInstalled') === 'true';
-    const swController = navigator.serviceWorker?.controller ? 'active' : 'none';
-    const diagText = [
-        `Service Worker support: ${sw ? 'yes' : 'no'}`,
-        `SW controller: ${swController}`,
-        `Standalone mode: ${standalone}`,
-        `PWA installed flag: ${pwaInstalled}`,
-        `Errors: ${debugErrors.length}`,
-        `User agent: ${navigator.userAgent}`,
-    ].join('\n');
-
-    debugBannerEl.textContent = '';
-    Object.assign(debugBannerEl.style, {
-        position: 'fixed', bottom: '0', left: '0', right: '0', zIndex: '99999',
-        maxHeight: '40vh', overflow: 'auto', background: '#001a00',
-        borderTop: '2px solid #4ade80', fontFamily: 'monospace', fontSize: '12px',
-        color: '#4ade80', padding: '0', display: 'block',
-    });
-    const header = createStyledEl('div', { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 12px', background: '#002a00', position: 'sticky', top: '0' });
-    header.appendChild(createStyledEl('span', { fontWeight: 'bold', color: '#4ade80' }, 'Diagnostics'));
-    const btnGroup = createStyledEl('div', { display: 'flex', gap: '8px' });
-    const copyBtn = createStyledEl('button', { padding: '2px 10px', background: '#16a34a', color: '#fff', border: 'none', borderRadius: '3px', cursor: 'pointer', fontSize: '11px' }, 'Copy');
-    copyBtn.dataset.action = 'copy-diagnostics';
-    const closeBtn = createStyledEl('button', { padding: '2px 10px', background: '#333', color: '#ccc', border: 'none', borderRadius: '3px', cursor: 'pointer', fontSize: '11px' }, 'Close');
-    closeBtn.dataset.action = 'collapse';
-    btnGroup.append(copyBtn, closeBtn);
-    header.appendChild(btnGroup);
-    debugBannerEl.appendChild(header);
-
-    const log = createStyledEl('pre', { padding: '8px 12px', margin: '0', whiteSpace: 'pre-wrap', wordBreak: 'break-word' });
-    log.id = 'debug-info-log';
-    log.textContent = diagText;
-    debugBannerEl.appendChild(log);
-}
-
+/**
+ * Push a React-specific error into the HTML-level debug pill.
+ * Used by RootErrorBoundary to include component stack traces.
+ */
 function logDebugError(message, stack) {
-    const entry = { time: new Date().toLocaleTimeString(), message, stack: stack || '' };
-    debugErrors.push(entry);
-    debugDismissed = false;
-    createDebugBanner();
-    renderBannerState();
-    const log = debugBannerEl?.querySelector('#debug-error-log');
-    if (log) log.scrollTop = log.scrollHeight;
-}
-
-window.addEventListener('error', (e) => {
-    logDebugError(e.message || 'Unknown error', e.error?.stack);
-});
-window.addEventListener('unhandledrejection', (e) => {
-    const reason = e.reason;
-    logDebugError(
-        `Unhandled Promise: ${reason?.message || String(reason)}`,
-        reason?.stack
-    );
-});
-
-// Create the banner eagerly so it's visible on page load — skip in embed mode
-// (embedded charts shouldn't show debug diagnostics to the consuming app)
-const isEmbedMode = new URLSearchParams(window.location.search).has('embed');
-if (!isEmbedMode) {
-    if (document.body) {
-        createDebugBanner();
-    } else {
-        document.addEventListener('DOMContentLoaded', () => createDebugBanner());
+    if (typeof window.__debugPushError === 'function') {
+        window.__debugPushError(message, stack);
     }
 }
 

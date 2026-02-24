@@ -7,6 +7,7 @@ Current state for AI assistants to continue work.
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
 **Recent Updates (2026-02-24):**
+- **Move Debug Pill to HTML Level** — Debug pill was part of the JS bundle (`main.jsx`), so it didn't show when the bundle failed to load — exactly when you need it most. Moved all debug pill code (error capture, diagnostics, circular buffer, click handlers) to an inline `<script>` in `index.html`. Added 10-second loading timeout that warns the user if React hasn't mounted. `main.jsx` now bridges to the HTML pill via `window.__debugPushError()` for React-specific errors (component stacks). Removed ~170 lines of duplicate code from `main.jsx`.
 - **Comprehensive Code Review & Bug Fixes (24 issues)** — Full project audit identifying security, performance, accessibility, and code quality issues. All fixes applied:
   - **Security:** XSS fix in debug banner (innerHTML→DOM API), predictable temp file path→os.tmpdir(), event delegation replaces per-render listeners
   - **Performance:** Batched git stat extraction (1 command vs 2n), concurrent API fetching (5-worker pool vs sequential), getComputedStyle moved out of render path
