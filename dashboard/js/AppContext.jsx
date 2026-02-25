@@ -24,7 +24,7 @@ function loadInitialState() {
     try {
         const saved = localStorage.getItem('dashboardFilters');
         if (saved) savedFilters = JSON.parse(saved);
-    } catch (e) { /* ignore */ }
+    } catch (e) { console.warn('Failed to read filters from localStorage:', e.message); }
 
     return {
         data: null,

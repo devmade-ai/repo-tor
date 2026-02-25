@@ -9,6 +9,8 @@ export default defineConfig({
   build: {
     outDir: '../dist',
     emptyOutDir: true,
+    // Disable sourcemaps in production to reduce bundle size
+    sourcemap: false,
   },
   plugins: [
     react(),
@@ -51,7 +53,8 @@ export default defineConfig({
       workbox: {
         skipWaiting: true,
         clientsClaim: true,
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json,woff2}'],
+        // Narrowed from **/*.{json} to specific files to avoid caching large data files
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}', 'data.json', 'projects.json'],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/cdn\.jsdelivr\.net/,

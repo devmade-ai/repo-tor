@@ -6,7 +6,25 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-24 — Mobile Tab Layout):**
+**Recent Updates (2026-02-25 — Codebase Review Round 2: UX, A11y, Code Quality):**
+- **Second Codebase Audit** — Reviewed all dashboard components, styles, and infrastructure. Identified and fixed ~17 issues:
+  - **UX (7 items)**: Filter labels "Inc"/"Exc"→"Include"/"Exclude", upload success toast, urgency labels to plain language ("Planned Work"/"Routine Work"/"Urgent Fixes"), work hours color legend, security tab subtitle, standardized empty states across 5 tabs, improved error messages (SyntaxError vs generic)
+  - **Accessibility (4 items)**: focus-visible outlines on all interactive elements, tab active state via CSS variables (not hardcoded Tailwind), tag contrast increased (0.2/0.3→0.3/0.5 opacity), prefers-reduced-motion media query
+  - **Code quality (3 items)**: Error boundary inline styles→CSS classes, centralized THRESHOLDS constants in state.js, deleted dead code (scripts/lib/manifest.js)
+  - **Infrastructure (3 items)**: extract-api.js error.code check, PWA glob patterns narrowed (exclude large data files), sourcemap disabled in production
+- Build passes: 67 modules, 502KB bundle
+
+**Previous Updates (2026-02-24 — Codebase Review & 20 Fixes):**
+- **Full Codebase Audit** — Reviewed all dashboard components, scripts, CSS, and configuration. Identified and fixed 20 issues across bugs, security, performance, and code quality:
+  - **Bugs fixed**: TimelineTab render-time setState (infinite loop risk), combineDatasets metadata overwrite, stale closure in DiscoverTab handlePinToggle
+  - **Security**: Command injection in update-all.sh (sed→bash param substitution), API response validation in extract-api.js, hex color URL param validation
+  - **UX**: File size validation on upload (50MB limit), extended anonymous names (8→20), Easter computed algorithmically (no more 2030 expiry)
+  - **Code quality**: Removed 30+ CSS !important overrides, replaced hardcoded colors with CSS variables, eliminated silent error catches, added AbortController to ProjectsTab fetch
+  - **Architecture**: HealthTab decomposed from 780→630 lines (extracted HealthBars, HealthAnomalies, HealthWorkPatterns components)
+  - **Scripts**: Recovery logic for pending.js atomic renames, skip count tracking in merge-analysis.js, unmapped author warnings in aggregate-processed.js
+- Build passes: 66 modules, 500KB bundle
+
+**Previous Updates (2026-02-24 — Mobile Tab Layout):**
 - **Discover Metric Labels Clarified** — Replaced developer jargon in all 20 Discover tab metric labels/sub-text with plain language for non-technical users: "Avg Commit Size"→"Avg Change Size", "Deletion Ratio"→"Code Removed", "Feature:Bug Ratio"→"Features per Bug Fix", "Test Investment"→"Testing Effort", "Docs Investment"→"Documentation Effort", "Untagged Commits"→"Uncategorized Changes", "Breaking Changes"→"Major Updates", "Avg Files/Commit"→"Files per Change", "Single-File Commits"→"Focused Changes", "Refactor Work"→"Code Cleanup". All "commits" sub-text→"changes".
 - **Section Reordering by Interest** — Reordered sections within each tab from most interesting/engaging to least interesting:
   - **SummaryTab**: Key Highlights → Activity Snapshot → Key Stats (insights first, raw numbers last)
@@ -457,4 +475,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-24 - Comprehensive code review and 24 bug fixes (security, perf, a11y, code quality). Added repos, Projects tab, fed 206 commits, refactored extract-api.js.*
+*Last updated: 2026-02-25 - Second codebase review: UX polish, accessibility, code quality, infrastructure fixes (~17 items).*

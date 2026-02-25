@@ -112,16 +112,18 @@ function FilterGroup({ label, filterType, options }) {
                         className={filter.mode === 'include' ? 'active' : ''}
                         aria-pressed={filter.mode === 'include'}
                         onClick={() => handleModeChange('include')}
+                        title="Show only selected items"
                     >
-                        Inc
+                        Include
                     </button>
                     <button
                         type="button"
                         className={`exclude ${filter.mode === 'exclude' ? 'active' : ''}`}
                         aria-pressed={filter.mode === 'exclude'}
                         onClick={() => handleModeChange('exclude')}
+                        title="Hide selected items"
                     >
-                        Exc
+                        Exclude
                     </button>
                 </div>
             </div>

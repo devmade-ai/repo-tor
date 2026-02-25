@@ -17,11 +17,10 @@ export default class ErrorBoundary extends React.Component {
     render() {
         if (this.state.hasError) {
             return (
-                <div className="card" style={{ textAlign: 'center', padding: '32px 16px' }}>
+                <div className="card error-boundary-card">
                     <p className="text-themed-secondary text-sm">Something went wrong rendering this section.</p>
                     <button
-                        className="btn-icon btn-secondary"
-                        style={{ marginTop: '12px' }}
+                        className="btn-icon btn-secondary mt-3"
                         onClick={() => this.setState({ hasError: false, error: null })}
                     >
                         Try again

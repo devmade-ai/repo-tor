@@ -71,14 +71,19 @@ function parseColorOverrides() {
         accent = preset.accent;
     }
 
+    // Validate hex color format: 3 or 6 hex digits, optionally prefixed with #.
+    // Rejects invalid values to prevent broken CSS/chart rendering from URL params.
+    const isValidHex = (c) => /^#?[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(c);
+    const toHex = (c) => c.startsWith('#') ? c : `#${c}`;
+
     // ?colors=hex1,hex2,hex3 — override series colors (takes priority over palette)
     const colorsParam = params.get('colors');
     if (colorsParam) {
         const parsed = colorsParam
             .split(',')
             .map(c => c.trim())
-            .filter(Boolean)
-            .map(c => c.startsWith('#') ? c : `#${c}`);
+            .filter(c => c && isValidHex(c))
+            .map(toHex);
         if (parsed.length > 0) {
             series = parsed;
         }
@@ -86,14 +91,14 @@ function parseColorOverrides() {
 
     // ?accent=hex — override the primary accent color (takes priority over palette)
     const accentParam = params.get('accent');
-    if (accentParam) {
-        accent = accentParam.startsWith('#') ? accentParam : `#${accentParam}`;
+    if (accentParam && isValidHex(accentParam)) {
+        accent = toHex(accentParam);
     }
 
     // ?muted=hex — override the muted/secondary color (after-hours, weekends, etc.)
     const mutedParam = params.get('muted');
-    if (mutedParam) {
-        accentMuted = mutedParam.startsWith('#') ? mutedParam : `#${mutedParam}`;
+    if (mutedParam && isValidHex(mutedParam)) {
+        accentMuted = toHex(mutedParam);
     }
 
     return { series, accent, accentMuted };

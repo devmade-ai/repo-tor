@@ -24,7 +24,7 @@ export default function TabBar() {
                                 key={tab.id}
                                 role="tab"
                                 aria-selected={isActive}
-                                className={`tab-btn ${isActive ? 'border-blue-500 text-blue-600' : ''}`}
+                                className={`tab-btn ${isActive ? 'tab-btn-active' : ''}`}
                                 onClick={() => dispatch({ type: 'SET_ACTIVE_TAB', payload: tab.id })}
                             >
                                 {tab.label}

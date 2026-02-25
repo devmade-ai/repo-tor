@@ -109,8 +109,19 @@ if [ "$USE_API" = true ]; then
     fi
 
     while IFS='|' read -r NAME URL; do
-        # Extract owner/repo from URL (handles both .git and non-.git URLs)
-        REPO_FULL=$(echo "$URL" | sed -E 's|https://github.com/||; s|\.git$||')
+        # Requirement: Prevent command injection via crafted URLs in sed
+        # Approach: Use bash parameter substitution instead of piping to sed
+        # Alternatives: sed with sanitized input — rejected because parameter
+        #   substitution is simpler and has no injection surface at all
+
+        # Validate URL format before processing
+        if [[ ! "$URL" =~ ^https://github\.com/[A-Za-z0-9._-]+/[A-Za-z0-9._-]+(\.git)?$ ]]; then
+            echo -e "  ${RED}Skipping $NAME: URL does not match expected GitHub format: $URL${NC}"
+            continue
+        fi
+
+        REPO_FULL="${URL#https://github.com/}"
+        REPO_FULL="${REPO_FULL%.git}"
         echo "  Extracting $REPO_FULL..."
         node "$SCRIPT_DIR/extract-api.js" "$REPO_FULL" --output="$REPORTS_DIR" 2>&1 | sed 's/^/    /'
     done <<< "$REPOS"

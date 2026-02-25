@@ -160,15 +160,30 @@ function curlGitHub(url, { includeHeaders = false } = {}) {
     if (includeHeaders) {
       const headers = fs.existsSync(headerFile) ? fs.readFileSync(headerFile, 'utf-8') : '';
       try { fs.unlinkSync(headerFile); } catch {}
-      return { headers, body: JSON.parse(result) };
+      // Requirement: Validate API response is actual data, not an error page
+      // Approach: Check parsed JSON is an object/array before returning
+      // Alternatives: Status code check only — rejected because GitHub can return
+      //   200 with HTML error pages when auth is misconfigured
+      const parsed = JSON.parse(result);
+      if (parsed === null || (typeof parsed !== 'object')) {
+        throw new Error(`GitHub API returned unexpected response type (${typeof parsed}) for: ${url}`);
+      }
+      return { headers, body: parsed };
     }
 
-    return JSON.parse(result);
+    // Requirement: Validate API response is actual data, not an error page
+    const parsed = JSON.parse(result);
+    if (parsed === null || (typeof parsed !== 'object')) {
+      throw new Error(`GitHub API returned unexpected response type (${typeof parsed}) for: ${url}`);
+    }
+    return parsed;
   } catch (error) {
     if (headerFile) {
       try { fs.unlinkSync(headerFile); } catch {}
     }
-    if (error.status === 22) {
+    // Fix: execFileSync throws with error.status (exit code), not error.code.
+    // curl exit code 22 = HTTP error (4xx/5xx response).
+    if (error.status === 22 || error.code === 22) {
       throw new Error(`GitHub API request failed: ${url}`);
     }
     throw error;
@@ -196,7 +211,13 @@ function curlGitHubAsync(url) {
     encoding: 'utf-8',
     maxBuffer: 50 * 1024 * 1024,
     timeout: 120000,
-  }).then(({ stdout }) => JSON.parse(stdout));
+  }).then(({ stdout }) => {
+    const parsed = JSON.parse(stdout);
+    if (parsed === null || (typeof parsed !== 'object')) {
+      throw new Error(`GitHub API returned unexpected response type (${typeof parsed}) for: ${url}`);
+    }
+    return parsed;
+  });
 }
 
 /** Run async tasks with a concurrency limit */
@@ -217,12 +238,32 @@ async function pMap(items, fn, concurrency = 5) {
  * Fetch all pages of a paginated GitHub API endpoint.
  * Parses Link header for next page URL.
  */
+// Requirement: Periodic rate limit checks during multi-page fetching
+// Approach: Check rate limit from response headers every N pages and warn/pause if low
+// Alternatives: Check only at start — rejected because long fetches can exhaust limits mid-run
+function checkRateLimitFromHeaders(headers, pageNum) {
+  const remainingLine = headers.split(/\r?\n/).find(h => h.toLowerCase().startsWith('x-ratelimit-remaining:'));
+  if (remainingLine) {
+    const remaining = parseInt(remainingLine.split(':')[1].trim(), 10);
+    if (remaining <= 10) {
+      console.warn(`  Warning: GitHub API rate limit low (${remaining} remaining) at page ${pageNum}`);
+    }
+  }
+}
+
 function fetchAllPages(endpoint) {
   let url = `${API_BASE}${endpoint}`;
   const allItems = [];
+  let pageNum = 0;
 
   while (url) {
+    pageNum++;
     const { headers, body } = curlGitHub(url, { includeHeaders: true });
+
+    // Check rate limit every 5 pages to catch depletion early
+    if (pageNum % 5 === 0) {
+      checkRateLimitFromHeaders(headers, pageNum);
+    }
 
     if (Array.isArray(body)) {
       allItems.push(...body);
@@ -231,12 +272,17 @@ function fetchAllPages(endpoint) {
     }
 
     // Parse Link header for next page
+    // Requirement: Warn when Link header exists but doesn't match expected format
+    // Approach: Log a warning so pagination issues are visible in output
+    // Alternatives: Silent skip — rejected because silent data truncation is worse
     url = null;
     const linkLine = headers.split(/\r?\n/).find(h => h.toLowerCase().startsWith('link:'));
     if (linkLine) {
       const nextMatch = linkLine.match(/<([^>]+)>;\s*rel="next"/);
       if (nextMatch) {
         url = nextMatch[1];
+      } else {
+        console.warn(`  Warning: Link header present but no "next" rel found: ${linkLine.substring(0, 120)}`);
       }
     }
   }
@@ -340,6 +386,15 @@ async function extractCommits(commitList) {
   const results = await pMap(commitList, async (item, i) => {
     if (i % 25 === 0 && i > 0) {
       console.log(`  Processed ${i}/${commitList.length} commits...`);
+      // Requirement: Periodic rate limit checks during concurrent fetching
+      // Approach: Check rate limit every 25 commits to detect depletion mid-batch
+      try {
+        const rateLimit = await curlGitHubAsync('/rate_limit');
+        const remaining = rateLimit.resources?.core?.remaining;
+        if (remaining !== undefined && remaining <= 50) {
+          console.warn(`  Warning: GitHub API rate limit low (${remaining} remaining) at commit ${i}/${commitList.length}`);
+        }
+      } catch { /* Non-critical — continue extraction */ }
     }
     try {
       const details = await curlGitHubAsync(`/repos/${owner}/${repo}/commits/${item.sha}`);

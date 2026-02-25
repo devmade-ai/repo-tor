@@ -5,6 +5,7 @@ import {
     getAuthorEmail, getAuthorName, getCommitDateTime, DAY_NAMES_SHORT
 } from '../utils.js';
 import { accentColor, mutedColor } from '../chartColors.js';
+import { THRESHOLDS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 function getHeatmapLevel(count, maxCount) {
@@ -237,7 +238,7 @@ export default function TimingTab() {
 
         return Object.values(authorPatterns)
             .sort((a, b) => b.commitCount - a.commitCount)
-            .slice(0, 6)
+            .slice(0, THRESHOLDS.topDevelopers)
             .map(author => {
                 const peakHour = author.byHour.indexOf(Math.max(...author.byHour));
                 const peakDayIdx = author.byDay.indexOf(Math.max(...author.byDay));
@@ -386,6 +387,12 @@ export default function TimingTab() {
             {/* Developer Patterns — fascinating per-person detail, collapsed on mobile */}
             {viewConfig.timing === 'hour' && developerPatterns.length > 0 && (
                 <CollapsibleSection title="Developer Patterns" subtitle="Individual work habits" defaultExpanded={!isMobile}>
+                    {/* Color legend: explain what green/amber/red means for work hours and weekends */}
+                    <div className="flex flex-wrap gap-4 text-xs text-themed-tertiary mb-4">
+                        <span><span className="inline-block w-2 h-2 rounded-full bg-green-600 mr-1" />Mostly during work hours</span>
+                        <span><span className="inline-block w-2 h-2 rounded-full bg-amber-600 mr-1" />Mixed hours</span>
+                        <span><span className="inline-block w-2 h-2 rounded-full bg-red-600 mr-1" />Mostly outside work hours</span>
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {developerPatterns.map((author) => (
                             <div key={author.name} className="p-3 bg-themed-tertiary rounded-lg">
@@ -407,8 +414,8 @@ export default function TimingTab() {
                                     <div className="p-2 bg-themed-secondary rounded">
                                         <span className="text-themed-tertiary">Work Hours</span>
                                         <p className={`font-semibold ${
-                                            author.workHoursPct >= 70 ? 'text-green-600'
-                                                : author.workHoursPct >= 50 ? 'text-amber-600'
+                                            author.workHoursPct >= THRESHOLDS.workHoursGood ? 'text-green-600'
+                                                : author.workHoursPct >= THRESHOLDS.workHoursMixed ? 'text-amber-600'
                                                     : 'text-red-600'
                                         }`}>
                                             {author.workHoursPct}%
@@ -417,8 +424,8 @@ export default function TimingTab() {
                                     <div className="p-2 bg-themed-secondary rounded">
                                         <span className="text-themed-tertiary">Weekends</span>
                                         <p className={`font-semibold ${
-                                            author.weekendPct <= 10 ? 'text-green-600'
-                                                : author.weekendPct <= 25 ? 'text-amber-600'
+                                            author.weekendPct <= THRESHOLDS.weekendLow ? 'text-green-600'
+                                                : author.weekendPct <= THRESHOLDS.weekendMid ? 'text-amber-600'
                                                     : 'text-red-600'
                                         }`}>
                                             {author.weekendPct}%

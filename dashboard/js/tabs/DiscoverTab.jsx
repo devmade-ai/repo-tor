@@ -260,14 +260,14 @@ function loadPinnedMetrics() {
             const parsed = JSON.parse(saved);
             return parsed.pinnedMetrics || {};
         }
-    } catch (e) { /* ignore */ }
+    } catch (e) { console.warn('Failed to load pinned metrics:', e.message); }
     return {};
 }
 
 function savePinnedMetrics(pinned) {
     try {
         localStorage.setItem('discoverState', JSON.stringify({ pinnedMetrics: pinned }));
-    } catch (e) { /* ignore */ }
+    } catch (e) { console.warn('Failed to save pinned metrics:', e.message); }
 }
 
 function getRandomMetrics(count, pinned) {
@@ -528,7 +528,7 @@ export default function DiscoverTab() {
                         })}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary text-sm">No comparison data available</p>
+                    <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
                 )}
             </CollapsibleSection>
 
@@ -553,7 +553,7 @@ export default function DiscoverTab() {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary text-sm">No file data available</p>
+                    <p className="text-themed-tertiary text-sm">No file data available for the current selection.</p>
                 )}
             </CollapsibleSection>
         </div>

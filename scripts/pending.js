@@ -76,6 +76,15 @@ function writePendingBatches(repoId, commits) {
   const pendingTmp = path.join(PENDING_DIR, repoId, 'batches-tmp');
   const pendingOld = path.join(PENDING_DIR, repoId, 'batches-old');
 
+  // Requirement: Recover from interrupted previous runs on startup
+  // Approach: If pendingOld exists but pendingDir doesn't, a previous swap was interrupted
+  //   after the first rename but before the second — restore pendingOld as pendingDir
+  // Alternatives: Just delete pendingOld — rejected because that loses the only copy of data
+  if (fs.existsSync(pendingOld) && !fs.existsSync(pendingDir)) {
+    console.warn(`  Recovering from interrupted swap: restoring ${pendingOld} → ${pendingDir}`);
+    fs.renameSync(pendingOld, pendingDir);
+  }
+
   // Clean up any leftover temp/old dirs from previous interrupted runs
   if (fs.existsSync(pendingTmp)) fs.rmSync(pendingTmp, { recursive: true });
   if (fs.existsSync(pendingOld)) fs.rmSync(pendingOld, { recursive: true });
@@ -109,11 +118,24 @@ function writePendingBatches(repoId, commits) {
     }, null, 2));
   }
 
-  // Atomic swap: rename old → old-backup, rename tmp → final, remove old-backup
-  if (fs.existsSync(pendingDir)) {
-    fs.renameSync(pendingDir, pendingOld);
+  // Requirement: Prevent data loss if process is interrupted between sequential renames
+  // Approach: Wrap in try-catch; if the first rename succeeds but the second fails,
+  //   roll back by renaming pendingOld back to pendingDir
+  // Alternatives: Single rename — not possible because we need to replace an existing dir
+  try {
+    if (fs.existsSync(pendingDir)) {
+      fs.renameSync(pendingDir, pendingOld);
+    }
+    fs.renameSync(pendingTmp, pendingDir);
+  } catch (err) {
+    // Recovery: if pendingOld exists but pendingDir doesn't, the second rename failed
+    // Restore the old directory so data isn't lost
+    if (fs.existsSync(pendingOld) && !fs.existsSync(pendingDir)) {
+      console.error(`  Error during swap, restoring previous batches: ${err.message}`);
+      fs.renameSync(pendingOld, pendingDir);
+    }
+    throw err;
   }
-  fs.renameSync(pendingTmp, pendingDir);
   if (fs.existsSync(pendingOld)) {
     fs.rmSync(pendingOld, { recursive: true });
   }

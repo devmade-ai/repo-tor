@@ -13,7 +13,16 @@ export const state = {
 };
 
 // === Anonymous Name Mapping ===
-export const anonymousNames = ['Developer A', 'Developer B', 'Developer C', 'Developer D', 'Developer E', 'Developer F', 'Developer G', 'Developer H'];
+// Fix: Extended from 8 to 20 names to reduce collisions. Previously, with 9+
+// contributors in anonymous mode, names wrapped around (Author 1 and Author 9
+// both became "Developer A"), which was confusing in the dashboard.
+export const anonymousNames = [
+    'Developer A', 'Developer B', 'Developer C', 'Developer D',
+    'Developer E', 'Developer F', 'Developer G', 'Developer H',
+    'Developer J', 'Developer K', 'Developer L', 'Developer M',
+    'Developer N', 'Developer P', 'Developer Q', 'Developer R',
+    'Developer S', 'Developer T', 'Developer U', 'Developer V',
+];
 export const authorAnonMap = new Map();
 
 // === View Level Configuration ===
@@ -48,6 +57,23 @@ export const VIEW_LEVELS = {
 export function getViewConfig() {
     return VIEW_LEVELS[state.currentViewLevel] || VIEW_LEVELS.developer;
 }
+
+// === Dashboard Constants ===
+// Centralized thresholds and magic numbers used across tab components.
+// Keeping them here prevents inconsistency when values are used in multiple places.
+export const THRESHOLDS = {
+    // Complexity color thresholds (used in TimelineTab, ProgressTab)
+    complexityHigh: 4,    // complexity >= 4 → high (purple)
+    complexityMid: 2,     // complexity >= 2 → medium (blue)
+    // Work hours color thresholds (used in TimingTab developer patterns)
+    workHoursGood: 70,    // >= 70% during work hours → green
+    workHoursMixed: 50,   // >= 50% → amber; below → red
+    weekendLow: 10,       // <= 10% weekend → green
+    weekendMid: 25,       // <= 25% → amber; above → red
+    // Chart display limits
+    chartDateLimit: 60,   // Max days shown in timeline charts
+    topDevelopers: 6,     // Max developers in timing patterns
+};
 
 // === Tab Navigation (V2: 4 grouped tabs + Projects directory) ===
 // Map new tabs to the content containers they should show
