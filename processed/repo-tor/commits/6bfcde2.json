@@ -1,0 +1,49 @@
+{
+  "sha": "6bfcde2",
+  "fullSha": "6bfcde2ad1216483ec4e8f9e8bf2968657dbd939",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T17:29:46Z",
+  "commitDate": "2026-02-24T17:29:46Z",
+  "subject": "refactor: remove gh CLI dependency from extract-api.js, use curl + multi-token discovery",
+  "body": "extract-api.js now uses curl for GitHub API calls instead of gh CLI.\nToken discovery checks GH_TOKEN, GITHUB_TOKEN, and GITHUB_ALL_REPO_TOKEN.\nTested and confirmed working. Eliminates the need to clone repos for extraction.\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+  "tags": [
+    "refactor",
+    "config"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": null,
+  "semver": "patch",
+  "scope": null,
+  "title": "remove gh CLI dependency from extract-api.js, use curl + multi-token discovery",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 208,
+    "deletions": 179
+  },
+  "files": [
+    "docs/ADMIN_GUIDE.md",
+    "docs/AI_LESSONS.md",
+    "docs/CODE_REVIEW.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "scripts/extract-api.js",
+    "scripts/update-all.sh"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

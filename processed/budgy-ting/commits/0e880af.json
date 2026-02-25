@@ -1,0 +1,47 @@
+{
+  "sha": "0e880af",
+  "fullSha": "0e880af010f060ceb0edcf34f122bb8012ecc869",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T20:49:53Z",
+  "commitDate": "2026-02-24T20:49:53Z",
+  "subject": "feat(ux): add tutorial modal for first-time users",
+  "body": "6-step walkthrough that auto-shows on first visit and persists\ndismissal in localStorage. Help button in header for re-access.\n\nSteps: welcome → create budget → add expenses → projections →\nimport actuals → compare plan vs reality.\n\nFollows existing Teleport modal pattern (ConfirmDialog,\nInstallInstructionsModal). Composable uses module-level shared\nstate (same pattern as usePWAInstall).\n\nTags: ux, onboarding, modal, tutorial\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: onboarding\nSemver: minor\n\nhttps://claude.ai/code/session_016WMP9yNXJNMZB6ahs7izA4",
+  "tags": [
+    "feature",
+    "ux",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "onboarding",
+  "semver": "minor",
+  "scope": "ux",
+  "title": "add tutorial modal for first-time users",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 244,
+    "deletions": 9
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/AppLayout.vue",
+    "src/components/TutorialModal.vue",
+    "src/composables/useTutorial.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

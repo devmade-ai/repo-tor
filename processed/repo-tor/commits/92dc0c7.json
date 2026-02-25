@@ -1,0 +1,65 @@
+{
+  "sha": "92dc0c7",
+  "fullSha": "92dc0c7e30b434324348c500fab65af25c7bfef1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T18:25:28Z",
+  "commitDate": "2026-02-24T18:25:28Z",
+  "subject": "fix: comprehensive code review — 24 security, perf, a11y, and quality fixes",
+  "body": "Security: XSS fix in debug banner (innerHTML→DOM API), temp file path\nmoved to os.tmpdir(), event delegation replaces per-render listeners.\n\nPerformance: Batched git stat extraction (1 cmd vs 2n), concurrent API\nfetching (5-worker pool), getComputedStyle moved out of render path.\n\nData integrity: Atomic pending batch deletion, fixed filesChanged calc,\nadded repo_id to API security events, added metadata fields.\n\nAccessibility: aria-labels on stat/contributor cards and drop zone,\naria-controls on CollapsibleSection, consistent empty state messages.\n\nCode quality: Silent catches→console.warn, stale closure fix, inline\nstyles→CSS classes, Easter dates 2020-2030, removed unused sharp dep.\n\nCSS/Config: Defined --shadow-lg and --color-primary-alpha, removed\ncollapsible max-height cap, added woff2 to PWA precache.\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+  "tags": [
+    "security",
+    "performance",
+    "accessibility",
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "codebase-review",
+  "semver": "patch",
+  "scope": null,
+  "title": "comprehensive code review — 24 security, perf, a11y, and quality fixes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 21,
+    "additions": 450,
+    "deletions": 159
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/components/CollapsibleSection.jsx",
+    "dashboard/js/components/DropZone.jsx",
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/SettingsPane.jsx",
+    "dashboard/js/main.jsx",
+    "dashboard/js/pwa.js",
+    "dashboard/js/tabs/ContributorsTab.jsx",
+    "dashboard/js/tabs/HealthTab.jsx",
+    "dashboard/js/tabs/SummaryTab.jsx",
+    "dashboard/js/tabs/TagsTab.jsx",
+    "dashboard/js/utils.js",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "package.json",
+    "scripts/extract-api.js",
+    "scripts/extract.js",
+    "scripts/pending.js",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

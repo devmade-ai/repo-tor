@@ -1,0 +1,42 @@
+{
+  "sha": "f59129b",
+  "fullSha": "f59129b0afa56530d7827b14f13bb6d16e93e9bf",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T20:56:41Z",
+  "commitDate": "2026-02-24T20:56:41Z",
+  "subject": "fix(build): resolve TS2532 'possibly undefined' in TutorialModal",
+  "body": "Array index access `steps[currentStep]` in the template returns\n`TutorialStep | undefined`, causing vue-tsc to reject the build.\nIntroduced an `activeStep` computed property with an explicit type\nassertion so the template accesses a guaranteed `TutorialStep`.\n\nTags: bugfix, typescript, tutorial\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: tutorial-modal\nSemver: patch\n\nhttps://claude.ai/code/session_01NYdueyhFfk3w9E62P8UT7r",
+  "tags": [
+    "bugfix",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "tutorial-modal",
+  "semver": "patch",
+  "scope": "build",
+  "title": "resolve TS2532 'possibly undefined' in TutorialModal",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 6,
+    "deletions": 3
+  },
+  "files": [
+    "src/components/TutorialModal.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

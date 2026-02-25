@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-02-24T16:34:52.086Z",
+    "generatedAt": "2026-02-25T09:50:25.700Z",
     "repository": "All Repositories",
     "scope": "overall",
     "repoCount": 14,
-    "commitCount": 1908,
+    "commitCount": 1946,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -25,6 +25,2396 @@
     }
   },
   "commits": [
+    {
+      "sha": "5478178",
+      "fullSha": "547817816e8de53b24aa4a64011f28e6d1db83e1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-25T08:55:51Z",
+      "commitDate": "2026-02-25T08:55:51Z",
+      "subject": "Merge pull request #34 from devmade-ai/claude/multiple-workspaces-NUevg",
+      "body": "Add workspace manager and multi-workspace support",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #34 from devmade-ai/claude/multiple-workspaces-NUevg",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#34"
+      ],
+      "stats": {
+        "filesChanged": 49,
+        "additions": 2082,
+        "deletions": 314
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/analysis/AnalysisModal.tsx",
+        "src/components/conventions/ConventionsModal.tsx",
+        "src/components/graph/GraphCanvas.tsx",
+        "src/components/importExport/ExportModal.tsx",
+        "src/components/importExport/ImportModal.tsx",
+        "src/components/layout/DetailDrawer.css",
+        "src/components/layout/DetailDrawer.tsx",
+        "src/components/panels/DetailPanel.tsx",
+        "src/components/pwa/InstallInstructionsModal.tsx",
+        "src/components/query/QueryBuilder.css",
+        "src/components/query/QueryHelpModal.tsx",
+        "src/components/ui/ConfirmDialog.tsx",
+        "src/components/ui/ConnectNodeModal.tsx",
+        "src/components/ui/ContextMenu.tsx",
+        "src/components/ui/CreateNodeModal.tsx",
+        "src/components/ui/Toast.css",
+        "src/components/ui/Toast.tsx",
+        "src/components/ui/TutorialModal.tsx",
+        "src/components/views/ViewSwitcher.tsx",
+        "src/components/workspaces/WorkspaceManager.css",
+        "src/components/workspaces/WorkspaceManager.tsx",
+        "src/data/demoData.ts",
+        "src/db/database.ts",
+        "src/hooks/useFocusTrap.ts",
+        "src/hooks/useGraphData.ts",
+        "src/hooks/useToast.ts",
+        "src/hooks/useViewData.ts",
+        "src/hooks/useWorkspaces.ts",
+        "src/services/analysisService.test.ts",
+        "src/services/graphService.test.ts",
+        "src/services/graphService.ts",
+        "src/services/importExportService.test.ts",
+        "src/services/importExportService.ts",
+        "src/services/markdownImportService.ts",
+        "src/services/mergeService.test.ts",
+        "src/services/queryEngine.test.ts",
+        "src/services/queryEngine.ts",
+        "src/services/seedService.test.ts",
+        "src/services/seedService.ts",
+        "src/services/snapshotService.ts",
+        "src/services/viewService.test.ts",
+        "src/services/viewService.ts",
+        "src/services/workspaceService.ts",
+        "src/types/index.ts",
+        "src/utils/factory.test.ts",
+        "src/utils/factory.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "4d9e867",
+      "fullSha": "4d9e867d633dc7fb875baf803b6dad348c16d912",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T08:40:01Z",
+      "commitDate": "2026-02-25T08:40:01Z",
+      "subject": "fix(ux): comprehensive UX review fixes — accessibility, mobile, data integrity",
+      "body": "Fixes 14 issues identified in deep UX review:\n\n1. Stale workspace check: use !activeWorkspace instead of !activeWorkspaceId\n   to prevent ghost workspace rendering after deletion\n2. Transaction-wrap deleteNode/bulkDeleteNodes for atomic data operations\n3. iOS input font-size 16px to prevent auto-zoom on focus\n4. Toast notification system (useToast + ToastContainer) replaces window.alert\n5. ConfirmDialog replaces window.confirm with themed inline dialog\n6. Empty graph state message for workspaces with 0 nodes\n7. Focus trapping (useFocusTrap) on all 9 modals for WCAG compliance\n8. ARIA roles: context menu (role=menu/menuitem), detail drawer (aria-modal),\n   view switcher (role=tablist/tab/aria-selected), all modals (role=dialog)\n9. Escape key handler on TutorialModal\n10. Mobile bottom sheet: swipe-to-dismiss gesture + body scroll lock\n11. Mobile touch targets bumped from 36px to 44px (WCAG 2.5.5)\n12. Edge label contrast improved (#6b7280 → #9ca3af for AA compliance)\n13. Focus-visible styles added for workspace-card-new-btn, import-paste-toggle,\n    detail-drawer-close, export-option-btn, toast-dismiss\n14. Property 'contains' filter bug fixed: new property-contains AST node type\n    instead of incorrectly falling through to title search\n\nTags: ux, accessibility, mobile, wcag, query-engine, data-integrity\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: ux-polish\nSemver: minor\n\nhttps://claude.ai/code/session_011D9ZTMQs9N9LGrFDTnWdDD",
+      "tags": [
+        "bugfix",
+        "ux",
+        "accessibility",
+        "ui"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "ux-polish",
+      "semver": "minor",
+      "scope": "ux",
+      "title": "comprehensive UX review fixes — accessibility, mobile, data integrity",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "#6",
+        "#9"
+      ],
+      "stats": {
+        "filesChanged": 27,
+        "additions": 855,
+        "deletions": 123
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/analysis/AnalysisModal.tsx",
+        "src/components/conventions/ConventionsModal.tsx",
+        "src/components/graph/GraphCanvas.tsx",
+        "src/components/importExport/ExportModal.tsx",
+        "src/components/importExport/ImportModal.tsx",
+        "src/components/layout/DetailDrawer.css",
+        "src/components/layout/DetailDrawer.tsx",
+        "src/components/panels/DetailPanel.tsx",
+        "src/components/pwa/InstallInstructionsModal.tsx",
+        "src/components/query/QueryBuilder.css",
+        "src/components/query/QueryHelpModal.tsx",
+        "src/components/ui/ConfirmDialog.tsx",
+        "src/components/ui/ConnectNodeModal.tsx",
+        "src/components/ui/ContextMenu.tsx",
+        "src/components/ui/CreateNodeModal.tsx",
+        "src/components/ui/Toast.css",
+        "src/components/ui/Toast.tsx",
+        "src/components/ui/TutorialModal.tsx",
+        "src/components/views/ViewSwitcher.tsx",
+        "src/components/workspaces/WorkspaceManager.tsx",
+        "src/hooks/useFocusTrap.ts",
+        "src/hooks/useToast.ts",
+        "src/services/graphService.ts",
+        "src/services/queryEngine.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "3824bd5",
+      "fullSha": "3824bd50699351f3c8b96873e098283f162d9156",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-25T08:23:09Z",
+      "commitDate": "2026-02-25T08:23:09Z",
+      "subject": "Merge pull request #83 from devmade-ai/claude/codebase-review-unXP1",
+      "body": "Refactor HealthTab: Extract data hooks and components, improve UX/A11y",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #83 from devmade-ai/claude/codebase-review-unXP1",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#83"
+      ],
+      "stats": {
+        "filesChanged": 33,
+        "additions": 1295,
+        "deletions": 737
+      },
+      "files": [
+        "dashboard/index.html",
+        "dashboard/js/App.jsx",
+        "dashboard/js/AppContext.jsx",
+        "dashboard/js/chartColors.js",
+        "dashboard/js/components/ErrorBoundary.jsx",
+        "dashboard/js/components/FilterSidebar.jsx",
+        "dashboard/js/components/HealthAnomalies.jsx",
+        "dashboard/js/components/HealthBars.jsx",
+        "dashboard/js/components/HealthWorkPatterns.jsx",
+        "dashboard/js/components/TabBar.jsx",
+        "dashboard/js/hooks/useHealthData.js",
+        "dashboard/js/main.jsx",
+        "dashboard/js/state.js",
+        "dashboard/js/tabs/ContributorsTab.jsx",
+        "dashboard/js/tabs/DiscoverTab.jsx",
+        "dashboard/js/tabs/HealthTab.jsx",
+        "dashboard/js/tabs/ProjectsTab.jsx",
+        "dashboard/js/tabs/SecurityTab.jsx",
+        "dashboard/js/tabs/TagsTab.jsx",
+        "dashboard/js/tabs/TimelineTab.jsx",
+        "dashboard/js/tabs/TimingTab.jsx",
+        "dashboard/js/utils.js",
+        "dashboard/styles.css",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/aggregate-processed.js",
+        "scripts/extract-api.js",
+        "scripts/extract.js",
+        "scripts/lib/manifest.js",
+        "scripts/merge-analysis.js",
+        "scripts/pending.js",
+        "scripts/update-all.sh",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "9fabee9",
+      "fullSha": "9fabee909b7b57162e2f1d2175c9ae8ae2dd9e77",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T07:10:05Z",
+      "commitDate": "2026-02-25T07:10:05Z",
+      "subject": "fix: codebase review round 2 — UX polish, accessibility, code quality",
+      "body": "UX: filter labels Inc/Exc→Include/Exclude, upload success toast, plain\nlanguage urgency labels, work hours color legend, security subtitle,\nstandardized empty states, improved error messages.\n\nA11y: focus-visible outlines on interactive elements, tab active state\nvia CSS variables, tag contrast increased for WCAG AA, reduced motion\nmedia query.\n\nCode quality: error boundary inline styles→CSS classes, centralized\nTHRESHOLDS constants, deleted dead scripts/lib/manifest.js.\n\nInfra: extract-api error.code fix, PWA glob patterns narrowed,\nproduction sourcemaps disabled.\n\nhttps://claude.ai/code/session_01HPuGwVREuAwq4yHa3q7GGe",
+      "tags": [
+        "ux",
+        "accessibility",
+        "refactor",
+        "config"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "codebase-review",
+      "semver": "patch",
+      "scope": null,
+      "title": "codebase review round 2 — UX polish, accessibility, code quality",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 19,
+        "additions": 232,
+        "deletions": 92
+      },
+      "files": [
+        "dashboard/js/App.jsx",
+        "dashboard/js/components/ErrorBoundary.jsx",
+        "dashboard/js/components/FilterSidebar.jsx",
+        "dashboard/js/components/TabBar.jsx",
+        "dashboard/js/main.jsx",
+        "dashboard/js/state.js",
+        "dashboard/js/tabs/ContributorsTab.jsx",
+        "dashboard/js/tabs/DiscoverTab.jsx",
+        "dashboard/js/tabs/HealthTab.jsx",
+        "dashboard/js/tabs/SecurityTab.jsx",
+        "dashboard/js/tabs/TagsTab.jsx",
+        "dashboard/js/tabs/TimelineTab.jsx",
+        "dashboard/js/tabs/TimingTab.jsx",
+        "dashboard/styles.css",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/extract-api.js",
+        "scripts/lib/manifest.js",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "83bb970",
+      "fullSha": "83bb970595a90d0c220906217591d479f9faa2d4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T07:08:46Z",
+      "commitDate": "2026-02-25T07:08:46Z",
+      "subject": "feat(workspaces): add multiple workspace support with full isolation",
+      "body": "Add complete workspace system allowing users to create, manage, and\nswitch between independent knowledge graphs. Each workspace has its\nown nodes, arcs, and views with no cross-workspace references.\n\nKey changes:\n- Workspace type and workspaceId field on all entities (nodes, arcs, views)\n- Database v5 migration: workspaces table, workspaceId indexes, existing\n  data migrated to Default workspace (ws-default)\n- workspaceService: CRUD with events, cascading delete (removes all\n  workspace nodes/arcs/views in a single transaction)\n- WorkspaceManager: landing page with grid of workspace cards, inline\n  create/rename, delete confirmation\n- Demo data seeded into separate \"Demo\" workspace (ws-demo)\n- All services and hooks scoped by workspaceId\n- Import/export stamps workspaceId on imported data\n- Snapshot service scoped to workspace for undo-after-import\n- All 316 tests pass, lint clean, build succeeds\n\nTags: workspaces, multi-graph, data-model, services, components, hooks, database\nComplexity: 5\nUrgency: 2\nImpact: user-facing\nRisk: high\nDebt: neutral\nEpic: multiple-workspaces\nSemver: major\n\nhttps://claude.ai/code/session_011D9ZTMQs9N9LGrFDTnWdDD",
+      "tags": [
+        "feature",
+        "database",
+        "schema",
+        "ui"
+      ],
+      "complexity": 5,
+      "risk": "high",
+      "debt": "neutral",
+      "epic": "multiple-workspaces",
+      "semver": "major",
+      "scope": "workspaces",
+      "title": "add multiple workspace support with full isolation",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 28,
+        "additions": 1243,
+        "deletions": 207
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/importExport/ImportModal.tsx",
+        "src/components/workspaces/WorkspaceManager.css",
+        "src/components/workspaces/WorkspaceManager.tsx",
+        "src/data/demoData.ts",
+        "src/db/database.ts",
+        "src/hooks/useGraphData.ts",
+        "src/hooks/useViewData.ts",
+        "src/hooks/useWorkspaces.ts",
+        "src/services/analysisService.test.ts",
+        "src/services/graphService.test.ts",
+        "src/services/graphService.ts",
+        "src/services/importExportService.test.ts",
+        "src/services/importExportService.ts",
+        "src/services/markdownImportService.ts",
+        "src/services/mergeService.test.ts",
+        "src/services/queryEngine.test.ts",
+        "src/services/seedService.test.ts",
+        "src/services/seedService.ts",
+        "src/services/snapshotService.ts",
+        "src/services/viewService.test.ts",
+        "src/services/viewService.ts",
+        "src/services/workspaceService.ts",
+        "src/types/index.ts",
+        "src/utils/factory.test.ts",
+        "src/utils/factory.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "a298745",
+      "fullSha": "a298745a88d7170375ecd4804a4eb7aa14a1409a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T22:01:43Z",
+      "commitDate": "2026-02-24T22:01:43Z",
+      "subject": "fix: comprehensive codebase review — 20 issues fixed across dashboard, scripts, CSS",
+      "body": "Dashboard: fixed TimelineTab render-time setState (infinite loop risk),\nApp.jsx metadata merge + file size validation, TagsTab module-level\ngetComputedStyle, stale closures, silent catches, hardcoded colors.\nScripts: command injection in update-all.sh, API response validation,\nskip counting, atomic rename recovery, unmapped author warnings.\nCSS: removed 30+ unnecessary !important overrides.\nArchitecture: decomposed HealthTab (780→630 lines, 4 new modules).\n\nhttps://claude.ai/code/session_01HPuGwVREuAwq4yHa3q7GGe",
+      "tags": [
+        "bugfix",
+        "security",
+        "performance",
+        "accessibility",
+        "refactor"
+      ],
+      "complexity": 5,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "codebase-review",
+      "semver": "patch",
+      "scope": null,
+      "title": "comprehensive codebase review — 20 issues fixed across dashboard, scripts, CSS",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 25,
+        "additions": 1068,
+        "deletions": 650
+      },
+      "files": [
+        "dashboard/index.html",
+        "dashboard/js/App.jsx",
+        "dashboard/js/AppContext.jsx",
+        "dashboard/js/chartColors.js",
+        "dashboard/js/components/HealthAnomalies.jsx",
+        "dashboard/js/components/HealthBars.jsx",
+        "dashboard/js/components/HealthWorkPatterns.jsx",
+        "dashboard/js/hooks/useHealthData.js",
+        "dashboard/js/main.jsx",
+        "dashboard/js/state.js",
+        "dashboard/js/tabs/DiscoverTab.jsx",
+        "dashboard/js/tabs/HealthTab.jsx",
+        "dashboard/js/tabs/ProjectsTab.jsx",
+        "dashboard/js/tabs/TagsTab.jsx",
+        "dashboard/js/tabs/TimelineTab.jsx",
+        "dashboard/js/utils.js",
+        "dashboard/styles.css",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/aggregate-processed.js",
+        "scripts/extract-api.js",
+        "scripts/extract.js",
+        "scripts/merge-analysis.js",
+        "scripts/pending.js",
+        "scripts/update-all.sh"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "5b95489",
+      "fullSha": "5b954892a33f199e80aeae3b05f05fd7d02fafa0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T21:35:03Z",
+      "commitDate": "2026-02-24T21:35:03Z",
+      "subject": "Merge pull request #82 from devmade-ai/claude/mobile-tab-layout-t3TbR",
+      "body": "Improve dashboard UX: reorder sections by interest, clarify labels",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #82 from devmade-ai/claude/mobile-tab-layout-t3TbR",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#82"
+      ],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 556,
+        "deletions": 400
+      },
+      "files": [
+        "dashboard/js/tabs/ContributorsTab.jsx",
+        "dashboard/js/tabs/DiscoverTab.jsx",
+        "dashboard/js/tabs/HealthTab.jsx",
+        "dashboard/js/tabs/ProgressTab.jsx",
+        "dashboard/js/tabs/SummaryTab.jsx",
+        "dashboard/js/tabs/TagsTab.jsx",
+        "dashboard/js/tabs/TimelineTab.jsx",
+        "dashboard/js/tabs/TimingTab.jsx",
+        "dashboard/styles.css",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "b0c2e27",
+      "fullSha": "b0c2e27fc36aeeca4336687982b31bd4c03d53f4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T21:32:54Z",
+      "commitDate": "2026-02-24T21:32:54Z",
+      "subject": "feat: clarify Discover metric labels for non-technical users",
+      "body": "Replace developer jargon with plain language across all 20 Discover tab\nmetrics. Labels like \"Avg Commit Size\", \"Deletion Ratio\", \"Refactor Work\"\nbecome \"Avg Change Size\", \"Code Removed\", \"Code Cleanup\". All sub-text\n\"commits\" replaced with \"changes\".\n\nhttps://claude.ai/code/session_01JiBipRsvhKuoDSEpUdTucf",
+      "tags": [
+        "ux",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": null,
+      "title": "clarify Discover metric labels for non-technical users",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 49,
+        "deletions": 29
+      },
+      "files": [
+        "dashboard/js/tabs/DiscoverTab.jsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "f2cc47a",
+      "fullSha": "f2cc47ac151f00cf327efb4bbae0e9fcebb53a6b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T21:24:08Z",
+      "commitDate": "2026-02-24T21:24:08Z",
+      "subject": "feat: reorder tab sections from most interesting to least interesting",
+      "body": "Sections within each tab were ordered structurally (stats first) rather\nthan by engagement. Now ordered so the most interesting content appears\nfirst: charts/insights before stats, actionable breakdowns before trends,\nper-person detail last. Also fixes TagsTab CSS order bug (parent needed\nflex for order-* classes to work).\n\nhttps://claude.ai/code/session_01JiBipRsvhKuoDSEpUdTucf",
+      "tags": [
+        "ux",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": null,
+      "title": "reorder tab sections from most interesting to least interesting",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 344,
+        "deletions": 284
+      },
+      "files": [
+        "dashboard/js/tabs/DiscoverTab.jsx",
+        "dashboard/js/tabs/HealthTab.jsx",
+        "dashboard/js/tabs/ProgressTab.jsx",
+        "dashboard/js/tabs/SummaryTab.jsx",
+        "dashboard/js/tabs/TagsTab.jsx",
+        "dashboard/js/tabs/TimelineTab.jsx",
+        "dashboard/js/tabs/TimingTab.jsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "a0c33d8",
+      "fullSha": "a0c33d853cf84ea116f40e888b83d791da0437db",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T20:57:56Z",
+      "commitDate": "2026-02-24T20:57:56Z",
+      "subject": "Merge pull request #7 from devmade-ai/claude/fix-tutorial-modal-error-WyIXf",
+      "body": "Fix TypeScript type safety in TutorialModal step access",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #7 from devmade-ai/claude/fix-tutorial-modal-error-WyIXf",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#7"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 6,
+        "deletions": 3
+      },
+      "files": [
+        "src/components/TutorialModal.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f59129b",
+      "fullSha": "f59129b0afa56530d7827b14f13bb6d16e93e9bf",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T20:56:41Z",
+      "commitDate": "2026-02-24T20:56:41Z",
+      "subject": "fix(build): resolve TS2532 'possibly undefined' in TutorialModal",
+      "body": "Array index access `steps[currentStep]` in the template returns\n`TutorialStep | undefined`, causing vue-tsc to reject the build.\nIntroduced an `activeStep` computed property with an explicit type\nassertion so the template accesses a guaranteed `TutorialStep`.\n\nTags: bugfix, typescript, tutorial\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: tutorial-modal\nSemver: patch\n\nhttps://claude.ai/code/session_01NYdueyhFfk3w9E62P8UT7r",
+      "tags": [
+        "bugfix",
+        "types"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "tutorial-modal",
+      "semver": "patch",
+      "scope": "build",
+      "title": "resolve TS2532 'possibly undefined' in TutorialModal",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 6,
+        "deletions": 3
+      },
+      "files": [
+        "src/components/TutorialModal.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "600deaf",
+      "fullSha": "600deafe5a1d25bd42482cfcc788ed3c63b28238",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T20:54:35Z",
+      "commitDate": "2026-02-24T20:54:35Z",
+      "subject": "feat: improve mobile tab layout — collapse secondary sections, reduce chart heights, improve labels",
+      "body": "Mobile UX pass across all 9 tab components:\n- HealthTab: collapse 7/10 sections on mobile, improve titles, charts 300→220px\n- TimelineTab: collapse commit list + code changes, reduce heights, rename sections\n- TimingTab: collapse Developer Patterns, charts 250→200px, rename sections\n- TagsTab: list-first order on mobile, chart collapsed, doughnut 350→250px\n- ProgressTab: collapse Complexity Over Time, reduce heights\n- ContributorsTab: collapse complexity chart, add subtitles\n- DiscoverTab: responsive metric cards, tighter comparison labels\n- SummaryTab: descriptive subtitles on all sections\n- CSS: tighter section gaps (24→16px), subtitles hidden on mobile\n- Chart fonts: 9px→10px minimum for readability\n\nhttps://claude.ai/code/session_01JiBipRsvhKuoDSEpUdTucf",
+      "tags": [
+        "ux",
+        "ui",
+        "accessibility"
+      ],
+      "complexity": 4,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "mobile-ux",
+      "semver": "minor",
+      "scope": null,
+      "title": "improve mobile tab layout — collapse secondary sections, reduce chart heights, improve labels",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 229,
+        "deletions": 153
+      },
+      "files": [
+        "dashboard/js/tabs/ContributorsTab.jsx",
+        "dashboard/js/tabs/DiscoverTab.jsx",
+        "dashboard/js/tabs/HealthTab.jsx",
+        "dashboard/js/tabs/ProgressTab.jsx",
+        "dashboard/js/tabs/SummaryTab.jsx",
+        "dashboard/js/tabs/TagsTab.jsx",
+        "dashboard/js/tabs/TimelineTab.jsx",
+        "dashboard/js/tabs/TimingTab.jsx",
+        "dashboard/styles.css",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "f48ac33",
+      "fullSha": "f48ac33c2446b72b387ff236129c246e94a110c8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T20:52:20Z",
+      "commitDate": "2026-02-24T20:52:20Z",
+      "subject": "Merge pull request #6 from devmade-ai/claude/add-tutorial-modal-ZPiCx",
+      "body": "Add tutorial modal for first-time users",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #6 from devmade-ai/claude/add-tutorial-modal-ZPiCx",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 244,
+        "deletions": 9
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "src/components/AppLayout.vue",
+        "src/components/TutorialModal.vue",
+        "src/composables/useTutorial.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0e880af",
+      "fullSha": "0e880af010f060ceb0edcf34f122bb8012ecc869",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T20:49:53Z",
+      "commitDate": "2026-02-24T20:49:53Z",
+      "subject": "feat(ux): add tutorial modal for first-time users",
+      "body": "6-step walkthrough that auto-shows on first visit and persists\ndismissal in localStorage. Help button in header for re-access.\n\nSteps: welcome → create budget → add expenses → projections →\nimport actuals → compare plan vs reality.\n\nFollows existing Teleport modal pattern (ConfirmDialog,\nInstallInstructionsModal). Composable uses module-level shared\nstate (same pattern as usePWAInstall).\n\nTags: ux, onboarding, modal, tutorial\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: onboarding\nSemver: minor\n\nhttps://claude.ai/code/session_016WMP9yNXJNMZB6ahs7izA4",
+      "tags": [
+        "feature",
+        "ux",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "onboarding",
+      "semver": "minor",
+      "scope": "ux",
+      "title": "add tutorial modal for first-time users",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 244,
+        "deletions": 9
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "src/components/AppLayout.vue",
+        "src/components/TutorialModal.vue",
+        "src/composables/useTutorial.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "8a38375",
+      "fullSha": "8a38375545491d321592f6615f73b2aa69027dba",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T20:24:55Z",
+      "commitDate": "2026-02-24T20:24:55Z",
+      "subject": "Merge pull request #81 from devmade-ai/claude/fix-project-list-loading-jQZMO",
+      "body": "Fix Projects Tab Loading Error in Production",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #81 from devmade-ai/claude/fix-project-list-loading-jQZMO",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#81"
+      ],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 15,
+        "deletions": 0
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "dashboard/public/projects.json",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "6e37406",
+      "fullSha": "6e3740695ebec4f9a03d2babbbe1aec915330d87",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T20:17:41Z",
+      "commitDate": "2026-02-24T20:17:41Z",
+      "subject": "fix: include projects.json in production build output",
+      "body": "projects.json was missing from the deployed site because it lived in\ndashboard/ (not public/) and wasn't listed in the deploy workflow's\nfile copy step. Moved to dashboard/public/ so Vite includes it\nautomatically, and added it to deploy.yml as a safety net.\n\nhttps://claude.ai/code/session_014Y95NoEwfZkakxyE9Z2372",
+      "tags": [
+        "bugfix",
+        "build",
+        "cd"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": null,
+      "title": "include projects.json in production build output",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 15,
+        "deletions": 0
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "dashboard/public/projects.json",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 4,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "8ec469d",
+      "fullSha": "8ec469d7f9803ab664cd11f37cef974b6d0defa5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T20:09:38Z",
+      "commitDate": "2026-02-24T20:09:38Z",
+      "subject": "Merge pull request #80 from devmade-ai/claude/fix-initialization-error-RSYvN",
+      "body": "Fix TagsTab initialization crash from self-referential variable",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #80 from devmade-ai/claude/fix-initialization-error-RSYvN",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#80"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 12,
+        "deletions": 1
+      },
+      "files": [
+        "dashboard/js/tabs/TagsTab.jsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "9d6e228",
+      "fullSha": "9d6e2286c461b6d6532e9c463b78e93be074d01c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T20:08:14Z",
+      "commitDate": "2026-02-24T20:08:14Z",
+      "subject": "fix: resolve TagsTab initialization crash — self-referential const assignment",
+      "body": "TagsTab.jsx line 13 had `const CHART_TEXT_COLOR = CHART_TEXT_COLOR` which\nread the variable during its own initialization (temporal dead zone). In the\nminified production build this surfaced as `Cannot access 'vf' before\ninitialization`. Fixed by reading the --text-secondary CSS variable via\ngetComputedStyle() at module load, matching the pattern used in main.jsx.\n\nhttps://claude.ai/code/session_011zd1ZpzN6qSMKqCoroUjMX",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": null,
+      "title": "resolve TagsTab initialization crash — self-referential const assignment",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 12,
+        "deletions": 1
+      },
+      "files": [
+        "dashboard/js/tabs/TagsTab.jsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 5,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "47355d9",
+      "fullSha": "47355d92b76e262947f180da7748143dcb018c99",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T19:57:56Z",
+      "commitDate": "2026-02-24T19:57:56Z",
+      "subject": "Merge pull request #79 from devmade-ai/claude/debug-dashboard-loading-xasNE",
+      "body": "Move debug pill to HTML level for resilience during bundle failures",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #79 from devmade-ai/claude/debug-dashboard-loading-xasNE",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#79"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 238,
+        "deletions": 715
+      },
+      "files": [
+        "dashboard/index.html",
+        "dashboard/js/main.jsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "package-lock.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "741b7a7",
+      "fullSha": "741b7a7946574de38eb16e665391306ec3d3b46c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T19:56:18Z",
+      "commitDate": "2026-02-24T19:56:18Z",
+      "subject": "chore: update package-lock.json from npm install",
+      "body": "https://claude.ai/code/session_01Qay1Ue4yRRGMQ39qDJHugS",
+      "tags": [
+        "dependency-update"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "update package-lock.json from npm install",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 549
+      },
+      "files": [
+        "package-lock.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "e5cb562",
+      "fullSha": "e5cb5628adc7bb1427107879ca1dc55710b5a1c7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T19:54:28Z",
+      "commitDate": "2026-02-24T19:54:28Z",
+      "subject": "fix: move debug pill to HTML level — shows even when JS bundle fails",
+      "body": "The debug pill was created inside the JS bundle (main.jsx). If the bundle\nfailed to load, parse, or execute (stale SW cache, network error, JS crash),\nthe pill never appeared — leaving users with an infinite spinner and no way\nto diagnose the problem.\n\nChanges:\n- index.html: inline <script> creates debug pill at HTML level with error\n  capture (window.onerror, unhandledrejection), circular buffer (200 max),\n  diagnostics view, and 10-second loading timeout warning\n- main.jsx: removed ~170 lines of duplicate banner code; now bridges to\n  HTML pill via window.__debugPushError() for React component stacks\n\nhttps://claude.ai/code/session_01Qay1Ue4yRRGMQ39qDJHugS",
+      "tags": [
+        "refactor",
+        "error-handling",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": null,
+      "title": "move debug pill to HTML level — shows even when JS bundle fails",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 238,
+        "deletions": 166
+      },
+      "files": [
+        "dashboard/index.html",
+        "dashboard/js/main.jsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "9c40b46",
+      "fullSha": "9c40b467671e68ad3bebd767fef215c37029c28a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T19:40:20Z",
+      "commitDate": "2026-02-24T19:40:20Z",
+      "subject": "Merge pull request #5 from devmade-ai/claude/fix-expenseform-typescript-2YLex",
+      "body": "Refactor: Extract category blur handler and improve type safety",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/fix-expenseform-typescript-2YLex",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 29,
+        "deletions": 4
+      },
+      "files": [
+        ".gitignore",
+        "package-lock.json",
+        "package.json",
+        "src/components/ExpenseForm.vue",
+        "src/debug/DebugPill.vue",
+        "src/views/CompareTab.vue",
+        "tsconfig.node.json"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "b04cb80",
+      "fullSha": "b04cb80f6fd9de4be8f2976c49ca5bfa5702695f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T19:29:57Z",
+      "commitDate": "2026-02-24T19:29:57Z",
+      "subject": "chore(build): gitignore tsbuildinfo artifacts",
+      "body": "vue-tsc -b produces .tsbuildinfo files for incremental builds.\nThese are machine-specific build cache and should not be tracked.\n\nTags: build, gitignore\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: build-stability\nSemver: patch\n\nhttps://claude.ai/code/session_01TGPgPesupfaJsD9TQy8ang",
+      "tags": [
+        "config",
+        "build"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": "build",
+      "title": "gitignore tsbuildinfo artifacts",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        ".gitignore"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "c35bc17",
+      "fullSha": "c35bc178b2d6bbf125037736806f15c160fc6bdb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T19:28:07Z",
+      "commitDate": "2026-02-24T19:28:07Z",
+      "subject": "fix(build): resolve all TypeScript build errors",
+      "body": "- ExpenseForm.vue: Extract handleCategoryBlur method to avoid template\n  setTimeout resolving against component instance instead of window\n- DebugPill.vue: Remove unused entry parameter in subscribe callback\n- CompareTab.vue: Use v-else-if=\"comparison\" for vue-tsc null narrowing\n- vite.config.ts: Add @types/node for path, process, and __dirname\n\nTags: typescript, build, ci\nComplexity: 2\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: build-stability\nSemver: patch\n\nhttps://claude.ai/code/session_01TGPgPesupfaJsD9TQy8ang",
+      "tags": [
+        "bugfix",
+        "types",
+        "build"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "build-stability",
+      "semver": "patch",
+      "scope": "build",
+      "title": "resolve all TypeScript build errors",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 28,
+        "deletions": 4
+      },
+      "files": [
+        "package-lock.json",
+        "package.json",
+        "src/components/ExpenseForm.vue",
+        "src/debug/DebugPill.vue",
+        "src/views/CompareTab.vue",
+        "tsconfig.node.json"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "915e1d7",
+      "fullSha": "915e1d7fdbe5895b136c81102f5ce1235e92c37b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T18:35:09Z",
+      "commitDate": "2026-02-24T18:35:09Z",
+      "subject": "Merge pull request #78 from devmade-ai/claude/add-repos-live-projects-xLzin",
+      "body": "Add Projects tab and update dashboard data with new repositories",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #78 from devmade-ai/claude/add-repos-live-projects-xLzin",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#78"
+      ],
+      "stats": {
+        "filesChanged": 260,
+        "additions": 31647,
+        "deletions": 2291
+      },
+      "files": [
+        "config/repos.json",
+        "dashboard/data.json",
+        "dashboard/js/App.jsx",
+        "dashboard/js/AppContext.jsx",
+        "dashboard/js/components/CollapsibleSection.jsx",
+        "dashboard/js/components/DropZone.jsx",
+        "dashboard/js/components/FilterSidebar.jsx",
+        "dashboard/js/components/SettingsPane.jsx",
+        "dashboard/js/components/TabBar.jsx",
+        "dashboard/js/main.jsx",
+        "dashboard/js/pwa.js",
+        "dashboard/js/state.js",
+        "dashboard/js/tabs/ContributorsTab.jsx",
+        "dashboard/js/tabs/HealthTab.jsx",
+        "dashboard/js/tabs/ProjectsTab.jsx",
+        "dashboard/js/tabs/SecurityTab.jsx",
+        "dashboard/js/tabs/SummaryTab.jsx",
+        "dashboard/js/tabs/TagsTab.jsx",
+        "dashboard/js/utils.js",
+        "dashboard/projects.json",
+        "dashboard/repos/budgy-ting.json",
+        "dashboard/repos/canva-grid-assets.json",
+        "dashboard/repos/canva-grid.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/coin-zapp.json",
+        "dashboard/repos/few-lap.json",
+        "dashboard/repos/glow-props.json",
+        "dashboard/repos/graphiki.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/plant-fur.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/see-veo.json",
+        "dashboard/repos/synctone.json",
+        "dashboard/repos/tool-till-tees.json",
+        "dashboard/styles.css",
+        "docs/ADMIN_GUIDE.md",
+        "docs/AI_LESSONS.md",
+        "docs/CODE_REVIEW.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "package.json",
+        "processed/budgy-ting/commits/02f4ee5.json",
+        "processed/budgy-ting/commits/072b102.json",
+        "processed/budgy-ting/commits/0d3d7e3.json",
+        "processed/budgy-ting/commits/12a3d81.json",
+        "processed/budgy-ting/commits/1b1331c.json",
+        "processed/budgy-ting/commits/29ab128.json",
+        "processed/budgy-ting/commits/2c985cf.json",
+        "processed/budgy-ting/commits/3065aa6.json",
+        "processed/budgy-ting/commits/5a900d3.json",
+        "processed/budgy-ting/commits/70ee074.json",
+        "processed/budgy-ting/commits/71bdab7.json",
+        "processed/budgy-ting/commits/74241fb.json",
+        "processed/budgy-ting/commits/924e566.json",
+        "processed/budgy-ting/commits/99080da.json",
+        "processed/budgy-ting/commits/ab8b929.json",
+        "processed/budgy-ting/commits/d55b67d.json",
+        "processed/budgy-ting/commits/dc9237d.json",
+        "processed/budgy-ting/commits/e77f0b1.json",
+        "processed/budgy-ting/commits/f1fceab.json",
+        "processed/budgy-ting/manifest.json",
+        "processed/few-lap/commits/00266d2.json",
+        "processed/few-lap/commits/01ee029.json",
+        "processed/few-lap/commits/1025ea0.json",
+        "processed/few-lap/commits/3eb009d.json",
+        "processed/few-lap/commits/45d8363.json",
+        "processed/few-lap/commits/61f6333.json",
+        "processed/few-lap/commits/71532f8.json",
+        "processed/few-lap/commits/a2d8260.json",
+        "processed/few-lap/commits/ad885f0.json",
+        "processed/few-lap/commits/b6ab4d3.json",
+        "processed/few-lap/commits/bac21c0.json",
+        "processed/few-lap/commits/bd2f83b.json",
+        "processed/few-lap/commits/c51630f.json",
+        "processed/few-lap/commits/dd2664c.json",
+        "processed/few-lap/commits/eba8f96.json",
+        "processed/few-lap/commits/ef0b5c5.json",
+        "processed/few-lap/manifest.json",
+        "processed/glow-props/commits/2356eac.json",
+        "processed/glow-props/commits/28dd029.json",
+        "processed/glow-props/commits/652af3d.json",
+        "processed/glow-props/commits/83849f9.json",
+        "processed/glow-props/commits/b330d21.json",
+        "processed/glow-props/commits/f97434b.json",
+        "processed/glow-props/manifest.json",
+        "processed/graphiki/commits/026bccb.json",
+        "processed/graphiki/commits/051d47e.json",
+        "processed/graphiki/commits/053573b.json",
+        "processed/graphiki/commits/0704b6c.json",
+        "processed/graphiki/commits/08f6490.json",
+        "processed/graphiki/commits/14bda5c.json",
+        "processed/graphiki/commits/168f7b5.json",
+        "processed/graphiki/commits/184b119.json",
+        "processed/graphiki/commits/1b2c9d8.json",
+        "processed/graphiki/commits/1f506d4.json",
+        "processed/graphiki/commits/250182f.json",
+        "processed/graphiki/commits/2976744.json",
+        "processed/graphiki/commits/2cec14f.json",
+        "processed/graphiki/commits/2ded1ad.json",
+        "processed/graphiki/commits/32e4f74.json",
+        "processed/graphiki/commits/35463af.json",
+        "processed/graphiki/commits/3752490.json",
+        "processed/graphiki/commits/3d88239.json",
+        "processed/graphiki/commits/40587e4.json",
+        "processed/graphiki/commits/423bd88.json",
+        "processed/graphiki/commits/554faa7.json",
+        "processed/graphiki/commits/58dd875.json",
+        "processed/graphiki/commits/5e8daf6.json",
+        "processed/graphiki/commits/60f06ac.json",
+        "processed/graphiki/commits/64f99ce.json",
+        "processed/graphiki/commits/65bdc4c.json",
+        "processed/graphiki/commits/6beb779.json",
+        "processed/graphiki/commits/761a10f.json",
+        "processed/graphiki/commits/79ae02d.json",
+        "processed/graphiki/commits/7ba8b63.json",
+        "processed/graphiki/commits/81d6bef.json",
+        "processed/graphiki/commits/83b22c0.json",
+        "processed/graphiki/commits/8662e45.json",
+        "processed/graphiki/commits/8a819c7.json",
+        "processed/graphiki/commits/8ec27e8.json",
+        "processed/graphiki/commits/946a565.json",
+        "processed/graphiki/commits/953f342.json",
+        "processed/graphiki/commits/9948a89.json",
+        "processed/graphiki/commits/9f336e1.json",
+        "processed/graphiki/commits/a09041d.json",
+        "processed/graphiki/commits/b8741e0.json",
+        "processed/graphiki/commits/ba4409c.json",
+        "processed/graphiki/commits/baba579.json",
+        "processed/graphiki/commits/bd6baaa.json",
+        "processed/graphiki/commits/beaa85d.json",
+        "processed/graphiki/commits/c1ca8ec.json",
+        "processed/graphiki/commits/c4e6d41.json",
+        "processed/graphiki/commits/c6f35b6.json",
+        "processed/graphiki/commits/ca760c1.json",
+        "processed/graphiki/commits/ce98dd7.json",
+        "processed/graphiki/commits/cff1cce.json",
+        "processed/graphiki/commits/d0d6cfa.json",
+        "processed/graphiki/commits/d3a87d5.json",
+        "processed/graphiki/commits/d4dd771.json",
+        "processed/graphiki/commits/d674b8a.json",
+        "processed/graphiki/commits/e3a6e1d.json",
+        "processed/graphiki/commits/e50fbba.json",
+        "processed/graphiki/commits/e849763.json",
+        "processed/graphiki/commits/ebbab7d.json",
+        "processed/graphiki/commits/f4c70d9.json",
+        "processed/graphiki/commits/faeaff7.json",
+        "processed/graphiki/commits/fbe1cc1.json",
+        "processed/graphiki/commits/fc8b7fd.json",
+        "processed/graphiki/manifest.json",
+        "processed/repo-tor/commits/0909f57.json",
+        "processed/repo-tor/commits/440a81b.json",
+        "processed/repo-tor/commits/5146b7c.json",
+        "processed/repo-tor/commits/55f765e.json",
+        "processed/repo-tor/commits/6bd5d0f.json",
+        "processed/repo-tor/commits/766ec27.json",
+        "processed/repo-tor/commits/7cefa57.json",
+        "processed/repo-tor/commits/86efa41.json",
+        "processed/repo-tor/commits/89600aa.json",
+        "processed/repo-tor/commits/8b35d1b.json",
+        "processed/repo-tor/commits/9799a4f.json",
+        "processed/repo-tor/commits/9b2bb8a.json",
+        "processed/repo-tor/commits/9df8946.json",
+        "processed/repo-tor/commits/b09340e.json",
+        "processed/repo-tor/commits/c0db50b.json",
+        "processed/repo-tor/commits/c3111a3.json",
+        "processed/repo-tor/commits/ca381c3.json",
+        "processed/repo-tor/commits/cbdc918.json",
+        "processed/repo-tor/commits/d6d233d.json",
+        "processed/repo-tor/commits/fae2a73.json",
+        "processed/repo-tor/commits/ff63237.json",
+        "processed/repo-tor/commits/ffd9ae5.json",
+        "processed/repo-tor/manifest.json",
+        "processed/see-veo/commits/0251eb2.json",
+        "processed/see-veo/commits/0284f0a.json",
+        "processed/see-veo/commits/0a7a1d7.json",
+        "processed/see-veo/commits/0babf38.json",
+        "processed/see-veo/commits/0df4b46.json",
+        "processed/see-veo/commits/157d556.json",
+        "processed/see-veo/commits/18f1de6.json",
+        "processed/see-veo/commits/1902491.json",
+        "processed/see-veo/commits/1b2bf0a.json",
+        "processed/see-veo/commits/227830b.json",
+        "processed/see-veo/commits/2437fda.json",
+        "processed/see-veo/commits/2c18fb0.json",
+        "processed/see-veo/commits/2f93472.json",
+        "processed/see-veo/commits/35fcac3.json",
+        "processed/see-veo/commits/38a00c0.json",
+        "processed/see-veo/commits/404866e.json",
+        "processed/see-veo/commits/48a503a.json",
+        "processed/see-veo/commits/4acb461.json",
+        "processed/see-veo/commits/52eb2f5.json",
+        "processed/see-veo/commits/603236a.json",
+        "processed/see-veo/commits/6f575ff.json",
+        "processed/see-veo/commits/789121d.json",
+        "processed/see-veo/commits/792b55e.json",
+        "processed/see-veo/commits/7ad80e3.json",
+        "processed/see-veo/commits/93073a5.json",
+        "processed/see-veo/commits/ae76f6d.json",
+        "processed/see-veo/commits/afa937d.json",
+        "processed/see-veo/commits/b3a2b43.json",
+        "processed/see-veo/commits/bac610c.json",
+        "processed/see-veo/commits/c2ff07b.json",
+        "processed/see-veo/commits/c935aaf.json",
+        "processed/see-veo/commits/daf134f.json",
+        "processed/see-veo/commits/dc0cf74.json",
+        "processed/see-veo/commits/e1fa5fa.json",
+        "processed/see-veo/commits/e44dd89.json",
+        "processed/see-veo/commits/e45d1f5.json",
+        "processed/see-veo/commits/e63a835.json",
+        "processed/see-veo/commits/e914149.json",
+        "processed/see-veo/commits/f21c952.json",
+        "processed/see-veo/commits/f86fcf3.json",
+        "processed/see-veo/commits/fb93f60.json",
+        "processed/see-veo/manifest.json",
+        "processed/tool-till-tees/commits/0afa8f9.json",
+        "processed/tool-till-tees/commits/0cc6d74.json",
+        "processed/tool-till-tees/commits/12449ca.json",
+        "processed/tool-till-tees/commits/15caabf.json",
+        "processed/tool-till-tees/commits/173c886.json",
+        "processed/tool-till-tees/commits/17d6905.json",
+        "processed/tool-till-tees/commits/191af43.json",
+        "processed/tool-till-tees/commits/19ada1b.json",
+        "processed/tool-till-tees/commits/1abf93e.json",
+        "processed/tool-till-tees/commits/1cc4ea2.json",
+        "processed/tool-till-tees/commits/28b0a24.json",
+        "processed/tool-till-tees/commits/2975529.json",
+        "processed/tool-till-tees/commits/2c40b30.json",
+        "processed/tool-till-tees/commits/2d5ba02.json",
+        "processed/tool-till-tees/commits/42e2949.json",
+        "processed/tool-till-tees/commits/462397e.json",
+        "processed/tool-till-tees/commits/50cb3bd.json",
+        "processed/tool-till-tees/commits/6a2962b.json",
+        "processed/tool-till-tees/commits/6e87333.json",
+        "processed/tool-till-tees/commits/77b025d.json",
+        "processed/tool-till-tees/commits/7cb77f6.json",
+        "processed/tool-till-tees/commits/7fc7936.json",
+        "processed/tool-till-tees/commits/822eb0b.json",
+        "processed/tool-till-tees/commits/89f74b1.json",
+        "processed/tool-till-tees/commits/8b616ee.json",
+        "processed/tool-till-tees/commits/ac76cf4.json",
+        "processed/tool-till-tees/commits/ae4ed21.json",
+        "processed/tool-till-tees/commits/ae7e096.json",
+        "processed/tool-till-tees/commits/b72be04.json",
+        "processed/tool-till-tees/commits/bf9ac72.json",
+        "processed/tool-till-tees/commits/c62c4b7.json",
+        "processed/tool-till-tees/commits/caa55e8.json",
+        "processed/tool-till-tees/commits/caba887.json",
+        "processed/tool-till-tees/commits/d07fdc7.json",
+        "processed/tool-till-tees/commits/dda74da.json",
+        "processed/tool-till-tees/commits/e10812c.json",
+        "processed/tool-till-tees/commits/e93a893.json",
+        "processed/tool-till-tees/commits/ef40160.json",
+        "processed/tool-till-tees/commits/f9a72f3.json",
+        "processed/tool-till-tees/manifest.json",
+        "scripts/extract-api.js",
+        "scripts/extract.js",
+        "scripts/pending.js",
+        "scripts/update-all.sh",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "92dc0c7",
+      "fullSha": "92dc0c7e30b434324348c500fab65af25c7bfef1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T18:25:28Z",
+      "commitDate": "2026-02-24T18:25:28Z",
+      "subject": "fix: comprehensive code review — 24 security, perf, a11y, and quality fixes",
+      "body": "Security: XSS fix in debug banner (innerHTML→DOM API), temp file path\nmoved to os.tmpdir(), event delegation replaces per-render listeners.\n\nPerformance: Batched git stat extraction (1 cmd vs 2n), concurrent API\nfetching (5-worker pool), getComputedStyle moved out of render path.\n\nData integrity: Atomic pending batch deletion, fixed filesChanged calc,\nadded repo_id to API security events, added metadata fields.\n\nAccessibility: aria-labels on stat/contributor cards and drop zone,\naria-controls on CollapsibleSection, consistent empty state messages.\n\nCode quality: Silent catches→console.warn, stale closure fix, inline\nstyles→CSS classes, Easter dates 2020-2030, removed unused sharp dep.\n\nCSS/Config: Defined --shadow-lg and --color-primary-alpha, removed\ncollapsible max-height cap, added woff2 to PWA precache.\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+      "tags": [
+        "security",
+        "performance",
+        "accessibility",
+        "bugfix",
+        "refactor"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "codebase-review",
+      "semver": "patch",
+      "scope": null,
+      "title": "comprehensive code review — 24 security, perf, a11y, and quality fixes",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 21,
+        "additions": 450,
+        "deletions": 159
+      },
+      "files": [
+        "dashboard/js/App.jsx",
+        "dashboard/js/AppContext.jsx",
+        "dashboard/js/components/CollapsibleSection.jsx",
+        "dashboard/js/components/DropZone.jsx",
+        "dashboard/js/components/FilterSidebar.jsx",
+        "dashboard/js/components/SettingsPane.jsx",
+        "dashboard/js/main.jsx",
+        "dashboard/js/pwa.js",
+        "dashboard/js/tabs/ContributorsTab.jsx",
+        "dashboard/js/tabs/HealthTab.jsx",
+        "dashboard/js/tabs/SummaryTab.jsx",
+        "dashboard/js/tabs/TagsTab.jsx",
+        "dashboard/js/utils.js",
+        "dashboard/styles.css",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "package.json",
+        "scripts/extract-api.js",
+        "scripts/extract.js",
+        "scripts/pending.js",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "ac40040",
+      "fullSha": "ac40040b20801c4f96b6cb34d183afb5b1d8ce1d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T17:55:07Z",
+      "commitDate": "2026-02-24T17:55:07Z",
+      "subject": "feat: show full commit subject in detail views",
+      "body": "sanitizeMessage() was hiding commit subjects with [message hidden].\nNow shows the full subject line in all view levels across DetailPane,\nTimelineTab, and SecurityTab. Removed [Details hidden] from SecurityTab.\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+      "tags": [
+        "enhancement",
+        "ux"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "patch",
+      "scope": null,
+      "title": "show full commit subject in detail views",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 24,
+        "deletions": 11
+      },
+      "files": [
+        "dashboard/js/tabs/SecurityTab.jsx",
+        "dashboard/js/utils.js",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "6bfcde2",
+      "fullSha": "6bfcde2ad1216483ec4e8f9e8bf2968657dbd939",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T17:29:46Z",
+      "commitDate": "2026-02-24T17:29:46Z",
+      "subject": "refactor: remove gh CLI dependency from extract-api.js, use curl + multi-token discovery",
+      "body": "extract-api.js now uses curl for GitHub API calls instead of gh CLI.\nToken discovery checks GH_TOKEN, GITHUB_TOKEN, and GITHUB_ALL_REPO_TOKEN.\nTested and confirmed working. Eliminates the need to clone repos for extraction.\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+      "tags": [
+        "refactor",
+        "config"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": null,
+      "title": "remove gh CLI dependency from extract-api.js, use curl + multi-token discovery",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 208,
+        "deletions": 179
+      },
+      "files": [
+        "docs/ADMIN_GUIDE.md",
+        "docs/AI_LESSONS.md",
+        "docs/CODE_REVIEW.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "scripts/extract-api.js",
+        "scripts/update-all.sh"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "31d664e",
+      "fullSha": "31d664e4c006ea1b51393dcdc588362520271988",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T17:16:10Z",
+      "commitDate": "2026-02-24T17:16:10Z",
+      "subject": "Merge pull request #4 from devmade-ai/claude/setup-node-22-Kg8Fc",
+      "body": "Update dependencies",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #4 from devmade-ai/claude/setup-node-22-Kg8Fc",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 8377,
+        "deletions": 0
+      },
+      "files": [
+        "package-lock.json"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "7a8c2be",
+      "fullSha": "7a8c2bea7af753c956c62dbbebd50917e91f48d6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T17:10:14Z",
+      "commitDate": "2026-02-24T17:10:14Z",
+      "subject": "fix(ci): add package-lock.json for reproducible CI builds",
+      "body": "The deploy workflow uses actions/setup-node@v4 with cache: npm and\nnpm ci, both of which require a lock file. Without package-lock.json\nthe cache step warns and npm ci fails entirely.\n\nTags: ci, dependencies, devops\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: ci-deploy\nSemver: patch\n\nhttps://claude.ai/code/session_01EhS6UBzB7mMja9whChYBsX",
+      "tags": [
+        "ci",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "ci-deploy",
+      "semver": "patch",
+      "scope": "ci",
+      "title": "add package-lock.json for reproducible CI builds",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 8377,
+        "deletions": 0
+      },
+      "files": [
+        "package-lock.json"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "bb64f1b",
+      "fullSha": "bb64f1b4b17065c9b245ca1f62c30c521d39ba4f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T16:38:25Z",
+      "commitDate": "2026-02-24T16:38:25Z",
+      "subject": "chore: feed the chicken - 63 new graphiki commits + re-aggregate all data",
+      "body": "Completes incremental feed: 206 new commits across 7 repos.\nRe-aggregated dashboard data: 14 repos, 1908 total commits.\nUpdated extraction progress and session notes.\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "feed the chicken - 63 new graphiki commits + re-aggregate all data",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 81,
+        "additions": 23949,
+        "deletions": 1946
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/budgy-ting.json",
+        "dashboard/repos/canva-grid-assets.json",
+        "dashboard/repos/canva-grid.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/coin-zapp.json",
+        "dashboard/repos/few-lap.json",
+        "dashboard/repos/glow-props.json",
+        "dashboard/repos/graphiki.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/plant-fur.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/see-veo.json",
+        "dashboard/repos/synctone.json",
+        "dashboard/repos/tool-till-tees.json",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "processed/graphiki/commits/026bccb.json",
+        "processed/graphiki/commits/051d47e.json",
+        "processed/graphiki/commits/053573b.json",
+        "processed/graphiki/commits/0704b6c.json",
+        "processed/graphiki/commits/08f6490.json",
+        "processed/graphiki/commits/14bda5c.json",
+        "processed/graphiki/commits/168f7b5.json",
+        "processed/graphiki/commits/184b119.json",
+        "processed/graphiki/commits/1b2c9d8.json",
+        "processed/graphiki/commits/1f506d4.json",
+        "processed/graphiki/commits/250182f.json",
+        "processed/graphiki/commits/2976744.json",
+        "processed/graphiki/commits/2cec14f.json",
+        "processed/graphiki/commits/2ded1ad.json",
+        "processed/graphiki/commits/32e4f74.json",
+        "processed/graphiki/commits/35463af.json",
+        "processed/graphiki/commits/3752490.json",
+        "processed/graphiki/commits/3d88239.json",
+        "processed/graphiki/commits/40587e4.json",
+        "processed/graphiki/commits/423bd88.json",
+        "processed/graphiki/commits/554faa7.json",
+        "processed/graphiki/commits/58dd875.json",
+        "processed/graphiki/commits/5e8daf6.json",
+        "processed/graphiki/commits/60f06ac.json",
+        "processed/graphiki/commits/64f99ce.json",
+        "processed/graphiki/commits/65bdc4c.json",
+        "processed/graphiki/commits/6beb779.json",
+        "processed/graphiki/commits/761a10f.json",
+        "processed/graphiki/commits/79ae02d.json",
+        "processed/graphiki/commits/7ba8b63.json",
+        "processed/graphiki/commits/81d6bef.json",
+        "processed/graphiki/commits/83b22c0.json",
+        "processed/graphiki/commits/8662e45.json",
+        "processed/graphiki/commits/8a819c7.json",
+        "processed/graphiki/commits/8ec27e8.json",
+        "processed/graphiki/commits/946a565.json",
+        "processed/graphiki/commits/953f342.json",
+        "processed/graphiki/commits/9948a89.json",
+        "processed/graphiki/commits/9f336e1.json",
+        "processed/graphiki/commits/a09041d.json",
+        "processed/graphiki/commits/b8741e0.json",
+        "processed/graphiki/commits/ba4409c.json",
+        "processed/graphiki/commits/baba579.json",
+        "processed/graphiki/commits/bd6baaa.json",
+        "processed/graphiki/commits/beaa85d.json",
+        "processed/graphiki/commits/c1ca8ec.json",
+        "processed/graphiki/commits/c4e6d41.json",
+        "processed/graphiki/commits/c6f35b6.json",
+        "processed/graphiki/commits/ca760c1.json",
+        "processed/graphiki/commits/ce98dd7.json",
+        "processed/graphiki/commits/cff1cce.json",
+        "processed/graphiki/commits/d0d6cfa.json",
+        "processed/graphiki/commits/d3a87d5.json",
+        "processed/graphiki/commits/d4dd771.json",
+        "processed/graphiki/commits/d674b8a.json",
+        "processed/graphiki/commits/e3a6e1d.json",
+        "processed/graphiki/commits/e50fbba.json",
+        "processed/graphiki/commits/e849763.json",
+        "processed/graphiki/commits/ebbab7d.json",
+        "processed/graphiki/commits/f4c70d9.json",
+        "processed/graphiki/commits/faeaff7.json",
+        "processed/graphiki/commits/fbe1cc1.json",
+        "processed/graphiki/commits/fc8b7fd.json",
+        "processed/graphiki/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "3e974e3",
+      "fullSha": "3e974e30e8ebc99527819f186a3e1760eff5eb31",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T16:31:50Z",
+      "commitDate": "2026-02-24T16:31:50Z",
+      "subject": "chore: feed the chicken - 39 new tool-till-tees commits",
+      "body": "Process all 39 tool-till-tees commits (Vercel API, deploy fixes, CORS, tests).\nNew repo fully processed: 39/39 commits.\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "feed the chicken - 39 new tool-till-tees commits",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 40,
+        "additions": 1762,
+        "deletions": 0
+      },
+      "files": [
+        "processed/tool-till-tees/commits/0afa8f9.json",
+        "processed/tool-till-tees/commits/0cc6d74.json",
+        "processed/tool-till-tees/commits/12449ca.json",
+        "processed/tool-till-tees/commits/15caabf.json",
+        "processed/tool-till-tees/commits/173c886.json",
+        "processed/tool-till-tees/commits/17d6905.json",
+        "processed/tool-till-tees/commits/191af43.json",
+        "processed/tool-till-tees/commits/19ada1b.json",
+        "processed/tool-till-tees/commits/1abf93e.json",
+        "processed/tool-till-tees/commits/1cc4ea2.json",
+        "processed/tool-till-tees/commits/28b0a24.json",
+        "processed/tool-till-tees/commits/2975529.json",
+        "processed/tool-till-tees/commits/2c40b30.json",
+        "processed/tool-till-tees/commits/2d5ba02.json",
+        "processed/tool-till-tees/commits/42e2949.json",
+        "processed/tool-till-tees/commits/462397e.json",
+        "processed/tool-till-tees/commits/50cb3bd.json",
+        "processed/tool-till-tees/commits/6a2962b.json",
+        "processed/tool-till-tees/commits/6e87333.json",
+        "processed/tool-till-tees/commits/77b025d.json",
+        "processed/tool-till-tees/commits/7cb77f6.json",
+        "processed/tool-till-tees/commits/7fc7936.json",
+        "processed/tool-till-tees/commits/822eb0b.json",
+        "processed/tool-till-tees/commits/89f74b1.json",
+        "processed/tool-till-tees/commits/8b616ee.json",
+        "processed/tool-till-tees/commits/ac76cf4.json",
+        "processed/tool-till-tees/commits/ae4ed21.json",
+        "processed/tool-till-tees/commits/ae7e096.json",
+        "processed/tool-till-tees/commits/b72be04.json",
+        "processed/tool-till-tees/commits/bf9ac72.json",
+        "processed/tool-till-tees/commits/c62c4b7.json",
+        "processed/tool-till-tees/commits/caa55e8.json",
+        "processed/tool-till-tees/commits/caba887.json",
+        "processed/tool-till-tees/commits/d07fdc7.json",
+        "processed/tool-till-tees/commits/dda74da.json",
+        "processed/tool-till-tees/commits/e10812c.json",
+        "processed/tool-till-tees/commits/e93a893.json",
+        "processed/tool-till-tees/commits/ef40160.json",
+        "processed/tool-till-tees/commits/f9a72f3.json",
+        "processed/tool-till-tees/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "875c07b",
+      "fullSha": "875c07b977d2dc518b9d49eb0152f0298176cb05",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T16:30:15Z",
+      "commitDate": "2026-02-24T16:30:15Z",
+      "subject": "chore: feed the chicken - 41 new see-veo commits",
+      "body": "Process 41 pending see-veo commits (embed integration, icon redesigns, layout).\nRepo now fully processed: 109/109 commits.\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "feed the chicken - 41 new see-veo commits",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 42,
+        "additions": 1826,
+        "deletions": 2
+      },
+      "files": [
+        "processed/see-veo/commits/0251eb2.json",
+        "processed/see-veo/commits/0284f0a.json",
+        "processed/see-veo/commits/0a7a1d7.json",
+        "processed/see-veo/commits/0babf38.json",
+        "processed/see-veo/commits/0df4b46.json",
+        "processed/see-veo/commits/157d556.json",
+        "processed/see-veo/commits/18f1de6.json",
+        "processed/see-veo/commits/1902491.json",
+        "processed/see-veo/commits/1b2bf0a.json",
+        "processed/see-veo/commits/227830b.json",
+        "processed/see-veo/commits/2437fda.json",
+        "processed/see-veo/commits/2c18fb0.json",
+        "processed/see-veo/commits/2f93472.json",
+        "processed/see-veo/commits/35fcac3.json",
+        "processed/see-veo/commits/38a00c0.json",
+        "processed/see-veo/commits/404866e.json",
+        "processed/see-veo/commits/48a503a.json",
+        "processed/see-veo/commits/4acb461.json",
+        "processed/see-veo/commits/52eb2f5.json",
+        "processed/see-veo/commits/603236a.json",
+        "processed/see-veo/commits/6f575ff.json",
+        "processed/see-veo/commits/789121d.json",
+        "processed/see-veo/commits/792b55e.json",
+        "processed/see-veo/commits/7ad80e3.json",
+        "processed/see-veo/commits/93073a5.json",
+        "processed/see-veo/commits/ae76f6d.json",
+        "processed/see-veo/commits/afa937d.json",
+        "processed/see-veo/commits/b3a2b43.json",
+        "processed/see-veo/commits/bac610c.json",
+        "processed/see-veo/commits/c2ff07b.json",
+        "processed/see-veo/commits/c935aaf.json",
+        "processed/see-veo/commits/daf134f.json",
+        "processed/see-veo/commits/dc0cf74.json",
+        "processed/see-veo/commits/e1fa5fa.json",
+        "processed/see-veo/commits/e44dd89.json",
+        "processed/see-veo/commits/e45d1f5.json",
+        "processed/see-veo/commits/e63a835.json",
+        "processed/see-veo/commits/e914149.json",
+        "processed/see-veo/commits/f21c952.json",
+        "processed/see-veo/commits/f86fcf3.json",
+        "processed/see-veo/commits/fb93f60.json",
+        "processed/see-veo/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "52c7dc0",
+      "fullSha": "52c7dc0aaf98efa2e2137a06dc96f8272dd433f3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T16:28:12Z",
+      "commitDate": "2026-02-24T16:28:12Z",
+      "subject": "chore: feed the chicken - 22 new repo-tor commits",
+      "body": "Process 22 pending repo-tor commits (embed features, feed-the-chicken chores).\nRepo now fully processed: 415/415 commits.\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "feed the chicken - 22 new repo-tor commits",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 23,
+        "additions": 1139,
+        "deletions": 2
+      },
+      "files": [
+        "processed/repo-tor/commits/0909f57.json",
+        "processed/repo-tor/commits/440a81b.json",
+        "processed/repo-tor/commits/5146b7c.json",
+        "processed/repo-tor/commits/55f765e.json",
+        "processed/repo-tor/commits/6bd5d0f.json",
+        "processed/repo-tor/commits/766ec27.json",
+        "processed/repo-tor/commits/7cefa57.json",
+        "processed/repo-tor/commits/86efa41.json",
+        "processed/repo-tor/commits/89600aa.json",
+        "processed/repo-tor/commits/8b35d1b.json",
+        "processed/repo-tor/commits/9799a4f.json",
+        "processed/repo-tor/commits/9b2bb8a.json",
+        "processed/repo-tor/commits/9df8946.json",
+        "processed/repo-tor/commits/b09340e.json",
+        "processed/repo-tor/commits/c0db50b.json",
+        "processed/repo-tor/commits/c3111a3.json",
+        "processed/repo-tor/commits/ca381c3.json",
+        "processed/repo-tor/commits/cbdc918.json",
+        "processed/repo-tor/commits/d6d233d.json",
+        "processed/repo-tor/commits/fae2a73.json",
+        "processed/repo-tor/commits/ff63237.json",
+        "processed/repo-tor/commits/ffd9ae5.json",
+        "processed/repo-tor/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "42b0bb6",
+      "fullSha": "42b0bb688241d4577a37f413bad0ddc3483b17df",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T16:25:46Z",
+      "commitDate": "2026-02-24T16:25:46Z",
+      "subject": "chore: feed the chicken - 19 new budgy-ting commits",
+      "body": "Process all 19 budgy-ting commits (MVP phases 1-7, PWA, CI/CD, docs).\nNew repo fully processed: 19/19 commits.\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "feed the chicken - 19 new budgy-ting commits",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 20,
+        "additions": 927,
+        "deletions": 0
+      },
+      "files": [
+        "processed/budgy-ting/commits/02f4ee5.json",
+        "processed/budgy-ting/commits/072b102.json",
+        "processed/budgy-ting/commits/0d3d7e3.json",
+        "processed/budgy-ting/commits/12a3d81.json",
+        "processed/budgy-ting/commits/1b1331c.json",
+        "processed/budgy-ting/commits/29ab128.json",
+        "processed/budgy-ting/commits/2c985cf.json",
+        "processed/budgy-ting/commits/3065aa6.json",
+        "processed/budgy-ting/commits/5a900d3.json",
+        "processed/budgy-ting/commits/70ee074.json",
+        "processed/budgy-ting/commits/71bdab7.json",
+        "processed/budgy-ting/commits/74241fb.json",
+        "processed/budgy-ting/commits/924e566.json",
+        "processed/budgy-ting/commits/99080da.json",
+        "processed/budgy-ting/commits/ab8b929.json",
+        "processed/budgy-ting/commits/d55b67d.json",
+        "processed/budgy-ting/commits/dc9237d.json",
+        "processed/budgy-ting/commits/e77f0b1.json",
+        "processed/budgy-ting/commits/f1fceab.json",
+        "processed/budgy-ting/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "8e09882",
+      "fullSha": "8e098829ec9ccee64ca817a1177b1c293dcb5d85",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T16:24:28Z",
+      "commitDate": "2026-02-24T16:24:28Z",
+      "subject": "chore: feed the chicken - 16 new few-lap commits",
+      "body": "Process 16 pending few-lap commits (Expo app init, features, fixes, docs).\nRepo now fully processed: 21/21 commits.\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "feed the chicken - 16 new few-lap commits",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 17,
+        "additions": 806,
+        "deletions": 2
+      },
+      "files": [
+        "processed/few-lap/commits/00266d2.json",
+        "processed/few-lap/commits/01ee029.json",
+        "processed/few-lap/commits/1025ea0.json",
+        "processed/few-lap/commits/3eb009d.json",
+        "processed/few-lap/commits/45d8363.json",
+        "processed/few-lap/commits/61f6333.json",
+        "processed/few-lap/commits/71532f8.json",
+        "processed/few-lap/commits/a2d8260.json",
+        "processed/few-lap/commits/ad885f0.json",
+        "processed/few-lap/commits/b6ab4d3.json",
+        "processed/few-lap/commits/bac21c0.json",
+        "processed/few-lap/commits/bd2f83b.json",
+        "processed/few-lap/commits/c51630f.json",
+        "processed/few-lap/commits/dd2664c.json",
+        "processed/few-lap/commits/eba8f96.json",
+        "processed/few-lap/commits/ef0b5c5.json",
+        "processed/few-lap/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "768bf97",
+      "fullSha": "768bf97d4a20767104ca348aeaf42493271e1805",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T16:22:56Z",
+      "commitDate": "2026-02-24T16:22:56Z",
+      "subject": "chore: feed the chicken - 6 new glow-props commits",
+      "body": "Process 6 pending glow-props commits (all docs/cleanup work).\nRepo now fully processed: 21/21 commits.\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "feed the chicken - 6 new glow-props commits",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 257,
+        "deletions": 2
+      },
+      "files": [
+        "processed/glow-props/commits/2356eac.json",
+        "processed/glow-props/commits/28dd029.json",
+        "processed/glow-props/commits/652af3d.json",
+        "processed/glow-props/commits/83849f9.json",
+        "processed/glow-props/commits/b330d21.json",
+        "processed/glow-props/commits/f97434b.json",
+        "processed/glow-props/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "e4512d0",
+      "fullSha": "e4512d0b3cb1502563d536fc750dec88197827c9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T16:20:44Z",
+      "commitDate": "2026-02-24T16:20:44Z",
+      "subject": "feat: add Projects tab and new repos (budgy-ting, tool-till-tees)",
+      "body": "- Add Projects tab to dashboard with live project directory\n  - Cards for all 14 repos, split into \"Live Projects\" (8 with sites)\n    and \"Other Repositories\" (6 without)\n  - Each card shows name, language badge, commit count, and links\n    to live site and GitHub repo\n  - Fetches from projects.json (static data alongside data.json)\n- Add budgy-ting and tool-till-tees to config/repos.json\n- Re-aggregate dashboard data from existing processed commits\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "minor",
+      "scope": null,
+      "title": "add Projects tab and new repos (budgy-ting, tool-till-tees)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 20,
+        "additions": 326,
+        "deletions": 15
+      },
+      "files": [
+        "config/repos.json",
+        "dashboard/data.json",
+        "dashboard/js/App.jsx",
+        "dashboard/js/components/TabBar.jsx",
+        "dashboard/js/state.js",
+        "dashboard/js/tabs/ProjectsTab.jsx",
+        "dashboard/projects.json",
+        "dashboard/repos/canva-grid-assets.json",
+        "dashboard/repos/canva-grid.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/coin-zapp.json",
+        "dashboard/repos/few-lap.json",
+        "dashboard/repos/glow-props.json",
+        "dashboard/repos/graphiki.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/plant-fur.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/see-veo.json",
+        "dashboard/repos/synctone.json",
+        "dashboard/styles.css"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
     {
       "sha": "5a900d3",
       "fullSha": "5a900d360f103d487965e5099aff8440c91e6857",
@@ -69671,31 +72061,36 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 1365,
-      "avgComplexity": 1.69,
-      "avgUrgency": 1.88,
+      "commits": 1403,
+      "avgComplexity": 1.7,
+      "avgUrgency": 1.89,
       "tagBreakdown": {
-        "merge": 451,
-        "bugfix": 212,
-        "error-handling": 10,
+        "merge": 462,
+        "bugfix": 219,
+        "ux": 90,
+        "accessibility": 15,
+        "ui": 213,
+        "refactor": 107,
+        "config": 122,
+        "feature": 204,
+        "database": 10,
+        "schema": 10,
+        "security": 10,
+        "performance": 17,
+        "types": 6,
+        "build": 10,
+        "cd": 3,
+        "dependency-update": 2,
+        "error-handling": 11,
+        "enhancement": 22,
+        "ci": 10,
         "docs": 236,
         "removal": 33,
-        "feature": 201,
-        "refactor": 102,
         "comments": 1,
-        "ci": 9,
-        "dependency-update": 1,
-        "config": 111,
-        "cd": 2,
-        "ui": 205,
-        "ux": 83,
-        "database": 9,
         "init": 11,
-        "build": 7,
         "naming": 8,
         "test-unit": 4,
         "dependency-add": 6,
-        "schema": 9,
         "style": 23,
         "chore": 30,
         "pwa": 9,
@@ -69704,21 +72099,16 @@
         "print": 1,
         "embed": 1,
         "simplify": 14,
-        "accessibility": 10,
-        "types": 4,
-        "enhancement": 21,
         "import": 5,
         "migration": 7,
         "skills": 3,
         "deploy": 11,
         "revert": 5,
-        "security": 8,
         "api": 4,
         "mobile": 3,
         "lint": 1,
         "debug": 5,
         "testing": 6,
-        "performance": 15,
         "quality": 1,
         "serverless": 1,
         "email": 2,
@@ -69759,28 +72149,28 @@
         "infrastructure": 3
       },
       "impactBreakdown": {
-        "internal": 831,
-        "user-facing": 449,
-        "infrastructure": 85,
+        "internal": 850,
+        "user-facing": 463,
+        "infrastructure": 90,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 319,
-        "medium": 41,
-        "high": 2
+        "low": 339,
+        "medium": 47,
+        "high": 3
       },
       "debtBreakdown": {
         "added": 1,
-        "paid": 74,
-        "neutral": 287
+        "paid": 83,
+        "neutral": 305
       },
       "repos": [
+        "graphiki",
+        "repo-tor",
         "budgy-ting",
         "glow-props",
-        "graphiki",
         "few-lap",
         "see-veo",
-        "repo-tor",
         "tool-till-tees",
         "canva-grid",
         "model-pear",
@@ -69792,7 +72182,7 @@
       ],
       "repoCount": 14,
       "firstCommit": "2025-12-06T11:51:56Z",
-      "lastCommit": "2026-02-24T18:04:17+02:00"
+      "lastCommit": "2026-02-25T08:55:51Z"
     },
     {
       "author_id": "noreply@anthropic.com",
@@ -69990,30 +72380,35 @@
     }
   ],
   "summary": {
-    "totalCommits": 1908,
+    "totalCommits": 1946,
     "totalContributors": 4,
     "tagBreakdown": {
-      "merge": 461,
-      "bugfix": 312,
-      "error-handling": 14,
+      "merge": 472,
+      "bugfix": 319,
+      "ux": 147,
+      "accessibility": 21,
+      "ui": 384,
+      "refactor": 168,
+      "config": 148,
+      "feature": 352,
+      "database": 12,
+      "schema": 15,
+      "security": 15,
+      "performance": 27,
+      "types": 10,
+      "build": 11,
+      "cd": 3,
+      "dependency-update": 2,
+      "error-handling": 15,
+      "enhancement": 63,
+      "ci": 12,
       "docs": 426,
       "removal": 59,
-      "feature": 349,
-      "refactor": 163,
       "comments": 1,
-      "ci": 11,
-      "dependency-update": 1,
-      "config": 137,
-      "cd": 2,
-      "ui": 376,
-      "ux": 140,
-      "database": 11,
       "init": 21,
-      "build": 8,
       "naming": 15,
       "test-unit": 12,
       "dependency-add": 8,
-      "schema": 14,
       "style": 25,
       "chore": 41,
       "pwa": 10,
@@ -70022,21 +72417,16 @@
       "print": 1,
       "embed": 1,
       "simplify": 20,
-      "accessibility": 16,
-      "types": 8,
-      "enhancement": 62,
       "import": 5,
       "migration": 10,
       "skills": 3,
       "deploy": 11,
       "revert": 9,
-      "security": 13,
       "api": 4,
       "mobile": 3,
       "lint": 1,
       "debug": 5,
       "testing": 7,
-      "performance": 25,
       "quality": 1,
       "serverless": 1,
       "email": 2,
@@ -70099,36 +72489,44 @@
       "setup": 1
     },
     "complexityBreakdown": {
-      "1": 955,
-      "2": 448,
-      "3": 290,
-      "4": 157,
-      "5": 58
+      "1": 980,
+      "2": 450,
+      "3": 295,
+      "4": 161,
+      "5": 60
     },
     "urgencyBreakdown": {
       "1": 531,
-      "2": 1183,
-      "3": 176,
-      "4": 16,
-      "5": 2
+      "2": 1214,
+      "3": 179,
+      "4": 19,
+      "5": 3
     },
     "impactBreakdown": {
-      "internal": 1070,
-      "user-facing": 736,
-      "infrastructure": 100,
+      "internal": 1089,
+      "user-facing": 750,
+      "infrastructure": 105,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 319,
-      "medium": 41,
-      "high": 2
+      "low": 339,
+      "medium": 47,
+      "high": 3
     },
     "debtBreakdown": {
       "added": 1,
-      "paid": 74,
-      "neutral": 287
+      "paid": 83,
+      "neutral": 305
     },
     "epicBreakdown": {
+      "ux-polish": 1,
+      "codebase-review": 3,
+      "multiple-workspaces": 1,
+      "tutorial-modal": 1,
+      "mobile-ux": 1,
+      "onboarding": 1,
+      "build-stability": 1,
+      "ci-deploy": 1,
       "budgy-mvp": 2,
       "embed-mode": 3,
       "pwa-update-flow": 1,
@@ -70166,37 +72564,42 @@
       "session-hooks": 12
     },
     "semverBreakdown": {
-      "patch": 56,
-      "minor": 47,
-      "major": 1
+      "patch": 70,
+      "minor": 51,
+      "major": 2
     },
     "avgComplexity": 1.91,
-    "avgUrgency": 1.83,
+    "avgUrgency": 1.84,
     "monthly": {
       "2026-02": {
-        "commits": 650,
+        "commits": 688,
         "tags": {
-          "merge": 161,
-          "bugfix": 112,
-          "error-handling": 5,
+          "merge": 172,
+          "bugfix": 119,
+          "ux": 56,
+          "accessibility": 14,
+          "ui": 130,
+          "refactor": 62,
+          "config": 78,
+          "feature": 120,
+          "database": 6,
+          "schema": 3,
+          "security": 5,
+          "performance": 11,
+          "types": 4,
+          "build": 6,
+          "cd": 2,
+          "dependency-update": 2,
+          "error-handling": 6,
+          "enhancement": 4,
+          "ci": 7,
           "docs": 119,
           "removal": 20,
-          "feature": 117,
-          "refactor": 57,
           "comments": 1,
-          "ci": 6,
-          "dependency-update": 1,
-          "config": 67,
-          "cd": 1,
-          "ui": 122,
-          "ux": 49,
-          "database": 5,
           "init": 6,
-          "build": 3,
           "naming": 6,
           "test-unit": 4,
           "dependency-add": 3,
-          "schema": 2,
           "style": 20,
           "chore": 16,
           "pwa": 10,
@@ -70205,21 +72608,16 @@
           "print": 1,
           "embed": 1,
           "simplify": 8,
-          "accessibility": 9,
-          "types": 2,
-          "enhancement": 3,
           "import": 5,
           "migration": 4,
           "skills": 3,
           "deploy": 11,
           "revert": 3,
-          "security": 3,
           "api": 2,
           "mobile": 2,
           "lint": 1,
           "debug": 5,
           "testing": 4,
-          "performance": 9,
           "quality": 1,
           "serverless": 1,
           "email": 1,
@@ -70253,28 +72651,28 @@
           "changelog": 10
         },
         "impact": {
-          "internal": 322,
-          "user-facing": 263,
-          "infrastructure": 65,
+          "internal": 341,
+          "user-facing": 277,
+          "infrastructure": 70,
           "api": 0
         },
         "risk": {
-          "low": 318,
-          "medium": 41,
-          "high": 2
+          "low": 338,
+          "medium": 47,
+          "high": 3
         },
         "debt": {
           "added": 1,
-          "paid": 74,
-          "neutral": 286
+          "paid": 83,
+          "neutral": 304
         },
         "semver": {
-          "patch": 56,
-          "minor": 46,
-          "major": 1
+          "patch": 70,
+          "minor": 50,
+          "major": 2
         },
         "avgComplexity": 1.78,
-        "avgUrgency": 1.88
+        "avgUrgency": 1.9
       },
       "2026-01": {
         "commits": 953,
@@ -70466,29 +72864,34 @@
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 650,
+        "commits": 688,
         "tags": {
-          "merge": 161,
-          "bugfix": 112,
-          "error-handling": 5,
+          "merge": 172,
+          "bugfix": 119,
+          "ux": 56,
+          "accessibility": 14,
+          "ui": 130,
+          "refactor": 62,
+          "config": 78,
+          "feature": 120,
+          "database": 6,
+          "schema": 3,
+          "security": 5,
+          "performance": 11,
+          "types": 4,
+          "build": 6,
+          "cd": 2,
+          "dependency-update": 2,
+          "error-handling": 6,
+          "enhancement": 4,
+          "ci": 7,
           "docs": 119,
           "removal": 20,
-          "feature": 117,
-          "refactor": 57,
           "comments": 1,
-          "ci": 6,
-          "dependency-update": 1,
-          "config": 67,
-          "cd": 1,
-          "ui": 122,
-          "ux": 49,
-          "database": 5,
           "init": 6,
-          "build": 3,
           "naming": 6,
           "test-unit": 4,
           "dependency-add": 3,
-          "schema": 2,
           "style": 20,
           "chore": 16,
           "pwa": 10,
@@ -70497,21 +72900,16 @@
           "print": 1,
           "embed": 1,
           "simplify": 8,
-          "accessibility": 9,
-          "types": 2,
-          "enhancement": 3,
           "import": 5,
           "migration": 4,
           "skills": 3,
           "deploy": 11,
           "revert": 3,
-          "security": 3,
           "api": 2,
           "mobile": 2,
           "lint": 1,
           "debug": 5,
           "testing": 4,
-          "performance": 9,
           "quality": 1,
           "serverless": 1,
           "email": 1,
@@ -70545,28 +72943,28 @@
           "changelog": 10
         },
         "impact": {
-          "internal": 322,
-          "user-facing": 263,
-          "infrastructure": 65,
+          "internal": 341,
+          "user-facing": 277,
+          "infrastructure": 70,
           "api": 0
         },
         "risk": {
-          "low": 318,
-          "medium": 41,
-          "high": 2
+          "low": 338,
+          "medium": 47,
+          "high": 3
         },
         "debt": {
           "added": 1,
-          "paid": 74,
-          "neutral": 286
+          "paid": 83,
+          "neutral": 304
         },
         "semver": {
-          "patch": 56,
-          "minor": 46,
-          "major": 1
+          "patch": 70,
+          "minor": 50,
+          "major": 2
         },
         "avgComplexity": 1.78,
-        "avgUrgency": 1.88
+        "avgUrgency": 1.9
       },
       "2026-01": {
         "commits": 953,
@@ -70758,9 +73156,19 @@
     },
     "dateRange": {
       "earliest": "2025-06-16T11:03:48+02:00",
-      "latest": "2026-02-24T18:04:17+02:00"
+      "latest": "2026-02-25T08:55:51Z"
     },
     "security_events": [
+      {
+        "sha": "a298745",
+        "timestamp": "2026-02-24T22:01:43Z",
+        "subject": "fix: comprehensive codebase review — 20 issues fixed across dashboard, scripts, CSS"
+      },
+      {
+        "sha": "92dc0c7",
+        "timestamp": "2026-02-24T18:25:28Z",
+        "subject": "fix: comprehensive code review — 24 security, perf, a11y, and quality fixes"
+      },
       {
         "sha": "b72be04",
         "timestamp": "2026-02-17T04:51:10+00:00",

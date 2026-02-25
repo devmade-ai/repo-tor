@@ -1,0 +1,62 @@
+{
+  "sha": "9fabee9",
+  "fullSha": "9fabee909b7b57162e2f1d2175c9ae8ae2dd9e77",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-25T07:10:05Z",
+  "commitDate": "2026-02-25T07:10:05Z",
+  "subject": "fix: codebase review round 2 — UX polish, accessibility, code quality",
+  "body": "UX: filter labels Inc/Exc→Include/Exclude, upload success toast, plain\nlanguage urgency labels, work hours color legend, security subtitle,\nstandardized empty states, improved error messages.\n\nA11y: focus-visible outlines on interactive elements, tab active state\nvia CSS variables, tag contrast increased for WCAG AA, reduced motion\nmedia query.\n\nCode quality: error boundary inline styles→CSS classes, centralized\nTHRESHOLDS constants, deleted dead scripts/lib/manifest.js.\n\nInfra: extract-api error.code fix, PWA glob patterns narrowed,\nproduction sourcemaps disabled.\n\nhttps://claude.ai/code/session_01HPuGwVREuAwq4yHa3q7GGe",
+  "tags": [
+    "ux",
+    "accessibility",
+    "refactor",
+    "config"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "codebase-review",
+  "semver": "patch",
+  "scope": null,
+  "title": "codebase review round 2 — UX polish, accessibility, code quality",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 19,
+    "additions": 232,
+    "deletions": 92
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/components/ErrorBoundary.jsx",
+    "dashboard/js/components/FilterSidebar.jsx",
+    "dashboard/js/components/TabBar.jsx",
+    "dashboard/js/main.jsx",
+    "dashboard/js/state.js",
+    "dashboard/js/tabs/ContributorsTab.jsx",
+    "dashboard/js/tabs/DiscoverTab.jsx",
+    "dashboard/js/tabs/HealthTab.jsx",
+    "dashboard/js/tabs/SecurityTab.jsx",
+    "dashboard/js/tabs/TagsTab.jsx",
+    "dashboard/js/tabs/TimelineTab.jsx",
+    "dashboard/js/tabs/TimingTab.jsx",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/extract-api.js",
+    "scripts/lib/manifest.js",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

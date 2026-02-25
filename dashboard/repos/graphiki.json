@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-02-24T16:34:52.032Z",
+    "generatedAt": "2026-02-25T09:50:25.647Z",
     "repository": "graphiki",
     "scope": "graphiki",
     "repoCount": 1,
-    "commitCount": 128,
+    "commitCount": 131,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -17,6 +17,241 @@
     }
   },
   "commits": [
+    {
+      "sha": "5478178",
+      "fullSha": "547817816e8de53b24aa4a64011f28e6d1db83e1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-25T08:55:51Z",
+      "commitDate": "2026-02-25T08:55:51Z",
+      "subject": "Merge pull request #34 from devmade-ai/claude/multiple-workspaces-NUevg",
+      "body": "Add workspace manager and multi-workspace support",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #34 from devmade-ai/claude/multiple-workspaces-NUevg",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#34"
+      ],
+      "stats": {
+        "filesChanged": 49,
+        "additions": 2082,
+        "deletions": 314
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/analysis/AnalysisModal.tsx",
+        "src/components/conventions/ConventionsModal.tsx",
+        "src/components/graph/GraphCanvas.tsx",
+        "src/components/importExport/ExportModal.tsx",
+        "src/components/importExport/ImportModal.tsx",
+        "src/components/layout/DetailDrawer.css",
+        "src/components/layout/DetailDrawer.tsx",
+        "src/components/panels/DetailPanel.tsx",
+        "src/components/pwa/InstallInstructionsModal.tsx",
+        "src/components/query/QueryBuilder.css",
+        "src/components/query/QueryHelpModal.tsx",
+        "src/components/ui/ConfirmDialog.tsx",
+        "src/components/ui/ConnectNodeModal.tsx",
+        "src/components/ui/ContextMenu.tsx",
+        "src/components/ui/CreateNodeModal.tsx",
+        "src/components/ui/Toast.css",
+        "src/components/ui/Toast.tsx",
+        "src/components/ui/TutorialModal.tsx",
+        "src/components/views/ViewSwitcher.tsx",
+        "src/components/workspaces/WorkspaceManager.css",
+        "src/components/workspaces/WorkspaceManager.tsx",
+        "src/data/demoData.ts",
+        "src/db/database.ts",
+        "src/hooks/useFocusTrap.ts",
+        "src/hooks/useGraphData.ts",
+        "src/hooks/useToast.ts",
+        "src/hooks/useViewData.ts",
+        "src/hooks/useWorkspaces.ts",
+        "src/services/analysisService.test.ts",
+        "src/services/graphService.test.ts",
+        "src/services/graphService.ts",
+        "src/services/importExportService.test.ts",
+        "src/services/importExportService.ts",
+        "src/services/markdownImportService.ts",
+        "src/services/mergeService.test.ts",
+        "src/services/queryEngine.test.ts",
+        "src/services/queryEngine.ts",
+        "src/services/seedService.test.ts",
+        "src/services/seedService.ts",
+        "src/services/snapshotService.ts",
+        "src/services/viewService.test.ts",
+        "src/services/viewService.ts",
+        "src/services/workspaceService.ts",
+        "src/types/index.ts",
+        "src/utils/factory.test.ts",
+        "src/utils/factory.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "4d9e867",
+      "fullSha": "4d9e867d633dc7fb875baf803b6dad348c16d912",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T08:40:01Z",
+      "commitDate": "2026-02-25T08:40:01Z",
+      "subject": "fix(ux): comprehensive UX review fixes — accessibility, mobile, data integrity",
+      "body": "Fixes 14 issues identified in deep UX review:\n\n1. Stale workspace check: use !activeWorkspace instead of !activeWorkspaceId\n   to prevent ghost workspace rendering after deletion\n2. Transaction-wrap deleteNode/bulkDeleteNodes for atomic data operations\n3. iOS input font-size 16px to prevent auto-zoom on focus\n4. Toast notification system (useToast + ToastContainer) replaces window.alert\n5. ConfirmDialog replaces window.confirm with themed inline dialog\n6. Empty graph state message for workspaces with 0 nodes\n7. Focus trapping (useFocusTrap) on all 9 modals for WCAG compliance\n8. ARIA roles: context menu (role=menu/menuitem), detail drawer (aria-modal),\n   view switcher (role=tablist/tab/aria-selected), all modals (role=dialog)\n9. Escape key handler on TutorialModal\n10. Mobile bottom sheet: swipe-to-dismiss gesture + body scroll lock\n11. Mobile touch targets bumped from 36px to 44px (WCAG 2.5.5)\n12. Edge label contrast improved (#6b7280 → #9ca3af for AA compliance)\n13. Focus-visible styles added for workspace-card-new-btn, import-paste-toggle,\n    detail-drawer-close, export-option-btn, toast-dismiss\n14. Property 'contains' filter bug fixed: new property-contains AST node type\n    instead of incorrectly falling through to title search\n\nTags: ux, accessibility, mobile, wcag, query-engine, data-integrity\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: ux-polish\nSemver: minor\n\nhttps://claude.ai/code/session_011D9ZTMQs9N9LGrFDTnWdDD",
+      "tags": [
+        "bugfix",
+        "ux",
+        "accessibility",
+        "ui"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "ux-polish",
+      "semver": "minor",
+      "scope": "ux",
+      "title": "comprehensive UX review fixes — accessibility, mobile, data integrity",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "#6",
+        "#9"
+      ],
+      "stats": {
+        "filesChanged": 27,
+        "additions": 855,
+        "deletions": 123
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/analysis/AnalysisModal.tsx",
+        "src/components/conventions/ConventionsModal.tsx",
+        "src/components/graph/GraphCanvas.tsx",
+        "src/components/importExport/ExportModal.tsx",
+        "src/components/importExport/ImportModal.tsx",
+        "src/components/layout/DetailDrawer.css",
+        "src/components/layout/DetailDrawer.tsx",
+        "src/components/panels/DetailPanel.tsx",
+        "src/components/pwa/InstallInstructionsModal.tsx",
+        "src/components/query/QueryBuilder.css",
+        "src/components/query/QueryHelpModal.tsx",
+        "src/components/ui/ConfirmDialog.tsx",
+        "src/components/ui/ConnectNodeModal.tsx",
+        "src/components/ui/ContextMenu.tsx",
+        "src/components/ui/CreateNodeModal.tsx",
+        "src/components/ui/Toast.css",
+        "src/components/ui/Toast.tsx",
+        "src/components/ui/TutorialModal.tsx",
+        "src/components/views/ViewSwitcher.tsx",
+        "src/components/workspaces/WorkspaceManager.tsx",
+        "src/hooks/useFocusTrap.ts",
+        "src/hooks/useToast.ts",
+        "src/services/graphService.ts",
+        "src/services/queryEngine.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "83bb970",
+      "fullSha": "83bb970595a90d0c220906217591d479f9faa2d4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T07:08:46Z",
+      "commitDate": "2026-02-25T07:08:46Z",
+      "subject": "feat(workspaces): add multiple workspace support with full isolation",
+      "body": "Add complete workspace system allowing users to create, manage, and\nswitch between independent knowledge graphs. Each workspace has its\nown nodes, arcs, and views with no cross-workspace references.\n\nKey changes:\n- Workspace type and workspaceId field on all entities (nodes, arcs, views)\n- Database v5 migration: workspaces table, workspaceId indexes, existing\n  data migrated to Default workspace (ws-default)\n- workspaceService: CRUD with events, cascading delete (removes all\n  workspace nodes/arcs/views in a single transaction)\n- WorkspaceManager: landing page with grid of workspace cards, inline\n  create/rename, delete confirmation\n- Demo data seeded into separate \"Demo\" workspace (ws-demo)\n- All services and hooks scoped by workspaceId\n- Import/export stamps workspaceId on imported data\n- Snapshot service scoped to workspace for undo-after-import\n- All 316 tests pass, lint clean, build succeeds\n\nTags: workspaces, multi-graph, data-model, services, components, hooks, database\nComplexity: 5\nUrgency: 2\nImpact: user-facing\nRisk: high\nDebt: neutral\nEpic: multiple-workspaces\nSemver: major\n\nhttps://claude.ai/code/session_011D9ZTMQs9N9LGrFDTnWdDD",
+      "tags": [
+        "feature",
+        "database",
+        "schema",
+        "ui"
+      ],
+      "complexity": 5,
+      "risk": "high",
+      "debt": "neutral",
+      "epic": "multiple-workspaces",
+      "semver": "major",
+      "scope": "workspaces",
+      "title": "add multiple workspace support with full isolation",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 28,
+        "additions": 1243,
+        "deletions": 207
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/App.css",
+        "src/App.tsx",
+        "src/components/importExport/ImportModal.tsx",
+        "src/components/workspaces/WorkspaceManager.css",
+        "src/components/workspaces/WorkspaceManager.tsx",
+        "src/data/demoData.ts",
+        "src/db/database.ts",
+        "src/hooks/useGraphData.ts",
+        "src/hooks/useViewData.ts",
+        "src/hooks/useWorkspaces.ts",
+        "src/services/analysisService.test.ts",
+        "src/services/graphService.test.ts",
+        "src/services/graphService.ts",
+        "src/services/importExportService.test.ts",
+        "src/services/importExportService.ts",
+        "src/services/markdownImportService.ts",
+        "src/services/mergeService.test.ts",
+        "src/services/queryEngine.test.ts",
+        "src/services/seedService.test.ts",
+        "src/services/seedService.ts",
+        "src/services/snapshotService.ts",
+        "src/services/viewService.test.ts",
+        "src/services/viewService.ts",
+        "src/services/workspaceService.ts",
+        "src/types/index.ts",
+        "src/utils/factory.test.ts",
+        "src/utils/factory.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
     {
       "sha": "c6f35b6",
       "fullSha": "c6f35b60746f4d7e10c14f6499ff0daf8ec86f48",
@@ -5792,25 +6027,25 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 127,
-      "avgComplexity": 2.09,
-      "avgUrgency": 1.87,
+      "commits": 130,
+      "avgComplexity": 2.12,
+      "avgUrgency": 1.88,
       "tagBreakdown": {
-        "merge": 33,
-        "bugfix": 22,
-        "feature": 39,
-        "ui": 17,
-        "ux": 16,
+        "merge": 34,
+        "bugfix": 23,
+        "ux": 17,
+        "accessibility": 3,
+        "ui": 19,
+        "feature": 40,
+        "database": 4,
+        "schema": 2,
         "refactor": 13,
         "docs": 18,
-        "database": 3,
         "removal": 8,
         "naming": 5,
         "test-unit": 1,
         "config": 2,
         "simplify": 1,
-        "schema": 1,
-        "accessibility": 2,
         "types": 2,
         "enhancement": 2,
         "import": 5,
@@ -5829,27 +6064,27 @@
         "repository-setup": 1
       },
       "impactBreakdown": {
-        "internal": 62,
-        "user-facing": 61,
+        "internal": 63,
+        "user-facing": 63,
         "infrastructure": 4,
         "api": 0
       },
       "riskBreakdown": {
         "low": 100,
-        "medium": 21,
-        "high": 1
+        "medium": 22,
+        "high": 2
       },
       "debtBreakdown": {
         "added": 1,
-        "paid": 34,
-        "neutral": 87
+        "paid": 35,
+        "neutral": 88
       },
       "repos": [
         "graphiki"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-11T21:17:42Z",
-      "lastCommit": "2026-02-23T16:48:03+02:00"
+      "lastCommit": "2026-02-25T08:55:51Z"
     },
     {
       "author_id": "jacotheron87",
@@ -5891,24 +6126,24 @@
     }
   ],
   "summary": {
-    "totalCommits": 128,
+    "totalCommits": 131,
     "totalContributors": 2,
     "tagBreakdown": {
-      "merge": 33,
-      "bugfix": 22,
-      "feature": 40,
-      "ui": 18,
-      "ux": 16,
+      "merge": 34,
+      "bugfix": 23,
+      "ux": 17,
+      "accessibility": 3,
+      "ui": 20,
+      "feature": 41,
+      "database": 4,
+      "schema": 2,
       "refactor": 13,
       "docs": 18,
-      "database": 3,
       "removal": 8,
       "naming": 5,
       "test-unit": 1,
       "config": 2,
       "simplify": 1,
-      "schema": 1,
-      "accessibility": 2,
       "types": 2,
       "enhancement": 2,
       "import": 5,
@@ -5930,36 +6165,38 @@
       "repository-setup": 1
     },
     "complexityBreakdown": {
-      "1": 51,
+      "1": 52,
       "2": 30,
       "3": 32,
-      "4": 12,
-      "5": 3
+      "4": 13,
+      "5": 4
     },
     "urgencyBreakdown": {
       "1": 36,
-      "2": 76,
-      "3": 13,
+      "2": 78,
+      "3": 14,
       "4": 2,
       "5": 1
     },
     "impactBreakdown": {
-      "internal": 62,
-      "user-facing": 62,
+      "internal": 63,
+      "user-facing": 64,
       "infrastructure": 4,
       "api": 0
     },
     "riskBreakdown": {
       "low": 100,
-      "medium": 21,
-      "high": 1
+      "medium": 22,
+      "high": 2
     },
     "debtBreakdown": {
       "added": 1,
-      "paid": 34,
-      "neutral": 87
+      "paid": 35,
+      "neutral": 88
     },
     "epicBreakdown": {
+      "ux-polish": 1,
+      "multiple-workspaces": 1,
       "alpha-polish": 1,
       "documentation": 5,
       "conventions": 3,
@@ -5985,30 +6222,30 @@
     },
     "semverBreakdown": {
       "patch": 18,
-      "minor": 26,
-      "major": 1
+      "minor": 27,
+      "major": 2
     },
-    "avgComplexity": 2.11,
-    "avgUrgency": 1.88,
+    "avgComplexity": 2.14,
+    "avgUrgency": 1.89,
     "monthly": {
       "2026-02": {
-        "commits": 128,
+        "commits": 131,
         "tags": {
-          "merge": 33,
-          "bugfix": 22,
-          "feature": 40,
-          "ui": 18,
-          "ux": 16,
+          "merge": 34,
+          "bugfix": 23,
+          "ux": 17,
+          "accessibility": 3,
+          "ui": 20,
+          "feature": 41,
+          "database": 4,
+          "schema": 2,
           "refactor": 13,
           "docs": 18,
-          "database": 3,
           "removal": 8,
           "naming": 5,
           "test-unit": 1,
           "config": 2,
           "simplify": 1,
-          "schema": 1,
-          "accessibility": 2,
           "types": 2,
           "enhancement": 2,
           "import": 5,
@@ -6030,49 +6267,49 @@
           "repository-setup": 1
         },
         "impact": {
-          "internal": 62,
-          "user-facing": 62,
+          "internal": 63,
+          "user-facing": 64,
           "infrastructure": 4,
           "api": 0
         },
         "risk": {
           "low": 100,
-          "medium": 21,
-          "high": 1
+          "medium": 22,
+          "high": 2
         },
         "debt": {
           "added": 1,
-          "paid": 34,
-          "neutral": 87
+          "paid": 35,
+          "neutral": 88
         },
         "semver": {
           "patch": 18,
-          "minor": 26,
-          "major": 1
+          "minor": 27,
+          "major": 2
         },
-        "avgComplexity": 2.11,
-        "avgUrgency": 1.88
+        "avgComplexity": 2.14,
+        "avgUrgency": 1.89
       }
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 128,
+        "commits": 131,
         "tags": {
-          "merge": 33,
-          "bugfix": 22,
-          "feature": 40,
-          "ui": 18,
-          "ux": 16,
+          "merge": 34,
+          "bugfix": 23,
+          "ux": 17,
+          "accessibility": 3,
+          "ui": 20,
+          "feature": 41,
+          "database": 4,
+          "schema": 2,
           "refactor": 13,
           "docs": 18,
-          "database": 3,
           "removal": 8,
           "naming": 5,
           "test-unit": 1,
           "config": 2,
           "simplify": 1,
-          "schema": 1,
-          "accessibility": 2,
           "types": 2,
           "enhancement": 2,
           "import": 5,
@@ -6094,33 +6331,33 @@
           "repository-setup": 1
         },
         "impact": {
-          "internal": 62,
-          "user-facing": 62,
+          "internal": 63,
+          "user-facing": 64,
           "infrastructure": 4,
           "api": 0
         },
         "risk": {
           "low": 100,
-          "medium": 21,
-          "high": 1
+          "medium": 22,
+          "high": 2
         },
         "debt": {
           "added": 1,
-          "paid": 34,
-          "neutral": 87
+          "paid": 35,
+          "neutral": 88
         },
         "semver": {
           "patch": 18,
-          "minor": 26,
-          "major": 1
+          "minor": 27,
+          "major": 2
         },
-        "avgComplexity": 2.11,
-        "avgUrgency": 1.88
+        "avgComplexity": 2.14,
+        "avgUrgency": 1.89
       }
     },
     "dateRange": {
       "earliest": "2026-02-11T21:17:42Z",
-      "latest": "2026-02-23T16:48:03+02:00"
+      "latest": "2026-02-25T08:55:51Z"
     },
     "security_events": []
   }

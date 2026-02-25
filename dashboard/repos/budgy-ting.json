@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-02-24T16:34:52.009Z",
+    "generatedAt": "2026-02-25T09:50:25.623Z",
     "repository": "budgy-ting",
     "scope": "budgy-ting",
     "repoCount": 1,
-    "commitCount": 19,
+    "commitCount": 28,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -13,6 +13,409 @@
     }
   },
   "commits": [
+    {
+      "sha": "a0c33d8",
+      "fullSha": "a0c33d853cf84ea116f40e888b83d791da0437db",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T20:57:56Z",
+      "commitDate": "2026-02-24T20:57:56Z",
+      "subject": "Merge pull request #7 from devmade-ai/claude/fix-tutorial-modal-error-WyIXf",
+      "body": "Fix TypeScript type safety in TutorialModal step access",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #7 from devmade-ai/claude/fix-tutorial-modal-error-WyIXf",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#7"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 6,
+        "deletions": 3
+      },
+      "files": [
+        "src/components/TutorialModal.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f59129b",
+      "fullSha": "f59129b0afa56530d7827b14f13bb6d16e93e9bf",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T20:56:41Z",
+      "commitDate": "2026-02-24T20:56:41Z",
+      "subject": "fix(build): resolve TS2532 'possibly undefined' in TutorialModal",
+      "body": "Array index access `steps[currentStep]` in the template returns\n`TutorialStep | undefined`, causing vue-tsc to reject the build.\nIntroduced an `activeStep` computed property with an explicit type\nassertion so the template accesses a guaranteed `TutorialStep`.\n\nTags: bugfix, typescript, tutorial\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: tutorial-modal\nSemver: patch\n\nhttps://claude.ai/code/session_01NYdueyhFfk3w9E62P8UT7r",
+      "tags": [
+        "bugfix",
+        "types"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "tutorial-modal",
+      "semver": "patch",
+      "scope": "build",
+      "title": "resolve TS2532 'possibly undefined' in TutorialModal",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 6,
+        "deletions": 3
+      },
+      "files": [
+        "src/components/TutorialModal.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "f48ac33",
+      "fullSha": "f48ac33c2446b72b387ff236129c246e94a110c8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T20:52:20Z",
+      "commitDate": "2026-02-24T20:52:20Z",
+      "subject": "Merge pull request #6 from devmade-ai/claude/add-tutorial-modal-ZPiCx",
+      "body": "Add tutorial modal for first-time users",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #6 from devmade-ai/claude/add-tutorial-modal-ZPiCx",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 244,
+        "deletions": 9
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "src/components/AppLayout.vue",
+        "src/components/TutorialModal.vue",
+        "src/composables/useTutorial.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0e880af",
+      "fullSha": "0e880af010f060ceb0edcf34f122bb8012ecc869",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T20:49:53Z",
+      "commitDate": "2026-02-24T20:49:53Z",
+      "subject": "feat(ux): add tutorial modal for first-time users",
+      "body": "6-step walkthrough that auto-shows on first visit and persists\ndismissal in localStorage. Help button in header for re-access.\n\nSteps: welcome → create budget → add expenses → projections →\nimport actuals → compare plan vs reality.\n\nFollows existing Teleport modal pattern (ConfirmDialog,\nInstallInstructionsModal). Composable uses module-level shared\nstate (same pattern as usePWAInstall).\n\nTags: ux, onboarding, modal, tutorial\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: onboarding\nSemver: minor\n\nhttps://claude.ai/code/session_016WMP9yNXJNMZB6ahs7izA4",
+      "tags": [
+        "feature",
+        "ux",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "onboarding",
+      "semver": "minor",
+      "scope": "ux",
+      "title": "add tutorial modal for first-time users",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 244,
+        "deletions": 9
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "src/components/AppLayout.vue",
+        "src/components/TutorialModal.vue",
+        "src/composables/useTutorial.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "9c40b46",
+      "fullSha": "9c40b467671e68ad3bebd767fef215c37029c28a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T19:40:20Z",
+      "commitDate": "2026-02-24T19:40:20Z",
+      "subject": "Merge pull request #5 from devmade-ai/claude/fix-expenseform-typescript-2YLex",
+      "body": "Refactor: Extract category blur handler and improve type safety",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/fix-expenseform-typescript-2YLex",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 29,
+        "deletions": 4
+      },
+      "files": [
+        ".gitignore",
+        "package-lock.json",
+        "package.json",
+        "src/components/ExpenseForm.vue",
+        "src/debug/DebugPill.vue",
+        "src/views/CompareTab.vue",
+        "tsconfig.node.json"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "b04cb80",
+      "fullSha": "b04cb80f6fd9de4be8f2976c49ca5bfa5702695f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T19:29:57Z",
+      "commitDate": "2026-02-24T19:29:57Z",
+      "subject": "chore(build): gitignore tsbuildinfo artifacts",
+      "body": "vue-tsc -b produces .tsbuildinfo files for incremental builds.\nThese are machine-specific build cache and should not be tracked.\n\nTags: build, gitignore\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: build-stability\nSemver: patch\n\nhttps://claude.ai/code/session_01TGPgPesupfaJsD9TQy8ang",
+      "tags": [
+        "config",
+        "build"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": "build",
+      "title": "gitignore tsbuildinfo artifacts",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        ".gitignore"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "c35bc17",
+      "fullSha": "c35bc178b2d6bbf125037736806f15c160fc6bdb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T19:28:07Z",
+      "commitDate": "2026-02-24T19:28:07Z",
+      "subject": "fix(build): resolve all TypeScript build errors",
+      "body": "- ExpenseForm.vue: Extract handleCategoryBlur method to avoid template\n  setTimeout resolving against component instance instead of window\n- DebugPill.vue: Remove unused entry parameter in subscribe callback\n- CompareTab.vue: Use v-else-if=\"comparison\" for vue-tsc null narrowing\n- vite.config.ts: Add @types/node for path, process, and __dirname\n\nTags: typescript, build, ci\nComplexity: 2\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: build-stability\nSemver: patch\n\nhttps://claude.ai/code/session_01TGPgPesupfaJsD9TQy8ang",
+      "tags": [
+        "bugfix",
+        "types",
+        "build"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "build-stability",
+      "semver": "patch",
+      "scope": "build",
+      "title": "resolve all TypeScript build errors",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 28,
+        "deletions": 4
+      },
+      "files": [
+        "package-lock.json",
+        "package.json",
+        "src/components/ExpenseForm.vue",
+        "src/debug/DebugPill.vue",
+        "src/views/CompareTab.vue",
+        "tsconfig.node.json"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "31d664e",
+      "fullSha": "31d664e4c006ea1b51393dcdc588362520271988",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T17:16:10Z",
+      "commitDate": "2026-02-24T17:16:10Z",
+      "subject": "Merge pull request #4 from devmade-ai/claude/setup-node-22-Kg8Fc",
+      "body": "Update dependencies",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #4 from devmade-ai/claude/setup-node-22-Kg8Fc",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 8377,
+        "deletions": 0
+      },
+      "files": [
+        "package-lock.json"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "7a8c2be",
+      "fullSha": "7a8c2bea7af753c956c62dbbebd50917e91f48d6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T17:10:14Z",
+      "commitDate": "2026-02-24T17:10:14Z",
+      "subject": "fix(ci): add package-lock.json for reproducible CI builds",
+      "body": "The deploy workflow uses actions/setup-node@v4 with cache: npm and\nnpm ci, both of which require a lock file. Without package-lock.json\nthe cache step warns and npm ci fails entirely.\n\nTags: ci, dependencies, devops\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: ci-deploy\nSemver: patch\n\nhttps://claude.ai/code/session_01EhS6UBzB7mMja9whChYBsX",
+      "tags": [
+        "ci",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "ci-deploy",
+      "semver": "patch",
+      "scope": "ci",
+      "title": "add package-lock.json for reproducible CI builds",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 8377,
+        "deletions": 0
+      },
+      "files": [
+        "package-lock.json"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
     {
       "sha": "5a900d3",
       "fullSha": "5a900d360f103d487965e5099aff8440c91e6857",
@@ -922,211 +1325,219 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 19,
-      "avgComplexity": 2.11,
-      "avgUrgency": 1.37,
+      "commits": 28,
+      "avgComplexity": 1.86,
+      "avgUrgency": 1.75,
       "tagBreakdown": {
-        "merge": 3,
-        "bugfix": 2,
+        "merge": 7,
+        "bugfix": 4,
+        "types": 2,
+        "feature": 4,
+        "ux": 2,
+        "ui": 3,
+        "config": 5,
+        "build": 3,
+        "ci": 3,
         "error-handling": 1,
         "removal": 3,
         "docs": 6,
-        "feature": 3,
         "refactor": 2,
         "comments": 1,
-        "ci": 2,
         "dependency-update": 1,
-        "config": 3,
         "cd": 1,
-        "ui": 2,
-        "ux": 1,
         "database": 1,
-        "init": 2,
-        "build": 1
+        "init": 2
       },
       "impactBreakdown": {
-        "internal": 12,
-        "user-facing": 3,
-        "infrastructure": 4,
+        "internal": 16,
+        "user-facing": 4,
+        "infrastructure": 8,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 14,
+        "low": 19,
         "medium": 4,
         "high": 1
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 3,
-        "neutral": 16
+        "paid": 6,
+        "neutral": 18
       },
       "repos": [
         "budgy-ting"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-23T15:06:05+02:00",
-      "lastCommit": "2026-02-24T18:04:17+02:00"
+      "lastCommit": "2026-02-24T20:57:56Z"
     }
   ],
   "summary": {
-    "totalCommits": 19,
+    "totalCommits": 28,
     "totalContributors": 1,
     "tagBreakdown": {
-      "merge": 3,
-      "bugfix": 2,
+      "merge": 7,
+      "bugfix": 4,
+      "types": 2,
+      "feature": 4,
+      "ux": 2,
+      "ui": 3,
+      "config": 5,
+      "build": 3,
+      "ci": 3,
       "error-handling": 1,
       "removal": 3,
       "docs": 6,
-      "feature": 3,
       "refactor": 2,
       "comments": 1,
-      "ci": 2,
       "dependency-update": 1,
-      "config": 3,
       "cd": 1,
-      "ui": 2,
-      "ux": 1,
       "database": 1,
-      "init": 2,
-      "build": 1
+      "init": 2
     },
     "complexityBreakdown": {
-      "1": 8,
-      "2": 6,
-      "3": 1,
+      "1": 15,
+      "2": 7,
+      "3": 2,
       "4": 3,
       "5": 1
     },
     "urgencyBreakdown": {
       "1": 13,
-      "2": 5,
-      "3": 1,
-      "4": 0,
+      "2": 11,
+      "3": 2,
+      "4": 2,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 12,
-      "user-facing": 3,
-      "infrastructure": 4,
+      "internal": 16,
+      "user-facing": 4,
+      "infrastructure": 8,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 14,
+      "low": 19,
       "medium": 4,
       "high": 1
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 3,
-      "neutral": 16
+      "paid": 6,
+      "neutral": 18
     },
     "epicBreakdown": {
+      "tutorial-modal": 1,
+      "onboarding": 1,
+      "build-stability": 1,
+      "ci-deploy": 1,
       "budgy-mvp": 2
     },
     "semverBreakdown": {
-      "patch": 0,
-      "minor": 1,
+      "patch": 4,
+      "minor": 2,
       "major": 0
     },
-    "avgComplexity": 2.11,
-    "avgUrgency": 1.37,
+    "avgComplexity": 1.86,
+    "avgUrgency": 1.75,
     "monthly": {
       "2026-02": {
-        "commits": 19,
+        "commits": 28,
         "tags": {
-          "merge": 3,
-          "bugfix": 2,
+          "merge": 7,
+          "bugfix": 4,
+          "types": 2,
+          "feature": 4,
+          "ux": 2,
+          "ui": 3,
+          "config": 5,
+          "build": 3,
+          "ci": 3,
           "error-handling": 1,
           "removal": 3,
           "docs": 6,
-          "feature": 3,
           "refactor": 2,
           "comments": 1,
-          "ci": 2,
           "dependency-update": 1,
-          "config": 3,
           "cd": 1,
-          "ui": 2,
-          "ux": 1,
           "database": 1,
-          "init": 2,
-          "build": 1
+          "init": 2
         },
         "impact": {
-          "internal": 12,
-          "user-facing": 3,
-          "infrastructure": 4,
+          "internal": 16,
+          "user-facing": 4,
+          "infrastructure": 8,
           "api": 0
         },
         "risk": {
-          "low": 14,
+          "low": 19,
           "medium": 4,
           "high": 1
         },
         "debt": {
           "added": 0,
-          "paid": 3,
-          "neutral": 16
+          "paid": 6,
+          "neutral": 18
         },
         "semver": {
-          "patch": 0,
-          "minor": 1,
+          "patch": 4,
+          "minor": 2,
           "major": 0
         },
-        "avgComplexity": 2.11,
-        "avgUrgency": 1.37
+        "avgComplexity": 1.86,
+        "avgUrgency": 1.75
       }
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 19,
+        "commits": 28,
         "tags": {
-          "merge": 3,
-          "bugfix": 2,
+          "merge": 7,
+          "bugfix": 4,
+          "types": 2,
+          "feature": 4,
+          "ux": 2,
+          "ui": 3,
+          "config": 5,
+          "build": 3,
+          "ci": 3,
           "error-handling": 1,
           "removal": 3,
           "docs": 6,
-          "feature": 3,
           "refactor": 2,
           "comments": 1,
-          "ci": 2,
           "dependency-update": 1,
-          "config": 3,
           "cd": 1,
-          "ui": 2,
-          "ux": 1,
           "database": 1,
-          "init": 2,
-          "build": 1
+          "init": 2
         },
         "impact": {
-          "internal": 12,
-          "user-facing": 3,
-          "infrastructure": 4,
+          "internal": 16,
+          "user-facing": 4,
+          "infrastructure": 8,
           "api": 0
         },
         "risk": {
-          "low": 14,
+          "low": 19,
           "medium": 4,
           "high": 1
         },
         "debt": {
           "added": 0,
-          "paid": 3,
-          "neutral": 16
+          "paid": 6,
+          "neutral": 18
         },
         "semver": {
-          "patch": 0,
-          "minor": 1,
+          "patch": 4,
+          "minor": 2,
           "major": 0
         },
-        "avgComplexity": 2.11,
-        "avgUrgency": 1.37
+        "avgComplexity": 1.86,
+        "avgUrgency": 1.75
       }
     },
     "dateRange": {
       "earliest": "2026-02-23T15:06:05+02:00",
-      "latest": "2026-02-24T18:04:17+02:00"
+      "latest": "2026-02-24T20:57:56Z"
     },
     "security_events": []
   }
