@@ -1,0 +1,61 @@
+{
+  "sha": "e4512d0",
+  "fullSha": "e4512d0b3cb1502563d536fc750dec88197827c9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T16:20:44Z",
+  "commitDate": "2026-02-24T16:20:44Z",
+  "subject": "feat: add Projects tab and new repos (budgy-ting, tool-till-tees)",
+  "body": "- Add Projects tab to dashboard with live project directory\n  - Cards for all 14 repos, split into \"Live Projects\" (8 with sites)\n    and \"Other Repositories\" (6 without)\n  - Each card shows name, language badge, commit count, and links\n    to live site and GitHub repo\n  - Fetches from projects.json (static data alongside data.json)\n- Add budgy-ting and tool-till-tees to config/repos.json\n- Re-aggregate dashboard data from existing processed commits\n\nhttps://claude.ai/code/session_012JtBabbz3ZyR2fgYwfqzf3",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": "minor",
+  "scope": null,
+  "title": "add Projects tab and new repos (budgy-ting, tool-till-tees)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 20,
+    "additions": 326,
+    "deletions": 15
+  },
+  "files": [
+    "config/repos.json",
+    "dashboard/data.json",
+    "dashboard/js/App.jsx",
+    "dashboard/js/components/TabBar.jsx",
+    "dashboard/js/state.js",
+    "dashboard/js/tabs/ProjectsTab.jsx",
+    "dashboard/projects.json",
+    "dashboard/repos/canva-grid-assets.json",
+    "dashboard/repos/canva-grid.json",
+    "dashboard/repos/chatty-chart.json",
+    "dashboard/repos/coin-zapp.json",
+    "dashboard/repos/few-lap.json",
+    "dashboard/repos/glow-props.json",
+    "dashboard/repos/graphiki.json",
+    "dashboard/repos/model-pear.json",
+    "dashboard/repos/plant-fur.json",
+    "dashboard/repos/repo-tor.json",
+    "dashboard/repos/see-veo.json",
+    "dashboard/repos/synctone.json",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

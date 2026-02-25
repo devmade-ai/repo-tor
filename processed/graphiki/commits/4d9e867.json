@@ -1,0 +1,73 @@
+{
+  "sha": "4d9e867",
+  "fullSha": "4d9e867d633dc7fb875baf803b6dad348c16d912",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-25T08:40:01Z",
+  "commitDate": "2026-02-25T08:40:01Z",
+  "subject": "fix(ux): comprehensive UX review fixes — accessibility, mobile, data integrity",
+  "body": "Fixes 14 issues identified in deep UX review:\n\n1. Stale workspace check: use !activeWorkspace instead of !activeWorkspaceId\n   to prevent ghost workspace rendering after deletion\n2. Transaction-wrap deleteNode/bulkDeleteNodes for atomic data operations\n3. iOS input font-size 16px to prevent auto-zoom on focus\n4. Toast notification system (useToast + ToastContainer) replaces window.alert\n5. ConfirmDialog replaces window.confirm with themed inline dialog\n6. Empty graph state message for workspaces with 0 nodes\n7. Focus trapping (useFocusTrap) on all 9 modals for WCAG compliance\n8. ARIA roles: context menu (role=menu/menuitem), detail drawer (aria-modal),\n   view switcher (role=tablist/tab/aria-selected), all modals (role=dialog)\n9. Escape key handler on TutorialModal\n10. Mobile bottom sheet: swipe-to-dismiss gesture + body scroll lock\n11. Mobile touch targets bumped from 36px to 44px (WCAG 2.5.5)\n12. Edge label contrast improved (#6b7280 → #9ca3af for AA compliance)\n13. Focus-visible styles added for workspace-card-new-btn, import-paste-toggle,\n    detail-drawer-close, export-option-btn, toast-dismiss\n14. Property 'contains' filter bug fixed: new property-contains AST node type\n    instead of incorrectly falling through to title search\n\nTags: ux, accessibility, mobile, wcag, query-engine, data-integrity\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: ux-polish\nSemver: minor\n\nhttps://claude.ai/code/session_011D9ZTMQs9N9LGrFDTnWdDD",
+  "tags": [
+    "bugfix",
+    "ux",
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "minor",
+  "scope": "ux",
+  "title": "comprehensive UX review fixes — accessibility, mobile, data integrity",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#6",
+    "#9"
+  ],
+  "stats": {
+    "filesChanged": 27,
+    "additions": 855,
+    "deletions": 123
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/analysis/AnalysisModal.tsx",
+    "src/components/conventions/ConventionsModal.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/importExport/ExportModal.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/layout/DetailDrawer.css",
+    "src/components/layout/DetailDrawer.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/query/QueryBuilder.css",
+    "src/components/query/QueryHelpModal.tsx",
+    "src/components/ui/ConfirmDialog.tsx",
+    "src/components/ui/ConnectNodeModal.tsx",
+    "src/components/ui/ContextMenu.tsx",
+    "src/components/ui/CreateNodeModal.tsx",
+    "src/components/ui/Toast.css",
+    "src/components/ui/Toast.tsx",
+    "src/components/ui/TutorialModal.tsx",
+    "src/components/views/ViewSwitcher.tsx",
+    "src/components/workspaces/WorkspaceManager.tsx",
+    "src/hooks/useFocusTrap.ts",
+    "src/hooks/useToast.ts",
+    "src/services/graphService.ts",
+    "src/services/queryEngine.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}

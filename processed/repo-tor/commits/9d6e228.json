@@ -1,0 +1,43 @@
+{
+  "sha": "9d6e228",
+  "fullSha": "9d6e2286c461b6d6532e9c463b78e93be074d01c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T20:08:14Z",
+  "commitDate": "2026-02-24T20:08:14Z",
+  "subject": "fix: resolve TagsTab initialization crash — self-referential const assignment",
+  "body": "TagsTab.jsx line 13 had `const CHART_TEXT_COLOR = CHART_TEXT_COLOR` which\nread the variable during its own initialization (temporal dead zone). In the\nminified production build this surfaced as `Cannot access 'vf' before\ninitialization`. Fixed by reading the --text-secondary CSS variable via\ngetComputedStyle() at module load, matching the pattern used in main.jsx.\n\nhttps://claude.ai/code/session_011zd1ZpzN6qSMKqCoroUjMX",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": "patch",
+  "scope": null,
+  "title": "resolve TagsTab initialization crash — self-referential const assignment",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 12,
+    "deletions": 1
+  },
+  "files": [
+    "dashboard/js/tabs/TagsTab.jsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 5,
+  "impact": "user-facing"
+}

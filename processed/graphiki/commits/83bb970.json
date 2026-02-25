@@ -1,0 +1,71 @@
+{
+  "sha": "83bb970",
+  "fullSha": "83bb970595a90d0c220906217591d479f9faa2d4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-25T07:08:46Z",
+  "commitDate": "2026-02-25T07:08:46Z",
+  "subject": "feat(workspaces): add multiple workspace support with full isolation",
+  "body": "Add complete workspace system allowing users to create, manage, and\nswitch between independent knowledge graphs. Each workspace has its\nown nodes, arcs, and views with no cross-workspace references.\n\nKey changes:\n- Workspace type and workspaceId field on all entities (nodes, arcs, views)\n- Database v5 migration: workspaces table, workspaceId indexes, existing\n  data migrated to Default workspace (ws-default)\n- workspaceService: CRUD with events, cascading delete (removes all\n  workspace nodes/arcs/views in a single transaction)\n- WorkspaceManager: landing page with grid of workspace cards, inline\n  create/rename, delete confirmation\n- Demo data seeded into separate \"Demo\" workspace (ws-demo)\n- All services and hooks scoped by workspaceId\n- Import/export stamps workspaceId on imported data\n- Snapshot service scoped to workspace for undo-after-import\n- All 316 tests pass, lint clean, build succeeds\n\nTags: workspaces, multi-graph, data-model, services, components, hooks, database\nComplexity: 5\nUrgency: 2\nImpact: user-facing\nRisk: high\nDebt: neutral\nEpic: multiple-workspaces\nSemver: major\n\nhttps://claude.ai/code/session_011D9ZTMQs9N9LGrFDTnWdDD",
+  "tags": [
+    "feature",
+    "database",
+    "schema",
+    "ui"
+  ],
+  "complexity": 5,
+  "risk": "high",
+  "debt": "neutral",
+  "epic": "multiple-workspaces",
+  "semver": "major",
+  "scope": "workspaces",
+  "title": "add multiple workspace support with full isolation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 28,
+    "additions": 1243,
+    "deletions": 207
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/workspaces/WorkspaceManager.css",
+    "src/components/workspaces/WorkspaceManager.tsx",
+    "src/data/demoData.ts",
+    "src/db/database.ts",
+    "src/hooks/useGraphData.ts",
+    "src/hooks/useViewData.ts",
+    "src/hooks/useWorkspaces.ts",
+    "src/services/analysisService.test.ts",
+    "src/services/graphService.test.ts",
+    "src/services/graphService.ts",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts",
+    "src/services/markdownImportService.ts",
+    "src/services/mergeService.test.ts",
+    "src/services/queryEngine.test.ts",
+    "src/services/seedService.test.ts",
+    "src/services/seedService.ts",
+    "src/services/snapshotService.ts",
+    "src/services/viewService.test.ts",
+    "src/services/viewService.ts",
+    "src/services/workspaceService.ts",
+    "src/types/index.ts",
+    "src/utils/factory.test.ts",
+    "src/utils/factory.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

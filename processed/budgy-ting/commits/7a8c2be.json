@@ -1,0 +1,42 @@
+{
+  "sha": "7a8c2be",
+  "fullSha": "7a8c2bea7af753c956c62dbbebd50917e91f48d6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T17:10:14Z",
+  "commitDate": "2026-02-24T17:10:14Z",
+  "subject": "fix(ci): add package-lock.json for reproducible CI builds",
+  "body": "The deploy workflow uses actions/setup-node@v4 with cache: npm and\nnpm ci, both of which require a lock file. Without package-lock.json\nthe cache step warns and npm ci fails entirely.\n\nTags: ci, dependencies, devops\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: ci-deploy\nSemver: patch\n\nhttps://claude.ai/code/session_01EhS6UBzB7mMja9whChYBsX",
+  "tags": [
+    "ci",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ci-deploy",
+  "semver": "patch",
+  "scope": "ci",
+  "title": "add package-lock.json for reproducible CI builds",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 8377,
+    "deletions": 0
+  },
+  "files": [
+    "package-lock.json"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

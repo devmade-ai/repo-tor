@@ -1,0 +1,46 @@
+{
+  "sha": "6e37406",
+  "fullSha": "6e3740695ebec4f9a03d2babbbe1aec915330d87",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T20:17:41Z",
+  "commitDate": "2026-02-24T20:17:41Z",
+  "subject": "fix: include projects.json in production build output",
+  "body": "projects.json was missing from the deployed site because it lived in\ndashboard/ (not public/) and wasn't listed in the deploy workflow's\nfile copy step. Moved to dashboard/public/ so Vite includes it\nautomatically, and added it to deploy.yml as a safety net.\n\nhttps://claude.ai/code/session_014Y95NoEwfZkakxyE9Z2372",
+  "tags": [
+    "bugfix",
+    "build",
+    "cd"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": "patch",
+  "scope": null,
+  "title": "include projects.json in production build output",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 15,
+    "deletions": 0
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "dashboard/public/projects.json",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 4,
+  "impact": "user-facing"
+}

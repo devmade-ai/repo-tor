@@ -1,0 +1,46 @@
+{
+  "sha": "e5cb562",
+  "fullSha": "e5cb5628adc7bb1427107879ca1dc55710b5a1c7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T19:54:28Z",
+  "commitDate": "2026-02-24T19:54:28Z",
+  "subject": "fix: move debug pill to HTML level — shows even when JS bundle fails",
+  "body": "The debug pill was created inside the JS bundle (main.jsx). If the bundle\nfailed to load, parse, or execute (stale SW cache, network error, JS crash),\nthe pill never appeared — leaving users with an infinite spinner and no way\nto diagnose the problem.\n\nChanges:\n- index.html: inline <script> creates debug pill at HTML level with error\n  capture (window.onerror, unhandledrejection), circular buffer (200 max),\n  diagnostics view, and 10-second loading timeout warning\n- main.jsx: removed ~170 lines of duplicate banner code; now bridges to\n  HTML pill via window.__debugPushError() for React component stacks\n\nhttps://claude.ai/code/session_01Qay1Ue4yRRGMQ39qDJHugS",
+  "tags": [
+    "refactor",
+    "error-handling",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": null,
+  "semver": "patch",
+  "scope": null,
+  "title": "move debug pill to HTML level — shows even when JS bundle fails",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 238,
+    "deletions": 166
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/js/main.jsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,48 @@
+{
+  "sha": "c35bc17",
+  "fullSha": "c35bc178b2d6bbf125037736806f15c160fc6bdb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T19:28:07Z",
+  "commitDate": "2026-02-24T19:28:07Z",
+  "subject": "fix(build): resolve all TypeScript build errors",
+  "body": "- ExpenseForm.vue: Extract handleCategoryBlur method to avoid template\n  setTimeout resolving against component instance instead of window\n- DebugPill.vue: Remove unused entry parameter in subscribe callback\n- CompareTab.vue: Use v-else-if=\"comparison\" for vue-tsc null narrowing\n- vite.config.ts: Add @types/node for path, process, and __dirname\n\nTags: typescript, build, ci\nComplexity: 2\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: build-stability\nSemver: patch\n\nhttps://claude.ai/code/session_01TGPgPesupfaJsD9TQy8ang",
+  "tags": [
+    "bugfix",
+    "types",
+    "build"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "build-stability",
+  "semver": "patch",
+  "scope": "build",
+  "title": "resolve all TypeScript build errors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 28,
+    "deletions": 4
+  },
+  "files": [
+    "package-lock.json",
+    "package.json",
+    "src/components/ExpenseForm.vue",
+    "src/debug/DebugPill.vue",
+    "src/views/CompareTab.vue",
+    "tsconfig.node.json"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

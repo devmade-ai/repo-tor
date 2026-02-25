@@ -1,0 +1,69 @@
+{
+  "sha": "a298745",
+  "fullSha": "a298745a88d7170375ecd4804a4eb7aa14a1409a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T22:01:43Z",
+  "commitDate": "2026-02-24T22:01:43Z",
+  "subject": "fix: comprehensive codebase review — 20 issues fixed across dashboard, scripts, CSS",
+  "body": "Dashboard: fixed TimelineTab render-time setState (infinite loop risk),\nApp.jsx metadata merge + file size validation, TagsTab module-level\ngetComputedStyle, stale closures, silent catches, hardcoded colors.\nScripts: command injection in update-all.sh, API response validation,\nskip counting, atomic rename recovery, unmapped author warnings.\nCSS: removed 30+ unnecessary !important overrides.\nArchitecture: decomposed HealthTab (780→630 lines, 4 new modules).\n\nhttps://claude.ai/code/session_01HPuGwVREuAwq4yHa3q7GGe",
+  "tags": [
+    "bugfix",
+    "security",
+    "performance",
+    "accessibility",
+    "refactor"
+  ],
+  "complexity": 5,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "codebase-review",
+  "semver": "patch",
+  "scope": null,
+  "title": "comprehensive codebase review — 20 issues fixed across dashboard, scripts, CSS",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 25,
+    "additions": 1068,
+    "deletions": 650
+  },
+  "files": [
+    "dashboard/index.html",
+    "dashboard/js/App.jsx",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/chartColors.js",
+    "dashboard/js/components/HealthAnomalies.jsx",
+    "dashboard/js/components/HealthBars.jsx",
+    "dashboard/js/components/HealthWorkPatterns.jsx",
+    "dashboard/js/hooks/useHealthData.js",
+    "dashboard/js/main.jsx",
+    "dashboard/js/state.js",
+    "dashboard/js/tabs/DiscoverTab.jsx",
+    "dashboard/js/tabs/HealthTab.jsx",
+    "dashboard/js/tabs/ProjectsTab.jsx",
+    "dashboard/js/tabs/TagsTab.jsx",
+    "dashboard/js/tabs/TimelineTab.jsx",
+    "dashboard/js/utils.js",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/aggregate-processed.js",
+    "scripts/extract-api.js",
+    "scripts/extract.js",
+    "scripts/merge-analysis.js",
+    "scripts/pending.js",
+    "scripts/update-all.sh"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}
