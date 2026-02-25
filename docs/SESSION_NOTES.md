@@ -6,7 +6,15 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-24 — Codebase Review & 20 Fixes):**
+**Recent Updates (2026-02-25 — Codebase Review Round 2: UX, A11y, Code Quality):**
+- **Second Codebase Audit** — Reviewed all dashboard components, styles, and infrastructure. Identified and fixed ~17 issues:
+  - **UX (7 items)**: Filter labels "Inc"/"Exc"→"Include"/"Exclude", upload success toast, urgency labels to plain language ("Planned Work"/"Routine Work"/"Urgent Fixes"), work hours color legend, security tab subtitle, standardized empty states across 5 tabs, improved error messages (SyntaxError vs generic)
+  - **Accessibility (4 items)**: focus-visible outlines on all interactive elements, tab active state via CSS variables (not hardcoded Tailwind), tag contrast increased (0.2/0.3→0.3/0.5 opacity), prefers-reduced-motion media query
+  - **Code quality (3 items)**: Error boundary inline styles→CSS classes, centralized THRESHOLDS constants in state.js, deleted dead code (scripts/lib/manifest.js)
+  - **Infrastructure (3 items)**: extract-api.js error.code check, PWA glob patterns narrowed (exclude large data files), sourcemap disabled in production
+- Build passes: 67 modules, 502KB bundle
+
+**Previous Updates (2026-02-24 — Codebase Review & 20 Fixes):**
 - **Full Codebase Audit** — Reviewed all dashboard components, scripts, CSS, and configuration. Identified and fixed 20 issues across bugs, security, performance, and code quality:
   - **Bugs fixed**: TimelineTab render-time setState (infinite loop risk), combineDatasets metadata overwrite, stale closure in DiscoverTab handlePinToggle
   - **Security**: Command injection in update-all.sh (sed→bash param substitution), API response validation in extract-api.js, hex color URL param validation
@@ -467,4 +475,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-24 - Comprehensive code review and 24 bug fixes (security, perf, a11y, code quality). Added repos, Projects tab, fed 206 commits, refactored extract-api.js.*
+*Last updated: 2026-02-25 - Second codebase review: UX polish, accessibility, code quality, infrastructure fixes (~17 items).*

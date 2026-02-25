@@ -105,19 +105,18 @@ class RootErrorBoundary extends React.Component {
                     minHeight: '100vh', flexDirection: 'column', gap: '16px',
                     padding: '24px', textAlign: 'center',
                 }}>
-                    <p className="text-themed-secondary" style={{ fontSize: '16px', fontFamily: 'system-ui, sans-serif' }}>
+                    <p className="text-themed-secondary root-error-message">
                         Something went wrong loading the dashboard.
                     </p>
-                    <p className="text-themed-tertiary" style={{ fontSize: '13px', fontFamily: 'monospace', maxWidth: '480px', wordBreak: 'break-word' }}>
+                    <p className="text-themed-tertiary root-error-detail">
                         {this.state.error?.message || 'Unknown error'}
                     </p>
-                    <p className="text-themed-muted" style={{ fontSize: '11px', fontFamily: 'system-ui, sans-serif', marginTop: '-8px' }}>
+                    <p className="text-themed-muted root-error-hint">
                         Error details are in the banner below. Use &ldquo;Copy&rdquo; to share.
                     </p>
                     <button
                         onClick={() => window.location.reload()}
                         className="btn-icon btn-primary"
-                        style={{ marginTop: '8px' }}
                     >
                         Reload
                     </button>

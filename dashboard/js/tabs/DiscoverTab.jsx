@@ -528,7 +528,7 @@ export default function DiscoverTab() {
                         })}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary text-sm">No comparison data available</p>
+                    <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
                 )}
             </CollapsibleSection>
 
@@ -553,7 +553,7 @@ export default function DiscoverTab() {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary text-sm">No file data available</p>
+                    <p className="text-themed-tertiary text-sm">No file data available for the current selection.</p>
                 )}
             </CollapsibleSection>
         </div>

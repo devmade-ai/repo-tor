@@ -107,6 +107,7 @@ if (embedIds) {
 export default function App() {
     const { state, dispatch } = useApp();
     const [loadError, setLoadError] = useState(null);
+    const [loadSuccess, setLoadSuccess] = useState(null);
     const [initialLoading, setInitialLoading] = useState(true);
 
     // Lock body scroll when any overlay pane is open
@@ -211,15 +212,28 @@ export default function App() {
         }
 
         setLoadError(null);
+        setLoadSuccess(null);
         Promise.all(readers).then(datasets => {
             if (datasets.length === 0) return;
             const combined = combineDatasets(datasets);
             if (combined) {
                 dispatch({ type: 'LOAD_DATA', payload: combined });
+                // Requirement: Provide success feedback after data upload
+                // Approach: Brief toast message with commit/repo count
+                const commitCount = combined.commits?.length || 0;
+                const repoNames = Array.isArray(combined.metadata?.repo_name)
+                    ? combined.metadata.repo_name : combined.metadata?.repo_name ? [combined.metadata.repo_name] : [];
+                const repoText = repoNames.length > 0 ? ` from ${repoNames.length} repo${repoNames.length !== 1 ? 's' : ''}` : '';
+                setLoadSuccess(`Loaded ${commitCount.toLocaleString()} commits${repoText}`);
+                setTimeout(() => setLoadSuccess(null), 4000);
             }
         }).catch(err => {
             console.error('Error loading files:', err);
-            setLoadError('Failed to parse JSON file. Please check the file format.');
+            // Requirement: Distinguish error types for non-technical users
+            const message = err instanceof SyntaxError
+                ? 'This file doesn\'t look like valid dashboard data. Try exporting from the extraction script first.'
+                : `Something went wrong reading the file: ${err.message}`;
+            setLoadError(message);
         });
     }, [dispatch]);
 
@@ -310,6 +324,12 @@ export default function App() {
             </div>
             <DetailPane />
             <SettingsPane />
+            {/* Success toast — brief confirmation after file upload */}
+            {loadSuccess && (
+                <div className="toast show" role="status" aria-live="polite">
+                    {loadSuccess}
+                </div>
+            )}
         </div>
     );
 }

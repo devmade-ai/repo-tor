@@ -145,7 +145,7 @@ export default function TagsTab() {
                             ))}
                         </div>
                     ) : (
-                        <p className="text-themed-tertiary text-sm">No data matches the current filters</p>
+                        <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
                     )}
                 </CollapsibleSection>
             </div>

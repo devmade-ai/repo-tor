@@ -115,10 +115,15 @@ export default function HealthTab() {
         }
     };
 
+    // Requirement: Urgency labels must be clear to non-technical users
+    // Approach: Use plain language descriptions instead of numeric scale references
+    // Alternatives:
+    //   - Keep "(1-2)" ranges: Rejected — non-technical users don't know the scale
+    //   - Add tooltips explaining scale: Rejected — labels should be self-explanatory
     const urgencyItems = [
-        { label: 'Planned (1-2)', count: urgencyBreakdown.planned, colorClass: 'bg-green-500', filter: 'planned' },
-        { label: 'Normal (3)', count: urgencyBreakdown.normal, colorClass: 'bg-blue-500', filter: 'normal' },
-        { label: 'Reactive (4-5)', count: urgencyBreakdown.reactive, colorClass: 'bg-amber-500', filter: 'reactive' },
+        { label: 'Planned Work', count: urgencyBreakdown.planned, colorClass: 'bg-green-500', filter: 'planned' },
+        { label: 'Routine Work', count: urgencyBreakdown.normal, colorClass: 'bg-blue-500', filter: 'normal' },
+        { label: 'Urgent Fixes', count: urgencyBreakdown.reactive, colorClass: 'bg-amber-500', filter: 'reactive' },
     ];
 
     const impactItems = [
@@ -262,7 +267,7 @@ export default function HealthTab() {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary text-sm">No data matches the current filters</p>
+                    <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
                 )}
             </CollapsibleSection>
 
@@ -281,7 +286,7 @@ export default function HealthTab() {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary text-sm">No data matches the current filters</p>
+                    <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
                 )}
             </CollapsibleSection>
         </div>

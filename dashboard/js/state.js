@@ -58,6 +58,23 @@ export function getViewConfig() {
     return VIEW_LEVELS[state.currentViewLevel] || VIEW_LEVELS.developer;
 }
 
+// === Dashboard Constants ===
+// Centralized thresholds and magic numbers used across tab components.
+// Keeping them here prevents inconsistency when values are used in multiple places.
+export const THRESHOLDS = {
+    // Complexity color thresholds (used in TimelineTab, ProgressTab)
+    complexityHigh: 4,    // complexity >= 4 → high (purple)
+    complexityMid: 2,     // complexity >= 2 → medium (blue)
+    // Work hours color thresholds (used in TimingTab developer patterns)
+    workHoursGood: 70,    // >= 70% during work hours → green
+    workHoursMixed: 50,   // >= 50% → amber; below → red
+    weekendLow: 10,       // <= 10% weekend → green
+    weekendMid: 25,       // <= 25% → amber; above → red
+    // Chart display limits
+    chartDateLimit: 60,   // Max days shown in timeline charts
+    topDevelopers: 6,     // Max developers in timing patterns
+};
+
 // === Tab Navigation (V2: 4 grouped tabs + Projects directory) ===
 // Map new tabs to the content containers they should show
 export const TAB_MAPPING = {

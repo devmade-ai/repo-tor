@@ -404,7 +404,7 @@ export default function TimelineTab() {
                     {commitListContent.length > 0 ? (
                         commitListContent
                     ) : (
-                        <p className="text-themed-tertiary">No changes match the current filters</p>
+                        <p className="text-themed-tertiary">Nothing matches the current filters. Try adjusting your selections.</p>
                     )}
                     {hasMore && (
                         <button

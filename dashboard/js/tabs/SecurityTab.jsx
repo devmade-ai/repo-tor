@@ -9,16 +9,19 @@ import CollapsibleSection from '../components/CollapsibleSection.jsx';
 export default function SecurityTab() {
     const { state, filteredCommits, viewConfig, openDetailPane } = useApp();
 
-    // Compute security commits
+    // Compute security commits using two detection methods:
+    // 1. Security events from metadata (if available) — extracted by the analysis pipeline
+    // 2. Fallback: commits tagged or typed as "security" by the AI analysis
+    const usesSecurityEvents = state.data?.summary?.security_events?.length > 0;
     const securityCommits = useMemo(() => {
-        if (state.data?.summary?.security_events?.length > 0) {
+        if (usesSecurityEvents) {
             const securityShas = new Set(state.data.summary.security_events.map(e => e.sha));
             return filteredCommits.filter(c => securityShas.has(c.sha));
         }
         return filteredCommits.filter(c =>
             c.type === 'security' || (c.tags || []).includes('security')
         );
-    }, [filteredCommits, state.data]);
+    }, [filteredCommits, state.data, usesSecurityEvents]);
 
     const handleRepoClick = (repo) => {
         const filtered = securityCommits.filter(c => (c.repo_id || 'default') === repo);
@@ -39,7 +42,7 @@ export default function SecurityTab() {
         const repos = [...new Set(securityCommits.map(c => c.repo_id).filter(Boolean))];
 
         return (
-            <CollapsibleSection title="Security Commits">
+            <CollapsibleSection title="Security Commits" subtitle="Changes tagged as security-related by the analysis pipeline">
                 <div className="p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
                     <div className="text-center">
                         <div className="text-4xl font-bold text-red-600 dark:text-red-400 mb-2">
@@ -79,7 +82,7 @@ export default function SecurityTab() {
         const sortedRepos = Object.entries(byRepo).sort((a, b) => b[1] - a[1]);
 
         return (
-            <CollapsibleSection title="Security Commits">
+            <CollapsibleSection title="Security Commits" subtitle="Changes tagged as security-related by the analysis pipeline">
                 <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg mb-4">
                     <div className="text-center mb-4">
                         <div className="text-3xl font-bold text-red-600 dark:text-red-400">
@@ -111,7 +114,7 @@ export default function SecurityTab() {
 
     // Developer view: full commit details
     return (
-        <CollapsibleSection title="Security Commits">
+        <CollapsibleSection title="Security Commits" subtitle="Changes tagged as security-related by the analysis pipeline">
             {securityCommits.length > 0 ? (
                 <div className="space-y-3">
                     {securityCommits.map((commit, idx) => (

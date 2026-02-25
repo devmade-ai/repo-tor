@@ -181,7 +181,9 @@ function curlGitHub(url, { includeHeaders = false } = {}) {
     if (headerFile) {
       try { fs.unlinkSync(headerFile); } catch {}
     }
-    if (error.status === 22) {
+    // Fix: execFileSync throws with error.status (exit code), not error.code.
+    // curl exit code 22 = HTTP error (4xx/5xx response).
+    if (error.status === 22 || error.code === 22) {
       throw new Error(`GitHub API request failed: ${url}`);
     }
     throw error;

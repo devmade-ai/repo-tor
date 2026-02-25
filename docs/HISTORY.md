@@ -2,6 +2,40 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-25
+
+### Codebase Review Round 2 — UX, Accessibility, Code Quality (~17 Fixes)
+
+**Why:** Second full codebase audit focused on user experience polish, accessibility compliance, code quality, and infrastructure improvements.
+
+**UX improvements (7 items):**
+- **FilterSidebar.jsx** — Changed cryptic "Inc"/"Exc" to "Include"/"Exclude" with descriptive title attributes
+- **App.jsx** — Added upload success toast (commit count + repo count), improved error messages (SyntaxError vs generic)
+- **HealthTab.jsx** — Replaced jargon urgency labels: "Planned (1-2)"→"Planned Work", "Normal (3)"→"Routine Work", "Reactive (4-5)"→"Urgent Fixes"
+- **TimingTab.jsx** — Added color legend (green/amber/red dots) explaining work hours indicators
+- **SecurityTab.jsx** — Added subtitle explaining security criteria for non-technical users
+- **5 tabs** — Standardized empty state messages: "Nothing matches the current filters. Try adjusting your selections."
+
+**Accessibility improvements (4 items):**
+- **styles.css** — Added focus-visible outlines on all interactive elements (.tab-btn, .btn-icon, .collapsible-header, filter controls, role="button"/role="tab")
+- **styles.css** — Added prefers-reduced-motion media query (suppresses animations)
+- **styles.css** — Increased tag opacity from 0.2/0.3 to 0.3/0.5 for WCAG AA contrast
+- **TabBar.jsx + styles.css** — Replaced hardcoded Tailwind border-blue-500/text-blue-600 with .tab-btn-active class using CSS variables
+
+**Code quality improvements (3 items):**
+- **main.jsx + ErrorBoundary.jsx + styles.css** — Moved inline styles to CSS classes (root-error-message, root-error-detail, root-error-hint, error-boundary-card)
+- **state.js + TimingTab.jsx** — Extracted magic numbers into centralized THRESHOLDS constants
+- **scripts/lib/manifest.js** — Deleted dead code (4 unused exports, no imports found anywhere)
+
+**Infrastructure improvements (3 items):**
+- **extract-api.js** — Fixed error handling: added error.code check alongside error.status for curl failures
+- **vite.config.js** — Narrowed PWA glob patterns (excluded large data files from precache), disabled sourcemaps in production
+- **Debug banner** — Investigated HTML sanitization, confirmed already safe (uses textContent throughout)
+
+**Files:** 15 modified, 1 deleted
+
+---
+
 ## 2026-02-24
 
 ### Comprehensive Codebase Review — 20 Issues Fixed

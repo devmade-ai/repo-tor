@@ -126,7 +126,7 @@ export default function ContributorsTab() {
                         })}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary">No data matches the current filters</p>
+                    <p className="text-themed-tertiary">Nothing matches the current filters. Try adjusting your selections.</p>
                 )}
             </CollapsibleSection>
 
