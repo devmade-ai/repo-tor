@@ -6,7 +6,17 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-25 — Feed the Chicken: 38 New Commits):**
+**Recent Updates (2026-02-26 — Adopt Patterns from glow-props CLAUDE.md):**
+- **Cross-project pattern adoption** — Reviewed glow-props CLAUDE.md and adopted 5 patterns:
+  - PWA `beforeinstallprompt` race condition fix (inline capture in index.html before module scripts)
+  - Timer leak fixes in App.jsx (AbortController on data fetch, ref-tracked toast timeout)
+  - SVG → PNG icon generation pipeline (`scripts/generate-icons.mjs` via Sharp)
+  - Commit-msg hook now suggests all metadata footers (complexity, epic, semver)
+  - Cross-project reference section added to CLAUDE.md with glow-props URL
+- **Component audit** — Reviewed all 14 useEffect/timer patterns in React components; 12 already had proper cleanup, fixed the 2 that didn't
+- Build passes: 67 modules, 502KB bundle
+
+**Previous Updates (2026-02-25 — Feed the Chicken: 38 New Commits):**
 - **Feed the Chicken — 38 New Commits** — Incremental extraction and AI analysis of 38 new commits across 3 repos: budgy-ting (9+2 initial setup not previously extracted→+9 net new), graphiki (3), repo-tor (26). All batches human-approved. Dashboard re-aggregated: 14 repos, 1946 total commits.
 
 **Previous Updates (2026-02-25 — Codebase Review Round 2: UX, A11y, Code Quality):**
@@ -478,4 +488,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-25 - Feed the chicken: 38 new commits across 3 repos (budgy-ting, graphiki, repo-tor). Total: 1946 commits.*
+*Last updated: 2026-02-26 - Adopted glow-props CLAUDE.md patterns: PWA race condition fix, timer leak fixes, icon generation pipeline, commit-msg hook improvements.*

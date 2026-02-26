@@ -70,7 +70,7 @@ Good: "This file doesn't look like a dashboard data file. Try exporting from the
 - [ ] All custom styles in `dashboard/styles.css` — Tailwind utility classes in JSX are fine (framework convention)
 - [ ] No inline `style={}` objects in JSX unless values are dynamic/computed
 - [ ] Use CSS variables for theming (colors, spacing, typography) — never hardcode theme values
-- [ ] No `<script>` tags — all JS through ES module imports
+- [ ] No `<script>` tags — all JS through ES module imports (exceptions: debug pill and PWA early capture in index.html, which must run before modules load)
 - [ ] Maintain light/dark mode support through CSS variables
 
 ### Documentation
@@ -99,6 +99,24 @@ During every change, actively scan for:
 - [ ] Performance issues
 
 Report findings even if not directly related to current task.
+
+---
+
+## Cross-Project References
+
+### glow-props CLAUDE.md
+
+**URL:** `https://raw.githubusercontent.com/devmade-ai/glow-props/main/CLAUDE.md`
+
+Shared coding standards, patterns, and suggested implementations across devmade-ai projects.
+Check periodically for new patterns to adopt. Last reviewed: 2026-02-26.
+
+**Adopted patterns:**
+- PWA install prompt race condition fix (inline `beforeinstallprompt` capture in HTML)
+- Timer/listener cleanup patterns for `useEffect` (nested timeout tracking, mounted ref guard)
+- SVG → PNG icon generation pipeline via Sharp
+- Commit metadata footers (complexity, urgency, impact, risk, debt, epic, semver)
+- Debug system (in-memory event store, floating pill — adapted to HTML-level for crash resilience)
 
 ---
 
