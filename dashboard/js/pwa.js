@@ -100,6 +100,32 @@ export function getInstallInstructions() {
 
 // === Install: Prompt handling ===
 
+// Requirement: Capture beforeinstallprompt even if it fires before this module loads
+// Approach: index.html has an inline <script> that stashes the event on window.
+//   This module consumes it on load, then listens for future events as fallback.
+// Alternatives:
+//   - Only listen here: Rejected — module scripts load async; on cached SW visits
+//     the event fires before any module executes (see glow-props CLAUDE.md pattern)
+//   - Only use inline script: Rejected — need React integration via custom events
+function consumeEarlyCapturedEvent() {
+    const captured = window.__pwaInstallPromptEvent;
+    if (captured) {
+        delete window.__pwaInstallPromptEvent;
+        return captured;
+    }
+    return null;
+}
+
+const earlyCaptured = consumeEarlyCapturedEvent();
+if (earlyCaptured) {
+    localStorage.removeItem('pwaInstalled');
+    deferredInstallPrompt = earlyCaptured;
+    _installReady = true;
+    // Defer event dispatch so React listeners are attached by the time it fires
+    setTimeout(() => window.dispatchEvent(new CustomEvent('pwa-install-ready')), 0);
+}
+
+// Fallback listener for first-visit case (SW registers after mount)
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     // The browser only fires this event when the app is NOT installed.

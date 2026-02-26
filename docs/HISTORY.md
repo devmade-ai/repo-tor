@@ -2,6 +2,24 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-02-26
+
+### Adopt Patterns from glow-props CLAUDE.md
+
+**Why:** Cross-project review of glow-props CLAUDE.md identified reusable patterns for PWA robustness, timer leak prevention, icon generation, and commit metadata. Adopting these improves code quality and establishes a shared standard.
+
+**What:**
+- **CLAUDE.md** — Added Cross-Project References section with glow-props URL, adopted patterns list, and review date
+- **PWA race condition fix** — Added inline `<script>` in index.html to capture `beforeinstallprompt` before module scripts load; pwa.js now consumes early-captured event on load (covers cached SW repeat visits)
+- **Timer leak fixes** — App.jsx data fetch now uses AbortController (matches ProjectsTab.jsx pattern); toast timeout tracked in ref with cleanup on unmount
+- **Commit-msg hook** — Now suggests all metadata footers (complexity, epic, semver) in addition to existing risk/debt hints; consolidated into single "Consider adding" tip
+- **Icon generation pipeline** — Created `scripts/generate-icons.mjs` using Sharp to convert SVG source to all required PNG sizes; added `npm run generate-icons` script
+- **Audit result** — Full React component audit found 12/14 patterns with proper cleanup; the 2 leaks are now fixed
+
+**Files:** CLAUDE.md, dashboard/index.html, dashboard/js/pwa.js, dashboard/js/App.jsx, hooks/commit-msg, scripts/generate-icons.mjs, package.json, docs/
+
+---
+
 ## 2026-02-25
 
 ### Feed the Chicken — 38 New Commits (Incremental)

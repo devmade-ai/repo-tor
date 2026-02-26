@@ -217,6 +217,20 @@
       };
     })();
     </script>
+    <!--
+      PWA install prompt capture: Classic (non-module) script that runs
+      synchronously during HTML parse — before any <script type="module">
+      begins loading. On repeat visits with a cached service worker, the
+      browser fires beforeinstallprompt before React mounts. This inline
+      script stashes the event for pwa.js to consume later.
+      See: glow-props CLAUDE.md "PWA Install Prompt Race Condition" pattern.
+    -->
+    <script>
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      window.__pwaInstallPromptEvent = e;
+    });
+    </script>
     <script type="module" src="./js/main.jsx"></script>
 </body>
 </html>

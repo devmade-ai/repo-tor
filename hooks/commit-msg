@@ -76,21 +76,37 @@ if ! echo "$COMMIT_MSG_CLEAN" | grep -qiE "^tags:"; then
     echo ""
     echo "Example footer:"
     echo "  tags: feature, ui, ux"
+    echo "  complexity: 2"
     echo "  risk: low"
     echo "  debt: neutral"
+    echo "  epic: dashboard-redesign"
+    echo "  semver: minor"
     echo ""
-    echo "See docs/EXTRACTION_PLAYBOOK.md for available tags."
+    echo "See docs/COMMIT_CONVENTION.md for all metadata footers."
     echo "(Proceeding without tags - this is optional but recommended)"
     echo ""
 fi
 
-# Check for risk/debt footers when tags are present (suggest, don't block)
+# Check for metadata footers when tags are present (suggest, don't block)
 if echo "$COMMIT_MSG_CLEAN" | grep -qiE "^tags:"; then
+    MISSING_FOOTERS=""
+    if ! echo "$COMMIT_MSG_CLEAN" | grep -qiE "^complexity:"; then
+        MISSING_FOOTERS="$MISSING_FOOTERS complexity(1-5)"
+    fi
     if ! echo "$COMMIT_MSG_CLEAN" | grep -qiE "^risk:"; then
-        echo "TIP: Consider adding 'risk: low|medium|high' for risk tracking."
+        MISSING_FOOTERS="$MISSING_FOOTERS risk(low|medium|high)"
     fi
     if ! echo "$COMMIT_MSG_CLEAN" | grep -qiE "^debt:"; then
-        echo "TIP: Consider adding 'debt: added|paid|neutral' for debt tracking."
+        MISSING_FOOTERS="$MISSING_FOOTERS debt(added|paid|neutral)"
+    fi
+    if ! echo "$COMMIT_MSG_CLEAN" | grep -qiE "^epic:"; then
+        MISSING_FOOTERS="$MISSING_FOOTERS epic(name)"
+    fi
+    if ! echo "$COMMIT_MSG_CLEAN" | grep -qiE "^semver:"; then
+        MISSING_FOOTERS="$MISSING_FOOTERS semver(patch|minor|major)"
+    fi
+    if [ -n "$MISSING_FOOTERS" ]; then
+        echo "TIP: Consider adding:$MISSING_FOOTERS"
     fi
 fi
 

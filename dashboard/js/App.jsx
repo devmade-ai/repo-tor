@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useApp } from './AppContext.jsx';
 import Header from './components/Header.jsx';
 import TabBar from './components/TabBar.jsx';
@@ -109,6 +109,10 @@ export default function App() {
     const [loadError, setLoadError] = useState(null);
     const [loadSuccess, setLoadSuccess] = useState(null);
     const [initialLoading, setInitialLoading] = useState(true);
+    // Track toast dismiss timeout so it can be cleared on unmount
+    // (prevents state update on unmounted component — glow-props timer leak pattern)
+    const toastTimerRef = useRef(null);
+    useEffect(() => () => { if (toastTimerRef.current) clearTimeout(toastTimerRef.current); }, []);
 
     // Lock body scroll when any overlay pane is open
     useEffect(() => {
@@ -118,8 +122,12 @@ export default function App() {
     }, [state.detailPane.open, state.settingsPaneOpen]);
 
     // Auto-load data.json on mount
+    // Fix: Added AbortController to cancel fetch on unmount, preventing state
+    // updates on a dead component (adopted from glow-props timer leak pattern;
+    // matches ProjectsTab.jsx which already used this approach).
     useEffect(() => {
-        fetch('./data.json')
+        const controller = new AbortController();
+        fetch('./data.json', { signal: controller.signal })
             .then(r => {
                 if (r.status === 404) return null; // No data file — user can upload
                 if (!r.ok) throw new Error(`HTTP ${r.status}`);
@@ -129,10 +137,14 @@ export default function App() {
                 if (data) dispatch({ type: 'LOAD_DATA', payload: data });
             })
             .catch(err => {
+                if (err.name === 'AbortError') return;
                 console.error('Failed to load data.json:', err);
                 setLoadError(`Failed to load dashboard data: ${err.message}`);
             })
-            .finally(() => setInitialLoading(false));
+            .finally(() => {
+                if (!controller.signal.aborted) setInitialLoading(false);
+            });
+        return () => controller.abort();
     }, []);
 
     // Heatmap tooltip handler
@@ -225,7 +237,8 @@ export default function App() {
                     ? combined.metadata.repo_name : combined.metadata?.repo_name ? [combined.metadata.repo_name] : [];
                 const repoText = repoNames.length > 0 ? ` from ${repoNames.length} repo${repoNames.length !== 1 ? 's' : ''}` : '';
                 setLoadSuccess(`Loaded ${commitCount.toLocaleString()} commits${repoText}`);
-                setTimeout(() => setLoadSuccess(null), 4000);
+                if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+                toastTimerRef.current = setTimeout(() => setLoadSuccess(null), 4000);
             }
         }).catch(err => {
             console.error('Error loading files:', err);
