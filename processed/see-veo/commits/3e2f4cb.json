@@ -1,0 +1,47 @@
+{
+  "sha": "3e2f4cb",
+  "fullSha": "3e2f4cb3210eaa73ce4fb0edefc669b39ea40bc6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-27T09:14:31Z",
+  "commitDate": "2026-02-27T09:14:31Z",
+  "subject": "infra(deploy): migrate from GitHub Pages to Vercel",
+  "body": "GitHub Pages required a /see-veo/ base-path prefix, a 404.html copy hack\nfor SPA routing, and manual \"source\" configuration in repo settings.\nVercel handles all of this natively — serving at root /, SPA rewrites via\nvercel.json, and env var injection in the dashboard.\n\nChanges:\n- Delete .github/workflows/deploy.yml\n- Add vercel.json with SPA rewrites and Vite framework config\n- Remove base: '/see-veo/' from vite.config.ts (Vite defaults to '/')\n- Update PWA scope and start_url from '/see-veo/' to '/'\n- Simplify navigateFallbackDenylist to target API paths instead of\n  hardcoding the GitHub Pages domain\n- Update CLAUDE.md and README.md to reflect Vercel deployment\n\nTags: deployment, vercel, infrastructure, pwa, migration\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: vercel-migration\nSemver: major\n\nhttps://claude.ai/code/session_01UineTKHu2dzmAL9MKUMJnC",
+  "tags": [
+    "hosting",
+    "config",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "vercel-migration",
+  "semver": "major",
+  "scope": "deploy",
+  "title": "migrate from GitHub Pages to Vercel",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 25,
+    "deletions": 69
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "CLAUDE.md",
+    "README.md",
+    "vercel.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "infrastructure"
+}
