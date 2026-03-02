@@ -19,7 +19,10 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'prompt',
-      includeAssets: ['icons/*.png', 'icons/*.svg', '*.json', 'repos/*.json'],
+      // Requirement: data.json (2.68MB) must NOT be precached — exceeds Workbox 2MB limit
+      // Approach: Exclude *.json from includeAssets, list only small static assets explicitly
+      // data.json is handled via runtimeCaching with NetworkFirst instead
+      includeAssets: ['icons/*.png', 'icons/*.svg', 'projects.json', 'repos/*.json'],
       manifest: {
         name: 'Git Analytics Dashboard',
         short_name: 'Git Analytics',
@@ -55,9 +58,23 @@ export default defineConfig({
       workbox: {
         skipWaiting: true,
         clientsClaim: true,
-        // Narrowed from **/*.{json} to specific files to avoid caching large data files
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}', 'data.json', 'projects.json'],
+        // data.json excluded from precache — too large (2.68MB > Workbox 2MB limit)
+        // Handled via runtimeCaching with NetworkFirst below instead
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}', 'projects.json'],
         runtimeCaching: [
+          {
+            // Runtime cache for data.json — too large for precache (2.68MB)
+            // NetworkFirst: always fetch latest data, fall back to cache when offline
+            urlPattern: /\/data\.json$/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'dashboard-data',
+              expiration: {
+                maxEntries: 1,
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+              },
+            },
+          },
           {
             urlPattern: /^https:\/\/cdn\.jsdelivr\.net/,
             handler: 'CacheFirst',
