@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-03-02T19:46:51.224Z",
+    "generatedAt": "2026-03-02T20:27:54.272Z",
     "repository": "graphiki",
     "scope": "graphiki",
     "repoCount": 1,
-    "commitCount": 131,
+    "commitCount": 139,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -17,6 +17,378 @@
     }
   },
   "commits": [
+    {
+      "sha": "f231ee2",
+      "fullSha": "f231ee24cd849504b192439c60d2aa52c47c8dee",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T13:55:15Z",
+      "commitDate": "2026-02-27T13:55:15Z",
+      "subject": "Merge pull request #37 from devmade-ai/claude/review-external-claude-md-E6DNH",
+      "body": "docs(meta): add AI documentation file system and CLAUDE.md enhancements",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #37 from devmade-ai/claude/review-external-claude-md-E6DNH",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#37"
+      ],
+      "stats": {
+        "filesChanged": 13,
+        "additions": 312,
+        "deletions": 81
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "docs/AI_MISTAKES.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "src/components/debug/DebugPill.tsx",
+        "src/main.tsx",
+        "src/utils/debugLog.ts",
+        "vercel.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "729f365",
+      "fullSha": "729f365bbb7e6dc932b3c596c3d727b37d4a6e56",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T13:49:39Z",
+      "commitDate": "2026-02-27T13:49:39Z",
+      "subject": "infra(deploy): migrate from GitHub Actions/Pages to Vercel",
+      "body": "GitHub Pages had friction for SPAs: subpath base config, manual source\nsetting, no env var injection, and 404.html copy hack for client-side\nrouting. Vercel handles all of this natively.\n\nChanges:\n- Delete .github/workflows/deploy.yml (GitHub Actions workflow)\n- Add vercel.json with SPA rewrites (replaces 404.html hack)\n- Remove base: '/graphiki/' from vite.config.ts (Vercel serves at root)\n- Update decision comments in vite.config.ts, main.tsx, debugLog.ts,\n  DebugPill.tsx to reference Vercel instead of GitHub Pages\n- Add deployment convention and Vercel Migration milestone to CLAUDE.md\n- Add Vercel Migration entry to docs/HISTORY.md\n\nTags: infrastructure, vercel, deployment, migration\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: vercel-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01Cb5AgAiPFtDaxUbdbipPoz",
+      "tags": [
+        "hosting",
+        "config",
+        "removal"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "vercel-migration",
+      "semver": "minor",
+      "scope": "deploy",
+      "title": "migrate from GitHub Actions/Pages to Vercel",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 45,
+        "deletions": 81
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "src/components/debug/DebugPill.tsx",
+        "src/main.tsx",
+        "src/utils/debugLog.ts",
+        "vercel.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "2b6c8fb",
+      "fullSha": "2b6c8fba40dd1e2c894adaa06936a67808a6a0ee",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T13:42:31Z",
+      "commitDate": "2026-02-27T13:42:31Z",
+      "subject": "docs(meta): add AI documentation file system and CLAUDE.md enhancements",
+      "body": "Adopt documentation patterns from glow-props CLAUDE.md to improve\ncross-session continuity and project quality tracking.\n\nNew documentation files:\n- AI_MISTAKES.md: error log with prevention strategies\n- SESSION_NOTES.md: compact context snapshot rewritten per session\n- TODO.md: persistent AI-managed backlog for discoveries and tech debt\n- HISTORY.md: completed work changelog (seeded with all milestones)\n- USER_ACTIONS.md: manual interventions requiring user credentials\n- TESTING_GUIDE.md: manual test scenarios for cross-browser/device QA\n\nCLAUDE.md additions:\n- Auto-updated documentation files table in Documentation section\n- TutorialModal synchronization rule (keep tutorial steps in sync with UI)\n- Build tools existence check before running build/test commands\n- Cross-reference section pointing to glow-props for convention drift checks\n- Project structure updated to list new docs files\n\nTags: docs, meta, conventions, cross-project\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation-system\nSemver: minor\n\nhttps://claude.ai/code/session_01Cb5AgAiPFtDaxUbdbipPoz",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "documentation-system",
+      "semver": "minor",
+      "scope": "meta",
+      "title": "add AI documentation file system and CLAUDE.md enhancements",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 267,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/AI_MISTAKES.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "857f086",
+      "fullSha": "857f0863490fd6d53e1f154aae8fd693b049e63d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T20:53:50Z",
+      "commitDate": "2026-02-26T20:53:50Z",
+      "subject": "Merge pull request #36 from devmade-ai/claude/fix-pwa-install-prompt-3Vs81",
+      "body": "Fix PWA install prompt race condition with early event capture",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #36 from devmade-ai/claude/fix-pwa-install-prompt-3Vs81",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#36"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 51,
+        "deletions": 5
+      },
+      "files": [
+        "index.html",
+        "src/hooks/usePWAInstall.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "fc315be",
+      "fullSha": "fc315be0adcab58c14c13c95bc410052f2bb5348",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T20:40:57Z",
+      "commitDate": "2026-02-26T20:40:57Z",
+      "subject": "fix(pwa): capture beforeinstallprompt before React mounts to prevent race condition",
+      "body": "The beforeinstallprompt event can fire as soon as the service worker\nregisters (cached on repeat visits), which may happen before React's\nuseEffect attaches its listener — causing the install prompt to never\nappear on Chromium browsers.\n\nFix: Add an inline classic script in index.html that captures the event\nimmediately during HTML parse. The usePWAInstall hook's state initializer\nconsumes the pre-captured event synchronously on first render. A fallback\naddEventListener covers first-visit cases where the SW registers after\nReact mounts. Analytics tracking is centralized in a single useEffect\nto avoid both the race condition and React lint violations.\n\nTags: pwa, install-prompt, race-condition, beforeinstallprompt\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-install\nSemver: patch\n\nhttps://claude.ai/code/session_019UBdoLx9smo7S6WpPANgmv",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pwa-install",
+      "semver": "patch",
+      "scope": "pwa",
+      "title": "capture beforeinstallprompt before React mounts to prevent race condition",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 51,
+        "deletions": 5
+      },
+      "files": [
+        "index.html",
+        "src/hooks/usePWAInstall.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "9ef9ac9",
+      "fullSha": "9ef9ac99f407abc26c535460abc22d6df9bb8170",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T19:20:38Z",
+      "commitDate": "2026-02-26T19:20:38Z",
+      "subject": "Merge pull request #35 from devmade-ai/claude/add-default-workspace-demo-oDGkZ",
+      "body": "Move demo data seeding from useGraphData to useWorkspaces",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #35 from devmade-ai/claude/add-default-workspace-demo-oDGkZ",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#35"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 22,
+        "deletions": 14
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/hooks/useGraphData.ts",
+        "src/hooks/useWorkspaces.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0602cb6",
+      "fullSha": "0602cb6200dad6ae074390584a2de1e4e39e2cca",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T19:19:00Z",
+      "commitDate": "2026-02-26T19:19:00Z",
+      "subject": "fix(seed): move seedIfEmpty to useWorkspaces so Demo workspace appears on first visit",
+      "body": "seedIfEmpty was called from useGraphData, which returns early when\nworkspaceId is null. New users land on the workspace manager with no\nactive workspace, so the seed never fired — they saw an empty workspace\nmanager with only the option to create a new workspace.\n\nMoved seedIfEmpty to useWorkspaces hook, which runs on app startup\nregardless of active workspace state. The Demo workspace now exists\nbefore the workspace manager first renders.\n\nAlso reverts the Default workspace auto-creation from the previous\ncommit — only the Demo workspace is needed for first-visit experience.\n\nTags: seed, workspace, ux, first-visit, bugfix\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: multiple-workspaces\nSemver: patch\n\nhttps://claude.ai/code/session_01RQoCozyVHkxKvXz3aC7NDq",
+      "tags": [
+        "bugfix",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "multiple-workspaces",
+      "semver": "patch",
+      "scope": "seed",
+      "title": "move seedIfEmpty to useWorkspaces so Demo workspace appears on first visit",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 25,
+        "deletions": 50
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/hooks/useGraphData.ts",
+        "src/hooks/useWorkspaces.ts",
+        "src/services/seedService.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "065ab7a",
+      "fullSha": "065ab7aa1ed2b7a78486345142f5e5d8c4af636f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T19:14:20Z",
+      "commitDate": "2026-02-26T19:14:20Z",
+      "subject": "feat(seed): create Default workspace alongside Demo on first visit",
+      "body": "New users previously only saw the Demo workspace on the workspace manager.\nNow seedService also creates an empty Default workspace (ws-default) so\nusers have a personal workspace ready for their own data immediately.\n\nThe ensureDefaultWorkspace function uses check-then-create (idempotent),\nmatching the ensureDemoWorkspace pattern. Called in all three seed paths:\nfirst visit (empty DB), version mismatch (re-seed), and data-exists\n(skip seed but ensure workspace exists for edge cases like cleared\nlocalStorage with retained IndexedDB).\n\nTags: seed, workspace, ux, first-visit\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: multiple-workspaces\nSemver: minor\n\nhttps://claude.ai/code/session_01RQoCozyVHkxKvXz3aC7NDq",
+      "tags": [
+        "feature",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "multiple-workspaces",
+      "semver": "minor",
+      "scope": "seed",
+      "title": "create Default workspace alongside Demo on first visit",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 37,
+        "deletions": 4
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/services/seedService.ts"
+      ],
+      "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
     {
       "sha": "5478178",
       "fullSha": "547817816e8de53b24aa4a64011f28e6d1db83e1",
@@ -6027,24 +6399,25 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 130,
-      "avgComplexity": 2.12,
-      "avgUrgency": 1.88,
+      "commits": 138,
+      "avgComplexity": 2.09,
+      "avgUrgency": 1.9,
       "tagBreakdown": {
-        "merge": 34,
-        "bugfix": 23,
-        "ux": 17,
+        "merge": 37,
+        "hosting": 1,
+        "config": 4,
+        "removal": 9,
+        "docs": 19,
+        "bugfix": 25,
+        "ux": 19,
+        "feature": 41,
         "accessibility": 3,
         "ui": 19,
-        "feature": 40,
         "database": 4,
         "schema": 2,
         "refactor": 13,
-        "docs": 18,
-        "removal": 8,
         "naming": 5,
         "test-unit": 1,
-        "config": 2,
         "simplify": 1,
         "types": 2,
         "enhancement": 2,
@@ -6064,27 +6437,27 @@
         "repository-setup": 1
       },
       "impactBreakdown": {
-        "internal": 63,
-        "user-facing": 63,
-        "infrastructure": 4,
+        "internal": 67,
+        "user-facing": 66,
+        "infrastructure": 5,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 100,
-        "medium": 22,
+        "low": 107,
+        "medium": 23,
         "high": 2
       },
       "debtBreakdown": {
         "added": 1,
-        "paid": 35,
-        "neutral": 88
+        "paid": 39,
+        "neutral": 92
       },
       "repos": [
         "graphiki"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-11T21:17:42Z",
-      "lastCommit": "2026-02-25T08:55:51Z"
+      "lastCommit": "2026-02-27T13:55:15Z"
     },
     {
       "author_id": "jacotheron87",
@@ -6126,23 +6499,24 @@
     }
   ],
   "summary": {
-    "totalCommits": 131,
+    "totalCommits": 139,
     "totalContributors": 2,
     "tagBreakdown": {
-      "merge": 34,
-      "bugfix": 23,
-      "ux": 17,
+      "merge": 37,
+      "hosting": 1,
+      "config": 4,
+      "removal": 9,
+      "docs": 19,
+      "bugfix": 25,
+      "ux": 19,
+      "feature": 42,
       "accessibility": 3,
       "ui": 20,
-      "feature": 41,
       "database": 4,
       "schema": 2,
       "refactor": 13,
-      "docs": 18,
-      "removal": 8,
       "naming": 5,
       "test-unit": 1,
-      "config": 2,
       "simplify": 1,
       "types": 2,
       "enhancement": 2,
@@ -6165,38 +6539,41 @@
       "repository-setup": 1
     },
     "complexityBreakdown": {
-      "1": 52,
-      "2": 30,
+      "1": 55,
+      "2": 35,
       "3": 32,
       "4": 13,
       "5": 4
     },
     "urgencyBreakdown": {
       "1": 36,
-      "2": 78,
-      "3": 14,
+      "2": 84,
+      "3": 16,
       "4": 2,
       "5": 1
     },
     "impactBreakdown": {
-      "internal": 63,
-      "user-facing": 64,
-      "infrastructure": 4,
+      "internal": 67,
+      "user-facing": 67,
+      "infrastructure": 5,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 100,
-      "medium": 22,
+      "low": 107,
+      "medium": 23,
       "high": 2
     },
     "debtBreakdown": {
       "added": 1,
-      "paid": 35,
-      "neutral": 88
+      "paid": 39,
+      "neutral": 92
     },
     "epicBreakdown": {
+      "vercel-migration": 1,
+      "documentation-system": 1,
+      "pwa-install": 1,
+      "multiple-workspaces": 3,
       "ux-polish": 1,
-      "multiple-workspaces": 1,
       "alpha-polish": 1,
       "documentation": 5,
       "conventions": 3,
@@ -6221,30 +6598,31 @@
       "schema-layer": 1
     },
     "semverBreakdown": {
-      "patch": 18,
-      "minor": 27,
+      "patch": 20,
+      "minor": 30,
       "major": 2
     },
-    "avgComplexity": 2.14,
-    "avgUrgency": 1.89,
+    "avgComplexity": 2.11,
+    "avgUrgency": 1.91,
     "monthly": {
       "2026-02": {
-        "commits": 131,
+        "commits": 139,
         "tags": {
-          "merge": 34,
-          "bugfix": 23,
-          "ux": 17,
+          "merge": 37,
+          "hosting": 1,
+          "config": 4,
+          "removal": 9,
+          "docs": 19,
+          "bugfix": 25,
+          "ux": 19,
+          "feature": 42,
           "accessibility": 3,
           "ui": 20,
-          "feature": 41,
           "database": 4,
           "schema": 2,
           "refactor": 13,
-          "docs": 18,
-          "removal": 8,
           "naming": 5,
           "test-unit": 1,
-          "config": 2,
           "simplify": 1,
           "types": 2,
           "enhancement": 2,
@@ -6267,48 +6645,49 @@
           "repository-setup": 1
         },
         "impact": {
-          "internal": 63,
-          "user-facing": 64,
-          "infrastructure": 4,
+          "internal": 67,
+          "user-facing": 67,
+          "infrastructure": 5,
           "api": 0
         },
         "risk": {
-          "low": 100,
-          "medium": 22,
+          "low": 107,
+          "medium": 23,
           "high": 2
         },
         "debt": {
           "added": 1,
-          "paid": 35,
-          "neutral": 88
+          "paid": 39,
+          "neutral": 92
         },
         "semver": {
-          "patch": 18,
-          "minor": 27,
+          "patch": 20,
+          "minor": 30,
           "major": 2
         },
-        "avgComplexity": 2.14,
-        "avgUrgency": 1.89
+        "avgComplexity": 2.11,
+        "avgUrgency": 1.91
       }
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 131,
+        "commits": 139,
         "tags": {
-          "merge": 34,
-          "bugfix": 23,
-          "ux": 17,
+          "merge": 37,
+          "hosting": 1,
+          "config": 4,
+          "removal": 9,
+          "docs": 19,
+          "bugfix": 25,
+          "ux": 19,
+          "feature": 42,
           "accessibility": 3,
           "ui": 20,
-          "feature": 41,
           "database": 4,
           "schema": 2,
           "refactor": 13,
-          "docs": 18,
-          "removal": 8,
           "naming": 5,
           "test-unit": 1,
-          "config": 2,
           "simplify": 1,
           "types": 2,
           "enhancement": 2,
@@ -6331,33 +6710,33 @@
           "repository-setup": 1
         },
         "impact": {
-          "internal": 63,
-          "user-facing": 64,
-          "infrastructure": 4,
+          "internal": 67,
+          "user-facing": 67,
+          "infrastructure": 5,
           "api": 0
         },
         "risk": {
-          "low": 100,
-          "medium": 22,
+          "low": 107,
+          "medium": 23,
           "high": 2
         },
         "debt": {
           "added": 1,
-          "paid": 35,
-          "neutral": 88
+          "paid": 39,
+          "neutral": 92
         },
         "semver": {
-          "patch": 18,
-          "minor": 27,
+          "patch": 20,
+          "minor": 30,
           "major": 2
         },
-        "avgComplexity": 2.14,
-        "avgUrgency": 1.89
+        "avgComplexity": 2.11,
+        "avgUrgency": 1.91
       }
     },
     "dateRange": {
       "earliest": "2026-02-11T21:17:42Z",
-      "latest": "2026-02-25T08:55:51Z"
+      "latest": "2026-02-27T13:55:15Z"
     },
     "security_events": []
   }

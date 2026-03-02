@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-03-02T19:46:51.241Z",
+    "generatedAt": "2026-03-02T20:27:54.288Z",
     "repository": "repo-tor",
     "scope": "repo-tor",
     "repoCount": 1,
-    "commitCount": 441,
+    "commitCount": 454,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -21,6 +21,739 @@
     }
   },
   "commits": [
+    {
+      "sha": "dbf6450",
+      "fullSha": "dbf6450b3aecb034687909cf2efc1226e82a9ae8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T09:42:50Z",
+      "commitDate": "2026-03-02T09:42:50Z",
+      "subject": "Merge pull request #88 from devmade-ai/claude/fix-dashboard-json-error-JSUzy",
+      "body": "Fix Vercel build: move data.json to runtime cache",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #88 from devmade-ai/claude/fix-dashboard-json-error-JSUzy",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#88"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 4,
+        "deletions": 1
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "b56f7a5",
+      "fullSha": "b56f7a5c838bff640da80011bb92b1772d13a53a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T09:41:27Z",
+      "commitDate": "2026-03-02T09:41:27Z",
+      "subject": "merge: resolve conflicts with origin/main (same data.json fix)",
+      "body": "Both branches fixed the data.json PWA precache error. Took origin/main's\nmore comprehensive fix (vercel.json rewrite, data.json moved to public/,\nerror handling in App.jsx) and merged the precache/runtime-cache changes.\n\nhttps://claude.ai/code/session_0152yG7ZEPGqkfSnWCgjfWnQ",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "resolve conflicts with origin/main (same data.json fix)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 55,
+        "deletions": 29
+      },
+      "files": [
+        "dashboard/js/App.jsx",
+        "dashboard/public/data.json",
+        "docs/ADMIN_GUIDE.md",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/aggregate-processed.js",
+        "scripts/update-all.sh",
+        "vercel.json",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "7779333",
+      "fullSha": "7779333540502141ba3e74f239fb415d68c32e82",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T09:38:18Z",
+      "commitDate": "2026-03-02T09:38:18Z",
+      "subject": "Merge pull request #87 from devmade-ai/claude/fix-dashboard-json-error-b9rbQ",
+      "body": "Fix Dashboard JSON Loading Error on Vercel",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #87 from devmade-ai/claude/fix-dashboard-json-error-b9rbQ",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#87"
+      ],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 72,
+        "deletions": 12
+      },
+      "files": [
+        "dashboard/js/App.jsx",
+        "dashboard/public/data.json",
+        "docs/ADMIN_GUIDE.md",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/aggregate-processed.js",
+        "scripts/update-all.sh",
+        "vercel.json",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f9fb2bf",
+      "fullSha": "f9fb2bf303cbe7c6fb9e3f7a21baa22a558a7e43",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T09:22:22Z",
+      "commitDate": "2026-03-02T09:22:22Z",
+      "subject": "fix: exclude data.json from PWA precache to fix Vercel build",
+      "body": "data.json (2.68 MB) exceeded workbox's default 2 MiB precache limit,\ncausing the Vercel build to fail. Moved from globPatterns (precache) to\nruntime caching with NetworkFirst strategy — users get fresh data when\nonline, cached data when offline.\n\nhttps://claude.ai/code/session_0152yG7ZEPGqkfSnWCgjfWnQ",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pwa",
+      "semver": "patch",
+      "scope": null,
+      "title": "exclude data.json from PWA precache to fix Vercel build",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 40,
+        "deletions": 3
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "6549c00",
+      "fullSha": "6549c00bad6e4ded20f1ea42d50028b8e754b495",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T09:12:15Z",
+      "commitDate": "2026-03-02T09:12:15Z",
+      "subject": "fix: exclude data.json from PWA precache, use runtime caching instead",
+      "body": "data.json (2.68MB) exceeds Workbox's 2MB precache limit, causing\nthe build to fail. Moved to NetworkFirst runtime caching so it's\nfetched fresh on each load and cached for offline PWA use.\n\n- Remove data.json from globPatterns and narrow *.json in includeAssets\n- Add NetworkFirst runtime caching rule for /data.json\n\nhttps://claude.ai/code/session_01HfBuLLn6odQ2BFNovZ2toD",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pwa",
+      "semver": "patch",
+      "scope": null,
+      "title": "exclude data.json from PWA precache, use runtime caching instead",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 20,
+        "deletions": 3
+      },
+      "files": [
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "ed4a1c2",
+      "fullSha": "ed4a1c2d82a719bf8a9078c92b64b8cb13af9696",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T06:11:58Z",
+      "commitDate": "2026-03-02T06:11:58Z",
+      "subject": "fix: resolve dashboard JSON loading error on Vercel deployment",
+      "body": "The Vercel SPA rewrite rule was rewriting data.json requests to\nindex.html, causing the dashboard to receive HTML instead of JSON.\nAdditionally, data.json was not in dashboard/public/ so Vite never\nincluded it in the build output.\n\n- Fix vercel.json rewrite to exclude files with extensions from SPA fallback\n- Move data.json to dashboard/public/ so Vite includes it in dist/\n- Update aggregate-processed.js default output to dashboard/public/\n- Add content-type guard and user-friendly error messages in App.jsx\n- Update documentation path references\n\nhttps://claude.ai/code/session_01HfBuLLn6odQ2BFNovZ2toD",
+      "tags": [
+        "bugfix",
+        "config",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "vercel-migration",
+      "semver": "patch",
+      "scope": null,
+      "title": "resolve dashboard JSON loading error on Vercel deployment",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 52,
+        "deletions": 9
+      },
+      "files": [
+        "dashboard/js/App.jsx",
+        "dashboard/public/data.json",
+        "docs/ADMIN_GUIDE.md",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/aggregate-processed.js",
+        "scripts/update-all.sh",
+        "vercel.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 4,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "a2b3e91",
+      "fullSha": "a2b3e917a61195e19d7caa0167d6a7cf73ffe1c7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T05:55:47Z",
+      "commitDate": "2026-03-02T05:55:47Z",
+      "subject": "Merge pull request #86 from devmade-ai/claude/check-vercel-migration-DOj5t",
+      "body": "Migrate deployment from GitHub Pages to Vercel",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #86 from devmade-ai/claude/check-vercel-migration-DOj5t",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#86"
+      ],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 75,
+        "deletions": 117
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "dashboard/public/embed.js",
+        "dashboard/public/projects.json",
+        "docs/ADMIN_GUIDE.md",
+        "docs/EMBED_IMPLEMENTATION.md",
+        "docs/EMBED_REFERENCE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_GUIDE.md",
+        "vercel.json",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "68607f6",
+      "fullSha": "68607f648dffd60ae2fb65ade7a6f11ecec86aed",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T02:30:31Z",
+      "commitDate": "2026-03-02T02:30:31Z",
+      "subject": "chore: migrate deployment from GitHub Pages to Vercel",
+      "body": "GitHub Pages requires a 404.html hack for SPA routing, has no env var\ninjection at build, and needs manual \"source\" setting in repo UI.\nVercel handles all of this natively.\n\n- Add vercel.json with SPA rewrite rule for client-side routing\n- Delete .github/workflows/deploy.yml (GitHub Actions no longer needed)\n- Change vite.config.js base from './' to '/' (Vercel serves at root)\n- Update all live URL references to repo-tor.vercel.app\n- Update ADMIN_GUIDE deployment section with Vercel setup instructions\n\nTags: infrastructure, deployment\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: minor\n\nhttps://claude.ai/code/session_01GtthmWa1MVuevLn3MANefx",
+      "tags": [
+        "hosting",
+        "config",
+        "removal"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "vercel-migration",
+      "semver": "minor",
+      "scope": null,
+      "title": "migrate deployment from GitHub Pages to Vercel",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 75,
+        "deletions": 117
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "dashboard/public/embed.js",
+        "dashboard/public/projects.json",
+        "docs/ADMIN_GUIDE.md",
+        "docs/EMBED_IMPLEMENTATION.md",
+        "docs/EMBED_REFERENCE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_GUIDE.md",
+        "vercel.json",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "36c68a1",
+      "fullSha": "36c68a12452203c4be761875d5ba9cd8e5b2f3a1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T22:33:48Z",
+      "commitDate": "2026-02-26T22:33:48Z",
+      "subject": "Merge pull request #85 from devmade-ai/claude/review-external-claude-md-Rfo6x",
+      "body": "Adopt cross-project patterns: PWA race condition fix, timer leaks, icon generation",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #85 from devmade-ai/claude/review-external-claude-md-Rfo6x",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#85"
+      ],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 195,
+        "deletions": 12
+      },
+      "files": [
+        "CLAUDE.md",
+        "dashboard/index.html",
+        "dashboard/js/App.jsx",
+        "dashboard/js/pwa.js",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "hooks/commit-msg",
+        "package.json",
+        "scripts/generate-icons.mjs"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "7afd763",
+      "fullSha": "7afd76324a7e64db5e777f060c08e6e2375500dd",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T22:29:04Z",
+      "commitDate": "2026-02-26T22:29:04Z",
+      "subject": "feat: adopt patterns from glow-props CLAUDE.md",
+      "body": "Review and adopt reusable patterns from the glow-props project's\nCLAUDE.md into repo-tor: PWA install prompt race condition fix,\ntimer/listener cleanup for React effects, SVG icon generation\npipeline, commit-msg hook metadata suggestions, and cross-project\nreference tracking.\n\ntags: feature, enhancement, pwa, config, docs\ncomplexity: 3\nurgency: 1\nimpact: internal\nrisk: low\ndebt: paid\nepic: cross-project-standards\nsemver: minor\n\nhttps://claude.ai/code/session_01SXWBJkgZu2PzzBWHi5hvoT",
+      "tags": [
+        "enhancement",
+        "config",
+        "docs"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "cross-project-standards",
+      "semver": "minor",
+      "scope": null,
+      "title": "adopt patterns from glow-props CLAUDE.md",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 195,
+        "deletions": 12
+      },
+      "files": [
+        "CLAUDE.md",
+        "dashboard/index.html",
+        "dashboard/js/App.jsx",
+        "dashboard/js/pwa.js",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "hooks/commit-msg",
+        "package.json",
+        "scripts/generate-icons.mjs"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "a7836e9",
+      "fullSha": "a7836e9295a5f41cd882517fc24202690d483763",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-25T10:03:33Z",
+      "commitDate": "2026-02-25T10:03:33Z",
+      "subject": "Merge pull request #84 from devmade-ai/claude/feed-chicken-HBCRb",
+      "body": "Feed the chicken: incremental commit extraction & dashboard refresh",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #84 from devmade-ai/claude/feed-chicken-HBCRb",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#84"
+      ],
+      "stats": {
+        "filesChanged": 59,
+        "additions": 7742,
+        "deletions": 447
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/budgy-ting.json",
+        "dashboard/repos/canva-grid-assets.json",
+        "dashboard/repos/canva-grid.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/coin-zapp.json",
+        "dashboard/repos/few-lap.json",
+        "dashboard/repos/glow-props.json",
+        "dashboard/repos/graphiki.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/plant-fur.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/see-veo.json",
+        "dashboard/repos/synctone.json",
+        "dashboard/repos/tool-till-tees.json",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "processed/budgy-ting/commits/0e880af.json",
+        "processed/budgy-ting/commits/31d664e.json",
+        "processed/budgy-ting/commits/7a8c2be.json",
+        "processed/budgy-ting/commits/9c40b46.json",
+        "processed/budgy-ting/commits/a0c33d8.json",
+        "processed/budgy-ting/commits/b04cb80.json",
+        "processed/budgy-ting/commits/c35bc17.json",
+        "processed/budgy-ting/commits/f48ac33.json",
+        "processed/budgy-ting/commits/f59129b.json",
+        "processed/budgy-ting/manifest.json",
+        "processed/graphiki/commits/4d9e867.json",
+        "processed/graphiki/commits/5478178.json",
+        "processed/graphiki/commits/83bb970.json",
+        "processed/graphiki/manifest.json",
+        "processed/repo-tor/commits/3824bd5.json",
+        "processed/repo-tor/commits/3e974e3.json",
+        "processed/repo-tor/commits/42b0bb6.json",
+        "processed/repo-tor/commits/47355d9.json",
+        "processed/repo-tor/commits/52c7dc0.json",
+        "processed/repo-tor/commits/5b95489.json",
+        "processed/repo-tor/commits/600deaf.json",
+        "processed/repo-tor/commits/6bfcde2.json",
+        "processed/repo-tor/commits/6e37406.json",
+        "processed/repo-tor/commits/741b7a7.json",
+        "processed/repo-tor/commits/768bf97.json",
+        "processed/repo-tor/commits/875c07b.json",
+        "processed/repo-tor/commits/8a38375.json",
+        "processed/repo-tor/commits/8e09882.json",
+        "processed/repo-tor/commits/8ec469d.json",
+        "processed/repo-tor/commits/915e1d7.json",
+        "processed/repo-tor/commits/92dc0c7.json",
+        "processed/repo-tor/commits/9d6e228.json",
+        "processed/repo-tor/commits/9fabee9.json",
+        "processed/repo-tor/commits/a298745.json",
+        "processed/repo-tor/commits/ac40040.json",
+        "processed/repo-tor/commits/b0c2e27.json",
+        "processed/repo-tor/commits/bb64f1b.json",
+        "processed/repo-tor/commits/e4512d0.json",
+        "processed/repo-tor/commits/e5cb562.json",
+        "processed/repo-tor/commits/f2cc47a.json",
+        "processed/repo-tor/manifest.json",
+        "scripts/lib/manifest.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "fbb8393",
+      "fullSha": "fbb8393bcd9f1ec7fd242a14dbd3fb586b939d1d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T09:51:57Z",
+      "commitDate": "2026-02-25T09:51:57Z",
+      "subject": "data: feed the chicken — 38 new commits across 3 repos",
+      "body": "Incremental extraction and AI analysis:\n- budgy-ting: +9 commits (19→28)\n- graphiki: +3 commits (128→131)\n- repo-tor: +26 commits (415→441)\n\nDashboard re-aggregated: 14 repos, 1946 total commits.\n\nhttps://claude.ai/code/session_01Cu1AmbztLY9WJDU7g94fEa",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "feed the chicken — 38 new commits across 3 repos",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 58,
+        "additions": 7719,
+        "deletions": 447
+      },
+      "files": [
+        "dashboard/data.json",
+        "dashboard/repos/budgy-ting.json",
+        "dashboard/repos/canva-grid-assets.json",
+        "dashboard/repos/canva-grid.json",
+        "dashboard/repos/chatty-chart.json",
+        "dashboard/repos/coin-zapp.json",
+        "dashboard/repos/few-lap.json",
+        "dashboard/repos/glow-props.json",
+        "dashboard/repos/graphiki.json",
+        "dashboard/repos/model-pear.json",
+        "dashboard/repos/plant-fur.json",
+        "dashboard/repos/repo-tor.json",
+        "dashboard/repos/see-veo.json",
+        "dashboard/repos/synctone.json",
+        "dashboard/repos/tool-till-tees.json",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "processed/budgy-ting/commits/0e880af.json",
+        "processed/budgy-ting/commits/31d664e.json",
+        "processed/budgy-ting/commits/7a8c2be.json",
+        "processed/budgy-ting/commits/9c40b46.json",
+        "processed/budgy-ting/commits/a0c33d8.json",
+        "processed/budgy-ting/commits/b04cb80.json",
+        "processed/budgy-ting/commits/c35bc17.json",
+        "processed/budgy-ting/commits/f48ac33.json",
+        "processed/budgy-ting/commits/f59129b.json",
+        "processed/budgy-ting/manifest.json",
+        "processed/graphiki/commits/4d9e867.json",
+        "processed/graphiki/commits/5478178.json",
+        "processed/graphiki/commits/83bb970.json",
+        "processed/graphiki/manifest.json",
+        "processed/repo-tor/commits/3824bd5.json",
+        "processed/repo-tor/commits/3e974e3.json",
+        "processed/repo-tor/commits/42b0bb6.json",
+        "processed/repo-tor/commits/47355d9.json",
+        "processed/repo-tor/commits/52c7dc0.json",
+        "processed/repo-tor/commits/5b95489.json",
+        "processed/repo-tor/commits/600deaf.json",
+        "processed/repo-tor/commits/6bfcde2.json",
+        "processed/repo-tor/commits/6e37406.json",
+        "processed/repo-tor/commits/741b7a7.json",
+        "processed/repo-tor/commits/768bf97.json",
+        "processed/repo-tor/commits/875c07b.json",
+        "processed/repo-tor/commits/8a38375.json",
+        "processed/repo-tor/commits/8e09882.json",
+        "processed/repo-tor/commits/8ec469d.json",
+        "processed/repo-tor/commits/915e1d7.json",
+        "processed/repo-tor/commits/92dc0c7.json",
+        "processed/repo-tor/commits/9d6e228.json",
+        "processed/repo-tor/commits/9fabee9.json",
+        "processed/repo-tor/commits/a298745.json",
+        "processed/repo-tor/commits/ac40040.json",
+        "processed/repo-tor/commits/b0c2e27.json",
+        "processed/repo-tor/commits/bb64f1b.json",
+        "processed/repo-tor/commits/e4512d0.json",
+        "processed/repo-tor/commits/e5cb562.json",
+        "processed/repo-tor/commits/f2cc47a.json",
+        "processed/repo-tor/manifest.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0371551",
+      "fullSha": "0371551621730cdd934e262481c20a622dd51eda",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T09:15:25Z",
+      "commitDate": "2026-02-25T09:15:25Z",
+      "subject": "fix: restore scripts/lib/manifest.js deleted in previous session",
+      "body": "The manifest utility module was incorrectly deleted as \"dead code\" but is\nimported by 5 scripts: pending.js, merge-analysis.js, save-commit.js,\nsave-batch.js, and manifest-update.js. Recovered from git history.\n\nhttps://claude.ai/code/session_01Cu1AmbztLY9WJDU7g94fEa",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": null,
+      "title": "restore scripts/lib/manifest.js deleted in previous session",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 23,
+        "deletions": 0
+      },
+      "files": [
+        "scripts/lib/manifest.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 4,
+      "impact": "internal"
+    },
     {
       "sha": "3824bd5",
       "fullSha": "3824bd50699351f3c8b96873e098283f162d9156",
@@ -17098,16 +17831,20 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 389,
-      "avgComplexity": 1.75,
-      "avgUrgency": 1.86,
+      "commits": 402,
+      "avgComplexity": 1.74,
+      "avgUrgency": 1.89,
       "tagBreakdown": {
-        "merge": 83,
-        "ux": 11,
+        "merge": 89,
+        "bugfix": 67,
+        "config": 71,
+        "ux": 12,
+        "hosting": 2,
+        "removal": 6,
+        "enhancement": 6,
+        "docs": 79,
         "accessibility": 10,
         "refactor": 29,
-        "config": 66,
-        "bugfix": 63,
         "security": 3,
         "performance": 7,
         "ui": 65,
@@ -17115,9 +17852,7 @@
         "cd": 1,
         "dependency-update": 1,
         "error-handling": 6,
-        "enhancement": 5,
         "feature": 62,
-        "docs": 77,
         "chore": 26,
         "revert": 1,
         "simplify": 4,
@@ -17125,7 +17860,6 @@
         "monitoring": 2,
         "migration": 2,
         "cleanup": 3,
-        "hosting": 1,
         "style": 1,
         "auth": 1,
         "env": 1,
@@ -17134,33 +17868,32 @@
         "data": 9,
         "fix": 1,
         "scripts": 1,
-        "removal": 5,
         "seed": 33,
         "ci": 1,
         "init": 1
       },
       "impactBreakdown": {
-        "internal": 268,
-        "user-facing": 112,
-        "infrastructure": 9,
+        "internal": 277,
+        "user-facing": 113,
+        "infrastructure": 12,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 60,
-        "medium": 10,
+        "low": 72,
+        "medium": 11,
         "high": 0
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 8,
-        "neutral": 62
+        "paid": 14,
+        "neutral": 69
       },
       "repos": [
         "repo-tor"
       ],
       "repoCount": 1,
       "firstCommit": "2026-01-18T21:53:16+02:00",
-      "lastCommit": "2026-02-25T08:23:09Z"
+      "lastCommit": "2026-03-02T09:42:50Z"
     },
     {
       "author_id": "jacotheron87",
@@ -17250,15 +17983,19 @@
     }
   ],
   "summary": {
-    "totalCommits": 441,
+    "totalCommits": 454,
     "totalContributors": 3,
     "tagBreakdown": {
-      "merge": 83,
-      "ux": 11,
+      "merge": 89,
+      "bugfix": 71,
+      "config": 80,
+      "ux": 12,
+      "hosting": 2,
+      "removal": 10,
+      "enhancement": 6,
+      "docs": 108,
       "accessibility": 10,
       "refactor": 33,
-      "config": 75,
-      "bugfix": 67,
       "security": 3,
       "performance": 7,
       "ui": 70,
@@ -17266,9 +18003,7 @@
       "cd": 1,
       "dependency-update": 1,
       "error-handling": 6,
-      "enhancement": 5,
       "feature": 71,
-      "docs": 106,
       "chore": 30,
       "revert": 1,
       "simplify": 4,
@@ -17276,7 +18011,6 @@
       "monitoring": 2,
       "migration": 3,
       "cleanup": 3,
-      "hosting": 1,
       "style": 2,
       "data": 12,
       "auth": 1,
@@ -17285,43 +18019,45 @@
       "validation": 3,
       "fix": 1,
       "scripts": 1,
-      "removal": 9,
       "seed": 33,
       "ci": 3,
       "init": 3,
       "test-unit": 1
     },
     "complexityBreakdown": {
-      "1": 241,
-      "2": 99,
-      "3": 61,
+      "1": 251,
+      "2": 101,
+      "3": 62,
       "4": 29,
       "5": 11
     },
     "urgencyBreakdown": {
-      "1": 116,
-      "2": 296,
+      "1": 117,
+      "2": 304,
       "3": 22,
-      "4": 6,
+      "4": 10,
       "5": 1
     },
     "impactBreakdown": {
-      "internal": 310,
-      "user-facing": 120,
-      "infrastructure": 11,
+      "internal": 319,
+      "user-facing": 121,
+      "infrastructure": 14,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 60,
-      "medium": 10,
+      "low": 72,
+      "medium": 11,
       "high": 0
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 8,
-      "neutral": 62
+      "paid": 14,
+      "neutral": 69
     },
     "epicBreakdown": {
+      "pwa": 2,
+      "vercel-migration": 2,
+      "cross-project-standards": 1,
       "codebase-review": 3,
       "mobile-ux": 1,
       "embed-mode": 3,
@@ -17329,22 +18065,58 @@
       "analytics-metadata": 1
     },
     "semverBreakdown": {
-      "patch": 12,
-      "minor": 6,
+      "patch": 16,
+      "minor": 8,
       "major": 0
     },
-    "avgComplexity": 1.8,
-    "avgUrgency": 1.82,
+    "avgComplexity": 1.78,
+    "avgUrgency": 1.84,
     "monthly": {
-      "2026-02": {
-        "commits": 164,
+      "2026-03": {
+        "commits": 8,
         "tags": {
-          "merge": 41,
+          "merge": 4,
+          "bugfix": 3,
+          "config": 4,
+          "ux": 1,
+          "hosting": 1,
+          "removal": 1
+        },
+        "impact": {
+          "internal": 4,
+          "user-facing": 1,
+          "infrastructure": 3,
+          "api": 0
+        },
+        "risk": {
+          "low": 7,
+          "medium": 1,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 4,
+          "neutral": 4
+        },
+        "semver": {
+          "patch": 3,
+          "minor": 1,
+          "major": 0
+        },
+        "avgComplexity": 1.13,
+        "avgUrgency": 2.75
+      },
+      "2026-02": {
+        "commits": 169,
+        "tags": {
+          "merge": 43,
+          "enhancement": 3,
+          "config": 35,
+          "docs": 33,
+          "bugfix": 32,
           "ux": 6,
           "accessibility": 10,
           "refactor": 19,
-          "config": 34,
-          "bugfix": 31,
           "security": 3,
           "performance": 6,
           "ui": 32,
@@ -17352,9 +18124,7 @@
           "cd": 1,
           "dependency-update": 1,
           "error-handling": 3,
-          "enhancement": 2,
           "feature": 26,
-          "docs": 31,
           "chore": 12,
           "revert": 1,
           "simplify": 2,
@@ -17366,24 +18136,24 @@
           "style": 1
         },
         "impact": {
-          "internal": 98,
+          "internal": 103,
           "user-facing": 61,
           "infrastructure": 5,
           "api": 0
         },
         "risk": {
-          "low": 60,
+          "low": 65,
           "medium": 10,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 8,
-          "neutral": 62
+          "paid": 10,
+          "neutral": 65
         },
         "semver": {
-          "patch": 12,
-          "minor": 6,
+          "patch": 13,
+          "minor": 7,
           "major": 0
         },
         "avgComplexity": 1.79,
@@ -17447,15 +18217,51 @@
       }
     },
     "monthlyCommits": {
-      "2026-02": {
-        "commits": 164,
+      "2026-03": {
+        "commits": 8,
         "tags": {
-          "merge": 41,
+          "merge": 4,
+          "bugfix": 3,
+          "config": 4,
+          "ux": 1,
+          "hosting": 1,
+          "removal": 1
+        },
+        "impact": {
+          "internal": 4,
+          "user-facing": 1,
+          "infrastructure": 3,
+          "api": 0
+        },
+        "risk": {
+          "low": 7,
+          "medium": 1,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 4,
+          "neutral": 4
+        },
+        "semver": {
+          "patch": 3,
+          "minor": 1,
+          "major": 0
+        },
+        "avgComplexity": 1.13,
+        "avgUrgency": 2.75
+      },
+      "2026-02": {
+        "commits": 169,
+        "tags": {
+          "merge": 43,
+          "enhancement": 3,
+          "config": 35,
+          "docs": 33,
+          "bugfix": 32,
           "ux": 6,
           "accessibility": 10,
           "refactor": 19,
-          "config": 34,
-          "bugfix": 31,
           "security": 3,
           "performance": 6,
           "ui": 32,
@@ -17463,9 +18269,7 @@
           "cd": 1,
           "dependency-update": 1,
           "error-handling": 3,
-          "enhancement": 2,
           "feature": 26,
-          "docs": 31,
           "chore": 12,
           "revert": 1,
           "simplify": 2,
@@ -17477,24 +18281,24 @@
           "style": 1
         },
         "impact": {
-          "internal": 98,
+          "internal": 103,
           "user-facing": 61,
           "infrastructure": 5,
           "api": 0
         },
         "risk": {
-          "low": 60,
+          "low": 65,
           "medium": 10,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 8,
-          "neutral": 62
+          "paid": 10,
+          "neutral": 65
         },
         "semver": {
-          "patch": 12,
-          "minor": 6,
+          "patch": 13,
+          "minor": 7,
           "major": 0
         },
         "avgComplexity": 1.79,
@@ -17559,7 +18363,7 @@
     },
     "dateRange": {
       "earliest": "2026-01-18T20:29:03+00:00",
-      "latest": "2026-02-25T08:23:09Z"
+      "latest": "2026-03-02T09:42:50Z"
     },
     "security_events": [
       {

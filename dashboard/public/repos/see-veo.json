@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-03-02T19:46:51.248Z",
+    "generatedAt": "2026-03-02T20:27:54.296Z",
     "repository": "see-veo",
     "scope": "see-veo",
     "repoCount": 1,
-    "commitCount": 109,
+    "commitCount": 123,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -13,6 +13,647 @@
     }
   },
   "commits": [
+    {
+      "sha": "358028c",
+      "fullSha": "358028c3d12acb32a93ecf3afce73061f9da944e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T10:13:46Z",
+      "commitDate": "2026-03-02T10:13:46Z",
+      "subject": "Merge pull request #31 from devmade-ai/claude/fix-embed-urls-hFIk7",
+      "body": "Refactor: Extract shared utilities and improve accessibility",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #31 from devmade-ai/claude/fix-embed-urls-hFIk7",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#31"
+      ],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 188,
+        "deletions": 887
+      },
+      "files": [
+        "docs/EXTERNAL_REFERENCES.md",
+        "package-lock.json",
+        "package.json",
+        "src/components/About.tsx",
+        "src/components/ActivityCharts.tsx",
+        "src/components/ActivityTimeline.tsx",
+        "src/components/DebugBanner.tsx",
+        "src/components/InstallInstructionsModal.tsx",
+        "src/constants/embed.ts",
+        "src/hooks/usePWAInstall.ts",
+        "src/hooks/useRepoTorEmbed.ts",
+        "src/test/detect-browser.test.ts",
+        "src/test/validate-payload.test.ts",
+        "src/utils/pwa.ts",
+        "src/utils/validation.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "581bbc9",
+      "fullSha": "581bbc9b6fdb24f67c36a680f58d0e46d0e8b10b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T10:11:50Z",
+      "commitDate": "2026-03-02T10:11:50Z",
+      "subject": "fix(embed,a11y): audit fixes — URLs, duplication, accessibility, cleanup",
+      "body": "Migrate repo-tor embed URLs from GitHub Pages to Vercel deployment,\ndeduplicate shared constants, fix accessibility gaps, and clean up\ndead code identified during full codebase audit.\n\nChanges:\n- #1,#2,#16: Centralize EMBED_BASE, colors, and script URL into\n  src/constants/embed.ts; update from GitHub Pages to Vercel\n- #3: Remove unused return values (browser, setShowManualInstructions,\n  supportsAutoInstall) from usePWAInstall; convert showManualInstructions\n  from state to computed value since nothing mutates it\n- #4,#5: Remove unused devDependencies (png-to-ico, sharp,\n  @testing-library/react, @testing-library/user-event)\n- #6,#8: Extract detectBrowser and isStandalone into src/utils/pwa.ts;\n  import in usePWAInstall and DebugBanner instead of duplicating\n- #7: Extract validatePayload and EMAIL_PATTERN into src/utils/validation.ts;\n  tests now import and exercise the real functions\n- #9: Add Escape key handler and focus trap to InstallInstructionsModal\n- #10: Replace array index key with content-based key in About.tsx\n- #11: Change diagnostic probe from POST with body to HEAD (no side effects)\n- #12: Add sandbox=\"allow-scripts\" to chart iframes\n- #13: Add onerror handler to embed.js script element\n- #14: Rename package.json name from vite-scaffold to see-veo\n\nTags: embed, accessibility, cleanup, refactor, security, testing\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: codebase-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01Uwhn6rJ2V98LDhUsLeYZoB",
+      "tags": [
+        "refactor",
+        "accessibility",
+        "bugfix"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "codebase-audit",
+      "semver": "patch",
+      "scope": "embed,a11y",
+      "title": "audit fixes — URLs, duplication, accessibility, cleanup",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "#1",
+        "#2",
+        "#16",
+        "#3",
+        "#4",
+        "#5",
+        "#6",
+        "#8",
+        "#7",
+        "#9",
+        "#10",
+        "#11",
+        "#12",
+        "#13",
+        "#14"
+      ],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 188,
+        "deletions": 887
+      },
+      "files": [
+        "docs/EXTERNAL_REFERENCES.md",
+        "package-lock.json",
+        "package.json",
+        "src/components/About.tsx",
+        "src/components/ActivityCharts.tsx",
+        "src/components/ActivityTimeline.tsx",
+        "src/components/DebugBanner.tsx",
+        "src/components/InstallInstructionsModal.tsx",
+        "src/constants/embed.ts",
+        "src/hooks/usePWAInstall.ts",
+        "src/hooks/useRepoTorEmbed.ts",
+        "src/test/detect-browser.test.ts",
+        "src/test/validate-payload.test.ts",
+        "src/utils/pwa.ts",
+        "src/utils/validation.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "83b5697",
+      "fullSha": "83b5697003664b30a3a0676887b771e2d68119ed",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T09:55:22Z",
+      "commitDate": "2026-03-02T09:55:22Z",
+      "subject": "Merge pull request #30 from devmade-ai/claude/document-deployment-platforms-y62M6",
+      "body": "Update repo-tor project link to Vercel deployment",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #30 from devmade-ai/claude/document-deployment-platforms-y62M6",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#30"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "bd4e112",
+      "fullSha": "bd4e1122e7b7a725e685e04ead2c76ba99f50b71",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T06:12:03Z",
+      "commitDate": "2026-03-02T06:12:03Z",
+      "subject": "fix(projects): update repo-tor link to Vercel deployment",
+      "body": "repo-tor has moved from GitHub Pages to Vercel. Update the project\nlink from devmade-ai.github.io/repo-tor to repo-tor.vercel.app.\n\nTags: content, projects\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01LnzrqbSRNr4muEGXVJ3kxg",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "cv-content",
+      "semver": "patch",
+      "scope": "projects",
+      "title": "update repo-tor link to Vercel deployment",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "73fdb7c",
+      "fullSha": "73fdb7c5fcd3f02299e81751b89b04b109e97b7b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-01T13:44:32Z",
+      "commitDate": "2026-03-01T13:44:32Z",
+      "subject": "Merge pull request #29 from devmade-ai/claude/migrate-to-vercel-bAc7z",
+      "body": "Migrate deployment from GitHub Pages to Vercel",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #29 from devmade-ai/claude/migrate-to-vercel-bAc7z",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#29"
+      ],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 31,
+        "deletions": 75
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "README.md",
+        "src/data/cv-data.ts",
+        "vercel.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "64d19f8",
+      "fullSha": "64d19f8b91ba6b56fec3b7f5167fcce5b6f73ebe",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T14:27:13Z",
+      "commitDate": "2026-02-27T14:27:13Z",
+      "subject": "content(projects): update model-pear URL to Vercel",
+      "body": "Tags: content, projects, deployment\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: vercel-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01UineTKHu2dzmAL9MKUMJnC",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "vercel-migration",
+      "semver": "patch",
+      "scope": "projects",
+      "title": "update model-pear URL to Vercel",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "5684580",
+      "fullSha": "5684580cf02757595ee23fed9e6120a2fa316a57",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T13:58:12Z",
+      "commitDate": "2026-02-27T13:58:12Z",
+      "subject": "content(projects): update Graphiki URL to Vercel",
+      "body": "Tags: content, projects, deployment\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: vercel-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01UineTKHu2dzmAL9MKUMJnC",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "vercel-migration",
+      "semver": "patch",
+      "scope": "projects",
+      "title": "update Graphiki URL to Vercel",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "baf3115",
+      "fullSha": "baf31156c1e5df0e4cc8ebde4c60ffe86d81ab94",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T12:50:27Z",
+      "commitDate": "2026-02-27T12:50:27Z",
+      "subject": "content(projects): update Canva Grid URL to Vercel",
+      "body": "Tags: content, projects, deployment\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: vercel-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01UineTKHu2dzmAL9MKUMJnC",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "vercel-migration",
+      "semver": "patch",
+      "scope": "projects",
+      "title": "update Canva Grid URL to Vercel",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "b040f0a",
+      "fullSha": "b040f0ab66a23f9a8754891a437eabd3e22f8143",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T09:40:48Z",
+      "commitDate": "2026-02-27T09:40:48Z",
+      "subject": "content(projects): update Budgy Ting URL to Vercel",
+      "body": "Tags: content, projects, deployment\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: vercel-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01UineTKHu2dzmAL9MKUMJnC",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "vercel-migration",
+      "semver": "patch",
+      "scope": "projects",
+      "title": "update Budgy Ting URL to Vercel",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "61b46ec",
+      "fullSha": "61b46ecfdb41665a705c634844307c3deaa18180",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T09:35:41Z",
+      "commitDate": "2026-02-27T09:35:41Z",
+      "subject": "content(projects): update Four Ems and Sancio URLs to Vercel",
+      "body": "Both projects migrated from GitHub Pages to Vercel.\n\nTags: content, projects, deployment\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: vercel-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01UineTKHu2dzmAL9MKUMJnC",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "vercel-migration",
+      "semver": "patch",
+      "scope": "projects",
+      "title": "update Four Ems and Sancio URLs to Vercel",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 2,
+        "deletions": 2
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "3e2f4cb",
+      "fullSha": "3e2f4cb3210eaa73ce4fb0edefc669b39ea40bc6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T09:14:31Z",
+      "commitDate": "2026-02-27T09:14:31Z",
+      "subject": "infra(deploy): migrate from GitHub Pages to Vercel",
+      "body": "GitHub Pages required a /see-veo/ base-path prefix, a 404.html copy hack\nfor SPA routing, and manual \"source\" configuration in repo settings.\nVercel handles all of this natively — serving at root /, SPA rewrites via\nvercel.json, and env var injection in the dashboard.\n\nChanges:\n- Delete .github/workflows/deploy.yml\n- Add vercel.json with SPA rewrites and Vite framework config\n- Remove base: '/see-veo/' from vite.config.ts (Vite defaults to '/')\n- Update PWA scope and start_url from '/see-veo/' to '/'\n- Simplify navigateFallbackDenylist to target API paths instead of\n  hardcoding the GitHub Pages domain\n- Update CLAUDE.md and README.md to reflect Vercel deployment\n\nTags: deployment, vercel, infrastructure, pwa, migration\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: vercel-migration\nSemver: major\n\nhttps://claude.ai/code/session_01UineTKHu2dzmAL9MKUMJnC",
+      "tags": [
+        "hosting",
+        "config",
+        "removal"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "vercel-migration",
+      "semver": "major",
+      "scope": "deploy",
+      "title": "migrate from GitHub Pages to Vercel",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 25,
+        "deletions": 69
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "README.md",
+        "vercel.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "5e3dc7f",
+      "fullSha": "5e3dc7fe5c4ac1fedd3e72722150cdb2ba6257ac",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T20:08:09Z",
+      "commitDate": "2026-02-26T20:08:09Z",
+      "subject": "Merge pull request #28 from devmade-ai/claude/add-deployed-projects-6UZgl",
+      "body": "Add six new projects to CV portfolio",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #28 from devmade-ai/claude/add-deployed-projects-6UZgl",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#28"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 84,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "d15841e",
+      "fullSha": "d15841e27eca35bfdb32c242e75f0ed5061049f0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T20:06:29Z",
+      "commitDate": "2026-02-26T20:06:29Z",
+      "subject": "docs(claude): add deployed projects refresh process and exclusion list",
+      "body": "Documents how to query GitHub repos via the API, identify deployed\nones, and add project cards. Lists the repos excluded from the\nProjects section and why.\n\nTags: docs, claude-md, projects\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: deployed-projects\nSemver: patch\n\nhttps://claude.ai/code/session_01UfWmiUrxaiaTDTCaydFa4w",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "deployed-projects",
+      "semver": "patch",
+      "scope": "claude",
+      "title": "add deployed projects refresh process and exclusion list",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 21,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "e87d9aa",
+      "fullSha": "e87d9aafb853801a9464e25e475e836666d7f7a9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T20:02:15Z",
+      "commitDate": "2026-02-26T20:02:15Z",
+      "subject": "feat(projects): add deployed project cards from GitHub repos",
+      "body": "Queried all devmade-ai and illuminAI-select GitHub repos via the API,\nidentified those deployed to GitHub Pages or Vercel, read each repo's\nREADME and package.json to extract purpose and tech stack, and added\nproject cards for the 7 deployed projects not yet listed.\n\nNew projects: Sancio (module-based agreements), Four Ems (form builder),\nBudgy Ting (personal budgeting), FuelHunt (fuel station finder),\nrepo-tor (git analytics), Chatty Chart (sales data visualisation).\n\nExcluded per request: glow-props, canva-grid-assets, plant-fur,\ncoin-zapp, tool-till-tees. Also excluded see-veo (this repo).\n\nTags: projects, cv-data, content, github-api\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: deployed-projects\nSemver: minor\n\nhttps://claude.ai/code/session_01UfWmiUrxaiaTDTCaydFa4w",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "deployed-projects",
+      "semver": "minor",
+      "scope": "projects",
+      "title": "add deployed project cards from GitHub repos",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 63,
+        "deletions": 0
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
     {
       "sha": "e914149",
       "fullSha": "e91414998e057a85c9c9d97c78f26bc215ab8e9a",
@@ -4778,19 +5419,22 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 109,
-      "avgComplexity": 1.66,
-      "avgUrgency": 1.72,
+      "commits": 123,
+      "avgComplexity": 1.62,
+      "avgUrgency": 1.75,
       "tagBreakdown": {
-        "merge": 27,
-        "bugfix": 12,
-        "refactor": 7,
+        "merge": 31,
+        "refactor": 8,
+        "accessibility": 2,
+        "bugfix": 19,
+        "hosting": 1,
+        "config": 6,
+        "removal": 4,
+        "docs": 6,
+        "feature": 17,
+        "ui": 28,
         "style": 19,
         "ux": 12,
-        "feature": 16,
-        "docs": 5,
-        "ui": 27,
-        "config": 5,
         "dependency-add": 1,
         "pwa": 7,
         "layout": 5,
@@ -4799,7 +5443,6 @@
         "embed": 1,
         "skills": 3,
         "api": 2,
-        "removal": 3,
         "revert": 1,
         "mobile": 2,
         "lint": 1,
@@ -4807,7 +5450,6 @@
         "ci": 2,
         "quality": 1,
         "testing": 1,
-        "accessibility": 1,
         "serverless": 1,
         "chore": 1,
         "email": 1,
@@ -4825,42 +5467,45 @@
         "repository-setup": 1
       },
       "impactBreakdown": {
-        "internal": 35,
-        "user-facing": 68,
-        "infrastructure": 6,
+        "internal": 40,
+        "user-facing": 76,
+        "infrastructure": 7,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 90,
-        "medium": 2,
+        "low": 103,
+        "medium": 3,
         "high": 0
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 20,
-        "neutral": 72
+        "paid": 23,
+        "neutral": 83
       },
       "repos": [
         "see-veo"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-12T23:14:08Z",
-      "lastCommit": "2026-02-19T07:55:47+02:00"
+      "lastCommit": "2026-03-02T10:13:46Z"
     }
   ],
   "summary": {
-    "totalCommits": 109,
+    "totalCommits": 123,
     "totalContributors": 1,
     "tagBreakdown": {
-      "merge": 27,
-      "bugfix": 12,
-      "refactor": 7,
+      "merge": 31,
+      "refactor": 8,
+      "accessibility": 2,
+      "bugfix": 19,
+      "hosting": 1,
+      "config": 6,
+      "removal": 4,
+      "docs": 6,
+      "feature": 17,
+      "ui": 28,
       "style": 19,
       "ux": 12,
-      "feature": 16,
-      "docs": 5,
-      "ui": 27,
-      "config": 5,
       "dependency-add": 1,
       "pwa": 7,
       "layout": 5,
@@ -4869,7 +5514,6 @@
       "embed": 1,
       "skills": 3,
       "api": 2,
-      "removal": 3,
       "revert": 1,
       "mobile": 2,
       "lint": 1,
@@ -4877,7 +5521,6 @@
       "ci": 2,
       "quality": 1,
       "testing": 1,
-      "accessibility": 1,
       "serverless": 1,
       "chore": 1,
       "email": 1,
@@ -4895,39 +5538,42 @@
       "repository-setup": 1
     },
     "complexityBreakdown": {
-      "1": 61,
-      "2": 28,
-      "3": 18,
+      "1": 72,
+      "2": 30,
+      "3": 19,
       "4": 0,
       "5": 2
     },
     "urgencyBreakdown": {
-      "1": 45,
-      "2": 51,
+      "1": 46,
+      "2": 64,
       "3": 11,
       "4": 2,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 35,
-      "user-facing": 68,
-      "infrastructure": 6,
+      "internal": 40,
+      "user-facing": 76,
+      "infrastructure": 7,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 90,
-      "medium": 2,
+      "low": 103,
+      "medium": 3,
       "high": 0
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 20,
-      "neutral": 72
+      "paid": 23,
+      "neutral": 83
     },
     "epicBreakdown": {
+      "codebase-audit": 1,
+      "cv-content": 2,
+      "vercel-migration": 6,
+      "deployed-projects": 2,
       "pwa-update-flow": 1,
       "cv-layout": 1,
-      "cv-content": 1,
       "about-section": 1,
       "portfolio-polish": 1,
       "interest-form": 4,
@@ -4935,25 +5581,59 @@
       "portfolio-attribution": 1
     },
     "semverBreakdown": {
-      "patch": 27,
-      "minor": 11,
-      "major": 0
+      "patch": 35,
+      "minor": 12,
+      "major": 1
     },
-    "avgComplexity": 1.66,
-    "avgUrgency": 1.72,
+    "avgComplexity": 1.62,
+    "avgUrgency": 1.75,
     "monthly": {
-      "2026-02": {
-        "commits": 109,
+      "2026-03": {
+        "commits": 5,
         "tags": {
-          "merge": 27,
-          "bugfix": 12,
+          "merge": 3,
+          "refactor": 1,
+          "accessibility": 1,
+          "bugfix": 2
+        },
+        "impact": {
+          "internal": 3,
+          "user-facing": 2,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 5,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 1,
+          "neutral": 4
+        },
+        "semver": {
+          "patch": 2,
+          "minor": 0,
+          "major": 0
+        },
+        "avgComplexity": 1.4,
+        "avgUrgency": 2
+      },
+      "2026-02": {
+        "commits": 118,
+        "tags": {
+          "bugfix": 17,
+          "hosting": 1,
+          "config": 6,
+          "removal": 4,
+          "merge": 28,
+          "docs": 6,
+          "feature": 17,
+          "ui": 28,
           "refactor": 7,
           "style": 19,
           "ux": 12,
-          "feature": 16,
-          "docs": 5,
-          "ui": 27,
-          "config": 5,
           "dependency-add": 1,
           "pwa": 7,
           "layout": 5,
@@ -4962,7 +5642,6 @@
           "embed": 1,
           "skills": 3,
           "api": 2,
-          "removal": 3,
           "revert": 1,
           "mobile": 2,
           "lint": 1,
@@ -4988,43 +5667,77 @@
           "repository-setup": 1
         },
         "impact": {
-          "internal": 35,
-          "user-facing": 68,
-          "infrastructure": 6,
+          "internal": 37,
+          "user-facing": 74,
+          "infrastructure": 7,
           "api": 0
         },
         "risk": {
-          "low": 90,
-          "medium": 2,
+          "low": 98,
+          "medium": 3,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 20,
-          "neutral": 72
+          "paid": 22,
+          "neutral": 79
         },
         "semver": {
-          "patch": 27,
-          "minor": 11,
-          "major": 0
+          "patch": 33,
+          "minor": 12,
+          "major": 1
         },
-        "avgComplexity": 1.66,
-        "avgUrgency": 1.72
+        "avgComplexity": 1.63,
+        "avgUrgency": 1.74
       }
     },
     "monthlyCommits": {
-      "2026-02": {
-        "commits": 109,
+      "2026-03": {
+        "commits": 5,
         "tags": {
-          "merge": 27,
-          "bugfix": 12,
+          "merge": 3,
+          "refactor": 1,
+          "accessibility": 1,
+          "bugfix": 2
+        },
+        "impact": {
+          "internal": 3,
+          "user-facing": 2,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 5,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 1,
+          "neutral": 4
+        },
+        "semver": {
+          "patch": 2,
+          "minor": 0,
+          "major": 0
+        },
+        "avgComplexity": 1.4,
+        "avgUrgency": 2
+      },
+      "2026-02": {
+        "commits": 118,
+        "tags": {
+          "bugfix": 17,
+          "hosting": 1,
+          "config": 6,
+          "removal": 4,
+          "merge": 28,
+          "docs": 6,
+          "feature": 17,
+          "ui": 28,
           "refactor": 7,
           "style": 19,
           "ux": 12,
-          "feature": 16,
-          "docs": 5,
-          "ui": 27,
-          "config": 5,
           "dependency-add": 1,
           "pwa": 7,
           "layout": 5,
@@ -5033,7 +5746,6 @@
           "embed": 1,
           "skills": 3,
           "api": 2,
-          "removal": 3,
           "revert": 1,
           "mobile": 2,
           "lint": 1,
@@ -5059,33 +5771,33 @@
           "repository-setup": 1
         },
         "impact": {
-          "internal": 35,
-          "user-facing": 68,
-          "infrastructure": 6,
+          "internal": 37,
+          "user-facing": 74,
+          "infrastructure": 7,
           "api": 0
         },
         "risk": {
-          "low": 90,
-          "medium": 2,
+          "low": 98,
+          "medium": 3,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 20,
-          "neutral": 72
+          "paid": 22,
+          "neutral": 79
         },
         "semver": {
-          "patch": 27,
-          "minor": 11,
-          "major": 0
+          "patch": 33,
+          "minor": 12,
+          "major": 1
         },
-        "avgComplexity": 1.66,
-        "avgUrgency": 1.72
+        "avgComplexity": 1.63,
+        "avgUrgency": 1.74
       }
     },
     "dateRange": {
       "earliest": "2026-02-12T23:14:08Z",
-      "latest": "2026-02-19T07:55:47+02:00"
+      "latest": "2026-03-02T10:13:46Z"
     },
     "security_events": []
   }

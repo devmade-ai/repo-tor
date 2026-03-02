@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-03-02T19:46:51.253Z",
+    "generatedAt": "2026-03-02T20:27:54.302Z",
     "repository": "synctone",
     "scope": "synctone",
     "repoCount": 1,
-    "commitCount": 359,
+    "commitCount": 373,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -21,6 +21,674 @@
     }
   },
   "commits": [
+    {
+      "sha": "7089e25",
+      "fullSha": "7089e25d7c2aeaff7e3e7a8d3f5cead672846aeb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T01:04:12Z",
+      "commitDate": "2026-03-02T01:04:12Z",
+      "subject": "Merge pull request #97 from devmade-ai/claude/fix-debug-pill-issues-v9GmS",
+      "body": "Fix debug pill position and custom tone persistence",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #97 from devmade-ai/claude/fix-debug-pill-issues-v9GmS",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#97"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 47,
+        "deletions": 22
+      },
+      "files": [
+        "components/PWADebugBanner.tsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "services/messages.ts",
+        "services/recentTones.ts"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "b9ebfc6",
+      "fullSha": "b9ebfc6ed9d9cafcd622865a6bfc4a58edac8ad4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T00:54:09Z",
+      "commitDate": "2026-03-02T00:54:09Z",
+      "subject": "fix(ui): move debug pill higher on right side instead of left",
+      "body": "Keep pill on right side where it was, but move from top: 54 to top: 12\nso it sits in the safe area padding above the header buttons (which\nstart at paddingTop: 48).\n\nTags: bugfix, ui, debug\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: debug-tools\nSemver: patch\n\nhttps://claude.ai/code/session_011xW71TVF3Me2EirRxmkz8k",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "debug-tools",
+      "semver": "patch",
+      "scope": "ui",
+      "title": "move debug pill higher on right side instead of left",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 4,
+        "deletions": 4
+      },
+      "files": [
+        "components/PWADebugBanner.tsx"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "83bf6fb",
+      "fullSha": "83bf6fbe7e31b659085531898a3bd18550151aff",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T00:28:03Z",
+      "commitDate": "2026-03-02T00:28:03Z",
+      "subject": "fix(ui,tones): move debug pill to left side and fix tone storage",
+      "body": "Debug pill at top-right covered header action buttons (settings, refresh).\nMoved to top-left to avoid overlap while still avoiding compose bar.\n\nCustom tones added via ToneEditModal were never persisted to local storage\nbecause addRecentTones() was only called in sendMessage(), but messages are\nalways sent without tones — tones are added post-send via editMessageTones()\nwhich lacked the call.\n\nAdded debugLog() calls to recentTones service so tone storage operations\nare visible in the debug pill's App tab for easier debugging.\n\nTags: bugfix, ui, tones, debug\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-tools\nSemver: patch\n\nhttps://claude.ai/code/session_011xW71TVF3Me2EirRxmkz8k",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "debug-tools",
+      "semver": "patch",
+      "scope": "ui,tones",
+      "title": "move debug pill to left side and fix tone storage",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 47,
+        "deletions": 22
+      },
+      "files": [
+        "components/PWADebugBanner.tsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "services/messages.ts",
+        "services/recentTones.ts"
+      ],
+      "repo_id": "synctone",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "81c0806",
+      "fullSha": "81c0806561cffd8e7bb21825cfa5b52ee9374bff",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T00:13:29Z",
+      "commitDate": "2026-03-02T00:13:29Z",
+      "subject": "Merge pull request #96 from devmade-ai/claude/fix-notifications-tone-selector-h54Xu",
+      "body": "feat: Add PWA install instructions modal and fix update banner duplication",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #96 from devmade-ai/claude/fix-notifications-tone-selector-h54Xu",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#96"
+      ],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 442,
+        "deletions": 83
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(app)/home.tsx",
+        "app/_layout.tsx",
+        "components/InstallInstructionsModal.tsx",
+        "components/PWADebugBanner.tsx",
+        "components/ToneEditModal.tsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "hooks/usePWAInstall.ts",
+        "hooks/usePWAUpdate.ts"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "beb3e02",
+      "fullSha": "beb3e027a837a7e5bd11b68d7fe5a8eaf642569a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T00:11:21Z",
+      "commitDate": "2026-03-02T00:11:21Z",
+      "subject": "fix(debug): move debug pill to root layout, reposition to top-right",
+      "body": "Move PWADebugBanner from home.tsx to root layout so it's visible on\nall screens (home, chat, create, join). Chat-related debug events from\nuseMessages, useReactions, useChats were already being logged but\ninvisible when viewing the chat screen.\n\nRepositioned collapsed pill from bottom-right to top-right (top: 54px)\nso it doesn't overlap with the compose bar or keyboard on chat screens.\nMade the pill smaller and semi-transparent to minimize visual intrusion.\n\nTags: debug, ux, layout\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: developer-tools\nSemver: patch\n\nhttps://claude.ai/code/session_012u2UpqVacAk7zNYTcq6Cgz",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "developer-tools",
+      "semver": "patch",
+      "scope": "debug",
+      "title": "move debug pill to root layout, reposition to top-right",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 17,
+        "deletions": 13
+      },
+      "files": [
+        "app/(app)/home.tsx",
+        "app/_layout.tsx",
+        "components/PWADebugBanner.tsx"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "d4c07f6",
+      "fullSha": "d4c07f64c726b10ecdb30918b1ea7da9ad73bb33",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T00:03:33Z",
+      "commitDate": "2026-03-02T00:03:33Z",
+      "subject": "feat(pwa,docs): add install instructions modal, diagnostic timeout, session notes",
+      "body": "Adopt remaining patterns from external glow-props CLAUDE.md:\n\n1. InstallInstructionsModal: Browser-specific step-by-step PWA install\n   guides in a proper modal component, replacing window.alert() calls\n   in home.tsx. Covers Safari iOS/macOS, Firefox Android/Desktop,\n   Chrome Android/iOS/Desktop with contextual messaging.\n\n2. 5-second diagnostic timeout in usePWAInstall: On Chromium browsers,\n   if beforeinstallprompt hasn't fired after 5s, logs manifest link\n   and SW controller status to help debug installability issues.\n\n3. docs/SESSION_NOTES.md: Compact context snapshot template rewritten\n   at each session end for quick handoff between AI sessions.\n\n4. Updated CLAUDE.md: Added SESSION_NOTES.md to core docs table and\n   session workflow, added new components to project structure.\n\nTags: pwa, docs, ux, modal, install\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: minor\n\nhttps://claude.ai/code/session_012u2UpqVacAk7zNYTcq6Cgz",
+      "tags": [
+        "feature",
+        "docs",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "ux-polish",
+      "semver": "minor",
+      "scope": "pwa,docs",
+      "title": "add install instructions modal, diagnostic timeout, session notes",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 372,
+        "deletions": 54
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(app)/home.tsx",
+        "components/InstallInstructionsModal.tsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "hooks/usePWAInstall.ts"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "234a2be",
+      "fullSha": "234a2be1232543247721912f0cda37b8c6627670",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T23:54:48Z",
+      "commitDate": "2026-03-01T23:54:48Z",
+      "subject": "fix(pwa,tones): fix duplicate update banner and tone modal input focus",
+      "body": "Two bug fixes:\n\n1. PWA \"Update Available\" banner appeared multiple times because\n   updatefound/statechange event listeners were never cleaned up on\n   unmount and had no guard against re-triggering. Added\n   updateDetectedRef to show banner only once per lifecycle, and\n   proper removeEventListener cleanup in the useEffect return.\n\n2. ToneEditModal custom tone TextInput closed the modal on web.\n   The TouchableOpacity + onStartShouldSetResponder pattern doesn't\n   reliably prevent event propagation on web. Switched to the\n   Pressable + e.stopPropagation() pattern already used by\n   ReactionPicker.\n\nTags: pwa, bugfix, tones, modal, web\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch\n\nhttps://claude.ai/code/session_012u2UpqVacAk7zNYTcq6Cgz",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "ux-polish",
+      "semver": "patch",
+      "scope": "pwa,tones",
+      "title": "fix duplicate update banner and tone modal input focus",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 53,
+        "deletions": 16
+      },
+      "files": [
+        "components/ToneEditModal.tsx",
+        "docs/HISTORY.md",
+        "hooks/usePWAUpdate.ts"
+      ],
+      "repo_id": "synctone",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "827799f",
+      "fullSha": "827799fa1e6959b5e75ce341864347c4db807274",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-01T23:33:36Z",
+      "commitDate": "2026-03-01T23:33:36Z",
+      "subject": "Merge pull request #95 from devmade-ai/claude/custom-tone-tags-ayakK",
+      "body": "feat: Replace predefined tones with custom user-created tone tags",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #95 from devmade-ai/claude/custom-tone-tags-ayakK",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#95"
+      ],
+      "stats": {
+        "filesChanged": 16,
+        "additions": 406,
+        "deletions": 681
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/_layout.tsx",
+        "components/MessageBubble.tsx",
+        "components/MessageInfoModal.tsx",
+        "components/ToneEditModal.tsx",
+        "components/ToneSelector.tsx",
+        "constants/tones.ts",
+        "constants/tutorial.ts",
+        "docs/DATABASE.md",
+        "docs/HISTORY.md",
+        "hooks/useToneUsage.ts",
+        "services/messages.ts",
+        "services/recentTones.ts",
+        "services/toneUsage.ts",
+        "stores/appStore.ts",
+        "supabase/migrations/20260301231928_drop_unused_tone_and_reply_tables.sql"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "bf148cc",
+      "fullSha": "bf148cc9c136140c5bbf737d7ca9d6dbba6e79f1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T23:29:30Z",
+      "commitDate": "2026-03-01T23:29:30Z",
+      "subject": "docs(claude-md): update documentation for custom tone tags",
+      "body": "Remove references to tone_usage table, global_tone_popularity view,\nincrement_tone_usage function, message_replies table, and tone\ncategories. Update project structure, RLS policies, technical guidelines,\nand tone tag descriptions to reflect the new custom tone system.\n\nTags: docs, tones, cleanup\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: custom-tone-tags\nSemver: patch\n\nhttps://claude.ai/code/session_01TcLoUV1SRtPMPYKa8z1zrk",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "custom-tone-tags",
+      "semver": "patch",
+      "scope": "claude-md",
+      "title": "update documentation for custom tone tags",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 19,
+        "deletions": 51
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "2babe55",
+      "fullSha": "2babe550d3f9a048a87ee45f99e80e684b759a33",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T23:26:59Z",
+      "commitDate": "2026-03-01T23:26:59Z",
+      "subject": "feat(tones): replace predefined tones with custom tone tags",
+      "body": "Users can now type any single word as a tone tag instead of picking from\na fixed list of 25. Six defaults (happy, sad, serious, joking, sarcastic,\nsincere) are provided for quick picking. Recent custom tones are stored\nlocally for re-use. Colors are assigned deterministically from a palette\nbased on label hash.\n\nRemoved server-side tone usage tracking (tone_usage table,\nincrement_tone_usage function, global_tone_popularity view) and the\ndeprecated message_replies table. Tone categories and descriptions\nremoved in favor of a flat, simple selector with custom input.\n\nTags: tones, custom-tones, ux, database-cleanup, simplification\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: custom-tone-tags\nSemver: major\n\nhttps://claude.ai/code/session_01TcLoUV1SRtPMPYKa8z1zrk",
+      "tags": [
+        "feature",
+        "simplify",
+        "removal",
+        "database"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "custom-tone-tags",
+      "semver": "major",
+      "scope": "tones",
+      "title": "replace predefined tones with custom tone tags",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 16,
+        "additions": 387,
+        "deletions": 630
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/_layout.tsx",
+        "components/MessageBubble.tsx",
+        "components/MessageInfoModal.tsx",
+        "components/ToneEditModal.tsx",
+        "components/ToneSelector.tsx",
+        "constants/tones.ts",
+        "constants/tutorial.ts",
+        "docs/DATABASE.md",
+        "docs/HISTORY.md",
+        "hooks/useToneUsage.ts",
+        "services/messages.ts",
+        "services/recentTones.ts",
+        "services/toneUsage.ts",
+        "stores/appStore.ts",
+        "supabase/migrations/20260301231928_drop_unused_tone_and_reply_tables.sql"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "30e460a",
+      "fullSha": "30e460a7188a8900cecb91c454aff2d7bd7b9151",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-01T14:34:00Z",
+      "commitDate": "2026-03-01T14:34:00Z",
+      "subject": "Merge pull request #94 from devmade-ai/claude/update-tone-tagging-ui-UU9xA",
+      "body": "Move tone tagging from compose to post-send message interaction",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #94 from devmade-ai/claude/update-tone-tagging-ui-UU9xA",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#94"
+      ],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 62,
+        "deletions": 88
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(app)/chat/[id].tsx",
+        "components/ChatPanel.tsx",
+        "components/ComposeBar.tsx",
+        "components/MessageActionSheet.tsx",
+        "components/MessageBubble.tsx",
+        "components/ToneEditModal.tsx",
+        "docs/HISTORY.md"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "d781ae1",
+      "fullSha": "d781ae1bae9001c3f83482ff257a63ec84d33870",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T14:13:51Z",
+      "commitDate": "2026-03-01T14:13:51Z",
+      "subject": "feat(tones): move tone tagging from compose input to post-send bubble hint",
+      "body": "Tone selection was cluttering the compose bar. Now messages are sent without\ntones, and senders add tones after sending via a \"tap to add tones\" hint\nbelow their message bubble or through the action sheet. This creates a\nsimpler send flow and makes tone tagging feel more intentional.\n\n- Remove ToneSelector from ComposeBar (always sends empty tones)\n- Add \"tap to add tones\" hint below own messages (within 15-min window)\n- Tapping hint opens ToneEditModal directly\n- MessageActionSheet shows \"Add Tones\" or \"Change Tones\" dynamically\n- ToneEditModal title adapts based on existing tones\n\nTags: ui, tones, compose, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: tone-tagging\nSemver: minor\n\nhttps://claude.ai/code/session_01BHKWpg1wLikBmkhY6KZZ5h",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "tone-tagging",
+      "semver": "minor",
+      "scope": "tones",
+      "title": "move tone tagging from compose input to post-send bubble hint",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 62,
+        "deletions": 88
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(app)/chat/[id].tsx",
+        "components/ChatPanel.tsx",
+        "components/ComposeBar.tsx",
+        "components/MessageActionSheet.tsx",
+        "components/MessageBubble.tsx",
+        "components/ToneEditModal.tsx",
+        "docs/HISTORY.md"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "6d95e91",
+      "fullSha": "6d95e913a4e3fba1c7590714b21cb08dd853c7b2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T12:49:28Z",
+      "commitDate": "2026-02-27T12:49:28Z",
+      "subject": "Merge pull request #93 from devmade-ai/claude/review-external-claude-md-uA7P6",
+      "body": "docs: adopt code standards and establish AI mistake tracking",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #93 from devmade-ai/claude/review-external-claude-md-uA7P6",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#93"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 129,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/AI_MISTAKES.md",
+        "docs/HISTORY.md"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "4fe9dc0",
+      "fullSha": "4fe9dc0cc3e7e795e269b45ecb66236983ab6bab",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T12:06:02Z",
+      "commitDate": "2026-02-27T12:06:02Z",
+      "subject": "docs(claude-md): adopt code standards from external glow-props CLAUDE.md",
+      "body": "Reviewed shared patterns from devmade-ai/glow-props CLAUDE.md and adopted\napplicable standards for SyncTone. Adds concrete guardrails that were missing:\ncode size limits, cleanup rules, quality checks, UX non-negotiables, and\nexplicit prohibitions. Creates AI_MISTAKES.md for cross-session learning.\n\nTags: documentation, process, standards\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch\n\nhttps://claude.ai/code/session_015k2GpGFjd1jBUcBAGSZotu",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "developer-experience",
+      "semver": "patch",
+      "scope": "claude-md",
+      "title": "adopt code standards from external glow-props CLAUDE.md",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 129,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/AI_MISTAKES.md",
+        "docs/HISTORY.md"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
     {
       "sha": "8885f17",
       "fullSha": "8885f1725a8a3eb8c3f57e5cc4c7e8f8172cd9c7",
@@ -14950,60 +15618,60 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 234,
-      "avgComplexity": 1.74,
+      "commits": 248,
+      "avgComplexity": 1.73,
       "avgUrgency": 2.11,
       "tagBreakdown": {
-        "merge": 91,
-        "docs": 32,
+        "merge": 96,
+        "bugfix": 58,
+        "ui": 46,
+        "feature": 28,
+        "docs": 35,
+        "ux": 25,
+        "simplify": 5,
+        "removal": 6,
+        "database": 2,
         "conventions": 1,
         "config": 12,
-        "ui": 42,
         "refactor": 26,
-        "feature": 25,
         "monitoring": 3,
-        "bugfix": 54,
         "performance": 8,
-        "ux": 23,
         "error-handling": 2,
         "caching": 1,
         "changelog": 10,
-        "simplify": 4,
-        "removal": 5,
         "hosting": 2,
         "build": 1,
         "style": 3,
         "enhancement": 10,
         "dependency-add": 2,
         "security": 3,
-        "database": 1,
         "logging": 1,
         "infrastructure": 3,
         "schema": 7,
         "types": 1
       },
       "impactBreakdown": {
-        "internal": 131,
-        "user-facing": 89,
+        "internal": 139,
+        "user-facing": 95,
         "infrastructure": 14,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 1,
-        "medium": 0,
+        "low": 14,
+        "medium": 1,
         "high": 0
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 0,
-        "neutral": 1
+        "paid": 7,
+        "neutral": 8
       },
       "repos": [
         "synctone"
       ],
       "repoCount": 1,
       "firstCommit": "2025-12-06T11:51:56Z",
-      "lastCommit": "2026-02-15T15:50:24Z"
+      "lastCommit": "2026-03-02T01:04:12Z"
     },
     {
       "author_id": "noreply@anthropic.com",
@@ -15108,25 +15776,26 @@
     }
   ],
   "summary": {
-    "totalCommits": 359,
+    "totalCommits": 373,
     "totalContributors": 3,
     "tagBreakdown": {
-      "merge": 92,
-      "docs": 65,
+      "merge": 97,
+      "bugfix": 97,
+      "ui": 80,
+      "feature": 59,
+      "docs": 68,
+      "ux": 50,
+      "simplify": 8,
+      "removal": 10,
+      "database": 4,
       "conventions": 1,
       "config": 16,
-      "ui": 76,
       "refactor": 41,
-      "feature": 56,
       "monitoring": 3,
-      "bugfix": 93,
       "performance": 12,
-      "ux": 48,
       "error-handling": 4,
       "caching": 1,
       "changelog": 12,
-      "simplify": 7,
-      "removal": 9,
       "hosting": 2,
       "build": 1,
       "style": 3,
@@ -15134,7 +15803,6 @@
       "dependency-add": 3,
       "validation": 1,
       "security": 8,
-      "database": 3,
       "logging": 3,
       "onboarding": 2,
       "infrastructure": 7,
@@ -15145,49 +15813,93 @@
       "init": 4
     },
     "complexityBreakdown": {
-      "1": 169,
-      "2": 85,
-      "3": 65,
-      "4": 35,
+      "1": 176,
+      "2": 90,
+      "3": 66,
+      "4": 36,
       "5": 5
     },
     "urgencyBreakdown": {
       "1": 36,
-      "2": 265,
-      "3": 52,
+      "2": 277,
+      "3": 54,
       "4": 5,
       "5": 1
     },
     "impactBreakdown": {
-      "internal": 174,
-      "user-facing": 163,
+      "internal": 182,
+      "user-facing": 169,
       "infrastructure": 22,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 1,
-      "medium": 0,
+      "low": 14,
+      "medium": 1,
       "high": 0
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 0,
-      "neutral": 1
+      "paid": 7,
+      "neutral": 8
     },
-    "epicBreakdown": {},
+    "epicBreakdown": {
+      "debug-tools": 2,
+      "developer-tools": 1,
+      "ux-polish": 2,
+      "custom-tone-tags": 2,
+      "tone-tagging": 1,
+      "developer-experience": 1
+    },
     "semverBreakdown": {
-      "patch": 0,
-      "minor": 0,
-      "major": 0
+      "patch": 6,
+      "minor": 2,
+      "major": 1
     },
-    "avgComplexity": 1.95,
+    "avgComplexity": 1.94,
     "avgUrgency": 2.08,
     "monthly": {
-      "2026-02": {
-        "commits": 69,
+      "2026-03": {
+        "commits": 12,
         "tags": {
-          "merge": 18,
-          "docs": 16,
+          "merge": 4,
+          "bugfix": 4,
+          "ui": 4,
+          "feature": 3,
+          "docs": 2,
+          "ux": 2,
+          "simplify": 1,
+          "removal": 1,
+          "database": 1
+        },
+        "impact": {
+          "internal": 6,
+          "user-facing": 6,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 11,
+          "medium": 1,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 6,
+          "neutral": 6
+        },
+        "semver": {
+          "patch": 5,
+          "minor": 2,
+          "major": 1
+        },
+        "avgComplexity": 1.75,
+        "avgUrgency": 2.17
+      },
+      "2026-02": {
+        "commits": 71,
+        "tags": {
+          "merge": 19,
+          "docs": 17,
           "conventions": 1,
           "config": 10,
           "ui": 15,
@@ -15206,28 +15918,28 @@
           "build": 1
         },
         "impact": {
-          "internal": 36,
+          "internal": 38,
           "user-facing": 24,
           "infrastructure": 9,
           "api": 0
         },
         "risk": {
-          "low": 1,
+          "low": 3,
           "medium": 0,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 0,
-          "neutral": 1
+          "paid": 1,
+          "neutral": 2
         },
         "semver": {
-          "patch": 0,
+          "patch": 1,
           "minor": 0,
           "major": 0
         },
         "avgComplexity": 1.75,
-        "avgUrgency": 2.16
+        "avgUrgency": 2.15
       },
       "2026-01": {
         "commits": 72,
@@ -15327,11 +16039,48 @@
       }
     },
     "monthlyCommits": {
-      "2026-02": {
-        "commits": 69,
+      "2026-03": {
+        "commits": 12,
         "tags": {
-          "merge": 18,
-          "docs": 16,
+          "merge": 4,
+          "bugfix": 4,
+          "ui": 4,
+          "feature": 3,
+          "docs": 2,
+          "ux": 2,
+          "simplify": 1,
+          "removal": 1,
+          "database": 1
+        },
+        "impact": {
+          "internal": 6,
+          "user-facing": 6,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 11,
+          "medium": 1,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 6,
+          "neutral": 6
+        },
+        "semver": {
+          "patch": 5,
+          "minor": 2,
+          "major": 1
+        },
+        "avgComplexity": 1.75,
+        "avgUrgency": 2.17
+      },
+      "2026-02": {
+        "commits": 71,
+        "tags": {
+          "merge": 19,
+          "docs": 17,
           "conventions": 1,
           "config": 10,
           "ui": 15,
@@ -15350,28 +16099,28 @@
           "build": 1
         },
         "impact": {
-          "internal": 36,
+          "internal": 38,
           "user-facing": 24,
           "infrastructure": 9,
           "api": 0
         },
         "risk": {
-          "low": 1,
+          "low": 3,
           "medium": 0,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 0,
-          "neutral": 1
+          "paid": 1,
+          "neutral": 2
         },
         "semver": {
-          "patch": 0,
+          "patch": 1,
           "minor": 0,
           "major": 0
         },
         "avgComplexity": 1.75,
-        "avgUrgency": 2.16
+        "avgUrgency": 2.15
       },
       "2026-01": {
         "commits": 72,
@@ -15472,7 +16221,7 @@
     },
     "dateRange": {
       "earliest": "2025-12-05T21:07:13Z",
-      "latest": "2026-02-15T15:50:24Z"
+      "latest": "2026-03-02T01:04:12Z"
     },
     "security_events": [
       {

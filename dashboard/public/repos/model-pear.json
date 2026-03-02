@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-03-02T19:46:51.231Z",
+    "generatedAt": "2026-03-02T20:27:54.280Z",
     "repository": "model-pear",
     "scope": "model-pear",
     "repoCount": 1,
-    "commitCount": 322,
+    "commitCount": 329,
     "authors": {
       "noreply@anthropic.com": {
         "name": "noreply@anthropic.com",
@@ -21,6 +21,336 @@
     }
   },
   "commits": [
+    {
+      "sha": "a95f8a2",
+      "fullSha": "a95f8a2a813293da482b7f14579703b47f86be09",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T14:25:08Z",
+      "commitDate": "2026-02-27T14:25:08Z",
+      "subject": "Merge pull request #108 from devmade-ai/claude/fix-calculator-exports-3GQyV",
+      "body": "fix(calculator): point package exports to source TypeScript files",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #108 from devmade-ai/claude/fix-calculator-exports-3GQyV",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#108"
+      ],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 77,
+        "deletions": 52
+      },
+      "files": [
+        "apps/web/svelte.config.js",
+        "apps/web/vercel.json",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "packages/calculator/package.json",
+        "vercel.json"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "58b0e74",
+      "fullSha": "58b0e7428c0db3bbf6293a4e1ed0e3bd3926dbb6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T14:23:59Z",
+      "commitDate": "2026-02-27T14:23:59Z",
+      "subject": "fix(vercel): move vercel.json to apps/web where Vercel Root Directory points",
+      "body": "The root vercel.json was completely ignored because Vercel's Root Directory\nis set to apps/web in the dashboard. Moved config to apps/web/vercel.json\nwith paths relative to apps/web (outputDirectory: \"build\" instead of\n\"apps/web/build\"). Removed buildCommand/installCommand since Vercel\nauto-detects pnpm and uses package.json scripts.\n\nTags: vercel, deploy, config, monorepo\nComplexity: 2\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: vercel-deployment\nSemver: patch\n\nhttps://claude.ai/code/session_01RN7VHmitaq9pYfw6qTd9e7",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "vercel-deployment",
+      "semver": "patch",
+      "scope": "vercel",
+      "title": "move vercel.json to apps/web where Vercel Root Directory points",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 31,
+        "deletions": 19
+      },
+      "files": [
+        "apps/web/svelte.config.js",
+        "apps/web/vercel.json",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "vercel.json"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "2640856",
+      "fullSha": "26408563d2c9ef99ca06cad0f7b62e9055a2bd44",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T14:12:16Z",
+      "commitDate": "2026-02-27T14:12:16Z",
+      "subject": "fix(vercel): disable framework auto-detection to fix output directory error",
+      "body": "Vercel's SvelteKit framework auto-detection was overriding the\noutputDirectory from vercel.json, causing \"No Output Directory named\n'build' found\" after the build completed. Added \"framework\": null to\nvercel.json to disable auto-detection and let the manual config work.\n\nAlso simplified adapter-static config to only specify fallback: '200.html'\n(all other options were defaults), eliminating the \"Please remove\nadapter-static options to enable zero-config mode\" warning.\n\nTags: vercel, build, adapter-static, deployment\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: vercel-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01RN7VHmitaq9pYfw6qTd9e7",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "vercel-migration",
+      "semver": "patch",
+      "scope": "vercel",
+      "title": "disable framework auto-detection to fix output directory error",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 29,
+        "deletions": 19
+      },
+      "files": [
+        "apps/web/svelte.config.js",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "vercel.json"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "8c52796",
+      "fullSha": "8c52796441d9ce0120a371381988b6f451b7478c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T14:05:20Z",
+      "commitDate": "2026-02-27T14:05:20Z",
+      "subject": "fix(calculator): point package exports to source TypeScript files",
+      "body": "Calculator exports pointed to ./dist/ which doesn't exist on Vercel\nbecause only the web app's vite build runs — the calculator's tsc step\nwas never executed. Changed exports to ./src/*.ts since Vite handles\nTypeScript natively via esbuild, eliminating the need for a separate\nbuild step.\n\nTags: build, vercel, calculator, exports\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: vercel-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01RN7VHmitaq9pYfw6qTd9e7",
+      "tags": [
+        "bugfix",
+        "build"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "vercel-migration",
+      "semver": "patch",
+      "scope": "calculator",
+      "title": "point package exports to source TypeScript files",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 37,
+        "deletions": 34
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "packages/calculator/package.json"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "9b7ffcd",
+      "fullSha": "9b7ffcd4b91ae9807f4a6bf92229f05cc081fe6f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T13:58:34Z",
+      "commitDate": "2026-02-27T13:58:34Z",
+      "subject": "Merge pull request #107 from devmade-ai/claude/review-external-claude-md-dC5vE",
+      "body": "docs: adopt AI mistake log and cross-reference from glow-props CLAUDE.md",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #107 from devmade-ai/claude/review-external-claude-md-dC5vE",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#107"
+      ],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 127,
+        "deletions": 91
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        ".nojekyll",
+        "CLAUDE.md",
+        "apps/web/svelte.config.js",
+        "docs/AI_MISTAKES.md",
+        "docs/ARCHITECTURE.md",
+        "docs/HISTORY.md",
+        "docs/README.md",
+        "docs/SESSION_NOTES.md",
+        "vercel.json"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "346d601",
+      "fullSha": "346d601c53254f3a9a6897fffcdd6f71393d1bd1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T13:55:21Z",
+      "commitDate": "2026-02-27T13:55:21Z",
+      "subject": "infra(hosting): migrate from GitHub Pages to Vercel deployment",
+      "body": "GitHub Pages required base-path prefix (/model-pear/), 404.html fallback\nhack for SPA routing, and .nojekyll file. Vercel handles all of this\nnatively — serves at root /, has built-in SPA rewrites, and auto-deploys.\n\nChanges:\n- Deleted .github/workflows/deploy.yml (GitHub Actions deploy workflow)\n- Deleted .nojekyll (GitHub Pages artifact)\n- Updated svelte.config.js: removed paths.base, changed fallback to 200.html\n- Added vercel.json (build command, output directory, SPA rewrites)\n- Updated all docs: CLAUDE.md, ARCHITECTURE.md, README.md hosting references\n\nKept adapter-static (app is fully client-side, no SSR needed).\nKept {base} imports from $app/paths (SvelteKit best practice, resolves to '').\n\nTags: infrastructure, vercel, deployment, migration\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: vercel-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01QV8U2XNsicr5uKv7vB6kwN",
+      "tags": [
+        "hosting",
+        "config",
+        "removal"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "vercel-migration",
+      "semver": "minor",
+      "scope": "hosting",
+      "title": "migrate from GitHub Pages to Vercel deployment",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 73,
+        "deletions": 88
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        ".nojekyll",
+        "CLAUDE.md",
+        "apps/web/svelte.config.js",
+        "docs/ARCHITECTURE.md",
+        "docs/HISTORY.md",
+        "docs/README.md",
+        "docs/SESSION_NOTES.md",
+        "vercel.json"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "c6cb3e7",
+      "fullSha": "c6cb3e783322ae35f973125e46f09ca279ea0ff9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T13:42:57Z",
+      "commitDate": "2026-02-27T13:42:57Z",
+      "subject": "docs: adopt AI mistake log and cross-reference from glow-props CLAUDE.md",
+      "body": "Reviewed sibling project glow-props CLAUDE.md for patterns applicable to\nmodel-pear. Adopted the AI_MISTAKES.md concept for tracking AI errors across\nsessions, added cross-reference comment for periodic review, and expanded\nAI Notes with learnings from glow-props.\n\nChanges:\n- Created docs/AI_MISTAKES.md (empty template for logging AI mistakes)\n- Added cross-reference to glow-props CLAUDE.md in AI Notes (HTML comment)\n- Added AI notes: \"ask before assuming bug causes\", \"check AI_MISTAKES.md\"\n- Updated documentation reference table and file tree\n\nTags: docs, claude-md, cross-project, ai-session\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ai-session-management\nSemver: patch\n\nhttps://claude.ai/code/session_01QV8U2XNsicr5uKv7vB6kwN",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "ai-session-management",
+      "semver": "patch",
+      "scope": null,
+      "title": "adopt AI mistake log and cross-reference from glow-props CLAUDE.md",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 67,
+        "deletions": 16
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/AI_MISTAKES.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "model-pear",
+      "urgency": 2,
+      "impact": "internal"
+    },
     {
       "sha": "81a9433",
       "fullSha": "81a9433ed4b387d5fc3a1a0b59df68df011cc0bf",
@@ -7916,15 +8246,17 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 124,
-      "avgComplexity": 1.09,
-      "avgUrgency": 1.83,
+      "commits": 131,
+      "avgComplexity": 1.1,
+      "avgUrgency": 1.89,
       "tagBreakdown": {
-        "merge": 105,
-        "docs": 8,
-        "config": 3,
-        "removal": 1,
-        "bugfix": 10,
+        "merge": 107,
+        "bugfix": 13,
+        "config": 6,
+        "build": 1,
+        "hosting": 1,
+        "removal": 2,
+        "docs": 9,
         "ui": 2,
         "feature": 3,
         "ux": 1,
@@ -7935,27 +8267,27 @@
         "init": 1
       },
       "impactBreakdown": {
-        "internal": 116,
+        "internal": 119,
         "user-facing": 5,
-        "infrastructure": 3,
+        "infrastructure": 7,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 0,
-        "medium": 0,
+        "low": 6,
+        "medium": 1,
         "high": 0
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 0,
-        "neutral": 0
+        "paid": 5,
+        "neutral": 2
       },
       "repos": [
         "model-pear"
       ],
       "repoCount": 1,
       "firstCommit": "2025-12-25T14:09:06+02:00",
-      "lastCommit": "2026-02-15T17:51:45Z"
+      "lastCommit": "2026-02-27T14:25:08Z"
     },
     {
       "author_id": "jacotheron87",
@@ -7993,20 +8325,21 @@
     }
   ],
   "summary": {
-    "totalCommits": 322,
+    "totalCommits": 329,
     "totalContributors": 3,
     "tagBreakdown": {
-      "merge": 106,
-      "docs": 97,
-      "config": 12,
-      "removal": 16,
-      "bugfix": 37,
+      "merge": 108,
+      "bugfix": 40,
+      "config": 15,
+      "build": 2,
+      "hosting": 3,
+      "removal": 17,
+      "docs": 98,
       "ui": 58,
       "feature": 61,
       "ux": 17,
       "testing": 1,
       "refactor": 28,
-      "hosting": 2,
       "ci": 2,
       "cd": 1,
       "dependency-add": 1,
@@ -8014,7 +8347,6 @@
       "test-unit": 7,
       "coverage": 1,
       "migration": 2,
-      "build": 1,
       "naming": 8,
       "changelog": 2,
       "validation": 2,
@@ -8042,74 +8374,82 @@
       "init": 1
     },
     "complexityBreakdown": {
-      "1": 163,
-      "2": 61,
+      "1": 168,
+      "2": 63,
       "3": 40,
       "4": 32,
       "5": 26
     },
     "urgencyBreakdown": {
       "1": 124,
-      "2": 173,
+      "2": 177,
       "3": 24,
-      "4": 1,
+      "4": 4,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 221,
+      "internal": 224,
       "user-facing": 96,
-      "infrastructure": 5,
+      "infrastructure": 9,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 0,
-      "medium": 0,
+      "low": 6,
+      "medium": 1,
       "high": 0
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 0,
-      "neutral": 0
+      "paid": 5,
+      "neutral": 2
     },
-    "epicBreakdown": {},
+    "epicBreakdown": {
+      "vercel-deployment": 1,
+      "vercel-migration": 3,
+      "ai-session-management": 1
+    },
     "semverBreakdown": {
-      "patch": 0,
-      "minor": 0,
+      "patch": 4,
+      "minor": 1,
       "major": 0
     },
-    "avgComplexity": 2.06,
-    "avgUrgency": 1.7,
+    "avgComplexity": 2.04,
+    "avgUrgency": 1.72,
     "monthly": {
       "2026-02": {
-        "commits": 4,
+        "commits": 11,
         "tags": {
-          "merge": 2,
-          "docs": 4,
-          "config": 2
+          "merge": 4,
+          "bugfix": 3,
+          "config": 5,
+          "build": 1,
+          "hosting": 1,
+          "removal": 1,
+          "docs": 5
         },
         "impact": {
-          "internal": 4,
+          "internal": 7,
           "user-facing": 0,
-          "infrastructure": 0,
+          "infrastructure": 4,
           "api": 0
         },
         "risk": {
-          "low": 0,
-          "medium": 0,
+          "low": 6,
+          "medium": 1,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 0,
-          "neutral": 0
+          "paid": 5,
+          "neutral": 2
         },
         "semver": {
-          "patch": 0,
-          "minor": 0,
+          "patch": 4,
+          "minor": 1,
           "major": 0
         },
-        "avgComplexity": 1.25,
-        "avgUrgency": 2
+        "avgComplexity": 1.27,
+        "avgUrgency": 2.55
       },
       "2026-01": {
         "commits": 273,
@@ -8224,35 +8564,39 @@
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 4,
+        "commits": 11,
         "tags": {
-          "merge": 2,
-          "docs": 4,
-          "config": 2
+          "merge": 4,
+          "bugfix": 3,
+          "config": 5,
+          "build": 1,
+          "hosting": 1,
+          "removal": 1,
+          "docs": 5
         },
         "impact": {
-          "internal": 4,
+          "internal": 7,
           "user-facing": 0,
-          "infrastructure": 0,
+          "infrastructure": 4,
           "api": 0
         },
         "risk": {
-          "low": 0,
-          "medium": 0,
+          "low": 6,
+          "medium": 1,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 0,
-          "neutral": 0
+          "paid": 5,
+          "neutral": 2
         },
         "semver": {
-          "patch": 0,
-          "minor": 0,
+          "patch": 4,
+          "minor": 1,
           "major": 0
         },
-        "avgComplexity": 1.25,
-        "avgUrgency": 2
+        "avgComplexity": 1.27,
+        "avgUrgency": 2.55
       },
       "2026-01": {
         "commits": 273,
@@ -8367,7 +8711,7 @@
     },
     "dateRange": {
       "earliest": "2025-12-25T12:20:42+00:00",
-      "latest": "2026-02-15T17:51:45Z"
+      "latest": "2026-02-27T14:25:08Z"
     },
     "security_events": []
   }

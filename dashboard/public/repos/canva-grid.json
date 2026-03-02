@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-03-02T19:46:51.208Z",
+    "generatedAt": "2026-03-02T20:27:54.255Z",
     "repository": "canva-grid",
     "scope": "canva-grid",
     "repoCount": 1,
-    "commitCount": 332,
+    "commitCount": 342,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -21,6 +21,469 @@
     }
   },
   "commits": [
+    {
+      "sha": "ac999f5",
+      "fullSha": "ac999f5a9a4d260079bb6621eeb46fe789ac9fff",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-01T13:01:36Z",
+      "commitDate": "2026-03-01T13:01:36Z",
+      "subject": "Merge pull request #80 from devmade-ai/claude/fix-download-exclude-current-HiFFB",
+      "body": "fix(export): fix Download Current race condition with React re-render",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #80 from devmade-ai/claude/fix-download-exclude-current-HiFFB",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#80"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 14,
+        "deletions": 3
+      },
+      "files": [
+        "src/components/ExportButtons.jsx"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "5b417ba",
+      "fullSha": "5b417ba43f480dae6c7db83fd82a797359997a5b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T12:49:34Z",
+      "commitDate": "2026-03-01T12:49:34Z",
+      "subject": "fix(export): fix Download Current race condition with React re-render",
+      "body": "updateExporting(true) triggers a React re-render that overwrites the\nmanual transform: scale(1) set on the canvas back to scale(previewScale).\nBy setting the transform AFTER the re-render settles (100ms wait), the\nmanual override persists through the toPng capture — matching the same\nproven pattern used by handleExportMultiple.\n\nTags: export, bug-fix, timing\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: export\nSemver: patch\n\nhttps://claude.ai/code/session_01MdeVchBnNuGw4Hs6mEBWpJ",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "export",
+      "semver": "patch",
+      "scope": "export",
+      "title": "fix Download Current race condition with React re-render",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 14,
+        "deletions": 3
+      },
+      "files": [
+        "src/components/ExportButtons.jsx"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "2270824",
+      "fullSha": "22708243d3643f24c70d0ab1b90bf56a5fc98fad",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-01T12:37:55Z",
+      "commitDate": "2026-03-01T12:37:55Z",
+      "subject": "Merge pull request #79 from devmade-ai/claude/fix-download-issue-OmMCe",
+      "body": "fix(export): use blob + saveAs for single download instead of link.click()",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #79 from devmade-ai/claude/fix-download-issue-OmMCe",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#79"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 8,
+        "deletions": 328
+      },
+      "files": [
+        "package-lock.json",
+        "src/components/ExportButtons.jsx"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "3e3f3d1",
+      "fullSha": "3e3f3d122a4438f0b0fcd42427519843b04f1d56",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T12:36:44Z",
+      "commitDate": "2026-03-01T12:36:44Z",
+      "subject": "chore: update package-lock.json from npm install",
+      "body": "Tags: dependencies\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: export\nSemver: patch\n\nhttps://claude.ai/code/session_01VzWhKw5a9A2uMExAYPMVu3",
+      "tags": [
+        "build"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "update package-lock.json from npm install",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 324
+      },
+      "files": [
+        "package-lock.json"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "05e849f",
+      "fullSha": "05e849f13afa27ab60cbc87586526cbe47eb1b30",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T12:36:17Z",
+      "commitDate": "2026-03-01T12:36:17Z",
+      "subject": "fix(export): use blob + saveAs for single download instead of link.click()",
+      "body": "The detached <a> element with link.click() fails to trigger downloads in\nSafari, PWA contexts, and with large data URLs from print-size exports.\nReplaced with fetch-to-blob + file-saver's saveAs, matching the reliable\npattern already used by multi-page and multi-platform ZIP exports.\n\nTags: export, download, bugfix, cross-browser\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: export\nSemver: patch\n\nhttps://claude.ai/code/session_01VzWhKw5a9A2uMExAYPMVu3",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "export",
+      "semver": "patch",
+      "scope": "export",
+      "title": "use blob + saveAs for single download instead of link.click()",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 8,
+        "deletions": 4
+      },
+      "files": [
+        "src/components/ExportButtons.jsx"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 4,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "eb7012f",
+      "fullSha": "eb7012f58d1afdd32c4234755a8ffa05dceb8913",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T12:37:17Z",
+      "commitDate": "2026-02-27T12:37:17Z",
+      "subject": "Merge pull request #78 from devmade-ai/claude/review-external-claude-md-VX6ad",
+      "body": "Add debug system and migrate to Vercel deployment",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #78 from devmade-ai/claude/review-external-claude-md-VX6ad",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#78"
+      ],
+      "stats": {
+        "filesChanged": 19,
+        "additions": 506,
+        "deletions": 116
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "index.html",
+        "package.json",
+        "public/apple-touch-icon.png",
+        "public/favicon.png",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "public/pwa-maskable-1024.png",
+        "scripts/generate-icons.mjs",
+        "src/components/DebugPill.jsx",
+        "src/hooks/usePWAInstall.js",
+        "src/main.jsx",
+        "src/utils/debugLog.js",
+        "vercel.json",
+        "vite.config.js"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f5e2139",
+      "fullSha": "f5e2139c0dbc015853324a814c983417872d9078",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T12:36:06Z",
+      "commitDate": "2026-02-27T12:36:06Z",
+      "subject": "docs: update live demo URL to canva-grid.vercel.app",
+      "body": "Tags: docs\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: vercel-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01JLMomBh5nUZYJ5EkCsw46y",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "vercel-migration",
+      "semver": "patch",
+      "scope": null,
+      "title": "update live demo URL to canva-grid.vercel.app",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 2,
+        "deletions": 13
+      },
+      "files": [
+        "README.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0a0f4a7",
+      "fullSha": "0a0f4a76fab1148b2a1c52a605bca0ba43e5c5fa",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T12:32:39Z",
+      "commitDate": "2026-02-27T12:32:39Z",
+      "subject": "feat(deploy): migrate from GitHub Pages to Vercel",
+      "body": "GitHub Pages requires base-path hacks, manual branch config, and a\n404.html copy for SPA routing. Vercel handles all of this natively.\n\n- Delete .github/workflows/deploy.yml\n- Remove gh-pages dependency and deploy/predeploy npm scripts\n- Remove base: '/canva-grid/' from vite.config.js\n- Remove /canva-grid/ prefix from all icon hrefs in index.html\n- Update PWA manifest id/scope/start_url from /canva-grid/ to /\n- Add vercel.json with SPA rewrite rule for client-side routing\n- Update README.md, CLAUDE.md, HISTORY.md deployment references\n- Add USER_ACTIONS.md entry for connecting repo in Vercel dashboard\n\nTags: deploy, vercel, pwa, cleanup\nComplexity: 2\nUrgency: 3\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: vercel-migration\nSemver: major\n\nhttps://claude.ai/code/session_01JLMomBh5nUZYJ5EkCsw46y",
+      "tags": [
+        "hosting",
+        "config",
+        "removal"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "vercel-migration",
+      "semver": "major",
+      "scope": "deploy",
+      "title": "migrate from GitHub Pages to Vercel",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 68,
+        "deletions": 111
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "index.html",
+        "package.json",
+        "vercel.json",
+        "vite.config.js"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "2cc2926",
+      "fullSha": "2cc2926f5e2e9bb4e8a7cb439a9481cc4d6bc910",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T12:28:01Z",
+      "commitDate": "2026-02-27T12:28:01Z",
+      "subject": "chore(icons): regenerate all PNG icons including new sizes",
+      "body": "Run generate-icons.mjs to produce favicon.png (48px) and\npwa-maskable-1024.png (1024px) alongside existing sizes.\n\nTags: icons, pwa\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: pwa-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01JLMomBh5nUZYJ5EkCsw46y",
+      "tags": [
+        "build",
+        "ui"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "pwa-hardening",
+      "semver": "patch",
+      "scope": "icons",
+      "title": "regenerate all PNG icons including new sizes",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 0,
+        "deletions": 0
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.png",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "public/pwa-maskable-1024.png"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "9aa2640",
+      "fullSha": "9aa264036174565ad1eee1e26304c2794ebb7887",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T12:15:51Z",
+      "commitDate": "2026-02-27T12:15:51Z",
+      "subject": "feat(pwa,debug): harden PWA install, add debug system, extend icons",
+      "body": "Adopt patterns from sister project glow-props CLAUDE.md:\n- Fix beforeinstallprompt race condition with inline capture in index.html\n- Add explicit manifest id for stable PWA install identity\n- Separate icon purposes (never combine \"any maskable\")\n- Add dedicated 1024px maskable icon and 48px favicon to icon generator\n- Add in-memory debug log (200-entry circular buffer) with floating DebugPill\n- DebugPill renders in separate React root (survives App crashes), dev-only\n- Add glow-props reference in CLAUDE.md AI Notes for future cross-pollination\n\nTags: pwa, debug, icons, dx, cross-pollination\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_01JLMomBh5nUZYJ5EkCsw46y",
+      "tags": [
+        "feature",
+        "config",
+        "logging"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pwa-hardening",
+      "semver": "minor",
+      "scope": "pwa,debug",
+      "title": "harden PWA install, add debug system, extend icons",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 466,
+        "deletions": 22
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "index.html",
+        "scripts/generate-icons.mjs",
+        "src/components/DebugPill.jsx",
+        "src/hooks/usePWAInstall.js",
+        "src/main.jsx",
+        "src/utils/debugLog.js",
+        "vite.config.js"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
     {
       "sha": "efcad23",
       "fullSha": "efcad2384afb527afbf850fdbf870aea7bf8e280",
@@ -10753,23 +11216,27 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 203,
-      "avgComplexity": 1.57,
-      "avgUrgency": 1.9,
+      "commits": 213,
+      "avgComplexity": 1.56,
+      "avgUrgency": 1.92,
       "tagBreakdown": {
-        "merge": 77,
-        "bugfix": 26,
+        "merge": 80,
+        "bugfix": 28,
+        "build": 2,
+        "docs": 38,
+        "hosting": 1,
+        "config": 6,
+        "removal": 1,
+        "ui": 43,
+        "feature": 27,
+        "logging": 1,
         "performance": 1,
-        "docs": 37,
         "refactor": 19,
         "cleanup": 4,
         "ux": 19,
-        "ui": 42,
         "migration": 1,
         "chore": 2,
-        "feature": 26,
         "simplify": 2,
-        "config": 4,
         "monitoring": 2,
         "fix": 1,
         "mobile": 1,
@@ -10779,27 +11246,27 @@
         "seed": 1
       },
       "impactBreakdown": {
-        "internal": 112,
-        "user-facing": 87,
-        "infrastructure": 4,
+        "internal": 117,
+        "user-facing": 89,
+        "infrastructure": 7,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 3,
-        "medium": 0,
+        "low": 12,
+        "medium": 1,
         "high": 0
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 1,
-        "neutral": 2
+        "paid": 5,
+        "neutral": 8
       },
       "repos": [
         "canva-grid"
       ],
       "repoCount": 1,
       "firstCommit": "2026-01-10T12:01:03+02:00",
-      "lastCommit": "2026-02-16T22:39:43+02:00"
+      "lastCommit": "2026-03-01T13:01:36Z"
     },
     {
       "author_id": "noreply@anthropic.com",
@@ -10892,19 +11359,23 @@
     }
   ],
   "summary": {
-    "totalCommits": 332,
+    "totalCommits": 342,
     "totalContributors": 3,
     "tagBreakdown": {
-      "merge": 77,
-      "bugfix": 51,
+      "merge": 80,
+      "bugfix": 53,
+      "build": 2,
+      "docs": 65,
+      "hosting": 1,
+      "config": 7,
+      "removal": 2,
+      "ui": 102,
+      "feature": 72,
+      "logging": 1,
       "performance": 3,
-      "docs": 64,
       "refactor": 28,
       "cleanup": 4,
       "ux": 30,
-      "ui": 101,
-      "feature": 71,
-      "config": 5,
       "chore": 9,
       "migration": 1,
       "simplify": 2,
@@ -10913,7 +11384,6 @@
       "mobile": 1,
       "accessibility": 1,
       "enhancement": 22,
-      "removal": 1,
       "revert": 5,
       "error-handling": 1,
       "breaking": 1,
@@ -10921,87 +11391,125 @@
       "seed": 2
     },
     "complexityBreakdown": {
-      "1": 168,
-      "2": 83,
-      "3": 47,
+      "1": 175,
+      "2": 85,
+      "3": 48,
       "4": 27,
       "5": 7
     },
     "urgencyBreakdown": {
-      "1": 83,
-      "2": 224,
-      "3": 25,
-      "4": 0,
+      "1": 84,
+      "2": 230,
+      "3": 27,
+      "4": 1,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 146,
-      "user-facing": 178,
-      "infrastructure": 6,
+      "internal": 151,
+      "user-facing": 180,
+      "infrastructure": 9,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 3,
-      "medium": 0,
+      "low": 12,
+      "medium": 1,
       "high": 0
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 1,
-      "neutral": 2
+      "paid": 5,
+      "neutral": 8
     },
     "epicBreakdown": {
+      "export": 2,
+      "vercel-migration": 2,
+      "pwa-hardening": 2,
       "pwa-reliability": 1
     },
     "semverBreakdown": {
-      "patch": 1,
-      "minor": 1,
-      "major": 0
+      "patch": 5,
+      "minor": 2,
+      "major": 1
     },
-    "avgComplexity": 1.86,
-    "avgUrgency": 1.83,
+    "avgComplexity": 1.85,
+    "avgUrgency": 1.84,
     "monthly": {
-      "2026-02": {
-        "commits": 97,
+      "2026-03": {
+        "commits": 5,
         "tags": {
-          "merge": 23,
+          "merge": 2,
+          "bugfix": 2,
+          "build": 1
+        },
+        "impact": {
+          "internal": 3,
+          "user-facing": 2,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 5,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 2,
+          "neutral": 3
+        },
+        "semver": {
+          "patch": 2,
+          "minor": 0,
+          "major": 0
+        },
+        "avgComplexity": 1.2,
+        "avgUrgency": 2.4
+      },
+      "2026-02": {
+        "commits": 102,
+        "tags": {
+          "merge": 24,
+          "docs": 24,
+          "hosting": 1,
+          "config": 5,
+          "removal": 1,
+          "build": 1,
+          "ui": 29,
+          "feature": 14,
+          "logging": 1,
           "bugfix": 12,
           "performance": 2,
-          "docs": 23,
           "refactor": 10,
           "cleanup": 3,
           "ux": 10,
-          "ui": 28,
-          "feature": 13,
-          "config": 3,
           "chore": 3,
           "migration": 1,
           "simplify": 1,
           "monitoring": 2
         },
         "impact": {
-          "internal": 46,
+          "internal": 48,
           "user-facing": 45,
-          "infrastructure": 6,
+          "infrastructure": 9,
           "api": 0
         },
         "risk": {
-          "low": 2,
-          "medium": 0,
+          "low": 6,
+          "medium": 1,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 1,
-          "neutral": 1
+          "paid": 3,
+          "neutral": 4
         },
         "semver": {
-          "patch": 1,
-          "minor": 0,
-          "major": 0
+          "patch": 3,
+          "minor": 1,
+          "major": 1
         },
         "avgComplexity": 1.63,
-        "avgUrgency": 1.88
+        "avgUrgency": 1.89
       },
       "2026-01": {
         "commits": 235,
@@ -11055,47 +11563,82 @@
       }
     },
     "monthlyCommits": {
-      "2026-02": {
-        "commits": 97,
+      "2026-03": {
+        "commits": 5,
         "tags": {
-          "merge": 23,
+          "merge": 2,
+          "bugfix": 2,
+          "build": 1
+        },
+        "impact": {
+          "internal": 3,
+          "user-facing": 2,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 5,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 2,
+          "neutral": 3
+        },
+        "semver": {
+          "patch": 2,
+          "minor": 0,
+          "major": 0
+        },
+        "avgComplexity": 1.2,
+        "avgUrgency": 2.4
+      },
+      "2026-02": {
+        "commits": 102,
+        "tags": {
+          "merge": 24,
+          "docs": 24,
+          "hosting": 1,
+          "config": 5,
+          "removal": 1,
+          "build": 1,
+          "ui": 29,
+          "feature": 14,
+          "logging": 1,
           "bugfix": 12,
           "performance": 2,
-          "docs": 23,
           "refactor": 10,
           "cleanup": 3,
           "ux": 10,
-          "ui": 28,
-          "feature": 13,
-          "config": 3,
           "chore": 3,
           "migration": 1,
           "simplify": 1,
           "monitoring": 2
         },
         "impact": {
-          "internal": 46,
+          "internal": 48,
           "user-facing": 45,
-          "infrastructure": 6,
+          "infrastructure": 9,
           "api": 0
         },
         "risk": {
-          "low": 2,
-          "medium": 0,
+          "low": 6,
+          "medium": 1,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 1,
-          "neutral": 1
+          "paid": 3,
+          "neutral": 4
         },
         "semver": {
-          "patch": 1,
-          "minor": 0,
-          "major": 0
+          "patch": 3,
+          "minor": 1,
+          "major": 1
         },
         "avgComplexity": 1.63,
-        "avgUrgency": 1.88
+        "avgUrgency": 1.89
       },
       "2026-01": {
         "commits": 235,
@@ -11150,7 +11693,7 @@
     },
     "dateRange": {
       "earliest": "2026-01-10T12:01:03+02:00",
-      "latest": "2026-02-16T22:39:43+02:00"
+      "latest": "2026-03-01T13:01:36Z"
     },
     "security_events": []
   }

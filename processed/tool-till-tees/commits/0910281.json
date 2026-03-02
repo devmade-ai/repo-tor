@@ -1,0 +1,60 @@
+{
+  "sha": "0910281",
+  "fullSha": "091028198c83bff1cefbdb1d536ea9caec0e3c32",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-25T13:35:19Z",
+  "commitDate": "2026-02-25T13:35:19Z",
+  "subject": "Add Supabase forms schema, API endpoints, and validation",
+  "body": "Implement the full backend for the Four Ems form builder:\n\n- Supabase migration: forms and form_submissions tables with RLS policies,\n  indexes, and auto-update trigger\n- Shared libraries: types, Supabase client, slug generation, auth middleware\n  (Supabase anonymous auth), field condition evaluation, and submission\n  validation (type checks, required fields, conditional visibility)\n- Authenticated API endpoints: CRUD for forms, publish, list submissions,\n  update submission status\n- Public API endpoints: fetch published form by slug, submit responses with\n  server-side validation and optional SMTP notification\n- Updated vercel.json CORS to allow PUT/DELETE and Authorization header\n- Added Supabase env var placeholders to .env.example\n\nhttps://claude.ai/code/session_01DEWuDp8jGUxw39w6M5fNgn",
+  "tags": [
+    "feature",
+    "database",
+    "schema"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": null,
+  "semver": "minor",
+  "scope": null,
+  "title": "Add Supabase forms schema, API endpoints, and validation",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 18,
+    "additions": 1244,
+    "deletions": 4
+  },
+  "files": [
+    ".env.example",
+    "api/forms/[id].ts",
+    "api/forms/[id]/publish.ts",
+    "api/forms/[id]/submissions.ts",
+    "api/forms/index.ts",
+    "api/public/forms/[slug].ts",
+    "api/public/forms/[slug]/submit.ts",
+    "api/submissions/[id].ts",
+    "lib/auth.ts",
+    "lib/form-conditions.ts",
+    "lib/form-validation.ts",
+    "lib/forms-types.ts",
+    "lib/slug.ts",
+    "lib/supabase.ts",
+    "package-lock.json",
+    "package.json",
+    "supabase/migrations/001_forms_schema.sql",
+    "vercel.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

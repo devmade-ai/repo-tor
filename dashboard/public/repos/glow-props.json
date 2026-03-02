@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-03-02T19:46:51.222Z",
+    "generatedAt": "2026-03-02T20:27:54.270Z",
     "repository": "glow-props",
     "scope": "glow-props",
     "repoCount": 1,
-    "commitCount": 21,
+    "commitCount": 33,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -13,6 +13,546 @@
     }
   },
   "commits": [
+    {
+      "sha": "06b08e9",
+      "fullSha": "06b08e9989cfa4a032e8f0a2ca1931881e723d92",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T11:58:50Z",
+      "commitDate": "2026-02-27T11:58:50Z",
+      "subject": "Merge pull request #8 from devmade-ai/claude/implement-pwa-react-8y4k3",
+      "body": "Expand PWA system documentation with complete implementation patterns",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #8 from devmade-ai/claude/implement-pwa-react-8y4k3",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#8"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 235,
+        "deletions": 97
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "59b164c",
+      "fullSha": "59b164c077c999983c7a2193a980a61193f74609",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T11:58:23Z",
+      "commitDate": "2026-02-27T11:58:23Z",
+      "subject": "docs(claude): remove profanity from reminder headings",
+      "body": "Cleaned up all 7 reminder lines — same emphasis without the language.\n\nTags: documentation, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_01NkhVBpPm1onGXvWYeRx4Wb",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "documentation",
+      "semver": "patch",
+      "scope": "claude",
+      "title": "remove profanity from reminder headings",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 7,
+        "deletions": 7
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "723a9ed",
+      "fullSha": "723a9ed605691922801e7366e5c7b4a758d3688e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T11:55:02Z",
+      "commitDate": "2026-02-27T11:55:02Z",
+      "subject": "docs(pwa): rewrite PWA section as complete React implementation reference",
+      "body": "The PWA suggestions were prose descriptions with scattered fix sections.\nRestructured into a logical implementation-order reference with concrete\nReact code: Vite config, usePWAUpdate hook, usePWAInstall hook (with\nintegrated race condition fix and diagnostic logging), component patterns,\nand a key lessons summary. All examples use React patterns\n(useState/useEffect/useCallback, virtual:pwa-register/react) instead of\nframework-agnostic prose. Fixed maskable icon to use dedicated 1024x1024.\n\nTags: documentation, pwa, react\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa-system\nSemver: patch\n\nhttps://claude.ai/code/session_01NkhVBpPm1onGXvWYeRx4Wb",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pwa-system",
+      "semver": "patch",
+      "scope": "pwa",
+      "title": "rewrite PWA section as complete React implementation reference",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 228,
+        "deletions": 90
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "6c82c08",
+      "fullSha": "6c82c082b1c0a23b85bf00084e7e72844fdbc417",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T04:54:03Z",
+      "commitDate": "2026-02-27T04:54:03Z",
+      "subject": "Merge pull request #7 from devmade-ai/claude/fix-pwa-install-prompt-7LVxN",
+      "body": "docs: Add PWA install prompt troubleshooting guide for Chrome Android",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #7 from devmade-ai/claude/fix-pwa-install-prompt-7LVxN",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#7"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 34,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "6dff018",
+      "fullSha": "6dff01889bd043d0e0096eaee00c573fd93187aa",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T04:52:52Z",
+      "commitDate": "2026-02-27T04:52:52Z",
+      "subject": "docs(pwa): add Chrome Android install prompt fix to CLAUDE.md",
+      "body": "Documents manifest fixes (explicit id field, explicit purpose: 'any' on\nicons, prefer_related_applications: false) and diagnostic logging pattern\nfor debugging beforeinstallprompt failures on Chrome Android.\n\nTags: documentation, pwa\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: pwa-install\nSemver: patch\n\nhttps://claude.ai/code/session_01R2JHvBf57gmtif7GNhsRTT",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "pwa-install",
+      "semver": "patch",
+      "scope": "pwa",
+      "title": "add Chrome Android install prompt fix to CLAUDE.md",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 34,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 3,
+      "impact": "internal"
+    },
+    {
+      "sha": "2ef31c8",
+      "fullSha": "2ef31c80fdbb7c59ecf33432b820c142f1319973",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T22:31:40Z",
+      "commitDate": "2026-02-26T22:31:40Z",
+      "subject": "Merge pull request #6 from devmade-ai/claude/create-svg-icons-1kkw7",
+      "body": "Add icon generation pipeline with source SVG and build script",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #6 from devmade-ai/claude/create-svg-icons-1kkw7",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 14,
+        "additions": 1853,
+        "deletions": 1
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        ".gitignore",
+        "assets/icon-source.svg",
+        "package-lock.json",
+        "package.json",
+        "public/assets/images/adaptive-icon.png",
+        "public/assets/images/favicon.png",
+        "public/assets/images/icon-192.png",
+        "public/assets/images/icon-512.png",
+        "public/assets/images/icon.png",
+        "public/assets/images/splash-icon.png",
+        "public/texts/hello.txt",
+        "scripts/generate-icons.mjs",
+        "vite.config.js"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "83693e1",
+      "fullSha": "83693e1371271d3b2fc663701f089551126a57b4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T22:09:49Z",
+      "commitDate": "2026-02-26T22:09:49Z",
+      "subject": "feat(build): convert to Vite project",
+      "body": "Add Vite as the build tool so this repo serves as a working reference\nimplementation, not just documentation. Static files move to public/,\nCLAUDE.md stays at repo root (for Claude Code) and gets copied to dist/\nvia a small Vite plugin. Deploy workflow now runs npm ci + vite build\nbefore uploading dist/ to GitHub Pages.\n\n- vite.config.js with base path and copy-root-files plugin\n- public/ for static assets (texts, generated icons)\n- Updated generate-icons.mjs to output to public/assets/images/\n- Deploy workflow adds Node 20 setup and build step\n\nTags: build, vite, infrastructure\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: medium\nDebt: neutral\nEpic: icon-system\nSemver: minor\n\nhttps://claude.ai/code/session_014q25sVTPqFrcSY2B3NjBCM",
+      "tags": [
+        "build",
+        "bundler",
+        "hosting"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": "icon-system",
+      "semver": "minor",
+      "scope": "build",
+      "title": "convert to Vite project",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 13,
+        "additions": 1398,
+        "deletions": 273
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        ".gitignore",
+        "package-lock.json",
+        "package.json",
+        "public/assets/images/adaptive-icon.png",
+        "public/assets/images/favicon.png",
+        "public/assets/images/icon-192.png",
+        "public/assets/images/icon-512.png",
+        "public/assets/images/icon.png",
+        "public/assets/images/splash-icon.png",
+        "public/texts/hello.txt",
+        "scripts/generate-icons.mjs",
+        "vite.config.js"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "18e173f",
+      "fullSha": "18e173fac1a24d2a7bd6f29afcf1e52f50e181c7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T22:01:28Z",
+      "commitDate": "2026-02-26T22:01:28Z",
+      "subject": "feat(icons): add SVG icon source and PNG generation pipeline",
+      "body": "Set up the icon generation system per Suggested Implementations. Single\nSVG source (glowing document on navy background) generates all needed\nPNG sizes via Sharp. Design follows maskable icon rules: square canvas,\nfull background, content in inner 80% safe zone, legible at 48px.\n\nGenerated sizes: 1024 (icon, adaptive, splash), 512, 192, 48 (favicon).\n\nTags: icons, assets, build\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: icon-system\nSemver: minor\n\nhttps://claude.ai/code/session_014q25sVTPqFrcSY2B3NjBCM",
+      "tags": [
+        "feature",
+        "build"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "icon-system",
+      "semver": "minor",
+      "scope": "icons",
+      "title": "add SVG icon source and PNG generation pipeline",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 727,
+        "deletions": 0
+      },
+      "files": [
+        ".gitignore",
+        "assets/icon-source.svg",
+        "assets/images/adaptive-icon.png",
+        "assets/images/favicon.png",
+        "assets/images/icon-192.png",
+        "assets/images/icon-512.png",
+        "assets/images/icon.png",
+        "assets/images/splash-icon.png",
+        "package-lock.json",
+        "package.json",
+        "scripts/generate-icons.mjs"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "7dc4769",
+      "fullSha": "7dc476959d15bebd34ebb4f1f2b3f00c6f9bc113",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T21:51:23Z",
+      "commitDate": "2026-02-26T21:51:23Z",
+      "subject": "Merge pull request #5 from devmade-ai/claude/add-svg-icons-docs-lzsDQ",
+      "body": "Add SVG-to-PNG icon generation system with Sharp",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/add-svg-icons-docs-lzsDQ",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 88,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "a767d56",
+      "fullSha": "a767d560c379d491398da70a1e7030cc189a9759",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T21:46:47Z",
+      "commitDate": "2026-02-26T21:46:47Z",
+      "subject": "docs(claude): add App Icons from SVG Source to Suggested Implementations",
+      "body": "Adds reusable reference pattern for SVG-to-PNG icon generation using Sharp.\nCovers file structure, generator script, SVG design rules for maskable icons,\nPWA manifest icon configuration, and Expo config guidance.\n\nTags: documentation, icons, pwa, svg\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: developer-docs\nSemver: patch\n\nhttps://claude.ai/code/session_01XATpvFhaZeM9NnJwW4Xb5f",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "developer-docs",
+      "semver": "patch",
+      "scope": "claude",
+      "title": "add App Icons from SVG Source to Suggested Implementations",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 88,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "77abb85",
+      "fullSha": "77abb8542904b826087e5e4bcdfa7569884a6619",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T20:58:36Z",
+      "commitDate": "2026-02-26T20:58:36Z",
+      "subject": "Merge pull request #4 from devmade-ai/claude/fix-pwa-timer-leaks-8Mj03",
+      "body": "docs: Add timer leak and PWA prompt race condition fixes",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #4 from devmade-ai/claude/fix-pwa-timer-leaks-8Mj03",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 95,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "3dd6ba1",
+      "fullSha": "3dd6ba1d66793ac9cbb4bc2ded19608770373aa8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T20:57:02Z",
+      "commitDate": "2026-02-26T20:57:02Z",
+      "subject": "docs(pwa): add timer leak and install prompt race condition fixes to PWA guidelines",
+      "body": "Two common PWA bugs documented as implementation guidelines:\n1. Timer leaks on unmount — nested setTimeout callbacks survive cleanup when only\n   the outer timeout is cleared. Fix: track all timeout IDs or use a mounted ref guard.\n2. Install prompt race condition — beforeinstallprompt fires before SPA framework mounts\n   on repeat visits. Fix: inline script in HTML captures event early, hook consumes it\n   with useState initializer, useEffect fallback covers first-visit case.\n\nTags: documentation, pwa\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa-guidelines\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pwa-guidelines",
+      "semver": "patch",
+      "scope": "pwa",
+      "title": "add timer leak and install prompt race condition fixes to PWA guidelines",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 95,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "glow-props",
+      "urgency": 2,
+      "impact": "internal"
+    },
     {
       "sha": "83849f9",
       "fullSha": "83849f94a67f1f591bd915213ef5011cf103d3f9",
@@ -897,195 +1437,209 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 21,
-      "avgComplexity": 1.19,
-      "avgUrgency": 1.95,
+      "commits": 33,
+      "avgComplexity": 1.24,
+      "avgUrgency": 1.97,
       "tagBreakdown": {
-        "merge": 3,
-        "docs": 7,
+        "merge": 8,
+        "docs": 12,
+        "build": 2,
+        "bundler": 1,
+        "hosting": 3,
+        "feature": 3,
         "removal": 3,
         "bugfix": 5,
         "simplify": 2,
         "config": 8,
         "refactor": 1,
-        "feature": 2,
         "ci": 1,
-        "hosting": 2,
         "init": 1,
         "initial-commit": 1,
         "repository-setup": 1
       },
       "impactBreakdown": {
-        "internal": 10,
+        "internal": 20,
         "user-facing": 0,
-        "infrastructure": 11,
+        "infrastructure": 13,
         "api": 0
       },
       "riskBreakdown": {
-        "low": 20,
-        "medium": 0,
+        "low": 31,
+        "medium": 1,
         "high": 0
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 7,
-        "neutral": 13
+        "paid": 10,
+        "neutral": 22
       },
       "repos": [
         "glow-props"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-15T15:43:18Z",
-      "lastCommit": "2026-02-24T14:16:27+02:00"
+      "lastCommit": "2026-02-27T11:58:50Z"
     }
   ],
   "summary": {
-    "totalCommits": 21,
+    "totalCommits": 33,
     "totalContributors": 1,
     "tagBreakdown": {
-      "merge": 3,
-      "docs": 7,
+      "merge": 8,
+      "docs": 12,
+      "build": 2,
+      "bundler": 1,
+      "hosting": 3,
+      "feature": 3,
       "removal": 3,
       "bugfix": 5,
       "simplify": 2,
       "config": 8,
       "refactor": 1,
-      "feature": 2,
       "ci": 1,
-      "hosting": 2,
       "init": 1,
       "initial-commit": 1,
       "repository-setup": 1
     },
     "complexityBreakdown": {
-      "1": 17,
-      "2": 4,
-      "3": 0,
+      "1": 26,
+      "2": 6,
+      "3": 1,
       "4": 0,
       "5": 0
     },
     "urgencyBreakdown": {
-      "1": 6,
-      "2": 10,
-      "3": 5,
+      "1": 7,
+      "2": 20,
+      "3": 6,
       "4": 0,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 10,
+      "internal": 20,
       "user-facing": 0,
-      "infrastructure": 11,
+      "infrastructure": 13,
       "api": 0
     },
     "riskBreakdown": {
-      "low": 20,
-      "medium": 0,
+      "low": 31,
+      "medium": 1,
       "high": 0
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 7,
-      "neutral": 13
+      "paid": 10,
+      "neutral": 22
     },
     "epicBreakdown": {
+      "documentation": 1,
+      "pwa-system": 1,
+      "pwa-install": 1,
+      "icon-system": 2,
+      "developer-docs": 1,
+      "pwa-guidelines": 1,
       "session-hooks": 12
     },
     "semverBreakdown": {
-      "patch": 8,
-      "minor": 4,
+      "patch": 13,
+      "minor": 6,
       "major": 0
     },
-    "avgComplexity": 1.19,
-    "avgUrgency": 1.95,
+    "avgComplexity": 1.24,
+    "avgUrgency": 1.97,
     "monthly": {
       "2026-02": {
-        "commits": 21,
+        "commits": 33,
         "tags": {
-          "merge": 3,
-          "docs": 7,
+          "merge": 8,
+          "docs": 12,
+          "build": 2,
+          "bundler": 1,
+          "hosting": 3,
+          "feature": 3,
           "removal": 3,
           "bugfix": 5,
           "simplify": 2,
           "config": 8,
           "refactor": 1,
-          "feature": 2,
           "ci": 1,
-          "hosting": 2,
           "init": 1,
           "initial-commit": 1,
           "repository-setup": 1
         },
         "impact": {
-          "internal": 10,
+          "internal": 20,
           "user-facing": 0,
-          "infrastructure": 11,
+          "infrastructure": 13,
           "api": 0
         },
         "risk": {
-          "low": 20,
-          "medium": 0,
+          "low": 31,
+          "medium": 1,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 7,
-          "neutral": 13
+          "paid": 10,
+          "neutral": 22
         },
         "semver": {
-          "patch": 8,
-          "minor": 4,
+          "patch": 13,
+          "minor": 6,
           "major": 0
         },
-        "avgComplexity": 1.19,
-        "avgUrgency": 1.95
+        "avgComplexity": 1.24,
+        "avgUrgency": 1.97
       }
     },
     "monthlyCommits": {
       "2026-02": {
-        "commits": 21,
+        "commits": 33,
         "tags": {
-          "merge": 3,
-          "docs": 7,
+          "merge": 8,
+          "docs": 12,
+          "build": 2,
+          "bundler": 1,
+          "hosting": 3,
+          "feature": 3,
           "removal": 3,
           "bugfix": 5,
           "simplify": 2,
           "config": 8,
           "refactor": 1,
-          "feature": 2,
           "ci": 1,
-          "hosting": 2,
           "init": 1,
           "initial-commit": 1,
           "repository-setup": 1
         },
         "impact": {
-          "internal": 10,
+          "internal": 20,
           "user-facing": 0,
-          "infrastructure": 11,
+          "infrastructure": 13,
           "api": 0
         },
         "risk": {
-          "low": 20,
-          "medium": 0,
+          "low": 31,
+          "medium": 1,
           "high": 0
         },
         "debt": {
           "added": 0,
-          "paid": 7,
-          "neutral": 13
+          "paid": 10,
+          "neutral": 22
         },
         "semver": {
-          "patch": 8,
-          "minor": 4,
+          "patch": 13,
+          "minor": 6,
           "major": 0
         },
-        "avgComplexity": 1.19,
-        "avgUrgency": 1.95
+        "avgComplexity": 1.24,
+        "avgUrgency": 1.97
       }
     },
     "dateRange": {
       "earliest": "2026-02-15T15:43:18Z",
-      "latest": "2026-02-24T14:16:27+02:00"
+      "latest": "2026-02-27T11:58:50Z"
     },
     "security_events": []
   }
