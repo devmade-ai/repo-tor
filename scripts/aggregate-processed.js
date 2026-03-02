@@ -22,7 +22,10 @@ const __dirname = path.dirname(__filename);
 
 // === Configuration ===
 const PROCESSED_DIR = path.join(__dirname, '..', 'processed');
-const DEFAULT_OUTPUT = path.join(__dirname, '..', 'dashboard');
+// Requirement: Output directly to dashboard/public so Vite includes data in builds
+// Approach: Changed from dashboard/ to dashboard/public/ (Vite copies public/ to dist/)
+// Alternatives: Post-build copy step — rejected as unnecessary indirection
+const DEFAULT_OUTPUT = path.join(__dirname, '..', 'dashboard', 'public');
 const AUTHOR_MAP_PATH = path.join(__dirname, '..', 'config', 'author-map.json');
 
 // === Author Identity Mapping ===
