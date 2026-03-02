@@ -53,7 +53,7 @@ git commit -m "chore: update extracted data"
 git push
 ```
 
-The dashboard will auto-load the aggregated data on GitHub Pages.
+The dashboard will auto-load the aggregated data once deployed.
 
 ### Refreshing data
 
@@ -496,27 +496,22 @@ npx serve dashboard
 # Then open http://localhost:8000
 ```
 
-### Option 3: GitHub Pages (Automated)
+### Option 3: Vercel (Automated)
 
-This repository includes a GitHub Actions workflow for automatic deployment.
+The repository uses Vercel for automatic deployment. A `vercel.json` config is included with SPA rewrites for client-side routing.
 
 **Setup (one-time):**
 
-1. Push the repository to GitHub
-2. Go to repository **Settings** > **Pages**
-3. Under "Build and deployment", set **Source** to **GitHub Actions**
-4. The dashboard will deploy automatically on push to `main` or `master`
+1. Go to [vercel.com](https://vercel.com) and sign in with GitHub
+2. Click "Add New Project" and import the `repo-tor` repository
+3. Vercel auto-detects Vite — no build settings to configure
+4. Click "Deploy"
 
-**Manual deployment:**
+Vercel auto-deploys on every push to `main`.
 
-You can also trigger a deployment manually:
-1. Go to repository **Actions** tab
-2. Select "Deploy to GitHub Pages" workflow
-3. Click "Run workflow"
+**Access URL:** `https://repo-tor.vercel.app/` (or your custom domain)
 
-**Access URL:** `https://{username}.github.io/{repo}/`
-
-**Live demo:** https://devmade-ai.github.io/repo-tor/
+**Environment variables:** If the app uses any secrets (e.g., API keys), add them in Vercel dashboard under **Settings > Environment Variables**.
 
 ### Option 4: Any Static Host
 
@@ -528,9 +523,10 @@ npm run build    # Creates dist/ with optimized files
 
 Upload the contents of `dist/` to:
 - Netlify
-- Vercel
 - AWS S3
 - Any web server
+
+**Note:** For SPA routing, configure your host to serve `index.html` for all non-asset paths (Vercel's `vercel.json` handles this automatically).
 
 ## Auto-Loading Data
 

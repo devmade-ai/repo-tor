@@ -6,7 +6,16 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-02-26 — Adopt Patterns from glow-props CLAUDE.md):**
+**Recent Updates (2026-03-02 — Migrate from GitHub Pages to Vercel):**
+- **Deployment migration** — Switched from GitHub Actions + GitHub Pages to Vercel:
+  - Added `vercel.json` with SPA rewrite rule for client-side routing
+  - Deleted `.github/workflows/deploy.yml`
+  - Changed `vite.config.js` base from `'./'` to `'/'`
+  - Updated all live URL references from `devmade-ai.github.io/repo-tor/` to `repo-tor.vercel.app/`
+  - Updated ADMIN_GUIDE deployment section with Vercel setup instructions
+- **User action required:** Connect the repo in the Vercel dashboard to enable auto-deploy. If the assigned URL differs from `repo-tor.vercel.app`, update references accordingly.
+
+**Previous Updates (2026-02-26 — Adopt Patterns from glow-props CLAUDE.md):**
 - **Cross-project pattern adoption** — Reviewed glow-props CLAUDE.md and adopted 5 patterns:
   - PWA `beforeinstallprompt` race condition fix (inline capture in index.html before module scripts)
   - Timer leak fixes in App.jsx (AbortController on data fetch, ref-tracked toast timeout)
@@ -338,7 +347,7 @@ Current state for AI assistants to continue work.
 - Auto-loading - Scripts read from `.env` automatically
 - See docs/USER_ACTIONS.md for detailed setup instructions
 
-**Live Dashboard:** https://devmade-ai.github.io/repo-tor/
+**Live Dashboard:** https://repo-tor.vercel.app/
 
 ---
 

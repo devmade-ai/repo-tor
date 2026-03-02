@@ -2,7 +2,7 @@
  * repo-tor embed helper — auto-resizes iframes containing embedded charts.
  *
  * Usage: add this script to any page that embeds repo-tor charts:
- *   <script src="https://devmade-ai.github.io/repo-tor/embed.js"></script>
+ *   <script src="https://repo-tor.vercel.app/embed.js"></script>
  *
  * The script listens for resize messages from embedded iframes and adjusts
  * their height automatically. No other setup required.
