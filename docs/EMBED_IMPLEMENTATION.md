@@ -12,7 +12,7 @@ How to embed individual dashboard charts in external apps (e.g., a CV site).
 
 ```html
 <iframe
-  src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline"
+  src="https://repo-tor.vercel.app/?embed=activity-timeline"
   width="100%"
   height="400"
   frameborder="0"
@@ -20,7 +20,7 @@ How to embed individual dashboard charts in external apps (e.g., a CV site).
 ></iframe>
 
 <!-- Auto-resize: the iframe height adjusts to fit the chart -->
-<script src="https://devmade-ai.github.io/repo-tor/embed.js"></script>
+<script src="https://repo-tor.vercel.app/embed.js"></script>
 ```
 
 The `embed.js` script listens for resize messages from the iframe and adjusts its height automatically. Include it once — it handles all repo-tor iframes on the page.
@@ -31,21 +31,21 @@ The `height="400"` acts as a fallback while the chart loads. Once the chart rend
 
 ```html
 <iframe
-  src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline,tag-distribution"
+  src="https://repo-tor.vercel.app/?embed=activity-timeline,tag-distribution"
   width="100%"
   height="800"
   frameborder="0"
   style="border: none; border-radius: 8px;"
 ></iframe>
 
-<script src="https://devmade-ai.github.io/repo-tor/embed.js"></script>
+<script src="https://repo-tor.vercel.app/embed.js"></script>
 ```
 
 ### Light theme override
 
 ```html
 <iframe
-  src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline&theme=light"
+  src="https://repo-tor.vercel.app/?embed=activity-timeline&theme=light"
   width="100%"
   height="400"
   frameborder="0"
@@ -57,7 +57,7 @@ The `height="400"` acts as a fallback while the chart loads. Once the chart rend
 ```html
 <!-- White background for a light-themed site -->
 <iframe
-  src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline&bg=FFFFFF&theme=light"
+  src="https://repo-tor.vercel.app/?embed=activity-timeline&bg=FFFFFF&theme=light"
   width="100%"
   height="400"
   frameborder="0"
@@ -65,7 +65,7 @@ The `height="400"` acts as a fallback while the chart loads. Once the chart rend
 
 <!-- Transparent — chart inherits the parent page's background -->
 <iframe
-  src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline&bg=transparent&theme=light"
+  src="https://repo-tor.vercel.app/?embed=activity-timeline&bg=transparent&theme=light"
   width="100%"
   height="400"
   frameborder="0"
@@ -73,7 +73,7 @@ The `height="400"` acts as a fallback while the chart loads. Once the chart rend
 
 <!-- Match a custom dark background -->
 <iframe
-  src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline&bg=0D1117"
+  src="https://repo-tor.vercel.app/?embed=activity-timeline&bg=0D1117"
   width="100%"
   height="400"
   frameborder="0"
@@ -85,7 +85,7 @@ The `height="400"` acts as a fallback while the chart loads. Once the chart rend
 ```html
 <!-- Named palette preset -->
 <iframe
-  src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline&palette=warm"
+  src="https://repo-tor.vercel.app/?embed=activity-timeline&palette=warm"
   width="100%"
   height="400"
   frameborder="0"
@@ -93,7 +93,7 @@ The `height="400"` acts as a fallback while the chart loads. Once the chart rend
 
 <!-- Custom color series for multi-dataset charts -->
 <iframe
-  src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline&colors=FF6B35,004E89,1A936F"
+  src="https://repo-tor.vercel.app/?embed=activity-timeline&colors=FF6B35,004E89,1A936F"
   width="100%"
   height="400"
   frameborder="0"
@@ -101,7 +101,7 @@ The `height="400"` acts as a fallback while the chart loads. Once the chart rend
 
 <!-- Custom accent color for single-dataset charts and heatmaps -->
 <iframe
-  src="https://devmade-ai.github.io/repo-tor/?embed=activity-heatmap&accent=FF6B35"
+  src="https://repo-tor.vercel.app/?embed=activity-heatmap&accent=FF6B35"
   width="100%"
   height="400"
   frameborder="0"
@@ -109,7 +109,7 @@ The `height="400"` acts as a fallback while the chart loads. Once the chart rend
 
 <!-- Combine: palette base + accent override + theme -->
 <iframe
-  src="https://devmade-ai.github.io/repo-tor/?embed=hourly-distribution&palette=cool&accent=0077B6&theme=light"
+  src="https://repo-tor.vercel.app/?embed=hourly-distribution&palette=cool&accent=0077B6&theme=light"
   width="100%"
   height="400"
   frameborder="0"
@@ -211,14 +211,14 @@ Add the `embed.js` script to your page. It handles all repo-tor iframes automati
 
 ```html
 <iframe
-  src="https://devmade-ai.github.io/repo-tor/?embed=activity-timeline"
+  src="https://repo-tor.vercel.app/?embed=activity-timeline"
   width="100%"
   height="400"
   frameborder="0"
   style="border: none; border-radius: 8px;"
 ></iframe>
 
-<script src="https://devmade-ai.github.io/repo-tor/embed.js"></script>
+<script src="https://repo-tor.vercel.app/embed.js"></script>
 ```
 
 Include the script once — it handles any number of repo-tor iframes on the page. The `height="400"` acts as a fallback while the chart loads.
@@ -318,7 +318,7 @@ import { ActivityTimeline } from 'repo-tor/charts';
 
 ## Security Considerations
 
-- **CORS:** The iframe approach works cross-origin by default (no server-side changes needed for GitHub Pages)
+- **CORS:** The iframe approach works cross-origin by default (no server-side changes needed)
 - **Color params:** Only hex color values are accepted; values are prefixed with `#` if missing. No script injection vector.
 - **Data URL param:** If implemented, validate the URL and consider an allowlist to prevent loading arbitrary data
 - **postMessage (resize):** The iframe sends height data outward — no security risk. The parent should still check `event.data.type === 'repo-tor:resize'` to avoid acting on unrelated messages

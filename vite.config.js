@@ -5,7 +5,9 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   root: 'dashboard',
-  base: './',
+  // Vercel serves at root — no base path prefix needed
+  // (was './' for GitHub Pages relative paths)
+  base: '/',
   build: {
     outDir: '../dist',
     emptyOutDir: true,

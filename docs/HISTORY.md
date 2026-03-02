@@ -2,6 +2,27 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-03-02
+
+### Migrate Deployment from GitHub Pages to Vercel
+
+**Why:** GitHub Pages has friction for SPAs: no native client-side routing support (requires `404.html` hack), no environment variable injection at build, and manual "source" setting in repo UI. Vercel handles SPA rewrites, env vars, and auto-deploy out of the box.
+
+**What:**
+- **Added `vercel.json`** — Build command, output directory, Vite framework hint, and SPA rewrite rule (all non-asset paths serve `index.html`)
+- **Deleted `.github/workflows/deploy.yml`** — GitHub Actions deployment workflow no longer needed
+- **Updated `vite.config.js`** — Changed `base` from `'./'` (relative, for GitHub Pages) to `'/'` (absolute, for Vercel root deployment)
+- **Updated live URLs** — All references to `devmade-ai.github.io/repo-tor/` changed to `repo-tor.vercel.app/` across: CLAUDE.md, projects.json, embed.js, USER_GUIDE.md, ADMIN_GUIDE.md, EMBED_REFERENCE.md, EMBED_IMPLEMENTATION.md, SESSION_NOTES.md
+- **Updated ADMIN_GUIDE.md** — Replaced GitHub Pages deployment section with Vercel setup instructions
+
+**Alternatives considered:**
+- Keep GitHub Pages with `404.html` hack — Rejected: fragile SPA routing, no env var support
+- Netlify — Viable but Vercel has better Vite integration and is already used by other devmade-ai projects
+
+**Files:** vercel.json (new), .github/workflows/deploy.yml (deleted), vite.config.js, dashboard/public/projects.json, dashboard/public/embed.js, CLAUDE.md, docs/SESSION_NOTES.md, docs/HISTORY.md, docs/ADMIN_GUIDE.md, docs/USER_GUIDE.md, docs/EMBED_REFERENCE.md, docs/EMBED_IMPLEMENTATION.md
+
+---
+
 ## 2026-02-26
 
 ### Adopt Patterns from glow-props CLAUDE.md

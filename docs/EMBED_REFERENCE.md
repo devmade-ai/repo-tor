@@ -140,7 +140,7 @@ See [EMBED_IMPLEMENTATION.md](EMBED_IMPLEMENTATION.md) for full technical detail
 Embedded charts resize their iframe automatically. Include the helper script on your page:
 
 ```html
-<script src="https://devmade-ai.github.io/repo-tor/embed.js"></script>
+<script src="https://repo-tor.vercel.app/embed.js"></script>
 ```
 
 Include it once — it handles all repo-tor iframes on the page. Height updates fire whenever chart content changes size (initial render, window resize, animations).

@@ -147,7 +147,7 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-02-26.
 - `hooks/commit-msg` - Validates conventional commit format
 - `docs/COMMIT_CONVENTION.md` - Team guide for commit messages
 
-**Live Dashboard:** https://devmade-ai.github.io/repo-tor/
+**Live Dashboard:** https://repo-tor.vercel.app/
 
 **Development:**
 - `npm run dev` — Local dev server with hot reload (http://localhost:5173)
