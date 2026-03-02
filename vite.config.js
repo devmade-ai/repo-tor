@@ -55,9 +55,24 @@ export default defineConfig({
       workbox: {
         skipWaiting: true,
         clientsClaim: true,
-        // Narrowed from **/*.{json} to specific files to avoid caching large data files
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}', 'data.json', 'projects.json'],
+        // Requirement: data.json excluded from precache — it's 2.6MB+ and exceeds workbox's 2MB limit
+        // Approach: precache only small static assets; data.json served via runtime cache (NetworkFirst) below
+        // Alternative: maximumFileSizeToCacheInBytes increase — rejected, precaching large mutable data wastes bandwidth
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}', 'projects.json'],
         runtimeCaching: [
+          {
+            // Runtime cache for data.json — too large for precache (2.6MB+)
+            // NetworkFirst: fetch fresh data when online, fall back to cache when offline
+            urlPattern: /\/data\.json$/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'dashboard-data',
+              expiration: {
+                maxEntries: 1,
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+              },
+            },
+          },
           {
             urlPattern: /^https:\/\/cdn\.jsdelivr\.net/,
             handler: 'CacheFirst',

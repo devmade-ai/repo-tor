@@ -6,7 +6,13 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-03-02 — Migrate from GitHub Pages to Vercel):**
+**Recent Updates (2026-03-02 — Fix Vercel Build: data.json PWA precache error):**
+- **PWA precache fix** — Vercel build failed because `data.json` (2.68 MB) was in workbox `globPatterns`, exceeding the 2 MiB precache limit:
+  - Removed `data.json` from `globPatterns` (no longer precached)
+  - Added `NetworkFirst` runtime caching rule for `data.json` (fresh data when online, cached when offline)
+  - Build passes: 67 modules, 16 precache entries (610 KB)
+
+**Previous Updates (2026-03-02 — Migrate from GitHub Pages to Vercel):**
 - **Deployment migration** — Switched from GitHub Actions + GitHub Pages to Vercel:
   - Added `vercel.json` with SPA rewrite rule for client-side routing
   - Deleted `.github/workflows/deploy.yml`

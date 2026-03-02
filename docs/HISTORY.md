@@ -4,6 +4,22 @@ Log of significant changes to code and documentation.
 
 ## 2026-03-02
 
+### Fix Vercel Build: data.json PWA Precache Error
+
+**Why:** Vercel build failed because `data.json` (2.68 MB) was explicitly listed in workbox `globPatterns`, exceeding the default 2 MiB `maximumFileSizeToCacheInBytes` limit. Large mutable data files should not be precached — they waste bandwidth and slow service worker installation.
+
+**What:**
+- **Removed `data.json` from `globPatterns`** — No longer included in the service worker precache manifest
+- **Added `NetworkFirst` runtime caching rule** — `data.json` is fetched fresh when online, served from cache when offline (7-day expiration, single-entry cache)
+
+**Alternatives considered:**
+- Increase `maximumFileSizeToCacheInBytes` — Rejected: precaching 2.6MB+ of mutable data wastes bandwidth on every SW update and slows installation
+- Exclude from caching entirely — Rejected: would break offline PWA experience for users who previously loaded data
+
+**Files:** vite.config.js
+
+---
+
 ### Migrate Deployment from GitHub Pages to Vercel
 
 **Why:** GitHub Pages has friction for SPAs: no native client-side routing support (requires `404.html` hack), no environment variable injection at build, and manual "source" setting in repo UI. Vercel handles SPA rewrites, env vars, and auto-deploy out of the box.
