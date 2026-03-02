@@ -6,11 +6,15 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-03-02 — Fix Vercel Build: data.json PWA precache error):**
-- **PWA precache fix** — Vercel build failed because `data.json` (2.68 MB) was in workbox `globPatterns`, exceeding the 2 MiB precache limit:
-  - Removed `data.json` from `globPatterns` (no longer precached)
-  - Added `NetworkFirst` runtime caching rule for `data.json` (fresh data when online, cached when offline)
-  - Build passes: 67 modules, 16 precache entries (610 KB)
+**Recent Updates (2026-03-02 — Fix Dashboard JSON Loading Error):**
+- **Bug fix** — Dashboard on Vercel (including PWA) was showing JSON parse error when loading data:
+  - Root cause: Vercel SPA rewrite rule was rewriting `data.json` requests to `index.html`
+  - Fix 1: Updated `vercel.json` rewrite to exclude files with extensions from SPA fallback
+  - Fix 2: Moved `data.json` from `dashboard/` to `dashboard/public/` so Vite includes it in build output
+  - Fix 3: Updated `aggregate-processed.js` default output to `dashboard/public/`
+  - Fix 4: Added content-type guard and user-friendly error messages in `App.jsx`
+  - Fix 5: Excluded `data.json` from PWA precache (`globPatterns`) — too large (2.68MB > 2MB limit), added `NetworkFirst` runtime cache instead
+  - Updated all documentation references to the new path
 
 **Previous Updates (2026-03-02 — Migrate from GitHub Pages to Vercel):**
 - **Deployment migration** — Switched from GitHub Actions + GitHub Pages to Vercel:
@@ -455,7 +459,7 @@ const TAB_MAPPING = {
 | `scripts/merge-analysis.js` | Merge AI analysis with raw git data (optimized feed) |
 | `scripts/save-commit.js` | Save individual commit files (legacy, full objects) |
 | `scripts/pending.js` | Generate pending batches from manifest |
-| `dashboard/data.json` | Overall aggregated data |
+| `dashboard/public/data.json` | Overall aggregated data |
 | `dashboard/repos/*.json` | Per-repo aggregated data |
 | `docs/EXTRACTION_PLAYBOOK.md` | Extraction workflow |
 

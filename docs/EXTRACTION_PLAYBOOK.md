@@ -112,7 +112,7 @@ dashboard/
 
 - `processed/*/commits/*.json` - AI-analyzed commits (one file per commit)
 - `processed/*/manifest.json` - Index of processed SHAs
-- `dashboard/data.json` - Aggregated dashboard data
+- `dashboard/public/data.json` - Aggregated dashboard data
 
 **What's gitignored (working files):**
 
@@ -134,7 +134,7 @@ rm -rf processed/
 rm -rf reports/
 
 # Delete dashboard aggregated data
-rm -f dashboard/commits.json dashboard/data.json dashboard/summary.json dashboard/metadata.json dashboard/contributors.json dashboard/files.json
+rm -f dashboard/commits.json dashboard/public/data.json dashboard/summary.json dashboard/metadata.json dashboard/contributors.json dashboard/files.json
 ```
 
 **What gets deleted:**

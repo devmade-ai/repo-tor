@@ -36,7 +36,7 @@ Edit `config/repos.json`:
 This will:
 - Fetch commit data via GitHub API (no cloning needed)
 - Extract git data from each repo
-- Aggregate all data into `dashboard/data.json`
+- Aggregate all data into `dashboard/public/data.json`
 
 **Requirements:** `gh` CLI installed and authenticated (`gh auth login`)
 

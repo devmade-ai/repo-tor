@@ -18,7 +18,7 @@ ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 CONFIG_FILE="$ROOT_DIR/config/repos.json"
 CACHE_DIR="$ROOT_DIR/.repo-cache"
 REPORTS_DIR="$ROOT_DIR/reports"
-DASHBOARD_DIR="$ROOT_DIR/dashboard"
+DASHBOARD_DIR="$ROOT_DIR/dashboard/public"
 
 # Colors for output
 RED='\033[0;31m'
