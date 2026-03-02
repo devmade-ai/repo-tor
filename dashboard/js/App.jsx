@@ -127,10 +127,20 @@ export default function App() {
     // matches ProjectsTab.jsx which already used this approach).
     useEffect(() => {
         const controller = new AbortController();
+        // Requirement: Load dashboard data with user-friendly error messages
+        // Approach: Check content-type before parsing to detect HTML-instead-of-JSON
+        // (caused by SPA rewrites returning index.html for missing files)
+        // Alternatives: Parse blindly and catch SyntaxError — rejected because the
+        // generic JSON parse error message is confusing for non-technical users
         fetch('./data.json', { signal: controller.signal })
             .then(r => {
                 if (r.status === 404) return null; // No data file — user can upload
                 if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                const ct = r.headers.get('content-type') || '';
+                if (ct.includes('text/html')) {
+                    // Server returned HTML instead of JSON (e.g. SPA rewrite)
+                    return null;
+                }
                 return r.json();
             })
             .then(data => {
@@ -139,7 +149,11 @@ export default function App() {
             .catch(err => {
                 if (err.name === 'AbortError') return;
                 console.error('Failed to load data.json:', err);
-                setLoadError(`Failed to load dashboard data: ${err.message}`);
+                const isJsonParseError = err instanceof SyntaxError;
+                const userMessage = isJsonParseError
+                    ? 'The dashboard data file could not be read. It may be corrupted or in the wrong format. Try uploading a fresh export below.'
+                    : 'Something went wrong loading the dashboard. Please try again, or upload a data file below.';
+                setLoadError(userMessage);
             })
             .finally(() => {
                 if (!controller.signal.aborted) setInitialLoading(false);
