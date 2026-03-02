@@ -1,0 +1,2903 @@
+{
+  "metadata": {
+    "generatedAt": "2026-03-02T20:27:54.308Z",
+    "repository": "tool-till-tees",
+    "scope": "tool-till-tees",
+    "repoCount": 1,
+    "commitCount": 55,
+    "authors": {
+      "devmade.ai@gmail.com": {
+        "name": "devmade.ai@gmail.com",
+        "email": "devmade.ai@gmail.com"
+      },
+      "jacotheron87": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      }
+    }
+  },
+  "commits": [
+    {
+      "sha": "7859d0a",
+      "fullSha": "7859d0a6f77b074fdbbcfc432ba9e39186e5736a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T08:42:09Z",
+      "commitDate": "2026-02-27T08:42:09Z",
+      "subject": "Merge pull request #16 from devmade-ai/claude/add-cors-four-ems-AWQms",
+      "body": "Implement dynamic CORS origin allowlist",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #16 from devmade-ai/claude/add-cors-four-ems-AWQms",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#16"
+      ],
+      "stats": {
+        "filesChanged": 20,
+        "additions": 105,
+        "deletions": 72
+      },
+      "files": [
+        "API.md",
+        "CLAUDE.md",
+        "README.md",
+        "api/forms/[id].ts",
+        "api/forms/[id]/publish.ts",
+        "api/forms/[id]/submissions.ts",
+        "api/forms/index.ts",
+        "api/health.ts",
+        "api/index.ts",
+        "api/public/forms/[slug].ts",
+        "api/public/forms/[slug]/submit.ts",
+        "api/sancio/[...path].ts",
+        "api/send-interest.ts",
+        "api/submissions/[id].ts",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_GUIDE.md",
+        "lib/cors.ts",
+        "openapi.yaml",
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "16f9a9d",
+      "fullSha": "16f9a9d2104f0210e369fcf566a251168985064c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T08:20:51Z",
+      "commitDate": "2026-02-27T08:20:51Z",
+      "subject": "feat(cors): replace wildcard with dynamic origin allowlist",
+      "body": "Created lib/cors.ts with an allowlist of approved frontend origins\n(devmade-ai.github.io, four-ems.vercel.app). Each handler calls cors()\nwhich checks the request Origin against the allowlist and sets\nAccess-Control-Allow-Origin to the matched origin with Vary: Origin.\nUnrecognized origins get no CORS header — the browser blocks the request.\n\nRemoved Access-Control-Allow-Origin from vercel.json (other CORS headers\nremain static). Updated all 11 API handlers to use cors() instead of\ninline OPTIONS checks.\n\nTags: cors, security, api, config\nComplexity: 2\nUrgency: 3\nImpact: api\nRisk: medium\nDebt: paid\nEpic: four-ems\nSemver: minor\n\nhttps://claude.ai/code/session_01BqPM5pcAcdzxTW9FDe4poV",
+      "tags": [
+        "feature",
+        "security",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "four-ems",
+      "semver": "minor",
+      "scope": "cors",
+      "title": "replace wildcard with dynamic origin allowlist",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 19,
+        "additions": 102,
+        "deletions": 59
+      },
+      "files": [
+        "API.md",
+        "CLAUDE.md",
+        "README.md",
+        "api/forms/[id].ts",
+        "api/forms/[id]/publish.ts",
+        "api/forms/[id]/submissions.ts",
+        "api/forms/index.ts",
+        "api/health.ts",
+        "api/index.ts",
+        "api/public/forms/[slug].ts",
+        "api/public/forms/[slug]/submit.ts",
+        "api/sancio/[...path].ts",
+        "api/send-interest.ts",
+        "api/submissions/[id].ts",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_GUIDE.md",
+        "lib/cors.ts",
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "cc5ce55",
+      "fullSha": "cc5ce556a77a95057f6c97c434d6bc82c3320823",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T08:10:24Z",
+      "commitDate": "2026-02-27T08:10:24Z",
+      "subject": "fix(cors): switch Access-Control-Allow-Origin to wildcard",
+      "body": "Vercel's static headers in vercel.json only accept a single string value,\nso we can't list multiple origins. Since auth is purely token-based\n(Authorization: Bearer JWT) with no cookies, wildcard (*) is safe and\nallows all frontend consumers (devmade-ai.github.io, four-ems.vercel.app,\nand any future frontends) without per-origin config.\n\nAlso removed the 403 \"Origin not allowed\" response from openapi.yaml and\nAPI.md since no origin will be rejected with wildcard CORS.\n\nTags: cors, config, docs\nComplexity: 1\nUrgency: 3\nImpact: api\nRisk: low\nDebt: paid\nEpic: four-ems\nSemver: patch\n\nhttps://claude.ai/code/session_01BqPM5pcAcdzxTW9FDe4poV",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "four-ems",
+      "semver": "patch",
+      "scope": "cors",
+      "title": "switch Access-Control-Allow-Origin to wildcard",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 22,
+        "deletions": 32
+      },
+      "files": [
+        "API.md",
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_GUIDE.md",
+        "openapi.yaml",
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "65cc7f1",
+      "fullSha": "65cc7f17d200c832e20a90a20c534261638fa396",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T18:06:55Z",
+      "commitDate": "2026-02-26T18:06:55Z",
+      "subject": "Merge pull request #15 from devmade-ai/claude/implement-backend-spec-JtMyR",
+      "body": "Clarify Tool Till Tees as shared backend for multiple projects",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #15 from devmade-ai/claude/implement-backend-spec-JtMyR",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#15"
+      ],
+      "stats": {
+        "filesChanged": 32,
+        "additions": 1597,
+        "deletions": 1584
+      },
+      "files": [
+        "CLAUDE.md",
+        "api/__tests__/sancio/invite.test.ts",
+        "api/__tests__/sancio/projects.test.ts",
+        "api/__tests__/sancio/verify-passphrase.test.ts",
+        "api/sancio/[...path].ts",
+        "api/sancio/agreements/[id].ts",
+        "api/sancio/agreements/[id]/sequence.ts",
+        "api/sancio/agreements/[id]/split.ts",
+        "api/sancio/agreements/[id]/status.ts",
+        "api/sancio/agreements/index.ts",
+        "api/sancio/cron/auto-expire.ts",
+        "api/sancio/cron/nudge.ts",
+        "api/sancio/invite.ts",
+        "api/sancio/modules/[id]/versions.ts",
+        "api/sancio/modules/index.ts",
+        "api/sancio/notes/[id].ts",
+        "api/sancio/notifications/index.ts",
+        "api/sancio/projects/index.ts",
+        "api/sancio/proposals/[id].ts",
+        "api/sancio/proposals/index.ts",
+        "api/sancio/signatures/index.ts",
+        "lib/routes/sancio/agreement-actions.ts",
+        "lib/routes/sancio/agreements.ts",
+        "lib/routes/sancio/auth.ts",
+        "lib/routes/sancio/cron.ts",
+        "lib/routes/sancio/misc.ts",
+        "lib/routes/sancio/module-actions.ts",
+        "lib/routes/sancio/modules.ts",
+        "lib/routes/sancio/notes.ts",
+        "lib/routes/sancio/notifications.ts",
+        "lib/routes/sancio/projects.ts",
+        "lib/routes/sancio/proposals.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "872b1b0",
+      "fullSha": "872b1b034b04a7c543cd23c216bd422b42598248",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T18:05:28Z",
+      "commitDate": "2026-02-26T18:05:28Z",
+      "subject": "refactor(sancio): consolidate 23 endpoints into catch-all router",
+      "body": "Vercel Hobby plan limits deployments to 12 serverless functions.\nThe project had 33 (10 non-sancio + 23 sancio), causing deploy failure.\n\nConsolidation approach:\n- Created api/sancio/[...path].ts as single catch-all router\n- Moved handler logic to lib/routes/sancio/ grouped by resource (11 files)\n- Router only does URL path dispatch; handlers are self-contained\n- Updated test imports to point to new handler locations\n- All 70 tests pass, typecheck clean\n\nResult: 10 non-sancio + 1 sancio catch-all = 11 functions (under limit)\n\nAlternatives considered:\n- Consolidate forms too: rejected — unnecessary, already under limit\n- Single monolithic handler: rejected — poor maintainability\n- _handlers convention: rejected — Vercel ignores _ prefix but less clear\n\nTags: refactor, vercel, deployment, sancio\nComplexity: 3\nUrgency: 4\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: sancio\nSemver: patch\n\nhttps://claude.ai/code/session_01UZndcX6ZQAhJfYda4up4eZ",
+      "tags": [
+        "refactor",
+        "config"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "sancio",
+      "semver": "patch",
+      "scope": "sancio",
+      "title": "consolidate 23 endpoints into catch-all router",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 32,
+        "additions": 1594,
+        "deletions": 1583
+      },
+      "files": [
+        "CLAUDE.md",
+        "api/__tests__/sancio/invite.test.ts",
+        "api/__tests__/sancio/projects.test.ts",
+        "api/__tests__/sancio/verify-passphrase.test.ts",
+        "api/sancio/[...path].ts",
+        "api/sancio/agreements/[id].ts",
+        "api/sancio/agreements/[id]/sequence.ts",
+        "api/sancio/agreements/[id]/split.ts",
+        "api/sancio/agreements/[id]/status.ts",
+        "api/sancio/agreements/index.ts",
+        "api/sancio/cron/auto-expire.ts",
+        "api/sancio/cron/nudge.ts",
+        "api/sancio/invite.ts",
+        "api/sancio/modules/[id]/versions.ts",
+        "api/sancio/modules/index.ts",
+        "api/sancio/notes/[id].ts",
+        "api/sancio/notifications/index.ts",
+        "api/sancio/projects/index.ts",
+        "api/sancio/proposals/[id].ts",
+        "api/sancio/proposals/index.ts",
+        "api/sancio/signatures/index.ts",
+        "lib/routes/sancio/agreement-actions.ts",
+        "lib/routes/sancio/agreements.ts",
+        "lib/routes/sancio/auth.ts",
+        "lib/routes/sancio/cron.ts",
+        "lib/routes/sancio/misc.ts",
+        "lib/routes/sancio/module-actions.ts",
+        "lib/routes/sancio/modules.ts",
+        "lib/routes/sancio/notes.ts",
+        "lib/routes/sancio/notifications.ts",
+        "lib/routes/sancio/projects.ts",
+        "lib/routes/sancio/proposals.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "131d4fc",
+      "fullSha": "131d4fc4e2012c98a7d29763a0baa3aeafa34338",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T17:46:15Z",
+      "commitDate": "2026-02-26T17:46:15Z",
+      "subject": "docs(claude): note that this is a shared backend for multiple projects",
+      "body": "Clarifies why Supabase migration files contain schemas for unrelated\nsystems — they serve different frontend projects that share this backend.\n\nTags: documentation\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_01UZndcX6ZQAhJfYda4up4eZ",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "claude",
+      "title": "note that this is a shared backend for multiple projects",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "45000cc",
+      "fullSha": "45000cc3653207ab09745d4e5723b9111a076ab7",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-02-26T17:30:20Z",
+      "commitDate": "2026-02-26T17:30:20Z",
+      "subject": "feat(sancio): implement agreement management backend",
+      "body": "Full Sancio backend from BACKEND_SPEC.md: database schema (10 tables,\nRLS, triggers for auto-lock/amendment), shared library modules, 22 API\nroutes (projects, agreements, modules, notes, proposals, notifications,\nsignatures, PDF verifications, cron jobs), and tests.\n\nTags: sancio, backend, database, api, agreements\nComplexity: 5\nUrgency: 2\nImpact: api\nRisk: low\nDebt: neutral\nEpic: sancio-backend\nSemver: minor\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+      "tags": [
+        "feature",
+        "database",
+        "schema"
+      ],
+      "complexity": 5,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "sancio-backend",
+      "semver": "minor",
+      "scope": "sancio",
+      "title": "implement agreement management backend",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 49,
+        "additions": 7194,
+        "deletions": 22
+      },
+      "files": [
+        "CLAUDE.md",
+        "api/__tests__/sancio/_helpers.ts",
+        "api/__tests__/sancio/invite.test.ts",
+        "api/__tests__/sancio/projects.test.ts",
+        "api/__tests__/sancio/validation.test.ts",
+        "api/__tests__/sancio/verify-passphrase.test.ts",
+        "api/sancio/agreements/[id].ts",
+        "api/sancio/agreements/[id]/sequence.ts",
+        "api/sancio/agreements/[id]/split.ts",
+        "api/sancio/agreements/[id]/status.ts",
+        "api/sancio/agreements/index.ts",
+        "api/sancio/cron/auto-expire.ts",
+        "api/sancio/cron/nudge.ts",
+        "api/sancio/invite.ts",
+        "api/sancio/modules/[id].ts",
+        "api/sancio/modules/[id]/ready.ts",
+        "api/sancio/modules/[id]/versions.ts",
+        "api/sancio/modules/index.ts",
+        "api/sancio/notes/[id].ts",
+        "api/sancio/notes/index.ts",
+        "api/sancio/notifications/[id].ts",
+        "api/sancio/notifications/index.ts",
+        "api/sancio/pdf-verifications/index.ts",
+        "api/sancio/projects/[id].ts",
+        "api/sancio/projects/index.ts",
+        "api/sancio/proposals/[id].ts",
+        "api/sancio/proposals/index.ts",
+        "api/sancio/signatures/index.ts",
+        "api/sancio/verify-passphrase.ts",
+        "docs/BACKEND_SPEC.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "lib/sancio/authorization.ts",
+        "lib/sancio/constants.ts",
+        "lib/sancio/email.ts",
+        "lib/sancio/notifications.ts",
+        "lib/sancio/pdf-verification.ts",
+        "lib/sancio/signature-log.ts",
+        "lib/sancio/types.ts",
+        "lib/sancio/validation.ts",
+        "package-lock.json",
+        "package.json",
+        "supabase/.gitignore",
+        "supabase/config.toml",
+        "supabase/migrations/002_sancio_schema.sql",
+        "supabase/migrations/20260226155557_remote_schema.sql",
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "62d0a80",
+      "fullSha": "62d0a80b33f26f62b00f4059741c8faefbec7ae2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T15:44:18Z",
+      "commitDate": "2026-02-26T15:44:18Z",
+      "subject": "Merge pull request #14 from devmade-ai/claude/add-claude-md-kAMb6",
+      "body": "docs: comprehensive documentation audit and overhaul",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #14 from devmade-ai/claude/add-claude-md-kAMb6",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#14"
+      ],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 1033,
+        "deletions": 48
+      },
+      "files": [
+        "API.md",
+        "CLAUDE.md",
+        "README.md",
+        "docs/AI_MISTAKES.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "docs/USER_GUIDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "876fb72",
+      "fullSha": "876fb7295246abadd1090dec6925141d862bdf6c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T15:43:10Z",
+      "commitDate": "2026-02-26T15:43:10Z",
+      "subject": "docs(all): audit codebase and fix all documentation inaccuracies",
+      "body": "Full codebase read revealed two missed endpoints (publish, submissions\nlisting) and multiple inaccuracies across docs. Key fixes:\n\n- CLAUDE.md: added project architecture, env vars, design patterns;\n  removed glow-props-specific references (TutorialModal, sharp)\n- README.md: rewrote to cover full project scope (was interest-only)\n- API.md: added all 12 endpoints (was 3), fixed wrong constant path\n  (api/constants.ts → lib/constants.ts), corrected CORS headers to\n  match vercel.json (added PUT/DELETE/Authorization)\n- TODO.md: removed already-implemented submission listing endpoint\n- HISTORY.md: added missing publish + submissions listing endpoints\n- USER_GUIDE.md: added missing endpoints, env vars, submission details\n- TESTING_GUIDE.md: added publish + submissions scenarios, expanded\n  regression checklist\n- AI_MISTAKES.md: recorded missed-endpoints lesson\n- SESSION_NOTES.md: updated to current session state\n\nTags: documentation, audit\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch\n\nhttps://claude.ai/code/session_01FdaHNSoiK2aamrRW8MMh72",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "developer-experience",
+      "semver": "patch",
+      "scope": "all",
+      "title": "audit codebase and fix all documentation inaccuracies",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 527,
+        "deletions": 97
+      },
+      "files": [
+        "API.md",
+        "CLAUDE.md",
+        "README.md",
+        "docs/AI_MISTAKES.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_GUIDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "2fec889",
+      "fullSha": "2fec889c6108b424204d9807d0437a804cf36775",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T15:36:44Z",
+      "commitDate": "2026-02-26T15:36:44Z",
+      "subject": "docs(all): create all documentation files from CLAUDE.md spec",
+      "body": "Populates the docs/ directory with all files defined in the\ndocumentation section of CLAUDE.md: SESSION_NOTES, TODO, HISTORY,\nUSER_ACTIONS, AI_MISTAKES, USER_GUIDE, and TESTING_GUIDE. Each\nfile is seeded with accurate content reflecting the current state\nof the project.\n\nTags: documentation\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch\n\nhttps://claude.ai/code/session_01FdaHNSoiK2aamrRW8MMh72",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "developer-experience",
+      "semver": "patch",
+      "scope": "all",
+      "title": "create all documentation files from CLAUDE.md spec",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 247,
+        "deletions": 0
+      },
+      "files": [
+        "docs/AI_MISTAKES.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "docs/USER_GUIDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "08c5c8b",
+      "fullSha": "08c5c8b0d184dae6a9fea6b2039e8253da880dd2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T15:30:48Z",
+      "commitDate": "2026-02-26T15:30:48Z",
+      "subject": "docs(claude): replace CLAUDE.md with glow-props template",
+      "body": "Adopting the standardized CLAUDE.md from glow-props as the base\nfor this project's AI assistant preferences and development process.\n\nTags: documentation\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: developer-experience\nSemver: patch\n\nhttps://claude.ai/code/session_01FdaHNSoiK2aamrRW8MMh72",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "developer-experience",
+      "semver": "patch",
+      "scope": "claude",
+      "title": "replace CLAUDE.md with glow-props template",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 298,
+        "deletions": 26
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "fb661c7",
+      "fullSha": "fb661c75036bc9479ed1937ee290173d3a557826",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T15:26:22Z",
+      "commitDate": "2026-02-26T15:26:22Z",
+      "subject": "Add CLAUDE.md with project context for Claude Code",
+      "body": "https://claude.ai/code/session_01FdaHNSoiK2aamrRW8MMh72",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Add CLAUDE.md with project context for Claude Code",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 36,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ef48847",
+      "fullSha": "ef48847fe4084f389ca90812073ed00f00f9129a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-25T15:47:41Z",
+      "commitDate": "2026-02-25T15:47:41Z",
+      "subject": "Merge pull request #13 from devmade-ai/claude/supabase-forms-schema-O7M8o",
+      "body": "Add Supabase forms schema, API endpoints, and validation",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #13 from devmade-ai/claude/supabase-forms-schema-O7M8o",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#13"
+      ],
+      "stats": {
+        "filesChanged": 18,
+        "additions": 1251,
+        "deletions": 4
+      },
+      "files": [
+        ".env.example",
+        "api/forms/[id].ts",
+        "api/forms/[id]/publish.ts",
+        "api/forms/[id]/submissions.ts",
+        "api/forms/index.ts",
+        "api/public/forms/[slug].ts",
+        "api/public/forms/[slug]/submit.ts",
+        "api/submissions/[id].ts",
+        "lib/auth.ts",
+        "lib/form-conditions.ts",
+        "lib/form-validation.ts",
+        "lib/forms-types.ts",
+        "lib/slug.ts",
+        "lib/supabase.ts",
+        "package-lock.json",
+        "package.json",
+        "supabase/migrations/001_forms_schema.sql",
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ea41c12",
+      "fullSha": "ea41c12fd2848f56b20e9b4c9d0f5e2407d2f651",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T15:18:26Z",
+      "commitDate": "2026-02-25T15:18:26Z",
+      "subject": "Refactor: workspace_id → user_id, align with synctone Supabase auth",
+      "body": "Replace workspace_id with user_id across the entire forms backend to\nmatch the existing synctone Supabase project which uses anonymous auth\nvia auth.uid().\n\nChanges:\n- Migration: forms.user_id references auth.users(id), RLS policies use\n  auth.uid() instead of current_setting('app.workspace_id')\n- Auth middleware: returns user.id directly from JWT instead of looking\n  up workspace_id in app_metadata\n- All API endpoints: filter by user_id instead of workspace_id\n- Types: Form interface uses user_id\n\nhttps://claude.ai/code/session_01DEWuDp8jGUxw39w6M5fNgn",
+      "tags": [
+        "refactor",
+        "database",
+        "schema"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": null,
+      "title": "workspace_id → user_id, align with synctone Supabase auth",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 42,
+        "deletions": 47
+      },
+      "files": [
+        "api/forms/[id].ts",
+        "api/forms/[id]/publish.ts",
+        "api/forms/[id]/submissions.ts",
+        "api/forms/index.ts",
+        "api/submissions/[id].ts",
+        "lib/auth.ts",
+        "lib/forms-types.ts",
+        "supabase/migrations/001_forms_schema.sql"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "3a681ee",
+      "fullSha": "3a681ee0aac79251c55338927457d02328603c6b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T13:44:23Z",
+      "commitDate": "2026-02-25T13:44:23Z",
+      "subject": "Fix deployment safety: lazy-init Supabase client and defer env checks",
+      "body": "Move Supabase client creation from top-level (module load time) to lazy\ngetSupabase() function so missing env vars don't crash unrelated endpoints.\nMove auth env var reads inside the request handler for the same reason.\nExisting /api/health and /api/send-interest endpoints are unaffected.\n\nhttps://claude.ai/code/session_01DEWuDp8jGUxw39w6M5fNgn",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": null,
+      "title": "Fix deployment safety: lazy-init Supabase client and defer env checks",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 46,
+        "deletions": 34
+      },
+      "files": [
+        "api/forms/[id].ts",
+        "api/forms/[id]/publish.ts",
+        "api/forms/[id]/submissions.ts",
+        "api/forms/index.ts",
+        "api/public/forms/[slug].ts",
+        "api/public/forms/[slug]/submit.ts",
+        "api/submissions/[id].ts",
+        "lib/auth.ts",
+        "lib/slug.ts",
+        "lib/supabase.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "0910281",
+      "fullSha": "091028198c83bff1cefbdb1d536ea9caec0e3c32",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T13:35:19Z",
+      "commitDate": "2026-02-25T13:35:19Z",
+      "subject": "Add Supabase forms schema, API endpoints, and validation",
+      "body": "Implement the full backend for the Four Ems form builder:\n\n- Supabase migration: forms and form_submissions tables with RLS policies,\n  indexes, and auto-update trigger\n- Shared libraries: types, Supabase client, slug generation, auth middleware\n  (Supabase anonymous auth), field condition evaluation, and submission\n  validation (type checks, required fields, conditional visibility)\n- Authenticated API endpoints: CRUD for forms, publish, list submissions,\n  update submission status\n- Public API endpoints: fetch published form by slug, submit responses with\n  server-side validation and optional SMTP notification\n- Updated vercel.json CORS to allow PUT/DELETE and Authorization header\n- Added Supabase env var placeholders to .env.example\n\nhttps://claude.ai/code/session_01DEWuDp8jGUxw39w6M5fNgn",
+      "tags": [
+        "feature",
+        "database",
+        "schema"
+      ],
+      "complexity": 4,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": "minor",
+      "scope": null,
+      "title": "Add Supabase forms schema, API endpoints, and validation",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 18,
+        "additions": 1244,
+        "deletions": 4
+      },
+      "files": [
+        ".env.example",
+        "api/forms/[id].ts",
+        "api/forms/[id]/publish.ts",
+        "api/forms/[id]/submissions.ts",
+        "api/forms/index.ts",
+        "api/public/forms/[slug].ts",
+        "api/public/forms/[slug]/submit.ts",
+        "api/submissions/[id].ts",
+        "lib/auth.ts",
+        "lib/form-conditions.ts",
+        "lib/form-validation.ts",
+        "lib/forms-types.ts",
+        "lib/slug.ts",
+        "lib/supabase.ts",
+        "package-lock.json",
+        "package.json",
+        "supabase/migrations/001_forms_schema.sql",
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "dda74da",
+      "fullSha": "dda74daf5812de7a78e7b6e802424db80f0e7dd8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T13:28:39+02:00",
+      "commitDate": "2026-02-17T13:28:39+02:00",
+      "subject": "Merge pull request #12 from devmade-ai/claude/debug-mobile-frontend-D1g1i",
+      "body": "Add .js extension to constants import path",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #12 from devmade-ai/claude/debug-mobile-frontend-D1g1i",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#12"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "caa55e8",
+      "fullSha": "caa55e8ff380a4f5e0296304f4a5ec1869215bf2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T11:24:40+00:00",
+      "commitDate": "2026-02-17T11:24:40+00:00",
+      "subject": "Fix send-interest crash: add .js extension to ESM import of lib/constants",
+      "body": "The extensionless import from \"../lib/constants\" worked in dev/test (Vite/Vitest\nhandle resolution) but failed at Vercel's Node.js ESM runtime which requires\nexplicit .js extensions for relative imports. This caused every request to\n/api/send-interest to crash before any code ran—including CORS preflight—which\nthe mobile frontend diagnosed as a CORS failure.\n\nhttps://claude.ai/code/session_01KJvPZM9yZQvKhdk1TkDe38",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Fix send-interest crash: add .js extension to ESM import of lib/constants",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "api/send-interest.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "822eb0b",
+      "fullSha": "822eb0b25524be58bbc488ca6f3cd67d67d243cc",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T12:53:39+02:00",
+      "commitDate": "2026-02-17T12:53:39+02:00",
+      "subject": "Merge pull request #11 from devmade-ai/claude/debug-mobile-frontend-PstxF",
+      "body": "Add React frontend with Vite and Tailwind CSS",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #11 from devmade-ai/claude/debug-mobile-frontend-PstxF",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#11"
+      ],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 1304,
+        "deletions": 31
+      },
+      "files": [],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f9a72f3",
+      "fullSha": "f9a72f3bc2223861078951d813bee8d258333603",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T10:50:48+00:00",
+      "commitDate": "2026-02-17T10:50:48+00:00",
+      "subject": "Set framework to vite and outputDirectory to dist in vercel.json",
+      "body": "Vercel's auto-detection didn't pick up Vite — the build succeeded\nbut it looked for output in public/ instead of dist/. Setting both\nexplicitly resolves the \"No Output Directory named public\" error.\n\nhttps://claude.ai/code/session_01UaGdKLgaAMkoTv4G1ga8sc",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Set framework to vite and outputDirectory to dist in vercel.json",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 2,
+        "deletions": 0
+      },
+      "files": [
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "173c886",
+      "fullSha": "173c88616b421f9f8f531c031f882e521788b324",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T09:15:50+00:00",
+      "commitDate": "2026-02-17T09:15:50+00:00",
+      "subject": "Add Vite + React + Tailwind frontend to fix Vercel API 404s",
+      "body": "Instead of more config-only fixes, give Vercel a real framework it\nnatively understands. Vite builds the landing page and Vercel\nauto-detects api/ functions alongside it — no ambiguous build pipeline.\n\n- Add minimal landing page with API health indicator and see-veo link\n- Remove framework:null and root→api rewrite from vercel.json\n- Update build script from no-op to vite build\n- Update moduleResolution to bundler for Vite plugin types\n\nhttps://claude.ai/code/session_01UaGdKLgaAMkoTv4G1ga8sc",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Add Vite + React + Tailwind frontend to fix Vercel API 404s",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 1302,
+        "deletions": 22
+      },
+      "files": [
+        "index.html",
+        "package-lock.json",
+        "package.json",
+        "src/App.tsx",
+        "src/index.css",
+        "src/main.tsx",
+        "tsconfig.json",
+        "vercel.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "bf9ac72",
+      "fullSha": "bf9ac7269eb3b4e5aa16e3bb7e1cde5e783adce9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T09:01:00+00:00",
+      "commitDate": "2026-02-17T09:01:00+00:00",
+      "subject": "Fix API 404s by switching from legacy builds to zero-config Vercel",
+      "body": "The legacy `builds` property in vercel.json combined with api/package.json\ncaused Vercel to treat the api/ directory as a single function unit (only\nexposing index.ts), making /api/health and /api/send-interest return 404.\n\n- Remove `builds` array to use Vercel's modern auto-detection pipeline\n- Add `framework: null` to prevent framework auto-detection\n- Delete api/package.json (redundant — root package.json already provides\n  \"type\": \"module\" and nodemailer dependency)\n\nhttps://claude.ai/code/session_01UaGdKLgaAMkoTv4G1ga8sc",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Fix API 404s by switching from legacy builds to zero-config Vercel",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 1,
+        "deletions": 10
+      },
+      "files": [
+        "api/package.json",
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "1cc4ea2",
+      "fullSha": "1cc4ea20ba511f10ac56af5b58e5c6d317c44cd3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T10:06:30+02:00",
+      "commitDate": "2026-02-17T10:06:30+02:00",
+      "subject": "Merge pull request #10 from devmade-ai/claude/fix-es-module-warning-1Zr0y",
+      "body": "Enable ES modules support across the project",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #10 from devmade-ai/claude/fix-es-module-warning-1Zr0y",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#10"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 2,
+        "deletions": 0
+      },
+      "files": [],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "6e87333",
+      "fullSha": "6e8733366a7eaa2991a231ff9ddbabc5d71e4f36",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T08:04:58+00:00",
+      "commitDate": "2026-02-17T08:04:58+00:00",
+      "subject": "Add \"type\": \"module\" to fix ES module runtime error on Vercel",
+      "body": "The TypeScript config outputs ES2020 module syntax but package.json\nlacked \"type\": \"module\", causing Node.js to load compiled .js files\nas CommonJS and fail with \"SyntaxError: Unexpected token 'export'\".\n\nhttps://claude.ai/code/session_017Chg9Fvh8hJ94SLg26umaY",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Add \"type\": \"module\" to fix ES module runtime error on Vercel",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 2,
+        "deletions": 0
+      },
+      "files": [
+        "api/package.json",
+        "package.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "2d5ba02",
+      "fullSha": "2d5ba02fd11944dd60371bd043ffe2f87f4701a9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T09:56:04+02:00",
+      "commitDate": "2026-02-17T09:56:04+02:00",
+      "subject": "Merge pull request #9 from devmade-ai/claude/fix-missing-api-endpoints-Cmjq8",
+      "body": "Restructure project: move API files to root directory",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #9 from devmade-ai/claude/fix-missing-api-endpoints-Cmjq8",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#9"
+      ],
+      "stats": {
+        "filesChanged": 18,
+        "additions": 32,
+        "deletions": 24
+      },
+      "files": [],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "2975529",
+      "fullSha": "2975529ed6f026813f58bb131de7edfd0c82064a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T07:53:13+00:00",
+      "commitDate": "2026-02-17T07:53:13+00:00",
+      "subject": "Add api/package.json for Vercel function-level dependency install",
+      "body": "The @vercel/node builder runs npm install inside api/ for each\nfunction. Without a package.json there, the install fails with ENOENT.\nDeclare nodemailer (the only runtime dep) so the builder can install it.\n\nhttps://claude.ai/code/session_018GdxVNVycPS8x1KTytw3hi",
+      "tags": [
+        "config",
+        "deploy"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Add api/package.json for Vercel function-level dependency install",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 6,
+        "deletions": 0
+      },
+      "files": [
+        "api/package.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "12449ca",
+      "fullSha": "12449ca374516263d6c478d2d8cdcc664fc800e2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T07:48:16+00:00",
+      "commitDate": "2026-02-17T07:48:16+00:00",
+      "subject": "Use builds config to bypass static-site pipeline entirely",
+      "body": "The zero-config pipeline assumes a static site and demands an output\ndirectory. Previous attempts to satisfy it (buildCommand: \"\", mkdir,\nplaceholder files) kept hitting the next check. Switch to the builds\nallowlist model: only api/*.ts files are built via @vercel/node, no\noutput directory needed. Root npm install still runs for dependencies.\n\nhttps://claude.ai/code/session_018GdxVNVycPS8x1KTytw3hi",
+      "tags": [
+        "config",
+        "deploy"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Use builds config to bypass static-site pipeline entirely",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 2
+      },
+      "files": [
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "7cb77f6",
+      "fullSha": "7cb77f6d4724efdd0d872036603b735c03bb0795",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T07:41:13+00:00",
+      "commitDate": "2026-02-17T07:41:13+00:00",
+      "subject": "Fix build: output directory must be non-empty",
+      "body": "Vercel rejects an empty output directory. Write a placeholder file so\nthe static output check passes and function deployment proceeds.\n\nhttps://claude.ai/code/session_018GdxVNVycPS8x1KTytw3hi",
+      "tags": [
+        "bugfix",
+        "deploy"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Fix build: output directory must be non-empty",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "e10812c",
+      "fullSha": "e10812c12bced0b52998e7e2ac8ad4c13bc7189e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T07:38:25+00:00",
+      "commitDate": "2026-02-17T07:38:25+00:00",
+      "subject": "Fix build: use mkdir for output dir instead of skipping build",
+      "body": "buildCommand: \"\" skips the entire install+build pipeline, so Vercel\ntries a per-function npm install in api/ which fails (no package.json\nthere). Instead, let the normal pipeline run and create an empty\npublic/ at build time to satisfy the output directory check.\n\nhttps://claude.ai/code/session_018GdxVNVycPS8x1KTytw3hi",
+      "tags": [
+        "bugfix",
+        "deploy"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Fix build: use mkdir for output dir instead of skipping build",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "77b025d",
+      "fullSha": "77b025dfc02615ecc0f6178d5b1264b79c4a891e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T07:31:11+00:00",
+      "commitDate": "2026-02-17T07:31:11+00:00",
+      "subject": "Move constants.ts out of api/ to prevent stray Vercel endpoint",
+      "body": "Vercel treats every file in api/ as a serverless function. constants.ts\nis a helper module (no handler), so it was being exposed as a broken\n/api/constants endpoint. Move it to lib/ where Vercel won't touch it.\n\nhttps://claude.ai/code/session_018GdxVNVycPS8x1KTytw3hi",
+      "tags": [
+        "refactor"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Move constants.ts out of api/ to prevent stray Vercel endpoint",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 2,
+        "deletions": 2
+      },
+      "files": [
+        "api/send-interest.ts",
+        "lib/constants.ts",
+        "tsconfig.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "6a2962b",
+      "fullSha": "6a2962bb59ff003b7445173c3b02a2b3331e5ce2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T07:11:36+00:00",
+      "commitDate": "2026-02-17T07:11:36+00:00",
+      "subject": "Configure Vercel for API-only deployment, remove unused favicons",
+      "body": "This is a pure serverless API with no frontend — favicons were never\nreferenced by any code. Instead of keeping dead static files to satisfy\nVercel's output directory check, configure vercel.json properly:\n- \"framework\": null declares no frontend framework\n- \"buildCommand\": \"\" skips the build step entirely, so Vercel never\n  looks for an output directory\n\nReplaces the workaround from 7fc7936 that moved favicons to public/.\n\nhttps://claude.ai/code/session_018GdxVNVycPS8x1KTytw3hi",
+      "tags": [
+        "config",
+        "deploy",
+        "removal"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Configure Vercel for API-only deployment, remove unused favicons",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 2,
+        "deletions": 0
+      },
+      "files": [
+        "public/favicon.ico",
+        "public/favicon.png",
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "7fc7936",
+      "fullSha": "7fc7936d9b8658740dacba338e920ac3d849d919",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T06:19:41+00:00",
+      "commitDate": "2026-02-17T06:19:41+00:00",
+      "subject": "Move favicons to public/ to fix Vercel build error",
+      "body": "Vercel expects a \"public\" output directory for non-framework projects.\nThe no-op build command (true) doesn't create one, causing the build\nto fail with \"No Output Directory named public found\". Moving favicons\ninto public/ ensures the directory exists and static files are served.\n\nhttps://claude.ai/code/session_018GdxVNVycPS8x1KTytw3hi",
+      "tags": [
+        "bugfix",
+        "deploy"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Move favicons to public/ to fix Vercel build error",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 0,
+        "deletions": 0
+      },
+      "files": [
+        "public/favicon.ico",
+        "public/favicon.png"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "ae4ed21",
+      "fullSha": "ae4ed21885f8a313e04bd67d142374b28eca2713",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T06:11:46+00:00",
+      "commitDate": "2026-02-17T06:11:46+00:00",
+      "subject": "Fix Vercel 404s by restructuring project to deploy from repo root",
+      "body": "Vercel's GitHub integration uses the repo root as the project root,\nbut all config and function files were nested inside an api/ subdirectory.\nThis caused vercel.json to not be found and serverless functions to map\nto /api/api/* instead of /api/*, resulting in 404s on all endpoints.\n\nFlatten the structure: move config files (vercel.json, package.json,\ntsconfig.json, etc.) to repo root, move serverless functions from\napi/api/ to api/, and place favicons at repo root for static serving.\nUpdate documentation paths accordingly.\n\nhttps://claude.ai/code/session_018GdxVNVycPS8x1KTytw3hi",
+      "tags": [
+        "refactor",
+        "deploy"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Fix Vercel 404s by restructuring project to deploy from repo root",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 17,
+        "additions": 3,
+        "deletions": 4
+      },
+      "files": [
+        ".env.example",
+        ".gitignore",
+        "API.md",
+        "README.md",
+        "api/__tests__/health.test.ts",
+        "api/__tests__/send-interest.test.ts",
+        "api/constants.ts",
+        "api/health.ts",
+        "api/index.ts",
+        "api/send-interest.ts",
+        "favicon.ico",
+        "favicon.png",
+        "openapi.yaml",
+        "package-lock.json",
+        "package.json",
+        "tsconfig.json",
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "0afa8f9",
+      "fullSha": "0afa8f981fe8c22afb6ab9ecd4fda2ffbc3a901f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T07:46:14+02:00",
+      "commitDate": "2026-02-17T07:46:14+02:00",
+      "subject": "Merge pull request #8 from devmade-ai/claude/debug-vercel-build-dhg7R",
+      "body": "Add @vercel/node dependency for Vercel deployment support",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #8 from devmade-ai/claude/debug-vercel-build-dhg7R",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#8"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 1978,
+        "deletions": 60
+      },
+      "files": [],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ac76cf4",
+      "fullSha": "ac76cf4600fe036439bc6a9f0255b40f98dd9e05",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T05:34:49+00:00",
+      "commitDate": "2026-02-17T05:34:49+00:00",
+      "subject": "Add @vercel/node to devDependencies to fix build type errors",
+      "body": "The Vercel build was failing because all three API handler files\nimport types from @vercel/node but the package was not listed as\na dependency.\n\nhttps://claude.ai/code/session_01StphBcdNxi7nKg8aHFbT3D",
+      "tags": [
+        "bugfix",
+        "dependency-add"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Add @vercel/node to devDependencies to fix build type errors",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 1978,
+        "deletions": 60
+      },
+      "files": [
+        "api/package-lock.json",
+        "api/package.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "ae7e096",
+      "fullSha": "ae7e0962bc84881cece79619445ab153821d9048",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T07:29:19+02:00",
+      "commitDate": "2026-02-17T07:29:19+02:00",
+      "subject": "Merge pull request #7 from devmade-ai/claude/add-favicon-CKRS0",
+      "body": "Reorganize project structure and files",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #7 from devmade-ai/claude/add-favicon-CKRS0",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#7"
+      ],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 223,
+        "deletions": 3052
+      },
+      "files": [],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "19ada1b",
+      "fullSha": "19ada1bc0674d0133e2fa63e7fb22c72a0b563a0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T05:27:08+00:00",
+      "commitDate": "2026-02-17T05:27:08+00:00",
+      "subject": "Fix serverless function deployment by removing vercel devDep and adding build script",
+      "body": "Two issues were preventing successful Vercel builds:\n\n1. `vercel` in devDependencies caused Vercel to warn \"will be\n   ignored\" and strip it before npm install, creating a mismatch\n   with the lockfile. Removed it since the Vercel CLI is provided\n   by the platform.\n\n2. No `build` script existed — if the Vercel project has a build\n   command configured (even the default `npm run build`), it would\n   fail. Added a no-op build script since serverless functions\n   don't need a build step (Vercel compiles TypeScript automatically).\n\nhttps://claude.ai/code/session_017jorRZB6ANxXDQhyH1Xdom",
+      "tags": [
+        "bugfix",
+        "deploy"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Fix serverless function deployment by removing vercel devDep and adding build script",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 223,
+        "deletions": 3052
+      },
+      "files": [
+        "api/package-lock.json",
+        "api/package.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "c62c4b7",
+      "fullSha": "c62c4b7fadff1dc6ff80f3e1887b518e19024b9f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T05:19:51+00:00",
+      "commitDate": "2026-02-17T05:19:51+00:00",
+      "subject": "Move favicons to project root for Vercel static file serving",
+      "body": "Vercel only auto-serves files from public/ for framework projects\n(Next.js, etc.). For plain serverless projects, static files must\nbe at the project root. Since the Vercel root directory is set to\napi/, move favicon.ico and favicon.png from api/public/ to api/.\n\nhttps://claude.ai/code/session_017jorRZB6ANxXDQhyH1Xdom",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Move favicons to project root for Vercel static file serving",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 0,
+        "deletions": 0
+      },
+      "files": [
+        "api/favicon.ico",
+        "api/favicon.png"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "8b616ee",
+      "fullSha": "8b616eeaf5f2c29876271d5636e5af7c6c6a6923",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T05:18:29+00:00",
+      "commitDate": "2026-02-17T05:18:29+00:00",
+      "subject": "Revert \"Fix Vercel 404s by restructuring project to standard layout\"",
+      "body": "This reverts commit 50cb3bde2ad34086ebf4ac41e9f84c669e4956de.",
+      "tags": [
+        "revert"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Revert \"Fix Vercel 404s by restructuring project to standard layout\"",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 0,
+        "deletions": 0
+      },
+      "files": [
+        "api/.env.example",
+        "api/.gitignore",
+        "api/api/__tests__/health.test.ts",
+        "api/api/__tests__/send-interest.test.ts",
+        "api/api/constants.ts",
+        "api/api/health.ts",
+        "api/api/index.ts",
+        "api/api/send-interest.ts",
+        "api/openapi.yaml",
+        "api/package-lock.json",
+        "api/package.json",
+        "api/public/favicon.ico",
+        "api/public/favicon.png",
+        "api/tsconfig.json",
+        "api/vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "50cb3bd",
+      "fullSha": "50cb3bde2ad34086ebf4ac41e9f84c669e4956de",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T05:14:07+00:00",
+      "commitDate": "2026-02-17T05:14:07+00:00",
+      "subject": "Fix Vercel 404s by restructuring project to standard layout",
+      "body": "All routes (/, /favicon.ico, /favicon.png, /api/*) returned 404\nbecause the Vercel project files were nested inside an api/\nsubdirectory. Vercel's default root directory is the repo root,\nso it couldn't find vercel.json, the serverless functions, or\nstatic assets.\n\nRestructure to the standard Vercel layout:\n- vercel.json, package.json, tsconfig.json at repo root\n- api/ contains serverless function handlers\n- public/ contains static assets (favicon.ico, favicon.png)\n\nhttps://claude.ai/code/session_017jorRZB6ANxXDQhyH1Xdom",
+      "tags": [
+        "refactor",
+        "deploy"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Fix Vercel 404s by restructuring project to standard layout",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 0,
+        "deletions": 0
+      },
+      "files": [
+        ".env.example",
+        ".gitignore",
+        "api/__tests__/health.test.ts",
+        "api/__tests__/send-interest.test.ts",
+        "api/constants.ts",
+        "api/health.ts",
+        "api/index.ts",
+        "api/send-interest.ts",
+        "openapi.yaml",
+        "package-lock.json",
+        "package.json",
+        "public/favicon.ico",
+        "public/favicon.png",
+        "tsconfig.json",
+        "vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "462397e",
+      "fullSha": "462397ed0f9e17f35969961a36670359a5b115eb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T06:55:58+02:00",
+      "commitDate": "2026-02-17T06:55:58+02:00",
+      "subject": "Merge pull request #6 from devmade-ai/claude/debug-frontend-api-calls-QA1Kc",
+      "body": "Move CORS configuration from code to vercel.json",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #6 from devmade-ai/claude/debug-frontend-api-calls-QA1Kc",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 55,
+        "deletions": 79
+      },
+      "files": [],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ef40160",
+      "fullSha": "ef4016059825aa6788908c7f77167ee6faa16b27",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T04:54:04+00:00",
+      "commitDate": "2026-02-17T04:54:04+00:00",
+      "subject": "Update docs to reflect CORS via vercel.json instead of env var",
+      "body": "Remove references to ALLOWED_ORIGINS from API.md and README.md.\nDocument that CORS headers are now set in vercel.json automatically.\n\nhttps://claude.ai/code/session_01XfRMoBtpQLXVTWNanmyv6J",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Update docs to reflect CORS via vercel.json instead of env var",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 22,
+        "deletions": 22
+      },
+      "files": [
+        "API.md",
+        "README.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "b72be04",
+      "fullSha": "b72be0404cd77d97a7ce0b1c2c622160ab2f6e15",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T04:51:10+00:00",
+      "commitDate": "2026-02-17T04:51:10+00:00",
+      "subject": "Move CORS configuration to vercel.json for zero-config deploys",
+      "body": "CORS headers are now handled at the Vercel infrastructure level via\nvercel.json, so the API works automatically on deploy from GitHub\nwithout needing ALLOWED_ORIGINS env var. Handlers still respond to\nOPTIONS preflight with 204. Deleted the in-code cors.ts module.\n\nhttps://claude.ai/code/session_01XfRMoBtpQLXVTWNanmyv6J",
+      "tags": [
+        "config",
+        "security"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Move CORS configuration to vercel.json for zero-config deploys",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 8,
+        "deletions": 97
+      },
+      "files": [
+        "api/.env.example",
+        "api/api/__tests__/health.test.ts",
+        "api/api/__tests__/send-interest.test.ts",
+        "api/api/cors.ts",
+        "api/api/health.ts",
+        "api/api/send-interest.ts",
+        "api/vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "15caabf",
+      "fullSha": "15caabfa7002caba829fb8ad9405b402e538897a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T04:43:01+00:00",
+      "commitDate": "2026-02-17T04:43:01+00:00",
+      "subject": "Add CORS support to health endpoint for cross-origin diagnostics",
+      "body": "The frontend health check from devmade-ai.github.io was failing because\nthe /api/health endpoint had no CORS headers. Extract shared CORS logic\ninto api/cors.ts and apply it to both health and send-interest handlers.\n\nhttps://claude.ai/code/session_01XfRMoBtpQLXVTWNanmyv6J",
+      "tags": [
+        "bugfix",
+        "security"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Add CORS support to health endpoint for cross-origin diagnostics",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 87,
+        "deletions": 22
+      },
+      "files": [
+        "api/api/__tests__/health.test.ts",
+        "api/api/__tests__/send-interest.test.ts",
+        "api/api/cors.ts",
+        "api/api/health.ts",
+        "api/api/send-interest.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "caba887",
+      "fullSha": "caba8872a02e3806b14a4f1dc77342eb0e5f496f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T06:31:26+02:00",
+      "commitDate": "2026-02-17T06:31:26+02:00",
+      "subject": "Merge pull request #5 from devmade-ai/claude/document-api-requirements-sBM2V",
+      "body": "Add API documentation and extract validation constants",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/document-api-requirements-sBM2V",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 385,
+        "deletions": 6
+      },
+      "files": [],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "28b0a24",
+      "fullSha": "28b0a2413c5ba47af4ddc7cc8338fc5e7f402ae7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T04:28:19+00:00",
+      "commitDate": "2026-02-17T04:28:19+00:00",
+      "subject": "Document API requirements for frontend consumers",
+      "body": "- Add API.md with endpoint reference, request/response schemas,\n  CORS rules, honeypot usage, and integration example\n- Add OpenAPI 3.0 spec (api/openapi.yaml) for machine-readable docs\n- Extract validation constants into shared api/api/constants.ts module\n  so docs and handler reference a single source of truth\n\nhttps://claude.ai/code/session_013UHKwwEjpYVkM9Bqbk8QHW",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Document API requirements for frontend consumers",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 385,
+        "deletions": 6
+      },
+      "files": [
+        "API.md",
+        "api/api/constants.ts",
+        "api/api/send-interest.ts",
+        "api/openapi.yaml"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "0cc6d74",
+      "fullSha": "0cc6d74f518b224e9ea9abca2710c11a3bcbb690",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-17T05:32:40+02:00",
+      "commitDate": "2026-02-17T05:32:40+02:00",
+      "subject": "Merge pull request #4 from devmade-ai/claude/add-favicon-dKKqD",
+      "body": "Add favicon assets to public directory",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #4 from devmade-ai/claude/add-favicon-dKKqD",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 8,
+        "deletions": 0
+      },
+      "files": [],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "191af43",
+      "fullSha": "191af43f1334ea2571cbb4f321fb32b7d986f92d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T03:31:03+00:00",
+      "commitDate": "2026-02-17T03:31:03+00:00",
+      "subject": "Fix root path 404 by adding index route handler",
+      "body": "- Add api/index.ts that returns API name and status\n- Add rewrite in vercel.json to route / to /api\n\nhttps://claude.ai/code/session_017JzDS8b1TvHRaS6LxzumWp",
+      "tags": [
+        "bugfix",
+        "feature"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Fix root path 404 by adding index route handler",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 8,
+        "deletions": 0
+      },
+      "files": [
+        "api/api/index.ts",
+        "api/vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "2c40b30",
+      "fullSha": "2c40b30302644c8f7cd1df0c7c652cc9e3928f23",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-17T03:17:49+00:00",
+      "commitDate": "2026-02-17T03:17:49+00:00",
+      "subject": "Add favicon.ico and favicon.png to resolve 404 errors",
+      "body": "Browsers automatically request /favicon.ico and /favicon.png when\nvisiting the site. Added a public/ directory with both favicon formats\n(blue circle with white \"T\" for tool-till-tees).\n\nhttps://claude.ai/code/session_017JzDS8b1TvHRaS6LxzumWp",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Add favicon.ico and favicon.png to resolve 404 errors",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 0,
+        "deletions": 0
+      },
+      "files": [
+        "api/public/favicon.ico",
+        "api/public/favicon.png"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "d07fdc7",
+      "fullSha": "d07fdc77fdf500024b194d202d5c63c219171028",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-16T23:59:16+02:00",
+      "commitDate": "2026-02-16T23:59:16+02:00",
+      "subject": "Merge pull request #3 from devmade-ai/claude/update-all-docs-Eu5kC",
+      "body": "Add comprehensive test suite for API handlers",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #3 from devmade-ai/claude/update-all-docs-Eu5kC",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 2062,
+        "deletions": 75
+      },
+      "files": [],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "1abf93e",
+      "fullSha": "1abf93ec960c0dbc774806f55aa0105385ea5068",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T18:50:55+00:00",
+      "commitDate": "2026-02-16T18:50:55+00:00",
+      "subject": "Add Vitest unit tests for health and send-interest endpoints",
+      "body": "Covers CORS, input validation, honeypot spam detection, SMTP\nconfig errors, successful email sending, and failure handling.\n\nhttps://claude.ai/code/session_01F5UDKuBsgjs2LHXGZFpoo2",
+      "tags": [
+        "test-unit"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Add Vitest unit tests for health and send-interest endpoints",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 2062,
+        "deletions": 75
+      },
+      "files": [
+        "api/api/__tests__/health.test.ts",
+        "api/api/__tests__/send-interest.test.ts",
+        "api/package-lock.json",
+        "api/package.json",
+        "api/tsconfig.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "42e2949",
+      "fullSha": "42e2949a5e736b740c3fefb23bf53d80035dca3a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-16T13:52:15+02:00",
+      "commitDate": "2026-02-16T13:52:15+02:00",
+      "subject": "Merge pull request #1 from devmade-ai/claude/setup-interest-notification-api-TssCS",
+      "body": "Add interest notification API for CV site contact forms",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #1 from devmade-ai/claude/setup-interest-notification-api-TssCS",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#1"
+      ],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 3282,
+        "deletions": 1
+      },
+      "files": [],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "17d6905",
+      "fullSha": "17d690549c9a2a95b999d242df2f93090d2036cb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T11:37:35+00:00",
+      "commitDate": "2026-02-16T11:37:35+00:00",
+      "subject": "Add interest notification API and frontend form",
+      "body": "Set up Vercel serverless functions for an interest/contact notification\nsystem. The send-interest endpoint validates input (name, email, message),\nenforces CORS origin restrictions, includes honeypot spam protection, and\nsends emails via SMTP using nodemailer. A health endpoint is included for\ndeployment verification. The frontend InterestForm React component handles\nform state, submission, and gracefully degrades when the API URL is not\nconfigured.\n\nhttps://claude.ai/code/session_01Gw4Mev3VZzsYEcxPYsUFzA",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Add interest notification API and frontend form",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 2511,
+        "deletions": 0
+      },
+      "files": [
+        ".env.example",
+        ".gitignore",
+        "api/api/health.ts",
+        "api/api/send-interest.ts",
+        "api/package-lock.json",
+        "api/package.json",
+        "api/tsconfig.json",
+        "api/vercel.json",
+        "frontend/InterestForm.css",
+        "frontend/InterestForm.tsx"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "89f74b1",
+      "fullSha": "89f74b1433d327079d8ca7dc2149893be7ce5ecb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-16T11:34:37+00:00",
+      "commitDate": "2026-02-16T11:34:37+00:00",
+      "subject": "Add interest notification API with Vercel serverless functions",
+      "body": "Implements a contact form backend for CV sites: POST /api/send-interest\nvalidates input (name, email, message) with length limits and format\nchecks, enforces CORS via ALLOWED_ORIGINS, includes honeypot spam\ndetection, escapes HTML in email body, and sends via nodemailer/SMTP.\nAlso adds a /api/health endpoint and project scaffolding (tsconfig,\nvercel.json, .env.example).\n\nhttps://claude.ai/code/session_011tsFkSugnqQ5vtsLDcKL7n",
+      "tags": [
+        "feature",
+        "init"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Add interest notification API with Vercel serverless functions",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 3282,
+        "deletions": 1
+      },
+      "files": [
+        "README.md",
+        "api/.env.example",
+        "api/.gitignore",
+        "api/api/health.ts",
+        "api/api/send-interest.ts",
+        "api/package-lock.json",
+        "api/package.json",
+        "api/tsconfig.json",
+        "api/vercel.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "e93a893",
+      "fullSha": "e93a893feaeecd9a4d5a35a6e6eb7fab71e5e253",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-16T12:17:37+02:00",
+      "commitDate": "2026-02-16T12:17:37+02:00",
+      "subject": "Initial commit",
+      "body": "",
+      "tags": [
+        "init"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Initial commit",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        "README.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "internal"
+    }
+  ],
+  "contributors": [
+    {
+      "author_id": "devmade.ai@gmail.com",
+      "name": "devmade.ai@gmail.com",
+      "email": "devmade.ai@gmail.com",
+      "commits": 54,
+      "avgComplexity": 1.59,
+      "avgUrgency": 2.07,
+      "tagBreakdown": {
+        "merge": 15,
+        "feature": 7,
+        "security": 3,
+        "config": 12,
+        "bugfix": 12,
+        "refactor": 5,
+        "docs": 7,
+        "database": 2,
+        "schema": 2,
+        "ui": 3,
+        "deploy": 9,
+        "removal": 1,
+        "dependency-add": 1,
+        "revert": 1,
+        "test-unit": 1,
+        "init": 2
+      },
+      "impactBreakdown": {
+        "internal": 24,
+        "user-facing": 5,
+        "infrastructure": 25,
+        "api": 0
+      },
+      "riskBreakdown": {
+        "low": 46,
+        "medium": 8,
+        "high": 0
+      },
+      "debtBreakdown": {
+        "added": 0,
+        "paid": 11,
+        "neutral": 43
+      },
+      "repos": [
+        "tool-till-tees"
+      ],
+      "repoCount": 1,
+      "firstCommit": "2026-02-16T11:34:37+00:00",
+      "lastCommit": "2026-02-27T08:42:09Z"
+    },
+    {
+      "author_id": "jacotheron87",
+      "name": "jacotheron87",
+      "email": "jacotheron87@gmail.com",
+      "commits": 1,
+      "avgComplexity": 5,
+      "avgUrgency": 2,
+      "tagBreakdown": {
+        "feature": 1,
+        "database": 1,
+        "schema": 1
+      },
+      "impactBreakdown": {
+        "internal": 0,
+        "user-facing": 0,
+        "infrastructure": 1,
+        "api": 0
+      },
+      "riskBreakdown": {
+        "low": 1,
+        "medium": 0,
+        "high": 0
+      },
+      "debtBreakdown": {
+        "added": 0,
+        "paid": 0,
+        "neutral": 1
+      },
+      "repos": [
+        "tool-till-tees"
+      ],
+      "repoCount": 1,
+      "firstCommit": "2026-02-26T17:30:20Z",
+      "lastCommit": "2026-02-26T17:30:20Z"
+    }
+  ],
+  "summary": {
+    "totalCommits": 55,
+    "totalContributors": 2,
+    "tagBreakdown": {
+      "merge": 15,
+      "feature": 8,
+      "security": 3,
+      "config": 12,
+      "bugfix": 12,
+      "refactor": 5,
+      "docs": 7,
+      "database": 3,
+      "schema": 3,
+      "ui": 3,
+      "deploy": 9,
+      "removal": 1,
+      "dependency-add": 1,
+      "revert": 1,
+      "test-unit": 1,
+      "init": 2
+    },
+    "complexityBreakdown": {
+      "1": 34,
+      "2": 11,
+      "3": 6,
+      "4": 3,
+      "5": 1
+    },
+    "urgencyBreakdown": {
+      "1": 9,
+      "2": 34,
+      "3": 11,
+      "4": 1,
+      "5": 0
+    },
+    "impactBreakdown": {
+      "internal": 24,
+      "user-facing": 5,
+      "infrastructure": 26,
+      "api": 0
+    },
+    "riskBreakdown": {
+      "low": 47,
+      "medium": 8,
+      "high": 0
+    },
+    "debtBreakdown": {
+      "added": 0,
+      "paid": 11,
+      "neutral": 44
+    },
+    "epicBreakdown": {
+      "four-ems": 2,
+      "sancio": 1,
+      "sancio-backend": 1,
+      "developer-experience": 3
+    },
+    "semverBreakdown": {
+      "patch": 7,
+      "minor": 3,
+      "major": 0
+    },
+    "avgComplexity": 1.65,
+    "avgUrgency": 2.07,
+    "monthly": {
+      "2026-02": {
+        "commits": 55,
+        "tags": {
+          "merge": 15,
+          "feature": 8,
+          "security": 3,
+          "config": 12,
+          "bugfix": 12,
+          "refactor": 5,
+          "docs": 7,
+          "database": 3,
+          "schema": 3,
+          "ui": 3,
+          "deploy": 9,
+          "removal": 1,
+          "dependency-add": 1,
+          "revert": 1,
+          "test-unit": 1,
+          "init": 2
+        },
+        "impact": {
+          "internal": 24,
+          "user-facing": 5,
+          "infrastructure": 26,
+          "api": 0
+        },
+        "risk": {
+          "low": 47,
+          "medium": 8,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 11,
+          "neutral": 44
+        },
+        "semver": {
+          "patch": 7,
+          "minor": 3,
+          "major": 0
+        },
+        "avgComplexity": 1.65,
+        "avgUrgency": 2.07
+      }
+    },
+    "monthlyCommits": {
+      "2026-02": {
+        "commits": 55,
+        "tags": {
+          "merge": 15,
+          "feature": 8,
+          "security": 3,
+          "config": 12,
+          "bugfix": 12,
+          "refactor": 5,
+          "docs": 7,
+          "database": 3,
+          "schema": 3,
+          "ui": 3,
+          "deploy": 9,
+          "removal": 1,
+          "dependency-add": 1,
+          "revert": 1,
+          "test-unit": 1,
+          "init": 2
+        },
+        "impact": {
+          "internal": 24,
+          "user-facing": 5,
+          "infrastructure": 26,
+          "api": 0
+        },
+        "risk": {
+          "low": 47,
+          "medium": 8,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 11,
+          "neutral": 44
+        },
+        "semver": {
+          "patch": 7,
+          "minor": 3,
+          "major": 0
+        },
+        "avgComplexity": 1.65,
+        "avgUrgency": 2.07
+      }
+    },
+    "dateRange": {
+      "earliest": "2026-02-16T11:34:37+00:00",
+      "latest": "2026-02-27T08:42:09Z"
+    },
+    "security_events": [
+      {
+        "sha": "16f9a9d",
+        "timestamp": "2026-02-27T08:20:51Z",
+        "subject": "feat(cors): replace wildcard with dynamic origin allowlist"
+      },
+      {
+        "sha": "b72be04",
+        "timestamp": "2026-02-17T04:51:10+00:00",
+        "subject": "Move CORS configuration to vercel.json for zero-config deploys"
+      },
+      {
+        "sha": "15caabf",
+        "timestamp": "2026-02-17T04:43:01+00:00",
+        "subject": "Add CORS support to health endpoint for cross-origin diagnostics"
+      }
+    ]
+  }
+}

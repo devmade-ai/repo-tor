@@ -1,0 +1,43 @@
+{
+  "sha": "fc315be",
+  "fullSha": "fc315be0adcab58c14c13c95bc410052f2bb5348",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T20:40:57Z",
+  "commitDate": "2026-02-26T20:40:57Z",
+  "subject": "fix(pwa): capture beforeinstallprompt before React mounts to prevent race condition",
+  "body": "The beforeinstallprompt event can fire as soon as the service worker\nregisters (cached on repeat visits), which may happen before React's\nuseEffect attaches its listener — causing the install prompt to never\nappear on Chromium browsers.\n\nFix: Add an inline classic script in index.html that captures the event\nimmediately during HTML parse. The usePWAInstall hook's state initializer\nconsumes the pre-captured event synchronously on first render. A fallback\naddEventListener covers first-visit cases where the SW registers after\nReact mounts. Analytics tracking is centralized in a single useEffect\nto avoid both the race condition and React lint violations.\n\nTags: pwa, install-prompt, race-condition, beforeinstallprompt\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-install\nSemver: patch\n\nhttps://claude.ai/code/session_019UBdoLx9smo7S6WpPANgmv",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-install",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "capture beforeinstallprompt before React mounts to prevent race condition",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 51,
+    "deletions": 5
+  },
+  "files": [
+    "index.html",
+    "src/hooks/usePWAInstall.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}

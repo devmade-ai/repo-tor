@@ -1,0 +1,73 @@
+{
+  "sha": "872b1b0",
+  "fullSha": "872b1b034b04a7c543cd23c216bd422b42598248",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T18:05:28Z",
+  "commitDate": "2026-02-26T18:05:28Z",
+  "subject": "refactor(sancio): consolidate 23 endpoints into catch-all router",
+  "body": "Vercel Hobby plan limits deployments to 12 serverless functions.\nThe project had 33 (10 non-sancio + 23 sancio), causing deploy failure.\n\nConsolidation approach:\n- Created api/sancio/[...path].ts as single catch-all router\n- Moved handler logic to lib/routes/sancio/ grouped by resource (11 files)\n- Router only does URL path dispatch; handlers are self-contained\n- Updated test imports to point to new handler locations\n- All 70 tests pass, typecheck clean\n\nResult: 10 non-sancio + 1 sancio catch-all = 11 functions (under limit)\n\nAlternatives considered:\n- Consolidate forms too: rejected — unnecessary, already under limit\n- Single monolithic handler: rejected — poor maintainability\n- _handlers convention: rejected — Vercel ignores _ prefix but less clear\n\nTags: refactor, vercel, deployment, sancio\nComplexity: 3\nUrgency: 4\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: sancio\nSemver: patch\n\nhttps://claude.ai/code/session_01UZndcX6ZQAhJfYda4up4eZ",
+  "tags": [
+    "refactor",
+    "config"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "sancio",
+  "semver": "patch",
+  "scope": "sancio",
+  "title": "consolidate 23 endpoints into catch-all router",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 32,
+    "additions": 1594,
+    "deletions": 1583
+  },
+  "files": [
+    "CLAUDE.md",
+    "api/__tests__/sancio/invite.test.ts",
+    "api/__tests__/sancio/projects.test.ts",
+    "api/__tests__/sancio/verify-passphrase.test.ts",
+    "api/sancio/[...path].ts",
+    "api/sancio/agreements/[id].ts",
+    "api/sancio/agreements/[id]/sequence.ts",
+    "api/sancio/agreements/[id]/split.ts",
+    "api/sancio/agreements/[id]/status.ts",
+    "api/sancio/agreements/index.ts",
+    "api/sancio/cron/auto-expire.ts",
+    "api/sancio/cron/nudge.ts",
+    "api/sancio/invite.ts",
+    "api/sancio/modules/[id]/versions.ts",
+    "api/sancio/modules/index.ts",
+    "api/sancio/notes/[id].ts",
+    "api/sancio/notifications/index.ts",
+    "api/sancio/projects/index.ts",
+    "api/sancio/proposals/[id].ts",
+    "api/sancio/proposals/index.ts",
+    "api/sancio/signatures/index.ts",
+    "lib/routes/sancio/agreement-actions.ts",
+    "lib/routes/sancio/agreements.ts",
+    "lib/routes/sancio/auth.ts",
+    "lib/routes/sancio/cron.ts",
+    "lib/routes/sancio/misc.ts",
+    "lib/routes/sancio/module-actions.ts",
+    "lib/routes/sancio/modules.ts",
+    "lib/routes/sancio/notes.ts",
+    "lib/routes/sancio/notifications.ts",
+    "lib/routes/sancio/projects.ts",
+    "lib/routes/sancio/proposals.ts"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

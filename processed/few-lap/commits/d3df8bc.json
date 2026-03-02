@@ -1,0 +1,47 @@
+{
+  "sha": "d3df8bc",
+  "fullSha": "d3df8bc840f5ad10a52c8e4e9e12ac490301cd0c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T12:34:06Z",
+  "commitDate": "2026-02-26T12:34:06Z",
+  "subject": "feat(search): add address search with autocomplete and deferred GPS",
+  "body": "Replace the submit-only address bar with a full autocomplete dropdown\nusing Mapbox Geocoding API (debounced 300ms, 5 suggestions, scoped to ZA).\nDefer GPS prompting so the app starts instantly with JHB as default —\nGPS only triggers when the user taps the crosshair locate button.\nAdd blue dot on web map when GPS is active, and conditionally show\nnative UserLocation only when GPS has been explicitly activated.\n\nTags: search, gps, map, ux, geocoding\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: address-search\nSemver: minor\n\nhttps://claude.ai/code/session_014Yk9LPpkingr1ezhc6Cmnp",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "address-search",
+  "semver": "minor",
+  "scope": "search",
+  "title": "add address search with autocomplete and deferred GPS",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 398,
+    "deletions": 169
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "src/components/map/FuelMap.tsx",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/hooks/useLocation.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

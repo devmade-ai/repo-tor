@@ -1,0 +1,45 @@
+{
+  "sha": "0602cb6",
+  "fullSha": "0602cb6200dad6ae074390584a2de1e4e39e2cca",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T19:19:00Z",
+  "commitDate": "2026-02-26T19:19:00Z",
+  "subject": "fix(seed): move seedIfEmpty to useWorkspaces so Demo workspace appears on first visit",
+  "body": "seedIfEmpty was called from useGraphData, which returns early when\nworkspaceId is null. New users land on the workspace manager with no\nactive workspace, so the seed never fired — they saw an empty workspace\nmanager with only the option to create a new workspace.\n\nMoved seedIfEmpty to useWorkspaces hook, which runs on app startup\nregardless of active workspace state. The Demo workspace now exists\nbefore the workspace manager first renders.\n\nAlso reverts the Default workspace auto-creation from the previous\ncommit — only the Demo workspace is needed for first-visit experience.\n\nTags: seed, workspace, ux, first-visit, bugfix\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: multiple-workspaces\nSemver: patch\n\nhttps://claude.ai/code/session_01RQoCozyVHkxKvXz3aC7NDq",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "multiple-workspaces",
+  "semver": "patch",
+  "scope": "seed",
+  "title": "move seedIfEmpty to useWorkspaces so Demo workspace appears on first visit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 25,
+    "deletions": 50
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/hooks/useGraphData.ts",
+    "src/hooks/useWorkspaces.ts",
+    "src/services/seedService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}

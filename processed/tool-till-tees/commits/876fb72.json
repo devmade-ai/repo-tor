@@ -1,0 +1,49 @@
+{
+  "sha": "876fb72",
+  "fullSha": "876fb7295246abadd1090dec6925141d862bdf6c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T15:43:10Z",
+  "commitDate": "2026-02-26T15:43:10Z",
+  "subject": "docs(all): audit codebase and fix all documentation inaccuracies",
+  "body": "Full codebase read revealed two missed endpoints (publish, submissions\nlisting) and multiple inaccuracies across docs. Key fixes:\n\n- CLAUDE.md: added project architecture, env vars, design patterns;\n  removed glow-props-specific references (TutorialModal, sharp)\n- README.md: rewrote to cover full project scope (was interest-only)\n- API.md: added all 12 endpoints (was 3), fixed wrong constant path\n  (api/constants.ts → lib/constants.ts), corrected CORS headers to\n  match vercel.json (added PUT/DELETE/Authorization)\n- TODO.md: removed already-implemented submission listing endpoint\n- HISTORY.md: added missing publish + submissions listing endpoints\n- USER_GUIDE.md: added missing endpoints, env vars, submission details\n- TESTING_GUIDE.md: added publish + submissions scenarios, expanded\n  regression checklist\n- AI_MISTAKES.md: recorded missed-endpoints lesson\n- SESSION_NOTES.md: updated to current session state\n\nTags: documentation, audit\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch\n\nhttps://claude.ai/code/session_01FdaHNSoiK2aamrRW8MMh72",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "developer-experience",
+  "semver": "patch",
+  "scope": "all",
+  "title": "audit codebase and fix all documentation inaccuracies",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 527,
+    "deletions": 97
+  },
+  "files": [
+    "API.md",
+    "CLAUDE.md",
+    "README.md",
+    "docs/AI_MISTAKES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}

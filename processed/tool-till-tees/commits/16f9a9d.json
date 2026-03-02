@@ -1,0 +1,61 @@
+{
+  "sha": "16f9a9d",
+  "fullSha": "16f9a9d2104f0210e369fcf566a251168985064c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-27T08:20:51Z",
+  "commitDate": "2026-02-27T08:20:51Z",
+  "subject": "feat(cors): replace wildcard with dynamic origin allowlist",
+  "body": "Created lib/cors.ts with an allowlist of approved frontend origins\n(devmade-ai.github.io, four-ems.vercel.app). Each handler calls cors()\nwhich checks the request Origin against the allowlist and sets\nAccess-Control-Allow-Origin to the matched origin with Vary: Origin.\nUnrecognized origins get no CORS header — the browser blocks the request.\n\nRemoved Access-Control-Allow-Origin from vercel.json (other CORS headers\nremain static). Updated all 11 API handlers to use cors() instead of\ninline OPTIONS checks.\n\nTags: cors, security, api, config\nComplexity: 2\nUrgency: 3\nImpact: api\nRisk: medium\nDebt: paid\nEpic: four-ems\nSemver: minor\n\nhttps://claude.ai/code/session_01BqPM5pcAcdzxTW9FDe4poV",
+  "tags": [
+    "feature",
+    "security",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "four-ems",
+  "semver": "minor",
+  "scope": "cors",
+  "title": "replace wildcard with dynamic origin allowlist",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 19,
+    "additions": 102,
+    "deletions": 59
+  },
+  "files": [
+    "API.md",
+    "CLAUDE.md",
+    "README.md",
+    "api/forms/[id].ts",
+    "api/forms/[id]/publish.ts",
+    "api/forms/[id]/submissions.ts",
+    "api/forms/index.ts",
+    "api/health.ts",
+    "api/index.ts",
+    "api/public/forms/[slug].ts",
+    "api/public/forms/[slug]/submit.ts",
+    "api/sancio/[...path].ts",
+    "api/send-interest.ts",
+    "api/submissions/[id].ts",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_GUIDE.md",
+    "lib/cors.ts",
+    "vercel.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

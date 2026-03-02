@@ -1,0 +1,41 @@
+{
+  "sha": "05e849f",
+  "fullSha": "05e849f13afa27ab60cbc87586526cbe47eb1b30",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-01T12:36:17Z",
+  "commitDate": "2026-03-01T12:36:17Z",
+  "subject": "fix(export): use blob + saveAs for single download instead of link.click()",
+  "body": "The detached <a> element with link.click() fails to trigger downloads in\nSafari, PWA contexts, and with large data URLs from print-size exports.\nReplaced with fetch-to-blob + file-saver's saveAs, matching the reliable\npattern already used by multi-page and multi-platform ZIP exports.\n\nTags: export, download, bugfix, cross-browser\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: export\nSemver: patch\n\nhttps://claude.ai/code/session_01VzWhKw5a9A2uMExAYPMVu3",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "export",
+  "semver": "patch",
+  "scope": "export",
+  "title": "use blob + saveAs for single download instead of link.click()",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 8,
+    "deletions": 4
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 4,
+  "impact": "user-facing"
+}

@@ -6,7 +6,11 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-03-02 — Fix Dashboard JSON Loading Error):**
+**Recent Updates (2026-03-02 — Feed the Chicken: 151 New Commits):**
+- **Feed the Chicken — 151 New Commits** — Incremental extraction and AI analysis of 151 new commits across 10 repos: budgy-ting (+30), canva-grid (+10), few-lap (+27), glow-props (+12), graphiki (+8), model-pear (+7), repo-tor (+13), see-veo (+14), synctone (+14), tool-till-tees (+16). All batches human-approved. Dashboard re-aggregated: 14 repos, 2097 total commits.
+- **Process guardrails added** — After presenting the first batch in a wrong format (not matching EXTRACTION_PLAYBOOK.md), implemented 4 guardrails: pre-flight checklist in playbook, AI Lessons entry, CLAUDE.md prohibition against improvising workflows, stronger prescriptive language in review format section.
+
+**Previous Updates (2026-03-02 — Fix Dashboard JSON Loading Error):**
 - **Bug fix** — Dashboard on Vercel (including PWA) was showing JSON parse error when loading data:
   - Root cause: Vercel SPA rewrite rule was rewriting `data.json` requests to `index.html`
   - Fix 1: Updated `vercel.json` rewrite to exclude files with extensions from SPA fallback
@@ -345,7 +349,7 @@ Current state for AI assistants to continue work.
 - **Management**: Per-repo groupings, daily heatmap, summary drilldowns + interpretation guidance
 - **Developer**: Individual contributors, hourly heatmap, full commit lists (no hints needed)
 
-**Extraction System:** AI analysis complete. 1946 commits processed across 14 repositories. All previously malformed commits have been fixed.
+**Extraction System:** AI analysis complete. 2097 commits processed across 14 repositories. All previously malformed commits have been fixed.
 
 **Feed Optimization:**
 - `extract-api.js` for API-based extraction (no cloning required, faster) — pagination bug fixed 2026-02-15
@@ -475,22 +479,22 @@ const TAB_MAPPING = {
 
 | Repo | Status | Commits |
 |------|--------|---------|
-| budgy-ting | Complete | 28 |
-| canva-grid | Complete | 332 |
+| budgy-ting | Complete | 58 |
+| canva-grid | Complete | 342 |
 | canva-grid-assets | Complete | 2 |
 | chatty-chart | Complete | 42 |
 | coin-zapp | Complete | 81 |
-| few-lap | Complete | 21 |
-| glow-props | Complete | 21 |
-| graphiki | Complete | 131 |
-| model-pear | Complete | 322 |
+| few-lap | Complete | 48 |
+| glow-props | Complete | 33 |
+| graphiki | Complete | 139 |
+| model-pear | Complete | 329 |
 | plant-fur | Complete | 18 |
-| repo-tor | Complete | 441 |
-| see-veo | Complete | 109 |
-| synctone | Complete | 359 |
-| tool-till-tees | Complete | 39 |
+| repo-tor | Complete | 454 |
+| see-veo | Complete | 123 |
+| synctone | Complete | 373 |
+| tool-till-tees | Complete | 55 |
 
-**Total Processed:** 1946 commits
+**Total Processed:** 2097 commits
 **Remaining:** 0 - All repos complete!
 
 ### Storage Migration
@@ -507,4 +511,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-02-26 - Adopted glow-props CLAUDE.md patterns: PWA race condition fix, timer leak fixes, icon generation pipeline, commit-msg hook improvements.*
+*Last updated: 2026-03-02 - Feed the chicken: 151 new commits across 10 repos (2097 total). Added process guardrails to extraction playbook.*

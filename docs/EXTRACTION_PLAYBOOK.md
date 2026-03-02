@@ -33,7 +33,7 @@ Human-in-the-loop review ensures quality tagging.
 
 ### Review Format
 
-For each batch, AI presents commits like this:
+**MANDATORY:** AI MUST present commits in exactly this format. Do not abbreviate, restructure, or use alternative layouts. This format is optimized for human review efficiency.
 
 ```text
 [1/25] abc123
@@ -215,6 +215,18 @@ git push
 ## Feed the Chicken (Incremental)
 
 Use when: Adding new commits OR resuming interrupted processing.
+
+### Pre-Flight Checklist (MANDATORY)
+
+Before presenting ANY batch to the user, AI MUST verify:
+
+- [ ] Re-read the **Review Format** section above — am I using the exact format?
+- [ ] Re-read the **Tagging Guidelines** section — especially merge commit rules
+- [ ] Confirm I will pipe approved analysis to `merge-analysis.js` (not save-commit.js, not manual file writes)
+- [ ] Confirm I will output **only analysis fields** (sha, tags, complexity, urgency, impact, risk, debt, epic, semver) — NOT full commit objects
+- [ ] Confirm I will present the commit body (not just subject) so tags reflect full message content
+
+**Do not skip this checklist.** Past sessions have improvised their own format and skipped merge-analysis.js entirely.
 
 ### Step 1: Extract Fresh Data
 

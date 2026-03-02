@@ -1,0 +1,54 @@
+{
+  "sha": "68607f6",
+  "fullSha": "68607f648dffd60ae2fb65ade7a6f11ecec86aed",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T02:30:31Z",
+  "commitDate": "2026-03-02T02:30:31Z",
+  "subject": "chore: migrate deployment from GitHub Pages to Vercel",
+  "body": "GitHub Pages requires a 404.html hack for SPA routing, has no env var\ninjection at build, and needs manual \"source\" setting in repo UI.\nVercel handles all of this natively.\n\n- Add vercel.json with SPA rewrite rule for client-side routing\n- Delete .github/workflows/deploy.yml (GitHub Actions no longer needed)\n- Change vite.config.js base from './' to '/' (Vercel serves at root)\n- Update all live URL references to repo-tor.vercel.app\n- Update ADMIN_GUIDE deployment section with Vercel setup instructions\n\nTags: infrastructure, deployment\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: minor\n\nhttps://claude.ai/code/session_01GtthmWa1MVuevLn3MANefx",
+  "tags": [
+    "hosting",
+    "config",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "vercel-migration",
+  "semver": "minor",
+  "scope": null,
+  "title": "migrate deployment from GitHub Pages to Vercel",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 75,
+    "deletions": 117
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "CLAUDE.md",
+    "dashboard/public/embed.js",
+    "dashboard/public/projects.json",
+    "docs/ADMIN_GUIDE.md",
+    "docs/EMBED_IMPLEMENTATION.md",
+    "docs/EMBED_REFERENCE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_GUIDE.md",
+    "vercel.json",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

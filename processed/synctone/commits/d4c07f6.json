@@ -1,0 +1,48 @@
+{
+  "sha": "d4c07f6",
+  "fullSha": "d4c07f64c726b10ecdb30918b1ea7da9ad73bb33",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T00:03:33Z",
+  "commitDate": "2026-03-02T00:03:33Z",
+  "subject": "feat(pwa,docs): add install instructions modal, diagnostic timeout, session notes",
+  "body": "Adopt remaining patterns from external glow-props CLAUDE.md:\n\n1. InstallInstructionsModal: Browser-specific step-by-step PWA install\n   guides in a proper modal component, replacing window.alert() calls\n   in home.tsx. Covers Safari iOS/macOS, Firefox Android/Desktop,\n   Chrome Android/iOS/Desktop with contextual messaging.\n\n2. 5-second diagnostic timeout in usePWAInstall: On Chromium browsers,\n   if beforeinstallprompt hasn't fired after 5s, logs manifest link\n   and SW controller status to help debug installability issues.\n\n3. docs/SESSION_NOTES.md: Compact context snapshot template rewritten\n   at each session end for quick handoff between AI sessions.\n\n4. Updated CLAUDE.md: Added SESSION_NOTES.md to core docs table and\n   session workflow, added new components to project structure.\n\nTags: pwa, docs, ux, modal, install\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: minor\n\nhttps://claude.ai/code/session_012u2UpqVacAk7zNYTcq6Cgz",
+  "tags": [
+    "feature",
+    "docs",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "minor",
+  "scope": "pwa,docs",
+  "title": "add install instructions modal, diagnostic timeout, session notes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 372,
+    "deletions": 54
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/home.tsx",
+    "components/InstallInstructionsModal.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "hooks/usePWAInstall.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

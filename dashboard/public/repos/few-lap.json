@@ -1,0 +1,2817 @@
+{
+  "metadata": {
+    "generatedAt": "2026-03-02T20:27:54.268Z",
+    "repository": "few-lap",
+    "scope": "few-lap",
+    "repoCount": 1,
+    "commitCount": 48,
+    "authors": {
+      "devmade.ai@gmail.com": {
+        "name": "devmade.ai@gmail.com",
+        "email": "devmade.ai@gmail.com"
+      },
+      "jacotheron87": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      }
+    }
+  },
+  "commits": [
+    {
+      "sha": "fcd29af",
+      "fullSha": "fcd29af622ebf90863a3d490a838d2038c6d3366",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T19:42:33Z",
+      "commitDate": "2026-03-02T19:42:33Z",
+      "subject": "Merge pull request #15 from devmade-ai/claude/code-review-audit-JlaCw",
+      "body": "Audit fixes: type safety, stale request guards, and hydration ordering",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #15 from devmade-ai/claude/code-review-audit-JlaCw",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#15"
+      ],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 154,
+        "deletions": 68
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(tabs)/index.tsx",
+        "app/station/[id].tsx",
+        "src/components/admin/PriceEditor.tsx",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/components/search/LocationSearch.tsx",
+        "src/hooks/useLocation.ts",
+        "src/hooks/usePersistedState.ts",
+        "src/hooks/useStations.ts",
+        "src/lib/mapbox.ts",
+        "src/lib/supabase.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "a9e1f62",
+      "fullSha": "a9e1f628d574855bd2a699566f9269503ac6261f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T10:33:25Z",
+      "commitDate": "2026-03-02T10:33:25Z",
+      "subject": "fix(audit): address code review findings across hooks, components, and lib",
+      "body": "Race conditions:\n- useStations: request ID guard discards stale responses from rapid filter changes\n- usePersistedState: expose `loaded` flag, add mountedRef to prevent overwriting\n  user selections during AsyncStorage hydration\n- Home screen: defer first search until persisted preferences are loaded\n\nType safety:\n- useStations: add isValidResult runtime check on RPC response rows\n- station/[id]: typed FuelPriceRow interface replaces scattered `as` casts\n- PriceEditor: typed CurrentPriceRow with defensive typeof checks\n\nMemory safety:\n- useLocation: mountedRef guards setState after unmount during GPS await\n- FuelMapWeb: ref-based click handler prevents stale closure in map.on('click')\n\nCleanup:\n- Remove unused `centered` and `loadingText` styles from home screen\n- Remove stale `modal.tsx` reference from CLAUDE.md architecture\n- Route console.error through debugAdd in supabase.ts and mapbox.ts\n- Consolidate MAPBOX_TOKEN imports (FuelMapWeb, LocationSearch) to shared module\n- PriceEditor wrapped in React.memo to avoid re-renders from parent form state\n\nUI fixes:\n- station/[id]: track coordinate validity via explicit flag instead of === 0 check\n- station/[id]: fix trailing comma when city is empty\n\nTags: code-quality, type-safety, race-condition, cleanup, audit\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: code-audit\nSemver: patch\n\nhttps://claude.ai/code/session_012p46viNk9dHEZ6Ls7JrAbB",
+      "tags": [
+        "bugfix",
+        "refactor",
+        "performance"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "code-audit",
+      "semver": "patch",
+      "scope": "audit",
+      "title": "address code review findings across hooks, components, and lib",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 154,
+        "deletions": 68
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(tabs)/index.tsx",
+        "app/station/[id].tsx",
+        "src/components/admin/PriceEditor.tsx",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/components/search/LocationSearch.tsx",
+        "src/hooks/useLocation.ts",
+        "src/hooks/usePersistedState.ts",
+        "src/hooks/useStations.ts",
+        "src/lib/mapbox.ts",
+        "src/lib/supabase.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "4c1b909",
+      "fullSha": "4c1b909884c1ce693f28986b269cc3457a5cb83a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T13:28:11Z",
+      "commitDate": "2026-02-27T13:28:11Z",
+      "subject": "Merge pull request #14 from devmade-ai/claude/review-external-claude-md-4kje2",
+      "body": "docs(claude-md): fix dangerous update command, add Suggested Implementations",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #14 from devmade-ai/claude/review-external-claude-md-4kje2",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#14"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 186,
+        "deletions": 2
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f23ab57",
+      "fullSha": "f23ab577a783f78620ca47d62b6bff653818326e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T12:56:54Z",
+      "commitDate": "2026-02-27T12:56:54Z",
+      "subject": "docs(claude-md): fix dangerous update command, add Suggested Implementations",
+      "body": "The external CLAUDE.md reference had a curl command that would overwrite\nthe entire local file, destroying project-specific sections (Project\nStatus, Architecture, Key State Structures). Changed to a safe diff\ncommand with a warning.\n\nAdded three Suggested Implementations patterns adapted from the shared\nglow-props standards for Expo/React Native:\n- App Icons from SVG Source (Sharp pipeline for Expo icon sizes)\n- Timer leak fix patterns (nested setTimeout cleanup)\n- Debug System (in-memory event store + overlay for dev phase)\n\nTags: documentation, claude-md, standards\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: project-standards\nSemver: patch\n\nhttps://claude.ai/code/session_01WeEfHUCuejvkaTZVsJy2Hf",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "project-standards",
+      "semver": "patch",
+      "scope": "claude-md",
+      "title": "fix dangerous update command, add Suggested Implementations",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 186,
+        "deletions": 2
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "e6de099",
+      "fullSha": "e6de0994ddfcbcbe96fae9b2047651bddebe17d4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T21:40:16Z",
+      "commitDate": "2026-02-26T21:40:16Z",
+      "subject": "Merge pull request #13 from devmade-ai/claude/add-theme-toggle-LyHL0",
+      "body": "Add PWA support with install prompts and service worker",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #13 from devmade-ai/claude/add-theme-toggle-LyHL0",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#13"
+      ],
+      "stats": {
+        "filesChanged": 24,
+        "additions": 1572,
+        "deletions": 66
+      },
+      "files": [
+        "app.json",
+        "app/(tabs)/_layout.tsx",
+        "app/+html.tsx",
+        "app/_layout.tsx",
+        "assets/icon-source.svg",
+        "assets/images/adaptive-icon.png",
+        "assets/images/favicon.png",
+        "assets/images/icon-192.png",
+        "assets/images/icon-512.png",
+        "assets/images/icon.png",
+        "assets/images/splash-icon.png",
+        "package-lock.json",
+        "package.json",
+        "public/manifest.json",
+        "public/sw.js",
+        "scripts/generate-icons.mjs",
+        "src/components/pwa/InstallInstructionsModal.tsx",
+        "src/components/pwa/InstallPrompt.tsx",
+        "src/components/pwa/UpdatePrompt.tsx",
+        "src/components/ui/BurgerMenu.tsx",
+        "src/debug/DebugPill.tsx",
+        "src/hooks/useAppTheme.ts",
+        "src/hooks/usePWAInstall.ts",
+        "src/hooks/usePWAUpdate.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "584a779",
+      "fullSha": "584a779555516fdade7f28644b1c54d0e84073bc",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T21:36:21Z",
+      "commitDate": "2026-02-26T21:36:21Z",
+      "subject": "feat(icons): SVG source icon with Sharp pipeline, replace all placeholder PNGs",
+      "body": "Created brand icon: teal background, white fuel drop, \"R\" for Rand in\ncenter circle. Simple design that reads well from 1024px down to 48px\nfavicon. SVG source at assets/icon-source.svg, Sharp script at\nscripts/generate-icons.mjs generates all needed sizes.\n\nGenerated PNGs: icon.png (1024), adaptive-icon.png (1024),\nsplash-icon.png (1024), favicon.png (48), icon-192.png, icon-512.png.\n\nConfig updates:\n- manifest.json: multi-size PWA icons (192, 512, 1024 maskable)\n- app.json: splash + adaptive icon backgroundColor changed from white\n  to brand teal (#0D9488)\n\nTags: icons, branding, sharp, build-tools\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: branding\nSemver: minor\n\nhttps://claude.ai/code/session_016trqvNZsTsgT5cu3E7DDES",
+      "tags": [
+        "ui",
+        "build"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "branding",
+      "semver": "minor",
+      "scope": "icons",
+      "title": "SVG source icon with Sharp pipeline, replace all placeholder PNGs",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "#0"
+      ],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 638,
+        "deletions": 3
+      },
+      "files": [
+        "app.json",
+        "assets/icon-source.svg",
+        "assets/images/adaptive-icon.png",
+        "assets/images/favicon.png",
+        "assets/images/icon-192.png",
+        "assets/images/icon-512.png",
+        "assets/images/icon.png",
+        "assets/images/splash-icon.png",
+        "package-lock.json",
+        "package.json",
+        "public/manifest.json",
+        "scripts/generate-icons.mjs"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "616e2f3",
+      "fullSha": "616e2f30a6b9bc9f0658f8fa900d26428ac2310b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T21:29:24Z",
+      "commitDate": "2026-02-26T21:29:24Z",
+      "subject": "feat(pwa): add service worker, install prompt, update detection + fix timer leaks",
+      "body": "PWA system from CLAUDE.md Suggested Implementations, adapted for Expo Web:\n- Service worker (public/sw.js): cache-first for static assets, network-first\n  for Supabase API, stale-while-revalidate for navigation. Version-based cache.\n- usePWAUpdate hook: registers SW, polls for updates every 60min, exposes\n  hasUpdate boolean and updateApp() to activate waiting SW.\n- usePWAInstall hook: detects browser type (Chromium/Safari/Firefox), captures\n  beforeinstallprompt event, persists dismiss state. Includes race condition\n  fix via early-capture inline script in +html.tsx.\n- InstallPrompt banner: bottom banner with \"Install\" (Chromium native) or\n  \"How to Install\" (Safari/Firefox manual instructions).\n- InstallInstructionsModal: browser-specific step-by-step guides (Safari iOS,\n  Safari macOS, Firefox Android, Firefox desktop).\n- UpdatePrompt banner: teal bar at top when new SW version is waiting.\n- manifest.json background_color updated to dark theme (#111827).\n\nTimer leak fixes (from CLAUDE.md Suggested Implementations):\n- BurgerMenu: track handleItem setTimeout in ref, cleanup on unmount\n- DebugPill: cleanup auto-scroll timeout in useEffect return\n- DebugPill: track copy feedback timeout in ref, cleanup on unmount\n\nTags: pwa, service-worker, install-prompt, timer-cleanup, web\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: minor\n\nhttps://claude.ai/code/session_016trqvNZsTsgT5cu3E7DDES",
+      "tags": [
+        "feature",
+        "config"
+      ],
+      "complexity": 4,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pwa",
+      "semver": "minor",
+      "scope": "pwa",
+      "title": "add service worker, install prompt, update detection + fix timer leaks",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "#111827"
+      ],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 835,
+        "deletions": 7
+      },
+      "files": [
+        "app/+html.tsx",
+        "app/_layout.tsx",
+        "public/manifest.json",
+        "public/sw.js",
+        "src/components/pwa/InstallInstructionsModal.tsx",
+        "src/components/pwa/InstallPrompt.tsx",
+        "src/components/pwa/UpdatePrompt.tsx",
+        "src/components/ui/BurgerMenu.tsx",
+        "src/debug/DebugPill.tsx",
+        "src/hooks/usePWAInstall.ts",
+        "src/hooks/usePWAUpdate.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "e90e66a",
+      "fullSha": "e90e66a4542f9e418b2a36047320d71dcaf79f2b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T21:03:49Z",
+      "commitDate": "2026-02-26T21:03:49Z",
+      "subject": "refactor(theme): simplify to dark/light toggle, drop system mode",
+      "body": "Three-way toggle (dark/light/system) was unnecessary complexity for\nnon-technical users. Now a single boolean persisted as theme_dark.\nMenu shows \"Light mode\" (sun icon) when dark, \"Dark mode\" (moon icon)\nwhen light — one tap to switch.\n\nTags: theme, ux, simplification\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theming\nSemver: patch\n\nhttps://claude.ai/code/session_016trqvNZsTsgT5cu3E7DDES",
+      "tags": [
+        "simplify",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "theming",
+      "semver": "patch",
+      "scope": "theme",
+      "title": "simplify to dark/light toggle, drop system mode",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 45,
+        "deletions": 106
+      },
+      "files": [
+        "src/components/ui/BurgerMenu.tsx",
+        "src/hooks/useAppTheme.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "0d98eec",
+      "fullSha": "0d98eec396f6324fb8b2f16801c3b43fd57d13cc",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T20:41:55Z",
+      "commitDate": "2026-02-26T20:41:55Z",
+      "subject": "feat(theme): add user-controllable theme toggle with dark/light/auto modes",
+      "body": "Theme was locked to system preference with no user override, causing white\npages when system has no explicit scheme. Now defaults to dark and persists\nthe user's choice via AsyncStorage. Toggle lives in the burger menu as three\nchips (Light / Dark / Auto). Web HTML body always starts dark to prevent\nwhite flash.\n\nTags: theme, ux, dark-mode, burger-menu\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theming\nSemver: minor\n\nhttps://claude.ai/code/session_016trqvNZsTsgT5cu3E7DDES",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "theming",
+      "semver": "minor",
+      "scope": "theme",
+      "title": "add user-controllable theme toggle with dark/light/auto modes",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 158,
+        "deletions": 54
+      },
+      "files": [
+        "app/(tabs)/_layout.tsx",
+        "app/+html.tsx",
+        "app/_layout.tsx",
+        "src/components/ui/BurgerMenu.tsx",
+        "src/hooks/useAppTheme.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "4e7e805",
+      "fullSha": "4e7e8054fb44f27731d70040ed16df9e7d53a931",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T19:55:44Z",
+      "commitDate": "2026-02-26T19:55:44Z",
+      "subject": "Merge pull request #12 from devmade-ai/claude/add-light-dark-mode-aQO6F",
+      "body": "Implement theme-aware colors across app and enable dark mode support",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #12 from devmade-ai/claude/add-light-dark-mode-aQO6F",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#12"
+      ],
+      "stats": {
+        "filesChanged": 24,
+        "additions": 719,
+        "deletions": 81
+      },
+      "files": [
+        "app/(tabs)/_layout.tsx",
+        "app/+html.tsx",
+        "app/+not-found.tsx",
+        "app/_layout.tsx",
+        "app/admin/_layout.tsx",
+        "app/admin/index.tsx",
+        "app/admin/station/[id].tsx",
+        "app/station/[id].tsx",
+        "components/Themed.tsx",
+        "constants/Colors.ts",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/components/map/MapErrorBoundary.tsx",
+        "src/components/map/StationMarker.tsx",
+        "src/components/search/FuelTypeSelector.tsx",
+        "src/components/search/LocationSearch.tsx",
+        "src/components/search/RadiusSelector.tsx",
+        "src/components/station/StationList.tsx",
+        "src/components/ui/Toast.tsx",
+        "src/components/ui/TutorialModal.tsx",
+        "src/debug/DebugPill.tsx",
+        "src/debug/debugLog.ts",
+        "src/hooks/useFuelTypes.ts",
+        "src/hooks/useLocation.ts",
+        "src/hooks/useStations.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0262982",
+      "fullSha": "0262982d04f605465c68d368f3b455ec520f759f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T19:31:50Z",
+      "commitDate": "2026-02-26T19:31:50Z",
+      "subject": "feat(debug): add DebugPill diagnostic overlay with circular buffer log",
+      "body": "Alpha-phase diagnostic tool for inspecting app behavior on shared/mobile\ndevices where console access is unavailable.\n\nComponents:\n- debugLog.ts: In-memory pub/sub circular buffer (200 entries max).\n  Sources: boot, supabase, location, map, navigation, render, global.\n  Severities: info, success, warn, error. Global error handlers capture\n  unhandled errors/rejections at module load.\n- DebugPill.tsx: Floating pill in bottom-right corner. Collapsed shows\n  \"dbg\" with entry count + error/warn dot badges. Expanded shows two\n  tabs (Log with color-coded entries, Env with runtime diagnostics).\n  Copy generates full debug report to clipboard, Clear wipes entries.\n\nWired up debug logging in:\n- useStations: station search success/failure\n- useLocation: GPS permission, acquisition, failure\n- useFuelTypes: fuel types fetch success/failure\n- FuelMapWeb: map init success/failure\n\nIntended for removal post-alpha.\n\nTags: debug, diagnostics, alpha, overlay\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: added\nEpic: debug-tooling\nSemver: minor\n\nhttps://claude.ai/code/session_01QL2sTVHifGeTbV29qusQbE",
+      "tags": [
+        "feature",
+        "logging"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "added",
+      "epic": "debug-tooling",
+      "semver": "minor",
+      "scope": "debug",
+      "title": "add DebugPill diagnostic overlay with circular buffer log",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 625,
+        "deletions": 2
+      },
+      "files": [
+        "app/_layout.tsx",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/debug/DebugPill.tsx",
+        "src/debug/debugLog.ts",
+        "src/hooks/useFuelTypes.ts",
+        "src/hooks/useLocation.ts",
+        "src/hooks/useStations.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "3ee5a1e",
+      "fullSha": "3ee5a1e2df71f6ce5727581d95bdef982df20406",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T19:21:24Z",
+      "commitDate": "2026-02-26T19:21:24Z",
+      "subject": "refactor(theme): implement proper light/dark mode, remove all hardcoded colors",
+      "body": "Replace ~55 hardcoded color values across 19 files with theme-derived tokens.\nEnsures consistent appearance in both light and dark modes with proper contrast.\n\nKey changes:\n- Fix Themed.tsx: was hardcoded to light-only, now uses useColorScheme\n- Remove static Theme export from Colors.ts (was always DarkTheme)\n- Root layout now references LightTheme/DarkTheme constants\n- +html.tsx CSS uses theme constants via template interpolation\n- All #FFFFFF on brand backgrounds → textOnPrimary token\n- FuelMapWeb: map style reactive to system color scheme (dark-v11/light-v11)\n- MapErrorBoundary: class component uses Appearance API for theme detection\n- Toast: uses AppColors.price.fresh/LightTheme.error instead of raw hex\n- Switch track color uses t.border instead of hardcoded #D1D5DB\n- All components use useAppTheme() hook for dynamic color values\n\nRemaining #000 values are shadowColor — standard for both modes.\n\nTags: theme, dark-mode, light-mode, colors, accessibility, contrast\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: minor\n\nhttps://claude.ai/code/session_01QL2sTVHifGeTbV29qusQbE",
+      "tags": [
+        "refactor",
+        "ui",
+        "accessibility"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "theme-system",
+      "semver": "minor",
+      "scope": "theme",
+      "title": "implement proper light/dark mode, remove all hardcoded colors",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "#000"
+      ],
+      "stats": {
+        "filesChanged": 19,
+        "additions": 94,
+        "deletions": 79
+      },
+      "files": [
+        "app/(tabs)/_layout.tsx",
+        "app/+html.tsx",
+        "app/+not-found.tsx",
+        "app/_layout.tsx",
+        "app/admin/_layout.tsx",
+        "app/admin/index.tsx",
+        "app/admin/station/[id].tsx",
+        "app/station/[id].tsx",
+        "components/Themed.tsx",
+        "constants/Colors.ts",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/components/map/MapErrorBoundary.tsx",
+        "src/components/map/StationMarker.tsx",
+        "src/components/search/FuelTypeSelector.tsx",
+        "src/components/search/LocationSearch.tsx",
+        "src/components/search/RadiusSelector.tsx",
+        "src/components/station/StationList.tsx",
+        "src/components/ui/Toast.tsx",
+        "src/components/ui/TutorialModal.tsx"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "1feb24b",
+      "fullSha": "1feb24b38719a4f0bcae88e95880d04ef0ab11b2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T15:31:14Z",
+      "commitDate": "2026-02-26T15:31:14Z",
+      "subject": "Merge pull request #11 from devmade-ai/claude/fix-background-color-kQZid",
+      "body": "Set dark mode as app default theme",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #11 from devmade-ai/claude/fix-background-color-kQZid",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#11"
+      ],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 19,
+        "deletions": 14
+      },
+      "files": [
+        "app/(tabs)/_layout.tsx",
+        "app/+html.tsx",
+        "app/_layout.tsx",
+        "constants/Colors.ts",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/hooks/useAppTheme.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "23252f3",
+      "fullSha": "23252f3f607b1f4d7db4b05bcf2afe1c56efe913",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T15:28:00Z",
+      "commitDate": "2026-02-26T15:28:00Z",
+      "subject": "fix(theme): default to dark mode instead of light",
+      "body": "App was showing off-white (#F9FAFB) background because light theme was\nthe default. Flipped all theme resolution logic to use dark mode unless\nthe system explicitly requests light mode. Updated web body CSS, map\nstyle, and static Theme alias to match.\n\nTags: ui, theme, dark-mode\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01BfhVnf4N4ACavd8s5mu6FG",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "dark-mode",
+      "semver": "patch",
+      "scope": "theme",
+      "title": "default to dark mode instead of light",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 19,
+        "deletions": 14
+      },
+      "files": [
+        "app/(tabs)/_layout.tsx",
+        "app/+html.tsx",
+        "app/_layout.tsx",
+        "constants/Colors.ts",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/hooks/useAppTheme.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "d9d0edb",
+      "fullSha": "d9d0edbfaccca1b648a90b95ae953f32f3a96e55",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T14:56:13Z",
+      "commitDate": "2026-02-26T14:56:13Z",
+      "subject": "Merge pull request #10 from devmade-ai/claude/add-address-search-AfJbL",
+      "body": "Add address search with autocomplete and deferred GPS",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #10 from devmade-ai/claude/add-address-search-AfJbL",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#10"
+      ],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 971,
+        "deletions": 205
+      },
+      "files": [
+        "app/(tabs)/_layout.tsx",
+        "app/(tabs)/index.tsx",
+        "src/components/map/FuelMap.tsx",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/components/search/LocationSearch.tsx",
+        "src/components/ui/BurgerMenu.tsx",
+        "src/components/ui/TutorialModal.tsx",
+        "src/hooks/useLocation.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f7c7d14",
+      "fullSha": "f7c7d14eb921b887ea38f01683d5146dd911686b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T12:48:47Z",
+      "commitDate": "2026-02-26T12:48:47Z",
+      "subject": "feat(ui): fix dark mode, add alpha badge, tutorial modal, burger menu",
+      "body": "Fix dark mode by replacing hardcoded Colors.light.tint with\nuseColorScheme-aware theme tokens for header background, text, and icons.\nAdd teal ALPHA badge next to \"FuelHunt\" title in header.\nReplace cog icon with burger menu containing: How to Use (tutorial),\nUser Guide, Testing Guide, Source Code, and Admin links.\nAdd multi-step tutorial modal that auto-shows on first launch and\nis re-accessible from the burger menu.\n\nTags: ui, dark-mode, tutorial, menu, header\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: minor\n\nhttps://claude.ai/code/session_014Yk9LPpkingr1ezhc6Cmnp",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "ux-polish",
+      "semver": "minor",
+      "scope": "ui",
+      "title": "fix dark mode, add alpha badge, tutorial modal, burger menu",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 573,
+        "deletions": 36
+      },
+      "files": [
+        "app/(tabs)/_layout.tsx",
+        "src/components/ui/BurgerMenu.tsx",
+        "src/components/ui/TutorialModal.tsx"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "d3df8bc",
+      "fullSha": "d3df8bc840f5ad10a52c8e4e9e12ac490301cd0c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T12:34:06Z",
+      "commitDate": "2026-02-26T12:34:06Z",
+      "subject": "feat(search): add address search with autocomplete and deferred GPS",
+      "body": "Replace the submit-only address bar with a full autocomplete dropdown\nusing Mapbox Geocoding API (debounced 300ms, 5 suggestions, scoped to ZA).\nDefer GPS prompting so the app starts instantly with JHB as default —\nGPS only triggers when the user taps the crosshair locate button.\nAdd blue dot on web map when GPS is active, and conditionally show\nnative UserLocation only when GPS has been explicitly activated.\n\nTags: search, gps, map, ux, geocoding\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: address-search\nSemver: minor\n\nhttps://claude.ai/code/session_014Yk9LPpkingr1ezhc6Cmnp",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "address-search",
+      "semver": "minor",
+      "scope": "search",
+      "title": "add address search with autocomplete and deferred GPS",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 398,
+        "deletions": 169
+      },
+      "files": [
+        "app/(tabs)/index.tsx",
+        "src/components/map/FuelMap.tsx",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/components/search/LocationSearch.tsx",
+        "src/hooks/useLocation.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "c17d62a",
+      "fullSha": "c17d62a996f1fce1274db550bfd6239d266e8c12",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T12:19:32Z",
+      "commitDate": "2026-02-26T12:19:32Z",
+      "subject": "Merge pull request #9 from devmade-ai/claude/review-and-rename-fuelhunt-RKwZj",
+      "body": "Add dark mode, haptics, toast feedback, and improve UX",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #9 from devmade-ai/claude/review-and-rename-fuelhunt-RKwZj",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#9"
+      ],
+      "stats": {
+        "filesChanged": 27,
+        "additions": 1474,
+        "deletions": 1598
+      },
+      "files": [
+        "README.md",
+        "app.json",
+        "app/(tabs)/_layout.tsx",
+        "app/(tabs)/index.tsx",
+        "app/+html.tsx",
+        "app/_layout.tsx",
+        "app/admin/_layout.tsx",
+        "app/admin/index.tsx",
+        "app/admin/station/[id].tsx",
+        "app/station/[id].tsx",
+        "constants/Colors.ts",
+        "docs/USER_GUIDE.md",
+        "package-lock.json",
+        "package.json",
+        "public/manifest.json",
+        "src/components/admin/PriceEditor.tsx",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/components/search/FuelTypeSelector.tsx",
+        "src/components/search/RadiusSelector.tsx",
+        "src/components/station/PriceDisplay.tsx",
+        "src/components/station/StationCard.tsx",
+        "src/components/station/StationList.tsx",
+        "src/components/ui/Toast.tsx",
+        "src/hooks/useAppTheme.ts",
+        "src/hooks/usePersistedState.ts",
+        "src/lib/haptics.ts",
+        "supabase/config.toml"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "34f9b72",
+      "fullSha": "34f9b725cfea1eef93fd7b08b0c941fd6378e3b7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T12:13:59Z",
+      "commitDate": "2026-02-26T12:13:59Z",
+      "subject": "fix(deps): add missing async-storage and expo-haptics dependencies",
+      "body": "Previous npx expo install ran silently without adding to package.json.\nThese are required for preference persistence and haptic feedback.\n\nTags: deps, bugfix\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: ux-improvements\nSemver: patch\n\nhttps://claude.ai/code/session_01HtYvrwKShFNNdBYvZgDqrd",
+      "tags": [
+        "bugfix",
+        "dependency-add"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "ux-improvements",
+      "semver": "patch",
+      "scope": "deps",
+      "title": "add missing async-storage and expo-haptics dependencies",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 32,
+        "deletions": 0
+      },
+      "files": [
+        "package-lock.json",
+        "package.json"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "1dbacbb",
+      "fullSha": "1dbacbb0d4502d6986daaf53407dd7fd1773999a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T12:03:35Z",
+      "commitDate": "2026-02-26T12:03:35Z",
+      "subject": "feat(ux): comprehensive UX improvements across all screens",
+      "body": "Changes across 17 improvement areas:\n\nGeneral UX:\n- Toast feedback system for admin save/toggle actions\n- Better empty states with actionable suggestions (widen radius, reset filters)\n- \"Reset filters\" button to clear all filters in one tap\n- Address search input using Mapbox Geocoding API\n- Warning icon + dimmed opacity for stale prices (> 7 days)\n- Persisted fuel type and radius preferences via AsyncStorage\n\nMobile UX:\n- Haptic feedback (expo-haptics) on all interactive elements\n- Pull-to-refresh on station detail via RefreshControl\n- SafeAreaView on all screens (admin, detail, home)\n- KeyboardAvoidingView on admin edit form\n- Dark mode: full light/dark theme with system detection\n- StatusBar controlled per color scheme\n\nWeb on Mobile:\n- Dynamic viewport height (dvh) for mobile browser toolbar handling\n- touch-action: manipulation on map to prevent browser zoom conflicts\n- Web inputs styled with font-size 16px (prevents iOS auto-zoom)\n- PWA manifest for \"Add to Home Screen\" support\n- GeoJSON source + circle/symbol layers replace HTML markers for performance\n\nTags: ux, dark-mode, haptics, persistence, pwa, map-performance, accessibility\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: ux-improvements\nSemver: minor\n\nhttps://claude.ai/code/session_01HtYvrwKShFNNdBYvZgDqrd",
+      "tags": [
+        "feature",
+        "enhancement",
+        "ui",
+        "ux",
+        "accessibility",
+        "performance"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "ux-improvements",
+      "semver": "minor",
+      "scope": "ux",
+      "title": "comprehensive UX improvements across all screens",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 20,
+        "additions": 1431,
+        "deletions": 1587
+      },
+      "files": [
+        "app/(tabs)/index.tsx",
+        "app/+html.tsx",
+        "app/_layout.tsx",
+        "app/admin/_layout.tsx",
+        "app/admin/index.tsx",
+        "app/admin/station/[id].tsx",
+        "app/station/[id].tsx",
+        "constants/Colors.ts",
+        "public/manifest.json",
+        "src/components/admin/PriceEditor.tsx",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/components/search/FuelTypeSelector.tsx",
+        "src/components/search/RadiusSelector.tsx",
+        "src/components/station/PriceDisplay.tsx",
+        "src/components/station/StationCard.tsx",
+        "src/components/station/StationList.tsx",
+        "src/components/ui/Toast.tsx",
+        "src/hooks/useAppTheme.ts",
+        "src/hooks/usePersistedState.ts",
+        "src/lib/haptics.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "16af9d4",
+      "fullSha": "16af9d4864caa062997340a8bf8568a973c21f9b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T09:49:05Z",
+      "commitDate": "2026-02-26T09:49:05Z",
+      "subject": "refactor(app): rename app from Few Lap to FuelHunt",
+      "body": "Renamed across all user-facing and config locations:\n- app.json: name, slug, scheme\n- package.json + package-lock.json: package name\n- Tab layout header title\n- README.md title and status\n- USER_GUIDE.md overview\n- Supabase config project_id\n\nTags: branding, rename, config\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: rebranding\nSemver: minor\n\nhttps://claude.ai/code/session_01HtYvrwKShFNNdBYvZgDqrd",
+      "tags": [
+        "naming",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "rebranding",
+      "semver": "minor",
+      "scope": "app",
+      "title": "rename app from Few Lap to FuelHunt",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 11,
+        "deletions": 11
+      },
+      "files": [
+        "README.md",
+        "app.json",
+        "app/(tabs)/_layout.tsx",
+        "docs/USER_GUIDE.md",
+        "package-lock.json",
+        "package.json",
+        "supabase/config.toml"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "4d435e5",
+      "fullSha": "4d435e5f175cad237fab6f7f7d10d7090e6ee2cd",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T05:29:31Z",
+      "commitDate": "2026-02-26T05:29:31Z",
+      "subject": "Merge pull request #8 from devmade-ai/claude/implement-web-maps-errEa",
+      "body": "Add interactive web map support with mapbox-gl",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #8 from devmade-ai/claude/implement-web-maps-errEa",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#8"
+      ],
+      "stats": {
+        "filesChanged": 33,
+        "additions": 1398,
+        "deletions": 528
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(tabs)/_layout.tsx",
+        "app/(tabs)/index.tsx",
+        "app/+html.tsx",
+        "app/_layout.tsx",
+        "app/admin/_layout.tsx",
+        "app/admin/index.tsx",
+        "app/admin/station/[id].tsx",
+        "app/station/[id].tsx",
+        "components/Themed.tsx",
+        "constants/Colors.ts",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "package-lock.json",
+        "package.json",
+        "src/components/admin/PriceEditor.tsx",
+        "src/components/map/FuelMap.tsx",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/components/map/MapErrorBoundary.tsx",
+        "src/components/map/StationMarker.tsx",
+        "src/components/search/FuelTypeSelector.tsx",
+        "src/components/search/RadiusSelector.tsx",
+        "src/components/station/PriceDisplay.tsx",
+        "src/components/station/StationCard.tsx",
+        "src/components/station/StationList.tsx",
+        "src/constants/fuelTypes.ts",
+        "src/hooks/useStations.ts",
+        "src/lib/alert.ts",
+        "src/lib/formatting.ts",
+        "src/lib/mapbox.ts",
+        "src/lib/navigation.ts",
+        "src/lib/supabase.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "426fd1c",
+      "fullSha": "426fd1c3e55546762e392b860292144edceca814",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T05:26:45Z",
+      "commitDate": "2026-02-26T05:26:45Z",
+      "subject": "fix(app): comprehensive bug fixes, UX, accessibility, and code quality improvements",
+      "body": "Fix 9 bugs: web Alert.alert no-op (admin flows broken), search errors\nnot shown, date timezone off-by-one, stations flash empty on search,\nAndroid nav crash without Google Maps, module-level throws crashing app,\nstation detail nav to 0,0, web marker cleanup leak, map WebGL crash.\n\nImprove UX: map fills available space (flex instead of fixed 300px),\ntouch targets meet 44px minimum, radius selector scrolls on narrow\nscreens, search debounced (300ms), retry buttons on all error screens,\nfuel type loading state shown.\n\nAdd accessibility: roles/states/labels on all interactive elements,\ntext staleness labels alongside color dots, aria-labels on web markers.\n\nImprove performance: StationCard React.memo, memoized cheapest price\ncalculations, memoized admin filtered list.\n\nImprove code quality: Theme tokens replace hardcoded hex colors, removed\ndead code (SpaceMono font, TabBarIcon, FUEL_CATEGORIES, dark theme,\ntintColorDark), standardized error handling with actual error messages.\n\nNew files: src/lib/alert.ts (cross-platform alerts),\nsrc/components/map/MapErrorBoundary.tsx (graceful map failures).\n\nTags: bugfix, ux, accessibility, performance, code-quality, web\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: code-review-fixes\nSemver: patch\n\nhttps://claude.ai/code/session_01JMVTLgZ4RRmRawFgHfLnvs",
+      "tags": [
+        "bugfix",
+        "ux",
+        "accessibility",
+        "performance",
+        "refactor"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "code-review-fixes",
+      "semver": "patch",
+      "scope": "app",
+      "title": "comprehensive bug fixes, UX, accessibility, and code quality improvements",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 29,
+        "additions": 995,
+        "deletions": 537
+      },
+      "files": [
+        "app/(tabs)/_layout.tsx",
+        "app/(tabs)/index.tsx",
+        "app/_layout.tsx",
+        "app/admin/_layout.tsx",
+        "app/admin/index.tsx",
+        "app/admin/station/[id].tsx",
+        "app/station/[id].tsx",
+        "components/Themed.tsx",
+        "constants/Colors.ts",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/admin/PriceEditor.tsx",
+        "src/components/map/FuelMap.tsx",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/components/map/MapErrorBoundary.tsx",
+        "src/components/map/StationMarker.tsx",
+        "src/components/search/FuelTypeSelector.tsx",
+        "src/components/search/RadiusSelector.tsx",
+        "src/components/station/PriceDisplay.tsx",
+        "src/components/station/StationCard.tsx",
+        "src/components/station/StationList.tsx",
+        "src/constants/fuelTypes.ts",
+        "src/hooks/useStations.ts",
+        "src/lib/alert.ts",
+        "src/lib/formatting.ts",
+        "src/lib/mapbox.ts",
+        "src/lib/navigation.ts",
+        "src/lib/supabase.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "164fd98",
+      "fullSha": "164fd98728a924a5645687ef9a5fc62385cd6c87",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T04:54:47Z",
+      "commitDate": "2026-02-26T04:54:47Z",
+      "subject": "feat(map): add interactive Mapbox map on web platform",
+      "body": "Replace plain-text fallback with full mapbox-gl JS map on web.\nFuelMap now conditionally loads native SDK or mapbox-gl per platform.\nCustom HTML markers match native style (teal pill with price label).\n\nTags: map, web, mapbox, ui\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: web-map-support\nSemver: minor\n\nhttps://claude.ai/code/session_01JMVTLgZ4RRmRawFgHfLnvs",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "web-map-support",
+      "semver": "minor",
+      "scope": "map",
+      "title": "add interactive Mapbox map on web platform",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 458,
+        "deletions": 46
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/+html.tsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "package-lock.json",
+        "package.json",
+        "src/components/map/FuelMap.tsx",
+        "src/components/map/FuelMapWeb.tsx"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "9cadb1d",
+      "fullSha": "9cadb1d48d52a7e2200aa409e338e771eac77ea6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-25T16:19:46Z",
+      "commitDate": "2026-02-25T16:19:46Z",
+      "subject": "Merge pull request #6 from devmade-ai/claude/vercel-deployment-prep-zA0fU",
+      "body": "chore(deploy): add Vercel deployment configuration",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #6 from devmade-ai/claude/vercel-deployment-prep-zA0fU",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 62,
+        "deletions": 15
+      },
+      "files": [
+        ".vercelignore",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "package.json",
+        "vercel.json"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "d87068d",
+      "fullSha": "d87068d3158da850923384125962e19acdef9298",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T16:15:33Z",
+      "commitDate": "2026-02-25T16:15:33Z",
+      "subject": "chore(deploy): add Vercel deployment configuration",
+      "body": "Add vercel.json with build command, output directory, and SPA rewrites.\nAdd .vercelignore to exclude native, docs, and test files from deploy.\nAdd build script to package.json for web export via expo export.\n\nTags: vercel, deployment, web, infrastructure\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: vercel-deployment\nSemver: minor\n\nhttps://claude.ai/code/session_01TAiXcsuHc7cAxzMryRFt6E",
+      "tags": [
+        "hosting",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "vercel-deployment",
+      "semver": "minor",
+      "scope": "deploy",
+      "title": "add Vercel deployment configuration",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 62,
+        "deletions": 15
+      },
+      "files": [
+        ".vercelignore",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "package.json",
+        "vercel.json"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "7137328",
+      "fullSha": "71373289cf83066df89f5a6204ff3f5cdc22b10b",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-02-25T15:25:09Z",
+      "commitDate": "2026-02-25T15:25:09Z",
+      "subject": "chore(infra): link Supabase project and push migrations",
+      "body": "Linked remote Supabase project, pushed all 4 migrations (schema, RLS,\ngeospatial function, updated_at trigger), and seeded with dev data.\nFixed config.toml health_timeout incompatibility with CLI v2.65.5.\n\nTags: supabase, database, deployment, config\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deliverable-1\nSemver: patch\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+      "tags": [
+        "database",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": "infra",
+      "title": "link Supabase project and push migrations",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 24,
+        "deletions": 33
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "supabase/config.toml"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "61f6333",
+      "fullSha": "61f63330b79067b9f4b1990831b63957d6af4773",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-20T00:53:08+02:00",
+      "commitDate": "2026-02-20T00:53:08+02:00",
+      "subject": "Merge pull request #5 from devmade-ai/claude/code-review-QxGqV",
+      "body": "Add auth warning banner and fix data fetching issues",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/code-review-QxGqV",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 112,
+        "deletions": 47
+      },
+      "files": [],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "eba8f96",
+      "fullSha": "eba8f96bf39a5a46ba5c4071cab54706c9c7ed8c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T22:51:58+00:00",
+      "commitDate": "2026-02-19T22:51:58+00:00",
+      "subject": "fix(core): resolve 8 runtime and quality issues from code review",
+      "body": "- Fix station detail coordinate extraction: parse PostGIS GeoJSON\n  instead of accessing non-existent .latitude/.longitude properties\n  (was sending users to 0,0 for directions)\n- Fix fuel type names: query fuel_prices table (has FK for PostgREST\n  join) instead of current_prices materialized view (no FK, join\n  silently fails, shows \"Unknown\" for all fuel types)\n- Fix Mapbox token init: FuelMap and StationMarker now import from\n  lib/mapbox init module instead of @rnmapbox/maps directly, ensuring\n  setAccessToken is called before map renders\n- Fix map/list toggle: make views mutually exclusive (list was always\n  visible regardless of toggle state)\n- Add admin auth warning banner: persistent banner in admin layout\n  warns that edits may fail without a valid admin session\n- Add updated_at trigger: new migration auto-sets stations.updated_at\n  on row update, removing fragile client-side timestamp setting\n- Remove dead dark mode branching: root layout hardcodes DefaultTheme\n  since all components use light-only styles\n- Fix inconsistent imports: standardize to relative paths (was mixing\n  @/ alias with ../../ relative paths)\n\nTags: bugfix, code-review, database, mapbox, admin, ux\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: code-review\nSemver: patch\n\nhttps://claude.ai/code/session_01AGD98nV46FWHZyb1SmQjEd",
+      "tags": [
+        "bugfix",
+        "refactor"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": "core",
+      "title": "resolve 8 runtime and quality issues from code review",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 112,
+        "deletions": 47
+      },
+      "files": [
+        "app/(tabs)/_layout.tsx",
+        "app/(tabs)/index.tsx",
+        "app/+not-found.tsx",
+        "app/_layout.tsx",
+        "app/admin/_layout.tsx",
+        "app/admin/station/[id].tsx",
+        "app/station/[id].tsx",
+        "src/components/map/FuelMap.tsx",
+        "src/components/map/StationMarker.tsx",
+        "supabase/migrations/20260219000004_updated_at_trigger.sql"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "bac21c0",
+      "fullSha": "bac21c096b416a24c2fc987544a4c3385977f71a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-20T00:34:24+02:00",
+      "commitDate": "2026-02-20T00:34:24+02:00",
+      "subject": "Merge pull request #4 from devmade-ai/claude/setup-mapbox-supabase-NlnlL",
+      "body": "Implement home screen, station detail, and admin management UI",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #4 from devmade-ai/claude/setup-mapbox-supabase-NlnlL",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 40,
+        "additions": 12230,
+        "deletions": 2769
+      },
+      "files": [],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "71532f8",
+      "fullSha": "71532f805ba9ff62aba65e2fb30a6ea0b7c2ca0d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T22:01:02+00:00",
+      "commitDate": "2026-02-19T22:01:02+00:00",
+      "subject": "refactor(formatting): extract helpers to formatting.ts, add decision docs",
+      "body": "- Move formatOperatingHours, formatAmenity, DAY_ORDER, DAY_LABELS from\n  station/[id].tsx to src/lib/formatting.ts for reusability\n- Add decision documentation to jest.config.js (What/Why/Alternatives)\n- Add 9 unit tests for formatOperatingHours and formatAmenity (30 total)\n- Update TESTING_GUIDE to reflect new test count\n\nStation detail drops from 395 to 348 lines, well under the 500-line threshold.\n\nTags: refactor, formatting, testing, code-standards\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: few-lap-mvp\nSemver: patch\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+      "tags": [
+        "refactor",
+        "test-unit",
+        "docs"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": "formatting",
+      "title": "extract helpers to formatting.ts, add decision docs",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 142,
+        "deletions": 52
+      },
+      "files": [
+        "app/station/[id].tsx",
+        "docs/TESTING_GUIDE.md",
+        "jest.config.js",
+        "src/lib/__tests__/formatting.test.ts",
+        "src/lib/formatting.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "00266d2",
+      "fullSha": "00266d2bfc6363670a2bace9fe4207ca71475ebf",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T21:16:05+00:00",
+      "commitDate": "2026-02-19T21:16:05+00:00",
+      "subject": "feat(ux): add pull-to-refresh, operating hours, unit tests, and cleanup",
+      "body": "- Add pull-to-refresh on home screen station list via FlatList onRefresh\n- Add operating hours display on station detail (day-by-day table)\n- Remove unused Expo template files (modal, EditScreenInfo, StyledText, ExternalLink)\n- Set up Jest + ts-jest, write 21 unit tests for formatting utilities\n- Update docs: TODO (move completed), HISTORY, SESSION_NOTES, TESTING_GUIDE\n\nTags: ux, testing, cleanup, station-detail, home-screen\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: few-lap-mvp\nSemver: minor\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+      "tags": [
+        "feature",
+        "ux",
+        "test-unit",
+        "removal"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "ux",
+      "title": "add pull-to-refresh, operating hours, unit tests, and cleanup",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 17,
+        "additions": 8984,
+        "deletions": 2764
+      },
+      "files": [
+        "app/(tabs)/index.tsx",
+        "app/_layout.tsx",
+        "app/modal.tsx",
+        "app/station/[id].tsx",
+        "components/EditScreenInfo.tsx",
+        "components/ExternalLink.tsx",
+        "components/StyledText.tsx",
+        "components/__tests__/StyledText-test.js",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "jest.config.js",
+        "package-lock.json",
+        "package.json",
+        "src/components/station/StationList.tsx",
+        "src/lib/__tests__/formatting.test.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "dd2664c",
+      "fullSha": "dd2664cfd1641db6c88ed9984a3d3bce57d3897e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T21:06:43+00:00",
+      "commitDate": "2026-02-19T21:06:43+00:00",
+      "subject": "feat(admin): build station management interface (Deliverable 6)",
+      "body": "Admin station list with search, active/inactive status badges,\nand activate/deactivate toggle with confirmation dialog.\n\nAdmin station edit form with validation (name, address, city required),\nbrand, postal code, phone, active toggle, and save with error feedback.\n\nPriceEditor component: inline per-fuel-type price editing with upsert\nto fuel_prices table. Tap any price to edit, save/cancel per row.\n\nAdmin accessible via gear icon in home screen header. Dark-themed\nheader distinguishes admin from user-facing screens.\n\nAuth deferred — RLS policies enforce admin-only writes at the database\nlevel. Login UI will be added when Supabase Auth is configured.\n\nTags: admin, station-management, prices, forms, rls\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: added\nEpic: admin-interface\nSemver: minor\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "admin",
+      "title": "build station management interface (Deliverable 6)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 1225,
+        "deletions": 32
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(tabs)/_layout.tsx",
+        "app/_layout.tsx",
+        "app/admin/_layout.tsx",
+        "app/admin/index.tsx",
+        "app/admin/station/[id].tsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/admin/PriceEditor.tsx"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "ef0b5c5",
+      "fullSha": "ef0b5c53b28a893d177b64935cdb558ea9844228",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T20:56:07+00:00",
+      "commitDate": "2026-02-19T20:56:07+00:00",
+      "subject": "feat(ui): build home screen, station detail, and core components (Deliverables 3-4)",
+      "body": "Implement the full user-facing app shell with search, map, list, and detail views.\n\nHome screen: location detection → fuel type chips → radius chips → map/list\ntoggle → station cards sorted by distance or cheapest price.\n\nStation detail: full price list with staleness indicators, Get Directions\nbutton (deep link to native maps), phone tap-to-call, amenity chips.\n\nComponents: FuelMap, StationMarker, StationCard, StationList, PriceDisplay,\nFuelTypeSelector, RadiusSelector.\n\nHooks: useLocation (GPS + JHB fallback), useStations (RPC + grouping),\nuseFuelTypes (Supabase query).\n\nUtilities: navigation.ts (platform deep links), formatting.ts (prices,\ndistances, dates, staleness).\n\nTags: ui, home-screen, station-detail, map, components, hooks\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: app-shell\nSemver: minor\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 5,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "ui",
+      "title": "build home screen, station detail, and core components (Deliverables 3-4)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 21,
+        "additions": 1765,
+        "deletions": 129
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(tabs)/_layout.tsx",
+        "app/(tabs)/index.tsx",
+        "app/(tabs)/two.tsx",
+        "app/station/[id].tsx",
+        "constants/Colors.ts",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/map/FuelMap.tsx",
+        "src/components/map/StationMarker.tsx",
+        "src/components/search/FuelTypeSelector.tsx",
+        "src/components/search/RadiusSelector.tsx",
+        "src/components/station/PriceDisplay.tsx",
+        "src/components/station/StationCard.tsx",
+        "src/components/station/StationList.tsx",
+        "src/hooks/useFuelTypes.ts",
+        "src/hooks/useLocation.ts",
+        "src/hooks/useStations.ts",
+        "src/lib/formatting.ts",
+        "src/lib/navigation.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "b6ab4d3",
+      "fullSha": "b6ab4d34f6ce6657fbcc1e50a888650053db9833",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T19:46:37+00:00",
+      "commitDate": "2026-02-19T19:46:37+00:00",
+      "subject": "feat(setup): configure Mapbox SDK and Supabase credentials",
+      "body": "Install @rnmapbox/maps and register as Expo plugin.\nCreate .env with EXPO_PUBLIC_* variables mapped to project credentials.\nAdd src/lib/mapbox.ts for centralized Mapbox initialization.\nUpdate USER_ACTIONS.md with Supabase link/push steps (blocked by network).\n\nTags: mapbox, supabase, config, setup\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: project-setup\nSemver: minor\n\nhttps://claude.ai/code/session_01ThLMrSNuDBKbW88RcsQYpk",
+      "tags": [
+        "config",
+        "dependency-add"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "setup",
+      "title": "configure Mapbox SDK and Supabase credentials",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 368,
+        "deletions": 46
+      },
+      "files": [
+        ".env.example",
+        "CLAUDE.md",
+        "app.json",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "package-lock.json",
+        "package.json",
+        "src/lib/mapbox.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "c51630f",
+      "fullSha": "c51630fcd37bb44baad6346c23ae1a7bb47c8377",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-19T21:04:37+02:00",
+      "commitDate": "2026-02-19T21:04:37+02:00",
+      "subject": "Merge pull request #3 from devmade-ai/claude/update-claude-md-8k0DO",
+      "body": "Initialize Few Lap: Expo project, Supabase schema, and geospatial API",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #3 from devmade-ai/claude/update-claude-md-8k0DO",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 55,
+        "additions": 12373,
+        "deletions": 90
+      },
+      "files": [],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "1025ea0",
+      "fullSha": "1025ea0826aa04522e3a6ba43cd63aee78bde618",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T18:34:39+00:00",
+      "commitDate": "2026-02-19T18:34:39+00:00",
+      "subject": "docs(all): add project-specific sections to CLAUDE.md, update session docs",
+      "body": "CLAUDE.md now includes project-specific context alongside the shared glow-props\nrules: Project Status, Architecture (full file tree), Key State Structures\n(SearchParams, RadiusSearchResult, StationWithPrices), and updated AI Notes\nwith project-relevant items replacing glow-props-specific ones (TutorialModal,\nVite references removed).\n\nSESSION_NOTES and HISTORY updated to reflect all work done this session\nincluding documentation creation.\n\nTags: docs, claude-md, session\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fuel-station-finder\nSemver: patch\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "all",
+      "title": "add project-specific sections to CLAUDE.md, update session docs",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 128,
+        "deletions": 18
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "bd2f83b",
+      "fullSha": "bd2f83b107acd606f3028bd525f4a7ad848e73f5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T18:30:22+00:00",
+      "commitDate": "2026-02-19T18:30:22+00:00",
+      "subject": "docs(all): create all maintained documents per CLAUDE.md standards",
+      "body": "Created all documents specified in the Documentation section of CLAUDE.md:\n- SESSION_NOTES.md: current session context snapshot\n- TODO.md: pending work across features, technical, UX, testing\n- HISTORY.md: record of completed work\n- USER_ACTIONS.md: pending manual actions (Supabase setup, Mapbox token)\n- AI_MISTAKES.md: learnings to prevent repeated errors\n- USER_GUIDE.md: placeholder user documentation\n- TESTING_GUIDE.md: build and database verification steps\n- README.md: updated with project overview, setup, and structure\n\nRemoved .gitkeep placeholders since directories now have real content.\n\nTags: docs, documentation, process\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: fuel-station-finder\nSemver: patch\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "all",
+      "title": "create all maintained documents per CLAUDE.md standards",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 301,
+        "deletions": 1
+      },
+      "files": [
+        "README.md",
+        "docs/.gitkeep",
+        "docs/AI_MISTAKES.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "docs/USER_GUIDE.md",
+        "docs/working/.gitkeep"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "3eb009d",
+      "fullSha": "3eb009d4a8c978549a4dbbb402144450271e90c8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T18:26:01+00:00",
+      "commitDate": "2026-02-19T18:26:01+00:00",
+      "subject": "feat(init): scaffold Expo project with Supabase schema and geospatial queries",
+      "body": "Project initialization for the fuel station finder app:\n- Expo SDK 54 with TypeScript, file-based routing (expo-router), tabs template\n- Supabase schema: fuel_types, stations (PostGIS), fuel_prices, price_history\n- Materialized view (current_prices) with auto-refresh trigger\n- RLS policies: public read for active data, admin full access via JWT role\n- find_stations_in_radius() PostgreSQL function for geospatial radius search\n- Seed data: 6 SA fuel types, 12 Gauteng stations with sample prices\n- Supabase client (src/lib/supabase.ts) and app-level TypeScript types\n- Route stubs for station detail and admin views\n- .env.example with required env var names\n\nDocker daemon unavailable in this environment so migrations are untested\nagainst a live database — SQL follows the spec exactly and is ready to run\nvia `supabase start` or against a remote Supabase project.\n\nTags: expo, supabase, postgis, schema, init\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: fuel-station-finder\nSemver: minor\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "init",
+        "feature",
+        "database",
+        "schema"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "init",
+      "title": "scaffold Expo project with Supabase schema and geospatial queries",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 42,
+        "additions": 10878,
+        "deletions": 0
+      },
+      "files": [
+        ".env.example",
+        ".gitignore",
+        ".vscode/extensions.json",
+        ".vscode/settings.json",
+        "app.json",
+        "app/(tabs)/_layout.tsx",
+        "app/(tabs)/index.tsx",
+        "app/(tabs)/two.tsx",
+        "app/+html.tsx",
+        "app/+not-found.tsx",
+        "app/_layout.tsx",
+        "app/admin/_layout.tsx",
+        "app/admin/station/[id].tsx",
+        "app/modal.tsx",
+        "app/station/[id].tsx",
+        "assets/fonts/SpaceMono-Regular.ttf",
+        "assets/images/adaptive-icon.png",
+        "assets/images/favicon.png",
+        "assets/images/icon.png",
+        "assets/images/splash-icon.png",
+        "components/EditScreenInfo.tsx",
+        "components/ExternalLink.tsx",
+        "components/StyledText.tsx",
+        "components/Themed.tsx",
+        "components/__tests__/StyledText-test.js",
+        "components/useClientOnlyValue.ts",
+        "components/useClientOnlyValue.web.ts",
+        "components/useColorScheme.ts",
+        "components/useColorScheme.web.ts",
+        "constants/Colors.ts",
+        "package-lock.json",
+        "package.json",
+        "src/constants/fuelTypes.ts",
+        "src/lib/supabase.ts",
+        "src/types/index.ts",
+        "supabase/.gitignore",
+        "supabase/config.toml",
+        "supabase/migrations/20260219000001_schema.sql",
+        "supabase/migrations/20260219000002_rls_policies.sql",
+        "supabase/migrations/20260219000003_geospatial_function.sql",
+        "supabase/seed.sql",
+        "tsconfig.json"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "01ee029",
+      "fullSha": "01ee02966d2e3f0f882fb9dc8ab86ddd88c88aba",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T12:20:41+00:00",
+      "commitDate": "2026-02-19T12:20:41+00:00",
+      "subject": "docs(spec): save full project specification for fuel station finder",
+      "body": "Complete technical spec covering all 6 deliverables, tech stack justification,\ndata model, deployment architecture, cost estimates, risks, testing requirements,\nand development timeline. This is the source of truth for the project.\n\nTags: docs, spec, planning\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: fuel-station-finder\nSemver: patch\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "spec",
+      "title": "save full project specification for fuel station finder",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 803,
+        "deletions": 0
+      },
+      "files": [
+        "docs/working/project-spec.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "a2d8260",
+      "fullSha": "a2d82601205213c4116bd23abc7a00d11d91c04a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T12:17:18+00:00",
+      "commitDate": "2026-02-19T12:17:18+00:00",
+      "subject": "docs(plan): add implementation plan for Deliverable 1",
+      "body": "Covers project initialization (Expo + TypeScript), Supabase schema with\nPostGIS, RLS policies, geospatial query function, seed data, and client\nsetup. Combines spec Deliverables 1 and 2 since they're tightly coupled.\n\nTags: docs, planning, supabase, expo\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: fuel-station-finder\nSemver: patch\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "plan",
+      "title": "add implementation plan for Deliverable 1",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 89,
+        "deletions": 0
+      },
+      "files": [
+        "docs/working/plan-deliverable-1.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "ad885f0",
+      "fullSha": "ad885f06be80242786e43eed09723c05302bc7b8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T11:52:46+00:00",
+      "commitDate": "2026-02-19T11:52:46+00:00",
+      "subject": "docs(claude): use visible markdown for source reference",
+      "body": "HTML comments are stripped by some parsers and invisible to AI assistants.\nSwitched to a blockquote so the source URL and update command are always visible.\n\nTags: docs, claude-md\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: shared-config\nSemver: patch\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "claude",
+      "title": "use visible markdown for source reference",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 4
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "45d8363",
+      "fullSha": "45d83632033e12300b9966d6352a8de1219053e4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-19T11:37:48+00:00",
+      "commitDate": "2026-02-19T11:37:48+00:00",
+      "subject": "docs(claude): sync CLAUDE.md with glow-props canonical source",
+      "body": "Replace local CLAUDE.md with the shared version from devmade-ai/glow-props,\nwhich serves as the single source of truth for AI assistant rules across\nall projects. Added source reference comments at the top for future updates.\n\nTags: docs, claude-md, sync\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: shared-config\nSemver: patch\n\nhttps://claude.ai/code/session_01YEZNQ5g62kxtahLFmVfymh",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "claude",
+      "title": "sync CLAUDE.md with glow-props canonical source",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 195,
+        "deletions": 91
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "e2f7e89",
+      "fullSha": "e2f7e89435683ddf12ded790c30627d64233b6dd",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-15T17:49:10Z",
+      "commitDate": "2026-02-15T17:49:10Z",
+      "subject": "Merge pull request #2 from devmade-ai/claude/add-commit-guidelines-SMoxk",
+      "body": "docs: add commit message format requirements to CLAUDE.md",
+      "tags": [
+        "documentation",
+        "conventions",
+        "merge"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Merge pull request #2 from devmade-ai/claude/add-commit-guidelines-SMoxk",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#2"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 30,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "c7d564b",
+      "fullSha": "c7d564b83c37ece282e8d6063ecc9b006f312e7e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-15T14:47:07Z",
+      "commitDate": "2026-02-15T14:47:07Z",
+      "subject": "docs(claude): add commit message format guidelines to CLAUDE.md",
+      "body": "Adds a new \"Commit Message Format\" section under HARD RULES defining\nrequired metadata footers for all commits, including Tags, Complexity,\nUrgency, Impact, Risk, Debt, Epic, and Semver fields.\n\nTags: documentation, developer-experience, standards\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: commit-guidelines\nSemver: patch\n\nhttps://claude.ai/code/session_016EPk4gasTdNpc5yAyNGkUy",
+      "tags": [
+        "documentation",
+        "developer-experience",
+        "conventions"
+      ],
+      "complexity": 1,
+      "scope": "claude",
+      "title": "add commit message format guidelines to CLAUDE.md",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 30,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "c51d8de",
+      "fullSha": "c51d8de057e3bf0ec239ae2c8991265ff23179c6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-13T07:33:48Z",
+      "commitDate": "2026-02-13T07:33:48Z",
+      "subject": "Merge pull request #1 from devmade-ai/claude/review-claude-md-oKht4",
+      "body": "Add CLAUDE.md guidelines and docs directory structure",
+      "tags": [
+        "documentation",
+        "developer-experience",
+        "ai-guidelines",
+        "merge"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Merge pull request #1 from devmade-ai/claude/review-claude-md-oKht4",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#1"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 143,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/.gitkeep",
+        "docs/working/.gitkeep"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "50b00c1",
+      "fullSha": "50b00c1a7124d9048db05a96563eb841cb8be0b8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-13T07:12:41Z",
+      "commitDate": "2026-02-13T07:12:41Z",
+      "subject": "Add CLAUDE.md and docs directory structure",
+      "body": "Adapted from a comprehensive CLAUDE.md template — trimmed generic\nengineering principles that Claude already follows by default, kept\nproject-specific rules and structure. Created /docs and /docs/working\ndirectories for documentation and scratch files.\n\nhttps://claude.ai/code/session_01WJ5HDXg65b6q4sDHXKNHSP",
+      "tags": [
+        "documentation",
+        "developer-experience",
+        "ai-guidelines"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Add CLAUDE.md and docs directory structure",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 143,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/.gitkeep",
+        "docs/working/.gitkeep"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "26af148",
+      "fullSha": "26af148a1d45a6e9e71dead0192b3c0dd56e9152",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-11T13:06:50Z",
+      "commitDate": "2026-02-11T13:06:50Z",
+      "subject": "Initial commit",
+      "body": "",
+      "tags": [
+        "initial-commit",
+        "repository-setup"
+      ],
+      "complexity": 1,
+      "scope": null,
+      "title": "Initial commit",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 675,
+        "deletions": 0
+      },
+      "files": [
+        "LICENSE",
+        "README.md"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 1,
+      "impact": "internal"
+    }
+  ],
+  "contributors": [
+    {
+      "author_id": "devmade.ai@gmail.com",
+      "name": "devmade.ai@gmail.com",
+      "email": "devmade.ai@gmail.com",
+      "commits": 47,
+      "avgComplexity": 2.02,
+      "avgUrgency": 1.89,
+      "tagBreakdown": {
+        "merge": 14,
+        "bugfix": 5,
+        "refactor": 5,
+        "performance": 3,
+        "docs": 8,
+        "ui": 10,
+        "build": 1,
+        "feature": 11,
+        "config": 4,
+        "simplify": 1,
+        "ux": 8,
+        "logging": 1,
+        "accessibility": 3,
+        "dependency-add": 2,
+        "enhancement": 1,
+        "naming": 1,
+        "hosting": 1,
+        "test-unit": 2,
+        "removal": 1,
+        "init": 1,
+        "database": 1,
+        "schema": 1,
+        "documentation": 4,
+        "conventions": 2,
+        "developer-experience": 3,
+        "ai-guidelines": 2,
+        "initial-commit": 1,
+        "repository-setup": 1
+      },
+      "impactBreakdown": {
+        "internal": 27,
+        "user-facing": 16,
+        "infrastructure": 4,
+        "api": 0
+      },
+      "riskBreakdown": {
+        "low": 35,
+        "medium": 7,
+        "high": 0
+      },
+      "debtBreakdown": {
+        "added": 1,
+        "paid": 13,
+        "neutral": 28
+      },
+      "repos": [
+        "few-lap"
+      ],
+      "repoCount": 1,
+      "firstCommit": "2026-02-11T13:06:50Z",
+      "lastCommit": "2026-03-02T19:42:33Z"
+    },
+    {
+      "author_id": "jacotheron87",
+      "name": "jacotheron87",
+      "email": "jacotheron87@gmail.com",
+      "commits": 1,
+      "avgComplexity": 1,
+      "avgUrgency": 3,
+      "tagBreakdown": {
+        "database": 1,
+        "config": 1
+      },
+      "impactBreakdown": {
+        "internal": 0,
+        "user-facing": 0,
+        "infrastructure": 1,
+        "api": 0
+      },
+      "riskBreakdown": {
+        "low": 1,
+        "medium": 0,
+        "high": 0
+      },
+      "debtBreakdown": {
+        "added": 0,
+        "paid": 1,
+        "neutral": 0
+      },
+      "repos": [
+        "few-lap"
+      ],
+      "repoCount": 1,
+      "firstCommit": "2026-02-25T15:25:09Z",
+      "lastCommit": "2026-02-25T15:25:09Z"
+    }
+  ],
+  "summary": {
+    "totalCommits": 48,
+    "totalContributors": 2,
+    "tagBreakdown": {
+      "merge": 14,
+      "bugfix": 5,
+      "refactor": 5,
+      "performance": 3,
+      "docs": 8,
+      "ui": 10,
+      "build": 1,
+      "feature": 11,
+      "config": 5,
+      "simplify": 1,
+      "ux": 8,
+      "logging": 1,
+      "accessibility": 3,
+      "dependency-add": 2,
+      "enhancement": 1,
+      "naming": 1,
+      "hosting": 1,
+      "database": 2,
+      "test-unit": 2,
+      "removal": 1,
+      "init": 1,
+      "schema": 1,
+      "documentation": 4,
+      "conventions": 2,
+      "developer-experience": 3,
+      "ai-guidelines": 2,
+      "initial-commit": 1,
+      "repository-setup": 1
+    },
+    "complexityBreakdown": {
+      "1": 24,
+      "2": 8,
+      "3": 9,
+      "4": 6,
+      "5": 1
+    },
+    "urgencyBreakdown": {
+      "1": 13,
+      "2": 27,
+      "3": 7,
+      "4": 1,
+      "5": 0
+    },
+    "impactBreakdown": {
+      "internal": 27,
+      "user-facing": 16,
+      "infrastructure": 5,
+      "api": 0
+    },
+    "riskBreakdown": {
+      "low": 36,
+      "medium": 7,
+      "high": 0
+    },
+    "debtBreakdown": {
+      "added": 1,
+      "paid": 14,
+      "neutral": 28
+    },
+    "epicBreakdown": {
+      "code-audit": 1,
+      "project-standards": 1,
+      "branding": 1,
+      "pwa": 1,
+      "theming": 2,
+      "debug-tooling": 1,
+      "theme-system": 1,
+      "dark-mode": 1,
+      "ux-polish": 1,
+      "address-search": 1,
+      "ux-improvements": 2,
+      "rebranding": 1,
+      "code-review-fixes": 1,
+      "web-map-support": 1,
+      "vercel-deployment": 1
+    },
+    "semverBreakdown": {
+      "patch": 7,
+      "minor": 11,
+      "major": 0
+    },
+    "avgComplexity": 2,
+    "avgUrgency": 1.92,
+    "monthly": {
+      "2026-03": {
+        "commits": 2,
+        "tags": {
+          "merge": 1,
+          "bugfix": 1,
+          "refactor": 1,
+          "performance": 1
+        },
+        "impact": {
+          "internal": 2,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 1,
+          "medium": 1,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 1,
+          "neutral": 1
+        },
+        "semver": {
+          "patch": 1,
+          "minor": 0,
+          "major": 0
+        },
+        "avgComplexity": 2,
+        "avgUrgency": 2
+      },
+      "2026-02": {
+        "commits": 46,
+        "tags": {
+          "merge": 13,
+          "docs": 8,
+          "ui": 10,
+          "build": 1,
+          "feature": 11,
+          "config": 5,
+          "simplify": 1,
+          "ux": 8,
+          "logging": 1,
+          "refactor": 4,
+          "accessibility": 3,
+          "bugfix": 4,
+          "dependency-add": 2,
+          "enhancement": 1,
+          "performance": 2,
+          "naming": 1,
+          "hosting": 1,
+          "database": 2,
+          "test-unit": 2,
+          "removal": 1,
+          "init": 1,
+          "schema": 1,
+          "documentation": 4,
+          "conventions": 2,
+          "developer-experience": 3,
+          "ai-guidelines": 2,
+          "initial-commit": 1,
+          "repository-setup": 1
+        },
+        "impact": {
+          "internal": 25,
+          "user-facing": 16,
+          "infrastructure": 5,
+          "api": 0
+        },
+        "risk": {
+          "low": 35,
+          "medium": 6,
+          "high": 0
+        },
+        "debt": {
+          "added": 1,
+          "paid": 13,
+          "neutral": 27
+        },
+        "semver": {
+          "patch": 6,
+          "minor": 11,
+          "major": 0
+        },
+        "avgComplexity": 2,
+        "avgUrgency": 1.91
+      }
+    },
+    "monthlyCommits": {
+      "2026-03": {
+        "commits": 2,
+        "tags": {
+          "merge": 1,
+          "bugfix": 1,
+          "refactor": 1,
+          "performance": 1
+        },
+        "impact": {
+          "internal": 2,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 1,
+          "medium": 1,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 1,
+          "neutral": 1
+        },
+        "semver": {
+          "patch": 1,
+          "minor": 0,
+          "major": 0
+        },
+        "avgComplexity": 2,
+        "avgUrgency": 2
+      },
+      "2026-02": {
+        "commits": 46,
+        "tags": {
+          "merge": 13,
+          "docs": 8,
+          "ui": 10,
+          "build": 1,
+          "feature": 11,
+          "config": 5,
+          "simplify": 1,
+          "ux": 8,
+          "logging": 1,
+          "refactor": 4,
+          "accessibility": 3,
+          "bugfix": 4,
+          "dependency-add": 2,
+          "enhancement": 1,
+          "performance": 2,
+          "naming": 1,
+          "hosting": 1,
+          "database": 2,
+          "test-unit": 2,
+          "removal": 1,
+          "init": 1,
+          "schema": 1,
+          "documentation": 4,
+          "conventions": 2,
+          "developer-experience": 3,
+          "ai-guidelines": 2,
+          "initial-commit": 1,
+          "repository-setup": 1
+        },
+        "impact": {
+          "internal": 25,
+          "user-facing": 16,
+          "infrastructure": 5,
+          "api": 0
+        },
+        "risk": {
+          "low": 35,
+          "medium": 6,
+          "high": 0
+        },
+        "debt": {
+          "added": 1,
+          "paid": 13,
+          "neutral": 27
+        },
+        "semver": {
+          "patch": 6,
+          "minor": 11,
+          "major": 0
+        },
+        "avgComplexity": 2,
+        "avgUrgency": 1.91
+      }
+    },
+    "dateRange": {
+      "earliest": "2026-02-11T13:06:50Z",
+      "latest": "2026-03-02T19:42:33Z"
+    },
+    "security_events": []
+  }
+}

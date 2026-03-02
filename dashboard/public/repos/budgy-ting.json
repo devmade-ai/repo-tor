@@ -1,0 +1,3388 @@
+{
+  "metadata": {
+    "generatedAt": "2026-03-02T20:27:54.246Z",
+    "repository": "budgy-ting",
+    "scope": "budgy-ting",
+    "repoCount": 1,
+    "commitCount": 58,
+    "authors": {
+      "devmade.ai@gmail.com": {
+        "name": "devmade.ai@gmail.com",
+        "email": "devmade.ai@gmail.com"
+      }
+    }
+  },
+  "commits": [
+    {
+      "sha": "c5dd0c0",
+      "fullSha": "c5dd0c00b2a335cdaa2bd32e7738aa670cf0dbd8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T10:07:21Z",
+      "commitDate": "2026-03-02T10:07:21Z",
+      "subject": "Merge pull request #16 from devmade-ai/claude/code-review-audit-kD474",
+      "body": "Fix prop mutations and timer leaks, improve performance",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #16 from devmade-ai/claude/code-review-audit-kD474",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#16"
+      ],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 119,
+        "deletions": 51
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/ExpenseForm.vue",
+        "src/components/HelpDrawer.vue",
+        "src/composables/useTagAutocomplete.ts",
+        "src/debug/DebugPill.vue",
+        "src/engine/variance.ts",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/import-steps/ImportStepReview.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "29d46dd",
+      "fullSha": "29d46dd8e7f42cb014d2734c5cda00a3c7088e3c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T10:05:24Z",
+      "commitDate": "2026-03-02T10:05:24Z",
+      "subject": "fix(quality): resolve prop mutation, timer leaks, O(n²) lookup, and missing error boundary",
+      "body": "Code review audit identified and fixed several quality issues:\n\n- ImportStepReview: emit events instead of mutating props directly (bug)\n- ExpenseForm, HelpDrawer, DebugPill, useTagAutocomplete: add onUnmounted\n  cleanup for setTimeout calls that could leak on component unmount\n- variance.ts: replace expenses.find() inside loop with Map lookup (O(n²)→O(n))\n- ProjectedTab: wrap calculateProjection computed in try-catch\n\nTags: code-quality, timer-leak, prop-mutation, performance, error-handling\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-review-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01CgLA691ZEhYQe5XCGYtWu8",
+      "tags": [
+        "bugfix",
+        "refactor",
+        "performance",
+        "error-handling"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "code-review-audit",
+      "semver": "patch",
+      "scope": "quality",
+      "title": "resolve prop mutation, timer leaks, O(n²) lookup, and missing error boundary",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 119,
+        "deletions": 51
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/ExpenseForm.vue",
+        "src/components/HelpDrawer.vue",
+        "src/composables/useTagAutocomplete.ts",
+        "src/debug/DebugPill.vue",
+        "src/engine/variance.ts",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/import-steps/ImportStepReview.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "41c23a5",
+      "fullSha": "41c23a5ebea7b474121bf3137e380b08165c80ba",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T05:52:57Z",
+      "commitDate": "2026-03-02T05:52:57Z",
+      "subject": "Merge pull request #15 from devmade-ai/claude/replace-balance-cash-input-aTAxy",
+      "body": "Replace persisted balance with ephemeral cash runway input",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #15 from devmade-ai/claude/replace-balance-cash-input-aTAxy",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#15"
+      ],
+      "stats": {
+        "filesChanged": 22,
+        "additions": 232,
+        "deletions": 1443
+      },
+      "files": [
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/USER_GUIDE.md",
+        "src/components/WorkspaceForm.vue",
+        "src/db/demoData.ts",
+        "src/engine/cashflow.test.ts",
+        "src/engine/cashflow.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/envelope.ts",
+        "src/engine/exportImport.test.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/projection.ts",
+        "src/router/index.ts",
+        "src/types/models.ts",
+        "src/views/CashflowTab.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/WorkspaceCreateView.vue",
+        "src/views/WorkspaceDetailView.vue",
+        "src/views/WorkspaceEditView.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "593a4ff",
+      "fullSha": "593a4ff0ee1834a66624ff854ee2d14179826f86",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T02:38:23Z",
+      "commitDate": "2026-03-02T02:38:23Z",
+      "subject": "feat(forecast): replace stored balance with ephemeral cash-on-hand input",
+      "body": "Remove the persisted startingBalance concept from Workspace and replace\nit with a lightweight, non-stored \"Cash on hand\" input on the Forecast\ntab. Users enter how much cash they have and instantly see how long it\nlasts based on the forecast — without persisting the value.\n\nRemoved:\n- Cashflow tab (CashflowTab.vue, router, tab nav)\n- Cashflow engine (engine/cashflow.ts + tests)\n- Envelope engine (engine/envelope.ts + tests)\n- startingBalance from Workspace type, form, demo data\n- Envelope summary from CompareTab\n\nAdded:\n- Cash on hand input on ProjectedTab with month-by-month runway calc\n- Shows \"Runs out in [month]\", \"Cash is growing\", or \"Lasts all N months\"\n\nUpdated:\n- Export/import strips legacy startingBalance/totalBudget on import\n- All docs (USER_GUIDE, TESTING_GUIDE, README, HISTORY, SESSION_NOTES)\n\nTags: forecast, balance, cashflow, ux, cleanup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: cash-runway\nSemver: major\n\nhttps://claude.ai/code/session_01BtCbpzUbAGfsxrS1w51HqB",
+      "tags": [
+        "feature",
+        "removal",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "cash-runway",
+      "semver": "major",
+      "scope": "forecast",
+      "title": "replace stored balance with ephemeral cash-on-hand input",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 22,
+        "additions": 232,
+        "deletions": 1443
+      },
+      "files": [
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/USER_GUIDE.md",
+        "src/components/WorkspaceForm.vue",
+        "src/db/demoData.ts",
+        "src/engine/cashflow.test.ts",
+        "src/engine/cashflow.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/envelope.ts",
+        "src/engine/exportImport.test.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/projection.ts",
+        "src/router/index.ts",
+        "src/types/models.ts",
+        "src/views/CashflowTab.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/WorkspaceCreateView.vue",
+        "src/views/WorkspaceDetailView.vue",
+        "src/views/WorkspaceEditView.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "466edbd",
+      "fullSha": "466edbdade97bb2aecef9f6f317cd396a19c1977",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T01:50:28Z",
+      "commitDate": "2026-03-02T01:50:28Z",
+      "subject": "Merge pull request #14 from devmade-ai/claude/bank-statement-import-1fWAF",
+      "body": "Migrate category field to multi-tag system across codebase",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #14 from devmade-ai/claude/bank-statement-import-1fWAF",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#14"
+      ],
+      "stats": {
+        "filesChanged": 27,
+        "additions": 720,
+        "deletions": 266
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/ExpenseForm.vue",
+        "src/composables/useTagAutocomplete.ts",
+        "src/db/demoData.ts",
+        "src/db/index.ts",
+        "src/engine/cashflow.test.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/exportImport.test.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/matching.test.ts",
+        "src/engine/matching.ts",
+        "src/engine/projection.test.ts",
+        "src/engine/projection.ts",
+        "src/engine/variance.test.ts",
+        "src/engine/variance.ts",
+        "src/types/models.ts",
+        "src/views/ExpenseCreateView.vue",
+        "src/views/ExpenseEditView.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/WorkspaceListView.vue",
+        "src/views/compare-views/CompareLineItems.vue",
+        "src/views/import-steps/ImportStepMapping.vue",
+        "src/views/import-steps/ImportStepReview.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "3d9a4cd",
+      "fullSha": "3d9a4cd0cb8d80c98e9a8565885b6487f8934830",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T01:49:09Z",
+      "commitDate": "2026-03-02T01:49:09Z",
+      "subject": "fix(build): remove unused imports causing vue-tsc errors",
+      "body": "Remove unused `selectSuggestion` destructure from ExpenseForm and\nunused `primaryTag` import from exportImport.ts. These caused the\nVercel build to fail with TS6133 errors.\n\nTags: build, fix\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: bank-statement-import\nSemver: patch\n\nhttps://claude.ai/code/session_01W7Hcs1NZY1RinJoQaurw5E",
+      "tags": [
+        "bugfix",
+        "build"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "bank-statement-import",
+      "semver": "patch",
+      "scope": "build",
+      "title": "remove unused imports causing vue-tsc errors",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 1,
+        "deletions": 2
+      },
+      "files": [
+        "src/components/ExpenseForm.vue",
+        "src/engine/exportImport.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "30aaf02",
+      "fullSha": "30aaf025e45fa81dfe1b71e705e6fc4f157772bd",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T01:26:33Z",
+      "commitDate": "2026-03-02T01:26:33Z",
+      "subject": "feat(models): migrate category to multi-tag system with import improvements",
+      "body": "Replace single `category: string` with `tags: string[]` on Expense and\nActual models. Adds CategoryMapping table for learned description→tags\npatterns during import, duplicate detection (date+amount+description),\nand multi-tag chip input UI. DB migration v5 handles backward-compatible\nupgrade. Export schema bumped to v2 with v1 import support preserved.\n\nTags: data-model, import, tags, migration\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: bank-statement-import\nSemver: minor\n\nhttps://claude.ai/code/session_01W7Hcs1NZY1RinJoQaurw5E",
+      "tags": [
+        "feature",
+        "migration",
+        "database",
+        "schema"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "bank-statement-import",
+      "semver": "minor",
+      "scope": "models",
+      "title": "migrate category to multi-tag system with import improvements",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 27,
+        "additions": 721,
+        "deletions": 266
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/ExpenseForm.vue",
+        "src/composables/useTagAutocomplete.ts",
+        "src/db/demoData.ts",
+        "src/db/index.ts",
+        "src/engine/cashflow.test.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/exportImport.test.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/matching.test.ts",
+        "src/engine/matching.ts",
+        "src/engine/projection.test.ts",
+        "src/engine/projection.ts",
+        "src/engine/variance.test.ts",
+        "src/engine/variance.ts",
+        "src/types/models.ts",
+        "src/views/ExpenseCreateView.vue",
+        "src/views/ExpenseEditView.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/WorkspaceListView.vue",
+        "src/views/compare-views/CompareLineItems.vue",
+        "src/views/import-steps/ImportStepMapping.vue",
+        "src/views/import-steps/ImportStepReview.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "4f2b123",
+      "fullSha": "4f2b123890fb65b99cfc646588a329e573f5492f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T11:44:20Z",
+      "commitDate": "2026-02-27T11:44:20Z",
+      "subject": "Merge pull request #13 from devmade-ai/claude/fix-mobile-workspace-spacing-PmjiY",
+      "body": "Improve WorkspaceListView header layout responsiveness",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #13 from devmade-ai/claude/fix-mobile-workspace-spacing-PmjiY",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#13"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/views/WorkspaceListView.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "968a651",
+      "fullSha": "968a651fd31794ae1dfbdad858d524668932583f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T09:49:00Z",
+      "commitDate": "2026-02-27T09:49:00Z",
+      "subject": "fix(workspace-list): prevent cramped header on mobile",
+      "body": "Add flex-wrap and gap-y-3 to the workspace list header so the\nRestore and New Workspace buttons wrap below the heading on\nnarrow screens instead of being squeezed together.\n\nTags: ui, mobile, layout\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-polish\nSemver: patch\n\nhttps://claude.ai/code/session_016pSz8tkSd7mtgSD9wfeEkt",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "mobile-polish",
+      "semver": "patch",
+      "scope": "workspace-list",
+      "title": "prevent cramped header on mobile",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/views/WorkspaceListView.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "4c6c9bc",
+      "fullSha": "4c6c9bc3b52aa18c850805f352a4422cd386b663",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T09:37:22Z",
+      "commitDate": "2026-02-27T09:37:22Z",
+      "subject": "Merge pull request #12 from devmade-ai/claude/migrate-to-vercel-0LcXj",
+      "body": "Migrate deployment from GitHub Pages to Vercel",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #12 from devmade-ai/claude/migrate-to-vercel-0LcXj",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#12"
+      ],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 18,
+        "deletions": 85
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "README.md",
+        "docs/PRODUCT_DEFINITION.md",
+        "src/router/index.ts",
+        "vercel.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "49aa4ad",
+      "fullSha": "49aa4ada40113592c7674dc1c3d55e302e7f3440",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T08:49:21Z",
+      "commitDate": "2026-02-27T08:49:21Z",
+      "subject": "infra(deploy): migrate from GitHub Pages to Vercel",
+      "body": "GitHub Pages requires base-path hacks, 404.html SPA routing workaround,\nand manual env var injection for subpath deployments. Vercel handles all\nof this natively with rewrites.\n\nChanges:\n- Delete .github/workflows/deploy.yml\n- Add vercel.json with SPA rewrite rule\n- Remove VITE_BASE_URL env var and dynamic base path from vite.config.ts\n- Hardcode PWA manifest id/scope/start_url to '/'\n- Remove GitHub Pages comment from router config\n- Update README.md and PRODUCT_DEFINITION.md deployment sections\n\nTags: deployment, vercel, infrastructure, pwa\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: vercel-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01KKfRgpgJUSQ7Yt81bi3Q1H",
+      "tags": [
+        "hosting",
+        "config",
+        "removal"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "vercel-migration",
+      "semver": "minor",
+      "scope": "deploy",
+      "title": "migrate from GitHub Pages to Vercel",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 18,
+        "deletions": 85
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "README.md",
+        "docs/PRODUCT_DEFINITION.md",
+        "src/router/index.ts",
+        "vercel.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "962a6e5",
+      "fullSha": "962a6e5dfe15b597eb58ba6e0d615a11cdc99b37",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T04:41:34Z",
+      "commitDate": "2026-02-27T04:41:34Z",
+      "subject": "Merge pull request #11 from devmade-ai/claude/debug-budgy-ting-install-Dil23",
+      "body": "Improve PWA installability debugging and manifest configuration",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #11 from devmade-ai/claude/debug-budgy-ting-install-Dil23",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#11"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 38,
+        "deletions": 0
+      },
+      "files": [
+        "src/composables/usePWAInstall.ts",
+        "vite.config.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "a9178c9",
+      "fullSha": "a9178c956fd50475131700f91de39e2c998a5312",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T22:54:22Z",
+      "commitDate": "2026-02-26T22:54:22Z",
+      "subject": "fix(pwa): harden manifest for Chrome Android install + add diagnostics",
+      "body": "Chrome 145 on Android wasn't firing beforeinstallprompt despite the SW\nregistering and icons existing. Three defensive manifest fixes:\n- Add explicit `id` field so Chrome has stable app identity\n- Add `purpose: 'any'` explicitly on non-maskable icons\n- Add `prefer_related_applications: false` to prevent store-redirect\n\nAlso adds install system diagnostic logging: init state (browser,\nstandalone, dismissed) at boot, and a 5s warning if beforeinstallprompt\nhasn't arrived yet (with manifest-link and SW-controller checks).\n\nTags: pwa, install, debug, manifest\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pwa-install\nSemver: patch\n\nhttps://claude.ai/code/session_01Rk5eh3oKjd9qurEJxEEf8p",
+      "tags": [
+        "bugfix",
+        "config",
+        "logging"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "pwa-install",
+      "semver": "patch",
+      "scope": "pwa",
+      "title": "harden manifest for Chrome Android install + add diagnostics",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 38,
+        "deletions": 0
+      },
+      "files": [
+        "src/composables/usePWAInstall.ts",
+        "vite.config.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "58ac1a4",
+      "fullSha": "58ac1a41e8143314373b2dc95797b75d02dd0648",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T22:29:46Z",
+      "commitDate": "2026-02-26T22:29:46Z",
+      "subject": "Merge pull request #10 from devmade-ai/claude/svg-icons-to-png-F0Q0R",
+      "body": "Replace text-based B icon with geometric SVG paths",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #10 from devmade-ai/claude/svg-icons-to-png-F0Q0R",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#10"
+      ],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 190,
+        "deletions": 8
+      },
+      "files": [
+        "CLAUDE.md",
+        "index.html",
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "src/composables/usePWAInstall.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "39a4bf7",
+      "fullSha": "39a4bf73d50ed82a31fa0e2a3596a8e2dcd544e1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T22:18:43Z",
+      "commitDate": "2026-02-26T22:18:43Z",
+      "subject": "feat(pwa): fix install prompt race condition, sync CLAUDE.md with glow-props",
+      "body": "Adds inline <script> in index.html to capture beforeinstallprompt before\nVue modules load — fixes race condition on repeat visits where cached SW\nfires the event before the framework mounts.\n\nUpdates usePWAInstall.ts to consume early-captured event from window,\nwith fallback listener for first-visit case.\n\nSyncs CLAUDE.md with glow-props reference patterns:\n- Cross-project reference section for future checks\n- Suggested Implementations (PWA, debug, icons, timer cleanup)\n- \"Check build tools before building\" AI note\n\nTags: pwa, documentation, cross-project\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: patch\n\nhttps://claude.ai/code/session_01EePS9jKmNpwW11Ttb1pD8K",
+      "tags": [
+        "bugfix",
+        "docs",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": "pwa",
+      "title": "fix install prompt race condition, sync CLAUDE.md with glow-props",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 168,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md",
+        "index.html",
+        "src/composables/usePWAInstall.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "7ee6a12",
+      "fullSha": "7ee6a12394e6dad88b6ec6b811abc1ce1642b284",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T21:35:39Z",
+      "commitDate": "2026-02-26T21:35:39Z",
+      "subject": "feat(icon): redesign app icon as geometric path-based B monogram",
+      "body": "Replace font-dependent <text> element with hand-tuned SVG paths.\nThe B is built from two D-shaped cubic bezier bowls (lower slightly\nwider) with even-odd counter cutouts. Eliminates cross-platform font\nrendering inconsistencies — identical output on macOS, Ubuntu CI, etc.\n\nRegenerated all PNG assets via sharp (512, 192, 180, 32px).\n\nTags: icons, svg, pwa, branding\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: branding\nSemver: patch\n\nhttps://claude.ai/code/session_01EePS9jKmNpwW11Ttb1pD8K",
+      "tags": [
+        "ui",
+        "build"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "branding",
+      "semver": "patch",
+      "scope": "icon",
+      "title": "redesign app icon as geometric path-based B monogram",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 22,
+        "deletions": 7
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "91faa44",
+      "fullSha": "91faa44665b69cc60aa00039f9fe45456a17efdd",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T20:12:16Z",
+      "commitDate": "2026-02-26T20:12:16Z",
+      "subject": "Merge pull request #9 from devmade-ai/claude/demo-workspace-cashflow-WiRAW",
+      "body": "Rename Budget → Workspace and add demo workspace",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #9 from devmade-ai/claude/demo-workspace-cashflow-WiRAW",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#9"
+      ],
+      "stats": {
+        "filesChanged": 37,
+        "additions": 794,
+        "deletions": 550
+      },
+      "files": [
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_GUIDE.md",
+        "src/components/AppLayout.vue",
+        "src/components/ErrorBoundary.vue",
+        "src/components/ExpenseForm.vue",
+        "src/components/TutorialModal.vue",
+        "src/components/WorkspaceForm.vue",
+        "src/composables/useFormValidation.ts",
+        "src/db/demoData.ts",
+        "src/db/index.ts",
+        "src/engine/cashflow.test.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/exportImport.test.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/matching.test.ts",
+        "src/engine/projection.test.ts",
+        "src/engine/projection.ts",
+        "src/engine/variance.test.ts",
+        "src/main.ts",
+        "src/router/index.ts",
+        "src/types/models.ts",
+        "src/views/CashflowTab.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ExpenseCreateView.vue",
+        "src/views/ExpenseEditView.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/WorkspaceCreateView.vue",
+        "src/views/WorkspaceDetailView.vue",
+        "src/views/WorkspaceEditView.vue",
+        "src/views/WorkspaceListView.vue",
+        "src/views/import-steps/ImportStepReview.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "4d1e502",
+      "fullSha": "4d1e502c2bb91b87e29284f2bce941c8d6c076f6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T20:04:46Z",
+      "commitDate": "2026-02-26T20:04:46Z",
+      "subject": "feat(core): rename Budget → Workspace and add demo workspace",
+      "body": "Renamed the top-level entity from \"Budget\" to \"Workspace\" across the entire\ncodebase to better reflect that the tool is a cashflow planning tool, not just\na budget tracker. Added a demo workspace with realistic South African household\ndata (salary, rent, groceries, etc.) that auto-seeds on first visit.\n\nKey changes:\n- Types: Budget → Workspace, budgetId → workspaceId, added isDemo field\n- DB migration v4: creates workspaces table, migrates data, renames FKs\n- 5 view files renamed (BudgetListView → WorkspaceListView, etc.)\n- Routes: /budget/ → /workspace/, budget-* → workspace-*\n- Engine functions renamed (exportBudget → exportWorkspace, etc.)\n- Backward-compatible import accepts both old and new format keys\n- New src/db/demoData.ts seeds 16-item demo household on empty DB\n- All 94 tests pass, build clean\n\nTags: rename, workspace, demo, migration, ux\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: workspace-rename\nSemver: major\n\nhttps://claude.ai/code/session_018CChub4R1iN29ca1Z8x3w9",
+      "tags": [
+        "feature",
+        "naming",
+        "migration",
+        "database"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "workspace-rename",
+      "semver": "major",
+      "scope": "core",
+      "title": "rename Budget → Workspace and add demo workspace",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 37,
+        "additions": 794,
+        "deletions": 550
+      },
+      "files": [
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_GUIDE.md",
+        "src/components/AppLayout.vue",
+        "src/components/ErrorBoundary.vue",
+        "src/components/ExpenseForm.vue",
+        "src/components/TutorialModal.vue",
+        "src/components/WorkspaceForm.vue",
+        "src/composables/useFormValidation.ts",
+        "src/db/demoData.ts",
+        "src/db/index.ts",
+        "src/engine/cashflow.test.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/exportImport.test.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/matching.test.ts",
+        "src/engine/projection.test.ts",
+        "src/engine/projection.ts",
+        "src/engine/variance.test.ts",
+        "src/main.ts",
+        "src/router/index.ts",
+        "src/types/models.ts",
+        "src/views/CashflowTab.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ExpenseCreateView.vue",
+        "src/views/ExpenseEditView.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/WorkspaceCreateView.vue",
+        "src/views/WorkspaceDetailView.vue",
+        "src/views/WorkspaceEditView.vue",
+        "src/views/WorkspaceListView.vue",
+        "src/views/import-steps/ImportStepReview.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "e9723d7",
+      "fullSha": "e9723d7ae3f080ceb97dcf3866bbd85ad4fdb9c9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T17:36:59Z",
+      "commitDate": "2026-02-26T17:36:59Z",
+      "subject": "Merge pull request #8 from devmade-ai/claude/codebase-review-cHGxV",
+      "body": "fix(engine,a11y): comprehensive codebase review fixes",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #8 from devmade-ai/claude/codebase-review-cHGxV",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#8"
+      ],
+      "stats": {
+        "filesChanged": 66,
+        "additions": 6949,
+        "deletions": 1300
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/IMPORT_FORMAT.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_GUIDE.md",
+        "docs/sample-import.csv",
+        "package-lock.json",
+        "package.json",
+        "src/App.vue",
+        "src/components/AppLayout.vue",
+        "src/components/BudgetForm.vue",
+        "src/components/ConfirmDialog.vue",
+        "src/components/DateInput.vue",
+        "src/components/EmptyState.vue",
+        "src/components/ErrorAlert.vue",
+        "src/components/ErrorBoundary.vue",
+        "src/components/ExpenseForm.vue",
+        "src/components/HelpDrawer.vue",
+        "src/components/InstallInstructionsModal.vue",
+        "src/components/LoadingSpinner.vue",
+        "src/components/ScrollHint.vue",
+        "src/components/ToastNotification.vue",
+        "src/components/TutorialModal.vue",
+        "src/composables/useCategoryAutocomplete.ts",
+        "src/composables/useDialogA11y.ts",
+        "src/composables/useFormValidation.ts",
+        "src/composables/usePWAUpdate.ts",
+        "src/composables/useToast.ts",
+        "src/composables/useTutorial.ts",
+        "src/db/index.ts",
+        "src/engine/cashflow.test.ts",
+        "src/engine/cashflow.ts",
+        "src/engine/csvParser.test.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/envelope.ts",
+        "src/engine/exportImport.test.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/matching.test.ts",
+        "src/engine/matching.ts",
+        "src/engine/projection.test.ts",
+        "src/engine/projection.ts",
+        "src/engine/variance.test.ts",
+        "src/engine/variance.ts",
+        "src/router/index.ts",
+        "src/types/models.ts",
+        "src/views/BudgetCreateView.vue",
+        "src/views/BudgetDetailView.vue",
+        "src/views/BudgetEditView.vue",
+        "src/views/BudgetListView.vue",
+        "src/views/CashflowTab.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ExpenseCreateView.vue",
+        "src/views/ExpenseEditView.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/compare-views/CompareCategories.vue",
+        "src/views/compare-views/CompareLineItems.vue",
+        "src/views/compare-views/CompareMonthly.vue",
+        "src/views/import-steps/ImportStepComplete.vue",
+        "src/views/import-steps/ImportStepMapping.vue",
+        "src/views/import-steps/ImportStepReview.vue",
+        "src/views/import-steps/ImportStepUpload.vue",
+        "vite.config.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ceaacbf",
+      "fullSha": "ceaacbfd6693f158dddd46e18cc9d01ff94e35dd",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T17:25:28Z",
+      "commitDate": "2026-02-26T17:25:28Z",
+      "subject": "feat(ux): implement 24 codebase review improvements for mobile UX and code quality",
+      "body": "Addresses all suggestions from comprehensive codebase review: toast notifications,\ntouch target sizing, tab bar overflow, overflow menu, budget summaries, empty state\nimprovements, label clarity, expense search, scroll hints, text readability,\nCompareTab extraction, form validation composable, and date input component.\n\nTags: ux, mobile, refactor, components, composables, accessibility\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: codebase-review\nSemver: minor\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
+      "tags": [
+        "enhancement",
+        "ui",
+        "ux",
+        "refactor",
+        "accessibility"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "codebase-review",
+      "semver": "minor",
+      "scope": "ux",
+      "title": "implement 24 codebase review improvements for mobile UX and code quality",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 27,
+        "additions": 947,
+        "deletions": 431
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/AppLayout.vue",
+        "src/components/BudgetForm.vue",
+        "src/components/DateInput.vue",
+        "src/components/ExpenseForm.vue",
+        "src/components/HelpDrawer.vue",
+        "src/components/ScrollHint.vue",
+        "src/components/ToastNotification.vue",
+        "src/composables/useCategoryAutocomplete.ts",
+        "src/composables/useFormValidation.ts",
+        "src/composables/useToast.ts",
+        "src/views/BudgetCreateView.vue",
+        "src/views/BudgetDetailView.vue",
+        "src/views/BudgetEditView.vue",
+        "src/views/BudgetListView.vue",
+        "src/views/CashflowTab.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ExpenseCreateView.vue",
+        "src/views/ExpenseEditView.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/compare-views/CompareCategories.vue",
+        "src/views/compare-views/CompareLineItems.vue",
+        "src/views/compare-views/CompareMonthly.vue",
+        "src/views/import-steps/ImportStepMapping.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "9e4d9d0",
+      "fullSha": "9e4d9d047a0378f3d391ea398f98c8708df86573",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T13:43:39Z",
+      "commitDate": "2026-02-25T13:43:39Z",
+      "subject": "feat(ui): add import format guide and sample CSV to burger menu",
+      "body": "New menu items below a divider:\n- \"Import Format\" — explains required columns, date formats, amount\n  handling, and includes a copy-pasteable AI prompt for converting\n  bank statements into the right CSV structure.\n- \"Sample CSV\" — 25-row realistic sample file rendered in a code block\n  for easy copying/testing.\n\nBoth use the existing HelpDrawer + Vite ?raw pattern.\n\nTags: ui, import, docs, menu, help\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: help-system\nSemver: minor\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
+      "tags": [
+        "feature",
+        "docs",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "help-system",
+      "semver": "minor",
+      "scope": "ui",
+      "title": "add import format guide and sample CSV to burger menu",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 211,
+        "deletions": 3
+      },
+      "files": [
+        "docs/IMPORT_FORMAT.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/USER_GUIDE.md",
+        "docs/sample-import.csv",
+        "src/components/AppLayout.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "c627507",
+      "fullSha": "c6275079adeb788eabb540d672ff4b6657c7c4b8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T13:31:52Z",
+      "commitDate": "2026-02-25T13:31:52Z",
+      "subject": "feat(ui): add burger menu with in-app help drawers",
+      "body": "Replace the standalone \"?\" help button with a hamburger menu that provides\naccess to the tutorial, User Guide, and Test Scenarios. Guides render as\nslide-out drawers using `marked` to parse the markdown docs imported at\nbuild time via Vite ?raw.\n\nAlso fixes a pre-existing TS2352 type error in exportImport.ts (double\ncast through `unknown`).\n\nTags: ui, help, menu, drawer, markdown, docs\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: help-system\nSemver: minor\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
+      "tags": [
+        "feature",
+        "ui",
+        "dependency-add"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "help-system",
+      "semver": "minor",
+      "scope": "ui",
+      "title": "add burger menu with in-app help drawers",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 289,
+        "deletions": 29
+      },
+      "files": [
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/USER_GUIDE.md",
+        "package-lock.json",
+        "package.json",
+        "src/components/AppLayout.vue",
+        "src/components/HelpDrawer.vue",
+        "src/engine/exportImport.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "af6bcd6",
+      "fullSha": "af6bcd68d85b7d413569a1193ff75d2de8947c5c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T13:21:23Z",
+      "commitDate": "2026-02-25T13:21:23Z",
+      "subject": "docs(claude): add development phase note to AI Notes",
+      "body": "App is pre-release with zero users. AI assistants should not\nover-polish or push back on feature ideas based on user need —\nthe goal is exploration and everything is provisional.\n\nTags: docs, ai-notes, process\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: dev-process\nSemver: patch\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "claude",
+      "title": "add development phase note to AI Notes",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "23cea0d",
+      "fullSha": "23cea0d9e417699539ae49820ec3cec20dfed44f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T10:33:02Z",
+      "commitDate": "2026-02-25T10:33:02Z",
+      "subject": "docs(guides): write comprehensive user guide and testing guide",
+      "body": "Populate USER_GUIDE.md with complete user-facing documentation covering\nall features: budgets, expenses, projected spend, cashflow, compare,\nimport wizard, PWA features, and navigation. Written in plain language\nfor non-technical users as required by project standards.\n\nPopulate TESTING_GUIDE.md with 50+ manual test scenarios organized by\nfeature area, plus a quick regression checklist. Covers happy paths,\nvalidation errors, edge cases, data integrity, and PWA features.\n\nBoth documents derived from comprehensive user flow analysis of all\nviews, components, and engine logic in the codebase.\n\nTags: documentation, user-guide, testing-guide, quality\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "documentation",
+      "semver": "patch",
+      "scope": "guides",
+      "title": "write comprehensive user guide and testing guide",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 1155,
+        "deletions": 6
+      },
+      "files": [
+        "docs/TESTING_GUIDE.md",
+        "docs/USER_GUIDE.md"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "8a42034",
+      "fullSha": "8a4203460374cd512870d63cacd3d92a6ea22b80",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T09:12:16Z",
+      "commitDate": "2026-02-25T09:12:16Z",
+      "subject": "feat(import): create new income/expense line from import review",
+      "body": "During import review, users can now create a new recurring income or\nexpense line directly from the reassign dropdown without leaving the\nwizard. The modal form pre-fills description, category, amount, and\ntype from the imported CSV row. The new expense is saved to DB and\nauto-assigned to the row with manual confidence.\n\nTags: import, ux, cashflow\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cashflow-pivot\nSemver: minor\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "cashflow-pivot",
+      "semver": "minor",
+      "scope": "import",
+      "title": "create new income/expense line from import review",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 279,
+        "deletions": 19
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "src/views/ImportWizardView.vue",
+        "src/views/import-steps/ImportStepReview.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "98c9f47",
+      "fullSha": "98c9f47c50572743a30069f961d070886a811270",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T08:52:33Z",
+      "commitDate": "2026-02-25T08:52:33Z",
+      "subject": "feat(engines): type-aware actuals splitting across all engines",
+      "body": "Actuals are now classified as income or expense using the linked\nexpense type (actual.expenseId → expense.type) instead of blindly\ntreating all actuals as expenses. This prevents salary deposits from\ninflating \"actual spend\" in cashflow, envelope, and variance engines.\n\n- Cashflow: actualSpend → actualIncome/actualExpenses, effective net\n  independently uses actuals where available\n- Envelope: filters to expense-type actuals only for burn rate/depletion\n- Variance: excludes income actuals from all expense comparisons; fixed\n  variable ordering bug (expenseActuals used before definition)\n- Matching: originalSign on ImportedRow, isTypeCompatible() prefers\n  same-type matches (negative CSV amounts → income), fallback to any\n- ImportStepMapping: preserves originalSign before Math.abs()\n- Views: CashflowTab/CompareTab pass expenses to engines\n- 92 tests across 7 files (was 86)\n\nTags: engine, cashflow, matching, variance, envelope, import, tests\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: cashflow-pivot\nSemver: minor\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
+      "tags": [
+        "feature",
+        "refactor",
+        "bugfix"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "cashflow-pivot",
+      "semver": "minor",
+      "scope": "engines",
+      "title": "type-aware actuals splitting across all engines",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 13,
+        "additions": 319,
+        "deletions": 105
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "src/engine/cashflow.test.ts",
+        "src/engine/cashflow.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/envelope.ts",
+        "src/engine/matching.test.ts",
+        "src/engine/matching.ts",
+        "src/engine/variance.test.ts",
+        "src/engine/variance.ts",
+        "src/views/CashflowTab.vue",
+        "src/views/CompareTab.vue",
+        "src/views/import-steps/ImportStepMapping.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "b1af049",
+      "fullSha": "b1af04993ffc5d75b44ddbb5880fc351ec35fffa",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T07:21:22Z",
+      "commitDate": "2026-02-25T07:21:22Z",
+      "subject": "feat(cashflow): pivot from budgeting to cashflow app with income tracking",
+      "body": "Add income/expense type system, starting balance, cashflow engine, and\nrunning balance forecast. This transforms the app from expense-only budgeting\nto full cashflow management where users can track both money in and money out.\n\nData model:\n- Add LineType = 'income' | 'expense' and type field to Expense\n- Rename Budget.totalBudget → startingBalance (cashflow semantics)\n- DB schema v3 migration preserves existing data\n\nEngines:\n- Projection engine extended with monthlyIncome, monthlyNet, totalIncome, totalNet\n- New cashflow.ts: running balance, zero-crossing detection, income/expense breakdown\n- Envelope engine updated to use startingBalance\n\nUI:\n- ExpenseForm: income/expense toggle (red/green with icons)\n- New CashflowTab: summary cards, monthly balance table, bar chart forecast\n- ProjectedTab: income rows in green, section headers, income/expense/net footer\n- ExpensesTab: income badge, green amounts, income/expense monthly summary\n- BudgetDetailView: 4 tabs (Expenses, Projected, Cashflow, Compare)\n\nCompatibility:\n- Import handles both old totalBudget and new startingBalance exports\n- Import adds type: 'expense' default for old exports missing the field\n\nTests: 86 across 7 files (was 75) — 8 new cashflow tests, 3 projection income tests\n\nTags: cashflow, income, projection, engine, ui, migration\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: cashflow-pivot\nSemver: minor\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
+      "tags": [
+        "feature",
+        "migration",
+        "database",
+        "ui"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "cashflow-pivot",
+      "semver": "minor",
+      "scope": "cashflow",
+      "title": "pivot from budgeting to cashflow app with income tracking",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 26,
+        "additions": 1015,
+        "deletions": 140
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "src/components/BudgetForm.vue",
+        "src/components/ExpenseForm.vue",
+        "src/db/index.ts",
+        "src/engine/cashflow.test.ts",
+        "src/engine/cashflow.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/envelope.ts",
+        "src/engine/exportImport.test.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/matching.test.ts",
+        "src/engine/projection.test.ts",
+        "src/engine/projection.ts",
+        "src/engine/variance.test.ts",
+        "src/router/index.ts",
+        "src/types/models.ts",
+        "src/views/BudgetCreateView.vue",
+        "src/views/BudgetDetailView.vue",
+        "src/views/BudgetEditView.vue",
+        "src/views/CashflowTab.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ExpenseCreateView.vue",
+        "src/views/ExpenseEditView.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ProjectedTab.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "799ef88",
+      "fullSha": "799ef889676f48ecff98a8621ba3d723f794ca12",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T06:56:35Z",
+      "commitDate": "2026-02-25T06:56:35Z",
+      "subject": "refactor(views): split ImportWizard, migrate to shared components, add error boundary",
+      "body": "Split ImportWizardView (747 lines) into 4 step sub-components under\nviews/import-steps/, reducing the parent to ~130 lines. Migrated all 9\nview files to use shared ErrorAlert/LoadingSpinner/EmptyState components,\neliminating 15+ instances of duplicated markup. Added ErrorBoundary to\nwrap RouterView and prevent white-screen crashes. Optimized category\nautocomplete to use Dexie index queries. Added 19 exportImport tests.\n\nTags: refactoring, testing, architecture, a11y, ux\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: codebase-cleanup\nSemver: patch\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
+      "tags": [
+        "refactor",
+        "simplify",
+        "error-handling"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "codebase-cleanup",
+      "semver": "patch",
+      "scope": "views",
+      "title": "split ImportWizard, migrate to shared components, add error boundary",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 21,
+        "additions": 1149,
+        "deletions": 750
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/App.vue",
+        "src/components/ErrorBoundary.vue",
+        "src/composables/useCategoryAutocomplete.ts",
+        "src/engine/exportImport.test.ts",
+        "src/views/BudgetCreateView.vue",
+        "src/views/BudgetDetailView.vue",
+        "src/views/BudgetEditView.vue",
+        "src/views/BudgetListView.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ExpenseCreateView.vue",
+        "src/views/ExpenseEditView.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/import-steps/ImportStepComplete.vue",
+        "src/views/import-steps/ImportStepMapping.vue",
+        "src/views/import-steps/ImportStepReview.vue",
+        "src/views/import-steps/ImportStepUpload.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "a23f56c",
+      "fullSha": "a23f56cc0019eec8b55124f6240eebd2481ced4a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T06:42:45Z",
+      "commitDate": "2026-02-25T06:42:45Z",
+      "subject": "feat(envelope): add fixed budget tracking + unit tests for all engines",
+      "body": "Add envelope mode: users can set a total budget amount and see remaining\nbalance, burn rate, depletion date, and running monthly balance. Also add\ncomprehensive unit tests for all 5 engine modules.\n\nEnvelope feature:\n- Add totalBudget: number|null to Budget model (DB schema v2 migration)\n- BudgetForm: \"I have a set amount to spend\" checkbox + amount field\n- New engine/envelope.ts: remaining balance, daily burn rate, depletion\n  date, month-by-month running balance (uses actuals when available,\n  falls back to projected spend for future months)\n- ProjectedTab: envelope card showing budget vs projected, remaining/over,\n  which month budget runs out\n- CompareTab: envelope card with spent/remaining/depletion, forecast msg\n- Export/import backward compat for totalBudget field\n\nUnit tests (56 tests, 5 files):\n- projection.test.ts: 13 tests (month slots, 6 frequencies, boundaries)\n- matching.test.ts: 16 tests (confidence levels, date/amount parsing)\n- variance.test.ts: 7 tests (line-item/category/monthly variance)\n- csvParser.test.ts: 13 tests (CSV parsing, JSON import edge cases)\n- envelope.test.ts: 7 tests (balance, burn rate, depletion, running)\n\nTags: feature, envelope, budget, testing, vitest, engine\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: envelope-budgeting\nSemver: minor\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
+      "tags": [
+        "feature",
+        "database",
+        "schema"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "envelope-budgeting",
+      "semver": "minor",
+      "scope": "envelope",
+      "title": "add fixed budget tracking + unit tests for all engines",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 20,
+        "additions": 1476,
+        "deletions": 31
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "package-lock.json",
+        "package.json",
+        "src/components/BudgetForm.vue",
+        "src/db/index.ts",
+        "src/engine/csvParser.test.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/envelope.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/matching.test.ts",
+        "src/engine/projection.test.ts",
+        "src/engine/variance.test.ts",
+        "src/types/models.ts",
+        "src/views/BudgetCreateView.vue",
+        "src/views/BudgetEditView.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ProjectedTab.vue",
+        "vite.config.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "a775072",
+      "fullSha": "a77507218db24c1fe2601848ff11ce209451fa04",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T21:57:01Z",
+      "commitDate": "2026-02-24T21:57:01Z",
+      "subject": "fix(engine,a11y): comprehensive codebase review fixes",
+      "body": "Fix critical engine bugs, add accessibility across all modals and views,\nand improve import UX.\n\nEngine fixes:\n- Replace order-blind character-presence fuzzy scoring with Levenshtein distance\n- Fix Math.min→Math.max in medium-confidence matching (was over-matching)\n- Fix weekly/daily projection using Date objects instead of day-of-month arithmetic\n- Fix variance threshold comment (0.005 is half-cent rounding, not 5%)\n- Strengthen import validation (checks periodType, startDate, expense fields)\n- Add monthLabels bounds check in variance\n\nAccessibility:\n- Add role=\"dialog\"/role=\"alertdialog\" + aria-modal to all 3 modal components\n- Add focus trapping and Escape-to-close via new useDialogA11y composable\n- Add role=\"alert\" to all error banners across all 10 views\n- Add aria-label to icon-only buttons (edit, delete, dismiss, help)\n- Add ARIA combobox pattern + keyboard nav to category autocomplete\n- Add colorblind-safe text labels to CompareTab bar charts\n\nArchitecture:\n- Add 404 catch-all route (redirect to budget list)\n- Add import pagination (50/page) and skipped row feedback\n- Create reusable ErrorAlert, LoadingSpinner, EmptyState components\n- Fix localStorage key inconsistency (tutorial now uses budgy-ting: prefix)\n\nTags: bugfix, accessibility, engine, matching, projection, variance, a11y, ux\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: codebase-review\nSemver: minor\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
+      "tags": [
+        "bugfix",
+        "accessibility",
+        "refactor",
+        "enhancement"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "codebase-review",
+      "semver": "minor",
+      "scope": "engine,a11y",
+      "title": "comprehensive codebase review fixes",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 29,
+        "additions": 494,
+        "deletions": 172
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/AppLayout.vue",
+        "src/components/ConfirmDialog.vue",
+        "src/components/EmptyState.vue",
+        "src/components/ErrorAlert.vue",
+        "src/components/ExpenseForm.vue",
+        "src/components/InstallInstructionsModal.vue",
+        "src/components/LoadingSpinner.vue",
+        "src/components/TutorialModal.vue",
+        "src/composables/useDialogA11y.ts",
+        "src/composables/usePWAUpdate.ts",
+        "src/composables/useTutorial.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/matching.ts",
+        "src/engine/projection.ts",
+        "src/engine/variance.ts",
+        "src/router/index.ts",
+        "src/views/BudgetCreateView.vue",
+        "src/views/BudgetDetailView.vue",
+        "src/views/BudgetEditView.vue",
+        "src/views/BudgetListView.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ExpenseCreateView.vue",
+        "src/views/ExpenseEditView.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "a0c33d8",
+      "fullSha": "a0c33d853cf84ea116f40e888b83d791da0437db",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T20:57:56Z",
+      "commitDate": "2026-02-24T20:57:56Z",
+      "subject": "Merge pull request #7 from devmade-ai/claude/fix-tutorial-modal-error-WyIXf",
+      "body": "Fix TypeScript type safety in TutorialModal step access",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #7 from devmade-ai/claude/fix-tutorial-modal-error-WyIXf",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#7"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 6,
+        "deletions": 3
+      },
+      "files": [
+        "src/components/TutorialModal.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f59129b",
+      "fullSha": "f59129b0afa56530d7827b14f13bb6d16e93e9bf",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T20:56:41Z",
+      "commitDate": "2026-02-24T20:56:41Z",
+      "subject": "fix(build): resolve TS2532 'possibly undefined' in TutorialModal",
+      "body": "Array index access `steps[currentStep]` in the template returns\n`TutorialStep | undefined`, causing vue-tsc to reject the build.\nIntroduced an `activeStep` computed property with an explicit type\nassertion so the template accesses a guaranteed `TutorialStep`.\n\nTags: bugfix, typescript, tutorial\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: tutorial-modal\nSemver: patch\n\nhttps://claude.ai/code/session_01NYdueyhFfk3w9E62P8UT7r",
+      "tags": [
+        "bugfix",
+        "types"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "tutorial-modal",
+      "semver": "patch",
+      "scope": "build",
+      "title": "resolve TS2532 'possibly undefined' in TutorialModal",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 6,
+        "deletions": 3
+      },
+      "files": [
+        "src/components/TutorialModal.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "f48ac33",
+      "fullSha": "f48ac33c2446b72b387ff236129c246e94a110c8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T20:52:20Z",
+      "commitDate": "2026-02-24T20:52:20Z",
+      "subject": "Merge pull request #6 from devmade-ai/claude/add-tutorial-modal-ZPiCx",
+      "body": "Add tutorial modal for first-time users",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #6 from devmade-ai/claude/add-tutorial-modal-ZPiCx",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 244,
+        "deletions": 9
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "src/components/AppLayout.vue",
+        "src/components/TutorialModal.vue",
+        "src/composables/useTutorial.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0e880af",
+      "fullSha": "0e880af010f060ceb0edcf34f122bb8012ecc869",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T20:49:53Z",
+      "commitDate": "2026-02-24T20:49:53Z",
+      "subject": "feat(ux): add tutorial modal for first-time users",
+      "body": "6-step walkthrough that auto-shows on first visit and persists\ndismissal in localStorage. Help button in header for re-access.\n\nSteps: welcome → create budget → add expenses → projections →\nimport actuals → compare plan vs reality.\n\nFollows existing Teleport modal pattern (ConfirmDialog,\nInstallInstructionsModal). Composable uses module-level shared\nstate (same pattern as usePWAInstall).\n\nTags: ux, onboarding, modal, tutorial\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: onboarding\nSemver: minor\n\nhttps://claude.ai/code/session_016WMP9yNXJNMZB6ahs7izA4",
+      "tags": [
+        "feature",
+        "ux",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "onboarding",
+      "semver": "minor",
+      "scope": "ux",
+      "title": "add tutorial modal for first-time users",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 244,
+        "deletions": 9
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "src/components/AppLayout.vue",
+        "src/components/TutorialModal.vue",
+        "src/composables/useTutorial.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "9c40b46",
+      "fullSha": "9c40b467671e68ad3bebd767fef215c37029c28a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T19:40:20Z",
+      "commitDate": "2026-02-24T19:40:20Z",
+      "subject": "Merge pull request #5 from devmade-ai/claude/fix-expenseform-typescript-2YLex",
+      "body": "Refactor: Extract category blur handler and improve type safety",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/fix-expenseform-typescript-2YLex",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 29,
+        "deletions": 4
+      },
+      "files": [
+        ".gitignore",
+        "package-lock.json",
+        "package.json",
+        "src/components/ExpenseForm.vue",
+        "src/debug/DebugPill.vue",
+        "src/views/CompareTab.vue",
+        "tsconfig.node.json"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "b04cb80",
+      "fullSha": "b04cb80f6fd9de4be8f2976c49ca5bfa5702695f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T19:29:57Z",
+      "commitDate": "2026-02-24T19:29:57Z",
+      "subject": "chore(build): gitignore tsbuildinfo artifacts",
+      "body": "vue-tsc -b produces .tsbuildinfo files for incremental builds.\nThese are machine-specific build cache and should not be tracked.\n\nTags: build, gitignore\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: build-stability\nSemver: patch\n\nhttps://claude.ai/code/session_01TGPgPesupfaJsD9TQy8ang",
+      "tags": [
+        "config",
+        "build"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": "patch",
+      "scope": "build",
+      "title": "gitignore tsbuildinfo artifacts",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        ".gitignore"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "c35bc17",
+      "fullSha": "c35bc178b2d6bbf125037736806f15c160fc6bdb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T19:28:07Z",
+      "commitDate": "2026-02-24T19:28:07Z",
+      "subject": "fix(build): resolve all TypeScript build errors",
+      "body": "- ExpenseForm.vue: Extract handleCategoryBlur method to avoid template\n  setTimeout resolving against component instance instead of window\n- DebugPill.vue: Remove unused entry parameter in subscribe callback\n- CompareTab.vue: Use v-else-if=\"comparison\" for vue-tsc null narrowing\n- vite.config.ts: Add @types/node for path, process, and __dirname\n\nTags: typescript, build, ci\nComplexity: 2\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: build-stability\nSemver: patch\n\nhttps://claude.ai/code/session_01TGPgPesupfaJsD9TQy8ang",
+      "tags": [
+        "bugfix",
+        "types",
+        "build"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "build-stability",
+      "semver": "patch",
+      "scope": "build",
+      "title": "resolve all TypeScript build errors",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 28,
+        "deletions": 4
+      },
+      "files": [
+        "package-lock.json",
+        "package.json",
+        "src/components/ExpenseForm.vue",
+        "src/debug/DebugPill.vue",
+        "src/views/CompareTab.vue",
+        "tsconfig.node.json"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "31d664e",
+      "fullSha": "31d664e4c006ea1b51393dcdc588362520271988",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T17:16:10Z",
+      "commitDate": "2026-02-24T17:16:10Z",
+      "subject": "Merge pull request #4 from devmade-ai/claude/setup-node-22-Kg8Fc",
+      "body": "Update dependencies",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": null,
+      "debt": null,
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #4 from devmade-ai/claude/setup-node-22-Kg8Fc",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 8377,
+        "deletions": 0
+      },
+      "files": [
+        "package-lock.json"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "7a8c2be",
+      "fullSha": "7a8c2bea7af753c956c62dbbebd50917e91f48d6",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T17:10:14Z",
+      "commitDate": "2026-02-24T17:10:14Z",
+      "subject": "fix(ci): add package-lock.json for reproducible CI builds",
+      "body": "The deploy workflow uses actions/setup-node@v4 with cache: npm and\nnpm ci, both of which require a lock file. Without package-lock.json\nthe cache step warns and npm ci fails entirely.\n\nTags: ci, dependencies, devops\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: ci-deploy\nSemver: patch\n\nhttps://claude.ai/code/session_01EhS6UBzB7mMja9whChYBsX",
+      "tags": [
+        "ci",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "ci-deploy",
+      "semver": "patch",
+      "scope": "ci",
+      "title": "add package-lock.json for reproducible CI builds",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 8377,
+        "deletions": 0
+      },
+      "files": [
+        "package-lock.json"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "5a900d3",
+      "fullSha": "5a900d360f103d487965e5099aff8440c91e6857",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T18:04:17+02:00",
+      "commitDate": "2026-02-24T18:04:17+02:00",
+      "subject": "Merge pull request #3 from devmade-ai/claude/test-connection-YSvLn",
+      "body": "MVP: Complete budgy-ting PWA with budget, expense, and import features",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #3 from devmade-ai/claude/test-connection-YSvLn",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 56,
+        "additions": 6230,
+        "deletions": 10
+      },
+      "files": [],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ab8b929",
+      "fullSha": "ab8b929a19ddbf10d4d2668363d898bd8756710a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T12:31:39+00:00",
+      "commitDate": "2026-02-24T12:31:39+00:00",
+      "subject": "fix(resilience): add DB error handling to all views, remove phantom dep, deduplicate period logic",
+      "body": "All IndexedDB operations across 10 views now have try/catch with\nuser-friendly error banners. Previously, if IndexedDB failed (quota\nexceeded, corruption, private browsing restrictions), users saw no\nfeedback at all — loading spinners hung or actions silently failed.\n\n- Removed `date-fns` from package.json (listed but never imported)\n- Extracted `resolveBudgetPeriod()` in projection.ts to eliminate\n  identical 6-line period resolution duplicated in 3 files\n- Added silent error handling to useCategoryAutocomplete (non-critical)\n\nTags: error-handling, indexeddb, resilience, cleanup, deduplication\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+      "tags": [
+        "bugfix",
+        "error-handling"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": "resilience",
+      "title": "add DB error handling to all views, remove phantom dep, deduplicate period logic",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 17,
+        "additions": 425,
+        "deletions": 227
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "package.json",
+        "src/composables/useCategoryAutocomplete.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/projection.ts",
+        "src/views/BudgetCreateView.vue",
+        "src/views/BudgetDetailView.vue",
+        "src/views/BudgetEditView.vue",
+        "src/views/BudgetListView.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ExpenseCreateView.vue",
+        "src/views/ExpenseEditView.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "d55b67d",
+      "fullSha": "d55b67dbeeb366f819d0cede26cd66fb02257e43",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T11:59:00+00:00",
+      "commitDate": "2026-02-24T11:59:00+00:00",
+      "subject": "chore(cleanup): remove unused import, update docs",
+      "body": "Remove unused `ref` import from InstallPrompt.vue (caught by audit).\nUpdate TODO.md (move completed items, add new), HISTORY.md (add 2026-02-24\nsession), SESSION_NOTES.md (rewrite for current state).\n\nTags: cleanup, docs, audit\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+      "tags": [
+        "removal",
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "cleanup",
+      "title": "remove unused import, update docs",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 62,
+        "deletions": 23
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/InstallPrompt.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "924e566",
+      "fullSha": "924e566672ebe21f5da7826e5cdc3f344d0aee8b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T11:47:54+00:00",
+      "commitDate": "2026-02-24T11:47:54+00:00",
+      "subject": "feat(pwa,debug): split PWA composables, add install instructions, add debug system",
+      "body": "PWA:\n- Replace monolithic usePWA.ts with usePWAUpdate.ts (wraps useRegisterSW\n  with 60-min periodic checks, offline-ready auto-dismiss) and\n  usePWAInstall.ts (browser detection, beforeinstallprompt capture,\n  localStorage analytics + dismiss persistence)\n- Add InstallPrompt.vue banner — \"Install\" on Chromium, \"How to Install\"\n  on Safari/Firefox, \"Not now\" dismiss. Hidden when standalone/dismissed.\n- Add InstallInstructionsModal.vue — four browser-specific step-by-step\n  guides (Safari iOS, Safari macOS, Firefox Android, Firefox desktop)\n  written in plain language for non-technical users\n- Add vite-plugin-pwa/client type reference to env.d.ts\n\nDebug:\n- Add debugLog.ts — pub/sub event store with 200-entry circular buffer,\n  typed sources (boot/db/pwa/import/engine/global) and severities\n  (info/success/warn/error). Global error + unhandledrejection listeners\n  installed at module load. generateReport() for clipboard export.\n- Add DebugPill.vue — floating pill showing entry count + error/warn\n  badges. Expanded panel has Log tab (color-coded, auto-scrolling) and\n  Environment tab (URL, UA, screen, online, SW support, etc.).\n  Copy exports full report, Clear wipes entries.\n- Mount DebugPill in separate Vue root (survives main app crashes)\n- Alpha-phase only — intended to be removed post-alpha\n\nTags: pwa, debug, ux, install\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: pwa\nSemver: minor\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+      "tags": [
+        "feature",
+        "refactor"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": "pwa,debug",
+      "title": "split PWA composables, add install instructions, add debug system",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 900,
+        "deletions": 84
+      },
+      "files": [
+        "env.d.ts",
+        "src/components/AppLayout.vue",
+        "src/components/InstallInstructionsModal.vue",
+        "src/components/InstallPrompt.vue",
+        "src/composables/usePWA.ts",
+        "src/composables/usePWAInstall.ts",
+        "src/composables/usePWAUpdate.ts",
+        "src/debug/DebugPill.vue",
+        "src/debug/debugLog.ts",
+        "src/main.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "74241fb",
+      "fullSha": "74241fbb5d5c9197548a8fbc602873f914a9ef22",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T11:38:12+00:00",
+      "commitDate": "2026-02-24T11:38:12+00:00",
+      "subject": "refactor(standards): extract formatAmount, remove dead code, add decision comments",
+      "body": "- Extract duplicated formatAmount() to composables/useFormat.ts\n  (was copy-pasted in ExpensesTab, ProjectedTab, CompareTab, ImportWizardView)\n- Remove scripts/generate-icons.py — superseded by generate-icons.mjs,\n  still contained the old Georgia font reference\n- Add What/Why/Alternatives comments to BudgetListView (import/restore flow)\n  and BudgetDetailView (cascade delete decision)\n\nTags: code-standards, cleanup, refactor\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+      "tags": [
+        "refactor",
+        "removal"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": null,
+      "semver": null,
+      "scope": "standards",
+      "title": "extract formatAmount, remove dead code, add decision comments",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 34,
+        "deletions": 210
+      },
+      "files": [
+        "scripts/generate-icons.py",
+        "src/composables/useFormat.ts",
+        "src/views/BudgetDetailView.vue",
+        "src/views/BudgetListView.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "1b1331c",
+      "fullSha": "1b1331c49e396ebdc79626a867cc4f71955abef3",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T11:26:07+00:00",
+      "commitDate": "2026-02-24T11:26:07+00:00",
+      "subject": "docs(deploy): add decision comments to icon SVG and manifest config",
+      "body": "Add What/Why/Alternatives documentation per code standards:\n- icon.svg: why generic serif instead of Georgia (CI compatibility)\n- vite.config.ts: why maskable is a separate entry (Chrome warning)\n\nTags: documentation, code-standards\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+      "tags": [
+        "docs",
+        "comments"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "deploy",
+      "title": "add decision comments to icon SVG and manifest config",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 14,
+        "deletions": 0
+      },
+      "files": [
+        "public/icon.svg",
+        "vite.config.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "70ee074",
+      "fullSha": "70ee0741d97b7b5ce8cce5540b247a95889753aa",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T09:28:28+00:00",
+      "commitDate": "2026-02-24T09:28:28+00:00",
+      "subject": "chore(deploy): review fixes — node 22, sharp 0.34, split maskable icon",
+      "body": "- Bump CI node version from 20 (EOL April 2026) to 22 (LTS)\n- Bump sharp from ^0.33.0 to ^0.34.5 (latest stable, better librsvg)\n- Split 'any maskable' icon purpose into separate entry to avoid\n  Chrome DevTools warning about combined purpose values\n\nTags: ci, pwa, dependencies\nComplexity: 1\nUrgency: 1\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+      "tags": [
+        "ci",
+        "dependency-update",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "deploy",
+      "title": "review fixes — node 22, sharp 0.34, split maskable icon",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 3,
+        "deletions": 3
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "package.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "71bdab7",
+      "fullSha": "71bdab7fb8c61dbc6864ae7f075c7261aa43e073",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T09:27:00+00:00",
+      "commitDate": "2026-02-24T09:27:00+00:00",
+      "subject": "fix(deploy): router base path and SVG font for GitHub Pages",
+      "body": "createWebHistory() needs import.meta.env.BASE_URL so vue-router\nresolves routes correctly under a sub-path like /budgy-ting/.\nSVG icon switched from Georgia (proprietary, absent in CI) to\ngeneric serif so sharp/librsvg renders the B glyph on Ubuntu.\n\nTags: router, pwa, ci, deployment\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "deploy",
+      "title": "router base path and SVG font for GitHub Pages",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 5,
+        "deletions": 3
+      },
+      "files": [
+        "public/icon.svg",
+        "src/router/index.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "12a3d81",
+      "fullSha": "12a3d8101ca83437523a2a5f428bb9713e8e1ec5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T08:51:23+00:00",
+      "commitDate": "2026-02-24T08:51:23+00:00",
+      "subject": "ci(deploy): add GitHub Pages workflow with sharp icon generation",
+      "body": "Automated deployment on push to main via actions/deploy-pages.\nIcons are regenerated from SVG using sharp for reproducible builds.\nVite base path is set dynamically from configure-pages output so\nthe PWA works on both project pages and custom domains. SPA routing\nhandled by copying index.html to 404.html.\n\nTags: ci, deployment, pwa, icons\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: minor\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+      "tags": [
+        "ci",
+        "cd"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "deploy",
+      "title": "add GitHub Pages workflow with sharp icon generation",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 139,
+        "deletions": 3
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "package.json",
+        "scripts/generate-icons.mjs",
+        "vite.config.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 1,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "99080da",
+      "fullSha": "99080dacbb09f4d07158a1847a1cef852125b7e9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T08:31:02+00:00",
+      "commitDate": "2026-02-24T08:31:02+00:00",
+      "subject": "docs(user-actions): remove completed PWA icon task",
+      "body": "Icons are now generated and committed. Only npm install remains.\n\nTags: docs, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: mvp-implementation\nSemver: patch\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "user-actions",
+      "title": "remove completed PWA icon task",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 9
+      },
+      "files": [
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "2c985cf",
+      "fullSha": "2c985cfec52214034a07187b7bd0672598d17488",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T08:30:22+00:00",
+      "commitDate": "2026-02-24T08:30:22+00:00",
+      "subject": "feat(pwa): add generated app icons for all PWA sizes",
+      "body": "Green rounded-square icon with white coin and emerald \"B\" letter,\ngenerated via pure Python script (no external image deps needed).\n\nFiles: pwa-512x512.png, pwa-192x192.png, apple-touch-icon.png,\nfavicon.ico, icon.svg (reference), scripts/generate-icons.py\n\nTags: pwa, icons, assets\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mvp-implementation\nSemver: patch\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "pwa",
+      "title": "add generated app icons for all PWA sizes",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 200,
+        "deletions": 0
+      },
+      "files": [
+        "public/apple-touch-icon.png",
+        "public/favicon.ico",
+        "public/icon.svg",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "scripts/generate-icons.py"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "02f4ee5",
+      "fullSha": "02f4ee586ab5e63298e6f9d4778eeb1974527f38",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-23T21:44:36+00:00",
+      "commitDate": "2026-02-23T21:44:36+00:00",
+      "subject": "feat(mvp): implement full MVP — phases 1-7",
+      "body": "Complete implementation of all 7 phases of the budgy-ting product definition:\n\nPhase 1 — Budget Management:\n  - BudgetForm (create/edit), BudgetCreateView, BudgetEditView\n  - Cascade delete (expenses + actuals), ConfirmDialog component\n\nPhase 2 — Expense Management:\n  - ExpenseForm with category autocomplete from IndexedDB\n  - ExpensesTab grouped by category, edit/delete per item\n  - useCategoryAutocomplete composable\n\nPhase 3 — Projection Engine:\n  - Pure TypeScript engine handling all 6 frequency types\n  - Partial month and boundary clamping logic\n  - ProjectedTab with by-item/by-category toggle\n\nPhase 4 — Import Wizard:\n  - CSV parser (RFC 4180), JSON parser, column auto-detection\n  - 3-pass matching engine (exact, fuzzy, amount-only)\n  - 4-step wizard: upload, map, review/approve, confirm\n\nPhase 5 — Comparison Views:\n  - Variance calculation engine\n  - Line item, category, monthly views with CSS bar charts\n  - Overspend/underspend colour coding with 5% tolerance\n\nPhase 6 — Export/Import:\n  - JSON export with comparison snapshot, browser download\n  - Restore from backup (replace/merge), schema validation\n  - Clear all data with confirmation\n\nPhase 7 — PWA Polish:\n  - usePWA composable (install prompt, SW update detection)\n  - Install app button in header, update banner\n\nTags: mvp, vue3, budget, expenses, projection, import, comparison, export, pwa\nComplexity: 5\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: added\nEpic: mvp-implementation\nSemver: minor\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+      "tags": [
+        "feature",
+        "ui",
+        "ux",
+        "database"
+      ],
+      "complexity": 5,
+      "risk": "high",
+      "debt": "neutral",
+      "epic": "budgy-mvp",
+      "semver": "minor",
+      "scope": "mvp",
+      "title": "implement full MVP — phases 1-7",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 29,
+        "additions": 3776,
+        "deletions": 152
+      },
+      "files": [
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "src/components/AppLayout.vue",
+        "src/components/BudgetForm.vue",
+        "src/components/ConfirmDialog.vue",
+        "src/components/ExpenseForm.vue",
+        "src/composables/useCategoryAutocomplete.ts",
+        "src/composables/useId.ts",
+        "src/composables/usePWA.ts",
+        "src/composables/useTimestamp.ts",
+        "src/engine/csvParser.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/matching.ts",
+        "src/engine/projection.ts",
+        "src/engine/variance.ts",
+        "src/router/index.ts",
+        "src/views/BudgetCreateView.vue",
+        "src/views/BudgetDetailView.vue",
+        "src/views/BudgetEditView.vue",
+        "src/views/BudgetListView.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ExpenseCreateView.vue",
+        "src/views/ExpenseEditView.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "3065aa6",
+      "fullSha": "3065aa6fbdd7b4a328805c77651614e5b51789c7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-23T21:28:48+00:00",
+      "commitDate": "2026-02-23T21:28:48+00:00",
+      "subject": "feat(scaffold): Phase 0 — project scaffolding with Vue 3, Vite, TypeScript",
+      "body": "Set up the complete project structure for budgy-ting PWA. This establishes the\nfoundation that all subsequent phases build on: build tooling, routing, database\nschema, type definitions, and the app shell UI.\n\nScaffolding includes:\n- Vite + Vue 3 + TypeScript project (package.json, tsconfigs)\n- UnoCSS with Tailwind preset, brand colours, utility shortcuts\n- vite-plugin-pwa with manifest configuration\n- Dexie.js v4 schema v1 (budgets, expenses, actuals, categoryCache)\n- TypeScript data models matching product definition\n- Vue Router with budget list and budget detail (3 nested tabs)\n- AppLayout component (header, max-width content area)\n- BudgetListView with empty/loading/list states\n- BudgetDetailView with tab navigation\n- Stub tab views (Expenses, Projected, Compare)\n- Product definition saved to docs/PRODUCT_DEFINITION.md\n- Updated README, TODO, SESSION_NOTES, HISTORY, USER_ACTIONS\n\nTags: scaffolding, vue3, vite, typescript, unocss, pwa, dexie, routing\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: phase-0-scaffolding\nSemver: minor\n\nhttps://claude.ai/code/session_01MpkgALaDQ3xJsXyhFZbApL",
+      "tags": [
+        "init",
+        "config",
+        "build"
+      ],
+      "complexity": 4,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "budgy-mvp",
+      "semver": null,
+      "scope": "scaffold",
+      "title": "Phase 0 — project scaffolding with Vue 3, Vite, TypeScript",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 26,
+        "additions": 1388,
+        "deletions": 12
+      },
+      "files": [
+        ".gitignore",
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/PRODUCT_DEFINITION.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "env.d.ts",
+        "index.html",
+        "package.json",
+        "src/App.vue",
+        "src/components/AppLayout.vue",
+        "src/db/index.ts",
+        "src/main.ts",
+        "src/router/index.ts",
+        "src/types/models.ts",
+        "src/views/BudgetDetailView.vue",
+        "src/views/BudgetListView.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ProjectedTab.vue",
+        "tsconfig.app.json",
+        "tsconfig.json",
+        "tsconfig.node.json",
+        "uno.config.ts",
+        "vite.config.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 1,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "29ab128",
+      "fullSha": "29ab12827e05d1a4085322fce02b6771ce1ba664",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-23T22:59:00+02:00",
+      "commitDate": "2026-02-23T22:59:00+02:00",
+      "subject": "Merge pull request #2 from devmade-ai/claude/create-files-from-md-T5Mox",
+      "body": "Initialize project documentation structure",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #2 from devmade-ai/claude/create-files-from-md-T5Mox",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#2"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 68,
+        "deletions": 0
+      },
+      "files": [],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "072b102",
+      "fullSha": "072b10202ffd9546b2b042f240a2c231c34f0608",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-23T16:06:53+00:00",
+      "commitDate": "2026-02-23T16:06:53+00:00",
+      "subject": "docs(cleanup): remove EXTRACTION_PLAYBOOK.md per user request",
+      "body": "User indicated the extraction playbook is not needed for this project.\n\nTags: cleanup, docs\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: project-setup\nSemver: patch",
+      "tags": [
+        "docs",
+        "removal"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "cleanup",
+      "title": "remove EXTRACTION_PLAYBOOK.md per user request",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 30
+      },
+      "files": [
+        "docs/EXTRACTION_PLAYBOOK.md"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "0d3d7e3",
+      "fullSha": "0d3d7e31535ce44c125b1e66eccf613ac9422984",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-23T16:06:24+00:00",
+      "commitDate": "2026-02-23T16:06:24+00:00",
+      "subject": "docs(setup): create all documentation files from CLAUDE.md spec",
+      "body": "Creates the docs/ directory and all documentation files referenced in\nCLAUDE.md: SESSION_NOTES.md, TODO.md, HISTORY.md, USER_ACTIONS.md,\nAI_MISTAKES.md, EXTRACTION_PLAYBOOK.md, USER_GUIDE.md, TESTING_GUIDE.md.\n\nEach file includes its purpose header and initial placeholder content\nper the documentation standards defined in CLAUDE.md.\n\nTags: setup, docs\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: project-setup\nSemver: minor",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "setup",
+      "title": "create all documentation files from CLAUDE.md spec",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 98,
+        "deletions": 0
+      },
+      "files": [
+        "docs/AI_MISTAKES.md",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "docs/USER_GUIDE.md"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "e77f0b1",
+      "fullSha": "e77f0b1405d1db2f80b170698be98813177463df",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-23T18:01:59+02:00",
+      "commitDate": "2026-02-23T18:01:59+02:00",
+      "subject": "Merge pull request #1 from devmade-ai/claude/create-claude-md-WdEz0",
+      "body": "Add CLAUDE.md: AI assistant preferences and project guidelines",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #1 from devmade-ai/claude/create-claude-md-WdEz0",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#1"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 270,
+        "deletions": 0
+      },
+      "files": [],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "dc9237d",
+      "fullSha": "dc9237d969ace9d6f6b3e8178400ab68a5548d5f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-23T16:00:09+00:00",
+      "commitDate": "2026-02-23T16:00:09+00:00",
+      "subject": "docs(project): add CLAUDE.md based on glow-props template",
+      "body": "Adds AI assistant preferences and project standards adapted from the\nglow-props repo. Includes process, principles, code standards,\ndocumentation guidelines, AI notes, and prohibitions.\n\nTags: documentation, claude-md, standards\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: project-setup\nSemver: minor\n\nhttps://claude.ai/code/session_01AzJMYu21L1Go8FBK5Kjz2q",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": "project",
+      "title": "add CLAUDE.md based on glow-props template",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 270,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "f1fceab",
+      "fullSha": "f1fceab5c68dccf1a36ee593b6859eb44e0792c2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-23T15:06:05+02:00",
+      "commitDate": "2026-02-23T15:06:05+02:00",
+      "subject": "Initial commit",
+      "body": "",
+      "tags": [
+        "init"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Initial commit",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 675,
+        "deletions": 0
+      },
+      "files": [
+        "LICENSE",
+        "README.md"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 1,
+      "impact": "internal"
+    }
+  ],
+  "contributors": [
+    {
+      "author_id": "devmade.ai@gmail.com",
+      "name": "devmade.ai@gmail.com",
+      "email": "devmade.ai@gmail.com",
+      "commits": 58,
+      "avgComplexity": 2.05,
+      "avgUrgency": 2,
+      "tagBreakdown": {
+        "merge": 16,
+        "bugfix": 11,
+        "refactor": 7,
+        "performance": 1,
+        "error-handling": 3,
+        "feature": 13,
+        "removal": 5,
+        "ux": 5,
+        "build": 5,
+        "migration": 3,
+        "database": 5,
+        "schema": 2,
+        "ui": 10,
+        "hosting": 1,
+        "config": 8,
+        "logging": 1,
+        "docs": 10,
+        "naming": 1,
+        "enhancement": 2,
+        "accessibility": 2,
+        "dependency-add": 1,
+        "simplify": 1,
+        "types": 2,
+        "ci": 3,
+        "comments": 1,
+        "dependency-update": 1,
+        "cd": 1,
+        "init": 2
+      },
+      "impactBreakdown": {
+        "internal": 29,
+        "user-facing": 19,
+        "infrastructure": 10,
+        "api": 0
+      },
+      "riskBreakdown": {
+        "low": 40,
+        "medium": 13,
+        "high": 1
+      },
+      "debtBreakdown": {
+        "added": 0,
+        "paid": 21,
+        "neutral": 33
+      },
+      "repos": [
+        "budgy-ting"
+      ],
+      "repoCount": 1,
+      "firstCommit": "2026-02-23T15:06:05+02:00",
+      "lastCommit": "2026-03-02T10:07:21Z"
+    }
+  ],
+  "summary": {
+    "totalCommits": 58,
+    "totalContributors": 1,
+    "tagBreakdown": {
+      "merge": 16,
+      "bugfix": 11,
+      "refactor": 7,
+      "performance": 1,
+      "error-handling": 3,
+      "feature": 13,
+      "removal": 5,
+      "ux": 5,
+      "build": 5,
+      "migration": 3,
+      "database": 5,
+      "schema": 2,
+      "ui": 10,
+      "hosting": 1,
+      "config": 8,
+      "logging": 1,
+      "docs": 10,
+      "naming": 1,
+      "enhancement": 2,
+      "accessibility": 2,
+      "dependency-add": 1,
+      "simplify": 1,
+      "types": 2,
+      "ci": 3,
+      "comments": 1,
+      "dependency-update": 1,
+      "cd": 1,
+      "init": 2
+    },
+    "complexityBreakdown": {
+      "1": 27,
+      "2": 13,
+      "3": 7,
+      "4": 10,
+      "5": 1
+    },
+    "urgencyBreakdown": {
+      "1": 13,
+      "2": 35,
+      "3": 7,
+      "4": 3,
+      "5": 0
+    },
+    "impactBreakdown": {
+      "internal": 29,
+      "user-facing": 19,
+      "infrastructure": 10,
+      "api": 0
+    },
+    "riskBreakdown": {
+      "low": 40,
+      "medium": 13,
+      "high": 1
+    },
+    "debtBreakdown": {
+      "added": 0,
+      "paid": 21,
+      "neutral": 33
+    },
+    "epicBreakdown": {
+      "code-review-audit": 1,
+      "cash-runway": 1,
+      "bank-statement-import": 2,
+      "mobile-polish": 1,
+      "vercel-migration": 1,
+      "pwa-install": 1,
+      "branding": 1,
+      "workspace-rename": 1,
+      "codebase-review": 2,
+      "help-system": 2,
+      "documentation": 1,
+      "cashflow-pivot": 3,
+      "codebase-cleanup": 1,
+      "envelope-budgeting": 1,
+      "tutorial-modal": 1,
+      "onboarding": 1,
+      "build-stability": 1,
+      "ci-deploy": 1,
+      "budgy-mvp": 2
+    },
+    "semverBreakdown": {
+      "patch": 12,
+      "minor": 12,
+      "major": 2
+    },
+    "avgComplexity": 2.05,
+    "avgUrgency": 2,
+    "monthly": {
+      "2026-03": {
+        "commits": 7,
+        "tags": {
+          "merge": 3,
+          "bugfix": 2,
+          "refactor": 1,
+          "performance": 1,
+          "error-handling": 1,
+          "feature": 2,
+          "removal": 1,
+          "ux": 1,
+          "build": 1,
+          "migration": 1,
+          "database": 1,
+          "schema": 1
+        },
+        "impact": {
+          "internal": 4,
+          "user-facing": 2,
+          "infrastructure": 1,
+          "api": 0
+        },
+        "risk": {
+          "low": 5,
+          "medium": 2,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 4,
+          "neutral": 3
+        },
+        "semver": {
+          "patch": 2,
+          "minor": 1,
+          "major": 1
+        },
+        "avgComplexity": 1.86,
+        "avgUrgency": 2.29
+      },
+      "2026-02": {
+        "commits": 51,
+        "tags": {
+          "merge": 13,
+          "bugfix": 9,
+          "ui": 10,
+          "hosting": 1,
+          "config": 8,
+          "removal": 4,
+          "logging": 1,
+          "docs": 10,
+          "build": 4,
+          "feature": 11,
+          "naming": 1,
+          "migration": 2,
+          "database": 4,
+          "enhancement": 2,
+          "ux": 4,
+          "refactor": 6,
+          "accessibility": 2,
+          "dependency-add": 1,
+          "simplify": 1,
+          "error-handling": 2,
+          "schema": 1,
+          "types": 2,
+          "ci": 3,
+          "comments": 1,
+          "dependency-update": 1,
+          "cd": 1,
+          "init": 2
+        },
+        "impact": {
+          "internal": 25,
+          "user-facing": 17,
+          "infrastructure": 9,
+          "api": 0
+        },
+        "risk": {
+          "low": 35,
+          "medium": 11,
+          "high": 1
+        },
+        "debt": {
+          "added": 0,
+          "paid": 17,
+          "neutral": 30
+        },
+        "semver": {
+          "patch": 10,
+          "minor": 11,
+          "major": 1
+        },
+        "avgComplexity": 2.08,
+        "avgUrgency": 1.96
+      }
+    },
+    "monthlyCommits": {
+      "2026-03": {
+        "commits": 7,
+        "tags": {
+          "merge": 3,
+          "bugfix": 2,
+          "refactor": 1,
+          "performance": 1,
+          "error-handling": 1,
+          "feature": 2,
+          "removal": 1,
+          "ux": 1,
+          "build": 1,
+          "migration": 1,
+          "database": 1,
+          "schema": 1
+        },
+        "impact": {
+          "internal": 4,
+          "user-facing": 2,
+          "infrastructure": 1,
+          "api": 0
+        },
+        "risk": {
+          "low": 5,
+          "medium": 2,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 4,
+          "neutral": 3
+        },
+        "semver": {
+          "patch": 2,
+          "minor": 1,
+          "major": 1
+        },
+        "avgComplexity": 1.86,
+        "avgUrgency": 2.29
+      },
+      "2026-02": {
+        "commits": 51,
+        "tags": {
+          "merge": 13,
+          "bugfix": 9,
+          "ui": 10,
+          "hosting": 1,
+          "config": 8,
+          "removal": 4,
+          "logging": 1,
+          "docs": 10,
+          "build": 4,
+          "feature": 11,
+          "naming": 1,
+          "migration": 2,
+          "database": 4,
+          "enhancement": 2,
+          "ux": 4,
+          "refactor": 6,
+          "accessibility": 2,
+          "dependency-add": 1,
+          "simplify": 1,
+          "error-handling": 2,
+          "schema": 1,
+          "types": 2,
+          "ci": 3,
+          "comments": 1,
+          "dependency-update": 1,
+          "cd": 1,
+          "init": 2
+        },
+        "impact": {
+          "internal": 25,
+          "user-facing": 17,
+          "infrastructure": 9,
+          "api": 0
+        },
+        "risk": {
+          "low": 35,
+          "medium": 11,
+          "high": 1
+        },
+        "debt": {
+          "added": 0,
+          "paid": 17,
+          "neutral": 30
+        },
+        "semver": {
+          "patch": 10,
+          "minor": 11,
+          "major": 1
+        },
+        "avgComplexity": 2.08,
+        "avgUrgency": 1.96
+      }
+    },
+    "dateRange": {
+      "earliest": "2026-02-23T15:06:05+02:00",
+      "latest": "2026-03-02T10:07:21Z"
+    },
+    "security_events": []
+  }
+}

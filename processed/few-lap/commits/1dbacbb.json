@@ -1,0 +1,65 @@
+{
+  "sha": "1dbacbb",
+  "fullSha": "1dbacbb0d4502d6986daaf53407dd7fd1773999a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T12:03:35Z",
+  "commitDate": "2026-02-26T12:03:35Z",
+  "subject": "feat(ux): comprehensive UX improvements across all screens",
+  "body": "Changes across 17 improvement areas:\n\nGeneral UX:\n- Toast feedback system for admin save/toggle actions\n- Better empty states with actionable suggestions (widen radius, reset filters)\n- \"Reset filters\" button to clear all filters in one tap\n- Address search input using Mapbox Geocoding API\n- Warning icon + dimmed opacity for stale prices (> 7 days)\n- Persisted fuel type and radius preferences via AsyncStorage\n\nMobile UX:\n- Haptic feedback (expo-haptics) on all interactive elements\n- Pull-to-refresh on station detail via RefreshControl\n- SafeAreaView on all screens (admin, detail, home)\n- KeyboardAvoidingView on admin edit form\n- Dark mode: full light/dark theme with system detection\n- StatusBar controlled per color scheme\n\nWeb on Mobile:\n- Dynamic viewport height (dvh) for mobile browser toolbar handling\n- touch-action: manipulation on map to prevent browser zoom conflicts\n- Web inputs styled with font-size 16px (prevents iOS auto-zoom)\n- PWA manifest for \"Add to Home Screen\" support\n- GeoJSON source + circle/symbol layers replace HTML markers for performance\n\nTags: ux, dark-mode, haptics, persistence, pwa, map-performance, accessibility\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: ux-improvements\nSemver: minor\n\nhttps://claude.ai/code/session_01HtYvrwKShFNNdBYvZgDqrd",
+  "tags": [
+    "feature",
+    "enhancement",
+    "ui",
+    "ux",
+    "accessibility",
+    "performance"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "ux-improvements",
+  "semver": "minor",
+  "scope": "ux",
+  "title": "comprehensive UX improvements across all screens",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 20,
+    "additions": 1431,
+    "deletions": 1587
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "app/+html.tsx",
+    "app/_layout.tsx",
+    "app/admin/_layout.tsx",
+    "app/admin/index.tsx",
+    "app/admin/station/[id].tsx",
+    "app/station/[id].tsx",
+    "constants/Colors.ts",
+    "public/manifest.json",
+    "src/components/admin/PriceEditor.tsx",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/search/FuelTypeSelector.tsx",
+    "src/components/search/RadiusSelector.tsx",
+    "src/components/station/PriceDisplay.tsx",
+    "src/components/station/StationCard.tsx",
+    "src/components/station/StationList.tsx",
+    "src/components/ui/Toast.tsx",
+    "src/hooks/useAppTheme.ts",
+    "src/hooks/usePersistedState.ts",
+    "src/lib/haptics.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

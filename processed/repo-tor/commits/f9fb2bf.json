@@ -1,0 +1,44 @@
+{
+  "sha": "f9fb2bf",
+  "fullSha": "f9fb2bf303cbe7c6fb9e3f7a21baa22a558a7e43",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T09:22:22Z",
+  "commitDate": "2026-03-02T09:22:22Z",
+  "subject": "fix: exclude data.json from PWA precache to fix Vercel build",
+  "body": "data.json (2.68 MB) exceeded workbox's default 2 MiB precache limit,\ncausing the Vercel build to fail. Moved from globPatterns (precache) to\nruntime caching with NetworkFirst strategy — users get fresh data when\nonline, cached data when offline.\n\nhttps://claude.ai/code/session_0152yG7ZEPGqkfSnWCgjfWnQ",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": null,
+  "title": "exclude data.json from PWA precache to fix Vercel build",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 40,
+    "deletions": 3
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

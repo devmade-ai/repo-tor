@@ -1,0 +1,43 @@
+{
+  "sha": "e90e66a",
+  "fullSha": "e90e66a4542f9e418b2a36047320d71dcaf79f2b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T21:03:49Z",
+  "commitDate": "2026-02-26T21:03:49Z",
+  "subject": "refactor(theme): simplify to dark/light toggle, drop system mode",
+  "body": "Three-way toggle (dark/light/system) was unnecessary complexity for\nnon-technical users. Now a single boolean persisted as theme_dark.\nMenu shows \"Light mode\" (sun icon) when dark, \"Dark mode\" (moon icon)\nwhen light — one tap to switch.\n\nTags: theme, ux, simplification\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theming\nSemver: patch\n\nhttps://claude.ai/code/session_016trqvNZsTsgT5cu3E7DDES",
+  "tags": [
+    "simplify",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theming",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "simplify to dark/light toggle, drop system mode",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 45,
+    "deletions": 106
+  },
+  "files": [
+    "src/components/ui/BurgerMenu.tsx",
+    "src/hooks/useAppTheme.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

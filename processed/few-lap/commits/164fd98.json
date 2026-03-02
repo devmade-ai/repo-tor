@@ -1,0 +1,50 @@
+{
+  "sha": "164fd98",
+  "fullSha": "164fd98728a924a5645687ef9a5fc62385cd6c87",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T04:54:47Z",
+  "commitDate": "2026-02-26T04:54:47Z",
+  "subject": "feat(map): add interactive Mapbox map on web platform",
+  "body": "Replace plain-text fallback with full mapbox-gl JS map on web.\nFuelMap now conditionally loads native SDK or mapbox-gl per platform.\nCustom HTML markers match native style (teal pill with price label).\n\nTags: map, web, mapbox, ui\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: web-map-support\nSemver: minor\n\nhttps://claude.ai/code/session_01JMVTLgZ4RRmRawFgHfLnvs",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "web-map-support",
+  "semver": "minor",
+  "scope": "map",
+  "title": "add interactive Mapbox map on web platform",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 458,
+    "deletions": 46
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/+html.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "package-lock.json",
+    "package.json",
+    "src/components/map/FuelMap.tsx",
+    "src/components/map/FuelMapWeb.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}
