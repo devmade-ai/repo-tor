@@ -1,0 +1,41 @@
+{
+  "sha": "3dd6ba1",
+  "fullSha": "3dd6ba1d66793ac9cbb4bc2ded19608770373aa8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T20:57:02Z",
+  "commitDate": "2026-02-26T20:57:02Z",
+  "subject": "docs(pwa): add timer leak and install prompt race condition fixes to PWA guidelines",
+  "body": "Two common PWA bugs documented as implementation guidelines:\n1. Timer leaks on unmount — nested setTimeout callbacks survive cleanup when only\n   the outer timeout is cleared. Fix: track all timeout IDs or use a mounted ref guard.\n2. Install prompt race condition — beforeinstallprompt fires before SPA framework mounts\n   on repeat visits. Fix: inline script in HTML captures event early, hook consumes it\n   with useState initializer, useEffect fallback covers first-visit case.\n\nTags: documentation, pwa\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pwa-guidelines\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-guidelines",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "add timer leak and install prompt race condition fixes to PWA guidelines",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 95,
+    "deletions": 0
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}
