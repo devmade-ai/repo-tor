@@ -347,6 +347,7 @@ Never:
 - Use silent `.catch(() => {})` — always handle specific errors (see AI Lessons)
 - Hardcode values that should come from CSS variables or config (see AI Lessons)
 - Document or recommend features that haven't been tested (see AI Lessons)
+- Improvise extraction/analysis workflows — follow `docs/EXTRACTION_PLAYBOOK.md` exactly, step by step, using the exact formats documented (see AI Lessons)
 
 ---
 
