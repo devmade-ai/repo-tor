@@ -13,6 +13,7 @@ Current state for AI assistants to continue work.
   - Fix 2: Moved `data.json` from `dashboard/` to `dashboard/public/` so Vite includes it in build output
   - Fix 3: Updated `aggregate-processed.js` default output to `dashboard/public/`
   - Fix 4: Added content-type guard and user-friendly error messages in `App.jsx`
+  - Fix 5: Excluded `data.json` from PWA precache (`globPatterns`) — too large (2.68MB > 2MB limit), added `NetworkFirst` runtime cache instead
   - Updated all documentation references to the new path
 
 **Previous Updates (2026-03-02 — Migrate from GitHub Pages to Vercel):**

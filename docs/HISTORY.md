@@ -6,13 +6,14 @@ Log of significant changes to code and documentation.
 
 ### Fix Dashboard JSON Loading Error on Vercel
 
-**Why:** Dashboard on Vercel (including installed PWA) showed "Could not load dashboard data" with a JSON parse error. The Vercel SPA rewrite rule was catching `data.json` requests and returning `index.html` (HTML) instead. Additionally, `data.json` was not in `dashboard/public/` so Vite never included it in the build output.
+**Why:** Dashboard on Vercel (including installed PWA) showed "Could not load dashboard data" with a JSON parse error. The Vercel SPA rewrite rule was catching `data.json` requests and returning `index.html` (HTML) instead. Additionally, `data.json` was not in `dashboard/public/` so Vite never included it in the build output, and was too large (2.68 MB) to precache via workbox.
 
 **What:**
 - **Fixed `vercel.json` rewrite rule** — Changed from `/((?!assets/).*)` to `/((?!assets/|.*\..+$).*)` so requests for files with extensions (`.json`, `.js`, `.css`, etc.) are not rewritten to `index.html`
 - **Moved `data.json` to `dashboard/public/`** — Vite copies `public/` contents to `dist/` during build, so `data.json` is now included in the deployed output
 - **Updated `aggregate-processed.js`** — Default output changed from `dashboard/` to `dashboard/public/` so future aggregation writes to the correct location
 - **Improved error handling in `App.jsx`** — Added content-type check before JSON parsing (detects HTML-instead-of-JSON), and replaced raw error messages with user-friendly text per CLAUDE.md guidelines
+- **Excluded `data.json` from PWA precache** — Removed from `globPatterns` (exceeded 2 MiB workbox limit), added `NetworkFirst` runtime caching rule instead
 - **Updated documentation** — EXTRACTION_PLAYBOOK.md, ADMIN_GUIDE.md, SESSION_NOTES.md, update-all.sh path references
 
 **Root cause:** The Vercel rewrite `/((?!assets/).*)` only excluded `assets/` paths. All other requests — including `data.json` — were rewritten to `/index.html`. The fetch received a 200 OK with HTML content, bypassing the 404 graceful fallback, and `.json()` threw a `SyntaxError`.
@@ -20,6 +21,7 @@ Log of significant changes to code and documentation.
 **Alternatives considered:**
 - Only fix the rewrite rule (not move data.json) — Rejected: data.json still wouldn't be in the build output, so it would 404 even with a correct rewrite
 - Add a Vite copy plugin — Rejected: unnecessary complexity when `public/` already handles static file copying
+- Increase `maximumFileSizeToCacheInBytes` — Rejected: precaching 2.6MB+ of mutable data wastes bandwidth on every SW update
 
 ### Migrate Deployment from GitHub Pages to Vercel
 
