@@ -1,0 +1,47 @@
+{
+  "sha": "0d98eec",
+  "fullSha": "0d98eec396f6324fb8b2f16801c3b43fd57d13cc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T20:41:55Z",
+  "commitDate": "2026-02-26T20:41:55Z",
+  "subject": "feat(theme): add user-controllable theme toggle with dark/light/auto modes",
+  "body": "Theme was locked to system preference with no user override, causing white\npages when system has no explicit scheme. Now defaults to dark and persists\nthe user's choice via AsyncStorage. Toggle lives in the burger menu as three\nchips (Light / Dark / Auto). Web HTML body always starts dark to prevent\nwhite flash.\n\nTags: theme, ux, dark-mode, burger-menu\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theming\nSemver: minor\n\nhttps://claude.ai/code/session_016trqvNZsTsgT5cu3E7DDES",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theming",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "add user-controllable theme toggle with dark/light/auto modes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 158,
+    "deletions": 54
+  },
+  "files": [
+    "app/(tabs)/_layout.tsx",
+    "app/+html.tsx",
+    "app/_layout.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/hooks/useAppTheme.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

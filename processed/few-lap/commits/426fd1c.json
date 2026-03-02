@@ -1,0 +1,73 @@
+{
+  "sha": "426fd1c",
+  "fullSha": "426fd1c3e55546762e392b860292144edceca814",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T05:26:45Z",
+  "commitDate": "2026-02-26T05:26:45Z",
+  "subject": "fix(app): comprehensive bug fixes, UX, accessibility, and code quality improvements",
+  "body": "Fix 9 bugs: web Alert.alert no-op (admin flows broken), search errors\nnot shown, date timezone off-by-one, stations flash empty on search,\nAndroid nav crash without Google Maps, module-level throws crashing app,\nstation detail nav to 0,0, web marker cleanup leak, map WebGL crash.\n\nImprove UX: map fills available space (flex instead of fixed 300px),\ntouch targets meet 44px minimum, radius selector scrolls on narrow\nscreens, search debounced (300ms), retry buttons on all error screens,\nfuel type loading state shown.\n\nAdd accessibility: roles/states/labels on all interactive elements,\ntext staleness labels alongside color dots, aria-labels on web markers.\n\nImprove performance: StationCard React.memo, memoized cheapest price\ncalculations, memoized admin filtered list.\n\nImprove code quality: Theme tokens replace hardcoded hex colors, removed\ndead code (SpaceMono font, TabBarIcon, FUEL_CATEGORIES, dark theme,\ntintColorDark), standardized error handling with actual error messages.\n\nNew files: src/lib/alert.ts (cross-platform alerts),\nsrc/components/map/MapErrorBoundary.tsx (graceful map failures).\n\nTags: bugfix, ux, accessibility, performance, code-quality, web\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: code-review-fixes\nSemver: patch\n\nhttps://claude.ai/code/session_01JMVTLgZ4RRmRawFgHfLnvs",
+  "tags": [
+    "bugfix",
+    "ux",
+    "accessibility",
+    "performance",
+    "refactor"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-review-fixes",
+  "semver": "patch",
+  "scope": "app",
+  "title": "comprehensive bug fixes, UX, accessibility, and code quality improvements",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 29,
+    "additions": 995,
+    "deletions": 537
+  },
+  "files": [
+    "app/(tabs)/_layout.tsx",
+    "app/(tabs)/index.tsx",
+    "app/_layout.tsx",
+    "app/admin/_layout.tsx",
+    "app/admin/index.tsx",
+    "app/admin/station/[id].tsx",
+    "app/station/[id].tsx",
+    "components/Themed.tsx",
+    "constants/Colors.ts",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/admin/PriceEditor.tsx",
+    "src/components/map/FuelMap.tsx",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/map/MapErrorBoundary.tsx",
+    "src/components/map/StationMarker.tsx",
+    "src/components/search/FuelTypeSelector.tsx",
+    "src/components/search/RadiusSelector.tsx",
+    "src/components/station/PriceDisplay.tsx",
+    "src/components/station/StationCard.tsx",
+    "src/components/station/StationList.tsx",
+    "src/constants/fuelTypes.ts",
+    "src/hooks/useStations.ts",
+    "src/lib/alert.ts",
+    "src/lib/formatting.ts",
+    "src/lib/mapbox.ts",
+    "src/lib/navigation.ts",
+    "src/lib/supabase.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

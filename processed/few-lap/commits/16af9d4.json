@@ -1,0 +1,48 @@
+{
+  "sha": "16af9d4",
+  "fullSha": "16af9d4864caa062997340a8bf8568a973c21f9b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T09:49:05Z",
+  "commitDate": "2026-02-26T09:49:05Z",
+  "subject": "refactor(app): rename app from Few Lap to FuelHunt",
+  "body": "Renamed across all user-facing and config locations:\n- app.json: name, slug, scheme\n- package.json + package-lock.json: package name\n- Tab layout header title\n- README.md title and status\n- USER_GUIDE.md overview\n- Supabase config project_id\n\nTags: branding, rename, config\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: rebranding\nSemver: minor\n\nhttps://claude.ai/code/session_01HtYvrwKShFNNdBYvZgDqrd",
+  "tags": [
+    "naming",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "rebranding",
+  "semver": "minor",
+  "scope": "app",
+  "title": "rename app from Few Lap to FuelHunt",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 11,
+    "deletions": 11
+  },
+  "files": [
+    "README.md",
+    "app.json",
+    "app/(tabs)/_layout.tsx",
+    "docs/USER_GUIDE.md",
+    "package-lock.json",
+    "package.json",
+    "supabase/config.toml"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

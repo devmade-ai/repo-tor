@@ -1,0 +1,55 @@
+{
+  "sha": "584a779",
+  "fullSha": "584a779555516fdade7f28644b1c54d0e84073bc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T21:36:21Z",
+  "commitDate": "2026-02-26T21:36:21Z",
+  "subject": "feat(icons): SVG source icon with Sharp pipeline, replace all placeholder PNGs",
+  "body": "Created brand icon: teal background, white fuel drop, \"R\" for Rand in\ncenter circle. Simple design that reads well from 1024px down to 48px\nfavicon. SVG source at assets/icon-source.svg, Sharp script at\nscripts/generate-icons.mjs generates all needed sizes.\n\nGenerated PNGs: icon.png (1024), adaptive-icon.png (1024),\nsplash-icon.png (1024), favicon.png (48), icon-192.png, icon-512.png.\n\nConfig updates:\n- manifest.json: multi-size PWA icons (192, 512, 1024 maskable)\n- app.json: splash + adaptive icon backgroundColor changed from white\n  to brand teal (#0D9488)\n\nTags: icons, branding, sharp, build-tools\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: branding\nSemver: minor\n\nhttps://claude.ai/code/session_016trqvNZsTsgT5cu3E7DDES",
+  "tags": [
+    "ui",
+    "build"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "branding",
+  "semver": "minor",
+  "scope": "icons",
+  "title": "SVG source icon with Sharp pipeline, replace all placeholder PNGs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#0"
+  ],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 638,
+    "deletions": 3
+  },
+  "files": [
+    "app.json",
+    "assets/icon-source.svg",
+    "assets/images/adaptive-icon.png",
+    "assets/images/favicon.png",
+    "assets/images/icon-192.png",
+    "assets/images/icon-512.png",
+    "assets/images/icon.png",
+    "assets/images/splash-icon.png",
+    "package-lock.json",
+    "package.json",
+    "public/manifest.json",
+    "scripts/generate-icons.mjs"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

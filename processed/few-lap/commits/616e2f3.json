@@ -1,0 +1,54 @@
+{
+  "sha": "616e2f3",
+  "fullSha": "616e2f30a6b9bc9f0658f8fa900d26428ac2310b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T21:29:24Z",
+  "commitDate": "2026-02-26T21:29:24Z",
+  "subject": "feat(pwa): add service worker, install prompt, update detection + fix timer leaks",
+  "body": "PWA system from CLAUDE.md Suggested Implementations, adapted for Expo Web:\n- Service worker (public/sw.js): cache-first for static assets, network-first\n  for Supabase API, stale-while-revalidate for navigation. Version-based cache.\n- usePWAUpdate hook: registers SW, polls for updates every 60min, exposes\n  hasUpdate boolean and updateApp() to activate waiting SW.\n- usePWAInstall hook: detects browser type (Chromium/Safari/Firefox), captures\n  beforeinstallprompt event, persists dismiss state. Includes race condition\n  fix via early-capture inline script in +html.tsx.\n- InstallPrompt banner: bottom banner with \"Install\" (Chromium native) or\n  \"How to Install\" (Safari/Firefox manual instructions).\n- InstallInstructionsModal: browser-specific step-by-step guides (Safari iOS,\n  Safari macOS, Firefox Android, Firefox desktop).\n- UpdatePrompt banner: teal bar at top when new SW version is waiting.\n- manifest.json background_color updated to dark theme (#111827).\n\nTimer leak fixes (from CLAUDE.md Suggested Implementations):\n- BurgerMenu: track handleItem setTimeout in ref, cleanup on unmount\n- DebugPill: cleanup auto-scroll timeout in useEffect return\n- DebugPill: track copy feedback timeout in ref, cleanup on unmount\n\nTags: pwa, service-worker, install-prompt, timer-cleanup, web\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: minor\n\nhttps://claude.ai/code/session_016trqvNZsTsgT5cu3E7DDES",
+  "tags": [
+    "feature",
+    "config"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "add service worker, install prompt, update detection + fix timer leaks",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#111827"
+  ],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 835,
+    "deletions": 7
+  },
+  "files": [
+    "app/+html.tsx",
+    "app/_layout.tsx",
+    "public/manifest.json",
+    "public/sw.js",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/pwa/InstallPrompt.tsx",
+    "src/components/pwa/UpdatePrompt.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/debug/DebugPill.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}
