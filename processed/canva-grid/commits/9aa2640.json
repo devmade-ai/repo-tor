@@ -1,0 +1,52 @@
+{
+  "sha": "9aa2640",
+  "fullSha": "9aa264036174565ad1eee1e26304c2794ebb7887",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-27T12:15:51Z",
+  "commitDate": "2026-02-27T12:15:51Z",
+  "subject": "feat(pwa,debug): harden PWA install, add debug system, extend icons",
+  "body": "Adopt patterns from sister project glow-props CLAUDE.md:\n- Fix beforeinstallprompt race condition with inline capture in index.html\n- Add explicit manifest id for stable PWA install identity\n- Separate icon purposes (never combine \"any maskable\")\n- Add dedicated 1024px maskable icon and 48px favicon to icon generator\n- Add in-memory debug log (200-entry circular buffer) with floating DebugPill\n- DebugPill renders in separate React root (survives App crashes), dev-only\n- Add glow-props reference in CLAUDE.md AI Notes for future cross-pollination\n\nTags: pwa, debug, icons, dx, cross-pollination\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_01JLMomBh5nUZYJ5EkCsw46y",
+  "tags": [
+    "feature",
+    "config",
+    "logging"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-hardening",
+  "semver": "minor",
+  "scope": "pwa,debug",
+  "title": "harden PWA install, add debug system, extend icons",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 466,
+    "deletions": 22
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "index.html",
+    "scripts/generate-icons.mjs",
+    "src/components/DebugPill.jsx",
+    "src/hooks/usePWAInstall.js",
+    "src/main.jsx",
+    "src/utils/debugLog.js",
+    "vite.config.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "infrastructure"
+}
