@@ -2,6 +2,24 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-03-03
+
+### Documentation Review & Corrections
+
+**Why:** Full codebase audit found documentation had drifted significantly from actual code — wrong tab counts, removed features still documented, incorrect data loading claims, and missing components/files.
+
+**What:**
+- **README.md** — Full rewrite: updated from 4 tabs to 6, added React/Vite/Tailwind stack info, replaced `open dashboard/index.html` with `npm run dev`, added complete project structure with all components/hooks/scripts
+- **CLAUDE.md** — Updated tab count from 5→6 (added Projects), expanded components list (added ErrorBoundary, EmbedRenderer, HealthAnomalies, HealthBars, HealthWorkPatterns), added `js/hooks/` and `js/chartColors.js`, fixed extract-api.js description (uses curl, not untested), replaced legacy "container IDs" table with actual component routing
+- **USER_GUIDE.md** — Removed Privacy Mode references (feature removed 2026-02-10), removed Share/PDF button references (never implemented in React), updated Summary Cards from "Files Changed/Contributors" to actual "Features Built/Bugs Fixed/Avg Urgency/% Planned", updated 18 Discover metric labels to match plain language names in code, added Projects tab section, fixed filter mode label "Inc/Exc"→"Include/Exclude", updated tips section
+- **ADMIN_GUIDE.md** — Fixed auto-loading data (was claiming 3-step `../reports/*/data.json` → `./data.json` → upload; actual: `./data.json` only), replaced extensive GitHub CLI section with simpler token-based setup (extract-api.js uses curl since 2026-02-24), fixed static server section (was suggesting `python -m http.server` which won't work with ES modules)
+- **SESSION_NOTES.md** — Corrected false claim about deleting `scripts/lib/manifest.js` (file is actively imported by 5 scripts), fixed "5-tab" → "6-tab", fixed "View Level in filter sidebar" → "in Settings"
+- **AppContext.jsx** — Added full decision documentation comment (What/Why/Alternatives) to the split context pattern
+
+**Alternatives considered:**
+- Partial fixes only — Rejected: documentation drift compounds; better to fix all known issues in one pass
+- Deleting stale sections without replacement — Rejected: users need accurate information, not gaps
+
 ## 2026-03-02
 
 ### Fix Dashboard JSON Loading Error on Vercel

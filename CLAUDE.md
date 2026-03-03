@@ -129,19 +129,21 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-02-26.
 **Key Components:**
 
 - `scripts/extract.js` - Extracts git log data into structured JSON
-- `scripts/extract-api.js` - GitHub API-based extraction (untested, see TODO.md)
+- `scripts/extract-api.js` - GitHub API-based extraction (uses curl, no gh CLI needed)
 - `scripts/aggregate-processed.js` - Aggregates processed/ data into dashboard JSON
 - `dashboard/` - React dashboard (Vite + React + Tailwind v4 + Chart.js via react-chartjs-2)
-  - `index.html` - Minimal HTML (root div + script)
-  - `styles.css` - Tailwind v4 + custom CSS (unchanged from vanilla JS)
+  - `index.html` - Minimal HTML (root div, debug pill, PWA early capture)
+  - `styles.css` - Tailwind v4 + custom CSS
   - `js/main.jsx` - React entry point with Chart.js registration
   - `js/AppContext.jsx` - React Context + useReducer state management
   - `js/App.jsx` - Main app component (data loading, tab routing, layout)
-  - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection)
-  - `js/tabs/` - Tab components (SummaryTab, TimelineTab, TimingTab, ProgressTab, ContributorsTab, TagsTab, HealthTab, SecurityTab, DiscoverTab)
-  - `js/state.js` - Constants (TAB_MAPPING, VIEW_LEVELS, etc.) + global state compat shim
-  - `js/utils.js` - Pure utility functions (unchanged)
+  - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection, ErrorBoundary, EmbedRenderer, HealthAnomalies, HealthBars, HealthWorkPatterns)
+  - `js/tabs/` - Tab components (SummaryTab, TimelineTab, TimingTab, ProgressTab, ContributorsTab, TagsTab, HealthTab, SecurityTab, DiscoverTab, ProjectsTab)
+  - `js/hooks/` - Custom hooks (useFocusTrap, useHealthData)
+  - `js/state.js` - Constants (TAB_MAPPING, VIEW_LEVELS, THRESHOLDS) + global state compat shim
+  - `js/utils.js` - Pure utility functions
   - `js/charts.js` - Chart aggregation helpers
+  - `js/chartColors.js` - Centralized chart color system (embed overrides)
   - `js/pwa.js` - PWA install/update logic
 - `vite.config.js` - Vite build + React + Tailwind v4 + PWA plugin config
 - `hooks/commit-msg` - Validates conventional commit format
@@ -159,17 +161,18 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-02-26.
 
 ## Dashboard Architecture
 
-**Tabs** — 5 user-facing tabs mapped to internal content containers:
+**Tabs** — 6 tabs defined in `TabBar.jsx`, routed in `App.jsx`:
 
-| Tab | Container IDs |
-|-----|---------------|
-| Summary | `tab-overview` |
-| Timeline | `tab-activity`, `tab-timing` |
-| Breakdown | `tab-progress`, `tab-tags`, `tab-contributors` |
-| Health | `tab-security` |
-| Discover | `tab-discover` |
+| Tab | Internal ID | Components Rendered |
+|-----|-------------|-------------------|
+| Summary | `overview` | SummaryTab |
+| Timeline | `activity` | TimelineTab, TimingTab |
+| Breakdown | `work` | ProgressTab, TagsTab, ContributorsTab |
+| Health | `health` | HealthTab, SecurityTab |
+| Discover | `discover` | DiscoverTab |
+| Projects | `projects` | ProjectsTab |
 
-Tab routing lives in `js/App.jsx`. Tab constants in `js/state.js` as `TAB_MAPPING`.
+Tab constants in `js/state.js` as `TAB_MAPPING`. Tab routing in `js/App.jsx`.
 
 **Role-Based View Levels** — Three audiences with different detail levels:
 
