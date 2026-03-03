@@ -4,6 +4,20 @@ Log of significant changes to code and documentation.
 
 ## 2026-03-03
 
+### Tab Data Usage Audit — Filter Fallback, UTC Consistency, Nullish Coalescing
+
+**Why:** Full review of all 10 dashboard tabs found three correctness bugs in how tabs use pre-aggregated data vs filtered commits: (1) filter fallback showing unfiltered summary data when all commits excluded, (2) `||` treating `0` as falsy for stats fields, (3) date grouping using local time instead of UTC (mismatching pre-aggregated keys).
+
+**What:**
+- **Filter fallback fix** — Changed `commitsLoaded && filteredCommits.length > 0` to `commitsLoaded` in SummaryTab, TimelineTab, ProgressTab. Previously, when user filters excluded all commits, the condition fell through to the pre-aggregated summary which is unfiltered — showing stale wrong numbers.
+- **`||` → `??` in utils.js** — `getAdditions()`, `getDeletions()`, `getFilesChanged()` now use nullish coalescing (`??`) so that `0` values are not treated as falsy.
+- **`||` → `??` in DiscoverTab** — 9 instances of `c.stats?.additions || 0` / `c.stats?.deletions || 0` changed to `??`.
+- **UTC date helpers in dashboard** — Added `getUTCDateKey(timestamp)` and `getUTCMonthKey(timestamp)` to `dashboard/js/utils.js`. Applied in TimelineTab (daily chart, code changes chart, summary stats) and ProgressTab (feature/bugfix trend, complexity trend) to match UTC keys from `aggregate-processed.js`.
+
+**Alternatives considered:**
+- Add pre-aggregated fallbacks to all 6 tabs missing them: Deferred — requires timezone/work-hour config at build time for TimingTab, per-contributor aggregation for ContributorsTab. Documented for future work.
+- Fix `substring(0, 10)` everywhere including useHealthData.js: Deferred — useHealthData has no pre-aggregated fallback, so no mismatch possible. Lower priority.
+
 ### Pipeline Audit — save-commit.js Validation + accumulateBucket Fix
 
 **Why:** Full audit of extraction/processing/aggregation pipeline found that `save-commit.js` only checked for field presence (not value validity). This allowed invalid values like `impact: "infra"` or `complexity: 99` to be saved to processed data uncaught. Also found `accumulateBucket` used `||` operator for `stats.additions` fallback, which would incorrectly treat `0` as falsy.

@@ -43,8 +43,8 @@ const DISCOVER_METRICS = [
         id: 'net-growth',
         label: 'Net Code Growth',
         calculate: (commits) => {
-            const adds = commits.reduce((sum, c) => sum + (c.stats?.additions || 0), 0);
-            const dels = commits.reduce((sum, c) => sum + (c.stats?.deletions || 0), 0);
+            const adds = commits.reduce((sum, c) => sum + (c.stats?.additions ?? 0), 0);
+            const dels = commits.reduce((sum, c) => sum + (c.stats?.deletions ?? 0), 0);
             const net = adds - dels;
             return { value: net >= 0 ? `+${net.toLocaleString()}` : net.toLocaleString(), sub: 'lines' };
         },
@@ -53,7 +53,7 @@ const DISCOVER_METRICS = [
         id: 'avg-commit-size',
         label: 'Avg Change Size',
         calculate: (commits) => {
-            const total = commits.reduce((sum, c) => sum + (c.stats?.additions || 0) + (c.stats?.deletions || 0), 0);
+            const total = commits.reduce((sum, c) => sum + (c.stats?.additions ?? 0) + (c.stats?.deletions ?? 0), 0);
             const avg = commits.length > 0 ? Math.round(total / commits.length) : 0;
             return { value: avg.toLocaleString(), sub: 'lines per change' };
         },
@@ -62,8 +62,8 @@ const DISCOVER_METRICS = [
         id: 'deletion-ratio',
         label: 'Code Removed',
         calculate: (commits) => {
-            const adds = commits.reduce((sum, c) => sum + (c.stats?.additions || 0), 0);
-            const dels = commits.reduce((sum, c) => sum + (c.stats?.deletions || 0), 0);
+            const adds = commits.reduce((sum, c) => sum + (c.stats?.additions ?? 0), 0);
+            const dels = commits.reduce((sum, c) => sum + (c.stats?.deletions ?? 0), 0);
             const total = adds + dels;
             const pct = total > 0 ? Math.round((dels / total) * 100) : 0;
             return { value: `${pct}%`, sub: 'of all changes were deletions' };
@@ -192,7 +192,7 @@ const DISCOVER_METRICS = [
         id: 'large-commits',
         label: 'Large Changes',
         calculate: (commits) => {
-            const large = commits.filter(c => (c.stats?.additions || 0) + (c.stats?.deletions || 0) > 500).length;
+            const large = commits.filter(c => (c.stats?.additions ?? 0) + (c.stats?.deletions ?? 0) > 500).length;
             const pct = commits.length > 0 ? Math.round((large / commits.length) * 100) : 0;
             return { value: large.toLocaleString(), sub: `${pct}% over 500 lines` };
         },
@@ -417,8 +417,8 @@ export default function DiscoverTab() {
         }
 
         // Additions vs Deletions
-        const adds = filteredCommits.reduce((sum, c) => sum + (c.stats?.additions || 0), 0);
-        const dels = filteredCommits.reduce((sum, c) => sum + (c.stats?.deletions || 0), 0);
+        const adds = filteredCommits.reduce((sum, c) => sum + (c.stats?.additions ?? 0), 0);
+        const dels = filteredCommits.reduce((sum, c) => sum + (c.stats?.deletions ?? 0), 0);
         if (adds + dels > 0) {
             items.push({
                 label: 'Additions vs Deletions',

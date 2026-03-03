@@ -4,7 +4,8 @@ import { useApp } from '../AppContext.jsx';
 import {
     formatDate, getCommitTags, getTagClass, getTagStyleObject,
     getAuthorEmail, getAuthorName, getCommitSubject,
-    sanitizeMessage, getWorkPattern, getAdditions, getDeletions, handleKeyActivate
+    sanitizeMessage, getWorkPattern, getAdditions, getDeletions, handleKeyActivate,
+    getUTCDateKey,
 } from '../utils.js';
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
 import { seriesColors, accentColor, getSeriesColor } from '../chartColors.js';
@@ -24,10 +25,12 @@ export default function TimelineTab() {
 
     // Summary card data
     // Requirement: Show summary stats from pre-aggregated data before commits load
+    // Once commits are loaded, always use filteredCommits (even if empty due to filters)
+    // to avoid falling back to unfiltered summary data
     const summaryData = useMemo(() => {
-        if (commitsLoaded && filteredCommits.length > 0) {
+        if (commitsLoaded) {
             const totalCommits = filteredCommits.length;
-            const uniqueDays = new Set(filteredCommits.map(c => c.timestamp?.substring(0, 10)).filter(Boolean));
+            const uniqueDays = new Set(filteredCommits.map(c => c.timestamp ? getUTCDateKey(c.timestamp) : null).filter(Boolean));
             const activeDays = uniqueDays.size;
             const sortedDates = [...uniqueDays].sort();
 
@@ -91,13 +94,13 @@ export default function TimelineTab() {
         let commitsByDate = {};
         let repos = [];
 
-        if (commitsLoaded && filteredCommits.length > 0) {
+        if (commitsLoaded) {
             // Commits loaded: compute from filtered commits (supports all filters)
             repos = [...new Set(filteredCommits.map(c => c.repo_id).filter(Boolean))];
 
             filteredCommits.forEach(commit => {
-                const dateStr = commit.timestamp?.substring(0, 10);
-                if (!dateStr) return;
+                if (!commit.timestamp) return;
+                const dateStr = getUTCDateKey(commit.timestamp);
                 if (!commitsByDate[dateStr]) {
                     commitsByDate[dateStr] = { total: 0, byRepo: {} };
                 }
@@ -193,12 +196,12 @@ export default function TimelineTab() {
         let changesByDate = {};
         let repos = [];
 
-        if (commitsLoaded && filteredCommits.length > 0) {
+        if (commitsLoaded) {
             repos = [...new Set(filteredCommits.map(c => c.repo_id).filter(Boolean))];
 
             filteredCommits.forEach(commit => {
-                const dateStr = commit.timestamp?.substring(0, 10);
-                if (!dateStr) return;
+                if (!commit.timestamp) return;
+                const dateStr = getUTCDateKey(commit.timestamp);
                 if (!changesByDate[dateStr]) {
                     changesByDate[dateStr] = { total: 0, byRepo: {} };
                 }

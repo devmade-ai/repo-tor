@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Line, Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
-import { getCommitTags, handleKeyActivate, excludeIncompleteLastMonth } from '../utils.js';
+import { getCommitTags, handleKeyActivate, excludeIncompleteLastMonth, getUTCMonthKey } from '../utils.js';
 import { getSeriesColor, withOpacity } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
@@ -9,8 +9,10 @@ export default function ProgressTab() {
     const { state, filteredCommits, commitsLoaded, openDetailPane, isMobile } = useApp();
 
     // Summary metrics — use pre-aggregated data when commits aren't loaded
+    // Once commits are loaded, always use filteredCommits (even if empty due to filters)
+    // to avoid falling back to unfiltered summary data
     const metrics = useMemo(() => {
-        if (commitsLoaded && filteredCommits.length > 0) {
+        if (commitsLoaded) {
             let featureCount = 0, bugfixCount = 0, refactorCount = 0;
             let complexitySum = 0, complexityCount = 0;
 
@@ -46,15 +48,15 @@ export default function ProgressTab() {
     const featFixChartData = useMemo(() => {
         let months, featData, fixData;
 
-        if (commitsLoaded && filteredCommits.length > 0) {
-            const monthSet = new Set(filteredCommits.map(c => c.timestamp?.substring(0, 7)).filter(Boolean));
+        if (commitsLoaded) {
+            const monthSet = new Set(filteredCommits.map(c => c.timestamp ? getUTCMonthKey(c.timestamp) : null).filter(Boolean));
             const allMonths = [...monthSet].sort();
             ({ months } = excludeIncompleteLastMonth(allMonths, filteredCommits));
 
             const monthlyTagCounts = {};
             filteredCommits.forEach(commit => {
-                const month = commit.timestamp?.substring(0, 7);
-                if (!month) return;
+                if (!commit.timestamp) return;
+                const month = getUTCMonthKey(commit.timestamp);
                 if (!monthlyTagCounts[month]) monthlyTagCounts[month] = { feature: 0, bugfix: 0 };
                 const tags = getCommitTags(commit);
                 if (tags.includes('feature')) monthlyTagCounts[month].feature++;
@@ -130,14 +132,14 @@ export default function ProgressTab() {
     const complexityChartData = useMemo(() => {
         let months, complexityData;
 
-        if (commitsLoaded && filteredCommits.length > 0) {
-            const monthSet = new Set(filteredCommits.map(c => c.timestamp?.substring(0, 7)).filter(Boolean));
+        if (commitsLoaded) {
+            const monthSet = new Set(filteredCommits.map(c => c.timestamp ? getUTCMonthKey(c.timestamp) : null).filter(Boolean));
             ({ months } = excludeIncompleteLastMonth([...monthSet].sort(), filteredCommits));
 
             const monthlyComplexity = {};
             filteredCommits.forEach(commit => {
-                const month = commit.timestamp?.substring(0, 7);
-                if (!month) return;
+                if (!commit.timestamp) return;
+                const month = getUTCMonthKey(commit.timestamp);
                 if (!monthlyComplexity[month]) monthlyComplexity[month] = { total: 0, count: 0 };
                 if (commit.complexity != null) {
                     monthlyComplexity[month].total += commit.complexity;
@@ -202,7 +204,7 @@ export default function ProgressTab() {
     // Epic breakdown — groups commits by epic label
     // Uses pre-aggregated epicBreakdown from summary when commits aren't loaded
     const epicBreakdown = useMemo(() => {
-        if (commitsLoaded && filteredCommits.length > 0) {
+        if (commitsLoaded) {
             const epics = {};
             filteredCommits.forEach(c => {
                 if (c.epic && typeof c.epic === 'string') {
@@ -229,7 +231,7 @@ export default function ProgressTab() {
     // Semver breakdown — patch/minor/major distribution
     // Uses pre-aggregated semverBreakdown from summary when commits aren't loaded
     const semverBreakdown = useMemo(() => {
-        if (commitsLoaded && filteredCommits.length > 0) {
+        if (commitsLoaded) {
             const breakdown = { patch: 0, minor: 0, major: 0 };
             filteredCommits.forEach(c => {
                 if (c.semver && breakdown.hasOwnProperty(c.semver)) {

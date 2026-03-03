@@ -284,7 +284,8 @@ export function getAuthorEmail(commit) {
 // === Data Format Helpers ===
 export function getFilesChanged(commit) {
     // Handle different data formats: stats.filesChanged, filesChanged, files_changed
-    return commit.stats?.filesChanged || commit.filesChanged || commit.files_changed || 0;
+    // Use ?? (nullish coalescing) so that 0 is not treated as falsy
+    return commit.stats?.filesChanged ?? commit.filesChanged ?? commit.files_changed ?? 0;
 }
 
 export function getCommitSubject(commit) {
@@ -294,12 +295,32 @@ export function getCommitSubject(commit) {
 
 export function getAdditions(commit) {
     // Handle different data formats: stats.additions vs lines_added
-    return commit.stats?.additions || commit.lines_added || 0;
+    // Use ?? (nullish coalescing) so that 0 is not treated as falsy
+    return commit.stats?.additions ?? commit.lines_added ?? 0;
 }
 
 export function getDeletions(commit) {
     // Handle different data formats: stats.deletions vs lines_deleted
-    return commit.stats?.deletions || commit.lines_deleted || 0;
+    // Use ?? (nullish coalescing) so that 0 is not treated as falsy
+    return commit.stats?.deletions ?? commit.lines_deleted ?? 0;
+}
+
+// === UTC Date Helpers ===
+// Requirement: Date grouping in dashboard must match UTC keys from aggregate-processed.js
+// Approach: Parse timestamp to Date and extract UTC year/month/day to build YYYY-MM-DD / YYYY-MM
+// Alternatives:
+//   - substring(0, 10): Rejected — extracts local timezone from ISO string, not UTC
+//   - toISOString().substring(): Works but creates unnecessary string allocation
+export function getUTCDateKey(timestamp) {
+    const d = new Date(timestamp);
+    return d.getUTCFullYear() + '-' +
+        String(d.getUTCMonth() + 1).padStart(2, '0') + '-' +
+        String(d.getUTCDate()).padStart(2, '0');
+}
+
+export function getUTCMonthKey(timestamp) {
+    const d = new Date(timestamp);
+    return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0');
 }
 
 // === Formatting Helpers ===

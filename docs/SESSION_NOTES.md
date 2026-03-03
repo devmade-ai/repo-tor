@@ -6,7 +6,15 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-03-03 — Pipeline Audit + Validation Fixes):**
+**Recent Updates (2026-03-03 — Tab Data Usage Audit + 3 Bug Fixes):**
+- **Full tab review** — Reviewed all 10 dashboard tabs for correct usage of pre-aggregated data, identifying 3 bugs and documenting which tabs have/lack pre-aggregated fallbacks.
+- **Fix 1: Filter fallback to unfiltered data** — SummaryTab, TimelineTab, ProgressTab used `commitsLoaded && filteredCommits.length > 0` as the condition to use filtered commits. When filters excluded ALL commits, this fell through to the unfiltered summary data, showing wrong numbers. Fixed: changed to `commitsLoaded` (always use filtered commits once loaded, even if empty).
+- **Fix 2: `||` → `??` in utils.js and DiscoverTab** — `getAdditions()`, `getDeletions()`, `getFilesChanged()` in utils.js used `||` which treats `0` as falsy. Same pattern in DiscoverTab (9 instances of `c.stats?.additions || 0`). Fixed to use `??` (nullish coalescing).
+- **Fix 3: Local time → UTC date grouping** — TimelineTab used `substring(0, 10)` and ProgressTab used `substring(0, 7)` for date/month grouping, extracting local timezone from ISO strings. Pre-aggregated keys use UTC. Added `getUTCDateKey()`/`getUTCMonthKey()` helpers to dashboard utils.js and applied in both tabs for consistency.
+- **Tabs without pre-aggregated fallback** (documented, not fixed — lower priority): TimingTab, TagsTab, ContributorsTab, HealthTab, SecurityTab, DiscoverTab show empty during initial load. ProjectsTab commit counts show 0 until lazy-load completes.
+- **Files changed**: `dashboard/js/utils.js`, `dashboard/js/tabs/SummaryTab.jsx`, `dashboard/js/tabs/TimelineTab.jsx`, `dashboard/js/tabs/ProgressTab.jsx`, `dashboard/js/tabs/DiscoverTab.jsx`
+
+**Previous Updates (2026-03-03 — Pipeline Audit + Validation Fixes):**
 - **Full pipeline audit** — Reviewed all extraction/processing/aggregation scripts and verified field mapping from extraction through to dashboard output.
 - **save-commit.js validation hardened** — Added value validation for analysis fields (tags must be array, complexity/urgency must be integer 1-5, impact must be one of the 4 canonical values). Previously only checked for field presence, which allowed invalid values like `impact:"infra"` to pass through unchecked.
 - **accumulateBucket `??` fix** — Changed `||` to `??` (nullish coalescing) for `stats.additions`/`stats.deletions` fallback. Prevents `0` being treated as falsy (theoretical edge case, no current data affected).

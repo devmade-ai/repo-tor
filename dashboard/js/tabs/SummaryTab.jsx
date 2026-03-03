@@ -57,11 +57,13 @@ export default function SummaryTab() {
 
     // Requirement: Show metrics from pre-aggregated data immediately, refine when commits load
     // Approach: Use summary breakdowns for counts/averages (available instantly), compute
-    //   per-commit metrics (work patterns, top repo) only after commits are loaded
+    //   per-commit metrics (work patterns, top repo) only after commits are loaded.
+    //   Once commits are loaded, ALWAYS use filteredCommits (even if empty due to filters)
+    //   to avoid falling back to unfiltered summary data.
     // Alternatives: Compute everything from commits — rejected, blocks rendering until loaded
     const metrics = useMemo(() => {
         // If commits are loaded, compute full metrics from filtered commits
-        if (commitsLoaded && filteredCommits.length > 0) {
+        if (commitsLoaded) {
             const commits = filteredCommits;
 
             const features = commits.filter(c => getCommitTags(c).includes('feature')).length;
