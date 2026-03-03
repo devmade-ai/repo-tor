@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Line, Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
-import { getCommitTags, handleKeyActivate } from '../utils.js';
+import { getCommitTags, handleKeyActivate, excludeIncompleteLastMonth } from '../utils.js';
 import { getSeriesColor, withOpacity } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
@@ -30,9 +30,11 @@ export default function ProgressTab() {
     }, [filteredCommits]);
 
     // Feature vs Bug Fix Trend chart data
+    // Excludes incomplete last month to prevent misleading cliff on trend charts
     const featFixChartData = useMemo(() => {
         const monthSet = new Set(filteredCommits.map(c => c.timestamp?.substring(0, 7)).filter(Boolean));
-        const months = [...monthSet].sort();
+        const allMonths = [...monthSet].sort();
+        const { months } = excludeIncompleteLastMonth(allMonths, filteredCommits);
 
         const monthlyTagCounts = {};
         filteredCommits.forEach(commit => {
@@ -87,9 +89,10 @@ export default function ProgressTab() {
     }, [filteredCommits, isMobile]);
 
     // Complexity Over Time chart data
+    // Excludes incomplete last month (same reason as features vs bugfix trend)
     const complexityChartData = useMemo(() => {
         const monthSet = new Set(filteredCommits.map(c => c.timestamp?.substring(0, 7)).filter(Boolean));
-        const months = [...monthSet].sort();
+        const { months } = excludeIncompleteLastMonth([...monthSet].sort(), filteredCommits);
 
         const monthlyComplexity = {};
         filteredCommits.forEach(commit => {

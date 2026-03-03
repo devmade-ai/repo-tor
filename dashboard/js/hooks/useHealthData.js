@@ -14,7 +14,7 @@
 //     so splitting them would require passing values between hooks or duplicating computation
 
 import { useMemo } from 'react';
-import { getAuthorEmail, getAuthorName, sanitizeName } from '../utils.js';
+import { getAuthorEmail, getAuthorName, sanitizeName, excludeIncompleteLastMonth } from '../utils.js';
 import { getSeriesColor, withOpacity, mutedColor } from '../chartColors.js';
 
 /**
@@ -119,7 +119,10 @@ export default function useHealthData(filteredCommits, state, viewConfig, isMobi
             monthlyUrgency[month].count++;
         });
 
-        const sortedMonths = Object.keys(monthlyUrgency).sort();
+        // Exclude incomplete last month to prevent misleading cliff on trend charts
+        const { months: sortedMonths } = excludeIncompleteLastMonth(
+            Object.keys(monthlyUrgency).sort(), filteredCommits
+        );
         if (sortedMonths.length === 0) return null;
 
         const urgencyData = sortedMonths.map(m =>
@@ -225,7 +228,10 @@ export default function useHealthData(filteredCommits, state, viewConfig, isMobi
             }
         });
 
-        const sortedMonths = Object.keys(monthlyDebt).sort();
+        // Exclude incomplete last month (same reason as urgency/impact trends)
+        const { months: sortedMonths } = excludeIncompleteLastMonth(
+            Object.keys(monthlyDebt).sort(), filteredCommits
+        );
         if (sortedMonths.length === 0) return null;
 
         const mobile = isMobile;

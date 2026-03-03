@@ -4,6 +4,20 @@ Log of significant changes to code and documentation.
 
 ## 2026-03-03
 
+### Fix Partial Month Cliff on Trend Charts
+
+**Why:** Monthly trend charts showed a misleading 95% drop for the current month (March 2026) because only 2 days of data (39 commits) were displayed at equal visual weight as full months (800+ commits). Non-technical users would interpret this as something going wrong.
+
+**What:**
+- **Added `excludeIncompleteLastMonth()` utility** to `dashboard/js/utils.js` — checks if the latest commit day in the last month is before the 15th; if so, excludes that month from trend chart data
+- **Applied to `ProgressTab.jsx`** — Features vs Bug Fixes Over Time and Complexity Over Time charts
+- **Applied to `useHealthData.js`** — Urgency Trend (which cascades to Impact Over Time via shared `sortedMonths`) and Debt Trend charts
+
+**Alternatives considered:**
+- Normalize to daily rate (commits per day) — Rejected: changes y-axis meaning, harder for non-technical users to interpret
+- Show partial month with dashed line/annotation — Rejected: adds visual complexity, still misleading at first glance
+- Use calendar "today" date to detect current month — Rejected: data.json is static, detection should be data-driven based on actual commit dates
+
 ### Documentation Review & Corrections
 
 **Why:** Full codebase audit found documentation had drifted significantly from actual code — wrong tab counts, removed features still documented, incorrect data loading claims, and missing components/files.

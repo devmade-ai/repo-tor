@@ -334,6 +334,38 @@ export function getCommitDateTime(commit) {
     };
 }
 
+// === Partial Month Handling ===
+
+/**
+ * Requirement: Exclude incomplete last month from trend charts so partial data
+ *   doesn't appear as a dramatic drop (e.g., 2 days into March looks like 95% decline).
+ * Approach: Check if the latest day in the last month is before the 15th — if so,
+ *   the month has less than half its data and would mislead non-technical users.
+ * Alternatives:
+ *   - Normalize to daily rate: Rejected — changes the y-axis meaning, harder to interpret
+ *   - Show with dashed line annotation: Rejected — adds visual complexity, still misleading at a glance
+ *   - Use calendar "today" check: Rejected — data.json is static, should be data-driven
+ */
+export function excludeIncompleteLastMonth(sortedMonths, commits) {
+    if (sortedMonths.length === 0) return { months: sortedMonths, excluded: false };
+
+    const lastMonth = sortedMonths[sortedMonths.length - 1];
+    const monthCommits = commits.filter(c => c.timestamp?.startsWith(lastMonth));
+
+    if (monthCommits.length === 0) {
+        return { months: sortedMonths.slice(0, -1), excluded: true };
+    }
+
+    // Find the latest day-of-month in the data for this month
+    const maxDay = Math.max(...monthCommits.map(c => new Date(c.timestamp).getDate()));
+
+    if (maxDay < 15) {
+        return { months: sortedMonths.slice(0, -1), excluded: true };
+    }
+
+    return { months: sortedMonths, excluded: false };
+}
+
 // === Aggregation Functions for View Levels ===
 
 /**

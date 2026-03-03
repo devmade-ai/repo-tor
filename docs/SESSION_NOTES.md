@@ -6,7 +6,13 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-03-03 — Documentation Review & Corrections):**
+**Recent Updates (2026-03-03 — Fix Partial Month Cliff on Trend Charts):**
+- **Bug fix** — Monthly trend charts (Features vs Bug Fixes, Impact Over Time, Urgency, Complexity, Debt) showed a misleading dramatic drop for the current month when data was incomplete (e.g., only 2 days into March vs full months with 800+ commits).
+- **Root cause**: Charts rendered raw monthly counts with no handling for partial months — 39 commits (2 days) shown at equal visual weight as 800+ commits (full month).
+- **Fix**: Added `excludeIncompleteLastMonth()` utility to `js/utils.js`. Applied in `ProgressTab.jsx` (features vs bugfix trend, complexity trend) and `useHealthData.js` (urgency trend → cascades to impact trend, debt trend). If the last month's latest commit day is before the 15th, that month is excluded from trend charts.
+- **Files changed**: `dashboard/js/utils.js`, `dashboard/js/tabs/ProgressTab.jsx`, `dashboard/js/hooks/useHealthData.js`
+
+**Previous Updates (2026-03-03 — Documentation Review & Corrections):**
 - **Full codebase audit** — Compared all documentation against actual code. Found and fixed ~30 discrepancies across README.md, CLAUDE.md, USER_GUIDE.md, ADMIN_GUIDE.md, SESSION_NOTES.md.
 - **Key fixes**: README rewritten for React/Vite era, removed Privacy Mode and Share/PDF ghost features from USER_GUIDE, fixed auto-loading data claims in ADMIN_GUIDE, replaced gh CLI section with token-based setup, corrected tab counts (5→6), corrected manifest.js false deletion claim, added decision documentation to AppContext.jsx split context pattern.
 - **Code change**: Added What/Why/Alternatives comment to `AppContext.jsx` split context pattern.
@@ -516,4 +522,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-03-02 - Feed the chicken: 151 new commits across 10 repos (2097 total). Added process guardrails to extraction playbook.*
+*Last updated: 2026-03-03 - Fix partial month cliff on trend charts. Incomplete months (less than 15 days of data) now excluded from all monthly trend charts.*
