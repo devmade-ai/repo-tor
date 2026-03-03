@@ -6,7 +6,12 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-03-02 — Feed the Chicken: 151 New Commits):**
+**Recent Updates (2026-03-03 — Documentation Review & Corrections):**
+- **Full codebase audit** — Compared all documentation against actual code. Found and fixed ~30 discrepancies across README.md, CLAUDE.md, USER_GUIDE.md, ADMIN_GUIDE.md, SESSION_NOTES.md.
+- **Key fixes**: README rewritten for React/Vite era, removed Privacy Mode and Share/PDF ghost features from USER_GUIDE, fixed auto-loading data claims in ADMIN_GUIDE, replaced gh CLI section with token-based setup, corrected tab counts (5→6), corrected manifest.js false deletion claim, added decision documentation to AppContext.jsx split context pattern.
+- **Code change**: Added What/Why/Alternatives comment to `AppContext.jsx` split context pattern.
+
+**Previous Updates (2026-03-02 — Feed the Chicken: 151 New Commits):**
 - **Feed the Chicken — 151 New Commits** — Incremental extraction and AI analysis of 151 new commits across 10 repos: budgy-ting (+30), canva-grid (+10), few-lap (+27), glow-props (+12), graphiki (+8), model-pear (+7), repo-tor (+13), see-veo (+14), synctone (+14), tool-till-tees (+16). All batches human-approved. Dashboard re-aggregated: 14 repos, 2097 total commits.
 - **Process guardrails added** — After presenting the first batch in a wrong format (not matching EXTRACTION_PLAYBOOK.md), implemented 4 guardrails: pre-flight checklist in playbook, AI Lessons entry, CLAUDE.md prohibition against improvising workflows, stronger prescriptive language in review format section.
 
@@ -46,7 +51,7 @@ Current state for AI assistants to continue work.
 - **Second Codebase Audit** — Reviewed all dashboard components, styles, and infrastructure. Identified and fixed ~17 issues:
   - **UX (7 items)**: Filter labels "Inc"/"Exc"→"Include"/"Exclude", upload success toast, urgency labels to plain language ("Planned Work"/"Routine Work"/"Urgent Fixes"), work hours color legend, security tab subtitle, standardized empty states across 5 tabs, improved error messages (SyntaxError vs generic)
   - **Accessibility (4 items)**: focus-visible outlines on all interactive elements, tab active state via CSS variables (not hardcoded Tailwind), tag contrast increased (0.2/0.3→0.3/0.5 opacity), prefers-reduced-motion media query
-  - **Code quality (3 items)**: Error boundary inline styles→CSS classes, centralized THRESHOLDS constants in state.js, deleted dead code (scripts/lib/manifest.js)
+  - **Code quality (3 items)**: Error boundary inline styles→CSS classes, centralized THRESHOLDS constants in state.js, code cleanup (note: scripts/lib/manifest.js was incorrectly listed as deleted — it is actively used by 5 scripts)
   - **Infrastructure (3 items)**: extract-api.js error.code check, PWA glob patterns narrowed (exclude large data files), sourcemap disabled in production
 - Build passes: 67 modules, 502KB bundle
 
@@ -370,7 +375,7 @@ Current state for AI assistants to continue work.
 ### Completed
 
 - [x] **Aggregation script** - `scripts/aggregate-processed.js` reads from processed/ data
-- [x] **5-tab structure** - Summary, Timeline, Breakdown, Health, Discover
+- [x] **6-tab structure** - Summary, Timeline, Breakdown, Health, Discover, Projects
 - [x] **Tab mapping** - JavaScript maps new tabs to show multiple content containers
 - [x] **Urgency/Impact in Health tab** - Distribution bars, operational health cards
 - [x] **Urgency/Planned in Summary** - Executive summary cards
@@ -405,7 +410,7 @@ Current state for AI assistants to continue work.
 - **Timeline**: Executive sees weekly summaries, Management sees daily summaries
 - **Tags/Progress**: Drilldowns automatically use view-level-aware detail pane
 
-Access via the "View Level" selector in the filter sidebar. Selection persists in localStorage.
+Access via the "View Level" selector in Settings (gear icon). Selection persists in localStorage.
 
 ### Click Interactions
 

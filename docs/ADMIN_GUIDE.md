@@ -38,7 +38,7 @@ This will:
 - Extract git data from each repo
 - Aggregate all data into `dashboard/public/data.json`
 
-**Requirements:** `gh` CLI installed and authenticated (`gh auth login`)
+**Requirements:** GitHub token set via `GH_TOKEN`, `GITHUB_TOKEN`, or `GITHUB_ALL_REPO_TOKEN` env var (or `.env` file)
 
 **Alternative (clone-based):**
 ```bash
@@ -126,111 +126,38 @@ The dev server provides:
 - PWA service worker in dev mode
 - Source maps for debugging
 
-## GitHub CLI Setup
+## GitHub Token Setup
 
-The setup script handles installation and authentication for the GitHub CLI, which is required for API-based extraction (faster, no cloning needed).
+API-based extraction uses `curl` with a GitHub Personal Access Token. No `gh` CLI is required.
 
-### Quick Setup (Interactive)
-
-```bash
-./scripts/setup-gh.sh
-```
-
-This will:
-1. Install `gh` CLI if not present (supports Linux, macOS, WSL)
-2. Guide you through authentication (browser or token)
-3. Verify API access is working
-
-### CI/CD / Non-Interactive Setup
-
-For automated environments, use a GitHub Personal Access Token:
-
-```bash
-# Option 1: Pass token as argument
-./scripts/setup-gh.sh --token=ghp_xxxxxxxxxxxx
-
-# Option 2: Use environment variable
-GH_TOKEN=ghp_xxxxxxxxxxxx ./scripts/setup-gh.sh
-
-# Option 3: Set GH_TOKEN in CI/CD secrets and just run
-./scripts/setup-gh.sh
-```
-
-**Token requirements:**
-- Create at: https://github.com/settings/tokens/new
-- Scopes needed: `repo` (for private repos) or `public_repo` (public only)
-
-### AI Sessions / .env File Setup
-
-For AI assistants (like Claude Code) that can't use interactive authentication:
+### Setting Up a Token
 
 1. **Create a Personal Access Token** at https://github.com/settings/tokens/new
    - Select scopes: `repo` (for private repos) or `public_repo` (public only)
    - Copy the token (starts with `ghp_`)
 
-2. **Create .env file** from the example:
+2. **Set the token** via one of these methods:
+
+   **Option A: .env file (recommended for local / AI sessions)**
    ```bash
    cp .env.example .env
+   # Edit .env and set: GH_TOKEN=ghp_your_token_here
    ```
 
-3. **Edit .env** and set your token:
-   ```
-   GH_TOKEN=ghp_your_token_here
+   **Option B: Environment variable**
+   ```bash
+   export GH_TOKEN=ghp_your_token_here
    ```
 
-4. **Test extraction:**
+   **Option C: CI/CD secrets**
+   Set `GH_TOKEN` in your CI/CD environment variables.
+
+3. **Test extraction:**
    ```bash
    node scripts/extract-api.js devmade-ai/repo-tor --output=reports/
    ```
 
-The scripts automatically load `.env` from the project root. The `.env` file is gitignored and won't be committed.
-
-**Alternative:** Save token via setup script:
-```bash
-./scripts/setup-gh.sh --token=ghp_xxx --save-env
-```
-
-### Manual Installation
-
-If the setup script doesn't work for your environment:
-
-1. Install `gh` CLI: https://cli.github.com/
-2. Authenticate:
-   ```bash
-   gh auth login
-   ```
-3. Verify:
-   ```bash
-   gh auth status
-   ```
-
-### Supported Platforms
-
-| Platform | Installation Method |
-|----------|---------------------|
-| macOS | Homebrew (`brew install gh`) |
-| Ubuntu/Debian | apt (official GitHub repo) |
-| RHEL/Fedora/CentOS | dnf (official GitHub repo) |
-| Arch Linux | pacman |
-| Alpine Linux | apk |
-| WSL | apt (same as Debian) |
-| Other | Manual or conda |
-
-### Troubleshooting
-
-```bash
-# Check if gh is installed
-gh --version
-
-# Check authentication status
-gh auth status
-
-# Re-authenticate if needed
-gh auth logout && gh auth login
-
-# Test API access
-gh api user --jq '.login'
-```
+The scripts check for tokens in this order: `GH_TOKEN`, `GITHUB_TOKEN`, `GITHUB_ALL_REPO_TOKEN`. The `.env` file is loaded automatically from the project root and is gitignored.
 
 ## Data Extraction
 
@@ -484,17 +411,14 @@ npm run preview  # Preview production build locally
 
 **Note:** Opening `dashboard/index.html` directly won't work since it uses ES modules. Use the dev server instead.
 
-### Option 2: Static File Server
+### Option 2: Preview Production Build
 
 ```bash
-# Python
-python -m http.server 8000 --directory dashboard
-
-# Node.js (npx)
-npx serve dashboard
-
-# Then open http://localhost:8000
+npm run build    # Build to dist/
+npm run preview  # Serve dist/ locally for testing
 ```
+
+**Note:** Opening `dashboard/index.html` directly won't work — the dashboard uses ES modules and requires a proper server. Use `npm run dev` for development or `npm run preview` to test production builds.
 
 ### Option 3: Vercel (Automated)
 
@@ -530,13 +454,12 @@ Upload the contents of `dist/` to:
 
 ## Auto-Loading Data
 
-The dashboard looks for data in this order:
+The dashboard loads data in this order:
 
-1. `../reports/*/data.json` (any repo in reports folder)
-2. `./data.json` (same directory as dashboard)
-3. Manual file upload via the file picker
+1. `./data.json` — fetched automatically on page load (deployed via `dashboard/public/data.json`, which Vite copies to `dist/`)
+2. Manual file upload via the drag-and-drop zone (shown when no data.json is found)
 
-For automatic loading, place your `data.json` adjacent to the dashboard or in a `reports/` folder one level up.
+For automatic loading, place your aggregated `data.json` in `dashboard/public/`. The aggregation script (`scripts/aggregate-processed.js`) writes there by default.
 
 ## Refreshing Data
 

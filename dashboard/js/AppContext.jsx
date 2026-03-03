@@ -2,8 +2,15 @@ import React, { createContext, useContext, useReducer, useMemo, useCallback, use
 import { state as globalState, VIEW_LEVELS } from './state.js';
 import { getCommitTags, getAuthorEmail, getUrgencyLabel } from './utils.js';
 
-// Split contexts: DispatchContext is stable (never changes identity),
-// so components that only dispatch actions won't re-render on state changes.
+// Requirement: Prevent unnecessary re-renders when components only need to dispatch actions
+// Approach: Split into two contexts — DispatchContext (stable identity, never changes) and
+//   AppStateContext (changes on every state update). Components using useAppDispatch() only
+//   subscribe to the stable context and skip re-renders on state changes.
+// Alternatives:
+//   - Single context: Rejected — every dispatch-only component (e.g., event handlers in
+//     deeply nested children) would re-render on every state change
+//   - External state library (Zustand, Redux): Rejected — adds dependency for a pattern
+//     achievable with built-in React Context
 const AppStateContext = createContext(null);
 const DispatchContext = createContext(null);
 

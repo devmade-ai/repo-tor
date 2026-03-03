@@ -31,7 +31,6 @@ Click the **gear icon** in the header to open the Settings panel. This slide-out
 
 **View Settings:**
 - **View Level** - Controls data granularity (Executive/Management/Developer)
-- **Privacy Mode** - Toggle to hide names and commit messages for sensitive data
 
 **Time Settings:**
 - **Timezone** - Switch between Local and UTC time display
@@ -58,7 +57,7 @@ Click the **filter icon** in the header to open the filter sidebar. Filters use 
 - **Date Range** - Filter by date with quick presets (30 days, 90 days, This year, Last year)
 
 **Per-Filter Modes:**
-Each filter has its own **Inc/Exc** (Include/Exclude) toggle:
+Each filter has its own **Include/Exclude** toggle:
 - **Inc (Include)** - Show commits matching ANY selected values
 - **Exc (Exclude)** - Hide commits matching ANY selected values
 
@@ -129,24 +128,27 @@ When you load a data file, the dashboard displays analytics for that repository.
 
 ### Summary Cards
 
-Two cards at the top provide meaningful metrics about the work being done:
+Four cards at the top of the Summary tab provide key metrics:
 
-| Card | What It Shows | What It Means |
-|------|--------------|---------------|
-| **Files Changed** | Total unique files modified | Scope of changes across codebase |
-| **Contributors** | Unique contributors | Team size / involvement |
+| Card | What It Shows | Click Action |
+|------|--------------|--------------|
+| **Features Built** | Total features in filtered commits | Opens detail pane with feature commits |
+| **Bugs Fixed** | Total bug fixes in filtered commits | Opens detail pane with bugfix commits |
+| **Avg Urgency** | Average urgency of changes (1-5) | Opens detail pane with reactive commits |
+| **% Planned** | Ratio of planned work (urgency 1-2) | Opens detail pane with planned commits |
 
-## Dashboard Tabs (V2)
+## Dashboard Tabs
 
-The dashboard uses **5 tabs** organized by logical groupings:
+The dashboard uses **6 tabs** organized by logical groupings:
 
 | Tab | Purpose | Primary User |
 |-----|---------|--------------|
 | **Summary** | Executive summary, quick stats, highlights | Executive |
 | **Timeline** | Timeline, heatmap, when work happens | Dev Manager |
 | **Breakdown** | Progress, tags, contributors, what's being built | Dev Manager |
-| **Health** | Security, urgency, operational indicators | Both |
+| **Health** | Security, urgency, risk, tech debt, work patterns | Both |
 | **Discover** | Explore metrics, randomized insights, file activity | All |
+| **Projects** | Project directory with live site and repo links | All |
 
 ---
 
@@ -329,20 +331,22 @@ Four randomizable metric cards that show different data points on each shuffle:
 | Metric | What It Shows |
 |--------|---------------|
 | Net Code Growth | Total lines added minus deleted |
-| Avg Commit Size | Average lines changed per commit |
-| Deletion Ratio | Percentage of changes that are deletions |
-| Feature:Bug Ratio | Ratio of features to bug fixes |
-| Test Investment | Percentage of commits with test tag |
-| Docs Investment | Percentage of commits with docs tag |
-| Untagged Commits | Commits without any tags |
-| Breaking Changes | Commits with breaking changes |
+| Avg Change Size | Average lines changed per change |
+| Code Removed | Percentage of changes that are deletions |
+| Features per Bug Fix | Ratio of features to bug fixes |
+| Testing Effort | Percentage of changes with test tag |
+| Documentation Effort | Percentage of changes with docs tag |
+| Uncategorized Changes | Changes without any tags |
+| Major Updates | Changes that may affect users |
 | Peak Hour | Most active hour of day |
 | Peak Day | Most active day of week |
-| Top Contributor | Percentage of commits by top author |
-| Avg Files/Commit | Average files changed per commit |
-| Single-File Commits | Percentage of 1-file commits |
-| Large Commits | Commits over 500 lines |
-| Refactor Work | Percentage of refactor commits |
+| Top Contributor | Percentage of changes by top author |
+| Active Contributors | Number of unique contributors |
+| Files per Change | Average files touched per change |
+| Focused Changes | Percentage of 1-file changes |
+| Large Changes | Changes over 500 lines |
+| Code Cleanup | Percentage of cleanup/refactor changes |
+| Security Work | Count of security-related changes |
 | Weekend/Night Owl/Early Bird | Work pattern metrics |
 
 **Card Controls**
@@ -362,6 +366,18 @@ Four randomizable metric cards that show different data points on each shuffle:
   - Additions vs Deletions
   - Planned vs Reactive
   - Simple vs Complex
+
+---
+
+### Projects Tab (Project Directory)
+
+A directory of all tracked projects with quick access links.
+
+**Live Projects**
+- Projects with deployed websites show both the live site link and GitHub repository link
+
+**Other Repositories**
+- Projects without a live site show only the GitHub repository link
 
 ---
 
@@ -450,33 +466,19 @@ Shows how much effort went into multi-commit initiatives like feature builds or 
 
 ---
 
-## Export and Sharing
-
-### Share Link
-Click the **Share** button to copy a shareable URL with your current view state.
-
-### PDF Export
-Click the **PDF** button (document icon) to download a PDF report of the current tab's content, including charts rendered as images.
-
 ## Theme
 
-The dashboard uses a dark theme optimized for readability and reduced eye strain.
-
-## Private Mode (Sanitization)
-
-Click the **eye icon** to toggle private mode:
-- Author names become anonymous
-- Commit messages are hidden
+The dashboard uses a dark theme optimized for readability and reduced eye strain. Author names are always anonymized for privacy.
 
 ---
 
 ## Tips for Using the Dashboard
 
-1. **Start with Overview** - Get quick status in 10 seconds
-2. **Click to drill down** - Any card, bar, or chart segment opens detail pane
-3. **Use Health tab for ops reviews** - Urgency and work pattern insights
-4. **Compare periods** - Change the period dropdown in Overview
-5. **Export for meetings** - Generate PDFs for stakeholders
+1. **Start with Summary** — Get quick status in 10 seconds
+2. **Click to drill down** — Any card, bar, or chart segment opens the detail pane
+3. **Use Health tab for ops reviews** — Urgency, risk, tech debt, and work pattern insights
+4. **Use Discover to explore** — Shuffle metrics to find interesting patterns
+5. **Adjust your view level** — Settings gear → Executive/Management/Developer for different detail
 
 ---
 
