@@ -253,7 +253,10 @@ function calcUrgencyBreakdown(commits) {
 }
 
 /**
- * Calculate impact breakdown
+ * Calculate impact breakdown.
+ * Requirement: Map non-standard impact values to their canonical equivalents
+ * Approach: Normalize "infra" → "infrastructure" before counting
+ * Alternatives: Reject unknown values — rejected because source data already contains "infra"
  */
 function calcImpactBreakdown(commits) {
   const breakdown = {
@@ -263,9 +266,14 @@ function calcImpactBreakdown(commits) {
     'api': 0
   };
 
+  // Map non-standard impact values to canonical ones
+  const impactAliases = { 'infra': 'infrastructure' };
+
   for (const commit of commits) {
-    const impact = commit.impact;
-    if (impact && breakdown.hasOwnProperty(impact)) {
+    let impact = commit.impact;
+    if (!impact) continue;
+    impact = impactAliases[impact] || impact;
+    if (breakdown.hasOwnProperty(impact)) {
       breakdown[impact]++;
     }
   }
@@ -379,8 +387,11 @@ function accumulateBucket(bucket, commit) {
     bucket.tags[tag] = (bucket.tags[tag] || 0) + 1;
   }
 
-  if (commit.impact && bucket.impact.hasOwnProperty(commit.impact)) {
-    bucket.impact[commit.impact]++;
+  if (commit.impact) {
+    const impact = commit.impact === 'infra' ? 'infrastructure' : commit.impact;
+    if (bucket.impact.hasOwnProperty(impact)) {
+      bucket.impact[impact]++;
+    }
   }
 
   if (commit.risk && bucket.risk.hasOwnProperty(commit.risk)) {
@@ -472,10 +483,34 @@ function calcWeeklyAggregations(commits) {
 }
 
 /**
+ * Get UTC date key from a timestamp string.
+ * Returns "YYYY-MM-DD" using UTC date components.
+ * Requirement: Consistent UTC-based date handling across all aggregation levels
+ * Approach: Parse with Date constructor (handles timezone offsets), extract UTC components
+ * Alternatives: substring(0, 10) — rejected because it uses the local date from the
+ *   timestamp string, creating inconsistency with weekly aggregation which uses UTC
+ */
+function getUTCDateKey(timestamp) {
+  const d = new Date(timestamp);
+  return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + String(d.getUTCDate()).padStart(2, '0');
+}
+
+/**
+ * Get UTC month key from a timestamp string.
+ * Returns "YYYY-MM" using UTC date components.
+ */
+function getUTCMonthKey(timestamp) {
+  const d = new Date(timestamp);
+  return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0');
+}
+
+/**
  * Calculate daily aggregations (per-date buckets).
  * Requirement: Pre-aggregate commits by day for fine-grained dashboard charts
- * Approach: Group by YYYY-MM-DD date string, same metrics structure as weekly/monthly
- * Alternatives: Unix day number — rejected because string keys are human-readable in JSON
+ * Approach: Group by YYYY-MM-DD using UTC date, consistent with weekly/monthly UTC handling
+ * Alternatives:
+ *   - substring(0, 10): Rejected — uses local date from timestamp, inconsistent with weekly UTC
+ *   - Unix day number: Rejected — string keys are human-readable in JSON
  */
 function calcDailyAggregations(commits) {
   const daily = {};
@@ -483,7 +518,7 @@ function calcDailyAggregations(commits) {
   for (const commit of commits) {
     if (!commit.timestamp) continue;
 
-    const dateKey = commit.timestamp.substring(0, 10); // "2026-03-02"
+    const dateKey = getUTCDateKey(commit.timestamp);
 
     if (!daily[dateKey]) {
       daily[dateKey] = createEmptyBucket();
@@ -517,6 +552,7 @@ function calcAverage(commits, field) {
  * Calculate monthly aggregations.
  * Refactored to use shared bucket helpers (accumulateBucket/finalizeBucket)
  * for consistency with weekly and daily aggregations.
+ * Uses UTC month key for consistency with weekly (UTC) and daily (UTC) aggregations.
  */
 function calcMonthlyAggregations(commits) {
   const monthly = {};
@@ -524,7 +560,7 @@ function calcMonthlyAggregations(commits) {
   for (const commit of commits) {
     if (!commit.timestamp) continue;
 
-    const month = commit.timestamp.substring(0, 7); // "2026-01"
+    const month = getUTCMonthKey(commit.timestamp);
 
     if (!monthly[month]) {
       monthly[month] = createEmptyBucket();
@@ -600,9 +636,12 @@ function calcContributorAggregations(commits) {
       c.tagBreakdown[tag] = (c.tagBreakdown[tag] || 0) + 1;
     }
 
-    // Impact
-    if (commit.impact && c.impactBreakdown.hasOwnProperty(commit.impact)) {
-      c.impactBreakdown[commit.impact]++;
+    // Impact (normalize "infra" → "infrastructure")
+    if (commit.impact) {
+      const impact = commit.impact === 'infra' ? 'infrastructure' : commit.impact;
+      if (c.impactBreakdown.hasOwnProperty(impact)) {
+        c.impactBreakdown[impact]++;
+      }
     }
 
     // Risk
@@ -690,7 +729,7 @@ function calcFilterOptions(commits) {
       else if (commit.urgency === 3) urgencies.add('Normal');
       else urgencies.add('Reactive');
     }
-    if (commit.impact) impacts.add(commit.impact);
+    if (commit.impact) impacts.add(commit.impact === 'infra' ? 'infrastructure' : commit.impact);
   }
 
   return {
@@ -747,8 +786,9 @@ function generateAggregation(commits, scope, repoCount = 1) {
   const filterOptions = calcFilterOptions(sortedCommits);
 
   // Determine which months have commit data (for lazy loading index)
+  // Uses UTC month key for consistency with monthly/daily/weekly aggregations
   const commitMonths = [...new Set(
-    sortedCommits.map(c => c.timestamp?.substring(0, 7)).filter(Boolean)
+    sortedCommits.map(c => c.timestamp ? getUTCMonthKey(c.timestamp) : null).filter(Boolean)
   )].sort();
 
   // Build summary file (no raw commits — those go to per-month files)
@@ -869,11 +909,11 @@ function main() {
   //   - Split by repo instead of month: Rejected — month-based matches time-windowed UI pattern
   const commitsDir = path.join(outputDir, 'data-commits');
 
-  // Group commits by month
+  // Group commits by UTC month (consistent with monthly/daily/weekly aggregations)
   const commitsByMonth = {};
   for (const commit of overallCommits) {
-    const month = commit.timestamp?.substring(0, 7);
-    if (!month) continue;
+    if (!commit.timestamp) continue;
+    const month = getUTCMonthKey(commit.timestamp);
     if (!commitsByMonth[month]) commitsByMonth[month] = [];
     commitsByMonth[month].push(commit);
   }

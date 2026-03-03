@@ -16,6 +16,10 @@ Current state for AI assistants to continue work.
 - **Pre-computed filter options** — `filterOptions` (tags, authors, repos, urgencies, impacts) pre-computed at build time so FilterSidebar renders without loading commits
 - **Tab updates** — SummaryTab, TimelineTab, ProgressTab use pre-aggregated data for instant chart rendering; fall back to filteredCommits once loaded. HealthTab/others render after commits load.
 - **PWA** — Added runtime cache rule for `data-commits/*.json` files
+- **Data accuracy verification** — Ran comprehensive cross-checks on all generated data files. Found and fixed:
+  - **UTC consistency**: Daily/monthly aggregation used `substring(0, 10)` (local time from timestamp) while weekly used `new Date().getUTC*()` (UTC). 62 commits had different dates in local vs UTC. Fixed all three levels to use UTC consistently via `getUTCDateKey()`/`getUTCMonthKey()` helpers.
+  - **Impact "infra" mapping**: 2 commits had `impact: "infra"` which was silently dropped by `calcImpactBreakdown` (only recognized `infrastructure`). Added alias mapping `infra → infrastructure` in `calcImpactBreakdown`, `accumulateBucket`, contributor aggregation, and `calcFilterOptions`.
+  - All 18 verification checks now pass: commit counts, breakdown sums, bucket totals, per-month file alignment, filterOptions completeness, per-repo consistency.
 - **Files changed**: `scripts/aggregate-processed.js`, `dashboard/js/App.jsx`, `dashboard/js/AppContext.jsx`, `dashboard/js/tabs/SummaryTab.jsx`, `dashboard/js/tabs/TimelineTab.jsx`, `dashboard/js/tabs/ProgressTab.jsx`, `vite.config.js`, `.gitignore`
 
 **Previous Updates (2026-03-03 — Fix Partial Month Cliff on Trend Charts):**

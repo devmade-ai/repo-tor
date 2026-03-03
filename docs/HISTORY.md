@@ -24,6 +24,21 @@ Log of significant changes to code and documentation.
 - Aggregate only in dashboard: Rejected — moves computation to client, delays rendering
 - Pre-compute filtered aggregations (excluding merges): Rejected — doubles data, complex to maintain
 
+### Data Accuracy Fixes — UTC Consistency + Impact Alias
+
+**Why:** Comprehensive verification of generated data files revealed two accuracy issues:
+1. Daily/monthly aggregation used `substring(0, 10)` on timestamp strings (local time), while weekly used `new Date().getUTC*()` (UTC). This caused 62 commits with non-zero timezone offsets (e.g., `+02:00`) to land in different daily/monthly buckets than their weekly bucket. A commit at `2026-01-01T00:12+02:00` appeared in the "Jan 1" daily bucket but the "Dec 31" weekly bucket.
+2. Two commits had `impact: "infra"` which was silently dropped by `calcImpactBreakdown` (only recognized the canonical `infrastructure` value), causing the impact sum to be 2095 instead of 2097.
+
+**What:**
+- **UTC date helpers** — Added `getUTCDateKey(timestamp)` and `getUTCMonthKey(timestamp)` that parse timestamps with `new Date()` and extract UTC components. Daily, monthly, and per-month file grouping all use these instead of `substring()`.
+- **Impact alias mapping** — Added `infra → infrastructure` normalization in `calcImpactBreakdown`, `accumulateBucket`, contributor impact aggregation, and `calcFilterOptions`. Impact sum now correctly equals 2097.
+- **Verification results** — 18/18 checks pass: all breakdown sums equal 2097, all aggregation levels (weekly/daily/monthly) match raw commit counts, per-month files align with monthly buckets, filterOptions are complete, per-repo totals consistent.
+
+**Alternatives considered:**
+- Use local time (substring) for all aggregation levels: Rejected — requires parsing timezone offsets manually for weekly ISO week calculation, complex and error-prone
+- Leave the 62-commit discrepancy: Rejected — users could see inconsistent numbers between chart views
+
 ### Fix Partial Month Cliff on Trend Charts
 
 **Why:** Monthly trend charts showed a misleading 95% drop for the current month (March 2026) because only 2 days of data (39 commits) were displayed at equal visual weight as full months (800+ commits). Non-technical users would interpret this as something going wrong.
