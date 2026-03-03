@@ -406,9 +406,9 @@ function accumulateBucket(bucket, commit) {
     bucket.semver[commit.semver]++;
   }
 
-  // Code change stats
-  const additions = commit.stats?.additions || commit.additions || 0;
-  const deletions = commit.stats?.deletions || commit.deletions || 0;
+  // Code change stats — use ?? (nullish coalescing) instead of || so that 0 is kept as 0
+  const additions = commit.stats?.additions ?? commit.additions ?? 0;
+  const deletions = commit.stats?.deletions ?? commit.deletions ?? 0;
   bucket.additions += additions;
   bucket.deletions += deletions;
 

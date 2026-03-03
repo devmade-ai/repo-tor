@@ -4,6 +4,18 @@ Log of significant changes to code and documentation.
 
 ## 2026-03-03
 
+### Pipeline Audit — save-commit.js Validation + accumulateBucket Fix
+
+**Why:** Full audit of extraction/processing/aggregation pipeline found that `save-commit.js` only checked for field presence (not value validity). This allowed invalid values like `impact: "infra"` or `complexity: 99` to be saved to processed data uncaught. Also found `accumulateBucket` used `||` operator for `stats.additions` fallback, which would incorrectly treat `0` as falsy.
+
+**What:**
+- **save-commit.js validation** — Added value validation for analysis fields: tags must be an array, complexity/urgency must be integer 1-5, impact must be one of `['internal', 'user-facing', 'infrastructure', 'api']`. Now matches the validation in `merge-analysis.js`.
+- **accumulateBucket `??` operator** — Changed `commit.stats?.additions || commit.additions || 0` to `commit.stats?.additions ?? commit.additions ?? 0`. Prevents a commit with `stats.additions: 0` from incorrectly falling through to a top-level `additions` field.
+
+**Alternatives considered:**
+- Only fix in aggregation (map bad values): Rejected — fix should be at the input gate to prevent bad data from accumulating
+- Require stats field in save-commit.js: Rejected — 431 existing commits lack stats (from legacy batch path). Would block legitimate data.
+
 ### Time-Windowed Data + Weekly/Daily Pre-Aggregation
 
 **Why:** `data.json` was 2.9 MB (all 2,097 commits inline), causing slow initial dashboard load and exceeding PWA precache limits. Dashboard tabs iterated the full commits array on every render to compute chart data. Non-technical users experienced 3-5 second load times.

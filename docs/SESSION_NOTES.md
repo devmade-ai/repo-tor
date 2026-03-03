@@ -6,21 +6,20 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-03-03 — Time-Windowed Data + Weekly/Daily Pre-Aggregation):**
+**Recent Updates (2026-03-03 — Pipeline Audit + Validation Fixes):**
+- **Full pipeline audit** — Reviewed all extraction/processing/aggregation scripts and verified field mapping from extraction through to dashboard output.
+- **save-commit.js validation hardened** — Added value validation for analysis fields (tags must be array, complexity/urgency must be integer 1-5, impact must be one of the 4 canonical values). Previously only checked for field presence, which allowed invalid values like `impact:"infra"` to pass through unchecked.
+- **accumulateBucket `??` fix** — Changed `||` to `??` (nullish coalescing) for `stats.additions`/`stats.deletions` fallback. Prevents `0` being treated as falsy (theoretical edge case, no current data affected).
+- **Data quality observations** — 431 commits (21%) lack `stats` field (from legacy batch-based analysis path before merge-analysis.js existed). These show 0 additions/deletions in charts. 69 commits (3%) lack `repo_id` (auto-filled by aggregation from directory name). Neither causes incorrect aggregation.
+
+**Previous Updates (2026-03-03 — Time-Windowed Data + Weekly/Daily Pre-Aggregation):**
 - **Architecture change** — Redesigned data pipeline for time-windowed reporting:
   - `aggregate-processed.js` now outputs a **summary file** (`data.json`, ~126 KB) and **per-month commit files** (`data-commits/YYYY-MM.json`)
   - Summary file contains weekly (ISO week), daily, and monthly pre-aggregated buckets with full metric breakdowns (tags, impact, risk, debt, semver, complexity, urgency, code changes, per-repo splits)
   - Initial dashboard payload reduced from **2.9 MB → 126 KB** (96% smaller)
   - Dashboard loads summary instantly, lazy-loads commit files in background for drilldowns/filters
-- **Shared aggregation logic** — Refactored `calcMonthlyAggregations` to use shared `createEmptyBucket`/`accumulateBucket`/`finalizeBucket` helpers. New `calcWeeklyAggregations` and `calcDailyAggregations` use the same helpers.
-- **Pre-computed filter options** — `filterOptions` (tags, authors, repos, urgencies, impacts) pre-computed at build time so FilterSidebar renders without loading commits
-- **Tab updates** — SummaryTab, TimelineTab, ProgressTab use pre-aggregated data for instant chart rendering; fall back to filteredCommits once loaded. HealthTab/others render after commits load.
-- **PWA** — Added runtime cache rule for `data-commits/*.json` files
-- **Data accuracy verification** — Ran comprehensive cross-checks on all generated data files. Found and fixed:
-  - **UTC consistency**: Daily/monthly aggregation used `substring(0, 10)` (local time from timestamp) while weekly used `new Date().getUTC*()` (UTC). 62 commits had different dates in local vs UTC. Fixed all three levels to use UTC consistently via `getUTCDateKey()`/`getUTCMonthKey()` helpers.
-  - **Impact "infra" mapping**: 2 commits had `impact: "infra"` which was silently dropped by `calcImpactBreakdown` (only recognized `infrastructure`). Added alias mapping `infra → infrastructure` in `calcImpactBreakdown`, `accumulateBucket`, contributor aggregation, and `calcFilterOptions`.
-  - All 18 verification checks now pass: commit counts, breakdown sums, bucket totals, per-month file alignment, filterOptions completeness, per-repo consistency.
-- **Files changed**: `scripts/aggregate-processed.js`, `dashboard/js/App.jsx`, `dashboard/js/AppContext.jsx`, `dashboard/js/tabs/SummaryTab.jsx`, `dashboard/js/tabs/TimelineTab.jsx`, `dashboard/js/tabs/ProgressTab.jsx`, `vite.config.js`, `.gitignore`
+- **Data accuracy fixes** — UTC consistency for daily/monthly aggregation (62 commits affected by timezone offset). Impact "infra" → "infrastructure" alias mapping (2 commits). All 18 verification checks pass.
+- **Files changed**: `scripts/aggregate-processed.js`, `scripts/save-commit.js`, `dashboard/js/App.jsx`, `dashboard/js/AppContext.jsx`, `dashboard/js/tabs/SummaryTab.jsx`, `dashboard/js/tabs/TimelineTab.jsx`, `dashboard/js/tabs/ProgressTab.jsx`, `vite.config.js`
 
 **Previous Updates (2026-03-03 — Fix Partial Month Cliff on Trend Charts):**
 - **Bug fix** — Monthly trend charts (Features vs Bug Fixes, Impact Over Time, Urgency, Complexity, Debt) showed a misleading dramatic drop for the current month when data was incomplete (e.g., only 2 days into March vs full months with 800+ commits).
