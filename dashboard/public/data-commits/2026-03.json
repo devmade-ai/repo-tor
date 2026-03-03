@@ -1,0 +1,1971 @@
+{
+  "month": "2026-03",
+  "commits": [
+    {
+      "sha": "fcd29af",
+      "fullSha": "fcd29af622ebf90863a3d490a838d2038c6d3366",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T19:42:33Z",
+      "commitDate": "2026-03-02T19:42:33Z",
+      "subject": "Merge pull request #15 from devmade-ai/claude/code-review-audit-JlaCw",
+      "body": "Audit fixes: type safety, stale request guards, and hydration ordering",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #15 from devmade-ai/claude/code-review-audit-JlaCw",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#15"
+      ],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 154,
+        "deletions": 68
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(tabs)/index.tsx",
+        "app/station/[id].tsx",
+        "src/components/admin/PriceEditor.tsx",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/components/search/LocationSearch.tsx",
+        "src/hooks/useLocation.ts",
+        "src/hooks/usePersistedState.ts",
+        "src/hooks/useStations.ts",
+        "src/lib/mapbox.ts",
+        "src/lib/supabase.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "a9e1f62",
+      "fullSha": "a9e1f628d574855bd2a699566f9269503ac6261f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T10:33:25Z",
+      "commitDate": "2026-03-02T10:33:25Z",
+      "subject": "fix(audit): address code review findings across hooks, components, and lib",
+      "body": "Race conditions:\n- useStations: request ID guard discards stale responses from rapid filter changes\n- usePersistedState: expose `loaded` flag, add mountedRef to prevent overwriting\n  user selections during AsyncStorage hydration\n- Home screen: defer first search until persisted preferences are loaded\n\nType safety:\n- useStations: add isValidResult runtime check on RPC response rows\n- station/[id]: typed FuelPriceRow interface replaces scattered `as` casts\n- PriceEditor: typed CurrentPriceRow with defensive typeof checks\n\nMemory safety:\n- useLocation: mountedRef guards setState after unmount during GPS await\n- FuelMapWeb: ref-based click handler prevents stale closure in map.on('click')\n\nCleanup:\n- Remove unused `centered` and `loadingText` styles from home screen\n- Remove stale `modal.tsx` reference from CLAUDE.md architecture\n- Route console.error through debugAdd in supabase.ts and mapbox.ts\n- Consolidate MAPBOX_TOKEN imports (FuelMapWeb, LocationSearch) to shared module\n- PriceEditor wrapped in React.memo to avoid re-renders from parent form state\n\nUI fixes:\n- station/[id]: track coordinate validity via explicit flag instead of === 0 check\n- station/[id]: fix trailing comma when city is empty\n\nTags: code-quality, type-safety, race-condition, cleanup, audit\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: code-audit\nSemver: patch\n\nhttps://claude.ai/code/session_012p46viNk9dHEZ6Ls7JrAbB",
+      "tags": [
+        "bugfix",
+        "refactor",
+        "performance"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "code-audit",
+      "semver": "patch",
+      "scope": "audit",
+      "title": "address code review findings across hooks, components, and lib",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 154,
+        "deletions": 68
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(tabs)/index.tsx",
+        "app/station/[id].tsx",
+        "src/components/admin/PriceEditor.tsx",
+        "src/components/map/FuelMapWeb.tsx",
+        "src/components/search/LocationSearch.tsx",
+        "src/hooks/useLocation.ts",
+        "src/hooks/usePersistedState.ts",
+        "src/hooks/useStations.ts",
+        "src/lib/mapbox.ts",
+        "src/lib/supabase.ts"
+      ],
+      "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "358028c",
+      "fullSha": "358028c3d12acb32a93ecf3afce73061f9da944e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T10:13:46Z",
+      "commitDate": "2026-03-02T10:13:46Z",
+      "subject": "Merge pull request #31 from devmade-ai/claude/fix-embed-urls-hFIk7",
+      "body": "Refactor: Extract shared utilities and improve accessibility",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #31 from devmade-ai/claude/fix-embed-urls-hFIk7",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#31"
+      ],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 188,
+        "deletions": 887
+      },
+      "files": [
+        "docs/EXTERNAL_REFERENCES.md",
+        "package-lock.json",
+        "package.json",
+        "src/components/About.tsx",
+        "src/components/ActivityCharts.tsx",
+        "src/components/ActivityTimeline.tsx",
+        "src/components/DebugBanner.tsx",
+        "src/components/InstallInstructionsModal.tsx",
+        "src/constants/embed.ts",
+        "src/hooks/usePWAInstall.ts",
+        "src/hooks/useRepoTorEmbed.ts",
+        "src/test/detect-browser.test.ts",
+        "src/test/validate-payload.test.ts",
+        "src/utils/pwa.ts",
+        "src/utils/validation.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "581bbc9",
+      "fullSha": "581bbc9b6fdb24f67c36a680f58d0e46d0e8b10b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T10:11:50Z",
+      "commitDate": "2026-03-02T10:11:50Z",
+      "subject": "fix(embed,a11y): audit fixes — URLs, duplication, accessibility, cleanup",
+      "body": "Migrate repo-tor embed URLs from GitHub Pages to Vercel deployment,\ndeduplicate shared constants, fix accessibility gaps, and clean up\ndead code identified during full codebase audit.\n\nChanges:\n- #1,#2,#16: Centralize EMBED_BASE, colors, and script URL into\n  src/constants/embed.ts; update from GitHub Pages to Vercel\n- #3: Remove unused return values (browser, setShowManualInstructions,\n  supportsAutoInstall) from usePWAInstall; convert showManualInstructions\n  from state to computed value since nothing mutates it\n- #4,#5: Remove unused devDependencies (png-to-ico, sharp,\n  @testing-library/react, @testing-library/user-event)\n- #6,#8: Extract detectBrowser and isStandalone into src/utils/pwa.ts;\n  import in usePWAInstall and DebugBanner instead of duplicating\n- #7: Extract validatePayload and EMAIL_PATTERN into src/utils/validation.ts;\n  tests now import and exercise the real functions\n- #9: Add Escape key handler and focus trap to InstallInstructionsModal\n- #10: Replace array index key with content-based key in About.tsx\n- #11: Change diagnostic probe from POST with body to HEAD (no side effects)\n- #12: Add sandbox=\"allow-scripts\" to chart iframes\n- #13: Add onerror handler to embed.js script element\n- #14: Rename package.json name from vite-scaffold to see-veo\n\nTags: embed, accessibility, cleanup, refactor, security, testing\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: codebase-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01Uwhn6rJ2V98LDhUsLeYZoB",
+      "tags": [
+        "refactor",
+        "accessibility",
+        "bugfix"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "codebase-audit",
+      "semver": "patch",
+      "scope": "embed,a11y",
+      "title": "audit fixes — URLs, duplication, accessibility, cleanup",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "#1",
+        "#2",
+        "#16",
+        "#3",
+        "#4",
+        "#5",
+        "#6",
+        "#8",
+        "#7",
+        "#9",
+        "#10",
+        "#11",
+        "#12",
+        "#13",
+        "#14"
+      ],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 188,
+        "deletions": 887
+      },
+      "files": [
+        "docs/EXTERNAL_REFERENCES.md",
+        "package-lock.json",
+        "package.json",
+        "src/components/About.tsx",
+        "src/components/ActivityCharts.tsx",
+        "src/components/ActivityTimeline.tsx",
+        "src/components/DebugBanner.tsx",
+        "src/components/InstallInstructionsModal.tsx",
+        "src/constants/embed.ts",
+        "src/hooks/usePWAInstall.ts",
+        "src/hooks/useRepoTorEmbed.ts",
+        "src/test/detect-browser.test.ts",
+        "src/test/validate-payload.test.ts",
+        "src/utils/pwa.ts",
+        "src/utils/validation.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "c5dd0c0",
+      "fullSha": "c5dd0c00b2a335cdaa2bd32e7738aa670cf0dbd8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T10:07:21Z",
+      "commitDate": "2026-03-02T10:07:21Z",
+      "subject": "Merge pull request #16 from devmade-ai/claude/code-review-audit-kD474",
+      "body": "Fix prop mutations and timer leaks, improve performance",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #16 from devmade-ai/claude/code-review-audit-kD474",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#16"
+      ],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 119,
+        "deletions": 51
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/ExpenseForm.vue",
+        "src/components/HelpDrawer.vue",
+        "src/composables/useTagAutocomplete.ts",
+        "src/debug/DebugPill.vue",
+        "src/engine/variance.ts",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/import-steps/ImportStepReview.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "29d46dd",
+      "fullSha": "29d46dd8e7f42cb014d2734c5cda00a3c7088e3c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T10:05:24Z",
+      "commitDate": "2026-03-02T10:05:24Z",
+      "subject": "fix(quality): resolve prop mutation, timer leaks, O(n²) lookup, and missing error boundary",
+      "body": "Code review audit identified and fixed several quality issues:\n\n- ImportStepReview: emit events instead of mutating props directly (bug)\n- ExpenseForm, HelpDrawer, DebugPill, useTagAutocomplete: add onUnmounted\n  cleanup for setTimeout calls that could leak on component unmount\n- variance.ts: replace expenses.find() inside loop with Map lookup (O(n²)→O(n))\n- ProjectedTab: wrap calculateProjection computed in try-catch\n\nTags: code-quality, timer-leak, prop-mutation, performance, error-handling\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-review-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01CgLA691ZEhYQe5XCGYtWu8",
+      "tags": [
+        "bugfix",
+        "refactor",
+        "performance",
+        "error-handling"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "code-review-audit",
+      "semver": "patch",
+      "scope": "quality",
+      "title": "resolve prop mutation, timer leaks, O(n²) lookup, and missing error boundary",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 119,
+        "deletions": 51
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/ExpenseForm.vue",
+        "src/components/HelpDrawer.vue",
+        "src/composables/useTagAutocomplete.ts",
+        "src/debug/DebugPill.vue",
+        "src/engine/variance.ts",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/import-steps/ImportStepReview.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "83b5697",
+      "fullSha": "83b5697003664b30a3a0676887b771e2d68119ed",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T09:55:22Z",
+      "commitDate": "2026-03-02T09:55:22Z",
+      "subject": "Merge pull request #30 from devmade-ai/claude/document-deployment-platforms-y62M6",
+      "body": "Update repo-tor project link to Vercel deployment",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #30 from devmade-ai/claude/document-deployment-platforms-y62M6",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#30"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "dbf6450",
+      "fullSha": "dbf6450b3aecb034687909cf2efc1226e82a9ae8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T09:42:50Z",
+      "commitDate": "2026-03-02T09:42:50Z",
+      "subject": "Merge pull request #88 from devmade-ai/claude/fix-dashboard-json-error-JSUzy",
+      "body": "Fix Vercel build: move data.json to runtime cache",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #88 from devmade-ai/claude/fix-dashboard-json-error-JSUzy",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#88"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 4,
+        "deletions": 1
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "b56f7a5",
+      "fullSha": "b56f7a5c838bff640da80011bb92b1772d13a53a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T09:41:27Z",
+      "commitDate": "2026-03-02T09:41:27Z",
+      "subject": "merge: resolve conflicts with origin/main (same data.json fix)",
+      "body": "Both branches fixed the data.json PWA precache error. Took origin/main's\nmore comprehensive fix (vercel.json rewrite, data.json moved to public/,\nerror handling in App.jsx) and merged the precache/runtime-cache changes.\n\nhttps://claude.ai/code/session_0152yG7ZEPGqkfSnWCgjfWnQ",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "resolve conflicts with origin/main (same data.json fix)",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 55,
+        "deletions": 29
+      },
+      "files": [
+        "dashboard/js/App.jsx",
+        "dashboard/public/data.json",
+        "docs/ADMIN_GUIDE.md",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/aggregate-processed.js",
+        "scripts/update-all.sh",
+        "vercel.json",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "7779333",
+      "fullSha": "7779333540502141ba3e74f239fb415d68c32e82",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T09:38:18Z",
+      "commitDate": "2026-03-02T09:38:18Z",
+      "subject": "Merge pull request #87 from devmade-ai/claude/fix-dashboard-json-error-b9rbQ",
+      "body": "Fix Dashboard JSON Loading Error on Vercel",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #87 from devmade-ai/claude/fix-dashboard-json-error-b9rbQ",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#87"
+      ],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 72,
+        "deletions": 12
+      },
+      "files": [
+        "dashboard/js/App.jsx",
+        "dashboard/public/data.json",
+        "docs/ADMIN_GUIDE.md",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/aggregate-processed.js",
+        "scripts/update-all.sh",
+        "vercel.json",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f9fb2bf",
+      "fullSha": "f9fb2bf303cbe7c6fb9e3f7a21baa22a558a7e43",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T09:22:22Z",
+      "commitDate": "2026-03-02T09:22:22Z",
+      "subject": "fix: exclude data.json from PWA precache to fix Vercel build",
+      "body": "data.json (2.68 MB) exceeded workbox's default 2 MiB precache limit,\ncausing the Vercel build to fail. Moved from globPatterns (precache) to\nruntime caching with NetworkFirst strategy — users get fresh data when\nonline, cached data when offline.\n\nhttps://claude.ai/code/session_0152yG7ZEPGqkfSnWCgjfWnQ",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pwa",
+      "semver": "patch",
+      "scope": null,
+      "title": "exclude data.json from PWA precache to fix Vercel build",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 40,
+        "deletions": 3
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "6549c00",
+      "fullSha": "6549c00bad6e4ded20f1ea42d50028b8e754b495",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T09:12:15Z",
+      "commitDate": "2026-03-02T09:12:15Z",
+      "subject": "fix: exclude data.json from PWA precache, use runtime caching instead",
+      "body": "data.json (2.68MB) exceeds Workbox's 2MB precache limit, causing\nthe build to fail. Moved to NetworkFirst runtime caching so it's\nfetched fresh on each load and cached for offline PWA use.\n\n- Remove data.json from globPatterns and narrow *.json in includeAssets\n- Add NetworkFirst runtime caching rule for /data.json\n\nhttps://claude.ai/code/session_01HfBuLLn6odQ2BFNovZ2toD",
+      "tags": [
+        "bugfix",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pwa",
+      "semver": "patch",
+      "scope": null,
+      "title": "exclude data.json from PWA precache, use runtime caching instead",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 20,
+        "deletions": 3
+      },
+      "files": [
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "bd4e112",
+      "fullSha": "bd4e1122e7b7a725e685e04ead2c76ba99f50b71",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T06:12:03Z",
+      "commitDate": "2026-03-02T06:12:03Z",
+      "subject": "fix(projects): update repo-tor link to Vercel deployment",
+      "body": "repo-tor has moved from GitHub Pages to Vercel. Update the project\nlink from devmade-ai.github.io/repo-tor to repo-tor.vercel.app.\n\nTags: content, projects\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cv-content\nSemver: patch\n\nhttps://claude.ai/code/session_01LnzrqbSRNr4muEGXVJ3kxg",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "cv-content",
+      "semver": "patch",
+      "scope": "projects",
+      "title": "update repo-tor link to Vercel deployment",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/data/cv-data.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "ed4a1c2",
+      "fullSha": "ed4a1c2d82a719bf8a9078c92b64b8cb13af9696",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T06:11:58Z",
+      "commitDate": "2026-03-02T06:11:58Z",
+      "subject": "fix: resolve dashboard JSON loading error on Vercel deployment",
+      "body": "The Vercel SPA rewrite rule was rewriting data.json requests to\nindex.html, causing the dashboard to receive HTML instead of JSON.\nAdditionally, data.json was not in dashboard/public/ so Vite never\nincluded it in the build output.\n\n- Fix vercel.json rewrite to exclude files with extensions from SPA fallback\n- Move data.json to dashboard/public/ so Vite includes it in dist/\n- Update aggregate-processed.js default output to dashboard/public/\n- Add content-type guard and user-friendly error messages in App.jsx\n- Update documentation path references\n\nhttps://claude.ai/code/session_01HfBuLLn6odQ2BFNovZ2toD",
+      "tags": [
+        "bugfix",
+        "config",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "vercel-migration",
+      "semver": "patch",
+      "scope": null,
+      "title": "resolve dashboard JSON loading error on Vercel deployment",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 52,
+        "deletions": 9
+      },
+      "files": [
+        "dashboard/js/App.jsx",
+        "dashboard/public/data.json",
+        "docs/ADMIN_GUIDE.md",
+        "docs/EXTRACTION_PLAYBOOK.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "scripts/aggregate-processed.js",
+        "scripts/update-all.sh",
+        "vercel.json"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 4,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "a2b3e91",
+      "fullSha": "a2b3e917a61195e19d7caa0167d6a7cf73ffe1c7",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T05:55:47Z",
+      "commitDate": "2026-03-02T05:55:47Z",
+      "subject": "Merge pull request #86 from devmade-ai/claude/check-vercel-migration-DOj5t",
+      "body": "Migrate deployment from GitHub Pages to Vercel",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #86 from devmade-ai/claude/check-vercel-migration-DOj5t",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#86"
+      ],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 75,
+        "deletions": 117
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "dashboard/public/embed.js",
+        "dashboard/public/projects.json",
+        "docs/ADMIN_GUIDE.md",
+        "docs/EMBED_IMPLEMENTATION.md",
+        "docs/EMBED_REFERENCE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_GUIDE.md",
+        "vercel.json",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "41c23a5",
+      "fullSha": "41c23a5ebea7b474121bf3137e380b08165c80ba",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T05:52:57Z",
+      "commitDate": "2026-03-02T05:52:57Z",
+      "subject": "Merge pull request #15 from devmade-ai/claude/replace-balance-cash-input-aTAxy",
+      "body": "Replace persisted balance with ephemeral cash runway input",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #15 from devmade-ai/claude/replace-balance-cash-input-aTAxy",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#15"
+      ],
+      "stats": {
+        "filesChanged": 22,
+        "additions": 232,
+        "deletions": 1443
+      },
+      "files": [
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/USER_GUIDE.md",
+        "src/components/WorkspaceForm.vue",
+        "src/db/demoData.ts",
+        "src/engine/cashflow.test.ts",
+        "src/engine/cashflow.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/envelope.ts",
+        "src/engine/exportImport.test.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/projection.ts",
+        "src/router/index.ts",
+        "src/types/models.ts",
+        "src/views/CashflowTab.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/WorkspaceCreateView.vue",
+        "src/views/WorkspaceDetailView.vue",
+        "src/views/WorkspaceEditView.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "593a4ff",
+      "fullSha": "593a4ff0ee1834a66624ff854ee2d14179826f86",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T02:38:23Z",
+      "commitDate": "2026-03-02T02:38:23Z",
+      "subject": "feat(forecast): replace stored balance with ephemeral cash-on-hand input",
+      "body": "Remove the persisted startingBalance concept from Workspace and replace\nit with a lightweight, non-stored \"Cash on hand\" input on the Forecast\ntab. Users enter how much cash they have and instantly see how long it\nlasts based on the forecast — without persisting the value.\n\nRemoved:\n- Cashflow tab (CashflowTab.vue, router, tab nav)\n- Cashflow engine (engine/cashflow.ts + tests)\n- Envelope engine (engine/envelope.ts + tests)\n- startingBalance from Workspace type, form, demo data\n- Envelope summary from CompareTab\n\nAdded:\n- Cash on hand input on ProjectedTab with month-by-month runway calc\n- Shows \"Runs out in [month]\", \"Cash is growing\", or \"Lasts all N months\"\n\nUpdated:\n- Export/import strips legacy startingBalance/totalBudget on import\n- All docs (USER_GUIDE, TESTING_GUIDE, README, HISTORY, SESSION_NOTES)\n\nTags: forecast, balance, cashflow, ux, cleanup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: cash-runway\nSemver: major\n\nhttps://claude.ai/code/session_01BtCbpzUbAGfsxrS1w51HqB",
+      "tags": [
+        "feature",
+        "removal",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "cash-runway",
+      "semver": "major",
+      "scope": "forecast",
+      "title": "replace stored balance with ephemeral cash-on-hand input",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 22,
+        "additions": 232,
+        "deletions": 1443
+      },
+      "files": [
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/USER_GUIDE.md",
+        "src/components/WorkspaceForm.vue",
+        "src/db/demoData.ts",
+        "src/engine/cashflow.test.ts",
+        "src/engine/cashflow.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/envelope.ts",
+        "src/engine/exportImport.test.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/projection.ts",
+        "src/router/index.ts",
+        "src/types/models.ts",
+        "src/views/CashflowTab.vue",
+        "src/views/CompareTab.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/WorkspaceCreateView.vue",
+        "src/views/WorkspaceDetailView.vue",
+        "src/views/WorkspaceEditView.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "68607f6",
+      "fullSha": "68607f648dffd60ae2fb65ade7a6f11ecec86aed",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T02:30:31Z",
+      "commitDate": "2026-03-02T02:30:31Z",
+      "subject": "chore: migrate deployment from GitHub Pages to Vercel",
+      "body": "GitHub Pages requires a 404.html hack for SPA routing, has no env var\ninjection at build, and needs manual \"source\" setting in repo UI.\nVercel handles all of this natively.\n\n- Add vercel.json with SPA rewrite rule for client-side routing\n- Delete .github/workflows/deploy.yml (GitHub Actions no longer needed)\n- Change vite.config.js base from './' to '/' (Vercel serves at root)\n- Update all live URL references to repo-tor.vercel.app\n- Update ADMIN_GUIDE deployment section with Vercel setup instructions\n\nTags: infrastructure, deployment\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: minor\n\nhttps://claude.ai/code/session_01GtthmWa1MVuevLn3MANefx",
+      "tags": [
+        "hosting",
+        "config",
+        "removal"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "vercel-migration",
+      "semver": "minor",
+      "scope": null,
+      "title": "migrate deployment from GitHub Pages to Vercel",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 75,
+        "deletions": 117
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "dashboard/public/embed.js",
+        "dashboard/public/projects.json",
+        "docs/ADMIN_GUIDE.md",
+        "docs/EMBED_IMPLEMENTATION.md",
+        "docs/EMBED_REFERENCE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_GUIDE.md",
+        "vercel.json",
+        "vite.config.js"
+      ],
+      "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "466edbd",
+      "fullSha": "466edbdade97bb2aecef9f6f317cd396a19c1977",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T01:50:28Z",
+      "commitDate": "2026-03-02T01:50:28Z",
+      "subject": "Merge pull request #14 from devmade-ai/claude/bank-statement-import-1fWAF",
+      "body": "Migrate category field to multi-tag system across codebase",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #14 from devmade-ai/claude/bank-statement-import-1fWAF",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#14"
+      ],
+      "stats": {
+        "filesChanged": 27,
+        "additions": 720,
+        "deletions": 266
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/ExpenseForm.vue",
+        "src/composables/useTagAutocomplete.ts",
+        "src/db/demoData.ts",
+        "src/db/index.ts",
+        "src/engine/cashflow.test.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/exportImport.test.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/matching.test.ts",
+        "src/engine/matching.ts",
+        "src/engine/projection.test.ts",
+        "src/engine/projection.ts",
+        "src/engine/variance.test.ts",
+        "src/engine/variance.ts",
+        "src/types/models.ts",
+        "src/views/ExpenseCreateView.vue",
+        "src/views/ExpenseEditView.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/WorkspaceListView.vue",
+        "src/views/compare-views/CompareLineItems.vue",
+        "src/views/import-steps/ImportStepMapping.vue",
+        "src/views/import-steps/ImportStepReview.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "3d9a4cd",
+      "fullSha": "3d9a4cd0cb8d80c98e9a8565885b6487f8934830",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T01:49:09Z",
+      "commitDate": "2026-03-02T01:49:09Z",
+      "subject": "fix(build): remove unused imports causing vue-tsc errors",
+      "body": "Remove unused `selectSuggestion` destructure from ExpenseForm and\nunused `primaryTag` import from exportImport.ts. These caused the\nVercel build to fail with TS6133 errors.\n\nTags: build, fix\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: bank-statement-import\nSemver: patch\n\nhttps://claude.ai/code/session_01W7Hcs1NZY1RinJoQaurw5E",
+      "tags": [
+        "bugfix",
+        "build"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "bank-statement-import",
+      "semver": "patch",
+      "scope": "build",
+      "title": "remove unused imports causing vue-tsc errors",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 1,
+        "deletions": 2
+      },
+      "files": [
+        "src/components/ExpenseForm.vue",
+        "src/engine/exportImport.ts"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "30aaf02",
+      "fullSha": "30aaf025e45fa81dfe1b71e705e6fc4f157772bd",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T01:26:33Z",
+      "commitDate": "2026-03-02T01:26:33Z",
+      "subject": "feat(models): migrate category to multi-tag system with import improvements",
+      "body": "Replace single `category: string` with `tags: string[]` on Expense and\nActual models. Adds CategoryMapping table for learned description→tags\npatterns during import, duplicate detection (date+amount+description),\nand multi-tag chip input UI. DB migration v5 handles backward-compatible\nupgrade. Export schema bumped to v2 with v1 import support preserved.\n\nTags: data-model, import, tags, migration\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: bank-statement-import\nSemver: minor\n\nhttps://claude.ai/code/session_01W7Hcs1NZY1RinJoQaurw5E",
+      "tags": [
+        "feature",
+        "migration",
+        "database",
+        "schema"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "bank-statement-import",
+      "semver": "minor",
+      "scope": "models",
+      "title": "migrate category to multi-tag system with import improvements",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 27,
+        "additions": 721,
+        "deletions": 266
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/ExpenseForm.vue",
+        "src/composables/useTagAutocomplete.ts",
+        "src/db/demoData.ts",
+        "src/db/index.ts",
+        "src/engine/cashflow.test.ts",
+        "src/engine/envelope.test.ts",
+        "src/engine/exportImport.test.ts",
+        "src/engine/exportImport.ts",
+        "src/engine/matching.test.ts",
+        "src/engine/matching.ts",
+        "src/engine/projection.test.ts",
+        "src/engine/projection.ts",
+        "src/engine/variance.test.ts",
+        "src/engine/variance.ts",
+        "src/types/models.ts",
+        "src/views/ExpenseCreateView.vue",
+        "src/views/ExpenseEditView.vue",
+        "src/views/ExpensesTab.vue",
+        "src/views/ImportWizardView.vue",
+        "src/views/ProjectedTab.vue",
+        "src/views/WorkspaceListView.vue",
+        "src/views/compare-views/CompareLineItems.vue",
+        "src/views/import-steps/ImportStepMapping.vue",
+        "src/views/import-steps/ImportStepReview.vue"
+      ],
+      "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "7089e25",
+      "fullSha": "7089e25d7c2aeaff7e3e7a8d3f5cead672846aeb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T01:04:12Z",
+      "commitDate": "2026-03-02T01:04:12Z",
+      "subject": "Merge pull request #97 from devmade-ai/claude/fix-debug-pill-issues-v9GmS",
+      "body": "Fix debug pill position and custom tone persistence",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #97 from devmade-ai/claude/fix-debug-pill-issues-v9GmS",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#97"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 47,
+        "deletions": 22
+      },
+      "files": [
+        "components/PWADebugBanner.tsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "services/messages.ts",
+        "services/recentTones.ts"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "b9ebfc6",
+      "fullSha": "b9ebfc6ed9d9cafcd622865a6bfc4a58edac8ad4",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T00:54:09Z",
+      "commitDate": "2026-03-02T00:54:09Z",
+      "subject": "fix(ui): move debug pill higher on right side instead of left",
+      "body": "Keep pill on right side where it was, but move from top: 54 to top: 12\nso it sits in the safe area padding above the header buttons (which\nstart at paddingTop: 48).\n\nTags: bugfix, ui, debug\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: debug-tools\nSemver: patch\n\nhttps://claude.ai/code/session_011xW71TVF3Me2EirRxmkz8k",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "debug-tools",
+      "semver": "patch",
+      "scope": "ui",
+      "title": "move debug pill higher on right side instead of left",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 4,
+        "deletions": 4
+      },
+      "files": [
+        "components/PWADebugBanner.tsx"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "83bf6fb",
+      "fullSha": "83bf6fbe7e31b659085531898a3bd18550151aff",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T00:28:03Z",
+      "commitDate": "2026-03-02T00:28:03Z",
+      "subject": "fix(ui,tones): move debug pill to left side and fix tone storage",
+      "body": "Debug pill at top-right covered header action buttons (settings, refresh).\nMoved to top-left to avoid overlap while still avoiding compose bar.\n\nCustom tones added via ToneEditModal were never persisted to local storage\nbecause addRecentTones() was only called in sendMessage(), but messages are\nalways sent without tones — tones are added post-send via editMessageTones()\nwhich lacked the call.\n\nAdded debugLog() calls to recentTones service so tone storage operations\nare visible in the debug pill's App tab for easier debugging.\n\nTags: bugfix, ui, tones, debug\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-tools\nSemver: patch\n\nhttps://claude.ai/code/session_011xW71TVF3Me2EirRxmkz8k",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "debug-tools",
+      "semver": "patch",
+      "scope": "ui,tones",
+      "title": "move debug pill to left side and fix tone storage",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 47,
+        "deletions": 22
+      },
+      "files": [
+        "components/PWADebugBanner.tsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "services/messages.ts",
+        "services/recentTones.ts"
+      ],
+      "repo_id": "synctone",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "81c0806",
+      "fullSha": "81c0806561cffd8e7bb21825cfa5b52ee9374bff",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-02T00:13:29Z",
+      "commitDate": "2026-03-02T00:13:29Z",
+      "subject": "Merge pull request #96 from devmade-ai/claude/fix-notifications-tone-selector-h54Xu",
+      "body": "feat: Add PWA install instructions modal and fix update banner duplication",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #96 from devmade-ai/claude/fix-notifications-tone-selector-h54Xu",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#96"
+      ],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 442,
+        "deletions": 83
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(app)/home.tsx",
+        "app/_layout.tsx",
+        "components/InstallInstructionsModal.tsx",
+        "components/PWADebugBanner.tsx",
+        "components/ToneEditModal.tsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "hooks/usePWAInstall.ts",
+        "hooks/usePWAUpdate.ts"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "beb3e02",
+      "fullSha": "beb3e027a837a7e5bd11b68d7fe5a8eaf642569a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T00:11:21Z",
+      "commitDate": "2026-03-02T00:11:21Z",
+      "subject": "fix(debug): move debug pill to root layout, reposition to top-right",
+      "body": "Move PWADebugBanner from home.tsx to root layout so it's visible on\nall screens (home, chat, create, join). Chat-related debug events from\nuseMessages, useReactions, useChats were already being logged but\ninvisible when viewing the chat screen.\n\nRepositioned collapsed pill from bottom-right to top-right (top: 54px)\nso it doesn't overlap with the compose bar or keyboard on chat screens.\nMade the pill smaller and semi-transparent to minimize visual intrusion.\n\nTags: debug, ux, layout\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: developer-tools\nSemver: patch\n\nhttps://claude.ai/code/session_012u2UpqVacAk7zNYTcq6Cgz",
+      "tags": [
+        "bugfix",
+        "ui"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "developer-tools",
+      "semver": "patch",
+      "scope": "debug",
+      "title": "move debug pill to root layout, reposition to top-right",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 17,
+        "deletions": 13
+      },
+      "files": [
+        "app/(app)/home.tsx",
+        "app/_layout.tsx",
+        "components/PWADebugBanner.tsx"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "d4c07f6",
+      "fullSha": "d4c07f64c726b10ecdb30918b1ea7da9ad73bb33",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-02T00:03:33Z",
+      "commitDate": "2026-03-02T00:03:33Z",
+      "subject": "feat(pwa,docs): add install instructions modal, diagnostic timeout, session notes",
+      "body": "Adopt remaining patterns from external glow-props CLAUDE.md:\n\n1. InstallInstructionsModal: Browser-specific step-by-step PWA install\n   guides in a proper modal component, replacing window.alert() calls\n   in home.tsx. Covers Safari iOS/macOS, Firefox Android/Desktop,\n   Chrome Android/iOS/Desktop with contextual messaging.\n\n2. 5-second diagnostic timeout in usePWAInstall: On Chromium browsers,\n   if beforeinstallprompt hasn't fired after 5s, logs manifest link\n   and SW controller status to help debug installability issues.\n\n3. docs/SESSION_NOTES.md: Compact context snapshot template rewritten\n   at each session end for quick handoff between AI sessions.\n\n4. Updated CLAUDE.md: Added SESSION_NOTES.md to core docs table and\n   session workflow, added new components to project structure.\n\nTags: pwa, docs, ux, modal, install\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: minor\n\nhttps://claude.ai/code/session_012u2UpqVacAk7zNYTcq6Cgz",
+      "tags": [
+        "feature",
+        "docs",
+        "ux"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "ux-polish",
+      "semver": "minor",
+      "scope": "pwa,docs",
+      "title": "add install instructions modal, diagnostic timeout, session notes",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 372,
+        "deletions": 54
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(app)/home.tsx",
+        "components/InstallInstructionsModal.tsx",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "hooks/usePWAInstall.ts"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "234a2be",
+      "fullSha": "234a2be1232543247721912f0cda37b8c6627670",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T23:54:48Z",
+      "commitDate": "2026-03-01T23:54:48Z",
+      "subject": "fix(pwa,tones): fix duplicate update banner and tone modal input focus",
+      "body": "Two bug fixes:\n\n1. PWA \"Update Available\" banner appeared multiple times because\n   updatefound/statechange event listeners were never cleaned up on\n   unmount and had no guard against re-triggering. Added\n   updateDetectedRef to show banner only once per lifecycle, and\n   proper removeEventListener cleanup in the useEffect return.\n\n2. ToneEditModal custom tone TextInput closed the modal on web.\n   The TouchableOpacity + onStartShouldSetResponder pattern doesn't\n   reliably prevent event propagation on web. Switched to the\n   Pressable + e.stopPropagation() pattern already used by\n   ReactionPicker.\n\nTags: pwa, bugfix, tones, modal, web\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: patch\n\nhttps://claude.ai/code/session_012u2UpqVacAk7zNYTcq6Cgz",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "ux-polish",
+      "semver": "patch",
+      "scope": "pwa,tones",
+      "title": "fix duplicate update banner and tone modal input focus",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 53,
+        "deletions": 16
+      },
+      "files": [
+        "components/ToneEditModal.tsx",
+        "docs/HISTORY.md",
+        "hooks/usePWAUpdate.ts"
+      ],
+      "repo_id": "synctone",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "827799f",
+      "fullSha": "827799fa1e6959b5e75ce341864347c4db807274",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-01T23:33:36Z",
+      "commitDate": "2026-03-01T23:33:36Z",
+      "subject": "Merge pull request #95 from devmade-ai/claude/custom-tone-tags-ayakK",
+      "body": "feat: Replace predefined tones with custom user-created tone tags",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #95 from devmade-ai/claude/custom-tone-tags-ayakK",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#95"
+      ],
+      "stats": {
+        "filesChanged": 16,
+        "additions": 406,
+        "deletions": 681
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/_layout.tsx",
+        "components/MessageBubble.tsx",
+        "components/MessageInfoModal.tsx",
+        "components/ToneEditModal.tsx",
+        "components/ToneSelector.tsx",
+        "constants/tones.ts",
+        "constants/tutorial.ts",
+        "docs/DATABASE.md",
+        "docs/HISTORY.md",
+        "hooks/useToneUsage.ts",
+        "services/messages.ts",
+        "services/recentTones.ts",
+        "services/toneUsage.ts",
+        "stores/appStore.ts",
+        "supabase/migrations/20260301231928_drop_unused_tone_and_reply_tables.sql"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "bf148cc",
+      "fullSha": "bf148cc9c136140c5bbf737d7ca9d6dbba6e79f1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T23:29:30Z",
+      "commitDate": "2026-03-01T23:29:30Z",
+      "subject": "docs(claude-md): update documentation for custom tone tags",
+      "body": "Remove references to tone_usage table, global_tone_popularity view,\nincrement_tone_usage function, message_replies table, and tone\ncategories. Update project structure, RLS policies, technical guidelines,\nand tone tag descriptions to reflect the new custom tone system.\n\nTags: docs, tones, cleanup\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: custom-tone-tags\nSemver: patch\n\nhttps://claude.ai/code/session_01TcLoUV1SRtPMPYKa8z1zrk",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "custom-tone-tags",
+      "semver": "patch",
+      "scope": "claude-md",
+      "title": "update documentation for custom tone tags",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 19,
+        "deletions": 51
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "2babe55",
+      "fullSha": "2babe550d3f9a048a87ee45f99e80e684b759a33",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T23:26:59Z",
+      "commitDate": "2026-03-01T23:26:59Z",
+      "subject": "feat(tones): replace predefined tones with custom tone tags",
+      "body": "Users can now type any single word as a tone tag instead of picking from\na fixed list of 25. Six defaults (happy, sad, serious, joking, sarcastic,\nsincere) are provided for quick picking. Recent custom tones are stored\nlocally for re-use. Colors are assigned deterministically from a palette\nbased on label hash.\n\nRemoved server-side tone usage tracking (tone_usage table,\nincrement_tone_usage function, global_tone_popularity view) and the\ndeprecated message_replies table. Tone categories and descriptions\nremoved in favor of a flat, simple selector with custom input.\n\nTags: tones, custom-tones, ux, database-cleanup, simplification\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: custom-tone-tags\nSemver: major\n\nhttps://claude.ai/code/session_01TcLoUV1SRtPMPYKa8z1zrk",
+      "tags": [
+        "feature",
+        "simplify",
+        "removal",
+        "database"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "custom-tone-tags",
+      "semver": "major",
+      "scope": "tones",
+      "title": "replace predefined tones with custom tone tags",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 16,
+        "additions": 387,
+        "deletions": 630
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/_layout.tsx",
+        "components/MessageBubble.tsx",
+        "components/MessageInfoModal.tsx",
+        "components/ToneEditModal.tsx",
+        "components/ToneSelector.tsx",
+        "constants/tones.ts",
+        "constants/tutorial.ts",
+        "docs/DATABASE.md",
+        "docs/HISTORY.md",
+        "hooks/useToneUsage.ts",
+        "services/messages.ts",
+        "services/recentTones.ts",
+        "services/toneUsage.ts",
+        "stores/appStore.ts",
+        "supabase/migrations/20260301231928_drop_unused_tone_and_reply_tables.sql"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "30e460a",
+      "fullSha": "30e460a7188a8900cecb91c454aff2d7bd7b9151",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-01T14:34:00Z",
+      "commitDate": "2026-03-01T14:34:00Z",
+      "subject": "Merge pull request #94 from devmade-ai/claude/update-tone-tagging-ui-UU9xA",
+      "body": "Move tone tagging from compose to post-send message interaction",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #94 from devmade-ai/claude/update-tone-tagging-ui-UU9xA",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#94"
+      ],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 62,
+        "deletions": 88
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(app)/chat/[id].tsx",
+        "components/ChatPanel.tsx",
+        "components/ComposeBar.tsx",
+        "components/MessageActionSheet.tsx",
+        "components/MessageBubble.tsx",
+        "components/ToneEditModal.tsx",
+        "docs/HISTORY.md"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "d781ae1",
+      "fullSha": "d781ae1bae9001c3f83482ff257a63ec84d33870",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T14:13:51Z",
+      "commitDate": "2026-03-01T14:13:51Z",
+      "subject": "feat(tones): move tone tagging from compose input to post-send bubble hint",
+      "body": "Tone selection was cluttering the compose bar. Now messages are sent without\ntones, and senders add tones after sending via a \"tap to add tones\" hint\nbelow their message bubble or through the action sheet. This creates a\nsimpler send flow and makes tone tagging feel more intentional.\n\n- Remove ToneSelector from ComposeBar (always sends empty tones)\n- Add \"tap to add tones\" hint below own messages (within 15-min window)\n- Tapping hint opens ToneEditModal directly\n- MessageActionSheet shows \"Add Tones\" or \"Change Tones\" dynamically\n- ToneEditModal title adapts based on existing tones\n\nTags: ui, tones, compose, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: tone-tagging\nSemver: minor\n\nhttps://claude.ai/code/session_01BHKWpg1wLikBmkhY6KZZ5h",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "tone-tagging",
+      "semver": "minor",
+      "scope": "tones",
+      "title": "move tone tagging from compose input to post-send bubble hint",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 62,
+        "deletions": 88
+      },
+      "files": [
+        "CLAUDE.md",
+        "app/(app)/chat/[id].tsx",
+        "components/ChatPanel.tsx",
+        "components/ComposeBar.tsx",
+        "components/MessageActionSheet.tsx",
+        "components/MessageBubble.tsx",
+        "components/ToneEditModal.tsx",
+        "docs/HISTORY.md"
+      ],
+      "repo_id": "synctone",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "73fdb7c",
+      "fullSha": "73fdb7c5fcd3f02299e81751b89b04b109e97b7b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-01T13:44:32Z",
+      "commitDate": "2026-03-01T13:44:32Z",
+      "subject": "Merge pull request #29 from devmade-ai/claude/migrate-to-vercel-bAc7z",
+      "body": "Migrate deployment from GitHub Pages to Vercel",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #29 from devmade-ai/claude/migrate-to-vercel-bAc7z",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#29"
+      ],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 31,
+        "deletions": 75
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "README.md",
+        "src/data/cv-data.ts",
+        "vercel.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "see-veo",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ac999f5",
+      "fullSha": "ac999f5a9a4d260079bb6621eeb46fe789ac9fff",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-01T13:01:36Z",
+      "commitDate": "2026-03-01T13:01:36Z",
+      "subject": "Merge pull request #80 from devmade-ai/claude/fix-download-exclude-current-HiFFB",
+      "body": "fix(export): fix Download Current race condition with React re-render",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #80 from devmade-ai/claude/fix-download-exclude-current-HiFFB",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#80"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 14,
+        "deletions": 3
+      },
+      "files": [
+        "src/components/ExportButtons.jsx"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "5b417ba",
+      "fullSha": "5b417ba43f480dae6c7db83fd82a797359997a5b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T12:49:34Z",
+      "commitDate": "2026-03-01T12:49:34Z",
+      "subject": "fix(export): fix Download Current race condition with React re-render",
+      "body": "updateExporting(true) triggers a React re-render that overwrites the\nmanual transform: scale(1) set on the canvas back to scale(previewScale).\nBy setting the transform AFTER the re-render settles (100ms wait), the\nmanual override persists through the toPng capture — matching the same\nproven pattern used by handleExportMultiple.\n\nTags: export, bug-fix, timing\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: export\nSemver: patch\n\nhttps://claude.ai/code/session_01MdeVchBnNuGw4Hs6mEBWpJ",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "export",
+      "semver": "patch",
+      "scope": "export",
+      "title": "fix Download Current race condition with React re-render",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 14,
+        "deletions": 3
+      },
+      "files": [
+        "src/components/ExportButtons.jsx"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "2270824",
+      "fullSha": "22708243d3643f24c70d0ab1b90bf56a5fc98fad",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-01T12:37:55Z",
+      "commitDate": "2026-03-01T12:37:55Z",
+      "subject": "Merge pull request #79 from devmade-ai/claude/fix-download-issue-OmMCe",
+      "body": "fix(export): use blob + saveAs for single download instead of link.click()",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "Merge pull request #79 from devmade-ai/claude/fix-download-issue-OmMCe",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#79"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 8,
+        "deletions": 328
+      },
+      "files": [
+        "package-lock.json",
+        "src/components/ExportButtons.jsx"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "3e3f3d1",
+      "fullSha": "3e3f3d122a4438f0b0fcd42427519843b04f1d56",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T12:36:44Z",
+      "commitDate": "2026-03-01T12:36:44Z",
+      "subject": "chore: update package-lock.json from npm install",
+      "body": "Tags: dependencies\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: export\nSemver: patch\n\nhttps://claude.ai/code/session_01VzWhKw5a9A2uMExAYPMVu3",
+      "tags": [
+        "build"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": null,
+      "semver": null,
+      "scope": null,
+      "title": "update package-lock.json from npm install",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 324
+      },
+      "files": [
+        "package-lock.json"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "05e849f",
+      "fullSha": "05e849f13afa27ab60cbc87586526cbe47eb1b30",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-01T12:36:17Z",
+      "commitDate": "2026-03-01T12:36:17Z",
+      "subject": "fix(export): use blob + saveAs for single download instead of link.click()",
+      "body": "The detached <a> element with link.click() fails to trigger downloads in\nSafari, PWA contexts, and with large data URLs from print-size exports.\nReplaced with fetch-to-blob + file-saver's saveAs, matching the reliable\npattern already used by multi-page and multi-platform ZIP exports.\n\nTags: export, download, bugfix, cross-browser\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: export\nSemver: patch\n\nhttps://claude.ai/code/session_01VzWhKw5a9A2uMExAYPMVu3",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "export",
+      "semver": "patch",
+      "scope": "export",
+      "title": "use blob + saveAs for single download instead of link.click()",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 8,
+        "deletions": 4
+      },
+      "files": [
+        "src/components/ExportButtons.jsx"
+      ],
+      "repo_id": "canva-grid",
+      "urgency": 4,
+      "impact": "user-facing"
+    }
+  ]
+}

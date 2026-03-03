@@ -63,7 +63,7 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}', 'projects.json'],
         runtimeCaching: [
           {
-            // Runtime cache for data.json — too large for precache (2.68MB)
+            // Runtime cache for data.json (summary file, ~126KB)
             // NetworkFirst: always fetch latest data, fall back to cache when offline
             urlPattern: /\/data\.json$/,
             handler: 'NetworkFirst',
@@ -71,6 +71,21 @@ export default defineConfig({
               cacheName: 'dashboard-data',
               expiration: {
                 maxEntries: 1,
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+              },
+            },
+          },
+          {
+            // Runtime cache for per-month commit files (data-commits/YYYY-MM.json)
+            // Requirement: Cache time-windowed commit files for offline access
+            // Approach: NetworkFirst so latest data is always fetched, with offline fallback
+            // Alternatives: CacheFirst — rejected, commit data changes when reprocessed
+            urlPattern: /\/data-commits\/.*\.json$/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'dashboard-commits',
+              expiration: {
+                maxEntries: 36, // Up to 3 years of monthly files
                 maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
               },
             },

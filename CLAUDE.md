@@ -130,7 +130,7 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-02-26.
 
 - `scripts/extract.js` - Extracts git log data into structured JSON
 - `scripts/extract-api.js` - GitHub API-based extraction (uses curl, no gh CLI needed)
-- `scripts/aggregate-processed.js` - Aggregates processed/ data into dashboard JSON
+- `scripts/aggregate-processed.js` - Aggregates processed/ data into time-windowed dashboard JSON (summary + per-month commit files + weekly/daily/monthly pre-aggregations)
 - `dashboard/` - React dashboard (Vite + React + Tailwind v4 + Chart.js via react-chartjs-2)
   - `index.html` - Minimal HTML (root div, debug pill, PWA early capture)
   - `styles.css` - Tailwind v4 + custom CSS

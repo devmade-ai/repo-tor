@@ -4,6 +4,26 @@ Log of significant changes to code and documentation.
 
 ## 2026-03-03
 
+### Time-Windowed Data + Weekly/Daily Pre-Aggregation
+
+**Why:** `data.json` was 2.9 MB (all 2,097 commits inline), causing slow initial dashboard load and exceeding PWA precache limits. Dashboard tabs iterated the full commits array on every render to compute chart data. Non-technical users experienced 3-5 second load times.
+
+**What:**
+- **Aggregation script redesign** — `scripts/aggregate-processed.js` now outputs:
+  - Summary file (`data.json`, ~126 KB): metadata, pre-aggregated weekly/daily/monthly buckets, contributors, filter options, security events. No raw commits.
+  - Per-month commit files (`data-commits/YYYY-MM.json`): raw commits grouped by month for lazy loading.
+- **Shared bucket helpers** — Refactored monthly aggregation to use `createEmptyBucket()`/`accumulateBucket()`/`finalizeBucket()`. New weekly and daily functions share the same helpers (DRY).
+- **Two-phase dashboard loading** — `App.jsx` loads summary first (fast paint), then lazy-loads all month files in background. Summary renders charts immediately via pre-aggregated data; commit files enable drilldowns/filters.
+- **Pre-computed filter options** — `filterOptions` object in summary replaces per-commit iteration for FilterSidebar. Falls back to legacy computation for uploaded files.
+- **Tab pre-aggregated rendering** — SummaryTab, TimelineTab, ProgressTab derive metrics from summary breakdowns before commits load. HealthTab/others render after commits arrive.
+- **PWA caching** — Added `data-commits/*.json` runtime cache rule (NetworkFirst, 36 max entries)
+
+**Alternatives considered:**
+- Keep all commits in data.json: Rejected — 2.9 MB payload, slow initial load
+- Split by repo instead of month: Rejected — month-based matches time-windowed UI pattern
+- Aggregate only in dashboard: Rejected — moves computation to client, delays rendering
+- Pre-compute filtered aggregations (excluding merges): Rejected — doubles data, complex to maintain
+
 ### Fix Partial Month Cliff on Trend Charts
 
 **Why:** Monthly trend charts showed a misleading 95% drop for the current month (March 2026) because only 2 days of data (39 commits) were displayed at equal visual weight as full months (800+ commits). Non-technical users would interpret this as something going wrong.

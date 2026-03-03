@@ -6,7 +6,19 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-03-03 — Fix Partial Month Cliff on Trend Charts):**
+**Recent Updates (2026-03-03 — Time-Windowed Data + Weekly/Daily Pre-Aggregation):**
+- **Architecture change** — Redesigned data pipeline for time-windowed reporting:
+  - `aggregate-processed.js` now outputs a **summary file** (`data.json`, ~126 KB) and **per-month commit files** (`data-commits/YYYY-MM.json`)
+  - Summary file contains weekly (ISO week), daily, and monthly pre-aggregated buckets with full metric breakdowns (tags, impact, risk, debt, semver, complexity, urgency, code changes, per-repo splits)
+  - Initial dashboard payload reduced from **2.9 MB → 126 KB** (96% smaller)
+  - Dashboard loads summary instantly, lazy-loads commit files in background for drilldowns/filters
+- **Shared aggregation logic** — Refactored `calcMonthlyAggregations` to use shared `createEmptyBucket`/`accumulateBucket`/`finalizeBucket` helpers. New `calcWeeklyAggregations` and `calcDailyAggregations` use the same helpers.
+- **Pre-computed filter options** — `filterOptions` (tags, authors, repos, urgencies, impacts) pre-computed at build time so FilterSidebar renders without loading commits
+- **Tab updates** — SummaryTab, TimelineTab, ProgressTab use pre-aggregated data for instant chart rendering; fall back to filteredCommits once loaded. HealthTab/others render after commits load.
+- **PWA** — Added runtime cache rule for `data-commits/*.json` files
+- **Files changed**: `scripts/aggregate-processed.js`, `dashboard/js/App.jsx`, `dashboard/js/AppContext.jsx`, `dashboard/js/tabs/SummaryTab.jsx`, `dashboard/js/tabs/TimelineTab.jsx`, `dashboard/js/tabs/ProgressTab.jsx`, `vite.config.js`, `.gitignore`
+
+**Previous Updates (2026-03-03 — Fix Partial Month Cliff on Trend Charts):**
 - **Bug fix** — Monthly trend charts (Features vs Bug Fixes, Impact Over Time, Urgency, Complexity, Debt) showed a misleading dramatic drop for the current month when data was incomplete (e.g., only 2 days into March vs full months with 800+ commits).
 - **Root cause**: Charts rendered raw monthly counts with no handling for partial months — 39 commits (2 days) shown at equal visual weight as 800+ commits (full month).
 - **Fix**: Added `excludeIncompleteLastMonth()` utility to `js/utils.js`. Applied in `ProgressTab.jsx` (features vs bugfix trend, complexity trend) and `useHealthData.js` (urgency trend → cascades to impact trend, debt trend). If the last month's latest commit day is before the 15th, that month is excluded from trend charts.
