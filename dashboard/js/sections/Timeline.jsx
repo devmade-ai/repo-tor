@@ -5,7 +5,7 @@ import {
     formatDate, getCommitTags, getTagClass, getTagStyleObject,
     getAuthorEmail, getAuthorName, getCommitSubject,
     sanitizeMessage, getWorkPattern, getAdditions, getDeletions, handleKeyActivate,
-    getUTCDateKey, excludeIncompleteLastMonth,
+    getUTCDateKey, getUTCMonthKey, excludeIncompleteLastMonth,
 } from '../utils.js';
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
 import { seriesColors, accentColor, getSeriesColor, withOpacity, mutedColor } from '../chartColors.js';
@@ -320,7 +320,7 @@ export default function Timeline() {
         const monthlyUrgency = {};
         filteredCommits.forEach(c => {
             if (!c.timestamp || !c.urgency) return;
-            const month = c.timestamp.substring(0, 7);
+            const month = getUTCMonthKey(c.timestamp);
             if (!monthlyUrgency[month]) monthlyUrgency[month] = { sum: 0, count: 0 };
             monthlyUrgency[month].sum += c.urgency;
             monthlyUrgency[month].count++;
@@ -365,7 +365,7 @@ export default function Timeline() {
         const monthlyDebt = {};
         filteredCommits.forEach(c => {
             if (!c.timestamp || !c.debt) return;
-            const month = c.timestamp.substring(0, 7);
+            const month = getUTCMonthKey(c.timestamp);
             if (!monthlyDebt[month]) monthlyDebt[month] = { added: 0, paid: 0, neutral: 0 };
             if (monthlyDebt[month].hasOwnProperty(c.debt)) monthlyDebt[month][c.debt]++;
         });
@@ -412,7 +412,7 @@ export default function Timeline() {
         const monthlyImpact = {};
         filteredCommits.forEach(c => {
             if (!c.timestamp || !c.impact) return;
-            const month = c.timestamp.substring(0, 7);
+            const month = getUTCMonthKey(c.timestamp);
             if (!monthlyImpact[month]) monthlyImpact[month] = { 'user-facing': 0, 'internal': 0, 'infrastructure': 0, 'api': 0 };
             if (monthlyImpact[month].hasOwnProperty(c.impact)) monthlyImpact[month][c.impact]++;
         });

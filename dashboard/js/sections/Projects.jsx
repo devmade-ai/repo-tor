@@ -10,7 +10,7 @@ import CollapsibleSection from '../components/CollapsibleSection.jsx';
 //   - Derive from loaded analytics data only: Rejected — misses projects without analytics
 
 export default function Projects() {
-    const { state, commitsLoaded } = useApp();
+    const { state, filteredCommits, commitsLoaded } = useApp();
     const [projects, setProjects] = useState([]);
     const [loadError, setLoadError] = useState(null);
 
@@ -45,10 +45,9 @@ export default function Projects() {
     const enriched = useMemo(() => {
         let repoCounts;
         if (commitsLoaded) {
-            // Phase 2: compute from filtered commits
+            // Phase 2: compute from filtered commits (respects user-applied filters)
             repoCounts = {};
-            const commits = state.data?.commits || [];
-            commits.forEach(c => {
+            filteredCommits.forEach(c => {
                 if (c.repo_id) {
                     repoCounts[c.repo_id] = (repoCounts[c.repo_id] || 0) + 1;
                 }
@@ -62,7 +61,7 @@ export default function Projects() {
             ...p,
             commitCount: repoCounts ? (repoCounts[p.name] || 0) : null,
         }));
-    }, [projects, state.data?.commits, state.data?.summary?.repoCommitCounts, commitsLoaded]);
+    }, [projects, filteredCommits, state.data?.summary?.repoCommitCounts, commitsLoaded]);
 
     // Split into live (has liveUrl) and other projects
     const { liveProjects, otherProjects } = useMemo(() => {

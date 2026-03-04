@@ -6,7 +6,16 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent section layouts, and PWA support.
 
-**Recent Updates (2026-03-04 — Section Reorganization + Terminology Cleanup):**
+**Recent Updates (2026-03-04 — Cross-Tab Audit + 6 Fixes):**
+- **Fix: Projects filter bug** — Commit counts now use `filteredCommits` instead of unfiltered `state.data?.commits`.
+- **Fix: Timeline UTC mismatch** — Trend charts now use `getUTCMonthKey()` instead of `.substring(0,7)`.
+- **UX: Bottom padding** — Added `pb-12` to content wrapper for breathing room at page bottom.
+- **UX: Section separators** — Subtle `<hr>` dividers between stacked sections in Timeline and Breakdown tabs.
+- **UX: Discover file insights** — Shows loading spinner during Phase 1 instead of "No file data available".
+- **Fix: Health fallback** — `||` → `??` for summary breakdown fallbacks (prevents empty `{}` issues).
+- **Files changed**: `App.jsx`, `Projects.jsx`, `Timeline.jsx`, `Discover.jsx`, `Health.jsx`
+
+**Previous Updates (2026-03-04 — Section Reorganization + Terminology Cleanup):**
 - **Renamed `tabs/` → `sections/`** — All section component files moved from `js/tabs/` to `js/sections/`. Dropped "Tab" suffix from all filenames and component names (e.g., `HealthTab.jsx` → `Health.jsx`, `TimelineTab` → `Timeline`). "Tab" now refers exclusively to the 6 top-level navigation buttons; everything rendered within a tab is a "section".
 - **Merged Security into Health** — SecurityTab deleted. Security events now render as a CollapsibleSection within Health.jsx, view-level aware (executive/management/developer).
 - **Moved trend charts to Timeline** — Urgency trend, impact over time, and debt trend line charts moved from Health (via useHealthData) to Timeline section. Computed inline via useMemo in Timeline.jsx.

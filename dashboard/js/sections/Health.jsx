@@ -42,14 +42,16 @@ export default function Health() {
     const urgencyBreakdown = useSummary
         ? convertSummaryUrgency(summaryData.urgencyBreakdown)
         : hookData.urgencyBreakdown;
+    // Use nullish coalescing — empty objects {} from summary are valid (no data),
+    // while || would incorrectly fall through to hookData for empty objects
     const impactBreakdown = useSummary
-        ? (summaryData.impactBreakdown || hookData.impactBreakdown)
+        ? (summaryData.impactBreakdown ?? hookData.impactBreakdown)
         : hookData.impactBreakdown;
     const riskBreakdown = useSummary
-        ? (summaryData.riskBreakdown || hookData.riskBreakdown)
+        ? (summaryData.riskBreakdown ?? hookData.riskBreakdown)
         : hookData.riskBreakdown;
     const debtBreakdown = useSummary
-        ? (summaryData.debtBreakdown || hookData.debtBreakdown)
+        ? (summaryData.debtBreakdown ?? hookData.debtBreakdown)
         : hookData.debtBreakdown;
 
     const hasRiskData = riskBreakdown.low + riskBreakdown.medium + riskBreakdown.high > 0;

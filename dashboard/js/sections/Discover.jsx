@@ -443,8 +443,9 @@ export default function Discover() {
         setSelectedMetrics(getRandomMetrics(4, pinnedMetrics));
     }, [pinnedMetrics]);
 
-    // File Insights
+    // File Insights — requires per-commit file lists, not available from summary
     const fileInsights = useMemo(() => {
+        if (!commitsLoaded) return 'loading';
         const fileCounts = {};
         filteredCommits.forEach(c => {
             (c.files || []).forEach(path => {
@@ -465,7 +466,7 @@ export default function Discover() {
             count,
             pct: Math.round((count / maxCount) * 100),
         }));
-    }, [filteredCommits]);
+    }, [filteredCommits, commitsLoaded]);
 
     // Comparisons — derive from summary during Phase 1, from commits during Phase 2
     const comparisons = useMemo(() => {
@@ -611,7 +612,12 @@ export default function Discover() {
 
             {/* File Insights — most changed files (with fun names), least engaging */}
             <CollapsibleSection title="Most Changed Files" subtitle="Top 10 files by number of changes">
-                {fileInsights ? (
+                {fileInsights === 'loading' ? (
+                    <div className="flex items-center gap-2 py-4 justify-center">
+                        <div className="loading-spinner" style={{ width: 16, height: 16, borderWidth: 2 }} />
+                        <p className="text-themed-tertiary text-sm">Loading file data&hellip;</p>
+                    </div>
+                ) : fileInsights ? (
                     <div className="space-y-3">
                         {fileInsights.map(({ path, name, count, pct }) => (
                             <div key={path} className="flex items-center gap-3">

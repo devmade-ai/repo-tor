@@ -4,6 +4,22 @@ Log of significant changes to code and documentation.
 
 ## 2026-03-04
 
+### Cross-Tab Audit — 6 Fixes
+
+**Why:** Full audit of all 6 tabs and their sections revealed 2 bugs, 2 UX issues, and 2 minor correctness/robustness issues.
+
+**What:**
+- **Fix: Projects filter bug** — `Projects.jsx` used `state.data?.commits` (unfiltered) for commit counts in Phase 2 instead of `filteredCommits`. Counts now respond to user-applied filters.
+- **Fix: Timeline UTC mismatch** — Urgency/debt/impact trend charts (moved from Health) used `.substring(0,7)` for month grouping instead of `getUTCMonthKey()`. Could mismatch pre-aggregated UTC keys near midnight.
+- **UX: Bottom padding** — Added `pb-12` to the content wrapper so last section doesn't sit flush against viewport bottom.
+- **UX: Section separators** — Added subtle `<hr>` dividers between stacked sections in Timeline and Breakdown tabs.
+- **UX: Discover file insights loading** — Shows spinner during Phase 1 instead of "No file data available".
+- **Fix: Health fallback robustness** — Changed `||` to `??` (nullish coalescing) for summary breakdown fallbacks.
+
+**Alternatives considered:**
+- Larger gap instead of `<hr>`: Rejected — gap alone doesn't clearly separate sections; a subtle line does.
+- Pre-aggregate file insights: Rejected — file lists are large and not in summary data.
+
 ### Section Reorganization + Terminology Cleanup
 
 **Why:** Dashboard used "Tab" naming for both the 6 navigation buttons and the content components they render, causing confusion. Health tab was overloaded with 11+ sections while Security tab was too thin. Discover had no Phase 1 support.
