@@ -5,7 +5,7 @@ import { getCommitTags, handleKeyActivate, excludeIncompleteLastMonth, getUTCMon
 import { getSeriesColor, withOpacity } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
-export default function ProgressTab() {
+export default function Progress() {
     const { state, filteredCommits, commitsLoaded, openDetailPane, isMobile } = useApp();
 
     // Summary metrics — use pre-aggregated data when commits aren't loaded

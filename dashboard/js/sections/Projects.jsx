@@ -9,7 +9,7 @@ import CollapsibleSection from '../components/CollapsibleSection.jsx';
 //   - Read from config/repos.json: Rejected — config/ not in Vite build output
 //   - Derive from loaded analytics data only: Rejected — misses projects without analytics
 
-export default function ProjectsTab() {
+export default function Projects() {
     const { state, commitsLoaded } = useApp();
     const [projects, setProjects] = useState([]);
     const [loadError, setLoadError] = useState(null);

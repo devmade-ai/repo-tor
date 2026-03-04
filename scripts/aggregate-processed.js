@@ -394,6 +394,28 @@ function calcSemverBreakdown(commits) {
 }
 
 /**
+ * Calculate aggregate code stats for Discover section Phase 1 support.
+ * Requirement: Show code growth metrics instantly during Phase 1 without raw commits.
+ * Approach: Sum all additions/deletions/filesChanged across commits into summary totals.
+ * Alternatives:
+ *   - Derive from monthly buckets: Rejected — rounding errors accumulate
+ *   - Skip Phase 1 for Discover: Rejected — metrics are derivable from simple aggregation
+ */
+function calcCodeStats(commits) {
+  let additions = 0;
+  let deletions = 0;
+  let filesChanged = 0;
+
+  for (const commit of commits) {
+    additions += commit.stats?.additions ?? 0;
+    deletions += commit.stats?.deletions ?? 0;
+    filesChanged += commit.stats?.files_changed ?? commit.stats?.filesChanged ?? 0;
+  }
+
+  return { additions, deletions, filesChanged };
+}
+
+/**
  * Get ISO week key from a timestamp string.
  * Returns "YYYY-Www" (e.g., "2026-W09") using ISO 8601 week numbering.
  * Requirement: Weekly pre-aggregation for time-windowed reporting
@@ -868,6 +890,7 @@ function generateAggregation(commits, scope, repoCount = 1) {
       avgUrgency: calcAverage(sortedCommits, 'urgency'),
       repoCommitCounts: calcRepoCommitCounts(sortedCommits),
       hourlyHeatmap: calcHourlyHeatmap(sortedCommits),
+      codeStats: calcCodeStats(sortedCommits),
       monthly: monthly,
       monthlyCommits: monthly,  // Alias for dashboard compatibility
       weekly: weekly,

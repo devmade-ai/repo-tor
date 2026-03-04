@@ -27,7 +27,7 @@ function getHeatmapLevel(count, maxCount) {
 //   - Show spinner: Rejected — heatmap data exists in summary
 //   - Store heatmaps in all timezones: Rejected — prohibitively large
 
-export default function TimingTab() {
+export default function Timing() {
     const { state, filteredCommits, viewConfig, isMobile, commitsLoaded } = useApp();
 
     // Build heatmap data based on view level

@@ -296,7 +296,7 @@ function getRandomMetrics(count, pinned) {
     return result;
 }
 
-export default function DiscoverTab() {
+export default function Discover() {
     const { state, filteredCommits, commitsLoaded } = useApp();
     const fileNameCacheRef = useRef({});
 
@@ -310,15 +310,95 @@ export default function DiscoverTab() {
         savePinnedMetrics(pinnedMetrics);
     }, [pinnedMetrics]);
 
-    // Compute metric values
+    // Requirement: Show Discover metrics during Phase 1 using pre-aggregated summary data
+    // Approach: When commits aren't loaded, derive metric values from summary fields
+    //   (codeStats, tagBreakdown, urgencyBreakdown, complexityBreakdown, hourlyHeatmap,
+    //   contributors). Not all metrics can be computed from summary — those that can't
+    //   show "\u2014" (em dash) until commits load.
+    // Alternatives:
+    //   - Show spinner: Rejected — most metrics ARE derivable from summary
+    //   - Pre-compute all metric values in aggregation: Rejected — metrics are user-selectable
+    //     and the calculate functions are complex; summary fields provide enough to derive most
     const metricValues = useMemo(() => {
+        if (commitsLoaded) {
+            return selectedMetrics.map(metricId => {
+                const metric = DISCOVER_METRICS.find(m => m.id === metricId);
+                if (!metric) return { value: '-', sub: '', label: 'Unknown' };
+                const result = metric.calculate(filteredCommits);
+                return { ...result, label: metric.label, id: metric.id };
+            });
+        }
+
+        // Phase 1: derive from summary data
+        const summary = state.data?.summary;
+        if (!summary) return selectedMetrics.map(() => ({ value: '\u2014', sub: '', label: '' }));
+
+        const cs = summary.codeStats || {};
+        const tb = summary.tagBreakdown || {};
+        const ub = summary.urgencyBreakdown || {};
+        const cb = summary.complexityBreakdown || {};
+        const hm = summary.hourlyHeatmap || {};
+        const total = summary.totalCommits || 0;
+
+        const summaryCalc = {
+            'net-growth': () => {
+                const net = (cs.additions || 0) - (cs.deletions || 0);
+                return { value: net >= 0 ? `+${net.toLocaleString()}` : net.toLocaleString(), sub: 'lines' };
+            },
+            'avg-commit-size': () => {
+                const totalChanges = (cs.additions || 0) + (cs.deletions || 0);
+                const avg = total > 0 ? Math.round(totalChanges / total) : 0;
+                return { value: avg.toLocaleString(), sub: 'lines per change' };
+            },
+            'deletion-ratio': () => {
+                const totalChanges = (cs.additions || 0) + (cs.deletions || 0);
+                const pct = totalChanges > 0 ? Math.round(((cs.deletions || 0) / totalChanges) * 100) : 0;
+                return { value: `${pct}%`, sub: 'of all changes were deletions' };
+            },
+            'feature-bug-ratio': () => {
+                const features = tb.feature || 0;
+                const bugs = (tb.bugfix || 0) + (tb.fix || 0);
+                if (bugs === 0) return { value: features > 0 ? `${features}:0` : '0:0', sub: 'features to bug fixes' };
+                return { value: `${(features / bugs).toFixed(1)}:1`, sub: 'features to bug fixes' };
+            },
+            'test-investment': () => {
+                const tests = tb.test || 0;
+                const pct = total > 0 ? Math.round((tests / total) * 100) : 0;
+                return { value: `${pct}%`, sub: `${tests} test changes` };
+            },
+            'docs-investment': () => {
+                const docs = tb.docs || 0;
+                const pct = total > 0 ? Math.round((docs / total) * 100) : 0;
+                return { value: `${pct}%`, sub: `${docs} doc changes` };
+            },
+            'peak-hour': () => {
+                const byHour = hm.byHour || [];
+                if (byHour.length === 0) return { value: '\u2014', sub: '' };
+                const peakIdx = byHour.indexOf(Math.max(...byHour));
+                const ampm = peakIdx >= 12 ? 'PM' : 'AM';
+                const h12 = peakIdx % 12 || 12;
+                return { value: `${h12}${ampm}`, sub: `${byHour[peakIdx]} changes (UTC)` };
+            },
+            'peak-day': () => {
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const byDay = hm.byDay || [];
+                if (byDay.length === 0) return { value: '\u2014', sub: '' };
+                const peakIdx = byDay.indexOf(Math.max(...byDay));
+                return { value: days[peakIdx], sub: `${byDay[peakIdx]} changes` };
+            },
+            'contributor-count': () => {
+                return { value: (summary.totalContributors || 0).toLocaleString(), sub: 'people contributing' };
+            },
+        };
+
         return selectedMetrics.map(metricId => {
             const metric = DISCOVER_METRICS.find(m => m.id === metricId);
             if (!metric) return { value: '-', sub: '', label: 'Unknown' };
-            const result = metric.calculate(filteredCommits);
-            return { ...result, label: metric.label, id: metric.id };
+            const calc = summaryCalc[metricId];
+            if (calc) return { ...calc(), label: metric.label, id: metric.id };
+            return { value: '\u2014', sub: 'Loading\u2026', label: metric.label, id: metric.id };
         });
-    }, [selectedMetrics, filteredCommits]);
+    }, [selectedMetrics, filteredCommits, commitsLoaded, state.data?.summary]);
 
     const handleSelectChange = useCallback((cardIndex, value) => {
         if (value === 'random') {
@@ -387,80 +467,67 @@ export default function DiscoverTab() {
         }));
     }, [filteredCommits]);
 
-    // Comparisons
+    // Comparisons — derive from summary during Phase 1, from commits during Phase 2
     const comparisons = useMemo(() => {
         const items = [];
 
-        // Weekend vs Weekday
-        const weekend = filteredCommits.filter(c => {
-            const day = getCommitDateTime(c).dayOfWeek;
-            return day === 0 || day === 6;
-        }).length;
-        const weekday = filteredCommits.length - weekend;
-        if (filteredCommits.length > 0) {
-            items.push({
-                label: 'Weekend vs Weekday',
-                left: { value: weekend, label: 'Weekend' },
-                right: { value: weekday, label: 'Weekday' },
-            });
-        }
+        if (commitsLoaded) {
+            // Phase 2: compute from filtered commits
+            const weekend = filteredCommits.filter(c => {
+                const day = getCommitDateTime(c).dayOfWeek;
+                return day === 0 || day === 6;
+            }).length;
+            const weekday = filteredCommits.length - weekend;
+            if (filteredCommits.length > 0) items.push({ label: 'Weekend vs Weekday', left: { value: weekend, label: 'Weekend' }, right: { value: weekday, label: 'Weekday' } });
 
-        // Features vs Bugs
-        const features = filteredCommits.filter(c => getCommitTags(c).includes('feature')).length;
-        const bugs = filteredCommits.filter(c => getCommitTags(c).includes('bugfix') || getCommitTags(c).includes('fix')).length;
-        if (features + bugs > 0) {
-            items.push({
-                label: 'Features vs Bug Fixes',
-                left: { value: features, label: 'Features' },
-                right: { value: bugs, label: 'Bug Fixes' },
-            });
-        }
+            const features = filteredCommits.filter(c => getCommitTags(c).includes('feature')).length;
+            const bugs = filteredCommits.filter(c => getCommitTags(c).includes('bugfix') || getCommitTags(c).includes('fix')).length;
+            if (features + bugs > 0) items.push({ label: 'Features vs Bug Fixes', left: { value: features, label: 'Features' }, right: { value: bugs, label: 'Bug Fixes' } });
 
-        // Additions vs Deletions
-        const adds = filteredCommits.reduce((sum, c) => sum + (c.stats?.additions ?? 0), 0);
-        const dels = filteredCommits.reduce((sum, c) => sum + (c.stats?.deletions ?? 0), 0);
-        if (adds + dels > 0) {
-            items.push({
-                label: 'Additions vs Deletions',
-                left: { value: adds, label: 'Added' },
-                right: { value: dels, label: 'Deleted' },
-            });
-        }
+            const adds = filteredCommits.reduce((sum, c) => sum + (c.stats?.additions ?? 0), 0);
+            const dels = filteredCommits.reduce((sum, c) => sum + (c.stats?.deletions ?? 0), 0);
+            if (adds + dels > 0) items.push({ label: 'Additions vs Deletions', left: { value: adds, label: 'Added' }, right: { value: dels, label: 'Deleted' } });
 
-        // Planned vs Reactive
-        const planned = filteredCommits.filter(c => c.urgency != null && c.urgency <= 2).length;
-        const reactive = filteredCommits.filter(c => c.urgency != null && c.urgency >= 4).length;
-        if (planned + reactive > 0) {
-            items.push({
-                label: 'Planned vs Reactive',
-                left: { value: planned, label: 'Planned' },
-                right: { value: reactive, label: 'Reactive' },
-            });
-        }
+            const planned = filteredCommits.filter(c => c.urgency != null && c.urgency <= 2).length;
+            const reactive = filteredCommits.filter(c => c.urgency != null && c.urgency >= 4).length;
+            if (planned + reactive > 0) items.push({ label: 'Planned vs Reactive', left: { value: planned, label: 'Planned' }, right: { value: reactive, label: 'Reactive' } });
 
-        // Simple vs Complex
-        const simple = filteredCommits.filter(c => c.complexity != null && c.complexity <= 2).length;
-        const complex = filteredCommits.filter(c => c.complexity != null && c.complexity >= 4).length;
-        if (simple + complex > 0) {
-            items.push({
-                label: 'Simple vs Complex',
-                left: { value: simple, label: 'Simple' },
-                right: { value: complex, label: 'Complex' },
-            });
+            const simple = filteredCommits.filter(c => c.complexity != null && c.complexity <= 2).length;
+            const complex = filteredCommits.filter(c => c.complexity != null && c.complexity >= 4).length;
+            if (simple + complex > 0) items.push({ label: 'Simple vs Complex', left: { value: simple, label: 'Simple' }, right: { value: complex, label: 'Complex' } });
+        } else {
+            // Phase 1: derive from summary data
+            const summary = state.data?.summary;
+            if (summary) {
+                const tb = summary.tagBreakdown || {};
+                const ub = summary.urgencyBreakdown || {};
+                const cb = summary.complexityBreakdown || {};
+                const cs = summary.codeStats || {};
+                const hm = summary.hourlyHeatmap || {};
+
+                const byDay = hm.byDay || [];
+                const weekend = (byDay[0] || 0) + (byDay[6] || 0);
+                const weekday = byDay.slice(1, 6).reduce((s, v) => s + v, 0);
+                if (weekend + weekday > 0) items.push({ label: 'Weekend vs Weekday', left: { value: weekend, label: 'Weekend' }, right: { value: weekday, label: 'Weekday' } });
+
+                const features = tb.feature || 0;
+                const bugs = (tb.bugfix || 0) + (tb.fix || 0);
+                if (features + bugs > 0) items.push({ label: 'Features vs Bug Fixes', left: { value: features, label: 'Features' }, right: { value: bugs, label: 'Bug Fixes' } });
+
+                if ((cs.additions || 0) + (cs.deletions || 0) > 0) items.push({ label: 'Additions vs Deletions', left: { value: cs.additions, label: 'Added' }, right: { value: cs.deletions, label: 'Deleted' } });
+
+                const planned = (ub[1] || 0) + (ub[2] || 0);
+                const reactive = (ub[4] || 0) + (ub[5] || 0);
+                if (planned + reactive > 0) items.push({ label: 'Planned vs Reactive', left: { value: planned, label: 'Planned' }, right: { value: reactive, label: 'Reactive' } });
+
+                const simple = (cb[1] || 0) + (cb[2] || 0);
+                const complex = (cb[4] || 0) + (cb[5] || 0);
+                if (simple + complex > 0) items.push({ label: 'Simple vs Complex', left: { value: simple, label: 'Simple' }, right: { value: complex, label: 'Complex' } });
+            }
         }
 
         return items;
-    }, [filteredCommits]);
-
-    // Show loading indicator while commits are being fetched
-    if (!commitsLoaded && state.commitsLoading) {
-        return (
-            <div className="flex flex-col items-center justify-center py-16 gap-3">
-                <div className="loading-spinner" style={{ width: 28, height: 28, borderWidth: 3 }} />
-                <p className="text-sm text-themed-tertiary">Loading discovery data&hellip;</p>
-            </div>
-        );
-    }
+    }, [filteredCommits, commitsLoaded, state.data?.summary]);
 
     return (
         <div className="space-y-6">

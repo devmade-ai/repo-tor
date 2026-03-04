@@ -7,6 +7,7 @@ import {
 } from '../utils.js';
 import { getSeriesColor, mutedColor } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import { UrgencyBar, ImpactBar } from '../components/HealthBars.jsx';
 
 // Requirement: Show contributor data during Phase 1 using pre-aggregated summary
 // Approach: When commits haven't loaded, map summary.contributors[] (which has name,
@@ -17,7 +18,7 @@ import CollapsibleSection from '../components/CollapsibleSection.jsx';
 //   - Show spinner: Rejected — summary already has contributor data
 //   - Conditional hook call: Rejected — violates React hooks rules
 
-export default function ContributorsTab() {
+export default function Contributors() {
     const { state, filteredCommits, viewConfig, openDetailPane, isMobile, commitsLoaded } = useApp();
 
     // Aggregated contributor data — from summary during Phase 1, from commits during Phase 2
@@ -79,6 +80,89 @@ export default function ContributorsTab() {
             },
         };
     }, [aggregated, isMobile]);
+
+    // --- Per-contributor urgency/impact (moved from Health — per-person data belongs here) ---
+    // Only computed from loaded commits (needs per-commit urgency/impact values)
+    const urgencyByGroup = useMemo(() => {
+        if (!commitsLoaded) return [];
+        if (viewConfig.contributors === 'total') {
+            const breakdown = { planned: 0, normal: 0, reactive: 0 };
+            filteredCommits.forEach(c => {
+                if (c.urgency <= 2) breakdown.planned++;
+                else if (c.urgency === 3) breakdown.normal++;
+                else if (c.urgency >= 4) breakdown.reactive++;
+            });
+            return [{ label: 'All Contributors', counts: breakdown, total: filteredCommits.length }];
+        } else if (viewConfig.contributors === 'repo') {
+            const repoUrgency = {};
+            filteredCommits.forEach(c => {
+                const repo = c.repo_id || 'default';
+                if (!repoUrgency[repo]) repoUrgency[repo] = { planned: 0, normal: 0, reactive: 0, total: 0 };
+                repoUrgency[repo].total++;
+                if (c.urgency <= 2) repoUrgency[repo].planned++;
+                else if (c.urgency === 3) repoUrgency[repo].normal++;
+                else if (c.urgency >= 4) repoUrgency[repo].reactive++;
+            });
+            return Object.entries(repoUrgency).sort((a, b) => b[1].total - a[1].total).slice(0, 6)
+                .map(([repo, data]) => ({ label: repo, key: repo, counts: data, total: data.total, isRepo: true }));
+        } else {
+            const contributorUrgency = {};
+            filteredCommits.forEach(c => {
+                const email = getAuthorEmail(c);
+                const name = getAuthorName(c);
+                if (!contributorUrgency[email]) contributorUrgency[email] = { name, email, planned: 0, normal: 0, reactive: 0, total: 0 };
+                contributorUrgency[email].total++;
+                if (c.urgency <= 2) contributorUrgency[email].planned++;
+                else if (c.urgency === 3) contributorUrgency[email].normal++;
+                else if (c.urgency >= 4) contributorUrgency[email].reactive++;
+            });
+            return Object.values(contributorUrgency).sort((a, b) => b.total - a.total).slice(0, 6)
+                .map(c => ({ label: sanitizeName(c.name, c.email), key: c.email, counts: c, total: c.total, isContributor: true, email: c.email }));
+        }
+    }, [filteredCommits, viewConfig, commitsLoaded]);
+
+    const impactByGroup = useMemo(() => {
+        if (!commitsLoaded) return [];
+        if (viewConfig.contributors === 'total') {
+            const breakdown = { 'user-facing': 0, 'internal': 0, 'infrastructure': 0, 'api': 0 };
+            filteredCommits.forEach(c => {
+                if (c.impact && breakdown.hasOwnProperty(c.impact)) breakdown[c.impact]++;
+            });
+            return [{ label: 'All Contributors', counts: breakdown, total: filteredCommits.length }];
+        } else if (viewConfig.contributors === 'repo') {
+            const repoImpact = {};
+            filteredCommits.forEach(c => {
+                const repo = c.repo_id || 'default';
+                if (!repoImpact[repo]) repoImpact[repo] = { 'user-facing': 0, 'internal': 0, 'infrastructure': 0, 'api': 0, total: 0 };
+                repoImpact[repo].total++;
+                if (c.impact && repoImpact[repo].hasOwnProperty(c.impact)) repoImpact[repo][c.impact]++;
+            });
+            return Object.entries(repoImpact).sort((a, b) => b[1].total - a[1].total).slice(0, 6)
+                .map(([repo, data]) => ({ label: repo, key: repo, counts: data, total: data.total, isRepo: true }));
+        } else {
+            const contributorImpact = {};
+            filteredCommits.forEach(c => {
+                const email = getAuthorEmail(c);
+                const name = getAuthorName(c);
+                if (!contributorImpact[email]) contributorImpact[email] = { name, email, 'user-facing': 0, 'internal': 0, 'infrastructure': 0, 'api': 0, total: 0 };
+                contributorImpact[email].total++;
+                if (c.impact && contributorImpact[email].hasOwnProperty(c.impact)) contributorImpact[email][c.impact]++;
+            });
+            return Object.values(contributorImpact).sort((a, b) => b.total - a.total).slice(0, 6)
+                .map(c => ({ label: sanitizeName(c.name, c.email), key: c.email, counts: c, total: c.total, isContributor: true, email: c.email }));
+        }
+    }, [filteredCommits, viewConfig, commitsLoaded]);
+
+    const handleGroupClick = (group) => {
+        if (!commitsLoaded) return;
+        if (group.isRepo) {
+            const filtered = filteredCommits.filter(c => (c.repo_id || 'default') === group.key);
+            openDetailPane(group.key, `${filtered.length} commits`, filtered);
+        } else if (group.isContributor) {
+            const filtered = filteredCommits.filter(c => getAuthorEmail(c) === group.email);
+            openDetailPane(`${group.label}'s Commits`, `${filtered.length} commits`, filtered, { type: 'author', value: group.label });
+        }
+    };
 
     const handleCardClick = (item) => {
         // During Phase 1, no commits to filter — clicking does nothing useful
@@ -162,6 +246,40 @@ export default function ContributorsTab() {
                 <CollapsibleSection title="Complexity by Contributor" subtitle="Average complexity of each person's work" defaultExpanded={!isMobile}>
                     <div data-embed-id="contributor-complexity" style={{ height: `${Math.max(200, aggregated.slice(0, 8).length * (isMobile ? 35 : 40))}px` }}>
                         <Bar data={complexityChartData.data} options={complexityChartData.options} />
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Urgency by Contributor — moved from Health, per-person data belongs here */}
+            {urgencyByGroup.length > 0 && (
+                <CollapsibleSection title="Urgency by Contributor" subtitle="Who handles planned vs reactive work?" defaultExpanded={!isMobile}>
+                    <div className="space-y-4">
+                        {urgencyByGroup.map((group, idx) => (
+                            <UrgencyBar
+                                key={group.key || idx}
+                                counts={group.counts}
+                                total={group.total}
+                                label={group.label}
+                                onClick={group.isRepo || group.isContributor ? () => handleGroupClick(group) : undefined}
+                            />
+                        ))}
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Impact by Contributor — moved from Health, per-person data belongs here */}
+            {impactByGroup.length > 0 && (
+                <CollapsibleSection title="Impact by Contributor" subtitle="Who works on what areas?" defaultExpanded={!isMobile}>
+                    <div className="space-y-4">
+                        {impactByGroup.map((group, idx) => (
+                            <ImpactBar
+                                key={group.key || idx}
+                                counts={group.counts}
+                                total={group.total}
+                                label={group.label}
+                                onClick={group.isRepo || group.isContributor ? () => handleGroupClick(group) : undefined}
+                            />
+                        ))}
                     </div>
                 </CollapsibleSection>
             )}

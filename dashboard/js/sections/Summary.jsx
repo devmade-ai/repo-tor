@@ -52,7 +52,7 @@ function metricsFromSummary(summary) {
     };
 }
 
-export default function SummaryTab() {
+export default function Summary() {
     const { state, filteredCommits, commitsLoaded, openDetailPane } = useApp();
 
     // Requirement: Show metrics from pre-aggregated data immediately, refine when commits load

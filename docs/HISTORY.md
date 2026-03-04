@@ -4,6 +4,24 @@ Log of significant changes to code and documentation.
 
 ## 2026-03-04
 
+### Section Reorganization + Terminology Cleanup
+
+**Why:** Dashboard used "Tab" naming for both the 6 navigation buttons and the content components they render, causing confusion. Health tab was overloaded with 11+ sections while Security tab was too thin. Discover had no Phase 1 support.
+
+**What:**
+- **Renamed `tabs/` → `sections/`** — All section component files moved, "Tab" suffix dropped from filenames and component names. "Tab" now exclusively means the 6 navigation buttons; content within is a "section".
+- **Merged Security into Health** — Deleted `SecurityTab.jsx`. Security events now render as a CollapsibleSection within `Health.jsx`, view-level aware.
+- **Moved trend charts to Timeline** — Urgency trend, impact over time, debt trend line charts moved from Health/useHealthData to Timeline section (inline useMemo).
+- **Moved per-contributor urgency/impact to Contributors** — Per-contributor urgency and impact bars moved from Health to Contributors section.
+- **Discover Phase 1** — Added `calcCodeStats()` to aggregate-processed.js. Discover derives 9 of 11 metrics from summary data during Phase 1 (remaining 2 show em dash until commits load).
+- **useHealthData simplified** — Removed trends and per-contributor computations. Returns only breakdown data.
+- **State/EmbedRenderer updates** — `TAB_MAPPING` → `TAB_SECTIONS`. Embed ID mappings updated (trend charts now map to Timeline).
+
+**Alternatives considered:**
+- Extract each chart into its own file: Rejected — too large a refactor, duplicates data/filter logic.
+- Keep Security as separate section component: Rejected — too thin (single metric), better as part of Health.
+- Keep "Tab" naming: Rejected — user explicitly requested terminology cleanup to avoid confusion.
+
 ### Phase 1 Pre-Aggregated Fallbacks for All Tabs
 
 **Why:** During Phase 1 (summary loaded, commits still fetching), most tabs showed spinners or empty content. The summary JSON already contains enough pre-aggregated data to render meaningful charts and breakdowns instantly.

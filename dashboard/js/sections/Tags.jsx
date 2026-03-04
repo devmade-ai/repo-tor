@@ -23,7 +23,7 @@ function useChartTextColor() {
     return colorRef;
 }
 
-export default function TagsTab() {
+export default function Tags() {
     const { state, filteredCommits, openDetailPane, isMobile, commitsLoaded } = useApp();
     const chartTextColorRef = useChartTextColor();
     const CHART_TEXT_COLOR = chartTextColorRef.current;

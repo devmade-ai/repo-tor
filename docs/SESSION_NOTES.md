@@ -4,20 +4,23 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
+**Dashboard V2:** Implementation complete with role-based view levels, consistent section layouts, and PWA support.
 
-**Recent Updates (2026-03-04 — Phase 1 Pre-Aggregated Fallbacks for All Tabs):**
-- **Pre-aggregated fallbacks** — Replaced loading spinners with actual data during Phase 1 for 6 tabs. Each tab now uses summary data from the initial `data.json` load, showing real charts/breakdowns instantly. Data switches to filtered commit-based computation once Phase 2 completes.
-  - **TagsTab**: Uses `summary.tagBreakdown` — full doughnut chart + tag list with counts/percentages
-  - **HealthTab**: Uses `summary.urgencyBreakdown` (converted from 1-5 scale to planned/normal/reactive), `impactBreakdown`, `riskBreakdown`, `debtBreakdown` — shows all breakdown bars, risk/debt sections. Trend charts and per-contributor sections appear after commits load. Fixed React hooks violation (useHealthData was called after conditional return).
-  - **ContributorsTab**: Uses `summary.contributors[]` (name, commits, avgComplexity, tagBreakdown) — full "Who Does What" cards and complexity chart
-  - **SecurityTab**: Uses `summary.security_events` — shows count + event list with timestamps
-  - **TimingTab**: Uses `summary.hourlyHeatmap` (new aggregation: 24×7 matrix + byHour/byDay arrays, UTC) — full heatmap grid, hourly chart, daily chart. Developer patterns section appears after commits load.
-  - **DiscoverTab**: Retains spinner (needs per-commit stats — no summary fallback possible)
-- **ProjectsTab instant counts** — Uses `summary.repoCommitCounts` (new aggregation) for instant commit counts on project cards during Phase 1, instead of showing nothing until commits load.
+**Recent Updates (2026-03-04 — Section Reorganization + Terminology Cleanup):**
+- **Renamed `tabs/` → `sections/`** — All section component files moved from `js/tabs/` to `js/sections/`. Dropped "Tab" suffix from all filenames and component names (e.g., `HealthTab.jsx` → `Health.jsx`, `TimelineTab` → `Timeline`). "Tab" now refers exclusively to the 6 top-level navigation buttons; everything rendered within a tab is a "section".
+- **Merged Security into Health** — SecurityTab deleted. Security events now render as a CollapsibleSection within Health.jsx, view-level aware (executive/management/developer).
+- **Moved trend charts to Timeline** — Urgency trend, impact over time, and debt trend line charts moved from Health (via useHealthData) to Timeline section. Computed inline via useMemo in Timeline.jsx.
+- **Moved per-contributor urgency/impact to Contributors** — Per-contributor urgency and impact bar sections moved from Health to Contributors section. Uses UrgencyBar/ImpactBar components from HealthBars.jsx.
+- **Discover Phase 1 support** — Added `calcCodeStats()` to aggregate-processed.js (summary.codeStats). Discover now derives 9 of 11 metrics from summary data during Phase 1 instead of showing a spinner.
+- **useHealthData simplified** — Removed trends and per-contributor computations (moved to their respective sections). Now returns only breakdown data.
+- **State constant renamed** — `TAB_MAPPING` → `TAB_SECTIONS` in state.js to reflect terminology.
+- **EmbedRenderer updated** — Imports, variable names, and embed ID mappings updated for new section paths. Trend chart embed IDs now map to Timeline instead of Health.
+- **Files changed**: All files in `dashboard/js/sections/` (renamed from tabs/), `dashboard/js/App.jsx`, `dashboard/js/state.js`, `dashboard/js/hooks/useHealthData.js`, `dashboard/js/components/EmbedRenderer.jsx`, `scripts/aggregate-processed.js`, `CLAUDE.md`
+
+**Previous Updates (2026-03-04 — Phase 1 Pre-Aggregated Fallbacks):**
+- **Pre-aggregated fallbacks** — Replaced loading spinners with actual data during Phase 1 for 6 sections. Each section uses summary data from the initial `data.json` load, showing real charts/breakdowns instantly.
 - **New aggregations in aggregate-processed.js**: `calcRepoCommitCounts()` and `calcHourlyHeatmap()`, added to summary output.
-- **Component fixes** — HealthWorkPatterns, RiskAssessment, DebtBalance now handle optional click handlers (non-clickable during Phase 1 when commits aren't loaded).
-- **Files changed**: `scripts/aggregate-processed.js`, `dashboard/js/tabs/TimingTab.jsx`, `dashboard/js/tabs/TagsTab.jsx`, `dashboard/js/tabs/ContributorsTab.jsx`, `dashboard/js/tabs/HealthTab.jsx`, `dashboard/js/tabs/SecurityTab.jsx`, `dashboard/js/tabs/ProjectsTab.jsx`, `dashboard/js/components/HealthWorkPatterns.jsx`, `dashboard/js/components/HealthAnomalies.jsx`
+- **Component fixes** — HealthWorkPatterns, RiskAssessment, DebtBalance handle optional click handlers (non-clickable during Phase 1).
 
 **Previous Updates (2026-03-03 — Tab Data Usage Audit + 3 Bug Fixes):**
 - **Full tab review** — Reviewed all 10 dashboard tabs for correct usage of pre-aggregated data, identifying 3 bugs and documenting which tabs have/lack pre-aggregated fallbacks.

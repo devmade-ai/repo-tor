@@ -8,16 +8,15 @@ import DetailPane from './components/DetailPane.jsx';
 import SettingsPane from './components/SettingsPane.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import EmbedRenderer from './components/EmbedRenderer.jsx';
-import SummaryTab from './tabs/SummaryTab.jsx';
-import TimelineTab from './tabs/TimelineTab.jsx';
-import TimingTab from './tabs/TimingTab.jsx';
-import ProgressTab from './tabs/ProgressTab.jsx';
-import ContributorsTab from './tabs/ContributorsTab.jsx';
-import TagsTab from './tabs/TagsTab.jsx';
-import HealthTab from './tabs/HealthTab.jsx';
-import SecurityTab from './tabs/SecurityTab.jsx';
-import DiscoverTab from './tabs/DiscoverTab.jsx';
-import ProjectsTab from './tabs/ProjectsTab.jsx';
+import Summary from './sections/Summary.jsx';
+import Timeline from './sections/Timeline.jsx';
+import Timing from './sections/Timing.jsx';
+import Progress from './sections/Progress.jsx';
+import Contributors from './sections/Contributors.jsx';
+import Tags from './sections/Tags.jsx';
+import Health from './sections/Health.jsx';
+import Discover from './sections/Discover.jsx';
+import Projects from './sections/Projects.jsx';
 
 function combineDatasets(datasets) {
     if (datasets.length === 0) return null;
@@ -359,28 +358,23 @@ export default function App() {
                     <FilterSidebar />
                     <div className="tab-content-area">
                         <ErrorBoundary key={state.activeTab}>
-                            {state.activeTab === 'overview' && <SummaryTab />}
+                            {state.activeTab === 'overview' && <Summary />}
                             {state.activeTab === 'activity' && (
                                 <div className="space-y-6">
-                                    <TimelineTab />
-                                    <TimingTab />
+                                    <Timeline />
+                                    <Timing />
                                 </div>
                             )}
                             {state.activeTab === 'work' && (
                                 <div className="space-y-6">
-                                    <ProgressTab />
-                                    <ContributorsTab />
-                                    <TagsTab />
+                                    <Progress />
+                                    <Contributors />
+                                    <Tags />
                                 </div>
                             )}
-                            {state.activeTab === 'health' && (
-                                <div className="space-y-6">
-                                    <HealthTab />
-                                    <SecurityTab />
-                                </div>
-                            )}
-                            {state.activeTab === 'discover' && <DiscoverTab />}
-                            {state.activeTab === 'projects' && <ProjectsTab />}
+                            {state.activeTab === 'health' && <Health />}
+                            {state.activeTab === 'discover' && <Discover />}
+                            {state.activeTab === 'projects' && <Projects />}
                         </ErrorBoundary>
                     </div>
                 </div>

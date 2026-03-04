@@ -138,9 +138,9 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-02-26.
   - `js/AppContext.jsx` - React Context + useReducer state management
   - `js/App.jsx` - Main app component (data loading, tab routing, layout)
   - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection, ErrorBoundary, EmbedRenderer, HealthAnomalies, HealthBars, HealthWorkPatterns)
-  - `js/tabs/` - Tab components (SummaryTab, TimelineTab, TimingTab, ProgressTab, ContributorsTab, TagsTab, HealthTab, SecurityTab, DiscoverTab, ProjectsTab)
+  - `js/sections/` - Section components (Summary, Timeline, Timing, Progress, Contributors, Tags, Health, Discover, Projects)
   - `js/hooks/` - Custom hooks (useFocusTrap, useHealthData)
-  - `js/state.js` - Constants (TAB_MAPPING, VIEW_LEVELS, THRESHOLDS) + global state compat shim
+  - `js/state.js` - Constants (TAB_SECTIONS, VIEW_LEVELS, THRESHOLDS) + global state compat shim
   - `js/utils.js` - Pure utility functions
   - `js/charts.js` - Chart aggregation helpers
   - `js/chartColors.js` - Centralized chart color system (embed overrides)
@@ -163,16 +163,16 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-02-26.
 
 **Tabs** — 6 tabs defined in `TabBar.jsx`, routed in `App.jsx`:
 
-| Tab | Internal ID | Components Rendered |
+| Tab | Internal ID | Sections Rendered |
 |-----|-------------|-------------------|
-| Summary | `overview` | SummaryTab |
-| Timeline | `activity` | TimelineTab, TimingTab |
-| Breakdown | `work` | ProgressTab, TagsTab, ContributorsTab |
-| Health | `health` | HealthTab, SecurityTab |
-| Discover | `discover` | DiscoverTab |
-| Projects | `projects` | ProjectsTab |
+| Summary | `overview` | Summary |
+| Timeline | `activity` | Timeline, Timing |
+| Breakdown | `work` | Progress, Contributors, Tags |
+| Health | `health` | Health (includes Security) |
+| Discover | `discover` | Discover |
+| Projects | `projects` | Projects |
 
-Tab constants in `js/state.js` as `TAB_MAPPING`. Tab routing in `js/App.jsx`.
+Tab-to-section mapping in `js/state.js` as `TAB_SECTIONS`. Tab routing in `js/App.jsx`.
 
 **Role-Based View Levels** — Three audiences with different detail levels:
 
@@ -211,7 +211,7 @@ DEV=npm run dev (http://localhost:5173)
 ```
 NAMING_CONVENTION=camelCase (variables/functions), PascalCase (components)
 FILE_NAMING=PascalCase.jsx (components), camelCase.js (utilities)
-COMPONENT_STRUCTURE=feature-based (js/tabs/, js/components/)
+COMPONENT_STRUCTURE=feature-based (js/sections/, js/components/)
 COMMIT_FORMAT=conventional commits (see docs/COMMIT_CONVENTION.md)
 ```
 

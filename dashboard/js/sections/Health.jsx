@@ -1,44 +1,25 @@
-import React from 'react';
-import { Line, Bar } from 'react-chartjs-2';
+import React, { useMemo } from 'react';
 import { useApp } from '../AppContext.jsx';
-import { getAuthorEmail, handleKeyActivate } from '../utils.js';
+import { getAuthorEmail, formatDate, getCommitSubject, sanitizeMessage, getAuthorName, getCommitDateRange, handleKeyActivate } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import { UrgencyBar, ImpactBar } from '../components/HealthBars.jsx';
 import { RiskAssessment, DebtBalance } from '../components/HealthAnomalies.jsx';
 import HealthWorkPatterns from '../components/HealthWorkPatterns.jsx';
 import useHealthData from '../hooks/useHealthData.js';
 
-// Requirement: Mobile-friendly Health tab layout
-// Approach: Reorder sections by importance, collapse less-critical sections on mobile,
-//   reduce chart heights on small screens, improve labels for non-technical users.
+// Requirement: Health section shows code health indicators — urgency, impact, risk,
+//   debt, work patterns, and security events. All "is the codebase healthy?" signals
+//   in one place.
+// What changed: Security was a separate section rendered alongside Health (both stacked
+//   under the Health tab). Merged here because Security is a single metric (count + list)
+//   that fits naturally with other health indicators. Trend charts (urgency/debt/impact
+//   over time) moved to Timeline section where time-based data belongs. Per-contributor
+//   urgency/impact moved to Contributors section where per-person data belongs.
 // Alternatives:
-//   - Hide sections entirely on mobile: Rejected — data is still useful, just not primary
-//   - Tab sub-navigation: Rejected — adds complexity, collapsing is simpler
+//   - Keep Security separate: Rejected — too thin for its own section, and it's a health signal
+//   - Keep trends here: Rejected — Health was 11 sections, 2-3x heavier than any other tab content
 
-// Requirement: Decompose HealthTab.jsx (780 lines) into smaller, focused sub-components
-// Approach: Extracted into four focused modules:
-//   - useHealthData.js: Custom hook with all useMemo data computation (~300 lines)
-//   - HealthBars.jsx: UrgencyBar + ImpactBar presentational bar components (~90 lines)
-//   - HealthAnomalies.jsx: RiskAssessment + DebtBalance conditional sections (~125 lines)
-//   - HealthWorkPatterns.jsx: Health Overview summary cards (~50 lines)
-//   Parent HealthTab retains event handlers and layout orchestration (~280 lines).
-// Alternatives:
-//   - Keep all useMemo hooks inline: Rejected — HealthTab would remain at 630 lines
-//   - Move data computation into child components: Rejected — hooks share intermediate
-//     values (e.g., urgencyTrendData.sortedMonths feeds impactTrend) and depend on shared
-//     filteredCommits from useApp(); a single hook preserves the computation graph
-
-// Requirement: Show health data during Phase 1 using pre-aggregated summary breakdowns
-// Approach: Always call useHealthData (hooks must be unconditional). When commits haven't
-//   loaded, override breakdowns with summary data. Summary provides urgencyBreakdown (1-5
-//   scale, converted to planned/normal/reactive), impactBreakdown, riskBreakdown,
-//   debtBreakdown. Trend charts and per-contributor sections require raw commits and are
-//   hidden during Phase 1.
-// Alternatives:
-//   - Show spinner: Rejected — summary already has most breakdown data
-//   - Conditional useHealthData call (early return): Rejected — violates hooks rules
-
-// Convert summary urgency format {1:N, 2:N, 3:N, 4:N, 5:N} to HealthTab format
+// Convert summary urgency format {1:N, 2:N, 3:N, 4:N, 5:N} to Health format
 function convertSummaryUrgency(summaryUrgency) {
     if (!summaryUrgency) return { planned: 0, normal: 0, reactive: 0 };
     return {
@@ -48,13 +29,11 @@ function convertSummaryUrgency(summaryUrgency) {
     };
 }
 
-export default function HealthTab() {
+export default function Health() {
     const { state, filteredCommits, viewConfig, openDetailPane, isMobile, commitsLoaded } = useApp();
 
-    // Always call useHealthData unconditionally (React hooks rules).
-    // During Phase 1, filteredCommits is empty → hook returns zeros.
-    // We override with summary data below.
-    const hookData = useHealthData(filteredCommits, state, viewConfig, isMobile);
+    // Always call hook unconditionally (React hooks rules)
+    const hookData = useHealthData(filteredCommits, state);
 
     // During Phase 1, use pre-aggregated summary breakdowns
     const summaryData = state.data?.summary;
@@ -78,32 +57,39 @@ export default function HealthTab() {
     const hasDebtData = debtBreakdown.added + debtBreakdown.paid + debtBreakdown.neutral > 0;
     const debtTotal = debtBreakdown.added + debtBreakdown.paid + debtBreakdown.neutral;
 
-    // Total commits for percentage calculations
     const total = useSummary ? (summaryData.totalCommits || 0) : hookData.metrics.total;
 
-    // Metrics for summary cards — partial during Phase 1 (no weekend%/afterhours% without timestamps)
     const metrics = useSummary ? {
         total,
         securityCount: summaryData.security_events?.length || 0,
         reactivePct: total > 0 ? Math.round((urgencyBreakdown.reactive / total) * 100) : 0,
-        weekendPct: null,    // Needs per-commit timestamps
-        afterHoursPct: null, // Needs per-commit timestamps
+        weekendPct: null,
+        afterHoursPct: null,
     } : hookData.metrics;
 
-    // Trend charts and per-contributor data only available with loaded commits
-    const urgencyTrendData = commitsLoaded ? hookData.urgencyTrendData : null;
-    const impactTrendData = commitsLoaded ? hookData.impactTrendData : null;
-    const debtTrendData = commitsLoaded ? hookData.debtTrendData : null;
-    const urgencyByGroup = commitsLoaded ? hookData.urgencyByGroup : [];
-    const impactByGroup = commitsLoaded ? hookData.impactByGroup : [];
+    // --- Security data ---
+    const securityEvents = state.data?.summary?.security_events || [];
+    const securityCommits = useMemo(() => {
+        if (!commitsLoaded) return [];
+        if (securityEvents.length > 0) {
+            const securityShas = new Set(securityEvents.map(e => e.sha));
+            return filteredCommits.filter(c => securityShas.has(c.sha));
+        }
+        return filteredCommits.filter(c =>
+            c.type === 'security' || (c.tags || []).includes('security')
+        );
+    }, [filteredCommits, securityEvents, commitsLoaded]);
+
+    const securityCount = commitsLoaded ? securityCommits.length : securityEvents.length;
+
+    // --- Click handlers ---
+    const clickable = commitsLoaded;
 
     const handleSummaryCardClick = (type) => {
-        if (!commitsLoaded) return;
+        if (!clickable) return;
         let filtered, title;
         if (type === 'security') {
-            filtered = filteredCommits.filter(c =>
-                c.type === 'security' || (c.tags || []).includes('security')
-            );
+            filtered = securityCommits;
             title = 'Security Commits';
         } else if (type === 'reactive') {
             filtered = filteredCommits.filter(c => c.urgency >= 4);
@@ -129,7 +115,7 @@ export default function HealthTab() {
     };
 
     const handleUrgencyFilterClick = (filter) => {
-        if (!commitsLoaded) return;
+        if (!clickable) return;
         let filterFn, title;
         if (filter === 'planned') { filterFn = c => c.urgency <= 2; title = 'Planned Work (Urgency 1-2)'; }
         else if (filter === 'normal') { filterFn = c => c.urgency === 3; title = 'Normal Work (Urgency 3)'; }
@@ -139,42 +125,32 @@ export default function HealthTab() {
     };
 
     const handleRiskFilterClick = (risk) => {
-        if (!commitsLoaded) return;
+        if (!clickable) return;
         const labels = { low: 'Low Risk', medium: 'Medium Risk', high: 'High Risk' };
         const filtered = filteredCommits.filter(c => c.risk === risk);
         openDetailPane(`${labels[risk] || risk} Changes`, `${filtered.length} commits`, filtered);
     };
 
     const handleDebtFilterClick = (debt) => {
-        if (!commitsLoaded) return;
+        if (!clickable) return;
         const labels = { added: 'Debt Added', paid: 'Debt Paid Down', neutral: 'Debt Neutral' };
         const filtered = filteredCommits.filter(c => c.debt === debt);
         openDetailPane(`${labels[debt] || debt}`, `${filtered.length} commits`, filtered);
     };
 
     const handleImpactFilterClick = (impact) => {
-        if (!commitsLoaded) return;
+        if (!clickable) return;
         const labels = { 'user-facing': 'User-Facing', 'internal': 'Internal', 'infrastructure': 'Infrastructure', 'api': 'API' };
         const filtered = filteredCommits.filter(c => c.impact === impact);
         openDetailPane(`${labels[impact] || impact} Impact`, `${filtered.length} commits`, filtered, { type: 'impact', value: impact });
     };
 
-    const handleGroupClick = (group) => {
-        if (!commitsLoaded) return;
-        if (group.isRepo) {
-            const filtered = filteredCommits.filter(c => (c.repo_id || 'default') === group.key);
-            openDetailPane(group.key, `${filtered.length} commits`, filtered);
-        } else if (group.isContributor) {
-            const filtered = filteredCommits.filter(c => getAuthorEmail(c) === group.email);
-            openDetailPane(`${group.label}'s Commits`, `${filtered.length} commits`, filtered, { type: 'author', value: group.label });
-        }
+    const handleSecurityRepoClick = (repo) => {
+        if (!clickable) return;
+        const filtered = securityCommits.filter(c => (c.repo_id || 'default') === repo);
+        openDetailPane(`${repo} Security`, `${filtered.length} commits`, filtered);
     };
 
-    // Requirement: Urgency labels must be clear to non-technical users
-    // Approach: Use plain language descriptions instead of numeric scale references
-    // Alternatives:
-    //   - Keep "(1-2)" ranges: Rejected — non-technical users don't know the scale
-    //   - Add tooltips explaining scale: Rejected — labels should be self-explanatory
     const urgencyItems = [
         { label: 'Planned Work', count: urgencyBreakdown.planned, colorClass: 'bg-green-500', filter: 'planned' },
         { label: 'Routine Work', count: urgencyBreakdown.normal, colorClass: 'bg-blue-500', filter: 'normal' },
@@ -191,23 +167,113 @@ export default function HealthTab() {
         count: impactBreakdown[item.key],
     })).sort((a, b) => b.count - a.count);
 
-    const chartHeight = isMobile ? '220px' : '300px';
-    const clickable = commitsLoaded;
+    // --- Security section content (view-level aware) ---
+    const renderSecurityContent = () => {
+        // Phase 1: summary events
+        if (!commitsLoaded) {
+            if (securityEvents.length === 0) {
+                return <p className="text-themed-tertiary text-center py-4">No security-related commits found</p>;
+            }
+            return (
+                <div className="space-y-2">
+                    <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-center mb-3">
+                        <div className="text-3xl font-bold text-red-600 dark:text-red-400">{securityEvents.length}</div>
+                        <div className="text-sm text-themed-secondary">Security-related commits</div>
+                    </div>
+                    {securityEvents.slice(0, 5).map((event, idx) => (
+                        <div key={event.sha || idx} className="p-3 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded">
+                            <div className="flex items-start gap-2">
+                                <span className="tag tag-security">security</span>
+                                <div className="flex-1">
+                                    <p className="text-sm font-medium text-themed-primary">{sanitizeMessage(event.subject || 'Security commit')}</p>
+                                    <p className="text-xs text-themed-tertiary mt-1">{event.timestamp ? formatDate(event.timestamp) : ''}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
 
-    // Requirement: Order sections from most interesting to least interesting
-    // Approach: Overview stats first (anchor), then "red flag" sections (risk, debt) that
-    //   answer "are we in trouble?", then current-state breakdowns, then trend charts, then
-    //   per-person detail last.
-    // Alternatives:
-    //   - Risk/debt first: Rejected — they're conditional and may not render, so overview
-    //     anchors the page consistently
-    //   - Trend charts before breakdowns: Rejected — breakdowns are more scannable
+        if (securityCommits.length === 0) {
+            return <p className="text-themed-tertiary text-center py-4">No security-related commits found</p>;
+        }
+
+        // Executive view: count + date range
+        if (viewConfig.contributors === 'total') {
+            const dateRange = getCommitDateRange(securityCommits);
+            const repos = [...new Set(securityCommits.map(c => c.repo_id).filter(Boolean))];
+            return (
+                <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-center">
+                    <div className="text-3xl font-bold text-red-600 dark:text-red-400 mb-1">{securityCommits.length}</div>
+                    <div className="text-sm text-themed-secondary mb-2">Security-related commits</div>
+                    <div className="text-xs text-themed-tertiary">
+                        {dateRange.earliest} &mdash; {dateRange.latest}
+                        {repos.length > 0 && <><br />Across {repos.length} repositories</>}
+                    </div>
+                </div>
+            );
+        }
+
+        // Management view: per-repo counts
+        if (viewConfig.contributors === 'repo') {
+            const byRepo = {};
+            securityCommits.forEach(c => {
+                const repo = c.repo_id || 'default';
+                byRepo[repo] = (byRepo[repo] || 0) + 1;
+            });
+            const sortedRepos = Object.entries(byRepo).sort((a, b) => b[1] - a[1]);
+            return (
+                <div className="space-y-2">
+                    <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-center mb-3">
+                        <div className="text-2xl font-bold text-red-600 dark:text-red-400">{securityCommits.length}</div>
+                        <div className="text-sm text-themed-secondary">Total security commits</div>
+                    </div>
+                    {sortedRepos.map(([repo, count]) => (
+                        <div
+                            key={repo}
+                            className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                            role="button" tabIndex={0}
+                            onClick={() => handleSecurityRepoClick(repo)}
+                            onKeyDown={handleKeyActivate(() => handleSecurityRepoClick(repo))}
+                        >
+                            <div className="flex justify-between items-center">
+                                <span className="text-themed-primary font-medium">{repo}</span>
+                                <span className="text-red-600 dark:text-red-400 font-semibold">{count} commits</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        // Developer view: full commit details
+        return (
+            <div className="space-y-2">
+                {securityCommits.map((commit, idx) => (
+                    <div key={commit.sha || idx} className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
+                        <div className="flex items-start gap-2">
+                            <span className="tag tag-security">security</span>
+                            <div className="flex-1">
+                                <p className="text-sm font-medium text-themed-primary">{sanitizeMessage(getCommitSubject(commit))}</p>
+                                <p className="text-xs text-themed-tertiary mt-1">
+                                    {commit.sha} by {getAuthorName(commit)} on {formatDate(commit.timestamp)}
+                                    {commit.repo_id && ` in ${commit.repo_id}`}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        );
+    };
+
     return (
         <div className="space-y-6">
-            {/* Summary Cards — anchor for context, always visible */}
+            {/* Summary Cards — anchor, always visible */}
             <HealthWorkPatterns metrics={metrics} onCardClick={clickable ? handleSummaryCardClick : undefined} />
 
-            {/* Risk Assessment — "are we in trouble?" — most attention-grabbing */}
+            {/* Risk Assessment */}
             {hasRiskData && (
                 <RiskAssessment
                     riskBreakdown={riskBreakdown}
@@ -217,7 +283,7 @@ export default function HealthTab() {
                 />
             )}
 
-            {/* Debt Balance — "is debt growing?" — actionable red/green indicator */}
+            {/* Debt Balance */}
             {hasDebtData && (
                 <DebtBalance
                     debtBreakdown={debtBreakdown}
@@ -227,7 +293,7 @@ export default function HealthTab() {
                 />
             )}
 
-            {/* Urgency Breakdown — planned vs reactive split */}
+            {/* Urgency Breakdown */}
             <CollapsibleSection title="How Work Gets Prioritized" subtitle="Planned vs reactive changes">
                 <div className="space-y-4">
                     {urgencyItems.map(({ label, count, colorClass, filter }) => {
@@ -254,7 +320,7 @@ export default function HealthTab() {
                 </div>
             </CollapsibleSection>
 
-            {/* Impact Breakdown — where changes land */}
+            {/* Impact Breakdown */}
             <CollapsibleSection title="Where Changes Land" subtitle="What parts of the product are affected">
                 <div className="space-y-4">
                     {impactItems.map(({ key, label, count, colorClass }) => {
@@ -281,72 +347,14 @@ export default function HealthTab() {
                 </div>
             </CollapsibleSection>
 
-            {/* Urgency Trend — collapsed on mobile, only when commits loaded */}
-            {urgencyTrendData && (
-                <CollapsibleSection title="Urgency Over Time" subtitle="Is urgency increasing or decreasing?" defaultExpanded={!isMobile}>
-                    <div data-embed-id="urgency-trend" style={{ height: chartHeight }}>
-                        <Line data={urgencyTrendData.data} options={urgencyTrendData.options} />
-                    </div>
-                </CollapsibleSection>
-            )}
-
-            {/* Debt Trend Over Time — collapsed on mobile, only when commits loaded */}
-            {debtTrendData && (
-                <CollapsibleSection title="Debt Trend" subtitle="Monthly debt added vs paid" defaultExpanded={!isMobile}>
-                    <div data-embed-id="debt-trend" style={{ height: chartHeight }}>
-                        <Line data={debtTrendData.data} options={debtTrendData.options} />
-                    </div>
-                </CollapsibleSection>
-            )}
-
-            {/* Impact Over Time — collapsed on mobile, only when commits loaded */}
-            {impactTrendData && (
-                <CollapsibleSection title="Impact Over Time" subtitle="Monthly breakdown by area" defaultExpanded={!isMobile}>
-                    <div data-embed-id="impact-over-time" style={{ height: chartHeight }}>
-                        <Bar data={impactTrendData.data} options={impactTrendData.options} />
-                    </div>
-                </CollapsibleSection>
-            )}
-
-            {/* Urgency by Contributor — per-person detail, only when commits loaded */}
-            {commitsLoaded && (
-                <CollapsibleSection title="Urgency by Contributor" subtitle="Who handles planned vs reactive work?" defaultExpanded={!isMobile}>
-                    {urgencyByGroup.length > 0 ? (
-                        <div className="space-y-4">
-                            {urgencyByGroup.map((group, idx) => (
-                                <UrgencyBar
-                                    key={group.key || idx}
-                                    counts={group.counts}
-                                    total={group.total}
-                                    label={group.label}
-                                    onClick={group.isRepo || group.isContributor ? () => handleGroupClick(group) : undefined}
-                                />
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
-                    )}
-                </CollapsibleSection>
-            )}
-
-            {/* Impact by Contributor — per-person detail, only when commits loaded */}
-            {commitsLoaded && (
-                <CollapsibleSection title="Impact by Contributor" subtitle="Who works on what areas?" defaultExpanded={!isMobile}>
-                    {impactByGroup.length > 0 ? (
-                        <div className="space-y-4">
-                            {impactByGroup.map((group, idx) => (
-                                <ImpactBar
-                                    key={group.key || idx}
-                                    counts={group.counts}
-                                    total={group.total}
-                                    label={group.label}
-                                    onClick={group.isRepo || group.isContributor ? () => handleGroupClick(group) : undefined}
-                                />
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
-                    )}
+            {/* Security Events — merged from former SecurityTab */}
+            {securityCount > 0 && (
+                <CollapsibleSection
+                    title="Security Events"
+                    subtitle="Changes tagged as security-related"
+                    defaultExpanded={!isMobile}
+                >
+                    {renderSecurityContent()}
                 </CollapsibleSection>
             )}
         </div>
