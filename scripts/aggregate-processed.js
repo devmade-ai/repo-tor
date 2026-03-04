@@ -253,7 +253,10 @@ function calcUrgencyBreakdown(commits) {
 }
 
 /**
- * Calculate impact breakdown
+ * Calculate impact breakdown.
+ * Requirement: Map non-standard impact values to their canonical equivalents
+ * Approach: Normalize "infra" → "infrastructure" before counting
+ * Alternatives: Reject unknown values — rejected because source data already contains "infra"
  */
 function calcImpactBreakdown(commits) {
   const breakdown = {
@@ -263,9 +266,14 @@ function calcImpactBreakdown(commits) {
     'api': 0
   };
 
+  // Map non-standard impact values to canonical ones
+  const impactAliases = { 'infra': 'infrastructure' };
+
   for (const commit of commits) {
-    const impact = commit.impact;
-    if (impact && breakdown.hasOwnProperty(impact)) {
+    let impact = commit.impact;
+    if (!impact) continue;
+    impact = impactAliases[impact] || impact;
+    if (breakdown.hasOwnProperty(impact)) {
       breakdown[impact]++;
     }
   }
@@ -325,6 +333,52 @@ function calcEpicBreakdown(commits) {
 }
 
 /**
+ * Calculate per-repo commit counts for ProjectsTab instant loading.
+ * Requirement: Show commit counts on project cards during Phase 1 (before lazy-loaded
+ *   commits arrive). Without this, cards show no count during Phase 1 or "0 commits".
+ * Approach: Simple { repoName: count } map added to summary JSON.
+ * Alternatives:
+ *   - Derive from contributors[] repoCount: Rejected — per-contributor, not per-repo total
+ *   - Wait for commits to load: Rejected — 1-3s delay where counts are missing
+ */
+function calcRepoCommitCounts(commits) {
+  const counts = {};
+  for (const commit of commits) {
+    const repo = commit.repo_id || 'default';
+    counts[repo] = (counts[repo] || 0) + 1;
+  }
+  return counts;
+}
+
+/**
+ * Calculate hourly heatmap for TimingTab instant loading.
+ * Requirement: Show commit timing heatmap during Phase 1 without raw commits.
+ * Approach: Pre-aggregate into 24×7 matrix (hour × dayOfWeek) plus byHour/byDay arrays.
+ *   Uses UTC for consistency with other aggregations (monthly, weekly, daily).
+ *   Dashboard recomputes with user's timezone preference once commits load.
+ * Alternatives:
+ *   - Use local time: Rejected — script runs server-side, no user timezone available
+ *   - Skip heatmap during Phase 1: Rejected — spinner is less useful than approximate data
+ */
+function calcHourlyHeatmap(commits) {
+  const matrix = Array.from({ length: 24 }, () => new Array(7).fill(0));
+  const byHour = new Array(24).fill(0);
+  const byDay = new Array(7).fill(0);
+
+  for (const commit of commits) {
+    if (!commit.timestamp) continue;
+    const date = new Date(commit.timestamp);
+    const hour = date.getUTCHours();
+    const dayOfWeek = date.getUTCDay(); // 0=Sun, 1=Mon, ...
+    matrix[hour][dayOfWeek]++;
+    byHour[hour]++;
+    byDay[dayOfWeek]++;
+  }
+
+  return { matrix, byHour, byDay };
+}
+
+/**
  * Calculate semver breakdown (patch|minor|major)
  */
 function calcSemverBreakdown(commits) {
@@ -337,6 +391,215 @@ function calcSemverBreakdown(commits) {
   }
 
   return breakdown;
+}
+
+/**
+ * Calculate aggregate code stats for Discover section Phase 1 support.
+ * Requirement: Show code growth metrics instantly during Phase 1 without raw commits.
+ * Approach: Sum all additions/deletions/filesChanged across commits into summary totals.
+ * Alternatives:
+ *   - Derive from monthly buckets: Rejected — rounding errors accumulate
+ *   - Skip Phase 1 for Discover: Rejected — metrics are derivable from simple aggregation
+ */
+function calcCodeStats(commits) {
+  let additions = 0;
+  let deletions = 0;
+  let filesChanged = 0;
+
+  for (const commit of commits) {
+    additions += commit.stats?.additions ?? 0;
+    deletions += commit.stats?.deletions ?? 0;
+    filesChanged += commit.stats?.files_changed ?? commit.stats?.filesChanged ?? 0;
+  }
+
+  return { additions, deletions, filesChanged };
+}
+
+/**
+ * Get ISO week key from a timestamp string.
+ * Returns "YYYY-Www" (e.g., "2026-W09") using ISO 8601 week numbering.
+ * Requirement: Weekly pre-aggregation for time-windowed reporting
+ * Approach: Manual ISO week calculation to avoid external dependencies
+ * Alternatives: date-fns/isoWeek — rejected to keep scripts dependency-free
+ */
+function getISOWeekKey(timestamp) {
+  const date = new Date(timestamp);
+  // ISO week: week starts Monday, week 1 contains Jan 4
+  const dayOfWeek = date.getUTCDay() || 7; // Convert Sunday=0 to 7
+  const thursday = new Date(date);
+  thursday.setUTCDate(date.getUTCDate() + 4 - dayOfWeek);
+  const yearStart = new Date(Date.UTC(thursday.getUTCFullYear(), 0, 1));
+  const weekNum = Math.ceil(((thursday - yearStart) / 86400000 + 1) / 7);
+  const weekStr = String(weekNum).padStart(2, '0');
+  return `${thursday.getUTCFullYear()}-W${weekStr}`;
+}
+
+/**
+ * Accumulate commit metrics into a time bucket (shared logic for weekly/daily/monthly).
+ * Mutates the bucket object in place for performance.
+ */
+function accumulateBucket(bucket, commit) {
+  bucket.commits++;
+
+  if (commit.complexity >= 1 && commit.complexity <= 5) {
+    bucket.complexitySum += commit.complexity;
+    bucket.complexityCount++;
+  }
+
+  if (commit.urgency >= 1 && commit.urgency <= 5) {
+    bucket.urgencySum += commit.urgency;
+    bucket.urgencyCount++;
+  }
+
+  for (const tag of commit.tags || []) {
+    bucket.tags[tag] = (bucket.tags[tag] || 0) + 1;
+  }
+
+  if (commit.impact) {
+    const impact = commit.impact === 'infra' ? 'infrastructure' : commit.impact;
+    if (bucket.impact.hasOwnProperty(impact)) {
+      bucket.impact[impact]++;
+    }
+  }
+
+  if (commit.risk && bucket.risk.hasOwnProperty(commit.risk)) {
+    bucket.risk[commit.risk]++;
+  }
+
+  if (commit.debt && bucket.debt.hasOwnProperty(commit.debt)) {
+    bucket.debt[commit.debt]++;
+  }
+
+  if (commit.semver && bucket.semver.hasOwnProperty(commit.semver)) {
+    bucket.semver[commit.semver]++;
+  }
+
+  // Code change stats — use ?? (nullish coalescing) instead of || so that 0 is kept as 0
+  const additions = commit.stats?.additions ?? commit.additions ?? 0;
+  const deletions = commit.stats?.deletions ?? commit.deletions ?? 0;
+  bucket.additions += additions;
+  bucket.deletions += deletions;
+
+  // Per-repo breakdown
+  const repo = commit.repo_id || 'default';
+  bucket.repos[repo] = (bucket.repos[repo] || 0) + 1;
+}
+
+/**
+ * Create an empty time bucket with all tracked fields.
+ */
+function createEmptyBucket() {
+  return {
+    commits: 0,
+    complexitySum: 0,
+    complexityCount: 0,
+    urgencySum: 0,
+    urgencyCount: 0,
+    tags: {},
+    impact: { 'internal': 0, 'user-facing': 0, 'infrastructure': 0, 'api': 0 },
+    risk: { low: 0, medium: 0, high: 0 },
+    debt: { added: 0, paid: 0, neutral: 0 },
+    semver: { patch: 0, minor: 0, major: 0 },
+    additions: 0,
+    deletions: 0,
+    repos: {},
+  };
+}
+
+/**
+ * Finalize a time bucket: compute averages, remove temp fields.
+ */
+function finalizeBucket(bucket) {
+  bucket.avgComplexity = bucket.complexityCount > 0
+    ? Math.round((bucket.complexitySum / bucket.complexityCount) * 100) / 100
+    : null;
+  bucket.avgUrgency = bucket.urgencyCount > 0
+    ? Math.round((bucket.urgencySum / bucket.urgencyCount) * 100) / 100
+    : null;
+  delete bucket.complexitySum;
+  delete bucket.complexityCount;
+  delete bucket.urgencySum;
+  delete bucket.urgencyCount;
+}
+
+/**
+ * Calculate weekly aggregations (ISO week buckets).
+ * Requirement: Pre-aggregate commits by week for time-windowed dashboard reporting
+ * Approach: Group by ISO 8601 week key, accumulate same metrics as monthly
+ * Alternatives: Calendar week (Sunday start) — rejected for ISO standard consistency
+ */
+function calcWeeklyAggregations(commits) {
+  const weekly = {};
+
+  for (const commit of commits) {
+    if (!commit.timestamp) continue;
+
+    const weekKey = getISOWeekKey(commit.timestamp);
+
+    if (!weekly[weekKey]) {
+      weekly[weekKey] = createEmptyBucket();
+    }
+
+    accumulateBucket(weekly[weekKey], commit);
+  }
+
+  for (const bucket of Object.values(weekly)) {
+    finalizeBucket(bucket);
+  }
+
+  return weekly;
+}
+
+/**
+ * Get UTC date key from a timestamp string.
+ * Returns "YYYY-MM-DD" using UTC date components.
+ * Requirement: Consistent UTC-based date handling across all aggregation levels
+ * Approach: Parse with Date constructor (handles timezone offsets), extract UTC components
+ * Alternatives: substring(0, 10) — rejected because it uses the local date from the
+ *   timestamp string, creating inconsistency with weekly aggregation which uses UTC
+ */
+function getUTCDateKey(timestamp) {
+  const d = new Date(timestamp);
+  return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + String(d.getUTCDate()).padStart(2, '0');
+}
+
+/**
+ * Get UTC month key from a timestamp string.
+ * Returns "YYYY-MM" using UTC date components.
+ */
+function getUTCMonthKey(timestamp) {
+  const d = new Date(timestamp);
+  return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0');
+}
+
+/**
+ * Calculate daily aggregations (per-date buckets).
+ * Requirement: Pre-aggregate commits by day for fine-grained dashboard charts
+ * Approach: Group by YYYY-MM-DD using UTC date, consistent with weekly/monthly UTC handling
+ * Alternatives:
+ *   - substring(0, 10): Rejected — uses local date from timestamp, inconsistent with weekly UTC
+ *   - Unix day number: Rejected — string keys are human-readable in JSON
+ */
+function calcDailyAggregations(commits) {
+  const daily = {};
+
+  for (const commit of commits) {
+    if (!commit.timestamp) continue;
+
+    const dateKey = getUTCDateKey(commit.timestamp);
+
+    if (!daily[dateKey]) {
+      daily[dateKey] = createEmptyBucket();
+    }
+
+    accumulateBucket(daily[dateKey], commit);
+  }
+
+  for (const bucket of Object.values(daily)) {
+    finalizeBucket(bucket);
+  }
+
+  return daily;
 }
 
 /**
@@ -354,7 +617,10 @@ function calcAverage(commits, field) {
 }
 
 /**
- * Calculate monthly aggregations
+ * Calculate monthly aggregations.
+ * Refactored to use shared bucket helpers (accumulateBucket/finalizeBucket)
+ * for consistency with weekly and daily aggregations.
+ * Uses UTC month key for consistency with weekly (UTC) and daily (UTC) aggregations.
  */
 function calcMonthlyAggregations(commits) {
   const monthly = {};
@@ -362,84 +628,17 @@ function calcMonthlyAggregations(commits) {
   for (const commit of commits) {
     if (!commit.timestamp) continue;
 
-    const month = commit.timestamp.substring(0, 7); // "2026-01"
+    const month = getUTCMonthKey(commit.timestamp);
 
     if (!monthly[month]) {
-      monthly[month] = {
-        commits: 0,
-        complexitySum: 0,
-        complexityCount: 0,
-        urgencySum: 0,
-        urgencyCount: 0,
-        tags: {},
-        impact: {
-          'internal': 0,
-          'user-facing': 0,
-          'infrastructure': 0,
-          'api': 0
-        },
-        risk: { low: 0, medium: 0, high: 0 },
-        debt: { added: 0, paid: 0, neutral: 0 },
-        semver: { patch: 0, minor: 0, major: 0 }
-      };
+      monthly[month] = createEmptyBucket();
     }
 
-    const m = monthly[month];
-    m.commits++;
-
-    // Complexity
-    if (commit.complexity >= 1 && commit.complexity <= 5) {
-      m.complexitySum += commit.complexity;
-      m.complexityCount++;
-    }
-
-    // Urgency
-    if (commit.urgency >= 1 && commit.urgency <= 5) {
-      m.urgencySum += commit.urgency;
-      m.urgencyCount++;
-    }
-
-    // Tags
-    for (const tag of commit.tags || []) {
-      m.tags[tag] = (m.tags[tag] || 0) + 1;
-    }
-
-    // Impact
-    if (commit.impact && m.impact.hasOwnProperty(commit.impact)) {
-      m.impact[commit.impact]++;
-    }
-
-    // Risk
-    if (commit.risk && m.risk.hasOwnProperty(commit.risk)) {
-      m.risk[commit.risk]++;
-    }
-
-    // Debt
-    if (commit.debt && m.debt.hasOwnProperty(commit.debt)) {
-      m.debt[commit.debt]++;
-    }
-
-    // Semver
-    if (commit.semver && m.semver.hasOwnProperty(commit.semver)) {
-      m.semver[commit.semver]++;
-    }
+    accumulateBucket(monthly[month], commit);
   }
 
-  // Calculate averages
-  for (const month of Object.keys(monthly)) {
-    const m = monthly[month];
-    m.avgComplexity = m.complexityCount > 0
-      ? Math.round((m.complexitySum / m.complexityCount) * 100) / 100
-      : null;
-    m.avgUrgency = m.urgencyCount > 0
-      ? Math.round((m.urgencySum / m.urgencyCount) * 100) / 100
-      : null;
-
-    // Clean up temp fields
-    delete m.complexitySum;
-    delete m.complexityCount;
-    delete m.urgencySum;
-    delete m.urgencyCount;
+  for (const bucket of Object.values(monthly)) {
+    finalizeBucket(bucket);
   }
 
   return monthly;
@@ -505,9 +704,12 @@ function calcContributorAggregations(commits) {
       c.tagBreakdown[tag] = (c.tagBreakdown[tag] || 0) + 1;
     }
 
-    // Impact
-    if (commit.impact && c.impactBreakdown.hasOwnProperty(commit.impact)) {
-      c.impactBreakdown[commit.impact]++;
+    // Impact (normalize "infra" → "infrastructure")
+    if (commit.impact) {
+      const impact = commit.impact === 'infra' ? 'infrastructure' : commit.impact;
+      if (c.impactBreakdown.hasOwnProperty(impact)) {
+        c.impactBreakdown[impact]++;
+      }
     }
 
     // Risk
@@ -573,7 +775,49 @@ function calcDateRange(commits) {
 }
 
 /**
- * Generate full aggregated data for a set of commits
+ * Compute filter options from commits — pre-computed so dashboard FilterSidebar
+ * can populate without loading raw commits.
+ */
+function calcFilterOptions(commits) {
+  const tags = new Set();
+  const authors = new Set();
+  const repos = new Set();
+  const urgencies = new Set();
+  const impacts = new Set();
+
+  for (const commit of commits) {
+    for (const tag of commit.tags || []) {
+      tags.add(tag);
+    }
+    if (commit.author_id) authors.add(commit.author_id);
+    if (commit.repo_id) repos.add(commit.repo_id);
+    if (commit.urgency >= 1 && commit.urgency <= 5) {
+      // Mirror dashboard's getUrgencyLabel mapping (utils.js)
+      if (commit.urgency <= 2) urgencies.add('Planned');
+      else if (commit.urgency === 3) urgencies.add('Normal');
+      else urgencies.add('Reactive');
+    }
+    if (commit.impact) impacts.add(commit.impact === 'infra' ? 'infrastructure' : commit.impact);
+  }
+
+  return {
+    tags: [...tags].sort(),
+    authors: [...authors].sort(),
+    repos: [...repos].sort(),
+    urgencies: [...urgencies].sort(),
+    impacts: [...impacts].sort(),
+  };
+}
+
+/**
+ * Generate full aggregated data for a set of commits.
+ *
+ * Requirement: Support time-windowed reporting with weekly/daily pre-aggregations
+ * Approach: Compute monthly, weekly, and daily buckets using shared accumulator logic.
+ *   Returns both a summary (for fast dashboard load) and sorted commits (for per-month files).
+ * Alternatives:
+ *   - Only monthly: Rejected — user requested weekly + daily granularity
+ *   - Aggregate in dashboard: Rejected — moves computation to client, increases initial load
  */
 function generateAggregation(commits, scope, repoCount = 1) {
   // Sort commits by timestamp (newest first) and normalize author_id
@@ -588,6 +832,8 @@ function generateAggregation(commits, scope, repoCount = 1) {
 
   const contributors = calcContributorAggregations(sortedCommits);
   const monthly = calcMonthlyAggregations(sortedCommits);
+  const weekly = calcWeeklyAggregations(sortedCommits);
+  const daily = calcDailyAggregations(sortedCommits);
 
   // Security events - commits with 'security' tag
   const securityEvents = sortedCommits
@@ -604,19 +850,30 @@ function generateAggregation(commits, scope, repoCount = 1) {
     };
   }
 
-  return {
+  // Pre-compute filter options so dashboard sidebar works without loading raw commits
+  const filterOptions = calcFilterOptions(sortedCommits);
+
+  // Determine which months have commit data (for lazy loading index)
+  // Uses UTC month key for consistency with monthly/daily/weekly aggregations
+  const commitMonths = [...new Set(
+    sortedCommits.map(c => c.timestamp ? getUTCMonthKey(c.timestamp) : null).filter(Boolean)
+  )].sort();
+
+  // Build summary file (no raw commits — those go to per-month files)
+  const summary = {
     metadata: {
       generatedAt: new Date().toISOString(),
       repository: scope === 'overall' ? 'All Repositories' : scope,
       scope: scope,
       repoCount: repoCount,
       commitCount: sortedCommits.length,
-      authors: authorsLookup  // For dashboard author resolution
+      authors: authorsLookup,
+      commitMonths: commitMonths,
     },
 
-    commits: sortedCommits,
-
     contributors: contributors,
+
+    filterOptions: filterOptions,
 
     summary: {
       totalCommits: sortedCommits.length,
@@ -631,12 +888,19 @@ function generateAggregation(commits, scope, repoCount = 1) {
       semverBreakdown: calcSemverBreakdown(sortedCommits),
       avgComplexity: calcAverage(sortedCommits, 'complexity'),
       avgUrgency: calcAverage(sortedCommits, 'urgency'),
+      repoCommitCounts: calcRepoCommitCounts(sortedCommits),
+      hourlyHeatmap: calcHourlyHeatmap(sortedCommits),
+      codeStats: calcCodeStats(sortedCommits),
       monthly: monthly,
       monthlyCommits: monthly,  // Alias for dashboard compatibility
+      weekly: weekly,
+      daily: daily,
       dateRange: dateRange,
       security_events: securityEvents
     }
   };
+
+  return { summary, sortedCommits };
 }
 
 // === Output ===
@@ -693,26 +957,60 @@ function main() {
 
   console.log(`\nGenerating aggregations:\n`);
 
-  // Generate per-repo files
+  // Generate per-repo files (these still include inline commits for backward compat)
   const reposDir = path.join(outputDir, 'repos');
 
   for (const repoName of repoNames) {
     const commits = repos[repoName];
-    const data = generateAggregation(commits, repoName, 1);
-    writeJson(path.join(reposDir, `${repoName}.json`), data);
+    const { summary, sortedCommits } = generateAggregation(commits, repoName, 1);
+    // Per-repo files keep commits inline (they're small enough individually)
+    writeJson(path.join(reposDir, `${repoName}.json`), { ...summary, commits: sortedCommits });
   }
 
-  // Generate overall file
+  // Generate overall aggregation
   const allCommits = repoNames.flatMap(name => repos[name]);
-  const overallData = generateAggregation(allCommits, 'overall', repoNames.length);
-  writeJson(path.join(outputDir, 'data.json'), overallData);
+  const { summary: overallSummary, sortedCommits: overallCommits } = generateAggregation(allCommits, 'overall', repoNames.length);
+
+  // Requirement: Split commits into per-month files for time-windowed loading
+  // Approach: Write data.json as summary-only (no commits), plus data-commits/YYYY-MM.json
+  //   files containing raw commits grouped by month. Dashboard loads summary first (fast),
+  //   then lazy-loads month files on demand for drilldowns and filtered views.
+  // Alternatives:
+  //   - Keep all commits in data.json: Rejected — 2.9 MB payload, slow initial load
+  //   - Split by repo instead of month: Rejected — month-based matches time-windowed UI pattern
+  const commitsDir = path.join(outputDir, 'data-commits');
+
+  // Group commits by UTC month (consistent with monthly/daily/weekly aggregations)
+  const commitsByMonth = {};
+  for (const commit of overallCommits) {
+    if (!commit.timestamp) continue;
+    const month = getUTCMonthKey(commit.timestamp);
+    if (!commitsByMonth[month]) commitsByMonth[month] = [];
+    commitsByMonth[month].push(commit);
+  }
+
+  // Write per-month commit files
+  for (const [month, monthCommits] of Object.entries(commitsByMonth)) {
+    writeJson(path.join(commitsDir, `${month}.json`), {
+      month,
+      commits: monthCommits,
+    });
+  }
+
+  // Write summary file (no raw commits)
+  writeJson(path.join(outputDir, 'data.json'), overallSummary);
+
+  const monthCount = Object.keys(commitsByMonth).length;
 
   // Summary
   console.log(`\n========================`);
   console.log(`Aggregation complete!`);
   console.log(`  Repos: ${repoNames.length} (${repoNames.join(', ')})`);
-  console.log(`  Total commits: ${allCommits.length}`);
-  console.log(`  Contributors: ${overallData.contributors.length}`);
+  console.log(`  Total commits: ${overallCommits.length}`);
+  console.log(`  Contributors: ${overallSummary.contributors.length}`);
+  console.log(`  Commit files: ${monthCount} months in data-commits/`);
+  console.log(`  Weekly buckets: ${Object.keys(overallSummary.summary.weekly).length}`);
+  console.log(`  Daily buckets: ${Object.keys(overallSummary.summary.daily).length}`);
   console.log(`  Output: ${outputDir}/`);
 
   // Requirement: Make unmapped author fallbacks visible

@@ -23,13 +23,36 @@ function useChartTextColor() {
     return colorRef;
 }
 
-export default function TagsTab() {
-    const { filteredCommits, openDetailPane, isMobile } = useApp();
+export default function Tags() {
+    const { state, filteredCommits, openDetailPane, isMobile, commitsLoaded } = useApp();
     const chartTextColorRef = useChartTextColor();
     const CHART_TEXT_COLOR = chartTextColorRef.current;
 
-    // Tag breakdown data
+    // Requirement: Show tag data instantly during Phase 1 using pre-aggregated summary
+    // Approach: When commits haven't loaded yet, use summary.tagBreakdown (computed at
+    //   aggregation time). Once commits load, recompute from filteredCommits to respect
+    //   user-applied filters. Same output format for both paths → same rendering code.
+    // Alternatives:
+    //   - Show spinner during Phase 1: Rejected — summary already has the data we need
+    //   - Conditional hook call (early return): Rejected — violates React hooks rules
     const tagData = useMemo(() => {
+        // Phase 1: use pre-aggregated tag breakdown from summary
+        if (!commitsLoaded) {
+            const breakdown = state.data?.summary?.tagBreakdown;
+            if (!breakdown || Object.keys(breakdown).length === 0) {
+                return { sortedTags: [], tags: [], counts: [], colors: [], total: 0 };
+            }
+            const sortedTags = Object.entries(breakdown)
+                .map(([tag, count]) => ({ tag, count }))
+                .sort((a, b) => b.count - a.count);
+            const tags = sortedTags.map(t => t.tag);
+            const counts = sortedTags.map(t => t.count);
+            const colors = tags.map(t => getTagColor(t));
+            const total = counts.reduce((a, b) => a + b, 0);
+            return { sortedTags, tags, counts, colors, total };
+        }
+
+        // Phase 2: compute from filtered commits (respects user-applied filters)
         const tagBreakdown = {};
         filteredCommits.forEach(commit => {
             const tags = getCommitTags(commit);
@@ -48,7 +71,7 @@ export default function TagsTab() {
         const total = counts.reduce((a, b) => a + b, 0);
 
         return { sortedTags, tags, counts, colors, total };
-    }, [filteredCommits]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.tagBreakdown]);
 
     // Doughnut chart config
     const doughnutChartData = useMemo(() => {
@@ -93,6 +116,8 @@ export default function TagsTab() {
     }, [tagData, isMobile]);
 
     const handleTagClick = (tag) => {
+        // During Phase 1, no commits to filter — clicking does nothing useful
+        if (!commitsLoaded) return;
         const filtered = filteredCommits.filter(c => getCommitTags(c).includes(tag));
         openDetailPane(`${tag} Commits`, `${filtered.length} commits`, filtered, { type: 'tag', value: tag });
     };
@@ -111,17 +136,17 @@ export default function TagsTab() {
         <div className="flex flex-col gap-6">
             {/* Tag Breakdown List — more scannable on mobile (order-1), secondary on desktop (order-2) */}
             <div className={isMobile ? 'order-1' : 'order-2'}>
-                <CollapsibleSection title="Tag Breakdown" subtitle="Tap any tag to see its commits">
+                <CollapsibleSection title="Tag Breakdown" subtitle={commitsLoaded ? 'Tap any tag to see its commits' : 'Overall tag distribution'}>
                     {tagData.sortedTags.length > 0 ? (
                         <div className="space-y-3">
                             {tagData.sortedTags.map(({ tag, count }) => (
                                 <div
                                     key={tag}
-                                    className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
-                                    role="button"
-                                    tabIndex={0}
+                                    className={`flex items-center gap-3 rounded p-2 -m-2 transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+                                    role={commitsLoaded ? 'button' : undefined}
+                                    tabIndex={commitsLoaded ? 0 : undefined}
                                     onClick={() => handleTagClick(tag)}
-                                    onKeyDown={handleKeyActivate(() => handleTagClick(tag))}
+                                    onKeyDown={commitsLoaded ? handleKeyActivate(() => handleTagClick(tag)) : undefined}
                                 >
                                     <span
                                         className={`tag ${getTagClass(tag)}`}

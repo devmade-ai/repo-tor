@@ -3,73 +3,146 @@ import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getWorkPattern, handleKeyActivate } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
-export default function SummaryTab() {
-    const { filteredCommits, openDetailPane } = useApp();
+// Requirement: Derive summary metrics from pre-aggregated data when commits aren't loaded
+// Approach: Read tagBreakdown, complexityBreakdown, urgencyBreakdown, riskBreakdown, and
+//   debtBreakdown from summary object. Only metrics requiring per-commit timestamp analysis
+//   (after-hours, weekend, holiday) fall back to "-" until commits load.
+// Alternatives:
+//   - Wait for commits to load before rendering: Rejected — delays initial paint
+//   - Pre-aggregate work pattern data: Rejected — requires timezone/work-hour config at build time
+function metricsFromSummary(summary) {
+    const tb = summary.tagBreakdown || {};
+    const cb = summary.complexityBreakdown || {};
+    const ub = summary.urgencyBreakdown || {};
+    const rb = summary.riskBreakdown || {};
+    const db = summary.debtBreakdown || {};
 
+    const features = tb.feature || 0;
+    const fixes = (tb.bugfix || 0) + (tb.fix || 0);
+    const avgUrgency = summary.avgUrgency || 0;
+
+    // Planned = urgency 1 + 2, total = sum of all urgency buckets
+    const planned = (ub[1] || 0) + (ub[2] || 0);
+    const urgencyTotal = Object.values(ub).reduce((a, b) => a + b, 0);
+    const plannedPct = urgencyTotal > 0 ? Math.round((planned / urgencyTotal) * 100) : 0;
+
+    const complexChanges = (cb[4] || 0) + (cb[5] || 0);
+    const simpleChanges = (cb[1] || 0) + (cb[2] || 0);
+
+    const refactorCount = tb.refactor || 0;
+    const testCount = tb.test || 0;
+
+    const highRiskCount = rb.high || 0;
+    const mediumRiskCount = rb.medium || 0;
+    const hasRiskData = (rb.low || 0) + mediumRiskCount + highRiskCount > 0;
+
+    const debtAdded = db.added || 0;
+    const debtPaid = db.paid || 0;
+    const hasDebtData = debtAdded + debtPaid + (db.neutral || 0) > 0;
+
+    // Work pattern metrics require per-commit analysis — not available from pre-aggregated data
+    return {
+        features, fixes, avgUrgency, plannedPct,
+        complexChanges, simpleChanges,
+        topRepo: null, topRepoPct: 0,
+        afterHoursCount: null, weekendCount: null, holidayCount: null, afterHoursPct: null,
+        refactorCount, testCount,
+        highRiskCount, mediumRiskCount, debtAdded, debtPaid,
+        hasRiskData, hasDebtData,
+    };
+}
+
+export default function Summary() {
+    const { state, filteredCommits, commitsLoaded, openDetailPane } = useApp();
+
+    // Requirement: Show metrics from pre-aggregated data immediately, refine when commits load
+    // Approach: Use summary breakdowns for counts/averages (available instantly), compute
+    //   per-commit metrics (work patterns, top repo) only after commits are loaded.
+    //   Once commits are loaded, ALWAYS use filteredCommits (even if empty due to filters)
+    //   to avoid falling back to unfiltered summary data.
+    // Alternatives: Compute everything from commits — rejected, blocks rendering until loaded
     const metrics = useMemo(() => {
-        const commits = filteredCommits;
+        // If commits are loaded, compute full metrics from filtered commits
+        if (commitsLoaded) {
+            const commits = filteredCommits;
 
-        const features = commits.filter(c => getCommitTags(c).includes('feature')).length;
-        const fixes = commits.filter(c => {
-            const tags = getCommitTags(c);
-            return tags.includes('bugfix') || tags.includes('fix');
-        }).length;
+            const features = commits.filter(c => getCommitTags(c).includes('feature')).length;
+            const fixes = commits.filter(c => {
+                const tags = getCommitTags(c);
+                return tags.includes('bugfix') || tags.includes('fix');
+            }).length;
 
-        const urgencies = commits.map(c => c.urgency).filter(u => u != null && u >= 1 && u <= 5);
-        const avgUrgency = urgencies.length > 0
-            ? (urgencies.reduce((a, b) => a + b, 0) / urgencies.length)
-            : 0;
+            const urgencies = commits.map(c => c.urgency).filter(u => u != null && u >= 1 && u <= 5);
+            const avgUrgency = urgencies.length > 0
+                ? (urgencies.reduce((a, b) => a + b, 0) / urgencies.length)
+                : 0;
 
-        const withUrgency = commits.filter(c => c.urgency != null && c.urgency >= 1 && c.urgency <= 5);
-        const planned = withUrgency.filter(c => c.urgency <= 2).length;
-        const plannedPct = withUrgency.length > 0 ? Math.round((planned / withUrgency.length) * 100) : 0;
+            const withUrgency = commits.filter(c => c.urgency != null && c.urgency >= 1 && c.urgency <= 5);
+            const planned = withUrgency.filter(c => c.urgency <= 2).length;
+            const plannedPct = withUrgency.length > 0 ? Math.round((planned / withUrgency.length) * 100) : 0;
 
-        const complexChanges = commits.filter(c => c.complexity >= 4).length;
-        const simpleChanges = commits.filter(c => c.complexity != null && c.complexity <= 2).length;
+            const complexChanges = commits.filter(c => c.complexity >= 4).length;
+            const simpleChanges = commits.filter(c => c.complexity != null && c.complexity <= 2).length;
 
-        const repoCounts = {};
-        commits.forEach(c => {
-            if (c.repo_id) {
-                repoCounts[c.repo_id] = (repoCounts[c.repo_id] || 0) + 1;
+            const repoCounts = {};
+            commits.forEach(c => {
+                if (c.repo_id) {
+                    repoCounts[c.repo_id] = (repoCounts[c.repo_id] || 0) + 1;
+                }
+            });
+            const repos = Object.keys(repoCounts);
+            let topRepo = null;
+            let topRepoPct = 0;
+            if (repos.length > 1) {
+                const sorted = Object.entries(repoCounts).sort((a, b) => b[1] - a[1]);
+                topRepo = sorted[0][0];
+                topRepoPct = Math.round((sorted[0][1] / commits.length) * 100);
             }
-        });
-        const repos = Object.keys(repoCounts);
-        let topRepo = null;
-        let topRepoPct = 0;
-        if (repos.length > 1) {
-            const sorted = Object.entries(repoCounts).sort((a, b) => b[1] - a[1]);
-            topRepo = sorted[0][0];
-            topRepoPct = Math.round((sorted[0][1] / commits.length) * 100);
+
+            const afterHoursCount = commits.filter(c => getWorkPattern(c).isAfterHours).length;
+            const weekendCount = commits.filter(c => getWorkPattern(c).isWeekend).length;
+            const holidayCount = commits.filter(c => getWorkPattern(c).isHoliday).length;
+            const afterHoursPct = commits.length > 0
+                ? Math.round((afterHoursCount / commits.length) * 100)
+                : 0;
+
+            const refactorCount = commits.filter(c => getCommitTags(c).includes('refactor')).length;
+            const testCount = commits.filter(c => getCommitTags(c).includes('test')).length;
+
+            const highRiskCount = commits.filter(c => c.risk === 'high').length;
+            const mediumRiskCount = commits.filter(c => c.risk === 'medium').length;
+            const debtAdded = commits.filter(c => c.debt === 'added').length;
+            const debtPaid = commits.filter(c => c.debt === 'paid').length;
+            const hasRiskData = commits.some(c => c.risk);
+            const hasDebtData = commits.some(c => c.debt);
+
+            return {
+                features, fixes, avgUrgency, plannedPct,
+                complexChanges, simpleChanges,
+                topRepo, topRepoPct,
+                afterHoursCount, weekendCount, holidayCount, afterHoursPct,
+                refactorCount, testCount,
+                highRiskCount, mediumRiskCount, debtAdded, debtPaid,
+                hasRiskData, hasDebtData,
+            };
         }
 
-        const afterHoursCount = commits.filter(c => getWorkPattern(c).isAfterHours).length;
-        const weekendCount = commits.filter(c => getWorkPattern(c).isWeekend).length;
-        const holidayCount = commits.filter(c => getWorkPattern(c).isHoliday).length;
-        const afterHoursPct = commits.length > 0
-            ? Math.round((afterHoursCount / commits.length) * 100)
-            : 0;
+        // Pre-aggregated path: derive from summary breakdowns
+        if (state.data?.summary) {
+            return metricsFromSummary(state.data.summary);
+        }
 
-        const refactorCount = commits.filter(c => getCommitTags(c).includes('refactor')).length;
-        const testCount = commits.filter(c => getCommitTags(c).includes('test')).length;
-
-        // Risk and Debt summary — only meaningful when commits have these fields
-        const highRiskCount = commits.filter(c => c.risk === 'high').length;
-        const mediumRiskCount = commits.filter(c => c.risk === 'medium').length;
-        const debtAdded = commits.filter(c => c.debt === 'added').length;
-        const debtPaid = commits.filter(c => c.debt === 'paid').length;
-        const hasRiskData = commits.some(c => c.risk);
-        const hasDebtData = commits.some(c => c.debt);
-
+        // No data at all
         return {
-            features, fixes, avgUrgency, plannedPct,
-            complexChanges, simpleChanges,
-            topRepo, topRepoPct,
-            afterHoursCount, weekendCount, holidayCount, afterHoursPct,
-            refactorCount, testCount,
-            highRiskCount, mediumRiskCount, debtAdded, debtPaid,
-            hasRiskData, hasDebtData,
+            features: 0, fixes: 0, avgUrgency: 0, plannedPct: 0,
+            complexChanges: 0, simpleChanges: 0,
+            topRepo: null, topRepoPct: 0,
+            afterHoursCount: null, weekendCount: null, holidayCount: null, afterHoursPct: null,
+            refactorCount: 0, testCount: 0,
+            highRiskCount: 0, mediumRiskCount: 0, debtAdded: 0, debtPaid: 0,
+            hasRiskData: false, hasDebtData: false,
         };
-    }, [filteredCommits]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary]);
 
     const highlights = useMemo(() => {
         const items = [];
@@ -181,15 +254,15 @@ export default function SummaryTab() {
             <CollapsibleSection title="Activity Snapshot" subtitle="Work timing and complexity signals">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div className="text-center p-3 bg-amber-50 dark:bg-amber-900/20 rounded">
-                        <p className="text-2xl font-bold text-amber-600">{metrics.afterHoursCount}</p>
+                        <p className="text-2xl font-bold text-amber-600">{metrics.afterHoursCount ?? '...'}</p>
                         <p className="text-xs text-themed-tertiary">After-hours</p>
                     </div>
                     <div className="text-center p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded">
-                        <p className="text-2xl font-bold text-indigo-600">{metrics.weekendCount}</p>
+                        <p className="text-2xl font-bold text-indigo-600">{metrics.weekendCount ?? '...'}</p>
                         <p className="text-xs text-themed-tertiary">Weekend</p>
                     </div>
                     <div className="text-center p-3 bg-pink-50 dark:bg-pink-900/20 rounded">
-                        <p className="text-2xl font-bold text-pink-600">{metrics.holidayCount}</p>
+                        <p className="text-2xl font-bold text-pink-600">{metrics.holidayCount ?? '...'}</p>
                         <p className="text-xs text-themed-tertiary">Holiday</p>
                     </div>
                     <div className="text-center p-3 bg-purple-50 dark:bg-purple-900/20 rounded">

@@ -171,13 +171,12 @@ Or in CSS:
 
 | File | Embed IDs Defined |
 |------|------------------|
-| `dashboard/js/tabs/TimelineTab.jsx` | `activity-timeline`, `code-changes-timeline` |
-| `dashboard/js/tabs/TimingTab.jsx` | `activity-heatmap`, `hourly-distribution`, `daily-distribution` |
-| `dashboard/js/tabs/ProgressTab.jsx` | `feature-vs-bugfix-trend`, `complexity-over-time`, `semver-distribution` |
-| `dashboard/js/tabs/ContributorsTab.jsx` | `contributor-complexity` |
-| `dashboard/js/tabs/TagsTab.jsx` | `tag-distribution` |
-| `dashboard/js/tabs/HealthTab.jsx` | `urgency-trend`, `impact-over-time`, `debt-trend` |
+| `dashboard/js/sections/Timeline.jsx` | `activity-timeline`, `code-changes-timeline`, `urgency-trend`, `impact-over-time`, `debt-trend` |
+| `dashboard/js/sections/Timing.jsx` | `activity-heatmap`, `hourly-distribution`, `daily-distribution` |
+| `dashboard/js/sections/Progress.jsx` | `feature-vs-bugfix-trend`, `complexity-over-time`, `semver-distribution` |
+| `dashboard/js/sections/Contributors.jsx` | `contributor-complexity` |
+| `dashboard/js/sections/Tags.jsx` | `tag-distribution` |
 
 ---
 
-*Last updated: 2026-02-19 — Added embed.js auto-resize helper script.*
+*Last updated: 2026-03-04 — Updated paths after tabs/ → sections/ rename. Trend charts moved to Timeline.*

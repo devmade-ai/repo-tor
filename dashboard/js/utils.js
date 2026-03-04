@@ -284,7 +284,8 @@ export function getAuthorEmail(commit) {
 // === Data Format Helpers ===
 export function getFilesChanged(commit) {
     // Handle different data formats: stats.filesChanged, filesChanged, files_changed
-    return commit.stats?.filesChanged || commit.filesChanged || commit.files_changed || 0;
+    // Use ?? (nullish coalescing) so that 0 is not treated as falsy
+    return commit.stats?.filesChanged ?? commit.filesChanged ?? commit.files_changed ?? 0;
 }
 
 export function getCommitSubject(commit) {
@@ -294,12 +295,32 @@ export function getCommitSubject(commit) {
 
 export function getAdditions(commit) {
     // Handle different data formats: stats.additions vs lines_added
-    return commit.stats?.additions || commit.lines_added || 0;
+    // Use ?? (nullish coalescing) so that 0 is not treated as falsy
+    return commit.stats?.additions ?? commit.lines_added ?? 0;
 }
 
 export function getDeletions(commit) {
     // Handle different data formats: stats.deletions vs lines_deleted
-    return commit.stats?.deletions || commit.lines_deleted || 0;
+    // Use ?? (nullish coalescing) so that 0 is not treated as falsy
+    return commit.stats?.deletions ?? commit.lines_deleted ?? 0;
+}
+
+// === UTC Date Helpers ===
+// Requirement: Date grouping in dashboard must match UTC keys from aggregate-processed.js
+// Approach: Parse timestamp to Date and extract UTC year/month/day to build YYYY-MM-DD / YYYY-MM
+// Alternatives:
+//   - substring(0, 10): Rejected — extracts local timezone from ISO string, not UTC
+//   - toISOString().substring(): Works but creates unnecessary string allocation
+export function getUTCDateKey(timestamp) {
+    const d = new Date(timestamp);
+    return d.getUTCFullYear() + '-' +
+        String(d.getUTCMonth() + 1).padStart(2, '0') + '-' +
+        String(d.getUTCDate()).padStart(2, '0');
+}
+
+export function getUTCMonthKey(timestamp) {
+    const d = new Date(timestamp);
+    return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0');
 }
 
 // === Formatting Helpers ===
@@ -332,6 +353,38 @@ export function getCommitDateTime(commit) {
         hour: date.getHours(),
         dayOfWeek: date.getDay()
     };
+}
+
+// === Partial Month Handling ===
+
+/**
+ * Requirement: Exclude incomplete last month from trend charts so partial data
+ *   doesn't appear as a dramatic drop (e.g., 2 days into March looks like 95% decline).
+ * Approach: Check if the latest day in the last month is before the 15th — if so,
+ *   the month has less than half its data and would mislead non-technical users.
+ * Alternatives:
+ *   - Normalize to daily rate: Rejected — changes the y-axis meaning, harder to interpret
+ *   - Show with dashed line annotation: Rejected — adds visual complexity, still misleading at a glance
+ *   - Use calendar "today" check: Rejected — data.json is static, should be data-driven
+ */
+export function excludeIncompleteLastMonth(sortedMonths, commits) {
+    if (sortedMonths.length === 0) return { months: sortedMonths, excluded: false };
+
+    const lastMonth = sortedMonths[sortedMonths.length - 1];
+    const monthCommits = commits.filter(c => c.timestamp?.startsWith(lastMonth));
+
+    if (monthCommits.length === 0) {
+        return { months: sortedMonths.slice(0, -1), excluded: true };
+    }
+
+    // Find the latest day-of-month in the data for this month
+    const maxDay = Math.max(...monthCommits.map(c => new Date(c.timestamp).getDate()));
+
+    if (maxDay < 15) {
+        return { months: sortedMonths.slice(0, -1), excluded: true };
+    }
+
+    return { months: sortedMonths, excluded: false };
 }
 
 // === Aggregation Functions for View Levels ===

@@ -1,53 +1,93 @@
 import React, { useMemo } from 'react';
 import { Line, Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
-import { getCommitTags, handleKeyActivate } from '../utils.js';
+import { getCommitTags, handleKeyActivate, excludeIncompleteLastMonth, getUTCMonthKey } from '../utils.js';
 import { getSeriesColor, withOpacity } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
-export default function ProgressTab() {
-    const { filteredCommits, openDetailPane, isMobile } = useApp();
+export default function Progress() {
+    const { state, filteredCommits, commitsLoaded, openDetailPane, isMobile } = useApp();
 
-    // Summary metrics
+    // Summary metrics — use pre-aggregated data when commits aren't loaded
+    // Once commits are loaded, always use filteredCommits (even if empty due to filters)
+    // to avoid falling back to unfiltered summary data
     const metrics = useMemo(() => {
-        let featureCount = 0, bugfixCount = 0, refactorCount = 0;
-        let complexitySum = 0, complexityCount = 0;
+        if (commitsLoaded) {
+            let featureCount = 0, bugfixCount = 0, refactorCount = 0;
+            let complexitySum = 0, complexityCount = 0;
 
-        filteredCommits.forEach(commit => {
-            const tags = getCommitTags(commit);
-            if (tags.includes('feature')) featureCount++;
-            if (tags.includes('bugfix') || tags.includes('fix')) bugfixCount++;
-            if (tags.includes('refactor')) refactorCount++;
-            if (commit.complexity != null) {
-                complexitySum += commit.complexity;
-                complexityCount++;
-            }
-        });
+            filteredCommits.forEach(commit => {
+                const tags = getCommitTags(commit);
+                if (tags.includes('feature')) featureCount++;
+                if (tags.includes('bugfix') || tags.includes('fix')) bugfixCount++;
+                if (tags.includes('refactor')) refactorCount++;
+                if (commit.complexity != null) {
+                    complexitySum += commit.complexity;
+                    complexityCount++;
+                }
+            });
 
-        const avgComplexity = complexityCount > 0 ? (complexitySum / complexityCount).toFixed(1) : '-';
+            const avgComplexity = complexityCount > 0 ? (complexitySum / complexityCount).toFixed(1) : '-';
+            return { featureCount, bugfixCount, refactorCount, avgComplexity };
+        }
 
-        return { featureCount, bugfixCount, refactorCount, avgComplexity };
-    }, [filteredCommits]);
+        // Pre-aggregated fallback
+        const tb = state.data?.summary?.tagBreakdown || {};
+        const avgComplexity = state.data?.summary?.avgComplexity;
+        return {
+            featureCount: tb.feature || 0,
+            bugfixCount: (tb.bugfix || 0) + (tb.fix || 0),
+            refactorCount: tb.refactor || 0,
+            avgComplexity: avgComplexity != null ? avgComplexity.toFixed(1) : '-',
+        };
+    }, [filteredCommits, commitsLoaded, state.data?.summary]);
 
     // Feature vs Bug Fix Trend chart data
+    // Excludes incomplete last month to prevent misleading cliff on trend charts
+    // Uses pre-aggregated monthly data when commits aren't loaded
     const featFixChartData = useMemo(() => {
-        const monthSet = new Set(filteredCommits.map(c => c.timestamp?.substring(0, 7)).filter(Boolean));
-        const months = [...monthSet].sort();
+        let months, featData, fixData;
 
-        const monthlyTagCounts = {};
-        filteredCommits.forEach(commit => {
-            const month = commit.timestamp?.substring(0, 7);
-            if (!month) return;
-            if (!monthlyTagCounts[month]) monthlyTagCounts[month] = { feature: 0, bugfix: 0 };
-            const tags = getCommitTags(commit);
-            if (tags.includes('feature')) monthlyTagCounts[month].feature++;
-            if (tags.includes('bugfix') || tags.includes('fix')) monthlyTagCounts[month].bugfix++;
-        });
+        if (commitsLoaded) {
+            const monthSet = new Set(filteredCommits.map(c => c.timestamp ? getUTCMonthKey(c.timestamp) : null).filter(Boolean));
+            const allMonths = [...monthSet].sort();
+            ({ months } = excludeIncompleteLastMonth(allMonths, filteredCommits));
 
-        const featData = months.map(m => monthlyTagCounts[m]?.feature || 0);
-        const fixData = months.map(m => monthlyTagCounts[m]?.bugfix || 0);
+            const monthlyTagCounts = {};
+            filteredCommits.forEach(commit => {
+                if (!commit.timestamp) return;
+                const month = getUTCMonthKey(commit.timestamp);
+                if (!monthlyTagCounts[month]) monthlyTagCounts[month] = { feature: 0, bugfix: 0 };
+                const tags = getCommitTags(commit);
+                if (tags.includes('feature')) monthlyTagCounts[month].feature++;
+                if (tags.includes('bugfix') || tags.includes('fix')) monthlyTagCounts[month].bugfix++;
+            });
 
-        if (months.length === 0) return null;
+            featData = months.map(m => monthlyTagCounts[m]?.feature || 0);
+            fixData = months.map(m => monthlyTagCounts[m]?.bugfix || 0);
+        } else if (state.data?.summary?.monthly) {
+            // Pre-aggregated: read feature/bugfix counts from monthly buckets
+            const monthly = state.data.summary.monthly;
+            months = Object.keys(monthly).sort();
+            // Apply incomplete month exclusion using bucket data
+            if (months.length > 0) {
+                const lastMonth = months[months.length - 1];
+                const lastBucket = monthly[lastMonth];
+                // If last month has fewer than 15 days of data, exclude it
+                const [year, mon] = lastMonth.split('-').map(Number);
+                const daysInMonth = new Date(year, mon, 0).getDate();
+                if (lastBucket.commits < daysInMonth * 0.5) {
+                    months = months.slice(0, -1);
+                }
+            }
+
+            featData = months.map(m => monthly[m]?.tags?.feature || 0);
+            fixData = months.map(m => (monthly[m]?.tags?.bugfix || 0) + (monthly[m]?.tags?.fix || 0));
+        } else {
+            return null;
+        }
+
+        if (!months || months.length === 0) return null;
 
         const mobile = isMobile;
         return {
@@ -84,30 +124,52 @@ export default function ProgressTab() {
                 },
             },
         };
-    }, [filteredCommits, isMobile]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile]);
 
     // Complexity Over Time chart data
+    // Excludes incomplete last month (same reason as features vs bugfix trend)
+    // Uses pre-aggregated monthly avgComplexity when commits aren't loaded
     const complexityChartData = useMemo(() => {
-        const monthSet = new Set(filteredCommits.map(c => c.timestamp?.substring(0, 7)).filter(Boolean));
-        const months = [...monthSet].sort();
+        let months, complexityData;
 
-        const monthlyComplexity = {};
-        filteredCommits.forEach(commit => {
-            const month = commit.timestamp?.substring(0, 7);
-            if (!month) return;
-            if (!monthlyComplexity[month]) monthlyComplexity[month] = { total: 0, count: 0 };
-            if (commit.complexity != null) {
-                monthlyComplexity[month].total += commit.complexity;
-                monthlyComplexity[month].count++;
+        if (commitsLoaded) {
+            const monthSet = new Set(filteredCommits.map(c => c.timestamp ? getUTCMonthKey(c.timestamp) : null).filter(Boolean));
+            ({ months } = excludeIncompleteLastMonth([...monthSet].sort(), filteredCommits));
+
+            const monthlyComplexity = {};
+            filteredCommits.forEach(commit => {
+                if (!commit.timestamp) return;
+                const month = getUTCMonthKey(commit.timestamp);
+                if (!monthlyComplexity[month]) monthlyComplexity[month] = { total: 0, count: 0 };
+                if (commit.complexity != null) {
+                    monthlyComplexity[month].total += commit.complexity;
+                    monthlyComplexity[month].count++;
+                }
+            });
+
+            complexityData = months.map(m => {
+                const mc = monthlyComplexity[m];
+                return mc && mc.count > 0 ? (mc.total / mc.count) : null;
+            });
+        } else if (state.data?.summary?.monthly) {
+            const monthly = state.data.summary.monthly;
+            months = Object.keys(monthly).sort();
+            // Incomplete month exclusion
+            if (months.length > 0) {
+                const lastMonth = months[months.length - 1];
+                const lastBucket = monthly[lastMonth];
+                const [year, mon] = lastMonth.split('-').map(Number);
+                const daysInMonth = new Date(year, mon, 0).getDate();
+                if (lastBucket.commits < daysInMonth * 0.5) {
+                    months = months.slice(0, -1);
+                }
             }
-        });
+            complexityData = months.map(m => monthly[m]?.avgComplexity ?? null);
+        } else {
+            return null;
+        }
 
-        const complexityData = months.map(m => {
-            const mc = monthlyComplexity[m];
-            return mc && mc.count > 0 ? (mc.total / mc.count) : null;
-        });
-
-        if (months.length === 0) return null;
+        if (!months || months.length === 0) return null;
 
         const mobile = isMobile;
         return {
@@ -137,35 +199,50 @@ export default function ProgressTab() {
                 },
             },
         };
-    }, [filteredCommits, isMobile]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile]);
 
     // Epic breakdown — groups commits by epic label
+    // Uses pre-aggregated epicBreakdown from summary when commits aren't loaded
     const epicBreakdown = useMemo(() => {
-        const epics = {};
-        filteredCommits.forEach(c => {
-            if (c.epic && typeof c.epic === 'string') {
-                const epic = c.epic.trim().toLowerCase();
-                if (epic) {
-                    epics[epic] = (epics[epic] || 0) + 1;
+        if (commitsLoaded) {
+            const epics = {};
+            filteredCommits.forEach(c => {
+                if (c.epic && typeof c.epic === 'string') {
+                    const epic = c.epic.trim().toLowerCase();
+                    if (epic) {
+                        epics[epic] = (epics[epic] || 0) + 1;
+                    }
                 }
-            }
-        });
-        return Object.entries(epics)
-            .sort((a, b) => b[1] - a[1]);
-    }, [filteredCommits]);
+            });
+            return Object.entries(epics)
+                .sort((a, b) => b[1] - a[1]);
+        }
+
+        // Pre-aggregated fallback
+        const eb = state.data?.summary?.epicBreakdown;
+        if (eb) {
+            return Object.entries(eb).sort((a, b) => b[1] - a[1]);
+        }
+        return [];
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.epicBreakdown]);
 
     const hasEpicData = epicBreakdown.length > 0;
 
     // Semver breakdown — patch/minor/major distribution
+    // Uses pre-aggregated semverBreakdown from summary when commits aren't loaded
     const semverBreakdown = useMemo(() => {
-        const breakdown = { patch: 0, minor: 0, major: 0 };
-        filteredCommits.forEach(c => {
-            if (c.semver && breakdown.hasOwnProperty(c.semver)) {
-                breakdown[c.semver]++;
-            }
-        });
-        return breakdown;
-    }, [filteredCommits]);
+        if (commitsLoaded) {
+            const breakdown = { patch: 0, minor: 0, major: 0 };
+            filteredCommits.forEach(c => {
+                if (c.semver && breakdown.hasOwnProperty(c.semver)) {
+                    breakdown[c.semver]++;
+                }
+            });
+            return breakdown;
+        }
+
+        return state.data?.summary?.semverBreakdown || { patch: 0, minor: 0, major: 0 };
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.semverBreakdown]);
 
     const hasSemverData = semverBreakdown.patch + semverBreakdown.minor + semverBreakdown.major > 0;
     const semverTotal = semverBreakdown.patch + semverBreakdown.minor + semverBreakdown.major;

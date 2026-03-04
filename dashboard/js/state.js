@@ -75,13 +75,15 @@ export const THRESHOLDS = {
     topDevelopers: 6,     // Max developers in timing patterns
 };
 
-// === Tab Navigation (V2: 4 grouped tabs + Projects directory) ===
-// Map new tabs to the content containers they should show
-export const TAB_MAPPING = {
-    'overview': ['tab-overview'],
-    'activity': ['tab-activity', 'tab-timing'],
-    'work': ['tab-progress', 'tab-tags', 'tab-contributors'],
-    'health': ['tab-security'],
-    'discover': ['tab-discover'],
-    'projects': ['tab-projects']
+// === Tab Navigation ===
+// Maps each tab button to the sections it renders (stacked vertically).
+// "Tab" = the 6 buttons in TabBar. "Section" = content rendered inside a tab.
+// Actual routing is in App.jsx — this documents the structure.
+export const TAB_SECTIONS = {
+    'overview': ['Summary'],
+    'activity': ['Timeline', 'Timing'],
+    'work': ['Progress', 'Contributors', 'Tags'],
+    'health': ['Health'],         // Security is now a section within Health
+    'discover': ['Discover'],
+    'projects': ['Projects'],
 };

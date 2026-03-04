@@ -4,9 +4,62 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
+**Dashboard V2:** Implementation complete with role-based view levels, consistent section layouts, and PWA support.
 
-**Recent Updates (2026-03-03 — Documentation Review & Corrections):**
+**Recent Updates (2026-03-04 — Cross-Tab Audit + 6 Fixes):**
+- **Fix: Projects filter bug** — Commit counts now use `filteredCommits` instead of unfiltered `state.data?.commits`.
+- **Fix: Timeline UTC mismatch** — Trend charts now use `getUTCMonthKey()` instead of `.substring(0,7)`.
+- **UX: Bottom padding** — Added `pb-12` to content wrapper for breathing room at page bottom.
+- **UX: Section separators** — Subtle `<hr>` dividers between stacked sections in Timeline and Breakdown tabs.
+- **UX: Discover file insights** — Shows loading spinner during Phase 1 instead of "No file data available".
+- **Fix: Health fallback** — `||` → `??` for summary breakdown fallbacks (prevents empty `{}` issues).
+- **Files changed**: `App.jsx`, `Projects.jsx`, `Timeline.jsx`, `Discover.jsx`, `Health.jsx`
+
+**Previous Updates (2026-03-04 — Section Reorganization + Terminology Cleanup):**
+- **Renamed `tabs/` → `sections/`** — All section component files moved from `js/tabs/` to `js/sections/`. Dropped "Tab" suffix from all filenames and component names (e.g., `HealthTab.jsx` → `Health.jsx`, `TimelineTab` → `Timeline`). "Tab" now refers exclusively to the 6 top-level navigation buttons; everything rendered within a tab is a "section".
+- **Merged Security into Health** — SecurityTab deleted. Security events now render as a CollapsibleSection within Health.jsx, view-level aware (executive/management/developer).
+- **Moved trend charts to Timeline** — Urgency trend, impact over time, and debt trend line charts moved from Health (via useHealthData) to Timeline section. Computed inline via useMemo in Timeline.jsx.
+- **Moved per-contributor urgency/impact to Contributors** — Per-contributor urgency and impact bar sections moved from Health to Contributors section. Uses UrgencyBar/ImpactBar components from HealthBars.jsx.
+- **Discover Phase 1 support** — Added `calcCodeStats()` to aggregate-processed.js (summary.codeStats). Discover now derives 9 of 11 metrics from summary data during Phase 1 instead of showing a spinner.
+- **useHealthData simplified** — Removed trends and per-contributor computations (moved to their respective sections). Now returns only breakdown data.
+- **State constant renamed** — `TAB_MAPPING` → `TAB_SECTIONS` in state.js to reflect terminology.
+- **EmbedRenderer updated** — Imports, variable names, and embed ID mappings updated for new section paths. Trend chart embed IDs now map to Timeline instead of Health.
+- **Files changed**: All files in `dashboard/js/sections/` (renamed from tabs/), `dashboard/js/App.jsx`, `dashboard/js/state.js`, `dashboard/js/hooks/useHealthData.js`, `dashboard/js/components/EmbedRenderer.jsx`, `scripts/aggregate-processed.js`, `CLAUDE.md`
+
+**Previous Updates (2026-03-04 — Phase 1 Pre-Aggregated Fallbacks):**
+- **Pre-aggregated fallbacks** — Replaced loading spinners with actual data during Phase 1 for 6 sections. Each section uses summary data from the initial `data.json` load, showing real charts/breakdowns instantly.
+- **New aggregations in aggregate-processed.js**: `calcRepoCommitCounts()` and `calcHourlyHeatmap()`, added to summary output.
+- **Component fixes** — HealthWorkPatterns, RiskAssessment, DebtBalance handle optional click handlers (non-clickable during Phase 1).
+
+**Previous Updates (2026-03-03 — Tab Data Usage Audit + 3 Bug Fixes):**
+- **Full tab review** — Reviewed all 10 dashboard tabs for correct usage of pre-aggregated data, identifying 3 bugs and documenting which tabs have/lack pre-aggregated fallbacks.
+- **Fix 1: Filter fallback to unfiltered data** — SummaryTab, TimelineTab, ProgressTab used `commitsLoaded && filteredCommits.length > 0` as the condition to use filtered commits. When filters excluded ALL commits, this fell through to the unfiltered summary data, showing wrong numbers. Fixed: changed to `commitsLoaded` (always use filtered commits once loaded, even if empty).
+- **Fix 2: `||` → `??` in utils.js and DiscoverTab** — `getAdditions()`, `getDeletions()`, `getFilesChanged()` in utils.js used `||` which treats `0` as falsy. Same pattern in DiscoverTab (9 instances of `c.stats?.additions || 0`). Fixed to use `??` (nullish coalescing).
+- **Fix 3: Local time → UTC date grouping** — TimelineTab used `substring(0, 10)` and ProgressTab used `substring(0, 7)` for date/month grouping, extracting local timezone from ISO strings. Pre-aggregated keys use UTC. Added `getUTCDateKey()`/`getUTCMonthKey()` helpers to dashboard utils.js and applied in both tabs for consistency.
+- **Files changed**: `dashboard/js/utils.js`, `dashboard/js/tabs/SummaryTab.jsx`, `dashboard/js/tabs/TimelineTab.jsx`, `dashboard/js/tabs/ProgressTab.jsx`, `dashboard/js/tabs/DiscoverTab.jsx`
+
+**Previous Updates (2026-03-03 — Pipeline Audit + Validation Fixes):**
+- **Full pipeline audit** — Reviewed all extraction/processing/aggregation scripts and verified field mapping from extraction through to dashboard output.
+- **save-commit.js validation hardened** — Added value validation for analysis fields (tags must be array, complexity/urgency must be integer 1-5, impact must be one of the 4 canonical values). Previously only checked for field presence, which allowed invalid values like `impact:"infra"` to pass through unchecked.
+- **accumulateBucket `??` fix** — Changed `||` to `??` (nullish coalescing) for `stats.additions`/`stats.deletions` fallback. Prevents `0` being treated as falsy (theoretical edge case, no current data affected).
+- **Data quality observations** — 431 commits (21%) lack `stats` field (from legacy batch-based analysis path before merge-analysis.js existed). These show 0 additions/deletions in charts. 69 commits (3%) lack `repo_id` (auto-filled by aggregation from directory name). Neither causes incorrect aggregation.
+
+**Previous Updates (2026-03-03 — Time-Windowed Data + Weekly/Daily Pre-Aggregation):**
+- **Architecture change** — Redesigned data pipeline for time-windowed reporting:
+  - `aggregate-processed.js` now outputs a **summary file** (`data.json`, ~126 KB) and **per-month commit files** (`data-commits/YYYY-MM.json`)
+  - Summary file contains weekly (ISO week), daily, and monthly pre-aggregated buckets with full metric breakdowns (tags, impact, risk, debt, semver, complexity, urgency, code changes, per-repo splits)
+  - Initial dashboard payload reduced from **2.9 MB → 126 KB** (96% smaller)
+  - Dashboard loads summary instantly, lazy-loads commit files in background for drilldowns/filters
+- **Data accuracy fixes** — UTC consistency for daily/monthly aggregation (62 commits affected by timezone offset). Impact "infra" → "infrastructure" alias mapping (2 commits). All 18 verification checks pass.
+- **Files changed**: `scripts/aggregate-processed.js`, `scripts/save-commit.js`, `dashboard/js/App.jsx`, `dashboard/js/AppContext.jsx`, `dashboard/js/tabs/SummaryTab.jsx`, `dashboard/js/tabs/TimelineTab.jsx`, `dashboard/js/tabs/ProgressTab.jsx`, `vite.config.js`
+
+**Previous Updates (2026-03-03 — Fix Partial Month Cliff on Trend Charts):**
+- **Bug fix** — Monthly trend charts (Features vs Bug Fixes, Impact Over Time, Urgency, Complexity, Debt) showed a misleading dramatic drop for the current month when data was incomplete (e.g., only 2 days into March vs full months with 800+ commits).
+- **Root cause**: Charts rendered raw monthly counts with no handling for partial months — 39 commits (2 days) shown at equal visual weight as 800+ commits (full month).
+- **Fix**: Added `excludeIncompleteLastMonth()` utility to `js/utils.js`. Applied in `ProgressTab.jsx` (features vs bugfix trend, complexity trend) and `useHealthData.js` (urgency trend → cascades to impact trend, debt trend). If the last month's latest commit day is before the 15th, that month is excluded from trend charts.
+- **Files changed**: `dashboard/js/utils.js`, `dashboard/js/tabs/ProgressTab.jsx`, `dashboard/js/hooks/useHealthData.js`
+
+**Previous Updates (2026-03-03 — Documentation Review & Corrections):**
 - **Full codebase audit** — Compared all documentation against actual code. Found and fixed ~30 discrepancies across README.md, CLAUDE.md, USER_GUIDE.md, ADMIN_GUIDE.md, SESSION_NOTES.md.
 - **Key fixes**: README rewritten for React/Vite era, removed Privacy Mode and Share/PDF ghost features from USER_GUIDE, fixed auto-loading data claims in ADMIN_GUIDE, replaced gh CLI section with token-based setup, corrected tab counts (5→6), corrected manifest.js false deletion claim, added decision documentation to AppContext.jsx split context pattern.
 - **Code change**: Added What/Why/Alternatives comment to `AppContext.jsx` split context pattern.
@@ -516,4 +569,4 @@ Benefits:
 
 ---
 
-*Last updated: 2026-03-02 - Feed the chicken: 151 new commits across 10 repos (2097 total). Added process guardrails to extraction playbook.*
+*Last updated: 2026-03-03 - Fix partial month cliff on trend charts. Incomplete months (less than 15 days of data) now excluded from all monthly trend charts.*

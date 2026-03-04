@@ -8,16 +8,15 @@ import DetailPane from './components/DetailPane.jsx';
 import SettingsPane from './components/SettingsPane.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import EmbedRenderer from './components/EmbedRenderer.jsx';
-import SummaryTab from './tabs/SummaryTab.jsx';
-import TimelineTab from './tabs/TimelineTab.jsx';
-import TimingTab from './tabs/TimingTab.jsx';
-import ProgressTab from './tabs/ProgressTab.jsx';
-import ContributorsTab from './tabs/ContributorsTab.jsx';
-import TagsTab from './tabs/TagsTab.jsx';
-import HealthTab from './tabs/HealthTab.jsx';
-import SecurityTab from './tabs/SecurityTab.jsx';
-import DiscoverTab from './tabs/DiscoverTab.jsx';
-import ProjectsTab from './tabs/ProjectsTab.jsx';
+import Summary from './sections/Summary.jsx';
+import Timeline from './sections/Timeline.jsx';
+import Timing from './sections/Timing.jsx';
+import Progress from './sections/Progress.jsx';
+import Contributors from './sections/Contributors.jsx';
+import Tags from './sections/Tags.jsx';
+import Health from './sections/Health.jsx';
+import Discover from './sections/Discover.jsx';
+import Projects from './sections/Projects.jsx';
 
 function combineDatasets(datasets) {
     if (datasets.length === 0) return null;
@@ -121,43 +120,79 @@ export default function App() {
         return () => { document.body.style.overflow = ''; };
     }, [state.detailPane.open, state.settingsPaneOpen]);
 
-    // Auto-load data.json on mount
-    // Fix: Added AbortController to cancel fetch on unmount, preventing state
-    // updates on a dead component (adopted from glow-props timer leak pattern;
-    // matches ProjectsTab.jsx which already used this approach).
+    // Requirement: Two-phase data loading for time-windowed file format
+    // Approach: Load data.json (summary) first for fast initial paint with pre-aggregated
+    //   charts, then lazy-load per-month commit files in background for drilldowns/filters.
+    //   Detects legacy format (inline commits) and skips lazy loading if commits already present.
+    // Alternatives:
+    //   - Load everything at once: Rejected — 2.9 MB payload, slow initial load
+    //   - Only load commits on demand: Rejected — too complex for filter/drilldown interactions
     useEffect(() => {
         const controller = new AbortController();
-        // Requirement: Load dashboard data with user-friendly error messages
-        // Approach: Check content-type before parsing to detect HTML-instead-of-JSON
-        // (caused by SPA rewrites returning index.html for missing files)
-        // Alternatives: Parse blindly and catch SyntaxError — rejected because the
-        // generic JSON parse error message is confusing for non-technical users
-        fetch('./data.json', { signal: controller.signal })
-            .then(r => {
-                if (r.status === 404) return null; // No data file — user can upload
+
+        async function loadData() {
+            try {
+                // Phase 1: Load summary (data.json)
+                const r = await fetch('./data.json', { signal: controller.signal });
+                if (r.status === 404) return; // No data file — user can upload
                 if (!r.ok) throw new Error(`HTTP ${r.status}`);
                 const ct = r.headers.get('content-type') || '';
-                if (ct.includes('text/html')) {
-                    // Server returned HTML instead of JSON (e.g. SPA rewrite)
-                    return null;
+                if (ct.includes('text/html')) return; // SPA rewrite, not JSON
+
+                const data = await r.json();
+                if (!data) return;
+
+                dispatch({ type: 'LOAD_DATA', payload: data });
+
+                // Phase 2: If commits are already inline (legacy format or file upload),
+                // skip lazy loading — data is complete
+                if (Array.isArray(data.commits) && data.commits.length > 0) {
+                    return;
                 }
-                return r.json();
-            })
-            .then(data => {
-                if (data) dispatch({ type: 'LOAD_DATA', payload: data });
-            })
-            .catch(err => {
+
+                // New format: load per-month commit files from data-commits/
+                const commitMonths = data.metadata?.commitMonths;
+                if (!Array.isArray(commitMonths) || commitMonths.length === 0) {
+                    return; // No commit months index — nothing to lazy load
+                }
+
+                dispatch({ type: 'SET_COMMITS_LOADING', payload: true });
+
+                // Fetch all month files in parallel
+                const monthPromises = commitMonths.map(async (month) => {
+                    const url = `./data-commits/${month}.json`;
+                    const resp = await fetch(url, { signal: controller.signal });
+                    if (!resp.ok) {
+                        console.warn(`Failed to load commits for ${month}: HTTP ${resp.status}`);
+                        return [];
+                    }
+                    const monthData = await resp.json();
+                    return monthData.commits || [];
+                });
+
+                const monthArrays = await Promise.all(monthPromises);
+                if (controller.signal.aborted) return;
+
+                // Merge all month commits, sort newest first
+                const allCommits = monthArrays
+                    .flat()
+                    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+                dispatch({ type: 'LOAD_COMMITS', payload: allCommits });
+            } catch (err) {
                 if (err.name === 'AbortError') return;
-                console.error('Failed to load data.json:', err);
+                console.error('Failed to load data:', err);
                 const isJsonParseError = err instanceof SyntaxError;
                 const userMessage = isJsonParseError
                     ? 'The dashboard data file could not be read. It may be corrupted or in the wrong format. Try uploading a fresh export below.'
                     : 'Something went wrong loading the dashboard. Please try again, or upload a data file below.';
                 setLoadError(userMessage);
-            })
-            .finally(() => {
+            } finally {
                 if (!controller.signal.aborted) setInitialLoading(false);
-            });
+            }
+        }
+
+        loadData();
         return () => controller.abort();
     }, []);
 
@@ -318,33 +353,31 @@ export default function App() {
         <div className="min-h-screen dashboard-enter">
             <Header />
             <TabBar />
-            <div className="max-w-7xl mx-auto px-4 md:px-8">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
                 <div className="dashboard-layout mt-6">
                     <FilterSidebar />
                     <div className="tab-content-area">
                         <ErrorBoundary key={state.activeTab}>
-                            {state.activeTab === 'overview' && <SummaryTab />}
+                            {state.activeTab === 'overview' && <Summary />}
                             {state.activeTab === 'activity' && (
                                 <div className="space-y-6">
-                                    <TimelineTab />
-                                    <TimingTab />
+                                    <Timeline />
+                                    <hr className="border-themed opacity-30" />
+                                    <Timing />
                                 </div>
                             )}
                             {state.activeTab === 'work' && (
                                 <div className="space-y-6">
-                                    <ProgressTab />
-                                    <ContributorsTab />
-                                    <TagsTab />
+                                    <Progress />
+                                    <hr className="border-themed opacity-30" />
+                                    <Contributors />
+                                    <hr className="border-themed opacity-30" />
+                                    <Tags />
                                 </div>
                             )}
-                            {state.activeTab === 'health' && (
-                                <div className="space-y-6">
-                                    <HealthTab />
-                                    <SecurityTab />
-                                </div>
-                            )}
-                            {state.activeTab === 'discover' && <DiscoverTab />}
-                            {state.activeTab === 'projects' && <ProjectsTab />}
+                            {state.activeTab === 'health' && <Health />}
+                            {state.activeTab === 'discover' && <Discover />}
+                            {state.activeTab === 'projects' && <Projects />}
                         </ErrorBoundary>
                     </div>
                 </div>

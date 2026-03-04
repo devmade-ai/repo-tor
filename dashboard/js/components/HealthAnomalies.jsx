@@ -31,6 +31,7 @@ export function RiskAssessment({ riskBreakdown, riskTotal, isMobile, onRiskFilte
         { key: 'medium', label: 'Medium Risk', colorClass: 'bg-amber-500' },
         { key: 'low', label: 'Low Risk', colorClass: 'bg-green-500' },
     ];
+    const clickable = typeof onRiskFilterClick === 'function';
 
     return (
         <CollapsibleSection title="Risk Assessment" subtitle="How risky are recent changes?" defaultExpanded={!isMobile}>
@@ -41,11 +42,11 @@ export function RiskAssessment({ riskBreakdown, riskTotal, isMobile, onRiskFilte
                     return (
                         <div
                             key={key}
-                            className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
-                            role="button"
-                            tabIndex={0}
-                            onClick={() => onRiskFilterClick(key)}
-                            onKeyDown={handleKeyActivate(() => onRiskFilterClick(key))}
+                            className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+                            role={clickable ? 'button' : undefined}
+                            tabIndex={clickable ? 0 : undefined}
+                            onClick={clickable ? () => onRiskFilterClick(key) : undefined}
+                            onKeyDown={clickable ? handleKeyActivate(() => onRiskFilterClick(key)) : undefined}
                         >
                             <div className="flex justify-between text-sm mb-1">
                                 <span className="text-themed-secondary">{label}</span>
@@ -77,6 +78,7 @@ export function DebtBalance({ debtBreakdown, debtTotal, isMobile, onDebtFilterCl
         { key: 'paid', label: 'Debt Paid Down', colorClass: 'bg-green-500' },
         { key: 'neutral', label: 'No Change', colorClass: 'bg-gray-400' },
     ];
+    const clickable = typeof onDebtFilterClick === 'function';
 
     return (
         <CollapsibleSection title="Tech Debt Balance" subtitle="Is debt growing or shrinking?" defaultExpanded={!isMobile}>
@@ -87,11 +89,11 @@ export function DebtBalance({ debtBreakdown, debtTotal, isMobile, onDebtFilterCl
                     return (
                         <div
                             key={key}
-                            className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
-                            role="button"
-                            tabIndex={0}
-                            onClick={() => onDebtFilterClick(key)}
-                            onKeyDown={handleKeyActivate(() => onDebtFilterClick(key))}
+                            className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+                            role={clickable ? 'button' : undefined}
+                            tabIndex={clickable ? 0 : undefined}
+                            onClick={clickable ? () => onDebtFilterClick(key) : undefined}
+                            onKeyDown={clickable ? handleKeyActivate(() => onDebtFilterClick(key)) : undefined}
                         >
                             <div className="flex justify-between text-sm mb-1">
                                 <span className="text-themed-secondary">{label}</span>

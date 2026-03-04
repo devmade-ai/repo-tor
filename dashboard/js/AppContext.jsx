@@ -45,6 +45,11 @@ function loadInitialState() {
         settingsPaneOpen: false,
         filters: savedFilters || { ...DEFAULT_FILTERS },
         commitListVisible: 100,
+        // Requirement: Track commit loading state for time-windowed lazy loading
+        // Approach: Separate commitsLoading flag so dashboard can show charts from
+        //   pre-aggregated data while commits are still loading in background
+        // Alternatives: Block rendering until commits load — rejected, wastes pre-aggregated data
+        commitsLoading: false,
     };
 }
 
@@ -53,6 +58,19 @@ function reducer(state, action) {
     switch (action.type) {
         case 'LOAD_DATA':
             return { ...state, data: action.payload, commitListVisible: 100 };
+        // Requirement: Merge lazy-loaded commits into existing summary data
+        // Approach: New action type merges commits array into state.data without
+        //   replacing the summary/aggregation data already loaded
+        case 'LOAD_COMMITS':
+            return {
+                ...state,
+                data: state.data
+                    ? { ...state.data, commits: action.payload }
+                    : state.data,
+                commitsLoading: false,
+            };
+        case 'SET_COMMITS_LOADING':
+            return { ...state, commitsLoading: action.payload };
         case 'SET_ACTIVE_TAB':
             return { ...state, activeTab: action.payload };
         case 'SET_VIEW_LEVEL':
@@ -177,7 +195,7 @@ export function AppProvider({ children }) {
     globalState.workHourEnd = state.workHourEnd;
     globalState.currentViewLevel = state.currentViewLevel;
 
-    // Memoized filtered commits
+    // Memoized filtered commits — only available after commits are loaded
     const filteredCommits = useMemo(
         () => filterCommits(state.data?.commits, state.filters),
         [state.data?.commits, state.filters]
@@ -189,8 +207,17 @@ export function AppProvider({ children }) {
         [state.currentViewLevel]
     );
 
-    // Available filter options (derived from data)
+    // Requirement: Use pre-computed filter options from summary when available
+    // Approach: Check for data.filterOptions (new format from aggregate-processed.js),
+    //   fall back to computing from commits (legacy format / file upload)
+    // Alternatives: Always compute from commits — rejected, requires loading all commits
+    //   before FilterSidebar can render
     const filterOptions = useMemo(() => {
+        // New format: pre-computed filter options from aggregation script
+        if (state.data?.filterOptions) {
+            return state.data.filterOptions;
+        }
+        // Legacy format: compute from commits array
         if (!state.data?.commits) return { tags: [], authors: [], repos: [], urgencies: [], impacts: [] };
         const tags = new Set();
         const authors = new Set();
@@ -211,7 +238,13 @@ export function AppProvider({ children }) {
             urgencies: [...urgencies].sort(),
             impacts: [...impacts].sort(),
         };
-    }, [state.data?.commits]);
+    }, [state.data?.filterOptions, state.data?.commits]);
+
+    // Whether commits have been loaded (either inline or via lazy loading)
+    const commitsLoaded = useMemo(
+        () => Array.isArray(state.data?.commits) && state.data.commits.length > 0,
+        [state.data?.commits]
+    );
 
     // Persist settings to localStorage
     useEffect(() => {
@@ -275,7 +308,8 @@ export function AppProvider({ children }) {
         filterOptions,
         activeFilterCount,
         isMobile,
-    }), [state, filteredCommits, viewConfig, filterOptions, activeFilterCount, isMobile]);
+        commitsLoaded,
+    }), [state, filteredCommits, viewConfig, filterOptions, activeFilterCount, isMobile, commitsLoaded]);
 
     return (
         <DispatchContext.Provider value={dispatchValue}>

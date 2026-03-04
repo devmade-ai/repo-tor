@@ -88,6 +88,13 @@ async function main() {
   const requiredFields = ['sha', 'timestamp', 'subject'];
   const analysisFields = ['tags', 'complexity', 'urgency', 'impact'];
 
+  // Requirement: Validate analysis field values, not just presence
+  // Approach: Validate types and ranges for tags, complexity, urgency, impact
+  //   (matching merge-analysis.js validation) to prevent bad data reaching aggregation
+  // Alternatives: Only validate presence — rejected because invalid values like
+  //   impact:"infra" or complexity:99 would silently produce wrong aggregation totals
+  const validImpacts = ['internal', 'user-facing', 'infrastructure', 'api'];
+
   const validCommits = [];
   const failedCommits = [];
 
@@ -101,11 +108,34 @@ async function main() {
       }
     }
 
-    // Check analysis fields
+    // Check analysis fields (presence)
     for (const field of analysisFields) {
       if (commit[field] === undefined) {
         errors.push(`missing ${field}`);
       }
+    }
+
+    // Validate analysis field values (match merge-analysis.js validation)
+    if (commit.tags !== undefined && !Array.isArray(commit.tags)) {
+      errors.push('tags must be an array');
+    }
+
+    if (commit.complexity !== undefined && commit.complexity !== null) {
+      const c = commit.complexity;
+      if (!Number.isInteger(c) || c < 1 || c > 5) {
+        errors.push('complexity must be integer 1-5');
+      }
+    }
+
+    if (commit.urgency !== undefined && commit.urgency !== null) {
+      const u = commit.urgency;
+      if (!Number.isInteger(u) || u < 1 || u > 5) {
+        errors.push('urgency must be integer 1-5');
+      }
+    }
+
+    if (commit.impact !== undefined && !validImpacts.includes(commit.impact)) {
+      errors.push(`impact must be one of: ${validImpacts.join(', ')}`);
     }
 
     // Ensure author info exists

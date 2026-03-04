@@ -454,12 +454,15 @@ Upload the contents of `dist/` to:
 
 ## Auto-Loading Data
 
-The dashboard loads data in this order:
+The dashboard loads data in two phases:
 
-1. `./data.json` — fetched automatically on page load (deployed via `dashboard/public/data.json`, which Vite copies to `dist/`)
-2. Manual file upload via the drag-and-drop zone (shown when no data.json is found)
+1. **Summary file** (`./data.json`, ~126 KB) — fetched first for instant chart rendering using pre-aggregated weekly/daily/monthly data
+2. **Commit files** (`./data-commits/YYYY-MM.json`) — lazy-loaded in background for drilldowns and filtered views
+3. **Manual file upload** via the drag-and-drop zone (shown when no data.json is found) — supports both the new split format and legacy single-file format
 
-For automatic loading, place your aggregated `data.json` in `dashboard/public/`. The aggregation script (`scripts/aggregate-processed.js`) writes there by default.
+The aggregation script (`scripts/aggregate-processed.js`) writes to `dashboard/public/` by default:
+- `dashboard/public/data.json` — summary with pre-aggregated data (no raw commits)
+- `dashboard/public/data-commits/` — per-month commit files
 
 ## Refreshing Data
 

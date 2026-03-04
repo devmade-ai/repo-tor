@@ -13,49 +13,49 @@
  */
 import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import ErrorBoundary from './ErrorBoundary.jsx';
-import SummaryTab from '../tabs/SummaryTab.jsx';
-import TimelineTab from '../tabs/TimelineTab.jsx';
-import TimingTab from '../tabs/TimingTab.jsx';
-import ProgressTab from '../tabs/ProgressTab.jsx';
-import ContributorsTab from '../tabs/ContributorsTab.jsx';
-import TagsTab from '../tabs/TagsTab.jsx';
-import HealthTab from '../tabs/HealthTab.jsx';
-import SecurityTab from '../tabs/SecurityTab.jsx';
-import DiscoverTab from '../tabs/DiscoverTab.jsx';
+import Summary from '../sections/Summary.jsx';
+import Timeline from '../sections/Timeline.jsx';
+import Timing from '../sections/Timing.jsx';
+import Progress from '../sections/Progress.jsx';
+import Contributors from '../sections/Contributors.jsx';
+import Tags from '../sections/Tags.jsx';
+import Health from '../sections/Health.jsx';
+import Discover from '../sections/Discover.jsx';
 
-// Maps each embed ID to the tab component(s) that render it
-const EMBED_TAB_MAP = {
-    'activity-timeline': [TimelineTab],
-    'code-changes-timeline': [TimelineTab],
-    'activity-heatmap': [TimingTab],
-    'hourly-distribution': [TimingTab],
-    'daily-distribution': [TimingTab],
-    'feature-vs-bugfix-trend': [ProgressTab],
-    'complexity-over-time': [ProgressTab],
-    'semver-distribution': [ProgressTab],
-    'contributor-complexity': [ContributorsTab],
-    'tag-distribution': [TagsTab],
-    'urgency-trend': [HealthTab],
-    'impact-over-time': [HealthTab],
-    'debt-trend': [HealthTab],
+// Maps each embed ID to the section component(s) that render it
+// Note: urgency-trend, impact-over-time, debt-trend moved from Health to Timeline
+const EMBED_SECTION_MAP = {
+    'activity-timeline': [Timeline],
+    'code-changes-timeline': [Timeline],
+    'urgency-trend': [Timeline],
+    'impact-over-time': [Timeline],
+    'debt-trend': [Timeline],
+    'activity-heatmap': [Timing],
+    'hourly-distribution': [Timing],
+    'daily-distribution': [Timing],
+    'feature-vs-bugfix-trend': [Progress],
+    'complexity-over-time': [Progress],
+    'semver-distribution': [Progress],
+    'contributor-complexity': [Contributors],
+    'tag-distribution': [Tags],
 };
 
 // All valid embed IDs for validation
-const VALID_IDS = new Set(Object.keys(EMBED_TAB_MAP));
+const VALID_IDS = new Set(Object.keys(EMBED_SECTION_MAP));
 
 export default function EmbedRenderer({ embedIds }) {
     const containerRef = useRef(null);
 
-    // Determine which tab components need to render (deduplicated)
-    const tabsToRender = [];
-    const tabSet = new Set();
+    // Determine which section components need to render (deduplicated)
+    const sectionsToRender = [];
+    const sectionSet = new Set();
     const validIds = embedIds.filter(id => VALID_IDS.has(id));
 
     validIds.forEach(id => {
-        EMBED_TAB_MAP[id].forEach(TabComponent => {
-            if (!tabSet.has(TabComponent)) {
-                tabSet.add(TabComponent);
-                tabsToRender.push(TabComponent);
+        EMBED_SECTION_MAP[id].forEach(SectionComponent => {
+            if (!sectionSet.has(SectionComponent)) {
+                sectionSet.add(SectionComponent);
+                sectionsToRender.push(SectionComponent);
             }
         });
     });
@@ -147,8 +147,8 @@ export default function EmbedRenderer({ embedIds }) {
     return (
         <div ref={containerRef} className="embed-mode">
             <ErrorBoundary>
-                {tabsToRender.map((TabComponent, idx) => (
-                    <TabComponent key={idx} />
+                {sectionsToRender.map((SectionComponent, idx) => (
+                    <SectionComponent key={idx} />
                 ))}
             </ErrorBoundary>
         </div>

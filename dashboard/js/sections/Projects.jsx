@@ -9,8 +9,8 @@ import CollapsibleSection from '../components/CollapsibleSection.jsx';
 //   - Read from config/repos.json: Rejected — config/ not in Vite build output
 //   - Derive from loaded analytics data only: Rejected — misses projects without analytics
 
-export default function ProjectsTab() {
-    const { state } = useApp();
+export default function Projects() {
+    const { state, filteredCommits, commitsLoaded } = useApp();
     const [projects, setProjects] = useState([]);
     const [loadError, setLoadError] = useState(null);
 
@@ -35,21 +35,33 @@ export default function ProjectsTab() {
         return () => controller.abort();
     }, []);
 
-    // Enrich projects with commit counts from loaded analytics data
+    // Enrich projects with commit counts from analytics data
+    // Requirement: Show commit counts instantly during Phase 1
+    // Approach: Use summary.repoCommitCounts (pre-aggregated) during Phase 1,
+    //   then switch to computing from loaded commits (which respects filters).
+    // Alternatives:
+    //   - Show null during Phase 1: Rejected — counts are available in summary
+    //   - Only use loaded commits: Rejected — 1-3s delay where counts are missing
     const enriched = useMemo(() => {
-        const commits = state.data?.commits || [];
-        const repoCounts = {};
-        commits.forEach(c => {
-            if (c.repo_id) {
-                repoCounts[c.repo_id] = (repoCounts[c.repo_id] || 0) + 1;
-            }
-        });
+        let repoCounts;
+        if (commitsLoaded) {
+            // Phase 2: compute from filtered commits (respects user-applied filters)
+            repoCounts = {};
+            filteredCommits.forEach(c => {
+                if (c.repo_id) {
+                    repoCounts[c.repo_id] = (repoCounts[c.repo_id] || 0) + 1;
+                }
+            });
+        } else {
+            // Phase 1: use pre-aggregated counts from summary
+            repoCounts = state.data?.summary?.repoCommitCounts || null;
+        }
 
         return projects.map(p => ({
             ...p,
-            commitCount: repoCounts[p.name] || 0,
+            commitCount: repoCounts ? (repoCounts[p.name] || 0) : null,
         }));
-    }, [projects, state.data?.commits]);
+    }, [projects, filteredCommits, state.data?.summary?.repoCommitCounts, commitsLoaded]);
 
     // Split into live (has liveUrl) and other projects
     const { liveProjects, otherProjects } = useMemo(() => {
@@ -122,7 +134,7 @@ function ProjectCard({ project }) {
                 <p className="text-sm text-themed-tertiary mt-1">{project.description}</p>
             )}
 
-            {project.commitCount > 0 && (
+            {project.commitCount != null && project.commitCount > 0 && (
                 <p className="text-xs text-themed-muted mt-2">
                     {project.commitCount} commits tracked
                 </p>

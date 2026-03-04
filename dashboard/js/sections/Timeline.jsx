@@ -1,17 +1,18 @@
 import React, { useMemo, useState, useCallback, useEffect } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
     formatDate, getCommitTags, getTagClass, getTagStyleObject,
     getAuthorEmail, getAuthorName, getCommitSubject,
-    sanitizeMessage, getWorkPattern, getAdditions, getDeletions, handleKeyActivate
+    sanitizeMessage, getWorkPattern, getAdditions, getDeletions, handleKeyActivate,
+    getUTCDateKey, getUTCMonthKey, excludeIncompleteLastMonth,
 } from '../utils.js';
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
-import { seriesColors, accentColor, getSeriesColor } from '../chartColors.js';
+import { seriesColors, accentColor, getSeriesColor, withOpacity, mutedColor } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
-export default function TimelineTab() {
-    const { state, dispatch, filteredCommits, viewConfig, openDetailPane, isMobile } = useApp();
+export default function Timeline() {
+    const { state, dispatch, filteredCommits, viewConfig, openDetailPane, isMobile, commitsLoaded } = useApp();
     const [visibleCount, setVisibleCount] = useState(100);
 
     // Reset visible count when filtered commits change.
@@ -23,50 +24,110 @@ export default function TimelineTab() {
     }, [filteredCommits.length]);
 
     // Summary card data
+    // Requirement: Show summary stats from pre-aggregated data before commits load
+    // Once commits are loaded, always use filteredCommits (even if empty due to filters)
+    // to avoid falling back to unfiltered summary data
     const summaryData = useMemo(() => {
-        const totalCommits = filteredCommits.length;
-        const uniqueDays = new Set(filteredCommits.map(c => c.timestamp?.substring(0, 10)).filter(Boolean));
-        const activeDays = uniqueDays.size;
-        const sortedDates = [...uniqueDays].sort();
+        if (commitsLoaded) {
+            const totalCommits = filteredCommits.length;
+            const uniqueDays = new Set(filteredCommits.map(c => c.timestamp ? getUTCDateKey(c.timestamp) : null).filter(Boolean));
+            const activeDays = uniqueDays.size;
+            const sortedDates = [...uniqueDays].sort();
 
-        let earliest = 'No data';
-        let latest = '';
-        let daySpan = '';
-        if (sortedDates.length > 0) {
-            earliest = new Date(sortedDates[0]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            latest = new Date(sortedDates[sortedDates.length - 1]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            daySpan = `in ${sortedDates.length} day span`;
+            let earliest = 'No data';
+            let latest = '';
+            let daySpan = '';
+            if (sortedDates.length > 0) {
+                earliest = new Date(sortedDates[0]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                latest = new Date(sortedDates[sortedDates.length - 1]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                daySpan = `in ${sortedDates.length} day span`;
+            }
+
+            const uniqueContributors = new Set(filteredCommits.map(c => getAuthorEmail(c)));
+            const avgPerDay = activeDays > 0 ? (totalCommits / activeDays).toFixed(1) : '0';
+
+            return {
+                totalCommits, activeDays, earliest, latest, daySpan,
+                contributors: uniqueContributors.size, avgPerDay,
+            };
         }
 
-        const uniqueContributors = new Set(filteredCommits.map(c => getAuthorEmail(c)));
-        const avgPerDay = activeDays > 0 ? (totalCommits / activeDays).toFixed(1) : '0';
+        // Pre-aggregated fallback
+        const summary = state.data?.summary;
+        const dateRange = summary?.dateRange;
+        const daily = summary?.daily;
+        if (summary && daily) {
+            const totalCommits = summary.totalCommits || 0;
+            const activeDays = Object.keys(daily).length;
+            const sortedDates = Object.keys(daily).sort();
+
+            let earliest = 'No data';
+            let latest = '';
+            let daySpan = '';
+            if (sortedDates.length > 0) {
+                earliest = new Date(sortedDates[0]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                latest = new Date(sortedDates[sortedDates.length - 1]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                daySpan = `in ${sortedDates.length} day span`;
+            }
+
+            const contributors = state.data?.contributors?.length || summary.totalContributors || 0;
+            const avgPerDay = activeDays > 0 ? (totalCommits / activeDays).toFixed(1) : '0';
+
+            return {
+                totalCommits, activeDays, earliest, latest, daySpan,
+                contributors, avgPerDay,
+            };
+        }
 
         return {
-            totalCommits, activeDays, earliest, latest, daySpan,
-            contributors: uniqueContributors.size, avgPerDay,
+            totalCommits: 0, activeDays: 0, earliest: 'No data', latest: '',
+            daySpan: '', contributors: 0, avgPerDay: '0',
         };
-    }, [filteredCommits]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary]);
 
     // Activity timeline chart data
+    // Requirement: Render chart from pre-aggregated daily data when commits aren't loaded
+    // Approach: Use summary.daily buckets for initial render, switch to filteredCommits
+    //   once commits are loaded (for filter-aware rendering)
+    // Alternatives: Wait for commits — rejected, delays chart rendering unnecessarily
     const activityChartData = useMemo(() => {
-        const commitsByDate = {};
-        const repos = [...new Set(filteredCommits.map(c => c.repo_id).filter(Boolean))];
+        let commitsByDate = {};
+        let repos = [];
+
+        if (commitsLoaded) {
+            // Commits loaded: compute from filtered commits (supports all filters)
+            repos = [...new Set(filteredCommits.map(c => c.repo_id).filter(Boolean))];
+
+            filteredCommits.forEach(commit => {
+                if (!commit.timestamp) return;
+                const dateStr = getUTCDateKey(commit.timestamp);
+                if (!commitsByDate[dateStr]) {
+                    commitsByDate[dateStr] = { total: 0, byRepo: {} };
+                }
+                commitsByDate[dateStr].total++;
+                if (commit.repo_id) {
+                    commitsByDate[dateStr].byRepo[commit.repo_id] =
+                        (commitsByDate[dateStr].byRepo[commit.repo_id] || 0) + 1;
+                }
+            });
+        } else if (state.data?.summary?.daily) {
+            // Pre-aggregated: use daily buckets from summary
+            const daily = state.data.summary.daily;
+            for (const [dateStr, bucket] of Object.entries(daily)) {
+                commitsByDate[dateStr] = {
+                    total: bucket.commits,
+                    byRepo: bucket.repos || {},
+                };
+                // Collect repo names from bucket data
+                for (const repo of Object.keys(bucket.repos || {})) {
+                    if (!repos.includes(repo)) repos.push(repo);
+                }
+            }
+        }
+
         const repoColors = {};
         repos.forEach((repo, i) => {
             repoColors[repo] = getSeriesColor(i);
-        });
-
-        filteredCommits.forEach(commit => {
-            const dateStr = commit.timestamp?.substring(0, 10);
-            if (!dateStr) return;
-            if (!commitsByDate[dateStr]) {
-                commitsByDate[dateStr] = { total: 0, byRepo: {} };
-            }
-            commitsByDate[dateStr].total++;
-            if (commit.repo_id) {
-                commitsByDate[dateStr].byRepo[commit.repo_id] =
-                    (commitsByDate[dateStr].byRepo[commit.repo_id] || 0) + 1;
-            }
         });
 
         const sortedDates = Object.keys(commitsByDate).sort().slice(-60);
@@ -127,31 +188,44 @@ export default function TimelineTab() {
                 },
             },
         };
-    }, [filteredCommits, isMobile]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile]);
 
     // Code changes timeline chart data
+    // Uses pre-aggregated daily data (additions/deletions) when commits aren't loaded
     const codeChangesChartData = useMemo(() => {
-        const changesByDate = {};
-        const repos = [...new Set(filteredCommits.map(c => c.repo_id).filter(Boolean))];
+        let changesByDate = {};
+        let repos = [];
+
+        if (commitsLoaded) {
+            repos = [...new Set(filteredCommits.map(c => c.repo_id).filter(Boolean))];
+
+            filteredCommits.forEach(commit => {
+                if (!commit.timestamp) return;
+                const dateStr = getUTCDateKey(commit.timestamp);
+                if (!changesByDate[dateStr]) {
+                    changesByDate[dateStr] = { total: 0, byRepo: {} };
+                }
+                const additions = getAdditions(commit);
+                const deletions = getDeletions(commit);
+                const netChange = additions - deletions;
+                changesByDate[dateStr].total += netChange;
+                if (commit.repo_id) {
+                    changesByDate[dateStr].byRepo[commit.repo_id] =
+                        (changesByDate[dateStr].byRepo[commit.repo_id] || 0) + netChange;
+                }
+            });
+        } else if (state.data?.summary?.daily) {
+            // Pre-aggregated: use daily bucket additions/deletions
+            const daily = state.data.summary.daily;
+            for (const [dateStr, bucket] of Object.entries(daily)) {
+                const netChange = (bucket.additions || 0) - (bucket.deletions || 0);
+                changesByDate[dateStr] = { total: netChange, byRepo: {} };
+            }
+        }
+
         const repoColors = {};
         repos.forEach((repo, i) => {
             repoColors[repo] = getSeriesColor(i);
-        });
-
-        filteredCommits.forEach(commit => {
-            const dateStr = commit.timestamp?.substring(0, 10);
-            if (!dateStr) return;
-            if (!changesByDate[dateStr]) {
-                changesByDate[dateStr] = { total: 0, byRepo: {} };
-            }
-            const additions = getAdditions(commit);
-            const deletions = getDeletions(commit);
-            const netChange = additions - deletions;
-            changesByDate[dateStr].total += netChange;
-            if (commit.repo_id) {
-                changesByDate[dateStr].byRepo[commit.repo_id] =
-                    (changesByDate[dateStr].byRepo[commit.repo_id] || 0) + netChange;
-            }
         });
 
         const sortedDates = Object.keys(changesByDate).sort().slice(-60);
@@ -235,7 +309,141 @@ export default function TimelineTab() {
                 },
             },
         };
-    }, [filteredCommits, isMobile]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile]);
+
+    // --- Trend charts (moved from Health section — time-based data belongs here) ---
+
+    // Urgency Trend — monthly average urgency line chart
+    // Only computed from loaded commits (no pre-aggregated monthly urgency data)
+    const urgencyTrendData = useMemo(() => {
+        if (!commitsLoaded) return null;
+        const monthlyUrgency = {};
+        filteredCommits.forEach(c => {
+            if (!c.timestamp || !c.urgency) return;
+            const month = getUTCMonthKey(c.timestamp);
+            if (!monthlyUrgency[month]) monthlyUrgency[month] = { sum: 0, count: 0 };
+            monthlyUrgency[month].sum += c.urgency;
+            monthlyUrgency[month].count++;
+        });
+        const { months: sortedMonths } = excludeIncompleteLastMonth(
+            Object.keys(monthlyUrgency).sort(), filteredCommits
+        );
+        if (sortedMonths.length === 0) return null;
+        const urgencyData = sortedMonths.map(m =>
+            Math.round((monthlyUrgency[m].sum / monthlyUrgency[m].count) * 100) / 100
+        );
+        const mobile = isMobile;
+        return {
+            data: {
+                labels: sortedMonths.map(m => {
+                    const [year, month] = m.split('-');
+                    return new Date(year, month - 1).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+                }),
+                datasets: [{
+                    label: 'Avg Urgency',
+                    data: urgencyData,
+                    borderColor: getSeriesColor(2),
+                    backgroundColor: withOpacity(getSeriesColor(2), 0.1),
+                    fill: true, tension: 0.3,
+                }],
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
+                    y: { min: 1, max: 5, ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } } },
+                },
+            },
+            sortedMonths,
+        };
+    }, [filteredCommits, isMobile, commitsLoaded]);
+
+    // Debt Trend — monthly debt added vs paid
+    const debtTrendData = useMemo(() => {
+        if (!commitsLoaded) return null;
+        const monthlyDebt = {};
+        filteredCommits.forEach(c => {
+            if (!c.timestamp || !c.debt) return;
+            const month = getUTCMonthKey(c.timestamp);
+            if (!monthlyDebt[month]) monthlyDebt[month] = { added: 0, paid: 0, neutral: 0 };
+            if (monthlyDebt[month].hasOwnProperty(c.debt)) monthlyDebt[month][c.debt]++;
+        });
+        const hasDebt = Object.values(monthlyDebt).some(m => m.added + m.paid > 0);
+        if (!hasDebt) return null;
+        const { months: sortedMonths } = excludeIncompleteLastMonth(
+            Object.keys(monthlyDebt).sort(), filteredCommits
+        );
+        if (sortedMonths.length === 0) return null;
+        const mobile = isMobile;
+        return {
+            data: {
+                labels: sortedMonths.map(m => {
+                    const [year, month] = m.split('-');
+                    return new Date(year, month - 1).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+                }),
+                datasets: [
+                    {
+                        label: 'Debt Added', data: sortedMonths.map(m => monthlyDebt[m]?.added || 0),
+                        borderColor: getSeriesColor(4), backgroundColor: withOpacity(getSeriesColor(4), 0.1),
+                        fill: true, tension: 0.3,
+                    },
+                    {
+                        label: 'Debt Paid', data: sortedMonths.map(m => monthlyDebt[m]?.paid || 0),
+                        borderColor: getSeriesColor(1), backgroundColor: withOpacity(getSeriesColor(1), 0.1),
+                        fill: true, tension: 0.3,
+                    },
+                ],
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: mobile ? 8 : 12, font: { size: mobile ? 9 : 10 }, padding: mobile ? 4 : 10 } } },
+                scales: {
+                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
+                    y: { ticks: { font: { size: mobile ? 10 : 12 } } },
+                },
+            },
+        };
+    }, [filteredCommits, isMobile, commitsLoaded]);
+
+    // Impact Over Time — monthly stacked bar by impact type
+    const impactTrendData = useMemo(() => {
+        if (!commitsLoaded) return null;
+        const monthlyImpact = {};
+        filteredCommits.forEach(c => {
+            if (!c.timestamp || !c.impact) return;
+            const month = getUTCMonthKey(c.timestamp);
+            if (!monthlyImpact[month]) monthlyImpact[month] = { 'user-facing': 0, 'internal': 0, 'infrastructure': 0, 'api': 0 };
+            if (monthlyImpact[month].hasOwnProperty(c.impact)) monthlyImpact[month][c.impact]++;
+        });
+        const sortedMonths = urgencyTrendData?.sortedMonths || Object.keys(monthlyImpact).sort();
+        if (sortedMonths.length === 0) return null;
+        const impactColors = {
+            'user-facing': getSeriesColor(0), 'internal': mutedColor,
+            'infrastructure': getSeriesColor(3), 'api': getSeriesColor(1),
+        };
+        const mobile = isMobile;
+        return {
+            data: {
+                labels: sortedMonths.map(m => {
+                    const [year, month] = m.split('-');
+                    return new Date(year, month - 1).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+                }),
+                datasets: ['user-facing', 'internal', 'infrastructure', 'api'].map(impact => ({
+                    label: impact, data: sortedMonths.map(m => monthlyImpact[m]?.[impact] || 0),
+                    backgroundColor: impactColors[impact],
+                })),
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: mobile ? 8 : 12, font: { size: mobile ? 9 : 10 }, padding: mobile ? 4 : 10 } } },
+                scales: {
+                    x: { stacked: true, ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
+                    y: { stacked: true, ticks: { font: { size: mobile ? 10 : 12 } } },
+                },
+            },
+        };
+    }, [filteredCommits, urgencyTrendData, isMobile, commitsLoaded]);
 
     // Handle card clicks
     const handleCardClick = useCallback((type) => {
@@ -401,7 +609,12 @@ export default function TimelineTab() {
             {/* Commit List — browsable real content, collapsed on mobile */}
             <CollapsibleSection title="Recent Changes" subtitle={showingText} defaultExpanded={!isMobile}>
                 <div className="space-y-2">
-                    {commitListContent.length > 0 ? (
+                    {!commitsLoaded && state.commitsLoading ? (
+                        <div className="flex items-center gap-2 py-4 justify-center">
+                            <div className="loading-spinner" style={{ width: 16, height: 16, borderWidth: 2 }} />
+                            <p className="text-themed-tertiary text-sm">Loading commit details&hellip;</p>
+                        </div>
+                    ) : commitListContent.length > 0 ? (
                         commitListContent
                     ) : (
                         <p className="text-themed-tertiary">Nothing matches the current filters. Try adjusting your selections.</p>
@@ -422,6 +635,33 @@ export default function TimelineTab() {
                 <CollapsibleSection title="Lines Changed" subtitle="Net code additions and deletions" defaultExpanded={!isMobile}>
                     <div data-embed-id="code-changes-timeline" style={{ height: chartHeight }}>
                         <Bar data={codeChangesChartData.data} options={codeChangesChartData.options} />
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Urgency Trend — only shows after commits load */}
+            {urgencyTrendData && (
+                <CollapsibleSection title="Urgency Over Time" subtitle="Is urgency increasing or decreasing?" defaultExpanded={!isMobile}>
+                    <div data-embed-id="urgency-trend" style={{ height: chartHeight }}>
+                        <Line data={urgencyTrendData.data} options={urgencyTrendData.options} />
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Debt Trend — only shows after commits load */}
+            {debtTrendData && (
+                <CollapsibleSection title="Debt Trend" subtitle="Monthly debt added vs paid" defaultExpanded={!isMobile}>
+                    <div data-embed-id="debt-trend" style={{ height: chartHeight }}>
+                        <Line data={debtTrendData.data} options={debtTrendData.options} />
+                    </div>
+                </CollapsibleSection>
+            )}
+
+            {/* Impact Over Time — only shows after commits load */}
+            {impactTrendData && (
+                <CollapsibleSection title="Impact Over Time" subtitle="Monthly breakdown by area" defaultExpanded={!isMobile}>
+                    <div data-embed-id="impact-over-time" style={{ height: chartHeight }}>
+                        <Bar data={impactTrendData.data} options={impactTrendData.options} />
                     </div>
                 </CollapsibleSection>
             )}

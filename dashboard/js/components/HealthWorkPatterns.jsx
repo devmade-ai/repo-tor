@@ -24,10 +24,12 @@ import { handleKeyActivate } from '../utils.js';
 export default function HealthWorkPatterns({ metrics, onCardClick }) {
     const cards = [
         { type: 'security', value: metrics.securityCount, label: 'Security' },
-        { type: 'reactive', value: `${metrics.reactivePct}%`, label: 'Reactive' },
-        { type: 'weekend', value: `${metrics.weekendPct}%`, label: 'Weekend' },
-        { type: 'afterhours', value: `${metrics.afterHoursPct}%`, label: 'After Hours' },
+        { type: 'reactive', value: metrics.reactivePct != null ? `${metrics.reactivePct}%` : '\u2014', label: 'Reactive' },
+        { type: 'weekend', value: metrics.weekendPct != null ? `${metrics.weekendPct}%` : '\u2014', label: 'Weekend' },
+        { type: 'afterhours', value: metrics.afterHoursPct != null ? `${metrics.afterHoursPct}%` : '\u2014', label: 'After Hours' },
     ];
+
+    const clickable = typeof onCardClick === 'function';
 
     return (
         <CollapsibleSection title="Health Overview">
@@ -35,11 +37,11 @@ export default function HealthWorkPatterns({ metrics, onCardClick }) {
                 {cards.map(({ type, value, label }) => (
                     <div
                         key={type}
-                        className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => onCardClick(type)}
-                        onKeyDown={handleKeyActivate(() => onCardClick(type))}
+                        className={`p-4 bg-themed-tertiary rounded-lg text-center transition-all ${clickable ? 'cursor-pointer hover:ring-2 hover:ring-blue-500' : ''}`}
+                        role={clickable ? 'button' : undefined}
+                        tabIndex={clickable ? 0 : undefined}
+                        onClick={clickable ? () => onCardClick(type) : undefined}
+                        onKeyDown={clickable ? handleKeyActivate(() => onCardClick(type)) : undefined}
                     >
                         <div className="text-2xl font-semibold text-themed-primary">{value}</div>
                         <div className="text-sm text-themed-tertiary">{label}</div>

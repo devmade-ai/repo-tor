@@ -17,13 +17,87 @@ function getHeatmapLevel(count, maxCount) {
     return 4;
 }
 
-export default function TimingTab() {
-    const { state, filteredCommits, viewConfig, isMobile } = useApp();
+// Requirement: Show timing data during Phase 1 using pre-aggregated hourlyHeatmap
+// Approach: When commits haven't loaded, use summary.hourlyHeatmap (24×7 matrix +
+//   byHour + byDay arrays computed at aggregation time using UTC). Once commits load,
+//   recompute from filteredCommits using user's timezone preference. The UTC-based
+//   Phase 1 data may differ slightly from local-time Phase 2 data — acceptable for
+//   the 1-3 second loading window.
+// Alternatives:
+//   - Show spinner: Rejected — heatmap data exists in summary
+//   - Store heatmaps in all timezones: Rejected — prohibitively large
+
+export default function Timing() {
+    const { state, filteredCommits, viewConfig, isMobile, commitsLoaded } = useApp();
 
     // Build heatmap data based on view level
     const heatmapContent = useMemo(() => {
-        const commits = filteredCommits;
         const timing = viewConfig.timing;
+
+        // Phase 1: use pre-aggregated heatmap from summary for the hourly view
+        // Weekly and daily views also derive from byDay/byHour arrays
+        if (!commitsLoaded) {
+            const heatmap = state.data?.summary?.hourlyHeatmap;
+            if (!heatmap) return { type: 'hourly', matrix: Array.from({ length: 24 }, () => new Array(7).fill(0)), maxCount: 1, dayOrder: [1, 2, 3, 4, 5, 6, 0], dayLabels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] };
+
+            if (timing === 'week') {
+                // Can't build weekly heatmap from hourlyHeatmap (need per-week data)
+                // Show daily distribution as a reasonable approximation
+                const byDay = heatmap.byDay || new Array(7).fill(0);
+                const dayOrder = [1, 2, 3, 4, 5, 6, 0];
+                const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                const maxCount = Math.max(...byDay, 1);
+                const weekdayCommits = dayOrder.slice(0, 5).reduce((sum, idx) => sum + byDay[idx], 0);
+                const weekendCommits = dayOrder.slice(5).reduce((sum, idx) => sum + byDay[idx], 0);
+                const totalCommits = weekdayCommits + weekendCommits;
+                const weekendPct = totalCommits > 0 ? Math.round((weekendCommits / totalCommits) * 100) : 0;
+
+                return {
+                    type: 'daily',
+                    byDay,
+                    dayOrder,
+                    dayLabels,
+                    maxCount,
+                    weekdayCommits,
+                    weekendCommits,
+                    weekendPct,
+                };
+            } else if (timing === 'day') {
+                const byDay = heatmap.byDay || new Array(7).fill(0);
+                const dayOrder = [1, 2, 3, 4, 5, 6, 0];
+                const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                const maxCount = Math.max(...byDay, 1);
+                const weekdayCommits = dayOrder.slice(0, 5).reduce((sum, idx) => sum + byDay[idx], 0);
+                const weekendCommits = dayOrder.slice(5).reduce((sum, idx) => sum + byDay[idx], 0);
+                const totalCommits = weekdayCommits + weekendCommits;
+                const weekendPct = totalCommits > 0 ? Math.round((weekendCommits / totalCommits) * 100) : 0;
+
+                return {
+                    type: 'daily',
+                    byDay,
+                    dayOrder,
+                    dayLabels,
+                    maxCount,
+                    weekdayCommits,
+                    weekendCommits,
+                    weekendPct,
+                };
+            } else {
+                // Full 24x7 heatmap from pre-aggregated data
+                const matrix = heatmap.matrix || Array.from({ length: 24 }, () => new Array(7).fill(0));
+                const maxCount = Math.max(...matrix.flat(), 1);
+                return {
+                    type: 'hourly',
+                    matrix,
+                    maxCount,
+                    dayOrder: [1, 2, 3, 4, 5, 6, 0],
+                    dayLabels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                };
+            }
+        }
+
+        // Phase 2: compute from filtered commits
+        const commits = filteredCommits;
 
         if (timing === 'week') {
             // Executive view: weekly heatmap
@@ -96,17 +170,23 @@ export default function TimingTab() {
                 dayLabels,
             };
         }
-    }, [filteredCommits, viewConfig]);
+    }, [filteredCommits, viewConfig, commitsLoaded, state.data?.summary?.hourlyHeatmap]);
 
     // Hourly distribution chart
     const hourChartData = useMemo(() => {
         if (viewConfig.timing !== 'hour') return null;
 
-        const byHour = new Array(24).fill(0);
-        filteredCommits.forEach(commit => {
-            const { hour } = getCommitDateTime(commit);
-            byHour[hour]++;
-        });
+        // Phase 1: use pre-aggregated byHour from summary
+        let byHour;
+        if (!commitsLoaded) {
+            byHour = state.data?.summary?.hourlyHeatmap?.byHour || new Array(24).fill(0);
+        } else {
+            byHour = new Array(24).fill(0);
+            filteredCommits.forEach(commit => {
+                const { hour } = getCommitDateTime(commit);
+                byHour[hour]++;
+            });
+        }
 
         const hourLabels = Array.from({ length: 24 }, (_, i) =>
             i.toString().padStart(2, '0') + ':00'
@@ -155,15 +235,20 @@ export default function TimingTab() {
                 },
             },
         };
-    }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd, isMobile]);
+    }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap]);
 
     // Daily distribution chart
     const dayChartData = useMemo(() => {
-        const byDay = new Array(7).fill(0);
-        filteredCommits.forEach(commit => {
-            const { dayOfWeek } = getCommitDateTime(commit);
-            byDay[dayOfWeek]++;
-        });
+        let byDay;
+        if (!commitsLoaded) {
+            byDay = state.data?.summary?.hourlyHeatmap?.byDay || new Array(7).fill(0);
+        } else {
+            byDay = new Array(7).fill(0);
+            filteredCommits.forEach(commit => {
+                const { dayOfWeek } = getCommitDateTime(commit);
+                byDay[dayOfWeek]++;
+            });
+        }
 
         const mondayFirstOrder = [1, 2, 3, 4, 5, 6, 0];
         const dayLabels = mondayFirstOrder.map(i => DAY_NAMES_SHORT[i]);
@@ -201,11 +286,11 @@ export default function TimingTab() {
                 },
             },
         };
-    }, [filteredCommits, isMobile]);
+    }, [filteredCommits, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap]);
 
-    // Developer patterns
+    // Developer patterns — only available with loaded commits
     const developerPatterns = useMemo(() => {
-        if (viewConfig.timing !== 'hour') return [];
+        if (!commitsLoaded || viewConfig.timing !== 'hour') return [];
 
         const authorPatterns = {};
         filteredCommits.forEach(commit => {
@@ -259,7 +344,7 @@ export default function TimingTab() {
                     weekendPct,
                 };
             });
-    }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd]);
+    }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd, commitsLoaded]);
 
     // Render heatmap based on type
     const renderHeatmap = () => {
