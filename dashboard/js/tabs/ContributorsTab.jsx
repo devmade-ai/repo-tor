@@ -8,23 +8,37 @@ import {
 import { getSeriesColor, mutedColor } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
+// Requirement: Show contributor data during Phase 1 using pre-aggregated summary
+// Approach: When commits haven't loaded, map summary.contributors[] (which has name,
+//   email, commits count, avgComplexity, tagBreakdown) to the same format
+//   aggregateContributors() returns. Once commits load, use aggregateContributors()
+//   which respects user-applied filters and view level.
+// Alternatives:
+//   - Show spinner: Rejected — summary already has contributor data
+//   - Conditional hook call: Rejected — violates React hooks rules
+
 export default function ContributorsTab() {
     const { state, filteredCommits, viewConfig, openDetailPane, isMobile, commitsLoaded } = useApp();
 
-    // Show loading indicator while commits are being fetched
-    if (!commitsLoaded && state.commitsLoading) {
-        return (
-            <div className="flex flex-col items-center justify-center py-16 gap-3">
-                <div className="loading-spinner" style={{ width: 28, height: 28, borderWidth: 3 }} />
-                <p className="text-sm text-themed-tertiary">Loading contributor data&hellip;</p>
-            </div>
-        );
-    }
-
-    // Aggregated contributor data based on view level
+    // Aggregated contributor data — from summary during Phase 1, from commits during Phase 2
     const aggregated = useMemo(() => {
+        if (!commitsLoaded) {
+            // Phase 1: map pre-aggregated summary contributors to expected format
+            const summaryContributors = state.data?.contributors;
+            if (!summaryContributors || summaryContributors.length === 0) return [];
+            return summaryContributors.map(c => ({
+                label: c.email || c.author_id,
+                displayName: sanitizeName(c.name, c.email || c.author_id),
+                count: c.commits,
+                breakdown: c.tagBreakdown || {},
+                // avgComplexity is a single number; wrap in array so the average
+                // computation (sum/length) returns the same value
+                complexities: c.avgComplexity != null ? [c.avgComplexity] : [],
+            }));
+        }
+        // Phase 2: compute from filtered commits (respects view level + filters)
         return aggregateContributors(filteredCommits);
-    }, [filteredCommits]);
+    }, [filteredCommits, commitsLoaded, state.data?.contributors]);
 
     // Complexity chart data
     const complexityChartData = useMemo(() => {
@@ -67,6 +81,9 @@ export default function ContributorsTab() {
     }, [aggregated, isMobile]);
 
     const handleCardClick = (item) => {
+        // During Phase 1, no commits to filter — clicking does nothing useful
+        if (!commitsLoaded) return;
+
         let relevantCommits;
         let displayName = item.label;
 
@@ -88,7 +105,7 @@ export default function ContributorsTab() {
     return (
         <div className="space-y-6">
             {/* Who Does What */}
-            <CollapsibleSection title="Who Does What" subtitle="Top contributors and their focus areas">
+            <CollapsibleSection title="Who Does What" subtitle={commitsLoaded ? 'Top contributors and their focus areas' : 'Overall contributor breakdown'}>
                 {aggregated.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {aggregated.slice(0, 8).map((item, idx) => {
@@ -100,12 +117,12 @@ export default function ContributorsTab() {
                             return (
                                 <div
                                     key={item.label || idx}
-                                    className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
-                                    role="button"
-                                    tabIndex={0}
-                                    aria-label={`${item.displayName}, ${item.count} commits — click for details`}
+                                    className={`p-3 bg-themed-tertiary rounded-lg transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600' : ''}`}
+                                    role={commitsLoaded ? 'button' : undefined}
+                                    tabIndex={commitsLoaded ? 0 : undefined}
+                                    aria-label={commitsLoaded ? `${item.displayName}, ${item.count} commits — click for details` : undefined}
                                     onClick={() => handleCardClick(item)}
-                                    onKeyDown={handleKeyActivate(() => handleCardClick(item))}
+                                    onKeyDown={commitsLoaded ? handleKeyActivate(() => handleCardClick(item)) : undefined}
                                 >
                                     <p className="font-medium text-themed-primary mb-1">{item.displayName}</p>
                                     <p className="text-xs text-themed-tertiary mb-2">{item.count} commits</p>

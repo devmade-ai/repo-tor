@@ -28,37 +28,77 @@ import useHealthData from '../hooks/useHealthData.js';
 //     values (e.g., urgencyTrendData.sortedMonths feeds impactTrend) and depend on shared
 //     filteredCommits from useApp(); a single hook preserves the computation graph
 
+// Requirement: Show health data during Phase 1 using pre-aggregated summary breakdowns
+// Approach: Always call useHealthData (hooks must be unconditional). When commits haven't
+//   loaded, override breakdowns with summary data. Summary provides urgencyBreakdown (1-5
+//   scale, converted to planned/normal/reactive), impactBreakdown, riskBreakdown,
+//   debtBreakdown. Trend charts and per-contributor sections require raw commits and are
+//   hidden during Phase 1.
+// Alternatives:
+//   - Show spinner: Rejected — summary already has most breakdown data
+//   - Conditional useHealthData call (early return): Rejected — violates hooks rules
+
+// Convert summary urgency format {1:N, 2:N, 3:N, 4:N, 5:N} to HealthTab format
+function convertSummaryUrgency(summaryUrgency) {
+    if (!summaryUrgency) return { planned: 0, normal: 0, reactive: 0 };
+    return {
+        planned: (summaryUrgency[1] || 0) + (summaryUrgency[2] || 0),
+        normal: summaryUrgency[3] || 0,
+        reactive: (summaryUrgency[4] || 0) + (summaryUrgency[5] || 0),
+    };
+}
+
 export default function HealthTab() {
     const { state, filteredCommits, viewConfig, openDetailPane, isMobile, commitsLoaded } = useApp();
 
-    // Show loading indicator while commits are being fetched
-    if (!commitsLoaded && state.commitsLoading) {
-        return (
-            <div className="flex flex-col items-center justify-center py-16 gap-3">
-                <div className="loading-spinner" style={{ width: 28, height: 28, borderWidth: 3 }} />
-                <p className="text-sm text-themed-tertiary">Loading health data&hellip;</p>
-            </div>
-        );
-    }
+    // Always call useHealthData unconditionally (React hooks rules).
+    // During Phase 1, filteredCommits is empty → hook returns zeros.
+    // We override with summary data below.
+    const hookData = useHealthData(filteredCommits, state, viewConfig, isMobile);
 
-    const {
-        metrics,
-        urgencyBreakdown,
-        impactBreakdown,
-        riskBreakdown,
-        hasRiskData,
-        riskTotal,
-        debtBreakdown,
-        hasDebtData,
-        debtTotal,
-        urgencyTrendData,
-        impactTrendData,
-        debtTrendData,
-        urgencyByGroup,
-        impactByGroup,
-    } = useHealthData(filteredCommits, state, viewConfig, isMobile);
+    // During Phase 1, use pre-aggregated summary breakdowns
+    const summaryData = state.data?.summary;
+    const useSummary = !commitsLoaded && summaryData;
+
+    const urgencyBreakdown = useSummary
+        ? convertSummaryUrgency(summaryData.urgencyBreakdown)
+        : hookData.urgencyBreakdown;
+    const impactBreakdown = useSummary
+        ? (summaryData.impactBreakdown || hookData.impactBreakdown)
+        : hookData.impactBreakdown;
+    const riskBreakdown = useSummary
+        ? (summaryData.riskBreakdown || hookData.riskBreakdown)
+        : hookData.riskBreakdown;
+    const debtBreakdown = useSummary
+        ? (summaryData.debtBreakdown || hookData.debtBreakdown)
+        : hookData.debtBreakdown;
+
+    const hasRiskData = riskBreakdown.low + riskBreakdown.medium + riskBreakdown.high > 0;
+    const riskTotal = riskBreakdown.low + riskBreakdown.medium + riskBreakdown.high;
+    const hasDebtData = debtBreakdown.added + debtBreakdown.paid + debtBreakdown.neutral > 0;
+    const debtTotal = debtBreakdown.added + debtBreakdown.paid + debtBreakdown.neutral;
+
+    // Total commits for percentage calculations
+    const total = useSummary ? (summaryData.totalCommits || 0) : hookData.metrics.total;
+
+    // Metrics for summary cards — partial during Phase 1 (no weekend%/afterhours% without timestamps)
+    const metrics = useSummary ? {
+        total,
+        securityCount: summaryData.security_events?.length || 0,
+        reactivePct: total > 0 ? Math.round((urgencyBreakdown.reactive / total) * 100) : 0,
+        weekendPct: null,    // Needs per-commit timestamps
+        afterHoursPct: null, // Needs per-commit timestamps
+    } : hookData.metrics;
+
+    // Trend charts and per-contributor data only available with loaded commits
+    const urgencyTrendData = commitsLoaded ? hookData.urgencyTrendData : null;
+    const impactTrendData = commitsLoaded ? hookData.impactTrendData : null;
+    const debtTrendData = commitsLoaded ? hookData.debtTrendData : null;
+    const urgencyByGroup = commitsLoaded ? hookData.urgencyByGroup : [];
+    const impactByGroup = commitsLoaded ? hookData.impactByGroup : [];
 
     const handleSummaryCardClick = (type) => {
+        if (!commitsLoaded) return;
         let filtered, title;
         if (type === 'security') {
             filtered = filteredCommits.filter(c =>
@@ -89,6 +129,7 @@ export default function HealthTab() {
     };
 
     const handleUrgencyFilterClick = (filter) => {
+        if (!commitsLoaded) return;
         let filterFn, title;
         if (filter === 'planned') { filterFn = c => c.urgency <= 2; title = 'Planned Work (Urgency 1-2)'; }
         else if (filter === 'normal') { filterFn = c => c.urgency === 3; title = 'Normal Work (Urgency 3)'; }
@@ -98,24 +139,28 @@ export default function HealthTab() {
     };
 
     const handleRiskFilterClick = (risk) => {
+        if (!commitsLoaded) return;
         const labels = { low: 'Low Risk', medium: 'Medium Risk', high: 'High Risk' };
         const filtered = filteredCommits.filter(c => c.risk === risk);
         openDetailPane(`${labels[risk] || risk} Changes`, `${filtered.length} commits`, filtered);
     };
 
     const handleDebtFilterClick = (debt) => {
+        if (!commitsLoaded) return;
         const labels = { added: 'Debt Added', paid: 'Debt Paid Down', neutral: 'Debt Neutral' };
         const filtered = filteredCommits.filter(c => c.debt === debt);
         openDetailPane(`${labels[debt] || debt}`, `${filtered.length} commits`, filtered);
     };
 
     const handleImpactFilterClick = (impact) => {
+        if (!commitsLoaded) return;
         const labels = { 'user-facing': 'User-Facing', 'internal': 'Internal', 'infrastructure': 'Infrastructure', 'api': 'API' };
         const filtered = filteredCommits.filter(c => c.impact === impact);
         openDetailPane(`${labels[impact] || impact} Impact`, `${filtered.length} commits`, filtered, { type: 'impact', value: impact });
     };
 
     const handleGroupClick = (group) => {
+        if (!commitsLoaded) return;
         if (group.isRepo) {
             const filtered = filteredCommits.filter(c => (c.repo_id || 'default') === group.key);
             openDetailPane(group.key, `${filtered.length} commits`, filtered);
@@ -147,6 +192,7 @@ export default function HealthTab() {
     })).sort((a, b) => b.count - a.count);
 
     const chartHeight = isMobile ? '220px' : '300px';
+    const clickable = commitsLoaded;
 
     // Requirement: Order sections from most interesting to least interesting
     // Approach: Overview stats first (anchor), then "red flag" sections (risk, debt) that
@@ -159,7 +205,7 @@ export default function HealthTab() {
     return (
         <div className="space-y-6">
             {/* Summary Cards — anchor for context, always visible */}
-            <HealthWorkPatterns metrics={metrics} onCardClick={handleSummaryCardClick} />
+            <HealthWorkPatterns metrics={metrics} onCardClick={clickable ? handleSummaryCardClick : undefined} />
 
             {/* Risk Assessment — "are we in trouble?" — most attention-grabbing */}
             {hasRiskData && (
@@ -167,7 +213,7 @@ export default function HealthTab() {
                     riskBreakdown={riskBreakdown}
                     riskTotal={riskTotal}
                     isMobile={isMobile}
-                    onRiskFilterClick={handleRiskFilterClick}
+                    onRiskFilterClick={clickable ? handleRiskFilterClick : undefined}
                 />
             )}
 
@@ -177,7 +223,7 @@ export default function HealthTab() {
                     debtBreakdown={debtBreakdown}
                     debtTotal={debtTotal}
                     isMobile={isMobile}
-                    onDebtFilterClick={handleDebtFilterClick}
+                    onDebtFilterClick={clickable ? handleDebtFilterClick : undefined}
                 />
             )}
 
@@ -185,15 +231,15 @@ export default function HealthTab() {
             <CollapsibleSection title="How Work Gets Prioritized" subtitle="Planned vs reactive changes">
                 <div className="space-y-4">
                     {urgencyItems.map(({ label, count, colorClass, filter }) => {
-                        const pct = metrics.total > 0 ? Math.round((count / metrics.total) * 100) : 0;
+                        const pct = total > 0 ? Math.round((count / total) * 100) : 0;
                         return (
                             <div
                                 key={filter}
-                                className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
-                                role="button"
-                                tabIndex={0}
+                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+                                role={clickable ? 'button' : undefined}
+                                tabIndex={clickable ? 0 : undefined}
                                 onClick={() => handleUrgencyFilterClick(filter)}
-                                onKeyDown={handleKeyActivate(() => handleUrgencyFilterClick(filter))}
+                                onKeyDown={clickable ? handleKeyActivate(() => handleUrgencyFilterClick(filter)) : undefined}
                             >
                                 <div className="flex justify-between text-sm mb-1">
                                     <span className="text-themed-secondary">{label}</span>
@@ -212,15 +258,15 @@ export default function HealthTab() {
             <CollapsibleSection title="Where Changes Land" subtitle="What parts of the product are affected">
                 <div className="space-y-4">
                     {impactItems.map(({ key, label, count, colorClass }) => {
-                        const pct = metrics.total > 0 ? Math.round((count / metrics.total) * 100) : 0;
+                        const pct = total > 0 ? Math.round((count / total) * 100) : 0;
                         return (
                             <div
                                 key={key}
-                                className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
-                                role="button"
-                                tabIndex={0}
+                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+                                role={clickable ? 'button' : undefined}
+                                tabIndex={clickable ? 0 : undefined}
                                 onClick={() => handleImpactFilterClick(key)}
-                                onKeyDown={handleKeyActivate(() => handleImpactFilterClick(key))}
+                                onKeyDown={clickable ? handleKeyActivate(() => handleImpactFilterClick(key)) : undefined}
                             >
                                 <div className="flex justify-between text-sm mb-1">
                                     <span className="text-themed-secondary">{label}</span>
@@ -235,7 +281,7 @@ export default function HealthTab() {
                 </div>
             </CollapsibleSection>
 
-            {/* Urgency Trend — collapsed on mobile */}
+            {/* Urgency Trend — collapsed on mobile, only when commits loaded */}
             {urgencyTrendData && (
                 <CollapsibleSection title="Urgency Over Time" subtitle="Is urgency increasing or decreasing?" defaultExpanded={!isMobile}>
                     <div data-embed-id="urgency-trend" style={{ height: chartHeight }}>
@@ -244,7 +290,7 @@ export default function HealthTab() {
                 </CollapsibleSection>
             )}
 
-            {/* Debt Trend Over Time — collapsed on mobile */}
+            {/* Debt Trend Over Time — collapsed on mobile, only when commits loaded */}
             {debtTrendData && (
                 <CollapsibleSection title="Debt Trend" subtitle="Monthly debt added vs paid" defaultExpanded={!isMobile}>
                     <div data-embed-id="debt-trend" style={{ height: chartHeight }}>
@@ -253,7 +299,7 @@ export default function HealthTab() {
                 </CollapsibleSection>
             )}
 
-            {/* Impact Over Time — collapsed on mobile */}
+            {/* Impact Over Time — collapsed on mobile, only when commits loaded */}
             {impactTrendData && (
                 <CollapsibleSection title="Impact Over Time" subtitle="Monthly breakdown by area" defaultExpanded={!isMobile}>
                     <div data-embed-id="impact-over-time" style={{ height: chartHeight }}>
@@ -262,43 +308,47 @@ export default function HealthTab() {
                 </CollapsibleSection>
             )}
 
-            {/* Urgency by Contributor — per-person detail, collapsed on mobile */}
-            <CollapsibleSection title="Urgency by Contributor" subtitle="Who handles planned vs reactive work?" defaultExpanded={!isMobile}>
-                {urgencyByGroup.length > 0 ? (
-                    <div className="space-y-4">
-                        {urgencyByGroup.map((group, idx) => (
-                            <UrgencyBar
-                                key={group.key || idx}
-                                counts={group.counts}
-                                total={group.total}
-                                label={group.label}
-                                onClick={group.isRepo || group.isContributor ? () => handleGroupClick(group) : undefined}
-                            />
-                        ))}
-                    </div>
-                ) : (
-                    <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
-                )}
-            </CollapsibleSection>
+            {/* Urgency by Contributor — per-person detail, only when commits loaded */}
+            {commitsLoaded && (
+                <CollapsibleSection title="Urgency by Contributor" subtitle="Who handles planned vs reactive work?" defaultExpanded={!isMobile}>
+                    {urgencyByGroup.length > 0 ? (
+                        <div className="space-y-4">
+                            {urgencyByGroup.map((group, idx) => (
+                                <UrgencyBar
+                                    key={group.key || idx}
+                                    counts={group.counts}
+                                    total={group.total}
+                                    label={group.label}
+                                    onClick={group.isRepo || group.isContributor ? () => handleGroupClick(group) : undefined}
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
+                    )}
+                </CollapsibleSection>
+            )}
 
-            {/* Impact by Contributor — per-person detail, collapsed on mobile */}
-            <CollapsibleSection title="Impact by Contributor" subtitle="Who works on what areas?" defaultExpanded={!isMobile}>
-                {impactByGroup.length > 0 ? (
-                    <div className="space-y-4">
-                        {impactByGroup.map((group, idx) => (
-                            <ImpactBar
-                                key={group.key || idx}
-                                counts={group.counts}
-                                total={group.total}
-                                label={group.label}
-                                onClick={group.isRepo || group.isContributor ? () => handleGroupClick(group) : undefined}
-                            />
-                        ))}
-                    </div>
-                ) : (
-                    <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
-                )}
-            </CollapsibleSection>
+            {/* Impact by Contributor — per-person detail, only when commits loaded */}
+            {commitsLoaded && (
+                <CollapsibleSection title="Impact by Contributor" subtitle="Who works on what areas?" defaultExpanded={!isMobile}>
+                    {impactByGroup.length > 0 ? (
+                        <div className="space-y-4">
+                            {impactByGroup.map((group, idx) => (
+                                <ImpactBar
+                                    key={group.key || idx}
+                                    counts={group.counts}
+                                    total={group.total}
+                                    label={group.label}
+                                    onClick={group.isRepo || group.isContributor ? () => handleGroupClick(group) : undefined}
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
+                    )}
+                </CollapsibleSection>
+            )}
         </div>
     );
 }

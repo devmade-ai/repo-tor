@@ -6,24 +6,21 @@ import {
 } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
+// Requirement: Show security data during Phase 1 using summary.security_events
+// Approach: When commits haven't loaded, use security_events from summary (has sha,
+//   timestamp, subject). Shows event count + simplified list. Once commits load,
+//   full commit details are available for drill-down.
+// Alternatives:
+//   - Show spinner: Rejected — summary already has security event list
+//   - Show count only: Rejected — event list with timestamps is more useful
+
 export default function SecurityTab() {
     const { state, filteredCommits, viewConfig, openDetailPane, commitsLoaded } = useApp();
 
-    // Show loading indicator while commits are being fetched
-    if (!commitsLoaded && state.commitsLoading) {
-        return (
-            <div className="flex flex-col items-center justify-center py-16 gap-3">
-                <div className="loading-spinner" style={{ width: 28, height: 28, borderWidth: 3 }} />
-                <p className="text-sm text-themed-tertiary">Loading security data&hellip;</p>
-            </div>
-        );
-    }
-
-    // Compute security commits using two detection methods:
-    // 1. Security events from metadata (if available) — extracted by the analysis pipeline
-    // 2. Fallback: commits tagged or typed as "security" by the AI analysis
+    // Compute security commits from loaded commits (Phase 2)
     const usesSecurityEvents = state.data?.summary?.security_events?.length > 0;
     const securityCommits = useMemo(() => {
+        if (!commitsLoaded) return [];
         if (usesSecurityEvents) {
             const securityShas = new Set(state.data.summary.security_events.map(e => e.sha));
             return filteredCommits.filter(c => securityShas.has(c.sha));
@@ -31,12 +28,65 @@ export default function SecurityTab() {
         return filteredCommits.filter(c =>
             c.type === 'security' || (c.tags || []).includes('security')
         );
-    }, [filteredCommits, state.data, usesSecurityEvents]);
+    }, [filteredCommits, state.data, usesSecurityEvents, commitsLoaded]);
+
+    // Phase 1: use summary security events for display
+    const summaryEvents = state.data?.summary?.security_events || [];
 
     const handleRepoClick = (repo) => {
+        if (!commitsLoaded) return;
         const filtered = securityCommits.filter(c => (c.repo_id || 'default') === repo);
         openDetailPane(`${repo} Security`, `${filtered.length} commits`, filtered);
     };
+
+    // Phase 1: show simplified view from summary data
+    if (!commitsLoaded) {
+        if (summaryEvents.length === 0) {
+            return (
+                <CollapsibleSection title="Security Commits">
+                    <p className="text-themed-tertiary text-center py-8">No security-related commits found</p>
+                </CollapsibleSection>
+            );
+        }
+
+        return (
+            <CollapsibleSection title="Security Commits" subtitle="Changes tagged as security-related by the analysis pipeline">
+                <div className="p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg mb-4">
+                    <div className="text-center">
+                        <div className="text-4xl font-bold text-red-600 dark:text-red-400 mb-2">
+                            {summaryEvents.length}
+                        </div>
+                        <div className="text-sm text-themed-secondary">Security-related commits</div>
+                    </div>
+                </div>
+                <div className="space-y-2">
+                    {summaryEvents.slice(0, 10).map((event, idx) => (
+                        <div
+                            key={event.sha || idx}
+                            className="p-3 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded"
+                        >
+                            <div className="flex items-start gap-2">
+                                <span className="tag tag-security">security</span>
+                                <div className="flex-1">
+                                    <p className="text-sm font-medium text-themed-primary">
+                                        {sanitizeMessage(event.subject || 'Security commit')}
+                                    </p>
+                                    <p className="text-xs text-themed-tertiary mt-1">
+                                        {event.timestamp ? formatDate(event.timestamp) : ''}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                    {summaryEvents.length > 10 && (
+                        <p className="text-xs text-themed-tertiary text-center pt-2">
+                            Showing 10 of {summaryEvents.length} events. Full details available once data finishes loading.
+                        </p>
+                    )}
+                </div>
+            </CollapsibleSection>
+        );
+    }
 
     // Executive view: summary stats
     if (viewConfig.contributors === 'total') {

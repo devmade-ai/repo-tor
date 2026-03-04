@@ -6,10 +6,18 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent tab layouts, and PWA support.
 
-**Recent Updates (2026-03-04 — Loading Indicators for Tabs Without Pre-Aggregated Data):**
-- **Loading spinners** — Added loading indicators to 6 tabs that lack pre-aggregated fallbacks: TimingTab, TagsTab, ContributorsTab, HealthTab, SecurityTab, DiscoverTab. Each shows a spinner with contextual "Loading X data..." message while commits are being fetched in the background (Phase 1). Previously these tabs rendered empty charts and zero counts.
-- **ProjectsTab commit counts** — Fixed "0 commits tracked" showing during Phase 1 by returning `null` from the enrichment memo until `commitsLoaded` is true. ProjectCard hides the count entirely when null.
-- **Files changed**: `dashboard/js/tabs/TimingTab.jsx`, `dashboard/js/tabs/TagsTab.jsx`, `dashboard/js/tabs/ContributorsTab.jsx`, `dashboard/js/tabs/HealthTab.jsx`, `dashboard/js/tabs/SecurityTab.jsx`, `dashboard/js/tabs/DiscoverTab.jsx`, `dashboard/js/tabs/ProjectsTab.jsx`
+**Recent Updates (2026-03-04 — Phase 1 Pre-Aggregated Fallbacks for All Tabs):**
+- **Pre-aggregated fallbacks** — Replaced loading spinners with actual data during Phase 1 for 6 tabs. Each tab now uses summary data from the initial `data.json` load, showing real charts/breakdowns instantly. Data switches to filtered commit-based computation once Phase 2 completes.
+  - **TagsTab**: Uses `summary.tagBreakdown` — full doughnut chart + tag list with counts/percentages
+  - **HealthTab**: Uses `summary.urgencyBreakdown` (converted from 1-5 scale to planned/normal/reactive), `impactBreakdown`, `riskBreakdown`, `debtBreakdown` — shows all breakdown bars, risk/debt sections. Trend charts and per-contributor sections appear after commits load. Fixed React hooks violation (useHealthData was called after conditional return).
+  - **ContributorsTab**: Uses `summary.contributors[]` (name, commits, avgComplexity, tagBreakdown) — full "Who Does What" cards and complexity chart
+  - **SecurityTab**: Uses `summary.security_events` — shows count + event list with timestamps
+  - **TimingTab**: Uses `summary.hourlyHeatmap` (new aggregation: 24×7 matrix + byHour/byDay arrays, UTC) — full heatmap grid, hourly chart, daily chart. Developer patterns section appears after commits load.
+  - **DiscoverTab**: Retains spinner (needs per-commit stats — no summary fallback possible)
+- **ProjectsTab instant counts** — Uses `summary.repoCommitCounts` (new aggregation) for instant commit counts on project cards during Phase 1, instead of showing nothing until commits load.
+- **New aggregations in aggregate-processed.js**: `calcRepoCommitCounts()` and `calcHourlyHeatmap()`, added to summary output.
+- **Component fixes** — HealthWorkPatterns, RiskAssessment, DebtBalance now handle optional click handlers (non-clickable during Phase 1 when commits aren't loaded).
+- **Files changed**: `scripts/aggregate-processed.js`, `dashboard/js/tabs/TimingTab.jsx`, `dashboard/js/tabs/TagsTab.jsx`, `dashboard/js/tabs/ContributorsTab.jsx`, `dashboard/js/tabs/HealthTab.jsx`, `dashboard/js/tabs/SecurityTab.jsx`, `dashboard/js/tabs/ProjectsTab.jsx`, `dashboard/js/components/HealthWorkPatterns.jsx`, `dashboard/js/components/HealthAnomalies.jsx`
 
 **Previous Updates (2026-03-03 — Tab Data Usage Audit + 3 Bug Fixes):**
 - **Full tab review** — Reviewed all 10 dashboard tabs for correct usage of pre-aggregated data, identifying 3 bugs and documenting which tabs have/lack pre-aggregated fallbacks.

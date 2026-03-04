@@ -333,6 +333,52 @@ function calcEpicBreakdown(commits) {
 }
 
 /**
+ * Calculate per-repo commit counts for ProjectsTab instant loading.
+ * Requirement: Show commit counts on project cards during Phase 1 (before lazy-loaded
+ *   commits arrive). Without this, cards show no count during Phase 1 or "0 commits".
+ * Approach: Simple { repoName: count } map added to summary JSON.
+ * Alternatives:
+ *   - Derive from contributors[] repoCount: Rejected — per-contributor, not per-repo total
+ *   - Wait for commits to load: Rejected — 1-3s delay where counts are missing
+ */
+function calcRepoCommitCounts(commits) {
+  const counts = {};
+  for (const commit of commits) {
+    const repo = commit.repo_id || 'default';
+    counts[repo] = (counts[repo] || 0) + 1;
+  }
+  return counts;
+}
+
+/**
+ * Calculate hourly heatmap for TimingTab instant loading.
+ * Requirement: Show commit timing heatmap during Phase 1 without raw commits.
+ * Approach: Pre-aggregate into 24×7 matrix (hour × dayOfWeek) plus byHour/byDay arrays.
+ *   Uses UTC for consistency with other aggregations (monthly, weekly, daily).
+ *   Dashboard recomputes with user's timezone preference once commits load.
+ * Alternatives:
+ *   - Use local time: Rejected — script runs server-side, no user timezone available
+ *   - Skip heatmap during Phase 1: Rejected — spinner is less useful than approximate data
+ */
+function calcHourlyHeatmap(commits) {
+  const matrix = Array.from({ length: 24 }, () => new Array(7).fill(0));
+  const byHour = new Array(24).fill(0);
+  const byDay = new Array(7).fill(0);
+
+  for (const commit of commits) {
+    if (!commit.timestamp) continue;
+    const date = new Date(commit.timestamp);
+    const hour = date.getUTCHours();
+    const dayOfWeek = date.getUTCDay(); // 0=Sun, 1=Mon, ...
+    matrix[hour][dayOfWeek]++;
+    byHour[hour]++;
+    byDay[dayOfWeek]++;
+  }
+
+  return { matrix, byHour, byDay };
+}
+
+/**
  * Calculate semver breakdown (patch|minor|major)
  */
 function calcSemverBreakdown(commits) {
@@ -820,6 +866,8 @@ function generateAggregation(commits, scope, repoCount = 1) {
       semverBreakdown: calcSemverBreakdown(sortedCommits),
       avgComplexity: calcAverage(sortedCommits, 'complexity'),
       avgUrgency: calcAverage(sortedCommits, 'urgency'),
+      repoCommitCounts: calcRepoCommitCounts(sortedCommits),
+      hourlyHeatmap: calcHourlyHeatmap(sortedCommits),
       monthly: monthly,
       monthlyCommits: monthly,  // Alias for dashboard compatibility
       weekly: weekly,

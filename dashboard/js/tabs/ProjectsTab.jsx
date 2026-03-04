@@ -35,26 +35,34 @@ export default function ProjectsTab() {
         return () => controller.abort();
     }, []);
 
-    // Enrich projects with commit counts from loaded analytics data
-    // Only compute counts when commits are loaded — avoids showing "0 commits"
-    // during Phase 1 when commits haven't arrived yet
+    // Enrich projects with commit counts from analytics data
+    // Requirement: Show commit counts instantly during Phase 1
+    // Approach: Use summary.repoCommitCounts (pre-aggregated) during Phase 1,
+    //   then switch to computing from loaded commits (which respects filters).
+    // Alternatives:
+    //   - Show null during Phase 1: Rejected — counts are available in summary
+    //   - Only use loaded commits: Rejected — 1-3s delay where counts are missing
     const enriched = useMemo(() => {
-        if (!commitsLoaded) {
-            return projects.map(p => ({ ...p, commitCount: null }));
+        let repoCounts;
+        if (commitsLoaded) {
+            // Phase 2: compute from filtered commits
+            repoCounts = {};
+            const commits = state.data?.commits || [];
+            commits.forEach(c => {
+                if (c.repo_id) {
+                    repoCounts[c.repo_id] = (repoCounts[c.repo_id] || 0) + 1;
+                }
+            });
+        } else {
+            // Phase 1: use pre-aggregated counts from summary
+            repoCounts = state.data?.summary?.repoCommitCounts || null;
         }
-        const commits = state.data?.commits || [];
-        const repoCounts = {};
-        commits.forEach(c => {
-            if (c.repo_id) {
-                repoCounts[c.repo_id] = (repoCounts[c.repo_id] || 0) + 1;
-            }
-        });
 
         return projects.map(p => ({
             ...p,
-            commitCount: repoCounts[p.name] || 0,
+            commitCount: repoCounts ? (repoCounts[p.name] || 0) : null,
         }));
-    }, [projects, state.data?.commits, commitsLoaded]);
+    }, [projects, state.data?.commits, state.data?.summary?.repoCommitCounts, commitsLoaded]);
 
     // Split into live (has liveUrl) and other projects
     const { liveProjects, otherProjects } = useMemo(() => {

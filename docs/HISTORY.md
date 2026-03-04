@@ -4,17 +4,24 @@ Log of significant changes to code and documentation.
 
 ## 2026-03-04
 
-### Loading Indicators for Tabs Without Pre-Aggregated Data
+### Phase 1 Pre-Aggregated Fallbacks for All Tabs
 
-**Why:** During Phase 1 of the two-phase data loading (summary loaded, commits still fetching), 6 tabs rendered empty charts and zero counts with no indication that data was loading. Users navigating to these tabs would see blank content that looked broken.
+**Why:** During Phase 1 (summary loaded, commits still fetching), most tabs showed spinners or empty content. The summary JSON already contains enough pre-aggregated data to render meaningful charts and breakdowns instantly.
 
 **What:**
-- **Loading spinners** — Added loading check (`!commitsLoaded && state.commitsLoading`) at the top of TimingTab, TagsTab, ContributorsTab, HealthTab, SecurityTab, DiscoverTab. Each returns a centered spinner with contextual message (e.g., "Loading health data...") instead of rendering empty UI.
-- **ProjectsTab commit counts** — Changed `enriched` memo to return `commitCount: null` when `commitsLoaded` is false. ProjectCard hides the "X commits tracked" line when count is null, avoiding misleading "0 commits" during loading.
+- **TagsTab**: Uses `summary.tagBreakdown` for full doughnut chart + tag list during Phase 1.
+- **HealthTab**: Uses `summary.urgencyBreakdown` (converted 1-5 scale → planned/normal/reactive), `impactBreakdown`, `riskBreakdown`, `debtBreakdown`. Shows all breakdown bars and risk/debt sections. Trend charts + per-contributor sections hidden until commits load. Fixed React hooks rule violation (useHealthData called after conditional return).
+- **ContributorsTab**: Maps `summary.contributors[]` to aggregateContributors format — full "Who Does What" cards + complexity chart.
+- **SecurityTab**: Shows `summary.security_events` count + simplified event list during Phase 1.
+- **TimingTab**: Uses new `summary.hourlyHeatmap` (24×7 matrix, byHour, byDay arrays in UTC) for heatmap, hourly chart, daily chart. Developer patterns section deferred to Phase 2.
+- **ProjectsTab**: Uses new `summary.repoCommitCounts` for instant commit counts on cards.
+- **DiscoverTab**: Retains loading spinner (needs per-commit stats — no summary fallback possible).
+- **New aggregations**: Added `calcRepoCommitCounts()` and `calcHourlyHeatmap()` to `aggregate-processed.js`.
+- **Component updates**: HealthWorkPatterns, RiskAssessment, DebtBalance handle optional click handlers gracefully (non-clickable when commits not yet loaded).
 
 **Alternatives considered:**
-- Add full pre-aggregated fallbacks to all 6 tabs: Deferred — most require data not in summary (per-contributor, per-file, timezone-dependent). Loading indicators provide clear feedback for the 1-3 second window.
-- Show empty state with "no data" text: Rejected — confusing, implies no data exists rather than still loading.
+- Keep spinners for all tabs: Rejected — summary already has the data, just needed mapping.
+- Conditional hook calls with early returns: Rejected — violates React hooks rules. Fixed by always calling hooks unconditionally and using summary data for rendering when commits not loaded.
 
 ## 2026-03-03
 
