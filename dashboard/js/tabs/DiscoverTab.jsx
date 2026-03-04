@@ -297,7 +297,7 @@ function getRandomMetrics(count, pinned) {
 }
 
 export default function DiscoverTab() {
-    const { filteredCommits } = useApp();
+    const { state, filteredCommits, commitsLoaded } = useApp();
     const fileNameCacheRef = useRef({});
 
     const [pinnedMetrics, setPinnedMetrics] = useState(() => loadPinnedMetrics());
@@ -451,6 +451,16 @@ export default function DiscoverTab() {
 
         return items;
     }, [filteredCommits]);
+
+    // Show loading indicator while commits are being fetched
+    if (!commitsLoaded && state.commitsLoading) {
+        return (
+            <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <div className="loading-spinner" style={{ width: 28, height: 28, borderWidth: 3 }} />
+                <p className="text-sm text-themed-tertiary">Loading discovery data&hellip;</p>
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-6">

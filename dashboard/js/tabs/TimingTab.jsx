@@ -18,7 +18,17 @@ function getHeatmapLevel(count, maxCount) {
 }
 
 export default function TimingTab() {
-    const { state, filteredCommits, viewConfig, isMobile } = useApp();
+    const { state, filteredCommits, viewConfig, isMobile, commitsLoaded } = useApp();
+
+    // Show loading indicator while commits are being fetched
+    if (!commitsLoaded && state.commitsLoading) {
+        return (
+            <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <div className="loading-spinner" style={{ width: 28, height: 28, borderWidth: 3 }} />
+                <p className="text-sm text-themed-tertiary">Loading timing data&hellip;</p>
+            </div>
+        );
+    }
 
     // Build heatmap data based on view level
     const heatmapContent = useMemo(() => {

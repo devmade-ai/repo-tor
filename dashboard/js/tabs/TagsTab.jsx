@@ -24,9 +24,19 @@ function useChartTextColor() {
 }
 
 export default function TagsTab() {
-    const { filteredCommits, openDetailPane, isMobile } = useApp();
+    const { state, filteredCommits, openDetailPane, isMobile, commitsLoaded } = useApp();
     const chartTextColorRef = useChartTextColor();
     const CHART_TEXT_COLOR = chartTextColorRef.current;
+
+    // Show loading indicator while commits are being fetched
+    if (!commitsLoaded && state.commitsLoading) {
+        return (
+            <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <div className="loading-spinner" style={{ width: 28, height: 28, borderWidth: 3 }} />
+                <p className="text-sm text-themed-tertiary">Loading tag data&hellip;</p>
+            </div>
+        );
+    }
 
     // Tag breakdown data
     const tagData = useMemo(() => {

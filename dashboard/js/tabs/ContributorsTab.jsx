@@ -9,7 +9,17 @@ import { getSeriesColor, mutedColor } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 export default function ContributorsTab() {
-    const { filteredCommits, viewConfig, openDetailPane, isMobile } = useApp();
+    const { state, filteredCommits, viewConfig, openDetailPane, isMobile, commitsLoaded } = useApp();
+
+    // Show loading indicator while commits are being fetched
+    if (!commitsLoaded && state.commitsLoading) {
+        return (
+            <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <div className="loading-spinner" style={{ width: 28, height: 28, borderWidth: 3 }} />
+                <p className="text-sm text-themed-tertiary">Loading contributor data&hellip;</p>
+            </div>
+        );
+    }
 
     // Aggregated contributor data based on view level
     const aggregated = useMemo(() => {

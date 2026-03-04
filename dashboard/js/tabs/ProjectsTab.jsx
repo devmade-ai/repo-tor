@@ -10,7 +10,7 @@ import CollapsibleSection from '../components/CollapsibleSection.jsx';
 //   - Derive from loaded analytics data only: Rejected — misses projects without analytics
 
 export default function ProjectsTab() {
-    const { state } = useApp();
+    const { state, commitsLoaded } = useApp();
     const [projects, setProjects] = useState([]);
     const [loadError, setLoadError] = useState(null);
 
@@ -36,7 +36,12 @@ export default function ProjectsTab() {
     }, []);
 
     // Enrich projects with commit counts from loaded analytics data
+    // Only compute counts when commits are loaded — avoids showing "0 commits"
+    // during Phase 1 when commits haven't arrived yet
     const enriched = useMemo(() => {
+        if (!commitsLoaded) {
+            return projects.map(p => ({ ...p, commitCount: null }));
+        }
         const commits = state.data?.commits || [];
         const repoCounts = {};
         commits.forEach(c => {
@@ -49,7 +54,7 @@ export default function ProjectsTab() {
             ...p,
             commitCount: repoCounts[p.name] || 0,
         }));
-    }, [projects, state.data?.commits]);
+    }, [projects, state.data?.commits, commitsLoaded]);
 
     // Split into live (has liveUrl) and other projects
     const { liveProjects, otherProjects } = useMemo(() => {
@@ -122,7 +127,7 @@ function ProjectCard({ project }) {
                 <p className="text-sm text-themed-tertiary mt-1">{project.description}</p>
             )}
 
-            {project.commitCount > 0 && (
+            {project.commitCount != null && project.commitCount > 0 && (
                 <p className="text-xs text-themed-muted mt-2">
                     {project.commitCount} commits tracked
                 </p>

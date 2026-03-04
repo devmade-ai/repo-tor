@@ -7,7 +7,17 @@ import {
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 export default function SecurityTab() {
-    const { state, filteredCommits, viewConfig, openDetailPane } = useApp();
+    const { state, filteredCommits, viewConfig, openDetailPane, commitsLoaded } = useApp();
+
+    // Show loading indicator while commits are being fetched
+    if (!commitsLoaded && state.commitsLoading) {
+        return (
+            <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <div className="loading-spinner" style={{ width: 28, height: 28, borderWidth: 3 }} />
+                <p className="text-sm text-themed-tertiary">Loading security data&hellip;</p>
+            </div>
+        );
+    }
 
     // Compute security commits using two detection methods:
     // 1. Security events from metadata (if available) — extracted by the analysis pipeline
