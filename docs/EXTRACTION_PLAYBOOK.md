@@ -225,6 +225,7 @@ Before presenting ANY batch to the user, AI MUST verify:
 - [ ] Confirm I will pipe approved analysis to `merge-analysis.js` (not save-commit.js, not manual file writes)
 - [ ] Confirm I will output **only analysis fields** (sha, tags, complexity, urgency, impact, risk, debt, epic, semver) — NOT full commit objects
 - [ ] Confirm I will present the commit body (not just subject) so tags reflect full message content
+- [ ] Confirm I will **derive ALL fields thoughtfully** — the whole point of AI analysis over scripted extraction is contextual intelligence. Read the full commit, infer epics from multi-commit initiatives, derive semver from change type, assess risk from what's touched. `null` means "analyzed and not applicable" — NOT "I didn't bother thinking about it."
 
 **Do not skip this checklist.** Past sessions have improvised their own format and skipped merge-analysis.js entirely.
 

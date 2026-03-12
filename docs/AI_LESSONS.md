@@ -283,6 +283,34 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 
 ---
 
+## 2026-03-12: Treated optional reporting fields as throwaway instead of deriving them
+
+**What happened:** During "hatch the chicken" reprocessing, AI mechanically assigned `null` to optional fields (risk, debt, epic, semver) whenever the value wasn't explicitly obvious, and even omitted them entirely to work around a validation bug. When the merge script rejected `null`, the response was to drop the fields rather than fix the script and properly analyze each commit.
+
+**Why it's a problem:**
+- The entire reason for human-in-the-loop AI analysis (instead of a script) is that AI can READ context, INFER relationships, and DERIVE meaning from commit messages
+- A script can extract git metadata. Only an intelligent reader can determine that 6 consecutive docs commits are part of a `plant-fur-docs` epic, or that a feature commit implies `semver: minor`
+- Treating optional fields as "fill in if obvious, null otherwise" defeats the purpose of the reprocessing effort
+- The user had to explicitly point out "you are smart enough to derive these fields from the commit messages"
+
+**What should have happened:**
+1. Read each commit's full subject + body carefully
+2. Derive epic by recognizing multi-commit initiatives (consecutive related commits, shared scope, PR groupings)
+3. Derive semver from the nature of the change (feature → minor, bugfix → patch, breaking → major)
+4. Derive risk from what the commit touches (auth/data/infra → higher risk, docs/config → low)
+5. Derive debt from whether shortcuts were taken or cleaned up
+6. When truly not applicable, `null` is fine — but "I didn't bother to think about it" is not the same as "not applicable"
+
+**Core principle:** The whole point of AI-driven analysis over scripted extraction is contextual intelligence. Every field should reflect thoughtful analysis of the commit content. If a script could do the job, we wouldn't need this process.
+
+**Current status:** Fixed validation bug in merge-analysis.js, restarting full reprocessing with proper field derivation.
+
+**Files affected:**
+- `scripts/merge-analysis.js` — Fixed null validation for optional fields
+- `docs/AI_LESSONS.md` — This entry
+
+---
+
 ## Template for Future Entries
 
 ```markdown
