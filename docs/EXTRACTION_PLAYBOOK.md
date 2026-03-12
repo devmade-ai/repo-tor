@@ -20,6 +20,45 @@ Two-stage process with persistent storage of AI-analyzed commits:
 | **"hatch the chicken"** | Full reset - delete everything, extract all repos, AI analyzes ALL commits, save to `processed/`, aggregate to dashboard |
 | **"feed the chicken"** | Incremental - extract repos, AI analyzes only NEW commits (not in `processed/`), update `processed/`, re-aggregate |
 
+## NO NULLS — MANDATORY RULE
+
+**Every field gets a real value. No nulls. No exceptions.**
+
+The entire point of AI-driven commit analysis is contextual intelligence. A script can extract git metadata — but only an intelligent reader can derive meaning from commit messages, recognize multi-commit initiatives, and assess risk from what code was touched.
+
+**If you're not sure, make your best guess.** A wrong guess that the user corrects is infinitely more valuable than a null that creates a gap in the dashboard. The user reviews every batch — they will catch mistakes. They cannot catch laziness.
+
+### How to derive each field
+
+| Field | How to determine | Never null because... |
+|-------|-----------------|----------------------|
+| **Tags** | Read full subject + body, assign ALL that apply | Every commit does something |
+| **Complexity** (1-5) | Judge from files changed, scope described in body | Every change has a size |
+| **Urgency** (1-5) | Keywords ("hotfix", "critical"), timing, context. Default: 2 | Every change has a priority level |
+| **Impact** | Who's affected by this change | Every change affects someone/something |
+| **Risk** | "What's the worst that happens if this is wrong?" | Every change carries some level of risk |
+| **Debt** | Did this add shortcuts or clean them up? Default: neutral | Every change either adds, pays, or doesn't touch debt |
+| **Epic** | What initiative is this part of? Look at surrounding commits, PR groupings, shared scope. Standalone commits get a descriptive epic (e.g., `repo-setup`, `image-pipeline`, `docs-cleanup`) | Every commit exists for a reason that can be named |
+| **Semver** | feature/enhancement → minor, bugfix/hotfix → patch, breaking → major, docs/config/refactor → patch, init → minor | Every change has a release impact |
+
+### Epic derivation strategy
+
+- **Consecutive related commits** → same epic (e.g., 6 docs commits = `plant-fur-docs`)
+- **PR-grouped commits** → merge commit shares the epic of its contents
+- **Standalone commits** → descriptive epic based on what it does (`repo-setup`, `ci-pipeline`, `auth-fix`)
+- **Cross-repo initiatives** → reuse the same epic label
+
+### Examples of WRONG vs RIGHT
+
+| Commit | WRONG (lazy) | RIGHT (thoughtful) |
+|--------|-------------|-------------------|
+| "Initial commit" (LICENSE + README) | Epic: null, Semver: null | Epic: repo-setup, Semver: minor |
+| "Update README" | Epic: null, Semver: null | Epic: docs-cleanup, Semver: patch |
+| "Merge PR #3: Add auth module" | Epic: null | Epic: auth-v2 (same as the PR's commits) |
+| "Fix typo in config" | Risk: null | Risk: low |
+
+---
+
 ## Commit Processing Strategy
 
 Human-in-the-loop review ensures quality tagging.
@@ -225,7 +264,7 @@ Before presenting ANY batch to the user, AI MUST verify:
 - [ ] Confirm I will pipe approved analysis to `merge-analysis.js` (not save-commit.js, not manual file writes)
 - [ ] Confirm I will output **only analysis fields** (sha, tags, complexity, urgency, impact, risk, debt, epic, semver) — NOT full commit objects
 - [ ] Confirm I will present the commit body (not just subject) so tags reflect full message content
-- [ ] Confirm I will **derive ALL fields thoughtfully** — the whole point of AI analysis over scripted extraction is contextual intelligence. Read the full commit, infer epics from multi-commit initiatives, derive semver from change type, assess risk from what's touched. `null` means "analyzed and not applicable" — NOT "I didn't bother thinking about it."
+- [ ] Confirm I will **derive ALL fields with real values — NO NULLS** (see "NO NULLS" section above). Every field gets a value. Best guess beats null every time. The user reviews and corrects — they can't correct what isn't there.
 
 **Do not skip this checklist.** Past sessions have improvised their own format and skipped merge-analysis.js entirely.
 
@@ -360,10 +399,10 @@ The local extraction (`extract.js --clone`) does not have these limitations sinc
 - `urgency` - Score 1-5
 - `impact` - One of: internal, user-facing, infrastructure, api
 
-**Optional analysis fields (validated when present):**
+**Required analysis fields (ALL must have real values — NO NULLS):**
 - `risk` - One of: low, medium, high
 - `debt` - One of: added, paid, neutral
-- `epic` - Free-text string (initiative grouping)
+- `epic` - Free-text string (initiative grouping) — derive from context, always
 - `semver` - One of: patch, minor, major
 
 ### When Validation Fails
@@ -686,7 +725,7 @@ Classifies changes by release type for changelog and release tracking.
 - `urgency` - Integer 1-5 (how critical was this change)
 - `impact` - One of: `internal`, `user-facing`, `infrastructure`, `api`
 
-**Optional fields (recommended for richer reporting):**
+**Required fields (NO NULLS — derive from context, best guess always):**
 - `risk` - One of: `low`, `medium`, `high` — how risky is the change, independent of complexity
 - `debt` - One of: `added`, `paid`, `neutral` — does this commit add or pay down tech debt
 - `epic` - Free-text string — groups commits to a feature/initiative (e.g., `auth-v2`, `dashboard-redesign`)

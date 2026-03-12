@@ -351,6 +351,7 @@ Never:
 - Hardcode values that should come from CSS variables or config (see AI Lessons)
 - Document or recommend features that haven't been tested (see AI Lessons)
 - Improvise extraction/analysis workflows — follow `docs/EXTRACTION_PLAYBOOK.md` exactly, step by step, using the exact formats documented (see AI Lessons)
+- Output null for commit analysis fields — EVERY field gets a real value, no exceptions. The whole point of AI analysis is contextual intelligence. Best guess always beats null. See "NO NULLS" rule in `docs/EXTRACTION_PLAYBOOK.md` (see AI Lessons)
 
 ---
 
