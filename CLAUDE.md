@@ -313,6 +313,29 @@ Default mode is development. Use `@data` to switch when needed.
 
 See `docs/EXTRACTION_PLAYBOOK.md` for details.
 
+#### Why AI analyzes commits (not a script)
+
+The dashboard's reporting is only as good as its data. The entire point of having an AI analyze commits instead of a script is contextual intelligence. A script can extract git metadata — but only an intelligent reader can:
+
+- Recognize that 6 consecutive docs commits are part of one initiative (epic)
+- Determine that "fix crash on startup" is high risk while "update README" is low risk
+- Infer that a feature commit warrants semver: minor
+- Judge whether a commit adds tech debt (shortcuts) or pays it down (cleanup)
+
+**The rule is simple: every field gets a real value. No nulls, ever. Best guess always.**
+
+A wrong guess that the user corrects is infinitely more valuable than a null that creates a gap in charts, breakdowns, and trend analysis. The user reviews every batch — they will catch mistakes. They cannot catch laziness.
+
+**How to derive each field:**
+- **Tags**: Read full subject + body, assign ALL that apply
+- **Complexity** (1-5): Judge scope from files changed, body detail
+- **Urgency** (1-5): Judge from keywords, timing, context. Default: 2
+- **Impact**: Who's affected — internal/user-facing/infrastructure/api
+- **Risk** (low/medium/high): "What's the worst that happens if this is wrong?"
+- **Debt** (added/paid/neutral): Did this add shortcuts or clean them up? Default: neutral
+- **Epic**: What initiative is this part of — look at surrounding commits, PR groupings, shared scope. Standalone one-offs get a descriptive epic (e.g., `repo-setup`, `image-pipeline`)
+- **Semver** (patch/minor/major): feature→minor, fix→patch, breaking→major, docs/config/refactor→patch, init→minor
+
 ---
 
 ## Communication Style
