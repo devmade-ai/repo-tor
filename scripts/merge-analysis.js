@@ -155,19 +155,19 @@ function validateAnalysis(analysis) {
   }
 
   // Optional fields — validate type/value when present
-  if (analysis.risk !== undefined && !VALID_RISK.includes(analysis.risk)) {
+  if (analysis.risk !== undefined && analysis.risk !== null && !VALID_RISK.includes(analysis.risk)) {
     errors.push(`risk must be one of: ${VALID_RISK.join(', ')}`);
   }
 
-  if (analysis.debt !== undefined && !VALID_DEBT.includes(analysis.debt)) {
+  if (analysis.debt !== undefined && analysis.debt !== null && !VALID_DEBT.includes(analysis.debt)) {
     errors.push(`debt must be one of: ${VALID_DEBT.join(', ')}`);
   }
 
-  if (analysis.epic !== undefined && typeof analysis.epic !== 'string') {
+  if (analysis.epic !== undefined && analysis.epic !== null && typeof analysis.epic !== 'string') {
     errors.push('epic must be a string');
   }
 
-  if (analysis.semver !== undefined && !VALID_SEMVER.includes(analysis.semver)) {
+  if (analysis.semver !== undefined && analysis.semver !== null && !VALID_SEMVER.includes(analysis.semver)) {
     errors.push(`semver must be one of: ${VALID_SEMVER.join(', ')}`);
   }
 
