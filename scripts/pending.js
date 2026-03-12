@@ -51,7 +51,20 @@ const BATCH_PREAMBLE = {
       "Standalone commits → descriptive epic based on what it does",
       "Cross-repo initiatives → reuse the same epic label"
     ],
-    format: "Present using exact review format from EXTRACTION_PLAYBOOK.md. On approval, pipe only analysis fields to merge-analysis.js."
+    merge_commits: {
+      rule: "Merge commits get ONLY the 'merge' tag. Do NOT add descriptive tags from the PR title/body — the real commits already have those tags and adding them to the merge double-counts work in analytics.",
+      fields: "Complexity: 1 (merging is trivial), Urgency: 2 (normal), Impact: internal (the merge itself doesn't affect users). Risk, debt, semver, epic: derive from the PR's contents (share the epic of the merged commits)."
+    },
+    prohibitions: [
+      "NEVER output null for any field — best guess always",
+      "NEVER improvise the review format — use the exact format from EXTRACTION_PLAYBOOK.md",
+      "NEVER add descriptive tags to merge commits — only 'merge' tag (real commits already have the tags)",
+      "NEVER write commit files manually — always pipe analysis to merge-analysis.js",
+      "NEVER output full commit objects — only analysis fields (sha, tags, complexity, urgency, impact, risk, debt, epic, semver)",
+      "NEVER skip the commit body when analyzing — tags must reflect full message content (subject + body)",
+      "NEVER use placeholder data that looks like real data"
+    ],
+    format: "Present using exact review format from EXTRACTION_PLAYBOOK.md. On approval, pipe only analysis fields (sha, tags, complexity, urgency, impact, risk, debt, epic, semver) to merge-analysis.js. Nothing else."
   }
 };
 
