@@ -26,6 +26,35 @@ const BATCH_SIZE = 25;
 const REPORTS_DIR = 'reports';
 const PENDING_DIR = 'pending';
 
+// Requirement: Embed analysis instructions into every batch file so AI reads them before processing
+// Approach: Include as _instructions field at the top of each batch JSON
+// Why: The whole point of AI-driven analysis is contextual intelligence, not mechanical field-filling.
+//   Past sessions have used nulls, omitted fields, or half-assed analysis. This preamble ensures
+//   every batch file carries the full context regardless of which session processes it.
+const BATCH_PREAMBLE = {
+  _instructions: {
+    rule: "NO NULLS — MANDATORY. Every field gets a real value. No nulls. No exceptions. Best guess always beats null.",
+    why: "The entire point of AI-driven commit analysis (instead of a script) is contextual intelligence. A script can extract git metadata — but only an intelligent reader can recognize multi-commit initiatives, assess risk from what code was touched, and infer release impact. The dashboard's reporting is only as good as its data. Nulls create gaps in charts, breakdowns, and trend analysis. The user reviews every batch — they will catch mistakes. They cannot catch laziness.",
+    fields: {
+      tags: "Read full subject + body, assign ALL that apply. Every commit does something.",
+      complexity: "1-5. Judge from files changed, scope described in body. Every change has a size.",
+      urgency: "1-5. Keywords (hotfix, critical), timing, context. Default: 2. Every change has a priority.",
+      impact: "internal / user-facing / infrastructure / api. Who's affected by this change.",
+      risk: "low / medium / high. What's the worst that happens if this is wrong?",
+      debt: "added / paid / neutral. Did this add shortcuts or clean them up? Default: neutral.",
+      epic: "What initiative is this part of? Look at surrounding commits, PR groupings, shared scope. Standalone commits get a descriptive epic (e.g. repo-setup, image-pipeline, docs-cleanup). Every commit exists for a reason that can be named.",
+      semver: "patch / minor / major. feature→minor, fix→patch, breaking→major, docs/config/refactor→patch, init→minor."
+    },
+    epic_strategy: [
+      "Consecutive related commits → same epic (e.g. 6 docs commits = plant-fur-docs)",
+      "PR-grouped commits → merge commit shares the epic of its contents",
+      "Standalone commits → descriptive epic based on what it does",
+      "Cross-repo initiatives → reuse the same epic label"
+    ],
+    format: "Present using exact review format from EXTRACTION_PLAYBOOK.md. On approval, pipe only analysis fields to merge-analysis.js."
+  }
+};
+
 // === Manifest Management ===
 
 function rebuildManifestFromBatches(repoId) {
@@ -110,6 +139,7 @@ function writePendingBatches(repoId, commits) {
     const batchFile = path.join(pendingTmp, `batch-${String(batchNum).padStart(3, '0')}.json`);
 
     fs.writeFileSync(batchFile, JSON.stringify({
+      ...BATCH_PREAMBLE,
       batch: batchNum,
       totalBatches: totalBatches,
       startIndex: i,
