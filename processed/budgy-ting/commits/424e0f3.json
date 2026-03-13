@@ -1,0 +1,54 @@
+{
+  "sha": "424e0f3",
+  "fullSha": "424e0f3af0f5402a492769cd5ca5cbacbaa22eea",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T07:37:31Z",
+  "commitDate": "2026-03-04T07:37:31Z",
+  "subject": "feat(forecast): add statistical forecasting, daily cashflow chart, accuracy tracking",
+  "body": "Add EMA and rolling-average statistical models for variable-spend forecasting,\ndaily cashflow chart with ApexCharts, actuals-gated variance display, and\ninternal daily forecast accuracy tracking.\n\nNew engines:\n- forecast.ts: EMA (alpha=0.3, 3+ months), rolling average, daily expansion\n- accuracy.ts: daily forecast vs actual comparison, MAPE metrics (hidden from users)\n\nNew component:\n- CashflowChart.vue: ApexCharts line chart with cumulative/daily-net toggle\n  and optional forecast overlay\n\nModified:\n- ProjectedTab: Table/Chart toggle, loads actuals for chart data\n- CompareTab: variance gated on hasAnyActuals, shows empty state until upload\n- variance.ts: added hasAnyActuals and actualsDateRange to ComparisonResult\n\nTags: forecast, chart, accuracy, variance, apexcharts\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: forecasting-enhancement\nSemver: minor\n\nhttps://claude.ai/code/session_01CuU4JLJcWUf92LLHXcqyK8",
+  "tags": [
+    "feature",
+    "dependency-add"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "forecasting-enhancement",
+  "semver": "minor",
+  "scope": "forecast",
+  "title": "add statistical forecasting, daily cashflow chart, accuracy tracking",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 1164,
+    "deletions": 34
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "package-lock.json",
+    "package.json",
+    "src/components/CashflowChart.vue",
+    "src/engine/accuracy.test.ts",
+    "src/engine/accuracy.ts",
+    "src/engine/forecast.test.ts",
+    "src/engine/forecast.ts",
+    "src/engine/variance.ts",
+    "src/views/CompareTab.vue",
+    "src/views/ProjectedTab.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "5045ea5",
+  "fullSha": "5045ea56375d634e7bffb202a8538959cc5a2f10",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T14:46:20Z",
+  "commitDate": "2026-03-09T14:46:20Z",
+  "subject": "fix(metrics,runway): timezone bug in 30-day filter + missing initial balance point",
+  "body": "MetricsGrid: toISOString().slice(0,10) returns UTC date, not local.\nFor users east/west of UTC the 30-day expense window was off by 1 day.\nNow uses formatDate() which outputs local-timezone YYYY-MM-DD.\n\nRunway: dailyBalance array now includes the starting balance as the\nfirst point (day before forecast begins). Previously the graph had no\nreference point for where the balance started — the line began at the\nfirst day's change, making the projection harder to interpret.\n\nTags: metrics, runway, timezone, graph\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: stability\nSemver: patch\n\nhttps://claude.ai/code/session_01Gy1obaiGGDe7pD6u14TrkF",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "stability",
+  "semver": "patch",
+  "scope": "metrics,runway",
+  "title": "timezone bug in 30-day filter + missing initial balance point",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 21,
+    "deletions": 4
+  },
+  "files": [
+    "src/components/MetricsGrid.vue",
+    "src/engine/runway.test.ts",
+    "src/engine/runway.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 3,
+  "impact": "user-facing"
+}

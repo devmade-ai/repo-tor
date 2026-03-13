@@ -1,0 +1,51 @@
+{
+  "sha": "bd3d563",
+  "fullSha": "bd3d563d334c6162d7b2528e01b0d2920473f1ba",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T11:14:42Z",
+  "commitDate": "2026-03-09T11:14:42Z",
+  "subject": "feat(import): add ML-based auto-tagging via zero-shot classification",
+  "body": "Add in-browser tag suggestions using a pre-trained zero-shot classifier\n(MoritzLaurer/xtremedistil-l6-h256-zeroshot-v1.1-all-33, ~13MB quantized).\nDuring import Step 2, unmatched transaction groups get tag suggestions\nderived from the user's existing tag vocabulary as candidate labels.\n\nArchitecture: Web Worker runs Transformers.js off the main thread. Singleton\ncomposable (useTagSuggestions) manages lazy model loading, caching (via\nbrowser Cache API), and inference. Graceful degradation — no tags in cache\nmeans no model loaded, no suggestions shown, zero impact on existing flow.\n\nNew files:\n- src/ml/types.ts — shared message types\n- src/ml/tagSuggestionWorker.ts — Web Worker with zero-shot pipeline\n- src/ml/useTagSuggestions.ts — Vue composable\n- src/components/TagSuggestions.vue — suggestion chip UI\n\nTags: import, ml, ux, tags, zero-shot, transformers-js\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: auto-tagging\nSemver: minor\n\nhttps://claude.ai/code/session_01Gy1obaiGGDe7pD6u14TrkF",
+  "tags": [
+    "feature",
+    "dependency-add"
+  ],
+  "complexity": 5,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "auto-tagging",
+  "semver": "minor",
+  "scope": "import",
+  "title": "add ML-based auto-tagging via zero-shot classification",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 893,
+    "deletions": 43
+  },
+  "files": [
+    "package-lock.json",
+    "package.json",
+    "src/components/TagSuggestions.vue",
+    "src/debug/DebugPill.vue",
+    "src/debug/debugLog.ts",
+    "src/ml/tagSuggestionWorker.ts",
+    "src/ml/types.ts",
+    "src/ml/useTagSuggestions.ts",
+    "src/views/import-steps/ImportStepClassify.vue",
+    "vite.config.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

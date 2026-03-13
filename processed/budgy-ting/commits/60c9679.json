@@ -1,0 +1,46 @@
+{
+  "sha": "60c9679",
+  "fullSha": "60c967932d6bb12797113d4cc34112dcccce77c6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T11:51:45Z",
+  "commitDate": "2026-03-09T11:51:45Z",
+  "subject": "feat(tags): add inline tag editing on transactions with ML suggestions",
+  "body": "Transactions in the dashboard table can now be clicked to expand an inline\ntag editor. The editor shows current tags (removable), ML-suggested tags\nvia zero-shot classification, and a text input with autocomplete from\ntagCache. Demo data now seeds tagCache so suggestions work from first load.\n\nTags: tags, ml, ux, dashboard, demo\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: auto-tagging\nSemver: minor\n\nhttps://claude.ai/code/session_01Gy1obaiGGDe7pD6u14TrkF",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "auto-tagging",
+  "semver": "minor",
+  "scope": "tags",
+  "title": "add inline tag editing on transactions with ML suggestions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 410,
+    "deletions": 75
+  },
+  "files": [
+    "src/components/TransactionTable.vue",
+    "src/components/TransactionTagEditor.vue",
+    "src/db/demoData.ts",
+    "src/views/WorkspaceDashboard.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

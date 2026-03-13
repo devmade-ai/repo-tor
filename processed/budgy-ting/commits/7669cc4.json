@@ -1,0 +1,69 @@
+{
+  "sha": "7669cc4",
+  "fullSha": "7669cc43cffbde8ef8b710de20945710e06b7ff3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T21:14:45Z",
+  "commitDate": "2026-03-04T21:14:45Z",
+  "subject": "feat(ux,engine): comprehensive UX, mobile, PWA improvements + engine bug fixes",
+  "body": "Engine fixes:\n- Disambiguate DD/MM vs MM/DD date format using value heuristics\n- Generate meaningful prediction bands for sparse data (< 14 days)\n- Fix quarterly pattern phase detection with > 6 month gaps\n- Add percentage-based duplicate detection tolerance (0.5%)\n- Expand currency symbol parsing (₩, ₪, ₱, ₫, ₴, ₸, ₺, ₼, ₽, ฿, CHF etc.)\n- Add tag cache pruning for entries unused > 6 months\n- Strengthen JSON import schema validation (description, tags, date format, patterns)\n\nUX improvements:\n- Mobile card layout for transactions (cards < sm, table >= sm)\n- Skeleton loading states replacing spinners (dashboard, workspace list)\n- Step indicator text labels + \"Step X of 3\" in import wizard\n- Success toast + haptic feedback on import completion\n- File upload feedback (name + size shown before parsing)\n- Improved empty states (circular icon background, larger text)\n- Bottom sheet menus on mobile for workspace actions\n- First-use pulse hint on kebab menu button\n- Responsive chart height (280/350/420px by breakpoint)\n- 44px minimum touch targets on all interactive elements\n- Modal edge spacing (max-w-[calc(100%-2rem)])\n- Pull-to-refresh on workspace list\n- Date format override dropdown in import step 1\n\nPWA improvements:\n- apple-mobile-web-app meta tags (status bar, title, splash)\n- PWA share target registration for CSV/JSON files\n- Install reminder banner for repeat users (3+ visits)\n- Haptic feedback composable (subtle pulses on key actions)\n\nTests: 12 new tests covering disambiguation, tolerance, sparse bands,\nquarterly gaps, constant series, zero balance runway.\n\nTags: ux, mobile, pwa, engine, forecast, import, a11y, test\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: ux-mobile-improvements\nSemver: minor\n\nhttps://claude.ai/code/session_01CuU4JLJcWUf92LLHXcqyK8",
+  "tags": [
+    "feature",
+    "ux",
+    "ui",
+    "bugfix",
+    "accessibility",
+    "enhancement"
+  ],
+  "complexity": 5,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "ux-mobile-polish",
+  "semver": "minor",
+  "scope": "ux,engine",
+  "title": "comprehensive UX, mobile, PWA improvements + engine bug fixes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 24,
+    "additions": 864,
+    "deletions": 81
+  },
+  "files": [
+    "index.html",
+    "src/components/BottomSheet.vue",
+    "src/components/CashflowGraph.vue",
+    "src/components/ConfirmDialog.vue",
+    "src/components/EmptyState.vue",
+    "src/components/SkeletonLoader.vue",
+    "src/components/TransactionTable.vue",
+    "src/composables/useHaptic.ts",
+    "src/composables/usePullToRefresh.ts",
+    "src/composables/useTagAutocomplete.ts",
+    "src/engine/exportImport.ts",
+    "src/engine/forecast.test.ts",
+    "src/engine/forecast.ts",
+    "src/engine/matching.test.ts",
+    "src/engine/matching.ts",
+    "src/engine/patterns.test.ts",
+    "src/engine/patterns.ts",
+    "src/main.ts",
+    "src/views/NewImportWizard.vue",
+    "src/views/WorkspaceDashboard.vue",
+    "src/views/WorkspaceDetailView.vue",
+    "src/views/WorkspaceListView.vue",
+    "src/views/import-steps/ImportStepUpload.vue",
+    "vite.config.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

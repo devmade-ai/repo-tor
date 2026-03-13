@@ -1,0 +1,44 @@
+{
+  "sha": "eed752a",
+  "fullSha": "eed752aedcc42025024051c5134b3eeaea35b2f0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T15:40:20Z",
+  "commitDate": "2026-03-09T15:40:20Z",
+  "subject": "fix(tags): suggestions and autocomplete not appearing in edit modal",
+  "body": "Two bugs caused the tag input to appear completely dead:\n\n1. ML confidence threshold was 0.5 — zero-shot classification on short\n   transaction descriptions (e.g. \"Pick n Pay\") routinely scores 0.2-0.4\n   for correct labels, so every suggestion was silently filtered out.\n   Lowered to 0.15 and added debug logging when all suggestions are\n   below threshold.\n\n2. Autocomplete only searched tagCache, which is empty for demo\n   workspaces and first sessions (tagCache is only populated on save).\n   Now merges tagCache with a knownTags prop containing all tags from\n   existing transactions in the workspace.\n\nTags: tags, ml, ux, autocomplete, bugfix\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: dashboard-polish\nSemver: patch\n\nhttps://claude.ai/code/session_01ACYo9PvFtnZUnQLTSyt5rg",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "auto-tagging",
+  "semver": "patch",
+  "scope": "tags",
+  "title": "suggestions and autocomplete not appearing in edit modal",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 39,
+    "deletions": 9
+  },
+  "files": [
+    "src/components/TransactionEditModal.vue",
+    "src/components/TransactionTable.vue",
+    "src/ml/useTagSuggestions.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 4,
+  "impact": "user-facing"
+}

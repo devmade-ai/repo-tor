@@ -1,0 +1,45 @@
+{
+  "sha": "b20ee11",
+  "fullSha": "b20ee1175fabb088399f4c229d3d20dcb91ce789",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T12:17:23Z",
+  "commitDate": "2026-03-09T12:17:23Z",
+  "subject": "refactor(editor): replace inline row editor with modal dialog",
+  "body": "The inline editor was cramped in table rows and pushed content around.\nReplaced with a proper modal following existing patterns (TutorialModal,\nInstallInstructionsModal) — Teleport, backdrop, focus trapping via\nuseDialogA11y, Save/Cancel buttons. Changes are only persisted on\nexplicit Save click rather than on every keystroke.\n\nTags: editor, ux, modal, refactor\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: auto-tagging\nSemver: minor\n\nhttps://claude.ai/code/session_01Gy1obaiGGDe7pD6u14TrkF",
+  "tags": [
+    "refactor",
+    "ux",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "auto-tagging",
+  "semver": "minor",
+  "scope": "editor",
+  "title": "replace inline row editor with modal dialog",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 416,
+    "deletions": 418
+  },
+  "files": [
+    "src/components/TransactionEditModal.vue",
+    "src/components/TransactionTable.vue",
+    "src/components/TransactionTagEditor.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

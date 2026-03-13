@@ -1,0 +1,46 @@
+{
+  "sha": "25393c9",
+  "fullSha": "25393c9c052581092fd6fcef515eba428fe9f3d9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T14:33:51Z",
+  "commitDate": "2026-03-09T14:33:51Z",
+  "subject": "fix: harden edge cases from codebase audit",
+  "body": "1. Import wizard state reset: Clear parsedRows, classifiedGroups, step,\n   and error on mount — prevents stale data leaking into second import.\n\n2. CSV parser unclosed quotes: parseCSVRow and splitCSVLines now treat\n   unclosed quotes as end-of-field rather than corrupting all subsequent\n   field parsing for the rest of the file.\n\n3. Cluster memberIndices bounds check: Filter out-of-bounds indices before\n   accessing groups array during embedding-based merge — prevents crash\n   if clustering returns unexpected indices.\n\n4. Date disambiguation validation: Skip malformed date samples (missing\n   segments, NaN values) instead of crashing on parts[0]/parts[1] access.\n\n5. Forecast prediction bands capped at 90 days: Beyond that, sqrt(horizon)\n   scaling makes bands too wide to be actionable. Bands now plateau at\n   day 90 rather than growing indefinitely.\n\nTags: bugfix, import, csv, forecast, robustness\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: stability\nSemver: patch\n\nhttps://claude.ai/code/session_01Gy1obaiGGDe7pD6u14TrkF",
+  "tags": [
+    "bugfix",
+    "validation"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "stability",
+  "semver": "patch",
+  "scope": null,
+  "title": "harden edge cases from codebase audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 25,
+    "deletions": 7
+  },
+  "files": [
+    "src/engine/csvParser.ts",
+    "src/engine/forecast.ts",
+    "src/engine/matching.ts",
+    "src/views/NewImportWizard.vue",
+    "src/views/import-steps/ImportStepClassify.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 3,
+  "impact": "user-facing"
+}

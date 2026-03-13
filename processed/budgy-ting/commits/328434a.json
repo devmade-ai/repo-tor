@@ -1,0 +1,48 @@
+{
+  "sha": "328434a",
+  "fullSha": "328434a59121608f66c7e376e5202446ca0cd604",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T16:11:17Z",
+  "commitDate": "2026-03-09T16:11:17Z",
+  "subject": "refactor(import): per-transaction review replaces group-based classification",
+  "body": "Replace group-based ImportStepClassify with per-transaction ImportStepReview.\nUsers now review and enrich each transaction individually — classification,\ntags, and variability are set per-transaction, not per-group.\n\nWizard simplified from 3 steps (Upload → Classify → Confirm) to 2 steps\n(Upload → Review). Embeddings kept for fuzzy pattern matching (cosine ≥ 0.75)\ninstead of group clustering. Recurring patterns detected at save time by\ngrouping transactions with same description.\n\nTags: import, refactor, ux, ml\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: import-flow\nSemver: minor\n\nhttps://claude.ai/code/session_01ACYo9PvFtnZUnQLTSyt5rg",
+  "tags": [
+    "refactor",
+    "ux",
+    "ui"
+  ],
+  "complexity": 5,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "import-flow",
+  "semver": "minor",
+  "scope": "import",
+  "title": "per-transaction review replaces group-based classification",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 983,
+    "deletions": 883
+  },
+  "files": [
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/views/NewImportWizard.vue",
+    "src/views/import-steps/ImportStepClassify.vue",
+    "src/views/import-steps/ImportStepReview.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

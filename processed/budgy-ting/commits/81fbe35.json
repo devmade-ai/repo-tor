@@ -1,0 +1,48 @@
+{
+  "sha": "81fbe35",
+  "fullSha": "81fbe350ac60bf407d84eae75d91a73acdbc498d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T12:29:48Z",
+  "commitDate": "2026-03-09T12:29:48Z",
+  "subject": "fix(ml,ui): address review findings across auto-tagging branch",
+  "body": "Fixes from code review of the full branch:\n\n- Singleton worker dispose: Added ref-counting so Dashboard and\n  ImportWizard don't destroy each other's shared worker during\n  route transitions\n- Worker loadModel race: Guard against concurrent loadModel() calls\n  with an in-flight promise\n- Batch timeout scaling: Scale timeout with batch size instead of\n  fixed 10s that fails on larger imports\n- Stale modelError: Clear modelError when model-ready arrives after\n  a timeout\n- Nested button a11y: Split TagSuggestions button-in-button into\n  sibling accept/dismiss buttons\n- Modal validation: Reject empty description and NaN amount on save\n- Blur timer leak: Track and clean up autocomplete blur timeout\n- Keyboard a11y: Add tabindex, role, keydown handlers to table rows\n  and mobile cards\n- Page clamping: Watch totalPages and clamp currentPage when data\n  shrinks\n- Duplicate import: Merge two imports from same module\n\nTags: ml, a11y, ux, bugfix, review\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: auto-tagging\nSemver: patch\n\nhttps://claude.ai/code/session_01Gy1obaiGGDe7pD6u14TrkF",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ux",
+    "validation"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "auto-tagging",
+  "semver": "patch",
+  "scope": "ml,ui",
+  "title": "address review findings across auto-tagging branch",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 116,
+    "deletions": 42
+  },
+  "files": [
+    "src/components/TagSuggestions.vue",
+    "src/components/TransactionEditModal.vue",
+    "src/components/TransactionTable.vue",
+    "src/ml/tagSuggestionWorker.ts",
+    "src/ml/useTagSuggestions.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 3,
+  "impact": "user-facing"
+}

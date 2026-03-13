@@ -1,0 +1,45 @@
+{
+  "sha": "7c09025",
+  "fullSha": "7c090254513040a5aa3d7d2b9301aff26e14fb37",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T14:02:42Z",
+  "commitDate": "2026-03-07T14:02:42Z",
+  "subject": "fix(quality): address self-review findings from refactoring branch",
+  "body": "Fix uncaught JSON.parse in usePWAInstall trackEvent that would throw\non malformed localStorage data. Use calculateIntervals in detectPattern\ninstead of duplicated inline loop. Move useInstallReminder ref to\nmodule level for shared state consistency. Remove redundant guard in\nprojectWeeklyInterval.\n\nTags: cleanup, pwa, engine, patterns\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01UiDYaahczNibu4QTZFvV4Q",
+  "tags": [
+    "bugfix",
+    "refactor",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": "quality",
+  "title": "address self-review findings from refactoring branch",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 15,
+    "deletions": 10
+  },
+  "files": [
+    "src/composables/useInstallReminder.ts",
+    "src/composables/usePWAInstall.ts",
+    "src/engine/patterns.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

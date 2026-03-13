@@ -1,0 +1,41 @@
+{
+  "sha": "9a24a1f",
+  "fullSha": "9a24a1f0e55d5ff8b96f57b6f5ab2f0201db5aea",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T14:03:33Z",
+  "commitDate": "2026-03-07T14:03:33Z",
+  "subject": "fix(engine): remove unreachable daySpan guard in estimateMonthlySpend",
+  "body": "Math.max(1, ...) already guarantees daySpan >= 1, making the > 0\nternary always true. Simplify to direct division.\n\nTags: cleanup, engine\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01UiDYaahczNibu4QTZFvV4Q",
+  "tags": [
+    "simplify"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": "engine",
+  "title": "remove unreachable daySpan guard in estimateMonthlySpend",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "src/engine/transactionMath.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 1,
+  "impact": "internal"
+}

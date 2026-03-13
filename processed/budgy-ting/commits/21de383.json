@@ -1,0 +1,60 @@
+{
+  "sha": "21de383",
+  "fullSha": "21de38386dd3f7024609876a4c1e50625ce4e718",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T15:39:03Z",
+  "commitDate": "2026-03-04T15:39:03Z",
+  "subject": "feat(engine): implement hybrid forecasting engine and actuals-first data model",
+  "body": "Phase 1 (Data Model) and Phase 3 (Forecasting Engine) of the actuals-first pivot.\nReplaces the budget-first paradigm with unified Transaction model, recurring pattern\ndetection, Holt's double exponential smoothing for variable spending, and daily\ncash runway projection.\n\nNew engines: patterns.ts (frequency detection, deterministic scheduling),\nforecast.ts (Holt + day-of-week + confidence bands), accuracy.ts (MAE/RMSE/bias/WMAPE),\nrunway.ts (daily balance + depletion + band scenarios).\n\nDB schema v6: clean slate migration dropping expenses/actuals/categoryMappings.\n142 tests passing, type-check clean.\n\nTags: forecasting, data-model, engine, patterns, accuracy, runway\nComplexity: 5\nUrgency: 3\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: actuals-first-pivot\nSemver: major\n\nhttps://claude.ai/code/session_01CuU4JLJcWUf92LLHXcqyK8",
+  "tags": [
+    "feature",
+    "schema",
+    "migration"
+  ],
+  "complexity": 5,
+  "risk": "high",
+  "debt": "paid",
+  "epic": "actuals-first-pivot",
+  "semver": "major",
+  "scope": "engine",
+  "title": "implement hybrid forecasting engine and actuals-first data model",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 18,
+    "additions": 2058,
+    "deletions": 775
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "package-lock.json",
+    "package.json",
+    "src/db/demoData.ts",
+    "src/db/index.ts",
+    "src/engine/accuracy.test.ts",
+    "src/engine/accuracy.ts",
+    "src/engine/exportImport.test.ts",
+    "src/engine/forecast.test.ts",
+    "src/engine/forecast.ts",
+    "src/engine/patterns.test.ts",
+    "src/engine/patterns.ts",
+    "src/engine/runway.test.ts",
+    "src/engine/runway.ts",
+    "src/types/models.ts",
+    "src/views/WorkspaceCreateView.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 3,
+  "impact": "user-facing"
+}

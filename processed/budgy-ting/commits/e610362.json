@@ -1,0 +1,44 @@
+{
+  "sha": "e610362",
+  "fullSha": "e6103628f0aa2756e6442d87a27a0f0a656b553b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T13:18:22Z",
+  "commitDate": "2026-03-09T13:18:22Z",
+  "subject": "feat(import): show progress bar while embedding model loads for fuzzy grouping",
+  "body": "Instead of silently falling back to exact grouping when the model isn't\ncached, Step 2 now always waits for the embedding model with a progress\nbar. First import downloads ~22MB (shows download %); subsequent imports\nload from browser cache in ~1-2 seconds.\n\n- useEmbeddings: expose modelProgress ref and waitForModel() promise helper\n- ImportStepClassify: preparingGroups loading state with animated progress bar\n- Graceful fallback: if model fails to load, proceeds with exact grouping\n\nTags: import, ml, ux, embeddings\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: auto-tagging-imports\nSemver: minor\n\nhttps://claude.ai/code/session_01Gy1obaiGGDe7pD6u14TrkF",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "auto-tagging",
+  "semver": "minor",
+  "scope": "import",
+  "title": "show progress bar while embedding model loads for fuzzy grouping",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 85,
+    "deletions": 13
+  },
+  "files": [
+    "src/ml/useEmbeddings.ts",
+    "src/views/import-steps/ImportStepClassify.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}
