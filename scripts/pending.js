@@ -75,7 +75,7 @@ const BATCH_PREAMBLE = {
     review_format: {
       description: "Present commits in EXACTLY this format. Do not abbreviate, restructure, or use alternative layouts.",
       template: [
-        "[1/25] abc123",
+        "[1/50] abc123",
         "Subject: Fix button placement and performance issues",
         "Body:",
         "- Move button below the image",

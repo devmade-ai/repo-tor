@@ -64,7 +64,7 @@ The entire point of AI-driven commit analysis is contextual intelligence. A scri
 Human-in-the-loop review ensures quality tagging.
 
 ### Batch Size
-- Process **25 commits per batch** (for review efficiency)
+- Process **50 commits per batch** (matches pending.js output)
 - AI presents analysis, **user reviews and approves**
 - After approval: write individual commit files to `processed/<repo>/commits/`, update manifest
 - Commits happen on demand (not after every batch)
@@ -75,7 +75,7 @@ Human-in-the-loop review ensures quality tagging.
 **MANDATORY:** AI MUST present commits in exactly this format. Do not abbreviate, restructure, or use alternative layouts. This format is optimized for human review efficiency.
 
 ```text
-[1/25] abc123
+[1/50] abc123
 Subject: Fix button placement and performance issues
 Body:
 - Move "Update Visualization" button below the image
@@ -86,7 +86,7 @@ Body:
 Tags: refactor, bugfix, performance, docs
 Complexity: 4 | Urgency: 3 | Impact: user-facing | Risk: medium | Debt: neutral
 ---
-[2/25] def456
+[2/50] def456
 ...
 ```
 
