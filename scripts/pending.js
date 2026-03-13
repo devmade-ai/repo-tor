@@ -107,7 +107,18 @@ const BATCH_PREAMBLE = {
       "NEVER skip the commit body when analyzing — tags must reflect full message content (subject + body)",
       "NEVER use placeholder data that looks like real data",
       "NEVER reference external docs for instructions — everything you need is in this _instructions block"
-    ]
+    ],
+    process: {
+      rule: "Process ONE batch at a time. Do NOT read ahead to other batches.",
+      steps: [
+        "1. Read THIS batch file only",
+        "2. Present all commits in the exact review_format",
+        "3. STOP and wait for user response",
+        "4. On approval: pipe analysis JSON to merge-analysis.js",
+        "5. Only then read the next batch file"
+      ],
+      why: "Reading multiple batches at once causes context overload. The preamble in each batch file is your anchor — you re-read it fresh each time. If you skip ahead, you lose that reset."
+    }
   }
 };
 
