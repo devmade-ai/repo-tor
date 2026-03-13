@@ -1,0 +1,43 @@
+{
+  "sha": "524f425",
+  "fullSha": "524f425e531e71ef669e934f5f998569df77a22f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T19:19:26Z",
+  "commitDate": "2026-03-04T19:19:26Z",
+  "subject": "fix(pwa): update check now reports actual result instead of misleading banner",
+  "body": "checkForUpdate() previously returned a boolean indicating only whether the\ncheck was triggered, not whether an update was found. The toast always said\n\"Checking for updates…\" and never resolved to a final answer. Now the function\nawaits the SW update check, monitors the installing worker's state, and returns\n'update-available', 'up-to-date', or 'unavailable'. The BurgerMenu shows an\nimmediate \"Checking…\" toast followed by the actual result.\n\nTags: pwa, ux, bug-fix\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-system\nSemver: patch\n\nhttps://claude.ai/code/session_018QX7HNZD2yN6y2b9giFAyL",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "update check now reports actual result instead of misleading banner",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 56,
+    "deletions": 14
+  },
+  "files": [
+    "src/components/ui/BurgerMenu.tsx",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "eb22d4b",
+  "fullSha": "eb22d4b995dbb339115768668d401040516eca80",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-18T18:33:31Z",
+  "commitDate": "2026-01-18T18:33:31Z",
+  "subject": "Fix cell grid selectors not scaling with row/column count",
+  "body": "Changed small size CellGrid from fixed dimensions (80x52px) to\naspect-ratio based sizing like normal/large sizes. Now properly\nscales to show all cells regardless of layout structure.",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "cell-grid-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix cell grid selectors not scaling with row/column count",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 8,
+    "deletions": 5
+  },
+  "files": [
+    "src/components/LayoutTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

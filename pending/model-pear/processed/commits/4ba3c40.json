@@ -1,0 +1,42 @@
+{
+  "sha": "4ba3c40",
+  "fullSha": "4ba3c40f4e5925632e986545897e741ddaf0c4f4",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-10T01:38:43Z",
+  "commitDate": "2026-01-10T01:38:43Z",
+  "subject": "chore: clean up entity configuration",
+  "body": "Phase 8 of refactor to remove Combined perspective.\n- Remove sameGroup and consolidationRequired flags from DEFAULT_ENTITY_CONFIG\n- Keep mutualOwnership for transfer pricing compliance features",
+  "tags": [
+    "refactor",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "remove-combined-perspective",
+  "semver": "patch",
+  "scope": null,
+  "title": "clean up entity configuration",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 4
+  },
+  "files": [
+    "models/intercompany/registry.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,45 @@
+{
+  "sha": "5597661",
+  "fullSha": "55976613f09358d9224de176ff722e7a9f6372bc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T07:06:41Z",
+  "commitDate": "2026-03-09T07:06:41Z",
+  "subject": "fix(import): resolve 6 import/export inconsistencies with conventions guide",
+  "body": "- Make `connections` array optional in validator — nodes-only imports\n  no longer fail with a cryptic error (default to empty array)\n- Fix untitled arc dedup collision: include labels in arc matching key\n  when title is absent, preventing distinct untitled relationships\n  between the same nodes from silently collapsing\n- Use consistent normalizeTitle (with whitespace collapse) in\n  buildImportWarnings to match mergeService behavior, eliminating\n  false-positive \"unresolved endpoint\" warnings for titles with\n  extra internal whitespace\n- Strip internal fields (id, workspaceId, viewData, createdBy) from\n  export output so exported JSON matches the conventions format and\n  doesn't leak storage details across workspaces\n- Document connection `content` field in conventions\n- Document `tags` as accepted alias for `labels` in conventions\n- Update conventions to mark connection `title` as required (was\n  \"optional but recommended\") since dedup depends on it\n\nTags: import, export, conventions, merge, dedup, consistency\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: import-export\nSemver: minor\n\nhttps://claude.ai/code/session_01P6y9bzn2FJLcB9z6PNCE17",
+  "tags": [
+    "bugfix",
+    "validation"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "import-pipeline",
+  "semver": "patch",
+  "scope": "import",
+  "title": "resolve 6 import/export inconsistencies with conventions guide",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 90,
+    "deletions": 20
+  },
+  "files": [
+    "src/data/conventions.ts",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts",
+    "src/services/mergeService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

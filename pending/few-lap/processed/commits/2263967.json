@@ -1,0 +1,45 @@
+{
+  "sha": "2263967",
+  "fullSha": "2263967afa274a028f03e34332755924f51d6050",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T02:23:40Z",
+  "commitDate": "2026-03-05T02:23:40Z",
+  "subject": "fix: address codebase review findings across hooks and components",
+  "body": "- useStations.ts: Replace `as unknown[]` cast with typed `Array.isArray()`\n  check + runtime validation. Supabase .rpc() doesn't support .returns<T[]>()\n  cleanly without generated types, so use explicit type guard instead.\n- FuelMapWeb.tsx: Add `| undefined` to getSource() cast and null guard to\n  prevent crash when source hasn't loaded yet.\n- useAppTheme.ts: Remove `factory` from useThemedStyles useMemo deps — callers\n  pass inline functions which defeat memoization on every render.\n- usePWAUpdate.ts: Guard updateApp() with ref to prevent duplicate\n  controllerchange listeners on rapid clicks.\n\nTags: typescript, hooks, safety, performance\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: codebase-review\nSemver: patch\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "bugfix",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "codebase-review",
+  "semver": "patch",
+  "scope": null,
+  "title": "address codebase review findings across hooks and components",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 14,
+    "deletions": 5
+  },
+  "files": [
+    "src/components/map/FuelMapWeb.tsx",
+    "src/hooks/useAppTheme.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "src/hooks/useStations.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

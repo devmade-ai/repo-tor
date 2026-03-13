@@ -1,0 +1,41 @@
+{
+  "sha": "d18cc98",
+  "fullSha": "d18cc983f4a56e85f628a1b5df55343097c2f54d",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-01T14:40:31Z",
+  "commitDate": "2026-01-01T14:40:31Z",
+  "subject": "Fix budget calculations to handle large budgets and improve capacity detection",
+  "body": "- Add findCapacityInput() helper with case-insensitive keyword matching\n- Add calculateCapacityLimit() to dynamically scale search limits based on budget\n- Update findMaximumCapacity() to support budgets up to 1M capacity\n- Update findBestValue() with adaptive step sizes and dynamic limits (up to 50k)\n- Update findConservativeOption() with dynamic limits (up to 25k)\n- Fix issue where 10M budget showed \"no options\" due to hardcoded 10k limit\n\nThis resolves the budget calculation issue where large budgets were constrained\nby hardcoded capacity limits that were too low.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "budget-calculator",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix budget calculations to handle large budgets and improve capacity detection",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 55,
+    "deletions": 35
+  },
+  "files": [
+    "app.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

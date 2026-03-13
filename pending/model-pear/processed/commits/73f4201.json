@@ -1,0 +1,42 @@
+{
+  "sha": "73f4201",
+  "fullSha": "73f42010c88a836c92d88629455946cce84f9e78",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-05T19:21:44Z",
+  "commitDate": "2026-01-05T19:21:44Z",
+  "subject": "Fix duplicate declaration errors in client-budget.js",
+  "body": "Removed duplicate function declarations that were causing SyntaxError:\n- renderUniversalMetrics\n- renderComparisonCharts\n- renderRaceChart\n- renderComparisonTable\n\nThese functions were both forward-declared as dependency injection\nvariables AND exported as local functions, causing JavaScript to\nthrow 'Identifier has already been declared' errors.\n\nRoot cause: During modular refactoring, these functions were moved\nfrom app.js to client-budget.js but forward declarations weren't\ncleaned up.\n\nUpdated claude.md with bug fix documentation.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "dependency-injection-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix duplicate declaration errors in client-budget.js",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 32,
+    "deletions": 6
+  },
+  "files": [
+    "calculators/client-budget.js",
+    "claude.md"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

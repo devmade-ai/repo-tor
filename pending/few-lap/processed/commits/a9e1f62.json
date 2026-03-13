@@ -1,0 +1,53 @@
+{
+  "sha": "a9e1f62",
+  "fullSha": "a9e1f628d574855bd2a699566f9269503ac6261f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T10:33:25Z",
+  "commitDate": "2026-03-02T10:33:25Z",
+  "subject": "fix(audit): address code review findings across hooks, components, and lib",
+  "body": "Race conditions:\n- useStations: request ID guard discards stale responses from rapid filter changes\n- usePersistedState: expose `loaded` flag, add mountedRef to prevent overwriting\n  user selections during AsyncStorage hydration\n- Home screen: defer first search until persisted preferences are loaded\n\nType safety:\n- useStations: add isValidResult runtime check on RPC response rows\n- station/[id]: typed FuelPriceRow interface replaces scattered `as` casts\n- PriceEditor: typed CurrentPriceRow with defensive typeof checks\n\nMemory safety:\n- useLocation: mountedRef guards setState after unmount during GPS await\n- FuelMapWeb: ref-based click handler prevents stale closure in map.on('click')\n\nCleanup:\n- Remove unused `centered` and `loadingText` styles from home screen\n- Remove stale `modal.tsx` reference from CLAUDE.md architecture\n- Route console.error through debugAdd in supabase.ts and mapbox.ts\n- Consolidate MAPBOX_TOKEN imports (FuelMapWeb, LocationSearch) to shared module\n- PriceEditor wrapped in React.memo to avoid re-renders from parent form state\n\nUI fixes:\n- station/[id]: track coordinate validity via explicit flag instead of === 0 check\n- station/[id]: fix trailing comma when city is empty\n\nTags: code-quality, type-safety, race-condition, cleanup, audit\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: code-audit\nSemver: patch\n\nhttps://claude.ai/code/session_012p46viNk9dHEZ6Ls7JrAbB",
+  "tags": [
+    "bugfix",
+    "types",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-review-audit",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "address code review findings across hooks, components, and lib",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 154,
+    "deletions": 68
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(tabs)/index.tsx",
+    "app/station/[id].tsx",
+    "src/components/admin/PriceEditor.tsx",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/hooks/useLocation.ts",
+    "src/hooks/usePersistedState.ts",
+    "src/hooks/useStations.ts",
+    "src/lib/mapbox.ts",
+    "src/lib/supabase.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "internal"
+}

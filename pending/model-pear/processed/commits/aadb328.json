@@ -1,0 +1,44 @@
+{
+  "sha": "aadb328",
+  "fullSha": "aadb32826d331ce8d9ff45b72922ccd3cd18ac2f",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T07:54:52Z",
+  "commitDate": "2026-01-08T07:54:52Z",
+  "subject": "Add 'both balance sheets' capitalization priority option to Q6",
+  "body": "Add a new option to the wizard's Q6 (asset recognition) question that\nallows users to indicate both parties want to capitalize and show an\nasset. This favors Model 3 (Joint Development) and Model 4 (BOT) where\nboth parties can recognize assets on their balance sheets.\n\n- Add 'both-balance-sheets' option with appropriate model scores\n- Update BUSINESS_GUIDE.md with asset recognition options table\n- Add model selection by capitalization priority section to framework docs",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "capitalization-priority",
+  "semver": "minor",
+  "scope": null,
+  "title": "Add 'both balance sheets' capitalization priority option to Q6",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 28,
+    "deletions": 1
+  },
+  "files": [
+    "docs/BUSINESS_GUIDE.md",
+    "docs/financial_models_intercompany_software.md",
+    "models/intercompany/structure-selector.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

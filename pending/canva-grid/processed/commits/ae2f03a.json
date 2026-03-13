@@ -1,0 +1,41 @@
+{
+  "sha": "ae2f03a",
+  "fullSha": "ae2f03aefe1b060c3023972bc37a65e9cfbf5807",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-18T18:17:33Z",
+  "commitDate": "2026-01-18T18:17:33Z",
+  "subject": "Fix export text wrapping mismatch with preview",
+  "body": "Remove skipFonts: true from html-to-image export calls.\nThis option was causing different font metrics during export,\nresulting in text wrapping differently than shown in preview.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "export-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix export text wrapping mismatch with preview",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 0,
+    "deletions": 2
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

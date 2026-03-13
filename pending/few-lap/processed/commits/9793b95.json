@@ -1,0 +1,42 @@
+{
+  "sha": "9793b95",
+  "fullSha": "9793b958e3d6b98e26f28aa3ee6effd3a7a098a7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T20:08:52Z",
+  "commitDate": "2026-03-12T20:08:52Z",
+  "subject": "fix(map): use proper CameraRef type instead of any",
+  "body": "CameraRef isn't re-exported from @rnmapbox/maps package root, so derive\nit via React.ComponentRef<typeof Camera> instead of using `any`. This\npreserves type safety on the camera ref while avoiding the deep import\npath that doesn't resolve.\n\nTags: fix, typescript, map\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: bulk-import\nSemver: patch\n\nhttps://claude.ai/code/session_016TH1ngDtxc1chAu7S7eU74",
+  "tags": [
+    "bugfix",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "bulk-import",
+  "semver": "patch",
+  "scope": "map",
+  "title": "use proper CameraRef type instead of any",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 6,
+    "deletions": 4
+  },
+  "files": [
+    "src/components/map/FuelMap.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 1,
+  "impact": "internal"
+}

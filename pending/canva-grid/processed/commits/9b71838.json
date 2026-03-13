@@ -1,0 +1,45 @@
+{
+  "sha": "9b71838",
+  "fullSha": "9b71838ccbf62813925648def6f6ca1dd07aff06",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T21:40:42Z",
+  "commitDate": "2026-03-09T21:40:42Z",
+  "subject": "feat(structure): add snap-to-fit button for contained images",
+  "body": "Users can now click \"Snap to Fit Image\" in the Structure tab to\nautomatically adjust a cell's boundary so a contained image fills\nthe cell with no empty space and no cropping. The button appears\nwhen a cell has an image set to \"contain\" fit mode.\n\nThe snap direction is determined by comparing the image's aspect\nratio to the cell's: wider images adjust the section boundary\n(row height / column width), narrower images adjust the subdivision\nboundary (cell width / cell height).\n\nImage natural dimensions are now stored on upload for the calculation.\nA fallback async load handles images uploaded before this feature.\n\nTags: structure, media, images, layout\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cell-image-sizing\nSemver: minor\n\nhttps://claude.ai/code/session_017n4gsYeUjGeins2fbeaPFF",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "cell-image-sizing",
+  "semver": "minor",
+  "scope": "structure",
+  "title": "add snap-to-fit button for contained images",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 154,
+    "deletions": 11
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/LayoutTab.jsx",
+    "src/components/MediaTab.jsx",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,72 @@
+{
+  "sha": "5335f98",
+  "fullSha": "5335f98a1bf4b305da54e41dcf41c5618cbe0b5c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-03T16:21:33Z",
+  "commitDate": "2026-03-03T16:21:33Z",
+  "subject": "feat(data): add time-windowed files + weekly/daily pre-aggregation",
+  "body": "Redesign aggregation pipeline for time-windowed reporting:\n- Summary file (data.json, ~126KB) with weekly/daily/monthly pre-aggregated\n  buckets replaces 2.9MB monolith (96% smaller initial load)\n- Per-month commit files (data-commits/YYYY-MM.json) for lazy loading\n- Shared bucket helpers (createEmptyBucket/accumulateBucket/finalizeBucket)\n  used by monthly, weekly, and daily aggregation functions\n- Pre-computed filterOptions so FilterSidebar works without loading commits\n- Two-phase dashboard loading: summary first, commits in background\n- SummaryTab, TimelineTab, ProgressTab render from pre-aggregated data\n  instantly; fall back to filteredCommits once loaded\n- PWA runtime cache rule for data-commits/*.json files\n\ncomplexity: 4\nurgency: 2\nimpact: user-facing\nrisk: medium\ndebt: paid\nepic: time-windowed-data\nsemver: minor\n\nhttps://claude.ai/code/session_01RbDmv8obRPnToLezqSGmHg",
+  "tags": [
+    "feature",
+    "performance"
+  ],
+  "complexity": 5,
+  "risk": "high",
+  "debt": "paid",
+  "epic": "time-windowed-data",
+  "semver": "minor",
+  "scope": "data",
+  "title": "add time-windowed files + weekly/daily pre-aggregation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 31,
+    "additions": 118673,
+    "deletions": 102702
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/App.jsx",
+    "dashboard/js/AppContext.jsx",
+    "dashboard/js/tabs/ProgressTab.jsx",
+    "dashboard/js/tabs/SummaryTab.jsx",
+    "dashboard/js/tabs/TimelineTab.jsx",
+    "dashboard/public/data-commits/2025-06.json",
+    "dashboard/public/data-commits/2025-12.json",
+    "dashboard/public/data-commits/2026-01.json",
+    "dashboard/public/data-commits/2026-02.json",
+    "dashboard/public/data-commits/2026-03.json",
+    "dashboard/public/data.json",
+    "dashboard/public/repos/budgy-ting.json",
+    "dashboard/public/repos/canva-grid-assets.json",
+    "dashboard/public/repos/canva-grid.json",
+    "dashboard/public/repos/chatty-chart.json",
+    "dashboard/public/repos/coin-zapp.json",
+    "dashboard/public/repos/few-lap.json",
+    "dashboard/public/repos/glow-props.json",
+    "dashboard/public/repos/graphiki.json",
+    "dashboard/public/repos/model-pear.json",
+    "dashboard/public/repos/plant-fur.json",
+    "dashboard/public/repos/repo-tor.json",
+    "dashboard/public/repos/see-veo.json",
+    "dashboard/public/repos/synctone.json",
+    "dashboard/public/repos/tool-till-tees.json",
+    "docs/ADMIN_GUIDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/aggregate-processed.js",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

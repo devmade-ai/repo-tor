@@ -1,0 +1,43 @@
+{
+  "sha": "bebb2f6",
+  "fullSha": "bebb2f6a97c0ee103cf59fdc7e7ccd8475a8c685",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-01T18:54:46Z",
+  "commitDate": "2026-01-01T18:54:46Z",
+  "subject": "Fix mode switching and model selection visibility issues",
+  "body": "Fixed two critical bugs:\n1. Replaced unsupported :has() CSS selector with getElementById for better browser compatibility (especially for GitHub Pages)\n2. Fixed mode switching to properly show/hide model selection and delivery/service sections when switching between modes\n\nChanges:\n- Added id=\"categorySection\" to category div in index.html\n- Updated setCalculatorMode() to use getElementById instead of querySelector with :has()\n- Added logic to show modelSelectionSection and layerTwoThreeSection when switching to non-admin modes\n- Removed unnecessary null checks now that getElementById is used\n\nThis fixes the issue where models wouldn't appear after selecting a software type and mode switching wouldn't work properly.",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "ui-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix mode switching and model selection visibility issues",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 34,
+    "deletions": 16
+  },
+  "files": [
+    "index.html",
+    "ui/initialization.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

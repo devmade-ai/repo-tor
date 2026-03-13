@@ -1,0 +1,51 @@
+{
+  "sha": "7b7cbad",
+  "fullSha": "7b7cbad3d7b32bfff68178ae4316b2aea6e03e1b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-06T08:42:29Z",
+  "commitDate": "2026-01-06T08:42:29Z",
+  "subject": "Streamline documentation structure - remove outdated files and create business guide",
+  "body": "This commit simplifies the project's documentation structure by:\n\nREMOVED (5 outdated files):\n- FRAMEWORK_ALIGNMENT_PLAN.md (described different system)\n- QUICK_START_ALIGNMENT.md (planned features that were simplified)\n- IMPLEMENTATION_PROGRESS.md (outdated file references)\n- SIMPLIFICATION_SUMMARY.md (historical context only)\n- TODO_REMAINING_WORK.md (merged into HISTORY.md)\n\nUPDATED (3 files):\n- README.md: Simplified to 106 lines (from 270), focused on quick overview\n- claude.md: Added documentation structure section, designated as primary technical reference\n- HISTORY.md: Added entry for documentation cleanup, designated as ongoing changelog\n\nCREATED (1 file):\n- BUSINESS_GUIDE.md: Comprehensive 800+ line user guide with detailed pricing model explanations, tutorials, examples, and best practices\n\nNew Documentation Structure:\n├── README.md         # Quick overview (business users)\n├── BUSINESS_GUIDE.md # Detailed user guide (business users)\n├── CALCULATIONS.md   # Formula explanations (technical users)\n├── claude.md         # Architecture & dev guide (developers/AI)\n└── HISTORY.md        # Ongoing changelog (developers)\n\nBenefits:\n- Clear separation between business and technical documentation\n- Reduced redundancy (removed 1,800+ lines of duplicate content)\n- claude.md and HISTORY.md designated as primary living documents\n- Easier maintenance with fewer files to keep updated\n- Better onboarding for both business users and developers",
+  "tags": [
+    "docs",
+    "refactor",
+    "removal"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "docs-restructure",
+  "semver": "patch",
+  "scope": null,
+  "title": "Streamline documentation structure - remove outdated files and create business guide",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 1197,
+    "deletions": 1807
+  },
+  "files": [
+    "BUSINESS_GUIDE.md",
+    "FRAMEWORK_ALIGNMENT_PLAN.md",
+    "HISTORY.md",
+    "IMPLEMENTATION_PROGRESS.md",
+    "QUICK_START_ALIGNMENT.md",
+    "README.md",
+    "SIMPLIFICATION_SUMMARY.md",
+    "TODO_REMAINING_WORK.md",
+    "claude.md"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 1,
+  "impact": "internal"
+}

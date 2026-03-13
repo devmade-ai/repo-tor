@@ -1,0 +1,45 @@
+{
+  "sha": "ac568bc",
+  "fullSha": "ac568bc581e6d6d88a2f72d659800ddadb5fc5da",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-10T01:32:28Z",
+  "commitDate": "2026-01-10T01:32:28Z",
+  "subject": "feat: remove combined from comparison features",
+  "body": "Phase 5 of refactor to remove Combined perspective.\n- comparison-view.js: remove Combined section from metrics\n- comparison-manager.js: replace Combined Net with Buyer Asset\n- storage.js: remove combined from CSV export and summary, update defaults\n- diff-view.js: replace Combined Net Cash with Buyer Asset",
+  "tags": [
+    "feature",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "remove-combined-perspective",
+  "semver": "minor",
+  "scope": null,
+  "title": "remove combined from comparison features",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 5,
+    "deletions": 28
+  },
+  "files": [
+    "ui/intercompany/comparison-manager.js",
+    "ui/intercompany/comparison-view.js",
+    "ui/intercompany/diff-view.js",
+    "utils/storage.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

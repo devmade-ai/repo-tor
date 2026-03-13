@@ -1,0 +1,64 @@
+{
+  "sha": "9fcb6e3",
+  "fullSha": "9fcb6e34ceb986a5ea225454eefd551c43c27821",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-10T01:57:05Z",
+  "commitDate": "2026-01-10T01:57:05Z",
+  "subject": "refactor: complete removal of Combined/Shareholder perspective references",
+  "body": "Code changes:\n- Remove 'combined' perspective fallbacks in perspective-toggle.js\n- Remove combined projection generation in growth-projections.js\n- Remove consolidation rendering in compliance-analyzer.js\n- Remove consolidation fields from all 6 model files\n- Remove unused 'combined' parameter from tax position calculation\n- Update keyboard shortcuts display (removed 'C' key)\n\nDocumentation updates:\n- Update README.md to show two-perspective analysis\n- Update BUSINESS_GUIDE.md to remove shareholder view references\n- Update MANUAL_TESTING_GUIDE.md to remove shareholder testing\n- Remove Shareholder Perspective sections from all model concept docs\n- Update registry.js and results-display.js comments\n- Delete completed REFACTOR_PLAN_REMOVE_COMBINED.md\n\nTerminology updates:\n- 'three perspectives' → 'two perspectives'\n- 'Net Effect' references removed\n- 'combined asset maximisation' → clearer client-focused language",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "remove-combined-perspective",
+  "semver": "minor",
+  "scope": null,
+  "title": "complete removal of Combined/Shareholder perspective references",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 24,
+    "additions": 43,
+    "deletions": 959
+  },
+  "files": [
+    "app.js",
+    "docs/BUSINESS_GUIDE.md",
+    "docs/MANUAL_TESTING_GUIDE.md",
+    "docs/README.md",
+    "docs/REFACTOR_PLAN_REMOVE_COMBINED.md",
+    "docs/model_1_cost_plus_concept.md",
+    "docs/model_2_licence_royalties_concept.md",
+    "docs/model_3_joint_development_concept.md",
+    "docs/model_4_build_operate_transfer_concept.md",
+    "docs/model_5_software_sale_support_concept.md",
+    "docs/model_6_saas_subscription_concept.md",
+    "models/intercompany/compliance-analyzer.js",
+    "models/intercompany/growth-projections.js",
+    "models/intercompany/model-1-cost-plus.js",
+    "models/intercompany/model-2-licence-royalties.js",
+    "models/intercompany/model-3-joint-development.js",
+    "models/intercompany/model-4-bot.js",
+    "models/intercompany/model-5-software-sale.js",
+    "models/intercompany/model-6-saas-subscription.js",
+    "models/intercompany/registry.js",
+    "state/app-state.js",
+    "ui/intercompany/compliance-analyzer.js",
+    "ui/intercompany/perspective-toggle.js",
+    "ui/intercompany/results-display.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,50 @@
+{
+  "sha": "46611b0",
+  "fullSha": "46611b02d41dcb6fb1303d96d9372cd6f2d88ccf",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T07:13:13Z",
+  "commitDate": "2026-01-08T07:13:13Z",
+  "subject": "Improve UI/UX: Make intercompany default and add comprehensive tooltips",
+  "body": "- Swap mode tabs: Inter-Company Tool is now the default mode\n- Add help icons (?) with detailed modal explanations throughout:\n  - Mode switcher buttons explain each tool's purpose\n  - All 5 pricing models have tooltips with formulas and use cases\n  - All 5 intercompany calculator tabs have help tooltips\n  - Wizard/Direct mode toggle buttons include explanations\n  - All form inputs have clickable help icons for detailed info\n- Add CSS styles for help icons with hover effects and accessibility\n- Update documentation with new features and changelog entries",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "tooltip-accessibility",
+  "semver": "minor",
+  "scope": null,
+  "title": "Improve UI/UX: Make intercompany default and add comprehensive tooltips",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 419,
+    "deletions": 33
+  },
+  "files": [
+    "app.js",
+    "docs/HISTORY.md",
+    "docs/README.md",
+    "docs/UI_UX_GUIDE.md",
+    "index.html",
+    "styles.css",
+    "ui/forms.js",
+    "ui/intercompany/calculator.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

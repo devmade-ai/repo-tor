@@ -1,0 +1,46 @@
+{
+  "sha": "965c41b",
+  "fullSha": "965c41b916653e32b3e26f172150db30d88f0b60",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-06T07:55:13Z",
+  "commitDate": "2026-01-06T07:55:13Z",
+  "subject": "Add reverse calculation feature - auto-calculate missing inputs",
+  "body": "This enhancement allows users to calculate any missing input based on other known values, making the calculator significantly more flexible and useful.\n\nFeatures added:\n- New calculation modes dropdown: Choose what to calculate\n- Calculate optimal price (with 3 pricing strategies: minimum, balanced, maximum)\n- Calculate required buyer value from target price\n- Calculate achievable margin from current costs/price\n- Calculate maximum cost ceiling from pricing targets\n- Real-time updates when calculation mode or strategy changes\n- Visual indication of auto-calculated fields (yellow highlight + badge)\n\nTechnical changes:\n- New file: calculators/reverse-calculations.js (all reverse calculation logic)\n- Updated: calculators/engine.js (integrated reverse calculations)\n- Updated: ui/forms.js (calculation mode selector + pricing strategy selector)\n- Updated: app.js (new event handler for calculation mode changes)\n- Updated: CALCULATIONS.md (comprehensive reverse calculations documentation)\n- Updated: README.md (feature description and quick start guide)\n\nAll 5 pricing models supported:\n- Subscription (SaaS)\n- Usage-Based\n- Per-Seat (Per User)\n- One-Time Purchase (Perpetual License)\n- Marketplace (Two-Sided)\n\nMathematical basis:\n- Price calculations use equilibrium theory (seller floor vs buyer ceiling)\n- Buyer value calculations ensure ROI thresholds (2.5x for recurring, 2x for one-time)\n- Margin calculations show what's achievable at current pricing\n- Cost calculations reveal maximum viable cost structures",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "reverse-calculation",
+  "semver": "minor",
+  "scope": null,
+  "title": "Add reverse calculation feature - auto-calculate missing inputs",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 822,
+    "deletions": 16
+  },
+  "files": [
+    "CALCULATIONS.md",
+    "README.md",
+    "app.js",
+    "calculators/engine.js",
+    "calculators/reverse-calculations.js",
+    "ui/forms.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

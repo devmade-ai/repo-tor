@@ -1,0 +1,43 @@
+{
+  "sha": "4963c75",
+  "fullSha": "4963c7574f0e58f78525014556e24cb7ab3b6be0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-05T19:41:00Z",
+  "commitDate": "2026-01-05T19:41:00Z",
+  "subject": "Fix comprehensive duplicate declaration errors in dependency injection",
+  "body": "Resolved SyntaxError: Identifier has already been declared for 5 functions\nthat were incorrectly self-injected in ui/initialization.js module.\n\nRoot Cause:\n- Functions defined in initialization.js were forward-declared AND exported\n- app.js was injecting initialization functions back into initialization.js\n- This violated the dependency injection pattern: only inject from OTHER modules\n\nFunctions Fixed:\n- generateModelCheckboxes\n- updateSelectedSummary\n- updateCalculateButton\n- onModelSelectionChange\n- updateInputForms\n\nChanges:\n- ui/initialization.js: Removed 5 self-references from forward declarations\n- app.js: Removed 5 self-injection calls from setUIHandlers\n- claude.md: Updated documentation with comprehensive fix details\n\nCorrect Pattern:\n✅ Inject admin.generateAdminPanel into initialization.js (cross-module)\n✅ Inject events.onInputChange into initialization.js (cross-module)\n❌ Inject initialization.generateModelCheckboxes into itself (self-reference)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "dependency-injection-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix comprehensive duplicate declaration errors in dependency injection",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 27,
+    "deletions": 29
+  },
+  "files": [
+    "app.js",
+    "claude.md",
+    "ui/initialization.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

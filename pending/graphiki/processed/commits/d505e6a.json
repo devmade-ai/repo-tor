@@ -1,0 +1,68 @@
+{
+  "sha": "d505e6a",
+  "fullSha": "d505e6a7fe6e562db3033154775088a2bc6a739e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T14:17:04Z",
+  "commitDate": "2026-03-07T14:17:04Z",
+  "subject": "refactor(quality): comprehensive code quality audit implementation",
+  "body": "Extract shared patterns and eliminate duplication across the codebase:\n\n- BaseModal: shared modal wrapper (overlay, focus trap, escape key, backdrop\n  click) used by 9 modals, removing ~200 lines of duplicated boilerplate\n- ErrorBoundary: React error boundary wrapping GraphCanvas and QueryBuilder\n  with retry capability and debug logging\n- Centralized error messages (utils/messages.ts) replacing hardcoded strings\n  across App.tsx, DetailPanel, ExportModal, ImportModal\n- BFS traversal helper (bfsTraverse) in queryEngine.ts consolidating 3\n  duplicated BFS loops in expandByHops and findConnections\n- QueryBuilder split into SearchModeContent and ConnectModeContent sub-components\n  (637 → ~400 lines in main file)\n- MergeReview refactored with MergeSection component eliminating 6 duplicated\n  collapsible section blocks\n- ContextMenu keyboard navigation (ArrowUp/Down, Enter/Space, Escape, Home/End)\n- New tests: safeStorage, eventBus, config, workspaceService (27 new tests)\n\nTags: refactor, quality, modal, error-boundary, bfs, tests\nComplexity: 4\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: code-quality-audit\nSemver: minor\n\nhttps://claude.ai/code/session_01GnReQmDfBdvVVbKLZSnkqL",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "quality",
+  "title": "comprehensive code quality audit implementation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 28,
+    "additions": 1545,
+    "deletions": 1080
+  },
+  "files": [
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/analysis/AnalysisModal.tsx",
+    "src/components/conventions/ConventionsModal.tsx",
+    "src/components/debug/DebugPill.tsx",
+    "src/components/importExport/ExportModal.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/importExport/MergeReview.tsx",
+    "src/components/importExport/MergeSection.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/query/ConnectModeContent.tsx",
+    "src/components/query/QueryBuilder.tsx",
+    "src/components/query/QueryHelpModal.tsx",
+    "src/components/query/SearchModeContent.tsx",
+    "src/components/ui/BaseModal.tsx",
+    "src/components/ui/ConnectNodeModal.tsx",
+    "src/components/ui/ContextMenu.tsx",
+    "src/components/ui/CreateNodeModal.tsx",
+    "src/components/ui/ErrorBoundary.tsx",
+    "src/components/ui/TutorialModal.tsx",
+    "src/config.test.ts",
+    "src/services/queryEngine.ts",
+    "src/services/workspaceService.test.ts",
+    "src/utils/debugLog.ts",
+    "src/utils/eventBus.test.ts",
+    "src/utils/messages.ts",
+    "src/utils/safeStorage.test.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

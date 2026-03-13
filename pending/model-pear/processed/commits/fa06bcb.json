@@ -1,0 +1,46 @@
+{
+  "sha": "fa06bcb",
+  "fullSha": "fa06bcbb4520a162ff496f158a283bea9197ae1b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-07T01:54:59Z",
+  "commitDate": "2026-01-07T01:54:59Z",
+  "subject": "Remove dead code files and unused exports",
+  "body": "- Remove calculators/client-budget.js (never imported by active code)\n- Remove ui/events.js (never imported by active code)\n- Remove ui/admin.js (never imported by active code)\n- Clean up config/constants.js - remove unused state and setters\n- Clean up utils/index.js - remove unused reverse calculation functions",
+  "tags": [
+    "refactor",
+    "removal"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-cleanup",
+  "semver": "patch",
+  "scope": null,
+  "title": "Remove dead code files and unused exports",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 1,
+    "deletions": 2208
+  },
+  "files": [
+    "calculators/client-budget.js",
+    "config/constants.js",
+    "ui/admin.js",
+    "ui/events.js",
+    "utils/index.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 1,
+  "impact": "internal"
+}

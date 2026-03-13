@@ -1,0 +1,44 @@
+{
+  "sha": "43474db",
+  "fullSha": "43474dbdd8f46612cb0689785783540138ea9ea4",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T00:54:51Z",
+  "commitDate": "2026-01-08T00:54:51Z",
+  "subject": "Implement Phase 6: Model 5 - Software Sale with Ongoing Support",
+  "body": "Add complete implementation of Model 5 with 8 variants:\n- 5A: Clean Sale (no post-sale obligations)\n- 5B: Sale Plus Maintenance Agreement\n- 5C: Sale Plus Support and Updates\n- 5D: Sale with Warranty\n- 5E: Sale with Buyback Commitment\n- 5F: Sale with Retained Improvements\n- 5G: Asset Sale vs Share Sale comparison\n- 5H: Sale with Licence-Back\n\nFeatures include:\n- Three-perspective calculations (Developer, Buyer, Combined)\n- CGT vs revenue tax treatment for Developer\n- IFRS 15 bundled pricing allocation for Buyer\n- Section 11(e) accelerated depreciation\n- Securities transfer tax for share sales (5G)\n- Warranty provision accounting (5D)\n- Buyback/financing arrangement handling (5E)\n- Licence-back circular flow analysis (5H)\n- Transfer pricing risk assessment",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "inter-company-tool",
+  "semver": "minor",
+  "scope": null,
+  "title": "Implement Phase 6: Model 5 - Software Sale with Ongoing Support",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 1428,
+    "deletions": 28
+  },
+  "files": [
+    "docs/IMPLEMENTATION_ROADMAP.md",
+    "models/intercompany/model-5-software-sale.js",
+    "models/intercompany/registry.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,56 @@
+{
+  "sha": "c6f69d2",
+  "fullSha": "c6f69d264d49ad10b1c7cd2c3707d41b7979b495",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T20:20:58Z",
+  "commitDate": "2026-01-21T20:20:58Z",
+  "subject": "feat: implement Koinz Style Guide dark theme",
+  "body": "- Add dark theme by default (background #1B1B1B, cards #2a2a2a)\n- Add Figtree font family from Google Fonts\n- Add CSS variable-based color system for Tailwind\n- Update all component styles (.card, .btn, .input, .badge)\n- Update layout, home, structuring, and pricing pages\n- Add semantic colors (success, error, warning)",
+  "tags": [
+    "feature",
+    "ui",
+    "style",
+    "branding"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "koinz-theming",
+  "semver": "minor",
+  "scope": null,
+  "title": "implement Koinz Style Guide dark theme",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#1",
+    "#2"
+  ],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 559,
+    "deletions": 323
+  },
+  "files": [
+    "apps/web/src/app.css",
+    "apps/web/src/app.html",
+    "apps/web/src/routes/+layout.svelte",
+    "apps/web/src/routes/+page.svelte",
+    "apps/web/src/routes/pricing/+page.svelte",
+    "apps/web/src/routes/structuring/+page.svelte",
+    "apps/web/src/routes/structuring/[model]/+page.svelte",
+    "apps/web/tailwind.config.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

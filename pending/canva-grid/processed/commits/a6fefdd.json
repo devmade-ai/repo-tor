@@ -1,0 +1,42 @@
+{
+  "sha": "a6fefdd",
+  "fullSha": "a6fefdde07212c00c27cf975f6b042d0a58fa098",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-10T14:49:35Z",
+  "commitDate": "2026-03-10T14:49:35Z",
+  "subject": "feat(structure): auto-create/delete sections when moving cells across rows/columns",
+  "body": "moveCellToSection now handles three cases atomically via _cellSwap:\n- Normal: source has 2+ cells, target exists → move cell, source shrinks\n- Delete source: source has 1 cell, target exists → move cell, remove empty section\n- Create target: no adjacent section, source has 2+ cells → create new section at edge\n\nAdded canMoveCellToSection() and getMoveSectionLabel() helpers for cleaner UI logic.\nButtons now show dynamically based on what operations are possible, with \"To New Row/Col\"\nlabels when creating a section vs \"To Row N\" when moving to existing.\n\nTags: structure, layout, cells, ux\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: layout-structure-controls\nSemver: minor\n\nhttps://claude.ai/code/session_01Vp82yU8LPSQKF91NibhLnG",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "layout-structure",
+  "semver": "minor",
+  "scope": "structure",
+  "title": "auto-create/delete sections when moving cells across rows/columns",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 180,
+    "deletions": 61
+  },
+  "files": [
+    "src/components/LayoutTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

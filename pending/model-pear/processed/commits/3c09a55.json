@@ -1,0 +1,42 @@
+{
+  "sha": "3c09a55",
+  "fullSha": "3c09a554f084675182028230913804847d7ab057",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T11:09:37Z",
+  "commitDate": "2026-01-21T11:09:37Z",
+  "subject": "fix: make pricing calculator inputs reactive",
+  "body": "Svelte's reactivity only tracks variables visible in the reactive\nstatement itself, not inside called functions. Fixed by listing all\ninput variables as arguments so Svelte knows to re-run calculateResults\nwhen any input changes.",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "pricing-calculator",
+  "semver": "patch",
+  "scope": null,
+  "title": "make pricing calculator inputs reactive",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 11,
+    "deletions": 1
+  },
+  "files": [
+    "apps/web/src/routes/pricing/+page.svelte"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,48 @@
+{
+  "sha": "d4d2dfc",
+  "fullSha": "d4d2dfc2c3cddb17e895344b911c142c7025e72a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-03T02:51:32Z",
+  "commitDate": "2026-03-03T02:51:32Z",
+  "subject": "fix(docs): correct stale documentation and enforce convention consistency",
+  "body": "Full codebase audit found documentation drift and convention violations:\n- CLAUDE.md: fix tutorial step count (6→7), arc count (~149→~143), add\n  missing working docs to project structure\n- usePWAInstall: replace 4 direct localStorage calls with safeStorage\n  wrappers (convention violation)\n- ConfirmDialog: refactor to use shared useFocusTrap hook with new\n  initialFocusRef parameter instead of inline duplication\n- graph-wiki-discovery.md: update stale demo data counts (was from\n  original 12-company dataset, now 109 nodes/143 arcs)\n- SESSION_NOTES.md: fix stale queryEngine.ts line count (878→831)\n- TODO.md: populate tech debt backlog with identified items\n- demoData.ts: fix stale arc count in code comment\n\nTags: docs, conventions, audit, cleanup, accessibility\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01RQuVZgVnAauqeK7Wi98rrn",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "docs",
+  "semver": "patch",
+  "scope": "docs",
+  "title": "correct stale documentation and enforce convention consistency",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 46,
+    "deletions": 51
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/graph-wiki-discovery.md",
+    "src/components/ui/ConfirmDialog.tsx",
+    "src/data/demoData.ts",
+    "src/hooks/useFocusTrap.ts",
+    "src/hooks/usePWAInstall.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

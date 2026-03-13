@@ -1,0 +1,52 @@
+{
+  "sha": "994309f",
+  "fullSha": "994309fdd453c02478385d55d69ab7b1c13caf90",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-11T13:23:49Z",
+  "commitDate": "2026-01-11T13:23:49Z",
+  "subject": "refactor: create reusable component library for results display",
+  "body": "- Add lib/components with ResultPanel, ResultRow, ResultSection, InputField\n- Add DeveloperResults, BuyerResults, TransferPricingResults components\n- Add lib/utils with formatCurrency, formatPercent, getRiskBadgeClass helpers\n- Refactor calculator page to use new components, reducing code by ~150 lines\n\nThe component library ensures consistent styling across all 6 model calculators\nand simplifies maintenance.",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "architecture-redesign",
+  "semver": "patch",
+  "scope": null,
+  "title": "create reusable component library for results display",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 372,
+    "deletions": 194
+  },
+  "files": [
+    "apps/web/src/lib/components/BuyerResults.svelte",
+    "apps/web/src/lib/components/DeveloperResults.svelte",
+    "apps/web/src/lib/components/InputField.svelte",
+    "apps/web/src/lib/components/ResultPanel.svelte",
+    "apps/web/src/lib/components/ResultRow.svelte",
+    "apps/web/src/lib/components/ResultSection.svelte",
+    "apps/web/src/lib/components/TransferPricingResults.svelte",
+    "apps/web/src/lib/components/index.ts",
+    "apps/web/src/lib/utils/formatters.ts",
+    "apps/web/src/lib/utils/index.ts",
+    "apps/web/src/routes/structuring/[model]/+page.svelte"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "ecc0d0e",
+  "fullSha": "ecc0d0e80fb4b35ede5ae139389947edf85b0563",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-05T22:46:34Z",
+  "commitDate": "2026-01-05T22:46:34Z",
+  "subject": "Add simplification documentation and remaining work tracking",
+  "body": "This commit adds comprehensive documentation about the pricing calculator simplification:\n\n1. SIMPLIFICATION_SUMMARY.md\n   - Details what changed from complex to simple\n   - Documents the new 5-model approach\n   - Explains the equilibrium analysis concept\n   - Provides before/after comparison\n   - Lists files modified/created\n\n2. TODO_REMAINING_WORK.md\n   - Tracks completed work (core models, calculations, results display)\n   - Lists remaining UI integration tasks\n   - Provides testing checklist\n   - Includes quick implementation guide\n   - Describes expected final user experience\n\nCore simplification is complete:\n✅ Models reduced from 20 to 5\n✅ Static unit economics (no growth projections)\n✅ Seller/buyer/equilibrium analysis implemented\n✅ SA pricing defaults created\n✅ New results display component built\n✅ README updated\n\nRemaining work:\n⏳ Update UI (index.html, forms.js, initialization.js)\n⏳ Update charts for static data\n⏳ Remove unused files\n⏳ End-to-end testing",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "ui-simplification",
+  "semver": "patch",
+  "scope": null,
+  "title": "Add simplification documentation and remaining work tracking",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 305,
+    "deletions": 0
+  },
+  "files": [
+    "SIMPLIFICATION_SUMMARY.md",
+    "TODO_REMAINING_WORK.md"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 1,
+  "impact": "internal"
+}

@@ -1,0 +1,46 @@
+{
+  "sha": "857180f",
+  "fullSha": "857180f306a277ed6fa1ebc40c6b09f5f5dabaa9",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "committer": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2026-01-20T17:25:52Z",
+  "commitDate": "2026-01-20T17:25:52Z",
+  "subject": "Improve UI for Media, Style, and Platform sections",
+  "body": "- Move Image Overlay section above Advanced Filters in MediaTab\n- Add on/off toggle for Image Overlay (sets opacity to 0 or 50)\n- Overlay type/color buttons now toggle off when clicked again\n- Only show overlay controls when overlay is enabled\n- Make platform categories collapsible (shows selected platform when collapsed)\n- Make Typography section in Style tab collapsed by default\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "ui-polish",
+  "semver": "minor",
+  "scope": null,
+  "title": "Improve UI for Media, Style, and Platform sections",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 254,
+    "deletions": 201
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/USER_GUIDE.md",
+    "src/components/MediaTab.jsx",
+    "src/components/PlatformPreview.jsx",
+    "src/components/StyleTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

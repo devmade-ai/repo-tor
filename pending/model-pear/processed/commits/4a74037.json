@@ -1,0 +1,60 @@
+{
+  "sha": "4a74037",
+  "fullSha": "4a7403743f5b803984bab79ca6f7b85d446d6d76",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T20:45:57Z",
+  "commitDate": "2026-01-21T20:45:57Z",
+  "subject": "fix: migrate all components to themed colors",
+  "body": "Replace hardcoded gray/semantic colors with themed CSS variables\nfor dark mode compatibility:\n\n- StructureWizard: ~20 instances fixed\n- ComparisonView: ~25 instances fixed\n- ComparisonManager: ~15 instances fixed\n- SensitivityPanel, ProjectionsPanel, ProjectionMetrics\n- Charts: CashFlow, Cumulative, Equilibrium, NPV, Scenario, Tornado\n- Result components: DeveloperResults, ResultPanel, ResultSection\n- InputField and TransferPricingResults\n- Structuring page modal overlay\n\nMapping used:\n- text-gray-900 → text-foreground\n- text-gray-500/600 → text-muted-foreground\n- bg-gray-50/100 → bg-muted or bg-card\n- border-gray-* → border-border\n- bg-white → bg-card\n- bg-black/80 → bg-background/90\n- Semantic colors (green/red/blue) → 500/10 bg with 400 text",
+  "tags": [
+    "bugfix",
+    "ui",
+    "style"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "koinz-theming",
+  "semver": "patch",
+  "scope": null,
+  "title": "migrate all components to themed colors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 18,
+    "additions": 203,
+    "deletions": 200
+  },
+  "files": [
+    "apps/web/src/lib/components/ComparisonManager.svelte",
+    "apps/web/src/lib/components/ComparisonView.svelte",
+    "apps/web/src/lib/components/DeveloperResults.svelte",
+    "apps/web/src/lib/components/InputField.svelte",
+    "apps/web/src/lib/components/ProjectionMetrics.svelte",
+    "apps/web/src/lib/components/ProjectionsPanel.svelte",
+    "apps/web/src/lib/components/ResultPanel.svelte",
+    "apps/web/src/lib/components/ResultSection.svelte",
+    "apps/web/src/lib/components/SensitivityPanel.svelte",
+    "apps/web/src/lib/components/StructureWizard.svelte",
+    "apps/web/src/lib/components/TransferPricingResults.svelte",
+    "apps/web/src/lib/components/charts/CashFlowChart.svelte",
+    "apps/web/src/lib/components/charts/CumulativeCashFlowChart.svelte",
+    "apps/web/src/lib/components/charts/EquilibriumChart.svelte",
+    "apps/web/src/lib/components/charts/NPVComparisonChart.svelte",
+    "apps/web/src/lib/components/charts/ScenarioChart.svelte",
+    "apps/web/src/lib/components/charts/TornadoChart.svelte",
+    "apps/web/src/routes/structuring/[model]/+page.svelte"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

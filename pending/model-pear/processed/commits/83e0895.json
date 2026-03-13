@@ -1,0 +1,48 @@
+{
+  "sha": "83e0895",
+  "fullSha": "83e0895f800f3ed266aa757959774392b5caddf1",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T11:44:33Z",
+  "commitDate": "2026-01-08T11:44:33Z",
+  "subject": "Clarify tool scope: software company + any client, not inter-company focus",
+  "body": "- Change default from related parties to independent parties\n- Remove consolidation options from entity config UI (out of scope)\n- Rename \"Developer Entity\" to \"Your Company\", \"Buyer Entity\" to \"Client\"\n- Update \"Combined\" perspective to \"Net Effect\" with simplified view\n- Remove consolidation elimination section from results display\n- Update terminology throughout: \"Inter-Company Tool\" → \"Transaction Structuring Tool\"\n- Update documentation (claude.md) to reflect correct scope\n\nThe tool is for a software company to compare transaction models with ANY client\n(related or not) to maximize value for both parties on projects/products.\nConsolidated accounting is explicitly NOT in scope.",
+  "tags": [
+    "docs",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "tool-scope",
+  "semver": "patch",
+  "scope": null,
+  "title": "Clarify tool scope: software company + any client, not inter-company focus",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 149,
+    "deletions": 177
+  },
+  "files": [
+    "app.js",
+    "claude.md",
+    "models/intercompany/registry.js",
+    "ui/intercompany/calculator.js",
+    "ui/intercompany/entity-config.js",
+    "ui/intercompany/perspective-toggle.js",
+    "ui/intercompany/results-display.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "internal"
+}

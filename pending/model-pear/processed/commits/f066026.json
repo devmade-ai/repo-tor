@@ -1,0 +1,48 @@
+{
+  "sha": "f066026",
+  "fullSha": "f066026f83b9f82157cd5da19d942710567056ff",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-07T00:42:58Z",
+  "commitDate": "2026-01-07T00:42:58Z",
+  "subject": "Revert calculate button to blue and fix mobile gradient background",
+  "body": "Reverted calculate button from gray back to blue (bg-blue-600) based on user preference for the original blue styling. The blue provides better visual prominence for the primary action button.\n\nFixed mobile sticky gradient background to use gray-800 (#1F2937) instead of gray-900 (#111827). This matches the card background colors and eliminates the visual discontinuity where the sticky container area appeared noticeably darker than the surrounding cards.\n\nChanges:\n- index.html: Restored bg-blue-600 hover:bg-blue-700, removed shadow-lg and border\n- styles.css: Updated gradient from #111827 to #1F2937 in mobile sticky container\n- UI_UX_GUIDE.md: Updated all documentation to reflect blue button and corrected gradient\n\nThe combination of blue button + gray-800 gradient provides both visual prominence for the action and seamless integration with the card-based layout.",
+  "tags": [
+    "bugfix",
+    "ui",
+    "style"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "ui-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Revert calculate button to blue and fix mobile gradient background",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [
+    "#1",
+    "#111827"
+  ],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 10,
+    "deletions": 12
+  },
+  "files": [
+    "UI_UX_GUIDE.md",
+    "index.html",
+    "styles.css"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "a5eb9ae",
+  "fullSha": "a5eb9ae4f8b7830028240c8036f0fef428017b61",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T13:10:50Z",
+  "commitDate": "2026-01-08T13:10:50Z",
+  "subject": "Update documentation to reflect new tool scope",
+  "body": "docs/README.md:\n- Rename to \"Software Transaction Structuring Tool\"\n- Update perspectives: Developer/Buyer/Combined → Your Company/Client/Net Effect\n- Update model status (all implemented)\n- Remove \"inter-company\" framing\n\ndocs/BUSINESS_GUIDE.md:\n- Update title and target audience\n- Reframe purpose: software company + any client\n- Add scope clarification (works for ANY client, consolidated accounting not in scope)\n- Update key sections: capabilities, who should use it, two modes\n- Update model descriptions with Your Company/Client terminology",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "tool-scope",
+  "semver": "patch",
+  "scope": null,
+  "title": "Update documentation to reflect new tool scope",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 58,
+    "deletions": 70
+  },
+  "files": [
+    "docs/BUSINESS_GUIDE.md",
+    "docs/README.md"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "internal"
+}

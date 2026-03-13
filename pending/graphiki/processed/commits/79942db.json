@@ -1,0 +1,61 @@
+{
+  "sha": "79942db",
+  "fullSha": "79942dbc981bfa89ba9026b9ab6b01e6fe281525",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T20:04:33Z",
+  "commitDate": "2026-03-02T20:04:33Z",
+  "subject": "refactor: codebase audit — extract event bus, fix leak, remove dead code, harden localStorage",
+  "body": "Full codebase audit addressing dead code, hacks, and bad practices:\n\n- Extract shared createEventBus<T>() utility (utils/eventBus.ts), replacing\n  duplicated event system boilerplate in graphService, viewService, and\n  workspaceService. This also fixes a bug where viewService.emit() was\n  missing try/catch around listener callbacks.\n\n- Fix setInterval memory leak in usePWAUpdate — the 60-minute SW update\n  check interval had no cleanup path. Store interval ID in ref, clear on\n  unmount and on re-registration.\n\n- Remove ~400 lines of dead code:\n  - QueryBar.tsx (legacy, replaced by QueryBuilder)\n  - useViewData.ts (hook never imported)\n  - CSV import utilities (parseCsvString, parseCsvLines, mapCsvToNodeData,\n    autoSuggestMappings, ColumnMapping, CsvParseResult)\n  - getNextColor() in workspaceService (never called)\n  - parseQuery()/QueryFilter in queryEngine (superseded by AST parser)\n\n- Clean up ViewConfiguration type — remove 6 unused fields (defaultQuery,\n  layout, sortBy, filters, rendering, timeProperty) and orphaned\n  FilterConfig interface.\n\n- Add safeStorage.ts utility with safeGetItem/safeSetItem/safeRemoveItem\n  for localStorage in restricted environments (Safari private browsing).\n  Applied to useWorkspaces, App.tsx, TutorialModal, seedService.\n\n- Update all affected tests and documentation.\n\nTags: audit, dead-code, event-bus, memory-leak, localStorage, refactor\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: code-review-audit\nSemver: patch\n\nhttps://claude.ai/code/session_012MdJojrtjbwnry9Lp7bLG2",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": null,
+  "title": "codebase audit — extract event bus, fix leak, remove dead code, harden localStorage",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 21,
+    "additions": 175,
+    "deletions": 707
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/App.tsx",
+    "src/components/query/QueryBar.tsx",
+    "src/components/ui/TutorialModal.tsx",
+    "src/hooks/usePWAUpdate.ts",
+    "src/hooks/useViewData.ts",
+    "src/hooks/useWorkspaces.ts",
+    "src/services/graphService.ts",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts",
+    "src/services/queryEngine.test.ts",
+    "src/services/queryEngine.ts",
+    "src/services/seedService.ts",
+    "src/services/viewService.ts",
+    "src/services/workspaceService.ts",
+    "src/types/index.ts",
+    "src/utils/eventBus.ts",
+    "src/utils/factory.test.ts",
+    "src/utils/safeStorage.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

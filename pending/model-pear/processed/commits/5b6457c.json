@@ -1,0 +1,42 @@
+{
+  "sha": "5b6457c",
+  "fullSha": "5b6457c726c24c078eb15b215745582578cde85a",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T11:08:07Z",
+  "commitDate": "2026-01-08T11:08:07Z",
+  "subject": "Merge input defaults before calculation to prevent zero values",
+  "body": "Add getVariantDefaults() helper to extract default values from input\ndefinitions. Update calculateIntercompany() to merge defaults with\nuser-provided inputs before calculating, ensuring sensible values\neven when inputs are missing or empty.\n\nThis fixes the issue where calculations showed all zeros when:\n- User clicked Calculate before form fully rendered\n- Form fields were cleared\n- Calculation was triggered without going through wizard\n\nAll models/variants now have fallback defaults from their input\ndefinitions, preventing cascading zero calculations.",
+  "tags": [
+    "bugfix",
+    "validation"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "transfer-pricing-fix",
+  "semver": "patch",
+  "scope": null,
+  "title": "Merge input defaults before calculation to prevent zero values",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 25,
+    "deletions": 2
+  },
+  "files": [
+    "models/intercompany/registry.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

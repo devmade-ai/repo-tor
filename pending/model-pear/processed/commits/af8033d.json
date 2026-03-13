@@ -1,0 +1,48 @@
+{
+  "sha": "af8033d",
+  "fullSha": "af8033deab6f5665b9565305f1d9ea538d742c5e",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-05T23:11:24Z",
+  "commitDate": "2026-01-05T23:11:24Z",
+  "subject": "Complete UI simplification for equilibrium calculator",
+  "body": "Major changes:\n- Simplified index.html: Removed mode selection, category selection, and framework layers\n- Updated to show 5 core pricing models (Subscription, Usage-Based, Per-Seat, One-Time, Marketplace)\n- Reorganized forms.js to group inputs by category (Pricing/Seller/Buyer)\n- Simplified initialization.js to remove mode switching and framework dependencies\n- Streamlined app.js to remove unused imports and complex dependency injection\n- Added renderEquilibriumChart() to charts/index.js for static bar chart visualization\n- Updated results-display.js to use correct container ID\n\nThe calculator now has a clean, focused interface for equilibrium pricing analysis\nwithout the complexity of growth projections, reverse calculations, or mode switching.",
+  "tags": [
+    "refactor",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "ui-simplification",
+  "semver": "minor",
+  "scope": null,
+  "title": "Complete UI simplification for equilibrium calculator",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 439,
+    "deletions": 1372
+  },
+  "files": [
+    "app.js",
+    "charts/index.js",
+    "index.html",
+    "ui/forms.js",
+    "ui/initialization.js",
+    "ui/results-display.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

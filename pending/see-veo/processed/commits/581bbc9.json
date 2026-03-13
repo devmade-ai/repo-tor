@@ -1,0 +1,73 @@
+{
+  "sha": "581bbc9",
+  "fullSha": "581bbc9b6fdb24f67c36a680f58d0e46d0e8b10b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T10:11:50Z",
+  "commitDate": "2026-03-02T10:11:50Z",
+  "subject": "fix(embed,a11y): audit fixes — URLs, duplication, accessibility, cleanup",
+  "body": "Migrate repo-tor embed URLs from GitHub Pages to Vercel deployment,\ndeduplicate shared constants, fix accessibility gaps, and clean up\ndead code identified during full codebase audit.\n\nChanges:\n- #1,#2,#16: Centralize EMBED_BASE, colors, and script URL into\n  src/constants/embed.ts; update from GitHub Pages to Vercel\n- #3: Remove unused return values (browser, setShowManualInstructions,\n  supportsAutoInstall) from usePWAInstall; convert showManualInstructions\n  from state to computed value since nothing mutates it\n- #4,#5: Remove unused devDependencies (png-to-ico, sharp,\n  @testing-library/react, @testing-library/user-event)\n- #6,#8: Extract detectBrowser and isStandalone into src/utils/pwa.ts;\n  import in usePWAInstall and DebugBanner instead of duplicating\n- #7: Extract validatePayload and EMAIL_PATTERN into src/utils/validation.ts;\n  tests now import and exercise the real functions\n- #9: Add Escape key handler and focus trap to InstallInstructionsModal\n- #10: Replace array index key with content-based key in About.tsx\n- #11: Change diagnostic probe from POST with body to HEAD (no side effects)\n- #12: Add sandbox=\"allow-scripts\" to chart iframes\n- #13: Add onerror handler to embed.js script element\n- #14: Rename package.json name from vite-scaffold to see-veo\n\nTags: embed, accessibility, cleanup, refactor, security, testing\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: codebase-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01Uwhn6rJ2V98LDhUsLeYZoB",
+  "tags": [
+    "bugfix",
+    "refactor",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "embed",
+  "semver": "patch",
+  "scope": "embed,a11y",
+  "title": "audit fixes — URLs, duplication, accessibility, cleanup",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#1",
+    "#2",
+    "#16",
+    "#3",
+    "#4",
+    "#5",
+    "#6",
+    "#8",
+    "#7",
+    "#9",
+    "#10",
+    "#11",
+    "#12",
+    "#13",
+    "#14"
+  ],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 188,
+    "deletions": 887
+  },
+  "files": [
+    "docs/EXTERNAL_REFERENCES.md",
+    "package-lock.json",
+    "package.json",
+    "src/components/About.tsx",
+    "src/components/ActivityCharts.tsx",
+    "src/components/ActivityTimeline.tsx",
+    "src/components/DebugBanner.tsx",
+    "src/components/InstallInstructionsModal.tsx",
+    "src/constants/embed.ts",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/useRepoTorEmbed.ts",
+    "src/test/detect-browser.test.ts",
+    "src/test/validate-payload.test.ts",
+    "src/utils/pwa.ts",
+    "src/utils/validation.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

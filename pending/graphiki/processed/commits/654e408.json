@@ -1,0 +1,48 @@
+{
+  "sha": "654e408",
+  "fullSha": "654e408ac74a0f482bbda2936242a14e0cbc6dc5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T05:46:38Z",
+  "commitDate": "2026-03-09T05:46:38Z",
+  "subject": "refactor(import): remove ID dependencies from import/merge pipeline",
+  "body": "Arcs now stay title-referenced throughout the entire import pipeline.\nIDs are only resolved at the final DB insertion step in getApprovedItems().\n\n- Delete resolveArcEndpointsByTitle() — arcs no longer converted to ID-space\n- Update buildImportWarnings() to check by title instead of node ID\n- Replace nodeIdMap in buildMergeProposal() with titleToExistingId map\n- Replace idRemap in getApprovedItems() with titleToFinalId map\n- Update exportToJson() to export arc endpoints as titles, not UUIDs\n- Update 58 tests across import and merge service suites\n\nPipeline simplified from:\n  JSON(titles) → resolveByTitle(→IDs) → mergeProposal(nodeIdMap) → getApproved(idRemap) → DB\nTo:\n  JSON(titles) → mergeProposal(titleToExistingId) → getApproved(titleToFinalId) → DB\n\nTags: import, merge, refactor, phase-import\nComplexity: 3\nUrgency: 3\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: remove-import-ids\nSemver: minor\n\nhttps://claude.ai/code/session_01P6y9bzn2FJLcB9z6PNCE17",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "import-pipeline",
+  "semver": "minor",
+  "scope": "import",
+  "title": "remove ID dependencies from import/merge pipeline",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 206,
+    "deletions": 339
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/TODO.md",
+    "docs/working/remove-import-ids-plan.md",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts",
+    "src/services/mergeService.test.ts",
+    "src/services/mergeService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

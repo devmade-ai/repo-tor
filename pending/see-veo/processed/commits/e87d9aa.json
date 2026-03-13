@@ -1,0 +1,42 @@
+{
+  "sha": "e87d9aa",
+  "fullSha": "e87d9aafb853801a9464e25e475e836666d7f7a9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T20:02:15Z",
+  "commitDate": "2026-02-26T20:02:15Z",
+  "subject": "feat(projects): add deployed project cards from GitHub repos",
+  "body": "Queried all devmade-ai and illuminAI-select GitHub repos via the API,\nidentified those deployed to GitHub Pages or Vercel, read each repo's\nREADME and package.json to extract purpose and tech stack, and added\nproject cards for the 7 deployed projects not yet listed.\n\nNew projects: Sancio (module-based agreements), Four Ems (form builder),\nBudgy Ting (personal budgeting), FuelHunt (fuel station finder),\nrepo-tor (git analytics), Chatty Chart (sales data visualisation).\n\nExcluded per request: glow-props, canva-grid-assets, plant-fur,\ncoin-zapp, tool-till-tees. Also excluded see-veo (this repo).\n\nTags: projects, cv-data, content, github-api\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: deployed-projects\nSemver: minor\n\nhttps://claude.ai/code/session_01UfWmiUrxaiaTDTCaydFa4w",
+  "tags": [
+    "feature",
+    "content"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "cv-content",
+  "semver": "minor",
+  "scope": "projects",
+  "title": "add deployed project cards from GitHub repos",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 63,
+    "deletions": 0
+  },
+  "files": [
+    "src/data/cv-data.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

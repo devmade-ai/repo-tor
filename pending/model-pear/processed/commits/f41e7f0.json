@@ -1,0 +1,44 @@
+{
+  "sha": "f41e7f0",
+  "fullSha": "f41e7f030c6d31d6cc763074621983dfe295f6ab",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-11T13:26:04Z",
+  "commitDate": "2026-01-11T13:26:04Z",
+  "subject": "feat: add data-driven input field configurations for all 6 models",
+  "body": "- Create lib/config/inputFields.ts with field configs for Models 1-6\n- Each model has specific fields: project name, costs, revenues, tax settings\n- Calculator page now renders inputs dynamically from configuration\n- Reduces input section from ~170 lines to ~15 lines of code\n\nThis makes adding new input fields trivial - just update the config.",
+  "tags": [
+    "feature",
+    "config"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "architecture-redesign",
+  "semver": "minor",
+  "scope": null,
+  "title": "add data-driven input field configurations for all 6 models",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 310,
+    "deletions": 169
+  },
+  "files": [
+    "apps/web/src/lib/config/index.ts",
+    "apps/web/src/lib/config/inputFields.ts",
+    "apps/web/src/routes/structuring/[model]/+page.svelte"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

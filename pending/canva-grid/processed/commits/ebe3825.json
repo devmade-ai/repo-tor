@@ -1,0 +1,44 @@
+{
+  "sha": "ebe3825",
+  "fullSha": "ebe382551936d3f0f4fb76accf12e6b93e94e445",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-20T23:23:03Z",
+  "commitDate": "2026-01-20T23:23:03Z",
+  "subject": "Standardize all sliders to 5% increments",
+  "body": "Adds step=\"5\" to all slider inputs for consistent UX:\n- MediaTab: overlay opacity, grayscale, sepia, contrast, brightness\n- StyleTab: cell overlay opacity, global/cell padding (changed from step=4)\n- LayoutTab: section size, cell/subdivision size",
+  "tags": [
+    "ux",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "slider-standardization",
+  "semver": "patch",
+  "scope": null,
+  "title": "Standardize all sliders to 5% increments",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 10,
+    "deletions": 2
+  },
+  "files": [
+    "src/components/LayoutTab.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/StyleTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,44 @@
+{
+  "sha": "39b622a",
+  "fullSha": "39b622aabf5d87b7f1dbe631383b0f7773705744",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-01T15:32:02Z",
+  "commitDate": "2026-01-01T15:32:02Z",
+  "subject": "Fix perspective buttons and calculate handler bugs",
+  "body": "Fixed two critical bugs that prevented core functionality after modular refactoring:\n\n1. Perspective buttons not working\n   - Changed currentMode = mode to setCurrentMode(mode) in setCalculatorMode()\n   - ES6 module imports are read-only; must use setter function\n   - All four modes (Vendor, Growth, Client, Admin) now work correctly\n\n2. Calculate button not responding\n   - Changed addEventListener('click', onCalculate) to onCalculateHandler\n   - Dependency injection requires using injected handler names\n   - Calculate button now properly routes to correct calculation function\n\nFiles changed:\n- ui/initialization.js (2 lines)\n- claude.md (added bug fix documentation)\n- README.md (updated changelog)\n\nTested: All calculator modes and calculation functions verified working",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "ui-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix perspective buttons and calculate handler bugs",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 46,
+    "deletions": 2
+  },
+  "files": [
+    "README.md",
+    "claude.md",
+    "ui/initialization.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

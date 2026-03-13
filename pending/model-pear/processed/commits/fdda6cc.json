@@ -1,0 +1,44 @@
+{
+  "sha": "fdda6cc",
+  "fullSha": "fdda6ccc0dea1864e89dc3dce51d528122f524f4",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-07T22:56:55Z",
+  "commitDate": "2026-01-07T22:56:55Z",
+  "subject": "Implement Phase 3: Model 2 - Software Licence with Royalties",
+  "body": "Add complete implementation of Model 2 with all 8 variants:\n- 2A: Perpetual Licence (Upfront Payment)\n- 2B: Term Licence (Annual/Multi-Year)\n- 2C: Usage-Based Royalties\n- 2D: Minimum Guarantee Plus Royalties\n- 2E: Revenue Share / Profit Share\n- 2F: White-Label / Reseller Licence\n- 2G: Exclusive vs Non-Exclusive comparison\n- 2H: Source Code Licence / Escrow\n\nFeatures implemented:\n- Developer perspective: asset recognition, revenue recognition (IFRS 15)\n- Buyer perspective: licence capitalisation, royalty expense\n- Combined perspective: consolidation elimination, asset efficiency\n- Transfer pricing assessment with variant-specific benchmarks\n- NPV calculations and amortisation schedules",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "inter-company-tool",
+  "semver": "minor",
+  "scope": null,
+  "title": "Implement Phase 3: Model 2 - Software Licence with Royalties",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 1232,
+    "deletions": 26
+  },
+  "files": [
+    "docs/IMPLEMENTATION_ROADMAP.md",
+    "models/intercompany/model-2-licence-royalties.js",
+    "models/intercompany/registry.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

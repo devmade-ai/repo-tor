@@ -1,0 +1,44 @@
+{
+  "sha": "b828c64",
+  "fullSha": "b828c644361d3f499cd598078652f032cc00d443",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-18T18:53:36Z",
+  "commitDate": "2026-01-18T18:53:36Z",
+  "subject": "Fix Image Overlay to use global overlay system (same as templates)",
+  "body": "- Changed from per-cell overlay (cellOverlays) to global overlay (state.overlay)\n- Now matches the same system that templates/presets use\n- Removed enable toggle - use opacity 0 to disable instead\n- Section auto-expands when overlay has opacity > 0\n- Templates that set overlay will now be reflected in these controls",
+  "tags": [
+    "bugfix",
+    "refactor",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "overlay-system",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix Image Overlay to use global overlay system (same as templates)",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 86,
+    "deletions": 130
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/MediaTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "065ab7a",
+  "fullSha": "065ab7aa1ed2b7a78486345142f5e5d8c4af636f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T19:14:20Z",
+  "commitDate": "2026-02-26T19:14:20Z",
+  "subject": "feat(seed): create Default workspace alongside Demo on first visit",
+  "body": "New users previously only saw the Demo workspace on the workspace manager.\nNow seedService also creates an empty Default workspace (ws-default) so\nusers have a personal workspace ready for their own data immediately.\n\nThe ensureDefaultWorkspace function uses check-then-create (idempotent),\nmatching the ensureDemoWorkspace pattern. Called in all three seed paths:\nfirst visit (empty DB), version mismatch (re-seed), and data-exists\n(skip seed but ensure workspace exists for edge cases like cleared\nlocalStorage with retained IndexedDB).\n\nTags: seed, workspace, ux, first-visit\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: multiple-workspaces\nSemver: minor\n\nhttps://claude.ai/code/session_01RQoCozyVHkxKvXz3aC7NDq",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "workspaces",
+  "semver": "minor",
+  "scope": "seed",
+  "title": "create Default workspace alongside Demo on first visit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 37,
+    "deletions": 4
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/services/seedService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

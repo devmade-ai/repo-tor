@@ -1,0 +1,41 @@
+{
+  "sha": "1d3e162",
+  "fullSha": "1d3e162ae5b9d7011283e0cd1c6d9017eaaefd67",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-10T14:42:20Z",
+  "commitDate": "2026-03-10T14:42:20Z",
+  "subject": "fix(structure): fix bare Cell variable reference to string literal",
+  "body": "Cell was referenced as a bare identifier instead of a string literal\nin the cell controls header. This would throw ReferenceError at runtime\nwhen a single-cell section was selected (Cell is not defined in scope).\n\nTags: structure, bugfix\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: layout-structure-controls\nSemver: patch\n\nhttps://claude.ai/code/session_01Vp82yU8LPSQKF91NibhLnG",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "layout-structure",
+  "semver": "patch",
+  "scope": "structure",
+  "title": "fix bare Cell variable reference to string literal",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "src/components/LayoutTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 4,
+  "impact": "user-facing"
+}

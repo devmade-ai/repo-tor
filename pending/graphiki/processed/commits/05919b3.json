@@ -1,0 +1,45 @@
+{
+  "sha": "05919b3",
+  "fullSha": "05919b3aa8552914776e2ac75105e90b5f6a4d2d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T12:21:12Z",
+  "commitDate": "2026-03-09T12:21:12Z",
+  "subject": "fix(review): address 6 bugs found in code review of arc dedup",
+  "body": "Fixes found during comprehensive review of the semantic arc\ndeduplication implementation:\n\n1. MergeReview.getArcLabel showed \"Unknown → Unknown\" because arc\n   source/target are title strings (per import convention), not node\n   IDs — use them directly instead of ID-based map lookup\n2. SimilarityMatch.nodeId renamed to entityId — field was storing arc\n   IDs in findTopArcMatches, misleading future consumers\n3. DuplicateScannerModal merge step didn't clear prior error state —\n   failed merges left stale error banners across attempts\n4. ImportModal computing-embeddings error trapped user — added recovery\n   UI with \"Try Again\" and \"Continue Without Smart Matching\" buttons\n   when embedding computation fails after engine is ready\n5. DuplicateScannerModal nodeMap rebuilt every render — wrapped in\n   useMemo for performance\n6. findSimilarPairs arcScore back-computation divided by zero when\n   semanticWeight === 1.0 — guarded with conditional\n\nTags: review, bugfix, arc-dedup, import, scanner\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: semantic-duplicate-detection\nSemver: patch\n\nhttps://claude.ai/code/session_01ULhD1te9qFVLzqF4YCLBbP",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "duplicate-detection",
+  "semver": "patch",
+  "scope": "review",
+  "title": "address 6 bugs found in code review of arc dedup",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 38,
+    "deletions": 26
+  },
+  "files": [
+    "src/components/duplicates/DuplicateScannerModal.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/importExport/MergeReview.tsx",
+    "src/services/similarityService.test.ts",
+    "src/services/similarityService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

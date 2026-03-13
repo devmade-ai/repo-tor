@@ -1,0 +1,41 @@
+{
+  "sha": "c893807",
+  "fullSha": "c893807857f646abd28d2ce3002ea432c8f16cca",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T19:02:45Z",
+  "commitDate": "2026-03-04T19:02:45Z",
+  "subject": "fix(pwa): deduplicate beforeinstallprompt diagnostic warning",
+  "body": "The warning fired twice because the hook mounts multiple times via Expo\nRouter layout re-mounts, each setting its own 5s timeout. Added a\nmodule-level guard so the diagnostic only emits once per page load.\n\nTags: pwa, debug, mobile\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01NYX9LNEyJdWyhpdhFqhRKX",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "deduplicate beforeinstallprompt diagnostic warning",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 7,
+    "deletions": 2
+  },
+  "files": [
+    "src/hooks/usePWAInstall.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

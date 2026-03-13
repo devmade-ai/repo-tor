@@ -1,0 +1,42 @@
+{
+  "sha": "90b94d4",
+  "fullSha": "90b94d4063fb538f189bc4f5d5326c4280170b1e",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-17T06:56:19Z",
+  "commitDate": "2026-01-17T06:56:19Z",
+  "subject": "Enable overlay stacking: global + cell overlays layer together",
+  "body": "- Global overlay (Image tab) always applies to image cells\n- Cell overlay (Layout > Overlay) stacks on top as additional layer\n- Allows combining effects like vignette + gradient for rich visuals\n- getCellOverlay no longer falls back to global (handled separately)\n- Fixed non-image cell check for enabled: false",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "overlay-expansion",
+  "semver": "minor",
+  "scope": null,
+  "title": "Enable overlay stacking: global + cell overlays layer together",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 36,
+    "deletions": 17
+  },
+  "files": [
+    "src/components/AdCanvas.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

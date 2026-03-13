@@ -1,0 +1,45 @@
+{
+  "sha": "cfe371f",
+  "fullSha": "cfe371f86d162092ecbe6e8f9a13eaa4ac5fc987",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T15:15:38Z",
+  "commitDate": "2026-03-09T15:15:38Z",
+  "subject": "fix(export): PDF page size no longer scales with pixelRatio",
+  "body": "PDF page dimensions were multiplied by pixelRatio (e.g., 2x capture = 2x page),\nso all quality levels had identical pixel density — mobile PDF viewers scaled the\noversized page back down, making Low/Standard/High look the same and blurry.\n\nPage now stays at platform pixel dimensions while embedding higher-res images.\nQuality levels produce clean integer pixel-per-point ratios (2:1 standard, 3:1\nhigh) for genuinely sharper mobile rendering.\n\nTags: export, pdf, quality, mobile\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pdf-export\nSemver: patch\n\nhttps://claude.ai/code/session_017SsJoSnou92LhPTgDyVk59",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pdf-export",
+  "semver": "patch",
+  "scope": "export",
+  "title": "PDF page size no longer scales with pixelRatio",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 57,
+    "deletions": 34
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

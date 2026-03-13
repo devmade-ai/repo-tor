@@ -1,0 +1,45 @@
+{
+  "sha": "bdc6a46",
+  "fullSha": "bdc6a460a3426e3b7ea7089de92cc5942951ca2b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-06T08:28:05Z",
+  "commitDate": "2026-01-06T08:28:05Z",
+  "subject": "Fix field unlocking bug when switching calculation modes",
+  "body": "- Fixed bug where previously calculated fields remained locked when switching between calculation modes\n- Added previousCalculationModes tracking to properly unlock fields\n- Only one field is now locked at a time (the current calculation target)\n- Removed tier selector UI (no longer relevant with calculation modes)\n- Updated documentation to reflect field state management behavior\n\nThe calculator now correctly unlocks the previous field when:\n- Switching from \"Calculate Price\" to \"Calculate Margin\"\n- Switching from any calculation mode to another\n- Switching to \"Manual Entry\" mode (unlocks all fields)",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "calculation-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix field unlocking bug when switching calculation modes",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 36,
+    "deletions": 81
+  },
+  "files": [
+    "CALCULATIONS.md",
+    "README.md",
+    "calculators/engine.js",
+    "index.html",
+    "ui/initialization.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

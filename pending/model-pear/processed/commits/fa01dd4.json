@@ -1,0 +1,47 @@
+{
+  "sha": "fa01dd4",
+  "fullSha": "fa01dd455a3de92af2fa50d389233c3aefeeb305",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-10T01:30:05Z",
+  "commitDate": "2026-01-10T01:30:05Z",
+  "subject": "feat: remove combined calculations from all 6 models",
+  "body": "Phase 4 of refactor to remove Combined perspective.\n- Remove calculateCombinedPerspective function from all models\n- Remove combined from return objects\n- Models affected: 1-6 (cost-plus, licence, joint-dev, BOT, sale, SaaS)",
+  "tags": [
+    "feature",
+    "refactor"
+  ],
+  "complexity": 4,
+  "risk": "high",
+  "debt": "paid",
+  "epic": "remove-combined-perspective",
+  "semver": "minor",
+  "scope": null,
+  "title": "remove combined calculations from all 6 models",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 0,
+    "deletions": 447
+  },
+  "files": [
+    "models/intercompany/model-1-cost-plus.js",
+    "models/intercompany/model-2-licence-royalties.js",
+    "models/intercompany/model-3-joint-development.js",
+    "models/intercompany/model-4-bot.js",
+    "models/intercompany/model-5-software-sale.js",
+    "models/intercompany/model-6-saas-subscription.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "internal"
+}

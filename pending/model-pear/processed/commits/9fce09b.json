@@ -1,0 +1,43 @@
+{
+  "sha": "9fce09b",
+  "fullSha": "9fce09b6d4a7588e4e166aedd4662ff5d3949963",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-27T20:40:24Z",
+  "commitDate": "2025-12-27T20:40:24Z",
+  "subject": "Fix model selection and chart improvements",
+  "body": "- Clear selected models when software category changes\n- Filter out empty/sparse metric cards (>50% empty values)\n- Convert race chart to cumulative revenue line chart using ApexCharts\n- Remove deprecated chart controls (Play/Pause/Reset buttons and slider)",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "chart-improvements",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix model selection and chart improvements",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 115,
+    "deletions": 155
+  },
+  "files": [
+    "app.js",
+    "index.html"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

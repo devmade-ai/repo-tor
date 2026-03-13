@@ -1,0 +1,48 @@
+{
+  "sha": "8589e80",
+  "fullSha": "8589e80b798f5af92a7c4ff7d4f0c18c8c445360",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-11T13:20:16Z",
+  "commitDate": "2026-01-11T13:20:16Z",
+  "subject": "feat: add model selector UI and fix TypeScript array access issues",
+  "body": "- Add /structuring page with visual model cards for all 6 transaction models\n- Add dynamic /structuring/[model] calculator page with inputs and results\n- Fix TypeScript strict mode array access errors with ?? fallbacks\n- Export all 6 models and sensitivity functions from calculator package\n\nUI supports Model 1 (Cost-Plus) calculator with variant selection and\nbasic result display. Pages for Models 2-6 pending.",
+  "tags": [
+    "feature",
+    "ui",
+    "bugfix"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "architecture-redesign",
+  "semver": "minor",
+  "scope": null,
+  "title": "add model selector UI and fix TypeScript array access issues",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 862,
+    "deletions": 356
+  },
+  "files": [
+    "apps/web/src/routes/structuring/+page.svelte",
+    "apps/web/src/routes/structuring/[model]/+page.svelte",
+    "packages/calculator/src/index.ts",
+    "packages/calculator/src/projections/calculations.ts",
+    "packages/calculator/src/sensitivity/calculations.ts",
+    "packages/calculator/src/sensitivity/types.ts"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

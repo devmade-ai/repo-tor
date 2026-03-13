@@ -1,0 +1,44 @@
+{
+  "sha": "2ae43e8",
+  "fullSha": "2ae43e8933b1bf9ff8fea0170f15c7ef5b930998",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-07T23:39:13Z",
+  "commitDate": "2026-01-07T23:39:13Z",
+  "subject": "Implement Phase 4: Model 3 - Joint Development / Cost-Sharing",
+  "body": "Add complete implementation of Model 3 with all 8 variants:\n- 3A: Proportional Cost Sharing (Equal 50/50)\n- 3B: Contribution-Based Sharing\n- 3C: Benefit-Based Sharing\n- 3D: Platform + Application Split\n- 3E: Development + Commercialisation Split\n- 3F: Joint Venture Entity\n- 3G: Consortium / Multi-Party\n- 3H: Pre-Competitive Joint Development\n\nKey features:\n- Full contribution tracking (cash, personnel, IP, facilities)\n- Ownership calculation methods for each variant\n- Three-perspective outputs (Developer, Buyer, Combined)\n- Transfer pricing risk assessment for cost-contribution arrangements\n- No intercompany profit - clean consolidation benefit\n- Amortisation schedules and tax calculations",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "inter-company-tool",
+  "semver": "minor",
+  "scope": null,
+  "title": "Implement Phase 4: Model 3 - Joint Development / Cost-Sharing",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 1377,
+    "deletions": 27
+  },
+  "files": [
+    "docs/IMPLEMENTATION_ROADMAP.md",
+    "models/intercompany/model-3-joint-development.js",
+    "models/intercompany/registry.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,52 @@
+{
+  "sha": "6e2b075",
+  "fullSha": "6e2b0755b7092c615710a4fb8e9a866b33d3d06c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T15:02:48Z",
+  "commitDate": "2026-03-09T15:02:48Z",
+  "subject": "fix: address 11 bugs found in codebase audit",
+  "body": "- ConfirmDialog: stop Escape propagation to prevent double-close with BaseModal\n- App: bulk delete now handles selected arcs (not just nodes)\n- DetailPanel: Cancel resets form state to original prop values (NodeDetail + ArcDetail)\n- useSelection: toggle deselect no longer sets removed item as primary\n- tagSuggestionService: terminateEngine resets refCount to prevent stale count\n- ImportModal: double-click guard on Smart Matching button\n- graphService: move arc queries inside transactions (TOCTOU fix for deleteNode/bulkDeleteNodes)\n- viewService: inject modified timestamp on updateView (consistent with updateNode/updateArc)\n- ConventionsModal: clear setTimeout on unmount (prevents setState after unmount)\n- GraphCanvas: extract cxttap handler for proper removeListener cleanup\n- TimelineView: checkbox checked state uses effectiveSelected (not stale selectedProperties)\n- ViewConfiguration: add optional modified field for timestamp tracking\n\nTags: bugfix, audit, cleanup, ui, service, hooks\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: codebase-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01ULhD1te9qFVLzqF4YCLBbP",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "duplicate-detection",
+  "semver": "patch",
+  "scope": null,
+  "title": "address 11 bugs found in codebase audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 135,
+    "deletions": 46
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/conventions/ConventionsModal.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/ui/ConfirmDialog.tsx",
+    "src/components/views/TimelineView.tsx",
+    "src/hooks/useSelection.ts",
+    "src/services/graphService.ts",
+    "src/services/tagSuggestionService.ts",
+    "src/services/viewService.ts",
+    "src/types/index.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}

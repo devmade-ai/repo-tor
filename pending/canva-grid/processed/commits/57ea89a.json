@@ -1,0 +1,41 @@
+{
+  "sha": "57ea89a",
+  "fullSha": "57ea89ab6a078f62629af841486e4d5a7e6d365a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-20T21:34:01Z",
+  "commitDate": "2026-01-20T21:34:01Z",
+  "subject": "Fix black downloads by overriding opacity in toPng capture",
+  "body": "The canvas was hidden (opacity: 0) during export to prevent visual\nflashing, but html-to-image clones elements with computed styles.\nAdded style override to ensure cloned element has opacity: 1.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "export-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix black downloads by overriding opacity in toPng capture",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 8,
+    "deletions": 0
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 4,
+  "impact": "user-facing"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "b7d3413",
+  "fullSha": "b7d341390728b131c33ead3f0a8dbf380ed15efa",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-07T01:31:30Z",
+  "commitDate": "2026-01-07T01:31:30Z",
+  "subject": "Remove unused input fields that serve no calculation purpose",
+  "body": "Removed two input fields that were only used for display/metadata and\nhad no role in unit economics calculations:\n\n1. activeBuyers (marketplace model) - Only returned in display metrics,\n   never used in revenue/cost/margin/equilibrium calculations\n\n2. unitLabel (usage-based model) - Purely descriptive text field with\n   no mathematical use in calculations\n\nThis keeps the models clean and focused on essential unit economics inputs.",
+  "tags": [
+    "refactor",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-cleanup",
+  "semver": "patch",
+  "scope": null,
+  "title": "Remove unused input fields that serve no calculation purpose",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 21
+  },
+  "files": [
+    "models/index.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 1,
+  "impact": "internal"
+}

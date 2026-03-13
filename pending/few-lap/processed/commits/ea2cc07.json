@@ -1,0 +1,60 @@
+{
+  "sha": "ea2cc07",
+  "fullSha": "ea2cc071dee358d66dd662c5d65252c0c941fd7c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com"
+  },
+  "timestamp": "2026-03-12T20:15:13Z",
+  "commitDate": "2026-03-12T20:15:13Z",
+  "subject": "Merge pull request #25 from devmade-ai/claude/bulk-import-stations-VES5S",
+  "body": "Add bulk station import feature with JSON validation",
+  "tags": [
+    "merge"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "bulk-import",
+  "semver": "minor",
+  "scope": null,
+  "title": "Merge pull request #25 from devmade-ai/claude/bulk-import-stations-VES5S",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [
+    "#25"
+  ],
+  "stats": {
+    "filesChanged": 18,
+    "additions": 1084,
+    "deletions": 29
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/admin/_layout.tsx",
+    "app/admin/bulk-import.tsx",
+    "app/admin/index.tsx",
+    "app/station/[id].tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "package-lock.json",
+    "package.json",
+    "src/components/map/FuelMap.tsx",
+    "src/hooks/usePWAUpdate.ts",
+    "src/hooks/useStations.ts",
+    "src/types/database.ts",
+    "src/types/index.ts",
+    "supabase/migrations/20260311000001_bulk_insert_stations.sql",
+    "supabase/migrations/20260312000001_add_station_fields.sql",
+    "supabase/migrations/20260312000002_update_bulk_insert_stations.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

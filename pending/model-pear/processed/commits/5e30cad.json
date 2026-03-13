@@ -1,0 +1,46 @@
+{
+  "sha": "5e30cad",
+  "fullSha": "5e30cade27091d4a910509758c89b64635634536",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-07T22:38:08Z",
+  "commitDate": "2026-01-07T22:38:08Z",
+  "subject": "Complete Phase 1 & 2: Entity configuration UI and Model 1 implementation",
+  "body": "- Add entity configuration UI panel with collapsible design\n  - Developer/Buyer entity settings (name, jurisdiction, tax status)\n  - Relationship settings (related parties, consolidation toggle)\n  - Tax parameters (corporate rate, Section 11(e), CGT inclusion)\n  - Reset to defaults functionality\n- Integrate entity config into inter-company calculator\n- Update roadmap to mark Phase 1 & Phase 2 as completed\n- All 6 Model 1 variants (1A-1F) now fully functional",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "inter-company-tool",
+  "semver": "minor",
+  "scope": null,
+  "title": "Complete Phase 1 & 2: Entity configuration UI and Model 1 implementation",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [
+    "A-1"
+  ],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 454,
+    "deletions": 31
+  },
+  "files": [
+    "docs/IMPLEMENTATION_ROADMAP.md",
+    "ui/intercompany/calculator.js",
+    "ui/intercompany/entity-config.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,44 @@
+{
+  "sha": "f140dfd",
+  "fullSha": "f140dfd4423fb271ece70b6c3496cbbb099ceea2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T11:22:11Z",
+  "commitDate": "2026-03-05T11:22:11Z",
+  "subject": "feat(station): add price history chart (last 30 days)",
+  "body": "Bar chart on station detail showing price trends over the last 30 days.\nBuilt with plain React Native Views (no chart library dependency).\nFuel type selector chips when station has multiple fuel types.\n\nIncludes usePriceHistory hook that queries price_history table with\n30-day window filter.\n\nTags: station, pricing, chart, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: station-detail\nSemver: minor\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "codebase-review",
+  "semver": "minor",
+  "scope": "station",
+  "title": "add price history chart (last 30 days)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 251,
+    "deletions": 0
+  },
+  "files": [
+    "app/station/[id].tsx",
+    "src/components/station/PriceHistoryChart.tsx",
+    "src/hooks/usePriceHistory.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

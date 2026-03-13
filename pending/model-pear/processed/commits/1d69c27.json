@@ -1,0 +1,42 @@
+{
+  "sha": "1d69c27",
+  "fullSha": "1d69c278661a1e84760605f2ffca47420bb8ffff",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-07T01:28:04Z",
+  "commitDate": "2026-01-07T01:28:04Z",
+  "subject": "Remove growth assumption from one-time license model",
+  "body": "Remove unitsSoldPerMonth input to align with static unit economics philosophy.\nThe model now shows only current maintenance revenue from existing customers,\nwithout projecting future license sales.\n\nChanges:\n- Removed unitsSoldPerMonth input field\n- Revenue now only from existing maintenance contracts\n- Costs only from supporting existing customers\n- Still provides pricing guidance (min/max/equilibrium) for licenses\n\nThis makes the one-time model consistent with other models which use\ncurrent-state snapshots rather than growth projections.",
+  "tags": [
+    "refactor",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-cleanup",
+  "semver": "patch",
+  "scope": null,
+  "title": "Remove growth assumption from one-time license model",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 17
+  },
+  "files": [
+    "models/index.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 1,
+  "impact": "internal"
+}

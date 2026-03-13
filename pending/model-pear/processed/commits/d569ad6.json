@@ -1,0 +1,42 @@
+{
+  "sha": "d569ad6",
+  "fullSha": "d569ad64b609b393e5614c6389b7e2d0dfd90de6",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-10T01:23:21Z",
+  "commitDate": "2026-01-10T01:23:21Z",
+  "subject": "chore: change default perspective to developer",
+  "body": "Phase 1 of refactor to remove Combined perspective.\n- app-state.js: default to 'developer' instead of 'combined'\n- results-display.js: fallback to developer perspective",
+  "tags": [
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "remove-combined-perspective",
+  "semver": "patch",
+  "scope": null,
+  "title": "change default perspective to developer",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 5,
+    "deletions": 3
+  },
+  "files": [
+    "state/app-state.js",
+    "ui/intercompany/results-display.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 1,
+  "impact": "internal"
+}

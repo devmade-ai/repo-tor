@@ -1,0 +1,46 @@
+{
+  "sha": "08aedfe",
+  "fullSha": "08aedfea1f1b2fe44e45870f88edf8006ff1884b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-05T22:08:28Z",
+  "commitDate": "2026-01-05T22:08:28Z",
+  "subject": "Fix vendor mode comparison graphs and reorganize documentation",
+  "body": "## Changes Made:\n\n### 1. Fixed Vendor Mode Comparison Charts (Primary Issue)\n- Added 'checked' attribute to \"Compare multiple models\" checkbox in index.html\n- Users can now select and compare multiple models by default in vendor mode\n- Enables comparison graphs, universal metrics, race charts, and comparison tables out of the box\n- Users can still uncheck the box to focus on a single model\n\n### 2. Documentation Reorganization\n- Extracted comprehensive development history from claude.md into new HISTORY.md file\n- Updated claude.md to reference HISTORY.md with summary of most recent changes\n- Updated README.md changelog with vendor mode fix and HISTORY.md reference\n- Added detailed documentation of the vendor mode fix in HISTORY.md\n\n## Impact:\n- Improves default UX by enabling multi-model comparison immediately\n- Reduces cognitive load - users don't need to discover the checkbox toggle\n- Maintains flexibility for users who want single-model focus\n- Cleaner claude.md file with history properly separated\n- Better documentation organization for future maintenance\n\n## Files Modified:\n- index.html (1 line: added checked attribute)\n- HISTORY.md (new file: 265 lines of extracted history)\n- claude.md (reduced ~250 lines, added history reference)\n- README.md (added changelog entry and HISTORY.md reference)",
+  "tags": [
+    "bugfix",
+    "ui",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "vendor-mode-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix vendor mode comparison graphs and reorganize documentation",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 315,
+    "deletions": 239
+  },
+  "files": [
+    "HISTORY.md",
+    "README.md",
+    "claude.md",
+    "index.html"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

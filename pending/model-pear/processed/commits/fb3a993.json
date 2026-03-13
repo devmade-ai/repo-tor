@@ -1,0 +1,50 @@
+{
+  "sha": "fb3a993",
+  "fullSha": "fb3a993b3a977206a1ef97e6cb16b9fd3478b032",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-07T12:22:40Z",
+  "commitDate": "2026-01-07T12:22:40Z",
+  "subject": "Remove unused framework files and improve code comments",
+  "body": "Why:\n- framework/ folder contained ~1,000 lines of dead code (never imported)\n- claude.md described a different system (20 models) than what exists (5 models)\n- Code comments explained \"what\" instead of \"why\"\n\nChanges:\n- Remove framework/categories.js, delivery.js, model-families.js, services.js\n- Rewrite claude.md to accurately describe the 5-model equilibrium system\n- Add \"why\" comments to engine.js, reverse-calculations.js, models/index.js\n- Update HISTORY.md with cleanup record\n\nThis aligns with the project goal: start basic, add complexity later.",
+  "tags": [
+    "refactor",
+    "removal"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-cleanup",
+  "semver": "patch",
+  "scope": null,
+  "title": "Remove unused framework files and improve code comments",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 335,
+    "deletions": 1435
+  },
+  "files": [
+    "HISTORY.md",
+    "calculators/engine.js",
+    "calculators/reverse-calculations.js",
+    "claude.md",
+    "framework/categories.js",
+    "framework/delivery.js",
+    "framework/model-families.js",
+    "framework/services.js",
+    "models/index.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 1,
+  "impact": "internal"
+}

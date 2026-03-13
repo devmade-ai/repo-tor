@@ -1,0 +1,43 @@
+{
+  "sha": "5a8fb6b",
+  "fullSha": "5a8fb6bb49bf2012513a585275e77637264e0716",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-09T01:12:29Z",
+  "commitDate": "2026-01-09T01:12:29Z",
+  "subject": "Complete Phase 2: Add localStorage persistence for view mode",
+  "body": "Add user preference persistence so the selected model selection mode\n(Overview/Wizard/Direct) is remembered across sessions.\n\nChanges:\n- Add loadSelectionModePreference() to load from localStorage\n- Add saveSelectionModePreference() to persist preference\n- Initialize selectionMode from localStorage (defaults to 'overview')\n- Save preference when mode changes via toggle buttons or navigation\n\nlocalStorage key: 'model-pear-selection-mode'\nValid values: overview, wizard, direct\n\nPhase 2 (Options Overview) is now complete.",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "options-overview",
+  "semver": "minor",
+  "scope": null,
+  "title": "Complete Phase 2: Add localStorage persistence for view mode",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 82,
+    "deletions": 8
+  },
+  "files": [
+    "docs/IMPLEMENTATION_PLAN.md",
+    "ui/intercompany/calculator.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

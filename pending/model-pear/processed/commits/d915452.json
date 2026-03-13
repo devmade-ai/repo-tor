@@ -1,0 +1,48 @@
+{
+  "sha": "d915452",
+  "fullSha": "d915452702adf26b7d33e9a8d287f8afa92cb8b5",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T23:46:13Z",
+  "commitDate": "2026-01-08T23:46:13Z",
+  "subject": "Clarify perspectives: 2 parties + shareholder view for mutual ownership",
+  "body": "Major documentation update to clarify the perspective framework:\n\n- Independent parties: 2 perspectives (Developer, Buyer)\n- Mutual ownership: 3 perspectives (adds Shareholder view)\n\nKey changes:\n- Renamed \"Combined Perspective\" to \"Shareholder Perspective\"\n- Clarified this is NOT about group accounting consolidation\n- Shareholder view shows what's best for the person who owns both entities\n- Focus on: where should profit sit? what's my total tax position?\n\nUpdated files:\n- BUSINESS_GUIDE.md: Rewrote Perspective Analysis section\n- claude.md: Updated framework description and entity config\n- All 6 model concept docs: Updated Combined->Shareholder sections",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "usage-scenarios",
+  "semver": "patch",
+  "scope": null,
+  "title": "Clarify perspectives: 2 parties + shareholder view for mutual ownership",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 175,
+    "deletions": 143
+  },
+  "files": [
+    "claude.md",
+    "docs/BUSINESS_GUIDE.md",
+    "docs/model_1_cost_plus_concept.md",
+    "docs/model_2_licence_royalties_concept.md",
+    "docs/model_3_joint_development_concept.md",
+    "docs/model_4_build_operate_transfer_concept.md",
+    "docs/model_5_software_sale_support_concept.md",
+    "docs/model_6_saas_subscription_concept.md"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "internal"
+}

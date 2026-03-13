@@ -1,0 +1,45 @@
+{
+  "sha": "19fcddc",
+  "fullSha": "19fcddcbf88ad93c237adccb69c80ef079523ded",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T11:15:31Z",
+  "commitDate": "2026-03-05T11:15:31Z",
+  "subject": "feat: add price trend indicators with auto-populated price history",
+  "body": "- price_history trigger: auto-inserts into price_history on every\n  fuel_prices INSERT or UPDATE (migration 20260305000002)\n- PriceTrend component: up/down/unchanged arrow with color coding\n  (red=increase, green=decrease, gray=unchanged)\n- Station detail: fetches previous prices from price_history and\n  shows trend alongside each fuel price\n- Share button added alongside Get Directions\n\nTags: features, prices, trends, migration\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: features\nSemver: minor\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "feature",
+    "ui",
+    "schema"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "codebase-review",
+  "semver": "minor",
+  "scope": null,
+  "title": "add price trend indicators with auto-populated price history",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 109,
+    "deletions": 1
+  },
+  "files": [
+    "app/station/[id].tsx",
+    "src/components/station/PriceTrend.tsx",
+    "supabase/migrations/20260305000002_price_history_trigger.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "0a60c55",
+  "fullSha": "0a60c559c56a05398645dd3efcb62ba3017a068c",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-03T20:18:10Z",
+  "commitDate": "2026-01-03T20:18:10Z",
+  "subject": "Fix mode selection initialization and model loading",
+  "body": "This fix resolves the critical bug where calculator mode buttons (Vendor, Growth, Client, Admin) were not functioning after page load, and models were not loading after category selection.\n\n## Root Cause\nThe init() function was never calling setCalculatorMode('forward') to initialize the default state. This created an inconsistency where:\n- HTML showed the forward button as blue (hardcoded)\n- JavaScript never ran the initialization logic\n- Mode buttons only triggered hover effects without actually switching modes\n- UI state was inconsistent between HTML and JavaScript\n\n## Changes Made\n\n### ui/initialization.js\n- Added setCalculatorMode('forward') call at the end of init() to initialize default mode\n- Added comprehensive console logging throughout initialization process:\n  - init() function start\n  - Mode button click events\n  - setCalculatorMode() calls\n  - Category selection changes\n  - Model checkbox generation\n- Console logs use emojis for easy visual scanning in browser console\n\n### README.md\n- Updated Changelog with detailed description of the bug and fix\n- Documented root cause and technical details\n- Added to \"January 2026 - Critical Bug Fixes\" section\n\n## Impact\n- Mode buttons now correctly switch between Vendor/Growth/Client/Admin modes\n- Button styling properly updates (blue for active, gray for inactive)\n- Models load correctly after category selection in all modes\n- UI state is now consistent from initial page load\n- Console logs provide visibility into initialization flow for debugging\n\n## Testing\nUsers should now see:\n1. Page loads with Forward mode active (both visually and functionally)\n2. Clicking any mode button switches to that mode with proper styling\n3. After selecting a category, models load immediately\n4. All mode-specific input sections show/hide correctly",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "initialization-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix mode selection initialization and model loading",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 38,
+    "deletions": 4
+  },
+  "files": [
+    "README.md",
+    "ui/initialization.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

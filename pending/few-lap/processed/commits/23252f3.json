@@ -1,0 +1,47 @@
+{
+  "sha": "23252f3",
+  "fullSha": "23252f3f607b1f4d7db4b05bcf2afe1c56efe913",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T15:28:00Z",
+  "commitDate": "2026-02-26T15:28:00Z",
+  "subject": "fix(theme): default to dark mode instead of light",
+  "body": "App was showing off-white (#F9FAFB) background because light theme was\nthe default. Flipped all theme resolution logic to use dark mode unless\nthe system explicitly requests light mode. Updated web body CSS, map\nstyle, and static Theme alias to match.\n\nTags: ui, theme, dark-mode\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01BfhVnf4N4ACavd8s5mu6FG",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "theme",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "default to dark mode instead of light",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 19,
+    "deletions": 14
+  },
+  "files": [
+    "app/(tabs)/_layout.tsx",
+    "app/+html.tsx",
+    "app/_layout.tsx",
+    "constants/Colors.ts",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/hooks/useAppTheme.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

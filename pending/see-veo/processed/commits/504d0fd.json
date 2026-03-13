@@ -1,0 +1,45 @@
+{
+  "sha": "504d0fd",
+  "fullSha": "504d0fd0cbfce573032fdceaae73178c37d017e1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T22:54:16Z",
+  "commitDate": "2026-03-07T22:54:16Z",
+  "subject": "feat(pwa): detect Opera, Samsung Internet, Vivaldi, and Arc browsers",
+  "body": "All four are Chromium-based and include \"Chrome\" in their UA strings,\nso their specific tokens (OPR/, SamsungBrowser/, Vivaldi/, Arc/) must\nbe matched before the generic Chrome check. Samsung Internet gets\ndedicated install instructions since its UI differs from standard\nChromium (download icon instead of install icon). All four added to\nthe supportsAutoInstall and expectsPrompt lists.\n\nTags: pwa, browser-detection, install-instructions\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: debug-brave-mobile\nSemver: minor\n\nhttps://claude.ai/code/session_016LKUeM6TyYmfbQ52XsAwtX",
+  "tags": [
+    "feature",
+    "pwa"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "detect Opera, Samsung Internet, Vivaldi, and Arc browsers",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 58,
+    "deletions": 4
+  },
+  "files": [
+    "src/components/DebugBanner.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "src/test/detect-browser.test.ts",
+    "src/utils/pwa.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "internal"
+}

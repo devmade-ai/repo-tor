@@ -1,0 +1,45 @@
+{
+  "sha": "1725bbe",
+  "fullSha": "1725bbe0a641e4efdaf22793fb4d4808178e3492",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-09T06:53:44Z",
+  "commitDate": "2026-01-09T06:53:44Z",
+  "subject": "Implement Phase 3.3: Comparison Manager & View Components",
+  "body": "Add the core UI components for Compare Mode:\n\n- comparison-manager.js: Full panel for managing saved options\n  - List, load, delete, rename saved comparisons\n  - Edit notes for each comparison\n  - Select options for side-by-side comparison\n  - Export to JSON/CSV, import from JSON\n  - Clear all with confirmation dialog\n  - Storage info display\n\n- comparison-view.js: Side-by-side comparison table\n  - Compare 2-4 options simultaneously\n  - Developer, Buyer, Combined metrics sections\n  - Transfer pricing risk display\n  - Difference column with directional arrows\n  - Best/worst value highlighting\n  - Export comparison as JSON/CSV\n\n- calculator.js: Integration updates\n  - Import and initialize comparison components\n  - Wire up \"View Saved\" and \"Compare\" buttons\n  - Add cleanup for comparison modules\n\nThis substantially completes Phase 3 (Compare Mode) of the\nimplementation plan.",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 5,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "comparison-mode",
+  "semver": "minor",
+  "scope": null,
+  "title": "Implement Phase 3.3: Comparison Manager & View Components",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 1990,
+    "deletions": 25
+  },
+  "files": [
+    "docs/IMPLEMENTATION_PLAN.md",
+    "ui/intercompany/calculator.js",
+    "ui/intercompany/comparison-manager.js",
+    "ui/intercompany/comparison-view.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

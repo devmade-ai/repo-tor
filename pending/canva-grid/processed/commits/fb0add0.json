@@ -1,0 +1,42 @@
+{
+  "sha": "fb0add0",
+  "fullSha": "fb0add0304caee4010e981dac88eba8637a70609",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-10T14:23:41Z",
+  "commitDate": "2026-03-10T14:23:41Z",
+  "subject": "fix(structure): keep cell selection in same section after cell deletion",
+  "body": "When deleting the last cell in a section, selection now stays in the same\nsection (selects previous cell) instead of jumping to the next section.\nIf the deleted cell wasn't the last in its section, selection moves to\nthe next cell (shifted to same index), which is the standard behavior.\n\nVerified all cell grid components (MiniCellGrid, ContextBar CellGrid,\nCanvasCellOverlay) correctly rebuild from layout.structure and highlight\nselectedCell consistently after insert/delete/move/swap operations.\n\nTags: structure, layout, selection, bugfix\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: layout-structure-controls\nSemver: patch\n\nhttps://claude.ai/code/session_01Vp82yU8LPSQKF91NibhLnG",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "layout-structure",
+  "semver": "patch",
+  "scope": "structure",
+  "title": "keep cell selection in same section after cell deletion",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 8,
+    "deletions": 2
+  },
+  "files": [
+    "src/components/LayoutTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

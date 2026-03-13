@@ -1,0 +1,43 @@
+{
+  "sha": "6549c00",
+  "fullSha": "6549c00bad6e4ded20f1ea42d50028b8e754b495",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T09:12:15Z",
+  "commitDate": "2026-03-02T09:12:15Z",
+  "subject": "fix: exclude data.json from PWA precache, use runtime caching instead",
+  "body": "data.json (2.68MB) exceeds Workbox's 2MB precache limit, causing\nthe build to fail. Moved to NetworkFirst runtime caching so it's\nfetched fresh on each load and cached for offline PWA use.\n\n- Remove data.json from globPatterns and narrow *.json in includeAssets\n- Add NetworkFirst runtime caching rule for /data.json\n\nhttps://claude.ai/code/session_01HfBuLLn6odQ2BFNovZ2toD",
+  "tags": [
+    "bugfix",
+    "config",
+    "pwa"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "vercel-migration",
+  "semver": "patch",
+  "scope": null,
+  "title": "exclude data.json from PWA precache, use runtime caching instead",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 20,
+    "deletions": 3
+  },
+  "files": [
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

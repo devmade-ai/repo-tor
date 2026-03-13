@@ -1,0 +1,43 @@
+{
+  "sha": "ca39507",
+  "fullSha": "ca39507ed75a727ef13f7f07b05448c9356aa2ba",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-03T19:32:18Z",
+  "commitDate": "2026-01-03T19:32:18Z",
+  "subject": "Fix critical DOMContentLoaded race condition causing initialization failure",
+  "body": "Root Cause:\n- modals.js registered DOMContentLoaded listener at module load time with undefined init function\n- app.js called setInitFunction() later to set the actual init function\n- If DOMContentLoaded fired before setInitFunction() was called (common on mobile/cached pages),\n  init() never executed and no event listeners were attached\n- Result: Complete app failure - no buttons, selectors, or interactions worked\n\nThe Fix:\n- Moved addEventListener() call from module load time into setInitFunction()\n- Added document.readyState check to handle both cases:\n  * DOM still loading: register listener normally\n  * DOM already ready: call init() immediately\n- Ensures init() always runs regardless of timing\n\nImpact:\n- Restores all interactive functionality on mobile devices and cached pages\n- Fixes mode buttons, category selector, model selection, and calculate button\n- Resolves the \"nothing changing when selecting different modes\" issue\n\nFiles Modified:\n- ui/modals.js: Moved listener registration, added readyState check\n- claude.md: Added comprehensive bug fix documentation\n- README.md: Updated changelog with fix details",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "high",
+  "debt": "neutral",
+  "epic": "initialization-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix critical DOMContentLoaded race condition causing initialization failure",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 45,
+    "deletions": 5
+  },
+  "files": [
+    "README.md",
+    "claude.md",
+    "ui/modals.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 4,
+  "impact": "user-facing"
+}

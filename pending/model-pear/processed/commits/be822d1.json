@@ -1,0 +1,51 @@
+{
+  "sha": "be822d1",
+  "fullSha": "be822d1b6cc20ac8e28e575f33586bf3d62e2535",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-07T22:26:53Z",
+  "commitDate": "2026-01-07T22:26:53Z",
+  "subject": "Implement Phase 0 & Phase 1 foundation for inter-company tool",
+  "body": "Phase 0 (Preparation):\n- Complete codebase audit with architecture documentation\n- Design data models for 3-perspective output schema\n- Design compliance scoring schema\n- Plan state management structure\n\nPhase 1 (Foundation Infrastructure):\n- Add model registry system with Model 1 (Cost-Plus) and 6 variants\n- Implement three-perspective framework (Developer/Buyer/Combined)\n- Add South African tax inputs (27% rate, Section 11(e))\n- Add entity configuration schemas\n- Create mode switcher between pricing and inter-company calculators\n- Implement state management for new features\n\nNew files:\n- docs/PHASE_0_PREPARATION.md - Phase 0 findings\n- models/intercompany/registry.js - Model registry\n- models/intercompany/model-1-cost-plus.js - First inter-company model\n- state/app-state.js - State management\n- ui/intercompany/*.js - UI components for inter-company calculator",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 5,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "inter-company-tool",
+  "semver": "minor",
+  "scope": null,
+  "title": "Implement Phase 0 & Phase 1 foundation for inter-company tool",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 3015,
+    "deletions": 43
+  },
+  "files": [
+    "app.js",
+    "docs/IMPLEMENTATION_ROADMAP.md",
+    "docs/PHASE_0_PREPARATION.md",
+    "index.html",
+    "models/intercompany/model-1-cost-plus.js",
+    "models/intercompany/registry.js",
+    "state/app-state.js",
+    "ui/intercompany/calculator.js",
+    "ui/intercompany/perspective-toggle.js",
+    "ui/intercompany/results-display.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

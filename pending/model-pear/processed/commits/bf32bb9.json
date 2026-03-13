@@ -1,0 +1,45 @@
+{
+  "sha": "bf32bb9",
+  "fullSha": "bf32bb9d69b76f677d281179fe78ece5227d524d",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-07T23:29:27Z",
+  "commitDate": "2026-01-07T23:29:27Z",
+  "subject": "Implement Phase 7: Model 6 - SaaS/Subscription",
+  "body": "Add complete implementation of Model 6 with all 9 variants:\n- 6A: Pure SaaS (Multi-Tenant)\n- 6B: Dedicated Instance (Single-Tenant)\n- 6C: Subscription with Customisation\n- 6D: Hybrid (Subscription + On-Premise)\n- 6E: Freemium / Tiered Pricing\n- 6F: Consumption-Based Pricing\n- 6G: Enterprise Agreement (Committed Spend)\n- 6H: Private Label SaaS\n- 6I: Managed Service with Transition Rights\n\nFeatures implemented:\n- Developer perspective: asset retention, subscription revenue recognition\n- Buyer perspective: expense treatment (no asset in SaaS)\n- Combined perspective: asset concentration warning, elimination\n- Transfer pricing assessment for subscription arrangements\n- SaaS vs Build vs Buy alternatives comparison",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "inter-company-tool",
+  "semver": "minor",
+  "scope": null,
+  "title": "Implement Phase 7: Model 6 - SaaS/Subscription",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 1387,
+    "deletions": 27
+  },
+  "files": [
+    "docs/IMPLEMENTATION_ROADMAP.md",
+    "docs/README.md",
+    "models/intercompany/model-6-saas-subscription.js",
+    "models/intercompany/registry.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

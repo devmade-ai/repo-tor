@@ -1,0 +1,58 @@
+{
+  "sha": "b32a885",
+  "fullSha": "b32a885b6697fcd17597d08928235ce41bb1fabb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T20:56:43Z",
+  "commitDate": "2026-03-04T20:56:43Z",
+  "subject": "fix(ux): comprehensive UX improvements for mobile and web-on-mobile",
+  "body": "Addresses 19 UX issues identified during codebase review:\n\nWeb/PWA:\n- Add overscroll-behavior: contain to prevent iOS Safari rubber-band\n- Add safe area inset padding for notched phones (iPhone X+)\n- Add focus-visible outlines for keyboard/switch navigation accessibility\n- Fix Toast safe area padding on web (use reduced padding, body handles insets)\n- Slim install banner padding, auto-dismiss after 10s to reclaim screen space\n\nMobile touch targets:\n- Increase GPS button from 32px to 40px diameter\n- Add minHeight: 44px to reset button, burger menu items\n- Increase burger menu icon padding to 8px\n\nLoading & feedback:\n- Add animated skeleton loading cards in StationList (4 shimmer placeholders)\n- Increase Toast auto-dismiss from 2.5s to 3.5s, add close button\n- Add error haptics on GPS failures and station search errors\n\nMap improvements:\n- Move NavigationControl to bottom-right (avoids burger menu overlap)\n- Increase cluster count text from 13px to 15px for readability\n- Disable text-allow-overlap on station price labels (enables collision detection)\n- Increase station label text from 10px to 11px\n\nSearch & filters:\n- Show scroll indicators on native for fuel type and radius chip selectors\n- Add fadingEdgeLength and extra right padding as scroll hint\n- Fix placeholder text contrast (textSecondary instead of textTertiary)\n- Add maxHeight: 220px to location search suggestions for small screens\n\nStation detail:\n- Add underline + chevron icon to phone number for tap affordance\n\nAdmin:\n- Add pull-to-refresh to admin station list\n- Add price staleness indicator (dot + label) to PriceEditor\n- Revert price field to original value on save failure\n\nLayout:\n- Fix TutorialModal cramping in landscape (reduced padding, maxHeight: 85%)\n- Increase empty state message text from 14px to 15px with better line-height\n\nTags: ux, mobile, pwa, accessibility, performance\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-improvements\nSemver: minor\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "bugfix",
+    "ux",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "codebase-review",
+  "semver": "patch",
+  "scope": "ux",
+  "title": "comprehensive UX improvements for mobile and web-on-mobile",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 16,
+    "additions": 186,
+    "deletions": 36
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "app/+html.tsx",
+    "app/admin/index.tsx",
+    "app/station/[id].tsx",
+    "src/components/admin/PriceEditor.tsx",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/pwa/InstallPrompt.tsx",
+    "src/components/search/FuelTypeSelector.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/components/search/RadiusSelector.tsx",
+    "src/components/station/StationList.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/components/ui/Toast.tsx",
+    "src/components/ui/TutorialModal.tsx",
+    "src/hooks/useLocation.ts",
+    "src/hooks/useStations.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

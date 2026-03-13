@@ -1,0 +1,44 @@
+{
+  "sha": "0fcd41b",
+  "fullSha": "0fcd41b9660883e3a34cb9db1bcfb6ccc967d0be",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T17:05:12Z",
+  "commitDate": "2026-03-09T17:05:12Z",
+  "subject": "fix(export): halve PDF page dimensions for mobile viewer quality",
+  "body": "Digital PDF pages used pxToPt=1 creating 15\"+ wide pages (1080×1350pt\nfor LinkedIn Portrait). Mobile PDF viewers scaled these 5:1 onto 3\"\nscreens, degrading quality. Changed to pxToPt=0.5 (144 DPI) creating\n~7.5\" pages with only 2.5:1 viewer scaling.\n\nInteger pixel-per-point ratios preserved: Low=2, Standard=4, High=6.\nAlso added document.fonts.ready wait and PDF metadata (title/creator).\n\nTags: export, pdf, mobile, quality\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pdf-export\nSemver: patch\n\nhttps://claude.ai/code/session_01KjQd21oxBZydfDAu8v7xaY",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "pdf-export",
+  "semver": "patch",
+  "scope": "export",
+  "title": "halve PDF page dimensions for mobile viewer quality",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 51,
+    "deletions": 32
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

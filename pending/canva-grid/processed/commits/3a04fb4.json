@@ -1,0 +1,41 @@
+{
+  "sha": "3a04fb4",
+  "fullSha": "3a04fb44ada7d1fd48f08bec994922d2c5449b08",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T05:59:32Z",
+  "commitDate": "2026-03-09T05:59:32Z",
+  "subject": "fix(export): bump WebP quality to 0.98 for smoother gradients",
+  "body": "WebP lossy encoder handles smooth gradients differently from JPEG —\nat 0.95 it can show subtle blocking on vignettes. Bumped to 0.98\nwhile keeping JPG at 0.95 where it already looks perfect.\n\nTags: export, quality, webp\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: export-quality\nSemver: patch",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "export-quality",
+  "semver": "patch",
+  "scope": "export",
+  "title": "bump WebP quality to 0.98 for smoother gradients",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 4,
+    "deletions": 1
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,41 @@
+{
+  "sha": "530dade",
+  "fullSha": "530dade206e4a7a64291625093ec560495fcb635",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-26T04:27:49Z",
+  "commitDate": "2025-12-26T04:27:49Z",
+  "subject": "Implement Layer 2/3 framework modifiers across all pricing models",
+  "body": "This commit completes the calculation engine integration for the framework alignment:\n\n✅ Added central applyFrameworkModifiers() helper function\n- Consistently applies Layer 2 (Delivery) and Layer 3 (Service) modifiers\n- Handles self-hosted one-time conversions\n- Adds managed services base fees\n- Adjusts pricing, churn rates, and CAC\n\n✅ Updated generateAllForms() to use category-specific defaults\n- Applies pricing defaults from LAYER_1_CATEGORIES\n- Shows category-specific hint text for ranges and benchmarks\n- Maps common inputs (price, churnRate, conversionRate) to context data\n\n✅ Updated all 20 pricing model calculate() functions:\nCore models:\n- per-seat: Applies modifiers to seat pricing and churn\n- usage-based: Applies modifiers to per-unit pricing\n- tiered: Applies modifiers to all three tier prices\n- freemium: Applies modifiers to paid tier pricing and churn\n- subscription: Applies modifiers to monthly price and churn\n\nAdditional models (15 total):\n- one-time, retainer, managed-services, pay-per-transaction\n- credits-token, time-materials, fixed-price, outcome-based\n- open-core, marketplace, revenue-share, advertising\n- ela, data-licensing, white-label\n\nEach model now:\n1. Calls applyFrameworkModifiers() at start of calculate()\n2. Uses modifiers.price instead of raw input price\n3. Uses modifiers.churn instead of raw churn rate\n4. Adds managed services revenue when applicable\n5. Includes debug info (appliedPrice, appliedChurnRate)\n\nThis enables the full framework flow:\nCategory → Models → Delivery → Service → Calculate\n\nNext steps: Testing and industry benchmarks display",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "framework-alignment",
+  "semver": "minor",
+  "scope": null,
+  "title": "Implement Layer 2/3 framework modifiers across all pricing models",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 387,
+    "deletions": 62
+  },
+  "files": [
+    "app.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

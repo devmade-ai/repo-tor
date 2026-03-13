@@ -1,0 +1,49 @@
+{
+  "sha": "ff6b721",
+  "fullSha": "ff6b7219b46849c7ca31738e992f95accec9694a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T01:11:31Z",
+  "commitDate": "2026-03-08T01:11:31Z",
+  "subject": "fix: resolve remaining codebase review issues (round 3)",
+  "body": "Addresses 12 more issues from the comprehensive 48-file review.\n\nMedium fixes:\n- bulk-update: round price to 2 decimal places before sending to RPC\n- bulk-update: guard against selectedFuelType becoming undefined mid-flow\n- InstallPrompt: auto-hide uses session-only state instead of persisting\n  dismissal — users who miss the 10s banner get it again next visit\n- StationMarker: fix JSX syntax error from previous commit (comment\n  outside return expression)\n\nRefactoring:\n- station/[id].tsx: break fetchStation (130 lines) into 3 focused helpers:\n  fetchStationPrices, parseCoordinates, fetchPreviousPrices\n- supabase-queries.test.ts: add honest disclaimer about mock-only nature,\n  remove dead chainable() helper, fix bulk update return value assertion\n\nMinor fixes:\n- _layout.tsx (tabs): remove dead `tint` variable and unused Colors import\n- _layout.tsx (root): lazy-load DebugPill so it's excluded from prod bundles\n- DebugPill: stop animation on unmount, fix variable shadow (`t` → `scrollTimer`)\n\nAll 45 tests pass.\n\nTags: review, refactor, bugfix, cleanup, pwa, ui, testing\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: codebase-review\nSemver: patch\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "codebase-review",
+  "semver": "patch",
+  "scope": null,
+  "title": "resolve remaining codebase review issues (round 3)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 156,
+    "deletions": 143
+  },
+  "files": [
+    "app/(tabs)/_layout.tsx",
+    "app/_layout.tsx",
+    "app/admin/bulk-update.tsx",
+    "app/station/[id].tsx",
+    "src/components/map/StationMarker.tsx",
+    "src/components/pwa/InstallPrompt.tsx",
+    "src/debug/DebugPill.tsx",
+    "src/lib/__tests__/supabase-queries.test.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

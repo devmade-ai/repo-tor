@@ -1,0 +1,44 @@
+{
+  "sha": "e398b59",
+  "fullSha": "e398b59c5c0aba580e05653d0a91f25b57b0abbb",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T06:56:26Z",
+  "commitDate": "2026-01-08T06:56:26Z",
+  "subject": "Fix wizard performance by cleaning up event listeners",
+  "body": "Event listeners were accumulating without cleanup, causing progressive\nunresponsiveness when going through the wizard multiple times. Each\nanswer added new listeners without removing old ones, resulting in 14+\nduplicate handlers after completing the wizard once, doubling on restart.\n\n- structure-selector.js: Remove listeners before adding new ones in\n  setupEventListeners(), add removeEventListeners() for cleanup\n- calculator.js: Same pattern - store bound handlers and remove before\n  re-adding to prevent accumulation on tab switches/mode changes\n- entity-config.js: Fix handleReset() calling setupEventListeners()\n  without cleanup, add proper listener management",
+  "tags": [
+    "bugfix",
+    "performance"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "wizard-performance",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix wizard performance by cleaning up event listeners",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 139,
+    "deletions": 16
+  },
+  "files": [
+    "ui/intercompany/calculator.js",
+    "ui/intercompany/entity-config.js",
+    "ui/intercompany/structure-selector.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

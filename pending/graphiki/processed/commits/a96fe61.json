@@ -1,0 +1,45 @@
+{
+  "sha": "a96fe61",
+  "fullSha": "a96fe61baa18f15b0bd763de099aa859793e4b3a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T12:44:32Z",
+  "commitDate": "2026-03-09T12:44:32Z",
+  "subject": "fix(embedding): concurrency guards, cleanup, and dismissed pair rendering",
+  "body": "Guard embeddingService batch operations against concurrent calls with\nbatchInProgress flag. terminateEngine() now rejects all pending promises\ninstead of leaving them hanging. Eliminated double buildArcText()\ncomputation in computeWorkspaceArcEmbeddings by counting during the\nloop. DuplicateScannerModal now hides dismissed pairs instead of\nrendering them dimmed. Removed stale View Configuration comment header\nfrom types/index.ts.\n\nTags: phase-7, embedding, duplicates, cleanup\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: semantic-duplicate-detection\nSemver: patch\n\nhttps://claude.ai/code/session_01ULhD1te9qFVLzqF4YCLBbP",
+  "tags": [
+    "bugfix",
+    "performance"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "duplicate-detection",
+  "semver": "patch",
+  "scope": "embedding",
+  "title": "concurrency guards, cleanup, and dismissed pair rendering",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 174,
+    "deletions": 119
+  },
+  "files": [
+    "src/components/duplicates/DuplicateScannerModal.css",
+    "src/components/duplicates/DuplicateScannerModal.tsx",
+    "src/services/embeddingService.ts",
+    "src/types/index.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "internal"
+}

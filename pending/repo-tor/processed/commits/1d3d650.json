@@ -1,0 +1,50 @@
+{
+  "sha": "1d3d650",
+  "fullSha": "1d3d650d91af78ac509f0d208c3eb6692d95997a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T05:10:19Z",
+  "commitDate": "2026-03-04T05:10:19Z",
+  "subject": "feat(dashboard): add loading indicators to tabs without pre-aggregated data",
+  "body": "During Phase 1 (summary loaded, commits still fetching), 6 tabs rendered\nempty charts and zero counts with no feedback. Now each shows a spinner\nwith contextual message (\"Loading health data...\", etc.) until commits\narrive.\n\nTabs with loading indicators: TimingTab, TagsTab, ContributorsTab,\nHealthTab, SecurityTab, DiscoverTab.\n\nProjectsTab: commit counts now return null during Phase 1 so cards hide\nthe count line instead of showing misleading \"0 commits tracked\".\n\nhttps://claude.ai/code/session_01RbDmv8obRPnToLezqSGmHg",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "dashboard-loading",
+  "semver": "minor",
+  "scope": "dashboard",
+  "title": "add loading indicators to tabs without pre-aggregated data",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 94,
+    "deletions": 11
+  },
+  "files": [
+    "dashboard/js/tabs/ContributorsTab.jsx",
+    "dashboard/js/tabs/DiscoverTab.jsx",
+    "dashboard/js/tabs/HealthTab.jsx",
+    "dashboard/js/tabs/ProjectsTab.jsx",
+    "dashboard/js/tabs/SecurityTab.jsx",
+    "dashboard/js/tabs/TagsTab.jsx",
+    "dashboard/js/tabs/TimingTab.jsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

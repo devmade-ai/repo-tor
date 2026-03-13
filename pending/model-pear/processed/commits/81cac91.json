@@ -1,0 +1,58 @@
+{
+  "sha": "81cac91",
+  "fullSha": "81cac9145326691c0ed1f36c166c3468c30ac6cc",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-09T14:13:55Z",
+  "commitDate": "2026-01-09T14:13:55Z",
+  "subject": "Improve UI clarity: standardize terminology and modernize labels",
+  "body": "This commit improves the user experience by standardizing terminology\nand making the interface more intuitive for users.\n\nKey changes:\n- Unified perspective names: \"Your Company\", \"Client\", \"Combined View\"\n- Renamed tabs: \"Charts\" (was Visualizations), \"What-If\" (was Sensitivity)\n- Changed \"Direct\" mode to \"Manual\" and \"Explore\" to \"Select Model\"\n- Modernized Section 11(e) labels to \"Standard Software (2-year write-off)\"\n  and \"Complex Systems (5-year write-off)\" with clearer help text\n- Updated keyboard shortcut from S to C for Combined View\n- Made transfer pricing warning jurisdiction-agnostic\n- Updated input categories to \"Your Company Costs\" and \"Client Treatment\"\n- Updated all documentation to reflect changes",
+  "tags": [
+    "ui",
+    "ux",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ui-terminology",
+  "semver": "patch",
+  "scope": null,
+  "title": "Improve UI clarity: standardize terminology and modernize labels",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 16,
+    "additions": 185,
+    "deletions": 157
+  },
+  "files": [
+    "app.js",
+    "docs/BUSINESS_GUIDE.md",
+    "docs/HISTORY.md",
+    "docs/UI_UX_GUIDE.md",
+    "models/intercompany/model-1-cost-plus.js",
+    "models/intercompany/model-2-licence-royalties.js",
+    "models/intercompany/model-3-joint-development.js",
+    "models/intercompany/model-4-bot.js",
+    "models/intercompany/model-5-software-sale.js",
+    "models/intercompany/model-6-saas-subscription.js",
+    "ui/intercompany/calculator.js",
+    "ui/intercompany/compliance-analyzer.js",
+    "ui/intercompany/options-overview.js",
+    "ui/intercompany/party-selector.js",
+    "ui/intercompany/perspective-toggle.js",
+    "ui/intercompany/results-display.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

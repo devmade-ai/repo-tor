@@ -1,0 +1,44 @@
+{
+  "sha": "acaf52e",
+  "fullSha": "acaf52ea42ddfb558b786bf16997d4a47bb654e8",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-09T07:27:54Z",
+  "commitDate": "2026-01-09T07:27:54Z",
+  "subject": "Add Clear All button to results save actions bar",
+  "body": "- Add clearAllComparisons import from app-state.js\n- Add Clear All button (red styling, hidden by default)\n- Show button only when saved options exist\n- Add handleClearAllOptions() with browser confirm dialog\n- Update implementation plan with session notes",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "comparison-mode",
+  "semver": "minor",
+  "scope": null,
+  "title": "Add Clear All button to results save actions bar",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 68,
+    "deletions": 2
+  },
+  "files": [
+    "docs/IMPLEMENTATION_PLAN.md",
+    "ui/intercompany/calculator.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

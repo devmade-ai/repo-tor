@@ -1,0 +1,43 @@
+{
+  "sha": "181250c",
+  "fullSha": "181250c39836da3edcdbafcbb12aab92ea9c3c9b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-17T01:42:22Z",
+  "commitDate": "2026-01-17T01:42:22Z",
+  "subject": "Fix color picker overflow on mobile",
+  "body": "Split color and size controls onto separate rows in TextEditor.\nRestructured text element rows in LayoutSelector Placement tab\nto put color picker on its own row with flex-wrap for mobile.",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix color picker overflow on mobile",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 100,
+    "deletions": 99
+  },
+  "files": [
+    "src/components/LayoutSelector.jsx",
+    "src/components/TextEditor.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

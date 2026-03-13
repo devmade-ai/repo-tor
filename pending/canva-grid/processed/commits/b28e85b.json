@@ -1,0 +1,42 @@
+{
+  "sha": "b28e85b",
+  "fullSha": "b28e85bf6ad6b54962c7d5921cab7be8c18b24fa",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-17T07:32:52Z",
+  "commitDate": "2026-01-17T07:32:52Z",
+  "subject": "Add alignment controls to Text tab",
+  "body": "Now users can set horizontal alignment from both:\n- Text tab (alongside color, size, style, spacing)\n- Layout > Placement tab (with cell context)\n\nBoth control the same state property (text[element].textAlign)",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "text-alignment",
+  "semver": "minor",
+  "scope": null,
+  "title": "Add alignment controls to Text tab",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 65,
+    "deletions": 1
+  },
+  "files": [
+    "src/components/TextEditor.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

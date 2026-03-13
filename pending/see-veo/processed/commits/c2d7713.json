@@ -1,0 +1,44 @@
+{
+  "sha": "c2d7713",
+  "fullSha": "c2d77135ee0a24b6bc2635d8176b674db9b0527d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T23:19:51Z",
+  "commitDate": "2026-03-07T23:19:51Z",
+  "subject": "refactor(pwa): extract shared Browser type, constants, and display names",
+  "body": "Eliminates three duplicated browser lists across pwa.ts, usePWAInstall,\nand DebugBanner by exporting CHROMIUM_BROWSERS constant and Browser union\ntype. Moves browserNames to module-level BROWSER_DISPLAY_NAMES. Adds\nJSDoc noting Arc UA detection is best-effort and Safari check ordering\ndependency.\n\nTags: pwa, types, refactor, browser-detection\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-brave-mobile\nSemver: patch\n\nhttps://claude.ai/code/session_016LKUeM6TyYmfbQ52XsAwtX",
+  "tags": [
+    "refactor",
+    "pwa"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "extract shared Browser type, constants, and display names",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 35,
+    "deletions": 13
+  },
+  "files": [
+    "src/components/DebugBanner.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "src/utils/pwa.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "969af93",
+  "fullSha": "969af93e13ca31766fd482def126e633497df265",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-09T19:38:11Z",
+  "commitDate": "2026-01-09T19:38:11Z",
+  "subject": "Refactor testing to workflow-based logical assertions",
+  "body": "Replace numerical math tests with readable workflow-based tests that verify\ndisplayed values are logically correct based on user actions and inputs.\n\nChanges:\n- Create ASSERTIONS library with reusable logical checks\n- Each assertion has: field name, readable logic formula, description\n- Define WORKFLOW_SCENARIOS that read like user stories\n- Tests now verify \"Developer Revenue = Cost × (1 + Markup)\" logic\n- Not testing math (1000 × 1.1 = 1100), testing business logic\n- Update UI to display stories, workflow badges, and assertion formulas",
+  "tags": [
+    "refactor",
+    "test-unit"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "testing-lab",
+  "semver": "patch",
+  "scope": null,
+  "title": "Refactor testing to workflow-based logical assertions",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 845,
+    "deletions": 1071
+  },
+  "files": [
+    "models/intercompany/testing-utilities.js",
+    "ui/intercompany/testing.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "internal"
+}

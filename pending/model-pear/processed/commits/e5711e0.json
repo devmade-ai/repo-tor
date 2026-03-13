@@ -1,0 +1,42 @@
+{
+  "sha": "e5711e0",
+  "fullSha": "e5711e052e02edddbf7f2701dfdd238f4575936b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-05T19:27:15Z",
+  "commitDate": "2026-01-05T19:27:15Z",
+  "subject": "Fix duplicate declaration of generateModelCheckboxes in initialization.js",
+  "body": "Removed generateModelCheckboxes from dependency injection pattern as it was\nincorrectly trying to inject its own function into itself via app.js.\n\nIssue: Uncaught SyntaxError: Identifier 'generateModelCheckboxes' has already been declared\n- generateModelCheckboxes was forward-declared on line 11\n- Assigned via handlers on line 22\n- Exported as function on line 392\n\nThis created a duplicate declaration error. The function is now kept as a\nlocally exported function and called directly within the module.\n\nPattern clarification: Use dependency injection only for functions from\nOTHER modules, not self-references.\n\nFiles modified:\n- ui/initialization.js (removed 1 duplicate from forward declarations and setter)\n- claude.md (documented bug fix in Recent Bug Fixes section)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "dependency-injection-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix duplicate declaration of generateModelCheckboxes in initialization.js",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 33,
+    "deletions": 3
+  },
+  "files": [
+    "claude.md",
+    "ui/initialization.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

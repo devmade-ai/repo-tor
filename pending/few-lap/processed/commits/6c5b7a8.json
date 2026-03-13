@@ -1,0 +1,48 @@
+{
+  "sha": "6c5b7a8",
+  "fullSha": "6c5b7a8052abd2192fb3f7610c0f06a7df4e5923",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T11:20:05Z",
+  "commitDate": "2026-03-05T11:20:05Z",
+  "subject": "feat(admin): add coordinate picker and bulk price update",
+  "body": "Coordinate picker: text inputs for lat/lng on admin station edit form,\nsaves via update_station_coordinates RPC (PostGIS geography column can't\nbe updated via .update() directly).\n\nBulk price update: dedicated screen for regulated SA fuel price changes\n(monthly government gazette). Selects a fuel type, enters new price,\nupserts for all active stations via bulk_update_regulated_price RPC.\nButton added to admin station list for easy access.\n\nTags: admin, coordinates, pricing, supabase, rpc\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: admin-tools\nSemver: minor\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "codebase-review",
+  "semver": "minor",
+  "scope": "admin",
+  "title": "add coordinate picker and bulk price update",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 481,
+    "deletions": 1
+  },
+  "files": [
+    "app/admin/_layout.tsx",
+    "app/admin/bulk-update.tsx",
+    "app/admin/index.tsx",
+    "app/admin/station/[id].tsx",
+    "src/components/admin/CoordinatePicker.tsx",
+    "supabase/migrations/20260305000003_update_station_coordinates.sql",
+    "supabase/migrations/20260305000004_bulk_price_update.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

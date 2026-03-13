@@ -1,0 +1,43 @@
+{
+  "sha": "37b6215",
+  "fullSha": "37b6215c0591005e3cd4a04ffab39ba60517dd68",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T05:55:41Z",
+  "commitDate": "2026-03-09T05:55:41Z",
+  "subject": "fix(export): eliminate gradient banding in PDF and image exports",
+  "body": "Vignette and radial overlays looked terrible in PDF exports because:\n1. 2-stop CSS gradients degrade when html-to-image serializes to canvas\n2. JPEG 0.92 quality causes visible 8x8 block artifacts on smooth transitions\n\nFix: Multi-stop gradient helpers (linearFade, radialVignette, radialSpotlight)\nwith 4-6 intermediate opacity stops give the renderer precise anchor points.\nBumped PDF JPEG quality from 0.92 to 0.97 and image export from 0.92 to 0.95.\n\nTags: export, overlay, pdf, quality\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: export-quality\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "performance"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "export-quality",
+  "semver": "patch",
+  "scope": "export",
+  "title": "eliminate gradient banding in PDF and image exports",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 52,
+    "deletions": 23
+  },
+  "files": [
+    "src/components/ExportButtons.jsx",
+    "src/config/layouts.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,60 @@
+{
+  "sha": "8bf199c",
+  "fullSha": "8bf199c125f45c7ced6dd3ada9dc830edb6111eb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-03T17:58:45Z",
+  "commitDate": "2026-03-03T17:58:45Z",
+  "subject": "fix(data): use UTC consistently for all aggregation levels",
+  "body": "Daily/monthly aggregation used substring(0,10) on timestamps (local\ntime) while weekly used new Date().getUTC*() (UTC). This caused 62\ncommits with non-zero timezone offsets to land in different daily/monthly\nbuckets vs weekly buckets. Fixed by adding getUTCDateKey/getUTCMonthKey\nhelpers used consistently across all aggregation levels and month file\ngrouping.\n\nAlso fixed 2 commits with impact:\"infra\" being silently dropped —\nadded alias mapping infra→infrastructure in calcImpactBreakdown,\naccumulateBucket, contributor aggregation, and calcFilterOptions.\n\nAll 18 verification checks pass after re-aggregation.\n\nhttps://claude.ai/code/session_01RbDmv8obRPnToLezqSGmHg",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "dashboard-data-integrity",
+  "semver": "patch",
+  "scope": "data",
+  "title": "use UTC consistently for all aggregation levels",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 20,
+    "additions": 777,
+    "deletions": 787
+  },
+  "files": [
+    "dashboard/public/data-commits/2025-12.json",
+    "dashboard/public/data-commits/2026-01.json",
+    "dashboard/public/data.json",
+    "dashboard/public/repos/budgy-ting.json",
+    "dashboard/public/repos/canva-grid-assets.json",
+    "dashboard/public/repos/canva-grid.json",
+    "dashboard/public/repos/chatty-chart.json",
+    "dashboard/public/repos/coin-zapp.json",
+    "dashboard/public/repos/few-lap.json",
+    "dashboard/public/repos/glow-props.json",
+    "dashboard/public/repos/graphiki.json",
+    "dashboard/public/repos/model-pear.json",
+    "dashboard/public/repos/plant-fur.json",
+    "dashboard/public/repos/repo-tor.json",
+    "dashboard/public/repos/see-veo.json",
+    "dashboard/public/repos/synctone.json",
+    "dashboard/public/repos/tool-till-tees.json",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/aggregate-processed.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

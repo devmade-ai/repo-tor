@@ -1,0 +1,42 @@
+{
+  "sha": "8135295",
+  "fullSha": "8135295b2fef67eec61e47998dd206cc02b2b45b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-17T08:08:24Z",
+  "commitDate": "2026-01-17T08:08:24Z",
+  "subject": "Fix multiline text display for all text elements",
+  "body": "Only bodyText had whiteSpace: 'pre-wrap' set, causing other text\nelements (title, tagline, bodyHeading, cta, footnote) to collapse\nnewlines into spaces. Now all text inputs properly display multiline\ncontent.",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "multiline-text",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix multiline text display for all text elements",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 5,
+    "deletions": 0
+  },
+  "files": [
+    "src/components/AdCanvas.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

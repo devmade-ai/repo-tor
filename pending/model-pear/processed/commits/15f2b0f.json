@@ -1,0 +1,43 @@
+{
+  "sha": "15f2b0f",
+  "fullSha": "15f2b0f58a54533cf172bf5c28ee7010637a0d83",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-11T22:51:29Z",
+  "commitDate": "2026-01-11T22:51:29Z",
+  "subject": "feat: complete input field configs for all transaction models",
+  "body": "Added all missing input fields to inputFields.ts:\n- Model 2: licence terms, territory, source code access, useful lives\n- Model 3: project duration, personnel FTEs/costs, IP contributions\n- Model 4: operating costs, revenue estimates, transfer timing\n- Model 5: payment terms, maintenance costs\n- Model 6: support costs\n\nAlso added researchPhaseCost and developmentPhaseCost to common fields.",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "architecture-redesign",
+  "semver": "minor",
+  "scope": null,
+  "title": "complete input field configs for all transaction models",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 270,
+    "deletions": 24
+  },
+  "files": [
+    "apps/web/src/lib/config/inputFields.ts",
+    "docs/TODO.md"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

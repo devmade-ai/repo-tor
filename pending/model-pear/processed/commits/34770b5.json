@@ -1,0 +1,42 @@
+{
+  "sha": "34770b5",
+  "fullSha": "34770b5697abf386658471e5a2099afd1ce7416f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T11:02:10Z",
+  "commitDate": "2026-01-21T11:02:10Z",
+  "subject": "fix: wire up activeSellers input in marketplace calculator",
+  "body": "The activeSellers field existed in UI but wasn't used in calculations.\nNow calculates and displays avgTransactionsPerSeller as documented\nin CALCULATIONS.md - a useful marketplace health/liquidity metric.",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "pricing-calculator",
+  "semver": "patch",
+  "scope": null,
+  "title": "wire up activeSellers input in marketplace calculator",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 7,
+    "deletions": 0
+  },
+  "files": [
+    "apps/web/src/routes/pricing/+page.svelte"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

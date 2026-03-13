@@ -1,0 +1,43 @@
+{
+  "sha": "a3830ea",
+  "fullSha": "a3830eabb02dc2043c082a6942a96defdc110129",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-17T08:46:13Z",
+  "commitDate": "2026-01-17T08:46:13Z",
+  "subject": "Fix responsive placement selectors and adapt to layout changes",
+  "body": "- Add validation to reset text cell assignments when cells are removed\n  (switching layout type, removing sections/subdivisions)\n- Increase cell selector size from 60x40 to 80x52 for better mobile touch targets\n- Slightly increase cell content text size (10px to 11px) for readability",
+  "tags": [
+    "bugfix",
+    "ux",
+    "validation"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "responsive-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix responsive placement selectors and adapt to layout changes",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 42,
+    "deletions": 3
+  },
+  "files": [
+    "src/components/LayoutSelector.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

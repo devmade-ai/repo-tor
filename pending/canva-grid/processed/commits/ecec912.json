@@ -1,0 +1,42 @@
+{
+  "sha": "ecec912",
+  "fullSha": "ecec9125bba9892c9ab7c75a9d958fe0cc8e00ea",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-17T06:50:04Z",
+  "commitDate": "2026-01-17T06:50:04Z",
+  "subject": "Fix per-cell overlay not applying to image cells",
+  "body": "The renderImage function was hardcoded to use the global overlay,\nignoring per-cell overlay settings. Now it accepts an overlay config\nparameter that respects cell-level overrides for both:\n- Multi-cell layouts (rows/columns with image cells)\n- Fullbleed layouts (single cell 0)",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "overlay-expansion",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix per-cell overlay not applying to image cells",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 32,
+    "deletions": 26
+  },
+  "files": [
+    "src/components/AdCanvas.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

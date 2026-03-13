@@ -1,0 +1,44 @@
+{
+  "sha": "20c903c",
+  "fullSha": "20c903c7de2c1b62c70dd55de5e8b068e68484da",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-09T07:24:21Z",
+  "commitDate": "2026-01-09T07:24:21Z",
+  "subject": "Add comparison compatibility warnings and update implementation plan",
+  "body": "- Add checkComparisonCompatibility() function to detect incompatible comparisons\n- Display warnings when comparing different models, perspectives, or missing data\n- Add CSS styles for warning banners (warning/info/error severity levels)\n- Update implementation plan with session notes",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "comparison-mode",
+  "semver": "minor",
+  "scope": null,
+  "title": "Add comparison compatibility warnings and update implementation plan",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 174,
+    "deletions": 3
+  },
+  "files": [
+    "docs/IMPLEMENTATION_PLAN.md",
+    "ui/intercompany/comparison-view.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

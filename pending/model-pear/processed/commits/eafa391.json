@@ -1,0 +1,44 @@
+{
+  "sha": "eafa391",
+  "fullSha": "eafa3916cdf16599d6e4b7300d30070ee46953f7",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-10T01:37:56Z",
+  "commitDate": "2026-01-10T01:37:56Z",
+  "subject": "feat: remove group terminology from compliance and charts",
+  "body": "Phase 7 of refactor to remove Combined perspective.\n- compliance-analyzer.js (UI): remove Group Net Tax and Effective Rate displays\n- advanced-visualizations.js: remove combined color, Group Net Position waterfall\n- structure-selector.js: rename consolidation to partyRelationship, update labels",
+  "tags": [
+    "feature",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "remove-combined-perspective",
+  "semver": "minor",
+  "scope": null,
+  "title": "remove group terminology from compliance and charts",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 13,
+    "deletions": 26
+  },
+  "files": [
+    "models/intercompany/advanced-visualizations.js",
+    "models/intercompany/structure-selector.js",
+    "ui/intercompany/compliance-analyzer.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

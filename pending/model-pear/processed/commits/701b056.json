@@ -1,0 +1,43 @@
+{
+  "sha": "701b056",
+  "fullSha": "701b0567c6404436cda8934323a5867e82a9e0f8",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-07T00:51:31Z",
+  "commitDate": "2026-01-07T00:51:31Z",
+  "subject": "Fix calculate button gradient to extend full-width on mobile",
+  "body": "The gradient background on the sticky calculate button was previously\nconfined to the button's width, creating a narrow darker area. This\nchange makes the gradient extend edge-to-edge on mobile devices for\na more polished appearance while keeping the button properly centered.",
+  "tags": [
+    "bugfix",
+    "ui",
+    "style"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "ui-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix calculate button gradient to extend full-width on mobile",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 1
+  },
+  "files": [
+    "styles.css"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

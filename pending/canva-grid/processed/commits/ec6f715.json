@@ -1,0 +1,42 @@
+{
+  "sha": "ec6f715",
+  "fullSha": "ec6f71571c4fbad523ff1cf5b5a960c62af5ed87",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T11:49:24Z",
+  "commitDate": "2026-03-09T11:49:24Z",
+  "subject": "fix(export): capture PDF at 2x for sharp rendering on phone screens",
+  "body": "pixelRatio:1 produced only 72 DPI — visibly soft on 2-3x phone screens.\nThe previous fix (d6ede26) correctly identified the 2.667:1 non-integer\nratio as the cause of gradient destruction, but overcorrected by reducing\npixel count instead of fixing the ratio. This captures digital formats at\npixelRatio:2 with 1:1 pixel-to-point mapping (page dims = 2× platform\npixels), giving 4× more pixel data without viewer resampling. Print\nformats stay at pixelRatio:1 to avoid a 4.17:1 non-integer ratio.\n\nTags: export, pdf, quality, rendering\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pdf-export\nSemver: patch\n\nhttps://claude.ai/code/session_01AYVECK3jYm92eRF7TyzLLF",
+  "tags": [
+    "bugfix",
+    "performance"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pdf-export",
+  "semver": "patch",
+  "scope": "export",
+  "title": "capture PDF at 2x for sharp rendering on phone screens",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 32,
+    "deletions": 30
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "e97b2f5",
+  "fullSha": "e97b2f58335b2d04d90d89d0ef3abc6fc30da7e4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T10:44:58Z",
+  "commitDate": "2026-03-05T10:44:58Z",
+  "subject": "docs: fix documentation inaccuracies found in codebase review",
+  "body": "- USER_GUIDE.md: remove false claim about coordinate editing in admin\n  (actual fields: name, brand, address, city, postal code, phone)\n- CLAUDE.md: update test count from 21 to 30 (tests were added without\n  updating the architecture comment)\n- CLAUDE.md: add missing root config files to architecture tree\n  (app.json, package.json, tsconfig.json, jest.config.js, vercel.json,\n  .env.example)\n- SESSION_NOTES.md: update for current session\n\nTags: documentation, review, accuracy\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: codebase-review\nSemver: patch\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "codebase-review",
+  "semver": "patch",
+  "scope": null,
+  "title": "fix documentation inaccuracies found in codebase review",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 20,
+    "deletions": 20
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

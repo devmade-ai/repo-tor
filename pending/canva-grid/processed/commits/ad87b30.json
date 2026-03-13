@@ -1,0 +1,42 @@
+{
+  "sha": "ad87b30",
+  "fullSha": "ad87b30608d2070b4f65fa8cd1e592ced46e27c0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-10T14:38:20Z",
+  "commitDate": "2026-03-10T14:38:20Z",
+  "subject": "feat(structure): move cells between rows/columns",
+  "body": "Add ability to move a cell from one section to the last position in an\nadjacent section. For row layouts: \"To Row N\" buttons move a cell to the\nrow above or below. For column layouts: \"To Col N\" buttons move a cell\nto the column left or right.\n\nUses _cellSwap with a complete cell index map to atomically remap all\nper-cell data (text, images, overlays, etc.) in a single state update.\n\nConstraints: source section must have >1 cell (can't empty a section),\ntarget section must have <3 cells (max subdivisions limit). Buttons\nare disabled when constraints aren't met.\n\nTags: structure, layout, cells, ui\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: layout-structure-controls\nSemver: minor\n\nhttps://claude.ai/code/session_01Vp82yU8LPSQKF91NibhLnG",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "layout-structure",
+  "semver": "minor",
+  "scope": "structure",
+  "title": "move cells between rows/columns",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 107,
+    "deletions": 0
+  },
+  "files": [
+    "src/components/LayoutTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

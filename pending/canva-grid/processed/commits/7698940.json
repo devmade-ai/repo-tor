@@ -1,0 +1,52 @@
+{
+  "sha": "7698940",
+  "fullSha": "76989408474a7ef7e2a289e86f4706dd93e9c2d8",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-17T19:18:51Z",
+  "commitDate": "2026-01-17T19:18:51Z",
+  "subject": "Remove legacy components and update documentation",
+  "body": "Post-refactor cleanup:\n- Delete 6 legacy components replaced by workflow-based UI:\n  ImageUploader, TextEditor, LayoutSelector, ThemePicker,\n  FontSelector, StylePresetSelector\n- Delete REFACTOR_PLAN.md (implementation complete)\n- Update CLAUDE.md: remove legacy component references\n- Update TODO.md: move cleanup items to HISTORY\n- Update HISTORY.md: record cleanup completion\n- Update SESSION_NOTES.md: reflect current state",
+  "tags": [
+    "refactor",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "workflow-tabs-refactor",
+  "semver": "patch",
+  "scope": null,
+  "title": "Remove legacy components and update documentation",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 31,
+    "deletions": 3390
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/REFACTOR_PLAN.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/FontSelector.jsx",
+    "src/components/ImageUploader.jsx",
+    "src/components/LayoutSelector.jsx",
+    "src/components/StylePresetSelector.jsx",
+    "src/components/TextEditor.jsx",
+    "src/components/ThemePicker.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

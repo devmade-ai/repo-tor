@@ -1,0 +1,44 @@
+{
+  "sha": "5a626fd",
+  "fullSha": "5a626fded962e1f9844a7c7ad05f4e3a805d481b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T07:34:07Z",
+  "commitDate": "2026-01-08T07:34:07Z",
+  "subject": "Fix Model 4 & 5 calculation errors and update documentation",
+  "body": "Fix \"Cannot read properties of undefined (reading 'total')\" error\nwhen calculating BOT or Software Sale transactions. The error\noccurred due to inconsistent property naming between model\ncalculation returns and what results-display.js expected.\n\nAdded compatibility properties to both models:\n- Developer: revenue.total, costs.total, profit.gross/margin/net,\n  tax.taxableIncome/corporateTaxRate/taxPayable, asset.recognised/reason\n- Buyer: totalCost as direct value (was object), totalCostDetails,\n  asset.capitalised/expensed/section11eType, expenses.schedule, tax.taxBenefit\n- Combined: elimination.profitEliminated, assetEfficiency fixes,\n  cashFlow.developerNetCash/buyerNetCash/groupNetCash, metrics.groupTaxCost\n- TransferPricing: margin, method, withinRange, benchmarkRange object\n\nOriginal property names preserved for backward compatibility.",
+  "tags": [
+    "bugfix",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "high",
+  "debt": "paid",
+  "epic": "model-calculation-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix Model 4 & 5 calculation errors and update documentation",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 195,
+    "deletions": 25
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "models/intercompany/model-4-bot.js",
+    "models/intercompany/model-5-software-sale.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

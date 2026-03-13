@@ -1,0 +1,42 @@
+{
+  "sha": "38aaaa7",
+  "fullSha": "38aaaa79c505ed350f2b57c06966cbaaf582c296",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-07T01:47:09Z",
+  "commitDate": "2026-01-07T01:47:09Z",
+  "subject": "Fix calculation logic errors in client-budget and one-time model",
+  "body": "- Fix calculateMonthlyCost to correctly handle object results instead\n  of expecting an array (was always returning 0)\n- Fix one-time model payback calculation formula - use annual value in\n  denominator instead of subtracting first year cost from annual value",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "calculation-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix calculation logic errors in client-budget and one-time model",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 9,
+    "deletions": 8
+  },
+  "files": [
+    "calculators/client-budget.js",
+    "models/index.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "user-facing"
+}

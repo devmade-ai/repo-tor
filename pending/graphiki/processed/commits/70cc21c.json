@@ -1,0 +1,65 @@
+{
+  "sha": "70cc21c",
+  "fullSha": "70cc21c629c7e25a38829fdd227b7d32096e4e1c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T11:39:00Z",
+  "commitDate": "2026-03-09T11:39:00Z",
+  "subject": "feat(duplicates): add semantic duplicate detection via sentence-transformer embeddings",
+  "body": "Replace title-based node matching with semantic similarity using all-MiniLM-L6-v2\n(Transformers.js/ONNX). Two use cases: smart matching during import and standalone\n\"Find Duplicates\" scanner from burger menu. ~80MB model download is opt-in, cached\nby browser Cache API after first use.\n\nNew: embeddingWorker, embeddingService, similarityService, useEmbeddingEngine hook,\nDuplicateScannerModal. Rewritten: mergeService (semantic matching), ImportModal\n(computing-embeddings step), MergeReview (score bars). DB v6 adds embeddings table.\n\nTags: semantic-duplicates, embeddings, transformers, import, scanner\nComplexity: 5\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: semantic-duplicate-detection\nSemver: minor\n\nhttps://claude.ai/code/session_01ULhD1te9qFVLzqF4YCLBbP",
+  "tags": [
+    "feature",
+    "ai"
+  ],
+  "complexity": 5,
+  "risk": "high",
+  "debt": "neutral",
+  "epic": "duplicate-detection",
+  "semver": "minor",
+  "scope": "duplicates",
+  "title": "add semantic duplicate detection via sentence-transformer embeddings",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 24,
+    "additions": 3605,
+    "deletions": 516
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "package-lock.json",
+    "package.json",
+    "src/App.tsx",
+    "src/components/debug/DebugPill.tsx",
+    "src/components/duplicates/DuplicateScannerModal.css",
+    "src/components/duplicates/DuplicateScannerModal.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/importExport/MergeReview.css",
+    "src/components/importExport/MergeReview.tsx",
+    "src/config.ts",
+    "src/db/database.ts",
+    "src/hooks/useEmbeddingEngine.ts",
+    "src/services/embeddingService.ts",
+    "src/services/mergeService.test.ts",
+    "src/services/mergeService.ts",
+    "src/services/similarityService.test.ts",
+    "src/services/similarityService.ts",
+    "src/types/index.ts",
+    "src/utils/debugLog.ts",
+    "src/workers/embeddingWorker.ts",
+    "vite.config.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

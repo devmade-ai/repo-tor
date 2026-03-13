@@ -1,0 +1,48 @@
+{
+  "sha": "6bbf4ae",
+  "fullSha": "6bbf4ae1e60eb3dffae00ff8e79573db791d245d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-03T19:00:38Z",
+  "commitDate": "2026-03-03T19:00:38Z",
+  "subject": "fix(dashboard): correct filter fallback, UTC date grouping, and nullish coalescing",
+  "body": "Three bugs found during tab-by-tab data usage audit:\n\n1. Filter fallback to unfiltered data — SummaryTab, TimelineTab, ProgressTab\n   used `commitsLoaded && filteredCommits.length > 0` which fell through to\n   unfiltered summary data when filters excluded all commits. Changed to\n   `commitsLoaded` so empty filter results show zeros, not stale totals.\n\n2. || vs ?? in utils.js and DiscoverTab — getAdditions(), getDeletions(),\n   getFilesChanged() used || which treats 0 as falsy. DiscoverTab had 9\n   instances of `c.stats?.additions || 0`. All changed to ?? operator.\n\n3. Local time vs UTC date grouping — TimelineTab and ProgressTab used\n   substring(0, 10/7) for date/month keys (local timezone from ISO string),\n   but pre-aggregated keys use UTC. Added getUTCDateKey()/getUTCMonthKey()\n   helpers and applied in both tabs.\n\nhttps://claude.ai/code/session_01RbDmv8obRPnToLezqSGmHg",
+  "tags": [
+    "bugfix",
+    "validation"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "dashboard-data-integrity",
+  "semver": "patch",
+  "scope": "dashboard",
+  "title": "correct filter fallback, UTC date grouping, and nullish coalescing",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 85,
+    "deletions": 35
+  },
+  "files": [
+    "dashboard/js/tabs/DiscoverTab.jsx",
+    "dashboard/js/tabs/ProgressTab.jsx",
+    "dashboard/js/tabs/SummaryTab.jsx",
+    "dashboard/js/tabs/TimelineTab.jsx",
+    "dashboard/js/utils.js",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

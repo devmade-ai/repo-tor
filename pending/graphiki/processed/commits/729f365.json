@@ -1,0 +1,49 @@
+{
+  "sha": "729f365",
+  "fullSha": "729f365bbb7e6dc932b3c596c3d727b37d4a6e56",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-27T13:49:39Z",
+  "commitDate": "2026-02-27T13:49:39Z",
+  "subject": "infra(deploy): migrate from GitHub Actions/Pages to Vercel",
+  "body": "GitHub Pages had friction for SPAs: subpath base config, manual source\nsetting, no env var injection, and 404.html copy hack for client-side\nrouting. Vercel handles all of this natively.\n\nChanges:\n- Delete .github/workflows/deploy.yml (GitHub Actions workflow)\n- Add vercel.json with SPA rewrites (replaces 404.html hack)\n- Remove base: '/graphiki/' from vite.config.ts (Vercel serves at root)\n- Update decision comments in vite.config.ts, main.tsx, debugLog.ts,\n  DebugPill.tsx to reference Vercel instead of GitHub Pages\n- Add deployment convention and Vercel Migration milestone to CLAUDE.md\n- Add Vercel Migration entry to docs/HISTORY.md\n\nTags: infrastructure, vercel, deployment, migration\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: vercel-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01Cb5AgAiPFtDaxUbdbipPoz",
+  "tags": [
+    "config",
+    "deployment"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "vercel-migration",
+  "semver": "patch",
+  "scope": "deploy",
+  "title": "migrate from GitHub Actions/Pages to Vercel",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 45,
+    "deletions": 81
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "src/components/debug/DebugPill.tsx",
+    "src/main.tsx",
+    "src/utils/debugLog.ts",
+    "vercel.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

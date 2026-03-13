@@ -1,0 +1,43 @@
+{
+  "sha": "535a4c9",
+  "fullSha": "535a4c9e0acdf7cbd129fb498cecb0752b78e01e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T11:13:49Z",
+  "commitDate": "2026-03-05T11:13:49Z",
+  "subject": "feat(ux): add BottomSheet keyboard avoidance and content-area drag",
+  "body": "- Keyboard avoidance: snaps to full on keyboard show, restores position\n  on dismiss. Uses Keyboard listeners (native) and visualViewport\n  resize (web mobile fallback)\n- Content-area drag: PanResponder on content captures downward drags\n  when inner FlatList is scrolled to top, or any drag when sheet is\n  not fully expanded. Handle drag unchanged\n- Accepts contentScrollOffset ref to track inner scroll position\n\nTags: ux, bottom-sheet, keyboard, drag\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: ux\nSemver: minor\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "codebase-review",
+  "semver": "minor",
+  "scope": "ux",
+  "title": "add BottomSheet keyboard avoidance and content-area drag",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 119,
+    "deletions": 5
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "src/components/ui/BottomSheet.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

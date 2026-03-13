@@ -1,0 +1,45 @@
+{
+  "sha": "6014917",
+  "fullSha": "6014917fc166398c77e31bf21e84127492042ada",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-17T07:30:35Z",
+  "commitDate": "2026-01-17T07:30:35Z",
+  "subject": "Add per-text-element horizontal alignment",
+  "body": "Changes alignment from cell-level to text-level for horizontal alignment:\n- Each text element (title, tagline, etc.) can now have its own textAlign\n- Alignment fallback chain: element → cell → global\n- Keeps vertical alignment at cell level (appropriate for layout positioning)\n\nUse case: centered headline with left-aligned body text in same cell\n\nChanges:\n- useAdState.js: Add textAlign/textVerticalAlign to each text group\n- AdCanvas.jsx: Apply per-element alignment via alignSelf + textAlign\n- LayoutSelector.jsx: Add alignment buttons per text element in Placement tab\n- CLAUDE.md: Document new alignment architecture",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "text-alignment",
+  "semver": "minor",
+  "scope": null,
+  "title": "Add per-text-element horizontal alignment",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 90,
+    "deletions": 31
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/AdCanvas.jsx",
+    "src/components/LayoutSelector.jsx",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

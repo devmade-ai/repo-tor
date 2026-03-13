@@ -1,0 +1,44 @@
+{
+  "sha": "ffe4ede",
+  "fullSha": "ffe4ededdf8b5668d2067d485814b5fc81a2cd7a",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T10:31:44Z",
+  "commitDate": "2026-01-08T10:31:44Z",
+  "subject": "Document default entity configuration settings and rationale",
+  "body": "Add comprehensive documentation explaining why each default setting\n(IFRS, 27% tax, SA Tax Resident, Related Parties, Same Group,\nConsolidation Required) is pre-selected, what each setting affects\nin the calculations, and when users might want to change them.\n\n- Add new section to BUSINESS_GUIDE.md with detailed tables\n- Update README.md to reference the new defaults documentation\n- Enhance claude.md with inline comments explaining each default",
+  "tags": [
+    "docs",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "entity-defaults",
+  "semver": "patch",
+  "scope": null,
+  "title": "Document default entity configuration settings and rationale",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 153,
+    "deletions": 12
+  },
+  "files": [
+    "claude.md",
+    "docs/BUSINESS_GUIDE.md",
+    "docs/README.md"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "internal"
+}

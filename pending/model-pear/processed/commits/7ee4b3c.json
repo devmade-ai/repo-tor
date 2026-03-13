@@ -1,0 +1,44 @@
+{
+  "sha": "7ee4b3c",
+  "fullSha": "7ee4b3c47679a5c27505cf99286866250fe46a1e",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-01T15:20:11Z",
+  "commitDate": "2026-01-01T15:20:11Z",
+  "subject": "Update all documentation to reflect modular architecture",
+  "body": "Updated documentation files to accurately describe the new modular codebase structure following the January 2026 refactoring from monolithic app.js to 16 specialized modules.\n\n## Changes\n\n### claude.md\n- Updated file structure section with complete modular directory tree\n- Added new \"Modular Architecture\" section explaining benefits and organization\n- Updated deployment description (ES6 modules instead of single-file)\n- Updated tech stack to mention modular architecture\n- Revised \"Development Workflow\" with module-specific guidance\n- Updated \"Common Tasks\" with new file locations for each type of change\n- Replaced \"Single-File Architecture\" limitation with \"Modular Architecture\" benefits\n- Updated performance targets to reflect ES6 module loading\n- Enhanced browser compatibility section to mention ES6 module support\n- Updated \"AI Assistant Guidelines\" with module navigation advice\n- Added comprehensive \"Major Refactoring\" entry to recent improvements\n- Updated final note to reference modular code locations\n\n### README.md\n- Changed description from \"single HTML file\" to \"modular ES6 JavaScript architecture\"\n- Updated Technology Stack to mention ES6 JavaScript and 16 modules\n- Updated Browser Support to note ES6 module requirement\n- Fixed line count in changelog: 96% reduction (6,377 → 243 lines)\n\n### FRAMEWORK_ALIGNMENT_PLAN.md\n- Added note explaining codebase is now modular\n- Updated Migration Checklist with actual module file paths\n- Marked all code changes as completed with correct file locations\n\n### QUICK_START_ALIGNMENT.md\n- Updated module line counts to match actual codebase\n- Removed duplicate app.js entry\n- Corrected app.js line count from ~500 to ~243 lines\n\n## Impact\nAll documentation now accurately reflects:\n- 7-directory modular structure\n- 16 specialized modules totaling ~6,800 lines\n- ES6 module system with import/export\n- Dependency injection pattern\n- 96% reduction in main orchestrator file size",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "modular-architecture",
+  "semver": "patch",
+  "scope": null,
+  "title": "Update all documentation to reflect modular architecture",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 168,
+    "deletions": 69
+  },
+  "files": [
+    "FRAMEWORK_ALIGNMENT_PLAN.md",
+    "QUICK_START_ALIGNMENT.md",
+    "README.md",
+    "claude.md"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 1,
+  "impact": "internal"
+}

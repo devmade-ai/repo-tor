@@ -1,0 +1,45 @@
+{
+  "sha": "c450599",
+  "fullSha": "c4505998261373af0716e2b1a9bf159d802a5a7b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T07:16:56Z",
+  "commitDate": "2026-01-08T07:16:56Z",
+  "subject": "Fix mobile tooltip accessibility and close functionality",
+  "body": "- Fix modal close: Replace inline onclick with proper event listeners\n  (inline handlers don't work with ES6 module scope)\n- Increase touch targets: Help icons now meet iOS 44x44px minimum\n  using invisible ::before pseudo-elements\n- Improve close button: 44x44px touch target with hover state\n- Add modal scrolling: max-h-[90vh] with overflow-y-auto for long content\n- Increase help icon visibility: Slightly larger (18px vs 16px) with\n  better contrast background\n- Mobile-specific sizing: Larger icons and buttons on smaller screens",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "tooltip-accessibility",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix mobile tooltip accessibility and close functionality",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 97,
+    "deletions": 13
+  },
+  "files": [
+    "index.html",
+    "styles.css",
+    "ui/modals.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

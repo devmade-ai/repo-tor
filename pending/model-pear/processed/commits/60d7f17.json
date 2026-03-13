@@ -1,0 +1,46 @@
+{
+  "sha": "60d7f17",
+  "fullSha": "60d7f17b87b65bdf358a11468a32f10d00a0cc96",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T06:32:02Z",
+  "commitDate": "2026-01-08T06:32:02Z",
+  "subject": "Improve mobile layout and remove confusing Next button",
+  "body": "- Add flex-wrap to main tab navigation for mobile wrapping\n- Convert wizard from step-by-step to progressive disclosure pattern\n- Questions auto-advance when option selected (no Next button needed)\n- Answered questions show in compact format with Change button\n- Smooth scroll animation to next question after selection\n- Update UI/UX documentation with new wizard behavior",
+  "tags": [
+    "ui",
+    "ux",
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-layout",
+  "semver": "patch",
+  "scope": null,
+  "title": "Improve mobile layout and remove confusing Next button",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 249,
+    "deletions": 84
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/UI_UX_GUIDE.md",
+    "ui/intercompany/calculator.js",
+    "ui/intercompany/structure-selector.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,45 @@
+{
+  "sha": "ea6ce08",
+  "fullSha": "ea6ce0855bee33a1bf53278445867c819cb52ba8",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-09T00:55:51Z",
+  "commitDate": "2026-01-09T00:55:51Z",
+  "subject": "Implement Phase 2: Options Overview - Core Foundation",
+  "body": "Add new Options Overview landing view that shows all 6 transaction models\nat a glance, addressing the gap where users had to pick a model before\nseeing alternatives.\n\nNew features:\n- Model cards grid with icon, summary, key features, best-for tags\n- Quick comparison table for side-by-side model analysis\n- \"Explore\" buttons to dive into specific models\n- \"Use the guided wizard\" link for recommendation-based selection\n- Three-way toggle: Overview / Wizard / Direct selection modes\n- Overview is now the default landing view\n\nTechnical changes:\n- Enhanced getModelMetadata() with rich overview data\n- Added getModelComparisonData() for comparison table\n- New options-overview.js component with responsive CSS grid\n- Updated calculator.js with Overview mode integration",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "options-overview",
+  "semver": "minor",
+  "scope": null,
+  "title": "Implement Phase 2: Options Overview - Core Foundation",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 877,
+    "deletions": 23
+  },
+  "files": [
+    "docs/IMPLEMENTATION_PLAN.md",
+    "models/intercompany/registry.js",
+    "ui/intercompany/calculator.js",
+    "ui/intercompany/options-overview.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

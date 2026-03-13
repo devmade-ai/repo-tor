@@ -1,0 +1,46 @@
+{
+  "sha": "ef812ae",
+  "fullSha": "ef812aea118c0a93dfd94f5bce37f7bbfa57060f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T17:37:22Z",
+  "commitDate": "2026-03-09T17:37:22Z",
+  "subject": "feat(style): add per-cell background color override",
+  "body": "Cells can now override the theme primary background with any theme\ncolor (primary/secondary/accent) or neutral color. Accessible via\nStyle > Spacing > Cell N > Custom background checkbox.\n\nState stored in layout.cellBackgrounds (object keyed by cell index),\nfollowing the same shift/swap/cleanup pattern as cellOverlays.\n\nAlso includes PDF improvements from earlier commits:\n- document.fonts.ready wait before capture\n- PDF title/creator metadata\n- Reverted pxToPt=0.5 (preserved full resolution for sharing)\n\nTags: style, background, per-cell, ui\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cell-customization\nSemver: minor\n\nhttps://claude.ai/code/session_01KjQd21oxBZydfDAu8v7xaY",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "cell-customization",
+  "semver": "minor",
+  "scope": "style",
+  "title": "add per-cell background color override",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 96,
+    "deletions": 18
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/AdCanvas.jsx",
+    "src/components/StyleTab.jsx",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

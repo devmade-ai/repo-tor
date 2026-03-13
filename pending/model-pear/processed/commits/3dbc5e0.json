@@ -1,0 +1,46 @@
+{
+  "sha": "3dbc5e0",
+  "fullSha": "3dbc5e02d05c7b560bb4ebd48e29de1a4f2c4cd9",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-05T22:44:12Z",
+  "commitDate": "2026-01-05T22:44:12Z",
+  "subject": "Simplify pricing calculator to focus on equilibrium analysis",
+  "body": "Major changes:\n- Reduce from 20 models to 5 core pricing models\n- Remove growth projections (churn, expansion, etc.)\n- Implement static unit economics (no month-by-month)\n- Add seller perspective (cost to serve + margin analysis)\n- Add buyer perspective (value received + ROI analysis)\n- Add equilibrium analysis (seller floor vs buyer ceiling)\n- Create SA pricing defaults file with realistic ZAR prices\n- Update README to reflect simplified approach\n\nModels now included:\n1. Subscription (SaaS)\n2. Usage-Based (API, transactions, etc.)\n3. Per-Seat (per user)\n4. One-Time Purchase (perpetual license)\n5. Marketplace (two-sided commission)\n\nEach model now calculates:\n- Revenue, costs, profit, margin\n- Seller minimum price to meet margin goals\n- Buyer maximum price based on value received\n- Equilibrium zone where both parties win",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "ui-simplification",
+  "semver": "minor",
+  "scope": null,
+  "title": "Simplify pricing calculator to focus on equilibrium analysis",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 1528,
+    "deletions": 1670
+  },
+  "files": [
+    "README.md",
+    "calculators/engine.js",
+    "config/sa-pricing-defaults.js",
+    "models/index.js",
+    "ui/results-display.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

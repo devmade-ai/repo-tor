@@ -1,0 +1,50 @@
+{
+  "sha": "58a473e",
+  "fullSha": "58a473e0ea9d8d11aa9c7931b512afcf5ba10455",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-06T12:05:07Z",
+  "commitDate": "2026-01-06T12:05:07Z",
+  "subject": "Comprehensive UI/UX improvements for better accessibility and usability",
+  "body": "## Accessibility Enhancements\n- Added ARIA attributes (role, aria-modal, aria-labelledby, aria-describedby)\n- Implemented keyboard navigation with ESC key support for modals\n- Added focus management and restoration for modal dialogs\n- Enhanced focus states with visible indicators across all interactive elements\n- Added aria-live regions for toast notifications and validation feedback\n\n## Mobile Optimizations\n- Implemented sticky calculate button for mobile (stays visible while scrolling)\n- Increased touch target sizes to 44px minimum (iOS guidelines)\n- Added responsive font sizing (16px minimum to prevent iOS zoom)\n- Improved spacing and padding for mobile devices\n- Enhanced responsive grid layout (1-column mobile, 3-column desktop)\n\n## Form Improvements\n- Added collapsible form sections (Pricing, Seller Costs, Buyer Value)\n- Implemented inline validation with real-time feedback\n- Enhanced input hints with icon indicators (💡)\n- Added success indicators (✓) for valid inputs\n- Improved error messages with helpful suggestions\n\n## Visual Feedback\n- Implemented toast notification system (success, error, warning, info)\n- Added loading states with spinner animation for calculate button\n- Enhanced empty state with visual hierarchy and icons\n- Improved validation warnings with color-coded severity\n- Added smooth animations (slide-in, fade-in) throughout\n\n## Keyboard Shortcuts\n- Ctrl/Cmd + Enter: Calculate equilibrium\n- ESC: Close modal dialogs\n- ?: Show keyboard shortcuts help\n- Tab: Navigate between fields\n- Added keyboard shortcut hints in UI\n\n## Design System Updates\n- Improved visual hierarchy with better spacing and typography\n- Added consistent color palette for semantic states\n- Enhanced focus states with box-shadow indicators\n- Implemented section dividers for better content separation\n- Added hover effects for metric cards and interactive elements\n\n## Documentation\n- Created comprehensive UI_UX_GUIDE.md with all features documented\n- Updated README.md to highlight new accessibility features\n- Documented all keyboard shortcuts and interaction patterns\n- Added best practices for accessibility and mobile UX\n\n## Technical Improvements\n- Refactored form generation for better maintainability\n- Added validateInputField utility for inline validation\n- Implemented showToast utility for consistent notifications\n- Enhanced modal keyboard handling with event listeners\n- Improved error handling with try-catch and user-friendly messages\n\nAll changes maintain backward compatibility and enhance the user experience\nwithout breaking existing functionality.",
+  "tags": [
+    "ui",
+    "ux",
+    "accessibility"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "ui-ux-improvements",
+  "semver": "minor",
+  "scope": null,
+  "title": "Comprehensive UI/UX improvements for better accessibility and usability",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 1095,
+    "deletions": 59
+  },
+  "files": [
+    "README.md",
+    "UI_UX_GUIDE.md",
+    "app.js",
+    "index.html",
+    "styles.css",
+    "ui/forms.js",
+    "ui/modals.js",
+    "utils/index.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

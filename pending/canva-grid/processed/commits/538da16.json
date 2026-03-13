@@ -1,0 +1,48 @@
+{
+  "sha": "538da16",
+  "fullSha": "538da1674cde31a27abf4498bee543030a96f8df",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T15:32:50Z",
+  "commitDate": "2026-03-09T15:32:50Z",
+  "subject": "feat(debug): instrument critical paths with debugLog",
+  "body": "Added debugLog calls to all critical operations:\n- ExportButtons: all 4 export paths (single, all-pages, PDF, multi-platform)\n  with start, success (file size), and error logging\n- designStorage: all IndexedDB operations (open, save, load, list, delete,\n  migration) with success and error logging\n- useAdState: design save/load/delete, page add/duplicate/remove, migration\n- ErrorBoundary: React crashes now logged (replaces console.error)\n- usePWAInstall: install prompt capture, user choice, app installed\n- usePWAUpdate: SW registration, update trigger\n- MediaTab: sample image manifest fetch success/error\n\nTags: debug, instrumentation, observability\nComplexity: 2\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_017SsJoSnou92LhPTgDyVk59",
+  "tags": [
+    "debug",
+    "feature"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "debug-system",
+  "semver": "minor",
+  "scope": "debug",
+  "title": "instrument critical paths with debugLog",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 84,
+    "deletions": 11
+  },
+  "files": [
+    "src/components/ErrorBoundary.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/MediaTab.jsx",
+    "src/hooks/useAdState.js",
+    "src/hooks/usePWAInstall.js",
+    "src/hooks/usePWAUpdate.js",
+    "src/utils/designStorage.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

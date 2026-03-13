@@ -1,0 +1,44 @@
+{
+  "sha": "77f12ef",
+  "fullSha": "77f12ef103783703eec42fd7c179e537193c4a1b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T00:19:27Z",
+  "commitDate": "2026-01-08T00:19:27Z",
+  "subject": "Implement Phase 5: Model 4 - Build-Operate-Transfer (BOT)",
+  "body": "Add complete BOT model with 8 variants:\n- 4A: Fixed Transfer Price\n- 4B: Formula-Based Transfer Price\n- 4C: Fair Market Value at Transfer\n- 4D: BOT with Purchase Option\n- 4E: Build-Operate-Own (BOO)\n- 4F: Build-Transfer-Operate (BTO)\n- 4G: Build-Lease-Transfer (IFRS 16)\n- 4H: Phased Transfer\n\nFeatures:\n- Three-perspective calculations (Developer, Buyer, Combined)\n- IFRS 16 lease accounting for variant 4G\n- Option probability calculations for variant 4D\n- Asset timeline tracking showing ownership shifts\n- Transfer pricing risk assessment\n- South African tax calculations (Section 11(e), CGT)",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "inter-company-tool",
+  "semver": "minor",
+  "scope": null,
+  "title": "Implement Phase 5: Model 4 - Build-Operate-Transfer (BOT)",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 1428,
+    "deletions": 28
+  },
+  "files": [
+    "docs/IMPLEMENTATION_ROADMAP.md",
+    "models/intercompany/model-4-bot.js",
+    "models/intercompany/registry.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

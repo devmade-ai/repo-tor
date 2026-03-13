@@ -1,0 +1,44 @@
+{
+  "sha": "5f60e84",
+  "fullSha": "5f60e842ae8faeed52b443fae51fc28e3dccfd1e",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-02T07:50:09Z",
+  "commitDate": "2026-01-02T07:50:09Z",
+  "subject": "Add .nojekyll file to fix GitHub Pages ES6 module support",
+  "body": "This commit resolves GitHub Pages deployment issues by adding the critical\n.nojekyll file and updating documentation.\n\nChanges:\n- Add .nojekyll file in root directory to disable Jekyll processing\n- Update README.md with comprehensive GitHub Pages deployment section\n- Add detailed deployment requirements and troubleshooting info\n- Update claude.md with GitHub Pages configuration guidelines\n- Document why .nojekyll is critical for ES6 module imports\n\nWhy this fixes the issue:\n- GitHub Pages uses Jekyll by default which can interfere with ES6 modules\n- Jekyll processing can serve files with incorrect MIME types\n- Without .nojekyll, browsers receive 'text/html' instead of 'text/javascript'\n- This causes the error: \"Expected a JavaScript module script but the server\n  responded with a MIME type of 'text/html'\"\n- The .nojekyll file bypasses Jekyll entirely, allowing proper module serving\n\nReferences:\n- https://github.blog/news-insights/bypassing-jekyll-on-github-pages/\n- https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll",
+  "tags": [
+    "config",
+    "deployment"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "github-pages-setup",
+  "semver": "patch",
+  "scope": null,
+  "title": "Add .nojekyll file to fix GitHub Pages ES6 module support",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 46,
+    "deletions": 1
+  },
+  "files": [
+    ".nojekyll",
+    "README.md",
+    "claude.md"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

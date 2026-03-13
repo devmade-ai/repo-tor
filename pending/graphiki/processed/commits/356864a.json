@@ -1,0 +1,49 @@
+{
+  "sha": "356864a",
+  "fullSha": "356864ab6e4fdc9120ea4225f1eaa3963efa8d31",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T13:00:08Z",
+  "commitDate": "2026-03-09T13:00:08Z",
+  "subject": "fix: address 10 bugs found in comprehensive codebase review",
+  "body": "HIGH:\n- embeddingService: worker.onerror now rejects all pending promises\n  and emits engine:error (prevents infinite hangs on worker crash)\n- embeddingWorker: error responses include id field so service-side\n  handler can reject the correct callback; embedBatch early error\n  sends batchDone signal\n- embeddingService: computeEmbeddingVector uses unique request IDs\n  (counter suffix) to prevent callback collision with auto-embedding\n- embeddingService: fallback handler for error messages without id\n\nMEDIUM:\n- workspaceService: deleteWorkspace now cleans up embeddings and\n  arcEmbeddings tables (prevents orphaned data accumulation)\n- useGraphData: removed re-throw in async effect, added setLoading(false)\n  in catch (prevents unhandled rejection + permanent loading spinner)\n- App.tsx: onConfirm wrapper now awaits async callbacks before closing\n  dialog (prevents premature dismissal during undo import)\n- App.tsx: clearSelection moved inside try block in handleBulkDelete\n  (preserves selection on failure so user can retry)\n- App.tsx: separate Suspense boundaries per lazy modal (prevents\n  one chunk load from unmounting a sibling modal)\n- DetailPanel: key includes node.modified to force remount on external\n  update (fixes stale useState after bulk edit or import)\n- App.tsx: selectedCount passes only selectedNodeIds.size (bulk edit\n  only operates on nodes, count shouldn't include arcs)\n\nLOW:\n- seedService: replaceDemoData scoped to demo workspace via index\n  (prevents full table scan and accidental deletion in other workspaces)\n- importExportService: case-insensitive label deduplication in\n  buildLabelsFromRaw (prevents \"Company\" and \"company\" both surviving)\n\nTags: bugfix, review, embedding, workspace, ui, import\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: semantic-duplicate-detection\nSemver: patch\n\nhttps://claude.ai/code/session_01ULhD1te9qFVLzqF4YCLBbP",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "duplicate-detection",
+  "semver": "patch",
+  "scope": null,
+  "title": "address 10 bugs found in comprehensive codebase review",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 92,
+    "deletions": 15
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/hooks/useGraphData.ts",
+    "src/services/embeddingService.ts",
+    "src/services/importExportService.ts",
+    "src/services/seedService.ts",
+    "src/services/workspaceService.ts",
+    "src/workers/embeddingWorker.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "internal"
+}

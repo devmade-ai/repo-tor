@@ -1,0 +1,45 @@
+{
+  "sha": "d8b3005",
+  "fullSha": "d8b30052d735362a726e815978b0c5f4aa999d60",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-08T10:41:03Z",
+  "commitDate": "2026-01-08T10:41:03Z",
+  "subject": "Change sameGroup and consolidationRequired defaults to false",
+  "body": "Not all inter-company transactions occur between entities in a\nconsolidated group. Users should explicitly opt-in to consolidation\nrather than having it assumed.\n\n- relatedParties remains true (inter-company = related parties)\n- sameGroup now defaults to false\n- consolidationRequired now defaults to false\n- Update documentation to explain when to enable these settings",
+  "tags": [
+    "config",
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "entity-defaults",
+  "semver": "patch",
+  "scope": null,
+  "title": "Change sameGroup and consolidationRequired defaults to false",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 26,
+    "deletions": 26
+  },
+  "files": [
+    "claude.md",
+    "docs/BUSINESS_GUIDE.md",
+    "docs/README.md",
+    "models/intercompany/registry.js"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

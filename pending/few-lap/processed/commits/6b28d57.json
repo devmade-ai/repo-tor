@@ -1,0 +1,45 @@
+{
+  "sha": "6b28d57",
+  "fullSha": "6b28d572e8d9d17e34fe4f16bcb0185eda976bda",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T15:44:19Z",
+  "commitDate": "2026-03-04T15:44:19Z",
+  "subject": "fix(pwa): resolve React hydration error #418 on mobile web",
+  "body": "Browser API calls in usePWAInstall useState initializers caused hydration\nmismatch — SSR rendered with defaults ('unknown'/false) but client hydrated\nwith real values from navigator/window, making InstallPrompt render\ndifferently on server vs client. Moved detectBrowser(), getIsStandalone(),\nand consumeEarlyCapturedEvent() to useEffect with SSR-safe initial state.\n\nAlso fixed broken import (debugLog → debugAdd).\n\nTags: pwa, hydration, bugfix, mobile-web\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: patch\n\nhttps://claude.ai/code/session_01Qzp39peF4Rg9koiMYTBBUb",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "resolve React hydration error #418 on mobile web",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#418"
+  ],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 40,
+    "deletions": 21
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/hooks/usePWAInstall.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 4,
+  "impact": "user-facing"
+}

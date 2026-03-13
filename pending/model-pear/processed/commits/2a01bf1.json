@@ -1,0 +1,44 @@
+{
+  "sha": "2a01bf1",
+  "fullSha": "2a01bf1475027c5b2157763c57d06f9e6db43366",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-07T00:33:51Z",
+  "commitDate": "2026-01-07T00:33:51Z",
+  "subject": "Fix calculate button background color for better UI consistency",
+  "body": "Changed the calculate button from bright blue (bg-blue-600) to muted gray\n(bg-gray-700) to better match the overall dark theme design. The button now\nseamlessly integrates with the UI while remaining visually distinct through:\n- Subtle shadow (shadow-lg)\n- Gray border (border-gray-600)\n- Hover state transition (bg-gray-600)\n\nThis change improves visual appeal by:\n- Eliminating the jarring color contrast on mobile sticky positioning\n- Reserving blue for selected states and focus indicators\n- Creating a more cohesive, professional appearance\n- Maintaining accessibility and prominence through elevation/shadow\n\nUpdated UI_UX_GUIDE.md to reflect the new styling patterns and added\nchangelog entry for version 2.1.",
+  "tags": [
+    "bugfix",
+    "ui",
+    "style"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "ui-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix calculate button background color for better UI consistency",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 15,
+    "deletions": 6
+  },
+  "files": [
+    "UI_UX_GUIDE.md",
+    "index.html"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,41 @@
+{
+  "sha": "0371551",
+  "fullSha": "0371551621730cdd934e262481c20a622dd51eda",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-25T09:15:25Z",
+  "commitDate": "2026-02-25T09:15:25Z",
+  "subject": "fix: restore scripts/lib/manifest.js deleted in previous session",
+  "body": "The manifest utility module was incorrectly deleted as \"dead code\" but is\nimported by 5 scripts: pending.js, merge-analysis.js, save-commit.js,\nsave-batch.js, and manifest-update.js. Recovered from git history.\n\nhttps://claude.ai/code/session_01Cu1AmbztLY9WJDU7g94fEa",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pipeline-hardening",
+  "semver": "patch",
+  "scope": null,
+  "title": "restore scripts/lib/manifest.js deleted in previous session",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 23,
+    "deletions": 0
+  },
+  "files": [
+    "scripts/lib/manifest.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 4,
+  "impact": "internal"
+}
