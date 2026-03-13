@@ -1,0 +1,41 @@
+{
+  "sha": "173f2ee",
+  "fullSha": "173f2eed8bf4c7c5767c5bed8a98b2b07a60dfbb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T20:51:36Z",
+  "commitDate": "2026-03-07T20:51:36Z",
+  "subject": "docs(ai-notes): fix cross-repo access to use GitHub API with token",
+  "body": "Use GITHUB_ALL_REPO_TOKEN via printenv (not shell expansion) with the\nGitHub API instead of raw.githubusercontent.com URLs. Documents the\ncorrect pattern for reading files from sibling devmade-ai repos.\n\nTags: documentation, ai-notes\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cors-management\nSemver: patch\n\nhttps://claude.ai/code/session_01RvGq98J3cgJFYUird1bw3q",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cors-management",
+  "semver": "patch",
+  "scope": "ai-notes",
+  "title": "fix cross-repo access to use GitHub API with token",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}
