@@ -4,6 +4,24 @@ Log of significant changes to code and documentation.
 
 ## 2026-03-13
 
+### Batch Preamble + Playbook Rename
+
+**Why:** Analysis instructions were buried in the playbook doc, so each AI session had to find and re-read them. Embedding instructions directly in every batch file ensures they're always read with the data.
+
+**What:**
+1. **Created `config/batch-preamble.md`** — Standalone analysis instructions extracted from the playbook: tag vocabulary, scoring rubrics, review format, special cases, what's expected, what's not allowed, when unsure, and why the process exists
+2. **Updated `scripts/pending.js`** — Reads preamble at startup and embeds it as a `preamble` field in every batch JSON file
+3. **Renamed `docs/EXTRACTION_PLAYBOOK.md` → `docs/DATA_OPERATIONS.md`** — Trimmed duplicated content (tagging guidelines, scoring rubrics, review format) and replaced with references to the preamble
+4. **All fields now required** — risk, debt, epic, semver are no longer optional. AI must best-guess from context rather than leaving blanks, because AI understands commit intent better than scripts
+5. **Updated all references** — CLAUDE.md, SESSION_NOTES.md, AI_LESSONS.md, CODE_REVIEW.md, COMMIT_CONVENTION.md, ANALYSIS_GUIDE.md, extract.js, aggregate.js
+
+**Alternatives considered:**
+- Separate preamble file alongside batches: Rejected — easy to miss, not guaranteed to be read
+- Inline instructions in pending.js: Rejected — hard to maintain, can't be reviewed independently
+- Keep fields optional: Rejected — blanks break downstream processing; AI contextual understanding produces more accurate output than scripts
+
+---
+
 ### glow-props CLAUDE.md Sync — 8 New Patterns Adopted
 
 **Why:** Periodic review of the cross-project glow-props CLAUDE.md revealed patterns not yet adopted in repo-tor.

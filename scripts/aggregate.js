@@ -6,7 +6,7 @@
  * Supports author identity mapping for normalizing contributors across repos.
  *
  * NOTE: This script aggregates RAW data. Tags and complexity fields will be
- * empty/null until AI populates them via the @data persona (see EXTRACTION_PLAYBOOK.md).
+ * empty/null until AI populates them via the @data persona (see DATA_OPERATIONS.md).
  *
  * Usage:
  *   node aggregate.js reports/repo-a reports/repo-b --output=aggregated

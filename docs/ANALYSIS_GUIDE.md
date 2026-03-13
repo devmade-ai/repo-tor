@@ -2,7 +2,7 @@
 
 Quick reference for AI assistants analyzing git commits.
 
-**Full workflow:** See [EXTRACTION_PLAYBOOK.md](EXTRACTION_PLAYBOOK.md)
+**Full workflow:** See [DATA_OPERATIONS.md](DATA_OPERATIONS.md)
 
 ---
 
@@ -138,7 +138,7 @@ Choose ONE primary impact:
 
 **Git/Process:** `merge`, `revert`, `release`, `init`
 
-**Full tag list:** See [EXTRACTION_PLAYBOOK.md](EXTRACTION_PLAYBOOK.md#tags-by-category)
+**Full tag list:** See [DATA_OPERATIONS.md](DATA_OPERATIONS.md#tags-by-category)
 
 ---
 

@@ -335,7 +335,7 @@ Default mode is development. Use `@data` to switch when needed.
 
 **Focus:** Data extraction and processing
 
-- Running the extraction playbook
+- Running data operations (see docs/DATA_OPERATIONS.md)
 - Processing git data from repositories
 - Generating and analyzing reports
 - Data quality and aggregation tasks
@@ -344,7 +344,7 @@ Default mode is development. Use `@data` to switch when needed.
 - **"hatch the chicken"** - Full reset: delete everything, AI analyzes ALL commits from scratch
 - **"feed the chicken"** - Incremental: AI analyzes only NEW commits not yet processed
 
-See `docs/EXTRACTION_PLAYBOOK.md` for details.
+See `docs/DATA_OPERATIONS.md` for details.
 
 ---
 
@@ -424,7 +424,7 @@ Never:
 - Use silent `.catch(() => {})` — always handle specific errors (see AI Lessons)
 - Hardcode values that should come from CSS variables or config (see AI Lessons)
 - Document or recommend features that haven't been tested (see AI Lessons)
-- Improvise extraction/analysis workflows — follow `docs/EXTRACTION_PLAYBOOK.md` exactly, step by step, using the exact formats documented (see AI Lessons)
+- Improvise extraction/analysis workflows — follow `docs/DATA_OPERATIONS.md` exactly, step by step, using the exact formats documented (see AI Lessons)
 - Use interactive input prompts or selection UIs — list options as numbered text instead
 - Remove features during "cleanup" without checking if they're documented as intentional (see AI Lessons)
 

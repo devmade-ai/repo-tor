@@ -6,7 +6,13 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent section layouts, and PWA support.
 
-**Recent Updates (2026-03-13 — glow-props CLAUDE.md sync):**
+**Recent Updates (2026-03-13 — Batch Preamble + Playbook Rename):**
+- Created `config/batch-preamble.md` — analysis instructions embedded in every batch by `pending.js`
+- Renamed `docs/EXTRACTION_PLAYBOOK.md` → `docs/DATA_OPERATIONS.md` — trimmed duplicated content, references preamble
+- All analysis fields now required (no blanks) — risk, debt, epic, semver no longer optional
+- Updated all references across CLAUDE.md, docs, and scripts
+
+**Previous Updates (2026-03-13 — glow-props CLAUDE.md sync):**
 - Adopted 8 new patterns from glow-props cross-project CLAUDE.md
 - Added trigger system (10 single-word analysis commands: `review`, `audit`, `docs`, `mobile`, `clean`, `performance`, `security`, `debug`, `improve`, `start`)
 - Added Download as PDF pattern (`window.print()`, `no-print` class, print-friendly CSS)
@@ -77,7 +83,7 @@ Current state for AI assistants to continue work.
 
 **Previous Updates (2026-03-02 — Feed the Chicken: 151 New Commits):**
 - **Feed the Chicken — 151 New Commits** — Incremental extraction and AI analysis of 151 new commits across 10 repos: budgy-ting (+30), canva-grid (+10), few-lap (+27), glow-props (+12), graphiki (+8), model-pear (+7), repo-tor (+13), see-veo (+14), synctone (+14), tool-till-tees (+16). All batches human-approved. Dashboard re-aggregated: 14 repos, 2097 total commits.
-- **Process guardrails added** — After presenting the first batch in a wrong format (not matching EXTRACTION_PLAYBOOK.md), implemented 4 guardrails: pre-flight checklist in playbook, AI Lessons entry, CLAUDE.md prohibition against improvising workflows, stronger prescriptive language in review format section.
+- **Process guardrails added** — After presenting the first batch in a wrong format (not matching DATA_OPERATIONS.md), implemented 4 guardrails: pre-flight checklist in playbook, AI Lessons entry, CLAUDE.md prohibition against improvising workflows, stronger prescriptive language in review format section.
 
 **Previous Updates (2026-03-02 — Fix Dashboard JSON Loading Error):**
 - **Bug fix** — Dashboard on Vercel (including PWA) was showing JSON parse error when loading data:
@@ -191,7 +197,7 @@ Current state for AI assistants to continue work.
   - Pipeline: extract.js, extract-api.js initialize null; merge-analysis.js and save-commit.js validate when present; aggregate-processed.js computes breakdowns (overall, monthly, per-contributor)
   - Dashboard: HealthTab shows Risk Assessment bars and Debt Balance with net indicator + Debt Trend chart; ProgressTab shows Epic ("Work by Initiative") breakdown and Semver ("Change Types") doughnut; SummaryTab shows risk/debt in Key Highlights when data exists
   - All sections conditionally render — existing data without these fields works unchanged
-  - Docs: COMMIT_CONVENTION.md, EXTRACTION_PLAYBOOK.md, commit-msg hook all updated
+  - Docs: COMMIT_CONVENTION.md, DATA_OPERATIONS.md, commit-msg hook all updated
 - **Fix extract-api.js Missing Commits** - API extraction was missing 6 commits in canva-grid and 1 in model-pear. Root cause: `fetchCommitList()` used a manual `?page=N` loop instead of the `ghApi()` helper's `--paginate` flag. Manual pagination misses commits when the API reorders results between page requests. Fixed by replacing the manual loop with `ghApi(endpoint, { paginate: true })`. Removed untested warning from TODO.md.
 
 **Previous Updates (2026-02-13):**
@@ -534,7 +540,8 @@ const TAB_MAPPING = {
 | `scripts/pending.js` | Generate pending batches from manifest |
 | `dashboard/public/data.json` | Overall aggregated data |
 | `dashboard/repos/*.json` | Per-repo aggregated data |
-| `docs/EXTRACTION_PLAYBOOK.md` | Extraction workflow |
+| `docs/DATA_OPERATIONS.md` | Data extraction & operations workflow |
+| `config/batch-preamble.md` | Analysis instructions (embedded in batches) |
 
 ---
 

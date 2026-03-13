@@ -48,7 +48,7 @@ This adds a toggle in settings that persists to localStorage.
 
 ### Required: Tags Footer
 
-**Use multiple tags from the playbook's 55+ tag list.** This enables consistent tagging between manual commits and AI analysis.
+**Use multiple tags from the 55+ tag vocabulary (see `config/batch-preamble.md`).** This enables consistent tagging between manual commits and AI analysis.
 
 ```
 tags: feature, ui, ux
@@ -89,7 +89,7 @@ General categories for the subject line:
 
 Tags provide detailed categorization. **Always assign ALL that apply.**
 
-See `docs/EXTRACTION_PLAYBOOK.md` for the complete 55+ tag list. Key tags:
+See `docs/DATA_OPERATIONS.md` for the complete 55+ tag list. Key tags:
 
 ### User-Facing Work
 | Tag | What work was done |
@@ -448,4 +448,4 @@ Before committing:
 
 ---
 
-*All metadata aligns with `docs/EXTRACTION_PLAYBOOK.md` for consistent AI analysis*
+*All metadata aligns with `docs/DATA_OPERATIONS.md` for consistent AI analysis*
