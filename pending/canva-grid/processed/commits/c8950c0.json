@@ -1,0 +1,42 @@
+{
+  "sha": "c8950c0",
+  "fullSha": "c8950c0d8a215b7dacddd5b89b87c1a6e6b81066",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T20:57:39Z",
+  "commitDate": "2026-03-08T20:57:39Z",
+  "subject": "fix(export): fix PDF quality and file size by using JPEG instead of PNG",
+  "body": "Root cause: jsPDF handles JPEG and PNG completely differently.\n- JPEG: embedded directly as DCT_DECODE stream (no re-encoding)\n- PNG: decoded to raw pixels (~23MB for 2160×2700), then re-compressed\n  with deflate — producing files 5-10x larger than JPEG while being\n  visually identical\n\nFix: Use JPEG at pixelRatio:2 with 0.92 quality. jsPDF wraps the JPEG\nstream directly, giving sharp 2x rendering and small file sizes.\nTransparency loss is irrelevant since PDF pages have white backgrounds.\n\nTags: export, pdf, quality, performance\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pdf-export\nSemver: patch\n\nhttps://claude.ai/code/session_012V7AguSge3Ngw25j72iiGX",
+  "tags": [
+    "bugfix",
+    "performance"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pdf-export",
+  "semver": "patch",
+  "scope": "export",
+  "title": "fix PDF quality and file size by using JPEG instead of PNG",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 14,
+    "deletions": 12
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "c10bb9a",
+  "fullSha": "c10bb9a753739eceecf1f9d14af9b8debedb5983",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T17:42:16Z",
+  "commitDate": "2026-03-08T17:42:16Z",
+  "subject": "fix(structure,export): address code review findings",
+  "body": "Fix cell selection tracking during section/subdivision insert/remove,\nrestore paint safety margin for reliable export captures, redistribute\ntext from image cells on layout preset change, and clean stale textCells\nfrom inactive pages on load.\n\nTags: layout, export, state, text\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-review-fixes\nSemver: patch\n\nhttps://claude.ai/code/session_012V7AguSge3Ngw25j72iiGX",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "layout-structure",
+  "semver": "patch",
+  "scope": "structure,export",
+  "title": "address code review findings",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 61,
+    "deletions": 4
+  },
+  "files": [
+    "src/components/ExportButtons.jsx",
+    "src/components/LayoutTab.jsx",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

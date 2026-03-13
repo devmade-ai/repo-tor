@@ -1,0 +1,64 @@
+{
+  "sha": "db61d71",
+  "fullSha": "db61d71f78177d6d8d94cb0f84502c84f6124f9e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T22:33:34Z",
+  "commitDate": "2026-03-06T22:33:34Z",
+  "subject": "refactor(content): improve Content tab UX with 17 fixes",
+  "body": "Major UX improvements to the Content tab addressing mobile usability,\nvisual noise, confusing labels, and code quality issues.\n\nChanges:\n- Extract shared ColorPicker and AlignmentPicker components (#16-17)\n- Mobile touch targets: larger buttons/swatches on mobile via sm: breakpoints (#7)\n- Toolbar: grouped with separators, horizontal scroll on narrow screens (#8)\n- Controls: grid layout that stacks properly on mobile (#10)\n- MiniCellGrid: full-width on mobile for better touch targets (#14)\n- Fix stale markdown hint — now says \"Use the toolbar above\" (#1)\n- Collapse styling rows behind gear toggle button (#2)\n- Rename \"Auto\" alignment to \"Default\" with dimmed center-align icon (#3)\n- Add clear text button (×) on textareas when content exists (#4)\n- Add positional hints to cell labels (top, left, etc.) (#5)\n- Title & Tagline expanded by default, content preview on collapsed headers (#6)\n- Auto-grow textareas based on content lines (#9)\n- Rename \"Sp:\" to \"Spacing\" with full word labels (#11)\n- Scroll textarea into view on mobile keyboard focus (#12)\n- Rename \"Structured\" to \"Guided\" with mode subtitle (#13)\n- Fix mutable cellIndex in AdCanvas renderGridLayout (#15)\n- Pre-compute cell mapping in MiniCellGrid via useMemo (#15)\n\nTags: ux, mobile, content, refactor, accessibility\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: content-tab-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01UVkmh1XNRr8WdUw79i2WJo",
+  "tags": [
+    "refactor",
+    "ui",
+    "ux"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "content-tab-v2",
+  "semver": "minor",
+  "scope": "content",
+  "title": "improve Content tab UX with 17 fixes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#16",
+    "#7",
+    "#8",
+    "#10",
+    "#14",
+    "#1",
+    "#2",
+    "#3",
+    "#4",
+    "#5",
+    "#6",
+    "#9",
+    "#11",
+    "#12",
+    "#13",
+    "#15"
+  ],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 537,
+    "deletions": 361
+  },
+  "files": [
+    "src/components/AdCanvas.jsx",
+    "src/components/AlignmentPicker.jsx",
+    "src/components/CollapsibleSection.jsx",
+    "src/components/ColorPicker.jsx",
+    "src/components/ContentTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

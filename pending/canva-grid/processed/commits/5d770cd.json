@@ -1,0 +1,46 @@
+{
+  "sha": "5d770cd",
+  "fullSha": "5d770cd4e23aa2f18bd422752950b1d64a09057b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T20:39:38Z",
+  "commitDate": "2026-03-06T20:39:38Z",
+  "subject": "refactor(export): clean up dead code, extract helpers, fix inconsistencies",
+  "body": "- Delete src/utils/export.js (entirely dead, superseded by ExportButtons)\n- Remove unused getPageState prop from ExportButtons\n- Extract shared helpers: waitForPaint, hideCanvas, setFullScale\n- Pre-compute platformsByCategory and platformGroupsByCategory in\n  platforms.js to eliminate duplicate useMemo in components\n- Remove pointless categoryOrder alias in ExportButtons\n- Extract ChevronIcon component in PlatformPreview\n- Inline trivial isCategoryExpanded/isPlatformExpanded helpers\n- Consistent export filenames: all use 'canvagrid-' prefix\n- Fix useCallback dependency arrays: setPlatform and setExportFormat\n  now use [setState] matching the rest of useAdState.js\n\nTags: cleanup, export, platforms, refactor\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: platform-specs\nSemver: patch\n\nhttps://claude.ai/code/session_01XB2ds4yVbZsvHcvEQZt216",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "export-improvements",
+  "semver": "patch",
+  "scope": "export",
+  "title": "clean up dead code, extract helpers, fix inconsistencies",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 111,
+    "deletions": 203
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/PlatformPreview.jsx",
+    "src/config/platforms.js",
+    "src/hooks/useAdState.js",
+    "src/utils/export.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

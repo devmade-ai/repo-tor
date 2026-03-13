@@ -1,0 +1,51 @@
+{
+  "sha": "0a0f4a7",
+  "fullSha": "0a0f4a76fab1148b2a1c52a605bca0ba43e5c5fa",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-27T12:32:39Z",
+  "commitDate": "2026-02-27T12:32:39Z",
+  "subject": "feat(deploy): migrate from GitHub Pages to Vercel",
+  "body": "GitHub Pages requires base-path hacks, manual branch config, and a\n404.html copy for SPA routing. Vercel handles all of this natively.\n\n- Delete .github/workflows/deploy.yml\n- Remove gh-pages dependency and deploy/predeploy npm scripts\n- Remove base: '/canva-grid/' from vite.config.js\n- Remove /canva-grid/ prefix from all icon hrefs in index.html\n- Update PWA manifest id/scope/start_url from /canva-grid/ to /\n- Add vercel.json with SPA rewrite rule for client-side routing\n- Update README.md, CLAUDE.md, HISTORY.md deployment references\n- Add USER_ACTIONS.md entry for connecting repo in Vercel dashboard\n\nTags: deploy, vercel, pwa, cleanup\nComplexity: 2\nUrgency: 3\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: vercel-migration\nSemver: major\n\nhttps://claude.ai/code/session_01JLMomBh5nUZYJ5EkCsw46y",
+  "tags": [
+    "deployment",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "vercel-migration",
+  "semver": "major",
+  "scope": "deploy",
+  "title": "migrate from GitHub Pages to Vercel",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 68,
+    "deletions": 111
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "CLAUDE.md",
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "index.html",
+    "package.json",
+    "vercel.json",
+    "vite.config.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

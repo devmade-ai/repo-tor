@@ -1,0 +1,44 @@
+{
+  "sha": "9d5fc91",
+  "fullSha": "9d5fc91fe40f248f31465d8e7a94343352b71515",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T19:28:14Z",
+  "commitDate": "2026-03-08T19:28:14Z",
+  "subject": "feat(layout): add section reorder with move up/down buttons",
+  "body": "Users can now swap adjacent rows/columns in the Structure tab. Select a\nsection and use Move Up/Down (rows) or Move Left/Right (columns) to\nreorder. All per-cell data (text, images, overlays, padding, frames,\nalignments) follows the content via a bidirectional cell index remap.\n\nNew swapCellIndices utility in cellUtils.js handles the remap. The\nsetLayout function in useAdState.js processes _cellSwap metadata\nalongside the existing _cellShift mechanism.\n\nTags: layout, structure, reorder, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: section-reorder\nSemver: minor\n\nhttps://claude.ai/code/session_012V7AguSge3Ngw25j72iiGX",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "layout-structure",
+  "semver": "minor",
+  "scope": "layout",
+  "title": "add section reorder with move up/down buttons",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 182,
+    "deletions": 3
+  },
+  "files": [
+    "src/components/LayoutTab.jsx",
+    "src/hooks/useAdState.js",
+    "src/utils/cellUtils.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

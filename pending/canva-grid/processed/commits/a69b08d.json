@@ -1,0 +1,45 @@
+{
+  "sha": "a69b08d",
+  "fullSha": "a69b08dde3dc60d76bc77f7f544775b50a755d25",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T21:35:36Z",
+  "commitDate": "2026-03-06T21:35:36Z",
+  "subject": "refactor: remove backward compatibility code from phases 1-3",
+  "body": "All removed code handled state shapes that are no longer created:\n\n- Old localStorage key migration (3 previous project names)\n- Legacy re-exports in stylePresets.js (stylePresets, styleCategories,\n  getFilteredStylePresets) — unused aliases for lookPresets\n- imageCell → imageCells fallbacks in 4 files — singular form hasn't\n  been created since Jan 2026, all presets use imageCells array\n- Pre-multi-page design loading migration (pages, textMode,\n  freeformText field patching) — all saves now include these fields\n\nTags: cleanup, backward-compat, state\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: cleanup\nSemver: patch\n\nhttps://claude.ai/code/session_01XB2ds4yVbZsvHcvEQZt216",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": null,
+  "title": "remove backward compatibility code from phases 1-3",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 7,
+    "deletions": 38
+  },
+  "files": [
+    "src/components/ContentTab.jsx",
+    "src/components/LayoutTab.jsx",
+    "src/components/TemplatesTab.jsx",
+    "src/config/stylePresets.js",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 1,
+  "impact": "internal"
+}

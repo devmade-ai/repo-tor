@@ -1,0 +1,42 @@
+{
+  "sha": "7ffa675",
+  "fullSha": "7ffa6751e1a1fab5efe1c32e4dd79c6f123812a4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T21:25:38Z",
+  "commitDate": "2026-03-06T21:25:38Z",
+  "subject": "fix(export): timestamp first in filenames, drop app name prefix",
+  "body": "Move timestamp to start of filename so downloads sort newest-first\nalphabetically. Drop \"canvagrid-\" prefix — adds noise without value\nsince the platform name already identifies the file.\n\nAdded year (YY) to timestamp for cross-year sorting.\n\nExample: 260306-1423-instagram-feed-portrait-1080x1350-p01.png\n\nTags: export, filenames, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: export\nSemver: patch\n\nhttps://claude.ai/code/session_01XB2ds4yVbZsvHcvEQZt216",
+  "tags": [
+    "refactor",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "export-improvements",
+  "semver": "patch",
+  "scope": "export",
+  "title": "timestamp first in filenames, drop app name prefix",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 12,
+    "deletions": 13
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

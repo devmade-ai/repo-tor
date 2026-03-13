@@ -1,0 +1,41 @@
+{
+  "sha": "379f8d1",
+  "fullSha": "379f8d117181752603791bc187591b492f047eb2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T23:16:15Z",
+  "commitDate": "2026-03-06T23:16:15Z",
+  "subject": "perf(content): narrow useMemo deps for cellInfoList and cellPositionLabel",
+  "body": "Both memos depended on the entire `layout` object, causing unnecessary\nrecomputation on non-structural changes (alignment, overlays, etc.).\n\n- cellInfoList: [layout] → [layout.structure] (only reads structure)\n- cellPositionLabel: [layout, ...] → [layout.type, layout.structure, ...]\n  (only reads type and structure)\n\nTags: perf, content\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: content-tab-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01UVkmh1XNRr8WdUw79i2WJo",
+  "tags": [
+    "performance"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "content-tab-v2",
+  "semver": "patch",
+  "scope": "content",
+  "title": "narrow useMemo deps for cellInfoList and cellPositionLabel",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "src/components/ContentTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 1,
+  "impact": "internal"
+}

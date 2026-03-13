@@ -1,0 +1,41 @@
+{
+  "sha": "f5f4f5c",
+  "fullSha": "f5f4f5c8abcf716ec2deba52af7150297e5f9e38",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T15:27:14Z",
+  "commitDate": "2026-03-08T15:27:14Z",
+  "subject": "fix(export): restore PNG for PDF export to preserve transparency",
+  "body": "Reverts JPEG-based PDF capture back to PNG to preserve transparency.\nUses pixelRatio:2 (sharp enough for downscaling) with jsPDF deflate\ncompression ('FAST') for reasonable file sizes. The JPEG approach\nsilently dropped alpha channel support which was not approved.\n\nAlso caps pixel ratio dynamically at ~16M pixels to prevent memory\ncrashes on large formats (YouTube Banner etc.).\n\nTags: export, pdf\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pdf-export\nSemver: patch\n\nhttps://claude.ai/code/session_012V7AguSge3Ngw25j72iiGX",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pdf-export",
+  "semver": "patch",
+  "scope": "export",
+  "title": "restore PNG for PDF export to preserve transparency",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 17,
+    "deletions": 20
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

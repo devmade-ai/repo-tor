@@ -1,0 +1,41 @@
+{
+  "sha": "5053b32",
+  "fullSha": "5053b32499da067906bb62467f32357cc1ba6dd0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T20:59:09Z",
+  "commitDate": "2026-03-08T20:59:09Z",
+  "subject": "perf(export): use Uint8Array instead of base64 data URL for PDF images",
+  "body": "Switch from canvas.toDataURL() to canvas.toBlob() + Uint8Array for PDF\ncapture. jsPDF accepts Uint8Array directly, skipping the ~33% base64\nencoding overhead and the subsequent parsing back to binary.\n\nTags: export, pdf, performance\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pdf-export\nSemver: patch\n\nhttps://claude.ai/code/session_012V7AguSge3Ngw25j72iiGX",
+  "tags": [
+    "performance"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pdf-export",
+  "semver": "patch",
+  "scope": "export",
+  "title": "use Uint8Array instead of base64 data URL for PDF images",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 16,
+    "deletions": 7
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

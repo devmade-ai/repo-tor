@@ -1,0 +1,42 @@
+{
+  "sha": "28bfcef",
+  "fullSha": "28bfceff89d7e270906f80d6fb42d2e600737de1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T08:58:58Z",
+  "commitDate": "2026-03-08T08:58:58Z",
+  "subject": "fix(export): fix PDF being 6x larger with worse quality than image exports",
+  "body": "PDF export was using lossless PNG at pixelRatio:1, which produced the worst\nof both worlds: huge file size (uncompressed PNG) and poor quality (1x\nresolution looked blurry/pixelated). Switch to JPEG at 92% quality with\npixelRatio:2 — PDFs are now much smaller AND significantly sharper.\n\nTags: export, pdf, quality\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: export\nSemver: patch\n\nhttps://claude.ai/code/session_012V7AguSge3Ngw25j72iiGX",
+  "tags": [
+    "bugfix",
+    "performance"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pdf-export",
+  "semver": "patch",
+  "scope": "export",
+  "title": "fix PDF being 6x larger with worse quality than image exports",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 20,
+    "deletions": 9
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,55 @@
+{
+  "sha": "81be68e",
+  "fullSha": "81be68e33f3bcc6912c9cdda6d255e38da1c9a11",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T20:26:47Z",
+  "commitDate": "2026-03-08T20:26:47Z",
+  "subject": "refactor: migrate to IndexedDB, fix mobile UX, clean up compat code",
+  "body": "Storage: Replace localStorage with IndexedDB for design persistence.\nNo more 5-10MB size limits — designs with multiple images save reliably.\nOne-time auto-migration moves existing localStorage designs to IndexedDB.\nSave/load/list/delete are now async with loading states and error feedback.\n\nBackward compat cleanup: Text format migration (old global text → per-cell)\nnow only runs during the one-time localStorage→IndexedDB migration, not\non every design load. Designs stored in IndexedDB are already migrated.\n\nMobile touch targets: Increased minimum sizes across all interactive elements:\n- ColorPicker: neutral swatches 14px → 24px, theme swatches 20px → 28px\n- ContextBar: page buttons 20-24px → 28-32px, cell grid min-height 6px → 10px\n- MiniCellGrid: cells 12-20px → 14-28px\n- ContentTab: visibility/style toggles 24px → 28-32px, size/bold/italic buttons increased\n- AlignmentPicker: buttons 20px → 24px\n- All interactive elements: added active: states for touch feedback\n\niOS PWA: Added viewport-fit=cover for notched devices, changed status bar\nstyle from black-translucent to default (prevents invisible text on light\nbackgrounds), added safe-area-inset padding.\n\nOffline detection: New useOnlineStatus hook with amber banner when offline.\nTells users their work is saved locally but fonts/images may not load.\n\nCSS cleanup: Removed duplicate overscroll-behavior-y from body and #root\n(only needed on html). Removed redundant inline style from html tag.\nAdded min-height: 100dvh for dynamic viewport height on mobile.\n\nuseHistory optimization: Replaced full JSON.stringify dedup with smart\ncomparison that skips base64 image src data. Compares images by ID and\nnon-src fields only. Eliminates multi-MB serialization on every keystroke.\n\nTags: indexeddb, mobile, pwa, ux, performance, cleanup\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-ux-overhaul\nSemver: minor\n\nhttps://claude.ai/code/session_012V7AguSge3Ngw25j72iiGX",
+  "tags": [
+    "refactor",
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "indexeddb-migration",
+  "semver": "minor",
+  "scope": null,
+  "title": "migrate to IndexedDB, fix mobile UX, clean up compat code",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 325,
+    "deletions": 128
+  },
+  "files": [
+    "index.html",
+    "src/App.jsx",
+    "src/components/AlignmentPicker.jsx",
+    "src/components/ColorPicker.jsx",
+    "src/components/ContentTab.jsx",
+    "src/components/ContextBar.jsx",
+    "src/components/MiniCellGrid.jsx",
+    "src/components/SaveLoadModal.jsx",
+    "src/hooks/useAdState.js",
+    "src/hooks/useHistory.js",
+    "src/hooks/useOnlineStatus.js",
+    "src/index.css",
+    "src/utils/designStorage.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

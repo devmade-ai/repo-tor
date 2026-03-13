@@ -1,0 +1,43 @@
+{
+  "sha": "7a778f0",
+  "fullSha": "7a778f0c8ded57283e519ba1f0f30cc6b7460fec",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T20:40:17Z",
+  "commitDate": "2026-03-08T20:40:17Z",
+  "subject": "fix: remove dead code and add missing error handling",
+  "body": "Remove unused txn() helper from designStorage.js (never called, leftover\nfrom initial IDB wrapper draft). Add error handling to handleDelete in\nSaveLoadModal so users see feedback when deletion fails.\n\nTags: cleanup, ux, storage\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: indexeddb-migration\nSemver: patch\n\nhttps://claude.ai/code/session_012V7AguSge3Ngw25j72iiGX",
+  "tags": [
+    "refactor",
+    "error-handling"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": null,
+  "title": "remove dead code and add missing error handling",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 7,
+    "deletions": 20
+  },
+  "files": [
+    "src/components/SaveLoadModal.jsx",
+    "src/utils/designStorage.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

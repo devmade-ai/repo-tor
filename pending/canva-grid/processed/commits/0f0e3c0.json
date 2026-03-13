@@ -1,0 +1,45 @@
+{
+  "sha": "0f0e3c0",
+  "fullSha": "0f0e3c09a6e2377e4079c6b341fcbf195372f80b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T21:55:01Z",
+  "commitDate": "2026-03-06T21:55:01Z",
+  "subject": "docs: sync all documentation with actual codebase state",
+  "body": "CLAUDE.md:\n- Remove deleted src/utils/export.js from Architecture\n- Update overlay count 26 → 34, layout preset count 27 → 35\n\nREADME.md:\n- Update platform count 22 → 28 formats across 12 groups\n- Add complete format lists per platform (was missing most)\n- Add freeform text mode, multi-page, and PWA to features\n- Update overlay description to mention all 34 effects\n- Fix export section: format selection, PDF via jsPDF, multi-page ZIP\n- Add jsPDF and marked to tech stack\n\nUSER_GUIDE.md:\n- Fix freeform markdown: \"always parsed\" → \"optional toggle per cell\"\n- Add 4 corner radials and separate Textures from Effects in overlay list\n- Rewrite Platform Selection for two-level selector with all 28 formats\n- Rewrite Download Options for current export capabilities\n\nTESTING_GUIDE.md:\n- Update E1 for two-level platform selector (was flat button list)\n- Fix LinkedIn test: 1200×627 → 1080×1080 (Square is first format)\n- Update E2 for format selection and timestamp filenames\n- Update E3 for multi-platform ZIP workflow (was \"Download All\")\n\nTODO.md:\n- Add ContextBar.jsx:210 confirm() to existing SaveLoadModal tracking item\n\nTags: docs, accuracy, audit\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_01XB2ds4yVbZsvHcvEQZt216",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "documentation-accuracy",
+  "semver": "patch",
+  "scope": null,
+  "title": "sync all documentation with actual codebase state",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 83,
+    "deletions": 70
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

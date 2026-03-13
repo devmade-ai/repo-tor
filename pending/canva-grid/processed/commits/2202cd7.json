@@ -1,0 +1,42 @@
+{
+  "sha": "2202cd7",
+  "fullSha": "2202cd78e68d19d09ba2937a036c1ebecf94d107",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T09:12:45Z",
+  "commitDate": "2026-03-08T09:12:45Z",
+  "subject": "fix(export): bump PDF capture to 3x resolution and 95% JPEG quality",
+  "body": "2x may not be sharp enough for all use cases, especially larger formats\nand print. 3x provides genuinely crisp output while JPEG compression\nkeeps file size well below the old PNG approach. Also bumped JPEG quality\nfrom 0.92 to 0.95 since the compression savings already handle file size.\n\nTags: export, pdf, quality\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: export\nSemver: patch\n\nhttps://claude.ai/code/session_012V7AguSge3Ngw25j72iiGX",
+  "tags": [
+    "bugfix",
+    "performance"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pdf-export",
+  "semver": "patch",
+  "scope": "export",
+  "title": "bump PDF capture to 3x resolution and 95% JPEG quality",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 5,
+    "deletions": 5
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

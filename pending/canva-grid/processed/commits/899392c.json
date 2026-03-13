@@ -1,0 +1,47 @@
+{
+  "sha": "899392c",
+  "fullSha": "899392c1db9cd3a69fda4c46f614079e58341598",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T05:14:34Z",
+  "commitDate": "2026-03-09T05:14:34Z",
+  "subject": "refactor(state): remove imageCells concept entirely",
+  "body": "Removes layout.imageCells from the entire codebase. A cell has an image\nif and only if the user assigned one via cellImages. Any cell can now have\nboth image and text — layout presets define structure only (grid shape,\nsizes, alignments), not content placement.\n\nChanges:\n- layoutPresets.js: removed imageCells from all 35 presets, updated\n  descriptions to be content-agnostic\n- useAdState.js: removed imageCells from default state, simplified\n  legacy migration, changed image auto-assign to use first empty cell,\n  removed imageCells shifting/swapping in setLayout, simplified\n  applyLayoutPreset to preserve text in place (no redistribution)\n- LayoutTab.jsx: removed imageCells from CellGrid component and\n  handleTypeChange, simplified cell styling to selection-based only\n- ContentTab.jsx: removed imageCells variable and MiniCellGrid prop\n- TemplatesTab.jsx: simplified preset matching to type + structure only\n- MiniCellGrid.jsx: removed imageCells prop\n- CLAUDE.md: updated state documentation\n\nTags: state, layout, refactor, simplification\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: imagecells-removal\nSemver: minor\n\nhttps://claude.ai/code/session_01C4FmDdg3AUrVBgCMsmkahH",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "imagecells-removal",
+  "semver": "minor",
+  "scope": "state",
+  "title": "remove imageCells concept entirely",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 53,
+    "deletions": 172
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/ContentTab.jsx",
+    "src/components/LayoutTab.jsx",
+    "src/components/MiniCellGrid.jsx",
+    "src/components/TemplatesTab.jsx",
+    "src/config/layoutPresets.js",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

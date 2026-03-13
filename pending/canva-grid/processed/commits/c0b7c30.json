@@ -1,0 +1,51 @@
+{
+  "sha": "c0b7c30",
+  "fullSha": "c0b7c30263b98fd4ace8b5dc3217ea872a3b4428",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T18:06:30Z",
+  "commitDate": "2026-03-06T18:06:30Z",
+  "subject": "feat(platforms): add nested platform specs, two-level selector, and export format choice",
+  "body": "Restructure platforms.js from flat array to nested platformGroups with\nper-format metadata (tips, recommendedFormat, maxFileSize). Redesign\nPlatformPreview as a two-level Category → Platform → Format selector\nwith info bar and collapsible tips. Add PNG/JPG/WebP export format\ntoggle to ExportButtons with per-platform format recommendations.\n\nInstagram expanded from 2 to 4 formats (Feed Portrait, Square, Feed\nLandscape, Story/Reels). Facebook expanded from 1 to 4 formats (Feed,\nSquare, Story, Cover Photo). All platforms now have tips and file specs.\n\nTags: platforms, export, ui, data\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: platform-specs\nSemver: minor\n\nhttps://claude.ai/code/session_01XB2ds4yVbZsvHcvEQZt216",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "platform-specs",
+  "semver": "minor",
+  "scope": "platforms",
+  "title": "add nested platform specs, two-level selector, and export format choice",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 552,
+    "deletions": 171
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/App.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/PlatformPreview.jsx",
+    "src/config/platforms.js",
+    "src/hooks/useAdState.js",
+    "src/utils/export.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

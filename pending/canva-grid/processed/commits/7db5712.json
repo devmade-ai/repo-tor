@@ -1,0 +1,49 @@
+{
+  "sha": "7db5712",
+  "fullSha": "7db5712fa47b88d439a644b81dbfb557066725f1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T11:14:21Z",
+  "commitDate": "2026-03-07T11:14:21Z",
+  "subject": "fix: address code review findings across 8 files",
+  "body": "Fix potential bugs, React anti-patterns, and code quality issues identified\nin code review. Key changes:\n\n- useHistory: derive canUndo/canRedo from state (not refs) so they trigger\n  re-renders correctly\n- useAdState: add missing setState deps, remove dead dep from loadDesign,\n  restore legacy migration for pre-multi-page saved designs, remove\n  console.error statements\n- ExportButtons: reject on null blob from canvas.toBlob, track export\n  operation type for per-button progress display, remove console.error,\n  remove arbitrary 100ms from waitForPaint, add selectCategory toggle\n- ContextBar: replace mutable cellIndex with useMemo pre-computed cell map\n  (React strict mode safe)\n- LayoutTab: same mutable cellIndex fix, remove dead normalizedImageCells\n  alias\n- ContentTab: use stable noop ref instead of inline arrow, fix unstable\n  useMemo dependency on layout.structure (array ref)\n- StyleTab: remove redundant aliases, fix overlay reset to delete keys\n  instead of setting them to undefined\n- platforms.js: remove unused ecommerce category\n\nTags: bugfix, react, state, export, layout, style\nComplexity: 3\nUrgency: 3\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: code-review-fixes\nSemver: patch\n\nhttps://claude.ai/code/session_012GumyZdfwFqQNsppXFwNXW",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": null,
+  "title": "address code review findings across 8 files",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 264,
+    "deletions": 182
+  },
+  "files": [
+    "src/components/ContentTab.jsx",
+    "src/components/ContextBar.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/LayoutTab.jsx",
+    "src/components/StyleTab.jsx",
+    "src/config/platforms.js",
+    "src/hooks/useAdState.js",
+    "src/hooks/useHistory.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

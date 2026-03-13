@@ -1,0 +1,44 @@
+{
+  "sha": "3702955",
+  "fullSha": "3702955309010dbc3d6bee7330fa687aac7de140",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T02:28:37Z",
+  "commitDate": "2026-03-09T02:28:37Z",
+  "subject": "fix(ui): replace persistent cell outline with fade-out flash animation",
+  "body": "Persistent outline on selected cell obscured frames and design content. Now\nuses a 0.6s CSS animation that flashes an indigo outline and fades to fully\ntransparent. React key includes selection state so the div remounts and the\nanimation replays on each new selection. Respects prefers-reduced-motion.\n\nTags: ui, canvas, animation\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: cell-highlighting\nSemver: patch\n\nhttps://claude.ai/code/session_01C4FmDdg3AUrVBgCMsmkahH",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "layout-defaults",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "replace persistent cell outline with fade-out flash animation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 15,
+    "deletions": 8
+  },
+  "files": [
+    "src/App.jsx",
+    "src/index.css"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}
