@@ -2,6 +2,26 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-03-13
+
+### glow-props CLAUDE.md Sync — 8 New Patterns Adopted
+
+**Why:** Periodic review of the cross-project glow-props CLAUDE.md revealed patterns not yet adopted in repo-tor.
+
+**What:**
+1. **Trigger system** — 10 single-word analysis commands (`review`/`rev`, `audit`/`aud`, `docs`/`doc`, `mobile`/`tap`, `clean`/`cln`, `performance`/`perf`, `security`/`sec`, `debug`/`dbg`, `improve`/`imp`, `start`/`go`) with `fix`/`skip`/`stop` flow control
+2. **Download as PDF** — `window.print()` pattern with `no-print` class and print-friendly CSS overrides
+3. **Commit metadata footers** — Full format with field definitions added to CLAUDE.md (Tags, Complexity, Urgency, Impact, Risk, Debt, Epic, Semver)
+4. **`// KEEP:` convention** — Commented-out code must use `// KEEP:` with reason to be preserved
+5. **Prohibition: no interactive prompts** — List options as numbered text instead
+6. **Prohibition: no feature removal during cleanup** — Must check if documented as intentional first
+7. **Bug report ASK rule** — Ask clarifying questions before writing code for bug reports
+8. **TESTING_GUIDE.md format** — Structured test scenarios (step-by-step actions, expected results, regression checklist)
+
+**Alternatives considered:** N/A — these are cross-project standards to adopt.
+
+---
+
 ## 2026-03-04
 
 ### Cross-Tab Audit — 6 Fixes

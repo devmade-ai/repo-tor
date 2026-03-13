@@ -6,7 +6,18 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent section layouts, and PWA support.
 
-**Recent Updates (2026-03-04 — Cross-Tab Audit + 6 Fixes):**
+**Recent Updates (2026-03-13 — glow-props CLAUDE.md sync):**
+- Adopted 8 new patterns from glow-props cross-project CLAUDE.md
+- Added trigger system (10 single-word analysis commands: `review`, `audit`, `docs`, `mobile`, `clean`, `performance`, `security`, `debug`, `improve`, `start`)
+- Added Download as PDF pattern (`window.print()`, `no-print` class, print-friendly CSS)
+- Added commit metadata footers format with full field definitions to CLAUDE.md
+- Changed cleanup rule: commented-out code needs `// KEEP:` with reason to be preserved
+- Added 2 new prohibitions: no interactive prompts, no feature removal during cleanup without checking docs
+- Added bug report ASK rule to AI Notes (clarify before coding)
+- Enhanced USER_TESTING.md checklist item with structured test format guidance
+- Updated cross-project reference last reviewed date to 2026-03-13
+
+**Previous Updates (2026-03-04 — Cross-Tab Audit + 6 Fixes):**
 - **Fix: Projects filter bug** — Commit counts now use `filteredCommits` instead of unfiltered `state.data?.commits`.
 - **Fix: Timeline UTC mismatch** — Trend charts now use `getUTCMonthKey()` instead of `.substring(0,7)`.
 - **UX: Bottom padding** — Added `pb-12` to content wrapper for breathing room at page bottom.
