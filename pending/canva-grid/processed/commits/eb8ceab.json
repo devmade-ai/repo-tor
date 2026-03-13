@@ -1,0 +1,43 @@
+{
+  "sha": "eb8ceab",
+  "fullSha": "eb8ceab7fd9c9032c4b0b339cf5d7f089968847a",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-14T18:26:51Z",
+  "commitDate": "2026-01-14T18:26:51Z",
+  "subject": "Unify cell grid components and remove fullbleed special-casing",
+  "body": "- Create UnifiedCellGrid component replacing CellGrid and StructureGrid\n- Supports modes: structure, image, textGroup, cell\n- Section labels (R1/R2, C1/C2) only shown in Structure tab\n- Treat fullbleed as single-cell grid for consistent UI\n- All Layout sub-tabs now work the same for all layout types",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "cell-grid-fixes",
+  "semver": "minor",
+  "scope": null,
+  "title": "Unify cell grid components and remove fullbleed special-casing",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 483,
+    "deletions": 654
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "src/components/LayoutSelector.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,49 @@
+{
+  "sha": "0cee69d",
+  "fullSha": "0cee69db6380b108e1ea8fe20666cbe447c32eb9",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-17T00:40:18Z",
+  "commitDate": "2026-01-17T00:40:18Z",
+  "subject": "Add neutral colors for text and overlays",
+  "body": "Add 6 neutral color options (off-black, dark gray, gray, light gray,\noff-white, white) available in all color pickers regardless of theme.\n\n- Define neutralColors array and getNeutralColor() helper in themes.js\n- Update TextEditor, ImageUploader, and LayoutSelector color pickers\n- Update AdCanvas resolveColor() to handle neutral color keys",
+  "tags": [
+    "feature",
+    "ui",
+    "style"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "neutral-colors",
+  "semver": "minor",
+  "scope": null,
+  "title": "Add neutral colors for text and overlays",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 137,
+    "deletions": 27
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/AdCanvas.jsx",
+    "src/components/ImageUploader.jsx",
+    "src/components/LayoutSelector.jsx",
+    "src/components/TextEditor.jsx",
+    "src/config/themes.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

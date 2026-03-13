@@ -1,0 +1,53 @@
+{
+  "sha": "3a64041",
+  "fullSha": "3a6404190d47b77022a4e6a7925dfbc47cdf8acc",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-16T20:44:55Z",
+  "commitDate": "2026-01-16T20:44:55Z",
+  "subject": "Add dark mode with toggle and system preference detection",
+  "body": "- Enable darkMode: 'class' in Tailwind config\n- Create useDarkMode hook with localStorage persistence and system preference fallback\n- Add dark mode toggle button in header (sun/moon icons)\n- Update index.css with dark backgrounds, scrollbar, and range input styles\n- Apply dark: variants to all UI components:\n  - App.jsx (header, sidebar, preview area, tabs)\n  - PlatformPreview, ExportButtons, StylePresetSelector\n  - FontSelector, TextEditor, ImageUploader (all sections)\n- Keep ad canvas preview neutral (shows true ad appearance)",
+  "tags": [
+    "feature",
+    "ui",
+    "ux",
+    "accessibility"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "dark-mode",
+  "semver": "minor",
+  "scope": null,
+  "title": "Add dark mode with toggle and system preference detection",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 163,
+    "deletions": 92
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/FontSelector.jsx",
+    "src/components/ImageUploader.jsx",
+    "src/components/PlatformPreview.jsx",
+    "src/components/StylePresetSelector.jsx",
+    "src/components/TextEditor.jsx",
+    "src/hooks/useDarkMode.js",
+    "src/index.css",
+    "tailwind.config.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

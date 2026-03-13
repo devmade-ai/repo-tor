@@ -1,0 +1,46 @@
+{
+  "sha": "85e686c",
+  "fullSha": "85e686c8ba76103f854ce642d6d9ca6937bfff99",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-14T18:19:46Z",
+  "commitDate": "2026-01-14T18:19:46Z",
+  "subject": "Add per-group cell selectors and alignment in Placement tab",
+  "body": "- Each text group (Title+Tagline, Body, CTA, Footnote) now has its own\n  cell selector grid and alignment controls\n- Alignment is per-group with fallback to global settings\n- Amber color indicates custom alignment, blue indicates using global\n- Removed Style Presets section from Image tab\n- Updated AdCanvas to render each group with its own alignment container",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "text-alignment",
+  "semver": "minor",
+  "scope": null,
+  "title": "Add per-group cell selectors and alignment in Placement tab",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 386,
+    "deletions": 295
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "src/components/AdCanvas.jsx",
+    "src/components/ImageUploader.jsx",
+    "src/components/LayoutSelector.jsx",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

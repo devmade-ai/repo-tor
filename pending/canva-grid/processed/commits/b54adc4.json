@@ -1,0 +1,42 @@
+{
+  "sha": "b54adc4",
+  "fullSha": "b54adc4da4a1154ae00870f47aee0e45a8a5f933",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "committer": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2026-01-14T19:52:47Z",
+  "commitDate": "2026-01-14T19:52:47Z",
+  "subject": "Fix cells container not expanding in small grids",
+  "body": "The cells container was missing flex-1 when showSectionLabels was false,\ncausing it to collapse to zero width in the Placement tab grids.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "cell-grid-fixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix cells container not expanding in small grids",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "src/components/LayoutSelector.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}
