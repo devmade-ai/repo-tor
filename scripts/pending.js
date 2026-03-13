@@ -22,7 +22,7 @@ import fs from 'fs';
 import path from 'path';
 import { getManifestPath, readManifest, writeManifest, PROCESSED_DIR } from './lib/manifest.js';
 
-const BATCH_SIZE = 25;
+const BATCH_SIZE = 50;
 const REPORTS_DIR = 'reports';
 const PENDING_DIR = 'pending';
 
