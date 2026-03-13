@@ -1,0 +1,55 @@
+{
+  "sha": "83693e1",
+  "fullSha": "83693e1371271d3b2fc663701f089551126a57b4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T22:09:49Z",
+  "commitDate": "2026-02-26T22:09:49Z",
+  "subject": "feat(build): convert to Vite project",
+  "body": "Add Vite as the build tool so this repo serves as a working reference\nimplementation, not just documentation. Static files move to public/,\nCLAUDE.md stays at repo root (for Claude Code) and gets copied to dist/\nvia a small Vite plugin. Deploy workflow now runs npm ci + vite build\nbefore uploading dist/ to GitHub Pages.\n\n- vite.config.js with base path and copy-root-files plugin\n- public/ for static assets (texts, generated icons)\n- Updated generate-icons.mjs to output to public/assets/images/\n- Deploy workflow adds Node 20 setup and build step\n\nTags: build, vite, infrastructure\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: medium\nDebt: neutral\nEpic: icon-system\nSemver: minor\n\nhttps://claude.ai/code/session_014q25sVTPqFrcSY2B3NjBCM",
+  "tags": [
+    "feature",
+    "build",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "icon-system",
+  "semver": "minor",
+  "scope": "build",
+  "title": "convert to Vite project",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 1398,
+    "deletions": 273
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    ".gitignore",
+    "package-lock.json",
+    "package.json",
+    "public/assets/images/adaptive-icon.png",
+    "public/assets/images/favicon.png",
+    "public/assets/images/icon-192.png",
+    "public/assets/images/icon-512.png",
+    "public/assets/images/icon.png",
+    "public/assets/images/splash-icon.png",
+    "public/texts/hello.txt",
+    "scripts/generate-icons.mjs",
+    "vite.config.js"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "infrastructure"
+}
