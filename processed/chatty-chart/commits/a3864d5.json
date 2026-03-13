@@ -1,0 +1,43 @@
+{
+  "sha": "a3864d5",
+  "fullSha": "a3864d5613ffe740261e43726cb30b8ab21f0f63",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-24T21:56:08Z",
+  "commitDate": "2025-12-24T21:56:08Z",
+  "subject": "Optimize mobile performance for visibility preset updates",
+  "body": "Performance improvements:\n- Replace Set-based random selection with efficient Fisher-Yates shuffle\n- Add debouncing (300ms) to prevent rapid successive updates\n- Batch DOM updates using requestAnimationFrame for smoother rendering\n- Only modify squares that need class changes (avoid unnecessary reflows)\n- Add loading state to prevent simultaneous update conflicts\n- Auto-trigger visualization update after preset selection\n\nThese optimizations significantly reduce resource usage on mobile devices\nwhen using quick visibility presets.",
+  "tags": [
+    "performance",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "viz-performance",
+  "semver": "patch",
+  "scope": null,
+  "title": "Optimize mobile performance for visibility preset updates",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 106,
+    "deletions": 38
+  },
+  "files": [
+    "assets/js/app.js",
+    "index.html"
+  ],
+  "repo_id": "chatty-chart",
+  "urgency": 2,
+  "impact": "user-facing"
+}

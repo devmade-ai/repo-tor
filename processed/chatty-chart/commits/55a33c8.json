@@ -1,0 +1,46 @@
+{
+  "sha": "55a33c8",
+  "fullSha": "55a33c8cff60339699fddc24b5501a5f39ad1c50",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-29T21:31:43Z",
+  "commitDate": "2025-12-29T21:31:43Z",
+  "subject": "Fix button placement and performance issues",
+  "body": "- Move \"Update Visualization\" button below the image as a standalone element instead of overlaying it\n- Remove absolute positioning and update CSS for better visual hierarchy\n- Fix page freeze on visualization update by removing scrollIntoView call\n- Optimize DOM manipulation using classList.toggle instead of building separate arrays\n- Update help documentation to reflect UI changes and improved performance\n- Add responsive styling for the new button placement\n\nPerformance improvements:\n- Removed automatic scrolling that competed with DOM updates\n- Simplified class toggling logic reducing operations from 3 loops to 1\n- Eliminates janky behavior when clicking Update Visualization",
+  "tags": [
+    "bugfix",
+    "performance",
+    "ui",
+    "refactor"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "viz-ux",
+  "semver": "patch",
+  "scope": null,
+  "title": "Fix button placement and performance issues",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 25,
+    "deletions": 48
+  },
+  "files": [
+    "assets/css/styles.css",
+    "assets/js/app.js",
+    "index.html"
+  ],
+  "repo_id": "chatty-chart",
+  "urgency": 3,
+  "impact": "user-facing"
+}

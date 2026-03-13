@@ -1,0 +1,46 @@
+{
+  "sha": "5e1ecc2",
+  "fullSha": "5e1ecc25c9ff98be171c222da8cd08d01591a3db",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2025-12-25T09:18:38Z",
+  "commitDate": "2025-12-25T09:18:38Z",
+  "subject": "Reorganize layout: swap columns, reverse overlay, add auto-scroll",
+  "body": "- Swap visualization and input columns so visualization appears first (left on desktop)\n- Remove initial black overlay - visualization now starts fully visible\n- Reverse overlay behavior - analyzed data now covers the image instead of revealing it\n- Add auto-scroll to top when visualization updates for better UX\n- Rename CSS class from 'transparent' to 'covered' to reflect new behavior",
+  "tags": [
+    "enhancement",
+    "ui",
+    "ux",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "viz-core",
+  "semver": "minor",
+  "scope": null,
+  "title": "Reorganize layout: swap columns, reverse overlay, add auto-scroll",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 32,
+    "deletions": 26
+  },
+  "files": [
+    "assets/css/styles.css",
+    "assets/js/app.js",
+    "index.html"
+  ],
+  "repo_id": "chatty-chart",
+  "urgency": 2,
+  "impact": "user-facing"
+}
