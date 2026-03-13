@@ -1,0 +1,45 @@
+{
+  "sha": "5c0d4f7",
+  "fullSha": "5c0d4f7af5742ec9ee9684f83d618ec961fe847c",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-18T22:46:10Z",
+  "commitDate": "2026-01-18T22:46:10Z",
+  "subject": "fix: make dashboard tabs mobile-friendly with horizontal scroll",
+  "body": "Added overflow-x-auto and hidden scrollbar for clean horizontal\nscrolling on mobile devices. Applied whitespace-nowrap to prevent\ntab text wrapping and used negative margin for edge-to-edge scroll.",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "mobile-responsive",
+  "semver": "patch",
+  "scope": null,
+  "title": "make dashboard tabs mobile-friendly with horizontal scroll",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 33,
+    "deletions": 6
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

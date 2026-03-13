@@ -1,0 +1,42 @@
+{
+  "sha": "8bbab76",
+  "fullSha": "8bbab76dacae91d2edbe639640994113bfb0eae2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T20:40:23Z",
+  "commitDate": "2026-01-19T20:40:23Z",
+  "subject": "docs: add checkpoint-based batch processing to playbook",
+  "body": "- Process commits in batches of 50 for resilience\n- checkpoint.json tracks progress per repo (last SHA, count)\n- Commit after each batch so work survives interruptions\n- \"feed the chicken\" resumes from checkpoint if incomplete",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "data-extraction",
+  "semver": "patch",
+  "scope": null,
+  "title": "add checkpoint-based batch processing to playbook",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 111,
+    "deletions": 40
+  },
+  "files": [
+    "docs/EXTRACTION_PLAYBOOK.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

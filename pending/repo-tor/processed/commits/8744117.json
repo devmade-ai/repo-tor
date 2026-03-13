@@ -1,0 +1,47 @@
+{
+  "sha": "8744117",
+  "fullSha": "87441177901141f9ba34df9be78bd73a308366ff",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-18T21:08:20Z",
+  "commitDate": "2026-01-18T21:08:20Z",
+  "subject": "feat(dashboard): add filters for type, author, date range, and repo",
+  "body": "Add filter bar to Timeline tab:\n- Type dropdown to filter by commit type\n- Author dropdown to filter by contributor\n- Repo dropdown for aggregated data (auto-hides for single repo)\n- Date range picker with from/to inputs\n- Clear Filters button to reset all\n\nFilters update both the timeline chart and commit list.\nAdded \"Showing X of Y commits\" counter.",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "dashboard-filters",
+  "semver": "minor",
+  "scope": "dashboard",
+  "title": "add filters for type, author, date range, and repo",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 277,
+    "deletions": 39
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

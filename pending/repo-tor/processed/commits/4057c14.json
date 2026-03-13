@@ -1,0 +1,48 @@
+{
+  "sha": "4057c14",
+  "fullSha": "4057c14a32a88f574c6d1c5f39dacf16159d755a",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-18T20:29:03Z",
+  "commitDate": "2026-01-18T20:29:03Z",
+  "subject": "Add Git Analytics Reporting System",
+  "body": "- scripts/extract.js: Node.js extraction script with git log parsing,\n  conventional commit detection, keyword-based type fallback, and\n  structured JSON output\n- scripts/extract.sh: Shell wrapper for easier usage\n- dashboard/index.html: Static analytics dashboard with Chart.js\n  - Timeline: daily commit chart, recent commits list\n  - Progress: monthly volume, cumulative growth, feature vs fix trends\n  - Contributors: commits and lines by author\n  - Security: highlighted security-related commits\n  - Types: pie chart and percentage breakdown\n- Updated .gitignore to exclude generated reports/\n- Updated docs with usage documentation",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 5,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "initial-build",
+  "semver": "minor",
+  "scope": null,
+  "title": "Add Git Analytics Reporting System",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 1250,
+    "deletions": 16
+  },
+  "files": [
+    ".gitignore",
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_GUIDE.md",
+    "scripts/extract.js",
+    "scripts/extract.sh"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,44 @@
+{
+  "sha": "4565adf",
+  "fullSha": "4565adf44844c34b1fcee4caf78d7d615fde5c3e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T06:17:11Z",
+  "commitDate": "2026-01-21T06:17:11Z",
+  "subject": "fix: normalize data field formats in dashboard",
+  "body": "Add helper functions to handle inconsistent field formats:\n- getCommitSubject(): handles subject vs message\n- getAdditions(): handles stats.additions vs lines_added\n- getDeletions(): handles stats.deletions vs lines_deleted\n\nThis ensures all 576 commits display correctly regardless of\nwhich extraction format they came from.",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "data-extraction",
+  "semver": "patch",
+  "scope": null,
+  "title": "normalize data field formats in dashboard",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 49,
+    "deletions": 15
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

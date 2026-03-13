@@ -1,0 +1,62 @@
+{
+  "sha": "c7699cd",
+  "fullSha": "c7699cdc53e6b764c23117b65c0695c571ac75df",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "committer": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2026-01-20T18:59:12Z",
+  "commitDate": "2026-01-20T18:59:12Z",
+  "subject": "chore: simplify file tracking and reduce batch size",
+  "body": "- Reduce batch size from 25 to 15 commits for stability\n- Gitignore all of reports/ (working data, regenerated)\n- Remove reports/ files from git tracking\n- Update playbook documentation\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "data-extraction",
+  "semver": "patch",
+  "scope": null,
+  "title": "simplify file tracking and reduce batch size",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 22,
+    "additions": 1032,
+    "deletions": 27055
+  },
+  "files": [
+    ".gitignore",
+    "docs/EXTRACTION_PLAYBOOK.md",
+    "processed/model-pear/batches/batch-008.json",
+    "processed/model-pear/batches/batch-009.json",
+    "processed/model-pear/batches/batch-010.json",
+    "processed/model-pear/manifest.json",
+    "reports/chatty-chart/batches/batch-001.json",
+    "reports/chatty-chart/batches/batch-002.json",
+    "reports/chatty-chart/batches/batch-003.json",
+    "reports/chatty-chart/batches/batch-004.json",
+    "reports/chatty-chart/batches/batch-005.json",
+    "reports/chatty-chart/metadata.json",
+    "reports/model-pear/commits.json",
+    "reports/model-pear/contributors.json",
+    "reports/model-pear/data.json",
+    "reports/model-pear/files.json",
+    "reports/model-pear/metadata.json",
+    "reports/model-pear/summary.json",
+    "reports/repo-tor/metadata.json",
+    "reports/social-ad-creator/metadata.json",
+    "scripts/extract.js",
+    "scripts/pending.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "internal"
+}

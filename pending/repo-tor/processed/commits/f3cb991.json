@@ -1,0 +1,50 @@
+{
+  "sha": "f3cb991",
+  "fullSha": "f3cb9911136c964506a473ba5c6658b4964d6a37",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-18T21:03:01Z",
+  "commitDate": "2026-01-18T21:03:01Z",
+  "subject": "feat(D3): add multi-repository aggregation script",
+  "body": "Implement aggregation to combine data from multiple repositories:\n- scripts/aggregate.js: Combines repo data with author identity mapping\n- config/author-map.example.json: Example author mapping configuration\n- config/author-map.schema.json: JSON schema for validation\n\nAlso adds repo_id support:\n- scripts/extract.js: Now includes repo_id in metadata and commits\n- Enables tracking commit source in aggregated views\n\nDocumentation updates:\n- ADMIN_GUIDE.md: Added aggregation section\n- USER_GUIDE.md: Added multi-repository view section\n- TODO.md: Marked D3 as complete",
+  "tags": [
+    "feature",
+    "config"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "multi-repo",
+  "semver": "minor",
+  "scope": "D3",
+  "title": "add multi-repository aggregation script",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 612,
+    "deletions": 30
+  },
+  "files": [
+    "config/author-map.example.json",
+    "config/author-map.schema.json",
+    "docs/ADMIN_GUIDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md",
+    "scripts/aggregate.js",
+    "scripts/extract.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

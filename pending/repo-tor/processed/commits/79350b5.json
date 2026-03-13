@@ -1,0 +1,43 @@
+{
+  "sha": "79350b5",
+  "fullSha": "79350b5f1cc28be7f251bb2eff4153ac8c94ef4f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T00:02:06Z",
+  "commitDate": "2026-01-21T00:02:06Z",
+  "subject": "fix: dashboard Files Changed showing 0",
+  "body": "Add getFilesChanged() helper to handle multiple data formats:\n- stats.filesChanged (new extractions)\n- files_changed (snake_case, older commits)\n\nNow correctly shows 1,689 files changed across 576 commits.",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dashboard-bugfixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "dashboard Files Changed showing 0",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 31,
+    "deletions": 2
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

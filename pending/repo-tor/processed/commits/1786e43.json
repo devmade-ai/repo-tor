@@ -1,0 +1,44 @@
+{
+  "sha": "1786e43",
+  "fullSha": "1786e43e174f321847e898608865c07b618e31d1",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "committer": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2026-01-21T11:45:43Z",
+  "commitDate": "2026-01-21T11:45:43Z",
+  "subject": "fix: remove orphaned updateFilteredStats() causing console errors",
+  "body": "The function referenced a non-existent 'stat-commits-filtered' element,\nthrowing TypeError on every filter change. The functionality was already\nhandled by updateFilterIndicator().\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dashboard-bugfixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "remove orphaned updateFilteredStats() causing console errors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 20,
+    "deletions": 14
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

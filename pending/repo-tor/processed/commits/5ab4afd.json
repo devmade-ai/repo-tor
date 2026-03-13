@@ -1,0 +1,46 @@
+{
+  "sha": "5ab4afd",
+  "fullSha": "5ab4afd42787d61df5fa76100a1d9a9ac5e92935",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T12:58:24Z",
+  "commitDate": "2026-01-19T12:58:24Z",
+  "subject": "refactor: replace vanity metrics with meaningful work metrics",
+  "body": "Remove commits/lines focus, add metrics that actually matter:\n\nSummary Cards:\n- Lines Added → Files Changed (scope)\n- Lines Removed → Avg Complexity (1-5)\n- Commits → Top Work Type (focus)\n\nExecutive Summary:\n- Commits → Features Built\n- Contributors → Bugs Fixed\n- Add Complexity + Files Touched with trends\n\nThe dashboard now shows what kind of work is being done,\nhow complex it is, and how much of the codebase is affected -\nnot vanity metrics like line counts.",
+  "tags": [
+    "refactor",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "dashboard-metrics",
+  "semver": "minor",
+  "scope": null,
+  "title": "replace vanity metrics with meaningful work metrics",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 166,
+    "deletions": 55
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

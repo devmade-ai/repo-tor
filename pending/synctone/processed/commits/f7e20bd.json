@@ -1,0 +1,46 @@
+{
+  "sha": "f7e20bd",
+  "fullSha": "f7e20bd7a44f42ae0ab2751cf680e09bfd1cca99",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-11T08:43:51Z",
+  "commitDate": "2026-03-11T08:43:51Z",
+  "subject": "feat(notifications): use Supabase Vault for notification secret auth",
+  "body": "Switch notify_new_message() trigger from app.settings to Vault for\nreading the shared secret. ALTER DATABASE SET is not supported on\nhosted Supabase. Vault secrets are managed via Dashboard UI.\n\nAlso: deploy Edge Function, add ONESIGNAL_APP_ID env var, update docs.\n\nTags: notifications, security, supabase, cleanup\nComplexity: 2\nUrgency: 3\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: push-notifications\nSemver: patch\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+  "tags": [
+    "security",
+    "auth",
+    "feature"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "security-hardening",
+  "semver": "minor",
+  "scope": "notifications",
+  "title": "use Supabase Vault for notification secret auth",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 170,
+    "deletions": 2384
+  },
+  "files": [
+    ".claude/synctone_development_tasks.txt",
+    "docs/AI_MISTAKES.md",
+    "docs/USER_ACTIONS.md",
+    "supabase/migrations/20260311083907_use_vault_for_notification_secret.sql"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

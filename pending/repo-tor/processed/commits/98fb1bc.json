@@ -1,0 +1,43 @@
+{
+  "sha": "98fb1bc",
+  "fullSha": "98fb1bc470843f480525ce1af4b2b6dabb2bd0dc",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "committer": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2026-01-20T17:56:51Z",
+  "commitDate": "2026-01-20T17:56:51Z",
+  "subject": "chore: increase batch size to 25 and update workflow",
+  "body": "- Change BATCH_SIZE from 10 to 25 in pending.js and extract.js\n- Update playbook with new batch size and commit workflow\n- New commands: \"approve\" (no commit), \"approve and commit\", \"commit\"\n- Reduces model-pear from 24 batches to 10 batches\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "data-extraction",
+  "semver": "patch",
+  "scope": null,
+  "title": "increase batch size to 25 and update workflow",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 17,
+    "deletions": 14
+  },
+  "files": [
+    "docs/EXTRACTION_PLAYBOOK.md",
+    "scripts/extract.js",
+    "scripts/pending.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "internal"
+}

@@ -1,0 +1,44 @@
+{
+  "sha": "b961f45",
+  "fullSha": "b961f45ec942d7b069a693d4c84ff3632e36027c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T10:57:05Z",
+  "commitDate": "2026-01-21T10:57:05Z",
+  "subject": "fix: remove broken security-count reference in renderSecurity()",
+  "body": "The renderSecurity() function was trying to update a non-existent\nelement 'security-count', causing a TypeError that stopped execution\nof applyFilters(). Since renderSummary() is called after renderSecurity()\nin applyFilters(), the Overview tab never updated when filters changed.\n\nThe security count is already correctly handled by renderHealth() via\nthe 'health-security-count' element, so the broken line was simply removed.",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "dashboard-bugfixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "remove broken security-count reference in renderSecurity()",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 18,
+    "deletions": 3
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

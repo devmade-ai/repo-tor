@@ -1,0 +1,45 @@
+{
+  "sha": "6be558d",
+  "fullSha": "6be558dc324e61c8f92b82306836fed8eef637be",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-18T22:49:21Z",
+  "commitDate": "2026-01-18T22:49:21Z",
+  "subject": "fix: improve timeline layout for mobile devices",
+  "body": "- Filter bar: responsive grid (2-col mobile, 3-col tablet, flex desktop)\n- Stacked filter labels above inputs for better touch targets\n- Shorter chart height on mobile (h-48 vs h-64)\n- Commit list: message wraps on mobile, metadata flows with separators\n- Line counts show inline on desktop, below metadata on mobile",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "mobile-responsive",
+  "semver": "patch",
+  "scope": null,
+  "title": "improve timeline layout for mobile devices",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 60,
+    "deletions": 31
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

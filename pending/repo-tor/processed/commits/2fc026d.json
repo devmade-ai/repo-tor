@@ -1,0 +1,50 @@
+{
+  "sha": "2fc026d",
+  "fullSha": "2fc026da0b27d8475d2d7bd2d61e1563ddab4a8b",
+  "author_id": "noreply@anthropic.com",
+  "author": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "committer": {
+    "name": "Claude",
+    "email": "noreply@anthropic.com"
+  },
+  "timestamp": "2026-01-18T22:02:15Z",
+  "commitDate": "2026-01-18T22:02:15Z",
+  "subject": "docs: update all documentation and re-extract data",
+  "body": "Re-ran extraction to capture all 20 commits (was 18):\n- reports/repo-tor/ now includes latest commits\n- Extraction uses git log --all for all branches\n\nUpdated documentation:\n- SESSION_NOTES.md: Current state with extraction details\n- TODO.md: Added data extraction to completed items\n- HISTORY.md: Added data extraction entry",
+  "tags": [
+    "docs",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "data-extraction",
+  "semver": "patch",
+  "scope": null,
+  "title": "update all documentation and re-extract data",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 338,
+    "deletions": 66
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "reports/repo-tor/commits.json",
+    "reports/repo-tor/contributors.json",
+    "reports/repo-tor/data.json",
+    "reports/repo-tor/files.json",
+    "reports/repo-tor/metadata.json",
+    "reports/repo-tor/summary.json"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

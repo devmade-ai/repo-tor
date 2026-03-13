@@ -1,0 +1,55 @@
+{
+  "sha": "7d97947",
+  "fullSha": "7d97947be200b14f28cfc65617b341fef0883c6e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T02:28:28Z",
+  "commitDate": "2026-03-05T02:28:28Z",
+  "subject": "security: comprehensive security hardening from audit findings",
+  "body": "Fix multiple vulnerabilities identified in security audit:\n- Add shared secret auth (NOTIFICATION_SECRET) to Edge Function\n- Remove message content from push notification previews (privacy)\n- Replace querySelector with getElementById (DOM selector injection)\n- Validate chatId as UUID before notification navigation (open redirect)\n- Move OneSignal App ID to EXPO_PUBLIC_ONESIGNAL_APP_ID env var\n- Add CSP, X-Content-Type-Options, X-Frame-Options, Referrer-Policy headers\n- Split overly permissive chat UPDATE RLS into scoped policies\n- Add database CHECK constraint for 15-min edit window (TOCTOU fix)\n- Add display name sanitization + database length constraints\n- Use crypto.getRandomValues() for chat code generation\n- Remove placeholder push tokens (return null instead)\n- Clean up verbose Edge Function logging that leaked data\n\nTags: security, bugfix, privacy, rls, csp, notifications\nComplexity: 4\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: security-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_014U3rmSp48YxMqy3jrS4rQ8",
+  "tags": [
+    "security",
+    "auth",
+    "validation"
+  ],
+  "complexity": 4,
+  "risk": "high",
+  "debt": "paid",
+  "epic": "security-hardening",
+  "semver": "minor",
+  "scope": null,
+  "title": "comprehensive security hardening from audit findings",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 357,
+    "deletions": 71
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "app/+html.tsx",
+    "components/ChatPanel.tsx",
+    "components/MessageBubble.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "services/chat.ts",
+    "services/notifications.ts",
+    "services/onesignal.ts",
+    "supabase/functions/send-notification/index.ts",
+    "supabase/migrations/20260305000000_security_hardening.sql",
+    "vercel.json"
+  ],
+  "repo_id": "synctone",
+  "urgency": 4,
+  "impact": "user-facing"
+}

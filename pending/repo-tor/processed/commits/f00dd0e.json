@@ -1,0 +1,44 @@
+{
+  "sha": "f00dd0e",
+  "fullSha": "f00dd0eb2ef71a7dbcb8b7090e3972bd2aefc00d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T12:04:53Z",
+  "commitDate": "2026-01-19T12:04:53Z",
+  "subject": "fix: add cache-busting to prevent stale data.json on GitHub Pages",
+  "body": "Appends git commit hash as query parameter during deployment to ensure\nbrowsers always fetch the latest data file after each deployment.",
+  "tags": [
+    "bugfix",
+    "deployment"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "deployment",
+  "semver": "patch",
+  "scope": null,
+  "title": "add cache-busting to prevent stale data.json on GitHub Pages",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 20,
+    "deletions": 0
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

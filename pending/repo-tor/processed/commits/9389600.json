@@ -1,0 +1,47 @@
+{
+  "sha": "9389600",
+  "fullSha": "9389600a7e7e840a32ced6d28d484ac8235e5ea8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T00:17:34Z",
+  "commitDate": "2026-01-19T00:17:34Z",
+  "subject": "feat: add multi-repo management with config and update script",
+  "body": "- Created config/repos.json to track repository URLs\n- Created scripts/update-all.sh to automate extraction/aggregation\n- Updated ADMIN_GUIDE.md with managed repos workflow\n- Simplified .gitignore: track all reports/, ignore .repo-cache/\n- Updated SESSION_NOTES.md and HISTORY.md\n\nRepos can now be added to config once and re-extracted anytime\nby running: ./scripts/update-all.sh",
+  "tags": [
+    "feature",
+    "config"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "multi-repo",
+  "semver": "minor",
+  "scope": null,
+  "title": "add multi-repo management with config and update script",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 252,
+    "deletions": 6
+  },
+  "files": [
+    ".gitignore",
+    "config/repos.json",
+    "docs/ADMIN_GUIDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/update-all.sh"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

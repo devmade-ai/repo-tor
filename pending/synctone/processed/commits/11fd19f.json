@@ -1,0 +1,56 @@
+{
+  "sha": "11fd19f",
+  "fullSha": "11fd19fe0fd381db91f34027a87bfbea25432f62",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T21:41:42Z",
+  "commitDate": "2026-03-02T21:41:42Z",
+  "subject": "fix(docs,types,quality): comprehensive audit fixes",
+  "body": "Bug fix:\n- Fix runtime error in useNotifications.ts: setIsEnabled() does not\n  exist (isEnabled is derived). Set underlying states instead.\n\nType safety:\n- Add missing onesignal_player_id to AppInstance interface\n- Add missing ended_by to Chat interface\n\nDead code removal:\n- Remove 15 unused tone category color tokens from theme.js and\n  tailwind.config.js (old 5-category system replaced by custom tones)\n- Remove unused imports: LinearGradient (ChatListItem), Platform\n  (InstallInstructionsModal), Dimensions (TutorialModal), useCallback\n  (MessageBubble), ChatInsert/ChatWithParticipants (chat.ts),\n  registerWebPushServiceWorker/getOneSignalPermissionStatus\n  (useNotifications)\n- Remove unused noop variable from logger.ts\n\nDocumentation:\n- Rewrite README.md: fix tone system description (was 25 tones / 5\n  categories, now 6 defaults + custom), remove references to deleted\n  useToneUsage/toneUsage/tone_usage, fix PUSH_NOTIFICATIONS_SETUP\n  link, remove false LICENSE claim, fix package.json metadata\n- CLAUDE.md: add utils/debugLog.ts to project structure, fix\n  EXTRACTION_PLAYBOOK.md reference (file doesn't exist)\n- Fix stale onesignal.ts comments referencing web/index.html\n  (should be app/+html.tsx)\n- Fix package.json name/description/author from template leftovers\n\nTags: docs, type-safety, dead-code, bugfix, cleanup\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01Fhkb1mVtQPFdmLVbTkkNEH",
+  "tags": [
+    "bugfix",
+    "docs",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-quality-audit",
+  "semver": "patch",
+  "scope": "docs,types,quality",
+  "title": "comprehensive audit fixes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 39,
+    "deletions": 159
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "components/ChatListItem.tsx",
+    "components/InstallInstructionsModal.tsx",
+    "components/MessageBubble.tsx",
+    "components/TutorialModal.tsx",
+    "hooks/useNotifications.ts",
+    "package.json",
+    "services/chat.ts",
+    "services/onesignal.ts",
+    "styles/theme.js",
+    "tailwind.config.js",
+    "types/database.ts",
+    "utils/logger.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

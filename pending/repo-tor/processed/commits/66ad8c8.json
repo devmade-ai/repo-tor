@@ -1,0 +1,45 @@
+{
+  "sha": "66ad8c8",
+  "fullSha": "66ad8c8fd451778e7ffc2301041b72e4094da377",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-21T06:58:25Z",
+  "commitDate": "2026-01-21T06:58:25Z",
+  "subject": "feat: global filters across all dashboard tabs",
+  "body": "- Move filter bar above tabs (always visible)\n- Add filter indicator showing \"X of Y\" when active\n- Apply filters to all tabs (Work, Health, etc.) not just Activity\n- Update all render functions to use getFilteredCommits()\n- Preserve filter state across repo switches with validation\n\nPreviously filters only affected the commit list on the Activity tab.\nNow all charts, stats, and breakdowns respect the active filters.",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "dashboard-filters",
+  "semver": "minor",
+  "scope": null,
+  "title": "global filters across all dashboard tabs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 172,
+    "deletions": 87
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

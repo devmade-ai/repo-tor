@@ -1,0 +1,43 @@
+{
+  "sha": "b27e603",
+  "fullSha": "b27e60318726976a9c8afb6939d243419940c1ea",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T15:28:31Z",
+  "commitDate": "2026-01-19T15:28:31Z",
+  "subject": "refactor: separate script extraction from AI tagging",
+  "body": "Scripts now extract raw data only (empty tags, null complexity):\n- extract.js: Removes tag parsing logic, outputs tags: [], complexity: null\n- aggregate.js: Passes through empty tags (no 'other' default)\n\nAI (@data persona) will analyze each commit and assign:\n- tags[] based on playbook guidelines\n- complexity (1-5) based on files changed + tag count\n\nUpdated EXTRACTION_PLAYBOOK.md with new two-stage process.",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "data-architecture",
+  "semver": "minor",
+  "scope": null,
+  "title": "separate script extraction from AI tagging",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 87,
+    "deletions": 156
+  },
+  "files": [
+    "docs/EXTRACTION_PLAYBOOK.md",
+    "scripts/aggregate.js",
+    "scripts/extract.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

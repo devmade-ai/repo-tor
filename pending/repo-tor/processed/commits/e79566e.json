@@ -1,0 +1,44 @@
+{
+  "sha": "e79566e",
+  "fullSha": "e79566e9abf39e69857dade06755ba725dad098d",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "committer": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2026-01-18T22:37:49Z",
+  "commitDate": "2026-01-18T22:37:49Z",
+  "subject": "fix: include data.json in GitHub Pages deployment",
+  "body": "The deploy workflow was copying dashboard/index.html but not\ndashboard/data.json, causing 404 errors on the live site when\nthe dashboard tried to auto-load data.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "bugfix",
+    "deployment"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "deployment",
+  "semver": "patch",
+  "scope": null,
+  "title": "include data.json in GitHub Pages deployment",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 18,
+    "deletions": 1
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

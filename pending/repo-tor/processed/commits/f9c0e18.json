@@ -1,0 +1,44 @@
+{
+  "sha": "f9c0e18",
+  "fullSha": "f9c0e1801d009e84f4380159f8afb0701ce0f474",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T22:11:01Z",
+  "commitDate": "2026-01-19T22:11:01Z",
+  "subject": "feat: add urgency and impact dimensions to commit analysis schema",
+  "body": "Two new dimensions for richer commit insights:\n\nUrgency (1-5): How critical was the change?\n- Captures reactive vs planned work patterns\n- Helps identify operational health (high urgency = problems)\n\nImpact (internal/user-facing/infrastructure/api): Who is affected?\n- Shows where effort goes\n- Distinguishes building vs maintaining vs supporting\n\nUpdated EXTRACTION_PLAYBOOK.md with guidelines, examples, and schema.",
+  "tags": [
+    "feature",
+    "schema"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "urgency-impact",
+  "semver": "minor",
+  "scope": null,
+  "title": "add urgency and impact dimensions to commit analysis schema",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 121,
+    "deletions": 34
+  },
+  "files": [
+    "docs/EXTRACTION_PLAYBOOK.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

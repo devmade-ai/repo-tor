@@ -1,0 +1,45 @@
+{
+  "sha": "ffb09e4",
+  "fullSha": "ffb09e4de159f72bafc1e867998bf3ad086eb80d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T16:41:12Z",
+  "commitDate": "2026-01-19T16:41:12Z",
+  "subject": "refactor: new extraction architecture with two triggers",
+  "body": "- \"hatch the chicken\" = full reset, AI analyzes ALL commits\n- \"feed the chicken\" = incremental, AI analyzes only NEW commits\n- processed/ folder is source of truth (persistent)\n- reports/ folder removed (was ephemeral)\n- Deleted scripts/tag-commits.js (AI analyzes directly)",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "data-architecture",
+  "semver": "minor",
+  "scope": null,
+  "title": "new extraction architecture with two triggers",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 214,
+    "deletions": 350
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/EXTRACTION_PLAYBOOK.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/tag-commits.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

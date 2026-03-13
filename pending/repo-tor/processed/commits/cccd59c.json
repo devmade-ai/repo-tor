@@ -1,0 +1,44 @@
+{
+  "sha": "cccd59c",
+  "fullSha": "cccd59c1804b69e9426e725eae3a8151fc65cc48",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-01-19T12:38:00Z",
+  "commitDate": "2026-01-19T12:38:00Z",
+  "subject": "fix: Summary tab zeros and tag display order inconsistency",
+  "body": "- Fix date range comparison to include full day (commits after midnight)\n- Add endOfDay() helper to set end times to 23:59:59.999\n- Sort tags by count before rendering chart for consistent order\n- Update docs with fix details",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dashboard-bugfixes",
+  "semver": "patch",
+  "scope": null,
+  "title": "Summary tab zeros and tag display order inconsistency",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 51,
+    "deletions": 12
+  },
+  "files": [
+    "dashboard/index.html",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

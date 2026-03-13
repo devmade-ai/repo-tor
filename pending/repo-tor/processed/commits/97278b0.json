@@ -1,0 +1,60 @@
+{
+  "sha": "97278b0",
+  "fullSha": "97278b0a19548f8f36b7018a8ca5edfcaa4739a3",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "committer": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2026-01-20T17:40:52Z",
+  "commitDate": "2026-01-20T17:40:52Z",
+  "subject": "chore: add automatic cleanup to extraction process",
+  "body": "- Update playbook to document automatic cleanup after repo completion\n- Remove redundant files for completed repos (chatty-chart, repo-tor, social-ad-creator)\n- Keep only metadata.json in reports/ for completed repos\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+  "tags": [
+    "config",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "data-extraction",
+  "semver": "patch",
+  "scope": null,
+  "title": "add automatic cleanup to extraction process",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 19,
+    "additions": 31,
+    "deletions": 29058
+  },
+  "files": [
+    "docs/EXTRACTION_PLAYBOOK.md",
+    "reports/chatty-chart/commits.json",
+    "reports/chatty-chart/contributors.json",
+    "reports/chatty-chart/data.json",
+    "reports/chatty-chart/files.json",
+    "reports/chatty-chart/metadata.json",
+    "reports/chatty-chart/summary.json",
+    "reports/repo-tor/commits.json",
+    "reports/repo-tor/contributors.json",
+    "reports/repo-tor/data.json",
+    "reports/repo-tor/files.json",
+    "reports/repo-tor/metadata.json",
+    "reports/repo-tor/summary.json",
+    "reports/social-ad-creator/commits.json",
+    "reports/social-ad-creator/contributors.json",
+    "reports/social-ad-creator/data.json",
+    "reports/social-ad-creator/files.json",
+    "reports/social-ad-creator/metadata.json",
+    "reports/social-ad-creator/summary.json"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "internal"
+}
