@@ -1,0 +1,48 @@
+{
+  "sha": "9e4d9d0",
+  "fullSha": "9e4d9d047a0378f3d391ea398f98c8708df86573",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-25T13:43:39Z",
+  "commitDate": "2026-02-25T13:43:39Z",
+  "subject": "feat(ui): add import format guide and sample CSV to burger menu",
+  "body": "New menu items below a divider:\n- \"Import Format\" — explains required columns, date formats, amount\n  handling, and includes a copy-pasteable AI prompt for converting\n  bank statements into the right CSV structure.\n- \"Sample CSV\" — 25-row realistic sample file rendered in a code block\n  for easy copying/testing.\n\nBoth use the existing HelpDrawer + Vite ?raw pattern.\n\nTags: ui, import, docs, menu, help\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: help-system\nSemver: minor\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
+  "tags": [
+    "feature",
+    "ui",
+    "ux",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "codebase-review",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "add import format guide and sample CSV to burger menu",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 211,
+    "deletions": 3
+  },
+  "files": [
+    "docs/IMPORT_FORMAT.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md",
+    "docs/sample-import.csv",
+    "src/components/AppLayout.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

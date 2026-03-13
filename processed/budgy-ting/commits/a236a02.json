@@ -1,0 +1,49 @@
+{
+  "sha": "a236a02",
+  "fullSha": "a236a027ddaf9297f622612d94f1148595612e13",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-03T02:51:07Z",
+  "commitDate": "2026-03-03T02:51:07Z",
+  "subject": "docs(audit): sync all documentation with actual codebase state",
+  "body": "Full codebase audit revealed documentation drift after Budget→Workspace\nrename and category→tags migration. README project structure was missing\n12 components, 6 composables, and 2 subdirectories. PRODUCT_DEFINITION\nstill referenced \"budget\" throughout and listed 4 unused dependencies\n(ApexCharts, Fuse.js, date-fns, Papa Parse). CLAUDE.md referenced a\nnon-existent EXTRACTION_PLAYBOOK.md file. USER_GUIDE still called the\nmulti-tag input \"Category\". Code comment in ExpensesTab used old terms.\n\nTags: docs, cleanup\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01W6iyg87n2BTiZpzzJ22Mv3",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "docs-audit",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "sync all documentation with actual codebase state",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 349,
+    "deletions": 423
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/AI_MISTAKES.md",
+    "docs/HISTORY.md",
+    "docs/PRODUCT_DEFINITION.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md",
+    "src/views/ExpensesTab.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,62 @@
+{
+  "sha": "799ef88",
+  "fullSha": "799ef889676f48ecff98a8621ba3d723f794ca12",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-25T06:56:35Z",
+  "commitDate": "2026-02-25T06:56:35Z",
+  "subject": "refactor(views): split ImportWizard, migrate to shared components, add error boundary",
+  "body": "Split ImportWizardView (747 lines) into 4 step sub-components under\nviews/import-steps/, reducing the parent to ~130 lines. Migrated all 9\nview files to use shared ErrorAlert/LoadingSpinner/EmptyState components,\neliminating 15+ instances of duplicated markup. Added ErrorBoundary to\nwrap RouterView and prevent white-screen crashes. Optimized category\nautocomplete to use Dexie index queries. Added 19 exportImport tests.\n\nTags: refactoring, testing, architecture, a11y, ux\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: codebase-cleanup\nSemver: patch\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
+  "tags": [
+    "refactor",
+    "error-handling"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "codebase-review",
+  "semver": "patch",
+  "scope": "views",
+  "title": "split ImportWizard, migrate to shared components, add error boundary",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 21,
+    "additions": 1149,
+    "deletions": 750
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/App.vue",
+    "src/components/ErrorBoundary.vue",
+    "src/composables/useCategoryAutocomplete.ts",
+    "src/engine/exportImport.test.ts",
+    "src/views/BudgetCreateView.vue",
+    "src/views/BudgetDetailView.vue",
+    "src/views/BudgetEditView.vue",
+    "src/views/BudgetListView.vue",
+    "src/views/CompareTab.vue",
+    "src/views/ExpenseCreateView.vue",
+    "src/views/ExpenseEditView.vue",
+    "src/views/ExpensesTab.vue",
+    "src/views/ImportWizardView.vue",
+    "src/views/ProjectedTab.vue",
+    "src/views/import-steps/ImportStepComplete.vue",
+    "src/views/import-steps/ImportStepMapping.vue",
+    "src/views/import-steps/ImportStepReview.vue",
+    "src/views/import-steps/ImportStepUpload.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

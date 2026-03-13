@@ -1,0 +1,53 @@
+{
+  "sha": "29d46dd",
+  "fullSha": "29d46dd8e7f42cb014d2734c5cda00a3c7088e3c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T10:05:24Z",
+  "commitDate": "2026-03-02T10:05:24Z",
+  "subject": "fix(quality): resolve prop mutation, timer leaks, O(n²) lookup, and missing error boundary",
+  "body": "Code review audit identified and fixed several quality issues:\n\n- ImportStepReview: emit events instead of mutating props directly (bug)\n- ExpenseForm, HelpDrawer, DebugPill, useTagAutocomplete: add onUnmounted\n  cleanup for setTimeout calls that could leak on component unmount\n- variance.ts: replace expenses.find() inside loop with Map lookup (O(n²)→O(n))\n- ProjectedTab: wrap calculateProjection computed in try-catch\n\nTags: code-quality, timer-leak, prop-mutation, performance, error-handling\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-review-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01CgLA691ZEhYQe5XCGYtWu8",
+  "tags": [
+    "bugfix",
+    "performance",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review-audit",
+  "semver": "patch",
+  "scope": "quality",
+  "title": "resolve prop mutation, timer leaks, O(n²) lookup, and missing error boundary",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 119,
+    "deletions": 51
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/ExpenseForm.vue",
+    "src/components/HelpDrawer.vue",
+    "src/composables/useTagAutocomplete.ts",
+    "src/debug/DebugPill.vue",
+    "src/engine/variance.ts",
+    "src/views/ImportWizardView.vue",
+    "src/views/ProjectedTab.vue",
+    "src/views/import-steps/ImportStepReview.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

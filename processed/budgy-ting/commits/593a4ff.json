@@ -1,0 +1,64 @@
+{
+  "sha": "593a4ff",
+  "fullSha": "593a4ff0ee1834a66624ff854ee2d14179826f86",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T02:38:23Z",
+  "commitDate": "2026-03-02T02:38:23Z",
+  "subject": "feat(forecast): replace stored balance with ephemeral cash-on-hand input",
+  "body": "Remove the persisted startingBalance concept from Workspace and replace\nit with a lightweight, non-stored \"Cash on hand\" input on the Forecast\ntab. Users enter how much cash they have and instantly see how long it\nlasts based on the forecast — without persisting the value.\n\nRemoved:\n- Cashflow tab (CashflowTab.vue, router, tab nav)\n- Cashflow engine (engine/cashflow.ts + tests)\n- Envelope engine (engine/envelope.ts + tests)\n- startingBalance from Workspace type, form, demo data\n- Envelope summary from CompareTab\n\nAdded:\n- Cash on hand input on ProjectedTab with month-by-month runway calc\n- Shows \"Runs out in [month]\", \"Cash is growing\", or \"Lasts all N months\"\n\nUpdated:\n- Export/import strips legacy startingBalance/totalBudget on import\n- All docs (USER_GUIDE, TESTING_GUIDE, README, HISTORY, SESSION_NOTES)\n\nTags: forecast, balance, cashflow, ux, cleanup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: cash-runway\nSemver: major\n\nhttps://claude.ai/code/session_01BtCbpzUbAGfsxrS1w51HqB",
+  "tags": [
+    "feature",
+    "ux",
+    "removal"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "cash-runway",
+  "semver": "major",
+  "scope": "forecast",
+  "title": "replace stored balance with ephemeral cash-on-hand input",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 22,
+    "additions": 232,
+    "deletions": 1443
+  },
+  "files": [
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md",
+    "src/components/WorkspaceForm.vue",
+    "src/db/demoData.ts",
+    "src/engine/cashflow.test.ts",
+    "src/engine/cashflow.ts",
+    "src/engine/envelope.test.ts",
+    "src/engine/envelope.ts",
+    "src/engine/exportImport.test.ts",
+    "src/engine/exportImport.ts",
+    "src/engine/projection.ts",
+    "src/router/index.ts",
+    "src/types/models.ts",
+    "src/views/CashflowTab.vue",
+    "src/views/CompareTab.vue",
+    "src/views/ProjectedTab.vue",
+    "src/views/WorkspaceCreateView.vue",
+    "src/views/WorkspaceDetailView.vue",
+    "src/views/WorkspaceEditView.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

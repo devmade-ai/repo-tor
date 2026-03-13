@@ -1,0 +1,51 @@
+{
+  "sha": "c627507",
+  "fullSha": "c6275079adeb788eabb540d672ff4b6657c7c4b8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-25T13:31:52Z",
+  "commitDate": "2026-02-25T13:31:52Z",
+  "subject": "feat(ui): add burger menu with in-app help drawers",
+  "body": "Replace the standalone \"?\" help button with a hamburger menu that provides\naccess to the tutorial, User Guide, and Test Scenarios. Guides render as\nslide-out drawers using `marked` to parse the markdown docs imported at\nbuild time via Vite ?raw.\n\nAlso fixes a pre-existing TS2352 type error in exportImport.ts (double\ncast through `unknown`).\n\nTags: ui, help, menu, drawer, markdown, docs\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: help-system\nSemver: minor\n\nhttps://claude.ai/code/session_01Cz1AZhnaVwR4Q127NSDgQs",
+  "tags": [
+    "feature",
+    "ui",
+    "ux",
+    "dependency-add"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "codebase-review",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "add burger menu with in-app help drawers",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 289,
+    "deletions": 29
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md",
+    "package-lock.json",
+    "package.json",
+    "src/components/AppLayout.vue",
+    "src/components/HelpDrawer.vue",
+    "src/engine/exportImport.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

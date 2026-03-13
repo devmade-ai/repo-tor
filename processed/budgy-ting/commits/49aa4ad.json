@@ -1,0 +1,48 @@
+{
+  "sha": "49aa4ad",
+  "fullSha": "49aa4ada40113592c7674dc1c3d55e302e7f3440",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-27T08:49:21Z",
+  "commitDate": "2026-02-27T08:49:21Z",
+  "subject": "infra(deploy): migrate from GitHub Pages to Vercel",
+  "body": "GitHub Pages requires base-path hacks, 404.html SPA routing workaround,\nand manual env var injection for subpath deployments. Vercel handles all\nof this natively with rewrites.\n\nChanges:\n- Delete .github/workflows/deploy.yml\n- Add vercel.json with SPA rewrite rule\n- Remove VITE_BASE_URL env var and dynamic base path from vite.config.ts\n- Hardcode PWA manifest id/scope/start_url to '/'\n- Remove GitHub Pages comment from router config\n- Update README.md and PRODUCT_DEFINITION.md deployment sections\n\nTags: deployment, vercel, infrastructure, pwa\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: vercel-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01KKfRgpgJUSQ7Yt81bi3Q1H",
+  "tags": [
+    "hosting",
+    "removal",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "deploy-vercel",
+  "semver": "patch",
+  "scope": "deploy",
+  "title": "migrate from GitHub Pages to Vercel",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 18,
+    "deletions": 85
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "README.md",
+    "docs/PRODUCT_DEFINITION.md",
+    "src/router/index.ts",
+    "vercel.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "infrastructure"
+}
