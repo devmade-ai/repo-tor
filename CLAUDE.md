@@ -84,7 +84,7 @@ Good: "This file doesn't look like a dashboard data file. Try exporting from the
 
 - [ ] Remove all temporary files after implementation is complete
 - [ ] Delete unused imports, variables, and dead code immediately
-- [ ] Remove commented-out code unless explicitly marked for preservation
+- [ ] Remove commented-out code unless explicitly marked `// KEEP:` with reason
 - [ ] Clean up console.log/print statements before marking work complete
 
 ### Quality Checks
@@ -109,7 +109,7 @@ Report findings even if not directly related to current task.
 **URL:** `https://raw.githubusercontent.com/devmade-ai/glow-props/main/CLAUDE.md`
 
 Shared coding standards, patterns, and suggested implementations across devmade-ai projects.
-Check periodically for new patterns to adopt. Last reviewed: 2026-02-26.
+Check periodically for new patterns to adopt. Last reviewed: 2026-03-13.
 
 **Adopted patterns:**
 - PWA install prompt race condition fix (inline `beforeinstallprompt` capture in HTML)
@@ -117,6 +117,11 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-02-26.
 - SVG → PNG icon generation pipeline via Sharp
 - Commit metadata footers (complexity, urgency, impact, risk, debt, epic, semver)
 - Debug system (in-memory event store, floating pill — adapted to HTML-level for crash resilience)
+- Download as PDF via `window.print()` (`no-print` class, print-friendly CSS overrides)
+- Trigger system (10 single-word analysis commands with `start`/`go` sweep)
+- `// KEEP:` convention for preserved commented-out code
+- Bug report clarification rule (ask before fixing)
+- Prohibition: no interactive prompts, no feature removal during cleanup without checking docs
 
 ---
 
@@ -215,6 +220,34 @@ COMPONENT_STRUCTURE=feature-based (js/sections/, js/components/)
 COMMIT_FORMAT=conventional commits (see docs/COMMIT_CONVENTION.md)
 ```
 
+### Commit Message Metadata Footers
+
+All commits must include metadata footers (see `docs/COMMIT_CONVENTION.md` for full guide):
+
+```
+type(scope): subject
+
+Body explaining why.
+
+Tags: tag1, tag2, tag3
+Complexity: 1-5
+Urgency: 1-5
+Impact: internal|user-facing|infrastructure|api
+Risk: low|medium|high
+Debt: added|paid|neutral
+Epic: feature-name
+Semver: patch|minor|major
+```
+
+**Tags:** Relevant tags for the change (e.g., documentation, pwa, debug, ui, refactor, testing)
+**Complexity:** 1=trivial, 2=small, 3=medium, 4=large, 5=major rewrite
+**Urgency:** 1=planned, 2=normal, 3=elevated, 4=urgent, 5=critical
+**Impact:** internal, user-facing, infrastructure, or api
+**Risk:** low=safe change, medium=could break things, high=touches critical paths
+**Debt:** added=introduced shortcuts, paid=cleaned up debt, neutral=neither
+**Epic:** groups related commits under one feature/initiative name
+**Semver:** patch=bugfix, minor=new feature, major=breaking change
+
 ---
 
 # My Preferences
@@ -255,7 +288,7 @@ COMMIT_FORMAT=conventional commits (see docs/COMMIT_CONVENTION.md)
 - [ ] Update docs/SESSION_NOTES.md with current state
 - [ ] Update docs/USER_GUIDE.md if dashboard UI or interpretation changed
 - [ ] Update docs/ADMIN_GUIDE.md if setup, extraction, or configuration changed
-- [ ] Update docs/USER_TESTING.md if new test scenarios needed
+- [ ] Update docs/USER_TESTING.md if new test scenarios needed (use structured format: step-by-step actions, where to click/look, expected results, regression checklist)
 - [ ] Update other relevant docs (COMMIT_CONVENTION.md, etc.)
 - [ ] Add entry to docs/HISTORY.md if code/docs changed
 - [ ] Commit changes (code + docs together)
@@ -302,7 +335,7 @@ Default mode is development. Use `@data` to switch when needed.
 
 **Focus:** Data extraction and processing
 
-- Running the extraction playbook
+- Running data operations (see docs/DATA_OPERATIONS.md)
 - Processing git data from repositories
 - Generating and analyzing reports
 - Data quality and aggregation tasks
@@ -311,7 +344,48 @@ Default mode is development. Use `@data` to switch when needed.
 - **"hatch the chicken"** - Full reset: delete everything, AI analyzes ALL commits from scratch
 - **"feed the chicken"** - Incremental: AI analyzes only NEW commits not yet processed
 
-See `docs/EXTRACTION_PLAYBOOK.md` for details.
+See `docs/DATA_OPERATIONS.md` for details.
+
+---
+
+## Triggers
+
+Single-word commands that invoke focused analysis passes. Each trigger has a short alias. Type the word or alias to activate.
+
+| # | Trigger | Alias | What it does |
+|---|---------|-------|--------------|
+| 1 | `review` | `rev` | Code review — bugs, UI, UX, simplification |
+| 2 | `audit` | `aud` | Code quality — hacks, anti-patterns, latent bugs, race conditions |
+| 3 | `docs` | `doc` | Documentation accuracy vs actual code |
+| 4 | `mobile` | `tap` | Mobile UX — touch targets, viewport, safe areas |
+| 5 | `clean` | `cln` | Hygiene — duplication, refactor candidates, dead code |
+| 6 | `performance` | `perf` | Re-renders, expensive ops, bundle size, DB/API, memory |
+| 7 | `security` | `sec` | Injection, auth gaps, data exposure, insecure defaults, CVEs |
+| 8 | `debug` | `dbg` | Debug pill coverage — missing logs, noise |
+| 9 | `improve` | `imp` | Open-ended — architecture, DX, anything else |
+| 10 | `start` | `go` | Sequential sweep of all 9 above, one at a time |
+
+### Trigger behavior
+
+- Each trigger runs a single focused pass and reports findings.
+- Findings are listed as numbered text — never interactive prompts or selection UIs.
+- One trigger per response. Never combine multiple triggers in a single response.
+
+### `start` / `go` behavior
+
+Runs all 9 triggers in priority sequence, one at a time:
+
+`rev` → `aud` → `doc` → `tap` → `cln` → `perf` → `sec` → `dbg` → `imp`
+
+After each trigger completes and findings are presented, the user responds with one of:
+1. `fix` — apply the suggested fixes, then move to the next trigger
+2. `skip` — skip this trigger's findings and move to the next trigger
+3. `stop` — end the sweep entirely
+
+Rules:
+- Always pause after each trigger — never auto-advance to the next one.
+- Never run multiple triggers in one response.
+- Wait for the user's explicit `fix`, `skip`, or `stop` before proceeding.
 
 ---
 
@@ -350,7 +424,9 @@ Never:
 - Use silent `.catch(() => {})` — always handle specific errors (see AI Lessons)
 - Hardcode values that should come from CSS variables or config (see AI Lessons)
 - Document or recommend features that haven't been tested (see AI Lessons)
-- Improvise extraction/analysis workflows — follow `docs/EXTRACTION_PLAYBOOK.md` exactly, step by step, using the exact formats documented (see AI Lessons)
+- Improvise extraction/analysis workflows — follow `docs/DATA_OPERATIONS.md` exactly, step by step, using the exact formats documented (see AI Lessons)
+- Use interactive input prompts or selection UIs — list options as numbered text instead
+- Remove features during "cleanup" without checking if they're documented as intentional (see AI Lessons)
 
 ---
 
@@ -361,5 +437,6 @@ Never:
 - **Document your mistakes** in docs/AI_LESSONS.md so future sessions learn from them
 - **Verify before assuming** - Read the actual code before claiming what it does. Don't describe behavior based on file names, comments, or assumptions — check the implementation. If the user describes how something works, compare it against the actual code rather than agreeing without verification.
 - **Fix root causes, not symptoms** - When something isn't working, find out WHY before writing code. Don't add workarounds (globals, duplicate listeners, flag variables) to patch over an architectural issue. If the fix requires touching 3+ files to coordinate shared state, that's a smell — look for a simpler structural change. Example: if a module loads too late, make it load earlier — don't add a global cache to bridge the gap.
+- **ASK before assuming on bug reports** - When a user reports a bug, ask clarifying questions (which mode? what did you type? what do you see?) BEFORE writing code. Don't guess the cause and build a fix on an assumption — one clarifying question saves multiple wrong commits.
 
 ---

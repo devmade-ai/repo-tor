@@ -375,7 +375,7 @@ The git log format uses `---COMMIT_DELIMITER---` as a separator. If a commit mes
 
 ### 8.2 Documentation is excellent (POSITIVE)
 
-The project has thorough documentation: `CLAUDE.md`, `SESSION_NOTES.md`, `AI_LESSONS.md`, `TODO.md`, `HISTORY.md`, `USER_GUIDE.md`, `ADMIN_GUIDE.md`, `USER_TESTING.md`, `EXTRACTION_PLAYBOOK.md`, `COMMIT_CONVENTION.md`, and an ADR. The AI lessons file documenting past mistakes is an unusually mature practice.
+The project has thorough documentation: `CLAUDE.md`, `SESSION_NOTES.md`, `AI_LESSONS.md`, `TODO.md`, `HISTORY.md`, `USER_GUIDE.md`, `ADMIN_GUIDE.md`, `USER_TESTING.md`, `DATA_OPERATIONS.md`, `COMMIT_CONVENTION.md`, and an ADR. The AI lessons file documenting past mistakes is an unusually mature practice.
 
 ### 8.3 `config/author-map.json` vs `.example` (NOTE)
 

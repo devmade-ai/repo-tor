@@ -6,7 +6,7 @@
  * for the analytics dashboard.
  *
  * NOTE: This script extracts RAW data only. Tags and complexity are left
- * empty for AI analysis via the @data persona (see EXTRACTION_PLAYBOOK.md).
+ * empty for AI analysis via the @data persona (see DATA_OPERATIONS.md).
  *
  * Usage: node extract.js [repo-path] [--output=reports/]
  */

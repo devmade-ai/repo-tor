@@ -2,6 +2,44 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-03-13
+
+### Batch Preamble + Playbook Rename
+
+**Why:** Analysis instructions were buried in the playbook doc, so each AI session had to find and re-read them. Embedding instructions directly in every batch file ensures they're always read with the data.
+
+**What:**
+1. **Created `config/batch-preamble.md`** — Standalone analysis instructions extracted from the playbook: tag vocabulary, scoring rubrics, review format, special cases, what's expected, what's not allowed, when unsure, and why the process exists
+2. **Updated `scripts/pending.js`** — Reads preamble at startup and embeds it as a `preamble` field in every batch JSON file
+3. **Renamed `docs/EXTRACTION_PLAYBOOK.md` → `docs/DATA_OPERATIONS.md`** — Trimmed duplicated content (tagging guidelines, scoring rubrics, review format) and replaced with references to the preamble
+4. **All fields now required** — risk, debt, epic, semver are no longer optional. AI must best-guess from context rather than leaving blanks, because AI understands commit intent better than scripts
+5. **Updated all references** — CLAUDE.md, SESSION_NOTES.md, AI_LESSONS.md, CODE_REVIEW.md, COMMIT_CONVENTION.md, ANALYSIS_GUIDE.md, extract.js, aggregate.js
+
+**Alternatives considered:**
+- Separate preamble file alongside batches: Rejected — easy to miss, not guaranteed to be read
+- Inline instructions in pending.js: Rejected — hard to maintain, can't be reviewed independently
+- Keep fields optional: Rejected — blanks break downstream processing; AI contextual understanding produces more accurate output than scripts
+
+---
+
+### glow-props CLAUDE.md Sync — 8 New Patterns Adopted
+
+**Why:** Periodic review of the cross-project glow-props CLAUDE.md revealed patterns not yet adopted in repo-tor.
+
+**What:**
+1. **Trigger system** — 10 single-word analysis commands (`review`/`rev`, `audit`/`aud`, `docs`/`doc`, `mobile`/`tap`, `clean`/`cln`, `performance`/`perf`, `security`/`sec`, `debug`/`dbg`, `improve`/`imp`, `start`/`go`) with `fix`/`skip`/`stop` flow control
+2. **Download as PDF** — `window.print()` pattern with `no-print` class and print-friendly CSS overrides
+3. **Commit metadata footers** — Full format with field definitions added to CLAUDE.md (Tags, Complexity, Urgency, Impact, Risk, Debt, Epic, Semver)
+4. **`// KEEP:` convention** — Commented-out code must use `// KEEP:` with reason to be preserved
+5. **Prohibition: no interactive prompts** — List options as numbered text instead
+6. **Prohibition: no feature removal during cleanup** — Must check if documented as intentional first
+7. **Bug report ASK rule** — Ask clarifying questions before writing code for bug reports
+8. **TESTING_GUIDE.md format** — Structured test scenarios (step-by-step actions, expected results, regression checklist)
+
+**Alternatives considered:** N/A — these are cross-project standards to adopt.
+
+---
+
 ## 2026-03-04
 
 ### Cross-Tab Audit — 6 Fixes

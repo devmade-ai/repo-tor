@@ -25,6 +25,21 @@ import { getManifestPath, readManifest, writeManifest, PROCESSED_DIR } from './l
 const BATCH_SIZE = 25;
 const REPORTS_DIR = 'reports';
 const PENDING_DIR = 'pending';
+const PREAMBLE_PATH = 'config/batch-preamble.md';
+
+// Requirement: Every batch must include analysis instructions so the AI reads them with each file
+// Approach: Read preamble once at startup, embed as string field in every batch JSON
+// Alternatives:
+//   - Separate file alongside batches: Rejected — easy to miss, not guaranteed to be read
+//   - Inline in pending.js: Rejected — hard to maintain, can't be reviewed independently
+function readPreamble() {
+  if (!fs.existsSync(PREAMBLE_PATH)) {
+    console.error(`  WARNING: Preamble not found at ${PREAMBLE_PATH}`);
+    console.error('  Batches will be generated without analysis instructions.');
+    return null;
+  }
+  return fs.readFileSync(PREAMBLE_PATH, 'utf-8');
+}
 
 // === Manifest Management ===
 
@@ -71,7 +86,7 @@ function getExtractedCommits(repoId) {
 // Alternatives:
 //   - Direct rmSync + mkdirSync: Rejected — interruption between them loses data
 //   - In-place file-by-file delete: Rejected — still non-atomic, more complex
-function writePendingBatches(repoId, commits) {
+function writePendingBatches(repoId, commits, preamble) {
   const pendingDir = path.join(PENDING_DIR, repoId, 'batches');
   const pendingTmp = path.join(PENDING_DIR, repoId, 'batches-tmp');
   const pendingOld = path.join(PENDING_DIR, repoId, 'batches-old');
@@ -109,13 +124,17 @@ function writePendingBatches(repoId, commits) {
     const batchCommits = commits.slice(i, i + BATCH_SIZE);
     const batchFile = path.join(pendingTmp, `batch-${String(batchNum).padStart(3, '0')}.json`);
 
-    fs.writeFileSync(batchFile, JSON.stringify({
+    const batchData = {
       batch: batchNum,
       totalBatches: totalBatches,
       startIndex: i,
       count: batchCommits.length,
       commits: batchCommits
-    }, null, 2));
+    };
+    if (preamble) {
+      batchData.preamble = preamble;
+    }
+    fs.writeFileSync(batchFile, JSON.stringify(batchData, null, 2));
   }
 
   // Requirement: Prevent data loss if process is interrupted between sequential renames
@@ -172,7 +191,7 @@ function getRepoIds() {
   return Array.from(repoIds).sort();
 }
 
-function processRepo(repoId, rebuildManifest) {
+function processRepo(repoId, rebuildManifest, preamble) {
   console.log(`\nProcessing ${repoId}...`);
 
   // Get or rebuild manifest
@@ -197,8 +216,8 @@ function processRepo(repoId, rebuildManifest) {
   const pendingCommits = allCommits.filter(c => !processedSet.has(c.sha));
   console.log(`  Pending: ${pendingCommits.length} commits`);
 
-  // Write pending batches
-  const batchCount = writePendingBatches(repoId, pendingCommits);
+  // Write pending batches (with preamble embedded in each)
+  const batchCount = writePendingBatches(repoId, pendingCommits, preamble);
 
   return {
     repoId,
@@ -229,9 +248,14 @@ function main() {
 
   console.log(`\nFound ${repoIds.length} repositories: ${repoIds.join(', ')}`);
 
+  const preamble = readPreamble();
+  if (preamble) {
+    console.log(`\nPreamble loaded from ${PREAMBLE_PATH} (${preamble.length} chars)`);
+  }
+
   const results = [];
   for (const repoId of repoIds) {
-    results.push(processRepo(repoId, rebuildManifests));
+    results.push(processRepo(repoId, rebuildManifests, preamble));
   }
 
   // Summary

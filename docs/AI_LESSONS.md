@@ -25,7 +25,7 @@ Mistakes and oversights made by AI assistants during development. Document these
 **Files affected:**
 - `scripts/extract-api.js` - The untested script
 - `scripts/update-all.sh` - Defaults to API mode (risky)
-- `docs/EXTRACTION_PLAYBOOK.md` - Documents API extraction as if it works
+- `docs/DATA_OPERATIONS.md` - Documents API extraction as if it works
 
 ---
 
@@ -260,7 +260,7 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 
 ## 2026-03-02: Skipped extraction playbook format and process steps
 
-**What happened:** During "feed the chicken," read the EXTRACTION_PLAYBOOK.md but then ignored the documented review format and process. Presented commits in a custom format (markdown code block with abbreviated fields) instead of the exact format specified. Did not plan to use `merge-analysis.js` on approval — was about to write analysis some other way. The user had to call this out.
+**What happened:** During "feed the chicken," read the DATA_OPERATIONS.md but then ignored the documented review format and process. Presented commits in a custom format (markdown code block with abbreviated fields) instead of the exact format specified. Did not plan to use `merge-analysis.js` on approval — was about to write analysis some other way. The user had to call this out.
 
 **Why it's a problem:**
 - The review format exists for human review efficiency — custom formats make it harder to scan
@@ -269,7 +269,7 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 - User trust erodes when documented workflows are ignored
 
 **What should have happened:**
-1. After reading EXTRACTION_PLAYBOOK.md, follow it step-by-step — no improvisation
+1. After reading DATA_OPERATIONS.md, follow it step-by-step — no improvisation
 2. Use the exact review format shown in the "Review Format" section
 3. On approval, pipe only analysis fields to `merge-analysis.js` as documented
 4. When a process document exists, treat it as a specification, not a suggestion
@@ -277,7 +277,7 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 **Current status:** Fixed — added pre-flight checklist to the playbook, strengthened prescriptive language in the review format section, added prohibition to CLAUDE.md, and documented this lesson.
 
 **Files affected:**
-- `docs/EXTRACTION_PLAYBOOK.md` — Added pre-flight checklist and stronger format language
+- `docs/DATA_OPERATIONS.md` — Added pre-flight checklist and stronger format language
 - `CLAUDE.md` — Added prohibition against improvising extraction workflows
 - `docs/AI_LESSONS.md` — This entry
 
