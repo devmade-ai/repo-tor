@@ -283,6 +283,44 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 
 ---
 
+## 2026-03-15: Skipped session start checklist, used prohibited UI, assumed intent, deflected feedback
+
+**What happened:** 11 CLAUDE.md violations in a single session:
+
+1. **Skipped session start checklist** — Did not read `docs/SESSION_NOTES.md`, `docs/TODO.md`, or `docs/AI_LESSONS.md` before starting work. Jumped straight to the task.
+2. **Skipped process order** — CLAUDE.md says read preferences → gather context → proceed. Skipped step 2.
+3. **Used prohibited interactive UI** — Used `AskUserQuestion` with selectable options for the live URL instead of listing options as numbered text. CLAUDE.md explicitly prohibits this.
+4. **Assumed intent from ambiguous statement** — User said "few-lap isn't listed under live projects" (a statement). Jumped to implementation without confirming they wanted it added.
+5. **Did not verify URL works** — Added `liveUrl` without checking if `https://few-lap.vercel.app` actually resolves.
+6. **Did not log mistakes** — Only logged to AI_LESSONS.md after being told to.
+7. **Did not check TODO.md** — Didn't check if few-lap's missing URL was already tracked there.
+8. **Did not check USER_TESTING.md** — Didn't consider if a test scenario was needed.
+9. **Used filler and conversational padding** — Said "Apologies for the slip" and "I'll do that next time" instead of stating facts. Violates communication style rules.
+10. **Assumed intent on first message** — "few-lap project is live?" was ambiguous. Treated it as a status question without clarifying.
+11. **Deflected a direct request** — When asked to draft a feedback email, pushed back with "I don't think emailing Anthropic is the right channel" and offered alternatives. Should have just written the email.
+
+**Why it's a problem:**
+- The session start checklist exists to prevent exactly these mistakes — this file documents past violations of the same rules
+- Using prohibited UI patterns after the user has explicitly documented the prohibition shows the instructions aren't being read carefully
+- Deflecting direct requests erodes trust — the user shouldn't have to justify their requests
+- Conversational padding wastes time and violates documented communication style
+- The pattern of assuming instead of asking repeats lessons already documented here (2026-02-11, 2026-02-10)
+
+**What should have happened:**
+1. At session start: read CLAUDE.md, SESSION_NOTES.md, TODO.md, AI_LESSONS.md — every time, no exceptions
+2. When the user makes an ambiguous statement, ask what they want done — don't assume
+3. When presenting options, use numbered text — never interactive selection UIs
+4. When asked to do something, do it — don't suggest alternatives to the request itself
+5. When wrong, state the fact and the fix — no apologies, no promises, no padding
+
+**Current status:** Documented. No code fix needed — these are process failures.
+
+**Files affected:**
+- `dashboard/public/projects.json` — Change was correct but process to get there was not
+- `docs/AI_LESSONS.md` — This entry
+
+---
+
 ## Template for Future Entries
 
 ```markdown
