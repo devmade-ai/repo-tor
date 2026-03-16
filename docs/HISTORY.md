@@ -2,6 +2,17 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-03-15
+
+### few-lap added to Live Projects
+
+**Why:** few-lap is deployed on Vercel but was missing its `liveUrl` in `projects.json`, so it appeared under "Other Repositories" instead of "Live Projects" in the dashboard.
+
+**What:**
+1. Added `liveUrl: "https://few-lap.vercel.app"` to few-lap's entry in `dashboard/public/projects.json`
+
+---
+
 ## 2026-03-13
 
 ### Batch Preamble + Playbook Rename

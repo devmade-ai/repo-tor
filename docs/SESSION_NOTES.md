@@ -6,7 +6,10 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent section layouts, and PWA support.
 
-**Recent Updates (2026-03-13 — Batch Preamble + Playbook Rename):**
+**Recent Updates (2026-03-15 — few-lap live URL):**
+- Added `liveUrl` for few-lap in `projects.json` so it appears under Live Projects in the dashboard
+
+**Previous Updates (2026-03-13 — Batch Preamble + Playbook Rename):**
 - Created `config/batch-preamble.md` — analysis instructions embedded in every batch by `pending.js`
 - Renamed `docs/EXTRACTION_PLAYBOOK.md` → `docs/DATA_OPERATIONS.md` — trimmed duplicated content, references preamble
 - All analysis fields now required (no blanks) — risk, debt, epic, semver no longer optional
