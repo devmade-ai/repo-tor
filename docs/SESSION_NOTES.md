@@ -6,7 +6,11 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent section layouts, and PWA support.
 
-**Recent Updates (2026-03-15 — few-lap live URL):**
+**Recent Updates (2026-03-23 — Documentation audit fixes):**
+- Fixed README.md: `js/tabs/` → `js/sections/` (stale directory reference from March 4 rename)
+- Fixed CLAUDE.md: `TABS_PATH=dashboard/js/tabs` → `SECTIONS_PATH=dashboard/js/sections` (stale path constant)
+
+**Previous Updates (2026-03-15 — few-lap live URL):**
 - Added `liveUrl` for few-lap in `projects.json` so it appears under Live Projects in the dashboard
 
 **Previous Updates (2026-03-13 — Batch Preamble + Playbook Rename):**

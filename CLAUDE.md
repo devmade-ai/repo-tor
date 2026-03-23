@@ -197,7 +197,7 @@ Executive and Management views show interpretation guidance hints; Developer vie
 ```
 DOCS_PATH=/docs
 COMPONENTS_PATH=dashboard/js/components
-TABS_PATH=dashboard/js/tabs
+SECTIONS_PATH=dashboard/js/sections
 STYLES_PATH=dashboard/styles.css
 SCRIPTS_PATH=scripts
 ```

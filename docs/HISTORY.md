@@ -2,6 +2,18 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-03-23
+
+### Documentation audit fixes
+
+**Why:** Cross-repo documentation audit found stale references from the March 4 `tabs/` → `sections/` rename that were missed during the prior codebase audit.
+
+**What:**
+1. Fixed README.md: `js/tabs/` directory reference → `js/sections/` with updated description
+2. Fixed CLAUDE.md: `TABS_PATH=dashboard/js/tabs` → `SECTIONS_PATH=dashboard/js/sections`
+
+---
+
 ## 2026-03-15
 
 ### few-lap added to Live Projects
