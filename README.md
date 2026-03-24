@@ -58,7 +58,7 @@ dashboard/
   js/chartColors.js              # Centralized chart color system (embed overrides)
   js/pwa.js                     # PWA install/update logic
   js/components/                # Shared components (Header, TabBar, DropZone, etc.)
-  js/tabs/                      # Tab components (SummaryTab, TimelineTab, etc.)
+  js/sections/                  # Section components (Summary, Timeline, Timing, etc.)
   js/hooks/                     # Custom hooks (useFocusTrap, useHealthData)
   public/                       # Static assets (data.json, projects.json, icons)
 scripts/
