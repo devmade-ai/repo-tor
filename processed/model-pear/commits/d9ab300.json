@@ -1,0 +1,55 @@
+{
+  "sha": "d9ab300",
+  "fullSha": "d9ab300b37d74d6d4a5b5812e9c3d96911412f0c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-03T02:55:55Z",
+  "commitDate": "2026-03-03T02:55:55Z",
+  "subject": "docs(audit): sync documentation with actual code, add decision comments",
+  "body": "Comprehensive audit found docs had drifted from the TypeScript/SvelteKit\ncodebase. CLAUDE.md referenced 15 non-existent .js files from pre-migration\narchitecture. BUSINESS_GUIDE.md had completely different variant names for\nModels 3-6. Code files lacked required decision documentation comments.\n\n- CLAUDE.md: Replace all stale .js paths with actual Svelte/TS components,\n  fix model filenames, add 4 missing docs to table, fix Troubleshooting\n- BUSINESS_GUIDE.md: Update variant names for Models 3, 4, 5, 6 to match code\n- README.md: Fix variant counts (Model 3: 8, Model 4: 8)\n- model-use-cases (all 6): Remove dead concept file links, fix variant counts\n- model-6-saas.ts: Add decision docs (why simpler than Models 1-2)\n- pricing/+page.svelte: Document equilibrium formula and 40% heuristic\n- structuring/[model]/+page.svelte: Document progressive disclosure pattern\n- Create /docs/working/ directory (referenced in CLAUDE.md but missing)\n\nTags: docs, audit, comments, models, ui\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01M7W3iEEDAzHCjaCijSZmij",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "docs-audit",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "sync documentation with actual code, add decision comments",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 168,
+    "deletions": 89
+  },
+  "files": [
+    "CLAUDE.md",
+    "apps/web/src/routes/pricing/+page.svelte",
+    "apps/web/src/routes/structuring/[model]/+page.svelte",
+    "docs/BUSINESS_GUIDE.md",
+    "docs/HISTORY.md",
+    "docs/README.md",
+    "docs/SESSION_NOTES.md",
+    "docs/model-use-cases/model-1-development-services.md",
+    "docs/model-use-cases/model-2-software-licence.md",
+    "docs/model-use-cases/model-3-joint-development.md",
+    "docs/model-use-cases/model-4-build-operate-transfer.md",
+    "docs/model-use-cases/model-5-software-sale.md",
+    "docs/model-use-cases/model-6-saas-subscription.md",
+    "docs/working/.gitkeep",
+    "packages/calculator/src/models/model-6-saas.ts"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "internal"
+}
