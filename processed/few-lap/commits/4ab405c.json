@@ -1,0 +1,45 @@
+{
+  "sha": "4ab405c",
+  "fullSha": "4ab405ccfdb5110187630fdfe24043ee4c527bb4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T13:16:58Z",
+  "commitDate": "2026-03-13T13:16:58Z",
+  "subject": "fix(mobile): touch targets, responsive chart, SafeAreaView consistency",
+  "body": "StationMarker: minHeight 28 → 44 to meet WCAG AA 44x44px touch target.\n\nAdmin action buttons: added explicit minHeight: 44 for reliable touch\ntarget sizing across font scaling levels.\n\nPriceHistoryChart: replaced hardcoded 160px height with responsive\ncalculation (22% of screen height, clamped 120-160px) using\nuseWindowDimensions. Prevents chart from consuming 28% of iPhone SE.\n\nAdmin login: wrapped KeyboardAvoidingView in SafeAreaView for\nconsistent notch/inset handling on all admin screens.\n\nTags: mobile, ux, accessibility, wcag, responsive\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01Gt5imLcUKsHSwAxVv1jrE8",
+  "tags": [
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "touch targets, responsive chart, SafeAreaView consistency",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 22,
+    "deletions": 7
+  },
+  "files": [
+    "app/admin/index.tsx",
+    "app/admin/login.tsx",
+    "src/components/map/StationMarker.tsx",
+    "src/components/station/PriceHistoryChart.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

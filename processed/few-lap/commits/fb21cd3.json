@@ -1,0 +1,60 @@
+{
+  "sha": "fb21cd3",
+  "fullSha": "fb21cd36985e8c603ef795bb0cb915e8cd61a4bd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-11T07:57:35Z",
+  "commitDate": "2026-03-11T07:57:35Z",
+  "subject": "fix: resolve remaining codebase review issues (round 4)",
+  "body": "Address all outstanding items from the 48-file codebase review:\n\n- Replace hardcoded #FFFFFF with LightTheme.textOnPrimary across 8 files\n- Fix Math.min(...spread) crash risk in StationCard and StationList sort\n- Extract inline styles to StyleSheet in StationList and admin index\n- Add shared ErrorState component, replace duplicated error UI in 3 screens\n- Fix admin station edit to save coordinates alongside details (single save)\n- Add migration for update_station_coordinates NOT FOUND error handling\n- Fix font-size !important override in +html.tsx\n- Type FuelMap camera ref (remove `any`)\n- Fix BottomSheet cursor: 'grab' type cast\n- Fix BurgerMenu web-specific top offset via Platform.select\n- Simplify price history limit to fixed constant\n- Add edge case tests for formatPrice, formatDistance, formatDate\n- Add formatOperatingHours and formatAmenity test coverage\n\nAll 52 tests pass.\n\nTags: review, cleanup, testing, ui, security\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: codebase-review\nSemver: patch\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": null,
+  "title": "resolve remaining codebase review issues (round 4)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 19,
+    "additions": 212,
+    "deletions": 54
+  },
+  "files": [
+    "app/+html.tsx",
+    "app/admin/bulk-update.tsx",
+    "app/admin/index.tsx",
+    "app/admin/login.tsx",
+    "app/admin/station/[id].tsx",
+    "app/station/[id].tsx",
+    "src/components/admin/CoordinatePicker.tsx",
+    "src/components/map/FuelMap.tsx",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/pwa/InstallPrompt.tsx",
+    "src/components/pwa/UpdatePrompt.tsx",
+    "src/components/station/PriceHistoryChart.tsx",
+    "src/components/station/StationCard.tsx",
+    "src/components/station/StationList.tsx",
+    "src/components/ui/BottomSheet.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/components/ui/ErrorState.tsx",
+    "src/lib/__tests__/formatting.test.ts",
+    "supabase/migrations/20260311000001_fix_update_coords_not_found.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

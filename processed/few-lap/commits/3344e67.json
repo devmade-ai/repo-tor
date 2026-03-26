@@ -1,0 +1,51 @@
+{
+  "sha": "3344e67",
+  "fullSha": "3344e67945464a85596f678f6bae892f2d64ae3d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T01:03:19Z",
+  "commitDate": "2026-03-08T01:03:19Z",
+  "subject": "fix: resolve 11 bugs found during codebase review (round 2)",
+  "body": "Fixes from comprehensive screen-level review covering admin, auth,\nmap, persistence, and database layers.\n\n- Admin: non-admin users now see explicit denial message instead of\n  silent redirect loop (_layout.tsx → login.tsx?error=not_admin)\n- StationMarker: removed duplicate onSelected handler that caused\n  double navigation on native tap\n- useAppTheme: functional updater for toggleTheme prevents stale closure\n- useAuth: memoize context value to prevent unnecessary consumer re-renders\n- usePersistedState: move AsyncStorage.setItem out of setState updater\n  (React may call updaters multiple times in StrictMode)\n- useRecentSearches: fix double-prefixed storage key\n  (fuelhunt_fuelhunt_ → fuelhunt_)\n- alert.ts: cancelable: false on Android prevents unresolved Promise\n  when user taps outside dialog\n- database.ts: bulk_update_regulated_price returns number, not void\n- bulk_price_update.sql: validate fuel type is regulated before updating\n- price_history trigger: set search_path on SECURITY DEFINER function\n\nTags: bugfix, review, auth, persistence, database, ui\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: codebase-review\nSemver: patch\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": null,
+  "title": "resolve 11 bugs found during codebase review (round 2)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 61,
+    "deletions": 22
+  },
+  "files": [
+    "app/admin/_layout.tsx",
+    "app/admin/login.tsx",
+    "src/components/map/StationMarker.tsx",
+    "src/hooks/useAppTheme.ts",
+    "src/hooks/useAuth.ts",
+    "src/hooks/usePersistedState.ts",
+    "src/hooks/useRecentSearches.ts",
+    "src/lib/alert.ts",
+    "src/types/database.ts",
+    "supabase/migrations/20260305000004_bulk_price_update.sql",
+    "supabase/migrations/20260307000001_fix_price_history_trigger_rls.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

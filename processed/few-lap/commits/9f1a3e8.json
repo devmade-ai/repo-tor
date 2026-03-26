@@ -1,0 +1,52 @@
+{
+  "sha": "9f1a3e8",
+  "fullSha": "9f1a3e8b238fd85cd3ce8a5653b3f1281a688aef",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-11T08:11:00Z",
+  "commitDate": "2026-03-11T08:11:00Z",
+  "subject": "fix: harden hooks and components against edge cases (round 5)",
+  "body": "Address 11 issues found during deep code review:\n\n- FuelMapWeb: Replace Math.min(...spread) with reduce (crash on empty array)\n- usePWAUpdate: Clean up statechange listeners to prevent memory leak stacking\n- useFuelTypes: Add mountedRef guard to prevent setState after unmount\n- CoordinatePicker: Compare coordinates numerically instead of as strings\n  (fixes false positive change detection with trailing zeros)\n- LocationSearch: Add mountedRef guard in fetchSuggestions finally block\n- useAppTheme: Change context default to null, add null checks in\n  useAppTheme/useThemeMode (matches useAuth pattern for provider boundary)\n- Station detail: Guard prices[0] access with null check (empty array crash)\n- Admin login: Sanitize error message length (slice to 200 chars)\n- PriceEditor: Remove fuelTypes.length from dep array (anti-pattern)\n- Admin layout: Remove router from useEffect dep array (unstable reference)\n- useRecentSearches: Validate coordinates in isDuplicate to prevent NaN bypass\n\nAll 52 tests pass.\n\nTags: review, hardening, hooks, memory-leak, edge-cases\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: codebase-review\nSemver: patch\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": null,
+  "title": "harden hooks and components against edge cases (round 5)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 93,
+    "deletions": 25
+  },
+  "files": [
+    "app/admin/_layout.tsx",
+    "app/admin/login.tsx",
+    "app/station/[id].tsx",
+    "src/components/admin/CoordinatePicker.tsx",
+    "src/components/admin/PriceEditor.tsx",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/hooks/useAppTheme.ts",
+    "src/hooks/useFuelTypes.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "src/hooks/useRecentSearches.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

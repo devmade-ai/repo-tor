@@ -1,0 +1,56 @@
+{
+  "sha": "d2b5d6e",
+  "fullSha": "d2b5d6ee18ac8ba8d01b2fe5c4b138a86d5bdc1c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T21:19:55Z",
+  "commitDate": "2026-03-07T21:19:55Z",
+  "subject": "fix: resolve 15 bugs from codebase review across UI, auth, data, and DB layers",
+  "body": "Critical fixes:\n- DB trigger SECURITY DEFINER + price change guard (RLS was blocking price_history inserts)\n- Auth getSession catch prevents infinite loading spinner on network errors\n- Station detail: guard against undefined id, bound price_history query, safe tel: links\n- usePriceHistory: request ID pattern prevents stale data on rapid fuel type switching\n- PriceHistoryChart: reset selectedFuelType when prices prop changes (station navigation)\n- BottomSheet: use ref for keyboard visibility to fix stale closure in visualViewport handler\n- Admin layout: render loading state during redirect to prevent content flash\n- Admin station list: separate initial load from refresh to preserve list during pull-to-refresh\n- showAlert: add Promise<boolean> overload for two-arg confirm pattern (was void)\n- usePersistedState: support functional updater pattern for derived state updates\n\nMinor fixes:\n- share.ts: robust cancel detection via err.name + coordinate validation\n- PriceTrend: use theme colors for dark mode contrast + React.memo\n- BurgerMenu: fix double border, catch async errors in setTimeout callbacks\n- LocationSearch: clean up blur timer on unmount, add maxHeight to recent searches\n- useRecentSearches: validate coordinates against NaN/Infinity\n\nTags: bugfix, security, ui, data-integrity, dark-mode, auth\nComplexity: 4\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: codebase-review\nSemver: patch\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "bugfix",
+    "security"
+  ],
+  "complexity": 4,
+  "risk": "high",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": null,
+  "title": "resolve 15 bugs from codebase review across UI, auth, data, and DB layers",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 244,
+    "deletions": 76
+  },
+  "files": [
+    "app/admin/_layout.tsx",
+    "app/admin/index.tsx",
+    "app/station/[id].tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/components/station/PriceHistoryChart.tsx",
+    "src/components/station/PriceTrend.tsx",
+    "src/components/ui/BottomSheet.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/hooks/useAuth.ts",
+    "src/hooks/usePersistedState.ts",
+    "src/hooks/usePriceHistory.ts",
+    "src/hooks/useRecentSearches.ts",
+    "src/lib/alert.ts",
+    "src/lib/share.ts",
+    "supabase/migrations/20260307000001_fix_price_history_trigger_rls.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

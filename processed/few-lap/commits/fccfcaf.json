@@ -1,0 +1,48 @@
+{
+  "sha": "fccfcaf",
+  "fullSha": "fccfcaf3dd6932ff25a0f24b9d77024ca52f28d5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T19:06:38Z",
+  "commitDate": "2026-03-13T19:06:38Z",
+  "subject": "refactor(clean): extract shared utilities, reduce duplication",
+  "body": "findCheapestPrice(): Extracted duplicated reduce-based cheapest price\nlogic from 5 files (StationCard, FuelMapWeb, StationMarker, StationList,\nshare.ts) into a shared utility in formatting.ts.\n\nstationValidation.ts: Extracted 150 lines of validation logic from\nbulk-import.tsx (723 → 574 lines) into a separate, testable module.\n\nTags: refactor, clean, duplication, extraction\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01Gt5imLcUKsHSwAxVv1jrE8",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-hygiene",
+  "semver": "patch",
+  "scope": "clean",
+  "title": "extract shared utilities, reduce duplication",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 175,
+    "deletions": 172
+  },
+  "files": [
+    "app/admin/bulk-import.tsx",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/map/StationMarker.tsx",
+    "src/components/station/StationCard.tsx",
+    "src/components/station/StationList.tsx",
+    "src/lib/formatting.ts",
+    "src/lib/stationValidation.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

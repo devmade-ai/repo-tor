@@ -1,0 +1,43 @@
+{
+  "sha": "5f79700",
+  "fullSha": "5f7970013f0be3c93ec99767753eda4106178e63",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T19:41:49Z",
+  "commitDate": "2026-03-12T19:41:49Z",
+  "subject": "fix(types): add missing Station fields to object constructors",
+  "body": "useStations.ts groupByStation() and station/[id].tsx fetchStation() were\nconstructing StationWithPrices objects without the new fields (suburb,\nprovince, loyalty_programs, food_partners, convenience_partner, atm_banks,\npayment_methods, truck_friendly, source_id) added to the Station interface.\nThis would cause TypeScript errors at compile time.\n\nTags: types, fix, bulk-import\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: bulk-import\nSemver: patch\n\nhttps://claude.ai/code/session_016TH1ngDtxc1chAu7S7eU74",
+  "tags": [
+    "bugfix",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "bulk-import",
+  "semver": "patch",
+  "scope": "types",
+  "title": "add missing Station fields to object constructors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 18,
+    "deletions": 0
+  },
+  "files": [
+    "app/station/[id].tsx",
+    "src/hooks/useStations.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}
