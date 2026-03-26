@@ -1,0 +1,47 @@
+{
+  "sha": "2117eeb",
+  "fullSha": "2117eebf265ab1fb8f34947e993f0214433e88da",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-25T20:07:34Z",
+  "commitDate": "2026-03-25T20:07:34Z",
+  "subject": "fix(lint): resolve all ESLint errors and harden PWA manifest",
+  "body": "Three pre-existing lint issues fixed:\n\n1. usePWAInstall.ts — setState called synchronously in useEffect.\n   Moved early beforeinstallprompt consumption to module-level variable\n   so both useRef initializer and useState initializer read it without\n   triggering cascading renders or reading refs during render.\n\n2. DebugBanner.tsx — useCallback missing canInstall dependency.\n   Added canInstall to the dependency array so diagnostics re-run\n   when install state changes.\n\n3. vite.config.ts — PWA manifest missing id and prefer_related_applications.\n   Added id: '/' for stable app identity across redeployments and\n   prefer_related_applications: false to prevent Chrome from suppressing\n   the beforeinstallprompt event.\n\nESLint now passes with 0 errors, 0 warnings.\n\nTags: lint, pwa, hooks, code-quality\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01Dua8Xbp3cH9mgvvtK9FuLo",
+  "tags": [
+    "bugfix",
+    "lint",
+    "pwa"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dark-theme",
+  "semver": "patch",
+  "scope": "lint",
+  "title": "resolve all ESLint errors and harden PWA manifest",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 54,
+    "deletions": 25
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/DebugBanner.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "vite.config.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "internal"
+}

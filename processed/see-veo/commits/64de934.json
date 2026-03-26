@@ -1,0 +1,46 @@
+{
+  "sha": "64de934",
+  "fullSha": "64de934967d5a272f24289fbcfc22cc72288998e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-24T20:49:42Z",
+  "commitDate": "2026-03-24T20:49:42Z",
+  "subject": "fix(data): correct project accent colors to match actual app brand colors",
+  "body": "Checked each deployed project's source code for actual primary/brand colors.\n7 of 9 were wrong. Updated all to match.\n\nNotable decisions:\n- Sancio: actual brand is #1e293b (dark slate) — too dark to be visible as\n  an accent on #0a0a0a background, so using #64748b (slate-500) instead\n- model-pear and repo-tor both genuinely use #2D68FF — kept accurate\n\nTags: data, projects, styling, visual-identity\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-redesign\nSemver: patch\n\nhttps://claude.ai/code/session_01Dua8Xbp3cH9mgvvtK9FuLo",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dark-theme",
+  "semver": "patch",
+  "scope": "data",
+  "title": "correct project accent colors to match actual app brand colors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#1",
+    "#0",
+    "#64748",
+    "#2"
+  ],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 9,
+    "deletions": 9
+  },
+  "files": [
+    "src/data/cv-data.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

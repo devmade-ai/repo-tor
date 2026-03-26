@@ -1,0 +1,47 @@
+{
+  "sha": "41585be",
+  "fullSha": "41585be4db799bafddc828b8b9bab0670b669ae9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-25T05:45:36Z",
+  "commitDate": "2026-03-25T05:45:36Z",
+  "subject": "fix(pwa): update theme-color and manifest colors to match new dark theme",
+  "body": "index.html and vite.config.ts still had the old navy (#0f172a) for\ntheme-color/background_color and old sky-blue (#38bdf8) for the Safari\nmask icon. Updated to match the current dark minimal palette:\n- theme-color / background_color: #0a0a0a (--color-background)\n- mask-icon color: #d4d4d4 (--color-primary)\n\nTags: pwa, styling, theme\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-redesign\nSemver: patch\n\nhttps://claude.ai/code/session_01Dua8Xbp3cH9mgvvtK9FuLo",
+  "tags": [
+    "bugfix",
+    "pwa",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dark-theme",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "update theme-color and manifest colors to match new dark theme",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#0",
+    "#38"
+  ],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 4,
+    "deletions": 4
+  },
+  "files": [
+    "index.html",
+    "vite.config.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}
