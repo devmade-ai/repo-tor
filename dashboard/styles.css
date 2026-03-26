@@ -1226,6 +1226,13 @@
 
         /* Mobile: Filter sidebar as overlay */
         @media (max-width: 768px) {
+            /* Requirement: Remove left gap on mobile caused by sidebar flex gap
+               Approach: Reset gap since sidebar is position:fixed overlay on mobile
+               Alternatives: Hide sidebar wrapper with display:none — rejected,
+               would break sidebar open/close transitions */
+            .dashboard-layout {
+                gap: 0;
+            }
             .filter-sidebar {
                 position: fixed;
                 top: 0;
