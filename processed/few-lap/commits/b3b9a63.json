@@ -1,0 +1,42 @@
+{
+  "sha": "b3b9a63",
+  "fullSha": "b3b9a63797fe56b308f214713c1e8686e0ed15f4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-21T19:12:09Z",
+  "commitDate": "2026-03-21T19:12:09Z",
+  "subject": "feat(data): add Overpass API transform script for OSM fuel station import",
+  "body": "Adds a Node.js script that transforms raw Overpass API data (OpenStreetMap\nfuel stations in South Africa) into the bulk-import JSON format accepted by\nthe bulk_insert_stations RPC function.\n\nThe Overpass API provides 4,215 fuel stations for SA in a single query.\nThe transform maps OSM tags to our station schema: brand (85%), phone (63%),\namenities, operating hours, loyalty programs, payment methods, and province.\n\n2,733 stations pass validation with 0 errors. The remaining 1,482 lack\naddress/city data in OSM and would need reverse geocoding to fill in.\n\nOutput is written as batched JSON files (1000 per batch) for safe import\nvia the admin bulk-import UI.\n\nUsage:\n  curl -sL --max-time 120 -X POST \\\n    -d 'data=[out:json][timeout:100];node[amenity=fuel](-35,16,-22,33);out body;' \\\n    \"https://overpass-api.de/api/interpreter\" -o data/overpass-raw.json\n  node scripts/transform-overpass.mjs\n\nTags: data, osm, overpass, bulk-import, extraction\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: data-extraction\nSemver: minor\n\nhttps://claude.ai/code/session_017p1nYkDcWwq15p9WAokeCx",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "data-extraction",
+  "semver": "minor",
+  "scope": "data",
+  "title": "add Overpass API transform script for OSM fuel station import",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 316,
+    "deletions": 0
+  },
+  "files": [
+    ".gitignore",
+    "scripts/transform-overpass.mjs"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

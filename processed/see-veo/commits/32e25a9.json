@@ -1,0 +1,42 @@
+{
+  "sha": "32e25a9",
+  "fullSha": "32e25a94beb053870b60a1f00c71f4944174fc15",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-25T19:55:01Z",
+  "commitDate": "2026-03-25T19:55:01Z",
+  "subject": "feat(fonts): load Inter from Google Fonts for consistent rendering",
+  "body": "Inter was declared in the CSS --font-sans token but never loaded\nexternally — only rendered for users with it installed locally.\nAdded preconnected Google Fonts link with weights 400/500/600/700.\nWorkbox runtime caching for Google Fonts was already configured.\n\nTags: styling, infrastructure\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: dark-theme\nSemver: patch\n\nhttps://claude.ai/code/session_01Dua8Xbp3cH9mgvvtK9FuLo",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "dark-theme",
+  "semver": "patch",
+  "scope": "fonts",
+  "title": "load Inter from Google Fonts for consistent rendering",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 0
+  },
+  "files": [
+    "index.html"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

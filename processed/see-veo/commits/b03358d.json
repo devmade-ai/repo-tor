@@ -1,0 +1,43 @@
+{
+  "sha": "b03358d",
+  "fullSha": "b03358d612b233c232a45de3ba5ab19a61493e55",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-25T05:46:55Z",
+  "commitDate": "2026-03-25T05:46:55Z",
+  "subject": "fix(pwa): split combined 'any maskable' icon into separate entries",
+  "body": "'any maskable' combined in a single icon entry causes browsers to pick\nthe wrong variant. Split into explicit purpose: 'any' (192 + 512) and\npurpose: 'maskable' (512). Reuses 512x512 for maskable until a\ndedicated 1024x1024 is generated (tracked in TODO.md).\n\nTags: pwa, a11y, infrastructure\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: patch\n\nhttps://claude.ai/code/session_01Dua8Xbp3cH9mgvvtK9FuLo",
+  "tags": [
+    "bugfix",
+    "pwa"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "split combined 'any maskable' icon into separate entries",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 12,
+    "deletions": 1
+  },
+  "files": [
+    "docs/TODO.md",
+    "vite.config.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

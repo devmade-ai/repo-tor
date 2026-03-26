@@ -1,0 +1,43 @@
+{
+  "sha": "6f278ff",
+  "fullSha": "6f278ff0a3f195b7894ccab3995a446bb5995a0c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-22T06:51:11Z",
+  "commitDate": "2026-03-22T06:51:11Z",
+  "subject": "fix(data): add 3-layer country filter with border zone detection",
+  "body": "The addr:country tag only covers ~5% of stations near borders (tested\non 110 elements in Eswatini border zone). Untagged stations with valid\naddress/city were being auto-accepted as ZA — a confirmed data integrity\nbug.\n\nThree-layer filter:\n1. addr:country tag rejects non-ZA when present\n2. Border zone detection routes untagged near-border stations to reverse\n   geocoding instead of auto-accepting\n3. Nominatim reverse geocode validates country_code === 'za'\n\nTested: Eswatini border zone — 5 accepted (tagged ZA), 104 routed to\ngeocode (untagged), 0 SA stations wrongly excluded.\n\nTags: data, osm, country-filter, testing\nComplexity: 3\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: data-extraction\nSemver: patch\n\nhttps://claude.ai/code/session_012GoRRuSkXvRWbQhj6XTrxn",
+  "tags": [
+    "bugfix",
+    "validation"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "data-extraction",
+  "semver": "patch",
+  "scope": "data",
+  "title": "add 3-layer country filter with border zone detection",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 70,
+    "deletions": 15
+  },
+  "files": [
+    "docs/DATA_EXTRACTION.md",
+    "scripts/transform-overpass.mjs"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "internal"
+}

@@ -1,0 +1,50 @@
+{
+  "sha": "db7bc77",
+  "fullSha": "db7bc770c52471925aaa86f4cd3fde2575c56805",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T11:08:55Z",
+  "commitDate": "2026-03-05T11:08:55Z",
+  "subject": "feat(auth): add admin auth system with login, route guard, and price editor check",
+  "body": "- Auth context (useAuth) with Supabase email/password sign-in\n- Login screen with validation, error feedback, password toggle\n- Admin layout route guard: redirects to login if not authenticated\n- PriceEditor: blocks saves if not admin (defense-in-depth over RLS)\n- BurgerMenu: shows sign-out option when admin is logged in\n- Feature-flag debug system behind __DEV__ (no-op in production)\n- Tighten price_history RLS: admin INSERT only (append-only history)\n\nTags: auth, security, admin, debug\nComplexity: 4\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: security\nSemver: minor\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "feature",
+    "auth",
+    "security"
+  ],
+  "complexity": 3,
+  "risk": "high",
+  "debt": "neutral",
+  "epic": "admin-auth",
+  "semver": "minor",
+  "scope": "auth",
+  "title": "add admin auth system with login, route guard, and price editor check",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 418,
+    "deletions": 26
+  },
+  "files": [
+    "app/_layout.tsx",
+    "app/admin/_layout.tsx",
+    "app/admin/login.tsx",
+    "src/components/admin/PriceEditor.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/debug/debugLog.ts",
+    "src/hooks/useAuth.ts",
+    "supabase/migrations/20260305000001_tighten_price_history_rls.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

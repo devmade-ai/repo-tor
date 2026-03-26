@@ -1,0 +1,47 @@
+{
+  "sha": "2c7a8a5",
+  "fullSha": "2c7a8a50fdc1c84405265b828abc48302b5fc6d6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T21:37:26Z",
+  "commitDate": "2026-03-07T21:37:26Z",
+  "subject": "fix(audit): hacks, dead code, stale closures, and perf from branch review",
+  "body": "Addresses findings from branch code review:\n\nHacks removed:\n- Remove arbitrary 300ms setTimeout in ChatPanel mark-as-read — isLoading\n  guard already ensures messages loaded, delay was unnecessary\n- Replace hardcoded production URL in send-notification Edge Function with\n  APP_BASE_URL env var (defaults to production, works in dev/staging)\n\nDead code removed:\n- Remove ineffective `mounted` guard in home.tsx web refetch — variable was\n  always true when checked, never set to false before the sync check\n\nPerformance:\n- Replace O(n log n) sort on every realtime message with O(1) prepend —\n  new messages are always newest, just insert at index 0\n- Same fix for optimistic message insertion on send\n\nBug fixes:\n- Fix stale closure in InAppNotification auto-dismiss timer — onDismiss\n  callback stored in ref so timer always calls latest version\n- Log polling and foreground refresh errors instead of silently swallowing\n\nTags: bugfix, performance, code-quality, cleanup\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-audit\nSemver: patch\n\nhttps://claude.ai/code/session_014U3rmSp48YxMqy3jrS4rQ8",
+  "tags": [
+    "bugfix",
+    "removal",
+    "performance"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "hacks, dead code, stale closures, and perf from branch review",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 46,
+    "deletions": 53
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "components/ChatPanel.tsx",
+    "components/InAppNotification.tsx",
+    "hooks/useMessages.ts",
+    "supabase/functions/send-notification/index.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,44 @@
+{
+  "sha": "5a765ea",
+  "fullSha": "5a765eaf506ba3b593749a667545a27290365eca",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-20T18:25:52Z",
+  "commitDate": "2026-03-20T18:25:52Z",
+  "subject": "fix(mobile): hide page management when bottom sheet is open",
+  "body": "Canvas was squeezed between the ContextBar's page management row and\nthe bottom sheet, leaving barely any room to see the design while\nediting. The pages row (thumbnails, add/duplicate/delete/move) isn't\nneeded during active editing — cell selector and undo/redo suffice.\n\nAdded compact prop to ContextBar that hides the pages row on mobile.\nPassed from App.jsx as compact={mobileSheetOpen} so pages auto-hide\nwhen the bottom sheet opens and reappear when it closes.\n\nTags: mobile, ux, layout, bottom-sheet\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01GzSbv6e59VaP7oagnp1Ec1",
+  "tags": [
+    "ui",
+    "ux",
+    "enhancement"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "mobile-layout",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "hide page management when bottom sheet is open",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 13,
+    "deletions": 5
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/ContextBar.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,46 @@
+{
+  "sha": "61c1ebf",
+  "fullSha": "61c1ebf90f38b804736901f6ca73417921aa0df4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-21T18:56:30Z",
+  "commitDate": "2026-03-21T18:56:30Z",
+  "subject": "refactor(mobile): move platform selection from Export tab to Presets tab",
+  "body": "Platform selection defines canvas dimensions — a foundational design decision\nthat should happen before layout/theme/content, not at export time. On mobile,\nthe platform selector was buried in the Export tab's bottom sheet. Now it\nappears as the first collapsible section in the Presets tab, creating a natural\nworkflow: platform → layout → theme → look.\n\nDesktop is unchanged (platform selector already lives above the canvas).\nExport tab on mobile now contains only download controls.\n\nChanges:\n- TemplatesTab: Added PlatformPreview as first section (conditional on mobile)\n- App.jsx: Pass onPlatformChange to TemplatesTab on mobile, remove\n  PlatformPreview from export section in BottomSheet\n- TutorialModal: Updated Presets step to mention Platform, updated Export\n  step to remove \"Pick a size\" and reference Presets tab instead\n- CLAUDE.md: Updated tab descriptions and mobile layout docs\n\nTags: ui, mobile, ux, presets, export\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01CRV4aj1PmzBQuzePsPBHxg",
+  "tags": [
+    "refactor",
+    "ux",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "minor",
+  "scope": "mobile",
+  "title": "move platform selection from Export tab to Presets tab",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 29,
+    "deletions": 15
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/App.jsx",
+    "src/components/TemplatesTab.jsx",
+    "src/components/TutorialModal.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

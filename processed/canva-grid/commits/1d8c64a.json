@@ -1,0 +1,45 @@
+{
+  "sha": "1d8c64a",
+  "fullSha": "1d8c64a27e89c04347a6d6ee4b8b76dd4a216b1e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T12:37:47Z",
+  "commitDate": "2026-03-08T12:37:47Z",
+  "subject": "refactor(content): move text alignment from Structure to Content tab",
+  "body": "Alignment controls are now in the Content tab as a collapsible section\nbelow the text editors. This makes more sense — alignment is a content\nconcern, not a structure concern, and it naturally follows the same\ncell selector used for editing text.\n\nRemoved from LayoutTab: alignment icons, options, helper functions,\nText Alignment CollapsibleSection, getCellInfo import, unused destructured vars.\n\nTags: content, layout, ux, simplification\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: content-editing\nSemver: minor\n\nhttps://claude.ai/code/session_012V7AguSge3Ngw25j72iiGX",
+  "tags": [
+    "refactor",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "content-tab-refactor",
+  "semver": "patch",
+  "scope": "content",
+  "title": "move text alignment from Structure to Content tab",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 132,
+    "deletions": 166
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/ContentTab.jsx",
+    "src/components/LayoutTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,48 @@
+{
+  "sha": "796e70a",
+  "fullSha": "796e70ab9a0353275507e4071d5822e0cf0894f4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-23T17:24:03Z",
+  "commitDate": "2026-03-23T17:24:03Z",
+  "subject": "docs: fix documentation issues — update README, create USER_GUIDE, fix stale references",
+  "body": "- README.md: Add missing features (workspaces, semantic duplicate detection,\n  AI label suggestions, bulk operations, import undo, connect mode, context menu),\n  fix stale claim of Markdown import support (JSON-only), update tech stack with\n  ML/embedding dependencies, remove references to nonexistent docs\n  (markdown-import-format.md, ai-research-output-guide.md), update project\n  structure with missing directories (duplicates/, workspaces/, workers/),\n  add CODEBASE_DOCUMENTATION.md reference, update config example with all options\n- docs/USER_GUIDE.md: New plain-language end-user guide covering all features\n  (workspaces, graph interaction, search, timeline, import/export, duplicate\n  detection, analysis, bulk editing, PWA installation, troubleshooting)\n- docs/CODEBASE_DOCUMENTATION.md: Fix stale pitfalls — update #16 (now semantic\n  matching, not title-only), #17 (clarify title-based arc resolution), #32 (bulk\n  edit exists now via BulkEditPanel), update import flow to document Smart Matching\n  step, fix component organization list\n- CLAUDE.md: Add USER_GUIDE.md and CODEBASE_DOCUMENTATION.md to project structure\n  and auto-updated documentation files table\n\nTags: docs, readme, user-guide, documentation-audit\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_01M9qLCmbppZQJMYoCBPzhBk",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "documentation",
+  "semver": "patch",
+  "scope": null,
+  "title": "fix documentation issues — update README, create USER_GUIDE, fix stale references",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#16",
+    "#17",
+    "#32"
+  ],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 285,
+    "deletions": 32
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/CODEBASE_DOCUMENTATION.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "a6020ca",
+  "fullSha": "a6020caf22ade983641a16aa02e814b426c77d7c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T02:24:23Z",
+  "commitDate": "2026-03-09T02:24:23Z",
+  "subject": "fix(ui): remove misleading cell borders from canvas preview overlay",
+  "body": "Unselected cells on the display canvas had a faint indigo border (1px solid\nrgba(99,102,241,0.15)) that looked like it would appear in the exported image,\nconfusing users. Changed to outline-based selection indicator that only appears\non the selected cell and on hover, keeping click-to-select functional without\nvisual clutter that misrepresents the export output.\n\nTags: ui, canvas, export\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cell-highlighting\nSemver: patch\n\nhttps://claude.ai/code/session_01C4FmDdg3AUrVBgCMsmkahH",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cell-highlighting",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "remove misleading cell borders from canvas preview overlay",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 9,
+    "deletions": 3
+  },
+  "files": [
+    "src/App.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

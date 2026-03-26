@@ -1,0 +1,44 @@
+{
+  "sha": "94ba28e",
+  "fullSha": "94ba28ee8fa081fe4904b9c41ba05a3b1c0b3a60",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-03T03:20:59Z",
+  "commitDate": "2026-03-03T03:20:59Z",
+  "subject": "fix(pwa): fix update notification re-appearing on every navigation",
+  "body": "Move update detection state from React component scope to module-level\nsingleton. Previously, each remount of home.tsx called register() which\nre-triggered server checks and updatefound events, causing the \"Update\nAvailable\" banner to reappear after every navigation.\n\nKey changes:\n- register() → getRegistration() to avoid re-triggering server checks\n- Module-level state persists across component mounts/unmounts\n- wasJustUpdated() sessionStorage guard for post-update reload edge case\n- Proper detection of existing waiting/installing workers on init\n\nTags: pwa, bugfix, service-worker, ui\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: patch\n\nhttps://claude.ai/code/session_01GtB5PKMvJpPGCipeXswVUv",
+  "tags": [
+    "bugfix",
+    "pwa"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "fix update notification re-appearing on every navigation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 197,
+    "deletions": 137
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

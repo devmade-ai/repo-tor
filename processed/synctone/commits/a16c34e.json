@@ -1,0 +1,43 @@
+{
+  "sha": "a16c34e",
+  "fullSha": "a16c34eb4a6ce212f791ca3a34e995dcc785efce",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T05:50:35Z",
+  "commitDate": "2026-03-04T05:50:35Z",
+  "subject": "fix(chat): always auto-scroll to bottom when user sends a message",
+  "body": "The auto-scroll logic in onContentSizeChange was gated by a scroll-position\nthreshold (100px from bottom). Layout changes from the compose bar resetting\nor keyboard interactions could push the scroll offset beyond this threshold\nafter sending, causing the user's own message to not be visible without\nmanual scrolling.\n\nRoot cause: sent messages were treated identically to received messages.\nWhen the user sends a message, they always expect to see it — the near-bottom\ncheck should only apply to incoming messages from other users.\n\nFix: Track when the user initiates a send via a ref flag. The\nonContentSizeChange handler bypasses the scroll-position threshold when\nthis flag is set, ensuring the user's sent message is always scrolled into\nview. The flag is cleared after scrolling.\n\nApplied to both ChatScreen (mobile) and ChatPanel (desktop).\n\nTags: bugfix, chat, scroll, ux\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: chat-experience\nSemver: patch\n\nhttps://claude.ai/code/session_015obKakd4Eo2YpkkPPciYDs",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "chat-ux",
+  "semver": "patch",
+  "scope": "chat",
+  "title": "always auto-scroll to bottom when user sends a message",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 24,
+    "deletions": 4
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "components/ChatPanel.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

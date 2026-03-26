@@ -1,0 +1,45 @@
+{
+  "sha": "8911792",
+  "fullSha": "8911792480a7eed85c917cef1cb936d66b5384ac",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-14T06:42:59Z",
+  "commitDate": "2026-03-14T06:42:59Z",
+  "subject": "refactor(ui): remove zoom controls feature entirely",
+  "body": "Zoom controls were broken on mobile (overflow clipping made them appear\nnon-functional) and added complexity without sufficient value. Canvas\nnow always auto-fits to available space, which is the expected behavior.\n\nTags: ui, zoom, cleanup\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: minor",
+  "tags": [
+    "removal",
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "remove zoom controls feature entirely",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 3,
+    "deletions": 61
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/App.jsx",
+    "src/components/ZoomControls.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

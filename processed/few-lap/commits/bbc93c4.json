@@ -1,0 +1,43 @@
+{
+  "sha": "bbc93c4",
+  "fullSha": "bbc93c4198d5d5d6ec4244fafd848ae686c7a023",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-22T05:55:41Z",
+  "commitDate": "2026-03-22T05:55:41Z",
+  "subject": "fix(data): replace area filter with bbox + post-filter for reliability",
+  "body": "The Overpass area filter area[\"ISO3166-1\"=\"ZA\"] was untested and carries\nrisks: slower polygon queries, higher timeout risk with way/relation\nelements, and temporary unavailability if the ZA boundary relation is\nbeing edited.\n\nSwitched to the proven bbox approach with a two-layer country filter:\n1. Transform rejects stations with addr:country != ZA\n2. Reverse geocode validates country_code === 'za' from Nominatim\n\nThis is faster, more reliable, and can be switched to area filter later\nif bbox leakage proves significant.\n\nTags: data, osm, reliability\nComplexity: 2\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: data-extraction\nSemver: patch\n\nhttps://claude.ai/code/session_012GoRRuSkXvRWbQhj6XTrxn",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "data-extraction",
+  "semver": "patch",
+  "scope": "data",
+  "title": "replace area filter with bbox + post-filter for reliability",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 46,
+    "deletions": 9
+  },
+  "files": [
+    "docs/DATA_EXTRACTION.md",
+    "scripts/transform-overpass.mjs"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "internal"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "b93100d",
+  "fullSha": "b93100d1dd19381b67ccd776d6ee0585d56d3f22",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-25T20:38:19Z",
+  "commitDate": "2026-03-25T20:38:19Z",
+  "subject": "docs(claude): align CLAUDE.md with glow-props standard format",
+  "body": "Restructure synctone's CLAUDE.md to match the shared glow-props template\nwhile preserving all Expo/React Native specifics, database schema, tone tags,\npush notifications, spam prevention, and librsvg icon generation content.\n\nChanges:\n- Rename heading from \"My Preferences\" to standard format with reminders\n- Standardize Principles to 7 (matching glow-props), move 5 extras to AI Notes\n- Add REMINDER blocks after Process, Principles, and AI Notes sections\n- Add Triggers section (full 10-trigger system with aliases and behavior)\n- Restructure Documentation from Core/Reference/Historical tiers to standard\n  9-file managed set plus Additional Project Documentation table\n- Simplify session workflow to match glow-props 4-step format\n- Move Commit Message Format into Code Standards section (was separate)\n- Add missing prohibition: no interactive prompts/selection UIs\n- Add Suggested Implementations section adapted for Expo/React Native:\n  PWA (custom Expo web setup), Debug System, App Icons (librsvg),\n  Download as PDF, HTTPS Proxy, Timer Leak Fix, Key Lessons\n- Remove duplicate Commit Message Format from \"Instructions for Claude\"\n\nTags: documentation, alignment, claude-md, glow-props\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: claude-md-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_013qsqJZ22YnUjeUnt8TjTt3",
+  "tags": [
+    "docs",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "claude-md-sync",
+  "semver": "patch",
+  "scope": "claude",
+  "title": "align CLAUDE.md with glow-props standard format",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 215,
+    "deletions": 82
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

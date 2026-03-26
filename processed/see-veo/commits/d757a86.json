@@ -1,0 +1,49 @@
+{
+  "sha": "d757a86",
+  "fullSha": "d757a8677c4ed7fcdbea1132361f915686d63865",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-25T05:57:23Z",
+  "commitDate": "2026-03-25T05:57:23Z",
+  "subject": "refactor(theme): centralize theme colors into shared constants file",
+  "body": "Previously theme colors (#0a0a0a, #d4d4d4) were hardcoded in three\nseparate files (index.html, vite.config.ts, index.css), causing them\nto drift when the theme changed. Now src/constants/theme.ts is the\nsingle source of truth — vite.config.ts imports directly, and a custom\nVite plugin (themeColorInjector) replaces %THEME_*% placeholders in\nindex.html at build time via transformIndexHtml.\n\nTags: infrastructure, pwa, theme, build\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: theme-centralization\nSemver: patch\n\nhttps://claude.ai/code/session_01Dua8Xbp3cH9mgvvtK9FuLo",
+  "tags": [
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-centralization",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "centralize theme colors into shared constants file",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#0"
+  ],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 74,
+    "deletions": 15
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "index.html",
+    "src/constants/theme.ts",
+    "src/index.css",
+    "vite.config.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "internal"
+}

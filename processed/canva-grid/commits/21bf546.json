@@ -1,0 +1,46 @@
+{
+  "sha": "21bf546",
+  "fullSha": "21bf5466eab740edde5a419d130b4eded964f649",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T19:55:27Z",
+  "commitDate": "2026-03-12T19:55:27Z",
+  "subject": "fix(ux): address review issues in UX improvements",
+  "body": "- Fix invalid Tailwind `border-3` class → `border-2` on export spinner\n- Fix nested `<button>` in SaveLoadModal (design row wrapping ConfirmButton)\n  Changed outer element to `<div role=\"button\">` with keyboard handler\n- Add `addToast` to all useCallback dependency arrays in ExportButtons\n- Move `showMoreOptions` useState to top of component (hook ordering)\n- Stabilize CanvasCellOverlay key (remove selection state from key)\n- Add `role=\"dialog\"` and `aria-modal` to keyboard shortcuts overlay\n- Add Escape key handler for shortcuts overlay\n- Add `aria-label` to zoom control buttons\n- Fix error toasts to use `role=\"alert\"` with `aria-live=\"assertive\"`\n- Fix zoom minimum from 10% → 25%, add float rounding to prevent drift\n\nTags: ui, accessibility, bugfix\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-improvements\nSemver: patch\n\nhttps://claude.ai/code/session_01VwMWj66HfjeUXPDnZFLg1P",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-improvements",
+  "semver": "patch",
+  "scope": "ux",
+  "title": "address review issues in UX improvements",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 32,
+    "deletions": 26
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/SaveLoadModal.jsx",
+    "src/components/Toast.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

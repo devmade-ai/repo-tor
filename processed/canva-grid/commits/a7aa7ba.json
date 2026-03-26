@@ -1,0 +1,42 @@
+{
+  "sha": "a7aa7ba",
+  "fullSha": "a7aa7ba7e0158c29aaf781f4fa396cfe4f9802a9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T02:41:44Z",
+  "commitDate": "2026-03-09T02:41:44Z",
+  "subject": "fix(ui): restore per-cell subdivision borders in Structure tab grid",
+  "body": "The previous commit (33825aa) unnecessarily removed subdivision borders\nfrom the Structure tab's interactive grid widget. These borders help\nusers visually distinguish cells within subdivided sections and are\npart of the sidebar UI control — not the canvas preview.\n\nTags: ui, structure, layout\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cell-highlighting\nSemver: patch\n\nhttps://claude.ai/code/session_01C4FmDdg3AUrVBgCMsmkahH",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cell-highlighting",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "restore per-cell subdivision borders in Structure tab grid",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 1
+  },
+  "files": [
+    "src/components/LayoutTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

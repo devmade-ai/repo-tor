@@ -1,0 +1,55 @@
+{
+  "sha": "0f53dff",
+  "fullSha": "0f53dffbf2ee0842294a05e295fefc415f269e04",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T14:39:46Z",
+  "commitDate": "2026-03-09T14:39:46Z",
+  "subject": "feat(labels): add zero-shot NLI label suggestion system",
+  "body": "Implement label suggestions using zero-shot NLI classification\n(xtremedistil-l6-h256-zeroshot-v1.1-all-33, ~13MB q8 model) that\nsuggests relevant labels when creating or editing nodes. The system\nuses a separate Web Worker from the embedding engine since it runs\na different model and pipeline type.\n\nArchitecture:\n- tagSuggestionWorker.ts: Web Worker for NLI classification\n- tagSuggestionService.ts: Worker lifecycle with ref-counted disposal\n- useTagSuggestions.ts: React hook with acquire/release lifecycle\n- LabelSuggestions.tsx: Inline suggestion badges below label inputs\n\nIntegration points:\n- CreateNodeModal: suggests labels based on title\n- DetailPanel (NodeDetail edit mode): suggests based on title + content\n\nCandidate labels sourced from workspace metadata (useGraphMetadata)\nplus default fallbacks for empty workspaces. Model download triggered\non first \"Suggest Labels\" click (lazy, not eager). multi_label: true\nfor independent scoring. Gated by config.enableLabelSuggestions.\n\nTags: labels, suggestions, nli, zero-shot, ml, worker, ui\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: label-suggestions\nSemver: minor\n\nhttps://claude.ai/code/session_01ULhD1te9qFVLzqF4YCLBbP",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "label-suggestions",
+  "semver": "minor",
+  "scope": "labels",
+  "title": "add zero-shot NLI label suggestion system",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 1053,
+    "deletions": 33
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "src/App.tsx",
+    "src/components/debug/DebugPill.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/ui/CreateNodeModal.tsx",
+    "src/components/ui/LabelSuggestions.css",
+    "src/components/ui/LabelSuggestions.tsx",
+    "src/config.ts",
+    "src/hooks/useTagSuggestions.ts",
+    "src/services/tagSuggestionService.ts",
+    "src/utils/debugLog.ts",
+    "src/workers/tagSuggestionWorker.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

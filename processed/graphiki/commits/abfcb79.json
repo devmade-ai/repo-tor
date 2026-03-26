@@ -1,0 +1,54 @@
+{
+  "sha": "abfcb79",
+  "fullSha": "abfcb79e7c2c5a8a344a9a3fde5ee9239241d421",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T10:00:37Z",
+  "commitDate": "2026-03-09T10:00:37Z",
+  "subject": "fix(mobile): WCAG viewport, safe areas, dvh units, touch targets, sticky actions, cleanup",
+  "body": "Viewport & WCAG:\n- Remove maximum-scale=1.0 and user-scalable=no from viewport meta tag\n  (WCAG 2.1 requires 200% zoom; iOS auto-zoom prevented via 16px inputs)\n- Add viewport-fit=cover to enable env(safe-area-inset-*) on notched devices\n\nSafe areas:\n- Header uses max(16px, env(safe-area-inset-left/right)) padding +\n  env(safe-area-inset-top) for iPhone landscape and standalone PWA mode\n- Detail drawer bottom sheet gets padding-bottom for home indicator\n- Toast container accounts for safe area insets on all edges\n\nMobile viewport units (100vh → dvh):\n- Import preview modal: 100vh → 100dvh (fixes Safari address bar clipping)\n- Detail drawer: 80vh → 80dvh\n- All modal mobile overrides: 90vh → 90dvh (ConventionsModal,\n  AnalysisModal, QueryHelpModal)\n- QueryBuilder body: 50vh → 50dvh\n\nTouch targets (WCAG 2.5.5 — 44px minimum):\n- ConventionsModal close button: 32px → 44px on mobile\n- AnalysisModal close button: 32px → 44px on mobile\n- QueryHelpModal close button: 32px → 44px on mobile\n- QueryBuilder help button: 28px → 44px on mobile\n\nToast overlap fix:\n- Mobile toast reverted to top position (below header) instead of bottom,\n  preventing overlap with detail drawer bottom sheet\n\nSticky search actions:\n- QueryBuilder action bar (Search/Clear) now sticky for all modes on\n  mobile, not just connect mode — search mode had the same unreachable\n  buttons problem with multiple pipeline steps\n\nBackward compat cleanup:\n- Remove dead snapshot fallback branch in graphService.restoreFromSnapshot\n  (snapshots are transient in-memory, always have workspaceId)\n- Clean misleading \"backward compat\" comments in queryParser, useSelection,\n  queryEngine test (these describe current API, not compat shims)\n\nTags: mobile, wcag, safe-area, dvh, touch-targets, cleanup\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: polish\nSemver: minor\n\nhttps://claude.ai/code/session_01P6y9bzn2FJLcB9z6PNCE17",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "WCAG viewport, safe areas, dvh units, touch targets, sticky actions, cleanup",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 73,
+    "deletions": 41
+  },
+  "files": [
+    "index.html",
+    "src/App.css",
+    "src/components/analysis/AnalysisModal.css",
+    "src/components/conventions/ConventionsModal.css",
+    "src/components/layout/DetailDrawer.css",
+    "src/components/query/QueryBuilder.css",
+    "src/components/query/QueryHelpModal.css",
+    "src/components/ui/Toast.css",
+    "src/hooks/useSelection.ts",
+    "src/services/graphService.ts",
+    "src/services/queryEngine.test.ts",
+    "src/services/queryParser.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

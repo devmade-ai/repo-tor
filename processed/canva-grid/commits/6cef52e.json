@@ -1,0 +1,41 @@
+{
+  "sha": "6cef52e",
+  "fullSha": "6cef52ea9f8acb0e6ca4ca0845a2916a21c73ca7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-10T14:31:27Z",
+  "commitDate": "2026-03-10T14:31:27Z",
+  "subject": "fix(structure): remove dead code in insertCell and unused cellLabel variable",
+  "body": "insertCell built a newSubSizes array with splice that was immediately\noverridden by the redistributed array. Removed the unused intermediate.\nAlso removed cellLabel variable that was always 'Cell' regardless of\nlayout type — replaced with string literal.\n\nTags: structure, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: layout-structure-controls\nSemver: patch\n\nhttps://claude.ai/code/session_01Vp82yU8LPSQKF91NibhLnG",
+  "tags": [
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "layout-structure-controls",
+  "semver": "patch",
+  "scope": "structure",
+  "title": "remove dead code in insertCell and unused cellLabel variable",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 7
+  },
+  "files": [
+    "src/components/LayoutTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 1,
+  "impact": "internal"
+}

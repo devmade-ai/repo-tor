@@ -1,0 +1,50 @@
+{
+  "sha": "3fb6d71",
+  "fullSha": "3fb6d711596e0264ad8ca3980944cf84256df18d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T21:07:17Z",
+  "commitDate": "2026-03-02T21:07:17Z",
+  "subject": "fix(security): address audit findings — validation, type safety, dev guards",
+  "body": "- PriceEditor: Add upper bound validation (R999.99 max) to prevent\n  nonsensical price entries\n- Station detail: Replace unsafe double `as unknown` cast with runtime\n  type guard that validates each price row from Supabase\n- Admin station list: Replace blind `as AdminStation[]` cast with\n  runtime validation filter\n- Debug system: Guard DebugPill render and global error capture behind\n  `__DEV__` so they never run in production builds\n- Station coordinates: Add CHECK constraint migration validating\n  lat/lng fall within geographic ranges (-90/90, -180/180)\n- +html.tsx: Document that dangerouslySetInnerHTML usage is safe\n  (static string constants, no user input)\n- TODO.md: Add Security section with prioritized remaining items\n  (admin auth, Mapbox token proxy, price_history RLS)\n\nTags: security, validation, type-safety, audit\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: security-audit\nSemver: patch\n\nhttps://claude.ai/code/session_016qApLHABEXoB7o8GgdMEbR",
+  "tags": [
+    "security",
+    "validation",
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "security-hardening",
+  "semver": "patch",
+  "scope": "security",
+  "title": "address audit findings — validation, type safety, dev guards",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 60,
+    "deletions": 9
+  },
+  "files": [
+    "app/+html.tsx",
+    "app/_layout.tsx",
+    "app/admin/index.tsx",
+    "app/station/[id].tsx",
+    "docs/TODO.md",
+    "src/components/admin/PriceEditor.tsx",
+    "src/debug/debugLog.ts",
+    "supabase/migrations/20260302000001_station_coordinate_check.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

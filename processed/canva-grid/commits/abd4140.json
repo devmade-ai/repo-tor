@@ -1,0 +1,52 @@
+{
+  "sha": "abd4140",
+  "fullSha": "abd41402dab4c665592937488ea2402a7421a337",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T07:48:50Z",
+  "commitDate": "2026-03-13T07:48:50Z",
+  "subject": "fix(quality): address code audit findings across 10 files",
+  "body": "Anti-patterns fixed:\n- App.jsx: Keyboard listener uses useRef for latest values, registered\n  once instead of re-registering on every state change (7+ dep churn)\n- designStorage.js: Cache IDB connection with auto-reconnect on close,\n  eliminates opening a new connection per CRUD operation\n- Toast.jsx: Toast ID wraps at MAX_SAFE_INTEGER to prevent overflow\n  in long sessions\n\nLatent bugs fixed:\n- useFocusTrap.js: try/catch around focus restore on unmount (element\n  may have been removed from DOM)\n- useHistory.js: deepEqual has MAX_DEPTH=20 guard to prevent stack\n  overflow on corrupted/circular state\n- ContextBar.jsx: Memoized page state lookups via PageDots component,\n  avoids calling getPageState() for every page on every render\n- SaveLoadModal.jsx: activeRef guard prevents stale setDesigns() call\n  if modal closes while IDB query is in-flight\n\nResilience improvements:\n- ExportButtons.jsx: Multi-platform export catches per-platform errors,\n  exports successful ones in ZIP, warns user which platforms failed\n- layouts.js: Documented gradient stop magic numbers with empirical\n  tuning rationale (anti-banding for canvas export)\n- DebugPill.jsx: Clipboard copy uses ClipboardItem Blob API before\n  falling back to deprecated execCommand\n\nTags: quality, performance, reliability, audit\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: code-review-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01UgnbwvNX2eW5URRdAQzxFH",
+  "tags": [
+    "refactor",
+    "performance",
+    "bugfix"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-review-sweep",
+  "semver": "patch",
+  "scope": "quality",
+  "title": "address code audit findings across 10 files",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 135,
+    "deletions": 51
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/ContextBar.jsx",
+    "src/components/DebugPill.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/SaveLoadModal.jsx",
+    "src/components/Toast.jsx",
+    "src/config/layouts.js",
+    "src/hooks/useFocusTrap.js",
+    "src/hooks/useHistory.js",
+    "src/utils/designStorage.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

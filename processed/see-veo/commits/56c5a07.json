@@ -1,0 +1,57 @@
+{
+  "sha": "56c5a07",
+  "fullSha": "56c5a078842dad4317f8522cfeca83e3d01ef843",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-25T19:50:43Z",
+  "commitDate": "2026-03-25T19:50:43Z",
+  "subject": "fix(a11y): improve text contrast to meet WCAG AA minimums",
+  "body": "Audited all components after the dark theme change. text-text-muted\n(#737373) failed WCAG AA on dark backgrounds, and 5 project accent\ncolors failed when used as text on #0a0a0a.\n\nChanges:\n- Bump --color-text-muted from #737373 (4.18:1) to #a3a3a3 (7.85:1)\n- Lighten Graphiki accent: #6366f1 → #818cf8\n- Lighten Sancio accent: #64748b → #94a3b8\n- Lighten Four Ems accent: #2563eb → #60a5fa\n- Lighten model-pear accent: #2D68FF → #7dd3fc\n- Lighten repo-tor accent: #2D68FF → #60a5fa\n- Update default project accent fallback: #737373 → #a3a3a3\n\nTags: a11y, contrast, styling, data\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: dark-theme\nSemver: patch\n\nhttps://claude.ai/code/session_01Dua8Xbp3cH9mgvvtK9FuLo",
+  "tags": [
+    "accessibility",
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dark-theme",
+  "semver": "patch",
+  "scope": "a11y",
+  "title": "improve text contrast to meet WCAG AA minimums",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#737373",
+    "#0",
+    "#6366",
+    "#818",
+    "#64748",
+    "#94",
+    "#2563",
+    "#60",
+    "#2",
+    "#7"
+  ],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 20,
+    "deletions": 16
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/Projects.tsx",
+    "src/data/cv-data.ts",
+    "src/index.css"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

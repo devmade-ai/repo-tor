@@ -1,0 +1,42 @@
+{
+  "sha": "31604ac",
+  "fullSha": "31604ac78ac9089b4e8e020ddfb310bf328da03c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T19:21:47Z",
+  "commitDate": "2026-03-13T19:21:47Z",
+  "subject": "docs(claude): sync shared conventions from glow-props CLAUDE.md",
+  "body": "Fetched external CLAUDE.md from devmade-ai/glow-props and merged\nconvention changes into graphiki's CLAUDE.md. Prevents drift between\nsibling projects sharing the same standards.\n\nChanges synced:\n- Added \"Fetching This File\" section with hosted URL\n- Added \"READ AND FOLLOW\" reminder header\n- Updated Cleanup: `// KEEP:` marker convention (was vague \"marked for preservation\")\n- Updated Quality Checks: added specificity (XSS, re-renders, boundary validation)\n- Added AI Notes section (file reading, build tools, sibling repo access, TutorialModal)\n- Added Triggers section (review, audit, docs, mobile, clean, perf, security, debug, improve)\n- Added Suggested Implementations section (PWA system, debug system, app icons, PDF download)\n- Added 3 new Prohibitions (no feature removal during cleanup, no assumption-based commits, no interactive input prompts)\n\nTags: documentation, conventions, cross-reference, glow-props\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: convention-sync\nSemver: patch",
+  "tags": [
+    "docs",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "claude-md-sync",
+  "semver": "patch",
+  "scope": "claude",
+  "title": "sync shared conventions from glow-props CLAUDE.md",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 259,
+    "deletions": 4
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,41 @@
+{
+  "sha": "2035d5e",
+  "fullSha": "2035d5e4ee9b19a84603728a332a40cf88572e79",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T10:52:26Z",
+  "commitDate": "2026-03-06T10:52:26Z",
+  "subject": "fix(export): use exact pixel dimensions for PDF page size",
+  "body": "Use platform dimensions (e.g. 1080x1080, 1080x1350) in @page size\ninstead of generic landscape/portrait paper sizes. Prevents letterboxing\non LinkedIn carousels where non-standard aspect ratios would get white\nbars from A4/Letter page mapping.\n\nTags: export, pdf, linkedin\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: export-improvements\nSemver: patch\n\nhttps://claude.ai/code/session_01WBAyTDhQVRjcabrfM8fjCg",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pdf-export",
+  "semver": "patch",
+  "scope": "export",
+  "title": "use exact pixel dimensions for PDF page size",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 10,
+    "deletions": 6
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

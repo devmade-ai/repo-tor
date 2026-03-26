@@ -1,0 +1,43 @@
+{
+  "sha": "170f5bf",
+  "fullSha": "170f5bf5a7986d06ff5d1a19cbd9ed34c4ec7e87",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-14T08:07:39Z",
+  "commitDate": "2026-03-14T08:07:39Z",
+  "subject": "refactor(projects): remove Google Favicon API fallback",
+  "body": "Simplifies the ProjectImage fallback chain to screenshot → initials\nplaceholder only. Removes the Google Favicon API middle step to avoid\nan external dependency and privacy concern.\n\nTags: projects, screenshots, refactor\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: project-screenshots\nSemver: patch",
+  "tags": [
+    "refactor",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "project-screenshots",
+  "semver": "patch",
+  "scope": "projects",
+  "title": "remove Google Favicon API fallback",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 9,
+    "deletions": 51
+  },
+  "files": [
+    "src/components/ProjectImage.tsx",
+    "src/components/Projects.tsx"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "bdee6c2",
+  "fullSha": "bdee6c26674844178c881376c0634416294d3d1d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T21:20:17Z",
+  "commitDate": "2026-03-08T21:20:17Z",
+  "subject": "docs: update tutorial, user guide, and testing guide for recent changes",
+  "body": "TutorialModal.jsx:\n- Structure step: replaced \"Text position\" with \"Reorder\", added tip\n  pointing to Content tab for alignment\n- Content step: updated Structured mode to say \"each cell has its own\n  text elements\" instead of \"pick which cell\"\n- Export step: updated to 28 formats, added format selection + PDF\n\nUSER_GUIDE.md:\n- Structure tab: removed Text Alignment subsection (moved to Content),\n  added section reorder and insert before/after\n- Content tab: added per-cell text model, removed cell dropdown,\n  added Cell Alignment subsection\n- PDF export: updated description\n\nTESTING_GUIDE.md:\n- L3: replaced section alignment test with section reorder test\n- L4: replaced cell alignment test with Content tab alignment test\n- L5: replaced global alignment test with insert section test\n- C3: replaced cell dropdown test with per-cell text test\n- Added E4 (format selection), E5 (PDF export), E6 (save/load)\n- Regression checklist: added per-cell text, reorder, format, PDF,\n  save/load checks; removed Structure tab alignment reference\n\nTags: docs, tutorial, testing\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_012V7AguSge3Ngw25j72iiGX",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "docs-update",
+  "semver": "patch",
+  "scope": null,
+  "title": "update tutorial, user guide, and testing guide for recent changes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 100,
+    "deletions": 57
+  },
+  "files": [
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md",
+    "src/components/TutorialModal.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

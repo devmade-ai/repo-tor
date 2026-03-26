@@ -1,0 +1,48 @@
+{
+  "sha": "4bffb44",
+  "fullSha": "4bffb44ebf1797af20d122f52a958757ad0246a6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T07:38:07Z",
+  "commitDate": "2026-03-13T07:38:07Z",
+  "subject": "fix(security,reliability): XSS hardening, export race condition, edge cases",
+  "body": "Apply fixes from code review trigger sweep:\n\n- AdCanvas: whitelist-only DOMPurify config (ALLOWED_TAGS/ALLOWED_ATTR)\n  prevents XSS via img/iframe even if DOMPurify defaults change\n- ExportButtons: replace fixed 300ms setTimeout with double waitForPaint()\n  for reliable page capture on slow devices\n- ExportButtons: add seconds to timestamp (YYMMdd-HHmmss) preventing\n  same-minute export filename collisions\n- App: guard against division by zero in autoScale when platform\n  dimensions are 0\n- useHistory: clarify positional image comparison comment (behavior\n  was already correct — IDs compared by array index)\n- designStorage: only set migrationDone=true after success, so failed\n  migrations retry on next app load instead of silently losing data\n- TutorialModal: update \"Structured\" label to \"Guided\" to match\n  current ContentTab UI\n\nTags: security, export, reliability, tutorial\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-review-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01UgnbwvNX2eW5URRdAQzxFH",
+  "tags": [
+    "security",
+    "bugfix",
+    "sanitization"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review-sweep",
+  "semver": "patch",
+  "scope": "security,reliability",
+  "title": "XSS hardening, export race condition, edge cases",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 31,
+    "deletions": 11
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/AdCanvas.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/TutorialModal.jsx",
+    "src/hooks/useHistory.js",
+    "src/utils/designStorage.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

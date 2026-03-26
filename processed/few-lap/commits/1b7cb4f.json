@@ -1,0 +1,47 @@
+{
+  "sha": "1b7cb4f",
+  "fullSha": "1b7cb4fa680ebac4791a0710bbd5a465fdf9e3f6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T21:39:44Z",
+  "commitDate": "2026-03-04T21:39:44Z",
+  "subject": "feat(ui): map-behind-list layout with bottom sheet and collapsible filters",
+  "body": "Redesign home screen from toggle-based map/list to a Google Maps style\nlayout: full-screen map always visible with a draggable bottom sheet\ncontaining search, filters, and station list.\n\nChanges:\n- New BottomSheet component using PanResponder + Animated (no extra deps)\n  Three snap points: peek (handle + header), half (50%), full (90%)\n  Flick gesture detection for natural swipe-to-expand/collapse\n- Home screen: map fills entire background, sheet overlays on top\n  Removed map/list toggle — both are always visible simultaneously\n- Filters auto-hide on scroll down, reappear on scroll up\n  Uses Animated height + opacity for smooth collapse transition\n- Default sort changed from nearest to cheapest — users primarily want\n  the best price, distance is secondary\n- StationList accepts onScroll prop for parent scroll tracking\n- Map container: removed borderRadius and margins for full-screen display\n\nTags: ui, layout, ux, mobile\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: ux-improvements\nSemver: minor\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "bottom-sheet",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "map-behind-list layout with bottom sheet and collapsible filters",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 343,
+    "deletions": 170
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "src/components/map/FuelMap.tsx",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/station/StationList.tsx",
+    "src/components/ui/BottomSheet.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

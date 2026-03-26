@@ -1,0 +1,53 @@
+{
+  "sha": "d0221b6",
+  "fullSha": "d0221b66b0b7b63789d59028ffd4a4ffffd18015",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T05:45:18Z",
+  "commitDate": "2026-03-04T05:45:18Z",
+  "subject": "feat(dashboard): replace Phase 1 spinners with pre-aggregated data for all tabs",
+  "body": "Instead of showing loading spinners during Phase 1 (summary loaded, commits\nstill fetching), tabs now render real charts and breakdowns from the\npre-aggregated summary data that's already available.\n\nTab fallbacks:\n- TagsTab: summary.tagBreakdown → full doughnut chart + tag list\n- HealthTab: urgency/impact/risk/debt breakdowns from summary (trend charts\n  and per-contributor sections deferred to Phase 2). Fixed hooks violation.\n- ContributorsTab: summary.contributors[] → \"Who Does What\" cards + chart\n- SecurityTab: summary.security_events → count + event list\n- TimingTab: summary.hourlyHeatmap (new) → full 24x7 heatmap + bar charts\n- ProjectsTab: summary.repoCommitCounts (new) → instant commit counts\n- DiscoverTab: retains spinner (needs per-commit stats)\n\nAdded calcRepoCommitCounts() and calcHourlyHeatmap() to aggregate script.\nUpdated HealthWorkPatterns, RiskAssessment, DebtBalance to handle optional\nclick handlers during Phase 1.\n\nhttps://claude.ai/code/session_01RbDmv8obRPnToLezqSGmHg",
+  "tags": [
+    "feature",
+    "performance",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dashboard-v2",
+  "semver": "minor",
+  "scope": "dashboard",
+  "title": "replace Phase 1 spinners with pre-aggregated data for all tabs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 477,
+    "deletions": 195
+  },
+  "files": [
+    "dashboard/js/components/HealthAnomalies.jsx",
+    "dashboard/js/components/HealthWorkPatterns.jsx",
+    "dashboard/js/tabs/ContributorsTab.jsx",
+    "dashboard/js/tabs/HealthTab.jsx",
+    "dashboard/js/tabs/ProjectsTab.jsx",
+    "dashboard/js/tabs/SecurityTab.jsx",
+    "dashboard/js/tabs/TagsTab.jsx",
+    "dashboard/js/tabs/TimingTab.jsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/aggregate-processed.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

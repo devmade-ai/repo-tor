@@ -1,0 +1,41 @@
+{
+  "sha": "0173662",
+  "fullSha": "017366263d11944d31604d42fd450aafa48da9c2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T09:12:29Z",
+  "commitDate": "2026-03-09T09:12:29Z",
+  "subject": "fix(conventions): fix Required/Optional grouping for connection fields",
+  "body": "The previous edit created two \"Required:\" headers in the CONNECTIONS\nsection, incorrectly grouping labels, content, and properties under\n\"Required\". Only source, target, and title are required — the rest\nare optional. Merged into proper Required/Optional sections.\n\nTags: conventions, docs\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: import-export\nSemver: patch\n\nhttps://claude.ai/code/session_01P6y9bzn2FJLcB9z6PNCE17",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "import-pipeline",
+  "semver": "patch",
+  "scope": "conventions",
+  "title": "fix Required/Optional grouping for connection fields",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "src/data/conventions.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

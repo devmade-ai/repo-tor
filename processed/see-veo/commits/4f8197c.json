@@ -1,0 +1,46 @@
+{
+  "sha": "4f8197c",
+  "fullSha": "4f8197cd69d6b55b48b2e08b66b6ee0ec7949040",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-24T20:55:20Z",
+  "commitDate": "2026-03-24T20:55:20Z",
+  "subject": "fix(theme): restore functional colors and fix hover/comment issues",
+  "body": "Found during code review of the branch:\n- Restored --color-secondary (#a3a3a3) and --color-accent (#4ade80) in\n  theme — these are functional colors used by DebugBanner (severity/source\n  labels) and InterestForm (success state). Removing them broke those UIs.\n- Fixed project card hover: was hover:border-border (no-op, same as\n  resting state). Now hover:border-text-muted/40 for subtle feedback.\n- Updated stale comments in embed.ts that referenced old color values.\n\nTags: styling, bugfix, theme, debug, form\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-redesign\nSemver: patch\n\nhttps://claude.ai/code/session_01Dua8Xbp3cH9mgvvtK9FuLo",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dark-theme",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "restore functional colors and fix hover/comment issues",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#4"
+  ],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 5,
+    "deletions": 3
+  },
+  "files": [
+    "src/components/Projects.tsx",
+    "src/constants/embed.ts",
+    "src/index.css"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "user-facing"
+}

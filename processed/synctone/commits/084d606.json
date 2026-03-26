@@ -1,0 +1,69 @@
+{
+  "sha": "084d606",
+  "fullSha": "084d606cc52e7c3f9ee99d97917a8726d3c0e585",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T20:51:33Z",
+  "commitDate": "2026-03-02T20:51:33Z",
+  "subject": "fix(quality): implement all code review audit fixes",
+  "body": "- Delete dead /src/ directory (11 unused scaffold files)\n- Fix untracked setTimeout in MessageBubble.tsx swipe animation\n  (store in ref, clear on unmount)\n- Replace setTimeout(150ms) hack in ChatPanel.tsx and chat/[id].tsx\n  with onLayout + requestAnimationFrame for FlatList scroll init\n- Replace window.location.reload() in pull-to-refresh handlers with\n  proper data refetch (keep reload only for clearData and PWA update)\n- Rewrite usePolling.ts: add concurrent execution guard (isPolling),\n  use refs for callbacks to prevent interval teardown on every render\n- Gate logger.ts and debugLog.ts behind __DEV__ to suppress debug\n  output in production builds\n- Add babel-plugin-transform-remove-console to strip console.log/debug\n  in production (preserves console.error and console.warn)\n- Fix unused timestamp variable in logger.ts\n- Replace all @ts-ignore with @ts-expect-error + explanatory comments\n- Replace as any casts in subscriptions.ts with @ts-expect-error\n- Type OneSignal SDK with proper interfaces instead of any\n- Extract getMessageAge() utility in utils/formatting.ts, used in\n  MessageBubble, MessageActionSheet, and services/messages\n\nTags: code-quality, tech-debt, cleanup, type-safety, performance\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01Fhkb1mVtQPFdmLVbTkkNEH",
+  "tags": [
+    "bugfix",
+    "removal",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "quality",
+  "title": "implement all code review audit fixes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 27,
+    "additions": 160,
+    "deletions": 241
+  },
+  "files": [
+    "app/(app)/chat/[id].tsx",
+    "app/(app)/home.tsx",
+    "babel.config.js",
+    "components/ChatPanel.tsx",
+    "components/ComposeBar.tsx",
+    "components/MessageActionSheet.tsx",
+    "components/MessageBubble.tsx",
+    "hooks/usePolling.ts",
+    "package-lock.json",
+    "package.json",
+    "services/messages.ts",
+    "services/onesignal.ts",
+    "src/components/EditScreenInfo.tsx",
+    "src/components/ExternalLink.tsx",
+    "src/components/StyledText.tsx",
+    "src/components/Themed.tsx",
+    "src/components/__tests__/StyledText-test.js",
+    "src/components/useClientOnlyValue.ts",
+    "src/components/useClientOnlyValue.web.ts",
+    "src/components/useColorScheme.ts",
+    "src/components/useColorScheme.web.ts",
+    "src/constants/Colors.ts",
+    "src/utils/cn.ts",
+    "utils/debugLog.ts",
+    "utils/formatting.ts",
+    "utils/logger.ts",
+    "utils/subscriptions.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}

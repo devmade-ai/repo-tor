@@ -1,0 +1,48 @@
+{
+  "sha": "b86e43d",
+  "fullSha": "b86e43d1b6597c0e7de0874d2e4e3c0dc38cd8c2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-26T15:46:08Z",
+  "commitDate": "2026-03-26T15:46:08Z",
+  "subject": "feat(dashboard): add PDF download button and fix PWA manifest",
+  "body": "Two suggested implementations from glow-props now applied to code:\n\n1. PWA manifest: Added `id: '/'` for stable app identity (prevents\n   Chrome from breaking install on config changes) and\n   `prefer_related_applications: false` (ensures beforeinstallprompt\n   fires on Chromium).\n\n2. PDF download: Added \"PDF\" button to Header that calls window.print().\n   Enhanced @media print CSS with text color overrides, link underlines,\n   break-inside:avoid on sections, and header styling. Added no-print\n   wrappers to TabBar, FilterSidebar, DetailPane, SettingsPane so only\n   dashboard content appears in the PDF.\n\nTags: pwa, ui, pdf\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: cross-project-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01C7QvrN9PNuQzuUYE8a47F4",
+  "tags": [
+    "feature",
+    "pwa",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "glow-props-alignment",
+  "semver": "minor",
+  "scope": "dashboard",
+  "title": "add PDF download button and fix PWA manifest",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 40,
+    "deletions": 7
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/components/Header.jsx",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "vite.config.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,51 @@
+{
+  "sha": "74f6c11",
+  "fullSha": "74f6c11e0bd1116b97bcf1df9230d5b1ab649148",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T07:48:09Z",
+  "commitDate": "2026-03-13T07:48:09Z",
+  "subject": "fix(review): address code review findings across screens, hooks, and components",
+  "body": "Fixes and improvements from the review trigger sweep:\n\n- PriceHistoryChart: Remove selectedFuelType from effect deps to prevent\n  unnecessary re-runs; add accessible data summary for screen readers\n- TutorialModal: Fix step 4 wording to match current bottom sheet UI\n- UpdatePrompt: Add loading state and visual feedback on update button\n- StationList: Fix empty state title color (chipText to text), change sort\n  toggle from tab/tablist to radio/radiogroup for correct semantics\n- useLocation: Add 15s GPS timeout via Promise.race to prevent indefinite\n  hangs on poor signal\n- useStations: Add fuel_type_id deduplication in groupByStation to prevent\n  duplicate price rows from showing\n- bulk-import: Add 5 MB file size check before reading uploaded JSON\n- FuelMapWeb: Add role=region + aria-label to map container; add\n  aria-label + role=img to user location blue dot marker\n- Home screen: Add Filters hint button when filters are auto-hidden\n  on scroll, so users can rediscover them\n\nTags: review, bugfix, accessibility, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01Gt5imLcUKsHSwAxVv1jrE8",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "review",
+  "title": "address code review findings across screens, hooks, and components",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 118,
+    "deletions": 28
+  },
+  "files": [
+    "app/(tabs)/index.tsx",
+    "app/admin/bulk-import.tsx",
+    "src/components/map/FuelMapWeb.tsx",
+    "src/components/pwa/UpdatePrompt.tsx",
+    "src/components/station/PriceHistoryChart.tsx",
+    "src/components/station/StationList.tsx",
+    "src/components/ui/TutorialModal.tsx",
+    "src/hooks/useLocation.ts",
+    "src/hooks/useStations.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

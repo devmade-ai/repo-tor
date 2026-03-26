@@ -1,0 +1,43 @@
+{
+  "sha": "cf99f05",
+  "fullSha": "cf99f05a00c1ffaa5737dc267a2b7eebe1af6c2e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T06:49:02Z",
+  "commitDate": "2026-03-05T06:49:02Z",
+  "subject": "security(codes): expand chat code word lists from ~2,300 to ~42,600 combinations",
+  "body": "Previous 48x48 word lists made brute-force enumeration of all chat codes\ntrivial. Expanded to 199 adjectives x 214 nouns for ~42,586 unique codes.\nRemoved duplicate \"amber\" from adjectives. Updated CLAUDE.md to reflect\nnew word list sizes.\n\nTags: security, chat-codes\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: security-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_014U3rmSp48YxMqy3jrS4rQ8",
+  "tags": [
+    "security",
+    "enhancement"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "security-hardening",
+  "semver": "patch",
+  "scope": "codes",
+  "title": "expand chat code word lists from ~2,300 to ~42,600 combinations",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 90,
+    "deletions": 99
+  },
+  "files": [
+    "CLAUDE.md",
+    "constants/wordLists.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

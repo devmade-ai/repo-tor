@@ -1,0 +1,42 @@
+{
+  "sha": "abe2902",
+  "fullSha": "abe29029ac508be04e978b6f57bb9699d81d8123",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-14T06:31:28Z",
+  "commitDate": "2026-03-14T06:31:28Z",
+  "subject": "fix(ui): add mobile bottom spacing for sidebar and safe area",
+  "body": "On mobile, the sidebar appears at the bottom due to flex-col-reverse.\nThe previous p-4 padding left content flush with the screen edge,\nespecially uncomfortable on phones with gesture bars. Added pb-24 on\nmobile (resets to pb-5 on desktop) and safe-area-inset-bottom on the\nroot container for notched devices.\n\nTags: ui, mobile, spacing\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01JkLmJm39tmQEAVosYvVwja",
+  "tags": [
+    "ui",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "add mobile bottom spacing for sidebar and safe area",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 7,
+    "deletions": 2
+  },
+  "files": [
+    "src/App.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

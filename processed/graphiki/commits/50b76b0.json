@@ -1,0 +1,44 @@
+{
+  "sha": "50b76b0",
+  "fullSha": "50b76b05e3b94019fe97c8eaa02dfbe0dd932f85",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-14T09:02:17Z",
+  "commitDate": "2026-03-14T09:02:17Z",
+  "subject": "fix(mobile): address 4 mobile UX audit findings",
+  "body": "- LabelSuggestions: Added mobile media query (44px touch targets for\n  suggest button, badges, and dismiss)\n- DebugPill: Safe area insets on mobile (env(safe-area-inset-*))\n- Modal: max-height uses min(80vh, calc(100dvh - 100px)) for short screens\n- GraphCanvas: touch-action: manipulation to prevent double-tap zoom\n  conflicting with Cytoscape panning\n\nTags: mobile, touch-targets, safe-area, css\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-quality-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01VrzHr2hRkv11YucCT1uDSp",
+  "tags": [
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "address 4 mobile UX audit findings",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 29,
+    "deletions": 3
+  },
+  "files": [
+    "src/App.css",
+    "src/components/debug/DebugPill.css",
+    "src/components/ui/LabelSuggestions.css"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

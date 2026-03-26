@@ -1,0 +1,56 @@
+{
+  "sha": "005251a",
+  "fullSha": "005251a79647f8556a20d0704def4f9f89efec76",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T02:03:22Z",
+  "commitDate": "2026-03-05T02:03:22Z",
+  "subject": "refactor(import-export): remove markdown and CSV, JSON-only import/export",
+  "body": "Remove all markdown import and CSV export functionality. Graphiki now\nsupports JSON as the only import and export format.\n\nChanges:\n- Delete markdownImportService.ts and its 862 lines of tests\n- Remove CSV export (exportNodesToCsv) from importExportService\n- Remove remark-frontmatter and yaml npm dependencies\n- Simplify ImportModal: JSON file upload + paste JSON text (replaces\n  paste markdown). Remove all markdown detection/parsing code paths.\n- Simplify ExportModal: single JSON export button (remove CSV option\n  and filteredNodes prop)\n- Simplify ConventionsModal: remove format tabs, single JSON convention\n  display. Export CONVENTION_CONTENT string instead of CONVENTIONS array.\n- Update conventions.ts: remove markdown format entry, remove shared\n  section comments referencing two formats\n- Remove docs/markdown-import-format.md\n- Update CLAUDE.md and CODEBASE_DOCUMENTATION.md\n- Add bulk edit to TODO.md (user-requested feature idea)\n\nAll 228 tests pass. Lint clean. Build succeeds.\n\nTags: import, export, cleanup, markdown, csv, json\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: import-export\nSemver: major\n\nhttps://claude.ai/code/session_01SQBrYWvZNjkrk3QXC4Fxsv",
+  "tags": [
+    "removal",
+    "simplify"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "codebase-audit",
+  "semver": "major",
+  "scope": "import-export",
+  "title": "remove markdown and CSV, JSON-only import/export",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 114,
+    "deletions": 2180
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/CODEBASE_DOCUMENTATION.md",
+    "docs/TODO.md",
+    "docs/markdown-import-format.md",
+    "package-lock.json",
+    "package.json",
+    "src/App.tsx",
+    "src/components/conventions/ConventionsModal.tsx",
+    "src/components/importExport/ExportModal.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/data/conventions.ts",
+    "src/services/importExportService.test.ts",
+    "src/services/importExportService.ts",
+    "src/services/markdownImportService.test.ts",
+    "src/services/markdownImportService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

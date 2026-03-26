@@ -1,0 +1,43 @@
+{
+  "sha": "51ad7b7",
+  "fullSha": "51ad7b7bac13bc3b219640eb44e6163ab912dd92",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-20T17:10:02Z",
+  "commitDate": "2026-03-20T17:10:02Z",
+  "subject": "fix(mobile): remove backdrop so canvas stays interactive with sheet open",
+  "body": "Removed the blocking backdrop overlay from BottomSheet. Canvas is now\nvisible and tappable above the sheet — cell selection and page swipe\nwork without closing the sheet first. Follows the Maps/Uber/Spotify\nbottom sheet pattern where the sheet is non-blocking.\n\nClose the sheet by dragging it down or tapping the active MobileNav tab.\nAdded a stronger top shadow for visual separation without a backdrop.\n\nTags: mobile, ui, ux, bottom-sheet\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch",
+  "tags": [
+    "ui",
+    "ux",
+    "enhancement"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "remove backdrop so canvas stays interactive with sheet open",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 27,
+    "deletions": 42
+  },
+  "files": [
+    "src/components/BottomSheet.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

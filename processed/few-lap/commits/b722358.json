@@ -1,0 +1,42 @@
+{
+  "sha": "b722358",
+  "fullSha": "b722358dbe347b90080c10a407604c6669ac9828",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T02:12:08Z",
+  "commitDate": "2026-03-05T02:12:08Z",
+  "subject": "fix(types): use Supabase .returns<T>() for join type instead of cast hack",
+  "body": "Replace the `as unknown[]` cast with Supabase's `.returns<FuelPriceRow[]>()`\nAPI method. This is the intended way to type queries where Supabase's\nselect-string parser infers the wrong shape (FK joins parsed as arrays\nwhen they're actually single objects at runtime).\n\nRuntime validation filter kept as a safety net for schema drift.\n\nTags: typescript, supabase, types\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: codebase-review\nSemver: patch\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "types",
+    "refactor"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "types",
+  "title": "use Supabase .returns<T>() for join type instead of cast hack",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 19,
+    "deletions": 22
+  },
+  "files": [
+    "app/station/[id].tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

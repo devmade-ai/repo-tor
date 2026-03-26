@@ -1,0 +1,44 @@
+{
+  "sha": "535c75e",
+  "fullSha": "535c75e1b4df9eab7fb0bef530106a650acd4036",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T15:49:59Z",
+  "commitDate": "2026-03-04T15:49:59Z",
+  "subject": "feat(menu): add manual update check, remove source code link",
+  "body": "PWA in standalone mode has no browser refresh button, so users had no way\nto check for updates except waiting for the 60-minute automatic poll.\nAdded \"Check for updates\" menu item that triggers SW registration.update()\nwith toast feedback. Removed \"Source code\" GitHub link — not useful for\nnon-technical end users.\n\nTags: pwa, ux, menu\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pwa\nSemver: minor\n\nhttps://claude.ai/code/session_01Qzp39peF4Rg9koiMYTBBUb",
+  "tags": [
+    "feature",
+    "pwa",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa",
+  "semver": "minor",
+  "scope": "menu",
+  "title": "add manual update check, remove source code link",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 40,
+    "deletions": 8
+  },
+  "files": [
+    "src/components/ui/BurgerMenu.tsx",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

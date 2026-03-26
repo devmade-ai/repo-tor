@@ -1,0 +1,51 @@
+{
+  "sha": "ea700b2",
+  "fullSha": "ea700b2a1e4b8df4b39b6091576c99691274a724",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-11T06:26:50Z",
+  "commitDate": "2026-03-11T06:26:50Z",
+  "subject": "feat(admin): add bulk import stations via JSON paste/file upload",
+  "body": "Adds a new admin screen for importing multiple stations at once.\nTwo input methods: paste JSON directly or upload a .json file.\nClient-side validation with per-station error preview before import.\nServer-side RPC function handles PostGIS coordinate construction\nand atomic batch insert.\n\nTags: admin, bulk-import, supabase, rpc\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: admin-station-management\nSemver: minor\n\nhttps://claude.ai/code/session_016TH1ngDtxc1chAu7S7eU74",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "bulk-import",
+  "semver": "minor",
+  "scope": "admin",
+  "title": "add bulk import stations via JSON paste/file upload",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 809,
+    "deletions": 15
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/admin/_layout.tsx",
+    "app/admin/bulk-import.tsx",
+    "app/admin/index.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "package-lock.json",
+    "package.json",
+    "supabase/migrations/20260311000001_bulk_insert_stations.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

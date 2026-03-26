@@ -1,0 +1,60 @@
+{
+  "sha": "d225dd6",
+  "fullSha": "d225dd63be251b11487527f9e60fc532af0e8d66",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T10:17:01Z",
+  "commitDate": "2026-03-04T10:17:01Z",
+  "subject": "refactor(dashboard): reorganize sections, merge Security into Health, add Discover Phase 1",
+  "body": "- Rename tabs/ → sections/, drop \"Tab\" suffix from all component files/names\n- Merge SecurityTab into Health as a CollapsibleSection (view-level aware)\n- Move urgency/impact/debt trend charts from Health to Timeline section\n- Move per-contributor urgency/impact bars from Health to Contributors section\n- Add Discover Phase 1 support via new calcCodeStats() aggregation (9/11 metrics)\n- Simplify useHealthData hook (removed trends + per-contributor computations)\n- Rename TAB_MAPPING → TAB_SECTIONS in state.js\n- Update EmbedRenderer imports and embed ID mappings\n- Update CLAUDE.md, SESSION_NOTES, HISTORY, EMBED_REFERENCE docs\n\nhttps://claude.ai/code/session_01RbDmv8obRPnToLezqSGmHg",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "dashboard-v2",
+  "semver": "minor",
+  "scope": "dashboard",
+  "title": "reorganize sections, merge Security into Health, add Discover Phase 1",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 19,
+    "additions": 732,
+    "deletions": 844
+  },
+  "files": [
+    "CLAUDE.md",
+    "dashboard/js/App.jsx",
+    "dashboard/js/components/EmbedRenderer.jsx",
+    "dashboard/js/hooks/useHealthData.js",
+    "dashboard/js/sections/Contributors.jsx",
+    "dashboard/js/sections/Discover.jsx",
+    "dashboard/js/sections/Health.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/js/sections/Projects.jsx",
+    "dashboard/js/sections/Summary.jsx",
+    "dashboard/js/sections/Tags.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/js/sections/Timing.jsx",
+    "dashboard/js/state.js",
+    "dashboard/js/tabs/SecurityTab.jsx",
+    "docs/EMBED_REFERENCE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/aggregate-processed.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

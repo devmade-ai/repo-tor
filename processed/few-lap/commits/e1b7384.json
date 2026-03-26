@@ -1,0 +1,50 @@
+{
+  "sha": "e1b7384",
+  "fullSha": "e1b7384a088f392134c681a9c9f8b27fb8878651",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T18:43:40Z",
+  "commitDate": "2026-03-04T18:43:40Z",
+  "subject": "fix(pwa): fix blurry icons, install banner bugs, missing debug pill",
+  "body": "Icons were 404ing because manifest referenced /assets/images/ paths but\nExpo only serves public/ as static files. Added PWA icons to public/ and\nupdated generate-icons.mjs to auto-copy them. Added manifest id and\nprefer_related_applications: false for reliable Chrome install flow.\n\nInstall banner persisted after install because isStandalone was only\nchecked once on mount. Added display-mode: standalone media query\nlistener so it updates dynamically. Added resetDismiss + burger menu\n\"Install app\" option so users can re-show the dismissed banner.\n\nRemoved __DEV__ guard on DebugPill — alpha-phase diagnostic tool needs\nto be visible in all builds.\n\nTags: pwa, icons, debug, ux, install\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: patch\n\nhttps://claude.ai/code/session_01MJkvd9W56odw5RS94Mtj1o",
+  "tags": [
+    "bugfix",
+    "pwa",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "fix blurry icons, install banner bugs, missing debug pill",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 50,
+    "deletions": 6
+  },
+  "files": [
+    "app/_layout.tsx",
+    "public/assets/images/icon-192.png",
+    "public/assets/images/icon-512.png",
+    "public/assets/images/icon.png",
+    "public/manifest.json",
+    "scripts/generate-icons.mjs",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/hooks/usePWAInstall.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "user-facing"
+}

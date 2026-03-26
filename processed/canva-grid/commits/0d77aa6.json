@@ -1,0 +1,42 @@
+{
+  "sha": "0d77aa6",
+  "fullSha": "0d77aa6944bd54bc1b95be20168f582fb25a6aa9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-14T06:38:54Z",
+  "commitDate": "2026-03-14T06:38:54Z",
+  "subject": "fix(zoom): make zoom controls work on mobile by fixing overflow clipping",
+  "body": "The preview container had overflow-hidden which clipped zoomed-in canvas\ncontent, making it appear as if zoom buttons did nothing. Changed to\noverflow-auto so users can scroll the zoomed canvas. Replaced flex\ncentering with margin:auto so the canvas centers when small but starts\nat top-left when zoomed larger than the container.\n\nTags: ui, zoom, mobile\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "zoom",
+  "title": "make zoom controls work on mobile by fixing overflow clipping",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 1
+  },
+  "files": [
+    "src/App.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

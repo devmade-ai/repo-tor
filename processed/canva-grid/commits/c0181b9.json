@@ -1,0 +1,44 @@
+{
+  "sha": "c0181b9",
+  "fullSha": "c0181b9626c3fd97211e98fdd1d759bf4dad4ec7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T16:06:49Z",
+  "commitDate": "2026-03-06T16:06:49Z",
+  "subject": "fix(export): replace window.print PDF with jsPDF direct download",
+  "body": "The previous PDF export used window.open + window.print, which was broken\non mobile: opened an about:blank tab, mobile browsers ignored @page size\nCSS (defaulting to A4/Letter instead of platform dimensions), and required\nnavigating a print dialog instead of downloading directly.\n\nSwitched to jsPDF which generates the PDF in-memory with exact platform\ndimensions and triggers a direct file download. Also renamed button from\n\"Save as PDF\" to \"Download as PDF\" to match the actual behavior.\n\nTags: export, pdf, mobile, fix\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pdf-export\nSemver: minor\n\nhttps://claude.ai/code/session_01XmtQsRcRK2ozCzUaZStUz7",
+  "tags": [
+    "bugfix",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pdf-export",
+  "semver": "minor",
+  "scope": "export",
+  "title": "replace window.print PDF with jsPDF direct download",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 246,
+    "deletions": 69
+  },
+  "files": [
+    "package-lock.json",
+    "package.json",
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

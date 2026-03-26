@@ -1,0 +1,46 @@
+{
+  "sha": "2a82d5b",
+  "fullSha": "2a82d5bb0929a4ceb3c004ee15d9bcb6e93fddae",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-23T17:24:31Z",
+  "commitDate": "2026-03-23T17:24:31Z",
+  "subject": "fix(docs): replace stale product names and clean up orphaned compliance comment",
+  "body": "Three docs still referenced old product names (\"Pricing Equilibrium Calculator\",\n\"Revenue Model Calculator\") instead of \"Software Transaction Structuring Tool\".\nAlso cleaned up a misleading \"COMPLIANCE (to be implemented)\" section in\ncalculator/src/index.ts that referenced a never-created module — transfer pricing\nis fully implemented inline in each model's calculate function.\n\nTags: docs, cleanup, naming\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation-audit\nSemver: patch\n\nhttps://claude.ai/code/session_014LrDVj8z5ZaGG1RhFW69sd",
+  "tags": [
+    "docs",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "docs-audit",
+  "semver": "patch",
+  "scope": "docs",
+  "title": "replace stale product names and clean up orphaned compliance comment",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 40,
+    "deletions": 31
+  },
+  "files": [
+    "docs/CALCULATIONS.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/UI_UX_GUIDE.md",
+    "packages/calculator/src/index.ts"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "internal"
+}

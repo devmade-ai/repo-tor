@@ -1,0 +1,44 @@
+{
+  "sha": "bddaa2e",
+  "fullSha": "bddaa2e70d77b47b0e445cc113cdb70a8c4dc82e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T22:59:25Z",
+  "commitDate": "2026-03-06T22:59:25Z",
+  "subject": "fix(content): clean up review issues — dead code, stale refs, perf",
+  "body": "Fixes 9 issues found during code review:\n\n1. Remove dead `normalizedImageCells` alias — use `imageCells` directly\n2. Remove unused `themeColorOptions` export from ColorPicker\n3. Remove unused `textAlignOptions` export from AlignmentPicker\n4. Fix useMemo dep in MiniCellGrid — depend on `type` + `structure`\n   instead of `normalizedStructure` (new object ref every render for\n   fullbleed layouts)\n5. Deduplicate getCellPositionLabel — single loop with axis mapping\n   instead of near-identical rows/columns branches\n6. Fix handleFocus stale event target — capture `e.target` as `el`\n   before setTimeout closure (fragile pattern even in React 18)\n7. Hoist `markdownGroups` constant out of MarkdownToolbar render\n8. Pre-group cellMap by section in useMemo (Map instead of flat array\n   with per-section .filter()) — O(1) lookup instead of O(n) per section\n9. Rename cell label \"Auto\" → \"Default\" for consistency with alignment\n   picker rename\n\nTags: cleanup, perf, code-quality\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: content-tab-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01UVkmh1XNRr8WdUw79i2WJo",
+  "tags": [
+    "removal",
+    "performance"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "content-tab-refactor",
+  "semver": "patch",
+  "scope": "content",
+  "title": "clean up review issues — dead code, stale refs, perf",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 44,
+    "deletions": 54
+  },
+  "files": [
+    "src/components/AlignmentPicker.jsx",
+    "src/components/ColorPicker.jsx",
+    "src/components/ContentTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,51 @@
+{
+  "sha": "133567b",
+  "fullSha": "133567b17306d5b65c7c6dfa05deac2716bc2f6f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T21:21:52Z",
+  "commitDate": "2026-03-02T21:21:52Z",
+  "subject": "fix(audit): code review fixes — types, keys, validation, a11y, immutability",
+  "body": "Full code review audit addressing quality, correctness, and accessibility\nissues across the codebase:\n\n- Rename InterestForm's FormData interface to InterestFormData to avoid\n  shadowing the global FormData type\n- Add client-side validatePayload call before network requests in\n  InterestForm for faster feedback and reduced unnecessary API calls\n- Replace fragile text-as-key patterns in About.tsx and TimelineItem.tsx\n  with stable index-based keys (static lists that never reorder)\n- Hoist browser detection to module level in usePWAInstall to avoid\n  re-deriving on every render and make empty useEffect deps honest\n- Stabilize showManualInstructions with useMemo keyed on isInstalled\n- Refactor DebugBanner runDiagnostics to use immutable array updates\n  (replaceLast helper) instead of mutable index-based mutations\n- Add explicit ReactNode import in Section.tsx instead of relying on\n  ambient React namespace\n- Replace console.warn in useRepoTorEmbed with debugLog for consistent\n  logging through the shared pub/sub store\n- Add skip-to-content link and main#main-content for WCAG 2.1 SC 2.4.1\n- Wrap footer social links in <nav aria-label=\"Social links\">\n- Add 4 new cv-data tests: project fields, education fields, skill\n  categories, and project count (46 total, all passing)\n\nTags: audit, quality, a11y, validation, types, testing\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-review-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01QobvueuLxBc79it4vX6yrv",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "code review fixes — types, keys, validation, a11y, immutability",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 141,
+    "deletions": 57
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/About.tsx",
+    "src/components/DebugBanner.tsx",
+    "src/components/InterestForm.tsx",
+    "src/components/Section.tsx",
+    "src/components/TimelineItem.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/useRepoTorEmbed.ts",
+    "src/test/cv-data.test.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

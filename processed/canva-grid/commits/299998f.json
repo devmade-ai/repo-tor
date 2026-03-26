@@ -1,0 +1,43 @@
+{
+  "sha": "299998f",
+  "fullSha": "299998f42a6f3d6b8da4406fb0b6aecc15db3a9e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-15T19:14:30Z",
+  "commitDate": "2026-03-15T19:14:30Z",
+  "subject": "fix(ui): move empty state guide buttons off canvas to below it",
+  "body": "The \"Browse Presets\" and \"Upload Images\" buttons were rendering as an\nabsolute overlay on top of the canvas, which covered the design surface\nand could interfere with cell selection. Moved them to render as a\nnormal-flow element below the canvas container, keeping the same\nnavigation functionality intact.\n\nTags: ui, canvas, empty-state\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: canvas-controls\nSemver: patch\n\nhttps://claude.ai/code/session_017voMfkSTMijTzBnG1D3vUB",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "canvas-controls",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "move empty state guide buttons off canvas to below it",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 31,
+    "deletions": 32
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/EmptyStateGuide.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

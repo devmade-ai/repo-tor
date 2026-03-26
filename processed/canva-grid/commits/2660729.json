@@ -1,0 +1,46 @@
+{
+  "sha": "2660729",
+  "fullSha": "2660729c40dfc025614758af25b888a56970ee33",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-10T15:29:52Z",
+  "commitDate": "2026-03-10T15:29:52Z",
+  "subject": "feat(content): multi-block freeform text with per-block styling and reordering",
+  "body": "Freeform mode now supports multiple independently styled markdown blocks per cell.\nEach block has its own color, size, bold, italic, letter spacing, alignment,\nspacer/line separator controls, and can be moved up/down or deleted.\n\n- textDefaults: added defaultFreeformBlock shape and createFreeformBlock factory\n- useAdState: replaced setFreeformText with addFreeformBlock, updateFreeformBlock,\n  removeFreeformBlock, moveFreeformBlock (array-of-blocks per cell)\n- ContentTab: new FreeformBlockEditor component with move/delete/style controls,\n  FreeformCellEditor renders block list with \"Add Text Block\" button\n- AdCanvas: renderFreeformTextForCell iterates block array with per-block styling\n  and spacer/line decorations\n- App.jsx: wires new block CRUD props to ContentTab\n\nTags: text, freeform, content, canvas, state\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: freeform-text\nSemver: minor\n\nhttps://claude.ai/code/session_01Vp82yU8LPSQKF91NibhLnG",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "freeform-text",
+  "semver": "minor",
+  "scope": "content",
+  "title": "multi-block freeform text with per-block styling and reordering",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 449,
+    "deletions": 120
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/AdCanvas.jsx",
+    "src/components/ContentTab.jsx",
+    "src/config/textDefaults.js",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

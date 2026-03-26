@@ -1,0 +1,48 @@
+{
+  "sha": "e6dab9c",
+  "fullSha": "e6dab9c2b39c54339d3b2e151a007656d71f5d2a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-03T02:57:50Z",
+  "commitDate": "2026-03-03T02:57:50Z",
+  "subject": "docs: fix ~30 documentation-vs-code discrepancies",
+  "body": "Full codebase audit comparing all documentation against actual code.\n\nREADME.md: rewritten for React/Vite era (was pre-migration), 4→6 tabs,\nadded project structure with all components/hooks/scripts.\n\nCLAUDE.md: 5→6 tabs (added Projects), expanded components list (5 missing),\nadded js/hooks/ and js/chartColors.js, fixed extract-api.js description.\n\nUSER_GUIDE.md: removed Privacy Mode and Share/PDF ghost features,\nupdated Summary Cards to actual ones, updated 18 Discover metric labels\nto plain language names, added Projects tab, fixed filter mode labels.\n\nADMIN_GUIDE.md: fixed auto-loading data (was claiming multi-path, actual\nis ./data.json only), replaced gh CLI section with token-based setup\n(extract-api.js uses curl), fixed static server instructions.\n\nSESSION_NOTES.md: corrected false manifest.js deletion claim, fixed tab\ncount and View Level location references.\n\nAppContext.jsx: added What/Why/Alternatives decision documentation to\nsplit context pattern.\n\ncomplexity: 2\nurgency: 2\nimpact: internal\nrisk: low\ndebt: paid\n\nhttps://claude.ai/code/session_0174YkWN9swC4ktMWVy4nvMF",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "docs-audit",
+  "semver": "patch",
+  "scope": null,
+  "title": "fix ~30 documentation-vs-code discrepancies",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 181,
+    "deletions": 198
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "dashboard/js/AppContext.jsx",
+    "docs/ADMIN_GUIDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

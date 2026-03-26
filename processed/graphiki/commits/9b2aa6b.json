@@ -1,0 +1,41 @@
+{
+  "sha": "9b2aa6b",
+  "fullSha": "9b2aa6b8e51aa50b9376eb81a1ba1851e72266f1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T05:20:52Z",
+  "commitDate": "2026-03-09T05:20:52Z",
+  "subject": "docs(todo): document critical import ID removal requirement",
+  "body": "IDs are meaningless in import/merge — imported data cannot know\nexisting DB IDs or its own. All real use cases involve connecting\ndata from different sources where only content (title, labels,\nproperties) can be used for matching. Documents 6 concrete use\ncases and outlines the required content-based identity system.\n\nTags: import, merge, architecture, identity\nComplexity: 1\nUrgency: 3\nImpact: api\nRisk: low\nDebt: neutral\nEpic: remove-import-ids\nSemver: patch\n\nhttps://claude.ai/code/session_01P6y9bzn2FJLcB9z6PNCE17",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "import-pipeline",
+  "semver": "patch",
+  "scope": "todo",
+  "title": "document critical import ID removal requirement",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 33,
+    "deletions": 1
+  },
+  "files": [
+    "docs/TODO.md"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

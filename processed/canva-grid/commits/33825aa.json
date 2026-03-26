@@ -1,0 +1,45 @@
+{
+  "sha": "33825aa",
+  "fullSha": "33825aa9a9b34021131765bb5471c820744ea78e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T22:42:16Z",
+  "commitDate": "2026-03-08T22:42:16Z",
+  "subject": "fix(ui): fix cell highlighting, image indicators, text redistribution, and default layout",
+  "body": "Cell highlighting in Structure tab showed stale ring on wrong cell after switching\nlayout types because globalSelectedCell wasn't clamped to the new cell count. Image\nindicators in MiniCellGrid used preset designations (imageCells array) instead of\nactual assignments (cellImages object), causing inconsistency with ContextBar.\nText redistribution in applyLayoutPreset ran cleanup first which deleted text from\norphaned cells before it could be collected and redistributed. Default layout changed\nfrom quad-grid (4 cells) to split-horizontal (2 rows) for simpler first-time experience.\n\nTags: ui, state, layout, text\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: cell-highlighting\nSemver: patch\n\nhttps://claude.ai/code/session_01C4FmDdg3AUrVBgCMsmkahH",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "cell-highlighting",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "fix cell highlighting, image indicators, text redistribution, and default layout",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 69,
+    "deletions": 84
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "src/components/LayoutTab.jsx",
+    "src/components/MiniCellGrid.jsx",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

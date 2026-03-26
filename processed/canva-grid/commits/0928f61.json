@@ -1,0 +1,44 @@
+{
+  "sha": "0928f61",
+  "fullSha": "0928f6130153b4d03a9a0a284499439a30809c39",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-10T15:12:46Z",
+  "commitDate": "2026-03-10T15:12:46Z",
+  "subject": "refactor(content): switch spacers and line separators from per-group to per-element",
+  "body": "User requested per-element granularity instead of per-group. Each text element\n(title, tagline, bodyHeading, bodyText, cta, footnote) now has its own\nspacerAbove/spacerBelow/lineAbove/lineBelow controls.\n\n- textDefaults: removed defaultGroupSpacing, added spacer/line fields to defaultTextLayer\n- ContentTab: removed GroupSpacingControls, added per-element controls in TextElementEditor\n- AdCanvas: replaced textGroupDefs/renderGroupDecorations with renderElementDecorations,\n  rewrote renderTextElementsForCell to iterate flat element list\n\nTags: text, content, canvas, ui\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: text-decorations\nSemver: minor\n\nhttps://claude.ai/code/session_01Vp82yU8LPSQKF91NibhLnG",
+  "tags": [
+    "refactor",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "text-decorations",
+  "semver": "minor",
+  "scope": "content",
+  "title": "switch spacers and line separators from per-group to per-element",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 105,
+    "deletions": 177
+  },
+  "files": [
+    "src/components/AdCanvas.jsx",
+    "src/components/ContentTab.jsx",
+    "src/config/textDefaults.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

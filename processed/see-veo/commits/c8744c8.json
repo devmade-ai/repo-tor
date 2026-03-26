@@ -1,0 +1,45 @@
+{
+  "sha": "c8744c8",
+  "fullSha": "c8744c855de7217ca6c0f91d04def6a612a6faf2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-14T08:02:12Z",
+  "commitDate": "2026-03-14T08:02:12Z",
+  "subject": "feat(projects): add screenshot support with fallback chain",
+  "body": "Adds portrait screenshot display to project cards in a horizontal\nlayout — image on the left, text content on the right. Designed for\nphone-captured portrait screenshots that work well in both the web\nview and PDF download.\n\nFallback chain: screenshot image → Google Favicon API → initials\nplaceholder. ProjectImage component handles the cascade with onError\ntransitions between stages.\n\nLayout changed from 3-column vertical cards to 2-column horizontal\ncards to accommodate the image panel. Print styles cap screenshot\nheight for compact PDF output.\n\nNew files:\n- src/components/ProjectImage.tsx (fallback image component)\n- public/screenshots/ (directory for screenshot assets)\n\nTags: projects, screenshots, ui, layout\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: project-screenshots\nSemver: minor",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "project-screenshots",
+  "semver": "minor",
+  "scope": "projects",
+  "title": "add screenshot support with fallback chain",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 143,
+    "deletions": 26
+  },
+  "files": [
+    "src/components/ProjectImage.tsx",
+    "src/components/Projects.tsx",
+    "src/data/cv-data.ts",
+    "src/index.css"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "user-facing"
+}

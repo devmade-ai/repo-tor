@@ -1,0 +1,43 @@
+{
+  "sha": "6b385d3",
+  "fullSha": "6b385d3bb9ee54f5394ab6b057bb8d485a617e0b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T11:13:52Z",
+  "commitDate": "2026-03-08T11:13:52Z",
+  "subject": "fix(content): prevent freeform help text from being squashed on mobile",
+  "body": "MiniCellGrid used w-full on mobile which consumed all flex space,\nleaving no room for the \"Cell N\" label and hint text beside it.\nChanged to a fixed 120px width at all breakpoints and wrapped in a\nshrink-0 container so the text area always has room.\n\nTags: ui, content, mobile\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: content-editing\nSemver: patch\n\nhttps://claude.ai/code/session_012V7AguSge3Ngw25j72iiGX",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "content-tab-refactor",
+  "semver": "patch",
+  "scope": "content",
+  "title": "prevent freeform help text from being squashed on mobile",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 15,
+    "deletions": 11
+  },
+  "files": [
+    "src/components/ContentTab.jsx",
+    "src/components/MiniCellGrid.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

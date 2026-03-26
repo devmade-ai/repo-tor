@@ -1,0 +1,57 @@
+{
+  "sha": "b21c6c4",
+  "fullSha": "b21c6c4f3d468c82b8f01c7a3e81bf5bd54c39b1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T15:21:10Z",
+  "commitDate": "2026-03-09T15:21:10Z",
+  "subject": "feat(debug): add comprehensive debug logging across all services and components",
+  "body": "Previously, only infrastructure code (boot, DB, workers, PWA) had debug logging.\nCore business logic — graph CRUD, workspace management, query engine, analysis\nalgorithms, import/export, similarity detection — was completely silent in the\ndebug pill. This makes alpha-phase diagnosis difficult on deployed environments.\n\nAdded 9 new DebugSource types (workspace, import, export, query, analysis,\nsimilarity, view, canvas, snapshot) with distinct colors. Added logging to:\n- workspaceService (CRUD, cascade delete)\n- viewService (CRUD)\n- importExportService (validation, export)\n- mergeService (semantic merge proposal)\n- queryEngine (pipeline execution, hop expansion, find connections)\n- similarityService (node/arc pair finding)\n- analysisService (all 6 algorithms)\n- snapshotService (take, clear)\n- embeddingService (batch start/end, up-to-date checks)\n- tagSuggestionService (suggestion latency)\n- GraphCanvas (Cytoscape init, layout execution)\n- eventBus (console.error → debugLog for listener errors)\n\nUpdated eventBus test to match debugLog change (no longer spies on console.error).\n\nTags: debug, logging, observability, alpha-tooling\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-logging\nSemver: minor\n\nhttps://claude.ai/code/session_01ULhD1te9qFVLzqF4YCLBbP",
+  "tags": [
+    "monitoring",
+    "enhancement"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-system",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "add comprehensive debug logging across all services and components",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 16,
+    "additions": 84,
+    "deletions": 7
+  },
+  "files": [
+    "src/components/debug/DebugPill.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/services/analysisService.ts",
+    "src/services/embeddingService.ts",
+    "src/services/graphService.ts",
+    "src/services/importExportService.ts",
+    "src/services/mergeService.ts",
+    "src/services/queryEngine.ts",
+    "src/services/similarityService.ts",
+    "src/services/snapshotService.ts",
+    "src/services/tagSuggestionService.ts",
+    "src/services/viewService.ts",
+    "src/services/workspaceService.ts",
+    "src/utils/debugLog.ts",
+    "src/utils/eventBus.test.ts",
+    "src/utils/eventBus.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}

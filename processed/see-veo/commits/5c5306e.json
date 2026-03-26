@@ -1,0 +1,44 @@
+{
+  "sha": "5c5306e",
+  "fullSha": "5c5306eccab152db6c65b20cc79a48675583081f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T21:36:38Z",
+  "commitDate": "2026-03-07T21:36:38Z",
+  "subject": "fix(pwa): detect Brave Mobile via navigator.brave API",
+  "body": "Brave Mobile strips \"Brave\" from the user agent string, causing\ndetectBrowser() to misidentify it as Chrome. This led to misleading\n\"Install Prompt\" diagnostics. Now checks navigator.brave API first\n(synchronous property check), then falls back to UA string matching.\n\nAlso updates the Install Prompt diagnostic message — the old message\nsuggested a timing bug (\"may have fired before React mounted\") which\nwas inaccurate since the index.html early-capture script handles that\ncase. New message explains the actual common causes: engagement\nheuristics and browser privacy settings.\n\nTags: pwa, brave, browser-detection, diagnostics, mobile\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-install\nSemver: patch\n\nhttps://claude.ai/code/session_016LKUeM6TyYmfbQ52XsAwtX",
+  "tags": [
+    "bugfix",
+    "pwa"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "detect Brave Mobile via navigator.brave API",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 39,
+    "deletions": 5
+  },
+  "files": [
+    "src/components/DebugBanner.tsx",
+    "src/test/detect-browser.test.ts",
+    "src/utils/pwa.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "user-facing"
+}

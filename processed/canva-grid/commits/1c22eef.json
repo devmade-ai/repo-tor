@@ -1,0 +1,43 @@
+{
+  "sha": "1c22eef",
+  "fullSha": "1c22eefa9383daec5de30d7da0ae91541993fe02",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T10:33:12Z",
+  "commitDate": "2026-03-07T10:33:12Z",
+  "subject": "fix(layout): wire Structure tab into global cell selection for alignment",
+  "body": "The Structure tab had its own internal cell selection (structureSelection state)\ncompletely disconnected from the global selectedCell used by every other tab via\nthe ContextBar. This meant users had to re-select cells in the Structure grid\nbefore alignment controls would work — confusing and inconsistent.\n\nChanges:\n- Pass selectedCell + onSelectCell props to LayoutTab (matching Media/Content/Style)\n- Text Alignment section now reads/writes using global selectedCell directly\n- Added inline cell selector buttons in alignment section for quick switching\n- Structure grid cell clicks now sync to global selection via onSelectCell\n- structureSelection kept for structural editing only (section sizes, subdivisions)\n\nTags: ux, layout, alignment, state\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: structure-tab-ux\nSemver: patch\n\nhttps://claude.ai/code/session_012GumyZdfwFqQNsppXFwNXW",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cell-selection",
+  "semver": "patch",
+  "scope": "layout",
+  "title": "wire Structure tab into global cell selection for alignment",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 34,
+    "deletions": 58
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/LayoutTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

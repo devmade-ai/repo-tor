@@ -1,0 +1,42 @@
+{
+  "sha": "ddf32ef",
+  "fullSha": "ddf32efc821972e29d0ec2c3f742cdfaf4143f6a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-18T21:11:19Z",
+  "commitDate": "2026-03-18T21:11:19Z",
+  "subject": "fix(mobile): raise header z-index when overflow menu is open",
+  "body": "The 3-dot overflow menu was rendering behind BottomSheet (z-40) and\nMobileNav (z-50) because the header's `relative` positioning created a\nstacking context that capped the menu's z-50. Conditionally apply z-[60]\nto the header when the menu is open so it layers above all fixed elements.\n\nTags: ui, mobile, z-index\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_013rqzKoFgSbneZFaFpa7LqU",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "raise header z-index when overflow menu is open",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 1
+  },
+  "files": [
+    "src/App.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

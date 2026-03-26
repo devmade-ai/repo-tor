@@ -1,0 +1,41 @@
+{
+  "sha": "70a7d63",
+  "fullSha": "70a7d632bb9fb254209d7a8b6cf6e53fef1820ae",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-21T22:26:36Z",
+  "commitDate": "2026-03-21T22:26:36Z",
+  "subject": "docs(mistakes): log missed Mapbox token restriction during security audit",
+  "body": "Security audit was marked complete but never flagged the public Mapbox\ntoken lacking URL restrictions — a standard Mapbox hardening step that\nshould have been caught during any session reading the map code.\n\nTags: documentation, security, process\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: security-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_012GoRRuSkXvRWbQhj6XTrxn",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "security-hardening",
+  "semver": "patch",
+  "scope": "mistakes",
+  "title": "log missed Mapbox token restriction during security audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 10,
+    "deletions": 0
+  },
+  "files": [
+    "docs/AI_MISTAKES.md"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

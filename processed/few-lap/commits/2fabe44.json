@@ -1,0 +1,45 @@
+{
+  "sha": "2fabe44",
+  "fullSha": "2fabe44ad39f36b52280285412bb33370cae1371",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T19:14:10Z",
+  "commitDate": "2026-03-13T19:14:10Z",
+  "subject": "perf: FlatList optimization, React.memo on hot components, memoize chart",
+  "body": "StationList FlatList: Added getItemLayout (estimated 136px per item),\nremoveClippedSubviews, and maxToRenderPerBatch=15 to reduce scroll jank\non lists of 20+ stations.\n\nReact.memo: Added to FuelTypeSelector, RadiusSelector, and PriceDisplay\nto prevent unnecessary re-renders from parent scroll/filter changes.\n\nPriceHistoryChart BarChart: Wrapped min/max/range reduce calculations\nin useMemo to avoid recalculating on every render.\n\nTags: performance, flatlist, memo, useMemo\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: performance\nSemver: patch\n\nhttps://claude.ai/code/session_01Gt5imLcUKsHSwAxVv1jrE8",
+  "tags": [
+    "performance"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "performance",
+  "semver": "patch",
+  "scope": null,
+  "title": "FlatList optimization, React.memo on hot components, memoize chart",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 30,
+    "deletions": 15
+  },
+  "files": [
+    "src/components/search/FuelTypeSelector.tsx",
+    "src/components/search/RadiusSelector.tsx",
+    "src/components/station/PriceDisplay.tsx",
+    "src/components/station/PriceHistoryChart.tsx",
+    "src/components/station/StationList.tsx"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}
