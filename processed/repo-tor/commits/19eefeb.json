@@ -1,0 +1,54 @@
+{
+  "sha": "19eefeb",
+  "fullSha": "19eefebb72d98aaed051b1090f8e75db718cbcc8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T20:49:13Z",
+  "commitDate": "2026-03-13T20:49:13Z",
+  "subject": "feat(data): add batch preamble and rename playbook to DATA_OPERATIONS",
+  "body": "Create config/batch-preamble.md with analysis instructions that get\nembedded in every batch by pending.js. This ensures the AI always reads\ntagging guidelines, scoring rubrics, and rules with each batch file.\n\nRename EXTRACTION_PLAYBOOK.md to DATA_OPERATIONS.md, trimming duplicated\ncontent that now lives in the preamble. All analysis fields (risk, debt,\nepic, semver) are now required — no blank fields allowed.\n\nTags: feature, refactor, docs\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: data-pipeline\nSemver: minor\n\nhttps://claude.ai/code/session_01JoUyjBGVsqp2yuJCF4haJc",
+  "tags": [
+    "feature",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "data-operations",
+  "semver": "minor",
+  "scope": "data",
+  "title": "add batch preamble and rename playbook to DATA_OPERATIONS",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 325,
+    "deletions": 316
+  },
+  "files": [
+    "CLAUDE.md",
+    "config/batch-preamble.md",
+    "docs/AI_LESSONS.md",
+    "docs/ANALYSIS_GUIDE.md",
+    "docs/CODE_REVIEW.md",
+    "docs/COMMIT_CONVENTION.md",
+    "docs/DATA_OPERATIONS.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "hooks/commit-msg",
+    "scripts/aggregate.js",
+    "scripts/extract.js",
+    "scripts/pending.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "internal"
+}

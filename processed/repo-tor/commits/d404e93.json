@@ -1,0 +1,47 @@
+{
+  "sha": "d404e93",
+  "fullSha": "d404e93cfb84177e55c9761b4f021a65f7fa5eed",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T14:27:54Z",
+  "commitDate": "2026-03-04T14:27:54Z",
+  "subject": "fix(dashboard): 6 fixes from cross-tab audit",
+  "body": "- Fix Projects commit counts to use filteredCommits (was using unfiltered)\n- Fix Timeline trend charts to use getUTCMonthKey (was .substring(0,7))\n- Add pb-12 bottom padding to content wrapper\n- Add <hr> separators between stacked sections in Timeline and Breakdown tabs\n- Show loading spinner for Discover file insights during Phase 1\n- Use ?? instead of || for Health summary breakdown fallbacks\n\nhttps://claude.ai/code/session_01RbDmv8obRPnToLezqSGmHg",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dashboard-v2",
+  "semver": "patch",
+  "scope": "dashboard",
+  "title": "6 fixes from cross-tab audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 52,
+    "deletions": 17
+  },
+  "files": [
+    "dashboard/js/App.jsx",
+    "dashboard/js/sections/Discover.jsx",
+    "dashboard/js/sections/Health.jsx",
+    "dashboard/js/sections/Projects.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}
