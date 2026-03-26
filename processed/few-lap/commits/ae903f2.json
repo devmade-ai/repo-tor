@@ -1,0 +1,42 @@
+{
+  "sha": "ae903f2",
+  "fullSha": "ae903f2b837cfed86e5765be4b640024332ab11c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T19:00:47Z",
+  "commitDate": "2026-03-04T19:00:47Z",
+  "subject": "fix(pwa): suppress false beforeinstallprompt warning in standalone mode",
+  "body": "The diagnostic warning \"No beforeinstallprompt after 5s\" fired even when\nthe app was already running as an installed PWA. The event never fires in\nstandalone mode, so the warning was a false positive. Added isStandalone\nguard to the effect and a re-check inside the timeout to handle the race\nwhere standalone state updates during the 5s delay.\n\nTags: pwa, debug, mobile\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01NYX9LNEyJdWyhpdhFqhRKX",
+  "tags": [
+    "bugfix",
+    "pwa"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "suppress false beforeinstallprompt warning in standalone mode",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 5,
+    "deletions": 2
+  },
+  "files": [
+    "src/hooks/usePWAInstall.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

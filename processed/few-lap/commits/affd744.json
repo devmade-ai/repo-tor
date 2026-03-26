@@ -1,0 +1,41 @@
+{
+  "sha": "affd744",
+  "fullSha": "affd744e069c99a5e06a43794e4fbe73a67d5503",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T11:24:24Z",
+  "commitDate": "2026-03-05T11:24:24Z",
+  "subject": "test: add integration tests for Supabase query patterns",
+  "body": "9 tests covering RPC calls (find_stations_in_radius,\nupdate_station_coordinates, bulk_update_regulated_price),\nfuel_prices upsert conflict resolution, price_history queries,\nand admin stations list queries. All use mocked supabase client.\n\nTotal test count: 45 (36 formatting + 9 integration).\n\nTags: testing, supabase, integration\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: testing\nSemver: patch\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "test-integration"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "testing",
+  "semver": "patch",
+  "scope": null,
+  "title": "add integration tests for Supabase query patterns",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 252,
+    "deletions": 0
+  },
+  "files": [
+    "src/lib/__tests__/supabase-queries.test.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

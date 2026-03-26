@@ -1,0 +1,70 @@
+{
+  "sha": "f3bf029",
+  "fullSha": "f3bf0297b1dd3eb62625abf33fb81a4a30912acd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T02:03:07Z",
+  "commitDate": "2026-03-05T02:03:07Z",
+  "subject": "fix(review): comprehensive codebase review fixes and documentation sync",
+  "body": "Bug fixes:\n- BottomSheet: reactive dimensions via useWindowDimensions (was static at\n  module load, broke on orientation/resize/keyboard)\n- BottomSheet: flick gesture edge case — closest-match index instead of\n  exact indexOf (returned -1 after interrupted animations)\n- BottomSheet: animation cleanup on unmount (stop active Animated.spring)\n- BottomSheet: accessibility — adjustable role, label, hint, and\n  increment/decrement actions for screen readers\n- LocationSearch: response.ok check, AbortController 8s timeout, and\n  user-visible error feedback (was silently swallowing failures)\n- usePWAUpdate: waitForInstalled statechange listener leak fixed\n- TutorialModal: step 4 replaced stale map/list toggle reference with\n  bottom sheet description\n\nCode quality:\n- Removed unused LightTheme imports from +html.tsx and DebugPill.tsx\n- Memoized renderStation in admin/index.tsx with useCallback\n- Added Alternatives sections to 15 non-compliant file headers (all\n  non-trivial files now have What/Why/Alternatives per CLAUDE.md)\n\nDocumentation sync:\n- CLAUDE.md: updated Project Status and Architecture for bottom sheet\n- USER_GUIDE.md: full rewrite covering all implemented features\n- TESTING_GUIDE.md: 43 UI test scenarios added\n- TODO.md: moved completed items to HISTORY, removed stale entries\n- HISTORY.md: added missing entries for 3+ sessions of work\n- SESSION_NOTES.md: rewritten for current session\n- README.md: updated status description\n\nTags: review, bugfix, accessibility, documentation, cleanup\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: codebase-review\nSemver: patch\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "bugfix",
+    "docs",
+    "refactor"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "review",
+  "title": "comprehensive codebase review fixes and documentation sync",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 28,
+    "additions": 478,
+    "deletions": 112
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "app/(tabs)/_layout.tsx",
+    "app/(tabs)/index.tsx",
+    "app/+html.tsx",
+    "app/_layout.tsx",
+    "app/admin/_layout.tsx",
+    "app/admin/index.tsx",
+    "app/admin/station/[id].tsx",
+    "app/station/[id].tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md",
+    "src/components/admin/PriceEditor.tsx",
+    "src/components/map/StationMarker.tsx",
+    "src/components/search/FuelTypeSelector.tsx",
+    "src/components/search/LocationSearch.tsx",
+    "src/components/search/RadiusSelector.tsx",
+    "src/components/station/PriceDisplay.tsx",
+    "src/components/station/StationCard.tsx",
+    "src/components/station/StationList.tsx",
+    "src/components/ui/BottomSheet.tsx",
+    "src/components/ui/TutorialModal.tsx",
+    "src/debug/DebugPill.tsx",
+    "src/hooks/usePWAUpdate.ts",
+    "src/hooks/useStations.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}

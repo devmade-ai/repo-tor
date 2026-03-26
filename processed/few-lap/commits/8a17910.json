@@ -1,0 +1,46 @@
+{
+  "sha": "8a17910",
+  "fullSha": "8a179107e03fc5b86556676def306a1fd4be047d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T02:09:07Z",
+  "commitDate": "2026-03-05T02:09:07Z",
+  "subject": "fix(types): resolve all pre-existing TypeScript errors",
+  "body": "- useRef calls: added explicit `undefined` initial value for timer refs\n  in InstallPrompt, BurgerMenu, DebugPill, usePWAUpdate (React 19 types\n  require initial argument for non-nullable refs)\n- station/[id].tsx: cast Supabase join result to unknown[] before runtime\n  validation — Supabase TS infers fuel_types as array from join syntax\n  but returns a single object at runtime. The cast lets the type predicate\n  work without fighting the inferred generic.\n\nResult: `npx tsc --noEmit` passes with zero errors.\n\nTags: typescript, types, bugfix\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: codebase-review\nSemver: patch\n\nhttps://claude.ai/code/session_01QmaxsMJta25nBMqgusP7x1",
+  "tags": [
+    "bugfix",
+    "types"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "types",
+  "title": "resolve all pre-existing TypeScript errors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 15,
+    "deletions": 10
+  },
+  "files": [
+    "app/station/[id].tsx",
+    "src/components/pwa/InstallPrompt.tsx",
+    "src/components/ui/BurgerMenu.tsx",
+    "src/debug/DebugPill.tsx",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}
