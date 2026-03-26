@@ -1,0 +1,44 @@
+{
+  "sha": "f0e8416",
+  "fullSha": "f0e841634b3d95a555c923c1d9ac3e14a29e72bd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-03T18:26:24Z",
+  "commitDate": "2026-03-03T18:26:24Z",
+  "subject": "fix(icons): improve SVG rendering with 400 DPI and geometricPrecision",
+  "body": "Sharp now rasterizes the SVG at 400 DPI (~5.5x the default 72 DPI\ncoordinate space) before downscaling to target sizes. Combined with\nshape-rendering=\"geometricPrecision\" on the SVG root element, this\nproduces noticeably crisper edges — especially on the 192px PWA icon.\n\nCLAUDE.md updated with both techniques in the generator script example,\nSVG design rules, and key lessons sections.\n\nTags: icons, svg, rendering, sharp\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: app-icons\nSemver: patch\n\nhttps://claude.ai/code/session_016ZF4MaYWUnNN64VT8PapxE",
+  "tags": [
+    "bugfix",
+    "enhancement"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "app-icons",
+  "semver": "patch",
+  "scope": "icons",
+  "title": "improve SVG rendering with 400 DPI and geometricPrecision",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 17,
+    "deletions": 5
+  },
+  "files": [
+    "CLAUDE.md",
+    "assets/icon-source.svg",
+    "scripts/generate-icons.mjs"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}
