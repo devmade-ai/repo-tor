@@ -1,0 +1,43 @@
+{
+  "sha": "a8e807d",
+  "fullSha": "a8e807df9ef4a076d09750754be9627f94c87855",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T21:25:32Z",
+  "commitDate": "2026-03-07T21:25:32Z",
+  "subject": "feat(debug): add install prompt and detected browser diagnostics",
+  "body": "The debug panel now shows two additional checks:\n- \"Install Prompt\" — whether beforeinstallprompt was captured and the\n  install button is visible. Shows a warning when the event was expected\n  but not captured, making the race condition diagnosable without devtools.\n- \"Detected Browser\" — what detectBrowser() resolved to, useful since\n  Brave on Android reports as Chrome in the user agent string.\n\ncanInstall state is passed from App.tsx to DebugBanner as a prop so the\ndiagnostics can reflect the live install prompt state.\n\nTags: pwa, debug, diagnostics, install\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: pwa-install\nSemver: minor\n\nhttps://claude.ai/code/session_01CYD8BFmVGzLwRGbqtpMcnj",
+  "tags": [
+    "feature",
+    "monitoring"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "debug-system",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "add install prompt and detected browser diagnostics",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 35,
+    "deletions": 4
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/DebugBanner.tsx"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "internal"
+}

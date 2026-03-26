@@ -1,0 +1,43 @@
+{
+  "sha": "c2c08fd",
+  "fullSha": "c2c08fd2996dabb164ed69d0dc73092f238bb78e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T09:27:45Z",
+  "commitDate": "2026-03-06T09:27:45Z",
+  "subject": "fix(embed): add allow-same-origin to iframe sandbox so charts can fetch data",
+  "body": "The repo-tor embed page fetches ./data.json from its own origin on load.\nWith only sandbox=\"allow-scripts\", iframes get an opaque origin, causing\nthe fetch to fail silently. The page never receives chart data and stays\nstuck on \"Loading dashboard.\"\n\nAdding allow-same-origin restores the iframe's real origin\n(repo-tor.vercel.app) so the relative fetch succeeds. Navigation and\nform submission remain blocked by the sandbox.\n\nTags: embed, charts, sandbox, bugfix\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: embed-charts\nSemver: patch\n\nhttps://claude.ai/code/session_01L9uYqMNSyT9gitL6uZDm9F",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "embeds",
+  "semver": "patch",
+  "scope": "embed",
+  "title": "add allow-same-origin to iframe sandbox so charts can fetch data",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "src/components/ActivityCharts.tsx",
+    "src/components/ActivityTimeline.tsx"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "user-facing"
+}

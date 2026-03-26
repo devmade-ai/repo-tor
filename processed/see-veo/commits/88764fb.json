@@ -1,0 +1,43 @@
+{
+  "sha": "88764fb",
+  "fullSha": "88764fbc0eae01088b7b884acd0f4251fb011296",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T21:15:24Z",
+  "commitDate": "2026-03-07T21:15:24Z",
+  "subject": "fix(pwa): capture beforeinstallprompt before React mounts",
+  "body": "The beforeinstallprompt event can fire before the React app mounts and\nthe usePWAInstall hook registers its listener, causing the \"Install as\nApp\" button to never appear. This is a race condition most visible on\nfast connections (e.g. Android Chrome) where the browser evaluates the\nmanifest and fires the event before the deferred module script executes.\n\nAdded an inline script in index.html that captures the event on\nwindow.__pwaInstallPrompt synchronously. The usePWAInstall hook now\nchecks for this early-captured event on mount and consumes it.\n\nTags: pwa, install, race-condition, android\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-install\nSemver: patch\n\nhttps://claude.ai/code/session_01CYD8BFmVGzLwRGbqtpMcnj",
+  "tags": [
+    "bugfix",
+    "pwa"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "capture beforeinstallprompt before React mounts",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 27,
+    "deletions": 0
+  },
+  "files": [
+    "index.html",
+    "src/hooks/usePWAInstall.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "user-facing"
+}

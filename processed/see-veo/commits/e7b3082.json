@@ -1,0 +1,43 @@
+{
+  "sha": "e7b3082",
+  "fullSha": "e7b30827b54ddd2638522098cfbfedf0890f1439",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T19:21:46Z",
+  "commitDate": "2026-03-07T19:21:46Z",
+  "subject": "fix(diagnostics): distinguish browser-blocked from not-deployed in health check",
+  "body": "When privacy-focused browsers (Brave Shields, tracker blockers) block\ncross-origin cors-mode fetches, the health check threw TypeError and\nreported \"API not deployed\" even though the server was reachable via\nthe no-cors probe. This gave users a misleading \"messaging service is\noffline\" error when the real issue was browser-level request blocking.\n\nDebugBanner: After both the health check (cors) and reachability probe\n(no-cors) complete, if health failed but server is reachable, amend the\n\"API Deployed\" result from fail→warn with a message about browser\nprivacy settings instead of claiming the API is down.\n\nInterestForm: Add 'browser-blocked' failure cause to diagnoseFailure.\nWhen cors health check fails but no-cors probe succeeds (server is up),\nreturn 'browser-blocked' instead of 'not-deployed'. Show actionable\nmessage suggesting users disable ad/tracker blocking for this site.\n\nTags: diagnostics, pwa, form, a11y, mobile\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-diagnostics\nSemver: patch\n\nhttps://claude.ai/code/session_015APoXQpe5mLBHJyN5SrAHp",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-system",
+  "semver": "patch",
+  "scope": "diagnostics",
+  "title": "distinguish browser-blocked from not-deployed in health check",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 69,
+    "deletions": 19
+  },
+  "files": [
+    "src/components/DebugBanner.tsx",
+    "src/components/InterestForm.tsx"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "user-facing"
+}
