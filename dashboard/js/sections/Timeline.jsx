@@ -8,7 +8,7 @@ import {
     getUTCDateKey, getUTCMonthKey, excludeIncompleteLastMonth,
 } from '../utils.js';
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
-import { seriesColors, accentColor, getSeriesColor, withOpacity, mutedColor } from '../chartColors.js';
+import { seriesColors, accentColor, getSeriesColor, withOpacity, mutedColor, buildRepoColorMap } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
 export default function Timeline() {
@@ -125,10 +125,7 @@ export default function Timeline() {
             }
         }
 
-        const repoColors = {};
-        repos.forEach((repo, i) => {
-            repoColors[repo] = getSeriesColor(i);
-        });
+        const repoColors = buildRepoColorMap(repos);
 
         const sortedDates = Object.keys(commitsByDate).sort().slice(-60);
         if (sortedDates.length === 0) return null;
@@ -223,10 +220,7 @@ export default function Timeline() {
             }
         }
 
-        const repoColors = {};
-        repos.forEach((repo, i) => {
-            repoColors[repo] = getSeriesColor(i);
-        });
+        const repoColors = buildRepoColorMap(repos);
 
         const sortedDates = Object.keys(changesByDate).sort().slice(-60);
         if (sortedDates.length === 0) return null;

@@ -133,6 +133,56 @@ export function getSeriesColor(index) {
     return seriesColors[index % seriesColors.length];
 }
 
+// --- Repo category colors ---
+// Requirement: Visually distinguish repo status on charts — discontinued repos
+//   gray, internal repos white, public-facing active repos get palette colors.
+// Approach: Centralized category map + getRepoColor() so all charts share the
+//   same logic without duplicating category lists.
+// Alternatives:
+//   - Per-chart category checks: Rejected — duplicates category lists across files
+//   - Config file / repos.json field: Rejected — adds complexity for a display concern
+
+const DISCONTINUED_REPOS = new Set(['coin-zapp', 'plant-fur', 'chatty-chart']);
+const INTERNAL_REPOS = new Set(['tool-till-tees', 'glow-props', 'canva-grid-assets']);
+
+const COLOR_DISCONTINUED = '#6b7280'; // gray-500
+const COLOR_INTERNAL = '#e5e7eb';     // gray-200 (white-ish, visible on dark bg)
+
+/**
+ * Get a chart color for a repo based on its category.
+ * - Discontinued repos → gray
+ * - Internal repos → white/light gray
+ * - Public-facing active repos → palette color (by index among active repos)
+ *
+ * @param {string} repoName - The repository name
+ * @param {number} activeIndex - Index among public-facing repos (for palette cycling)
+ */
+export function getRepoColor(repoName, activeIndex) {
+    if (DISCONTINUED_REPOS.has(repoName)) return COLOR_DISCONTINUED;
+    if (INTERNAL_REPOS.has(repoName)) return COLOR_INTERNAL;
+    return getSeriesColor(activeIndex);
+}
+
+/**
+ * Build a color map for a list of repos, using category-aware colors.
+ * Public-facing repos get sequential palette colors; discontinued/internal
+ * get fixed colors regardless of position.
+ *
+ * @param {string[]} repos - List of repo names
+ * @returns {Object<string, string>} Map of repo name → hex color
+ */
+export function buildRepoColorMap(repos) {
+    const colorMap = {};
+    let activeIndex = 0;
+    for (const repo of repos) {
+        colorMap[repo] = getRepoColor(repo, activeIndex);
+        if (!DISCONTINUED_REPOS.has(repo) && !INTERNAL_REPOS.has(repo)) {
+            activeIndex++;
+        }
+    }
+    return colorMap;
+}
+
 /**
  * Generate an rgba() string from a hex color at the given opacity.
  * Used for chart fill backgrounds (e.g., area under line charts).
