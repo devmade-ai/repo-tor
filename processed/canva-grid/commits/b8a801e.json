@@ -1,0 +1,41 @@
+{
+  "sha": "b8a801e",
+  "fullSha": "b8a801eca3642eed9a05bba65e51981ade088e3d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T17:15:32Z",
+  "commitDate": "2026-03-09T17:15:32Z",
+  "subject": "revert(export): restore pxToPt=1 for full-resolution PDF pages",
+  "body": "Reverted pxToPt=0.5 change — halving page dimensions optimized for\nphone viewing but sacrificed the full platform resolution needed for\nsharing/uploading designs. The PDF should preserve 1:1 pixel quality.\n\nKept: document.fonts.ready wait and PDF metadata (title/creator) as\nthese are independent quality improvements.\n\nTags: export, pdf, revert\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pdf-export\nSemver: patch\n\nhttps://claude.ai/code/session_01KjQd21oxBZydfDAu8v7xaY",
+  "tags": [
+    "revert"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pdf-export",
+  "semver": "patch",
+  "scope": "export",
+  "title": "restore pxToPt=1 for full-resolution PDF pages",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 9,
+    "deletions": 19
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

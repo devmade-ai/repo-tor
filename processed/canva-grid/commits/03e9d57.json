@@ -1,0 +1,41 @@
+{
+  "sha": "03e9d57",
+  "fullSha": "03e9d57c13af08e0a1ca98d46b62256b42388222",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T10:27:14Z",
+  "commitDate": "2026-03-09T10:27:14Z",
+  "subject": "fix(export): use correct physical dimensions for print PDF formats",
+  "body": "Print formats (A3/A4/A5) are defined at 150 DPI. Using 1:1 pixel-to-point\nmapping made their PDFs physically too large (e.g. A4 was 17.2×24.4in\ninstead of 8.27×11.69in). Now uses 72/150 conversion for print category\nso PDFs print at correct paper sizes (A4=595×842pt, matching ISO standard).\n\nDigital formats (social, web, banner) keep 1:1 mapping to avoid the\nviewer resampling that was degrading vignette quality.\n\nTags: export, pdf, print\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pdf-export\nSemver: patch\n\nhttps://claude.ai/code/session_01Q2cPUKXzP69jqZXL677CCo",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pdf-export",
+  "semver": "patch",
+  "scope": "export",
+  "title": "use correct physical dimensions for print PDF formats",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 16,
+    "deletions": 8
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}
