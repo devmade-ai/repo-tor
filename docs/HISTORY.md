@@ -10,6 +10,10 @@ Log of significant changes to code and documentation.
 
 **What:**
 1. Added Suggested Implementations section (PWA, Debug, Icons, PDF, Timer fix, HTTPS Proxy) with full code examples
+10. Fixed PWA manifest: added `id: '/'` (stable app identity) and `prefer_related_applications: false` (ensures install prompt fires)
+11. Added PDF download button to Header (`window.print()` with `no-print` class so it hides during print)
+12. Enhanced print CSS: body text color, link underlines, `break-inside: avoid` on sections, header border
+13. Added `no-print` wrappers to TabBar, FilterSidebar, DetailPane, SettingsPane in App.jsx
 2. Standardized Principles to glow-props 7 (moved extras like "Keep docs updated immediately", "Preserve session context", "Capture ideas", "Document user actions" to AI Notes)
 3. Replaced Documentation subsection with standard 9-file managed set table
 4. Moved `@coder`/`@data` personas from standalone section into AI Notes

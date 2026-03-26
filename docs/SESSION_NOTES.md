@@ -6,7 +6,7 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent section layouts, and PWA support.
 
-**Recent Updates (2026-03-26 — glow-props alignment):**
+**Recent Updates (2026-03-26 — glow-props alignment + implementations):**
 - Aligned CLAUDE.md with glow-props standard structure
 - Added Suggested Implementations section (PWA, Debug, Icons, PDF, Timer fix, HTTPS Proxy)
 - Standardized Principles to glow-props 7 (moved extras to AI Notes)
@@ -15,6 +15,10 @@ Current state for AI assistants to continue work.
 - Renamed `docs/AI_LESSONS.md` → `docs/AI_MISTAKES.md` (standard name)
 - Renamed `docs/USER_TESTING.md` → `docs/TESTING_GUIDE.md` (standard name)
 - Updated all active references across docs, README.md, and source code
+- Fixed PWA manifest: added `id: '/'` and `prefer_related_applications: false`
+- Added PDF download button to Header (calls `window.print()`)
+- Enhanced print CSS: text color overrides, link styles, section break-inside, header styling
+- Added `no-print` to TabBar, FilterSidebar, DetailPane, SettingsPane in App.jsx
 
 **Previous Updates (2026-03-23 — Documentation audit fixes):**
 - Fixed README.md: `js/tabs/` → `js/sections/` (stale directory reference from March 4 rename)

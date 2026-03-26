@@ -352,10 +352,10 @@ export default function App() {
     return (
         <div className="min-h-screen dashboard-enter">
             <Header />
-            <TabBar />
+            <div className="no-print"><TabBar /></div>
             <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
                 <div className="dashboard-layout mt-6">
-                    <FilterSidebar />
+                    <div className="no-print"><FilterSidebar /></div>
                     <div className="tab-content-area">
                         <ErrorBoundary key={state.activeTab}>
                             {state.activeTab === 'overview' && <Summary />}
@@ -382,8 +382,8 @@ export default function App() {
                     </div>
                 </div>
             </div>
-            <DetailPane />
-            <SettingsPane />
+            <div className="no-print"><DetailPane /></div>
+            <div className="no-print"><SettingsPane /></div>
             {/* Success toast — brief confirmation after file upload */}
             {loadSuccess && (
                 <div className="toast show" role="status" aria-live="polite">

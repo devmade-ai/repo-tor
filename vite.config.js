@@ -27,9 +27,17 @@ export default defineConfig({
         name: 'Git Analytics Dashboard',
         short_name: 'Git Analytics',
         description: 'Visual analytics reports for git commit history',
+        // Requirement: Stable app identity for PWA install
+        // Approach: Explicit id prevents Chrome from deriving it from start_url
+        // Alternatives: Omit id — rejected, breaks install identity on config changes/redeployments
+        id: '/',
         theme_color: '#2D68FF',
         background_color: '#1B1B1B',
         display: 'standalone',
+        // Requirement: Ensure beforeinstallprompt fires on Chromium
+        // Approach: Explicit false prevents Chrome from skipping install prompt
+        // Alternatives: Omit — rejected, Chrome may think a native app exists and suppress prompt
+        prefer_related_applications: false,
         icons: [
           {
             src: 'icons/icon-192.png',
