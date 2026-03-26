@@ -1,0 +1,52 @@
+{
+  "sha": "a7d7e0a",
+  "fullSha": "a7d7e0a696fe75867de7e8e18e5c5841de73b5ca",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-15T13:29:27Z",
+  "commitDate": "2026-03-15T13:29:27Z",
+  "subject": "fix(strengthen): address 10 review findings across components and services",
+  "body": "Fixes and improvements from post-review analysis:\n\n1. NodeDetail: stable IDs for property edit rows (was array index keys)\n2. NodeDetail + CreateNodeModal: prevent duplicate label suggestions\n3. ArcDetail: add labels and properties editor (feature parity with NodeDetail)\n4. propertyUtils: guard long digit strings (>15 digits) from number coercion\n5. embeddingWorkerBridge: privatize batch state behind getBatchState()\n6. SmartMatchingStep: cap retry attempts at 3 to prevent infinite loops\n7. useSelection: pick last remaining item (most recently selected) on deselect\n8. queryEngine: document MAX_EXPANSION_HOPS constant\n9. mergeService: clarify two-layer title-to-ID map comment\n10. TimelineView: document effectiveSelected invariant\n\nTags: review, strengthen, bug-fix, feature-gap, code-quality\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-review-followup\nSemver: minor\n\nhttps://claude.ai/code/session_01VrzHr2hRkv11YucCT1uDSp",
+  "tags": [
+    "bugfix",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "strengthen",
+  "title": "address 10 review findings across components and services",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 215,
+    "deletions": 48
+  },
+  "files": [
+    "src/components/importExport/SmartMatchingStep.tsx",
+    "src/components/panels/ArcDetail.tsx",
+    "src/components/panels/NodeDetail.tsx",
+    "src/components/panels/propertyUtils.ts",
+    "src/components/ui/CreateNodeModal.tsx",
+    "src/components/views/TimelineView.tsx",
+    "src/hooks/useSelection.ts",
+    "src/services/embeddingService.ts",
+    "src/services/embeddingWorkerBridge.ts",
+    "src/services/mergeService.ts",
+    "src/services/queryEngine.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,60 @@
+{
+  "sha": "2861627",
+  "fullSha": "28616275f9b1ad42525d220b633f0ebddeca52f0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T20:21:52Z",
+  "commitDate": "2026-03-13T20:21:52Z",
+  "subject": "fix(review): address 14 code review findings across UI, services, and hooks",
+  "body": "Fixes bugs, race conditions, accessibility gaps, and error handling issues\nfound during a comprehensive code review sweep.\n\nCritical/High fixes:\n- Atomic bulk arc delete via new bulkDeleteArcs() in graphService\n- Combined useSelection state into single object to prevent desync\n- Ref guard on smart matching to prevent double-click race condition\n- Moved nested interactive control outside button in QueryBuilder\n- Promise dedup for embeddingService init to prevent handler overwrite\n- Local variable capture in usePWAInstall to prevent null dereference\n\nError handling:\n- Toast notification for skipped arcs in GraphCanvas (was silent)\n- Toast notification for algorithm failures in AnalysisPanel (was silent)\n- Warning for unresolvable arc endpoints in merge review\n- try/finally in downloadFile for URL.revokeObjectURL cleanup\n\nAccessibility:\n- aria-label on connection target buttons in DetailPanel\n- ARIA group role and aria-current on tutorial progress dots\n\nUX:\n- Unambiguous date format in WorkspaceManager (month name)\n- Renamed misleading \"Review Items\" button to \"Next\" in ImportModal\n- Stable key prop on property edit rows in DetailPanel\n\nTags: review, bugs, accessibility, error-handling, race-conditions\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: code-review-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01VrzHr2hRkv11YucCT1uDSp",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "review",
+  "title": "address 14 code review findings across UI, services, and hooks",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 18,
+    "additions": 228,
+    "deletions": 91
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/analysis/AnalysisModal.tsx",
+    "src/components/analysis/AnalysisPanel.tsx",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/importExport/MergeReview.css",
+    "src/components/importExport/MergeReview.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/query/QueryBuilder.css",
+    "src/components/query/QueryBuilder.tsx",
+    "src/components/ui/TutorialModal.tsx",
+    "src/components/workspaces/WorkspaceManager.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/useSelection.ts",
+    "src/services/embeddingService.ts",
+    "src/services/graphService.ts",
+    "src/services/importExportService.ts",
+    "src/services/mergeService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

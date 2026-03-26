@@ -1,0 +1,54 @@
+{
+  "sha": "3770d37",
+  "fullSha": "3770d37caf07adb92eac22a79c26867be3e15781",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T12:00:48Z",
+  "commitDate": "2026-03-09T12:00:48Z",
+  "subject": "feat(duplicates): extend semantic duplicate detection to arcs",
+  "body": "Arc deduplication now uses sentence-transformer embeddings instead of\ntitle-based matching. Arc matching groups by source→target endpoint pair,\nthen compares embeddings within each group. The duplicate scanner also\nfinds and merges duplicate connections alongside duplicate items.\n\n- Add ArcEmbedding type and DB v7 migration with arcEmbeddings table\n- Add buildArcText, computeArcEmbedding, batch/transient arc embedding functions\n- Add findSimilarArcPairs (endpoint-grouped pairwise) and findTopArcMatches\n- Rewrite mergeService arc matching: status unified to 'new' | 'match' with matchScore\n- Add ArcEmbeddingMaps interface; buildSemanticMergeProposal accepts optional arc embeddings\n- Update ImportModal to compute arc embeddings during smart matching step\n- Update MergeReview with arc match sections showing score bars\n- Complete DuplicateScannerModal arc pair rendering, merge UI, and dismiss actions\n- Rewrite arc tests for semantic matching API (287 tests pass)\n- Auto-embedding subscribes to arc:created, arc:updated, arc:deleted events\n\nTags: semantic-duplicates, arcs, embeddings, import, scanner\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: neutral\nEpic: semantic-duplicate-detection\nSemver: minor\n\nhttps://claude.ai/code/session_01ULhD1te9qFVLzqF4YCLBbP",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "semantic-duplicates",
+  "semver": "minor",
+  "scope": "duplicates",
+  "title": "extend semantic duplicate detection to arcs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 1158,
+    "deletions": 267
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/duplicates/DuplicateScannerModal.css",
+    "src/components/duplicates/DuplicateScannerModal.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/importExport/MergeReview.tsx",
+    "src/db/database.ts",
+    "src/services/embeddingService.ts",
+    "src/services/mergeService.test.ts",
+    "src/services/mergeService.ts",
+    "src/services/similarityService.test.ts",
+    "src/services/similarityService.ts",
+    "src/types/index.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

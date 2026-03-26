@@ -1,0 +1,42 @@
+{
+  "sha": "58a89b8",
+  "fullSha": "58a89b87f3fe6493638f75dc7fe08a9319fcc49c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-14T11:26:15Z",
+  "commitDate": "2026-03-14T11:26:15Z",
+  "subject": "fix(clean): remove dead CSS and dead code from App.css and embeddingService",
+  "body": "Remove ~130 lines of dead CSS (query-bar, import-preview, form styles,\ndetail-checkbox) and ~150 lines of dead code from embeddingService\n(single-item embedding functions, auto-embedding subscription system,\nunused exports changed to non-exported).\n\nTags: cln, hygiene, dead-code, css\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01VrzHr2hRkv11YucCT1uDSp",
+  "tags": [
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "clean",
+  "title": "remove dead CSS and dead code from App.css and embeddingService",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 3,
+    "deletions": 375
+  },
+  "files": [
+    "src/App.css",
+    "src/services/embeddingService.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}
