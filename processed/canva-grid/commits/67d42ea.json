@@ -1,0 +1,42 @@
+{
+  "sha": "67d42ea",
+  "fullSha": "67d42eac5a77c6fb5ac23abfd30bb36e47e948d2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-20T18:39:41Z",
+  "commitDate": "2026-03-20T18:39:41Z",
+  "subject": "fix(mobile): hide context bar and platform strip when bottom sheet is open",
+  "body": "When the bottom sheet expands, the ContextBar and Platform Info Strip\nwere consuming vertical space above and below the canvas, shrinking it.\nNow both are hidden when the sheet is open so the canvas fills the full\navailable space between the header and the bottom sheet.\n\nTags: mobile, ui, layout\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01GzSbv6e59VaP7oagnp1Ec1",
+  "tags": [
+    "ui",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "mobile-layout",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "hide context bar and platform strip when bottom sheet is open",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 28,
+    "deletions": 24
+  },
+  "files": [
+    "src/App.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

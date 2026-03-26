@@ -1,0 +1,44 @@
+{
+  "sha": "2a4429a",
+  "fullSha": "2a4429a8f7ba86f506aeb1619f755ea4bda5b4bc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-23T17:09:48Z",
+  "commitDate": "2026-03-23T17:09:48Z",
+  "subject": "fix(docs): correct stale counts and wrong library name across documentation",
+  "body": "README, CLAUDE.md, USER_GUIDE.md, and HISTORY.md all had inaccurate numbers\nand library references that drifted from the actual code:\n- PDF library: jsPDF → pdf-lib (replaced months ago, docs never updated)\n- Platform formats: 28 → 27 (actual count in platforms.js)\n- Overlay effects: 34 → 26 (actual count in layouts.js)\n- Layout presets: 35 → 27 (actual count in layoutPresets.js)\n\nTags: docs, accuracy, cleanup\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation-accuracy\nSemver: patch\n\nhttps://claude.ai/code/session_01XesrDVcv427fNn1uZH2su8",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "documentation-accuracy",
+  "semver": "patch",
+  "scope": "docs",
+  "title": "correct stale counts and wrong library name across documentation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 12,
+    "deletions": 12
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

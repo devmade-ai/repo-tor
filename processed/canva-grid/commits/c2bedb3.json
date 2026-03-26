@@ -1,0 +1,44 @@
+{
+  "sha": "c2bedb3",
+  "fullSha": "c2bedb3192478ae5eed595215beaf4d8af62607a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-20T14:47:41Z",
+  "commitDate": "2026-03-20T14:47:41Z",
+  "subject": "fix(mobile): eliminate bottom sheet lag by using GPU-composited transforms",
+  "body": "The bottom sheet was animating CSS `height`, which triggers layout\nrecalculation (reflow) on every frame. During drag, every touchmove\ncalled setState in App.jsx, re-rendering the entire component tree.\n\nFix: Sheet now uses a fixed height with `transform: translateY()` for\nshow/hide animation (GPU-composited, no layout reflow). During drag,\nthe DOM is updated directly via refs — React state only updates on\nsnap (touchend), eliminating mid-drag re-renders.\n\nTags: mobile, ui, performance, bottom-sheet\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-ux\nSemver: patch",
+  "tags": [
+    "performance",
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "eliminate bottom sheet lag by using GPU-composited transforms",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 95,
+    "deletions": 40
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/BottomSheet.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

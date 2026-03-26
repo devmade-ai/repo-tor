@@ -1,0 +1,42 @@
+{
+  "sha": "72350ff",
+  "fullSha": "72350ff2f62ea33d71429b9cefe69073dfcdc2f1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-20T18:42:02Z",
+  "commitDate": "2026-03-20T18:42:02Z",
+  "subject": "fix(mobile): align canvas to top of container instead of centering",
+  "body": "The canvas container uses flex-1 to fill available space, but\nitems-center was centering the canvas vertically, creating large empty\ngaps above and below the design. Changed to items-start so the canvas\nsits flush at the top, eliminating the dead space above.\n\nTags: mobile, ui, layout, canvas\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-layout\nSemver: patch\n\nhttps://claude.ai/code/session_01GzSbv6e59VaP7oagnp1Ec1",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "mobile-layout",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "align canvas to top of container instead of centering",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "src/App.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

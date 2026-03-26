@@ -1,0 +1,42 @@
+{
+  "sha": "2632475",
+  "fullSha": "2632475f557f0bde1306966edd17812a08716c22",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-24T20:55:40Z",
+  "commitDate": "2026-03-24T20:55:40Z",
+  "subject": "fix(cleanup): remove unused scrollRef from ContextBar",
+  "body": "scrollRef was declared and assigned to page scrollable divs but never\nconsumed for any scroll logic. Removing dead code and unused useRef import.\n\nTags: cleanup, contextbar\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01XesrDVcv427fNn1uZH2su8",
+  "tags": [
+    "removal",
+    "refactor"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "cleanup",
+  "title": "remove unused scrollRef from ContextBar",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 4
+  },
+  "files": [
+    "src/components/ContextBar.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 1,
+  "impact": "internal"
+}

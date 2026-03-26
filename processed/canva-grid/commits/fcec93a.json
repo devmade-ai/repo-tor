@@ -1,0 +1,43 @@
+{
+  "sha": "fcec93a",
+  "fullSha": "fcec93a9d6faac01e348e829ba6580c3199ed0bb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-24T20:52:24Z",
+  "commitDate": "2026-03-24T20:52:24Z",
+  "subject": "fix(mobile): collapse ContextBar to single row for single-page designs",
+  "body": "Save ~40px of vertical mobile screen space by hiding the pages row when\nthere's only 1 page. Cell grid, add-page button, and undo/redo share\none compact row. Pages row appears only for multi-page documents.\nAlso hide undo/redo on mobile when both are disabled to reduce noise.\n\nTags: ux, mobile, contextbar, layout\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01XesrDVcv427fNn1uZH2su8",
+  "tags": [
+    "ux",
+    "ui",
+    "enhancement"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "collapse ContextBar to single row for single-page designs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 109,
+    "deletions": 24
+  },
+  "files": [
+    "src/components/ContextBar.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,42 @@
+{
+  "sha": "fa35a47",
+  "fullSha": "fa35a47654b28cf9e60ee7e5a07a3f5314fb1c0d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-21T14:06:02Z",
+  "commitDate": "2026-03-21T14:06:02Z",
+  "subject": "fix(mobile): constrain bottom sheet scroll area to visible snap region",
+  "body": "Bottom sheet content was rendered in a scroll container sized to the full 85vh\nsheet height. At SNAP_HALF (50vh visible), the bottom ~35vh of scrollable\ncontent extended below the viewport, making it invisible even when scrolled\nto the end. Now the content max-height is dynamically set to match the current\nsnap point, ensuring all content is always reachable within the visible area.\n\nTags: mobile, ui, bottomsheet, scroll\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01DmHsPoJP8H5Jgh4ze9UWk1",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "constrain bottom sheet scroll area to visible snap region",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 17,
+    "deletions": 2
+  },
+  "files": [
+    "src/components/BottomSheet.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}
