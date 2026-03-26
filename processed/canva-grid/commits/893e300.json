@@ -1,0 +1,44 @@
+{
+  "sha": "893e300",
+  "fullSha": "893e3009c7c0733e939487b7c75a70e54f12a143",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T23:09:56Z",
+  "commitDate": "2026-03-06T23:09:56Z",
+  "subject": "fix(content): address remaining review issues — bugs, dead code, perf",
+  "body": "Five fixes from final code review:\n\n1. getCellPositionLabel: explicit early return for fullbleed layouts\n   instead of falling through to the rows/columns loop that would\n   return '' anyway — defensive against future fullbleed subdivisions\n\n2. AdCanvas renderGridLayout: replace .filter() per section with\n   pre-grouped bySection Map (O(1) lookup). The cellInfo useMemo now\n   builds both flat cells array and grouped Map in a single pass.\n\n3. FreeformCellEditor: remove unused `layout` prop (was destructured\n   but never referenced in the component body)\n\n4. MarkdownToolbar: pre-compute groupedMarkdownFormats at module level\n   instead of calling .filter() inside the render loop on every render\n\n5. AlignDefaultIcon: change from dimmed center-align (identical shape\n   to AlignCenterIcon) to staggered lines (left-short, full, right-short)\n   so Default and Center are visually distinguishable\n\nTags: cleanup, perf, ux, code-quality\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: content-tab-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01UVkmh1XNRr8WdUw79i2WJo",
+  "tags": [
+    "bugfix",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "content-tab-refactor",
+  "semver": "patch",
+  "scope": "content",
+  "title": "address remaining review issues — bugs, dead code, perf",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 24,
+    "deletions": 13
+  },
+  "files": [
+    "src/components/AdCanvas.jsx",
+    "src/components/AlignmentPicker.jsx",
+    "src/components/ContentTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

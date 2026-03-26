@@ -1,0 +1,42 @@
+{
+  "sha": "7925072",
+  "fullSha": "792507273b5fbe875277deb1587a30fc331c996c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-08T11:09:55Z",
+  "commitDate": "2026-03-08T11:09:55Z",
+  "subject": "feat(structure): add insert before/after controls for rows and columns",
+  "body": "Users can now insert a new row above/below (or column before/after) a\nselected section instead of only appending at the end. When a section\nis selected and the max of 4 hasn't been reached, two insert buttons\nappear alongside the existing delete button. The selection automatically\ntracks the original section after insertion.\n\nTags: layout, structure, ux\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: structure-editing\nSemver: minor\n\nhttps://claude.ai/code/session_012V7AguSge3Ngw25j72iiGX",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "layout-structure-controls",
+  "semver": "minor",
+  "scope": "structure",
+  "title": "add insert before/after controls for rows and columns",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 33,
+    "deletions": 4
+  },
+  "files": [
+    "src/components/LayoutTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}
