@@ -2,6 +2,25 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-03-26
+
+### glow-props CLAUDE.md alignment
+
+**Why:** Cross-project alignment to standardize CLAUDE.md structure across all devmade-ai repositories per glow-props shared standards.
+
+**What:**
+1. Added Suggested Implementations section (PWA, Debug, Icons, PDF, Timer fix, HTTPS Proxy) with full code examples
+2. Standardized Principles to glow-props 7 (moved extras like "Keep docs updated immediately", "Preserve session context", "Capture ideas", "Document user actions" to AI Notes)
+3. Replaced Documentation subsection with standard 9-file managed set table
+4. Moved `@coder`/`@data` personas from standalone section into AI Notes
+5. Renamed `docs/AI_LESSONS.md` → `docs/AI_MISTAKES.md` (standard name across projects)
+6. Renamed `docs/USER_TESTING.md` → `docs/TESTING_GUIDE.md` (standard name across projects)
+7. Updated all active references in docs/CODE_REVIEW.md, docs/ANALYSIS_GUIDE.md, dashboard/js/main.jsx, README.md
+8. Updated cross-project reference last reviewed date to 2026-03-26
+9. Expanded AI Notes with: "Always read files before editing", "Commit and push before ending session", "Communication style", "Claude Code mobile/web sibling repo access"
+
+---
+
 ## 2026-03-23
 
 ### Documentation audit fixes

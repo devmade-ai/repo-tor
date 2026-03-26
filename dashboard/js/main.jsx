@@ -55,7 +55,7 @@ import { accentColor } from './chartColors.js';
 //   - window.__debugClearLoadTimer()       — signal React mounted successfully
 // Alternatives:
 //   - Keep debug banner in main.jsx: Rejected — pill doesn't show when bundle fails,
-//     which is exactly when you need it most (see AI_LESSONS.md: "No fallback when
+//     which is exactly when you need it most (see AI_MISTAKES.md: "No fallback when
 //     React fails to mount")
 //   - Duplicate error listeners: Rejected — HTML script already captures window.onerror
 //     and unhandledrejection; adding them here would double-count errors

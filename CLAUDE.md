@@ -75,10 +75,19 @@ Good: "This file doesn't look like a dashboard data file. Try exporting from the
 
 ### Documentation
 
-- [ ] Update relevant documentation with every code change
-- [ ] All documentation lives in `/docs` directory
-- [ ] README must reflect current project state at all times
-- [ ] Follow the After Each Significant Task checklist (see AI Checklists below)
+**AI assistants automatically maintain these documents.** Update them as you work — don't wait for the user to ask. This ensures context is always current for the next session.
+
+| File | Purpose | When to update |
+|------|---------|----------------|
+| `CLAUDE.md` | AI preferences, project overview, architecture | When architecture, state structures, or preferences change |
+| `docs/SESSION_NOTES.md` | Compact context snapshot for session continuity | Rewrite at session end with fresh summary |
+| `docs/TODO.md` | AI-managed backlog (pending items only) | When noticing improvements; move completed to HISTORY.md |
+| `docs/HISTORY.md` | Changelog of completed work | When completing TODO items or significant changes |
+| `docs/USER_ACTIONS.md` | Manual tasks requiring user intervention | When tasks need external action (credentials, dashboards) |
+| `docs/AI_MISTAKES.md` | Record of significant AI errors and learnings | After making a mistake that wasted time or broke things |
+| `README.md` | User-facing application guide | When features change that affect user interaction |
+| `docs/USER_GUIDE.md` | Comprehensive feature documentation | When adding/changing features or UI workflows |
+| `docs/TESTING_GUIDE.md` | Manual test scenarios | When adding features that need test coverage |
 
 ### Cleanup
 
@@ -109,7 +118,7 @@ Report findings even if not directly related to current task.
 **URL:** `https://raw.githubusercontent.com/devmade-ai/glow-props/main/CLAUDE.md`
 
 Shared coding standards, patterns, and suggested implementations across devmade-ai projects.
-Check periodically for new patterns to adopt. Last reviewed: 2026-03-13.
+Check periodically for new patterns to adopt. Last reviewed: 2026-03-26.
 
 **Adopted patterns:**
 - PWA install prompt race condition fix (inline `beforeinstallprompt` capture in HTML)
@@ -260,17 +269,13 @@ Semver: patch|minor|major
 
 ## Principles
 
-1. **User-first design** — see Hard Rules > User Experience for specifics (top priority)
+1. **User-first design** - Align with how real people will use the tool (top priority)
 2. **Simplicity** - Simple flow, clear guidance, non-overwhelming visuals, accurate interpretation
-3. **Document WHY** — see Hard Rules > Decision Documentation for format
-4. **Keep docs updated immediately** - Update relevant docs right after each change, before moving to the next task (sessions can end abruptly)
-5. **Testability** - Ensure correctness and alignment with usage goals can be verified
-6. **Know the purpose** - Always be aware of what the tool is for
-7. **Preserve session context** - Update docs/SESSION_NOTES.md after each significant task (not at the end - sessions can end abruptly)
-8. **Follow conventions** — see Hard Rules > Best Practices
-9. **Capture ideas** - Add lower priority items and improvements to docs/TODO.md so they persist between sessions
-10. **Repeatable process** - Follow consistent steps to ensure all the above
-11. **Document user actions** - When manual user action is required (external dashboards, credentials, etc.), add detailed instructions to docs/USER_ACTIONS.md
+3. **Document WHY** - Explain decisions and how they align with tool goals
+4. **Testability** - Ensure correctness and alignment with usage goals can be verified
+5. **Know the purpose** - Always be aware of what the tool is for
+6. **Follow conventions** - Best practices and consistent patterns
+7. **Repeatable process** - Follow consistent steps to ensure all the above
 
 ## AI Checklists
 
@@ -279,7 +284,7 @@ Semver: patch|minor|major
 - [ ] Read CLAUDE.md (this file)
 - [ ] Read docs/SESSION_NOTES.md for current state and context
 - [ ] Check docs/TODO.md for pending items and known issues
-- [ ] Check docs/AI_LESSONS.md for past mistakes to avoid
+- [ ] Check docs/AI_MISTAKES.md for past mistakes to avoid
 - [ ] Understand what was last done before starting new work
 
 ### After Each Significant Task
@@ -288,7 +293,7 @@ Semver: patch|minor|major
 - [ ] Update docs/SESSION_NOTES.md with current state
 - [ ] Update docs/USER_GUIDE.md if dashboard UI or interpretation changed
 - [ ] Update docs/ADMIN_GUIDE.md if setup, extraction, or configuration changed
-- [ ] Update docs/USER_TESTING.md if new test scenarios needed (use structured format: step-by-step actions, where to click/look, expected results, regression checklist)
+- [ ] Update docs/TESTING_GUIDE.md if new test scenarios needed (use structured format: step-by-step actions, where to click/look, expected results, regression checklist)
 - [ ] Update other relevant docs (COMMIT_CONVENTION.md, etc.)
 - [ ] Add entry to docs/HISTORY.md if code/docs changed
 - [ ] Commit changes (code + docs together)
@@ -315,38 +320,6 @@ Semver: patch|minor|major
   - What's left to do?
   - Any decisions or blockers?
   - Key details that shouldn't be lost in the summary
-
-## Personas
-
-Default mode is development. Use `@data` to switch when needed.
-
-### @coder (default)
-
-**Focus:** Development work — no trigger needed, this is the default
-
-- Writing/modifying code (scripts, dashboard, hooks)
-- Bug fixes and feature implementation
-- Code review and refactoring
-- Technical decisions and architecture
-
-### @data
-
-**Trigger:** Start message with `@data`
-
-**Focus:** Data extraction and processing
-
-- Running data operations (see docs/DATA_OPERATIONS.md)
-- Processing git data from repositories
-- Generating and analyzing reports
-- Data quality and aggregation tasks
-
-**Commands within @data:**
-- **"hatch the chicken"** - Full reset: delete everything, AI analyzes ALL commits from scratch
-- **"feed the chicken"** - Incremental: AI analyzes only NEW commits not yet processed
-
-See `docs/DATA_OPERATIONS.md` for details.
-
----
 
 ## Triggers
 
@@ -389,6 +362,429 @@ Rules:
 
 ---
 
+## Suggested Implementations
+
+Reference patterns from glow-props for features across all projects. Adapt file names and frameworks to this project (React 19 + Vite + Tailwind v4).
+
+### PWA System
+
+Four parts, built on `vite-plugin-pwa` (^0.21.1) with React.
+
+#### Vite Config (`vite.config.js`)
+
+```javascript
+import { VitePWA } from 'vite-plugin-pwa'
+
+// Inside defineConfig plugins array:
+VitePWA({
+  registerType: 'prompt',
+  includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
+  manifest: {
+    name: 'Your App',
+    short_name: 'App',
+    description: 'Description here',
+    id: '/',
+    theme_color: '#10b981',
+    background_color: '#ffffff',
+    display: 'standalone',
+    scope: '/',
+    start_url: '/',
+    prefer_related_applications: false,
+    icons: [
+      { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+      { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+      { src: 'pwa-1024x1024.png', sizes: '1024x1024', type: 'image/png', purpose: 'maskable' }
+    ]
+  }
+})
+```
+
+- **`registerType: 'prompt'`**: Users control when updates apply. `autoUpdate` silently refreshes mid-work.
+- **`id`**: Stable app identity. Without it, Chrome derives from `start_url` — breaks on config changes.
+- **`prefer_related_applications: false`**: Without this, Chrome may skip `beforeinstallprompt`.
+- **Separate icon purposes**: `any` for standard display (192, 512), `maskable` for full-bleed (1024). Never combine `"any maskable"`.
+
+#### Install Prompt Race Condition (`index.html`)
+
+`beforeinstallprompt` fires once. On repeat visits with a cached SW, it fires before the framework mounts — if nothing catches it, the install prompt is permanently lost.
+
+Inline classic (non-module) script before any `<script type="module">`:
+
+```html
+<script>
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    window.__pwaInstallPromptEvent = e;
+  });
+</script>
+```
+
+#### Service Worker Updates (`usePWAUpdate.js`)
+
+```javascript
+import { useRegisterSW } from 'virtual:pwa-register/react'
+import { useEffect, useCallback } from 'react'
+
+const CHECK_INTERVAL_MS = 60 * 60 * 1000
+
+export function usePWAUpdate() {
+  const {
+    needRefresh: [needRefresh],
+    offlineReady: [offlineReady, setOfflineReady],
+    updateServiceWorker
+  } = useRegisterSW({
+    onRegisteredSW(_url, registration) {
+      if (registration) {
+        setInterval(() => registration.update(), CHECK_INTERVAL_MS)
+      }
+    }
+  })
+
+  useEffect(() => {
+    if (!offlineReady) return
+    const t = setTimeout(() => setOfflineReady(false), 3000)
+    return () => clearTimeout(t)
+  }, [offlineReady, setOfflineReady])
+
+  const updateApp = useCallback(() => {
+    updateServiceWorker(true)
+  }, [updateServiceWorker])
+
+  return { hasUpdate: needRefresh, offlineReady, updateApp }
+}
+```
+
+#### Install Detection (`usePWAInstall.js`)
+
+```javascript
+import { useState, useEffect, useCallback } from 'react'
+
+function detectBrowser() {
+  const ua = navigator.userAgent
+  if (navigator.brave) return 'brave'
+  if (/Edg\//i.test(ua)) return 'edge'
+  if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) return 'chrome'
+  if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) {
+    return /iPhone|iPad|iPod/.test(ua) ? 'safari-ios' : 'safari-macos'
+  }
+  if (/Firefox/i.test(ua)) {
+    return /Android/i.test(ua) ? 'firefox-android' : 'firefox-desktop'
+  }
+  return 'unknown'
+}
+
+function consumeEarlyCapturedEvent() {
+  const captured = window.__pwaInstallPromptEvent
+  if (captured) {
+    delete window.__pwaInstallPromptEvent
+    return captured
+  }
+  return null
+}
+
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+  || navigator.standalone === true
+
+export function usePWAInstall() {
+  const [browser] = useState(detectBrowser)
+  const [deferredPrompt, setDeferredPrompt] = useState(consumeEarlyCapturedEvent)
+  const [installed] = useState(isStandalone)
+  const [dismissed, setDismissed] = useState(
+    () => localStorage.getItem('pwa-install-dismissed') === 'true'
+  )
+
+  useEffect(() => {
+    if (deferredPrompt) return
+    const handler = (e) => {
+      e.preventDefault()
+      setDeferredPrompt(e)
+    }
+    window.addEventListener('beforeinstallprompt', handler)
+    return () => window.removeEventListener('beforeinstallprompt', handler)
+  }, [deferredPrompt])
+
+  const canNativeInstall = !!deferredPrompt
+  const needsManualInstructions = ['safari-ios', 'safari-macos', 'firefox-android', 'firefox-desktop'].includes(browser)
+  const showInstallPrompt = !installed && !dismissed && (canNativeInstall || needsManualInstructions)
+
+  const triggerInstall = useCallback(async () => {
+    if (!deferredPrompt) return
+    await deferredPrompt.prompt()
+    const { outcome } = await deferredPrompt.userChoice
+    setDeferredPrompt(null)
+  }, [deferredPrompt])
+
+  const dismiss = useCallback(() => {
+    setDismissed(true)
+    localStorage.setItem('pwa-install-dismissed', 'true')
+  }, [])
+
+  return {
+    browser, installed, dismissed, canNativeInstall,
+    needsManualInstructions, showInstallPrompt,
+    triggerInstall, dismiss
+  }
+}
+```
+
+### Debug System
+
+In-memory event store with floating debug pill. Alpha-phase diagnostic tool.
+
+**Event store**: Pub/sub system with a capped circular buffer of 200 entries. Each entry has: `id`, `timestamp`, `source` (boot/db/graph/pwa/render/global), `severity` (info/success/warn/error), `event`, and optional `details`. Global `window.error` and `unhandledrejection` listeners capture crashes early. No external dependencies or persistence — purely in-memory.
+
+**Floating debug pill**: Renders in a separate React root (survives App crashes). Collapsed state shows a "dbg" pill with entry count and error/warning badges. Expanded state has two tabs:
+
+- **Log tab**: Scrollable list of all debug entries, color-coded by source and severity. Timestamps formatted as `HH:MM:SS.mmm`. Auto-scrolls to newest entry.
+- **Environment tab**: Runtime diagnostics — URL, user agent, screen/viewport dimensions, online status, protocol, standalone mode, service worker support.
+
+Actions: "Copy" generates a full debug report to clipboard with textarea fallback. "Clear" wipes all entries.
+
+### App Icons from SVG Source
+
+Single SVG source file, Sharp converts to all needed PNG sizes at 400 DPI for crisp edges.
+
+**Dependencies:** `sharp` (devDependency)
+
+```javascript
+// scripts/generate-icons.mjs
+import sharp from 'sharp';
+import { readFileSync, mkdirSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = join(__dirname, '..');
+const SVG_SOURCE = join(ROOT, 'assets', 'icon-source.svg');
+const IMAGES_DIR = join(ROOT, 'assets', 'images');
+
+// 400 DPI: ~5.5x the default 72 DPI. Sharp rasterizes at this density
+// before downscaling, so edges are anti-aliased from high-res source data.
+const SVG_DENSITY = 400;
+
+const ICONS = [
+  { name: 'icon.png', size: 1024 },
+  { name: 'adaptive-icon.png', size: 1024 },
+  { name: 'splash-icon.png', size: 1024 },
+  { name: 'favicon.png', size: 48 },
+  { name: 'icon-192.png', size: 192 },
+  { name: 'icon-512.png', size: 512 },
+];
+
+async function generate() {
+  const svgBuffer = readFileSync(SVG_SOURCE);
+  mkdirSync(IMAGES_DIR, { recursive: true });
+
+  for (const icon of ICONS) {
+    await sharp(svgBuffer, { density: SVG_DENSITY })
+      .resize(icon.size, icon.size)
+      .png()
+      .toFile(join(IMAGES_DIR, icon.name));
+    console.log(`  ${icon.name} (${icon.size}x${icon.size})`);
+  }
+  console.log(`Done — ${ICONS.length} icons generated.`);
+}
+
+generate().catch((err) => {
+  console.error('Icon generation failed:', err);
+  process.exit(1);
+});
+```
+
+**SVG design rules for maskable icons:**
+- Canvas must be square (e.g. `viewBox="0 0 1024 1024"`)
+- Add `shape-rendering="geometricPrecision"` to the root `<svg>` element
+- Background fills entire canvas (no transparency)
+- Important content stays within the inner 80% (safe zone for maskable crop)
+- Design must be legible at 48px (favicon)
+
+### Download as PDF (via `window.print()`)
+
+Zero-dependency PDF download using the browser's native print dialog.
+
+**1. Trigger button:**
+```jsx
+<button type="button" onClick={() => window.print()}>
+  Download as PDF
+</button>
+```
+
+**2. The `no-print` utility class** — hide interactive elements when printing:
+```css
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+```
+
+Apply `className="no-print"` to: navigation bars, action buttons, footers, modals, tooltips, debug overlays.
+
+**3. Print-friendly CSS overrides:**
+```css
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  a {
+    color: black !important;
+    text-decoration: underline !important;
+  }
+  section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+```
+
+### Fix: Timer Leaks on Unmount (Nested Timeouts)
+
+Debounce patterns using `setTimeout` leak when a component unmounts mid-timeout.
+
+**Broken:**
+```javascript
+useEffect(() => {
+  const outer = setTimeout(() => {
+    doSomething();
+    const inner = setTimeout(() => save(), 500); // leaked
+  }, 300);
+  return () => clearTimeout(outer); // only clears outer
+}, [value]);
+```
+
+**Fix — track all timeout IDs:**
+```javascript
+useEffect(() => {
+  const timeouts = [];
+
+  const outer = setTimeout(() => {
+    doSomething();
+    const inner = setTimeout(() => save(), 500);
+    timeouts.push(inner);
+  }, 300);
+  timeouts.push(outer);
+
+  return () => timeouts.forEach(clearTimeout);
+}, [value]);
+```
+
+**Alternative — mounted ref guard:**
+```javascript
+const mountedRef = useRef(true);
+useEffect(() => () => { mountedRef.current = false; }, []);
+
+// In any async/timeout callback:
+if (!mountedRef.current) return;
+```
+
+**General rule:** Every `setTimeout`, `setInterval`, `addEventListener`, or `subscribe` call inside a `useEffect` needs a corresponding cleanup in the return function.
+
+### HTTPS Proxy Support for Node.js Scripts
+
+Zero-dependency HTTP CONNECT tunnel for Node.js scripts that need to reach external APIs through an HTTPS proxy. Solves the problem that Node.js's built-in `fetch()` (undici) and `https.get()` do NOT respect `HTTP_PROXY`/`HTTPS_PROXY` environment variables.
+
+```javascript
+import http from 'http';
+import https from 'https';
+
+// Detect proxy from environment variables
+const PROXY_URL = process.env.https_proxy || process.env.HTTPS_PROXY || null;
+
+function getProxyConnectOptions(targetHost) {
+  const proxy = new URL(PROXY_URL);
+  const options = {
+    host: proxy.hostname,
+    port: proxy.port,
+    method: 'CONNECT',
+    path: `${targetHost}:443`,
+    headers: { 'Host': `${targetHost}:443` },
+    timeout: 15000,
+  };
+  if (proxy.username) {
+    const auth = Buffer.from(
+      decodeURIComponent(proxy.username) + ':' + decodeURIComponent(proxy.password)
+    ).toString('base64');
+    options.headers['Proxy-Authorization'] = `Basic ${auth}`;
+  }
+  return options;
+}
+
+function httpsGet(requestUrl, headers = {}) {
+  const parsed = new URL(requestUrl);
+  if (PROXY_URL) {
+    return httpsGetViaProxy(parsed, headers);
+  }
+  return httpsGetDirect(parsed, headers);
+}
+
+function httpsGetDirect(parsed, headers) {
+  return new Promise((resolve, reject) => {
+    const req = https.get(parsed.href, { headers, timeout: 15000 }, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          resolve(JSON.parse(data));
+        } else {
+          reject(new Error(`HTTP ${res.statusCode}: ${data.substring(0, 200)}`));
+        }
+      });
+    });
+    req.on('error', reject);
+    req.on('timeout', () => { req.destroy(); reject(new Error('Request timeout')); });
+  });
+}
+
+function httpsGetViaProxy(parsed, headers) {
+  return new Promise((resolve, reject) => {
+    const connectOptions = getProxyConnectOptions(parsed.hostname);
+    const proxyReq = http.request(connectOptions);
+
+    proxyReq.on('connect', (res, socket) => {
+      if (res.statusCode !== 200) {
+        socket.destroy();
+        reject(new Error(`Proxy CONNECT failed: ${res.statusCode}`));
+        return;
+      }
+      const tlsReq = https.get({
+        host: parsed.hostname,
+        path: parsed.pathname + parsed.search,
+        headers,
+        socket,
+        servername: parsed.hostname,
+        timeout: 15000,
+      }, (tlsRes) => {
+        let data = '';
+        tlsRes.on('data', (chunk) => { data += chunk; });
+        tlsRes.on('end', () => {
+          if (tlsRes.statusCode >= 200 && tlsRes.statusCode < 300) {
+            resolve(JSON.parse(data));
+          } else {
+            reject(new Error(`HTTP ${tlsRes.statusCode}: ${data.substring(0, 200)}`));
+          }
+        });
+      });
+      tlsReq.on('error', reject);
+      tlsReq.on('timeout', () => { tlsReq.destroy(); reject(new Error('Request timeout')); });
+    });
+
+    proxyReq.on('error', reject);
+    proxyReq.on('timeout', () => { proxyReq.destroy(); reject(new Error('Proxy connect timeout')); });
+    proxyReq.end();
+  });
+}
+```
+
+**Usage:**
+```javascript
+const data = await httpsGet('https://api.example.com/status', {
+  'User-Agent': 'MyApp/1.0',
+});
+```
+
+---
+
 ## Communication Style
 
 - Direct, concise responses
@@ -420,23 +816,38 @@ Never:
 - Use placeholder data that looks like real data
 - Skip error handling "for now"
 - Write code without decision context comments for non-trivial changes
-- Add workarounds for architectural issues — fix root causes (see AI Lessons)
-- Use silent `.catch(() => {})` — always handle specific errors (see AI Lessons)
-- Hardcode values that should come from CSS variables or config (see AI Lessons)
-- Document or recommend features that haven't been tested (see AI Lessons)
-- Improvise extraction/analysis workflows — follow `docs/DATA_OPERATIONS.md` exactly, step by step, using the exact formats documented (see AI Lessons)
+- Add workarounds for architectural issues — fix root causes (see AI Mistakes)
+- Use silent `.catch(() => {})` — always handle specific errors (see AI Mistakes)
+- Hardcode values that should come from CSS variables or config (see AI Mistakes)
+- Document or recommend features that haven't been tested (see AI Mistakes)
+- Improvise extraction/analysis workflows — follow `docs/DATA_OPERATIONS.md` exactly, step by step, using the exact formats documented (see AI Mistakes)
 - Use interactive input prompts or selection UIs — list options as numbered text instead
-- Remove features during "cleanup" without checking if they're documented as intentional (see AI Lessons)
+- Remove features during "cleanup" without checking if they're documented as intentional (see AI Mistakes)
 
 ---
 
 ## AI Notes
 
-<!-- Reminders and learnings for AI assistants - add to this as needed -->
+- **Document your mistakes** in docs/AI_MISTAKES.md so future sessions learn from them
+- **Always read files before editing** — use the Read tool on every file before attempting to Edit it
+- **Verify before assuming** — read the actual code before claiming what it does. Don't describe behavior based on file names, comments, or assumptions — check the implementation. If the user describes how something works, compare it against the actual code rather than agreeing without verification.
+- **Fix root causes, not symptoms** — when something isn't working, find out WHY before writing code. Don't add workarounds (globals, duplicate listeners, flag variables) to patch over an architectural issue. If the fix requires touching 3+ files to coordinate shared state, that's a smell — look for a simpler structural change.
+- **ASK before assuming on bug reports** — when a user reports a bug, ask clarifying questions (which mode? what did you type? what do you see?) BEFORE writing code. One clarifying question saves multiple wrong commits.
+- **Keep docs updated immediately** — update relevant docs right after each change, before moving to the next task (sessions can end abruptly)
+- **Preserve session context** — update docs/SESSION_NOTES.md after each significant task (not at the end — sessions can end abruptly)
+- **Capture ideas** — add lower priority items and improvements to docs/TODO.md so they persist between sessions
+- **Document user actions** — when manual user action is required (external dashboards, credentials, etc.), add detailed instructions to docs/USER_ACTIONS.md
+- **Commit and push changes before ending a session**
+- **Communication style:** Direct, concise responses. No filler phrases or conversational padding. State facts and actions. Ask specific questions with concrete options when clarification is needed.
+- **Claude Code mobile/web — accessing sibling repos:** Use `GITHUB_ALL_REPO_TOKEN` with the GitHub API (`api.github.com/repos/devmade-ai/{repo}/contents/{path}`) to read files from other devmade-ai repos. Use `$(printenv GITHUB_ALL_REPO_TOKEN)` not `$GITHUB_ALL_REPO_TOKEN` to avoid shell expansion issues. Never clone sibling repos — use the API instead.
 
-- **Document your mistakes** in docs/AI_LESSONS.md so future sessions learn from them
-- **Verify before assuming** - Read the actual code before claiming what it does. Don't describe behavior based on file names, comments, or assumptions — check the implementation. If the user describes how something works, compare it against the actual code rather than agreeing without verification.
-- **Fix root causes, not symptoms** - When something isn't working, find out WHY before writing code. Don't add workarounds (globals, duplicate listeners, flag variables) to patch over an architectural issue. If the fix requires touching 3+ files to coordinate shared state, that's a smell — look for a simpler structural change. Example: if a module loads too late, make it load earlier — don't add a global cache to bridge the gap.
-- **ASK before assuming on bug reports** - When a user reports a bug, ask clarifying questions (which mode? what did you type? what do you see?) BEFORE writing code. Don't guess the cause and build a fix on an assumption — one clarifying question saves multiple wrong commits.
+### Personas
+
+Default mode is development (`@coder`). Use `@data` to switch when needed.
+
+- **@coder (default):** Development work — writing/modifying code, bug fixes, feature implementation, code review, refactoring, technical decisions
+- **@data:** Data extraction and processing — start message with `@data`. See `docs/DATA_OPERATIONS.md` for details.
+  - **"hatch the chicken"** — Full reset: delete everything, AI analyzes ALL commits from scratch
+  - **"feed the chicken"** — Incremental: AI analyzes only NEW commits not yet processed
 
 ---
