@@ -1,0 +1,41 @@
+{
+  "sha": "0f947db",
+  "fullSha": "0f947dbcf2f4e1a3a1bfba719e3748d4beae792a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T12:11:43Z",
+  "commitDate": "2026-03-13T12:11:43Z",
+  "subject": "docs(claude-md): fix documentation inaccuracies found during doc audit",
+  "body": "- Rename \"Structured\" to \"Guided\" in all user-facing label references\n  (Content Tab toggle, Project Status, Tab Details) to match actual UI\n- Update freeformText state shape: now array-of-blocks per cell (with\n  id, spacerAbove/Below, lineAbove/Below) instead of single object\n- Add useFocusTrap.js to Architecture section (was missing)\n- Add note that textMode state value remains 'structured' for compat\n\nTags: docs, accuracy, claude-md\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-review-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01UgnbwvNX2eW5URRdAQzxFH",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review-sweep",
+  "semver": "patch",
+  "scope": "claude-md",
+  "title": "fix documentation inaccuracies found during doc audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 18,
+    "deletions": 13
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

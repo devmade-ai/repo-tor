@@ -1,0 +1,43 @@
+{
+  "sha": "fd789aa",
+  "fullSha": "fd789aa3bfdc71f28764b7b3f35d610100269a19",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-17T14:34:06Z",
+  "commitDate": "2026-03-17T14:34:06Z",
+  "subject": "fix(review): address second-round code review findings",
+  "body": "- Fix handleMobileTabChange recreating on every drag frame by removing\n  sheetHeight from deps (BottomSheet effect handles 0→SNAP_HALF)\n- Move keyboardRef declaration above handleCanvasTouchEnd that uses it\n- Remove conflicting aria-label from role=\"presentation\" backdrop\n- Add Escape key handler to close mobile overflow menu\n- Remove unnecessary state.exportFormat from tabContent useMemo deps\n\nTags: mobile, performance, a11y\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-redesign\nSemver: patch\n\nhttps://claude.ai/code/session_017voMfkSTMijTzBnG1D3vUB",
+  "tags": [
+    "performance",
+    "accessibility",
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-redesign",
+  "semver": "patch",
+  "scope": "review",
+  "title": "address second-round code review findings",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 10,
+    "deletions": 7
+  },
+  "files": [
+    "src/App.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

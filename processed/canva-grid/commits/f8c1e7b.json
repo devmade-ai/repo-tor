@@ -1,0 +1,49 @@
+{
+  "sha": "f8c1e7b",
+  "fullSha": "f8c1e7bcfa787eb218e72cafb39ba4d4b419cf2b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T18:39:16Z",
+  "commitDate": "2026-03-13T18:39:16Z",
+  "subject": "fix(review): cancel exports properly, improve a11y, clean up duplication",
+  "body": "Cancel button now sets cancelExportRef to abort in-flight multi-page/PDF\nexports instead of just hiding the overlay. Cell grid items in ContextBar\nand MiniCellGrid get role=button, tabIndex, aria-label, and keyboard\nhandlers for accessibility. Rename \"Cell Alignment\" to \"Text Alignment\"\nwith subtitle showing global vs cell scope. Extract getAspectRatio()\nhelper to platforms.js, replacing 3 duplicate calculations.\n\nTags: export, a11y, ui, cleanup\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-review\nSemver: patch\n\nhttps://claude.ai/code/session_01UgnbwvNX2eW5URRdAQzxFH",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "review",
+  "title": "cancel exports properly, improve a11y, clean up duplication",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 29,
+    "deletions": 13
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/ContentTab.jsx",
+    "src/components/ContextBar.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/MiniCellGrid.jsx",
+    "src/config/platforms.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}
