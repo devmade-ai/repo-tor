@@ -1,0 +1,47 @@
+{
+  "sha": "fe15b61",
+  "fullSha": "fe15b61757ea4a1597a38cbdcab5f7333abbfb42",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-25T20:56:59Z",
+  "commitDate": "2026-03-25T20:56:59Z",
+  "subject": "refactor(pwa,debug): align usePWAInstall, usePWAUpdate, and debugLog with glow-props patterns",
+  "body": "Align three implemented patterns with the shared glow-props reference:\n\n**usePWAInstall.ts:**\n- Granular browser detection: 'chrome'|'edge'|'brave'|'safari-ios'|'safari-macos'|\n  'firefox-android'|'firefox-desktop'|'unknown' (was 4 types)\n- Add dismissed state persistence in localStorage (prevents install UI from\n  reappearing after user dismisses)\n- Add consumeEarlyCapturedEvent() to read from +html.tsx inline script capture\n- Add localStorage-based analytics tracking (last 50 events for debugging)\n- Export BrowserType, needsManualInstructions, and dismiss callback\n- Preserve existing canInstall, shouldShowInstall, install API\n\n**+html.tsx:**\n- Add inline beforeinstallprompt capture script (earliest possible capture,\n  runs during HTML parse before any JS modules load)\n\n**InstallInstructionsModal.tsx:**\n- Update to handle granular BrowserType with platform-specific browser names\n  (e.g., \"Install via Edge\", \"Install on Brave (Android)\")\n\n**usePWAUpdate.ts:**\n- Add offlineReady state with 3-second auto-dismiss\n- Detects when SW is active + controlling + no pending updates\n\n**debugLog.ts:**\n- Add typed DebugSource union with string fallback for autocomplete\n- Add milliseconds to timestamp format (HH:MM:SS.mmm)\n- Add getDebugLogCount() helper\n- Add automatic global error/unhandledrejection listeners at module load (dev only)\n\n**PWADebugBanner.tsx:**\n- Update to check both new and legacy window property names\n\nTags: pwa, debug, alignment, glow-props, code-quality\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: claude-md-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_013qsqJZ22YnUjeUnt8TjTt3",
+  "tags": [
+    "refactor",
+    "pwa"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa,debug",
+  "title": "align usePWAInstall, usePWAUpdate, and debugLog with glow-props patterns",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 241,
+    "deletions": 145
+  },
+  "files": [
+    "app/+html.tsx",
+    "components/InstallInstructionsModal.tsx",
+    "components/PWADebugBanner.tsx",
+    "hooks/usePWAInstall.ts",
+    "hooks/usePWAUpdate.ts",
+    "utils/debugLog.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

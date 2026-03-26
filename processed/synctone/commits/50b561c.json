@@ -1,0 +1,44 @@
+{
+  "sha": "50b561c",
+  "fullSha": "50b561cfb56a9abe86f59427718ceddd2e2d78c5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-25T21:24:40Z",
+  "commitDate": "2026-03-25T21:24:40Z",
+  "subject": "fix(pwa): fix 3 bugs found in code review",
+  "body": "1. usePWAInstall: consumeEarlyCapturedEvent() race condition — was called\n   inside useState initializer, meaning multiple component mounts would race\n   to delete the same window property (second mount gets null). Fixed by\n   moving consumption to module level (runs once at import time).\n\n2. usePWAUpdate: offlineReady auto-dismiss missing notifyListeners() — when\n   the 3-second timer cleared _offlineReady, sibling components subscribed\n   to the module-level listener were never notified of the state change.\n\n3. InstallInstructionsModal: 'unknown' browser type fell through to Chrome\n   desktop instructions (\"Click the install icon in the address bar\") which\n   is incorrect for unrecognized browsers. Added explicit generic fallback.\n\nTags: bugfix, pwa, code-review\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: claude-md-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_013qsqJZ22YnUjeUnt8TjTt3",
+  "tags": [
+    "bugfix",
+    "pwa"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "fix 3 bugs found in code review",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 22,
+    "deletions": 5
+  },
+  "files": [
+    "components/InstallInstructionsModal.tsx",
+    "hooks/usePWAInstall.ts",
+    "hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

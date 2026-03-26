@@ -1,0 +1,57 @@
+{
+  "sha": "5abb935",
+  "fullSha": "5abb9353497fe378858100d11cf6ba8de3fb504b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T21:15:47Z",
+  "commitDate": "2026-03-07T21:15:47Z",
+  "subject": "fix(audit): crash bugs, security, performance, and code quality fixes",
+  "body": "Fix critical issues found during comprehensive codebase audit:\n\nCrash fixes:\n- Add runOnJS() to native gesture handlers in MessageBubble\n- Add platform guard for document API in ChatPanel visibility handler\n- Replace window.confirm() with cross-platform showConfirmDialog()\n\nSecurity fixes:\n- Sanitize OneSignal App ID with UUID regex in +html.tsx (XSS prevention)\n- Sanitize deep link code param in join/[code].tsx\n\nRules of Hooks:\n- Move early return after hooks in PWADebugBanner\n\nPerformance:\n- Memoize message IDs for useReactions (prevents re-subscription churn)\n- Lazy-initialize Animated.Value in InAppNotification and Toast\n- Extract getAvatarEmoji outside ChatListItem component\n\nData/UX:\n- Fix ComposeBar maxLength from 500 to 10000 (matches DB constraint)\n- Remove dead showTones variable from MessageBubble\n- Fix empty fragment returns to null in action sheets/modals\n- Conditionally render empty Tones section in MessageInfoModal\n- Fix theme class names (text-accent -> text-primary)\n- Remove unused cardActive style, clean up logger calls\n\nTags: bugfix, security, performance, code-quality, crash-fix, audit\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: code-audit\nSemver: patch\n\nhttps://claude.ai/code/session_014U3rmSp48YxMqy3jrS4rQ8",
+  "tags": [
+    "bugfix",
+    "security",
+    "performance"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "crash bugs, security, performance, and code quality fixes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 153,
+    "deletions": 108
+  },
+  "files": [
+    "app/(app)/join/[code].tsx",
+    "app/+html.tsx",
+    "components/BackButton.tsx",
+    "components/ChatListItem.tsx",
+    "components/ChatPanel.tsx",
+    "components/ComposeBar.tsx",
+    "components/InAppNotification.tsx",
+    "components/MessageActionSheet.tsx",
+    "components/MessageBubble.tsx",
+    "components/MessageInfoModal.tsx",
+    "components/PWADebugBanner.tsx",
+    "components/Toast.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "hooks/useReactions.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,45 @@
+{
+  "sha": "2645bf1",
+  "fullSha": "2645bf103f495115cf1f84444def4af9d1ff3501",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T02:04:28Z",
+  "commitDate": "2026-03-05T02:04:28Z",
+  "subject": "fix(gestures): smooth swipe-to-reply animation and add bidirectional swipe on web",
+  "body": "Replace React state-driven swipe animation with direct DOM manipulation via refs\nfor consistent 60fps performance. Previously, each touch move triggered setState →\nre-render → new CSS transform, causing intermittent jerkiness. Now transforms are\napplied directly to DOM elements during the swipe, with CSS transitions only used\nfor the spring-back animation on release.\n\nAlso adds bidirectional swipe support on web (previously right-only) to match\nnative behavior. Reply icon dynamically positions based on swipe direction.\n\nTags: gestures, performance, ui, reply\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: chat-ux\nSemver: patch\n\nhttps://claude.ai/code/session_014U3rmSp48YxMqy3jrS4rQ8",
+  "tags": [
+    "bugfix",
+    "performance",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "swipe-reply",
+  "semver": "patch",
+  "scope": "gestures",
+  "title": "smooth swipe-to-reply animation and add bidirectional swipe on web",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 74,
+    "deletions": 33
+  },
+  "files": [
+    "CLAUDE.md",
+    "components/MessageBubble.tsx",
+    "docs/HISTORY.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

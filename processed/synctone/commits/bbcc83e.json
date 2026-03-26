@@ -1,0 +1,44 @@
+{
+  "sha": "bbcc83e",
+  "fullSha": "bbcc83e88d480eee2499ffe68bbd1e35f659b1a5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T22:59:18Z",
+  "commitDate": "2026-03-07T22:59:18Z",
+  "subject": "refactor(messages): extract shared BubbleContent from MessageBubble",
+  "body": "MessageBubbleWeb and MessageBubbleNative had ~140 lines of identical\nJSX for rendering bubble content (reply references, own/received\nbubbles with tones, timestamps, status indicators, tone hints, and\nreaction bars). Every UI change had to be made twice.\n\nExtract shared rendering into BubbleContent component. Each platform\nvariant now only contains its gesture handling code and wraps\nBubbleContent. Also extract bubbleStyles to a shared module.\n\nBefore: 763 lines in MessageBubble.tsx (2 copies of rendering logic)\nAfter: ~370 lines in MessageBubble.tsx + ~180 in BubbleContent.tsx + ~25 in bubbleStyles.ts\nNet: ~190 fewer lines, single source of truth for bubble rendering\n\nTags: refactoring, code-quality, ui\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: code-audit\nSemver: patch\n\nhttps://claude.ai/code/session_014U3rmSp48YxMqy3jrS4rQ8",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "messages",
+  "title": "extract shared BubbleContent from MessageBubble",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 247,
+    "deletions": 327
+  },
+  "files": [
+    "components/BubbleContent.tsx",
+    "components/MessageBubble.tsx",
+    "components/bubbleStyles.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "internal"
+}
