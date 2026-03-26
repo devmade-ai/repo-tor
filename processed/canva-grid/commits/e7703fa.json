@@ -1,0 +1,42 @@
+{
+  "sha": "e7703fa",
+  "fullSha": "e7703fab9bf8786513c406ff4d151324adbdbf30",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T21:02:21Z",
+  "commitDate": "2026-03-06T21:02:21Z",
+  "subject": "feat(export): add timestamps to filenames, page numbers for multi-page",
+  "body": "Timestamps (MMdd-HHmm) in all export filenames solve two issues:\n- Files sort chronologically in the downloads folder\n- No more browser \"already exists\" prompts on repeated downloads\n\nPage numbers added contextually:\n- Single download: -p01 suffix only when document has multiple pages\n- All-pages ZIP: files inside use -p01, -p02 etc.\n- PDF and multi-platform ZIP: unchanged (already distinguish by content)\n\nExample: canvagrid-0306-1423-instagram-feed-portrait-1080x1350-p01.png\n\nTags: export, filenames, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: export\nSemver: minor\n\nhttps://claude.ai/code/session_01XB2ds4yVbZsvHcvEQZt216",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "export-filenames",
+  "semver": "minor",
+  "scope": "export",
+  "title": "add timestamps to filenames, page numbers for multi-page",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 27,
+    "deletions": 7
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

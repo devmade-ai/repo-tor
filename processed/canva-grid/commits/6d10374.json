@@ -1,0 +1,42 @@
+{
+  "sha": "6d10374",
+  "fullSha": "6d103748c60e57a7dadd4d963099e3d8a0714cab",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T21:43:24Z",
+  "commitDate": "2026-03-06T21:43:24Z",
+  "subject": "perf(export): use canvas.toBlob directly instead of fetch(dataUrl)",
+  "body": "Previous approach for PNG/JPG: html-to-image → data URL → fetch() →\nblob. The fetch(dataUrl) round-trips through the browser's network\nstack to convert what is already in-memory base64 data.\n\nNew approach for all formats: html-to-image → canvas → canvas.toBlob().\nThis is what the WebP path already did. Now all three formats use the\nsame direct conversion, avoiding unnecessary Response object creation\nand base64 encoding/decoding overhead.\n\nAlso drops the toJpeg import since toCanvas + canvas.toBlob('image/jpeg')\nhandles JPEG encoding natively.\n\nTags: export, performance\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: export\nSemver: patch\n\nhttps://claude.ai/code/session_01XB2ds4yVbZsvHcvEQZt216",
+  "tags": [
+    "performance",
+    "simplify"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pdf-export",
+  "semver": "patch",
+  "scope": "export",
+  "title": "use canvas.toBlob directly instead of fetch(dataUrl)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 11,
+    "deletions": 20
+  },
+  "files": [
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}
