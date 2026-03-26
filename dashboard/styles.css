@@ -355,11 +355,18 @@
             height: 20px;
         }
 
-        /* Print styles for PDF */
+        /* Print styles for PDF
+         * Requirement: Clean, readable output when users save dashboard as PDF
+         * Approach: Override dark theme, hide interactive elements, prevent section splits
+         * Alternatives: PDF library (html2pdf, jspdf) — rejected, adds dependency for
+         *   something window.print() does natively across all browsers */
         @media print {
-            body { background: white !important; }
+            body { background: white !important; color: black !important; }
             .no-print { display: none !important; }
             .card { box-shadow: none !important; border: 1px solid #e5e7eb; }
+            a { color: black !important; text-decoration: underline !important; }
+            section { break-inside: avoid; page-break-inside: avoid; }
+            .dashboard-header { background: white !important; border-bottom: 1px solid #e5e7eb; }
         }
 
         /* Heatmap styles - dark theme */

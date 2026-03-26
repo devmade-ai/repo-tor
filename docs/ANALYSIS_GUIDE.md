@@ -158,7 +158,7 @@ Choose ONE primary impact:
 
 ## Lessons Learned
 
-See [AI_LESSONS.md](AI_LESSONS.md) for documented mistakes to avoid.
+See [AI_MISTAKES.md](AI_MISTAKES.md) for documented mistakes to avoid.
 
 **Key lesson:** Merge commits should ONLY have the `merge` tag. Don't add descriptive tags based on the PR title.
 

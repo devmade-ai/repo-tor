@@ -1,6 +1,6 @@
-# AI Lessons Learned
+# AI Mistakes
 
-Mistakes and oversights made by AI assistants during development. Document these to help future sessions avoid repeating them.
+Record of significant AI errors and learnings to prevent repetition. Document mistakes here so future sessions learn from them.
 
 ---
 

@@ -40,7 +40,7 @@ node scripts/extract.js /path/to/repo --output=reports
 - [User Guide](docs/USER_GUIDE.md) — Dashboard UI and metric interpretation
 - [Admin Guide](docs/ADMIN_GUIDE.md) — Setup, extraction, and configuration
 - [Commit Convention](docs/COMMIT_CONVENTION.md) — Commit message format guide
-- [Testing Guide](docs/USER_TESTING.md) — Test scenarios
+- [Testing Guide](docs/TESTING_GUIDE.md) — Test scenarios
 - [Embed Reference](docs/EMBED_REFERENCE.md) — Embeddable chart IDs and usage
 
 ## Project Structure
