@@ -1,0 +1,43 @@
+{
+  "sha": "677fc52",
+  "fullSha": "677fc5201b5ac72191607928a15e1b8a6524f64b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-10T15:51:05Z",
+  "commitDate": "2026-03-10T15:51:05Z",
+  "subject": "refactor(content): extract shared TextStyleControls, improve freeform UX",
+  "body": "Six improvements to the multi-block freeform text implementation:\n\n1. Auto-create first block: FreeformCellEditor creates a block via useEffect\n   when cell is empty, so users can type immediately without clicking \"Add\"\n2. Single-block simplicity: hide #N label and move up/down buttons when only\n   one block exists — cleaner for the common case\n3. Delete confirmation timeout: 3-second fallback timer alongside onBlur, since\n   blur fires unreliably on mobile touch devices\n4. Focused toolbar: markdown formatting toolbar only renders when the block's\n   textarea is focused, reducing repeated chrome with 3+ blocks\n5. Shared TextStyleControls: extracted identical style panel (align, color, size,\n   bold/italic, spacing, spacer/line) used by both TextElementEditor and\n   FreeformBlockEditor — eliminates ~150 lines of duplicated JSX\n6. Icon components: GearIcon, CloseIcon, ChevronUpIcon, ChevronDownIcon extracted\n   as named components, replacing repeated inline SVG path strings\n\nTags: text, freeform, content, refactor, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: freeform-text\nSemver: patch\n\nhttps://claude.ai/code/session_01Vp82yU8LPSQKF91NibhLnG",
+  "tags": [
+    "refactor",
+    "ux",
+    "simplify"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "freeform-text",
+  "semver": "patch",
+  "scope": "content",
+  "title": "extract shared TextStyleControls, improve freeform UX",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 277,
+    "deletions": 340
+  },
+  "files": [
+    "src/components/ContentTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

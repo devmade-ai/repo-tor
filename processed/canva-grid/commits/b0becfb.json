@@ -1,0 +1,42 @@
+{
+  "sha": "b0becfb",
+  "fullSha": "b0becfb85fd3f37a314bf06c7d7a1dbe25305c01",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-10T11:31:14Z",
+  "commitDate": "2026-03-10T11:31:14Z",
+  "subject": "refactor(structure): unify cell selection with global selectedCell",
+  "body": "Replaced the parallel structureSelection state system with the same\nglobal selectedCell used by all other tabs. Section context (which\nrow/column a cell belongs to) is now derived via cellToSection() instead\nof stored separately.\n\nWhat changed:\n- Removed internal CellGrid component (~200 lines), structureSelection\n  state, lastInternalCell ref, and the sync useEffect\n- Now uses MiniCellGrid (same as MediaTab, ContentTab, StyleTab)\n- Section editing and cell subdivision editing are both shown based on\n  the selected cell's derived section, no toggle needed\n- All structural operations (swap, insert, remove, add/remove\n  subdivision) simplified — just update global selectedCell directly\n\nWhy: The dual-state system caused sync bugs where ContextBar and other\ntabs showed a different cell than the Structure tab. The sync logic was\ncomplex (useEffect with ref guards, manual updates in 5 operations) and\nstill had edge cases. Using a single source of truth eliminates the\nentire category of sync bugs.\n\nTags: state, layout, structure, ux, cell-selection, refactor\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: cell-selection-sync\nSemver: minor\n\nhttps://claude.ai/code/session_015GRVxPQPeJKY1UQeY45Wxn",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "cell-selection-sync",
+  "semver": "minor",
+  "scope": "structure",
+  "title": "unify cell selection with global selectedCell",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 84,
+    "deletions": 469
+  },
+  "files": [
+    "src/components/LayoutTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

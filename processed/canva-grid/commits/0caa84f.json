@@ -1,0 +1,42 @@
+{
+  "sha": "0caa84f",
+  "fullSha": "0caa84f45f837b6ba2fce3cffd05de50dc83d215",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-10T11:19:30Z",
+  "commitDate": "2026-03-10T11:19:30Z",
+  "subject": "fix(structure): sync global cell selection during layout structure changes",
+  "body": "LayoutTab maintained an internal structureSelection that correctly followed\nswaps, inserts, and removals — but never updated the global selectedCell\n(used by ContextBar, MediaTab, ContentTab, StyleTab, and canvas overlay).\nAfter reordering rows/columns, the global selection pointed to the wrong cell.\n\nNow all five structure-changing operations (swapSections, insertSection,\nremoveSection, addSubdivision, removeSubdivision) update the global\nselectedCell via onSelectCell and sync lastInternalCell.current to prevent\nthe useEffect sync from re-triggering.\n\nTags: state, layout, structure, ux, cell-selection\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: cell-selection-sync\nSemver: patch\n\nhttps://claude.ai/code/session_015GRVxPQPeJKY1UQeY45Wxn",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "cell-selection-sync",
+  "semver": "patch",
+  "scope": "structure",
+  "title": "sync global cell selection during layout structure changes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 55,
+    "deletions": 5
+  },
+  "files": [
+    "src/components/LayoutTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

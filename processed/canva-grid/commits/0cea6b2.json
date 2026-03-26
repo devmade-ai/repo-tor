@@ -1,0 +1,51 @@
+{
+  "sha": "0cea6b2",
+  "fullSha": "0cea6b2cf590170cdfaae4a29c28c4628c5fa799",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T21:49:51Z",
+  "commitDate": "2026-03-12T21:49:51Z",
+  "subject": "fix(security,perf): XSS protection, race conditions, memory leaks, and performance",
+  "body": "Security: Sanitize marked HTML output with DOMPurify to prevent XSS via\nuser-supplied text in both structured and freeform text modes.\n\nRace conditions: Use ref for selectedCell in sample image loading so async\ncallbacks read current value instead of stale closure capture. Add unmount\nguards to prevent state updates on unmounted components.\n\nPerformance: Replace JSON.stringify comparison in useHistory with recursive\ndeepEqual that exits at first mismatch. Replace JSON.parse/JSON.stringify\ndeep clones with structuredClone. Memoize layout preset comparison in\nTemplatesTab. Wrap AdCanvas with React.memo.\n\nMemory leaks: Track setTimeout IDs in ContentTab focus handlers and clear\non unmount. Remove orphaned inline SVG filter with random ID generation.\n\nInput validation: Add 10 MB file size limit on image uploads with toast\nfeedback to prevent memory issues from large base64 strings in undo history.\n\nTags: security, performance, race-condition, memory-leak, xss, state\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01VwMWj66HfjeUXPDnZFLg1P",
+  "tags": [
+    "security",
+    "performance",
+    "bugfix",
+    "sanitization"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "hardening",
+  "semver": "patch",
+  "scope": "security,perf",
+  "title": "XSS protection, race conditions, memory leaks, and performance",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 138,
+    "deletions": 38
+  },
+  "files": [
+    "package-lock.json",
+    "package.json",
+    "src/components/AdCanvas.jsx",
+    "src/components/ContentTab.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/TemplatesTab.jsx",
+    "src/hooks/useAdState.js",
+    "src/hooks/useHistory.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 4,
+  "impact": "user-facing"
+}

@@ -1,0 +1,55 @@
+{
+  "sha": "d614d3c",
+  "fullSha": "d614d3c39f31fa85eacc02d7c03a232e1c03400c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T20:17:50Z",
+  "commitDate": "2026-03-12T20:17:50Z",
+  "subject": "refactor(ux): fix tooltip clipping, remove prop drilling, extract components",
+  "body": "Three code quality improvements:\n\n1. Portal-based Tooltip component using createPortal to document.body,\n   preventing clipping when tooltips are near sidebar overflow edges.\n   Replaces inline absolute-positioned tooltips in TemplatesTab.\n\n2. ExportButtons and SaveLoadModal now use useToast() hook directly\n   instead of receiving addToast as a prop. Removes prop drilling\n   chain through App.jsx.\n\n3. Extracted KeyboardShortcutsOverlay, EmptyStateGuide, ZoomControls,\n   and QuickActionsBar from App.jsx, reducing it from 950+ to ~820 lines.\n\nTags: ui, refactor, tooltips, components, toast\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ux-improvements\nSemver: patch\n\nhttps://claude.ai/code/session_01VwMWj66HfjeUXPDnZFLg1P",
+  "tags": [
+    "refactor",
+    "ui",
+    "simplify"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-improvements",
+  "semver": "patch",
+  "scope": "ux",
+  "title": "fix tooltip clipping, remove prop drilling, extract components",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 336,
+    "deletions": 188
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/App.jsx",
+    "src/components/EmptyStateGuide.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/KeyboardShortcutsOverlay.jsx",
+    "src/components/QuickActionsBar.jsx",
+    "src/components/SaveLoadModal.jsx",
+    "src/components/TemplatesTab.jsx",
+    "src/components/Tooltip.jsx",
+    "src/components/ZoomControls.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

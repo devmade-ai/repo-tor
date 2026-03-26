@@ -1,0 +1,42 @@
+{
+  "sha": "495647b",
+  "fullSha": "495647b2539f3535a3f9e879910e97e3a7cf48aa",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-10T14:16:27Z",
+  "commitDate": "2026-03-10T14:16:27Z",
+  "subject": "feat(structure): add per-cell insert, delete, move, and resize controls",
+  "body": "Restructure the Structure tab into two clear control groups:\n1. Section controls (Row/Column): add above/below, move up/down, height/width slider, delete\n2. Cell controls (subdivision): add left/right, move left/right, width/height slider, delete\n\nPreviously cell management was limited to a +/- counter that only appended/removed\nfrom the end. Now users can insert cells at specific positions, remove any specific\ncell, and reorder cells within a section — all with proper cell index shifting.\n\nFor column layouts, labels are transposed (add col left/right, cell above/below, etc).\n\nTags: structure, layout, ui, cells\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: layout-structure-controls\nSemver: minor\n\nhttps://claude.ai/code/session_01Vp82yU8LPSQKF91NibhLnG",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "layout-structure-controls",
+  "semver": "minor",
+  "scope": "structure",
+  "title": "add per-cell insert, delete, move, and resize controls",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 275,
+    "deletions": 258
+  },
+  "files": [
+    "src/components/LayoutTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,41 @@
+{
+  "sha": "884c4ba",
+  "fullSha": "884c4ba6610ec084f06e6047c5994562f4997e87",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T20:06:45Z",
+  "commitDate": "2026-03-12T20:06:45Z",
+  "subject": "fix(ux): fix freeformText empty state detection",
+  "body": "freeformText stores arrays of block objects per cell, not single objects.\nisCanvasEmpty was checking ft?.content which is always falsy for arrays.\nNow correctly iterates blocks: Array.isArray(blocks) && blocks.some(...).\n\nTags: ui, state, empty-state\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-improvements\nSemver: patch\n\nhttps://claude.ai/code/session_01VwMWj66HfjeUXPDnZFLg1P",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-improvements",
+  "semver": "patch",
+  "scope": "ux",
+  "title": "fix freeformText empty state detection",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "src/App.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

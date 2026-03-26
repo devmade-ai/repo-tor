@@ -1,0 +1,44 @@
+{
+  "sha": "2cd5c08",
+  "fullSha": "2cd5c089e5a7f3d36741101a28e917b345a4336f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-10T15:07:27Z",
+  "commitDate": "2026-03-10T15:07:27Z",
+  "subject": "feat(content): add spacers and line separators between text groups",
+  "body": "Per-group spacing controls in structured text mode: each text group\n(Title & Tagline, Body, CTA, Footnote) can have spacers and line\nseparators above and below it. Spacers cycle through none/small/large\n(0/0.5em/1.5em). Lines render as 60% width centered horizontal rules\nin secondary theme color.\n\nState stored as text[cellIndex].groupSpacing[groupId] using the existing\nsetText mechanism. AdCanvas renders decorations by iterating text groups\ninstead of a flat element list, inserting spacer divs and line elements\nbetween groups that have visible content.\n\nTags: content, text, ui, canvas\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: content-text-controls\nSemver: minor\n\nhttps://claude.ai/code/session_01Vp82yU8LPSQKF91NibhLnG",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "content-text-controls",
+  "semver": "minor",
+  "scope": "content",
+  "title": "add spacers and line separators between text groups",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 241,
+    "deletions": 24
+  },
+  "files": [
+    "src/components/AdCanvas.jsx",
+    "src/components/ContentTab.jsx",
+    "src/config/textDefaults.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}
