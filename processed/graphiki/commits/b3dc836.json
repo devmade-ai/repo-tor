@@ -1,0 +1,42 @@
+{
+  "sha": "b3dc836",
+  "fullSha": "b3dc8365b9719a4a742b3de5c9cdf17ffdab8b91",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T05:30:56Z",
+  "commitDate": "2026-03-09T05:30:56Z",
+  "subject": "docs: ban AskUserQuestion tool, add import ID removal plan",
+  "body": "Add hard rule to CLAUDE.md permanently banning the AskUserQuestion\ntool — it breaks the session UI. Options must be listed as numbered\ntext instead. Add working plan for removing ID dependencies from\nthe import/merge pipeline.\n\nTags: docs, conventions, import\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: remove-import-ids\nSemver: patch\n\nhttps://claude.ai/code/session_01P6y9bzn2FJLcB9z6PNCE17",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "import-pipeline",
+  "semver": "patch",
+  "scope": null,
+  "title": "ban AskUserQuestion tool, add import ID removal plan",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 133,
+    "deletions": 0
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/working/remove-import-ids-plan.md"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}
