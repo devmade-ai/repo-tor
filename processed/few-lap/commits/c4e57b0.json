@@ -1,0 +1,61 @@
+{
+  "sha": "c4e57b0",
+  "fullSha": "c4e57b0b8e01a2b3667a11c5d2c19e3e5505ba3d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-22T05:48:29Z",
+  "commitDate": "2026-03-22T05:48:29Z",
+  "subject": "feat(data): fix all 9 extraction pipeline gaps + implement reverse geocode",
+  "body": "Transform script (gaps #1, #5, #6, #7):\n- Support way/relation elements via extractCoordinates() + buildSourceId()\n- Replace bbox with area[\"ISO3166-1\"=\"ZA\"] Overpass area filter\n- Add province abbreviations (GP, WC, EC, etc.) to PROVINCE_MAP\n- Wrap batch files as {\"stations\": [...]} matching RPC input format\n- Output skipped elements to stations-osm-skipped.json for geocoding\n\nMigrations (gaps #2, #3, #4):\n- 20260322000001: Partial unique index on source_id\n- 20260322000002: Upsert RPC — insert new + update existing by source_id\n- 20260322000003: reconcile_stations() + deactivate_stations() functions\n\nReverse geocode script (gaps #8, #9):\n- Full implementation with Nominatim rate limiting (1.1s/req)\n- Incremental cache, retry with backoff, country_code validation\n- City fallback chain, progress reporting with ETA\n\nTags: data, osm, nominatim, supabase, pipeline\nComplexity: 4\nUrgency: 3\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: data-extraction\nSemver: minor\n\nhttps://claude.ai/code/session_012GoRRuSkXvRWbQhj6XTrxn",
+  "tags": [
+    "feature",
+    "bugfix"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "data-extraction",
+  "semver": "minor",
+  "scope": "data",
+  "title": "fix all 9 extraction pipeline gaps + implement reverse geocode",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#1",
+    "#5",
+    "#6",
+    "#7",
+    "#2",
+    "#3",
+    "#4",
+    "#8",
+    "#9"
+  ],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 872,
+    "deletions": 214
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/DATA_EXTRACTION.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "scripts/reverse-geocode.mjs",
+    "scripts/transform-overpass.mjs",
+    "supabase/migrations/20260322000001_source_id_unique_index.sql",
+    "supabase/migrations/20260322000002_upsert_bulk_insert_stations.sql",
+    "supabase/migrations/20260322000003_reconcile_stations_function.sql"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "internal"
+}

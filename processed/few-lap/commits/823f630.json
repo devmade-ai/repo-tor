@@ -1,0 +1,44 @@
+{
+  "sha": "823f630",
+  "fullSha": "823f630e779f8e2c80b661d88754084b55b74637",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-21T19:32:57Z",
+  "commitDate": "2026-03-21T19:32:57Z",
+  "subject": "docs(data): add raw Overpass data and update session notes for next session",
+  "body": "Commits the raw Overpass API extract (4,215 SA fuel stations) so the next\nsession can pick up without re-fetching. Updated TODO with reverse geocoding\ntasks for the 1,482 stations missing address/city data (blocked on\n*.openstreetmap.org whitelist). Session notes capture current state.\n\nTags: data, osm, documentation, session-handoff\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: data-extraction\nSemver: patch\n\nhttps://claude.ai/code/session_017p1nYkDcWwq15p9WAokeCx",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "data-extraction",
+  "semver": "patch",
+  "scope": "data",
+  "title": "add raw Overpass data and update session notes for next session",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 85887,
+    "deletions": 13
+  },
+  "files": [
+    ".gitignore",
+    "data/overpass-raw.json",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

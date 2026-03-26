@@ -1,0 +1,47 @@
+{
+  "sha": "f24b44b",
+  "fullSha": "f24b44bff04ef332d74fe39b317b2c2bcd4513f4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-22T13:47:39Z",
+  "commitDate": "2026-03-22T13:47:39Z",
+  "subject": "refactor(scripts): extract shared utils into scripts/lib/ modules",
+  "body": "Duplicated code across transform-overpass.mjs, geocode-all.mjs, and\nreverse-geocode.mjs (province map, amenities, address building, operating\nhours, payment methods, loyalty programs) extracted into shared modules.\nAlso extracted HTTP proxy CONNECT tunnel logic into lib/http.mjs, fixing\nreverse-geocode.mjs which used bare fetch() that fails in proxy environments.\n\nTags: refactor, data, pipeline, cleanup\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: data-extraction\nSemver: patch\n\nhttps://claude.ai/code/session_012GoRRuSkXvRWbQhj6XTrxn",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "data-extraction",
+  "semver": "patch",
+  "scope": "scripts",
+  "title": "extract shared utils into scripts/lib/ modules",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 373,
+    "deletions": 648
+  },
+  "files": [
+    "CLAUDE.md",
+    "scripts/geocode-all.mjs",
+    "scripts/lib/http.mjs",
+    "scripts/lib/station-utils.mjs",
+    "scripts/reverse-geocode.mjs",
+    "scripts/transform-overpass.mjs"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

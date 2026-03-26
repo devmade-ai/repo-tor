@@ -1,0 +1,42 @@
+{
+  "sha": "a5d8886",
+  "fullSha": "a5d8886f0fa29308939c319f5d7fc94f29dc9d8d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-22T13:32:08Z",
+  "commitDate": "2026-03-22T13:32:08Z",
+  "subject": "docs(claude): add HTTPS proxy pattern to Suggested Implementations",
+  "body": "Node.js fetch() and https.get() do not respect HTTP_PROXY/HTTPS_PROXY\nenv vars. Documents the zero-dependency HTTP CONNECT tunnel pattern\nused in geocode-all.mjs as a reusable recipe for all projects running\nin proxy-only environments (CI containers, Claude Code remote, etc.).\n\nAlso adds proxy-only network note to AI Notes section.\n\nTags: documentation, networking, proxy, infrastructure\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: data-extraction\nSemver: patch\n\nhttps://claude.ai/code/session_012GoRRuSkXvRWbQhj6XTrxn",
+  "tags": [
+    "docs",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "data-extraction",
+  "semver": "patch",
+  "scope": "claude",
+  "title": "add HTTPS proxy pattern to Suggested Implementations",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 151,
+    "deletions": 0
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

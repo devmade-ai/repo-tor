@@ -1,0 +1,42 @@
+{
+  "sha": "b03f4b7",
+  "fullSha": "b03f4b71fbd3d816a098e954678e814079a1a2b6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-22T05:39:31Z",
+  "commitDate": "2026-03-22T05:39:31Z",
+  "subject": "docs(data): add known gaps analysis to extraction pipeline",
+  "body": "Identified 9 gaps in the current pipeline after reviewing the transform\nscript and RPC function:\n\n1. Missing way/relation OSM elements (only fetching nodes)\n2. No dedup — RPC does plain INSERT, re-runs create duplicates\n3. No update path for changed station data on re-runs\n4. No deactivation of stations removed from OSM\n5. Bounding box leaks neighboring country stations\n6. Province abbreviations (GP, WC, etc.) not mapped\n7. Batch file format doesn't match RPC expected input\n8. Reverse geocode script not yet implemented\n9. No validation of geocode results\n\nAdded prioritized gap table, fixes for each, and updated TODO.md\nwith specific action items cross-referenced to gap numbers.\n\nTags: documentation, data, osm, quality\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: data-extraction\nSemver: patch\n\nhttps://claude.ai/code/session_012GoRRuSkXvRWbQhj6XTrxn",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "data-extraction",
+  "semver": "patch",
+  "scope": "data",
+  "title": "add known gaps analysis to extraction pipeline",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 150,
+    "deletions": 11
+  },
+  "files": [
+    "docs/DATA_EXTRACTION.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "internal"
+}

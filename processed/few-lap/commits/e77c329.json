@@ -1,0 +1,45 @@
+{
+  "sha": "e77c329",
+  "fullSha": "e77c3293ed2e3c1c83080050378fd97bb3c9e7f4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-22T08:50:01Z",
+  "commitDate": "2026-03-22T08:50:01Z",
+  "subject": "feat(data): geocode all stations — no import without country validation",
+  "body": "Previously the pipeline split stations into two paths: \"accepted\" (had\naddress+city from OSM tags, auto-labeled ZA) and \"skipped\" (needed\ngeocoding). This meant ~95% of border-zone stations without addr:country\ntags could enter the import as ZA without any validation.\n\nNew approach: every station gets geocoded via Nominatim.\n- Transform (step 2) now outputs all elements for geocoding, only\n  rejecting those explicitly tagged as non-SA\n- geocode-all.mjs (step 3) validates country_code for every station\n  and merges data: OSM for street-level detail, Nominatim for admin\n  hierarchy (city, suburb, province, country)\n- Province coverage jumps from ~40% to ~100%\n- Expected runtime: ~70 min for ~4,200 stations (resumable via cache)\n\nMerge strategy tested with mock data — OSM street address wins,\nNominatim admin hierarchy wins, OSM postal code wins with Nominatim\nfallback.\n\nTags: data, osm, geocoding, data-integrity\nComplexity: 4\nUrgency: 3\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: data-extraction\nSemver: minor\n\nhttps://claude.ai/code/session_012GoRRuSkXvRWbQhj6XTrxn",
+  "tags": [
+    "feature",
+    "validation"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "data-extraction",
+  "semver": "minor",
+  "scope": "data",
+  "title": "geocode all stations — no import without country validation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 543,
+    "deletions": 179
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/DATA_EXTRACTION.md",
+    "scripts/geocode-all.mjs",
+    "scripts/transform-overpass.mjs"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 3,
+  "impact": "internal"
+}
