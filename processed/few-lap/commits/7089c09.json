@@ -1,0 +1,44 @@
+{
+  "sha": "7089c09",
+  "fullSha": "7089c09f4275143141b04d73bcab9d24992c8d5f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-03T19:21:58Z",
+  "commitDate": "2026-03-03T19:21:58Z",
+  "subject": "fix(pwa): align install/update hooks with upstream reference patterns",
+  "body": "Audited existing PWA hooks against glow-props shared standards and\nfixed gaps identified in the comparison.\n\nusePWAInstall.ts:\n- Added install analytics tracking (prompted/installed/dismissed events\n  stored in localStorage, last 50 entries) for diagnostics\n- Added 5-second Chromium diagnostic: logs warning via debugLog if\n  beforeinstallprompt hasn't fired, with hasManifest/swControlled state\n- Simplified browser detection: removed confusing double-negative logic,\n  reordered to check Safari/Firefox before Chromium fallback\n- Fixed triggerInstall to always clear deferred prompt (not just on accept)\n\nusePWAUpdate.ts:\n- Added offline-ready auto-dismiss after 3 seconds (non-critical info\n  notification shouldn't persist indefinitely)\n\nTags: pwa, refactor, shared-standards\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: shared-standards\nSemver: patch\n\nhttps://claude.ai/code/session_01NJg4WsQNMgVXehzLzV6fGj",
+  "tags": [
+    "bugfix",
+    "pwa",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "align install/update hooks with upstream reference patterns",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 41,
+    "deletions": 14
+  },
+  "files": [
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "few-lap",
+  "urgency": 2,
+  "impact": "user-facing"
+}
