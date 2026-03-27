@@ -16,15 +16,15 @@
  */
 
 // --- Default palette ---
-// First 6 match the original hardcoded values; 14 additional colors provide
-// enough variety for charts with many series (contributors, repos, tags)
-// without recycling. Colors chosen for perceptual distance in both light and
-// dark mode, and distinguishable for common color-vision deficiencies.
+// 20 perceptually distinct colors for multi-series charts. Ordered so that
+// semantic colors (red=error, green=success, yellow=warning) appear late in
+// the sequence — early positions use neutral hues (blue, purple, teal, pink,
+// orange) to avoid implying status when items are just data categories.
 const DEFAULT_SERIES = [
-    '#2D68FF', '#16A34A', '#EAB308', '#a78bfa', '#EF4444', '#22d3ee',
-    '#F97316', '#EC4899', '#14B8A6', '#8B5CF6', '#84CC16', '#F43F5E',
-    '#06B6D4', '#D946EF', '#CA8A04', '#0EA5E9', '#10B981', '#E11D48',
-    '#6366F1', '#FB923C',
+    '#2D68FF', '#a78bfa', '#22d3ee', '#EC4899', '#F97316', '#8B5CF6',
+    '#14B8A6', '#06B6D4', '#D946EF', '#0EA5E9', '#6366F1', '#FB923C',
+    '#84CC16', '#CA8A04', '#10B981', '#16A34A', '#EAB308', '#F43F5E',
+    '#EF4444', '#E11D48',
 ];
 const DEFAULT_ACCENT = '#2D68FF';
 const DEFAULT_ACCENT_MUTED = '#94a3b8';
