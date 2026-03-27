@@ -132,6 +132,196 @@
             opacity: 0.85;
         }
 
+        /* Hamburger menu — dropdown for secondary header actions */
+        .hamburger-menu {
+            position: relative;
+        }
+        .hamburger-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            min-width: 200px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            padding: 4px 0;
+            animation: hamburger-fade-in 0.12s ease-out;
+        }
+        @keyframes hamburger-fade-in {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hamburger-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 10px 16px;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 14px;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.1s;
+        }
+        .hamburger-item:hover {
+            background: var(--bg-hover);
+        }
+        .hamburger-item svg {
+            flex-shrink: 0;
+            color: var(--text-tertiary);
+        }
+        .hamburger-item-highlight {
+            color: var(--color-primary);
+        }
+        .hamburger-item-highlight svg {
+            color: var(--color-primary);
+        }
+        .hamburger-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 4px 0;
+        }
+        .hamburger-version {
+            padding: 6px 16px;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+        /* Small dot next to hamburger icon when update is available */
+        .hamburger-update-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            flex-shrink: 0;
+            animation: hamburger-pulse 2s ease-in-out infinite;
+        }
+        @keyframes hamburger-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Quick Guide modal — onboarding tutorial */
+        .quick-guide-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 200;
+            animation: quick-guide-fade-in 0.2s ease-out;
+        }
+        @keyframes quick-guide-fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .quick-guide-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(420px, calc(100vw - 32px));
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg, 12px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+            z-index: 201;
+            padding: 32px 28px 24px;
+            animation: quick-guide-slide-in 0.25s ease-out;
+        }
+        @keyframes quick-guide-slide-in {
+            from { opacity: 0; transform: translate(-50%, -48%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        .quick-guide-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: var(--radius-sm);
+            transition: color 0.15s;
+        }
+        .quick-guide-close:hover {
+            color: var(--text-primary);
+        }
+        .quick-guide-content {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .quick-guide-icon {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 16px;
+            opacity: 0.8;
+        }
+        .quick-guide-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        .quick-guide-body {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        .quick-guide-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .quick-guide-dots {
+            display: flex;
+            gap: 6px;
+        }
+        .quick-guide-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+            transition: background 0.2s;
+        }
+        .quick-guide-dot.active {
+            background: var(--color-primary);
+        }
+        .quick-guide-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .quick-guide-btn-primary {
+            padding: 8px 20px;
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.15s;
+        }
+        .quick-guide-btn-primary:hover {
+            opacity: 0.9;
+        }
+        .quick-guide-btn-secondary {
+            padding: 8px 16px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .quick-guide-btn-secondary:hover {
+            background: var(--bg-hover);
+        }
+
         /* Tag classes - adjusted for dark theme */
         /* Fix: Increased background opacity from 0.2→0.3 and border from 0.3→0.5
            to improve contrast and WCAG AA compliance on dark backgrounds. */
