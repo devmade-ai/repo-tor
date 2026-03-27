@@ -28,7 +28,7 @@ export default function Contributors() {
         if (!commitsLoaded) {
             // Phase 1: map pre-aggregated summary contributors to expected format
             const summaryContributors = state.data?.contributors;
-            if (!summaryContributors || summaryContributors.length === 0) return [];
+            if (!summaryContributors?.length) return [];
             return summaryContributors.map(c => ({
                 label: c.email || c.author_id,
                 displayName: sanitizeName(c.name, c.email || c.author_id),
@@ -66,7 +66,7 @@ export default function Contributors() {
             return item.complexities.reduce((a, b) => a + b, 0) / item.complexities.length;
         });
 
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: chartLabels,
@@ -84,8 +84,8 @@ export default function Contributors() {
                 indexAxis: 'y',
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: { min: 0, max: 5, ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } } },
-                    y: { ticks: { font: { size: mobile ? 10 : 12 } } },
+                    x: { min: 0, max: 5, ticks: { stepSize: 1, font: { size: isMobile ? 10 : 12 } } },
+                    y: { ticks: { font: { size: isMobile ? 10 : 12 } } },
                 },
             },
         };

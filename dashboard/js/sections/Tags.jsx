@@ -87,7 +87,7 @@ export default function Tags() {
     const doughnutChartData = useMemo(() => {
         if (tagData.tags.length === 0) return null;
 
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: tagData.tags,
@@ -103,9 +103,9 @@ export default function Tags() {
                     legend: {
                         position: 'bottom',
                         labels: {
-                            boxWidth: mobile ? 8 : 12,
-                            padding: mobile ? 4 : 8,
-                            font: { size: mobile ? 10 : 11 },
+                            boxWidth: isMobile ? 8 : 12,
+                            padding: isMobile ? 4 : 8,
+                            font: { size: isMobile ? 10 : 11 },
                             color: CHART_TEXT_COLOR,
                         generateLabels: function (chart) {
                                 const data = chart.data;

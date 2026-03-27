@@ -78,10 +78,6 @@ export default function QuickGuide({ open, onClose }) {
         if (step > 0) setStep(s => s - 1);
     }, [step]);
 
-    const handleDone = useCallback(() => {
-        onClose();
-    }, [onClose]);
-
     if (!open) return null;
 
     const current = STEPS[step];
@@ -90,7 +86,7 @@ export default function QuickGuide({ open, onClose }) {
     return (
         <>
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-            <div className="quick-guide-overlay" onClick={handleDone} aria-hidden="true" />
+            <div className="quick-guide-overlay" onClick={onClose} aria-hidden="true" />
             <div
                 ref={trapRef}
                 className="quick-guide-modal"
@@ -100,7 +96,7 @@ export default function QuickGuide({ open, onClose }) {
             >
                 <button
                     className="quick-guide-close"
-                    onClick={handleDone}
+                    onClick={onClose}
                     aria-label="Close guide"
                 >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

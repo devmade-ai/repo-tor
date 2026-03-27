@@ -91,7 +91,7 @@ export default function Progress() {
 
         if (!months || months.length === 0) return null;
 
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: months,
@@ -118,11 +118,11 @@ export default function Progress() {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { labels: { font: { size: mobile ? 10 : 12 }, boxWidth: mobile ? 8 : 40 } },
+                    legend: { labels: { font: { size: isMobile ? 10 : 12 }, boxWidth: isMobile ? 8 : 40 } },
                 },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
-                    y: { ticks: { font: { size: mobile ? 10 : 12 } } },
+                    x: { ticks: { font: { size: isMobile ? 10 : 12 }, maxRotation: isMobile ? 60 : 45 } },
+                    y: { ticks: { font: { size: isMobile ? 10 : 12 } } },
                 },
             },
         };
@@ -173,7 +173,7 @@ export default function Progress() {
 
         if (!months || months.length === 0) return null;
 
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: months,
@@ -192,11 +192,11 @@ export default function Progress() {
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
+                    x: { ticks: { font: { size: isMobile ? 10 : 12 }, maxRotation: isMobile ? 60 : 45 } },
                     y: {
                         min: 1,
                         max: 5,
-                        ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } },
+                        ticks: { stepSize: 1, font: { size: isMobile ? 10 : 12 } },
                     },
                 },
             },
@@ -244,7 +244,7 @@ export default function Progress() {
         if (commitsLoaded) {
             const breakdown = { patch: 0, minor: 0, major: 0 };
             filteredCommits.forEach(c => {
-                if (c.semver && breakdown.hasOwnProperty(c.semver)) {
+                if (c.semver && c.semver in breakdown) {
                     breakdown[c.semver]++;
                 }
             });

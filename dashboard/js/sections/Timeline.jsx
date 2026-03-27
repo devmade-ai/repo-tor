@@ -154,7 +154,7 @@ export default function Timeline() {
             }];
         }
 
-        const mobile = isMobile;
+
         return {
             data: { labels, datasets },
             options: {
@@ -164,17 +164,17 @@ export default function Timeline() {
                     legend: {
                         display: repos.length > 1,
                         position: 'top',
-                        labels: { font: { size: mobile ? 10 : 12 }, boxWidth: mobile ? 8 : 40 },
+                        labels: { font: { size: isMobile ? 10 : 12 }, boxWidth: isMobile ? 8 : 40 },
                     },
                 },
                 scales: {
                     x: {
                         stacked: repos.length > 1,
                         ticks: {
-                            maxRotation: mobile ? 60 : 45,
-                            font: { size: mobile ? 10 : 12 },
+                            maxRotation: isMobile ? 60 : 45,
+                            font: { size: isMobile ? 10 : 12 },
                             callback: function (value, index) {
-                                const step = Math.ceil(sortedDates.length / (mobile ? 8 : 15));
+                                const step = Math.ceil(sortedDates.length / (isMobile ? 8 : 15));
                                 return index % step === 0 ? this.getLabelForValue(value) : '';
                             },
                         },
@@ -182,7 +182,7 @@ export default function Timeline() {
                     y: {
                         stacked: repos.length > 1,
                         beginAtZero: true,
-                        ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } },
+                        ticks: { stepSize: 1, font: { size: isMobile ? 10 : 12 } },
                     },
                 },
             },
@@ -249,7 +249,7 @@ export default function Timeline() {
             }];
         }
 
-        const mobile = isMobile;
+
         return {
             data: { labels, datasets },
             options: {
@@ -259,7 +259,7 @@ export default function Timeline() {
                     legend: {
                         display: repos.length > 1,
                         position: 'top',
-                        labels: { font: { size: mobile ? 10 : 12 }, boxWidth: mobile ? 8 : 40 },
+                        labels: { font: { size: isMobile ? 10 : 12 }, boxWidth: isMobile ? 8 : 40 },
                     },
                     tooltip: {
                         callbacks: {
@@ -275,10 +275,10 @@ export default function Timeline() {
                     x: {
                         stacked: repos.length > 1,
                         ticks: {
-                            maxRotation: mobile ? 60 : 45,
-                            font: { size: mobile ? 10 : 12 },
+                            maxRotation: isMobile ? 60 : 45,
+                            font: { size: isMobile ? 10 : 12 },
                             callback: function (value, index) {
-                                const step = Math.ceil(sortedDates.length / (mobile ? 8 : 15));
+                                const step = Math.ceil(sortedDates.length / (isMobile ? 8 : 15));
                                 return index % step === 0 ? this.getLabelForValue(value) : '';
                             },
                         },
@@ -286,7 +286,7 @@ export default function Timeline() {
                     y: {
                         stacked: repos.length > 1,
                         ticks: {
-                            font: { size: mobile ? 10 : 12 },
+                            font: { size: isMobile ? 10 : 12 },
                             callback: function (value) {
                                 const sign = value >= 0 ? '+' : '';
                                 const absValue = Math.abs(value);
@@ -328,7 +328,7 @@ export default function Timeline() {
         const urgencyData = sortedMonths.map(m =>
             Math.round((monthlyUrgency[m].sum / monthlyUrgency[m].count) * 100) / 100
         );
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: sortedMonths.map(m => {
@@ -347,8 +347,8 @@ export default function Timeline() {
                 responsive: true, maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
-                    y: { min: 1, max: 5, ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } } },
+                    x: { ticks: { font: { size: isMobile ? 10 : 12 }, maxRotation: isMobile ? 60 : 45 } },
+                    y: { min: 1, max: 5, ticks: { stepSize: 1, font: { size: isMobile ? 10 : 12 } } },
                 },
             },
             sortedMonths,
@@ -371,7 +371,7 @@ export default function Timeline() {
             Object.keys(monthlyDebt).sort(), filteredCommits
         );
         if (sortedMonths.length === 0) return null;
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: sortedMonths.map(m => {
@@ -393,10 +393,10 @@ export default function Timeline() {
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom', labels: { boxWidth: mobile ? 8 : 12, font: { size: mobile ? 9 : 10 }, padding: mobile ? 4 : 10 } } },
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: isMobile ? 8 : 12, font: { size: isMobile ? 9 : 10 }, padding: isMobile ? 4 : 10 } } },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
-                    y: { ticks: { font: { size: mobile ? 10 : 12 } } },
+                    x: { ticks: { font: { size: isMobile ? 10 : 12 }, maxRotation: isMobile ? 60 : 45 } },
+                    y: { ticks: { font: { size: isMobile ? 10 : 12 } } },
                 },
             },
         };
@@ -418,7 +418,7 @@ export default function Timeline() {
             'user-facing': getSeriesColor(0), 'internal': mutedColor,
             'infrastructure': getSeriesColor(3), 'api': getSeriesColor(1),
         };
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: sortedMonths.map(m => {
@@ -432,10 +432,10 @@ export default function Timeline() {
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom', labels: { boxWidth: mobile ? 8 : 12, font: { size: mobile ? 9 : 10 }, padding: mobile ? 4 : 10 } } },
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: isMobile ? 8 : 12, font: { size: isMobile ? 9 : 10 }, padding: isMobile ? 4 : 10 } } },
                 scales: {
-                    x: { stacked: true, ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
-                    y: { stacked: true, ticks: { font: { size: mobile ? 10 : 12 } } },
+                    x: { stacked: true, ticks: { font: { size: isMobile ? 10 : 12 }, maxRotation: isMobile ? 60 : 45 } },
+                    y: { stacked: true, ticks: { font: { size: isMobile ? 10 : 12 } } },
                 },
             },
         };
