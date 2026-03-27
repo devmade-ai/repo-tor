@@ -83,6 +83,41 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Impact by contributor shows stacked bars
 - [ ] Security commits list displays
 
+**Hamburger Menu:**
+- [ ] Menu button (☰) appears in header between title and filter button
+- [ ] Clicking opens dropdown with Quick Guide, Save as PDF items
+- [ ] Install App item appears only when PWA install is available
+- [ ] Check for Updates item appears only when update is available
+- [ ] Clicking outside the menu closes it
+- [ ] Pressing Escape closes the menu
+- [ ] Version number shown at bottom of menu
+
+**Quick Guide:**
+- [ ] Auto-shows on first visit (after data loads)
+- [ ] Does NOT auto-show on subsequent visits
+- [ ] Menu → Quick Guide reopens it anytime
+- [ ] 4 steps with Next/Back navigation
+- [ ] Last step shows "Got it" button
+- [ ] Escape key closes the guide
+- [ ] Clicking overlay backdrop closes the guide
+
+**Header Subtitle:**
+- [ ] Shows "X changes" when no filters active
+- [ ] Shows "Showing X of Y changes · Filtered" when filters active
+- [ ] Filtered text is clickable and opens filter sidebar
+- [ ] On mobile: smaller title, less padding, smaller buttons
+
+**Pagination (Show More):**
+- [ ] Detail pane: Shows 10 items on mobile, 20 on desktop, with "Show more" button
+- [ ] Timeline commits: Shows 10 on mobile, 25 on desktop
+- [ ] Progress epics: Shows 6 on mobile, 12 on desktop
+- [ ] Contributors: Shows 6 on mobile, 8 on desktop
+- [ ] Tags: Shows 8 on mobile, all on desktop
+- [ ] Discover files: Shows 5 on mobile, 10 on desktop
+- [ ] Projects: Shows 6 on mobile, 12 on desktop
+- [ ] "Show more" button loads next batch of same size
+- [ ] Changing filters resets pagination to first page
+
 **Detail Pane:**
 - [ ] Clicking Overview cards opens detail pane
 - [ ] Clicking Health cards opens detail pane

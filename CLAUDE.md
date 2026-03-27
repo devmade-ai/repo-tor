@@ -151,9 +151,9 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-03-26.
   - `js/main.jsx` - React entry point with Chart.js registration
   - `js/AppContext.jsx` - React Context + useReducer state management
   - `js/App.jsx` - Main app component (data loading, tab routing, layout)
-  - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection, ErrorBoundary, EmbedRenderer, HealthAnomalies, HealthBars, HealthWorkPatterns)
+  - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection, ErrorBoundary, EmbedRenderer, HealthAnomalies, HealthBars, HealthWorkPatterns, HamburgerMenu, QuickGuide, ShowMoreButton)
   - `js/sections/` - Section components (Summary, Timeline, Timing, Progress, Contributors, Tags, Health, Discover, Projects)
-  - `js/hooks/` - Custom hooks (useFocusTrap, useHealthData)
+  - `js/hooks/` - Custom hooks (useFocusTrap, useHealthData, useShowMore, useEscapeKey, useClickOutside)
   - `js/state.js` - Constants (TAB_SECTIONS, VIEW_LEVELS, THRESHOLDS) + global state compat shim
   - `js/utils.js` - Pure utility functions
   - `js/charts.js` - Chart aggregation helpers

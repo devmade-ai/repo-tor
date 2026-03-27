@@ -2,6 +2,24 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-03-27
+
+### Mobile UX improvements
+
+**Why:** Header was too large on mobile, commit counts used jargon ("commits"), filter state wasn't clear, secondary actions cluttered the header, and long lists overwhelmed mobile scrolling.
+
+**What:**
+1. Reduced header vertical padding, title size, and button sizes on mobile (<640px)
+2. Renamed "commits" to "changes" in header subtitle (plain language for non-technical users)
+3. Header subtitle shows "Showing X of Y changes · Filtered" (clickable) when filters are active
+4. Added hamburger menu for secondary actions (Quick Guide, PDF, Install, Update, version info)
+5. Added Quick Guide tutorial modal — 4-step walkthrough, auto-shows on first visit
+6. Added responsive pagination via `useShowMore` hook across 7 sections with mobile-optimized limits
+7. Extracted `ShowMoreButton`, `useEscapeKey`, `useClickOutside` to eliminate duplication
+8. Cleaned redundant variable aliasing, type checks, and wrappers across section files
+
+---
+
 ## 2026-03-26
 
 ### glow-props CLAUDE.md alignment
