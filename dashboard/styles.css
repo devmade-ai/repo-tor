@@ -322,6 +322,31 @@
             background: var(--bg-hover);
         }
 
+        /* Requirement: Consistent "Show more" button across all paginated sections
+         * Approach: Full-width button with subtle background, transitions on hover
+         * Alternatives:
+         *   - Link-style text: Rejected — too small for touch targets on mobile
+         *   - Infinite scroll: Rejected — users lose sense of position in the list */
+        .show-more-btn {
+            display: block;
+            width: 100%;
+            padding: 10px 16px;
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+            text-align: center;
+        }
+        .show-more-btn:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
         /* Tag classes - adjusted for dark theme */
         /* Fix: Increased background opacity from 0.2→0.3 and border from 0.3→0.5
            to improve contrast and WCAG AA compliance on dark backgrounds. */

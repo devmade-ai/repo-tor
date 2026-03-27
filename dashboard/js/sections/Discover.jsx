@@ -2,6 +2,7 @@ import React, { useMemo, useState, useEffect, useCallback, useRef } from 'react'
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getAuthorEmail, getCommitDateTime, getFilesChanged } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import useShowMore from '../hooks/useShowMore.js';
 
 // --- Humorous file name generator ---
 const FILE_NAME_ADJECTIVES = [
@@ -317,7 +318,7 @@ function getRandomMetrics(count, pinned) {
 }
 
 export default function Discover() {
-    const { state, filteredCommits, commitsLoaded } = useApp();
+    const { state, filteredCommits, commitsLoaded, isMobile } = useApp();
     const fileNameCacheRef = useRef({});
 
     const [pinnedMetrics, setPinnedMetrics] = useState(() => loadPinnedMetrics());
@@ -488,6 +489,15 @@ export default function Discover() {
         }));
     }, [filteredCommits, commitsLoaded]);
 
+    // Paginate file insights — 5 mobile / 10 desktop
+    const fileList = Array.isArray(fileInsights) ? fileInsights : [];
+    const {
+        visible: visibleFiles,
+        hasMore: filesHasMore,
+        remaining: filesRemaining,
+        showMore: showMoreFiles,
+    } = useShowMore(fileList, 5, 10, isMobile);
+
     // Comparisons — derive from summary during Phase 1, from commits during Phase 2
     const comparisons = useMemo(() => {
         const items = [];
@@ -634,15 +644,15 @@ export default function Discover() {
             </CollapsibleSection>
 
             {/* File Insights — most changed files (with fun names), least engaging */}
-            <CollapsibleSection title="Most Changed Files" subtitle="Top 10 files by number of changes">
+            <CollapsibleSection title="Most Changed Files" subtitle={`Top ${fileList.length} files by number of changes`}>
                 {fileInsights === 'loading' ? (
                     <div className="flex items-center gap-2 py-4 justify-center">
                         <div className="loading-spinner" style={{ width: 16, height: 16, borderWidth: 2 }} />
                         <p className="text-themed-tertiary text-sm">Loading file data&hellip;</p>
                     </div>
-                ) : fileInsights ? (
+                ) : visibleFiles.length > 0 ? (
                     <div className="space-y-3">
-                        {fileInsights.map(({ path, name, count, pct }) => (
+                        {visibleFiles.map(({ path, name, count, pct }) => (
                             <div key={path} className="flex items-center gap-3">
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center justify-between mb-1 gap-2">
@@ -657,6 +667,11 @@ export default function Discover() {
                                 </div>
                             </div>
                         ))}
+                        {filesHasMore && (
+                            <button type="button" className="show-more-btn" onClick={showMoreFiles}>
+                                Show {Math.min(filesRemaining, isMobile ? 5 : 10)} more of {filesRemaining} remaining
+                            </button>
+                        )}
                     </div>
                 ) : (
                     <p className="text-themed-tertiary text-sm">No file data available for the current selection.</p>

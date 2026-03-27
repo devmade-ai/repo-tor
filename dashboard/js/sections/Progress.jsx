@@ -4,6 +4,7 @@ import { useApp } from '../AppContext.jsx';
 import { getCommitTags, handleKeyActivate, excludeIncompleteLastMonth, getUTCMonthKey } from '../utils.js';
 import { getSeriesColor, withOpacity } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import useShowMore from '../hooks/useShowMore.js';
 
 export default function Progress() {
     const { state, filteredCommits, commitsLoaded, openDetailPane, isMobile } = useApp();
@@ -228,6 +229,14 @@ export default function Progress() {
 
     const hasEpicData = epicBreakdown.length > 0;
 
+    // Paginate epics — 6 mobile / 12 desktop
+    const {
+        visible: visibleEpics,
+        hasMore: epicsHasMore,
+        remaining: epicsRemaining,
+        showMore: showMoreEpics,
+    } = useShowMore(epicBreakdown, 6, 12, isMobile);
+
     // Semver breakdown — patch/minor/major distribution
     // Uses pre-aggregated semverBreakdown from summary when commits aren't loaded
     const semverBreakdown = useMemo(() => {
@@ -367,7 +376,7 @@ export default function Progress() {
             {hasEpicData && (
                 <CollapsibleSection title="Work by Initiative" subtitle="Commits grouped by initiative">
                     <div className="space-y-3">
-                        {epicBreakdown.map(([epic, count]) => {
+                        {visibleEpics.map(([epic, count]) => {
                             const pct = filteredCommits.length > 0
                                 ? Math.round((count / filteredCommits.length) * 100) : 0;
                             return (
@@ -389,6 +398,11 @@ export default function Progress() {
                                 </div>
                             );
                         })}
+                        {epicsHasMore && (
+                            <button type="button" className="show-more-btn" onClick={showMoreEpics}>
+                                Show {Math.min(epicsRemaining, isMobile ? 6 : 12)} more of {epicsRemaining} remaining
+                            </button>
+                        )}
                     </div>
                 </CollapsibleSection>
             )}

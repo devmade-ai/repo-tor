@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useApp } from '../AppContext.jsx';
 import useFocusTrap from '../hooks/useFocusTrap.js';
+import useShowMore from '../hooks/useShowMore.js';
 import {
     formatDate,
     getCommitTags,
@@ -12,9 +13,18 @@ import {
 } from '../utils.js';
 
 export default function DetailPane() {
-    const { state, dispatch } = useApp();
+    const { state, dispatch, isMobile } = useApp();
     const { open, title, subtitle, commits } = state.detailPane;
     const trapRef = useFocusTrap(open);
+
+    // Requirement: Paginate commit lists to avoid overwhelming mobile users
+    // Approach: Show 10 on mobile, 20 on desktop, with "Show more" button
+    // Alternatives:
+    //   - Virtual scrolling: Rejected — adds complexity, this pane is already scrollable
+    //   - Show all: Rejected — can be 1000+ commits, freezes mobile browsers
+    const { visible, hasMore, remaining, showMore } = useShowMore(
+        commits || [], 10, 20, isMobile
+    );
 
     // Escape key to close
     useEffect(() => {
@@ -58,26 +68,26 @@ export default function DetailPane() {
                     </button>
                 </div>
                 <div className="detail-pane-content">
-                    {commits && commits.length > 0 ? (
-                        commits.map((commit, index) => {
-                            const subject = getCommitSubject(commit);
-                            const message = sanitizeMessage(subject);
-                            const authorName = getAuthorName(commit);
-                            const tags = getCommitTags(commit);
+                    {visible.length > 0 ? (
+                        <>
+                            {visible.map((commit, index) => {
+                                const subject = getCommitSubject(commit);
+                                const message = sanitizeMessage(subject);
+                                const authorName = getAuthorName(commit);
+                                const tags = getCommitTags(commit);
 
-                            return (
-                                <div key={commit.sha || index} className="detail-commit">
-                                    <div className="detail-commit-message">
-                                        {message}
-                                    </div>
-                                    <div className="detail-commit-meta">
-                                        <span>{authorName}</span>
-                                        <span>&middot;</span>
-                                        <span>{formatDate(commit.timestamp)}</span>
-                                    </div>
-                                    <div className="detail-commit-tags">
-                                        {tags.map(tag => {
-                                            return (
+                                return (
+                                    <div key={commit.sha || index} className="detail-commit">
+                                        <div className="detail-commit-message">
+                                            {message}
+                                        </div>
+                                        <div className="detail-commit-meta">
+                                            <span>{authorName}</span>
+                                            <span>&middot;</span>
+                                            <span>{formatDate(commit.timestamp)}</span>
+                                        </div>
+                                        <div className="detail-commit-tags">
+                                            {tags.map(tag => (
                                                 <span
                                                     key={tag}
                                                     className={`tag ${getTagClass(tag)}`}
@@ -85,12 +95,21 @@ export default function DetailPane() {
                                                 >
                                                     {tag}
                                                 </span>
-                                            );
-                                        })}
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                            );
-                        })
+                                );
+                            })}
+                            {hasMore && (
+                                <button
+                                    type="button"
+                                    className="show-more-btn"
+                                    onClick={showMore}
+                                >
+                                    Show {Math.min(remaining, isMobile ? 10 : 20)} more of {remaining} remaining
+                                </button>
+                            )}
+                        </>
                     ) : (
                         <div className="text-sm text-themed-tertiary" style={{ textAlign: 'center', padding: '48px 0' }}>
                             No commits to display

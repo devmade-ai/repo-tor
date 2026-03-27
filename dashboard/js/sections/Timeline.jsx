@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { Bar, Line } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
@@ -10,18 +10,19 @@ import {
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
 import { seriesColors, accentColor, getSeriesColor, withOpacity, mutedColor, buildRepoColorMap } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import useShowMore from '../hooks/useShowMore.js';
 
 export default function Timeline() {
     const { state, dispatch, filteredCommits, viewConfig, openDetailPane, isMobile, commitsLoaded } = useApp();
-    const [visibleCount, setVisibleCount] = useState(100);
 
-    // Reset visible count when filtered commits change.
-    // Fix: Previously used a useRef + conditional setState during render, which is a
-    // React anti-pattern that can cause infinite render loops. Moved to useEffect
-    // so the reset happens after render, not during it.
-    useEffect(() => {
-        setVisibleCount(100);
-    }, [filteredCommits.length]);
+    // Requirement: Paginate commit list — 100 was far too many on mobile
+    // Approach: 10 mobile / 25 desktop initial, batched "Show more"
+    const {
+        visible: visibleCommits,
+        hasMore: commitsHasMore,
+        remaining: commitsRemaining,
+        showMore: showMoreCommits,
+    } = useShowMore(filteredCommits, 10, 25, isMobile);
 
     // Summary card data
     // Requirement: Show summary stats from pre-aggregated data before commits load
@@ -472,7 +473,7 @@ export default function Timeline() {
     const commitListContent = useMemo(() => {
         if (viewConfig.drilldown === 'commits') {
             // Developer view: individual commits
-            return filteredCommits.slice(0, visibleCount).map((commit, idx) => {
+            return visibleCommits.map((commit, idx) => {
                 const tags = getCommitTags(commit);
                 const workPattern = getWorkPattern(commit);
 
@@ -572,14 +573,14 @@ export default function Timeline() {
                 );
             });
         }
-    }, [filteredCommits, visibleCount, viewConfig, handlePeriodClick]);
+    }, [visibleCommits, viewConfig, handlePeriodClick]);
 
     const showingText = viewConfig.drilldown === 'commits'
-        ? `Showing ${Math.min(filteredCommits.length, visibleCount)} of ${filteredCommits.length}`
+        ? `Showing ${visibleCommits.length} of ${filteredCommits.length}`
         : `${filteredCommits.length} total commits`;
 
-    const hasMore = viewConfig.drilldown === 'commits' && filteredCommits.length > visibleCount;
-    const remaining = filteredCommits.length - visibleCount;
+    const hasMore = viewConfig.drilldown === 'commits' && commitsHasMore;
+    const remaining = commitsRemaining;
 
     const chartHeight = isMobile ? '220px' : '300px';
 
@@ -615,10 +616,11 @@ export default function Timeline() {
                     )}
                     {hasMore && (
                         <button
-                            className="w-full py-3 text-sm font-medium text-themed-secondary hover:text-themed-primary bg-themed-tertiary hover:bg-gray-600 rounded-lg transition-colors cursor-pointer border-0"
-                            onClick={() => setVisibleCount(v => v + 100)}
+                            type="button"
+                            className="show-more-btn"
+                            onClick={showMoreCommits}
                         >
-                            Load {Math.min(remaining, 100)} more ({remaining} remaining)
+                            Show {Math.min(remaining, isMobile ? 10 : 25)} more of {remaining} remaining
                         </button>
                     )}
                 </div>

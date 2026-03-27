@@ -8,6 +8,7 @@ import {
 import { getSeriesColor, mutedColor } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import { UrgencyBar, ImpactBar } from '../components/HealthBars.jsx';
+import useShowMore from '../hooks/useShowMore.js';
 
 // Requirement: Show contributor data during Phase 1 using pre-aggregated summary
 // Approach: When commits haven't loaded, map summary.contributors[] (which has name,
@@ -40,6 +41,14 @@ export default function Contributors() {
         // Phase 2: compute from filtered commits (respects view level + filters)
         return aggregateContributors(filteredCommits);
     }, [filteredCommits, commitsLoaded, state.data?.contributors]);
+
+    // Paginate contributor cards — 6 mobile / 8 desktop
+    const {
+        visible: visibleContributors,
+        hasMore: contributorsHasMore,
+        remaining: contributorsRemaining,
+        showMore: showMoreContributors,
+    } = useShowMore(aggregated, 6, 8, isMobile);
 
     // Complexity chart data
     const complexityChartData = useMemo(() => {
@@ -191,8 +200,9 @@ export default function Contributors() {
             {/* Who Does What */}
             <CollapsibleSection title="Who Does What" subtitle={commitsLoaded ? 'Top contributors and their focus areas' : 'Overall contributor breakdown'}>
                 {aggregated.length > 0 ? (
+                <>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {aggregated.slice(0, 8).map((item, idx) => {
+                        {visibleContributors.map((item, idx) => {
                             const totalTags = Object.values(item.breakdown).reduce((s, v) => s + v, 0);
                             const topTags = Object.entries(item.breakdown)
                                 .sort((a, b) => b[1] - a[1])
@@ -236,6 +246,12 @@ export default function Contributors() {
                             );
                         })}
                     </div>
+                    {contributorsHasMore && (
+                        <button type="button" className="show-more-btn mt-4" onClick={showMoreContributors}>
+                            Show {Math.min(contributorsRemaining, isMobile ? 6 : 8)} more of {contributorsRemaining} remaining
+                        </button>
+                    )}
+                </>
                 ) : (
                     <p className="text-themed-tertiary">Nothing matches the current filters. Try adjusting your selections.</p>
                 )}

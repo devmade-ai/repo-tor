@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useApp } from '../AppContext.jsx';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import useShowMore from '../hooks/useShowMore.js';
 
 // Requirement: Provide a directory of all live projects with quick-access links
 // Approach: Fetch projects.json (static file alongside data.json) and render as card grid
@@ -10,7 +11,7 @@ import CollapsibleSection from '../components/CollapsibleSection.jsx';
 //   - Derive from loaded analytics data only: Rejected — misses projects without analytics
 
 export default function Projects() {
-    const { state, filteredCommits, commitsLoaded } = useApp();
+    const { state, filteredCommits, commitsLoaded, isMobile } = useApp();
     const [projects, setProjects] = useState([]);
     const [loadError, setLoadError] = useState(null);
 
@@ -78,6 +79,21 @@ export default function Projects() {
         );
     }
 
+    // Paginate project grids — 6 mobile / 12 desktop
+    const {
+        visible: visibleLive,
+        hasMore: liveHasMore,
+        remaining: liveRemaining,
+        showMore: showMoreLive,
+    } = useShowMore(liveProjects, 6, 12, isMobile);
+
+    const {
+        visible: visibleOther,
+        hasMore: otherHasMore,
+        remaining: otherRemaining,
+        showMore: showMoreOther,
+    } = useShowMore(otherProjects, 6, 12, isMobile);
+
     if (projects.length === 0) {
         return (
             <div className="flex items-center justify-center py-12">
@@ -93,10 +109,15 @@ export default function Projects() {
                 subtitle={`${liveProjects.length} projects with live sites`}
             >
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {liveProjects.map(project => (
+                    {visibleLive.map(project => (
                         <ProjectCard key={project.name} project={project} />
                     ))}
                 </div>
+                {liveHasMore && (
+                    <button type="button" className="show-more-btn mt-4" onClick={showMoreLive}>
+                        Show {Math.min(liveRemaining, isMobile ? 6 : 12)} more of {liveRemaining} remaining
+                    </button>
+                )}
             </CollapsibleSection>
 
             {otherProjects.length > 0 && (
@@ -106,10 +127,15 @@ export default function Projects() {
                     defaultExpanded={false}
                 >
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {otherProjects.map(project => (
+                        {visibleOther.map(project => (
                             <ProjectCard key={project.name} project={project} />
                         ))}
                     </div>
+                    {otherHasMore && (
+                        <button type="button" className="show-more-btn mt-4" onClick={showMoreOther}>
+                            Show {Math.min(otherRemaining, isMobile ? 6 : 12)} more of {otherRemaining} remaining
+                        </button>
+                    )}
                 </CollapsibleSection>
             )}
         </div>

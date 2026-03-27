@@ -3,6 +3,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getTagColor, getTagClass, getTagStyleObject, handleKeyActivate } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import useShowMore from '../hooks/useShowMore.js';
 
 // Requirement: Read CSS variable for chart text color without layout thrashing
 // Approach: useRef + useLayoutEffect reads the value once after first paint,
@@ -73,6 +74,14 @@ export default function Tags() {
         return { sortedTags, tags, counts, colors, total };
     }, [filteredCommits, commitsLoaded, state.data?.summary?.tagBreakdown]);
 
+    // Paginate tag list — 8 mobile / show all desktop (0 = no limit)
+    const {
+        visible: visibleTags,
+        hasMore: tagsHasMore,
+        remaining: tagsRemaining,
+        showMore: showMoreTags,
+    } = useShowMore(tagData.sortedTags, 8, 0, isMobile);
+
     // Doughnut chart config
     const doughnutChartData = useMemo(() => {
         if (tagData.tags.length === 0) return null;
@@ -139,7 +148,7 @@ export default function Tags() {
                 <CollapsibleSection title="Tag Breakdown" subtitle={commitsLoaded ? 'Tap any tag to see its commits' : 'Overall tag distribution'}>
                     {tagData.sortedTags.length > 0 ? (
                         <div className="space-y-3">
-                            {tagData.sortedTags.map(({ tag, count }) => (
+                            {visibleTags.map(({ tag, count }) => (
                                 <div
                                     key={tag}
                                     className={`flex items-center gap-3 rounded p-2 -m-2 transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
@@ -168,6 +177,11 @@ export default function Tags() {
                                     </span>
                                 </div>
                             ))}
+                            {tagsHasMore && (
+                                <button type="button" className="show-more-btn" onClick={showMoreTags}>
+                                    Show {Math.min(tagsRemaining, 8)} more of {tagsRemaining} remaining
+                                </button>
+                            )}
                         </div>
                     ) : (
                         <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
