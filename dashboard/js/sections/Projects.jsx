@@ -91,7 +91,7 @@ export default function Projects() {
 
     if (loadError) {
         return (
-            <div className="card" style={{ textAlign: 'center', padding: '24px' }}>
+            <div className="card projects-error">
                 <p className="text-themed-secondary">{loadError}</p>
             </div>
         );

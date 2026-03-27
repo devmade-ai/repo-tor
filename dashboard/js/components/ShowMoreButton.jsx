@@ -14,6 +14,7 @@ export default function ShowMoreButton({ remaining, pageSize, onClick }) {
             type="button"
             className="show-more-btn"
             onClick={onClick}
+            aria-label={`Show ${nextBatch} more items, ${remaining} remaining`}
         >
             Show {nextBatch} more of {remaining} remaining
         </button>

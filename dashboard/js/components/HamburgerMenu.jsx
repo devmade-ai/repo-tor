@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import useEscapeKey from '../hooks/useEscapeKey.js';
 import useClickOutside from '../hooks/useClickOutside.js';
 import { version } from '../../../package.json';
@@ -30,6 +30,16 @@ export default function HamburgerMenu({
 
     useClickOutside(menuRef, open, close);
     useEscapeKey(open, close);
+
+    // Focus first menu item when dropdown opens for keyboard accessibility
+    useEffect(() => {
+        if (!open) return;
+        const id = setTimeout(() => {
+            const first = menuRef.current?.querySelector('[role="menuitem"]');
+            first?.focus();
+        }, 0);
+        return () => clearTimeout(id);
+    }, [open]);
 
     function handleItem(action) {
         close();

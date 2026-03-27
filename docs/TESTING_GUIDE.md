@@ -90,6 +90,9 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Check for Updates item appears only when update is available
 - [ ] Clicking outside the menu closes it
 - [ ] Pressing Escape closes the menu
+- [ ] Arrow Down/Up keys navigate between menu items
+- [ ] Arrow keys wrap around (Down on last item goes to first)
+- [ ] Enter/Space activates focused menu item
 - [ ] Version number shown at bottom of menu
 
 **Quick Guide:**

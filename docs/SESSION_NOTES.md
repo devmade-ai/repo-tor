@@ -27,9 +27,14 @@ Current state for AI assistants to continue work.
 - Simplified redundant null-or-empty check in Contributors
 - Removed redundant `handleDone` wrapper in QuickGuide
 - Moved DetailPane empty state inline style to `.detail-pane-empty` CSS class
+- Moved Projects error card inline style to `.projects-error` CSS class
 - Added arrow key navigation to HamburgerMenu dropdown (WAI-ARIA menu pattern)
+- Added auto-focus first menu item when HamburgerMenu opens
 - Added focus management to QuickGuide modal (focuses container on open)
 - Imported version from package.json in HamburgerMenu (was hardcoded v1.0.0)
+- Added `aria-label` to ShowMoreButton for screen readers
+- Added `type="button"` to DetailPane close button
+- Added arrow key + Enter/Space keyboard test scenarios to TESTING_GUIDE.md
 - Centralized pagination limits in `PAGE_LIMITS` constant in state.js
 - Removed `className` prop from ShowMoreButton (spacing now consistent via CSS)
 
