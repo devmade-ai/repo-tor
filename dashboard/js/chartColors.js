@@ -15,8 +15,17 @@
  *     covers the common case cleanly
  */
 
-// --- Default palette (matches the original hardcoded values) ---
-const DEFAULT_SERIES = ['#2D68FF', '#16A34A', '#EAB308', '#a78bfa', '#EF4444', '#22d3ee'];
+// --- Default palette ---
+// First 6 match the original hardcoded values; 14 additional colors provide
+// enough variety for charts with many series (contributors, repos, tags)
+// without recycling. Colors chosen for perceptual distance in both light and
+// dark mode, and distinguishable for common color-vision deficiencies.
+const DEFAULT_SERIES = [
+    '#2D68FF', '#16A34A', '#EAB308', '#a78bfa', '#EF4444', '#22d3ee',
+    '#F97316', '#EC4899', '#14B8A6', '#8B5CF6', '#84CC16', '#F43F5E',
+    '#06B6D4', '#D946EF', '#CA8A04', '#0EA5E9', '#10B981', '#E11D48',
+    '#6366F1', '#FB923C',
+];
 const DEFAULT_ACCENT = '#2D68FF';
 const DEFAULT_ACCENT_MUTED = '#94a3b8';
 
@@ -29,27 +38,52 @@ const PALETTES = {
     default: { series: DEFAULT_SERIES, accent: DEFAULT_ACCENT },
     // Warm tones — good for light-background embeds
     warm: {
-        series: ['#E63946', '#F4A261', '#E9C46A', '#2A9D8F', '#264653', '#606C38'],
+        series: [
+            '#E63946', '#F4A261', '#E9C46A', '#2A9D8F', '#264653', '#606C38',
+            '#D62828', '#F77F00', '#FCBF49', '#457B9D', '#1D3557', '#A8DADC',
+            '#BC4749', '#DDA15E', '#FEFAE0', '#588157', '#3A5A40', '#CDB4DB',
+            '#E76F51', '#264653',
+        ],
         accent: '#E63946',
     },
     // Cool tones — corporate / professional feel
     cool: {
-        series: ['#0077B6', '#00B4D8', '#90E0EF', '#CAF0F8', '#023E8A', '#48CAE4'],
+        series: [
+            '#0077B6', '#00B4D8', '#90E0EF', '#CAF0F8', '#023E8A', '#48CAE4',
+            '#0096C7', '#ADE8F4', '#03045E', '#0077B6', '#00B4D8', '#90E0EF',
+            '#1B4965', '#5FA8D3', '#62B6CB', '#BEE9E8', '#1B9AAA', '#06D6A0',
+            '#118AB2', '#073B4C',
+        ],
         accent: '#0077B6',
     },
     // Earth tones — natural, muted colors
     earth: {
-        series: ['#606C38', '#283618', '#DDA15E', '#BC6C25', '#FEFAE0', '#9B2226'],
+        series: [
+            '#606C38', '#283618', '#DDA15E', '#BC6C25', '#FEFAE0', '#9B2226',
+            '#588157', '#3A5A40', '#A3B18A', '#DAD7CD', '#6B705C', '#CB997E',
+            '#B7B7A4', '#FFE8D6', '#DDBEA9', '#A5A58D', '#8B5E3C', '#D4A373',
+            '#CCD5AE', '#E9EDC9',
+        ],
         accent: '#606C38',
     },
     // Vibrant — high contrast, colorful
     vibrant: {
-        series: ['#FF006E', '#8338EC', '#3A86FF', '#06D6A0', '#FFD166', '#EF476F'],
+        series: [
+            '#FF006E', '#8338EC', '#3A86FF', '#06D6A0', '#FFD166', '#EF476F',
+            '#118AB2', '#073B4C', '#F72585', '#7209B7', '#4361EE', '#4CC9F0',
+            '#FB5607', '#FF006E', '#3A0CA3', '#4895EF', '#80FFDB', '#F15BB5',
+            '#FEE440', '#00BBF9',
+        ],
         accent: '#FF006E',
     },
     // Monochrome — single-hue variations (uses accent for tints)
     mono: {
-        series: ['#1D4ED8', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE', '#DBEAFE'],
+        series: [
+            '#1D4ED8', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE', '#DBEAFE',
+            '#1E3A8A', '#2563EB', '#3B82F6', '#6390F0', '#818CF8', '#A5B4FC',
+            '#C7D2FE', '#312E81', '#4338CA', '#4F46E5', '#6366F1', '#7C3AED',
+            '#8B5CF6', '#A78BFA',
+        ],
         accent: '#1D4ED8',
     },
 };
