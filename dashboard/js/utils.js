@@ -186,8 +186,6 @@ export const TAG_COLORS = {
     // Dependencies (lime)
     dependency: '#84cc16',
     deps: '#a3e635',
-    // Internal (light gray)
-    repotor: '#d1d5db',
     // Fallback
     other: '#9ca3af'
 };
