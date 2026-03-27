@@ -1332,6 +1332,20 @@
                 font-size: 11px;
                 display: none;
             }
+            /* Requirement: Reduce header button sizes on mobile to save vertical space
+             * Approach: Shrink from 40px to 36px height, reduce horizontal padding
+             * Alternatives:
+             *   - Hide buttons behind overflow menu: Rejected — adds complexity, hurts discoverability
+             *   - Keep same size: Rejected — 40px buttons + 48px padding wastes space on small screens */
+            .btn-icon {
+                height: 36px;
+                padding: 0 20px;
+            }
+            .btn-theme,
+            .filter-toggle {
+                width: 36px;
+                height: 36px;
+            }
         }
 
         /* ===== Embed Mode =====
