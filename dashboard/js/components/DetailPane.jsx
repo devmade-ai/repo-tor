@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useApp } from '../AppContext.jsx';
 import useFocusTrap from '../hooks/useFocusTrap.js';
+import useEscapeKey from '../hooks/useEscapeKey.js';
 import useShowMore from '../hooks/useShowMore.js';
+import ShowMoreButton from './ShowMoreButton.jsx';
 import {
     formatDate,
     getCommitTags,
@@ -25,16 +27,9 @@ export default function DetailPane() {
     const { visible, hasMore, remaining, showMore } = useShowMore(
         commits || [], 10, 20, isMobile
     );
+    const pageSize = isMobile ? 10 : 20;
 
-    // Escape key to close
-    useEffect(() => {
-        if (!open) return;
-        function handleKey(e) {
-            if (e.key === 'Escape') dispatch({ type: 'CLOSE_DETAIL_PANE' });
-        }
-        document.addEventListener('keydown', handleKey);
-        return () => document.removeEventListener('keydown', handleKey);
-    }, [open, dispatch]);
+    useEscapeKey(open, handleClose);
 
     function handleClose() {
         dispatch({ type: 'CLOSE_DETAIL_PANE' });
@@ -101,13 +96,7 @@ export default function DetailPane() {
                                 );
                             })}
                             {hasMore && (
-                                <button
-                                    type="button"
-                                    className="show-more-btn"
-                                    onClick={showMore}
-                                >
-                                    Show {Math.min(remaining, isMobile ? 10 : 20)} more of {remaining} remaining
-                                </button>
+                                <ShowMoreButton remaining={remaining} pageSize={pageSize} onClick={showMore} />
                             )}
                         </>
                     ) : (

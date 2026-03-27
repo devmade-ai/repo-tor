@@ -4,6 +4,7 @@ import { useApp } from '../AppContext.jsx';
 import { getCommitTags, handleKeyActivate, excludeIncompleteLastMonth, getUTCMonthKey } from '../utils.js';
 import { getSeriesColor, withOpacity } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import useShowMore from '../hooks/useShowMore.js';
 
 export default function Progress() {
@@ -399,9 +400,7 @@ export default function Progress() {
                             );
                         })}
                         {epicsHasMore && (
-                            <button type="button" className="show-more-btn" onClick={showMoreEpics}>
-                                Show {Math.min(epicsRemaining, isMobile ? 6 : 12)} more of {epicsRemaining} remaining
-                            </button>
+                            <ShowMoreButton remaining={epicsRemaining} pageSize={isMobile ? 6 : 12} onClick={showMoreEpics} />
                         )}
                     </div>
                 </CollapsibleSection>

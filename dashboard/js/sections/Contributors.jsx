@@ -7,6 +7,7 @@ import {
 } from '../utils.js';
 import { getSeriesColor, mutedColor } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import { UrgencyBar, ImpactBar } from '../components/HealthBars.jsx';
 import useShowMore from '../hooks/useShowMore.js';
 
@@ -247,9 +248,7 @@ export default function Contributors() {
                         })}
                     </div>
                     {contributorsHasMore && (
-                        <button type="button" className="show-more-btn mt-4" onClick={showMoreContributors}>
-                            Show {Math.min(contributorsRemaining, isMobile ? 6 : 8)} more of {contributorsRemaining} remaining
-                        </button>
+                        <ShowMoreButton remaining={contributorsRemaining} pageSize={isMobile ? 6 : 8} onClick={showMoreContributors} className="mt-4" />
                     )}
                 </>
                 ) : (

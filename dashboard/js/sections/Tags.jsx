@@ -3,6 +3,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getTagColor, getTagClass, getTagStyleObject, handleKeyActivate } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import useShowMore from '../hooks/useShowMore.js';
 
 // Requirement: Read CSS variable for chart text color without layout thrashing
@@ -178,9 +179,7 @@ export default function Tags() {
                                 </div>
                             ))}
                             {tagsHasMore && (
-                                <button type="button" className="show-more-btn" onClick={showMoreTags}>
-                                    Show {Math.min(tagsRemaining, 8)} more of {tagsRemaining} remaining
-                                </button>
+                                <ShowMoreButton remaining={tagsRemaining} pageSize={8} onClick={showMoreTags} />
                             )}
                         </div>
                     ) : (

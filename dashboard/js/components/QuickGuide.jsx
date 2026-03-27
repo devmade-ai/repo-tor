@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import useFocusTrap from '../hooks/useFocusTrap.js';
+import useEscapeKey from '../hooks/useEscapeKey.js';
 
 // Requirement: Provide a simple onboarding tutorial for non-technical users
 // Approach: 4-step modal with Next/Back navigation, auto-shows on first visit
@@ -54,15 +55,7 @@ export default function QuickGuide({ open, onClose }) {
     const [step, setStep] = useState(0);
     const trapRef = useFocusTrap(open);
 
-    // Escape key to close
-    useEffect(() => {
-        if (!open) return;
-        function handleKey(e) {
-            if (e.key === 'Escape') onClose();
-        }
-        document.addEventListener('keydown', handleKey);
-        return () => document.removeEventListener('keydown', handleKey);
-    }, [open, onClose]);
+    useEscapeKey(open, onClose);
 
     // Reset to first step when opening + lock body scroll
     useEffect(() => {

@@ -10,6 +10,7 @@ import {
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
 import { seriesColors, accentColor, getSeriesColor, withOpacity, mutedColor, buildRepoColorMap } from '../chartColors.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import useShowMore from '../hooks/useShowMore.js';
 
 export default function Timeline() {
@@ -615,13 +616,7 @@ export default function Timeline() {
                         <p className="text-themed-tertiary">Nothing matches the current filters. Try adjusting your selections.</p>
                     )}
                     {hasMore && (
-                        <button
-                            type="button"
-                            className="show-more-btn"
-                            onClick={showMoreCommits}
-                        >
-                            Show {Math.min(remaining, isMobile ? 10 : 25)} more of {remaining} remaining
-                        </button>
+                        <ShowMoreButton remaining={remaining} pageSize={isMobile ? 10 : 25} onClick={showMoreCommits} />
                     )}
                 </div>
             </CollapsibleSection>

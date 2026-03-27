@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import useEscapeKey from '../hooks/useEscapeKey.js';
 
 // Requirement: Group secondary header actions into a hamburger menu
 // Approach: Dropdown menu with click-outside-to-close and Escape key support.
@@ -41,15 +42,7 @@ export default function HamburgerMenu({
         };
     }, [open]);
 
-    // Close on Escape
-    useEffect(() => {
-        if (!open) return;
-        function handleKey(e) {
-            if (e.key === 'Escape') setOpen(false);
-        }
-        document.addEventListener('keydown', handleKey);
-        return () => document.removeEventListener('keydown', handleKey);
-    }, [open]);
+    useEscapeKey(open, close);
 
     function handleItem(action) {
         close();

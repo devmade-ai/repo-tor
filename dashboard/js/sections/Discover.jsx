@@ -2,6 +2,7 @@ import React, { useMemo, useState, useEffect, useCallback, useRef } from 'react'
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getAuthorEmail, getCommitDateTime, getFilesChanged } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import useShowMore from '../hooks/useShowMore.js';
 
 // --- Humorous file name generator ---
@@ -668,9 +669,7 @@ export default function Discover() {
                             </div>
                         ))}
                         {filesHasMore && (
-                            <button type="button" className="show-more-btn" onClick={showMoreFiles}>
-                                Show {Math.min(filesRemaining, isMobile ? 5 : 10)} more of {filesRemaining} remaining
-                            </button>
+                            <ShowMoreButton remaining={filesRemaining} pageSize={isMobile ? 5 : 10} onClick={showMoreFiles} />
                         )}
                     </div>
                 ) : (

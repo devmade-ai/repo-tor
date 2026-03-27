@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useApp } from '../AppContext.jsx';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import useShowMore from '../hooks/useShowMore.js';
 
 // Requirement: Provide a directory of all live projects with quick-access links
@@ -115,9 +116,7 @@ export default function Projects() {
                     ))}
                 </div>
                 {liveHasMore && (
-                    <button type="button" className="show-more-btn mt-4" onClick={showMoreLive}>
-                        Show {Math.min(liveRemaining, isMobile ? 6 : 12)} more of {liveRemaining} remaining
-                    </button>
+                    <ShowMoreButton remaining={liveRemaining} pageSize={isMobile ? 6 : 12} onClick={showMoreLive} className="mt-4" />
                 )}
             </CollapsibleSection>
 
@@ -133,9 +132,7 @@ export default function Projects() {
                         ))}
                     </div>
                     {otherHasMore && (
-                        <button type="button" className="show-more-btn mt-4" onClick={showMoreOther}>
-                            Show {Math.min(otherRemaining, isMobile ? 6 : 12)} more of {otherRemaining} remaining
-                        </button>
+                        <ShowMoreButton remaining={otherRemaining} pageSize={isMobile ? 6 : 12} onClick={showMoreOther} className="mt-4" />
                     )}
                 </CollapsibleSection>
             )}
