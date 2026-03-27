@@ -18,17 +18,17 @@ export default function Header() {
     }
 
     // Requirement: Make it clear when filters reduce the visible data set
-    // Approach: Show "Showing X of Y changes" when filtered, "Y changes" when not
+    // Approach: Show "Showing X of Y changes" when filtered, clickable to open filters.
+    //   Plain "Y changes" when no filters active.
     // Alternatives:
     //   - Always show total only: Rejected — hides that filters are active, confusing
     //   - Badge/icon indicator: Rejected — less clear than explicit text for non-technical users
-    const countText = isFiltered
-        ? `Showing ${filteredCount.toLocaleString()} of ${totalCount.toLocaleString()} changes`
-        : `${totalCount.toLocaleString()} changes`;
-
-    const subtitle = repoDisplay
-        ? `${repoDisplay} \u2014 ${countText}`
-        : countText;
+    //   - Dismissible banner: Rejected — adds clutter; inline clickable text is less intrusive
+    const handleOpenFilters = useCallback(() => {
+        if (!state.filterSidebarOpen) {
+            dispatch({ type: 'TOGGLE_FILTER_SIDEBAR' });
+        }
+    }, [state.filterSidebarOpen, dispatch]);
 
     // Seed from pwa.js module state (catches events that fired before mount),
     // then listen for subsequent changes.
@@ -70,7 +70,18 @@ export default function Header() {
                     <div>
                         <h1 className="text-xl sm:text-2xl font-bold text-themed-primary">Git Analytics</h1>
                         <p className="text-sm text-themed-tertiary mt-1">
-                            {subtitle}
+                            {repoDisplay && <>{repoDisplay} &mdash; </>}
+                            {isFiltered ? (
+                                <button
+                                    type="button"
+                                    onClick={handleOpenFilters}
+                                    className="header-filter-hint"
+                                >
+                                    Showing {filteredCount.toLocaleString()} of {totalCount.toLocaleString()} changes &middot; Filtered
+                                </button>
+                            ) : (
+                                <>{totalCount.toLocaleString()} changes</>
+                            )}
                         </p>
                     </div>
                     <div className="flex items-center gap-2 flex-wrap">

@@ -111,6 +111,27 @@
             opacity: 0.5;
         }
 
+        /* Requirement: Make filtered state obvious and actionable in the header
+         * Approach: Inline clickable hint styled as subtle link, opens filter sidebar
+         * Alternatives:
+         *   - Tooltip on hover: Rejected — not discoverable on mobile (no hover)
+         *   - Separate banner: Rejected — takes extra vertical space */
+        .header-filter-hint {
+            background: none;
+            border: none;
+            padding: 0;
+            font: inherit;
+            color: var(--color-primary);
+            cursor: pointer;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-underline-offset: 2px;
+        }
+        .header-filter-hint:hover {
+            text-decoration-style: solid;
+            opacity: 0.85;
+        }
+
         /* Tag classes - adjusted for dark theme */
         /* Fix: Increased background opacity from 0.2→0.3 and border from 0.3→0.5
            to improve contrast and WCAG AA compliance on dark backgrounds. */
