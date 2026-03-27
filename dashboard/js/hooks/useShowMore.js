@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 
 // Requirement: Consistent "Show more" pagination across all list sections
 // Approach: Reusable hook that returns sliced items + show more controls,
@@ -20,13 +20,13 @@ export default function useShowMore(items, mobileLimit, desktopLimit, isMobile) 
     const pageSize = isMobile ? mobileLimit : desktopLimit;
     const [limit, setLimit] = useState(pageSize);
 
-    // Reset limit when pageSize changes (e.g. viewport resize) or items change significantly
-    // Using useMemo to track previous pageSize and reset when it changes
-    const effectiveLimit = useMemo(() => {
+    // Reset limit when pageSize changes (viewport resize) or items change
+    // (e.g. filter applied, different data loaded). Without items.length reset,
+    // pagination state would persist across filter changes — showing a stale
+    // "page 3" when the user expects to see the top of a new result set.
+    useEffect(() => {
         setLimit(pageSize);
-        return pageSize;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageSize]);
+    }, [pageSize, items.length]);
 
     const visible = useMemo(() => {
         if (pageSize === 0) return items;

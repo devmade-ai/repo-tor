@@ -210,7 +210,7 @@
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.6);
-            z-index: 200;
+            z-index: 998;
             animation: quick-guide-fade-in 0.2s ease-out;
         }
         @keyframes quick-guide-fade-in {
@@ -227,7 +227,7 @@
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg, 12px);
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
-            z-index: 201;
+            z-index: 999;
             padding: 32px 28px 24px;
             animation: quick-guide-slide-in 0.25s ease-out;
         }
@@ -603,6 +603,14 @@
             a { color: black !important; text-decoration: underline !important; }
             section { break-inside: avoid; page-break-inside: avoid; }
             .dashboard-header { background: white !important; border-bottom: 1px solid #e5e7eb; }
+            .show-more-btn,
+            .hamburger-menu,
+            .quick-guide-overlay,
+            .quick-guide-modal { display: none !important; }
+            .header-filter-hint {
+                color: black !important;
+                text-decoration: none !important;
+            }
         }
 
         /* Heatmap styles - dark theme */

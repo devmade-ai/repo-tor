@@ -573,7 +573,7 @@ export default function Timeline() {
                 );
             });
         }
-    }, [visibleCommits, viewConfig, handlePeriodClick]);
+    }, [visibleCommits, filteredCommits, viewConfig, handlePeriodClick]);
 
     const showingText = viewConfig.drilldown === 'commits'
         ? `Showing ${visibleCommits.length} of ${filteredCommits.length}`
