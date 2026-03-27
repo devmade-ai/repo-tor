@@ -97,8 +97,12 @@
         }
 
         /* Techy header accent */
+        /* z-index: 101 so the hamburger dropdown (z-index: 100, absolutely
+           positioned inside the header) renders above the sticky tabs-bar
+           (z-index: 100). Without this, the tabs-bar covers the dropdown. */
         .dashboard-header {
             position: relative;
+            z-index: 101;
         }
         .dashboard-header::after {
             content: '';
@@ -139,7 +143,7 @@
         .hamburger-dropdown {
             position: absolute;
             top: calc(100% + 6px);
-            right: 0;
+            left: 0;
             min-width: 200px;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
