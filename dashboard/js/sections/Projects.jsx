@@ -71,15 +71,8 @@ export default function Projects() {
         return { liveProjects: live, otherProjects: other };
     }, [enriched]);
 
-    if (loadError) {
-        return (
-            <div className="card" style={{ textAlign: 'center', padding: '24px' }}>
-                <p className="text-themed-secondary">{loadError}</p>
-            </div>
-        );
-    }
-
     // Paginate project grids — 6 mobile / 12 desktop
+    // Must be called before early returns to satisfy React hooks rules
     const {
         visible: visibleLive,
         hasMore: liveHasMore,
@@ -93,6 +86,14 @@ export default function Projects() {
         remaining: otherRemaining,
         showMore: showMoreOther,
     } = useShowMore(otherProjects, 6, 12, isMobile);
+
+    if (loadError) {
+        return (
+            <div className="card" style={{ textAlign: 'center', padding: '24px' }}>
+                <p className="text-themed-secondary">{loadError}</p>
+            </div>
+        );
+    }
 
     if (projects.length === 0) {
         return (
