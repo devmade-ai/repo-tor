@@ -42,6 +42,7 @@ const DISCOVER_METRICS = [
     {
         id: 'net-growth',
         label: 'Net Code Growth',
+        description: 'How much the codebase grew or shrank overall',
         calculate: (commits) => {
             const adds = commits.reduce((sum, c) => sum + (c.stats?.additions ?? 0), 0);
             const dels = commits.reduce((sum, c) => sum + (c.stats?.deletions ?? 0), 0);
@@ -52,6 +53,7 @@ const DISCOVER_METRICS = [
     {
         id: 'avg-commit-size',
         label: 'Avg Change Size',
+        description: 'Typical size of each change — smaller is usually easier to review',
         calculate: (commits) => {
             const total = commits.reduce((sum, c) => sum + (c.stats?.additions ?? 0) + (c.stats?.deletions ?? 0), 0);
             const avg = commits.length > 0 ? Math.round(total / commits.length) : 0;
@@ -61,6 +63,7 @@ const DISCOVER_METRICS = [
     {
         id: 'deletion-ratio',
         label: 'Code Removed',
+        description: 'How much work went toward removing old code vs adding new code',
         calculate: (commits) => {
             const adds = commits.reduce((sum, c) => sum + (c.stats?.additions ?? 0), 0);
             const dels = commits.reduce((sum, c) => sum + (c.stats?.deletions ?? 0), 0);
@@ -72,6 +75,7 @@ const DISCOVER_METRICS = [
     {
         id: 'feature-bug-ratio',
         label: 'Features per Bug Fix',
+        description: 'Balance between building new things and fixing existing problems',
         calculate: (commits) => {
             const features = commits.filter(c => getCommitTags(c).includes('feature')).length;
             const bugs = commits.filter(c => getCommitTags(c).includes('bugfix') || getCommitTags(c).includes('fix')).length;
@@ -83,6 +87,7 @@ const DISCOVER_METRICS = [
     {
         id: 'test-investment',
         label: 'Testing Effort',
+        description: 'How much work is going toward testing — higher means more confidence in quality',
         calculate: (commits) => {
             const tests = commits.filter(c => getCommitTags(c).includes('test')).length;
             const pct = commits.length > 0 ? Math.round((tests / commits.length) * 100) : 0;
@@ -92,6 +97,7 @@ const DISCOVER_METRICS = [
     {
         id: 'docs-investment',
         label: 'Documentation Effort',
+        description: 'How much work is going toward documentation and guides',
         calculate: (commits) => {
             const docs = commits.filter(c => getCommitTags(c).includes('docs')).length;
             const pct = commits.length > 0 ? Math.round((docs / commits.length) * 100) : 0;
@@ -101,6 +107,7 @@ const DISCOVER_METRICS = [
     {
         id: 'untagged-commits',
         label: 'Uncategorized Changes',
+        description: 'Changes without a category — high numbers may mean inconsistent labeling',
         calculate: (commits) => {
             const untagged = commits.filter(c => !c.tags || c.tags.length === 0).length;
             const pct = commits.length > 0 ? Math.round((untagged / commits.length) * 100) : 0;
@@ -110,6 +117,7 @@ const DISCOVER_METRICS = [
     {
         id: 'breaking-changes',
         label: 'Major Updates',
+        description: 'Significant changes that could affect how the product works for users',
         calculate: (commits) => {
             const breaking = commits.filter(c => c.has_breaking_change).length;
             return { value: breaking.toLocaleString(), sub: 'changes that may affect users' };
@@ -118,6 +126,7 @@ const DISCOVER_METRICS = [
     {
         id: 'peak-hour',
         label: 'Peak Hour',
+        description: 'The time of day when the most work gets done',
         calculate: (commits) => {
             const hourCounts = {};
             commits.forEach(c => {
@@ -135,6 +144,7 @@ const DISCOVER_METRICS = [
     {
         id: 'peak-day',
         label: 'Peak Day',
+        description: 'The day of the week when the most work happens',
         calculate: (commits) => {
             const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             const dayCounts = {};
@@ -150,6 +160,7 @@ const DISCOVER_METRICS = [
     {
         id: 'top-contributor',
         label: 'Top Contributor',
+        description: 'The person responsible for the largest share of work',
         calculate: (commits) => {
             const authorCounts = {};
             commits.forEach(c => {
@@ -165,6 +176,7 @@ const DISCOVER_METRICS = [
     {
         id: 'contributor-count',
         label: 'Active Contributors',
+        description: 'How many people contributed work during this period',
         calculate: (commits) => {
             const authors = new Set(commits.map(c => getAuthorEmail(c)));
             return { value: authors.size.toLocaleString(), sub: 'people' };
@@ -173,6 +185,7 @@ const DISCOVER_METRICS = [
     {
         id: 'avg-files-per-commit',
         label: 'Files per Change',
+        description: 'How many files are typically touched at once — fewer means more focused work',
         calculate: (commits) => {
             const total = commits.reduce((sum, c) => sum + getFilesChanged(c), 0);
             const avg = commits.length > 0 ? (total / commits.length).toFixed(1) : 0;
@@ -182,6 +195,7 @@ const DISCOVER_METRICS = [
     {
         id: 'single-file-commits',
         label: 'Focused Changes',
+        description: 'Changes that touched only one file — a sign of small, targeted work',
         calculate: (commits) => {
             const single = commits.filter(c => getFilesChanged(c) === 1).length;
             const pct = commits.length > 0 ? Math.round((single / commits.length) * 100) : 0;
@@ -191,6 +205,7 @@ const DISCOVER_METRICS = [
     {
         id: 'large-commits',
         label: 'Large Changes',
+        description: 'Changes over 500 lines — these can be harder to review and more risky',
         calculate: (commits) => {
             const large = commits.filter(c => (c.stats?.additions ?? 0) + (c.stats?.deletions ?? 0) > 500).length;
             const pct = commits.length > 0 ? Math.round((large / commits.length) * 100) : 0;
@@ -200,6 +215,7 @@ const DISCOVER_METRICS = [
     {
         id: 'refactor-ratio',
         label: 'Code Cleanup',
+        description: 'How much effort is spent reorganizing and improving existing code',
         calculate: (commits) => {
             const refactors = commits.filter(c => getCommitTags(c).includes('refactor')).length;
             const pct = commits.length > 0 ? Math.round((refactors / commits.length) * 100) : 0;
@@ -209,6 +225,7 @@ const DISCOVER_METRICS = [
     {
         id: 'security-commits',
         label: 'Security Work',
+        description: 'Changes related to keeping the product safe and secure',
         calculate: (commits) => {
             const security = commits.filter(c => getCommitTags(c).includes('security')).length;
             return { value: security.toLocaleString(), sub: 'security changes' };
@@ -217,6 +234,7 @@ const DISCOVER_METRICS = [
     {
         id: 'weekend-work',
         label: 'Weekend Work',
+        description: 'Work done on Saturdays and Sundays — can indicate deadline pressure',
         calculate: (commits) => {
             const weekend = commits.filter(c => {
                 const day = getCommitDateTime(c).dayOfWeek;
@@ -229,6 +247,7 @@ const DISCOVER_METRICS = [
     {
         id: 'night-owl',
         label: 'Night Owl Work',
+        description: 'Work done late at night (10PM\u20136AM) — may signal crunch time',
         calculate: (commits) => {
             const night = commits.filter(c => {
                 const hour = getCommitDateTime(c).hour;
@@ -241,6 +260,7 @@ const DISCOVER_METRICS = [
     {
         id: 'early-bird',
         label: 'Early Bird Work',
+        description: 'Work done early in the morning (5\u20139AM)',
         calculate: (commits) => {
             const early = commits.filter(c => {
                 const hour = getCommitDateTime(c).hour;
@@ -323,9 +343,9 @@ export default function Discover() {
         if (commitsLoaded) {
             return selectedMetrics.map(metricId => {
                 const metric = DISCOVER_METRICS.find(m => m.id === metricId);
-                if (!metric) return { value: '-', sub: '', label: 'Unknown' };
+                if (!metric) return { value: '-', sub: '', label: 'Unknown', description: '' };
                 const result = metric.calculate(filteredCommits);
-                return { ...result, label: metric.label, id: metric.id };
+                return { ...result, label: metric.label, id: metric.id, description: metric.description };
             });
         }
 
@@ -393,10 +413,10 @@ export default function Discover() {
 
         return selectedMetrics.map(metricId => {
             const metric = DISCOVER_METRICS.find(m => m.id === metricId);
-            if (!metric) return { value: '-', sub: '', label: 'Unknown' };
+            if (!metric) return { value: '-', sub: '', label: 'Unknown', description: '' };
             const calc = summaryCalc[metricId];
-            if (calc) return { ...calc(), label: metric.label, id: metric.id };
-            return { value: '\u2014', sub: 'Loading\u2026', label: metric.label, id: metric.id };
+            if (calc) return { ...calc(), label: metric.label, id: metric.id, description: metric.description };
+            return { value: '\u2014', sub: 'Loading\u2026', label: metric.label, id: metric.id, description: metric.description };
         });
     }, [selectedMetrics, filteredCommits, commitsLoaded, state.data?.summary]);
 
@@ -571,6 +591,9 @@ export default function Discover() {
                                 </div>
                                 <p className="text-2xl sm:text-3xl font-bold text-themed-primary">{metricResult.value}</p>
                                 <p className="text-xs text-themed-muted">{metricResult.sub}</p>
+                                {metricResult.description && (
+                                    <p className="text-xs text-themed-tertiary mt-2 leading-snug">{metricResult.description}</p>
+                                )}
                             </div>
                         );
                     })}
