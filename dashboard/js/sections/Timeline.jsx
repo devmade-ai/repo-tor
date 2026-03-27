@@ -9,6 +9,7 @@ import {
 } from '../utils.js';
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
 import { seriesColors, accentColor, getSeriesColor, withOpacity, mutedColor, buildRepoColorMap } from '../chartColors.js';
+import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import useShowMore from '../hooks/useShowMore.js';
@@ -23,7 +24,7 @@ export default function Timeline() {
         hasMore: commitsHasMore,
         remaining: commitsRemaining,
         showMore: showMoreCommits,
-    } = useShowMore(filteredCommits, 10, 25, isMobile);
+    } = useShowMore(filteredCommits, ...PAGE_LIMITS.timeline, isMobile);
 
     // Summary card data
     // Requirement: Show summary stats from pre-aggregated data before commits load
@@ -616,7 +617,7 @@ export default function Timeline() {
                         <p className="text-themed-tertiary">Nothing matches the current filters. Try adjusting your selections.</p>
                     )}
                     {hasMore && (
-                        <ShowMoreButton remaining={remaining} pageSize={isMobile ? 10 : 25} onClick={showMoreCommits} />
+                        <ShowMoreButton remaining={remaining} pageSize={isMobile ? PAGE_LIMITS.timeline[0] : PAGE_LIMITS.timeline[1]} onClick={showMoreCommits} />
                     )}
                 </div>
             </CollapsibleSection>

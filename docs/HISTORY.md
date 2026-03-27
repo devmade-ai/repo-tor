@@ -17,6 +17,12 @@ Log of significant changes to code and documentation.
 6. Added responsive pagination via `useShowMore` hook across 7 sections with mobile-optimized limits
 7. Extracted `ShowMoreButton`, `useEscapeKey`, `useClickOutside` to eliminate duplication
 8. Cleaned redundant variable aliasing, type checks, and wrappers across section files
+9. Moved DetailPane empty state inline style to CSS class (CLAUDE.md compliance)
+10. Added arrow key navigation to hamburger menu dropdown (WAI-ARIA accessibility)
+11. Added focus management to QuickGuide modal on open (keyboard accessibility)
+12. Imported version dynamically from package.json instead of hardcoding
+13. Centralized all pagination limits in `PAGE_LIMITS` constant in state.js
+14. Unified ShowMoreButton spacing via CSS `margin-top: 12px` (removed per-instance overrides)
 
 ---
 

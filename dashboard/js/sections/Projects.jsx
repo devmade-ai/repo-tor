@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useApp } from '../AppContext.jsx';
+import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import useShowMore from '../hooks/useShowMore.js';
@@ -79,14 +80,14 @@ export default function Projects() {
         hasMore: liveHasMore,
         remaining: liveRemaining,
         showMore: showMoreLive,
-    } = useShowMore(liveProjects, 6, 12, isMobile);
+    } = useShowMore(liveProjects, ...PAGE_LIMITS.projects, isMobile);
 
     const {
         visible: visibleOther,
         hasMore: otherHasMore,
         remaining: otherRemaining,
         showMore: showMoreOther,
-    } = useShowMore(otherProjects, 6, 12, isMobile);
+    } = useShowMore(otherProjects, ...PAGE_LIMITS.projects, isMobile);
 
     if (loadError) {
         return (
@@ -116,7 +117,7 @@ export default function Projects() {
                     ))}
                 </div>
                 {liveHasMore && (
-                    <ShowMoreButton remaining={liveRemaining} pageSize={isMobile ? 6 : 12} onClick={showMoreLive} className="mt-4" />
+                    <ShowMoreButton remaining={liveRemaining} pageSize={isMobile ? PAGE_LIMITS.projects[0] : PAGE_LIMITS.projects[1]} onClick={showMoreLive} />
                 )}
             </CollapsibleSection>
 
@@ -132,7 +133,7 @@ export default function Projects() {
                         ))}
                     </div>
                     {otherHasMore && (
-                        <ShowMoreButton remaining={otherRemaining} pageSize={isMobile ? 6 : 12} onClick={showMoreOther} className="mt-4" />
+                        <ShowMoreButton remaining={otherRemaining} pageSize={isMobile ? PAGE_LIMITS.projects[0] : PAGE_LIMITS.projects[1]} onClick={showMoreOther} />
                     )}
                 </CollapsibleSection>
             )}

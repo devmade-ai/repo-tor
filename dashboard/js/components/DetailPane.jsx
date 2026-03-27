@@ -1,5 +1,6 @@
 import React from 'react';
 import { useApp } from '../AppContext.jsx';
+import { PAGE_LIMITS } from '../state.js';
 import useFocusTrap from '../hooks/useFocusTrap.js';
 import useEscapeKey from '../hooks/useEscapeKey.js';
 import useShowMore from '../hooks/useShowMore.js';
@@ -24,10 +25,11 @@ export default function DetailPane() {
     // Alternatives:
     //   - Virtual scrolling: Rejected — adds complexity, this pane is already scrollable
     //   - Show all: Rejected — can be 1000+ commits, freezes mobile browsers
+    const [mobileLimit, desktopLimit] = PAGE_LIMITS.detailPane;
     const { visible, hasMore, remaining, showMore } = useShowMore(
-        commits || [], 10, 20, isMobile
+        commits || [], mobileLimit, desktopLimit, isMobile
     );
-    const pageSize = isMobile ? 10 : 20;
+    const pageSize = isMobile ? mobileLimit : desktopLimit;
 
     useEscapeKey(open, handleClose);
 
@@ -100,7 +102,7 @@ export default function DetailPane() {
                             )}
                         </>
                     ) : (
-                        <div className="text-sm text-themed-tertiary" style={{ textAlign: 'center', padding: '48px 0' }}>
+                        <div className="detail-pane-empty">
                             No commits to display
                         </div>
                     )}

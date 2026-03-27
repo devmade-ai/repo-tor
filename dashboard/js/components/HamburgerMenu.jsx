@@ -1,15 +1,18 @@
 import React, { useState, useCallback, useRef } from 'react';
 import useEscapeKey from '../hooks/useEscapeKey.js';
 import useClickOutside from '../hooks/useClickOutside.js';
+import { version } from '../../../package.json';
 
 // Requirement: Group secondary header actions into a hamburger menu
-// Approach: Dropdown menu with click-outside-to-close and Escape key support.
+// Approach: Dropdown menu with click-outside-to-close, Escape key, and arrow
+//   key navigation between menu items for full keyboard accessibility.
 //   Items: Quick Guide, Save as PDF, Install App (conditional), Check for Updates (conditional).
-//   Version info shown at bottom.
+//   Version imported from package.json so it stays in sync automatically.
 // Alternatives:
 //   - Full-screen overlay menu: Rejected — overkill for 3-5 items
 //   - Bottom sheet on mobile: Rejected — inconsistent with desktop, adds complexity
 //   - Tooltip-style popover: Rejected — too small for touch targets
+//   - Hardcoded version string: Rejected — drifts from package.json on bump
 
 export default function HamburgerMenu({
     onOpenGuide,
@@ -33,6 +36,27 @@ export default function HamburgerMenu({
         action();
     }
 
+    // Requirement: Arrow key navigation between menu items (WAI-ARIA menu pattern)
+    // Approach: On ArrowDown/ArrowUp, find all visible menuitem buttons and move
+    //   focus to the next/previous one. Wraps around at boundaries.
+    // Alternatives:
+    //   - roving tabindex: Rejected — more complex state management for same result
+    //   - Tab-only navigation: Rejected — doesn't meet ARIA menu keyboard expectations
+    function handleMenuKeyDown(e) {
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+        e.preventDefault();
+        const items = menuRef.current?.querySelectorAll('[role="menuitem"]');
+        if (!items?.length) return;
+        const currentIdx = Array.from(items).indexOf(document.activeElement);
+        let nextIdx;
+        if (e.key === 'ArrowDown') {
+            nextIdx = currentIdx < items.length - 1 ? currentIdx + 1 : 0;
+        } else {
+            nextIdx = currentIdx > 0 ? currentIdx - 1 : items.length - 1;
+        }
+        items[nextIdx].focus();
+    }
+
     return (
         <div className="hamburger-menu" ref={menuRef}>
             <button
@@ -50,7 +74,7 @@ export default function HamburgerMenu({
             </button>
 
             {open && (
-                <div className="hamburger-dropdown" role="menu">
+                <div className="hamburger-dropdown" role="menu" onKeyDown={handleMenuKeyDown}>
                     <button
                         type="button"
                         className="hamburger-item"
@@ -104,7 +128,7 @@ export default function HamburgerMenu({
                     )}
 
                     <div className="hamburger-divider" />
-                    <div className="hamburger-version">v1.0.0</div>
+                    <div className="hamburger-version">v{version}</div>
                 </div>
             )}
         </div>

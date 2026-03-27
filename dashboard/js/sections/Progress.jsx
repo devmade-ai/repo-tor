@@ -3,6 +3,7 @@ import { Line, Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, handleKeyActivate, excludeIncompleteLastMonth, getUTCMonthKey } from '../utils.js';
 import { getSeriesColor, withOpacity } from '../chartColors.js';
+import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import useShowMore from '../hooks/useShowMore.js';
@@ -236,7 +237,7 @@ export default function Progress() {
         hasMore: epicsHasMore,
         remaining: epicsRemaining,
         showMore: showMoreEpics,
-    } = useShowMore(epicBreakdown, 6, 12, isMobile);
+    } = useShowMore(epicBreakdown, ...PAGE_LIMITS.epics, isMobile);
 
     // Semver breakdown — patch/minor/major distribution
     // Uses pre-aggregated semverBreakdown from summary when commits aren't loaded
@@ -400,7 +401,7 @@ export default function Progress() {
                             );
                         })}
                         {epicsHasMore && (
-                            <ShowMoreButton remaining={epicsRemaining} pageSize={isMobile ? 6 : 12} onClick={showMoreEpics} />
+                            <ShowMoreButton remaining={epicsRemaining} pageSize={isMobile ? PAGE_LIMITS.epics[0] : PAGE_LIMITS.epics[1]} onClick={showMoreEpics} />
                         )}
                     </div>
                 </CollapsibleSection>

@@ -6,6 +6,7 @@ import {
     aggregateContributors, getAuthorEmail, getAuthorName, sanitizeName, handleKeyActivate
 } from '../utils.js';
 import { getSeriesColor, mutedColor } from '../chartColors.js';
+import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import { UrgencyBar, ImpactBar } from '../components/HealthBars.jsx';
@@ -49,7 +50,7 @@ export default function Contributors() {
         hasMore: contributorsHasMore,
         remaining: contributorsRemaining,
         showMore: showMoreContributors,
-    } = useShowMore(aggregated, 6, 8, isMobile);
+    } = useShowMore(aggregated, ...PAGE_LIMITS.contributors, isMobile);
 
     // Complexity chart data
     const complexityChartData = useMemo(() => {
@@ -248,7 +249,7 @@ export default function Contributors() {
                         })}
                     </div>
                     {contributorsHasMore && (
-                        <ShowMoreButton remaining={contributorsRemaining} pageSize={isMobile ? 6 : 8} onClick={showMoreContributors} className="mt-4" />
+                        <ShowMoreButton remaining={contributorsRemaining} pageSize={isMobile ? PAGE_LIMITS.contributors[0] : PAGE_LIMITS.contributors[1]} onClick={showMoreContributors} />
                     )}
                 </>
                 ) : (

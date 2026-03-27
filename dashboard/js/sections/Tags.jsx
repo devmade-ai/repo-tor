@@ -2,6 +2,7 @@ import React, { useMemo, useRef, useLayoutEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getTagColor, getTagClass, getTagStyleObject, handleKeyActivate } from '../utils.js';
+import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import useShowMore from '../hooks/useShowMore.js';
@@ -81,7 +82,7 @@ export default function Tags() {
         hasMore: tagsHasMore,
         remaining: tagsRemaining,
         showMore: showMoreTags,
-    } = useShowMore(tagData.sortedTags, 8, 0, isMobile);
+    } = useShowMore(tagData.sortedTags, ...PAGE_LIMITS.tags, isMobile);
 
     // Doughnut chart config
     const doughnutChartData = useMemo(() => {
@@ -179,7 +180,7 @@ export default function Tags() {
                                 </div>
                             ))}
                             {tagsHasMore && (
-                                <ShowMoreButton remaining={tagsRemaining} pageSize={8} onClick={showMoreTags} />
+                                <ShowMoreButton remaining={tagsRemaining} pageSize={PAGE_LIMITS.tags[0]} onClick={showMoreTags} />
                             )}
                         </div>
                     ) : (

@@ -57,11 +57,18 @@ export default function QuickGuide({ open, onClose }) {
 
     useEscapeKey(open, onClose);
 
-    // Reset to first step when opening + lock body scroll
+    // Reset to first step when opening, lock body scroll, and move focus into modal
+    // Requirement: Keyboard users must know focus moved to the modal
+    // Approach: Focus the modal container after a short delay (allows CSS transition)
+    // Alternatives:
+    //   - Focus first button: Rejected — skips the title/content, screen readers miss context
+    //   - No focus management: Rejected — keyboard users stay behind the overlay
     useEffect(() => {
         if (open) {
             setStep(0);
             document.body.style.overflow = 'hidden';
+            const id = setTimeout(() => trapRef.current?.focus(), 50);
+            return () => { clearTimeout(id); document.body.style.overflow = ''; };
         }
         return () => { document.body.style.overflow = ''; };
     }, [open]);
@@ -93,6 +100,7 @@ export default function QuickGuide({ open, onClose }) {
                 role="dialog"
                 aria-modal="true"
                 aria-label="Quick Guide"
+                tabIndex={-1}
             >
                 <button
                     className="quick-guide-close"

@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getAuthorEmail, getCommitDateTime, getFilesChanged } from '../utils.js';
+import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import useShowMore from '../hooks/useShowMore.js';
@@ -497,7 +498,7 @@ export default function Discover() {
         hasMore: filesHasMore,
         remaining: filesRemaining,
         showMore: showMoreFiles,
-    } = useShowMore(fileList, 5, 10, isMobile);
+    } = useShowMore(fileList, ...PAGE_LIMITS.files, isMobile);
 
     // Comparisons — derive from summary during Phase 1, from commits during Phase 2
     const comparisons = useMemo(() => {
@@ -669,7 +670,7 @@ export default function Discover() {
                             </div>
                         ))}
                         {filesHasMore && (
-                            <ShowMoreButton remaining={filesRemaining} pageSize={isMobile ? 5 : 10} onClick={showMoreFiles} />
+                            <ShowMoreButton remaining={filesRemaining} pageSize={isMobile ? PAGE_LIMITS.files[0] : PAGE_LIMITS.files[1]} onClick={showMoreFiles} />
                         )}
                     </div>
                 ) : (
