@@ -64,9 +64,13 @@ export default function QuickGuide({ open, onClose }) {
         return () => document.removeEventListener('keydown', handleKey);
     }, [open, onClose]);
 
-    // Reset to first step when opening
+    // Reset to first step when opening + lock body scroll
     useEffect(() => {
-        if (open) setStep(0);
+        if (open) {
+            setStep(0);
+            document.body.style.overflow = 'hidden';
+        }
+        return () => { document.body.style.overflow = ''; };
     }, [open]);
 
     const handleNext = useCallback(() => {
