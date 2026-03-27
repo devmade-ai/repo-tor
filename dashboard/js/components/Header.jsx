@@ -3,21 +3,32 @@ import { useApp } from '../AppContext.jsx';
 import { installPWA, applyUpdate, getPWAState } from '../pwa.js';
 
 export default function Header() {
-    const { state, dispatch, activeFilterCount } = useApp();
+    const { state, dispatch, activeFilterCount, filteredCommits } = useApp();
     const [installReady, setInstallReady] = useState(false);
     const [updateAvailable, setUpdateAvailable] = useState(false);
 
     const repoName = state.data?.metadata?.repo_name;
-    const commitCount = state.data?.commits?.length || 0;
+    const totalCount = state.data?.commits?.length || 0;
+    const filteredCount = filteredCommits?.length || 0;
+    const isFiltered = activeFilterCount > 0;
 
     let repoDisplay = '';
     if (repoName) {
         repoDisplay = Array.isArray(repoName) ? repoName.join(', ') : repoName;
     }
 
+    // Requirement: Make it clear when filters reduce the visible data set
+    // Approach: Show "Showing X of Y changes" when filtered, "Y changes" when not
+    // Alternatives:
+    //   - Always show total only: Rejected — hides that filters are active, confusing
+    //   - Badge/icon indicator: Rejected — less clear than explicit text for non-technical users
+    const countText = isFiltered
+        ? `Showing ${filteredCount.toLocaleString()} of ${totalCount.toLocaleString()} changes`
+        : `${totalCount.toLocaleString()} changes`;
+
     const subtitle = repoDisplay
-        ? `${repoDisplay} \u2014 ${commitCount.toLocaleString()} commits`
-        : `${commitCount.toLocaleString()} commits`;
+        ? `${repoDisplay} \u2014 ${countText}`
+        : countText;
 
     // Seed from pwa.js module state (catches events that fired before mount),
     // then listen for subsequent changes.
