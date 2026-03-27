@@ -143,10 +143,10 @@ export function getSeriesColor(index) {
 //   - Config file / repos.json field: Rejected — adds complexity for a display concern
 
 const DISCONTINUED_REPOS = new Set(['coin-zapp', 'plant-fur', 'chatty-chart']);
-const INTERNAL_REPOS = new Set(['tool-till-tees', 'glow-props', 'canva-grid-assets']);
+const INTERNAL_REPOS = new Set(['tool-till-tees', 'glow-props', 'canva-grid-assets', 'repo-tor']);
 
 const COLOR_DISCONTINUED = '#4b5563'; // gray-600 — faded, clearly inactive
-const COLOR_INTERNAL = '#9ca3af';     // gray-400 — neutral mid-tone, present but muted
+const COLOR_INTERNAL = '#d1d5db';     // gray-300 — light, present but muted
 
 /**
  * Get a chart color for a repo based on its category.
