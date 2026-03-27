@@ -6,8 +6,11 @@ import {
     aggregateContributors, getAuthorEmail, getAuthorName, sanitizeName, handleKeyActivate
 } from '../utils.js';
 import { getSeriesColor, mutedColor } from '../chartColors.js';
+import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import { UrgencyBar, ImpactBar } from '../components/HealthBars.jsx';
+import useShowMore from '../hooks/useShowMore.js';
 
 // Requirement: Show contributor data during Phase 1 using pre-aggregated summary
 // Approach: When commits haven't loaded, map summary.contributors[] (which has name,
@@ -26,7 +29,7 @@ export default function Contributors() {
         if (!commitsLoaded) {
             // Phase 1: map pre-aggregated summary contributors to expected format
             const summaryContributors = state.data?.contributors;
-            if (!summaryContributors || summaryContributors.length === 0) return [];
+            if (!summaryContributors?.length) return [];
             return summaryContributors.map(c => ({
                 label: c.email || c.author_id,
                 displayName: sanitizeName(c.name, c.email || c.author_id),
@@ -40,6 +43,14 @@ export default function Contributors() {
         // Phase 2: compute from filtered commits (respects view level + filters)
         return aggregateContributors(filteredCommits);
     }, [filteredCommits, commitsLoaded, state.data?.contributors]);
+
+    // Paginate contributor cards — 6 mobile / 8 desktop
+    const {
+        visible: visibleContributors,
+        hasMore: contributorsHasMore,
+        remaining: contributorsRemaining,
+        showMore: showMoreContributors,
+    } = useShowMore(aggregated, ...PAGE_LIMITS.contributors, isMobile);
 
     // Complexity chart data
     const complexityChartData = useMemo(() => {
@@ -56,7 +67,7 @@ export default function Contributors() {
             return item.complexities.reduce((a, b) => a + b, 0) / item.complexities.length;
         });
 
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: chartLabels,
@@ -74,8 +85,8 @@ export default function Contributors() {
                 indexAxis: 'y',
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: { min: 0, max: 5, ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } } },
-                    y: { ticks: { font: { size: mobile ? 10 : 12 } } },
+                    x: { min: 0, max: 5, ticks: { stepSize: 1, font: { size: isMobile ? 10 : 12 } } },
+                    y: { ticks: { font: { size: isMobile ? 10 : 12 } } },
                 },
             },
         };
@@ -191,8 +202,9 @@ export default function Contributors() {
             {/* Who Does What */}
             <CollapsibleSection title="Who Does What" subtitle={commitsLoaded ? 'Top contributors and their focus areas' : 'Overall contributor breakdown'}>
                 {aggregated.length > 0 ? (
+                <>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {aggregated.slice(0, 8).map((item, idx) => {
+                        {visibleContributors.map((item, idx) => {
                             const totalTags = Object.values(item.breakdown).reduce((s, v) => s + v, 0);
                             const topTags = Object.entries(item.breakdown)
                                 .sort((a, b) => b[1] - a[1])
@@ -236,6 +248,10 @@ export default function Contributors() {
                             );
                         })}
                     </div>
+                    {contributorsHasMore && (
+                        <ShowMoreButton remaining={contributorsRemaining} pageSize={isMobile ? PAGE_LIMITS.contributors[0] : PAGE_LIMITS.contributors[1]} onClick={showMoreContributors} />
+                    )}
+                </>
                 ) : (
                     <p className="text-themed-tertiary">Nothing matches the current filters. Try adjusting your selections.</p>
                 )}

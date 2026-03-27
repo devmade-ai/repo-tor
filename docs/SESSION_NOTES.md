@@ -6,7 +6,51 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, consistent section layouts, and PWA support.
 
-**Recent Updates (2026-03-26 — glow-props alignment + implementations):**
+**Recent Updates (2026-03-27 — Mobile UX improvements):**
+- Reduced header size on mobile (smaller padding, title, buttons)
+- Changed "commits" to "changes" in header subtitle (plain language for non-technical users)
+- Header shows "Showing X of Y changes · Filtered" when filters are active, clickable to open filter sidebar
+- Added hamburger menu grouping secondary actions (Quick Guide, PDF, Install, Update, version)
+- Added Quick Guide tutorial modal (4-step walkthrough, auto-shows on first visit)
+- Added responsive pagination across 7 sections via `useShowMore` hook:
+  - DetailPane: 10 mobile / 20 desktop
+  - Timeline commits: 10 mobile / 25 desktop (was 100)
+  - Progress epics: 6 mobile / 12 desktop
+  - Contributors: 6 mobile / 8 desktop
+  - Tags: 8 mobile / all desktop
+  - Discover files: 5 mobile / 10 desktop
+  - Projects: 6 mobile / 12 desktop
+- Extracted shared hooks: `useShowMore`, `useEscapeKey`, `useClickOutside`
+- Extracted shared component: `ShowMoreButton`
+- Cleaned redundant `const mobile = isMobile` aliasing across 4 section files
+- Fixed `hasOwnProperty` → `in` operator in Progress
+- Simplified redundant null-or-empty check in Contributors
+- Removed redundant `handleDone` wrapper in QuickGuide
+- Moved DetailPane empty state inline style to `.detail-pane-empty` CSS class
+- Moved Projects error card inline style to `.projects-error` CSS class
+- Added arrow key navigation to HamburgerMenu dropdown (WAI-ARIA menu pattern)
+- Added auto-focus first menu item when HamburgerMenu opens
+- Added focus management to QuickGuide modal (focuses container on open)
+- Imported version from package.json in HamburgerMenu (was hardcoded v1.0.0)
+- Added `aria-label` to ShowMoreButton for screen readers
+- Added `type="button"` to DetailPane close button
+- Added arrow key + Enter/Space keyboard test scenarios to TESTING_GUIDE.md
+- Centralized pagination limits in `PAGE_LIMITS` constant in state.js
+- Removed `className` prop from ShowMoreButton (spacing now consistent via CSS)
+
+**New files:**
+- `dashboard/js/hooks/useShowMore.js` — Pagination hook
+- `dashboard/js/hooks/useEscapeKey.js` — Escape key listener hook
+- `dashboard/js/hooks/useClickOutside.js` — Click-outside listener hook
+- `dashboard/js/components/ShowMoreButton.jsx` — Shared "Show more" button
+- `dashboard/js/components/HamburgerMenu.jsx` — Hamburger dropdown menu
+- `dashboard/js/components/QuickGuide.jsx` — Tutorial modal
+
+**Modified files:** Header.jsx, DetailPane.jsx, Timeline.jsx, Contributors.jsx, Tags.jsx, Progress.jsx, Discover.jsx, Projects.jsx, styles.css
+
+**Branch:** `claude/check-mobile-header-size-ihXVc`
+
+**Previous Updates (2026-03-26 — glow-props alignment + implementations):**
 - Aligned CLAUDE.md with glow-props standard structure
 - Added Suggested Implementations section (PWA, Debug, Icons, PDF, Timer fix, HTTPS Proxy)
 - Standardized Principles to glow-props 7 (moved extras to AI Notes)

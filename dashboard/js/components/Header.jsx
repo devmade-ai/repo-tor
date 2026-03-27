@@ -1,23 +1,44 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../AppContext.jsx';
 import { installPWA, applyUpdate, getPWAState } from '../pwa.js';
+import HamburgerMenu from './HamburgerMenu.jsx';
+import QuickGuide from './QuickGuide.jsx';
+
+// Requirement: Clean, minimal header with hamburger menu for secondary actions
+// Approach: Keep filter toggle + settings as direct buttons (frequently used),
+//   move PDF/Install/Update/Guide into a hamburger menu to reduce clutter.
+// Alternatives:
+//   - Keep all buttons visible: Rejected — too many buttons, especially on mobile
+//   - Tab bar with overflow: Rejected — confuses navigation tabs with actions
 
 export default function Header() {
-    const { state, dispatch, activeFilterCount } = useApp();
+    const { state, dispatch, activeFilterCount, filteredCommits } = useApp();
     const [installReady, setInstallReady] = useState(false);
     const [updateAvailable, setUpdateAvailable] = useState(false);
+    const [guideOpen, setGuideOpen] = useState(false);
 
     const repoName = state.data?.metadata?.repo_name;
-    const commitCount = state.data?.commits?.length || 0;
+    const totalCount = state.data?.commits?.length || 0;
+    const filteredCount = filteredCommits?.length || 0;
+    const isFiltered = activeFilterCount > 0;
 
     let repoDisplay = '';
     if (repoName) {
         repoDisplay = Array.isArray(repoName) ? repoName.join(', ') : repoName;
     }
 
-    const subtitle = repoDisplay
-        ? `${repoDisplay} \u2014 ${commitCount.toLocaleString()} commits`
-        : `${commitCount.toLocaleString()} commits`;
+    // Requirement: Make it clear when filters reduce the visible data set
+    // Approach: Show "Showing X of Y changes" when filtered, clickable to open filters.
+    //   Plain "Y changes" when no filters active.
+    // Alternatives:
+    //   - Always show total only: Rejected — hides that filters are active, confusing
+    //   - Badge/icon indicator: Rejected — less clear than explicit text for non-technical users
+    //   - Dismissible banner: Rejected — adds clutter; inline clickable text is less intrusive
+    const handleOpenFilters = useCallback(() => {
+        if (!state.filterSidebarOpen) {
+            dispatch({ type: 'TOGGLE_FILTER_SIDEBAR' });
+        }
+    }, [state.filterSidebarOpen, dispatch]);
 
     // Seed from pwa.js module state (catches events that fired before mount),
     // then listen for subsequent changes.
@@ -41,6 +62,14 @@ export default function Header() {
         };
     }, []);
 
+    // Auto-show guide on first visit (after data loads so user sees a real dashboard behind it)
+    useEffect(() => {
+        if (state.data && QuickGuide.shouldAutoShow()) {
+            setGuideOpen(true);
+            QuickGuide.markSeen();
+        }
+    }, [state.data]);
+
     const handleInstall = useCallback(async () => {
         const prompted = await installPWA();
         if (!prompted) {
@@ -52,92 +81,92 @@ export default function Header() {
         applyUpdate();
     }, []);
 
+    const handleOpenGuide = useCallback(() => {
+        setGuideOpen(true);
+    }, []);
+
+    const handleCloseGuide = useCallback(() => {
+        setGuideOpen(false);
+        QuickGuide.markSeen();
+    }, []);
+
     return (
-        <header className="dashboard-header px-4 md:px-8 py-6">
-            <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div>
-                        <h1 className="text-2xl font-bold text-themed-primary">Git Analytics</h1>
-                        <p className="text-sm text-themed-tertiary mt-1">
-                            {subtitle}
-                        </p>
-                    </div>
-                    <div className="flex items-center gap-2 flex-wrap">
-                        {updateAvailable && (
-                            <button
-                                onClick={handleUpdate}
-                                className="btn-icon btn-primary"
-                                aria-label="Update available"
-                            >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                </svg>
-                                Update
-                            </button>
-                        )}
-                        {installReady && (
-                            <button
-                                onClick={handleInstall}
-                                className="btn-icon btn-secondary"
-                                aria-label="Install app"
-                            >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                </svg>
-                                Install
-                            </button>
-                        )}
-                        <button
-                            onClick={() => window.print()}
-                            className="btn-icon btn-secondary no-print"
-                            aria-label="Save as PDF"
-                        >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                            </svg>
-                            PDF
-                        </button>
-                        <button
-                            onClick={() => dispatch({ type: 'TOGGLE_FILTER_SIDEBAR' })}
-                            className={`filter-toggle relative ${state.filterSidebarOpen ? 'active' : ''}`}
-                            aria-label={activeFilterCount > 0 ? `Toggle filters (${activeFilterCount} active)` : 'Toggle filters'}
-                            aria-expanded={state.filterSidebarOpen}
-                        >
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
-                                />
-                            </svg>
-                            {activeFilterCount > 0 && (
-                                <span className="filter-badge">{activeFilterCount}</span>
+        <>
+            <header className="dashboard-header px-4 md:px-8 py-3 sm:py-6">
+                <div className="max-w-7xl mx-auto">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div>
+                            <h1 className="text-xl sm:text-2xl font-bold text-themed-primary">Git Analytics</h1>
+                            <p className="text-sm text-themed-tertiary mt-1">
+                                {repoDisplay && <>{repoDisplay} &mdash; </>}
+                                {isFiltered ? (
+                                    <button
+                                        type="button"
+                                        onClick={handleOpenFilters}
+                                        className="header-filter-hint"
+                                    >
+                                        Showing {filteredCount.toLocaleString()} of {totalCount.toLocaleString()} changes &middot; Filtered
+                                    </button>
+                                ) : (
+                                    <>{totalCount.toLocaleString()} changes</>
+                                )}
+                            </p>
+                        </div>
+                        <div className="flex items-center gap-2 flex-wrap no-print">
+                            {updateAvailable && (
+                                <span className="hamburger-update-dot" title="Update available" />
                             )}
-                        </button>
-                        <button
-                            onClick={() => dispatch({ type: 'TOGGLE_SETTINGS_PANE' })}
-                            className="btn-theme"
-                            aria-label="Settings"
-                        >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                                />
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                />
-                            </svg>
-                        </button>
+                            <HamburgerMenu
+                                onOpenGuide={handleOpenGuide}
+                                onSavePDF={() => window.print()}
+                                onInstall={handleInstall}
+                                onUpdate={handleUpdate}
+                                installReady={installReady}
+                                updateAvailable={updateAvailable}
+                            />
+                            <button
+                                onClick={() => dispatch({ type: 'TOGGLE_FILTER_SIDEBAR' })}
+                                className={`filter-toggle relative ${state.filterSidebarOpen ? 'active' : ''}`}
+                                aria-label={activeFilterCount > 0 ? `Toggle filters (${activeFilterCount} active)` : 'Toggle filters'}
+                                aria-expanded={state.filterSidebarOpen}
+                            >
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                                    />
+                                </svg>
+                                {activeFilterCount > 0 && (
+                                    <span className="filter-badge">{activeFilterCount}</span>
+                                )}
+                            </button>
+                            <button
+                                onClick={() => dispatch({ type: 'TOGGLE_SETTINGS_PANE' })}
+                                className="btn-theme"
+                                aria-label="Settings"
+                            >
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                                    />
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
+            <QuickGuide open={guideOpen} onClose={handleCloseGuide} />
+        </>
     );
 }

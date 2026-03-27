@@ -75,6 +75,23 @@ export const THRESHOLDS = {
     topDevelopers: 6,     // Max developers in timing patterns
 };
 
+// === Pagination Limits ===
+// Requirement: Different page sizes for mobile vs desktop across all paginated sections
+// Approach: Centralized constants so limits are maintained in one place.
+//   Each key is [mobileLimit, desktopLimit]. 0 = show all (no pagination).
+// Alternatives:
+//   - Inline magic numbers per section: Rejected — duplicated, hard to tune globally
+//   - Single universal limit: Rejected — sections have different density and tab context
+export const PAGE_LIMITS = {
+    detailPane:   [10, 20],  // Overlay commit list
+    timeline:     [10, 25],  // Commits on Timeline tab (shares tab with Timing)
+    contributors: [6, 8],    // Cards on Breakdown tab (shares with Progress + Tags)
+    epics:        [6, 12],   // Progress epics on Breakdown tab
+    tags:         [8, 0],    // Tag list on Breakdown tab (0 = show all on desktop)
+    files:        [5, 10],   // Discover file insights
+    projects:     [6, 12],   // Project grids
+};
+
 // === Tab Navigation ===
 // Maps each tab button to the sections it renders (stacked vertically).
 // "Tab" = the 6 buttons in TabBar. "Section" = content rendered inside a tab.

@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { Bar, Line } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
@@ -9,19 +9,22 @@ import {
 } from '../utils.js';
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
 import { seriesColors, accentColor, getSeriesColor, withOpacity, mutedColor, buildRepoColorMap } from '../chartColors.js';
+import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import ShowMoreButton from '../components/ShowMoreButton.jsx';
+import useShowMore from '../hooks/useShowMore.js';
 
 export default function Timeline() {
     const { state, dispatch, filteredCommits, viewConfig, openDetailPane, isMobile, commitsLoaded } = useApp();
-    const [visibleCount, setVisibleCount] = useState(100);
 
-    // Reset visible count when filtered commits change.
-    // Fix: Previously used a useRef + conditional setState during render, which is a
-    // React anti-pattern that can cause infinite render loops. Moved to useEffect
-    // so the reset happens after render, not during it.
-    useEffect(() => {
-        setVisibleCount(100);
-    }, [filteredCommits.length]);
+    // Requirement: Paginate commit list — 100 was far too many on mobile
+    // Approach: 10 mobile / 25 desktop initial, batched "Show more"
+    const {
+        visible: visibleCommits,
+        hasMore: commitsHasMore,
+        remaining: commitsRemaining,
+        showMore: showMoreCommits,
+    } = useShowMore(filteredCommits, ...PAGE_LIMITS.timeline, isMobile);
 
     // Summary card data
     // Requirement: Show summary stats from pre-aggregated data before commits load
@@ -152,7 +155,7 @@ export default function Timeline() {
             }];
         }
 
-        const mobile = isMobile;
+
         return {
             data: { labels, datasets },
             options: {
@@ -162,17 +165,17 @@ export default function Timeline() {
                     legend: {
                         display: repos.length > 1,
                         position: 'top',
-                        labels: { font: { size: mobile ? 10 : 12 }, boxWidth: mobile ? 8 : 40 },
+                        labels: { font: { size: isMobile ? 10 : 12 }, boxWidth: isMobile ? 8 : 40 },
                     },
                 },
                 scales: {
                     x: {
                         stacked: repos.length > 1,
                         ticks: {
-                            maxRotation: mobile ? 60 : 45,
-                            font: { size: mobile ? 10 : 12 },
+                            maxRotation: isMobile ? 60 : 45,
+                            font: { size: isMobile ? 10 : 12 },
                             callback: function (value, index) {
-                                const step = Math.ceil(sortedDates.length / (mobile ? 8 : 15));
+                                const step = Math.ceil(sortedDates.length / (isMobile ? 8 : 15));
                                 return index % step === 0 ? this.getLabelForValue(value) : '';
                             },
                         },
@@ -180,7 +183,7 @@ export default function Timeline() {
                     y: {
                         stacked: repos.length > 1,
                         beginAtZero: true,
-                        ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } },
+                        ticks: { stepSize: 1, font: { size: isMobile ? 10 : 12 } },
                     },
                 },
             },
@@ -247,7 +250,7 @@ export default function Timeline() {
             }];
         }
 
-        const mobile = isMobile;
+
         return {
             data: { labels, datasets },
             options: {
@@ -257,7 +260,7 @@ export default function Timeline() {
                     legend: {
                         display: repos.length > 1,
                         position: 'top',
-                        labels: { font: { size: mobile ? 10 : 12 }, boxWidth: mobile ? 8 : 40 },
+                        labels: { font: { size: isMobile ? 10 : 12 }, boxWidth: isMobile ? 8 : 40 },
                     },
                     tooltip: {
                         callbacks: {
@@ -273,10 +276,10 @@ export default function Timeline() {
                     x: {
                         stacked: repos.length > 1,
                         ticks: {
-                            maxRotation: mobile ? 60 : 45,
-                            font: { size: mobile ? 10 : 12 },
+                            maxRotation: isMobile ? 60 : 45,
+                            font: { size: isMobile ? 10 : 12 },
                             callback: function (value, index) {
-                                const step = Math.ceil(sortedDates.length / (mobile ? 8 : 15));
+                                const step = Math.ceil(sortedDates.length / (isMobile ? 8 : 15));
                                 return index % step === 0 ? this.getLabelForValue(value) : '';
                             },
                         },
@@ -284,7 +287,7 @@ export default function Timeline() {
                     y: {
                         stacked: repos.length > 1,
                         ticks: {
-                            font: { size: mobile ? 10 : 12 },
+                            font: { size: isMobile ? 10 : 12 },
                             callback: function (value) {
                                 const sign = value >= 0 ? '+' : '';
                                 const absValue = Math.abs(value);
@@ -326,7 +329,7 @@ export default function Timeline() {
         const urgencyData = sortedMonths.map(m =>
             Math.round((monthlyUrgency[m].sum / monthlyUrgency[m].count) * 100) / 100
         );
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: sortedMonths.map(m => {
@@ -345,8 +348,8 @@ export default function Timeline() {
                 responsive: true, maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
-                    y: { min: 1, max: 5, ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } } },
+                    x: { ticks: { font: { size: isMobile ? 10 : 12 }, maxRotation: isMobile ? 60 : 45 } },
+                    y: { min: 1, max: 5, ticks: { stepSize: 1, font: { size: isMobile ? 10 : 12 } } },
                 },
             },
             sortedMonths,
@@ -369,7 +372,7 @@ export default function Timeline() {
             Object.keys(monthlyDebt).sort(), filteredCommits
         );
         if (sortedMonths.length === 0) return null;
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: sortedMonths.map(m => {
@@ -391,10 +394,10 @@ export default function Timeline() {
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom', labels: { boxWidth: mobile ? 8 : 12, font: { size: mobile ? 9 : 10 }, padding: mobile ? 4 : 10 } } },
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: isMobile ? 8 : 12, font: { size: isMobile ? 9 : 10 }, padding: isMobile ? 4 : 10 } } },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
-                    y: { ticks: { font: { size: mobile ? 10 : 12 } } },
+                    x: { ticks: { font: { size: isMobile ? 10 : 12 }, maxRotation: isMobile ? 60 : 45 } },
+                    y: { ticks: { font: { size: isMobile ? 10 : 12 } } },
                 },
             },
         };
@@ -416,7 +419,7 @@ export default function Timeline() {
             'user-facing': getSeriesColor(0), 'internal': mutedColor,
             'infrastructure': getSeriesColor(3), 'api': getSeriesColor(1),
         };
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: sortedMonths.map(m => {
@@ -430,10 +433,10 @@ export default function Timeline() {
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom', labels: { boxWidth: mobile ? 8 : 12, font: { size: mobile ? 9 : 10 }, padding: mobile ? 4 : 10 } } },
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: isMobile ? 8 : 12, font: { size: isMobile ? 9 : 10 }, padding: isMobile ? 4 : 10 } } },
                 scales: {
-                    x: { stacked: true, ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
-                    y: { stacked: true, ticks: { font: { size: mobile ? 10 : 12 } } },
+                    x: { stacked: true, ticks: { font: { size: isMobile ? 10 : 12 }, maxRotation: isMobile ? 60 : 45 } },
+                    y: { stacked: true, ticks: { font: { size: isMobile ? 10 : 12 } } },
                 },
             },
         };
@@ -472,7 +475,7 @@ export default function Timeline() {
     const commitListContent = useMemo(() => {
         if (viewConfig.drilldown === 'commits') {
             // Developer view: individual commits
-            return filteredCommits.slice(0, visibleCount).map((commit, idx) => {
+            return visibleCommits.map((commit, idx) => {
                 const tags = getCommitTags(commit);
                 const workPattern = getWorkPattern(commit);
 
@@ -572,14 +575,14 @@ export default function Timeline() {
                 );
             });
         }
-    }, [filteredCommits, visibleCount, viewConfig, handlePeriodClick]);
+    }, [visibleCommits, filteredCommits, viewConfig, handlePeriodClick]);
 
     const showingText = viewConfig.drilldown === 'commits'
-        ? `Showing ${Math.min(filteredCommits.length, visibleCount)} of ${filteredCommits.length}`
+        ? `Showing ${visibleCommits.length} of ${filteredCommits.length}`
         : `${filteredCommits.length} total commits`;
 
-    const hasMore = viewConfig.drilldown === 'commits' && filteredCommits.length > visibleCount;
-    const remaining = filteredCommits.length - visibleCount;
+    const hasMore = viewConfig.drilldown === 'commits' && commitsHasMore;
+    const remaining = commitsRemaining;
 
     const chartHeight = isMobile ? '220px' : '300px';
 
@@ -614,12 +617,7 @@ export default function Timeline() {
                         <p className="text-themed-tertiary">Nothing matches the current filters. Try adjusting your selections.</p>
                     )}
                     {hasMore && (
-                        <button
-                            className="w-full py-3 text-sm font-medium text-themed-secondary hover:text-themed-primary bg-themed-tertiary hover:bg-gray-600 rounded-lg transition-colors cursor-pointer border-0"
-                            onClick={() => setVisibleCount(v => v + 100)}
-                        >
-                            Load {Math.min(remaining, 100)} more ({remaining} remaining)
-                        </button>
+                        <ShowMoreButton remaining={remaining} pageSize={isMobile ? PAGE_LIMITS.timeline[0] : PAGE_LIMITS.timeline[1]} onClick={showMoreCommits} />
                     )}
                 </div>
             </CollapsibleSection>

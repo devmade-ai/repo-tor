@@ -3,7 +3,10 @@ import { Line, Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, handleKeyActivate, excludeIncompleteLastMonth, getUTCMonthKey } from '../utils.js';
 import { getSeriesColor, withOpacity } from '../chartColors.js';
+import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import ShowMoreButton from '../components/ShowMoreButton.jsx';
+import useShowMore from '../hooks/useShowMore.js';
 
 export default function Progress() {
     const { state, filteredCommits, commitsLoaded, openDetailPane, isMobile } = useApp();
@@ -89,7 +92,7 @@ export default function Progress() {
 
         if (!months || months.length === 0) return null;
 
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: months,
@@ -116,11 +119,11 @@ export default function Progress() {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { labels: { font: { size: mobile ? 10 : 12 }, boxWidth: mobile ? 8 : 40 } },
+                    legend: { labels: { font: { size: isMobile ? 10 : 12 }, boxWidth: isMobile ? 8 : 40 } },
                 },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
-                    y: { ticks: { font: { size: mobile ? 10 : 12 } } },
+                    x: { ticks: { font: { size: isMobile ? 10 : 12 }, maxRotation: isMobile ? 60 : 45 } },
+                    y: { ticks: { font: { size: isMobile ? 10 : 12 } } },
                 },
             },
         };
@@ -171,7 +174,7 @@ export default function Progress() {
 
         if (!months || months.length === 0) return null;
 
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: months,
@@ -190,11 +193,11 @@ export default function Progress() {
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    x: { ticks: { font: { size: mobile ? 10 : 12 }, maxRotation: mobile ? 60 : 45 } },
+                    x: { ticks: { font: { size: isMobile ? 10 : 12 }, maxRotation: isMobile ? 60 : 45 } },
                     y: {
                         min: 1,
                         max: 5,
-                        ticks: { stepSize: 1, font: { size: mobile ? 10 : 12 } },
+                        ticks: { stepSize: 1, font: { size: isMobile ? 10 : 12 } },
                     },
                 },
             },
@@ -228,13 +231,21 @@ export default function Progress() {
 
     const hasEpicData = epicBreakdown.length > 0;
 
+    // Paginate epics — 6 mobile / 12 desktop
+    const {
+        visible: visibleEpics,
+        hasMore: epicsHasMore,
+        remaining: epicsRemaining,
+        showMore: showMoreEpics,
+    } = useShowMore(epicBreakdown, ...PAGE_LIMITS.epics, isMobile);
+
     // Semver breakdown — patch/minor/major distribution
     // Uses pre-aggregated semverBreakdown from summary when commits aren't loaded
     const semverBreakdown = useMemo(() => {
         if (commitsLoaded) {
             const breakdown = { patch: 0, minor: 0, major: 0 };
             filteredCommits.forEach(c => {
-                if (c.semver && breakdown.hasOwnProperty(c.semver)) {
+                if (c.semver && c.semver in breakdown) {
                     breakdown[c.semver]++;
                 }
             });
@@ -367,7 +378,7 @@ export default function Progress() {
             {hasEpicData && (
                 <CollapsibleSection title="Work by Initiative" subtitle="Commits grouped by initiative">
                     <div className="space-y-3">
-                        {epicBreakdown.map(([epic, count]) => {
+                        {visibleEpics.map(([epic, count]) => {
                             const pct = filteredCommits.length > 0
                                 ? Math.round((count / filteredCommits.length) * 100) : 0;
                             return (
@@ -389,6 +400,9 @@ export default function Progress() {
                                 </div>
                             );
                         })}
+                        {epicsHasMore && (
+                            <ShowMoreButton remaining={epicsRemaining} pageSize={isMobile ? PAGE_LIMITS.epics[0] : PAGE_LIMITS.epics[1]} onClick={showMoreEpics} />
+                        )}
                     </div>
                 </CollapsibleSection>
             )}

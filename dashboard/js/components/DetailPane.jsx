@@ -1,6 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useApp } from '../AppContext.jsx';
+import { PAGE_LIMITS } from '../state.js';
 import useFocusTrap from '../hooks/useFocusTrap.js';
+import useEscapeKey from '../hooks/useEscapeKey.js';
+import useShowMore from '../hooks/useShowMore.js';
+import ShowMoreButton from './ShowMoreButton.jsx';
 import {
     formatDate,
     getCommitTags,
@@ -12,19 +16,22 @@ import {
 } from '../utils.js';
 
 export default function DetailPane() {
-    const { state, dispatch } = useApp();
+    const { state, dispatch, isMobile } = useApp();
     const { open, title, subtitle, commits } = state.detailPane;
     const trapRef = useFocusTrap(open);
 
-    // Escape key to close
-    useEffect(() => {
-        if (!open) return;
-        function handleKey(e) {
-            if (e.key === 'Escape') dispatch({ type: 'CLOSE_DETAIL_PANE' });
-        }
-        document.addEventListener('keydown', handleKey);
-        return () => document.removeEventListener('keydown', handleKey);
-    }, [open, dispatch]);
+    // Requirement: Paginate commit lists to avoid overwhelming mobile users
+    // Approach: Show 10 on mobile, 20 on desktop, with "Show more" button
+    // Alternatives:
+    //   - Virtual scrolling: Rejected — adds complexity, this pane is already scrollable
+    //   - Show all: Rejected — can be 1000+ commits, freezes mobile browsers
+    const [mobileLimit, desktopLimit] = PAGE_LIMITS.detailPane;
+    const { visible, hasMore, remaining, showMore } = useShowMore(
+        commits || [], mobileLimit, desktopLimit, isMobile
+    );
+    const pageSize = isMobile ? mobileLimit : desktopLimit;
+
+    useEscapeKey(open, handleClose);
 
     function handleClose() {
         dispatch({ type: 'CLOSE_DETAIL_PANE' });
@@ -50,7 +57,7 @@ export default function DetailPane() {
                         <div className="detail-pane-title">{title}</div>
                         {subtitle && <div className="detail-pane-subtitle">{subtitle}</div>}
                     </div>
-                    <button className="detail-pane-close" onClick={handleClose} aria-label="Close detail pane">
+                    <button type="button" className="detail-pane-close" onClick={handleClose} aria-label="Close detail pane">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
@@ -58,26 +65,26 @@ export default function DetailPane() {
                     </button>
                 </div>
                 <div className="detail-pane-content">
-                    {commits && commits.length > 0 ? (
-                        commits.map((commit, index) => {
-                            const subject = getCommitSubject(commit);
-                            const message = sanitizeMessage(subject);
-                            const authorName = getAuthorName(commit);
-                            const tags = getCommitTags(commit);
+                    {visible.length > 0 ? (
+                        <>
+                            {visible.map((commit, index) => {
+                                const subject = getCommitSubject(commit);
+                                const message = sanitizeMessage(subject);
+                                const authorName = getAuthorName(commit);
+                                const tags = getCommitTags(commit);
 
-                            return (
-                                <div key={commit.sha || index} className="detail-commit">
-                                    <div className="detail-commit-message">
-                                        {message}
-                                    </div>
-                                    <div className="detail-commit-meta">
-                                        <span>{authorName}</span>
-                                        <span>&middot;</span>
-                                        <span>{formatDate(commit.timestamp)}</span>
-                                    </div>
-                                    <div className="detail-commit-tags">
-                                        {tags.map(tag => {
-                                            return (
+                                return (
+                                    <div key={commit.sha || index} className="detail-commit">
+                                        <div className="detail-commit-message">
+                                            {message}
+                                        </div>
+                                        <div className="detail-commit-meta">
+                                            <span>{authorName}</span>
+                                            <span>&middot;</span>
+                                            <span>{formatDate(commit.timestamp)}</span>
+                                        </div>
+                                        <div className="detail-commit-tags">
+                                            {tags.map(tag => (
                                                 <span
                                                     key={tag}
                                                     className={`tag ${getTagClass(tag)}`}
@@ -85,14 +92,17 @@ export default function DetailPane() {
                                                 >
                                                     {tag}
                                                 </span>
-                                            );
-                                        })}
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                            );
-                        })
+                                );
+                            })}
+                            {hasMore && (
+                                <ShowMoreButton remaining={remaining} pageSize={pageSize} onClick={showMore} />
+                            )}
+                        </>
                     ) : (
-                        <div className="text-sm text-themed-tertiary" style={{ textAlign: 'center', padding: '48px 0' }}>
+                        <div className="detail-pane-empty">
                             No commits to display
                         </div>
                     )}

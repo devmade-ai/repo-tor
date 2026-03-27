@@ -27,6 +27,27 @@ When multiple files are loaded:
 
 ## Settings Panel
 
+## Header
+
+The header shows the repository name and change count:
+- **No filters active:** `repo-name — 5,000 changes`
+- **Filters active:** `repo-name — Showing 1,234 of 5,000 changes · Filtered` (click to open filters)
+
+Three buttons appear on the right:
+- **Menu (☰)** — Opens a dropdown with Quick Guide, Save as PDF, Install App, and Check for Updates
+- **Filter** — Opens the filter sidebar (badge shows active filter count)
+- **Settings (⚙)** — Opens the settings panel
+
+### Quick Guide
+
+First-time visitors see an automatic tutorial explaining the dashboard. You can reopen it anytime from Menu → Quick Guide.
+
+The guide covers: what the dashboard shows, how to navigate tabs, how to use filters, and how to change view levels.
+
+---
+
+## Settings Panel
+
 Click the **gear icon** in the header to open the Settings panel. This slide-out panel contains all configuration options:
 
 **View Settings:**
@@ -122,9 +143,23 @@ Your view level selection is saved in your browser and will persist across sessi
 
 ---
 
+## Pagination
+
+Long lists show a limited number of items with a "Show more" button to load the next batch. Limits are smaller on mobile to reduce scrolling. Affected sections:
+
+- **Detail pane** commit lists (10 mobile / 20 desktop)
+- **Timeline** recent changes (10 mobile / 25 desktop)
+- **Progress** initiatives (6 mobile / 12 desktop)
+- **Contributors** cards (6 mobile / 8 desktop)
+- **Tags** list (8 mobile / all on desktop)
+- **Discover** file insights (5 mobile / 10 desktop)
+- **Projects** grids (6 mobile / 12 desktop)
+
+---
+
 ## Dashboard Overview
 
-When you load a data file, the dashboard displays analytics for that repository. The header shows the repository name, total commits, contributor count, and date range covered.
+When you load a data file, the dashboard displays analytics for that repository. The header shows the repository name and change count.
 
 ### Summary Cards
 

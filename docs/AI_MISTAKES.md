@@ -321,6 +321,38 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 
 ---
 
+## 2026-03-27: Skipped session checklist and documentation process across entire session
+
+**What happened:** Made 6+ commits of significant UI changes (header resize, subtitle rewording, filter hint, hamburger menu, quick guide, pagination, cleanup extractions) without once:
+1. Reading SESSION_NOTES.md, TODO.md, or AI_MISTAKES.md at session start
+2. Updating any documentation after any commit
+3. Adding HISTORY.md entries
+4. Updating USER_GUIDE.md for user-facing changes
+5. Adding TESTING_GUIDE.md scenarios for new features
+6. Updating CLAUDE.md architecture lists for new files
+
+Also: during the `@cln` trigger, reported findings but then unilaterally categorized some as "don't fix" without user permission. When user said "go for it" (meaning fix all), only fixed 2 of 7 findings, requiring user to call it out again.
+
+**Why it's a problem:**
+- This is the EXACT SAME mistake as 2026-01-25 and 2026-03-15 — not following the doc update checklist
+- AI_MISTAKES.md exists to prevent repeating documented errors. Not reading it at session start means the same mistakes recur
+- 6 commits without docs means if the session ended, all context would be lost
+- The user had to repeatedly remind about process compliance, wasting their time
+
+**What should have happened:**
+1. At session start: read CLAUDE.md, SESSION_NOTES.md, TODO.md, AI_MISTAKES.md — EVERY TIME
+2. After each significant task: follow the "After Each Significant Task" checklist completely
+3. When reporting findings: fix ALL of them when the user says to, don't self-filter
+4. Documentation is not optional or deferrable — it's part of every commit
+
+**Current status:** Fixed — all docs updated retroactively. Entry added here to prevent recurrence.
+
+**Files affected:**
+- All 12 files changed on this branch were committed without doc updates
+- docs/SESSION_NOTES.md, docs/HISTORY.md, docs/USER_GUIDE.md, docs/TESTING_GUIDE.md, CLAUDE.md — all updated retroactively
+
+---
+
 ## Template for Future Entries
 
 ```markdown

@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useApp } from '../AppContext.jsx';
+import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import ShowMoreButton from '../components/ShowMoreButton.jsx';
+import useShowMore from '../hooks/useShowMore.js';
 
 // Requirement: Provide a directory of all live projects with quick-access links
 // Approach: Fetch projects.json (static file alongside data.json) and render as card grid
@@ -10,7 +13,7 @@ import CollapsibleSection from '../components/CollapsibleSection.jsx';
 //   - Derive from loaded analytics data only: Rejected — misses projects without analytics
 
 export default function Projects() {
-    const { state, filteredCommits, commitsLoaded } = useApp();
+    const { state, filteredCommits, commitsLoaded, isMobile } = useApp();
     const [projects, setProjects] = useState([]);
     const [loadError, setLoadError] = useState(null);
 
@@ -70,9 +73,25 @@ export default function Projects() {
         return { liveProjects: live, otherProjects: other };
     }, [enriched]);
 
+    // Paginate project grids — 6 mobile / 12 desktop
+    // Must be called before early returns to satisfy React hooks rules
+    const {
+        visible: visibleLive,
+        hasMore: liveHasMore,
+        remaining: liveRemaining,
+        showMore: showMoreLive,
+    } = useShowMore(liveProjects, ...PAGE_LIMITS.projects, isMobile);
+
+    const {
+        visible: visibleOther,
+        hasMore: otherHasMore,
+        remaining: otherRemaining,
+        showMore: showMoreOther,
+    } = useShowMore(otherProjects, ...PAGE_LIMITS.projects, isMobile);
+
     if (loadError) {
         return (
-            <div className="card" style={{ textAlign: 'center', padding: '24px' }}>
+            <div className="card projects-error">
                 <p className="text-themed-secondary">{loadError}</p>
             </div>
         );
@@ -93,10 +112,13 @@ export default function Projects() {
                 subtitle={`${liveProjects.length} projects with live sites`}
             >
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {liveProjects.map(project => (
+                    {visibleLive.map(project => (
                         <ProjectCard key={project.name} project={project} />
                     ))}
                 </div>
+                {liveHasMore && (
+                    <ShowMoreButton remaining={liveRemaining} pageSize={isMobile ? PAGE_LIMITS.projects[0] : PAGE_LIMITS.projects[1]} onClick={showMoreLive} />
+                )}
             </CollapsibleSection>
 
             {otherProjects.length > 0 && (
@@ -106,10 +128,13 @@ export default function Projects() {
                     defaultExpanded={false}
                 >
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {otherProjects.map(project => (
+                        {visibleOther.map(project => (
                             <ProjectCard key={project.name} project={project} />
                         ))}
                     </div>
+                    {otherHasMore && (
+                        <ShowMoreButton remaining={otherRemaining} pageSize={isMobile ? PAGE_LIMITS.projects[0] : PAGE_LIMITS.projects[1]} onClick={showMoreOther} />
+                    )}
                 </CollapsibleSection>
             )}
         </div>

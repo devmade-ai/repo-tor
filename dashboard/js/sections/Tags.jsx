@@ -2,7 +2,10 @@ import React, { useMemo, useRef, useLayoutEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getTagColor, getTagClass, getTagStyleObject, handleKeyActivate } from '../utils.js';
+import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
+import ShowMoreButton from '../components/ShowMoreButton.jsx';
+import useShowMore from '../hooks/useShowMore.js';
 
 // Requirement: Read CSS variable for chart text color without layout thrashing
 // Approach: useRef + useLayoutEffect reads the value once after first paint,
@@ -73,11 +76,19 @@ export default function Tags() {
         return { sortedTags, tags, counts, colors, total };
     }, [filteredCommits, commitsLoaded, state.data?.summary?.tagBreakdown]);
 
+    // Paginate tag list — 8 mobile / show all desktop (0 = no limit)
+    const {
+        visible: visibleTags,
+        hasMore: tagsHasMore,
+        remaining: tagsRemaining,
+        showMore: showMoreTags,
+    } = useShowMore(tagData.sortedTags, ...PAGE_LIMITS.tags, isMobile);
+
     // Doughnut chart config
     const doughnutChartData = useMemo(() => {
         if (tagData.tags.length === 0) return null;
 
-        const mobile = isMobile;
+
         return {
             data: {
                 labels: tagData.tags,
@@ -93,9 +104,9 @@ export default function Tags() {
                     legend: {
                         position: 'bottom',
                         labels: {
-                            boxWidth: mobile ? 8 : 12,
-                            padding: mobile ? 4 : 8,
-                            font: { size: mobile ? 10 : 11 },
+                            boxWidth: isMobile ? 8 : 12,
+                            padding: isMobile ? 4 : 8,
+                            font: { size: isMobile ? 10 : 11 },
                             color: CHART_TEXT_COLOR,
                         generateLabels: function (chart) {
                                 const data = chart.data;
@@ -139,7 +150,7 @@ export default function Tags() {
                 <CollapsibleSection title="Tag Breakdown" subtitle={commitsLoaded ? 'Tap any tag to see its commits' : 'Overall tag distribution'}>
                     {tagData.sortedTags.length > 0 ? (
                         <div className="space-y-3">
-                            {tagData.sortedTags.map(({ tag, count }) => (
+                            {visibleTags.map(({ tag, count }) => (
                                 <div
                                     key={tag}
                                     className={`flex items-center gap-3 rounded p-2 -m-2 transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
@@ -168,6 +179,9 @@ export default function Tags() {
                                     </span>
                                 </div>
                             ))}
+                            {tagsHasMore && (
+                                <ShowMoreButton remaining={tagsRemaining} pageSize={PAGE_LIMITS.tags[0]} onClick={showMoreTags} />
+                            )}
                         </div>
                     ) : (
                         <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
