@@ -1,0 +1,49 @@
+{
+  "sha": "3403815",
+  "fullSha": "340381544b3ef7aee3bba10704df29c211369628",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T12:45:51Z",
+  "commitDate": "2026-03-09T12:45:51Z",
+  "subject": "fix(branch): comprehensive cleanup and hardening across auto-tagging branch",
+  "body": "Pattern matching:\n- Fix false-positive bug: amountClose alone could match unrelated\n  transactions (e.g. \"Car purchase\" matching \"Rent\" by amount).\n  Now requires description match — amount is supplementary, not standalone.\n\nuseTagSuggestions:\n- Replace unbounded timeouts array with Set-based tracking that\n  self-prunes on fire/cancel — no more stale ID accumulation\n- Split pending map into pendingSingle/pendingBatch with proper\n  types — eliminates unsafe union casts through resolve callbacks\n- Worker error handler clears timeouts on pending entries\n\nTransactionEditModal:\n- Add for/id associations on all label-input pairs (a11y)\n- Add ARIA combobox role + listbox/option on autocomplete dropdown\n- Debounce autocomplete DB query (100ms) to avoid per-keystroke reads\n- Add date validation (required, YYYY-MM-DD format)\n- Replace ref-based blur timer with plain let (simpler cleanup)\n\nTransactionTable:\n- Guard malformed date strings in formatDate (fallback to raw string)\n\nNewImportWizard:\n- Remove dead importedCount ref (written but never read)\n- Clear error message on forward step transition (step 2→3)\n\ndebugLog:\n- Fix misleading \"circular buffer\" comment (it's a capped array)\n\nTags: ml, a11y, ux, bugfix, cleanup\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: auto-tagging\nSemver: patch\n\nhttps://claude.ai/code/session_01Gy1obaiGGDe7pD6u14TrkF",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "validation",
+    "performance"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "auto-tagging",
+  "semver": "patch",
+  "scope": "branch",
+  "title": "comprehensive cleanup and hardening across auto-tagging branch",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 134,
+    "deletions": 72
+  },
+  "files": [
+    "src/components/TransactionEditModal.vue",
+    "src/components/TransactionTable.vue",
+    "src/debug/debugLog.ts",
+    "src/ml/useTagSuggestions.ts",
+    "src/views/NewImportWizard.vue",
+    "src/views/import-steps/ImportStepClassify.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 3,
+  "impact": "user-facing"
+}

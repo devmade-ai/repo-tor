@@ -1,0 +1,46 @@
+{
+  "sha": "9eae6dc",
+  "fullSha": "9eae6dcd5f6df8b681f490cb95b263f4f792c2e0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T11:31:13Z",
+  "commitDate": "2026-03-09T11:31:13Z",
+  "subject": "feat(ml): add timeouts, dispose, default labels, and earlier warmup",
+  "body": "Complete remaining plan items for ML auto-tagging robustness:\n- 30s model load timeout and 10s inference timeout (graceful degradation)\n- dispose() to terminate worker and free WASM heap after import\n- Move preloadModel to Step 1 (NewImportWizard) for earlier download\n- Add fallback default labels for new users with empty tagCache\n- Merge pattern tags as supplementary candidate label source\n\nTags: ml, import, robustness, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: auto-tagging\nSemver: minor\n\nhttps://claude.ai/code/session_01Gy1obaiGGDe7pD6u14TrkF",
+  "tags": [
+    "feature",
+    "enhancement"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "auto-tagging",
+  "semver": "minor",
+  "scope": "ml",
+  "title": "add timeouts, dispose, default labels, and earlier warmup",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 158,
+    "deletions": 31
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/ml/useTagSuggestions.ts",
+    "src/views/NewImportWizard.vue",
+    "src/views/import-steps/ImportStepClassify.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

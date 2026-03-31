@@ -1,0 +1,44 @@
+{
+  "sha": "4bd136f",
+  "fullSha": "4bd136f3c781ff8fcbda9b70b6916fd222f7f1b4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T12:13:53Z",
+  "commitDate": "2026-03-09T12:13:53Z",
+  "subject": "feat(editor): expand inline editor to all transaction fields",
+  "body": "The inline transaction editor now supports editing description, date,\namount (with income/expense toggle), classification, and tags — not\njust tags. Changes persist immediately to IndexedDB on each field change.\n\nTags: editor, ux, dashboard, transactions\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: auto-tagging\nSemver: minor\n\nhttps://claude.ai/code/session_01Gy1obaiGGDe7pD6u14TrkF",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "auto-tagging",
+  "semver": "minor",
+  "scope": "editor",
+  "title": "expand inline editor to all transaction fields",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 171,
+    "deletions": 84
+  },
+  "files": [
+    "src/components/TransactionTable.vue",
+    "src/components/TransactionTagEditor.vue",
+    "src/views/WorkspaceDashboard.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

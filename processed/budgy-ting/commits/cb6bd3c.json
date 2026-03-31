@@ -1,0 +1,47 @@
+{
+  "sha": "cb6bd3c",
+  "fullSha": "cb6bd3c1047fb574db681bd2fd6b66e9fad94ca5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T20:00:40Z",
+  "commitDate": "2026-03-12T20:00:40Z",
+  "subject": "fix(ux): replace undefined .input class with .input-field across 5 files",
+  "body": "The .input CSS class was used in 13 places but never defined in UnoCSS\nconfig or any stylesheet — only .input-field existed. This was a\npre-existing bug masked by browser defaults. With Tailwind v4 migration,\nthese inputs would have no styling at all. Fixed all 13 occurrences.\n\nTags: ux, cleanup, tailwind\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: tailwind-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01BjAeM7ydoMdMtmH8E5xoY8",
+  "tags": [
+    "bugfix",
+    "ux",
+    "style"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "tailwind-migration",
+  "semver": "patch",
+  "scope": "ux",
+  "title": "replace undefined .input class with .input-field across 5 files",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 13,
+    "deletions": 13
+  },
+  "files": [
+    "src/components/TransactionEditModal.vue",
+    "src/components/TransactionTable.vue",
+    "src/views/WorkspaceDashboard.vue",
+    "src/views/import-steps/ImportStepReview.vue",
+    "src/views/import-steps/ImportStepUpload.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 3,
+  "impact": "user-facing"
+}
