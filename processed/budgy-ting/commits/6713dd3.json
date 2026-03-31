@@ -1,0 +1,49 @@
+{
+  "sha": "6713dd3",
+  "fullSha": "6713dd3571d4081a81b9e8daa1b5d5480161edd8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T15:52:03Z",
+  "commitDate": "2026-03-04T15:52:03Z",
+  "subject": "fix(engine): audit fixes — median bug, type safety, dead code cleanup",
+  "body": "- Fix detectPattern median: was using index into date-sorted array instead\n  of proper sorted median. Now sorts amounts and uses median() from\n  simple-statistics.\n- Fix minimumBalanceDate type: was '' for empty input, now null (consistent\n  with depletionDate: string | null).\n- Add once-off/daily guards to detectAnchorDay and projectPattern switch\n  so these frequency types are handled explicitly instead of falling through.\n- Extract shared formatDate utility (dateUtils.ts) — was duplicated as\n  formatDate in patterns.ts and fmtDate in forecast.ts.\n- Add @deprecated JSDoc tags to legacy Expense, Actual, CategoryMapping,\n  LineType types so IDEs surface deprecation warnings.\n- Fix non-deterministic test: replaced Math.random() with deterministic\n  variation in buildForecast prediction bands test.\n- Add 3 tests for bootstrapPredictionBands (was exported but untested).\n\n145 tests passing, zero type errors.\n\nTags: engine, patterns, forecast, runway, types, test, cleanup\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: actuals-first-pivot\nSemver: patch\n\nhttps://claude.ai/code/session_01CuU4JLJcWUf92LLHXcqyK8",
+  "tags": [
+    "bugfix",
+    "types",
+    "test-fix",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "actuals-first-pivot",
+  "semver": "patch",
+  "scope": "engine",
+  "title": "audit fixes — median bug, type safety, dead code cleanup",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 55,
+    "deletions": 22
+  },
+  "files": [
+    "src/engine/dateUtils.ts",
+    "src/engine/forecast.test.ts",
+    "src/engine/forecast.ts",
+    "src/engine/patterns.ts",
+    "src/engine/runway.ts",
+    "src/types/models.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,51 @@
+{
+  "sha": "7b242a9",
+  "fullSha": "7b242a925f5f6977a08ffa1f6c7f9c1d6bc8b2b2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T20:28:24Z",
+  "commitDate": "2026-03-04T20:28:24Z",
+  "subject": "docs(audit): rewrite all outdated documentation to match actuals-first codebase",
+  "body": "After the actuals-first pivot (Session 2), nearly all documentation still described\nthe old 3-tab UI, expense CRUD, and 4-step import wizard. This commit brings every\ndoc and user-facing string in sync with the current single-screen dashboard, 3-step\nimport wizard, and unified Transaction model.\n\n- README.md: Full rewrite — project structure, features, tech stack all corrected\n- USER_GUIDE.md: Full rewrite — dashboard, import, patterns workflow replaces old tabs\n- TESTING_GUIDE.md: Full rewrite — all test scenarios match current UI elements\n- TutorialModal.vue: 6 steps updated for import→patterns→forecast→runway flow\n- WorkspaceDetailView/ListView: \"expenses\" → \"transactions/patterns\" in confirm dialogs\n- useFormat.ts, useFormValidation.ts, useTagAutocomplete.ts: stale code comments fixed\n- HISTORY.md: Corrected \"legacy types retained\" → \"removed\" after clean slate migration\n- SESSION_NOTES.md: Updated to reflect documentation audit session\n\nTags: docs, ux, cleanup, audit\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: docs-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01CuU4JLJcWUf92LLHXcqyK8",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "docs-audit",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "rewrite all outdated documentation to match actuals-first codebase",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 236,
+    "deletions": 647
+  },
+  "files": [
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md",
+    "src/components/TutorialModal.vue",
+    "src/composables/useFormValidation.ts",
+    "src/composables/useFormat.ts",
+    "src/composables/useTagAutocomplete.ts",
+    "src/views/WorkspaceDetailView.vue",
+    "src/views/WorkspaceListView.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 3,
+  "impact": "user-facing"
+}
