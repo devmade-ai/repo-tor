@@ -1,0 +1,59 @@
+{
+  "sha": "a0629f5",
+  "fullSha": "a0629f578dde7abf1ebd383b08bc99b19a422b56",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T13:18:57Z",
+  "commitDate": "2026-03-13T13:18:57Z",
+  "subject": "fix(mobile): 20 mobile UX improvements across 12 components",
+  "body": "CRITICAL: Touch targets enlarged to meet 44px minimum —\nTransactionEditModal close button (40x40px), tag removal buttons\n(20x20px), ToastNotification dismiss (32x32px). Modal padding\nresponsive for small phones.\n\nMEDIUM: Input fields use text-base (16px) globally to prevent iOS\nSafari auto-zoom on focus. MetricCard labels, table headers,\nClassificationBadge upgraded from text-xs. Menu dropdown max-width\nclamped. Menu items get 44px min-height. HelpDrawer responsive width.\nAutocomplete dropdown renders upward to avoid modal overflow clip.\nToast respects safe-area-inset-bottom.\n\nLOW: BottomSheet swipe-to-close gesture on drag handle (80px\nthreshold). Pagination buttons enlarged. InstallPrompt stacks\nvertically on narrow screens.\n\nTags: mobile, ux, touch-targets, a11y, pwa\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01EDm1yAUNe71KZC2BSvCMV4",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "minor",
+  "scope": "mobile",
+  "title": "20 mobile UX improvements across 12 components",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 16,
+    "additions": 134,
+    "deletions": 52
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/AppLayout.vue",
+    "src/components/BottomSheet.vue",
+    "src/components/ClassificationBadge.vue",
+    "src/components/HelpDrawer.vue",
+    "src/components/InstallPrompt.vue",
+    "src/components/MetricCard.vue",
+    "src/components/TagSuggestions.vue",
+    "src/components/ToastNotification.vue",
+    "src/components/TransactionEditModal.vue",
+    "src/components/TransactionTable.vue",
+    "src/index.css",
+    "src/views/WorkspaceDashboard.vue",
+    "src/views/import-steps/ImportStepReview.vue",
+    "src/views/import-steps/ImportStepUpload.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

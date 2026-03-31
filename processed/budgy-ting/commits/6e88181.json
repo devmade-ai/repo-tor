@@ -1,0 +1,47 @@
+{
+  "sha": "6e88181",
+  "fullSha": "6e881811271939eb053024387d9ce30a75cc68a1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-30T22:20:43Z",
+  "commitDate": "2026-03-30T22:20:43Z",
+  "subject": "fix(pwa): restore brand color for status bar theme-color",
+  "body": "The dark mode implementation replaced the branded status bar color\n(#10b981) with generic page background colors (#f9fafb/#14142a).\nThis causes visibility problems when the OS color scheme differs\nfrom the app theme — light text on light bg or dark text on dark bg.\n\nThe status bar is a branding surface, not a content surface. A\nmid-tone brand color provides enough contrast for status bar text\n(time, battery, wifi) in both light and dark OS modes.\n\nTags: pwa, theme, ux, fix\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01XcfhH9wXBrL4DVMiGcUuY5",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dark-mode",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "restore brand color for status bar theme-color",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#10",
+    "#14142"
+  ],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 15,
+    "deletions": 8
+  },
+  "files": [
+    "index.html",
+    "src/composables/useDarkMode.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 3,
+  "impact": "user-facing"
+}

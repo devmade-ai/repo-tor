@@ -1,0 +1,41 @@
+{
+  "sha": "c69bfe3",
+  "fullSha": "c69bfe36ed0d2672155801c20d260af6708201a9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-30T22:26:33Z",
+  "commitDate": "2026-03-30T22:26:33Z",
+  "subject": "docs(mistakes): add build verification and theme-color learnings",
+  "body": "Two mistakes from the dark mode implementation:\n1. Build check used vite build directly instead of npm run build,\n   skipping vue-tsc — missed unused import that failed CI\n2. Replaced branded status bar color with page backgrounds, causing\n   visibility issues when OS color scheme differs from app theme\n\nTags: docs, ai-mistakes, learning\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01XcfhH9wXBrL4DVMiGcUuY5",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "dark-mode",
+  "semver": "patch",
+  "scope": "mistakes",
+  "title": "add build verification and theme-color learnings",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 16,
+    "deletions": 0
+  },
+  "files": [
+    "docs/AI_MISTAKES.md"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}
