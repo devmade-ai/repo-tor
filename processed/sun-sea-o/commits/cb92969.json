@@ -1,0 +1,57 @@
+{
+  "sha": "cb92969",
+  "fullSha": "cb929695710e00b6e7fd6c0be7f7e3f6a6cbfd5e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T06:25:15Z",
+  "commitDate": "2026-02-26T06:25:15Z",
+  "subject": "fix(polish): add responsive fixes, toast feedback, input validation, and docs",
+  "body": "Polish Phase 1 for production readiness:\n- Toast notifications on project/agreement/module creation\n- Modal responsive fix (doesn't touch screen edges on mobile)\n- Breadcrumb overflow scroll for long paths on mobile\n- Module editor header wraps on small screens\n- Input maxLength limits (100 for titles, 500 for descriptions)\n- Module editor key reset when navigating between modules\n- Fade-in animation for toast component\n- Updated README with setup instructions and tech stack\n- Updated USER_GUIDE.md with full feature walkthrough\n- Updated TESTING_GUIDE.md with 9 test scenarios + regression checklist\n\nTags: polish, responsive, ux, documentation\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: phase-1-foundation\nSemver: patch\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+  "tags": [
+    "bugfix",
+    "ux",
+    "ui",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "phase1-foundation",
+  "semver": "patch",
+  "scope": "polish",
+  "title": "add responsive fixes, toast feedback, input validation, and docs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 329,
+    "deletions": 32
+  },
+  "files": [
+    "README.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md",
+    "src/components/agreements/CreateAgreementForm.tsx",
+    "src/components/common/Modal.tsx",
+    "src/components/common/Toast.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/components/projects/CreateProjectForm.tsx",
+    "src/index.css",
+    "src/layouts/AppLayout.tsx",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/pages/ProjectDetailPage.tsx",
+    "src/pages/ProjectListPage.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}
