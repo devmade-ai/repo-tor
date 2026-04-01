@@ -1,0 +1,47 @@
+{
+  "sha": "0c3872f",
+  "fullSha": "0c3872fc6a0a91d4a7fc26e083cadb9fad60ad7b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T22:46:02Z",
+  "commitDate": "2026-02-26T22:46:02Z",
+  "subject": "feat(builder): mobile-friendly builder with bottom sheets and move buttons",
+  "body": "Replace the \"Desktop required\" mobile blocker with a fully responsive\nbuilder layout. On mobile (<768px): canvas is full-width, field palette\nopens as a bottom sheet via FAB button, properties panel opens as a\nbottom sheet when a field is tapped. Drag-to-reorder replaced with\nup/down move buttons to avoid scroll conflicts on touch devices.\nAction buttons (duplicate/remove) always visible on mobile instead of\nhover-only. Header collapses secondary actions into overflow menu.\n\nTags: mobile, responsive, ui, builder\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-friendly-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01SbeNYhf12cS8gNrj8uKFS3",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "mobile-friendly-builder",
+  "semver": "minor",
+  "scope": "builder",
+  "title": "mobile-friendly builder with bottom sheets and move buttons",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 419,
+    "deletions": 78
+  },
+  "files": [
+    "src/components/builder/BuilderCanvas.tsx",
+    "src/components/builder/PageTabs.tsx",
+    "src/components/ui/BottomSheet.tsx",
+    "src/hooks/useIsMobile.ts",
+    "src/pages/BuilderPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}

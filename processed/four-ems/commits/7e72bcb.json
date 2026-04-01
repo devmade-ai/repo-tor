@@ -1,0 +1,48 @@
+{
+  "sha": "7e72bcb",
+  "fullSha": "7e72bcb54e60ccc2d7dd1846c2e9595647faf9ee",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-25T13:52:33Z",
+  "commitDate": "2026-02-25T13:52:33Z",
+  "subject": "feat(auth): add client-side anonymous auth with Supabase",
+  "body": "Auto sign-in via Supabase Anonymous Auth on first visit. Session\npersists in localStorage so returning users keep their forms.\nJWT injected into all API requests via Authorization header.\n\n- useAuth hook: session init, anonymous sign-in, auth state listener\n- api.ts: reads Supabase session token, sends Bearer header\n- App.tsx: gates routes on auth ready (loading/error states)\n- USER_ACTIONS.md: server-side setup instructions (enable anon auth,\n  workspace_id trigger SQL, env var checklist)\n\nTags: auth, supabase, anonymous-auth, client\nComplexity: 2\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: supabase-integration\nSemver: minor",
+  "tags": [
+    "feature",
+    "auth",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "supabase-integration",
+  "semver": "minor",
+  "scope": "auth",
+  "title": "add client-side anonymous auth with Supabase",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 206,
+    "deletions": 22
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "src/App.tsx",
+    "src/hooks/useAuth.ts",
+    "src/lib/api.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,51 @@
+{
+  "sha": "0d5ce02",
+  "fullSha": "0d5ce027a205b3a0c6c7e73d4e8f1a7c7b3ec062",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-25T06:36:39Z",
+  "commitDate": "2026-02-25T06:36:39Z",
+  "subject": "fix: address bugs, security issues, and UX gaps from codebase review",
+  "body": "Fixes:\n- HiddenField now calls onChange on mount so hidden values propagate to\n  submission data (was silently dropping URL param pre-fills)\n- PublicFormPage submission wrapped in try/catch so network errors show\n  user-friendly messages instead of unhandled rejections\n- postMessage in embedResize uses referrer origin instead of wildcard\n  when available, reducing cross-origin message exposure\n- Hidden field URL param matching now uses field.label (as documented\n  in builder UI hint) instead of field.id\n- Hidden field exclusion standardized across SubmissionDetail, csvExport,\n  and SubmissionTable — all now filter both 'heading' and 'hidden'\n- Theme color conflict resolved: buttons and progress bar use inline\n  primaryColor only, removed conflicting bg-brand-600 hardcoded classes\n- Scroll-to-first-error on validation failure so users see errors on\n  long forms / mobile\n- SortableFieldCard wrapped in React.memo to prevent all cards\n  re-rendering during drag operations\n- Replaced TODO comment in useAutoSave with descriptive comment\n  referencing docs/TODO.md tracking item\n\nTags: bugfix, security, ux, performance, renderer, builder, dashboard\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: form-builder\nSemver: patch\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+  "tags": [
+    "bugfix",
+    "security",
+    "ux",
+    "performance"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "form-builder",
+  "semver": "patch",
+  "scope": null,
+  "title": "address bugs, security issues, and UX gaps from codebase review",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 84,
+    "deletions": 32
+  },
+  "files": [
+    "src/components/builder/BuilderCanvas.tsx",
+    "src/components/dashboard/SubmissionDetail.tsx",
+    "src/components/renderer/FormRenderer.tsx",
+    "src/components/renderer/fields/HiddenField.tsx",
+    "src/hooks/useAutoSave.ts",
+    "src/lib/csvExport.ts",
+    "src/lib/embedResize.ts",
+    "src/pages/PublicFormPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "user-facing"
+}

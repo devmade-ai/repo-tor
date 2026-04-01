@@ -1,0 +1,61 @@
+{
+  "sha": "e4c8cd4",
+  "fullSha": "e4c8cd4050fa3d4f03b7e80294b6575143e759f1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-27T04:53:20Z",
+  "commitDate": "2026-02-27T04:53:20Z",
+  "subject": "feat(ux): comprehensive mobile UX and accessibility improvements",
+  "body": "18 fixes across the builder, renderer, and dashboard:\n\n- Touch targets: Increase button padding to 44px min on mobile (BuilderCanvas,\n  PageTabs, ConditionBuilder)\n- Page rename: Add pencil icon tap target — double-click is not discoverable\n  on touch devices\n- Safe areas: Add env(safe-area-inset-bottom) for iPhone notch/home indicator\n  on BottomSheet and FAB\n- Submit UX: Add spinner animation, retry button on failure, \"Submit another\"\n  CTA on success screen\n- Error display: Prominent save-failure banner instead of small red text,\n  submit errors include retry action\n- Jargon removal: Replace \"Field key\" and URL parameter hint with plain\n  language, remove debug field ID\n- Loading states: Skeleton cards on form list, spinner on all loading screens\n- FAB: Add \"Add field\" label next to icon for discoverability\n- Bottom sheet: Swipe-down-to-dismiss gesture via touch tracking on handle\n- Page tabs: Scroll indicator fade when tabs overflow, ARIA role=tablist/tab\n- iOS Safari: Try/catch scrollIntoView smooth for older Safari versions\n- PWA: Offline fallback page (offline.html) served by workbox on network fail\n- Code splitting: Lazy-load all route pages via React.lazy + Suspense\n- Number inputs: Add inputMode=\"numeric\" for mobile number keyboards\n- Accessibility: scope=\"col\" on table headers, role=\"dialog\" on EmbedCodeDialog,\n  aria-selected on page tabs\n- Validation: More specific phone error message (\"at least 7 digits\")\n\nTags: ux, mobile, accessibility, pwa, performance\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-friendly-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01SbeNYhf12cS8gNrj8uKFS3",
+  "tags": [
+    "feature",
+    "accessibility",
+    "ux",
+    "ui",
+    "performance"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "mobile-friendly-builder",
+  "semver": "minor",
+  "scope": "ux",
+  "title": "comprehensive mobile UX and accessibility improvements",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 17,
+    "additions": 343,
+    "deletions": 89
+  },
+  "files": [
+    "public/offline.html",
+    "src/App.tsx",
+    "src/components/builder/BuilderCanvas.tsx",
+    "src/components/builder/ConditionBuilder.tsx",
+    "src/components/builder/EmbedCodeDialog.tsx",
+    "src/components/builder/FieldPropertiesPanel.tsx",
+    "src/components/builder/PageTabs.tsx",
+    "src/components/dashboard/SubmissionTable.tsx",
+    "src/components/renderer/FormRenderer.tsx",
+    "src/components/ui/BottomSheet.tsx",
+    "src/index.css",
+    "src/lib/validation.ts",
+    "src/pages/BuilderPage.tsx",
+    "src/pages/FormListPage.tsx",
+    "src/pages/PublicFormPage.tsx",
+    "src/pages/ResponsesPage.tsx",
+    "vite.config.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "user-facing"
+}

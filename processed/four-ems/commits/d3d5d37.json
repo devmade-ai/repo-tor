@@ -1,0 +1,44 @@
+{
+  "sha": "d3d5d37",
+  "fullSha": "d3d5d371fa1bd7e2f668e3c3dfb93159a8b08c96",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T18:40:30Z",
+  "commitDate": "2026-02-26T18:40:30Z",
+  "subject": "fix(build): resolve three TypeScript strict-mode errors",
+  "body": "- FieldPropertiesPanel.tsx: Change `updateValidation` from function\n  declaration to const arrow function so TypeScript narrows `field`\n  past the early-return guard (function declarations are hoisted above\n  the narrowing check).\n- validation.ts: Wrap `validation.min`/`validation.max` in `Number()`\n  before comparison, since FieldValidation types min/max as\n  `number | string` (date fields use ISO strings) and the `<`/`>`\n  operators require matching operand types.\n\nTags: typescript, build, bugfix\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: build-stability\nSemver: patch\n\nhttps://claude.ai/code/session_01TGbYfjWTb4DL6U3zqMiqBJ",
+  "tags": [
+    "bugfix",
+    "build",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "build-stability",
+  "semver": "patch",
+  "scope": "build",
+  "title": "resolve three TypeScript strict-mode errors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 4,
+    "deletions": 4
+  },
+  "files": [
+    "src/components/builder/FieldPropertiesPanel.tsx",
+    "src/lib/validation.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

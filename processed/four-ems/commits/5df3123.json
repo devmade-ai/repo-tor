@@ -1,0 +1,46 @@
+{
+  "sha": "5df3123",
+  "fullSha": "5df312371f0575d88e9126fb87bf8039a3946a5d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T18:52:14Z",
+  "commitDate": "2026-02-26T18:52:14Z",
+  "subject": "feat(debug): add debug pill that shows on page load",
+  "body": "Implements the debug system from CLAUDE.md spec so errors are always\nvisible. The pill renders in a separate React root, surviving app\ncrashes. Captures global errors and unhandled rejections at module\nload time. Collapsed pill shows entry count with error/warn badges;\nexpanded view has Log and Environment tabs with Copy/Clear actions.\n\nTags: debug, ui, alpha\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: debug-system\nSemver: minor\n\nhttps://claude.ai/code/session_014QvypoZJjUMvUcYUAPA5uD",
+  "tags": [
+    "feature",
+    "ui",
+    "monitoring"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "debug-system",
+  "semver": "minor",
+  "scope": "debug",
+  "title": "add debug pill that shows on page load",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 551,
+    "deletions": 0
+  },
+  "files": [
+    "index.html",
+    "src/components/DebugPill.tsx",
+    "src/lib/debugLog.ts",
+    "src/main.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "user-facing"
+}
