@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generatedAt": "2026-03-31T23:43:39.296Z",
+    "generatedAt": "2026-04-01T05:06:32.672Z",
     "repository": "tool-till-tees",
     "scope": "tool-till-tees",
     "repoCount": 1,
-    "commitCount": 55,
+    "commitCount": 83,
     "authors": {
       "devmade.ai@gmail.com": {
         "name": "devmade.ai@gmail.com",
@@ -16,7 +16,8 @@
       }
     },
     "commitMonths": [
-      "2026-02"
+      "2026-02",
+      "2026-03"
     ]
   },
   "contributors": [
@@ -24,49 +25,54 @@
       "author_id": "devmade.ai@gmail.com",
       "name": "devmade.ai@gmail.com",
       "email": "devmade.ai@gmail.com",
-      "commits": 54,
-      "avgComplexity": 1.59,
-      "avgUrgency": 2.07,
+      "commits": 82,
+      "avgComplexity": 1.57,
+      "avgUrgency": 2.09,
       "tagBreakdown": {
-        "merge": 15,
-        "feature": 7,
-        "security": 3,
-        "config": 12,
-        "bugfix": 12,
+        "merge": 22,
+        "docs": 22,
+        "bugfix": 17,
+        "api": 5,
+        "api-breaking": 1,
+        "api-docs": 1,
+        "validation": 1,
+        "security": 4,
+        "types": 1,
+        "feature": 9,
+        "test-unit": 2,
+        "removal": 2,
+        "config": 14,
         "refactor": 5,
-        "docs": 7,
         "database": 2,
         "schema": 2,
         "ui": 3,
         "deploy": 9,
-        "removal": 1,
         "dependency-add": 1,
         "revert": 1,
-        "test-unit": 1,
         "init": 2
       },
       "impactBreakdown": {
-        "internal": 24,
+        "internal": 44,
         "user-facing": 5,
         "infrastructure": 25,
-        "api": 0
+        "api": 8
       },
       "riskBreakdown": {
-        "low": 46,
-        "medium": 8,
+        "low": 70,
+        "medium": 12,
         "high": 0
       },
       "debtBreakdown": {
         "added": 0,
-        "paid": 11,
-        "neutral": 43
+        "paid": 27,
+        "neutral": 55
       },
       "repos": [
         "tool-till-tees"
       ],
       "repoCount": 1,
       "firstCommit": "2026-02-16T11:34:37+00:00",
-      "lastCommit": "2026-02-27T08:42:09Z"
+      "lastCommit": "2026-03-28T21:33:14Z"
     },
     {
       "author_id": "jacotheron87",
@@ -106,6 +112,9 @@
   ],
   "filterOptions": {
     "tags": [
+      "api",
+      "api-breaking",
+      "api-docs",
       "bugfix",
       "config",
       "database",
@@ -121,7 +130,9 @@
       "schema",
       "security",
       "test-unit",
-      "ui"
+      "types",
+      "ui",
+      "validation"
     ],
     "authors": [
       "devmade.ai@gmail.com",
@@ -136,77 +147,92 @@
       "Reactive"
     ],
     "impacts": [
+      "api",
       "infrastructure",
       "internal",
       "user-facing"
     ]
   },
   "summary": {
-    "totalCommits": 55,
+    "totalCommits": 83,
     "totalContributors": 2,
     "tagBreakdown": {
-      "merge": 15,
-      "feature": 8,
-      "security": 3,
-      "config": 12,
-      "bugfix": 12,
+      "merge": 22,
+      "docs": 22,
+      "bugfix": 17,
+      "api": 5,
+      "api-breaking": 1,
+      "api-docs": 1,
+      "validation": 1,
+      "security": 4,
+      "types": 1,
+      "feature": 10,
+      "test-unit": 2,
+      "removal": 2,
+      "config": 14,
       "refactor": 5,
-      "docs": 7,
       "database": 3,
       "schema": 3,
       "ui": 3,
       "deploy": 9,
-      "removal": 1,
       "dependency-add": 1,
       "revert": 1,
-      "test-unit": 1,
       "init": 2
     },
     "complexityBreakdown": {
-      "1": 34,
-      "2": 11,
-      "3": 6,
-      "4": 3,
+      "1": 52,
+      "2": 17,
+      "3": 9,
+      "4": 4,
       "5": 1
     },
     "urgencyBreakdown": {
-      "1": 9,
-      "2": 34,
-      "3": 11,
+      "1": 12,
+      "2": 53,
+      "3": 17,
       "4": 1,
       "5": 0
     },
     "impactBreakdown": {
-      "internal": 24,
+      "internal": 44,
       "user-facing": 5,
       "infrastructure": 26,
-      "api": 0
+      "api": 8
     },
     "riskBreakdown": {
-      "low": 47,
-      "medium": 8,
+      "low": 71,
+      "medium": 12,
       "high": 0
     },
     "debtBreakdown": {
       "added": 0,
-      "paid": 11,
-      "neutral": 44
+      "paid": 27,
+      "neutral": 56
     },
     "epicBreakdown": {
+      "cross-repo-audit": 2,
+      "documentation": 2,
+      "api-naming-consistency": 4,
+      "field-conditions-alignment": 2,
+      "four-ems-forms": 1,
+      "sancio-api-migration": 3,
+      "developer-experience": 11,
+      "ai-workflow": 1,
+      "cors-management": 4,
+      "cors": 1,
       "four-ems": 2,
       "sancio": 1,
-      "sancio-backend": 1,
-      "developer-experience": 3
+      "sancio-backend": 1
     },
     "semverBreakdown": {
-      "patch": 7,
-      "minor": 3,
-      "major": 0
+      "patch": 31,
+      "minor": 6,
+      "major": 1
     },
-    "avgComplexity": 1.65,
-    "avgUrgency": 2.07,
+    "avgComplexity": 1.61,
+    "avgUrgency": 2.08,
     "repoCommitCounts": {
-      "tool-till-tees": 55
+      "tool-till-tees": 83
     },
     "hourlyHeatmap": {
       "matrix": [
@@ -270,7 +296,7 @@
           2,
           0,
           0,
-          0,
+          8,
           0
         ],
         [
@@ -315,7 +341,7 @@
           2,
           0,
           0,
-          0,
+          1,
           0
         ],
         [
@@ -323,7 +349,7 @@
           0,
           0,
           0,
-          0,
+          1,
           0,
           0
         ],
@@ -339,10 +365,10 @@
         [
           0,
           0,
+          2,
           0,
           0,
-          0,
-          0,
+          1,
           0
         ],
         [
@@ -365,11 +391,11 @@
         ],
         [
           0,
-          0,
+          1,
           0,
           0,
           2,
-          0,
+          2,
           0
         ],
         [
@@ -384,29 +410,11 @@
         [
           0,
           0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
           1,
           0,
           0,
           0,
-          0,
-          0
+          1
         ],
         [
           0,
@@ -414,6 +422,24 @@
           0,
           0,
           0,
+          0,
+          4
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          1,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          2,
           0,
           0
         ],
@@ -434,41 +460,87 @@
         3,
         6,
         7,
-        2,
+        10,
         7,
         5,
         2,
         3,
-        5,
-        0,
-        2,
-        0,
-        7,
-        0,
-        2,
-        3,
-        0,
-        0,
+        6,
         1,
+        2,
+        3,
+        7,
         0,
+        5,
+        3,
+        2,
+        4,
+        5,
+        2,
         0
       ],
       "byDay": [
         0,
-        6,
-        33,
+        7,
+        37,
         4,
-        9,
-        3,
-        0
+        13,
+        15,
+        7
       ]
     },
     "codeStats": {
-      "additions": 36566,
-      "deletions": 10320,
-      "filesChanged": 436
+      "additions": 40599,
+      "deletions": 10923,
+      "filesChanged": 543
     },
     "monthly": {
+      "2026-03": {
+        "commits": 28,
+        "tags": {
+          "merge": 7,
+          "docs": 15,
+          "bugfix": 5,
+          "api": 5,
+          "api-breaking": 1,
+          "api-docs": 1,
+          "validation": 1,
+          "security": 1,
+          "types": 1,
+          "feature": 2,
+          "test-unit": 1,
+          "removal": 1,
+          "config": 2
+        },
+        "impact": {
+          "internal": 20,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 8
+        },
+        "risk": {
+          "low": 24,
+          "medium": 4,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 16,
+          "neutral": 12
+        },
+        "semver": {
+          "patch": 24,
+          "minor": 3,
+          "major": 1
+        },
+        "additions": 4033,
+        "deletions": 603,
+        "repos": {
+          "tool-till-tees": 28
+        },
+        "avgComplexity": 1.54,
+        "avgUrgency": 2.11
+      },
       "2026-02": {
         "commits": 55,
         "tags": {
@@ -520,6 +592,52 @@
       }
     },
     "monthlyCommits": {
+      "2026-03": {
+        "commits": 28,
+        "tags": {
+          "merge": 7,
+          "docs": 15,
+          "bugfix": 5,
+          "api": 5,
+          "api-breaking": 1,
+          "api-docs": 1,
+          "validation": 1,
+          "security": 1,
+          "types": 1,
+          "feature": 2,
+          "test-unit": 1,
+          "removal": 1,
+          "config": 2
+        },
+        "impact": {
+          "internal": 20,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 8
+        },
+        "risk": {
+          "low": 24,
+          "medium": 4,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 16,
+          "neutral": 12
+        },
+        "semver": {
+          "patch": 24,
+          "minor": 3,
+          "major": 1
+        },
+        "additions": 4033,
+        "deletions": 603,
+        "repos": {
+          "tool-till-tees": 28
+        },
+        "avgComplexity": 1.54,
+        "avgUrgency": 2.11
+      },
       "2026-02": {
         "commits": 55,
         "tags": {
@@ -571,6 +689,160 @@
       }
     },
     "weekly": {
+      "2026-W13": {
+        "commits": 4,
+        "tags": {
+          "merge": 2,
+          "docs": 2
+        },
+        "impact": {
+          "internal": 4,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 4,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 2,
+          "neutral": 2
+        },
+        "semver": {
+          "patch": 4,
+          "minor": 0,
+          "major": 0
+        },
+        "additions": 82,
+        "deletions": 84,
+        "repos": {
+          "tool-till-tees": 4
+        },
+        "avgComplexity": 1,
+        "avgUrgency": 1.75
+      },
+      "2026-W12": {
+        "commits": 10,
+        "tags": {
+          "merge": 3,
+          "docs": 2,
+          "bugfix": 4,
+          "api": 4,
+          "api-breaking": 1,
+          "api-docs": 1,
+          "validation": 1,
+          "security": 1,
+          "types": 1,
+          "feature": 1,
+          "test-unit": 1
+        },
+        "impact": {
+          "internal": 4,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 6
+        },
+        "risk": {
+          "low": 6,
+          "medium": 4,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 5,
+          "neutral": 5
+        },
+        "semver": {
+          "patch": 7,
+          "minor": 2,
+          "major": 1
+        },
+        "additions": 3579,
+        "deletions": 445,
+        "repos": {
+          "tool-till-tees": 10
+        },
+        "avgComplexity": 2.2,
+        "avgUrgency": 2.3
+      },
+      "2026-W11": {
+        "commits": 9,
+        "tags": {
+          "merge": 1,
+          "docs": 8,
+          "removal": 1
+        },
+        "impact": {
+          "internal": 9,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 9,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 6,
+          "neutral": 3
+        },
+        "semver": {
+          "patch": 9,
+          "minor": 0,
+          "major": 0
+        },
+        "additions": 285,
+        "deletions": 67,
+        "repos": {
+          "tool-till-tees": 9
+        },
+        "avgComplexity": 1.33,
+        "avgUrgency": 2
+      },
+      "2026-W10": {
+        "commits": 5,
+        "tags": {
+          "merge": 1,
+          "docs": 3,
+          "feature": 1,
+          "config": 2,
+          "bugfix": 1,
+          "api": 1
+        },
+        "impact": {
+          "internal": 3,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 2
+        },
+        "risk": {
+          "low": 5,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 3,
+          "neutral": 2
+        },
+        "semver": {
+          "patch": 4,
+          "minor": 1,
+          "major": 0
+        },
+        "additions": 87,
+        "deletions": 7,
+        "repos": {
+          "tool-till-tees": 5
+        },
+        "avgComplexity": 1,
+        "avgUrgency": 2.2
+      },
       "2026-W09": {
         "commits": 16,
         "tags": {
@@ -662,6 +934,334 @@
       }
     },
     "daily": {
+      "2026-03-28": {
+        "commits": 2,
+        "tags": {
+          "merge": 1,
+          "docs": 1
+        },
+        "impact": {
+          "internal": 2,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 2,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 1,
+          "neutral": 1
+        },
+        "semver": {
+          "patch": 2,
+          "minor": 0,
+          "major": 0
+        },
+        "additions": 24,
+        "deletions": 38,
+        "repos": {
+          "tool-till-tees": 2
+        },
+        "avgComplexity": 1,
+        "avgUrgency": 1.5
+      },
+      "2026-03-24": {
+        "commits": 1,
+        "tags": {
+          "merge": 1
+        },
+        "impact": {
+          "internal": 1,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 1,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 0,
+          "neutral": 1
+        },
+        "semver": {
+          "patch": 1,
+          "minor": 0,
+          "major": 0
+        },
+        "additions": 29,
+        "deletions": 23,
+        "repos": {
+          "tool-till-tees": 1
+        },
+        "avgComplexity": 1,
+        "avgUrgency": 2
+      },
+      "2026-03-23": {
+        "commits": 1,
+        "tags": {
+          "docs": 1
+        },
+        "impact": {
+          "internal": 1,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 1,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 1,
+          "neutral": 0
+        },
+        "semver": {
+          "patch": 1,
+          "minor": 0,
+          "major": 0
+        },
+        "additions": 29,
+        "deletions": 23,
+        "repos": {
+          "tool-till-tees": 1
+        },
+        "avgComplexity": 1,
+        "avgUrgency": 2
+      },
+      "2026-03-20": {
+        "commits": 4,
+        "tags": {
+          "merge": 1,
+          "docs": 2,
+          "bugfix": 1,
+          "api": 1,
+          "api-breaking": 1,
+          "api-docs": 1
+        },
+        "impact": {
+          "internal": 2,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 2
+        },
+        "risk": {
+          "low": 3,
+          "medium": 1,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 2,
+          "neutral": 2
+        },
+        "semver": {
+          "patch": 3,
+          "minor": 0,
+          "major": 1
+        },
+        "additions": 1442,
+        "deletions": 180,
+        "repos": {
+          "tool-till-tees": 4
+        },
+        "avgComplexity": 2,
+        "avgUrgency": 2
+      },
+      "2026-03-19": {
+        "commits": 3,
+        "tags": {
+          "merge": 1,
+          "bugfix": 2,
+          "validation": 1,
+          "security": 1,
+          "types": 1,
+          "api": 1
+        },
+        "impact": {
+          "internal": 1,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 2
+        },
+        "risk": {
+          "low": 1,
+          "medium": 2,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 2,
+          "neutral": 1
+        },
+        "semver": {
+          "patch": 2,
+          "minor": 1,
+          "major": 0
+        },
+        "additions": 529,
+        "deletions": 185,
+        "repos": {
+          "tool-till-tees": 3
+        },
+        "avgComplexity": 2.33,
+        "avgUrgency": 2.33
+      },
+      "2026-03-17": {
+        "commits": 3,
+        "tags": {
+          "merge": 1,
+          "bugfix": 1,
+          "api": 2,
+          "feature": 1,
+          "test-unit": 1
+        },
+        "impact": {
+          "internal": 1,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 2
+        },
+        "risk": {
+          "low": 2,
+          "medium": 1,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 1,
+          "neutral": 2
+        },
+        "semver": {
+          "patch": 2,
+          "minor": 1,
+          "major": 0
+        },
+        "additions": 1608,
+        "deletions": 80,
+        "repos": {
+          "tool-till-tees": 3
+        },
+        "avgComplexity": 2.33,
+        "avgUrgency": 2.67
+      },
+      "2026-03-13": {
+        "commits": 8,
+        "tags": {
+          "merge": 1,
+          "docs": 7,
+          "removal": 1
+        },
+        "impact": {
+          "internal": 8,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 8,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 6,
+          "neutral": 2
+        },
+        "semver": {
+          "patch": 8,
+          "minor": 0,
+          "major": 0
+        },
+        "additions": 205,
+        "deletions": 66,
+        "repos": {
+          "tool-till-tees": 8
+        },
+        "avgComplexity": 1.25,
+        "avgUrgency": 2
+      },
+      "2026-03-12": {
+        "commits": 1,
+        "tags": {
+          "docs": 1
+        },
+        "impact": {
+          "internal": 1,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 0
+        },
+        "risk": {
+          "low": 1,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 0,
+          "neutral": 1
+        },
+        "semver": {
+          "patch": 1,
+          "minor": 0,
+          "major": 0
+        },
+        "additions": 80,
+        "deletions": 1,
+        "repos": {
+          "tool-till-tees": 1
+        },
+        "avgComplexity": 2,
+        "avgUrgency": 2
+      },
+      "2026-03-07": {
+        "commits": 5,
+        "tags": {
+          "merge": 1,
+          "docs": 3,
+          "feature": 1,
+          "config": 2,
+          "bugfix": 1,
+          "api": 1
+        },
+        "impact": {
+          "internal": 3,
+          "user-facing": 0,
+          "infrastructure": 0,
+          "api": 2
+        },
+        "risk": {
+          "low": 5,
+          "medium": 0,
+          "high": 0
+        },
+        "debt": {
+          "added": 0,
+          "paid": 3,
+          "neutral": 2
+        },
+        "semver": {
+          "patch": 4,
+          "minor": 1,
+          "major": 0
+        },
+        "additions": 87,
+        "deletions": 7,
+        "repos": {
+          "tool-till-tees": 5
+        },
+        "avgComplexity": 1,
+        "avgUrgency": 2.2
+      },
       "2026-02-27": {
         "commits": 3,
         "tags": {
@@ -866,9 +1466,14 @@
     },
     "dateRange": {
       "earliest": "2026-02-16T11:34:37+00:00",
-      "latest": "2026-02-27T08:42:09Z"
+      "latest": "2026-03-28T21:33:14Z"
     },
     "security_events": [
+      {
+        "sha": "59dfa7e",
+        "timestamp": "2026-03-19T21:57:04Z",
+        "subject": "fix(forms): align condition operator behavior and validation with frontend"
+      },
       {
         "sha": "16f9a9d",
         "timestamp": "2026-02-27T08:20:51Z",
@@ -887,6 +1492,1262 @@
     ]
   },
   "commits": [
+    {
+      "sha": "eb9e7d0",
+      "fullSha": "eb9e7d0f610366e5ff2c4fc103eeef6d295d5a44",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-28T21:33:14Z",
+      "commitDate": "2026-03-28T21:33:14Z",
+      "subject": "Merge pull request #23 from devmade-ai/claude/update-tool-till-tess-mvCuV",
+      "body": "Mark CRON_SECRET action as completed and clean up USER_ACTIONS",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "cross-repo-audit",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #23 from devmade-ai/claude/update-tool-till-tess-mvCuV",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#23"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 12,
+        "deletions": 19
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "5019cc8",
+      "fullSha": "5019cc885a40a4626100cf25f58205d2d9da7f2d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-28T21:21:07Z",
+      "commitDate": "2026-03-28T21:21:07Z",
+      "subject": "docs: mark CRON_SECRET env var action as completed",
+      "body": "Vercel auto-creates CRON_SECRET for projects with cron config.\nProject is deployed with active cron endpoints, confirming this\nwas already done. Cleared USER_ACTIONS.md — no pending actions remain.\n\nTags: documentation, cleanup\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cross-repo-audit\nSemver: patch\n\nhttps://claude.ai/code/session_015Eqbw451hn2jWjU8jnSoAD",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "cross-repo-audit",
+      "semver": "patch",
+      "scope": null,
+      "title": "mark CRON_SECRET env var action as completed",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 12,
+        "deletions": 19
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "935f90b",
+      "fullSha": "935f90be77455b08ee9ab180f99e4a4f3e673173",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-24T19:44:47Z",
+      "commitDate": "2026-03-24T19:44:47Z",
+      "subject": "Merge pull request #22 from devmade-ai/claude/fix-documentation-issues-Z6Dt4",
+      "body": "Fix documentation accuracy issues from cross-repo audit",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "documentation",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #22 from devmade-ai/claude/fix-documentation-issues-Z6Dt4",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#22"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 29,
+        "deletions": 23
+      },
+      "files": [
+        "CLAUDE.md",
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_GUIDE.md",
+        "package-lock.json",
+        "package.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "fc6e5c3",
+      "fullSha": "fc6e5c350cbedbbab81b8b7dfba8b52fdb52a954",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-23T17:17:54Z",
+      "commitDate": "2026-03-23T17:17:54Z",
+      "subject": "docs: fix documentation inaccuracies found in cross-repo audit",
+      "body": "- package.json name: `tool-till-tees-api` → `tool-till-tees` (match repo name)\n- USER_GUIDE.md: field type count \"12\" → \"13\" (text listed 13, number said 12)\n- CLAUDE.md: Sancio endpoint count \"23\" → \"26\" (missed cron + accept-handshake)\n- README.md: added missing cron endpoints to Sancio table (nudge, auto-expire)\n- Updated SESSION_NOTES.md and HISTORY.md\n\nTags: documentation, accuracy, audit\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_01FSWmD675Xn1ifSNUizryGc",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "documentation",
+      "semver": "patch",
+      "scope": null,
+      "title": "fix documentation inaccuracies found in cross-repo audit",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 29,
+        "deletions": 23
+      },
+      "files": [
+        "CLAUDE.md",
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_GUIDE.md",
+        "package-lock.json",
+        "package.json"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "6af9407",
+      "fullSha": "6af9407535c3efbc514da3b42eb46d9e2441b2eb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-20T17:36:36Z",
+      "commitDate": "2026-03-20T17:36:36Z",
+      "subject": "Merge pull request #21 from devmade-ai/claude/api-naming-impact-analysis-z2xCY",
+      "body": "Standardize API request/response fields to snake_case",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "api-naming-consistency",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #21 from devmade-ai/claude/api-naming-impact-analysis-z2xCY",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#21"
+      ],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 721,
+        "deletions": 90
+      },
+      "files": [
+        "API.md",
+        "README.md",
+        "api/__tests__/sancio/invite.test.ts",
+        "api/__tests__/sancio/verify-passphrase.test.ts",
+        "docs/BACKEND_SPEC.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/SPEC_API_NAMING_CONSISTENCY.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/USER_GUIDE.md",
+        "lib/routes/sancio/agreement-actions.ts",
+        "lib/routes/sancio/auth.ts",
+        "lib/routes/sancio/misc.ts",
+        "lib/routes/sancio/module-actions.ts",
+        "lib/routes/sancio/proposals.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "07e00a7",
+      "fullSha": "07e00a764f7ed54282808d5597fdd1b8db8aae2c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-20T17:35:50Z",
+      "commitDate": "2026-03-20T17:35:50Z",
+      "subject": "docs: comprehensive documentation audit — add Sancio endpoints, fix stale references",
+      "body": "Documentation audit triggered by `docs` checklist. Found 10 issues across\n8 files where docs had diverged from actual code.\n\nChanges:\n- API.md: added full Sancio endpoint reference (~25 endpoints were entirely\n  undocumented), fixed CORS origins (removed stale devmade-ai.github.io,\n  added glow-props/see-veo/sun-sea-o)\n- README.md: updated \"two systems\" to three, added Sancio endpoints table\n- USER_GUIDE.md: added Sancio section with core concepts and workflow,\n  fixed field types (removed url/file/scale/multi_select, added\n  checkbox_group/heading/hidden), added in/not_in operators\n- TESTING_GUIDE.md: added 4 Sancio test suites to existing coverage\n  section (validation 48, invite 8, verify-passphrase 6, projects 7)\n- BACKEND_SPEC.md: fixed route paths (/api/invite → /api/sancio/invite),\n  changed Resend → Nodemailer SMTP, removed RESEND_API_KEY, added\n  sender_tone field to notes and proposals tables\n- SESSION_NOTES.md: rewritten for current session\n- HISTORY.md: added 2026-03-20 entries\n- SPEC_API_NAMING_CONSISTENCY.md: marked as implemented\n\nTags: documentation, audit, sancio, api\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: api-naming-consistency\nSemver: patch\n\nhttps://claude.ai/code/session_01UbML2iNtUDfsikv2Kdjfzg",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "api-naming-consistency",
+      "semver": "patch",
+      "scope": null,
+      "title": "comprehensive documentation audit — add Sancio endpoints, fix stale references",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 350,
+        "deletions": 26
+      },
+      "files": [
+        "API.md",
+        "README.md",
+        "docs/BACKEND_SPEC.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/SPEC_API_NAMING_CONSISTENCY.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/USER_GUIDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f9bb489",
+      "fullSha": "f9bb4898d930d87a6798668ed41208b86900957a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-20T14:42:15Z",
+      "commitDate": "2026-03-20T14:42:15Z",
+      "subject": "fix(sancio): standardize all API request/response fields to snake_case",
+      "body": "Renames 10 camelCase request body fields and 1 response field across 6\nSancio endpoints to snake_case, matching the existing response convention\n(raw Supabase rows). This eliminates the naming inconsistency where\nvalidated fields (via validation.ts) used snake_case but inline-validated\nfields used camelCase.\n\nFields renamed:\n- projectId → project_id (invite, verify-passphrase req + response)\n- counterpartyEmail → counterparty_email (invite)\n- passphraseLink → passphrase_link (invite)\n- moduleIds → module_ids (split, batch-ready)\n- newTitle → new_title (split)\n- moduleOrder → module_order (sequence)\n- responseContent → response_content (resolve proposal)\n- agreementId → agreement_id (create verification)\n\nBREAKING: sun-sea-o frontend must be updated to send snake_case field\nnames. Deploy backend first, then frontend immediately after.\n\nTags: api, sancio, naming, consistency\nComplexity: 2\nUrgency: 2\nImpact: api\nRisk: medium\nDebt: paid\nEpic: api-naming-consistency\nSemver: major\n\nhttps://claude.ai/code/session_01UbML2iNtUDfsikv2Kdjfzg",
+      "tags": [
+        "bugfix",
+        "api",
+        "api-breaking"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "api-naming-consistency",
+      "semver": "major",
+      "scope": "sancio",
+      "title": "standardize all API request/response fields to snake_case",
+      "is_conventional": true,
+      "has_breaking_change": true,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 72,
+        "deletions": 64
+      },
+      "files": [
+        "api/__tests__/sancio/invite.test.ts",
+        "api/__tests__/sancio/verify-passphrase.test.ts",
+        "lib/routes/sancio/agreement-actions.ts",
+        "lib/routes/sancio/auth.ts",
+        "lib/routes/sancio/misc.ts",
+        "lib/routes/sancio/module-actions.ts",
+        "lib/routes/sancio/proposals.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "api"
+    },
+    {
+      "sha": "a7d1142",
+      "fullSha": "a7d1142380849e5f705da4ada4b4cc354008cbf0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-20T11:02:43Z",
+      "commitDate": "2026-03-20T11:02:43Z",
+      "subject": "docs(sancio): add API naming consistency spec for snake_case standardization",
+      "body": "Analysis found 10 camelCase request body fields + 1 camelCase response field\nacross 6 Sancio endpoints. This spec documents exact changes needed in both\ntool-till-tees (backend) and sun-sea-o (frontend) to standardize on snake_case.\n\nTags: documentation, api, sancio, spec\nComplexity: 2\nUrgency: 2\nImpact: api\nRisk: low\nDebt: neutral\nEpic: api-naming-consistency\nSemver: patch\n\nhttps://claude.ai/code/session_01UbML2iNtUDfsikv2Kdjfzg",
+      "tags": [
+        "docs",
+        "api-docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "api-naming-consistency",
+      "semver": "patch",
+      "scope": "sancio",
+      "title": "add API naming consistency spec for snake_case standardization",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 299,
+        "deletions": 0
+      },
+      "files": [
+        "docs/SPEC_API_NAMING_CONSISTENCY.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "api"
+    },
+    {
+      "sha": "4480800",
+      "fullSha": "4480800aa2d50ead8e0facdb7da1ae1de7db27c1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-19T22:02:25Z",
+      "commitDate": "2026-03-19T22:02:25Z",
+      "subject": "Merge pull request #20 from devmade-ai/claude/align-field-conditions-aGMoa",
+      "body": "fix(forms): align field types and condition logic with frontend",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "field-conditions-alignment",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #20 from devmade-ai/claude/align-field-conditions-aGMoa",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#20"
+      ],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 264,
+        "deletions": 92
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "lib/form-conditions.ts",
+        "lib/form-validation.ts",
+        "lib/forms-types.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "59dfa7e",
+      "fullSha": "59dfa7e0cac9cda51b1510fef474a78b167b62e2",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-19T21:57:04Z",
+      "commitDate": "2026-03-19T21:57:04Z",
+      "subject": "fix(forms): align condition operator behavior and validation with frontend",
+      "body": "The previous commit aligned structural types but operator behavior still diverged\nfrom four-ems, risking silent data loss when backend condition evaluation produced\ndifferent visibility results than the frontend.\n\nConditions: equals/not_equals now normalize to trimmed strings and sort arrays\n(checkbox groups), contains/not_contains are case-insensitive, greater_than/\nless_than use Number() coercion (builder stores values as strings), is_empty/\nis_not_empty trim strings and handle booleans/numbers explicitly.\n\nValidation: phone regex matches frontend (no dots/slashes, max 20 chars), date\nfields enforce min/max bounds, text regex has ReDoS protection (isSafeRegex +\n1000-char cap).\n\nTags: forms, conditions, validation, security, alignment\nComplexity: 3\nUrgency: 2\nImpact: api\nRisk: medium\nDebt: paid\nEpic: field-conditions-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_01JqVFZ316cyaysF7G984H7C",
+      "tags": [
+        "bugfix",
+        "validation",
+        "security"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "field-conditions-alignment",
+      "semver": "patch",
+      "scope": "forms",
+      "title": "align condition operator behavior and validation with frontend",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 103,
+        "deletions": 29
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "lib/form-conditions.ts",
+        "lib/form-validation.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "api"
+    },
+    {
+      "sha": "f3d093c",
+      "fullSha": "f3d093c0cc16cdce3df2de28094f5ba3c60ba097",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-19T12:51:32Z",
+      "commitDate": "2026-03-19T12:51:32Z",
+      "subject": "fix(forms): align field types and condition logic with frontend",
+      "body": "The frontend (four-ems) and backend had diverged on field types and\ncondition evaluation. checkbox_group submissions were unvalidated (fell\nthrough to default), condition model used different shapes (fieldId vs\nfield_id, targetFieldId vs per-field conditions), and type definitions\nincluded backend-only types with no frontend components.\n\nChanges:\n- FieldType: removed url/file/scale/multi_select, added checkbox_group/heading/hidden\n- Condition: fieldId → field_id, value accepts string[], added in/not_in operators\n- ConditionGroup: targetFieldId → target_id + target_type + action (show/hide)\n- FormField: added frontend rendering-hint properties (layout, min/max_selections, etc.)\n- Validation: checkbox_group with min/max selections, separate rating from number, removed dead cases\n- Conditions: per-field conditions, page-level conditions, action-aware evaluation\n\nTags: forms, validation, conditions, types, alignment\nComplexity: 3\nUrgency: 3\nImpact: api\nRisk: medium\nDebt: paid\nEpic: four-ems-forms\nSemver: minor\n\nhttps://claude.ai/code/session_01JqVFZ316cyaysF7G984H7C",
+      "tags": [
+        "bugfix",
+        "types",
+        "api"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "four-ems-forms",
+      "semver": "minor",
+      "scope": "forms",
+      "title": "align field types and condition logic with frontend",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 162,
+        "deletions": 64
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "lib/form-conditions.ts",
+        "lib/form-validation.ts",
+        "lib/forms-types.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "api"
+    },
+    {
+      "sha": "65d9fbd",
+      "fullSha": "65d9fbda49645bf866e5bb740cd4cf4bbfda5bef",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-17T21:01:20Z",
+      "commitDate": "2026-03-17T21:01:20Z",
+      "subject": "Merge pull request #19 from devmade-ai/claude/hello-tooltilltees-H6rsB",
+      "body": "Add module move, batch ready, handshake, and metadata features",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "sancio-api-migration",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #19 from devmade-ai/claude/hello-tooltilltees-H6rsB",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#19"
+      ],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 804,
+        "deletions": 40
+      },
+      "files": [
+        "api/__tests__/sancio/validation.test.ts",
+        "api/sancio/[...path].ts",
+        "lib/routes/sancio/agreements.ts",
+        "lib/routes/sancio/misc.ts",
+        "lib/routes/sancio/module-actions.ts",
+        "lib/routes/sancio/modules.ts",
+        "lib/routes/sancio/notes.ts",
+        "lib/routes/sancio/projects.ts",
+        "lib/routes/sancio/proposals.ts",
+        "lib/sancio/constants.ts",
+        "lib/sancio/validation.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0259cef",
+      "fullSha": "0259cefb83389871167aa08e52c406c9387e5b77",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-17T14:48:34Z",
+      "commitDate": "2026-03-17T14:48:34Z",
+      "subject": "fix(sancio): add missing signature log, notifications to new endpoints",
+      "body": "Review found 3 behavioral gaps vs existing endpoint patterns:\n\n1. accept-handshake: now logs signature (handshake_signed) matching\n   moduleReady/approveSequence patterns, and notifies the other party.\n\n2. batch-ready: now sends a single aggregated notification after the\n   batch completes, matching individual moduleReady behavior without\n   sending N separate notifications.\n\nTags: api, sancio, review-fix\nComplexity: 2\nUrgency: 3\nImpact: api\nRisk: low\nDebt: paid\nEpic: sancio-api-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01YEN2Uc9FyWJ9SFcTRJFHJX",
+      "tags": [
+        "bugfix",
+        "api"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "sancio-api-migration",
+      "semver": "patch",
+      "scope": "sancio",
+      "title": "add missing signature log, notifications to new endpoints",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 48,
+        "deletions": 0
+      },
+      "files": [
+        "lib/routes/sancio/module-actions.ts",
+        "lib/routes/sancio/projects.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "api"
+    },
+    {
+      "sha": "bbcc3f0",
+      "fullSha": "bbcc3f0a53fe4dd327045a0671184a7785358421",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-17T14:42:41Z",
+      "commitDate": "2026-03-17T14:42:41Z",
+      "subject": "feat(sancio): add missing validation fields, new endpoints, and unscoped GETs",
+      "body": "Frontend (sun-sea-o) has migrated from direct Supabase to the REST API.\nThis implements the remaining gaps so affected features stop failing at runtime.\n\n1. Validation gaps (existing endpoints):\n   - validateModuleUpdate: add intent, summary_does, summary_when, summary_consequence\n   - validateNoteInput: add sender_tone\n   - validateProposalInput: add sender_tone\n\n2. New endpoints:\n   - POST /projects/:id/accept-handshake — counterparty handshake acceptance\n   - POST /modules/:id/move — move module up/down (swap positions)\n   - POST /modules/batch-ready — batch toggle ready-to-sign\n\n3. Unscoped GET endpoints (optional parent ID params):\n   - GET /agreements — optional projectId\n   - GET /modules — optional agreementId\n   - GET /notes — optional agreementId\n   - GET /proposals — optional moduleId\n   - GET /pdf-verifications — optional agreementId/code\n\n17 new validation tests added. All 89 tests pass. Typecheck clean.\n\nTags: api, sancio, validation, endpoints\nComplexity: 4\nUrgency: 3\nImpact: api\nRisk: medium\nDebt: neutral\nEpic: sancio-api-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01YEN2Uc9FyWJ9SFcTRJFHJX",
+      "tags": [
+        "feature",
+        "api",
+        "test-unit"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "neutral",
+      "epic": "sancio-api-migration",
+      "semver": "minor",
+      "scope": "sancio",
+      "title": "add missing validation fields, new endpoints, and unscoped GETs",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 11,
+        "additions": 756,
+        "deletions": 40
+      },
+      "files": [
+        "api/__tests__/sancio/validation.test.ts",
+        "api/sancio/[...path].ts",
+        "lib/routes/sancio/agreements.ts",
+        "lib/routes/sancio/misc.ts",
+        "lib/routes/sancio/module-actions.ts",
+        "lib/routes/sancio/modules.ts",
+        "lib/routes/sancio/notes.ts",
+        "lib/routes/sancio/projects.ts",
+        "lib/routes/sancio/proposals.ts",
+        "lib/sancio/constants.ts",
+        "lib/sancio/validation.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "api"
+    },
+    {
+      "sha": "08ef371",
+      "fullSha": "08ef371be44ae451d78ebd4beeb0926c904d7ebb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-13T06:49:51Z",
+      "commitDate": "2026-03-13T06:49:51Z",
+      "subject": "Merge pull request #18 from devmade-ai/claude/general-session-5CKq5",
+      "body": "Add Triggers system for predefined code review checklists",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "developer-experience",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #18 from devmade-ai/claude/general-session-5CKq5",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#18"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 110,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "235d75b",
+      "fullSha": "235d75b6a706adcb4b7e7a695637085a10b71832",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-13T06:48:51Z",
+      "commitDate": "2026-03-13T06:48:51Z",
+      "subject": "fix(triggers): remove auto-advance, always pause after each trigger",
+      "body": "The auto-advance rule let the AI skip through all triggers in one\nmessage when findings were empty. This defeats the purpose of the\nsequential sweep. Now the AI must always stop and wait for the user\nafter each trigger, even with no findings.\n\nTags: documentation, triggers, process\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "developer-experience",
+      "semver": "patch",
+      "scope": "triggers",
+      "title": "remove auto-advance, always pause after each trigger",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "internal"
+    },
+    {
+      "sha": "38be3bc",
+      "fullSha": "38be3bc0930bb70b78cfe432aa518c2d8632d736",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-13T06:32:03Z",
+      "commitDate": "2026-03-13T06:32:03Z",
+      "subject": "refactor(triggers): reorder definitions to match priority sequence",
+      "body": "Trigger definitions now appear in the same order as the start/go\npriority sequence: rev → aud → doc → tap → cln → perf → sec → dbg → imp.\nstart/go moved to the end since it's a meta-trigger that references the others.\n\nTags: documentation, triggers, dx\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "developer-experience",
+      "semver": "patch",
+      "scope": "triggers",
+      "title": "reorder definitions to match priority sequence",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 33,
+        "deletions": 33
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "603e800",
+      "fullSha": "603e8003e8431e34445c9be7b9758a76a16e3abe",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-13T06:30:31Z",
+      "commitDate": "2026-03-13T06:30:31Z",
+      "subject": "fix(triggers): remove duplicate clean/cln definition",
+      "body": "clean/cln was defined twice — once in the individual triggers list\n(line 454) and again after start/go (line 494). Removed the duplicate.\n\nTags: documentation, triggers, cleanup\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch",
+      "tags": [
+        "docs",
+        "removal"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "developer-experience",
+      "semver": "patch",
+      "scope": "triggers",
+      "title": "remove duplicate clean/cln definition",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 9
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0ef7d17",
+      "fullSha": "0ef7d17b9cacee16ef5b8ab12958e8c13753b98b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-13T06:27:50Z",
+      "commitDate": "2026-03-13T06:27:50Z",
+      "subject": "fix(triggers): move cln before perf in sweep sequence",
+      "body": "Clean code before optimizing it — no point profiling code\nthat's about to be refactored.\n\nTags: documentation, triggers\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: developer-experience\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "developer-experience",
+      "semver": "patch",
+      "scope": "triggers",
+      "title": "move cln before perf in sweep sequence",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "c734dad",
+      "fullSha": "c734dad6f142917a0606f7694cfc8414a331480d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-13T06:26:26Z",
+      "commitDate": "2026-03-13T06:26:26Z",
+      "subject": "fix(triggers): include clean and improve in start/go sweep sequence",
+      "body": "Wrongly excluded cln and imp from the sweep — a full sweep should\ninclude everything. They're now at the end of the priority sequence\n(after dbg) since they're lower priority but still part of the sweep.\n\nTags: documentation, triggers, dx\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "developer-experience",
+      "semver": "patch",
+      "scope": "triggers",
+      "title": "include clean and improve in start/go sweep sequence",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 5
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "internal"
+    },
+    {
+      "sha": "839c287",
+      "fullSha": "839c287cb32ac7546c5233c00a274d13271e0b19",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-13T06:25:38Z",
+      "commitDate": "2026-03-13T06:25:38Z",
+      "subject": "refactor(triggers): sequential sweep with pause-between-each and priority order",
+      "body": "start/go now runs triggers one at a time in priority order\n(rev → aud → doc → tap → perf → sec → dbg), pausing after each\nfor user to fix/skip/stop. This ensures the most important checks\nrun first since most sweeps won't complete all 7 before merging.\n\nclean/cln and improve/imp moved to standalone-only (not in sequence).\n\nTags: documentation, triggers, dx, process\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "developer-experience",
+      "semver": "patch",
+      "scope": "triggers",
+      "title": "sequential sweep with pause-between-each and priority order",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 25,
+        "deletions": 2
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "f09fb3d",
+      "fullSha": "f09fb3d39ff92a8b08acb869a0e36d0de8cf439d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-13T06:07:15Z",
+      "commitDate": "2026-03-13T06:07:15Z",
+      "subject": "refactor(triggers): split audit into focused triggers, add short aliases",
+      "body": "Old audit was a mega-checklist covering performance, security, and code quality.\nNow split into three focused triggers (perf, sec, aud) so users can target what\nthey care about. Every trigger gets both a full word and a short alias.\n\nRenamed: cleanup→clean/cln, debug-check→debug/dbg, sweep→start/go,\nsuggestions→improve/imp. Added: performance/perf, security/sec.\n\nTags: documentation, triggers, dx\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "developer-experience",
+      "semver": "patch",
+      "scope": "triggers",
+      "title": "split audit into focused triggers, add short aliases",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 32,
+        "deletions": 14
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "531851e",
+      "fullSha": "531851ee3fee3caf87086326a3e0f7f8e5278b16",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-12T22:24:40Z",
+      "commitDate": "2026-03-12T22:24:40Z",
+      "subject": "docs(claude): add trigger words and input prompt prohibition",
+      "body": "Add Triggers section to CLAUDE.md with 8 reusable trigger words\n(review, audit, docs, cleanup, mobile, debug-check, sweep, suggestions)\nthat work across all Claude interfaces (CLI, desktop web, mobile web,\nmobile app). These replace slash commands which don't persist across\ninterfaces.\n\nAlso adds prohibition against interactive input prompts/selection UIs\nwhich break sessions across multiple interfaces.\n\nTags: documentation, ai-instructions, cross-project\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: ai-workflow\nSemver: patch\n\nhttps://claude.ai/code/session_01VByEekk2oy2cscbJHSVNzP",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "ai-workflow",
+      "semver": "patch",
+      "scope": "claude",
+      "title": "add trigger words and input prompt prohibition",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 80,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ed35416",
+      "fullSha": "ed354160973c6c9efa1039e8f07013510389e1b5",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-03-07T20:54:59Z",
+      "commitDate": "2026-03-07T20:54:59Z",
+      "subject": "Merge pull request #17 from devmade-ai/claude/add-cors-health-endpoint-fzOH5",
+      "body": "Add CORS support with allowed origins configuration",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "cors-management",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #17 from devmade-ai/claude/add-cors-health-endpoint-fzOH5",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#17"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 43,
+        "deletions": 3
+      },
+      "files": [
+        "CLAUDE.md",
+        "api/__tests__/health.test.ts",
+        "lib/cors.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "173f2ee",
+      "fullSha": "173f2eed8bf4c7c5767c5bed8a98b2b07a60dfbb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-07T20:51:36Z",
+      "commitDate": "2026-03-07T20:51:36Z",
+      "subject": "docs(ai-notes): fix cross-repo access to use GitHub API with token",
+      "body": "Use GITHUB_ALL_REPO_TOKEN via printenv (not shell expansion) with the\nGitHub API instead of raw.githubusercontent.com URLs. Documents the\ncorrect pattern for reading files from sibling devmade-ai repos.\n\nTags: documentation, ai-notes\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: cors-management\nSemver: patch\n\nhttps://claude.ai/code/session_01RvGq98J3cgJFYUird1bw3q",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "cors-management",
+      "semver": "patch",
+      "scope": "ai-notes",
+      "title": "fix cross-repo access to use GitHub API with token",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "d5514b4",
+      "fullSha": "d5514b4ad8ea2e61a5df62c5980de1b3f5b662b9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-07T20:48:54Z",
+      "commitDate": "2026-03-07T20:48:54Z",
+      "subject": "docs(ai-notes): add cross-repo access pattern for sibling repos",
+      "body": "Document that AI assistants should use raw.githubusercontent.com URLs\nto read files from sibling devmade-ai repos, never clone them.\n\nTags: documentation, ai-notes\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: cors-management\nSemver: patch\n\nhttps://claude.ai/code/session_01RvGq98J3cgJFYUird1bw3q",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "cors-management",
+      "semver": "patch",
+      "scope": "ai-notes",
+      "title": "add cross-repo access pattern for sibling repos",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "8969497",
+      "fullSha": "89694975f55edfd8bcdc644d7c954efa6cc12f2a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-07T20:26:30Z",
+      "commitDate": "2026-03-07T20:26:30Z",
+      "subject": "feat(cors): add sun-sea-o and glow-props origins, document frontend consumers",
+      "body": "Replace stale devmade-ai.github.io origin with sun-sea-o.vercel.app and\nglow-props.vercel.app. Add Frontend Consumers table to CLAUDE.md linking\neach consumer repo and its CLAUDE.md for cross-repo context.\n\nTags: cors, documentation, architecture\nComplexity: 1\nUrgency: 2\nImpact: api\nRisk: low\nDebt: paid\nEpic: cors-management\nSemver: minor\n\nhttps://claude.ai/code/session_01RvGq98J3cgJFYUird1bw3q",
+      "tags": [
+        "feature",
+        "config",
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "cors-management",
+      "semver": "minor",
+      "scope": "cors",
+      "title": "add sun-sea-o and glow-props origins, document frontend consumers",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 15,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md",
+        "lib/cors.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 2,
+      "impact": "api"
+    },
+    {
+      "sha": "ef44171",
+      "fullSha": "ef441711d26176fa90991330f74c4ea2413834b1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-03-07T19:37:23Z",
+      "commitDate": "2026-03-07T19:37:23Z",
+      "subject": "fix(cors): add see-veo.vercel.app to allowed origins and set preflight headers",
+      "body": "The /api/health endpoint was blocking cross-origin requests from\nsee-veo.vercel.app because the origin wasn't in the CORS allowlist.\nAlso added Access-Control-Allow-Methods and Access-Control-Allow-Headers\nto OPTIONS preflight responses — these were missing from all endpoints.\n\nTags: cors, api, bugfix\nComplexity: 1\nUrgency: 3\nImpact: api\nRisk: low\nDebt: paid\nEpic: cors\nSemver: patch\n\nhttps://claude.ai/code/session_01RvGq98J3cgJFYUird1bw3q",
+      "tags": [
+        "bugfix",
+        "api",
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "cors",
+      "semver": "patch",
+      "scope": "cors",
+      "title": "add see-veo.vercel.app to allowed origins and set preflight headers",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 27,
+        "deletions": 2
+      },
+      "files": [
+        "api/__tests__/health.test.ts",
+        "lib/cors.ts"
+      ],
+      "repo_id": "tool-till-tees",
+      "urgency": 3,
+      "impact": "api"
+    },
     {
       "sha": "7859d0a",
       "fullSha": "7859d0a6f77b074fdbbcfc432ba9e39186e5736a",

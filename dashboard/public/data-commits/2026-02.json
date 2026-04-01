@@ -475,6 +475,91 @@
       "impact": "infrastructure"
     },
     {
+      "sha": "837d5f8",
+      "fullSha": "837d5f86a180bef00404cb98555f6b3905059cb9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T13:48:34Z",
+      "commitDate": "2026-02-27T13:48:34Z",
+      "subject": "Merge pull request #14 from devmade-ai/claude/review-external-claude-md-QniZh",
+      "body": "docs(claude-md): sync with upstream glow-props CLAUDE.md",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "documentation",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #14 from devmade-ai/claude/review-external-claude-md-QniZh",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#14"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 359,
+        "deletions": 9
+      },
+      "files": [
+        "CLAUDE.md",
+        "vite.config.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "a19e98e",
+      "fullSha": "a19e98e80f30fc9acabeb30d5e33e369deb41b9f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T13:44:22Z",
+      "commitDate": "2026-02-27T13:44:22Z",
+      "subject": "chore(config): remove stale GitHub Pages migration comment",
+      "body": "The migration from GitHub Pages to Vercel was already completed.\nRemoved the leftover comment referencing the old base path and\n404.html hack — the code already speaks for itself (no base\nproperty, vercel.json handles routing).\n\nNo GitHub Actions workflow files existed to delete. All base-path\nprefixes were already cleaned up in a prior migration.\n\nTags: cleanup, deployment\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch\n\nhttps://claude.ai/code/session_01Hab7FR371YXvcriT1bR33f",
+      "tags": [
+        "removal"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "deployment",
+      "semver": "patch",
+      "scope": "config",
+      "title": "remove stale GitHub Pages migration comment",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 4
+      },
+      "files": [
+        "vite.config.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
       "sha": "c6cb3e7",
       "fullSha": "c6cb3e783322ae35f973125e46f09ca279ea0ff9",
       "author_id": "devmade.ai@gmail.com",
@@ -562,6 +647,47 @@
         "docs/USER_ACTIONS.md"
       ],
       "repo_id": "graphiki",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "488c264",
+      "fullSha": "488c264d78443daabda758b9eda4f22616621356",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T13:40:27Z",
+      "commitDate": "2026-02-27T13:40:27Z",
+      "subject": "docs(claude-md): sync with upstream glow-props CLAUDE.md",
+      "body": "Synced missing sections from the external template at\ndevmade-ai/glow-props/CLAUDE.md:\n\n- Added full PWA implementation code (Vite config, usePWAUpdate,\n  usePWAInstall, install prompt race condition fix, timer leak\n  patterns, key lessons)\n- Added App Icons from SVG Source section (Sharp generator script,\n  file structure, SVG design rules, manifest config)\n- Fixed missing Risk field in commit message template code block\n\nThe condensed PWA prose descriptions were replaced with the full\ndetailed versions including working code examples. Project-specific\nsections and local customizations preserved.\n\nTags: documentation, pwa, sync\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_01Hab7FR371YXvcriT1bR33f",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "documentation",
+      "semver": "patch",
+      "scope": "claude-md",
+      "title": "sync with upstream glow-props CLAUDE.md",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 359,
+        "deletions": 5
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "four-ems",
       "urgency": 2,
       "impact": "internal"
     },
@@ -1419,6 +1545,91 @@
       "impact": "infrastructure"
     },
     {
+      "sha": "88a89d7",
+      "fullSha": "88a89d78315dc5beefa85c8c9166e00ed74d265a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T09:08:23Z",
+      "commitDate": "2026-02-27T09:08:23Z",
+      "subject": "Merge pull request #13 from devmade-ai/claude/fix-mobile-display-U3HEa",
+      "body": "Fix API base URL trailing slash handling",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "backend-connection",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #13 from devmade-ai/claude/fix-mobile-display-U3HEa",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#13"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 1
+      },
+      "files": [
+        "src/lib/api.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "1ad61fb",
+      "fullSha": "1ad61fba0a374d696e5c6c24a3706fffb091b29d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T09:05:21Z",
+      "commitDate": "2026-02-27T09:05:21Z",
+      "subject": "fix(api): strip trailing slash from API base URL to prevent double-slash",
+      "body": "VITE_API_BASE_URL is typically set with a trailing slash (e.g.\n\"https://tool-till-tees.vercel.app/\"). When concatenated with paths\nlike \"/api/forms\", this produces a double-slash URL that fails to\nfetch, causing the form list to fall back to demo mode and display\n\"Connect a backend\" — even when the user is authenticated.\n\nFix: strip trailing slashes from API_BASE at init time.\n\nTags: api, bugfix, mobile\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: backend-connection\nSemver: patch\n\nhttps://claude.ai/code/session_01H2BubpGFj8u9T3pDWHH4MM",
+      "tags": [
+        "bugfix",
+        "api"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "backend-connection",
+      "semver": "patch",
+      "scope": "api",
+      "title": "strip trailing slash from API base URL to prevent double-slash",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 1
+      },
+      "files": [
+        "src/lib/api.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 4,
+      "impact": "user-facing"
+    },
+    {
       "sha": "49aa4ad",
       "fullSha": "49aa4ada40113592c7674dc1c3d55e302e7f3440",
       "author_id": "devmade.ai@gmail.com",
@@ -1465,6 +1676,52 @@
       "repo_id": "budgy-ting",
       "urgency": 2,
       "impact": "infrastructure"
+    },
+    {
+      "sha": "3f3f2e4",
+      "fullSha": "3f3f2e46e015b15541e37e590ef8d920b9d2d72a",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T08:44:34Z",
+      "commitDate": "2026-02-27T08:44:34Z",
+      "subject": "Merge pull request #12 from devmade-ai/claude/setup-sample-forms-JQ1Zf",
+      "body": "Add comprehensive debug logging throughout API and auth flows",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "backend-connection",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #12 from devmade-ai/claude/setup-sample-forms-JQ1Zf",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#12"
+      ],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 35,
+        "deletions": 11
+      },
+      "files": [
+        "docs/AI_MISTAKES.md",
+        "src/hooks/useAuth.ts",
+        "src/lib/api.ts",
+        "src/pages/FormListPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
     },
     {
       "sha": "7859d0a",
@@ -1638,6 +1895,607 @@
       "impact": "infrastructure"
     },
     {
+      "sha": "ba71aaf",
+      "fullSha": "ba71aafd287ce6b3e5f8037edd7dfe4f46e02e7e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T08:03:16Z",
+      "commitDate": "2026-02-27T08:03:16Z",
+      "subject": "docs(ai): record token usage and CORS diagnosis mistakes",
+      "body": "Lessons: use printenv instead of echo for env vars in sandbox,\nand check backend repos via GitHub API before asking the user\nto diagnose cross-service issues.\n\nTags: documentation, ai-mistakes\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: backend-connection\nSemver: patch\n\nhttps://claude.ai/code/session_01VxdrfTzXuAs8VFmNmox1N8",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "backend-connection",
+      "semver": "patch",
+      "scope": "ai",
+      "title": "record token usage and CORS diagnosis mistakes",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 15,
+        "deletions": 8
+      },
+      "files": [
+        "docs/AI_MISTAKES.md"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "42193dc",
+      "fullSha": "42193dc0a3435d968f22fc9f071c637982c3cf6d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T08:00:13Z",
+      "commitDate": "2026-02-27T08:00:13Z",
+      "subject": "feat(debug): add auth and API debug logging to diagnose backend connection",
+      "body": "The \"Connect a backend\" message appears when the API call fails, but\nthe error is silently swallowed. This adds debug logging to auth init,\nAPI requests, and the form list fallback so the actual failure reason\nis visible in the debug panel.\n\nTags: debug, api, auth\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: backend-connection\nSemver: patch\n\nhttps://claude.ai/code/session_01VxdrfTzXuAs8VFmNmox1N8",
+      "tags": [
+        "feature",
+        "logging"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "backend-connection",
+      "semver": "patch",
+      "scope": "debug",
+      "title": "add auth and API debug logging to diagnose backend connection",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 20,
+        "deletions": 3
+      },
+      "files": [
+        "src/hooks/useAuth.ts",
+        "src/lib/api.ts",
+        "src/pages/FormListPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 3,
+      "impact": "internal"
+    },
+    {
+      "sha": "b820279",
+      "fullSha": "b8202791e1a57971df098005ddeb019cf5fece31",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T07:44:45Z",
+      "commitDate": "2026-02-27T07:44:45Z",
+      "subject": "Merge pull request #11 from devmade-ai/claude/setup-build-environment-DJBh0",
+      "body": "Fix touch event handling and remove unused code",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "mobile-fixes",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #11 from devmade-ai/claude/setup-build-environment-DJBh0",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#11"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 6,
+        "deletions": 9
+      },
+      "files": [
+        "src/components/ui/BottomSheet.tsx",
+        "src/pages/BuilderPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "823cc6b",
+      "fullSha": "823cc6ba98b04f5d4d351933bcad2f7ec3e5adf9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T07:42:03Z",
+      "commitDate": "2026-02-27T07:42:03Z",
+      "subject": "fix(build): resolve TypeScript compilation errors breaking Vercel deploy",
+      "body": "Guard against possibly-undefined TouchList items in BottomSheet swipe\nhandlers and remove unused saveStatusLabel variable in BuilderPage.\n\nTags: build, typescript, fix\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deploy\nSemver: patch\n\nhttps://claude.ai/code/session_01Sh38f61Qzh8kXQKnGxipNk",
+      "tags": [
+        "bugfix",
+        "build",
+        "types"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "deploy",
+      "semver": "patch",
+      "scope": "build",
+      "title": "resolve TypeScript compilation errors breaking Vercel deploy",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 6,
+        "deletions": 9
+      },
+      "files": [
+        "src/components/ui/BottomSheet.tsx",
+        "src/pages/BuilderPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "db5a826",
+      "fullSha": "db5a826400fb107a9d893c73d3a7dfe7cd937399",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T07:37:42Z",
+      "commitDate": "2026-02-27T07:37:42Z",
+      "subject": "Merge pull request #10 from devmade-ai/claude/mobile-friendly-builder-BMP4E",
+      "body": "Add mobile support to form builder with responsive layout",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "mobile-friendly-builder",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #10 from devmade-ai/claude/mobile-friendly-builder-BMP4E",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#10"
+      ],
+      "stats": {
+        "filesChanged": 24,
+        "additions": 762,
+        "deletions": 254
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "index.html",
+        "public/404.html",
+        "public/offline.html",
+        "src/App.tsx",
+        "src/components/builder/BuilderCanvas.tsx",
+        "src/components/builder/ConditionBuilder.tsx",
+        "src/components/builder/EmbedCodeDialog.tsx",
+        "src/components/builder/FieldPropertiesPanel.tsx",
+        "src/components/builder/PageTabs.tsx",
+        "src/components/dashboard/SubmissionTable.tsx",
+        "src/components/renderer/FormRenderer.tsx",
+        "src/components/ui/BottomSheet.tsx",
+        "src/hooks/useIsMobile.ts",
+        "src/index.css",
+        "src/lib/validation.ts",
+        "src/main.tsx",
+        "src/pages/BuilderPage.tsx",
+        "src/pages/FormListPage.tsx",
+        "src/pages/PublicFormPage.tsx",
+        "src/pages/ResponsesPage.tsx",
+        "vercel.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "9086956",
+      "fullSha": "90869569035561a4368f4bc640b3a2887faee698",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T07:32:26Z",
+      "commitDate": "2026-02-27T07:32:26Z",
+      "subject": "infra(deploy): migrate from GitHub Pages to Vercel",
+      "body": "Replace GitHub Pages deployment with Vercel:\n- Add vercel.json with SPA rewrites (replaces 404.html routing hack)\n- Delete .github/workflows/deploy.yml (no longer needed)\n- Delete public/404.html (Vercel handles SPA routing natively)\n- Remove base path '/four-ems/' from vite.config.ts (Vercel serves at root)\n- Update PWA scope and start_url to '/'\n- Remove BrowserRouter basename=\"/four-ems\" from main.tsx\n- Remove SPA route-restore script from index.html\n- Update CLAUDE.md deployment docs\n\nWhy: GitHub Pages has friction for SPAs — wrong branch triggers, no env var\ninjection at build, and the 404.html copy hack for client-side routing.\nVercel handles all of this out of the box.\n\nAlternatives considered:\n- Stay on GitHub Pages: Rejected — more maintenance, no env var injection\n- Netlify: Rejected — backend already on Vercel, simpler to keep one platform\n\nTags: infrastructure, deployment, vercel\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: vercel-migration\nSemver: major\n\nhttps://claude.ai/code/session_01SbeNYhf12cS8gNrj8uKFS3",
+      "tags": [
+        "migration",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "vercel-migration",
+      "semver": "major",
+      "scope": "deploy",
+      "title": "migrate from GitHub Pages to Vercel",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 19,
+        "deletions": 106
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "index.html",
+        "public/404.html",
+        "src/main.tsx",
+        "vercel.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "3eb31f9",
+      "fullSha": "3eb31f9ea535be07cb5616204ed1e7803804b918",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T07:19:06Z",
+      "commitDate": "2026-02-27T07:19:06Z",
+      "subject": "Merge pull request #9 from devmade-ai/claude/debug-mobile-viewport-b5U5y",
+      "body": "Remove basename from BrowserRouter configuration",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "deployment",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #9 from devmade-ai/claude/debug-mobile-viewport-b5U5y",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#9"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/App.tsx"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "c3b0826",
+      "fullSha": "c3b082636fe1ee2a031edcd4ee02b9509437609b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T07:17:59Z",
+      "commitDate": "2026-02-27T07:17:59Z",
+      "subject": "fix(router): remove stale basename=\"/sun-sea-o\" left over from GitHub Pages",
+      "body": "The BrowserRouter still had basename=\"/sun-sea-o\" from the GitHub Pages\ndeployment, but the app now deploys to Vercel at the root path. This\ncaused the router to fail matching \"/\" and render nothing — a blank\nscreen on every visit (reported via mobile debug pill).\n\nTags: bugfix, routing, deployment\nComplexity: 1\nUrgency: 5\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch\n\nhttps://claude.ai/code/session_01HMAQqzMXZ7ssofHt8VyMEZ",
+      "tags": [
+        "bugfix"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "deployment",
+      "semver": "patch",
+      "scope": "router",
+      "title": "remove stale basename=\"/sun-sea-o\" left over from GitHub Pages",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        "src/App.tsx"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 5,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "cd62208",
+      "fullSha": "cd622082ac2970b07450eb035505c7878b131b1e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T07:09:03Z",
+      "commitDate": "2026-02-27T07:09:03Z",
+      "subject": "Merge pull request #8 from devmade-ai/claude/fix-github-pages-deployment-FwaIi",
+      "body": "Migrate deployment from GitHub Pages to Vercel",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "deployment",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #8 from devmade-ai/claude/fix-github-pages-deployment-FwaIi",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#8"
+      ],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 26,
+        "deletions": 72
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "README.md",
+        "docs/USER_ACTIONS.md",
+        "index.html",
+        "vercel.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "9f523fb",
+      "fullSha": "9f523fbbe884e29e41e5e8cc970de6c2510a0801",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T07:05:47Z",
+      "commitDate": "2026-02-27T07:05:47Z",
+      "subject": "feat(deploy): replace GitHub Actions/Pages with Vercel deployment",
+      "body": "GitHub Pages required a /sun-sea-o/ base path and a 404.html workaround\nfor SPA routing. Vercel serves at root with proper rewrites, simplifying\nconfiguration and eliminating the GitHub Pages source setting gotcha.\n\n- Remove .github/workflows/deploy.yml\n- Add vercel.json with SPA rewrites and Vite framework config\n- Remove base: '/sun-sea-o/' from vite.config.ts (Vercel serves at /)\n- Update PWA manifest paths and favicon href to root-relative\n- Update CLAUDE.md, README.md, docs/USER_ACTIONS.md\n\nTags: deployment, vercel, infrastructure, pwa\nComplexity: 2\nUrgency: 3\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: deployment\nSemver: major\n\nhttps://claude.ai/code/session_01W2VtUqeiBfraNvKXZJ2FJL",
+      "tags": [
+        "migration",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "deployment",
+      "semver": "major",
+      "scope": "deploy",
+      "title": "replace GitHub Actions/Pages with Vercel deployment",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 7,
+        "additions": 25,
+        "deletions": 87
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "CLAUDE.md",
+        "README.md",
+        "docs/USER_ACTIONS.md",
+        "index.html",
+        "vercel.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 3,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "b821b73",
+      "fullSha": "b821b73bc13855fd7bb62b25572d361d0d318e60",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T05:15:58Z",
+      "commitDate": "2026-02-27T05:15:58Z",
+      "subject": "fix(ci): pass Supabase env vars to build and document Pages source requirement",
+      "body": "The deploy workflow was missing VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY\nenvironment variables, causing the built app to have no backend connection.\nAdded these as secret references to the build step.\n\nAlso documented that GitHub Pages source must be set to \"GitHub Actions\"\n(not \"Deploy from a branch\") — the most likely reason deployments appear\nto do nothing when triggered manually.\n\nTags: ci, deployment, configuration\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch\n\nhttps://claude.ai/code/session_01W2VtUqeiBfraNvKXZJ2FJL",
+      "tags": [
+        "bugfix",
+        "ci"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "deployment",
+      "semver": "patch",
+      "scope": "ci",
+      "title": "pass Supabase env vars to build and document Pages source requirement",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 25,
+        "deletions": 9
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "docs/USER_ACTIONS.md"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "2c6bad6",
+      "fullSha": "2c6bad60999b649d6563149e603477dee4b75b71",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T05:07:50Z",
+      "commitDate": "2026-02-27T05:07:50Z",
+      "subject": "Merge pull request #7 from devmade-ai/claude/debug-blank-screen-zwI3S",
+      "body": "Improve app boot resilience with dynamic App import and error overlay",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "blank-screen-fix",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #7 from devmade-ai/claude/debug-blank-screen-zwI3S",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#7"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 104,
+        "deletions": 8
+      },
+      "files": [
+        "index.html",
+        "src/App.tsx",
+        "src/main.tsx"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "c2b487e",
+      "fullSha": "c2b487e0197af0d4293dab2bbe4d8c08526c5c49",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T05:05:27Z",
+      "commitDate": "2026-02-27T05:05:27Z",
+      "subject": "fix(boot): decouple DebugPill from App and add zero-dependency error overlay",
+      "body": "The blank white screen with no debug pill happens because main.tsx\nstatically imports both App and DebugPill. If any module in App's deep\ndependency tree (react-router, supabase, pages, hooks) throws during\nevaluation, the entire ES module fails and DebugPill never mounts —\nleaving the user with zero diagnostic information.\n\nThree changes to make the boot process resilient:\n\n1. Dynamic import for App — DebugPill now mounts first via static import\n   (tiny chain: React + debugLog). App loads asynchronously via import().\n   If App's chunk fails, DebugPill still renders and shows the error.\n\n2. Inline error overlay in index.html — a classic (non-module) script\n   that catches errors and shows them on screen before any React code\n   runs. Also includes a 10-second boot timeout to catch silent failures.\n\n3. Boot-stage logging — debugLog calls at each boot stage (main.tsx\n   executing, DebugPill mounted, App loading, App rendered, Supabase\n   config status) so the debug pill shows exactly where things went wrong.\n\nTags: boot, debug, resilience, blank-screen\nComplexity: 3\nUrgency: 5\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: blank-screen-fix\nSemver: patch\n\nhttps://claude.ai/code/session_01QFokShfsCKZPxvHy5SuERg",
+      "tags": [
+        "bugfix",
+        "error-handling",
+        "monitoring"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "blank-screen-fix",
+      "semver": "patch",
+      "scope": "boot",
+      "title": "decouple DebugPill from App and add zero-dependency error overlay",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 104,
+        "deletions": 8
+      },
+      "files": [
+        "index.html",
+        "src/App.tsx",
+        "src/main.tsx"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 5,
+      "impact": "user-facing"
+    },
+    {
       "sha": "6c82c08",
       "fullSha": "6c82c082b1c0a23b85bf00084e7e72844fdbc417",
       "author_id": "devmade.ai@gmail.com",
@@ -1681,6 +2539,67 @@
       "impact": "internal"
     },
     {
+      "sha": "e4c8cd4",
+      "fullSha": "e4c8cd4050fa3d4f03b7e80294b6575143e759f1",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-27T04:53:20Z",
+      "commitDate": "2026-02-27T04:53:20Z",
+      "subject": "feat(ux): comprehensive mobile UX and accessibility improvements",
+      "body": "18 fixes across the builder, renderer, and dashboard:\n\n- Touch targets: Increase button padding to 44px min on mobile (BuilderCanvas,\n  PageTabs, ConditionBuilder)\n- Page rename: Add pencil icon tap target — double-click is not discoverable\n  on touch devices\n- Safe areas: Add env(safe-area-inset-bottom) for iPhone notch/home indicator\n  on BottomSheet and FAB\n- Submit UX: Add spinner animation, retry button on failure, \"Submit another\"\n  CTA on success screen\n- Error display: Prominent save-failure banner instead of small red text,\n  submit errors include retry action\n- Jargon removal: Replace \"Field key\" and URL parameter hint with plain\n  language, remove debug field ID\n- Loading states: Skeleton cards on form list, spinner on all loading screens\n- FAB: Add \"Add field\" label next to icon for discoverability\n- Bottom sheet: Swipe-down-to-dismiss gesture via touch tracking on handle\n- Page tabs: Scroll indicator fade when tabs overflow, ARIA role=tablist/tab\n- iOS Safari: Try/catch scrollIntoView smooth for older Safari versions\n- PWA: Offline fallback page (offline.html) served by workbox on network fail\n- Code splitting: Lazy-load all route pages via React.lazy + Suspense\n- Number inputs: Add inputMode=\"numeric\" for mobile number keyboards\n- Accessibility: scope=\"col\" on table headers, role=\"dialog\" on EmbedCodeDialog,\n  aria-selected on page tabs\n- Validation: More specific phone error message (\"at least 7 digits\")\n\nTags: ux, mobile, accessibility, pwa, performance\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-friendly-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01SbeNYhf12cS8gNrj8uKFS3",
+      "tags": [
+        "feature",
+        "accessibility",
+        "ux",
+        "ui",
+        "performance"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "mobile-friendly-builder",
+      "semver": "minor",
+      "scope": "ux",
+      "title": "comprehensive mobile UX and accessibility improvements",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 17,
+        "additions": 343,
+        "deletions": 89
+      },
+      "files": [
+        "public/offline.html",
+        "src/App.tsx",
+        "src/components/builder/BuilderCanvas.tsx",
+        "src/components/builder/ConditionBuilder.tsx",
+        "src/components/builder/EmbedCodeDialog.tsx",
+        "src/components/builder/FieldPropertiesPanel.tsx",
+        "src/components/builder/PageTabs.tsx",
+        "src/components/dashboard/SubmissionTable.tsx",
+        "src/components/renderer/FormRenderer.tsx",
+        "src/components/ui/BottomSheet.tsx",
+        "src/index.css",
+        "src/lib/validation.ts",
+        "src/pages/BuilderPage.tsx",
+        "src/pages/FormListPage.tsx",
+        "src/pages/PublicFormPage.tsx",
+        "src/pages/ResponsesPage.tsx",
+        "vite.config.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
       "sha": "6dff018",
       "fullSha": "6dff01889bd043d0e0096eaee00c573fd93187aa",
       "author_id": "devmade.ai@gmail.com",
@@ -1719,6 +2638,51 @@
       ],
       "repo_id": "glow-props",
       "urgency": 3,
+      "impact": "internal"
+    },
+    {
+      "sha": "f91f885",
+      "fullSha": "f91f885c401cfefc75e1ce4ea576735c7b681034",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-27T04:45:07Z",
+      "commitDate": "2026-02-27T04:45:07Z",
+      "subject": "Merge pull request #6 from devmade-ai/claude/debug-blank-screen-Z2t3P",
+      "body": "Add loading indicator and improve SPA routing for GitHub Pages",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "blank-screen-fix",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #6 from devmade-ai/claude/debug-blank-screen-Z2t3P",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 25,
+        "deletions": 2
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "index.html",
+        "src/hooks/usePWAUpdate.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
       "impact": "internal"
     },
     {
@@ -1766,6 +2730,51 @@
       "impact": "internal"
     },
     {
+      "sha": "b96f82f",
+      "fullSha": "b96f82f73c5354663b26fc7eb57efd71f6f531ab",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T22:56:18Z",
+      "commitDate": "2026-02-26T22:56:18Z",
+      "subject": "fix(boot): add 404.html fallback and inline loading indicator",
+      "body": "GitHub Pages returns its default 404 for any path that doesn't map to a\nreal file. After React Router navigates to /login or /projects (client-\nside), a hard refresh (pulldown on mobile) asks GitHub Pages for that\npath — which doesn't exist. Without a 404.html the response is empty,\nproducing the blank screen the user sees (no HTML, no JS, no DebugPill).\n\nChanges:\n- deploy.yml: copy index.html → 404.html after build so GitHub Pages\n  serves the SPA shell for every route\n- index.html: add an inline loading spinner inside #root that is visible\n  immediately while JS downloads; React's createRoot().render() replaces\n  #root's children, removing it automatically. Also add <noscript>\n  fallback for disabled-JS browsers.\n- usePWAUpdate.ts: prefix unused swUrl param to fix TS6133\n\nTags: deploy, spa-routing, pwa, ux\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: blank-screen-fix\nSemver: patch\n\nhttps://claude.ai/code/session_01NPNG7niNfjuNe2rdGBoiWM",
+      "tags": [
+        "bugfix",
+        "ui",
+        "ci"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "blank-screen-fix",
+      "semver": "patch",
+      "scope": "boot",
+      "title": "add 404.html fallback and inline loading indicator",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 3,
+        "additions": 25,
+        "deletions": 2
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "index.html",
+        "src/hooks/usePWAUpdate.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 4,
+      "impact": "user-facing"
+    },
+    {
       "sha": "a9178c9",
       "fullSha": "a9178c956fd50475131700f91de39e2c998a5312",
       "author_id": "devmade.ai@gmail.com",
@@ -1807,6 +2816,53 @@
       ],
       "repo_id": "budgy-ting",
       "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "0c3872f",
+      "fullSha": "0c3872fc6a0a91d4a7fc26e083cadb9fad60ad7b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T22:46:02Z",
+      "commitDate": "2026-02-26T22:46:02Z",
+      "subject": "feat(builder): mobile-friendly builder with bottom sheets and move buttons",
+      "body": "Replace the \"Desktop required\" mobile blocker with a fully responsive\nbuilder layout. On mobile (<768px): canvas is full-width, field palette\nopens as a bottom sheet via FAB button, properties panel opens as a\nbottom sheet when a field is tapped. Drag-to-reorder replaced with\nup/down move buttons to avoid scroll conflicts on touch devices.\nAction buttons (duplicate/remove) always visible on mobile instead of\nhover-only. Header collapses secondary actions into overflow menu.\n\nTags: mobile, responsive, ui, builder\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-friendly-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01SbeNYhf12cS8gNrj8uKFS3",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "mobile-friendly-builder",
+      "semver": "minor",
+      "scope": "builder",
+      "title": "mobile-friendly builder with bottom sheets and move buttons",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 419,
+        "deletions": 78
+      },
+      "files": [
+        "src/components/builder/BuilderCanvas.tsx",
+        "src/components/builder/PageTabs.tsx",
+        "src/components/ui/BottomSheet.tsx",
+        "src/hooks/useIsMobile.ts",
+        "src/pages/BuilderPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
       "impact": "user-facing"
     },
     {
@@ -1917,6 +2973,52 @@
       "impact": "internal"
     },
     {
+      "sha": "85eedd1",
+      "fullSha": "85eedd13f65a1e38240a06babe6ffaad5f8d82ad",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T22:30:36Z",
+      "commitDate": "2026-02-26T22:30:36Z",
+      "subject": "Merge pull request #9 from devmade-ai/claude/fix-form-loading-errors-oEMjP",
+      "body": "Enable demo mode when backend or auth services are unavailable",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "form-builder",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #9 from devmade-ai/claude/fix-form-loading-errors-oEMjP",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#9"
+      ],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 40,
+        "deletions": 23
+      },
+      "files": [
+        "src/hooks/useAuth.ts",
+        "src/lib/api.ts",
+        "src/lib/supabase.ts",
+        "src/pages/FormListPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
       "sha": "58ac1a4",
       "fullSha": "58ac1a41e8143314373b2dc95797b75d02dd0648",
       "author_id": "devmade.ai@gmail.com",
@@ -2018,6 +3120,70 @@
       "impact": "internal"
     },
     {
+      "sha": "254ebd9",
+      "fullSha": "254ebd9e725e14db2d3e59704c768c972e4cfe2d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T22:28:15Z",
+      "commitDate": "2026-02-26T22:28:15Z",
+      "subject": "Merge pull request #5 from devmade-ai/claude/fix-blank-screen-ZTNIS",
+      "body": "Add PWA install detection, browser-specific flows, and update prompts",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "pwa-hardening",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/fix-blank-screen-ZTNIS",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 22,
+        "additions": 1183,
+        "deletions": 80
+      },
+      "files": [
+        "CLAUDE.md",
+        "index.html",
+        "package-lock.json",
+        "package.json",
+        "public/favicon.ico",
+        "public/favicon.png",
+        "public/icon-source.svg",
+        "public/pwa-1024x1024.png",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "public/pwa-maskable-512x512.png",
+        "scripts/generate-icons.mjs",
+        "src/components/auth/GoogleLoginButton.tsx",
+        "src/components/common/InstallInstructionsModal.tsx",
+        "src/components/common/PwaInstallPrompt.tsx",
+        "src/config/supabase.ts",
+        "src/context/AuthContext.tsx",
+        "src/hooks/usePWAInstall.ts",
+        "src/hooks/usePWAUpdate.ts",
+        "src/layouts/AppLayout.tsx",
+        "src/pages/LoginPage.tsx",
+        "vite.config.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
       "sha": "39a4bf7",
       "fullSha": "39a4bf73d50ed82a31fa0e2a3596a8e2dcd544e1",
       "author_id": "devmade.ai@gmail.com",
@@ -2059,6 +3225,60 @@
         "src/composables/usePWAInstall.ts"
       ],
       "repo_id": "budgy-ting",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "6db4c5f",
+      "fullSha": "6db4c5fc0100fefa23ac42725b80f04579ed898b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T22:17:51Z",
+      "commitDate": "2026-02-26T22:17:51Z",
+      "subject": "feat(icons): add SVG source icon and sharp generation pipeline",
+      "body": "Replaces the solid-color placeholder PNGs with an actual S lettermark\nicon for Sancio. Follows the glow-props pattern: single SVG source at\npublic/icon-source.svg, converted to sized PNGs via scripts/generate-icons.mjs\nusing sharp.\n\nGenerated icons: favicon.png (48px), pwa-192x192.png, pwa-512x512.png,\npwa-maskable-512x512.png, pwa-1024x1024.png.\n\nAlso fixes the manifest icon entries — splits the combined \"any maskable\"\npurpose into separate entries with individual purpose values, which some\ntools and browsers handle more reliably. Switches favicon from .ico to\n.png for consistency with the generation pipeline.\n\nTags: icons, pwa, branding, sharp, glow-props\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_01FfhgQ6RQhi8RYe15pDbt1y",
+      "tags": [
+        "feature",
+        "ui",
+        "build"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "pwa-hardening",
+      "semver": "minor",
+      "scope": "icons",
+      "title": "add SVG source icon and sharp generation pipeline",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 12,
+        "additions": 645,
+        "deletions": 5
+      },
+      "files": [
+        "index.html",
+        "package-lock.json",
+        "package.json",
+        "public/favicon.ico",
+        "public/favicon.png",
+        "public/icon-source.svg",
+        "public/pwa-1024x1024.png",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "public/pwa-maskable-512x512.png",
+        "scripts/generate-icons.mjs",
+        "vite.config.ts"
+      ],
+      "repo_id": "sun-sea-o",
       "urgency": 2,
       "impact": "user-facing"
     },
@@ -2475,6 +3695,56 @@
       "impact": "user-facing"
     },
     {
+      "sha": "a641062",
+      "fullSha": "a641062c8c0d1faf9f8837bfeea967b7a4e39763",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T21:25:38Z",
+      "commitDate": "2026-02-26T21:25:38Z",
+      "subject": "feat(pwa): adopt glow-props PWA patterns — install detection, update control, race fix",
+      "body": "Implements three patterns from the glow-props shared reference:\n\n1. beforeinstallprompt race condition fix: Inline script in index.html\n   captures the event before React mounts, so repeat visitors with a\n   cached service worker don't lose the install prompt.\n\n2. Browser-specific install flow: New usePWAInstall hook detects browser\n   type (Chrome/Edge/Brave/Safari/Firefox) and routes to the right UX.\n   Chromium gets native install; Safari/Firefox get an\n   InstallInstructionsModal with per-browser step-by-step guides.\n   Install analytics tracked in localStorage (last 50 events).\n\n3. User-controlled SW updates: Switched from registerType 'autoUpdate'\n   to 'prompt' via new usePWAUpdate hook. Users see a blue banner when\n   an update is available and choose when to apply it — no more\n   mid-session reloads. Checks for new SW versions every 60 minutes.\n   Offline-ready notification auto-dismisses after 3 seconds.\n\nAlso adds glow-props as a shared reference in CLAUDE.md with fetch URL\nand list of adopted patterns.\n\nTags: pwa, install, update, ux, glow-props\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_01FfhgQ6RQhi8RYe15pDbt1y",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "pwa-hardening",
+      "semver": "minor",
+      "scope": "pwa",
+      "title": "adopt glow-props PWA patterns — install detection, update control, race fix",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 503,
+        "deletions": 64
+      },
+      "files": [
+        "CLAUDE.md",
+        "index.html",
+        "src/components/common/InstallInstructionsModal.tsx",
+        "src/components/common/PwaInstallPrompt.tsx",
+        "src/hooks/usePWAInstall.ts",
+        "src/hooks/usePWAUpdate.ts",
+        "src/layouts/AppLayout.tsx",
+        "vite.config.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
       "sha": "e90e66a",
       "fullSha": "e90e66a4542f9e418b2a36047320d71dcaf79f2b",
       "author_id": "devmade.ai@gmail.com",
@@ -2646,6 +3916,96 @@
       "impact": "internal"
     },
     {
+      "sha": "c901581",
+      "fullSha": "c901581ac195ff9ef2db1314a472837bcf58c33e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T20:48:14Z",
+      "commitDate": "2026-02-26T20:48:14Z",
+      "subject": "fix(forms): graceful fallback when backend/Supabase unavailable",
+      "body": "The app crashed or showed a blocking error when Supabase env vars\nwere missing or the API backend was unreachable. Now it falls back\nto sample forms with a subtle \"demo mode\" notice instead.\n\n- supabase.ts: export `supabaseConfigured` flag instead of throwing\n- api.ts: bail early when API_BASE is empty, skip auth when Supabase unconfigured\n- useAuth.ts: skip auth init when Supabase unconfigured\n- FormListPage.tsx: always fall back to sample forms on API failure\n\nTags: bugfix, resilience, demo-mode\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: form-builder\nSemver: patch\n\nhttps://claude.ai/code/session_01Rzpo7mmoqgR9MMPRFiiDEN",
+      "tags": [
+        "bugfix",
+        "error-handling"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "form-builder",
+      "semver": "patch",
+      "scope": "forms",
+      "title": "graceful fallback when backend/Supabase unavailable",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 40,
+        "deletions": 23
+      },
+      "files": [
+        "src/hooks/useAuth.ts",
+        "src/lib/api.ts",
+        "src/lib/supabase.ts",
+        "src/pages/FormListPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "1387afd",
+      "fullSha": "1387afdfa1c7f68627fc2ba992f4936dfab18715",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T20:43:10Z",
+      "commitDate": "2026-02-26T20:43:10Z",
+      "subject": "fix(boot): prevent blank screen when Supabase env vars are missing",
+      "body": "The Supabase client module threw at import time if VITE_SUPABASE_URL or\nVITE_SUPABASE_ANON_KEY were not set. Because all imports in main.tsx run\nbefore createRoot(), this killed the entire app — including the DebugPill\nthat was meant to survive crashes — resulting in a blank white screen with\nno diagnostics.\n\nNow supabase.ts exports an isSupabaseConfigured flag and uses placeholder\nvalues instead of throwing. AuthContext skips Supabase calls when unconfigured,\nand LoginPage shows a clear banner explaining what to do.\n\nTags: bugfix, boot, supabase, auth, ux\nComplexity: 2\nUrgency: 5\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: backend\nSemver: patch\n\nhttps://claude.ai/code/session_01FfhgQ6RQhi8RYe15pDbt1y",
+      "tags": [
+        "bugfix",
+        "error-handling"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "backend",
+      "semver": "patch",
+      "scope": "boot",
+      "title": "prevent blank screen when Supabase env vars are missing",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 35,
+        "deletions": 11
+      },
+      "files": [
+        "src/components/auth/GoogleLoginButton.tsx",
+        "src/config/supabase.ts",
+        "src/context/AuthContext.tsx",
+        "src/pages/LoginPage.tsx"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 5,
+      "impact": "user-facing"
+    },
+    {
       "sha": "0d98eec",
       "fullSha": "0d98eec396f6324fb8b2f16801c3b43fd57d13cc",
       "author_id": "devmade.ai@gmail.com",
@@ -2815,6 +4175,49 @@
       "impact": "internal"
     },
     {
+      "sha": "0556281",
+      "fullSha": "0556281ef69a13290c33a62bf9e13aedbee15945",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T20:09:36Z",
+      "commitDate": "2026-02-26T20:09:36Z",
+      "subject": "Merge pull request #8 from devmade-ai/claude/fix-builder-build-errors-3nZot",
+      "body": "Remove unused setDefinition selector from BuilderPage",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "build-stability",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #8 from devmade-ai/claude/fix-builder-build-errors-3nZot",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#8"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 1
+      },
+      "files": [
+        "src/pages/BuilderPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
       "sha": "5e3dc7f",
       "fullSha": "5e3dc7fe5c4ac1fedd3e72722150cdb2ba6257ac",
       "author_id": "devmade.ai@gmail.com",
@@ -2980,6 +4383,49 @@
       "impact": "user-facing"
     },
     {
+      "sha": "00a2772",
+      "fullSha": "00a2772d65f2e7e1a0534c4f1fc35e6d2d061374",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T20:03:50Z",
+      "commitDate": "2026-02-26T20:03:50Z",
+      "subject": "fix(builder): remove unused setDefinition variable",
+      "body": "Removes the unused `setDefinition` store binding in BuilderPage that\ncaused TS6133 build failure in CI.\n\nTags: bugfix, build, typescript\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: build-stability\nSemver: patch\n\nhttps://claude.ai/code/session_018LwmJo5YZiQTdX7V8c9sF7",
+      "tags": [
+        "bugfix",
+        "build",
+        "removal"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "build-stability",
+      "semver": "patch",
+      "scope": "builder",
+      "title": "remove unused setDefinition variable",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 0,
+        "deletions": 1
+      },
+      "files": [
+        "src/pages/BuilderPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
       "sha": "e87d9aa",
       "fullSha": "e87d9aafb853801a9464e25e475e836666d7f7a9",
       "author_id": "devmade.ai@gmail.com",
@@ -3020,6 +4466,58 @@
       "repo_id": "see-veo",
       "urgency": 2,
       "impact": "user-facing"
+    },
+    {
+      "sha": "315a98c",
+      "fullSha": "315a98cbd4f41974d555e0866013b773791a5291",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T19:58:55Z",
+      "commitDate": "2026-02-26T19:58:55Z",
+      "subject": "Merge pull request #7 from devmade-ai/claude/add-readonly-example-form-AaGZG",
+      "body": "Add read-only mode for example form showcase",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "example-form",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #7 from devmade-ai/claude/add-readonly-example-form-AaGZG",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#7"
+      ],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 313,
+        "deletions": 164
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/builder/BuilderCanvas.tsx",
+        "src/components/builder/ConditionBuilder.tsx",
+        "src/components/builder/FieldPalette.tsx",
+        "src/components/builder/FieldPropertiesPanel.tsx",
+        "src/components/builder/OptionsEditor.tsx",
+        "src/components/builder/PageTabs.tsx",
+        "src/pages/BuilderPage.tsx",
+        "src/pages/FormListPage.tsx",
+        "src/stores/formStore.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
     },
     {
       "sha": "4e7e805",
@@ -3088,6 +4586,58 @@
       "impact": "internal"
     },
     {
+      "sha": "3df2754",
+      "fullSha": "3df275470200d4f0ec498625589165d822f2cefb",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T19:52:41Z",
+      "commitDate": "2026-02-26T19:52:41Z",
+      "subject": "feat(builder): add read-only example form at /forms/example",
+      "body": "Users can now view a pre-built example form (Project Discovery / Intake)\nin the builder UI without being able to modify it. This helps new users\nunderstand how the form builder works before creating their own forms.\n\n- Add readOnly state + mutation guards to formStore\n- Add /forms/example route rendering BuilderPage in read-only mode\n- Load SAMPLE_FORM into builder when visiting example route\n- Show \"Example Form\" title + \"Read-only\" badge in header\n- Hide save/create button, embed/responses/preview links\n- Disable drag-and-drop in palette and canvas\n- Hide drag handles, duplicate, and remove buttons on field cards\n- Disable all property panel inputs (text, select, checkbox, etc.)\n- Hide add/remove page buttons, disable page rename\n- Disable OptionsEditor reorder/remove/add controls\n- Disable ConditionBuilder toggle/edit/remove controls\n- Add example form card on home page with dashed border + read-only badge\n\nTags: feature, builder, example, read-only, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: example-form\nSemver: minor\n\nhttps://claude.ai/code/session_01VQPd2MNTTthhe2dmj1wUhk",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "example-form",
+      "semver": "minor",
+      "scope": "builder",
+      "title": "add read-only example form at /forms/example",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 10,
+        "additions": 313,
+        "deletions": 164
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/builder/BuilderCanvas.tsx",
+        "src/components/builder/ConditionBuilder.tsx",
+        "src/components/builder/FieldPalette.tsx",
+        "src/components/builder/FieldPropertiesPanel.tsx",
+        "src/components/builder/OptionsEditor.tsx",
+        "src/components/builder/PageTabs.tsx",
+        "src/pages/BuilderPage.tsx",
+        "src/pages/FormListPage.tsx",
+        "src/stores/formStore.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
       "sha": "0262982",
       "fullSha": "0262982d04f605465c68d368f3b455ec520f759f",
       "author_id": "devmade.ai@gmail.com",
@@ -3132,6 +4682,77 @@
         "src/hooks/useStations.ts"
       ],
       "repo_id": "few-lap",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "93f7f77",
+      "fullSha": "93f7f77f8cd8c6eddced4e53e9e933f26ab708e0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T19:22:51Z",
+      "commitDate": "2026-02-26T19:22:51Z",
+      "subject": "Merge pull request #4 from devmade-ai/claude/implement-backend-spec-QHlLt",
+      "body": "Implement full Supabase backend with RLS, triggers, and edge functions",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "backend-implementation",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #4 from devmade-ai/claude/implement-backend-spec-QHlLt",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 29,
+        "additions": 2754,
+        "deletions": 843
+      },
+      "files": [
+        ".env.example",
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/config/supabase.ts",
+        "src/context/AuthContext.tsx",
+        "src/hooks/useAgreements.ts",
+        "src/hooks/useModules.ts",
+        "src/hooks/useNotes.ts",
+        "src/hooks/useNotifications.ts",
+        "src/hooks/usePdfVerifications.ts",
+        "src/hooks/useProjectRole.ts",
+        "src/hooks/useProjects.ts",
+        "src/hooks/useProposals.ts",
+        "src/hooks/useSignatureLog.ts",
+        "src/layouts/AppLayout.tsx",
+        "src/pages/AgreementDetailPage.tsx",
+        "src/pages/ModuleEditorPage.tsx",
+        "src/pages/ProjectDetailPage.tsx",
+        "src/pages/ProjectListPage.tsx",
+        "supabase/config.toml",
+        "supabase/functions/send-invitation/index.ts",
+        "supabase/functions/verify-passphrase/index.ts",
+        "supabase/migrations/20260226000001_create_schema.sql",
+        "supabase/migrations/20260226000002_rls_policies.sql",
+        "supabase/migrations/20260226000003_business_logic.sql",
+        "supabase/migrations/20260226000004_cron_jobs.sql",
+        "supabase/seed/module_templates.sql"
+      ],
+      "repo_id": "sun-sea-o",
       "urgency": 2,
       "impact": "internal"
     },
@@ -3244,6 +4865,79 @@
       "impact": "internal"
     },
     {
+      "sha": "d12d83f",
+      "fullSha": "d12d83f5ba14c4324a27919ba83400d84e47eb70",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T19:19:41Z",
+      "commitDate": "2026-02-26T19:19:41Z",
+      "subject": "feat(backend): implement full Supabase backend and migrate frontend from localStorage",
+      "body": "Complete backend implementation per docs/BACKEND_SPEC.md:\n- Database schema: 11 tables, 7 enum types, indexes, constraints\n- RLS policies for all tables with project membership helpers\n- Business logic: 15 triggers/RPCs (auto-lock, amendment, split, signing)\n- Cron jobs: daily nudge and auto-expiry schedulers via pg_cron\n- Edge Functions: send-invitation (bcrypt+Resend) and verify-passphrase\n- Seed data: 6 module templates\n\nFrontend migration from localStorage to Supabase:\n- Rewrote all 9 hooks to use Supabase queries with realtime subscriptions\n- Replaced mock auth with Supabase Auth + Google OAuth\n- Added useProjectRole hook for per-project role determination\n- Removed role switcher, mock users, client-side notification/signature creation\n- Updated pages to use server-side triggers for notifications and logging\n\nTags: backend, supabase, migration, auth, rls, triggers, edge-functions\nComplexity: 5\nUrgency: 2\nImpact: api\nRisk: medium\nDebt: paid\nEpic: backend-implementation\nSemver: major\n\nhttps://claude.ai/code/session_01DYj6Zx4tZstjALbT2NN59F",
+      "tags": [
+        "feature",
+        "database",
+        "schema",
+        "auth",
+        "migration"
+      ],
+      "complexity": 5,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "backend-implementation",
+      "semver": "major",
+      "scope": "backend",
+      "title": "implement full Supabase backend and migrate frontend from localStorage",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 29,
+        "additions": 2754,
+        "deletions": 843
+      },
+      "files": [
+        ".env.example",
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/config/supabase.ts",
+        "src/context/AuthContext.tsx",
+        "src/hooks/useAgreements.ts",
+        "src/hooks/useModules.ts",
+        "src/hooks/useNotes.ts",
+        "src/hooks/useNotifications.ts",
+        "src/hooks/usePdfVerifications.ts",
+        "src/hooks/useProjectRole.ts",
+        "src/hooks/useProjects.ts",
+        "src/hooks/useProposals.ts",
+        "src/hooks/useSignatureLog.ts",
+        "src/layouts/AppLayout.tsx",
+        "src/pages/AgreementDetailPage.tsx",
+        "src/pages/ModuleEditorPage.tsx",
+        "src/pages/ProjectDetailPage.tsx",
+        "src/pages/ProjectListPage.tsx",
+        "supabase/config.toml",
+        "supabase/functions/send-invitation/index.ts",
+        "supabase/functions/verify-passphrase/index.ts",
+        "supabase/migrations/20260226000001_create_schema.sql",
+        "supabase/migrations/20260226000002_rls_policies.sql",
+        "supabase/migrations/20260226000003_business_logic.sql",
+        "supabase/migrations/20260226000004_cron_jobs.sql",
+        "supabase/seed/module_templates.sql"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "api"
+    },
+    {
       "sha": "0602cb6",
       "fullSha": "0602cb6200dad6ae074390584a2de1e4e39e2cca",
       "author_id": "devmade.ai@gmail.com",
@@ -3330,6 +5024,504 @@
       "repo_id": "graphiki",
       "urgency": 2,
       "impact": "user-facing"
+    },
+    {
+      "sha": "65ee149",
+      "fullSha": "65ee149de7b3439208438322ceec6830067c76aa",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T18:59:33Z",
+      "commitDate": "2026-02-26T18:59:33Z",
+      "subject": "Merge pull request #3 from devmade-ai/claude/show-debug-pill-load-2qyjs",
+      "body": "Add diagnostic debug pill for alpha-phase troubleshooting",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "debug-tooling",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #3 from devmade-ai/claude/show-debug-pill-load-2qyjs",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 390,
+        "deletions": 0
+      },
+      "files": [
+        "index.html",
+        "src/components/common/DebugPill.tsx",
+        "src/main.tsx",
+        "src/utils/debugLog.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "89a068e",
+      "fullSha": "89a068e427158c5c24c33516706f82dae066c039",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T18:58:02Z",
+      "commitDate": "2026-02-26T18:58:02Z",
+      "subject": "Merge pull request #6 from devmade-ai/claude/show-debug-pill-yG6Qk",
+      "body": "Add floating debug pill diagnostic overlay",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "debug-system",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #6 from devmade-ai/claude/show-debug-pill-yG6Qk",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#6"
+      ],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 551,
+        "deletions": 0
+      },
+      "files": [
+        "index.html",
+        "src/components/DebugPill.tsx",
+        "src/lib/debugLog.ts",
+        "src/main.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "e759548",
+      "fullSha": "e7595480f0c7723bb7a63fea87040466c3c75c56",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T18:57:14Z",
+      "commitDate": "2026-02-26T18:57:14Z",
+      "subject": "refactor(debug): rewrite DebugPill to match glow-props spec",
+      "body": "Rewrites the debug pill to align with the spec from glow-props/CLAUDE.md:\n\n- Separate React root (debug-root div) so the pill survives App crashes\n- Centralized debugLog.ts event store: circular buffer of 200 entries with\n  pub/sub, source tags (boot/db/graph/graphData/pwa/render/global/seed),\n  and severity levels (info/success/warn/error)\n- Module-level console.error/warn interception and window.onerror hooks\n  installed at import time, before React mounts\n- Two-tab expanded UI: Log (scrollable, color-coded by source & severity,\n  auto-scrolls to newest, timestamps as HH:MM:SS.mmm) and Environment\n  (URL, user agent, screen/viewport, online, protocol, standalone, SW\n  support, IndexedDB support)\n- Collapsed pill shows \"dbg\" label with entry count plus error/warning badges\n- Copy generates full debug report (environment + all entries) with textarea\n  fallback; Clear wipes all entries\n\nTags: ui, debug, dx, refactor\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-tooling\nSemver: minor\n\nhttps://claude.ai/code/session_014rXNLPD7mQftk2mLrtQRHY",
+      "tags": [
+        "refactor",
+        "ui",
+        "monitoring"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "debug-tooling",
+      "semver": "minor",
+      "scope": "debug",
+      "title": "rewrite DebugPill to match glow-props spec",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 5,
+        "additions": 344,
+        "deletions": 134
+      },
+      "files": [
+        "index.html",
+        "src/App.tsx",
+        "src/components/common/DebugPill.tsx",
+        "src/main.tsx",
+        "src/utils/debugLog.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "37f0a9d",
+      "fullSha": "37f0a9de12a1813e9d24e7883ae7524996dca67b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T18:52:52Z",
+      "commitDate": "2026-02-26T18:52:52Z",
+      "subject": "feat(debug): add DebugPill component that shows on page load",
+      "body": "Adds a fixed-position debug pill (bottom-right corner) that renders\nimmediately on page load, outside of routing and auth. It captures\nconsole errors, warnings, unhandled promise rejections, and global\nerrors from mount time onward. The pill shows a green \"OK\" or red\nerror count, and expands on click to show a scrollable log with\ncopy/clear actions. This gives users diagnostic info to report even\nwithout devtools.\n\nTags: ui, debug, dx\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: debug-tooling\nSemver: minor\n\nhttps://claude.ai/code/session_014rXNLPD7mQftk2mLrtQRHY",
+      "tags": [
+        "feature",
+        "ui",
+        "monitoring"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "debug-tooling",
+      "semver": "minor",
+      "scope": "debug",
+      "title": "add DebugPill component that shows on page load",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 180,
+        "deletions": 0
+      },
+      "files": [
+        "src/App.tsx",
+        "src/components/common/DebugPill.tsx"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "5df3123",
+      "fullSha": "5df312371f0575d88e9126fb87bf8039a3946a5d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T18:52:14Z",
+      "commitDate": "2026-02-26T18:52:14Z",
+      "subject": "feat(debug): add debug pill that shows on page load",
+      "body": "Implements the debug system from CLAUDE.md spec so errors are always\nvisible. The pill renders in a separate React root, surviving app\ncrashes. Captures global errors and unhandled rejections at module\nload time. Collapsed pill shows entry count with error/warn badges;\nexpanded view has Log and Environment tabs with Copy/Clear actions.\n\nTags: debug, ui, alpha\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: debug-system\nSemver: minor\n\nhttps://claude.ai/code/session_014QvypoZJjUMvUcYUAPA5uD",
+      "tags": [
+        "feature",
+        "ui",
+        "monitoring"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "debug-system",
+      "semver": "minor",
+      "scope": "debug",
+      "title": "add debug pill that shows on page load",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 4,
+        "additions": 551,
+        "deletions": 0
+      },
+      "files": [
+        "index.html",
+        "src/components/DebugPill.tsx",
+        "src/lib/debugLog.ts",
+        "src/main.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "fa6ca41",
+      "fullSha": "fa6ca41b1769733ef4fb771d61453066d2bbd87e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T18:42:08Z",
+      "commitDate": "2026-02-26T18:42:08Z",
+      "subject": "Merge pull request #5 from devmade-ai/claude/fix-typescript-build-OpB9c",
+      "body": "Fix number validation and convert function to arrow function",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "build-stability",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #5 from devmade-ai/claude/fix-typescript-build-OpB9c",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#5"
+      ],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 4,
+        "deletions": 4
+      },
+      "files": [
+        "src/components/builder/FieldPropertiesPanel.tsx",
+        "src/lib/validation.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "d3d5d37",
+      "fullSha": "d3d5d371fa1bd7e2f668e3c3dfb93159a8b08c96",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T18:40:30Z",
+      "commitDate": "2026-02-26T18:40:30Z",
+      "subject": "fix(build): resolve three TypeScript strict-mode errors",
+      "body": "- FieldPropertiesPanel.tsx: Change `updateValidation` from function\n  declaration to const arrow function so TypeScript narrows `field`\n  past the early-return guard (function declarations are hoisted above\n  the narrowing check).\n- validation.ts: Wrap `validation.min`/`validation.max` in `Number()`\n  before comparison, since FieldValidation types min/max as\n  `number | string` (date fields use ISO strings) and the `<`/`>`\n  operators require matching operand types.\n\nTags: typescript, build, bugfix\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: build-stability\nSemver: patch\n\nhttps://claude.ai/code/session_01TGbYfjWTb4DL6U3zqMiqBJ",
+      "tags": [
+        "bugfix",
+        "build",
+        "types"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "build-stability",
+      "semver": "patch",
+      "scope": "build",
+      "title": "resolve three TypeScript strict-mode errors",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 4,
+        "deletions": 4
+      },
+      "files": [
+        "src/components/builder/FieldPropertiesPanel.tsx",
+        "src/lib/validation.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "9719160",
+      "fullSha": "97191600ae28f6fdb291cc726cdeb9bd738b948c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T18:34:19Z",
+      "commitDate": "2026-02-26T18:34:19Z",
+      "subject": "Merge pull request #4 from devmade-ai/claude/fix-github-pages-deploy-P3kmE",
+      "body": "Deploy Vite SPA to GitHub Pages with proper routing",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "deployment",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #4 from devmade-ai/claude/fix-github-pages-deploy-P3kmE",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#4"
+      ],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 104,
+        "deletions": 4
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "index.html",
+        "public/404.html",
+        "src/main.tsx",
+        "src/pages/BuilderPage.tsx",
+        "vite.config.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "ca61808",
+      "fullSha": "ca6180843512977e78342e1caf08cdf4c076783d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T18:32:07Z",
+      "commitDate": "2026-02-26T18:32:07Z",
+      "subject": "fix(deploy): add GitHub Pages deployment workflow and fix base paths",
+      "body": "GitHub Pages was not deploying because:\n1. No GitHub Actions workflow existed to build and deploy\n2. Vite had no `base` config — assets loaded from `/` instead of `/four-ems/`\n3. No 404.html for SPA routing — React Router deep links returned 404\n4. BrowserRouter had no basename — routes didn't match under /four-ems/\n5. PWA manifest scope/start_url pointed to `/` instead of `/four-ems/`\n6. Embed code dialog used `window.location.origin` without base path\n\nAdded:\n- .github/workflows/deploy.yml — builds on push to main, deploys via\n  actions/deploy-pages (artifact-based, GitHub's recommended approach)\n- public/404.html — redirects to index.html preserving path for SPA routing\n- index.html restore script — converts 404 redirect query back to real path\n\nFixed:\n- vite.config.ts: added `base: '/four-ems/'` and updated PWA manifest paths\n- src/main.tsx: added `basename=\"/four-ems\"` to BrowserRouter\n- BuilderPage.tsx: embed baseUrl now includes BASE_URL from Vite\n\nTags: deployment, github-pages, pwa, routing, ci\nComplexity: 3\nUrgency: 4\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: deployment\nSemver: minor\n\nhttps://claude.ai/code/session_01CBD23Ktkx4Q8M31e4kiyNT",
+      "tags": [
+        "feature",
+        "ci",
+        "config"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "deployment",
+      "semver": "minor",
+      "scope": "deploy",
+      "title": "add GitHub Pages deployment workflow and fix base paths",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 104,
+        "deletions": 4
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "index.html",
+        "public/404.html",
+        "src/main.tsx",
+        "src/pages/BuilderPage.tsx",
+        "vite.config.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 4,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "b86bc8e",
+      "fullSha": "b86bc8e618be70f03c9f66ebfd081386817648a9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T18:25:48Z",
+      "commitDate": "2026-02-26T18:25:48Z",
+      "subject": "Merge pull request #2 from devmade-ai/claude/fix-github-pages-deploy-LvzfG",
+      "body": "Update deploy workflow to use main branch instead of master",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "deployment",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #2 from devmade-ai/claude/fix-github-pages-deploy-LvzfG",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#2"
+      ],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        ".github/workflows/deploy.yml"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "cdf4343",
+      "fullSha": "cdf434356ebc1bc81f4da260b86f6d321abe2eab",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T18:23:59Z",
+      "commitDate": "2026-02-26T18:23:59Z",
+      "subject": "fix(ci): trigger deploy workflow on main branch instead of master",
+      "body": "The deploy workflow was configured to trigger on pushes to 'master',\nbut the remote default branch is 'main'. The workflow never ran.\n\nTags: ci, deployment, github-pages\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch\n\nhttps://claude.ai/code/session_01Lhoyj2WvRGFPN5tMs94b6L",
+      "tags": [
+        "bugfix",
+        "ci"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "deployment",
+      "semver": "patch",
+      "scope": "ci",
+      "title": "trigger deploy workflow on main branch instead of master",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 1,
+        "deletions": 1
+      },
+      "files": [
+        ".github/workflows/deploy.yml"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 4,
+      "impact": "infrastructure"
     },
     {
       "sha": "65cc7f1",
@@ -3790,6 +5982,48 @@
       "impact": "user-facing"
     },
     {
+      "sha": "7aa4eba",
+      "fullSha": "7aa4eba3a08834b80069fd8dfab6054fe8f166fc",
+      "author_id": "jacotheron87",
+      "author": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "committer": {
+        "name": "jacotheron87",
+        "email": "jacotheron87@gmail.com"
+      },
+      "timestamp": "2026-02-26T16:55:52Z",
+      "commitDate": "2026-02-26T16:55:52Z",
+      "subject": "docs(backend-spec): strip frontend content and make self-contained",
+      "body": "Remove frontend implementation details, \"Discovered Requirements\" section,\nand cross-references to other docs. Backend spec now contains only what the\nbackend needs to implement.\n\nTags: documentation, cleanup\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: backend-spec\nSemver: patch\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "backend-spec",
+      "semver": "patch",
+      "scope": "backend-spec",
+      "title": "strip frontend content and make self-contained",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 65,
+        "deletions": 139
+      },
+      "files": [
+        "docs/BACKEND_SPEC.md",
+        "docs/SESSION_NOTES.md"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
       "sha": "62d0a80",
       "fullSha": "62d0a80b33f26f62b00f4059741c8faefbec7ae2",
       "author_id": "devmade.ai@gmail.com",
@@ -4115,6 +6349,139 @@
       "impact": "internal"
     },
     {
+      "sha": "56040fd",
+      "fullSha": "56040fd20e5f97be710487799ef8581955668bf9",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T14:59:57Z",
+      "commitDate": "2026-02-26T14:59:57Z",
+      "subject": "Merge pull request #1 from devmade-ai/claude/setup-claude-md-structure-GYR46",
+      "body": "Complete frontend implementation through Phase 7 with documentation",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "mvp-frontend",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #1 from devmade-ai/claude/setup-claude-md-structure-GYR46",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#1"
+      ],
+      "stats": {
+        "filesChanged": 91,
+        "additions": 16554,
+        "deletions": 1
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        ".gitignore",
+        "CLAUDE.md",
+        "README.md",
+        "docs/AI_MISTAKES.md",
+        "docs/BACKEND_SPEC.md",
+        "docs/FRONTEND_BACKEND_MIGRATION.md",
+        "docs/HISTORY.md",
+        "docs/PRODUCT_DEFINITION.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "docs/USER_GUIDE.md",
+        "eslint.config.js",
+        "index.html",
+        "package-lock.json",
+        "package.json",
+        "public/favicon.ico",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "src/App.tsx",
+        "src/components/agreements/AgreementCard.tsx",
+        "src/components/agreements/CreateAgreementForm.tsx",
+        "src/components/agreements/PdfPreview.tsx",
+        "src/components/agreements/RequestAgreementForm.tsx",
+        "src/components/agreements/SequenceSignOff.tsx",
+        "src/components/agreements/SplitAgreementForm.tsx",
+        "src/components/auth/GoogleLoginButton.tsx",
+        "src/components/common/Button.tsx",
+        "src/components/common/ConfirmDialog.tsx",
+        "src/components/common/EmptyState.tsx",
+        "src/components/common/ErrorBoundary.tsx",
+        "src/components/common/Input.tsx",
+        "src/components/common/LoadingSpinner.tsx",
+        "src/components/common/Modal.tsx",
+        "src/components/common/NotificationBell.tsx",
+        "src/components/common/OfflineIndicator.tsx",
+        "src/components/common/PwaInstallPrompt.tsx",
+        "src/components/common/TextArea.tsx",
+        "src/components/common/Toast.tsx",
+        "src/components/modules/AddNoteForm.tsx",
+        "src/components/modules/BatchSignActions.tsx",
+        "src/components/modules/ModuleCard.tsx",
+        "src/components/modules/ModuleEditor.tsx",
+        "src/components/modules/ModuleViewer.tsx",
+        "src/components/modules/NotesList.tsx",
+        "src/components/modules/NudgeExpiryConfig.tsx",
+        "src/components/modules/ProposalCard.tsx",
+        "src/components/modules/ProposeChangeForm.tsx",
+        "src/components/modules/ReadyToSignToggle.tsx",
+        "src/components/modules/SignatureLog.tsx",
+        "src/components/modules/SigningStatus.tsx",
+        "src/components/modules/TemplateSelector.tsx",
+        "src/components/modules/VersionHistoryPanel.tsx",
+        "src/components/projects/CreateProjectForm.tsx",
+        "src/components/projects/HandshakeStatus.tsx",
+        "src/components/projects/InviteCounterpartyForm.tsx",
+        "src/components/projects/ProjectCard.tsx",
+        "src/config/supabase.ts",
+        "src/context/AuthContext.tsx",
+        "src/data/mockAgreements.ts",
+        "src/data/mockModules.ts",
+        "src/data/mockProjects.ts",
+        "src/data/moduleTemplates.ts",
+        "src/hooks/useAgreements.ts",
+        "src/hooks/useAuth.ts",
+        "src/hooks/useModules.ts",
+        "src/hooks/useNotes.ts",
+        "src/hooks/useNotifications.ts",
+        "src/hooks/usePdfVerifications.ts",
+        "src/hooks/useProjects.ts",
+        "src/hooks/useProposals.ts",
+        "src/hooks/useSignatureLog.ts",
+        "src/index.css",
+        "src/layouts/AppLayout.tsx",
+        "src/layouts/AuthLayout.tsx",
+        "src/main.tsx",
+        "src/pages/AgreementDetailPage.tsx",
+        "src/pages/LoginPage.tsx",
+        "src/pages/ModuleEditorPage.tsx",
+        "src/pages/NotFoundPage.tsx",
+        "src/pages/ProjectDetailPage.tsx",
+        "src/pages/ProjectListPage.tsx",
+        "src/types/index.ts",
+        "src/utils/formatDate.ts",
+        "src/utils/generateId.ts",
+        "tsconfig.app.json",
+        "tsconfig.json",
+        "tsconfig.node.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
       "sha": "d9d0edb",
       "fullSha": "d9d0edbfaccca1b648a90b95ae953f32f3a96e55",
       "author_id": "devmade.ai@gmail.com",
@@ -4208,6 +6575,48 @@
       "repo_id": "few-lap",
       "urgency": 2,
       "impact": "user-facing"
+    },
+    {
+      "sha": "1ffacc8",
+      "fullSha": "1ffacc80a22f265899f6692fe1dfec98531c6a7d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T12:39:39Z",
+      "commitDate": "2026-02-26T12:39:39Z",
+      "subject": "docs(migration): add frontend-to-backend migration guide",
+      "body": "Comprehensive guide covering every hook, auth context, and page change\nneeded when switching from localStorage mock data to Supabase backend.\n\nCovers:\n- Hook-by-hook migration with exact Supabase query replacements\n- Auth migration from mock users to Google OAuth\n- isCreator derivation change (global → per-project)\n- Real-time subscription setup for two-party coordination\n- Notification and signature log migration (frontend → backend-triggered)\n- PDF verification hash migration (client → server)\n- Error handling and loading state additions\n- Offline queue strategy\n- File-by-file cleanup checklist\n- Two-browser testing checklist\n- Recommended migration order (12 steps)\n\nTags: documentation, backend, migration, supabase\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: backend-migration\nSemver: minor\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+      "tags": [
+        "docs",
+        "api-docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "backend-migration",
+      "semver": "minor",
+      "scope": "migration",
+      "title": "add frontend-to-backend migration guide",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 545,
+        "deletions": 0
+      },
+      "files": [
+        "docs/FRONTEND_BACKEND_MIGRATION.md"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "infrastructure"
     },
     {
       "sha": "d3df8bc",
@@ -4326,6 +6735,72 @@
       "impact": "internal"
     },
     {
+      "sha": "a1eeae7",
+      "fullSha": "a1eeae7a2f3d9bfbe8aecab09f2ce0a38abd7d5d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T12:16:21Z",
+      "commitDate": "2026-02-26T12:16:21Z",
+      "subject": "fix(ux): comprehensive mobile and UX improvements across 23 files",
+      "body": "Addresses iOS Safari issues, touch targets, accessibility, and general\nUX clarity for non-technical users on mobile devices.\n\nMobile fixes:\n- Prevent iOS auto-zoom on inputs (text-base on mobile, text-sm on desktop)\n- Add viewport-fit=cover for iPhone notch/home indicator support\n- Replace min-h-screen with min-h-dvh for iOS Safari dynamic toolbar\n- Toast safe-area inset for iPhone home indicator\n- Modal scrollable content with max-height for keyboard overlap\n- Reduce modal padding on mobile (p-4 sm:p-6)\n- Increase touch targets on move buttons, modal close, notification delete (44px min)\n- Replace \"Sign out\" text with icon on mobile to reduce header crowding\n- Reduce header gap to gap-1 on mobile\n- Stack signature log IP/user-agent vertically on mobile\n- Fix notification dropdown rubber-banding with overscroll-contain\n- Add breadcrumb scroll fade indicator\n\nUX clarity:\n- Ready-to-sign toggle now says \"Undo ready status\" when active\n- Back buttons styled as recognizable button with hover state\n- Edit mode shows \"Editing\" badge for visual indicator\n- Batch sign \"Cancel\" changed to \"Done\" for clearer intent\n- \"Counterparty\" renamed to \"Other party\" in header role switcher\n- Tooltip on role switcher explains counterparty meaning\n- Truncated card titles now show full text on hover\n- Version history shows last-updated timestamp on current version\n- Expired modules: move/delete buttons disabled with explanatory tooltip\n\nAccessibility:\n- aria-describedby links form errors to their inputs\n- aria-invalid on inputs with errors\n- role=\"alert\" on error messages\n- aria-hidden on decorative SVGs in back buttons\n- Module content viewer uses break-words for long content\n\nTags: ux, mobile, accessibility, ios, pwa\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: polish-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+      "tags": [
+        "bugfix",
+        "accessibility",
+        "ux",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "polish-hardening",
+      "semver": "patch",
+      "scope": "ux",
+      "title": "comprehensive mobile and UX improvements across 23 files",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 23,
+        "additions": 82,
+        "deletions": 52
+      },
+      "files": [
+        "index.html",
+        "src/components/agreements/AgreementCard.tsx",
+        "src/components/common/ErrorBoundary.tsx",
+        "src/components/common/Input.tsx",
+        "src/components/common/Modal.tsx",
+        "src/components/common/NotificationBell.tsx",
+        "src/components/common/TextArea.tsx",
+        "src/components/common/Toast.tsx",
+        "src/components/modules/BatchSignActions.tsx",
+        "src/components/modules/ModuleCard.tsx",
+        "src/components/modules/ModuleEditor.tsx",
+        "src/components/modules/ModuleViewer.tsx",
+        "src/components/modules/NudgeExpiryConfig.tsx",
+        "src/components/modules/ReadyToSignToggle.tsx",
+        "src/components/modules/SignatureLog.tsx",
+        "src/components/modules/VersionHistoryPanel.tsx",
+        "src/components/projects/ProjectCard.tsx",
+        "src/index.css",
+        "src/layouts/AppLayout.tsx",
+        "src/layouts/AuthLayout.tsx",
+        "src/pages/AgreementDetailPage.tsx",
+        "src/pages/NotFoundPage.tsx",
+        "src/pages/ProjectDetailPage.tsx"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
       "sha": "34f9b72",
       "fullSha": "34f9b725cfea1eef93fd7b08b0c941fd6378e3b7",
       "author_id": "devmade.ai@gmail.com",
@@ -4434,6 +6909,124 @@
       "impact": "user-facing"
     },
     {
+      "sha": "6c7fe6f",
+      "fullSha": "6c7fe6feae8563cbe4696ec1125aad900af2461c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T11:54:03Z",
+      "commitDate": "2026-02-26T11:54:03Z",
+      "subject": "feat(frontend-complete): PWA prompt, accessibility, README, backend spec audit",
+      "body": "Complete all remaining frontend work:\n- PWA install prompt: captures beforeinstallprompt, dismissible banner\n- README rewrite: full feature list, setup guide, documentation table\n- Accessibility audit (31 issues, all high/medium fixed):\n  - ARIA roles: Toast, LoadingSpinner, ErrorBoundary, OfflineIndicator\n  - Modal: aria-labelledby, focus ring on close\n  - NotificationBell: Escape close, keyboard nav, dynamic aria-label\n  - Breadcrumb nav label, role switcher label, decorative SVG hidden\n  - NotFoundPage heading hierarchy, NudgeExpiryConfig describedby\n- Backend spec rewrite against actual code:\n  - Content length limits table, module_version triggers\n  - Frontend vs backend notification types clarified\n  - Business logic section, cron specs, Resend config, bcrypt cost\n  - Removed is_system from templates, split_approved from types\n- Missing signature logs: handshake_signed, sequence_approved\n- Module amendment notification when signed module edited\n\nTags: frontend-complete, pwa, accessibility, backend-spec, documentation\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mvp-frontend\nSemver: minor\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+      "tags": [
+        "feature",
+        "accessibility",
+        "docs"
+      ],
+      "complexity": 4,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "mvp-frontend",
+      "semver": "minor",
+      "scope": "frontend-complete",
+      "title": "PWA prompt, accessibility, README, backend spec audit",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 21,
+        "additions": 419,
+        "deletions": 109
+      },
+      "files": [
+        "CLAUDE.md",
+        "README.md",
+        "docs/BACKEND_SPEC.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/common/EmptyState.tsx",
+        "src/components/common/ErrorBoundary.tsx",
+        "src/components/common/LoadingSpinner.tsx",
+        "src/components/common/Modal.tsx",
+        "src/components/common/NotificationBell.tsx",
+        "src/components/common/OfflineIndicator.tsx",
+        "src/components/common/PwaInstallPrompt.tsx",
+        "src/components/common/Toast.tsx",
+        "src/components/modules/NudgeExpiryConfig.tsx",
+        "src/layouts/AppLayout.tsx",
+        "src/pages/AgreementDetailPage.tsx",
+        "src/pages/ModuleEditorPage.tsx",
+        "src/pages/NotFoundPage.tsx",
+        "src/pages/ProjectDetailPage.tsx",
+        "src/types/index.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "88750a0",
+      "fullSha": "88750a0d6b0a5fc520360ed88d2d67559e19acbe",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T09:53:06Z",
+      "commitDate": "2026-02-26T09:53:06Z",
+      "subject": "fix(polish): add expired module treatment, input validation, notification triggers, mobile fixes",
+      "body": "Complete Phase 7 frontend polish:\n- Expired modules: greyed-out cards with \"Expired\" badge, warning banners,\n  signing toggle hidden, batch sign excludes expired\n- Input validation: character counters and limits on module content (10K),\n  notes (2K), proposals (10K)\n- PDF verification: loading state with disabled button during generation\n- Notification triggers: wired to all key events (signing, proposals, notes,\n  sequence approval, splits, status changes, handshake, agreement requests)\n- Mobile: responsive notification dropdown, flex-wrap on PDF preview buttons\n\nTags: polish, expired, validation, notifications, mobile, phase7\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mvp-frontend\nSemver: patch\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+      "tags": [
+        "bugfix",
+        "validation",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "mvp-frontend",
+      "semver": "patch",
+      "scope": "polish",
+      "title": "add expired module treatment, input validation, notification triggers, mobile fixes",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 13,
+        "additions": 232,
+        "deletions": 85
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/agreements/PdfPreview.tsx",
+        "src/components/common/NotificationBell.tsx",
+        "src/components/modules/AddNoteForm.tsx",
+        "src/components/modules/BatchSignActions.tsx",
+        "src/components/modules/ModuleCard.tsx",
+        "src/components/modules/ModuleEditor.tsx",
+        "src/components/modules/ProposeChangeForm.tsx",
+        "src/pages/AgreementDetailPage.tsx",
+        "src/pages/ModuleEditorPage.tsx",
+        "src/pages/ProjectDetailPage.tsx"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
       "sha": "16af9d4",
       "fullSha": "16af9d4864caa062997340a8bf8568a973c21f9b",
       "author_id": "devmade.ai@gmail.com",
@@ -4480,6 +7073,500 @@
       "repo_id": "few-lap",
       "urgency": 2,
       "impact": "user-facing"
+    },
+    {
+      "sha": "1ab3c26",
+      "fullSha": "1ab3c26270e203b2857fa539fff9fd6b2fa18fd8",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T09:15:23Z",
+      "commitDate": "2026-02-26T09:15:23Z",
+      "subject": "feat(phase3-7): add signature log, notifications, PDF, splitting, nudge/expiry, error handling",
+      "body": "Complete frontend implementation for Phases 3 (remaining), 4, 5, 6, and 7:\n- Signature log with IP/user agent/timestamp tracking\n- In-app notification system with bell icon and dropdown panel\n- PDF preview with SHA-256 verification codes\n- Agreement splitting (copy modules to new agreement)\n- Module nudge period and auto-expire configuration\n- Error boundary for React render error recovery\n- Offline indicator for network status\n- Agreement status management (Start, Reopen)\n\nTags: signing, notifications, pdf, splitting, nudge, error-handling, offline, phase3, phase4, phase5, phase6, phase7\nComplexity: 5\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mvp-frontend\nSemver: minor\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 5,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "mvp-frontend",
+      "semver": "minor",
+      "scope": "phase3-7",
+      "title": "add signature log, notifications, PDF, splitting, nudge/expiry, error handling",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [
+        "SHA-256"
+      ],
+      "stats": {
+        "filesChanged": 26,
+        "additions": 1388,
+        "deletions": 76
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/BACKEND_SPEC.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_GUIDE.md",
+        "src/App.tsx",
+        "src/components/agreements/PdfPreview.tsx",
+        "src/components/agreements/SplitAgreementForm.tsx",
+        "src/components/common/ErrorBoundary.tsx",
+        "src/components/common/NotificationBell.tsx",
+        "src/components/common/OfflineIndicator.tsx",
+        "src/components/modules/NudgeExpiryConfig.tsx",
+        "src/components/modules/SignatureLog.tsx",
+        "src/data/mockAgreements.ts",
+        "src/data/mockModules.ts",
+        "src/hooks/useAgreements.ts",
+        "src/hooks/useModules.ts",
+        "src/hooks/useNotifications.ts",
+        "src/hooks/usePdfVerifications.ts",
+        "src/hooks/useSignatureLog.ts",
+        "src/layouts/AppLayout.tsx",
+        "src/pages/AgreementDetailPage.tsx",
+        "src/pages/ModuleEditorPage.tsx",
+        "src/types/index.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "18869e2",
+      "fullSha": "18869e29eeca62cad2d4125170bbba43a827a3f0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T08:59:58Z",
+      "commitDate": "2026-02-26T08:59:58Z",
+      "subject": "feat(phase3): add signing, notes, version history, and sequence sign-off",
+      "body": "Phase 3 frontend implementation adds the complete signing and negotiation\ntracking layer. Modules can now be independently signed by both parties\nwith auto-lock when both mark ready, batch signing for efficiency, and\namendment flow that preserves version history. Notes with source tagging\nenable tracking of discussions across channels. Sequence sign-off ensures\nboth parties approve the final module ordering before an agreement is\nfully locked.\n\nTags: signing, notes, version-history, ui, hooks, components\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: phase3-signing-notes-versions\nSemver: minor\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "phase3-signing-notes-versions",
+      "semver": "minor",
+      "scope": "phase3",
+      "title": "add signing, notes, version history, and sequence sign-off",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 24,
+        "additions": 1339,
+        "deletions": 53
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/BACKEND_SPEC.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_GUIDE.md",
+        "src/components/agreements/SequenceSignOff.tsx",
+        "src/components/modules/AddNoteForm.tsx",
+        "src/components/modules/BatchSignActions.tsx",
+        "src/components/modules/ModuleCard.tsx",
+        "src/components/modules/ModuleEditor.tsx",
+        "src/components/modules/NotesList.tsx",
+        "src/components/modules/ReadyToSignToggle.tsx",
+        "src/components/modules/SigningStatus.tsx",
+        "src/components/modules/VersionHistoryPanel.tsx",
+        "src/data/mockAgreements.ts",
+        "src/data/mockModules.ts",
+        "src/hooks/useAgreements.ts",
+        "src/hooks/useModules.ts",
+        "src/hooks/useNotes.ts",
+        "src/pages/AgreementDetailPage.tsx",
+        "src/pages/ModuleEditorPage.tsx",
+        "src/types/index.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "1819f7e",
+      "fullSha": "1819f7e244b9138bb514904a5616b391e8d0b20d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T06:51:07Z",
+      "commitDate": "2026-02-26T06:51:07Z",
+      "subject": "chore: update package-lock.json after npm install",
+      "body": "Tags: dependencies\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: Phase 2 — Counterparty & Invitations\nSemver: patch\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "phase2-counterparty",
+      "semver": "patch",
+      "scope": null,
+      "title": "update package-lock.json after npm install",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 2,
+        "deletions": 2
+      },
+      "files": [
+        "package-lock.json"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "67d4f5c",
+      "fullSha": "67d4f5c1cfb0c4bb5dff242c129dbe64d2f9b6ff",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T06:50:27Z",
+      "commitDate": "2026-02-26T06:50:27Z",
+      "subject": "docs(phase2): update all docs, add localStorage migration",
+      "body": "- Updated CLAUDE.md: Project Status, Architecture, Key State Structure\n- Updated USER_GUIDE.md: role switching, invitations, handshake, proposals\n- Updated TESTING_GUIDE.md: 8 new Phase 2 test scenarios, expanded regression checklist\n- Updated SESSION_NOTES.md: Phase 2 session summary\n- Updated TODO.md: marked Phase 2 items complete, expanded Phase 3-7 todos\n- Updated HISTORY.md: full Phase 2 changelog\n- Added localStorage migration in useProjects and useAgreements for old data\n  missing Phase 2 fields (handshake, requested_by)\n\nTags: documentation, migration, phase2\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: Phase 2 — Counterparty & Invitations\nSemver: patch\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+      "tags": [
+        "docs",
+        "data-migration"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "phase2-counterparty",
+      "semver": "patch",
+      "scope": "phase2",
+      "title": "update all docs, add localStorage migration",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 356,
+        "deletions": 62
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_GUIDE.md",
+        "src/hooks/useAgreements.ts",
+        "src/hooks/useProjects.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "350f684",
+      "fullSha": "350f6843f161d5d6024da271c58ba6faafe23658",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T06:40:45Z",
+      "commitDate": "2026-02-26T06:40:45Z",
+      "subject": "feat(phase2): add counterparty, invitations, handshake, and proposal system",
+      "body": "Phase 2 frontend with mock data:\n- Role switcher in header to toggle creator/counterparty views\n- Project invitation flow (email + passphrase form)\n- Handshake status component (pending/accepted states)\n- Counterparty read-only module view with propose change button\n- Proposal system: create, accept, reject, counter-proposal flow\n- Agreement request flow: counterparty requests, creator accepts\n- Role-based UI controls (edit/delete/reorder hidden from counterparty)\n- GitHub Actions workflow for GitHub Pages deployment\n- Updated backend spec with Phase 2 tables and RLS policies\n\ntype: feature\ncomplexity: large\nurgency: medium\nimpact: high\nrisk: low\ndebt: none\nepic: Phase 2 — Counterparty & Invitations\nsemver: minor\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+      "tags": [
+        "feature",
+        "ui",
+        "ux"
+      ],
+      "complexity": 4,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "phase2-counterparty",
+      "semver": "minor",
+      "scope": "phase2",
+      "title": "add counterparty, invitations, handshake, and proposal system",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 23,
+        "additions": 1132,
+        "deletions": 98
+      },
+      "files": [
+        ".github/workflows/deploy.yml",
+        "docs/BACKEND_SPEC.md",
+        "src/components/agreements/AgreementCard.tsx",
+        "src/components/agreements/RequestAgreementForm.tsx",
+        "src/components/modules/ModuleCard.tsx",
+        "src/components/modules/ModuleViewer.tsx",
+        "src/components/modules/ProposalCard.tsx",
+        "src/components/modules/ProposeChangeForm.tsx",
+        "src/components/projects/HandshakeStatus.tsx",
+        "src/components/projects/InviteCounterpartyForm.tsx",
+        "src/components/projects/ProjectCard.tsx",
+        "src/context/AuthContext.tsx",
+        "src/data/mockAgreements.ts",
+        "src/data/mockProjects.ts",
+        "src/hooks/useAgreements.ts",
+        "src/hooks/useProjects.ts",
+        "src/hooks/useProposals.ts",
+        "src/layouts/AppLayout.tsx",
+        "src/pages/AgreementDetailPage.tsx",
+        "src/pages/ModuleEditorPage.tsx",
+        "src/pages/ProjectDetailPage.tsx",
+        "src/pages/ProjectListPage.tsx",
+        "src/types/index.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "cb92969",
+      "fullSha": "cb929695710e00b6e7fd6c0be7f7e3f6a6cbfd5e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T06:25:15Z",
+      "commitDate": "2026-02-26T06:25:15Z",
+      "subject": "fix(polish): add responsive fixes, toast feedback, input validation, and docs",
+      "body": "Polish Phase 1 for production readiness:\n- Toast notifications on project/agreement/module creation\n- Modal responsive fix (doesn't touch screen edges on mobile)\n- Breadcrumb overflow scroll for long paths on mobile\n- Module editor header wraps on small screens\n- Input maxLength limits (100 for titles, 500 for descriptions)\n- Module editor key reset when navigating between modules\n- Fade-in animation for toast component\n- Updated README with setup instructions and tech stack\n- Updated USER_GUIDE.md with full feature walkthrough\n- Updated TESTING_GUIDE.md with 9 test scenarios + regression checklist\n\nTags: polish, responsive, ux, documentation\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: phase-1-foundation\nSemver: patch\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+      "tags": [
+        "bugfix",
+        "ux",
+        "ui",
+        "docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "phase1-foundation",
+      "semver": "patch",
+      "scope": "polish",
+      "title": "add responsive fixes, toast feedback, input validation, and docs",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 14,
+        "additions": 329,
+        "deletions": 32
+      },
+      "files": [
+        "README.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/USER_GUIDE.md",
+        "src/components/agreements/CreateAgreementForm.tsx",
+        "src/components/common/Modal.tsx",
+        "src/components/common/Toast.tsx",
+        "src/components/modules/ModuleEditor.tsx",
+        "src/components/projects/CreateProjectForm.tsx",
+        "src/index.css",
+        "src/layouts/AppLayout.tsx",
+        "src/pages/AgreementDetailPage.tsx",
+        "src/pages/ModuleEditorPage.tsx",
+        "src/pages/ProjectDetailPage.tsx",
+        "src/pages/ProjectListPage.tsx"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "b2972bb",
+      "fullSha": "b2972bbdafee84880aa28097c89dc99cef3ff06f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T06:18:44Z",
+      "commitDate": "2026-02-26T06:18:44Z",
+      "subject": "feat(foundation): implement Phase 1 frontend with React + TypeScript + Tailwind",
+      "body": "Complete Phase 1 (Foundation) frontend for Sancio agreement builder.\nFrontend-only with mock data and localStorage persistence, designed\nfor clean swap to Supabase backend when ready.\n\nWhat's included:\n- Vite + React + TypeScript + Tailwind CSS v4 + PWA scaffold\n- Shared type definitions (Project, Agreement, Module, User)\n- Reusable component library (Button, Input, TextArea, Modal, EmptyState, etc.)\n- Mock auth with AuthContext + localStorage\n- CRUD hooks (useProjects, useAgreements, useModules) with localStorage\n- 6 starter module templates\n- All pages: Login, ProjectList, ProjectDetail, AgreementDetail, ModuleEditor, 404\n- React Router v7 with protected routes and breadcrumbs\n- Module reorder (up/down), inline editing, delete confirmations\n- Product definition saved as docs/PRODUCT_DEFINITION.md\n- Backend spec started as docs/BACKEND_SPEC.md\n\nTags: foundation, frontend, react, typescript, tailwind, pwa, scaffold\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: phase-1-foundation\nSemver: minor\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+      "tags": [
+        "init",
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "phase1-foundation",
+      "semver": "minor",
+      "scope": "foundation",
+      "title": "implement Phase 1 frontend with React + TypeScript + Tailwind",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 57,
+        "additions": 10994,
+        "deletions": 40
+      },
+      "files": [
+        ".gitignore",
+        "CLAUDE.md",
+        "docs/BACKEND_SPEC.md",
+        "docs/HISTORY.md",
+        "docs/PRODUCT_DEFINITION.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "eslint.config.js",
+        "index.html",
+        "package-lock.json",
+        "package.json",
+        "public/favicon.ico",
+        "public/pwa-192x192.png",
+        "public/pwa-512x512.png",
+        "src/App.tsx",
+        "src/components/agreements/AgreementCard.tsx",
+        "src/components/agreements/CreateAgreementForm.tsx",
+        "src/components/auth/GoogleLoginButton.tsx",
+        "src/components/common/Button.tsx",
+        "src/components/common/ConfirmDialog.tsx",
+        "src/components/common/EmptyState.tsx",
+        "src/components/common/Input.tsx",
+        "src/components/common/LoadingSpinner.tsx",
+        "src/components/common/Modal.tsx",
+        "src/components/common/TextArea.tsx",
+        "src/components/modules/ModuleCard.tsx",
+        "src/components/modules/ModuleEditor.tsx",
+        "src/components/modules/TemplateSelector.tsx",
+        "src/components/projects/CreateProjectForm.tsx",
+        "src/components/projects/ProjectCard.tsx",
+        "src/config/supabase.ts",
+        "src/context/AuthContext.tsx",
+        "src/data/mockAgreements.ts",
+        "src/data/mockModules.ts",
+        "src/data/mockProjects.ts",
+        "src/data/moduleTemplates.ts",
+        "src/hooks/useAgreements.ts",
+        "src/hooks/useAuth.ts",
+        "src/hooks/useModules.ts",
+        "src/hooks/useProjects.ts",
+        "src/index.css",
+        "src/layouts/AppLayout.tsx",
+        "src/layouts/AuthLayout.tsx",
+        "src/main.tsx",
+        "src/pages/AgreementDetailPage.tsx",
+        "src/pages/LoginPage.tsx",
+        "src/pages/ModuleEditorPage.tsx",
+        "src/pages/NotFoundPage.tsx",
+        "src/pages/ProjectDetailPage.tsx",
+        "src/pages/ProjectListPage.tsx",
+        "src/types/index.ts",
+        "src/utils/formatDate.ts",
+        "src/utils/generateId.ts",
+        "tsconfig.app.json",
+        "tsconfig.json",
+        "tsconfig.node.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "db1b24e",
+      "fullSha": "db1b24ea82f98a798d244bb4c19fc207cc75b537",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-26T05:48:54Z",
+      "commitDate": "2026-02-26T05:48:54Z",
+      "subject": "docs(setup): add CLAUDE.md and full documentation structure",
+      "body": "Establish AI preferences, project standards, and documentation\nframework for the Sancio agreement tool. Based on the glow-props\nCLAUDE.md template, adapted for this project's domain.\n\nCreated files:\n- CLAUDE.md: AI preferences, principles, code standards, documentation guidelines\n- docs/SESSION_NOTES.md: Session continuity summaries\n- docs/TODO.md: Pending work backlog\n- docs/HISTORY.md: Completed work archive\n- docs/USER_ACTIONS.md: Manual intervention tracking\n- docs/AI_MISTAKES.md: AI error prevention log\n- docs/USER_GUIDE.md: User-facing documentation\n- docs/TESTING_GUIDE.md: Manual test scenarios\n\nTags: documentation, setup, project-structure\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: project-setup\nSemver: minor\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+      "tags": [
+        "docs",
+        "init"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "project-setup",
+      "semver": "minor",
+      "scope": "setup",
+      "title": "add CLAUDE.md and full documentation structure",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 344,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/AI_MISTAKES.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "docs/USER_GUIDE.md"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "internal"
     },
     {
       "sha": "4d435e5",
@@ -4630,6 +7717,48 @@
       "impact": "user-facing"
     },
     {
+      "sha": "43ddba0",
+      "fullSha": "43ddba02f8c6b50a22bd916a1b3a58a04bc9d02f",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-26T05:21:20Z",
+      "commitDate": "2026-02-26T05:21:20Z",
+      "subject": "Initial commit",
+      "body": "",
+      "tags": [
+        "init"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "project-setup",
+      "semver": "minor",
+      "scope": null,
+      "title": "Initial commit",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 676,
+        "deletions": 0
+      },
+      "files": [
+        "LICENSE",
+        "README.md"
+      ],
+      "repo_id": "sun-sea-o",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
       "sha": "164fd98",
       "fullSha": "164fd98728a924a5645687ef9a5fc62385cd6c87",
       "author_id": "devmade.ai@gmail.com",
@@ -4775,6 +7904,148 @@
       "repo_id": "few-lap",
       "urgency": 2,
       "impact": "infrastructure"
+    },
+    {
+      "sha": "f6e8353",
+      "fullSha": "f6e83535e08537668568de69aafec2df89320a9d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-25T16:11:15Z",
+      "commitDate": "2026-02-25T16:11:15Z",
+      "subject": "Merge pull request #3 from devmade-ai/claude/firebase-migration-evaluation-uvQlM",
+      "body": "refactor(auth): rename workspace_id to user_id, simplify auth model",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "supabase-auth",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #3 from devmade-ai/claude/firebase-migration-evaluation-uvQlM",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#3"
+      ],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 52,
+        "deletions": 72
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SERVER_REQUIREMENTS.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "src/hooks/useAuth.ts",
+        "src/lib/api.ts",
+        "src/pages/FormListPage.tsx",
+        "src/types/form.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "2f950dd",
+      "fullSha": "2f950ddbfc620ab27917e522f20e8fea22db3425",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T16:10:23Z",
+      "commitDate": "2026-02-25T16:10:23Z",
+      "subject": "docs(claude): add deployment info to CLAUDE.md",
+      "body": "Document that frontend deploys to GitHub Pages, backend to Vercel\nat tool-till-tees.vercel.app, and build env vars are set as GitHub\nrepository secrets.\n\nTags: documentation, deployment, infrastructure\nComplexity: 1\nUrgency: 2\nImpact: internal\nDebt: neutral\nEpic: project-setup\nSemver: patch\n\nhttps://claude.ai/code/session_017ZnX5KXtRUz26JKx8u6pCg",
+      "tags": [
+        "docs"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "project-setup",
+      "semver": "patch",
+      "scope": "claude",
+      "title": "add deployment info to CLAUDE.md",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 10,
+        "deletions": 1
+      },
+      "files": [
+        "CLAUDE.md"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "0d5e8c3",
+      "fullSha": "0d5e8c3b89f07873e9ff447df137f586f0f3f38b",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T15:53:08Z",
+      "commitDate": "2026-02-25T15:53:08Z",
+      "subject": "refactor(auth): rename workspace_id to user_id, simplify auth model",
+      "body": "Backend uses auth.uid() directly for RLS — no workspace_id trigger\nor app_metadata management needed. Frontend just calls\nsignInAnonymously() and passes the access_token as Bearer.\n\nTags: auth, refactor, types, documentation\nComplexity: 2\nUrgency: 3\nImpact: api\nRisk: medium\nDebt: paid\nEpic: supabase-auth\nSemver: major\n\nhttps://claude.ai/code/session_017ZnX5KXtRUz26JKx8u6pCg",
+      "tags": [
+        "refactor",
+        "api"
+      ],
+      "complexity": 2,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "supabase-auth",
+      "semver": "major",
+      "scope": "auth",
+      "title": "rename workspace_id to user_id, simplify auth model",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 42,
+        "deletions": 71
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SERVER_REQUIREMENTS.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "src/hooks/useAuth.ts",
+        "src/lib/api.ts",
+        "src/pages/FormListPage.tsx",
+        "src/types/form.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 3,
+      "impact": "api"
     },
     {
       "sha": "ef48847",
@@ -4930,6 +8201,102 @@
       ],
       "repo_id": "tool-till-tees",
       "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "2c49908",
+      "fullSha": "2c4990828307645f4e2f9395984908fce93e4559",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-25T13:55:24Z",
+      "commitDate": "2026-02-25T13:55:24Z",
+      "subject": "Merge pull request #2 from devmade-ai/claude/setup-supabase-forms-SZ9IT",
+      "body": "feat(auth): add client-side anonymous auth with Supabase",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "supabase-integration",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #2 from devmade-ai/claude/setup-supabase-forms-SZ9IT",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#2"
+      ],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 206,
+        "deletions": 22
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "src/App.tsx",
+        "src/hooks/useAuth.ts",
+        "src/lib/api.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "7e72bcb",
+      "fullSha": "7e72bcb54e60ccc2d7dd1846c2e9595647faf9ee",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T13:52:33Z",
+      "commitDate": "2026-02-25T13:52:33Z",
+      "subject": "feat(auth): add client-side anonymous auth with Supabase",
+      "body": "Auto sign-in via Supabase Anonymous Auth on first visit. Session\npersists in localStorage so returning users keep their forms.\nJWT injected into all API requests via Authorization header.\n\n- useAuth hook: session init, anonymous sign-in, auth state listener\n- api.ts: reads Supabase session token, sends Bearer header\n- App.tsx: gates routes on auth ready (loading/error states)\n- USER_ACTIONS.md: server-side setup instructions (enable anon auth,\n  workspace_id trigger SQL, env var checklist)\n\nTags: auth, supabase, anonymous-auth, client\nComplexity: 2\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: supabase-integration\nSemver: minor",
+      "tags": [
+        "feature",
+        "auth",
+        "config"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "supabase-integration",
+      "semver": "minor",
+      "scope": "auth",
+      "title": "add client-side anonymous auth with Supabase",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 206,
+        "deletions": 22
+      },
+      "files": [
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/USER_ACTIONS.md",
+        "src/App.tsx",
+        "src/hooks/useAuth.ts",
+        "src/lib/api.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 3,
       "impact": "infrastructure"
     },
     {
@@ -5656,6 +9023,118 @@
       "impact": "user-facing"
     },
     {
+      "sha": "3b2a730",
+      "fullSha": "3b2a730b186cbf27b4a6764dc95579e00108def0",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-25T08:46:10Z",
+      "commitDate": "2026-02-25T08:46:10Z",
+      "subject": "Merge pull request #1 from devmade-ai/claude/setup-claude-md-structure-m7Vic",
+      "body": "Initial Four Ems frontend implementation (Phases 1-5)",
+      "tags": [
+        "merge"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "initial-build",
+      "semver": "patch",
+      "scope": null,
+      "title": "Merge pull request #1 from devmade-ai/claude/setup-claude-md-structure-m7Vic",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [
+        "#1"
+      ],
+      "stats": {
+        "filesChanged": 70,
+        "additions": 13472,
+        "deletions": 1
+      },
+      "files": [
+        ".env.example",
+        ".gitignore",
+        "CLAUDE.md",
+        "README.md",
+        "docs/AI_MISTAKES.md",
+        "docs/HISTORY.md",
+        "docs/SERVER_REQUIREMENTS.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "docs/USER_GUIDE.md",
+        "index.html",
+        "package-lock.json",
+        "package.json",
+        "postcss.config.js",
+        "public/embed.js",
+        "public/favicon.svg",
+        "src/App.tsx",
+        "src/components/ErrorBoundary.tsx",
+        "src/components/builder/BuilderCanvas.tsx",
+        "src/components/builder/ConditionBuilder.tsx",
+        "src/components/builder/EmbedCodeDialog.tsx",
+        "src/components/builder/FieldPalette.tsx",
+        "src/components/builder/FieldPropertiesPanel.tsx",
+        "src/components/builder/OptionsEditor.tsx",
+        "src/components/builder/PageTabs.tsx",
+        "src/components/builder/fieldTypeRegistry.ts",
+        "src/components/dashboard/SubmissionDetail.tsx",
+        "src/components/dashboard/SubmissionTable.tsx",
+        "src/components/renderer/FieldRenderer.tsx",
+        "src/components/renderer/FormRenderer.tsx",
+        "src/components/renderer/fields/CheckboxField.tsx",
+        "src/components/renderer/fields/CheckboxGroupField.tsx",
+        "src/components/renderer/fields/DateField.tsx",
+        "src/components/renderer/fields/EmailField.tsx",
+        "src/components/renderer/fields/HeadingField.tsx",
+        "src/components/renderer/fields/HiddenField.tsx",
+        "src/components/renderer/fields/NumberField.tsx",
+        "src/components/renderer/fields/PhoneField.tsx",
+        "src/components/renderer/fields/RadioField.tsx",
+        "src/components/renderer/fields/RatingField.tsx",
+        "src/components/renderer/fields/SelectField.tsx",
+        "src/components/renderer/fields/TextField.tsx",
+        "src/components/renderer/fields/TextareaField.tsx",
+        "src/components/renderer/fields/types.ts",
+        "src/hooks/useAutoSave.ts",
+        "src/index.css",
+        "src/lib/api.ts",
+        "src/lib/conditions.ts",
+        "src/lib/csvExport.ts",
+        "src/lib/embedResize.ts",
+        "src/lib/sampleForm.ts",
+        "src/lib/supabase.ts",
+        "src/lib/validation.ts",
+        "src/main.tsx",
+        "src/pages/BuilderPage.tsx",
+        "src/pages/FormListPage.tsx",
+        "src/pages/NotFoundPage.tsx",
+        "src/pages/PreviewPage.tsx",
+        "src/pages/PublicFormPage.tsx",
+        "src/pages/ResponsesPage.tsx",
+        "src/stores/formStore.ts",
+        "src/types/form.ts",
+        "src/vite-env.d.ts",
+        "tailwind.config.js",
+        "tsconfig.app.json",
+        "tsconfig.json",
+        "tsconfig.node.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
       "sha": "4d9e867",
       "fullSha": "4d9e867d633dc7fb875baf803b6dad348c16d912",
       "author_id": "devmade.ai@gmail.com",
@@ -5802,6 +9281,65 @@
       "repo_id": "repo-tor",
       "urgency": 2,
       "impact": "internal"
+    },
+    {
+      "sha": "4948882",
+      "fullSha": "4948882b92a0e7c152fe81310730937714421d04",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T07:29:32Z",
+      "commitDate": "2026-02-25T07:29:32Z",
+      "subject": "fix: bugs, UX improvements, mobile responsiveness, and error boundary",
+      "body": "Bug fixes:\n- OptionsEditor: auto-slug no longer resets manually customized values\n  when editing the label (compared against old label slug, not new)\n- FieldValidation: min/max typed as number|string to properly support\n  date validation without unsafe casts\n- FieldPropertiesPanel: removed non-null assertions (field!.id), use\n  stable fieldId captured before closures\n\nUX improvements:\n- Delete field requires confirmation dialog before removing\n- Field duplication: new duplicate button on field cards + duplicateField\n  store action (deep clones with new ID, inserts after original)\n- Form title is click-to-edit in builder header\n- Condition builder uses plain language: \"is exactly\", \"is not\",\n  \"includes\", \"is blank\", \"has a value\" instead of developer jargon\n- Empty responses page shows helpful guidance with icon and back link\n- beforeunload warning prevents accidental tab close with unsaved changes\n- React ErrorBoundary wraps entire app to prevent white-screen crashes\n\nMobile responsiveness:\n- Builder: full-screen blocking overlay on mobile (< md) instead of\n  dismissable yellow banner. Links to preview and form list.\n- Response detail panel: full-screen overlay on mobile, side panel on\n  desktop (fixed inset-0 z-40 + md:static md:w-80)\n- SubmissionTable: card-based layout on mobile (< md), table on desktop\n- EmbedCodeDialog: bottom-sheet style on mobile (items-end + rounded-t),\n  centered modal on desktop (sm:items-center sm:rounded-xl)\n- Form inputs: increased padding py-2 → py-2.5 for better touch targets\n- Filter buttons: increased padding px-2.5 py-0.5 → px-3 py-1\n- Condition builder dropdowns: px-1.5 py-0.5 → px-2 py-1\n- Checkboxes: h-3.5 w-3.5 → h-4 w-4 across builder\n- PageTabs add button: increased padding\n- OptionsEditor reorder buttons: added padding\n- Action buttons in SubmissionTable: increased padding\n- index.html: viewport-fit=cover for notched phones\n- index.html: apple-mobile-web-app-capable + status-bar-style meta tags\n\nPerformance:\n- Memoized status filter counts in SubmissionTable (computed once per\n  submissions change, not 4x per render)\n\nTags: bugfix, ux, mobile, a11y, performance, builder, dashboard, renderer\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: form-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+      "tags": [
+        "bugfix",
+        "ux",
+        "ui",
+        "accessibility",
+        "performance"
+      ],
+      "complexity": 4,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "form-builder",
+      "semver": "minor",
+      "scope": null,
+      "title": "bugs, UX improvements, mobile responsiveness, and error boundary",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 15,
+        "additions": 278,
+        "deletions": 50
+      },
+      "files": [
+        "index.html",
+        "src/components/ErrorBoundary.tsx",
+        "src/components/builder/BuilderCanvas.tsx",
+        "src/components/builder/ConditionBuilder.tsx",
+        "src/components/builder/EmbedCodeDialog.tsx",
+        "src/components/builder/FieldPropertiesPanel.tsx",
+        "src/components/builder/OptionsEditor.tsx",
+        "src/components/builder/PageTabs.tsx",
+        "src/components/dashboard/SubmissionTable.tsx",
+        "src/components/renderer/fields/types.ts",
+        "src/main.tsx",
+        "src/pages/BuilderPage.tsx",
+        "src/pages/ResponsesPage.tsx",
+        "src/stores/formStore.ts",
+        "src/types/form.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 3,
+      "impact": "user-facing"
     },
     {
       "sha": "b1af049",
@@ -6131,6 +9669,57 @@
       "impact": "user-facing"
     },
     {
+      "sha": "0d5ce02",
+      "fullSha": "0d5ce027a205b3a0c6c7e73d4e8f1a7c7b3ec062",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-25T06:36:39Z",
+      "commitDate": "2026-02-25T06:36:39Z",
+      "subject": "fix: address bugs, security issues, and UX gaps from codebase review",
+      "body": "Fixes:\n- HiddenField now calls onChange on mount so hidden values propagate to\n  submission data (was silently dropping URL param pre-fills)\n- PublicFormPage submission wrapped in try/catch so network errors show\n  user-friendly messages instead of unhandled rejections\n- postMessage in embedResize uses referrer origin instead of wildcard\n  when available, reducing cross-origin message exposure\n- Hidden field URL param matching now uses field.label (as documented\n  in builder UI hint) instead of field.id\n- Hidden field exclusion standardized across SubmissionDetail, csvExport,\n  and SubmissionTable — all now filter both 'heading' and 'hidden'\n- Theme color conflict resolved: buttons and progress bar use inline\n  primaryColor only, removed conflicting bg-brand-600 hardcoded classes\n- Scroll-to-first-error on validation failure so users see errors on\n  long forms / mobile\n- SortableFieldCard wrapped in React.memo to prevent all cards\n  re-rendering during drag operations\n- Replaced TODO comment in useAutoSave with descriptive comment\n  referencing docs/TODO.md tracking item\n\nTags: bugfix, security, ux, performance, renderer, builder, dashboard\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: form-builder\nSemver: patch\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+      "tags": [
+        "bugfix",
+        "security",
+        "ux",
+        "performance"
+      ],
+      "complexity": 3,
+      "risk": "medium",
+      "debt": "paid",
+      "epic": "form-builder",
+      "semver": "patch",
+      "scope": null,
+      "title": "address bugs, security issues, and UX gaps from codebase review",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 84,
+        "deletions": 32
+      },
+      "files": [
+        "src/components/builder/BuilderCanvas.tsx",
+        "src/components/dashboard/SubmissionDetail.tsx",
+        "src/components/renderer/FormRenderer.tsx",
+        "src/components/renderer/fields/HiddenField.tsx",
+        "src/hooks/useAutoSave.ts",
+        "src/lib/csvExport.ts",
+        "src/lib/embedResize.ts",
+        "src/pages/PublicFormPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 3,
+      "impact": "user-facing"
+    },
+    {
       "sha": "a298745",
       "fullSha": "a298745a88d7170375ecd4804a4eb7aa14a1409a",
       "author_id": "devmade.ai@gmail.com",
@@ -6272,6 +9861,196 @@
       "impact": "user-facing"
     },
     {
+      "sha": "1ba14e7",
+      "fullSha": "1ba14e714721a940cbe86cee3381315add63ef8c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T21:55:00Z",
+      "commitDate": "2026-02-24T21:55:00Z",
+      "subject": "docs: add server-side requirements for backend integration",
+      "body": "Complete spec of what the Vercel backend needs to implement:\n- Supabase schema (forms + form_submissions tables, RLS policies, indexes)\n- 7 API endpoints with request/response shapes matching frontend types\n- Server-side validation requirements for public form submissions\n- Environment variables for both frontend and backend\n- Data flow diagram showing which page calls which endpoint\n- Future endpoints needed when Create/Save/Publish buttons are wired\n\nTags: documentation, backend, api, supabase\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: form-builder\nSemver: patch\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+      "tags": [
+        "docs",
+        "api-docs"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "form-builder",
+      "semver": "patch",
+      "scope": null,
+      "title": "add server-side requirements for backend integration",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 352,
+        "deletions": 0
+      },
+      "files": [
+        "docs/SERVER_REQUIREMENTS.md"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "infrastructure"
+    },
+    {
+      "sha": "8c88e24",
+      "fullSha": "8c88e24bc00434504af3bc349a5ec0f72aada53e",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T21:46:55Z",
+      "commitDate": "2026-02-24T21:46:55Z",
+      "subject": "feat(polish): add loading/error/empty states, form list, mobile notice, nav links",
+      "body": "Phase 5 polish pass:\n- FormListPage: loading spinner, error banner, empty state, and form list\n  with status badges and dates. Sample data fallback for development.\n- Builder header: added Responses link for quick navigation to submissions\n- Builder: mobile viewport notice directing users to Preview for mobile testing\n- All phases complete (0-5). Remaining work is backend integration.\n\nTags: polish, ux, loading-states, navigation\nComplexity: 2\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: form-builder\nSemver: patch\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+      "tags": [
+        "feature",
+        "ux",
+        "ui"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "form-builder",
+      "semver": "patch",
+      "scope": "polish",
+      "title": "add loading/error/empty states, form list, mobile notice, nav links",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 6,
+        "additions": 162,
+        "deletions": 27
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/pages/BuilderPage.tsx",
+        "src/pages/FormListPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 1,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "513a71f",
+      "fullSha": "513a71f14cde4308139cdcbc2d36a8a9371b0fab",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T21:44:12Z",
+      "commitDate": "2026-02-24T21:44:12Z",
+      "subject": "feat(dashboard): implement response dashboard with table, detail view, and CSV export",
+      "body": "Phase 4 implementation — submission management:\n- SubmissionTable: sortable (date, status), filterable (all/new/read/archived),\n  paginated (20/page). Shows first 3 field values as summary columns.\n  Inline status change actions (mark read, archive).\n- SubmissionDetail: slide-over panel showing all field values for a response.\n  Status management actions. Metadata display (submission time, time to complete).\n- CSV export: client-side generation with proper escaping, downloads as file.\n  Includes all submittable fields plus timestamp and status.\n- ResponsesPage: loads submissions from API with dev fallback to sample data.\n  Optimistic status updates. Split layout: table + optional detail panel.\n\nTags: dashboard, submissions, csv, responses\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: form-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "form-builder",
+      "semver": "minor",
+      "scope": "dashboard",
+      "title": "implement response dashboard with table, detail view, and CSV export",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 674,
+        "deletions": 38
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/dashboard/SubmissionDetail.tsx",
+        "src/components/dashboard/SubmissionTable.tsx",
+        "src/lib/csvExport.ts",
+        "src/pages/ResponsesPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "acaa693",
+      "fullSha": "acaa693961063aee11e5982640190a80f345fb71",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T21:40:23Z",
+      "commitDate": "2026-02-24T21:40:23Z",
+      "subject": "feat(embed): implement iframe embed system with auto-resize and code generator",
+      "body": "Phase 3 implementation — embeddable forms:\n- embedResize module: ResizeObserver + MutationObserver watches form container\n  height, posts changes to parent via postMessage. Handles conditional fields,\n  validation errors, and page transitions.\n- embed.js host script: finds data-fourems-form elements, creates iframes with\n  ?embed=1, listens for resize messages and auto-adjusts iframe height.\n- EmbedCodeDialog: modal with two methods — script embed (recommended, auto-resize)\n  and direct iframe (manual height). Copy-to-clipboard with fallback.\n- PublicFormPage: detects embed mode (iframe or ?embed param), activates resize\n  communication, uses tighter padding in embed context.\n- Builder header: Embed button opens the code generator dialog.\n\nTags: embed, iframe, postMessage, ResizeObserver\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: form-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+      "tags": [
+        "feature",
+        "ui",
+        "api"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "form-builder",
+      "semver": "minor",
+      "scope": "embed",
+      "title": "implement iframe embed system with auto-resize and code generator",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 9,
+        "additions": 388,
+        "deletions": 38
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "public/embed.js",
+        "src/components/builder/EmbedCodeDialog.tsx",
+        "src/lib/embedResize.ts",
+        "src/pages/BuilderPage.tsx",
+        "src/pages/PublicFormPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
       "sha": "5b95489",
       "fullSha": "5b954892a33f199e80aeae3b05f05fd7d02fafa0",
       "author_id": "devmade.ai@gmail.com",
@@ -6323,6 +10102,60 @@
       "repo_id": "repo-tor",
       "urgency": 2,
       "impact": "internal"
+    },
+    {
+      "sha": "6cb8088",
+      "fullSha": "6cb808830d674890a3821ab1243ed1ee3b8bd247",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T21:32:55Z",
+      "commitDate": "2026-02-24T21:32:55Z",
+      "subject": "feat(builder): implement three-panel form builder with DnD, properties, and conditions",
+      "body": "Phase 2 implementation — the form builder UI:\n- Field type registry: centralized config for all 13 types with defaults and palette display\n- FieldPalette: draggable cards grouped by category (input/choice/layout), click-to-add\n- BuilderCanvas: sortable field cards via dnd-kit, drag handles, selection, remove\n- FieldPropertiesPanel: dynamic per-type property editing (label, placeholder, required,\n  validation, options, layout, rating config, heading size, hidden defaults)\n- OptionsEditor: add/remove/reorder options with auto-slug value generation\n- ConditionBuilder: \"Show when...\" toggle with field/operator/value, AND/OR, show/hide\n- PageTabs: add/remove/inline rename, field count badges, delete confirmation\n- DndContext in BuilderPage: palette drops create fields, canvas drags reorder\n- useAutoSave hook: 2s debounced save with status indicator (placeholder API)\n\nTags: builder, dnd-kit, forms, drag-and-drop, properties\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: added (auto-save uses placeholder API)\nEpic: form-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+      "tags": [
+        "feature",
+        "ui"
+      ],
+      "complexity": 4,
+      "risk": "low",
+      "debt": "added",
+      "epic": "form-builder",
+      "semver": "minor",
+      "scope": "builder",
+      "title": "implement three-panel form builder with DnD, properties, and conditions",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 13,
+        "additions": 1556,
+        "deletions": 88
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/builder/BuilderCanvas.tsx",
+        "src/components/builder/ConditionBuilder.tsx",
+        "src/components/builder/FieldPalette.tsx",
+        "src/components/builder/FieldPropertiesPanel.tsx",
+        "src/components/builder/OptionsEditor.tsx",
+        "src/components/builder/PageTabs.tsx",
+        "src/components/builder/fieldTypeRegistry.ts",
+        "src/hooks/useAutoSave.ts",
+        "src/pages/BuilderPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "user-facing"
     },
     {
       "sha": "b0c2e27",
@@ -6417,6 +10250,187 @@
       "repo_id": "repo-tor",
       "urgency": 2,
       "impact": "user-facing"
+    },
+    {
+      "sha": "5ed01b1",
+      "fullSha": "5ed01b1c8b7a0eefb1672aaf663935c7f1cadc7c",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T21:18:51Z",
+      "commitDate": "2026-02-24T21:18:51Z",
+      "subject": "feat(renderer): build complete form renderer with all 13 field types, validation, and conditions",
+      "body": "Phase 1 implementation — the form renderer defines the runtime contract:\n- Validation engine: per-field validation for all types, page-level aggregation,\n  hidden field exclusion from required checks\n- Condition engine: all 10 operators (equals, contains, greater_than, in, etc.),\n  AND/OR logic, page and field visibility evaluation\n- 13 field components: text, textarea, email, phone, number, select, radio,\n  checkbox_group, checkbox, date, rating, heading, hidden\n- FormRenderer: multi-page navigation with progress bar, condition-based\n  page/field visibility, submission with loading/error/success states,\n  preview mode showing all pages with condition indicators\n- Sample software discovery intake form exercising conditional pages\n- Wired into PreviewPage (preview mode) and PublicFormPage (submission mode)\n\nBoth engines are pure functions — ready for server-side reuse in submission validation.\n\nTags: renderer, fields, validation, conditions, forms\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: form-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+      "tags": [
+        "feature",
+        "ui",
+        "validation"
+      ],
+      "complexity": 4,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "form-builder",
+      "semver": "minor",
+      "scope": "renderer",
+      "title": "build complete form renderer with all 13 field types, validation, and conditions",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 25,
+        "additions": 1437,
+        "deletions": 40
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "src/components/renderer/FieldRenderer.tsx",
+        "src/components/renderer/FormRenderer.tsx",
+        "src/components/renderer/fields/CheckboxField.tsx",
+        "src/components/renderer/fields/CheckboxGroupField.tsx",
+        "src/components/renderer/fields/DateField.tsx",
+        "src/components/renderer/fields/EmailField.tsx",
+        "src/components/renderer/fields/HeadingField.tsx",
+        "src/components/renderer/fields/HiddenField.tsx",
+        "src/components/renderer/fields/NumberField.tsx",
+        "src/components/renderer/fields/PhoneField.tsx",
+        "src/components/renderer/fields/RadioField.tsx",
+        "src/components/renderer/fields/RatingField.tsx",
+        "src/components/renderer/fields/SelectField.tsx",
+        "src/components/renderer/fields/TextField.tsx",
+        "src/components/renderer/fields/TextareaField.tsx",
+        "src/components/renderer/fields/types.ts",
+        "src/lib/conditions.ts",
+        "src/lib/sampleForm.ts",
+        "src/lib/validation.ts",
+        "src/pages/PreviewPage.tsx",
+        "src/pages/PublicFormPage.tsx"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "user-facing"
+    },
+    {
+      "sha": "38c4014",
+      "fullSha": "38c401455db03db6a947a6a745f26ed32c89374d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T21:09:43Z",
+      "commitDate": "2026-02-24T21:09:43Z",
+      "subject": "chore(config): add *.tsbuildinfo to .gitignore",
+      "body": "TypeScript build info files are generated by tsc -b and should not be tracked.\n\nTags: config, gitignore\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: form-builder\nSemver: patch\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+      "tags": [
+        "config"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "paid",
+      "epic": "form-builder",
+      "semver": "patch",
+      "scope": "config",
+      "title": "add *.tsbuildinfo to .gitignore",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 1,
+        "additions": 3,
+        "deletions": 0
+      },
+      "files": [
+        ".gitignore"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 1,
+      "impact": "internal"
+    },
+    {
+      "sha": "887566f",
+      "fullSha": "887566fa78b901db6191e19d28189371f6729d51",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T21:08:57Z",
+      "commitDate": "2026-02-24T21:08:57Z",
+      "subject": "feat(foundation): scaffold Phase 0 — Vite + React + TypeScript project with routing, types, and store",
+      "body": "Sets up the complete project foundation for the form builder:\n- Vite 6 + React 19 + TypeScript with Tailwind CSS and PWA support\n- Form definition TypeScript schema (the builder/renderer contract)\n- Zustand store with all builder actions (field/page CRUD, reorder, save status)\n- API client wrapper for Vercel backend + Supabase client\n- React Router with 7 routes (form list, builder, preview, responses, public form, 404)\n- Shell pages for all routes with three-panel builder layout\n- Build passes clean: tsc + vite build (~75 kB gzipped)\n\nTags: foundation, scaffold, react, typescript, tailwind, zustand, routing\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: form-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+      "tags": [
+        "init",
+        "feature",
+        "config"
+      ],
+      "complexity": 3,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "form-builder",
+      "semver": "minor",
+      "scope": "foundation",
+      "title": "scaffold Phase 0 — Vite + React + TypeScript project with routing, types, and store",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 31,
+        "additions": 8474,
+        "deletions": 14
+      },
+      "files": [
+        ".env.example",
+        ".gitignore",
+        "CLAUDE.md",
+        "README.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TODO.md",
+        "index.html",
+        "package-lock.json",
+        "package.json",
+        "postcss.config.js",
+        "public/favicon.svg",
+        "src/App.tsx",
+        "src/index.css",
+        "src/lib/api.ts",
+        "src/lib/supabase.ts",
+        "src/main.tsx",
+        "src/pages/BuilderPage.tsx",
+        "src/pages/FormListPage.tsx",
+        "src/pages/NotFoundPage.tsx",
+        "src/pages/PreviewPage.tsx",
+        "src/pages/PublicFormPage.tsx",
+        "src/pages/ResponsesPage.tsx",
+        "src/stores/formStore.ts",
+        "src/types/form.ts",
+        "src/vite-env.d.ts",
+        "tailwind.config.js",
+        "tsconfig.app.json",
+        "tsconfig.json",
+        "tsconfig.node.json",
+        "vite.config.ts"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "infrastructure"
     },
     {
       "sha": "a0c33d8",
@@ -6557,6 +10571,55 @@
       "impact": "user-facing"
     },
     {
+      "sha": "2ea671f",
+      "fullSha": "2ea671fef9995d7d39f6404d800ef96ef3a5f259",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "timestamp": "2026-02-24T20:52:32Z",
+      "commitDate": "2026-02-24T20:52:32Z",
+      "subject": "docs(project): add CLAUDE.md and docs/ structure for AI-assisted development",
+      "body": "Establishes the documentation framework based on the glow-props CLAUDE.md\ntemplate. Creates all referenced doc files so AI assistants have consistent\nstructure for session continuity, task tracking, and institutional memory.\n\nSource: https://raw.githubusercontent.com/devmade-ai/glow-props/main/CLAUDE.md\n\nTags: documentation, setup, scaffolding\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: project-setup\nSemver: minor\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+      "tags": [
+        "docs",
+        "init"
+      ],
+      "complexity": 2,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "project-setup",
+      "semver": "minor",
+      "scope": "project",
+      "title": "add CLAUDE.md and docs/ structure for AI-assisted development",
+      "is_conventional": true,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 8,
+        "additions": 390,
+        "deletions": 0
+      },
+      "files": [
+        "CLAUDE.md",
+        "docs/AI_MISTAKES.md",
+        "docs/HISTORY.md",
+        "docs/SESSION_NOTES.md",
+        "docs/TESTING_GUIDE.md",
+        "docs/TODO.md",
+        "docs/USER_ACTIONS.md",
+        "docs/USER_GUIDE.md"
+      ],
+      "repo_id": "four-ems",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
       "sha": "f48ac33",
       "fullSha": "f48ac33c2446b72b387ff236129c246e94a110c8",
       "author_id": "devmade.ai@gmail.com",
@@ -6693,6 +10756,48 @@
         "docs/SESSION_NOTES.md"
       ],
       "repo_id": "repo-tor",
+      "urgency": 2,
+      "impact": "internal"
+    },
+    {
+      "sha": "11aa60e",
+      "fullSha": "11aa60ec71d98b42d3a105439339e8db914cca5d",
+      "author_id": "devmade.ai@gmail.com",
+      "author": {
+        "name": "devmade-ai",
+        "email": "devmade.ai@gmail.com"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com"
+      },
+      "timestamp": "2026-02-24T20:19:58Z",
+      "commitDate": "2026-02-24T20:19:58Z",
+      "subject": "Initial commit",
+      "body": "",
+      "tags": [
+        "init"
+      ],
+      "complexity": 1,
+      "risk": "low",
+      "debt": "neutral",
+      "epic": "project-setup",
+      "semver": "minor",
+      "scope": null,
+      "title": "Initial commit",
+      "is_conventional": false,
+      "has_breaking_change": false,
+      "references": [],
+      "stats": {
+        "filesChanged": 2,
+        "additions": 676,
+        "deletions": 0
+      },
+      "files": [
+        "LICENSE",
+        "README.md"
+      ],
+      "repo_id": "four-ems",
       "urgency": 2,
       "impact": "internal"
     },
