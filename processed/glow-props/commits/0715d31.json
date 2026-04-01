@@ -1,0 +1,42 @@
+{
+  "sha": "0715d31",
+  "fullSha": "0715d318d34b29c0832b398b98807b11da16b0a1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T22:13:10Z",
+  "commitDate": "2026-03-31T22:13:10Z",
+  "subject": "fix(html): remove all inline styles from project.html",
+  "body": "Replaced 8 inline style attributes with proper CSS classes:\n- Loading state: style=\"text-align...\" → .loading-state class\n- Project hero: style=\"margin-bottom...\" → .project-hero class\n- Title row: style=\"display:flex...\" → .project-title-row class\n- Description: style=\"color:...\" → .project-description class\n- Actions: style=\"margin-top...\" → .project-actions class\n- Private label: style=\"cursor:default...\" → .private-label class\n\nBoth HTML files now have zero inline styles. All presentation is in\nCSS classes within the <style> block (project.html) or styles.css.\n\nTags: cleanup, html, css\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: portfolio-site\nSemver: patch\n\nhttps://claude.ai/code/session_01Bh93JoHZAKz7zY48tGvfZ1",
+  "tags": [
+    "refactor",
+    "style"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "portfolio-site",
+  "semver": "patch",
+  "scope": "html",
+  "title": "remove all inline styles from project.html",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 45,
+    "deletions": 8
+  },
+  "files": [
+    "project.html"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 1,
+  "impact": "internal"
+}

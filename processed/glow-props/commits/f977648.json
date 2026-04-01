@@ -1,0 +1,54 @@
+{
+  "sha": "f977648",
+  "fullSha": "f97764843abf269de1fc05254894cd3ca2b87d0b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T21:59:02Z",
+  "commitDate": "2026-03-31T21:59:02Z",
+  "subject": "fix(urls): correct all live URLs and add four-ems project",
+  "body": "Fixed 5 incorrect live URLs — projects moved from GitHub Pages to\nVercel but the portfolio still referenced the old github.io URLs.\nAdded missing live URL for tool-till-tees. Added four-ems (self-hosted\nform builder) as a new user-facing project with scrubbed README.\n\nURL corrections:\n- budgy-ting: github.io -> budgy-ting.vercel.app\n- canva-grid: github.io -> canva-grid.vercel.app\n- graphiki: github.io -> graphiki.vercel.app\n- model-pear: github.io -> model-pear-web.vercel.app\n- see-veo: github.io -> see-veo.vercel.app\n- tool-till-tees: added tool-till-tees.vercel.app\n\nNew project:\n- four-ems: private repo, README scrubbed (removed env vars and setup),\n  User Guide and Testing Guide copied as-is\n\nTags: fix, urls, projects, four-ems\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: portfolio-site\nSemver: patch\n\nhttps://claude.ai/code/session_01Bh93JoHZAKz7zY48tGvfZ1",
+  "tags": [
+    "bugfix",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "portfolio-site",
+  "semver": "patch",
+  "scope": "urls",
+  "title": "correct all live URLs and add four-ems project",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 871,
+    "deletions": 36
+  },
+  "files": [
+    "README.md",
+    "docs/PROJECT_DOCS_STATUS.md",
+    "index.html",
+    "public/projects/budgy-ting/meta.json",
+    "public/projects/canva-grid/meta.json",
+    "public/projects/four-ems/README.md",
+    "public/projects/four-ems/TESTING_GUIDE.md",
+    "public/projects/four-ems/USER_GUIDE.md",
+    "public/projects/four-ems/meta.json",
+    "public/projects/graphiki/meta.json",
+    "public/projects/model-pear/meta.json",
+    "public/projects/see-veo/meta.json",
+    "public/projects/tool-till-tees/meta.json"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 3,
+  "impact": "user-facing"
+}

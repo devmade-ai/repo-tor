@@ -1,0 +1,44 @@
+{
+  "sha": "3c22078",
+  "fullSha": "3c22078a3a8b9151a07a74986be33e703cd4e2c3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T22:25:55Z",
+  "commitDate": "2026-03-31T22:25:55Z",
+  "subject": "fix(ci): update Node to 22, fix audit vulnerability, update description",
+  "body": "- CI Node version: 20 -> 22. Vite 7.3.1 requires ^20.19.0 || >=22.12.0.\n  Node 20 in CI may resolve to a version below 20.19.0, breaking the\n  build. Node 22 matches local dev environment.\n- npm audit fix: resolved high-severity picomatch vulnerability\n  (transitive dep of Vite, build-time only, not exploitable at runtime\n  but keeps CI clean)\n- Updated package.json description to match current project purpose\n\nTags: ci, deps, security\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: portfolio-site\nSemver: patch\n\nhttps://claude.ai/code/session_01Bh93JoHZAKz7zY48tGvfZ1",
+  "tags": [
+    "ci",
+    "dependency-security"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "portfolio-site",
+  "semver": "patch",
+  "scope": "ci",
+  "title": "update Node to 22, fix audit vulnerability, update description",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 5,
+    "deletions": 5
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "package-lock.json",
+    "package.json"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

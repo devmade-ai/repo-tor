@@ -1,0 +1,45 @@
+{
+  "sha": "8cd9d0b",
+  "fullSha": "8cd9d0b3d0c2d0ce9f5c5e5ea833cf40d02ca8d2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T23:28:34Z",
+  "commitDate": "2026-03-31T23:28:34Z",
+  "subject": "fix(icon): convert dm lettermark from text to outlined paths",
+  "body": "SVG <text> elements depend on fonts being available at render time.\nSharp rasterizes server-side and may not have Arial Black installed,\ncausing fallback rendering or blank output. Replaced with hand-drawn\nfilled paths that render identically in all environments.\n\nFixed \"d\" bowl direction (stem on right, bowl opens left) — previous\npath version read as \"bm\" because the stem was on the left like a \"b\".\n\nTags: icon, branding, build\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: header-styling\nSemver: patch\n\nhttps://claude.ai/code/session_01G54Gw2DvE7bgwn9Za7V5Jm",
+  "tags": [
+    "bugfix",
+    "build"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "header-styling",
+  "semver": "patch",
+  "scope": "icon",
+  "title": "convert dm lettermark from text to outlined paths",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 55,
+    "deletions": 15
+  },
+  "files": [
+    "assets/icon-source.svg",
+    "public/assets/images/favicon.png",
+    "public/assets/images/icon-192.png",
+    "public/assets/images/icon-512.png"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 3,
+  "impact": "user-facing"
+}

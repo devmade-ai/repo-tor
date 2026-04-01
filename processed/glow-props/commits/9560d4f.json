@@ -1,0 +1,43 @@
+{
+  "sha": "9560d4f",
+  "fullSha": "9560d4f674f309f23582589322174991c14dd1b4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T21:44:30Z",
+  "commitDate": "2026-03-31T21:44:30Z",
+  "subject": "fix(html): replace <nav> card-links with <div> to avoid Pico nav conflicts",
+  "body": "Pico CSS applies padding, spacing, and flex layout to all <nav>\nelements. Using <nav> for card action links (Details, Live app,\nSource) incorrectly received Pico's nav styling. Changed to <div>\nsince these are action links within cards, not site navigation.\n\nAlso cleaned up styles.css:\n- Removed section margin override (let Pico handle spacing)\n- Removed redundant hero/print padding overrides\n- Added !important to .icon-btn overrides (Pico uses high-specificity\n  selectors on <button> elements, setting width: 100% by default)\n- Merged duplicate .card-grid > article selectors\n- Documented why card-links must be <div> not <nav>\n\nTags: fix, pico-css, html, accessibility\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: portfolio-site\nSemver: patch\n\nhttps://claude.ai/code/session_01Bh93JoHZAKz7zY48tGvfZ1",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "portfolio-site",
+  "semver": "patch",
+  "scope": "html",
+  "title": "replace <nav> card-links with <div> to avoid Pico nav conflicts",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 53,
+    "deletions": 74
+  },
+  "files": [
+    "index.html",
+    "styles.css"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

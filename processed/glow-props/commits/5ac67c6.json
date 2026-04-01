@@ -1,0 +1,49 @@
+{
+  "sha": "5ac67c6",
+  "fullSha": "5ac67c69cd7538e2f8ca2e0af1fab68d2ab715bf",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T21:32:14Z",
+  "commitDate": "2026-03-31T21:32:14Z",
+  "subject": "feat(design): integrate Pico CSS Jade theme with Space Grotesk + Inter fonts",
+  "body": "Complete restyle of the portfolio site:\n\n- Pico CSS v2 Jade theme imported via Vite from node_modules (not CDN)\n  for consistent build pipeline and no external runtime dependency\n- Space Grotesk (headings) + Inter (body) via Google Fonts with preconnect\n- Switched dark mode from .dark class to data-theme attribute — Pico uses\n  [data-theme=\"dark\"] for its dark mode selectors\n- Updated flash prevention inline scripts on both pages\n- Updated theme.js toggle, cross-tab sync, and OS preference tracking\n- Restructured HTML to Pico's semantic conventions: <nav> for header,\n  <article> for cards with <header>/<footer>, proper list structure\n- Rewrote styles.css as override layer — removed all base typography,\n  colors, focus states (Pico handles these). Only card grids, badges,\n  icon buttons, and print overrides remain as custom CSS\n- Added color-scheme meta tag for browser chrome\n\nTags: design, pico-css, fonts, dark-mode, restyle\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: portfolio-site\nSemver: minor\n\nhttps://claude.ai/code/session_01Bh93JoHZAKz7zY48tGvfZ1",
+  "tags": [
+    "feature",
+    "ui",
+    "migration"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "portfolio-site",
+  "semver": "minor",
+  "scope": "design",
+  "title": "integrate Pico CSS Jade theme with Space Grotesk + Inter fonts",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 496,
+    "deletions": 791
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "index.html",
+    "pico-jade.css",
+    "project.html",
+    "public/theme.js",
+    "styles.css"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}
