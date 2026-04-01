@@ -1,0 +1,41 @@
+{
+  "sha": "aea33d7",
+  "fullSha": "aea33d789e0a829f9ab5eaf38f60574a2117e95a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T10:59:06Z",
+  "commitDate": "2026-03-28T10:59:06Z",
+  "subject": "docs(todo): reorganize TODO by impact, move pinch-to-zoom to declined",
+  "body": "Reranked all TODO items by user impact instead of effort:\n- Moved \"Unassigned image feedback\" and \"Accessibility pass\" to High\n  Priority (both violate UX Non-Negotiables in CLAUDE.md)\n- Moved \"Pinch-to-zoom\" to Considered & Declined — canvas already fits\n  viewport, gesture conflicts with page swipe, high complexity / low ROI\n- Fixed stale \"Calculate imageAspectRatio\" description — referenced\n  App.jsx:94 useState(null) which no longer exists, now points to\n  TemplatesTab.jsx:171 where getSuggestedLayouts(null) is hardcoded\n- Updated file line counts to current actuals\n- Reordered within sections by impact\n\nTags: docs, todo, prioritization\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: code-review-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_011jgP4mxQrtNwqYrjXh4PNU",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "code-review-sweep",
+  "semver": "patch",
+  "scope": "todo",
+  "title": "reorganize TODO by impact, move pinch-to-zoom to declined",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 12,
+    "deletions": 12
+  },
+  "files": [
+    "docs/TODO.md"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 1,
+  "impact": "internal"
+}

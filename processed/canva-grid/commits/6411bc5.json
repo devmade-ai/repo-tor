@@ -1,0 +1,46 @@
+{
+  "sha": "6411bc5",
+  "fullSha": "6411bc59ea1cbec296a9f2e9c0aa52b4bbf5975d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T17:08:11Z",
+  "commitDate": "2026-03-27T17:08:11Z",
+  "subject": "refactor(clean): extract normalizeStructure() to deduplicate layout fallback pattern",
+  "body": "The pattern `isFullbleed || !structure || structure.length === 0 ? FULLBLEED_STRUCTURE : structure`\nwas duplicated 7 times across 4 files, with 3 separate FULLBLEED_STRUCTURE constants.\n\nExtracted to cellUtils.js as:\n- `FULLBLEED_STRUCTURE` constant (single source of truth)\n- `normalizeStructure(type, structure)` function\n\nUpdated consumers:\n- App.jsx: inline constant + condition → normalizeStructure()\n- ContextBar.jsx: local constant + 2 conditions → import + normalizeStructure()\n- MediaTab.jsx: local constant + 2 conditions → import + normalizeStructure()\n- MiniCellGrid.jsx: local constant + 2 conditions → import + normalizeStructure()\n\nTags: refactor, cleanup, deduplication, layout, cellUtils\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-review-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_011jgP4mxQrtNwqYrjXh4PNU",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review-sweep",
+  "semver": "patch",
+  "scope": "clean",
+  "title": "extract normalizeStructure() to deduplicate layout fallback pattern",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 26,
+    "deletions": 25
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/ContextBar.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/MiniCellGrid.jsx",
+    "src/utils/cellUtils.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 1,
+  "impact": "internal"
+}

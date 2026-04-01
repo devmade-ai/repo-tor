@@ -1,0 +1,45 @@
+{
+  "sha": "b6bfe6b",
+  "fullSha": "b6bfe6b44e8c907b4d07bea7a48a15baea16a75f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T16:07:48Z",
+  "commitDate": "2026-03-27T16:07:48Z",
+  "subject": "docs(accuracy): fix 7 documentation discrepancies found during doc audit",
+  "body": "1. TODO.md: Remove 3 completed items still listed as pending:\n   - \"Validate loaded design state\" (bounds-check + PAGE_FIELDS filter done)\n   - \"Multi-page export uses arbitrary timeout\" (replaced with waitForPaint)\n   - \"Sanitize markdown HTML output\" (DOMPurify already in AdCanvas)\n\n2. CLAUDE.md AI Notes: Correct pxToPt value from 0.5 to 1 — code uses\n   pxToPt=1 for digital PDFs (1:1 pixel-to-point mapping), not 0.5.\n\n3. CLAUDE.md Architecture: Add ColorPicker.jsx and ThemeColorPicker.jsx\n   which existed but were missing from the documented file list.\n\n4. TutorialModal.jsx: Fix 4 section name mismatches with actual UI:\n   - \"Upload\" → \"Images\" (matches Media tab section)\n   - \"Adjust\" → \"Image Overlay & Filters\" (matches actual sections)\n   - \"Borders\" → \"Frames\" (matches Style tab section)\n   - Added missing \"Background\" bullet to Style tab step\n\n5. SESSION_NOTES.md: Rewrite with current session context (was 6 days stale)\n\n6. HISTORY.md: Add 2026-03-27 entries for review/audit/doc sweep\n\nTags: docs, accuracy, tutorial, claude-md, todo\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-review-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_011jgP4mxQrtNwqYrjXh4PNU",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review-sweep",
+  "semver": "patch",
+  "scope": "accuracy",
+  "title": "fix 7 documentation discrepancies found during doc audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 55,
+    "deletions": 20
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/TutorialModal.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,58 @@
+{
+  "sha": "b3693a5",
+  "fullSha": "b3693a5ff6958b3dde13c2b4955dd9bd6c9ee737",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T11:13:12Z",
+  "commitDate": "2026-03-28T11:13:12Z",
+  "subject": "feat: implement 6 TODO items — feedback, a11y, platforms, fonts, looks, suggestions",
+  "body": "High Priority (3 items):\n\n1. Unassigned image feedback: addImage() returns { id, assigned } instead\n   of just id. All 4 callers in MediaTab/SampleImagesSection updated to\n   show toast when all cells occupied. Addresses UX Non-Negotiable\n   violation (silent failure on user action).\n\n2. Accessibility pass: ~20 elements across 5 files — aria-label on\n   platform chevrons/format buttons (PlatformPreview), role=\"menuitem\"\n   on mobile menu items (App), aria-label on overlay type buttons\n   (StyleTab), aria-label on color picker (TemplatesTab),\n   aria-hidden=\"true\" on decorative SVGs (MobileNav, App),\n   aria-label=\"Main navigation\" on nav (MobileNav).\n\n3. Phase 4 platform format data: 15 new formats across 7 groups —\n   Pinterest (Pin, Story), Snapchat (Ad, Story), YouTube (Thumbnail,\n   End Screen), WhatsApp (Status), Threads (Post, Story), Product\n   Images (Square, Portrait), Store Banners (Hero, Category). New\n   'ecommerce' category. Total: 18 groups, 42 formats.\n\nMedium Priority (3 items):\n\n4. Lazy font loading: Only 2 active fonts load on mount via fontsToLoad\n   useMemo. Remaining 13 load when StyleTab Fonts section expands\n   (CollapsibleSection onExpand callback). Reduces initial requests\n   from 15 to 2.\n\n5. Looks per-element text styling: Added textStyles to all 20 look\n   presets with per-element color/bold overrides (5 palettes: clean,\n   bold, dark, warm, artistic). applyStylePreset merges into text\n   elements preserving content/visible/size.\n\n6. Calculate imageAspectRatio: Derived from first image naturalWidth/\n   Height in App.jsx, passed to TemplatesTab. Suggested layouts now\n   adapt to image orientation instead of returning fixed 3 defaults.\n\nTags: feature, ux, a11y, platforms, fonts, looks, suggestions\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: todo-implementation\nSemver: minor\n\nhttps://claude.ai/code/session_011jgP4mxQrtNwqYrjXh4PNU",
+  "tags": [
+    "feature",
+    "accessibility",
+    "ui",
+    "ux",
+    "performance"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "todo-implementation",
+  "semver": "minor",
+  "scope": null,
+  "title": "implement 6 TODO items — feedback, a11y, platforms, fonts, looks, suggestions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 390,
+    "deletions": 56
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/App.jsx",
+    "src/components/CollapsibleSection.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/MobileNav.jsx",
+    "src/components/PlatformPreview.jsx",
+    "src/components/StyleTab.jsx",
+    "src/components/TemplatesTab.jsx",
+    "src/config/platforms.js",
+    "src/config/stylePresets.js",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

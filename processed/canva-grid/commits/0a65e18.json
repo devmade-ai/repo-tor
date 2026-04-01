@@ -1,0 +1,47 @@
+{
+  "sha": "0a65e18",
+  "fullSha": "0a65e18d0bcf8a2a61dfa0140c4ca41b2f8a3098",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T18:55:08Z",
+  "commitDate": "2026-03-28T18:55:08Z",
+  "subject": "refactor(extract): move pure utility functions to dedicated modules",
+  "body": "Extract pure functions from 3 oversized components into utils/ modules\nto reduce file sizes and improve testability.\n\n1. utils/exportHelpers.js (127 lines): getTimestamp, waitForPaint,\n   hideCanvas, setFullScale, captureAsBlob, captureForPdf,\n   downloadDiagnosticImage, FORMAT_OPTIONS, FILE_EXTENSIONS, MIME_TYPES.\n   ExportButtons.jsx: 701 → 579 lines.\n\n2. utils/canvasRenderers.js (73 lines): buildFilterStyle, getAlignItems,\n   getJustifyContent, getFrameDimensions, isDuotoneOverlay. Only 5 of\n   30+ functions extracted — the rest close over component state\n   (themeColors, fonts, images etc.) and would need 5-10 params each.\n   AdCanvas.jsx: 878 → 840 lines.\n\n3. utils/layoutHelpers.js (51 lines): cellToSection, getFirstCellOfSection,\n   getMaxSize, MIN_SIZE, MAX_SIZE constants.\n   LayoutTab.jsx: 952 → 912 lines.\n\nTags: refactor, extract, export, canvas, layout, utils\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: extract-large-components\nSemver: patch\n\nhttps://claude.ai/code/session_011jgP4mxQrtNwqYrjXh4PNU",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "extract-large-components",
+  "semver": "patch",
+  "scope": "extract",
+  "title": "move pure utility functions to dedicated modules",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 254,
+    "deletions": 203
+  },
+  "files": [
+    "src/components/AdCanvas.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/LayoutTab.jsx",
+    "src/utils/canvasRenderers.js",
+    "src/utils/exportHelpers.js",
+    "src/utils/layoutHelpers.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 1,
+  "impact": "internal"
+}
