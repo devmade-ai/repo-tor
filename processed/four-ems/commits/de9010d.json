@@ -1,0 +1,55 @@
+{
+  "sha": "de9010d",
+  "fullSha": "de9010d3ff1d3da90be83ee8c74d2705384f307b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T20:21:40Z",
+  "commitDate": "2026-03-27T20:21:40Z",
+  "subject": "refactor(ui): extract shared components, hooks, and constants",
+  "body": "- Extract EmptyState component (src/components/ui/EmptyState.tsx) from\n  3 duplicate empty state patterns in FormListPage, ResponsesPage, and\n  BuilderCanvas\n- Extract useScrollLock hook into scrollLock.ts, replacing identical\n  useEffect blocks in ConfirmDialog and BottomSheet with one-line call\n- Extract BuilderBanners component from BuilderPage (716 → 668 lines),\n  encapsulating save/publish/import/share banners\n- Add BTN_PRIMARY and BTN_SECONDARY constants to lib/constants.ts,\n  replacing 5 duplicate button class strings across NotFoundPage,\n  FormListPage, ResponsesPage, and ErrorBoundary\n- Extract duplicate chevron SVG to local constant in FormListPage\n- Remove unnecessary exports on INPUT_BASE, INPUT_NORMAL, INPUT_ERROR\n  in types.ts — only inputClassName() is imported externally\n\nTags: refactor, cleanup, duplication, components\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ui-polish\nSemver: patch\n\nhttps://claude.ai/code/session_019RERHAL7VcW919sjxjdT1m",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ui-polish",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "extract shared components, hooks, and constants",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 247,
+    "deletions": 142
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/ErrorBoundary.tsx",
+    "src/components/builder/BuilderBanners.tsx",
+    "src/components/builder/BuilderCanvas.tsx",
+    "src/components/renderer/fields/types.ts",
+    "src/components/ui/BottomSheet.tsx",
+    "src/components/ui/ConfirmDialog.tsx",
+    "src/components/ui/EmptyState.tsx",
+    "src/lib/constants.ts",
+    "src/lib/scrollLock.ts",
+    "src/pages/BuilderPage.tsx",
+    "src/pages/FormListPage.tsx",
+    "src/pages/NotFoundPage.tsx",
+    "src/pages/ResponsesPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "internal"
+}

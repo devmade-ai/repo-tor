@@ -1,0 +1,60 @@
+{
+  "sha": "ffba9a0",
+  "fullSha": "ffba9a0f3322523f0dba2ffacf29c4f746a4df89",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T19:03:06Z",
+  "commitDate": "2026-03-28T19:03:06Z",
+  "subject": "feat(quality): set up ESLint + Vitest, write 38 unit tests, update docs",
+  "body": "ESLint:\n- Install eslint 9, typescript-eslint 8, react-hooks 5, react-refresh\n- Create flat config (eslint.config.mjs) with TypeScript + React rules\n- Fix 4 violations: conditional useMemo in FieldPropertiesPanel (moved\n  above early return), unused catch var in PublicFormPage, misplaced\n  eslint-disable in usePWAInstall\n- Add npm run lint script\n\nVitest:\n- Install vitest 4, @testing-library/react, jsdom\n- Configure in vite.config.ts (test block with jsdom environment)\n- Write 15 validation tests: isFieldEmpty edge cases, validateField for\n  text/email/phone/number/rating/heading/hidden\n- Write 14 condition tests: all 8 operators, AND/OR logic, show/hide\n  actions, empty group handling\n- Write 9 CSV export tests: formatValue conversions, escapeCsvField\n  formula injection prevention (CWE-1236)\n- Add npm test and npm run test:watch scripts\n\nDocumentation:\n- USER_GUIDE.md: add form list visual cues, embed sandbox, confirmations\n- TESTING_GUIDE.md: add 4 scenarios (confirm dialogs, transitions,\n  header, unit tests) + 6 regression checklist items\n- TODO.md: mark ESLint/Vitest as done, consolidate doc items\n- HISTORY.md: add quality setup entry\n- SESSION_NOTES.md: fresh session summary\n\nTags: quality, testing, linting, documentation\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ui-polish\nSemver: minor\n\nhttps://claude.ai/code/session_019RERHAL7VcW919sjxjdT1m",
+  "tags": [
+    "feature",
+    "test-unit",
+    "lint",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ui-polish",
+  "semver": "minor",
+  "scope": "quality",
+  "title": "set up ESLint + Vitest, write 38 unit tests, update docs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "CWE-1236"
+  ],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 3028,
+    "deletions": 151
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md",
+    "eslint.config.mjs",
+    "package-lock.json",
+    "package.json",
+    "src/components/builder/FieldPropertiesPanel.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "src/lib/__tests__/conditions.test.ts",
+    "src/lib/__tests__/csvExport.test.ts",
+    "src/lib/__tests__/validation.test.ts",
+    "src/pages/PublicFormPage.tsx",
+    "vite.config.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "internal"
+}

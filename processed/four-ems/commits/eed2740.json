@@ -1,0 +1,42 @@
+{
+  "sha": "eed2740",
+  "fullSha": "eed2740d498a67c1308f8da5966cb3d070f642a1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T18:46:37Z",
+  "commitDate": "2026-03-28T18:46:37Z",
+  "subject": "fix(security): add sandbox attribute to script-embed iframe in embed.js",
+  "body": "The EmbedCodeDialog iframe snippet was sandboxed in the previous commit,\nbut the script embed path (embed.js) creates iframes dynamically without\nsandbox. This adds the same sandbox restrictions to the recommended embed\nmethod for consistent security across both embed paths.\n\nsandbox=\"allow-same-origin allow-scripts allow-popups allow-forms\"\n\nVerified: postMessage auto-resize, isEmbedMode() detection, Supabase\nauth cookies, and form JavaScript all work within these sandbox rules.\n\nTags: security, embed\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ui-polish\nSemver: patch\n\nhttps://claude.ai/code/session_019RERHAL7VcW919sjxjdT1m",
+  "tags": [
+    "security",
+    "sanitization"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ui-polish",
+  "semver": "patch",
+  "scope": "security",
+  "title": "add sandbox attribute to script-embed iframe in embed.js",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 5,
+    "deletions": 0
+  },
+  "files": [
+    "public/embed.js"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "user-facing"
+}

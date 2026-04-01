@@ -1,0 +1,44 @@
+{
+  "sha": "b6ef9fb",
+  "fullSha": "b6ef9fb6c1297ffed5b71faddd9ceb33b57789fe",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-20T04:44:47Z",
+  "commitDate": "2026-03-20T04:44:47Z",
+  "subject": "fix(builder): cleanup timer leaks, memoize excludeFieldIds, add title save feedback",
+  "body": "- handleCopyLink: use ref-tracked timer with unmount cleanup instead of\n  orphaned setTimeout (matches CLAUDE.md timer leak pattern)\n- handleTitleSave: show brief \"Title not saved\" error in header when API\n  PUT fails, auto-dismiss after 4s with cleanup on unmount\n- FieldPropertiesPanel: memoize excludeFieldIds array so ConditionBuilder's\n  sourceFields useMemo isn't defeated by a new array reference each render\n\nTags: bugfix, performance, ux, cleanup\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: conditional-logic-config\nSemver: patch\n\nhttps://claude.ai/code/session_01BiNWegdMQNfRw2kZdFKDz9",
+  "tags": [
+    "bugfix",
+    "performance",
+    "memory"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "conditional-logic-config",
+  "semver": "patch",
+  "scope": "builder",
+  "title": "cleanup timer leaks, memoize excludeFieldIds, add title save feedback",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 31,
+    "deletions": 3
+  },
+  "files": [
+    "src/components/builder/FieldPropertiesPanel.tsx",
+    "src/pages/BuilderPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}

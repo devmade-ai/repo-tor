@@ -1,0 +1,42 @@
+{
+  "sha": "4c564ed",
+  "fullSha": "4c564edb41c977a5d2826ec3a9a9dbf6b4c43b1d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-20T11:19:16Z",
+  "commitDate": "2026-03-20T11:19:16Z",
+  "subject": "fix(builder): resolve TS2532 in PageTabs condition indicator",
+  "body": "Optional chaining on `page.conditions[0]?.conditions.length` returns\n`undefined` which fails TypeScript's strict `> 0` comparison. Added\nnullish coalescing fallback `?? 0` to satisfy the type checker.\n\nTags: bugfix, typescript\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: form-builder\nSemver: patch\n\nhttps://claude.ai/code/session_01BiNWegdMQNfRw2kZdFKDz9",
+  "tags": [
+    "bugfix",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "form-builder",
+  "semver": "patch",
+  "scope": "builder",
+  "title": "resolve TS2532 in PageTabs condition indicator",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "src/components/builder/PageTabs.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 4,
+  "impact": "infrastructure"
+}
