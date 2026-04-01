@@ -1,0 +1,44 @@
+{
+  "sha": "2562985",
+  "fullSha": "25629856366dcb615ab9d603c5778ce8e4af3040",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T13:21:16Z",
+  "commitDate": "2026-03-09T13:21:16Z",
+  "subject": "feat(import): wait for both ML models with dual progress bars",
+  "body": "Step 2 now waits for both the embedding model (smart grouping) and the\ntag suggestion model (auto-tagging) before showing groups. Two separate\nprogress bars show download status for each model independently.\n\n- useTagSuggestions: add modelProgress ref and waitForModel() (mirrors embeddings)\n- ImportStepClassify: Promise.all both waitForModel calls, dual progress UI\n- First import shows \"Downloading models for first use — this only happens once\"\n- If either model fails, shows amber \"Unavailable\" and proceeds gracefully\n\nTags: import, ml, ux\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: auto-tagging-imports\nSemver: minor\n\nhttps://claude.ai/code/session_01Gy1obaiGGDe7pD6u14TrkF",
+  "tags": [
+    "feature",
+    "ux",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "auto-tagging-imports",
+  "semver": "minor",
+  "scope": "import",
+  "title": "wait for both ML models with dual progress bars",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 92,
+    "deletions": 30
+  },
+  "files": [
+    "src/ml/useTagSuggestions.ts",
+    "src/views/import-steps/ImportStepClassify.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

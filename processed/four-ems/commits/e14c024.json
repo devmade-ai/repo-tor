@@ -1,0 +1,43 @@
+{
+  "sha": "e14c024",
+  "fullSha": "e14c024ac3f3d910f2f6de1fb2d1ebe92ecbe488",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-03T03:06:52Z",
+  "commitDate": "2026-03-03T03:06:52Z",
+  "subject": "fix(build): remove unused selectedFieldId variable in FieldPropertiesPanel",
+  "body": "Field lookup moved into store selector — the standalone selectedFieldId\nsubscription was left behind, causing TS6133 on the Vercel build.\n\nTags: bugfix, build\nComplexity: 1\nUrgency: 5\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: code-review-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01KVyJqJKXbP2YdEurt3rQTx",
+  "tags": [
+    "bugfix",
+    "build",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review-audit",
+  "semver": "patch",
+  "scope": "build",
+  "title": "remove unused selectedFieldId variable in FieldPropertiesPanel",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 0,
+    "deletions": 1
+  },
+  "files": [
+    "src/components/builder/FieldPropertiesPanel.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 5,
+  "impact": "infrastructure"
+}

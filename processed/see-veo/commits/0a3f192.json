@@ -1,0 +1,52 @@
+{
+  "sha": "0a3f192",
+  "fullSha": "0a3f1921780c9deda2adb973eb70092b93aeaad9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-26T20:21:55Z",
+  "commitDate": "2026-03-26T20:21:55Z",
+  "subject": "refactor(hygiene): extract utilities, remove dead code, reduce file sizes",
+  "body": "- Extract fetchWithTimeout utility (src/utils/fetchWithTimeout.ts) to\n  deduplicate 6 AbortController+setTimeout occurrences\n- Extract diagnostic checks into src/utils/diagnostics.ts (12 pure functions\n  + shared diagnoseFailure) from DebugBanner and InterestForm\n- DebugBanner: 582→355 lines, runDiagnostics: 277→50 lines\n- InterestForm: 507→433 lines, removed local diagnoseFailure (now shared)\n- Remove unused avatarInitials field from PersonalInfo interface, cvData, tests\n- Correct test count in HISTORY.md (grep overcounted, actual: 108)\n\nTags: refactor, hygiene, deduplication, dead-code\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01NM5G3Mv2TWp4ewPMLWDBAv",
+  "tags": [
+    "refactor",
+    "simplify",
+    "removal"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": "hygiene",
+  "title": "extract utilities, remove dead code, reduce file sizes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 339,
+    "deletions": 356
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/DebugBanner.tsx",
+    "src/components/InterestForm.tsx",
+    "src/data/cv-data.ts",
+    "src/test/components.test.tsx",
+    "src/test/cv-data.test.ts",
+    "src/utils/diagnostics.ts",
+    "src/utils/fetchWithTimeout.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "internal"
+}

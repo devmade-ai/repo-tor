@@ -1,0 +1,43 @@
+{
+  "sha": "fe92f2d",
+  "fullSha": "fe92f2d81634f7e4c3c31f3a13f164a022e5e56e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-30T22:31:13Z",
+  "commitDate": "2026-03-30T22:31:13Z",
+  "subject": "fix(theme): remove dynamic meta theme-color update from useDarkMode hook",
+  "body": "The brand color is constant — no JS update needed on dark mode toggle.\nThe HTML meta tag is the single source of truth. Removes dead code that\npreviously switched between background colors and was the root cause of\nthe status bar visibility bug.\n\nTags: pwa, theme, dark-mode, cleanup\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01MKpWWuwCfg9Fg2kvyRGM6v",
+  "tags": [
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "remove dynamic meta theme-color update from useDarkMode hook",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 5,
+    "deletions": 15
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 3,
+  "impact": "internal"
+}

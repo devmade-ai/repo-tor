@@ -1,0 +1,43 @@
+{
+  "sha": "1555fac",
+  "fullSha": "1555fac3ce37ccdebb7baf79194243cfcdf90ee2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T20:02:50Z",
+  "commitDate": "2026-03-28T20:02:50Z",
+  "subject": "fix(builder): fix import ordering and type narrowing in FieldPropertiesPanel",
+  "body": "- Move OptionsEditor, ConditionBuilder, and THEME_FONTS imports above\n  module-level constants — imports must precede all code in a module\n- Use post-guard field.id (confirmed string) instead of pre-guard\n  fieldId (string | undefined) for updateField calls — gives TypeScript\n  proper type narrowing after the early return\n- Fix misleading test description: contains operator on arrays uses\n  substring match on stringified array, not true membership check\n\nTags: bug-fix, typescript, testing\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ui-polish\nSemver: patch\n\nhttps://claude.ai/code/session_019RERHAL7VcW919sjxjdT1m",
+  "tags": [
+    "bugfix",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ui-polish",
+  "semver": "patch",
+  "scope": "builder",
+  "title": "fix import ordering and type narrowing in FieldPropertiesPanel",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 11,
+    "deletions": 5
+  },
+  "files": [
+    "src/components/builder/FieldPropertiesPanel.tsx",
+    "src/lib/__tests__/conditions.test.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "internal"
+}

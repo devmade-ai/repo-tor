@@ -1,0 +1,51 @@
+{
+  "sha": "acaa693",
+  "fullSha": "acaa693961063aee11e5982640190a80f345fb71",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T21:40:23Z",
+  "commitDate": "2026-02-24T21:40:23Z",
+  "subject": "feat(embed): implement iframe embed system with auto-resize and code generator",
+  "body": "Phase 3 implementation — embeddable forms:\n- embedResize module: ResizeObserver + MutationObserver watches form container\n  height, posts changes to parent via postMessage. Handles conditional fields,\n  validation errors, and page transitions.\n- embed.js host script: finds data-fourems-form elements, creates iframes with\n  ?embed=1, listens for resize messages and auto-adjusts iframe height.\n- EmbedCodeDialog: modal with two methods — script embed (recommended, auto-resize)\n  and direct iframe (manual height). Copy-to-clipboard with fallback.\n- PublicFormPage: detects embed mode (iframe or ?embed param), activates resize\n  communication, uses tighter padding in embed context.\n- Builder header: Embed button opens the code generator dialog.\n\nTags: embed, iframe, postMessage, ResizeObserver\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: form-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+  "tags": [
+    "feature",
+    "ui",
+    "api"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "form-builder",
+  "semver": "minor",
+  "scope": "embed",
+  "title": "implement iframe embed system with auto-resize and code generator",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 388,
+    "deletions": 38
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "public/embed.js",
+    "src/components/builder/EmbedCodeDialog.tsx",
+    "src/lib/embedResize.ts",
+    "src/pages/BuilderPage.tsx",
+    "src/pages/PublicFormPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}

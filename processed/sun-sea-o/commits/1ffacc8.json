@@ -1,0 +1,42 @@
+{
+  "sha": "1ffacc8",
+  "fullSha": "1ffacc80a22f265899f6692fe1dfec98531c6a7d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T12:39:39Z",
+  "commitDate": "2026-02-26T12:39:39Z",
+  "subject": "docs(migration): add frontend-to-backend migration guide",
+  "body": "Comprehensive guide covering every hook, auth context, and page change\nneeded when switching from localStorage mock data to Supabase backend.\n\nCovers:\n- Hook-by-hook migration with exact Supabase query replacements\n- Auth migration from mock users to Google OAuth\n- isCreator derivation change (global → per-project)\n- Real-time subscription setup for two-party coordination\n- Notification and signature log migration (frontend → backend-triggered)\n- PDF verification hash migration (client → server)\n- Error handling and loading state additions\n- Offline queue strategy\n- File-by-file cleanup checklist\n- Two-browser testing checklist\n- Recommended migration order (12 steps)\n\nTags: documentation, backend, migration, supabase\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: backend-migration\nSemver: minor\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+  "tags": [
+    "docs",
+    "api-docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "backend-migration",
+  "semver": "minor",
+  "scope": "migration",
+  "title": "add frontend-to-backend migration guide",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 545,
+    "deletions": 0
+  },
+  "files": [
+    "docs/FRONTEND_BACKEND_MIGRATION.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

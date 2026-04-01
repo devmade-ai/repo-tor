@@ -1,0 +1,43 @@
+{
+  "sha": "f72170a",
+  "fullSha": "f72170ab3e3a366ceb601ee057bb9f1afb7ef935",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T05:44:30Z",
+  "commitDate": "2026-03-27T05:44:30Z",
+  "subject": "fix(charts): add inline comments explaining why allow-same-origin is required",
+  "body": "The original fix (c2c08fd) explained the reason in the commit message but\nnot in the code. A later security sweep removed it without checking history.\nAdding inline comments so the next sweep sees the explanation at the point\nof change, not buried in git log.\n\nTags: embed, charts, sandbox, docs, ai-mistakes\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: activity-charts\nSemver: patch\n\nhttps://claude.ai/code/session_01F2HWt3Keo8x6whwTjGTv2W",
+  "tags": [
+    "comments"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "activity-charts",
+  "semver": "patch",
+  "scope": "charts",
+  "title": "add inline comments explaining why allow-same-origin is required",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 8,
+    "deletions": 2
+  },
+  "files": [
+    "docs/AI_MISTAKES.md",
+    "src/components/ActivityCharts.tsx",
+    "src/components/ActivityTimeline.tsx"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "internal"
+}

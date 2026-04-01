@@ -1,0 +1,43 @@
+{
+  "sha": "732cc79",
+  "fullSha": "732cc7915474be9b8e6b299cf1227134cc9bb54c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-30T21:49:02Z",
+  "commitDate": "2026-03-30T21:49:02Z",
+  "subject": "fix(edge-cases): burger menu action throw, cross-tab storage removal",
+  "body": "Two edge case fixes found during parallel agent verification:\n\n1. BurgerMenu: if item.action() throws, onClose() was never called,\n   leaving the menu stuck open. Now wraps action in try/catch and\n   always calls onClose() regardless of success.\n\n2. useDarkMode cross-tab sync: when another tab removes the darkMode\n   key from localStorage (e.newValue === null), the handler silently\n   ignored it, leaving this tab with a stale preference. Now falls\n   back to system preference via matchMedia, matching the hook's\n   fresh-load behavior.\n\nTags: edge-case, dark-mode, burger-menu, resilience\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: glow-props-alignment\nSemver: patch\n\nhttps://claude.ai/code/session_014mcGJ9aQpye35BKYQhFp4j",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "glow-props-alignment",
+  "semver": "patch",
+  "scope": "edge-cases",
+  "title": "burger menu action throw, cross-tab storage removal",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 17,
+    "deletions": 3
+  },
+  "files": [
+    "src/components/BurgerMenu.jsx",
+    "src/hooks/useDarkMode.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,52 @@
+{
+  "sha": "d39af8e",
+  "fullSha": "d39af8e61d632c998a0b98643a32092a22513fbe",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T14:49:36Z",
+  "commitDate": "2026-03-27T14:49:36Z",
+  "subject": "fix(review): address 12 code review findings across 10 components",
+  "body": "Fixes bugs, UX issues, and code quality problems found during review sweep:\n\n1. MediaTab: Replace mutable cellIndex in render with useMemo+Map pattern\n   (prevents StrictMode double-render bugs)\n2. BottomSheet: Add onTouchCancel handler to prevent sheet freezing when\n   touch is interrupted by system UI\n3. ExportButtons: Replace fixed setTimeout(300) in PDF multi-page export\n   with double waitForPaint() for reliability on slow devices\n4. ContextBar: Improve delete confirmation label from \"Delete p1?\" to\n   \"Delete page 1?\" for clarity\n5. LogoUploader: Add 10MB file size validation before DataURL conversion\n   to prevent browser freezes on large files\n6. SaveLoadModal: Include time in default design name for uniqueness when\n   saving multiple designs on the same day\n7. MobileNav: Show active tab indicator even when bottom sheet is closed\n   so users know which tab will open on next tap\n8. PlatformPreview: Reset showTips state when platform changes to prevent\n   displaying stale tips from previous platform\n9. StyleTab: Extract repeated overlay type button into OverlayTypeButton\n   component, reducing ~50 lines of duplication\n10. TemplatesTab: Make empty layout filter message actionable with\n    suggestion to change shape or category\n11. SaveLoadModal: Add aria-label to search input for screen readers\n\nTags: review, bugfix, ux, accessibility, code-quality\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-review-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_011jgP4mxQrtNwqYrjXh4PNU",
+  "tags": [
+    "bugfix",
+    "ux",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review-sweep",
+  "semver": "patch",
+  "scope": "review",
+  "title": "address 12 code review findings across 10 components",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 145,
+    "deletions": 143
+  },
+  "files": [
+    "src/components/BottomSheet.jsx",
+    "src/components/ContextBar.jsx",
+    "src/components/ExportButtons.jsx",
+    "src/components/LogoUploader.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/MobileNav.jsx",
+    "src/components/PlatformPreview.jsx",
+    "src/components/SaveLoadModal.jsx",
+    "src/components/StyleTab.jsx",
+    "src/components/TemplatesTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

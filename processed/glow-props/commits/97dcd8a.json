@@ -1,0 +1,45 @@
+{
+  "sha": "97dcd8a",
+  "fullSha": "97dcd8a1255633d18da75558e3cc89d94d92eaf6",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T22:11:16Z",
+  "commitDate": "2026-03-31T22:11:16Z",
+  "subject": "fix(mobile): touch targets, safe area insets, grid overflow, active states",
+  "body": "Mobile UX fixes identified during user/design perspective review:\n\n- Touch targets: Icon buttons increased from 36px to 44px (2.75rem),\n  card links get padding for 44px+ tap area, doc tabs and action\n  buttons get min-height: 2.75rem — all meet Apple HIG 44px minimum\n- Safe area insets: Added viewport-fit=cover to both pages and\n  env(safe-area-inset-*) to body, nav, and footer — prevents content\n  overlap with iPhone notch/Dynamic Island\n- Grid overflow: Lowered card-grid minmax from 300px to 280px and\n  card-grid-sm from 260px to 250px — prevents 2-column overflow on\n  576-640px screens where Pico's container leaves ~560px available\n- Active states: Added :active opacity to icon buttons, card links,\n  article cards, and doc action buttons — provides touch feedback\n  since :hover doesn't fire on mobile\n- Dynamic meta description: project.html now sets <meta description>\n  from meta.json after load — improves SEO when sharing project links\n\nTags: mobile, ux, touch, accessibility, seo\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: portfolio-site\nSemver: patch\n\nhttps://claude.ai/code/session_01Bh93JoHZAKz7zY48tGvfZ1",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "portfolio-site",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "touch targets, safe area insets, grid overflow, active states",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 79,
+    "deletions": 19
+  },
+  "files": [
+    "index.html",
+    "project.html",
+    "styles.css"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

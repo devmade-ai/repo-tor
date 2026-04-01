@@ -1,0 +1,44 @@
+{
+  "sha": "5f50eb1",
+  "fullSha": "5f50eb1f3b97fae7dafda0f1651906cabb1f7c68",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-01T23:40:28Z",
+  "commitDate": "2026-03-01T23:40:28Z",
+  "subject": "fix(pwa): add type declarations for virtual:pwa-register/react",
+  "body": "Production build failed because TypeScript couldn't find types for the\nvirtual:pwa-register/react module. Added the triple-slash reference to\nvite-env.d.ts and explicit parameter types on the SW callbacks.\n\nTags: pwa, typescript, build\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: pwa-system\nSemver: patch\n\nhttps://claude.ai/code/session_01QMRxqCkYe8mjN2wi3RTUdW",
+  "tags": [
+    "bugfix",
+    "build",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa-system",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "add type declarations for virtual:pwa-register/react",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 3,
+    "deletions": 2
+  },
+  "files": [
+    "src/hooks/usePWAUpdate.ts",
+    "src/vite-env.d.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

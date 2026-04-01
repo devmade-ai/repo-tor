@@ -1,0 +1,43 @@
+{
+  "sha": "f95a7a2",
+  "fullSha": "f95a7a287c3c6339cb84f2a53bf6dcb7512605f7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T19:59:38Z",
+  "commitDate": "2026-03-27T19:59:38Z",
+  "subject": "fix(ui): increase touch targets on new UI components to meet WCAG 2.5.5",
+  "body": "- ConfirmDialog: increase button padding from py-2 (~32px) to py-2.5\n  (~40px) for reliable touch targeting on mobile\n- FormListPage: increase Import and New Form button padding from py-2\n  to py-2.5, matching other CTA buttons in the app\n\nTags: accessibility, mobile, touch-targets\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ui-polish\nSemver: patch\n\nhttps://claude.ai/code/session_019RERHAL7VcW919sjxjdT1m",
+  "tags": [
+    "bugfix",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ui-polish",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "increase touch targets on new UI components to meet WCAG 2.5.5",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 4,
+    "deletions": 4
+  },
+  "files": [
+    "src/components/ui/ConfirmDialog.tsx",
+    "src/pages/FormListPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}

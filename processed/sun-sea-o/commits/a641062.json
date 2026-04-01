@@ -1,0 +1,50 @@
+{
+  "sha": "a641062",
+  "fullSha": "a641062c8c0d1faf9f8837bfeea967b7a4e39763",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T21:25:38Z",
+  "commitDate": "2026-02-26T21:25:38Z",
+  "subject": "feat(pwa): adopt glow-props PWA patterns — install detection, update control, race fix",
+  "body": "Implements three patterns from the glow-props shared reference:\n\n1. beforeinstallprompt race condition fix: Inline script in index.html\n   captures the event before React mounts, so repeat visitors with a\n   cached service worker don't lose the install prompt.\n\n2. Browser-specific install flow: New usePWAInstall hook detects browser\n   type (Chrome/Edge/Brave/Safari/Firefox) and routes to the right UX.\n   Chromium gets native install; Safari/Firefox get an\n   InstallInstructionsModal with per-browser step-by-step guides.\n   Install analytics tracked in localStorage (last 50 events).\n\n3. User-controlled SW updates: Switched from registerType 'autoUpdate'\n   to 'prompt' via new usePWAUpdate hook. Users see a blue banner when\n   an update is available and choose when to apply it — no more\n   mid-session reloads. Checks for new SW versions every 60 minutes.\n   Offline-ready notification auto-dismisses after 3 seconds.\n\nAlso adds glow-props as a shared reference in CLAUDE.md with fetch URL\nand list of adopted patterns.\n\nTags: pwa, install, update, ux, glow-props\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_01FfhgQ6RQhi8RYe15pDbt1y",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "pwa-hardening",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "adopt glow-props PWA patterns — install detection, update control, race fix",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 503,
+    "deletions": 64
+  },
+  "files": [
+    "CLAUDE.md",
+    "index.html",
+    "src/components/common/InstallInstructionsModal.tsx",
+    "src/components/common/PwaInstallPrompt.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "src/layouts/AppLayout.tsx",
+    "vite.config.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "user-facing"
+}

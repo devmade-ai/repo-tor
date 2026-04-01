@@ -1,0 +1,41 @@
+{
+  "sha": "d74603a",
+  "fullSha": "d74603aac9487b1bf1acac1c5b6e6740829057e4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T20:05:07Z",
+  "commitDate": "2026-03-28T20:05:07Z",
+  "subject": "docs(architecture): update CLAUDE.md to reflect all extracted files and TS migrations",
+  "body": "Architecture section was stale after refactoring session. Updated:\n\n- Added 7 new component files: SampleImagesSection, AIPromptHelper,\n  FreeformEditor, TextStyleControls, ReaderMode, MobileLayout, DesktopLayout\n- Added 3 new util files: exportHelpers.js, canvasRenderers.js, layoutHelpers.ts\n- Fixed 3 file extensions: sampleImages.ts, fonts.ts, textDefaults.ts\n- Updated App.jsx description (state orchestrator role)\n- Updated stylePresets.js description (now includes text styles)\n- Updated PlatformPreview.jsx description (now has search filter)\n- Added npm test to Common Commands\n\nTags: docs, architecture, claude-md\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-review-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_011jgP4mxQrtNwqYrjXh4PNU",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review-sweep",
+  "semver": "patch",
+  "scope": "architecture",
+  "title": "update CLAUDE.md to reflect all extracted files and TS migrations",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 19,
+    "deletions": 8
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "internal"
+}

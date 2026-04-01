@@ -1,0 +1,50 @@
+{
+  "sha": "29e3e40",
+  "fullSha": "29e3e40d63d1882adf68081fb25885ae11b20045",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T19:05:33Z",
+  "commitDate": "2026-03-28T19:05:33Z",
+  "subject": "feat: add long-press cell context menu + unit test infrastructure",
+  "body": "Long-press cell actions (mobile):\n- 500ms touch timeout on CanvasCellOverlay cell divs\n- CellContextMenu component with 3 actions: Add Image (Media tab),\n  Edit Text (Content tab), Style Cell (Style tab)\n- Each action selects the cell, opens bottom sheet to relevant tab\n- Menu anchored near touch point, dismissed on selection or outside tap\n- Touch move cancels long-press (prevents accidental triggers during scroll)\n- Desktop cells unchanged (no onLongPress prop passed)\n\nUnit test infrastructure:\n- Added Jest with ESM support (--experimental-vm-modules)\n- jest.config.js with node test environment\n- npm test script in package.json\n- src/utils/__tests__/cellUtils.test.js: 15 tests covering\n  normalizeStructure, getCellInfo, countCells, cleanupOrphanedCells\n  (including NaN key handling)\n- src/config/__tests__/layoutPresets.test.js: 12 tests covering\n  getSuggestedLayouts (null/wide/tall/square/story/tiktok/dedup/max5)\n  and getPresetsByAspectRatio (valid/invalid/portrait/landscape)\n- All 27 tests pass\n\nTags: feature, mobile, long-press, context-menu, tests, jest\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: todo-implementation\nSemver: minor\n\nhttps://claude.ai/code/session_011jgP4mxQrtNwqYrjXh4PNU",
+  "tags": [
+    "feature",
+    "ui",
+    "ux",
+    "test-unit"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "todo-implementation",
+  "semver": "minor",
+  "scope": null,
+  "title": "add long-press cell context menu + unit test infrastructure",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 5176,
+    "deletions": 1494
+  },
+  "files": [
+    "jest.config.js",
+    "package-lock.json",
+    "package.json",
+    "src/App.jsx",
+    "src/components/MobileLayout.jsx",
+    "src/config/__tests__/layoutPresets.test.js",
+    "src/utils/__tests__/cellUtils.test.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

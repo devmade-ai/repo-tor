@@ -1,0 +1,53 @@
+{
+  "sha": "bc4a036",
+  "fullSha": "bc4a036db390263f2009e0d8479661f423ae5f76",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-26T19:25:10Z",
+  "commitDate": "2026-03-26T19:25:10Z",
+  "subject": "fix(mobile): WCAG 2.5.5 touch targets, safe area handling, modal overflow",
+  "body": "- Add viewport-fit=cover to index.html for safe area inset support\n- Add body safe area padding in index.css for notched devices\n- Increase all button/input touch targets to min 44px (Hero, UpdatePrompt,\n  InterestForm, InstallInstructionsModal, DebugBanner, Projects)\n- Add safe area clearance to fixed elements (UpdatePrompt top banner,\n  DebugBanner pill/panel, skip-to-content link)\n- Add scrollable content area with max-h-[85vh] to InstallInstructionsModal\n- Make iframe heights responsive (h-64/h-72 on mobile, scaling up via sm/md)\n\nTags: mobile, a11y, touch-targets, safe-area, wcag\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01NM5G3Mv2TWp4ewPMLWDBAv",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "minor",
+  "scope": "mobile",
+  "title": "WCAG 2.5.5 touch targets, safe area handling, modal overflow",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 88,
+    "deletions": 46
+  },
+  "files": [
+    "index.html",
+    "src/App.tsx",
+    "src/components/ActivityCharts.tsx",
+    "src/components/ActivityTimeline.tsx",
+    "src/components/DebugBanner.tsx",
+    "src/components/Hero.tsx",
+    "src/components/InstallInstructionsModal.tsx",
+    "src/components/InterestForm.tsx",
+    "src/components/Projects.tsx",
+    "src/components/UpdatePrompt.tsx",
+    "src/index.css"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "user-facing"
+}

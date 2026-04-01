@@ -1,0 +1,51 @@
+{
+  "sha": "db7467d",
+  "fullSha": "db7467dd3639f1f92d0cb2954a10bfb69fd8f56e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T19:31:24Z",
+  "commitDate": "2026-03-31T19:31:24Z",
+  "subject": "feat(site): transform from file host to portfolio and resource hub",
+  "body": "glow-props was a bare CLAUDE.md file host with dead code (SessionStart\nhook that only ran in this repo, sample text file). Rebuilt as a\nportfolio site showcasing devmade-ai projects, internal tools, and\nreusable engineering patterns.\n\n- Built portfolio landing page with Projects (7 user-facing), Tools\n  (4 internal), and Patterns (7 engineering patterns) sections\n- Added dark mode with CSS variable tokens, localStorage persistence,\n  cross-tab sync, OS preference fallback, and flash prevention\n- Added print-friendly CSS (@media print, no-print class, break-inside)\n- Removed dead SessionStart hook (.claude/ directory) — was self-referential\n- Removed sample hello.txt file\n- Updated README and docs to reflect new purpose\n\nTags: portfolio, site, dark-mode, cleanup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: portfolio-site\nSemver: minor\n\nhttps://claude.ai/code/session_01Bh93JoHZAKz7zY48tGvfZ1",
+  "tags": [
+    "feature",
+    "ui",
+    "removal"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "portfolio-site",
+  "semver": "minor",
+  "scope": "site",
+  "title": "transform from file host to portfolio and resource hub",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 898,
+    "deletions": 108
+  },
+  "files": [
+    ".claude/hooks/session-start.sh",
+    ".claude/settings.json",
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "index.html",
+    "public/texts/hello.txt",
+    "public/theme.js",
+    "styles.css"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,57 @@
+{
+  "sha": "83b9396",
+  "fullSha": "83b9396fab309c2b93a9de0d37cf35966314ad34",
+  "author_id": "jacotheron87@gmail.com",
+  "author": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "committer": {
+    "name": "jacotheron87",
+    "email": "jacotheron87@gmail.com"
+  },
+  "timestamp": "2026-03-12T17:47:40Z",
+  "commitDate": "2026-03-12T17:47:40Z",
+  "subject": "feat(backend): migrate to sancio_ prefixed tables and tool-till-tees API",
+  "body": "Shared Supabase database requires prefixed table names to avoid collisions\nwith other projects. Invitation emails now route through tool-till-tees\nSMTP endpoint instead of Supabase Resend edge function.\n\n- Rename all table references from unprefixed to sancio_ prefix\n- Rename all RPC calls to sancio_ prefixed function names\n- Add migration to drop unprefixed tables and create business logic on sancio_ tables\n- Replace send-invitation edge function with tool-till-tees API call\n- Update config.toml: remove deprecated [project] section, bump major_version to 17\n- Update .env.example with VITE_API_BASE_URL\n\nTags: backend, database, migration, api, cleanup\nComplexity: 4\nUrgency: 3\nImpact: infrastructure\nRisk: high\nDebt: paid\nEpic: backend-migration\nSemver: major\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+  "tags": [
+    "migration",
+    "database",
+    "schema",
+    "api"
+  ],
+  "complexity": 4,
+  "risk": "high",
+  "debt": "paid",
+  "epic": "backend-migration",
+  "semver": "major",
+  "scope": "backend",
+  "title": "migrate to sancio_ prefixed tables and tool-till-tees API",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 960,
+    "deletions": 243
+  },
+  "files": [
+    ".env.example",
+    "docs/USER_ACTIONS.md",
+    "src/hooks/useAgreements.ts",
+    "src/hooks/useModules.ts",
+    "src/hooks/useNotes.ts",
+    "src/hooks/useNotifications.ts",
+    "src/hooks/usePdfVerifications.ts",
+    "src/hooks/useProjects.ts",
+    "src/hooks/useProposals.ts",
+    "src/hooks/useSignatureLog.ts",
+    "src/pages/AgreementDetailPage.tsx",
+    "supabase/config.toml",
+    "supabase/functions/send-invitation/index.ts",
+    "supabase/migrations/20260312000001_rename_to_sancio_prefix.sql"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,48 @@
+{
+  "sha": "e76e229",
+  "fullSha": "e76e2290e5dddc24e36b58d2ada05a110c6f0913",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T12:12:30Z",
+  "commitDate": "2026-03-27T12:12:30Z",
+  "subject": "refactor(ui): fix remaining hygiene findings from clean pass",
+  "body": "- Extract useClickOutside hook from HamburgerMenu inline click-outside\n  handler (new code introduced by hamburger menu commit)\n- Remove redundant handleDone wrapper in QuickGuide (was just calling\n  onClose with no extra logic)\n- Remove redundant const mobile = isMobile aliasing in Timeline,\n  Contributors, Progress, and Tags (use isMobile directly)\n- Replace hasOwnProperty with in operator in Progress semver check\n- Simplify redundant null-or-empty check in Contributors\n\nTags: refactor, clean\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01Pawpns2DextM3UtszvADr6",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "fix remaining hygiene findings from clean pass",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 72,
+    "deletions": 64
+  },
+  "files": [
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/js/components/QuickGuide.jsx",
+    "dashboard/js/hooks/useClickOutside.js",
+    "dashboard/js/sections/Contributors.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/js/sections/Tags.jsx",
+    "dashboard/js/sections/Timeline.jsx"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "internal"
+}

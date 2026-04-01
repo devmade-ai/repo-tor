@@ -1,0 +1,42 @@
+{
+  "sha": "3733c58",
+  "fullSha": "3733c58d2ca1b92390d64c629c9fd34273285f62",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T17:10:29Z",
+  "commitDate": "2026-03-06T17:10:29Z",
+  "subject": "fix(ux): make variability labels work for both income and expenses",
+  "body": "The \"Buy when needed\" label and tooltip only made sense for expenses.\nRenamed to \"No set schedule\" and made all tooltips context-aware using\nisIncome() — shows income examples (salary, freelance gigs) for positive\namounts and expense examples (rent, prepaid electricity) for negative.\n\nTags: ux, import\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: variable-recurring-expenses\nSemver: patch\n\nhttps://claude.ai/code/session_012d9BjD9FB4H3h731SwxNru",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "variable-recurring-expenses",
+  "semver": "patch",
+  "scope": "ux",
+  "title": "make variability labels work for both income and expenses",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 10,
+    "deletions": 4
+  },
+  "files": [
+    "src/views/import-steps/ImportStepClassify.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

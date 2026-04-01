@@ -1,0 +1,67 @@
+{
+  "sha": "5ed01b1",
+  "fullSha": "5ed01b1c8b7a0eefb1672aaf663935c7f1cadc7c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T21:18:51Z",
+  "commitDate": "2026-02-24T21:18:51Z",
+  "subject": "feat(renderer): build complete form renderer with all 13 field types, validation, and conditions",
+  "body": "Phase 1 implementation — the form renderer defines the runtime contract:\n- Validation engine: per-field validation for all types, page-level aggregation,\n  hidden field exclusion from required checks\n- Condition engine: all 10 operators (equals, contains, greater_than, in, etc.),\n  AND/OR logic, page and field visibility evaluation\n- 13 field components: text, textarea, email, phone, number, select, radio,\n  checkbox_group, checkbox, date, rating, heading, hidden\n- FormRenderer: multi-page navigation with progress bar, condition-based\n  page/field visibility, submission with loading/error/success states,\n  preview mode showing all pages with condition indicators\n- Sample software discovery intake form exercising conditional pages\n- Wired into PreviewPage (preview mode) and PublicFormPage (submission mode)\n\nBoth engines are pure functions — ready for server-side reuse in submission validation.\n\nTags: renderer, fields, validation, conditions, forms\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: form-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+  "tags": [
+    "feature",
+    "ui",
+    "validation"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "form-builder",
+  "semver": "minor",
+  "scope": "renderer",
+  "title": "build complete form renderer with all 13 field types, validation, and conditions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 25,
+    "additions": 1437,
+    "deletions": 40
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/renderer/FieldRenderer.tsx",
+    "src/components/renderer/FormRenderer.tsx",
+    "src/components/renderer/fields/CheckboxField.tsx",
+    "src/components/renderer/fields/CheckboxGroupField.tsx",
+    "src/components/renderer/fields/DateField.tsx",
+    "src/components/renderer/fields/EmailField.tsx",
+    "src/components/renderer/fields/HeadingField.tsx",
+    "src/components/renderer/fields/HiddenField.tsx",
+    "src/components/renderer/fields/NumberField.tsx",
+    "src/components/renderer/fields/PhoneField.tsx",
+    "src/components/renderer/fields/RadioField.tsx",
+    "src/components/renderer/fields/RatingField.tsx",
+    "src/components/renderer/fields/SelectField.tsx",
+    "src/components/renderer/fields/TextField.tsx",
+    "src/components/renderer/fields/TextareaField.tsx",
+    "src/components/renderer/fields/types.ts",
+    "src/lib/conditions.ts",
+    "src/lib/sampleForm.ts",
+    "src/lib/validation.ts",
+    "src/pages/PreviewPage.tsx",
+    "src/pages/PublicFormPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}

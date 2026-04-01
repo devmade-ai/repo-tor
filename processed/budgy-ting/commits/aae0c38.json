@@ -1,0 +1,45 @@
+{
+  "sha": "aae0c38",
+  "fullSha": "aae0c38d13ef256661d1f4db7b4359d0dfbc92c0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T20:11:46Z",
+  "commitDate": "2026-03-12T20:11:46Z",
+  "subject": "fix(a11y): add aria-label to tag remove buttons, remove unused .section-title",
+  "body": "Replace :title with :aria-label on remove-tag buttons in\nTransactionEditModal and ImportStepReview for screen reader support.\nRemove .section-title from index.css — defined but never used.\n\nTags: a11y, cleanup, tailwind\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: tailwind-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01BjAeM7ydoMdMtmH8E5xoY8",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "tailwind-migration",
+  "semver": "patch",
+  "scope": "a11y",
+  "title": "add aria-label to tag remove buttons, remove unused .section-title",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 2,
+    "deletions": 5
+  },
+  "files": [
+    "src/components/TransactionEditModal.vue",
+    "src/index.css",
+    "src/views/import-steps/ImportStepReview.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

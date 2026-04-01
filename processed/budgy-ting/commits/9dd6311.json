@@ -1,0 +1,53 @@
+{
+  "sha": "9dd6311",
+  "fullSha": "9dd63116cbdadd1f014bcefb28c5967049eb6803",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T21:47:46Z",
+  "commitDate": "2026-03-12T21:47:46Z",
+  "subject": "refactor(cleanup): deduplicate tag pills, classification badges, and worker timeouts",
+  "body": "Reduce code duplication identified by codebase audit:\n- Extract .tag-pill CSS class to index.css (3 components)\n- Create ClassificationBadge component (TransactionTable had 2 identical copies)\n- Extract ML worker timeout utils to shared workerTimeout.ts module\n- Fix ConfirmDialog button order (Cancel left, Confirm right per platform convention)\n- Add debugLog to useTagInput catch block for diagnostics\n- Remove unused safeRemoveItem export from useSafeStorage\n\nTags: cleanup, dedup, ux, ml, css\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01BjAeM7ydoMdMtmH8E5xoY8",
+  "tags": [
+    "refactor",
+    "simplify",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": "cleanup",
+  "title": "deduplicate tag pills, classification badges, and worker timeouts",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 104,
+    "deletions": 70
+  },
+  "files": [
+    "src/components/ClassificationBadge.vue",
+    "src/components/ConfirmDialog.vue",
+    "src/components/TransactionEditModal.vue",
+    "src/components/TransactionTable.vue",
+    "src/composables/useSafeStorage.ts",
+    "src/composables/useTagInput.ts",
+    "src/index.css",
+    "src/ml/useEmbeddings.ts",
+    "src/ml/useTagSuggestions.ts",
+    "src/ml/workerTimeout.ts",
+    "src/views/import-steps/ImportStepReview.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

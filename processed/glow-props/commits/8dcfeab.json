@@ -1,0 +1,41 @@
+{
+  "sha": "8dcfeab",
+  "fullSha": "8dcfeab2d6ec3379f43a21819b1f12102faebade",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-29T11:19:31Z",
+  "commitDate": "2026-03-29T11:19:31Z",
+  "subject": "docs(claude-md): add Theme & Dark Mode to Suggested Implementations",
+  "body": "Add comprehensive Theme & Dark Mode pattern covering:\n- CSS variable palette with semantic tokens (raw hex, v3/v4 compatible)\n- Tailwind dark mode config for both v3 (darkMode: 'class') and v4\n  (@custom-variant dark)\n- useDarkMode web hook with localStorage persistence, system preference\n  fallback, safe storage access (try/catch for sandboxed iframes)\n- Flash prevention inline script in index.html (same early-capture\n  pattern as PWA beforeinstallprompt)\n- Dual meta theme-color tags with media queries\n- React Native useAppTheme context with AsyncStorage persistence\n- themeHydrated flag to prevent splash screen hiding before stored\n  preference loads (fixes flash bug found in few-lap audit)\n- color-scheme: dark on html.dark for native form elements\n- Print override forcing light colors\n- Related patterns: currentColor SVGs, chart theme-awareness,\n  content themes vs app dark mode distinction\n- 13 Key Lessons covering all edge cases and gotchas\n\nFindings from double-check audit:\n- localStorage needs try/catch (SecurityError in sandboxed iframes)\n- theme() function deprecated in Tailwind v4 (use raw hex)\n- textTertiary contrast values were swapped (fixed to pass WCAG AA)\n- AsyncStorage hydration flash in React Native (hold splash screen)\n- No CSS transitions on switch (industry standard: instant)\n- CSP inline script caveat documented\n- Android PWA manifest theme_color override documented\n\nTags: documentation, ui, dark-mode, accessibility, cross-project\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: cross-project-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_01X9TF1L5bgUD8cYTLjQXYeY",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "cross-project-alignment",
+  "semver": "minor",
+  "scope": "claude-md",
+  "title": "add Theme & Dark Mode to Suggested Implementations",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 325,
+    "deletions": 0
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

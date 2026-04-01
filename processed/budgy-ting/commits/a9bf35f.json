@@ -1,0 +1,69 @@
+{
+  "sha": "a9bf35f",
+  "fullSha": "a9bf35fef09ffcc682d1ce4d4d0c42848ad217c9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T19:14:34Z",
+  "commitDate": "2026-03-12T19:14:34Z",
+  "subject": "refactor(styling): replace UnoCSS with Tailwind CSS v4",
+  "body": "Swap UnoCSS (preset-uno + preset-icons) for Tailwind CSS v4 via\n@tailwindcss/vite plugin. Replace icon CSS classes (i-lucide-*) with\nlucide-vue-next Vue components across all 20 affected files.\n\n- Remove unocss, @unocss/preset-uno, @unocss/preset-icons, @unocss/reset,\n  @iconify-json/lucide\n- Add tailwindcss, @tailwindcss/vite, lucide-vue-next\n- Create src/index.css with @theme (brand colors) and @layer components\n  (btn, card, input-field, page-title, section-title shortcuts)\n- Update vite.config.ts: tailwindcss() replaces UnoCSS()\n- Update main.ts: import './index.css' replaces virtual:uno.css\n- Delete uno.config.ts\n- Convert all i-lucide-* class-based icons to <Component /> JSX from\n  lucide-vue-next (55 occurrences across 20 files)\n- EmptyState.vue icon prop changed from string to Component type\n- Dynamic icon arrays (TutorialModal, InstallInstructionsModal,\n  WorkspaceDetailView, ToastNotification) use Component references\n  with <component :is=\"...\"> pattern\n\nAll utility classes (flex, p-4, rounded-lg, etc.) are compatible between\nUnoCSS preset-uno and Tailwind — no class name changes needed.\n\nTags: styling, icons, tailwind, unocss, migration\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: vue-to-react-conversion\nSemver: minor\n\nhttps://claude.ai/code/session_01BjAeM7ydoMdMtmH8E5xoY8",
+  "tags": [
+    "migration",
+    "ui",
+    "config"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "tailwind-migration",
+  "semver": "minor",
+  "scope": "styling",
+  "title": "replace UnoCSS with Tailwind CSS v4",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 27,
+    "additions": 757,
+    "deletions": 1025
+  },
+  "files": [
+    "package-lock.json",
+    "package.json",
+    "src/components/AppLayout.vue",
+    "src/components/CashflowGraph.vue",
+    "src/components/DateInput.vue",
+    "src/components/EmptyState.vue",
+    "src/components/ErrorAlert.vue",
+    "src/components/ErrorBoundary.vue",
+    "src/components/HelpDrawer.vue",
+    "src/components/InstallInstructionsModal.vue",
+    "src/components/InstallPrompt.vue",
+    "src/components/TagSuggestions.vue",
+    "src/components/ToastNotification.vue",
+    "src/components/TransactionEditModal.vue",
+    "src/components/TutorialModal.vue",
+    "src/index.css",
+    "src/main.ts",
+    "src/views/NewImportWizard.vue",
+    "src/views/WorkspaceCreateView.vue",
+    "src/views/WorkspaceDashboard.vue",
+    "src/views/WorkspaceDetailView.vue",
+    "src/views/WorkspaceEditView.vue",
+    "src/views/WorkspaceListView.vue",
+    "src/views/import-steps/ImportStepReview.vue",
+    "src/views/import-steps/ImportStepUpload.vue",
+    "uno.config.ts",
+    "vite.config.ts"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,46 @@
+{
+  "sha": "e53e3c6",
+  "fullSha": "e53e3c672c7d3947a29220f1395c064c4160ebd8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T12:42:06Z",
+  "commitDate": "2026-03-13T12:42:06Z",
+  "subject": "docs(audit): fix 10 documentation accuracy issues",
+  "body": "CLAUDE.md: Add Project Status section with current features, schema v8,\nand tech stack summary. Was required by doc spec but missing.\n\nREADME.md: Fix CSS framework (UnoCSS → Tailwind CSS v4), add 5 missing\ncomponents, 6 missing composables, 1 missing engine file to project\nstructure. Correct schema v6→v8. Fix import wizard 3→2 steps.\n\nUSER_GUIDE.md: Rewrite import wizard from 3-step (Upload/Classify/Confirm)\nto 2-step (Upload/Review & Import) matching actual implementation. Add\n\"Check for updates\" to help menu list.\n\nTESTING_GUIDE.md: Fix menu item count (5→6), rewrite import Step 2/3 test\nscenarios to match per-transaction review flow, add \"Check for updates\"\ntest scenario (5.3).\n\nTags: docs, accuracy, audit, cleanup\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01EDm1yAUNe71KZC2BSvCMV4",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "fix 10 documentation accuracy issues",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 116,
+    "deletions": 64
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,72 @@
+{
+  "sha": "3b5a178",
+  "fullSha": "3b5a178fa682ba1b20ee9d1fdf3367ad0f4f4969",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T11:38:05Z",
+  "commitDate": "2026-03-05T11:38:05Z",
+  "subject": "feat(ux): comprehensive UX, mobile, and accessibility improvements",
+  "body": "Addresses 30 UX issues across touch targets, mobile usability,\naccessibility, and general polish for non-technical users.\n\nTouch targets & buttons:\n- Increase all button min-heights to 40-48px (WCAG 2.5.5)\n- Fix notification bell, move up/down, delete, breadcrumb touch targets\n- Add min-h-[44px] to form inputs and selects\n\nMobile UX:\n- Module editor: reduce rows 16→8, add sticky bottom save bar\n- Add unsaved changes warning (beforeunload + confirm on back)\n- Fix inverted responsive text sizes (text-base sm:text-sm → text-sm)\n- Remove autoFocus from modal forms (prevents keyboard pop on mobile)\n- Fix notification panel width (use min() for viewport-safe sizing)\n- Fix header safe-area-inset-top for notched phones\n- Add PDF mobile hint (\"best results on desktop\")\n\nAccessibility:\n- Add focus trap to Modal (Tab/Shift+Tab cycling)\n- Add skip-to-content link\n- Add prefers-reduced-motion support (disable animations)\n- Increase breadcrumb link tap targets with padding + hover states\n- Contextual empty state icons (project/agreement/module/notFound)\n\nPerformance:\n- Add React.lazy code splitting for all route pages\n- Suspense fallback with loading spinner\n\nDesign polish:\n- Relative timestamps in notifications (\"3 min ago\" vs absolute)\n- Larger status badges (px-2.5 py-1 vs px-2 py-0.5)\n- Allow title wrapping instead of truncation (mobile-readable)\n- Desktop agreement grid (sm:grid-cols-2)\n- Reduced empty state padding on mobile (py-8 vs py-12)\n- Toast positioned higher with safe-area buffer\n- PWA install prompt delayed 30s to let users engage first\n\nTags: ux, mobile, accessibility, pwa, performance\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: ux-polish\nSemver: minor\n\nhttps://claude.ai/code/session_01AaBomMvLRDhH4LSzarLMgC",
+  "tags": [
+    "feature",
+    "accessibility",
+    "ux",
+    "ui",
+    "performance"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "minor",
+  "scope": "ux",
+  "title": "comprehensive UX, mobile, and accessibility improvements",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 28,
+    "additions": 284,
+    "deletions": 117
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/agreements/AgreementCard.tsx",
+    "src/components/agreements/PdfPreview.tsx",
+    "src/components/agreements/SplitAgreementForm.tsx",
+    "src/components/agreements/TitleDescriptionForm.tsx",
+    "src/components/common/Button.tsx",
+    "src/components/common/EmptyState.tsx",
+    "src/components/common/Input.tsx",
+    "src/components/common/Modal.tsx",
+    "src/components/common/NotificationBell.tsx",
+    "src/components/common/PwaInstallPrompt.tsx",
+    "src/components/common/TextArea.tsx",
+    "src/components/common/Toast.tsx",
+    "src/components/modules/AddNoteForm.tsx",
+    "src/components/modules/ModuleCard.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/components/modules/ModuleViewer.tsx",
+    "src/components/modules/ProposalCard.tsx",
+    "src/components/modules/ProposeChangeForm.tsx",
+    "src/components/projects/CreateProjectForm.tsx",
+    "src/components/projects/InviteCounterpartyForm.tsx",
+    "src/components/projects/ProjectCard.tsx",
+    "src/index.css",
+    "src/layouts/AppLayout.tsx",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/pages/ProjectDetailPage.tsx",
+    "src/utils/formatDate.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "user-facing"
+}

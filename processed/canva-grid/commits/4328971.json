@@ -1,0 +1,47 @@
+{
+  "sha": "4328971",
+  "fullSha": "432897112f5eb244f2c55649855ff627d9b9d9fa",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-30T22:11:39Z",
+  "commitDate": "2026-03-30T22:11:39Z",
+  "subject": "fix(pwa): restore purple status bar color",
+  "body": "The meta theme-color was changed from brand purple (#7c3aed) to white\n(#FAFAFA) during the dark mode sync work. This restores the original\npurple PWA status bar that colors the time/battery/wifi area.\n\nLight: #7c3aed (violet-600), Dark: #2e1065 (violet-950).\n\nTags: pwa, theme, ui\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa\nSemver: patch\n\nhttps://claude.ai/code/session_017yi6hBwtrYfut3bcT4kkjM",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "restore purple status bar color",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#7",
+    "#2"
+  ],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 10,
+    "deletions": 10
+  },
+  "files": [
+    "CLAUDE.md",
+    "index.html",
+    "src/hooks/useDarkMode.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

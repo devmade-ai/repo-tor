@@ -1,0 +1,42 @@
+{
+  "sha": "9a2bdca",
+  "fullSha": "9a2bdca5cd7f99bbf1aafb0cf854e47cbb4b2147",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T18:07:56Z",
+  "commitDate": "2026-03-27T18:07:56Z",
+  "subject": "fix(charts): reorder palette so semantic colors appear late in sequence",
+  "body": "Red, green, and yellow early in the series palette could imply\nsuccess/error/warning status on chart items that are just data\ncategories. Moved those hues to positions 13+ so the first 12 slots\nuse neutral tones (blue, purple, teal, pink, orange, cyan).\n\nTags: ui, charts, ux\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: dashboard-ux\nSemver: patch\n\nhttps://claude.ai/code/session_0197Cg3tKXhYHN2Si7CrCXXs",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "dashboard-ux",
+  "semver": "patch",
+  "scope": "charts",
+  "title": "reorder palette so semantic colors appear late in sequence",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 8,
+    "deletions": 8
+  },
+  "files": [
+    "dashboard/js/chartColors.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

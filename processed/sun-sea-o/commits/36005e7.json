@@ -1,0 +1,43 @@
+{
+  "sha": "36005e7",
+  "fullSha": "36005e7f7009869c1432085491dc9a3179507234",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-20T17:24:57Z",
+  "commitDate": "2026-03-20T17:24:57Z",
+  "subject": "feat(api): add verifyPassphrase and updateSequence with snake_case fields",
+  "body": "Add API client functions for endpoints not yet wired up, coded as if\nthe backend already supports them (per CLAUDE.md convention):\n- verifyPassphrase: sends { project_id, passphrase }, returns { project_id }\n- updateSequence: sends { action, module_order }\n\nBoth use snake_case JSON keys over the wire (B2, B4, B8 from spec).\n\nTags: api, frontend, snake-case\nComplexity: 1\nUrgency: 3\nImpact: api\nRisk: low\nDebt: neutral\nEpic: backend-integration\nSemver: minor\n\nhttps://claude.ai/code/session_01HRPhbJPtRkXhEynjKV4RW9",
+  "tags": [
+    "feature",
+    "api"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "backend-integration",
+  "semver": "minor",
+  "scope": "api",
+  "title": "add verifyPassphrase and updateSequence with snake_case fields",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 20,
+    "deletions": 0
+  },
+  "files": [
+    "src/api/agreements.ts",
+    "src/api/projects.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "api"
+}

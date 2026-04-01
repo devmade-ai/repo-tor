@@ -1,0 +1,42 @@
+{
+  "sha": "b1ba9be",
+  "fullSha": "b1ba9be8458414326c85f28dd97676a057e38548",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-26T18:07:03Z",
+  "commitDate": "2026-03-26T18:07:03Z",
+  "subject": "fix(ui): remove left gap on mobile tab content",
+  "body": "The dashboard-layout flex container has a 24px gap between\nits children. On mobile, the filter sidebar becomes a fixed\noverlay (position: fixed), but its wrapper div remains in the\nflex flow, causing the gap to push content 24px from the left.\n\nReset gap to 0 on mobile since the sidebar is no longer a\nflex sibling but a fixed overlay.\n\nTags: ui, mobile, css\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01FJrqK3EWCWZqEAiLALVuir",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "remove left gap on mobile tab content",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 7,
+    "deletions": 0
+  },
+  "files": [
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

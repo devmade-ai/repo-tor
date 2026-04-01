@@ -1,0 +1,46 @@
+{
+  "sha": "bcfcd8e",
+  "fullSha": "bcfcd8e5c929691f523a2207b15c5c13cfb714bd",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-26T21:12:02Z",
+  "commitDate": "2026-03-26T21:12:02Z",
+  "subject": "fix(audit): unmount guards, async error handling, stale run cancellation",
+  "body": "- Add mountedRef guard to InterestForm so diagnoseFailure state updates\n  are skipped after unmount (prevents React warnings and memory leaks)\n- Make UpdatePrompt.handleUpdate async to catch rejected promises from\n  onUpdate (previously only caught synchronous exceptions)\n- Remove needRefresh from SW polling interval dependency — polling should\n  run once from mount, not restart on every update state change. Read\n  registrationRef dynamically inside interval to handle late registration.\n- Add monotonic run counter to DebugBanner runDiagnostics to cancel stale\n  diagnostic runs when a new run starts (prevents interleaved state updates)\n\nTags: bugfix, race-condition, async, unmount, polling\nComplexity: 3\nUrgency: 3\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01NM5G3Mv2TWp4ewPMLWDBAv",
+  "tags": [
+    "bugfix",
+    "memory",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "unmount guards, async error handling, stale run cancellation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 44,
+    "deletions": 10
+  },
+  "files": [
+    "src/components/DebugBanner.tsx",
+    "src/components/InterestForm.tsx",
+    "src/components/UpdatePrompt.tsx",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "internal"
+}

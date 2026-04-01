@@ -1,0 +1,54 @@
+{
+  "sha": "d6e3e1f",
+  "fullSha": "d6e3e1f4ab2aed1d88eda9012b7f94e8a51c1b67",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-06T17:04:00Z",
+  "commitDate": "2026-03-06T17:04:00Z",
+  "subject": "feat(engine,ux): add variable recurring expenses (usage-based + on-demand)",
+  "body": "Support three recurring variability types: fixed (same amount, regular\nschedule), variable (different amount, regular schedule), and irregular\n(no schedule, bought when needed). Users pick the sub-type during import\nclassification. Irregular patterns project as a daily rate spread from\nhistorical averages instead of scheduled occurrences.\n\nTags: recurring, forecast, import, ux, db, engine\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: variable-recurring-expenses\nSemver: minor\n\nhttps://claude.ai/code/session_012d9BjD9FB4H3h731SwxNru",
+  "tags": [
+    "feature",
+    "ux",
+    "database",
+    "schema"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "variable-recurring-expenses",
+  "semver": "minor",
+  "scope": "engine,ux",
+  "title": "add variable recurring expenses (usage-based + on-demand)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 269,
+    "deletions": 36
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/db/demoData.ts",
+    "src/db/index.ts",
+    "src/engine/exportImport.ts",
+    "src/engine/forecast.test.ts",
+    "src/engine/forecast.ts",
+    "src/engine/patterns.ts",
+    "src/types/models.ts",
+    "src/views/NewImportWizard.vue",
+    "src/views/import-steps/ImportStepClassify.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,51 @@
+{
+  "sha": "7851a86",
+  "fullSha": "7851a86ac74b2ab3f65db8e786180d76f3c25c48",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T20:35:27Z",
+  "commitDate": "2026-03-31T20:35:27Z",
+  "subject": "fix(review): address issues found during 12-point review",
+  "body": "Fixes from systematic review of all changes on this branch:\n\n- Security: Scrubbed graphiki README — removed git clone URL to\n  private repo, dev setup commands, project structure, configuration\n- Accuracy: Fixed budgy-ting tech stack (added Vue 3) on landing page\n  and README\n- Rendering: Added nested list support to markdown renderer\n- Print: Added @media print rules to project.html (hide tabs/actions,\n  break-inside-avoid on cards)\n- Accessibility: Added :focus-visible outline styles\n- Doc consistency: Added sun-sea-o to README project list, updated\n  project structure to include project.html, public/projects/, and\n  new docs files. Updated SESSION_NOTES and HISTORY.\n\nTags: review, fix, accessibility, security, docs\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: portfolio-site\nSemver: patch\n\nhttps://claude.ai/code/session_01Bh93JoHZAKz7zY48tGvfZ1",
+  "tags": [
+    "bugfix",
+    "security",
+    "accessibility",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "portfolio-site",
+  "semver": "patch",
+  "scope": "review",
+  "title": "address issues found during 12-point review",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 49,
+    "deletions": 107
+  },
+  "files": [
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/PROJECT_DOCS_STATUS.md",
+    "docs/SESSION_NOTES.md",
+    "index.html",
+    "project.html",
+    "public/projects/graphiki/README.md",
+    "styles.css"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

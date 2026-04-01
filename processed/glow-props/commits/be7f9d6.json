@@ -1,0 +1,46 @@
+{
+  "sha": "be7f9d6",
+  "fullSha": "be7f9d67ff4897ae7a49d138214a96ba55085884",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T22:22:03Z",
+  "commitDate": "2026-03-31T22:22:03Z",
+  "subject": "fix(security): escape all dynamic HTML content, normalize URLs",
+  "body": "Security:\n- All meta.json values rendered into HTML are now escaped via\n  escapeHtml() — badge, repo, privacy labels/values, use cases,\n  liveUrl, repoUrl, and markdown table headers. Prevents XSS if\n  meta.json ever contains user-controlled or malicious content.\n- escapeHtml already handles &, <, >, \" (added in previous commit)\n\nConsistency:\n- Normalized all Vercel URLs to include trailing slash — few-lap,\n  synctone, sun-sea-o were missing it in both index.html and\n  meta.json. All 12 live URLs now consistently end with /\n\nTags: security, xss, urls, cleanup\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: portfolio-site\nSemver: patch\n\nhttps://claude.ai/code/session_01Bh93JoHZAKz7zY48tGvfZ1",
+  "tags": [
+    "security",
+    "sanitization"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "portfolio-site",
+  "semver": "patch",
+  "scope": "security",
+  "title": "escape all dynamic HTML content, normalize URLs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 43,
+    "deletions": 22
+  },
+  "files": [
+    "index.html",
+    "project.html",
+    "public/projects/few-lap/meta.json",
+    "public/projects/sun-sea-o/meta.json",
+    "public/projects/synctone/meta.json"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,49 @@
+{
+  "sha": "f03beb4",
+  "fullSha": "f03beb40116e6161ad2764110b82af56ce5ab564",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-09T15:00:06Z",
+  "commitDate": "2026-03-09T15:00:06Z",
+  "subject": "feat(debug): add debug logging to engine, import, and DB layers",
+  "body": "Fills the logging gaps identified in the debug pill audit. All critical\ndecision points and state transitions now emit debug entries:\n\n- forecast.ts: method chosen, residual count, Holt state, DoW factors\n- patterns.ts: groups found, patterns detected with frequency+confidence\n- runway.ts: depletion warning or healthy runway with balance details\n- accuracy.ts: MAE, WMAPE, bias, hit rate after computation\n- csvParser.ts: column/row counts, parse error count\n- NewImportWizard.vue: CSV parse results (valid/skipped), save success\n  with transaction+pattern counts, save failure with error\n- db/index.ts: schema upgrade v6/v7 execution, DB ready with version\n\nTags: debug, observability, engine, import, db\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: stability\nSemver: patch\n\nhttps://claude.ai/code/session_01Gy1obaiGGDe7pD6u14TrkF",
+  "tags": [
+    "feature",
+    "monitoring",
+    "logging"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "stability",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "add debug logging to engine, import, and DB layers",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 89,
+    "deletions": 9
+  },
+  "files": [
+    "src/db/index.ts",
+    "src/engine/accuracy.ts",
+    "src/engine/csvParser.ts",
+    "src/engine/forecast.ts",
+    "src/engine/patterns.ts",
+    "src/engine/runway.ts",
+    "src/views/NewImportWizard.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

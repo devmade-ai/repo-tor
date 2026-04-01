@@ -1,0 +1,41 @@
+{
+  "sha": "54c85f7",
+  "fullSha": "54c85f7e73fef7e4d8c8c50e7a47d9131cf7c58c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-29T23:41:09Z",
+  "commitDate": "2026-03-29T23:41:09Z",
+  "subject": "fix(cleanup): remove dev-only debugLog from SampleImagesSection",
+  "body": "debugLog only renders via DebugPill in dev mode, making it useless\nfor diagnosing caching issues in the production PWA. Removed both\ncalls and the import.\n\nTags: cleanup, media, sample-images\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sample-images\nSemver: patch",
+  "tags": [
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "sample-images",
+  "semver": "patch",
+  "scope": "cleanup",
+  "title": "remove dev-only debugLog from SampleImagesSection",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 0,
+    "deletions": 3
+  },
+  "files": [
+    "src/components/SampleImagesSection.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "internal"
+}

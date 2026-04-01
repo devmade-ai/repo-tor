@@ -1,0 +1,45 @@
+{
+  "sha": "1387afd",
+  "fullSha": "1387afdfa1c7f68627fc2ba992f4936dfab18715",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T20:43:10Z",
+  "commitDate": "2026-02-26T20:43:10Z",
+  "subject": "fix(boot): prevent blank screen when Supabase env vars are missing",
+  "body": "The Supabase client module threw at import time if VITE_SUPABASE_URL or\nVITE_SUPABASE_ANON_KEY were not set. Because all imports in main.tsx run\nbefore createRoot(), this killed the entire app — including the DebugPill\nthat was meant to survive crashes — resulting in a blank white screen with\nno diagnostics.\n\nNow supabase.ts exports an isSupabaseConfigured flag and uses placeholder\nvalues instead of throwing. AuthContext skips Supabase calls when unconfigured,\nand LoginPage shows a clear banner explaining what to do.\n\nTags: bugfix, boot, supabase, auth, ux\nComplexity: 2\nUrgency: 5\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: backend\nSemver: patch\n\nhttps://claude.ai/code/session_01FfhgQ6RQhi8RYe15pDbt1y",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "backend",
+  "semver": "patch",
+  "scope": "boot",
+  "title": "prevent blank screen when Supabase env vars are missing",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 35,
+    "deletions": 11
+  },
+  "files": [
+    "src/components/auth/GoogleLoginButton.tsx",
+    "src/config/supabase.ts",
+    "src/context/AuthContext.tsx",
+    "src/pages/LoginPage.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 5,
+  "impact": "user-facing"
+}

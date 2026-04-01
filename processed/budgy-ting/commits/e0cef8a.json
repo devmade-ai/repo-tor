@@ -1,0 +1,50 @@
+{
+  "sha": "e0cef8a",
+  "fullSha": "e0cef8ae36f1196e44e985a3a37afb113e36c0da",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-30T21:45:58Z",
+  "commitDate": "2026-03-30T21:45:58Z",
+  "subject": "feat(menu): extract BurgerMenu.vue with a11y hardening + z-index scale",
+  "body": "Extracted burger menu from AppLayout into standalone BurgerMenu.vue with\nall glow-props disclosure pattern fixes. Formalized z-index scale in\nCLAUDE.md and normalized all components to match.\n\nBurger Menu Hardening:\n- Disclosure pattern: aria-expanded, aria-controls, <nav>+<ul>/<li>\n  (not role=\"menu\" — wrong ARIA semantics for navigation)\n- Escape key handler (registered only while open)\n- cursor-pointer on backdrop (iOS Safari empty div fix)\n- overscroll-contain on dropdown (prevents scroll chaining)\n- Focus management: first item on open, trigger on close\n  (hasBeenOpen guard prevents focus steal on mount)\n- focus-visible:ring-2 on items for keyboard navigation\n- AppLayout simplified: items as computed data, BurgerMenu handles UX\n\nZ-Index Scale (CLAUDE.md):\n- Added scale table (0→80 range)\n- Debug pill: z-[9999] → z-[80]\n- Toast: z-[100] → z-[70]\n\nCLAUDE.md Sync:\n- Added \"Discontinued repos\" AI note (plant-fur, coin-zapp)\n\nTags: a11y, ux, burger-menu, z-index, glow-props-sync, refactor\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: glow-props-sync\nSemver: minor\n\nhttps://claude.ai/code/session_01XcfhH9wXBrL4DVMiGcUuY5",
+  "tags": [
+    "feature",
+    "refactor",
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "glow-props-sync",
+  "semver": "minor",
+  "scope": "menu",
+  "title": "extract BurgerMenu.vue with a11y hardening + z-index scale",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 255,
+    "deletions": 143
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/TODO.md",
+    "src/components/AppLayout.vue",
+    "src/components/BurgerMenu.vue",
+    "src/components/ToastNotification.vue",
+    "src/debug/DebugPill.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

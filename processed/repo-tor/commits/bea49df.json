@@ -1,0 +1,45 @@
+{
+  "sha": "bea49df",
+  "fullSha": "bea49dfce9c570e9277397f5de0bf6919ddee8f7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-26T18:30:25Z",
+  "commitDate": "2026-03-26T18:30:25Z",
+  "subject": "fix(charts): adjust repo category colors for better contrast",
+  "body": "Discontinued repos: gray-600 (#4b5563) — dark, clearly faded\nInternal repos: gray-400 (#9ca3af) — neutral mid-tone, not competing\nwith public repo palette colors\n\nPrevious values (gray-500 + gray-200) were either too close together\nor too bright on the dark chart background.\n\nTags: ui, charts\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: dashboard-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01FJrqK3EWCWZqEAiLALVuir",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "dashboard-ux",
+  "semver": "patch",
+  "scope": "charts",
+  "title": "adjust repo category colors for better contrast",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#4",
+    "#9"
+  ],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "dashboard/js/chartColors.js"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

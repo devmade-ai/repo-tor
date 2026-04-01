@@ -1,0 +1,43 @@
+{
+  "sha": "c7f50a0",
+  "fullSha": "c7f50a00b3115145a8e2d744b063334b3f8e5cee",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T15:19:25Z",
+  "commitDate": "2026-03-04T15:19:25Z",
+  "subject": "fix(types): add explicit undefined initial value to useRef calls",
+  "body": "TypeScript strict mode requires explicit initial argument for useRef\nwhen the type parameter doesn't include undefined. Pass undefined\nexplicitly to satisfy tsc -b in the Vercel build pipeline.\n\nTags: types, fix\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: polish-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01RFixSajvnbquW3xXo5NViQ",
+  "tags": [
+    "bugfix",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "polish-hardening",
+  "semver": "patch",
+  "scope": "types",
+  "title": "add explicit undefined initial value to useRef calls",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "src/components/common/Toast.tsx",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

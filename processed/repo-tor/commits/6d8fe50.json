@@ -1,0 +1,52 @@
+{
+  "sha": "6d8fe50",
+  "fullSha": "6d8fe50edfdff32180ef8bccb5bc74f692e4cdfa",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T12:03:08Z",
+  "commitDate": "2026-03-27T12:03:08Z",
+  "subject": "refactor(ui): extract ShowMoreButton component and useEscapeKey hook",
+  "body": "Deduplicate two patterns introduced by the pagination and menu commits:\n\n- ShowMoreButton: Shared component replaces 9 identical inline button\n  patterns across DetailPane, Timeline, Contributors, Tags, Progress,\n  Discover, and Projects (2 instances).\n\n- useEscapeKey: Shared hook replaces 3 identical Escape key listener\n  patterns across DetailPane, QuickGuide, and HamburgerMenu.\n\nNo behavior changes — pure deduplication.\n\nTags: refactor, clean, ui\nComplexity: 2\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01Pawpns2DextM3UtszvADr6",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "extract ShowMoreButton component and useEscapeKey hook",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 64,
+    "deletions": 60
+  },
+  "files": [
+    "dashboard/js/components/DetailPane.jsx",
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/js/components/QuickGuide.jsx",
+    "dashboard/js/components/ShowMoreButton.jsx",
+    "dashboard/js/hooks/useEscapeKey.js",
+    "dashboard/js/sections/Contributors.jsx",
+    "dashboard/js/sections/Discover.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/js/sections/Projects.jsx",
+    "dashboard/js/sections/Tags.jsx",
+    "dashboard/js/sections/Timeline.jsx"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 1,
+  "impact": "internal"
+}

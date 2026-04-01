@@ -1,0 +1,42 @@
+{
+  "sha": "c3d3a63",
+  "fullSha": "c3d3a63eb4c7ca6c23f2135cd59565afdc47f146",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T19:54:15Z",
+  "commitDate": "2026-03-12T19:54:15Z",
+  "subject": "docs: add shared Supabase migration process to AI_MISTAKES and SESSION_NOTES",
+  "body": "Document the correct stub-file approach for pushing migrations to a shared\nSupabase DB. Never use `migration repair --status reverted` on another\nproject's migrations — it deletes their history table entries.\n\nTags: documentation, supabase, migrations\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "deployment",
+  "semver": "patch",
+  "scope": null,
+  "title": "add shared Supabase migration process to AI_MISTAKES and SESSION_NOTES",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 21,
+    "deletions": 0
+  },
+  "files": [
+    "docs/AI_MISTAKES.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "infrastructure"
+}

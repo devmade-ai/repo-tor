@@ -1,0 +1,42 @@
+{
+  "sha": "86da0ea",
+  "fullSha": "86da0ea42103ae7dd07ecf040384d3883a345a60",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-29T14:07:14Z",
+  "commitDate": "2026-03-29T14:07:14Z",
+  "subject": "feat(state): default to 'clean' look preset on load",
+  "body": "Set activeStylePreset to 'clean' instead of null so new users see a\npolished starting state. Clean is the most neutral look (Inter/Inter,\nminimal overlay) — switching to other looks feels like exploring\noptions rather than \"turning on a feature.\"\n\nAlso aligned default fonts from montserrat/inter to inter/inter to\nmatch the Clean look's font pairing.\n\nTags: state, ux, defaults\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: wordpress-design-tokens\nSemver: minor\n\nhttps://claude.ai/code/session_01ArqCKLNB2equr8vTQgcMN9",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "wordpress-design-tokens",
+  "semver": "minor",
+  "scope": "state",
+  "title": "default to 'clean' look preset on load",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 10,
+    "deletions": 3
+  },
+  "files": [
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 1,
+  "impact": "user-facing"
+}

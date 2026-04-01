@@ -1,0 +1,45 @@
+{
+  "sha": "b96f82f",
+  "fullSha": "b96f82f73c5354663b26fc7eb57efd71f6f531ab",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T22:56:18Z",
+  "commitDate": "2026-02-26T22:56:18Z",
+  "subject": "fix(boot): add 404.html fallback and inline loading indicator",
+  "body": "GitHub Pages returns its default 404 for any path that doesn't map to a\nreal file. After React Router navigates to /login or /projects (client-\nside), a hard refresh (pulldown on mobile) asks GitHub Pages for that\npath — which doesn't exist. Without a 404.html the response is empty,\nproducing the blank screen the user sees (no HTML, no JS, no DebugPill).\n\nChanges:\n- deploy.yml: copy index.html → 404.html after build so GitHub Pages\n  serves the SPA shell for every route\n- index.html: add an inline loading spinner inside #root that is visible\n  immediately while JS downloads; React's createRoot().render() replaces\n  #root's children, removing it automatically. Also add <noscript>\n  fallback for disabled-JS browsers.\n- usePWAUpdate.ts: prefix unused swUrl param to fix TS6133\n\nTags: deploy, spa-routing, pwa, ux\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: blank-screen-fix\nSemver: patch\n\nhttps://claude.ai/code/session_01NPNG7niNfjuNe2rdGBoiWM",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ci"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "blank-screen-fix",
+  "semver": "patch",
+  "scope": "boot",
+  "title": "add 404.html fallback and inline loading indicator",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 25,
+    "deletions": 2
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "index.html",
+    "src/hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 4,
+  "impact": "user-facing"
+}

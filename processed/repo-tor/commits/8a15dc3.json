@@ -1,0 +1,49 @@
+{
+  "sha": "8a15dc3",
+  "fullSha": "8a15dc3a37378b4f7f4503528184a235d87ea59e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T14:36:36Z",
+  "commitDate": "2026-03-27T14:36:36Z",
+  "subject": "fix(a11y): polish accessibility, inline styles, and test coverage",
+  "body": "- Add aria-label to ShowMoreButton for screen readers\n- Add type=\"button\" to DetailPane close button (prevents implicit submit)\n- Focus first menu item when HamburgerMenu opens (keyboard discoverability)\n- Move Projects error card inline style to .projects-error CSS class\n- Add arrow key, Enter/Space keyboard test scenarios to TESTING_GUIDE.md\n- Update SESSION_NOTES.md with all polish changes\n\nTags: accessibility, ui, testing, cleanup\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01Pawpns2DextM3UtszvADr6",
+  "tags": [
+    "accessibility",
+    "ui",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "a11y",
+  "title": "polish accessibility, inline styles, and test coverage",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 27,
+    "deletions": 3
+  },
+  "files": [
+    "dashboard/js/components/DetailPane.jsx",
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/js/components/ShowMoreButton.jsx",
+    "dashboard/js/sections/Projects.jsx",
+    "dashboard/styles.css",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

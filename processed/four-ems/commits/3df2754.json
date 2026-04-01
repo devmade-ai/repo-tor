@@ -1,0 +1,52 @@
+{
+  "sha": "3df2754",
+  "fullSha": "3df275470200d4f0ec498625589165d822f2cefb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T19:52:41Z",
+  "commitDate": "2026-02-26T19:52:41Z",
+  "subject": "feat(builder): add read-only example form at /forms/example",
+  "body": "Users can now view a pre-built example form (Project Discovery / Intake)\nin the builder UI without being able to modify it. This helps new users\nunderstand how the form builder works before creating their own forms.\n\n- Add readOnly state + mutation guards to formStore\n- Add /forms/example route rendering BuilderPage in read-only mode\n- Load SAMPLE_FORM into builder when visiting example route\n- Show \"Example Form\" title + \"Read-only\" badge in header\n- Hide save/create button, embed/responses/preview links\n- Disable drag-and-drop in palette and canvas\n- Hide drag handles, duplicate, and remove buttons on field cards\n- Disable all property panel inputs (text, select, checkbox, etc.)\n- Hide add/remove page buttons, disable page rename\n- Disable OptionsEditor reorder/remove/add controls\n- Disable ConditionBuilder toggle/edit/remove controls\n- Add example form card on home page with dashed border + read-only badge\n\nTags: feature, builder, example, read-only, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: example-form\nSemver: minor\n\nhttps://claude.ai/code/session_01VQPd2MNTTthhe2dmj1wUhk",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "example-form",
+  "semver": "minor",
+  "scope": "builder",
+  "title": "add read-only example form at /forms/example",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 313,
+    "deletions": 164
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/builder/BuilderCanvas.tsx",
+    "src/components/builder/ConditionBuilder.tsx",
+    "src/components/builder/FieldPalette.tsx",
+    "src/components/builder/FieldPropertiesPanel.tsx",
+    "src/components/builder/OptionsEditor.tsx",
+    "src/components/builder/PageTabs.tsx",
+    "src/pages/BuilderPage.tsx",
+    "src/pages/FormListPage.tsx",
+    "src/stores/formStore.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,48 @@
+{
+  "sha": "cd3b0a2",
+  "fullSha": "cd3b0a248910925f13cdaedf33fbb9b86abd8a55",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T09:20:37Z",
+  "commitDate": "2026-03-04T09:20:37Z",
+  "subject": "refactor(forecast): simplify to aggregate cashflow, add demo actuals",
+  "body": "Forecasting and accuracy now operate on aggregate cashflow (total income\nminus total expenses), not per-category breakdowns. Categories/tags are\nfor interest stats in the Compare tab, not for measuring forecast accuracy.\n\nChanges:\n- Remove \"Each item / Group by tag\" toggle from Forecast tab (items-only)\n- Refactor forecast engine: replace generateCategoryForecasts with\n  generateCashflowForecast (aggregate), replace groupActualsByCategoryMonth\n  with groupActualsByMonth (aggregate)\n- Refactor accuracy engine: remove per-category/per-method breakdowns,\n  track aggregate daily forecast vs actual only\n- Add 23 demo actuals to seedDemoWorkspace (previous month's transactions)\n  with realistic SA merchant names, amounts varying from budget, and 2\n  unbudgeted actuals — so chart, compare, and accuracy features are\n  visible on first visit\n\nTags: forecast, accuracy, demo, cleanup, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: forecasting-enhancement\nSemver: minor\n\nhttps://claude.ai/code/session_01CuU4JLJcWUf92LLHXcqyK8",
+  "tags": [
+    "refactor",
+    "simplify",
+    "seed"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "forecasting-enhancement",
+  "semver": "minor",
+  "scope": "forecast",
+  "title": "simplify to aggregate cashflow, add demo actuals",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 235,
+    "deletions": 293
+  },
+  "files": [
+    "src/db/demoData.ts",
+    "src/engine/accuracy.test.ts",
+    "src/engine/accuracy.ts",
+    "src/engine/forecast.test.ts",
+    "src/engine/forecast.ts",
+    "src/views/ProjectedTab.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "user-facing"
+}

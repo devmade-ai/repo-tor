@@ -1,0 +1,41 @@
+{
+  "sha": "c3b0826",
+  "fullSha": "c3b082636fe1ee2a031edcd4ee02b9509437609b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-27T07:17:59Z",
+  "commitDate": "2026-02-27T07:17:59Z",
+  "subject": "fix(router): remove stale basename=\"/sun-sea-o\" left over from GitHub Pages",
+  "body": "The BrowserRouter still had basename=\"/sun-sea-o\" from the GitHub Pages\ndeployment, but the app now deploys to Vercel at the root path. This\ncaused the router to fail matching \"/\" and render nothing — a blank\nscreen on every visit (reported via mobile debug pill).\n\nTags: bugfix, routing, deployment\nComplexity: 1\nUrgency: 5\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch\n\nhttps://claude.ai/code/session_01HMAQqzMXZ7ssofHt8VyMEZ",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "deployment",
+  "semver": "patch",
+  "scope": "router",
+  "title": "remove stale basename=\"/sun-sea-o\" left over from GitHub Pages",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "src/App.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 5,
+  "impact": "user-facing"
+}

@@ -1,0 +1,45 @@
+{
+  "sha": "c901581",
+  "fullSha": "c901581ac195ff9ef2db1314a472837bcf58c33e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T20:48:14Z",
+  "commitDate": "2026-02-26T20:48:14Z",
+  "subject": "fix(forms): graceful fallback when backend/Supabase unavailable",
+  "body": "The app crashed or showed a blocking error when Supabase env vars\nwere missing or the API backend was unreachable. Now it falls back\nto sample forms with a subtle \"demo mode\" notice instead.\n\n- supabase.ts: export `supabaseConfigured` flag instead of throwing\n- api.ts: bail early when API_BASE is empty, skip auth when Supabase unconfigured\n- useAuth.ts: skip auth init when Supabase unconfigured\n- FormListPage.tsx: always fall back to sample forms on API failure\n\nTags: bugfix, resilience, demo-mode\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: form-builder\nSemver: patch\n\nhttps://claude.ai/code/session_01Rzpo7mmoqgR9MMPRFiiDEN",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "form-builder",
+  "semver": "patch",
+  "scope": "forms",
+  "title": "graceful fallback when backend/Supabase unavailable",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 40,
+    "deletions": 23
+  },
+  "files": [
+    "src/hooks/useAuth.ts",
+    "src/lib/api.ts",
+    "src/lib/supabase.ts",
+    "src/pages/FormListPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "user-facing"
+}

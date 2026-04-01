@@ -1,0 +1,46 @@
+{
+  "sha": "05421dd",
+  "fullSha": "05421dda716b5190c0574bbee409e3b2112bb430",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T22:17:47Z",
+  "commitDate": "2026-03-31T22:17:47Z",
+  "subject": "fix(bugs): JS bugs, visual issues, focus states, print improvements",
+  "body": "Bugs fixed:\n- Event listener accumulation: Tab click handlers were added inside\n  render(), accumulating on every re-render. Switched to event\n  delegation on document (one listener handles all tabs)\n- escapeHtml missing quote escaping: Added &quot; — prevents broken\n  HTML attributes if meta.json contains quotes\n- Copy button selector too broad: querySelector('.doc-action-btn')\n  always selected the first button. Now uses getElementById('copy-btn')\n\nVisual fixes:\n- Status dot colors: Hardcoded #22c55e/#a1a1aa replaced with\n  var(--pico-primary)/var(--pico-muted-color) for dark mode\n- Logo border-radius: Hardcoded 6px replaced with\n  var(--pico-border-radius) for consistency\n- Logo href: Dead anchor (#) replaced with ./ (home link)\n\nAccessibility:\n- Added :focus-visible outlines to card-links, doc-tabs, and\n  doc-action-btn — keyboard navigation now shows focus indicators\n\nPrint:\n- Added break-inside: avoid to table and pre elements — prevents\n  code blocks and tables from splitting across pages\n\nTags: fix, bugs, accessibility, visual, print\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: portfolio-site\nSemver: patch\n\nhttps://claude.ai/code/session_01Bh93JoHZAKz7zY48tGvfZ1",
+  "tags": [
+    "bugfix",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "portfolio-site",
+  "semver": "patch",
+  "scope": "bugs",
+  "title": "JS bugs, visual issues, focus states, print improvements",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#22"
+  ],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 35,
+    "deletions": 16
+  },
+  "files": [
+    "index.html",
+    "project.html",
+    "styles.css"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "user-facing"
+}

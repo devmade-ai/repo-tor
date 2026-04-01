@@ -1,0 +1,64 @@
+{
+  "sha": "704d00a",
+  "fullSha": "704d00aa15c964d75a3c81aba42f4ff3abb1f0c4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T15:09:17Z",
+  "commitDate": "2026-03-04T15:09:17Z",
+  "subject": "fix(quality): resolve all ESLint errors, add realtime, deduplicate code",
+  "body": "Comprehensive codebase review and hardening pass that resolves all 13\nESLint errors and fixes several architectural issues.\n\nCritical fixes:\n- Remove conditional useCallback in ModuleEditorPage (Rules of Hooks)\n- Fix react-hooks/set-state-in-effect across all data hooks by merging\n  initial fetch into Supabase channel subscribe('SUBSCRIBED') callback\n- Fix react-refresh/only-export-components by splitting AuthContext\n- Fix PWA timer leak via ref-based interval tracking with cleanup\n\nRealtime additions:\n- useNotes, useSignatureLog, usePdfVerifications now have realtime\n  subscriptions (were fetch-only, counterparty wouldn't see live updates)\n\nCode deduplication:\n- Extract TitleDescriptionForm shared by Create/Request agreement forms\n- Refactor InstallInstructionsModal to use shared Modal component\n- Remove redundant internal state from Toast component\n\nTags: refactor, quality, realtime, pwa, lint\nComplexity: 3\nUrgency: 3\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: polish-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_01RFixSajvnbquW3xXo5NViQ",
+  "tags": [
+    "bugfix",
+    "refactor",
+    "lint"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "polish-hardening",
+  "semver": "patch",
+  "scope": "quality",
+  "title": "resolve all ESLint errors, add realtime, deduplicate code",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 22,
+    "additions": 349,
+    "deletions": 257
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/agreements/CreateAgreementForm.tsx",
+    "src/components/agreements/RequestAgreementForm.tsx",
+    "src/components/agreements/TitleDescriptionForm.tsx",
+    "src/components/common/InstallInstructionsModal.tsx",
+    "src/components/common/PwaInstallPrompt.tsx",
+    "src/components/common/Toast.tsx",
+    "src/context/AuthContext.tsx",
+    "src/context/authContextValue.ts",
+    "src/hooks/useAgreements.ts",
+    "src/hooks/useModules.ts",
+    "src/hooks/useNotes.ts",
+    "src/hooks/useNotifications.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "src/hooks/usePdfVerifications.ts",
+    "src/hooks/useProjects.ts",
+    "src/hooks/useProposals.ts",
+    "src/hooks/useSignatureLog.ts",
+    "src/pages/ModuleEditorPage.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "internal"
+}

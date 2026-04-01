@@ -1,0 +1,42 @@
+{
+  "sha": "05ac09a",
+  "fullSha": "05ac09ac7f53043d17a357e3fd9c4d6a06350d11",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T19:49:53Z",
+  "commitDate": "2026-03-07T19:49:53Z",
+  "subject": "chore(cron): remove pg_cron migration in favor of Vercel cron",
+  "body": "Nudge and auto-expiry scheduling is handled by Vercel cron endpoints,\nnot pg_cron. Removes the orphaned migration and adds a USER_ACTIONS\nitem to clean up the live Supabase database if the migration was\nalready applied.\n\nTags: cleanup, cron, backend\nComplexity: 1\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch\n\nhttps://claude.ai/code/session_01SYaQaaLadfCmvUn7uGAHvu",
+  "tags": [
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "deployment",
+  "semver": "patch",
+  "scope": "cron",
+  "title": "remove pg_cron migration in favor of Vercel cron",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 27,
+    "deletions": 132
+  },
+  "files": [
+    "docs/USER_ACTIONS.md",
+    "supabase/migrations/20260226000004_cron_jobs.sql"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

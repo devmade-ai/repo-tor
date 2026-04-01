@@ -1,0 +1,61 @@
+{
+  "sha": "7ab930a",
+  "fullSha": "7ab930a222b296aeb9048f8fc5011b194b16882b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T22:04:11Z",
+  "commitDate": "2026-03-02T22:04:11Z",
+  "subject": "fix(security): comprehensive code review audit — 13 fixes across 15 files",
+  "body": "Security fixes:\n- CSV formula injection: prefix formula-triggering chars with tab (CWE-1236)\n- ReDoS: reject nested-quantifier regex patterns, cap input length (CWE-1333)\n- Embed postMessage: validate origin, cap max height to prevent UI abuse\n- Debug pill: gate behind import.meta.env.DEV to prevent data leak in production\n- Embed code: HTML-encode slug to prevent injection in copy-pasted snippets\n- Debug report: redact URL query params to avoid leaking tokens/hidden field values\n\nRace condition fixes:\n- Auto-save: read definition from store at save-time (not stale closure),\n  only clear isDirty if definition unchanged during async save\n- ResponsesPage optimistic update: capture pre-update state via functional\n  updater to avoid stale closure on concurrent status changes\n- All page fetches: add AbortController to prevent state updates after unmount\n\nMemory leak fixes:\n- Auto-save: replace unbounded timeout array with single refs per purpose\n- Timer cleanup on unmount is now deterministic (2 refs vs N-length array)\n\nOther fixes:\n- ID generation: use crypto.randomUUID() instead of Date.now() to prevent\n  collisions on rapid operations\n- API client: accept optional AbortSignal on all methods\n- BuilderPage: add e.returnValue for cross-browser beforeunload compat\n\nTags: security, race-condition, memory-leak, audit, csv, regex, embed, pwa\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: code-review-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01KVyJqJKXbP2YdEurt3rQTx",
+  "tags": [
+    "security",
+    "vulnerability",
+    "bugfix",
+    "memory"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-review-audit",
+  "semver": "patch",
+  "scope": "security",
+  "title": "comprehensive code review audit — 13 fixes across 15 files",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "CWE-1236",
+    "CWE-1333"
+  ],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 155,
+    "deletions": 61
+  },
+  "files": [
+    "public/embed.js",
+    "src/components/builder/EmbedCodeDialog.tsx",
+    "src/components/builder/fieldTypeRegistry.ts",
+    "src/hooks/useAutoSave.ts",
+    "src/lib/api.ts",
+    "src/lib/csvExport.ts",
+    "src/lib/debugLog.ts",
+    "src/lib/formImport.ts",
+    "src/lib/validation.ts",
+    "src/main.tsx",
+    "src/pages/BuilderPage.tsx",
+    "src/pages/FormListPage.tsx",
+    "src/pages/PublicFormPage.tsx",
+    "src/pages/ResponsesPage.tsx",
+    "src/stores/formStore.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "user-facing"
+}

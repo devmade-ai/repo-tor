@@ -1,0 +1,54 @@
+{
+  "sha": "4431102",
+  "fullSha": "44311025a3472f6c65f95dcb374c8ad21eebfe71",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T15:43:00Z",
+  "commitDate": "2026-03-27T15:43:00Z",
+  "subject": "feat(modules): add contract upload and conversion to modules",
+  "body": "Upload traditional contracts (.txt, .docx, .pdf) and convert them into\nSancio's module-based structure. Client-side extraction with no backend\nchanges needed.\n\nKey design decisions:\n- PDF library (pdfjs-dist) lazy-loaded via dynamic import with Vite-bundled\n  worker — zero cost for non-PDF users, works offline (no CDN dependency)\n- Heuristic section splitting at depth 0 only by default to avoid module\n  proliferation; sub-section splitting is opt-in\n- Batch creation in parallel groups of 4 via Promise.allSettled to handle\n  SA mobile latency on 30+ module uploads\n- Source tracking via [Source: filename] note convention — syncs to both\n  parties via Supabase, searchable, no schema changes needed\n- Duplicate detection via text hash in localStorage\n- Encoding detection: BOM → UTF-8 strict → Windows-1252 fallback\n- Oversized sections (>10k chars) split via paragraph → sentence →\n  word-boundary fallback chain\n\nNew files:\n- src/utils/documentParser.ts — text extraction for .txt/.docx/.pdf\n- src/utils/contractSplitter.ts — heuristic section splitting\n- src/components/modules/ContractUploadPreview.tsx — preview/edit UI\n\nModified files:\n- src/components/modules/TemplateSelector.tsx — tabbed UI with upload tab\n- src/pages/AgreementDetailPage.tsx — batch creation handler\n\nTags: feature, modules, upload, parsing, pdf, docx\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: contract-upload\nSemver: minor\n\nhttps://claude.ai/code/session_01KQFyjLRpK1QAMT31nJY4qz",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "contract-upload",
+  "semver": "minor",
+  "scope": "modules",
+  "title": "add contract upload and conversion to modules",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "UTF-8"
+  ],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 1938,
+    "deletions": 35
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "package-lock.json",
+    "package.json",
+    "src/components/modules/ContractUploadPreview.tsx",
+    "src/components/modules/TemplateSelector.tsx",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/utils/contractSplitter.ts",
+    "src/utils/documentParser.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,45 @@
+{
+  "sha": "d3d201c",
+  "fullSha": "d3d201c92e8f2f9173a22e52ccd081e4921cb775",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T16:13:50Z",
+  "commitDate": "2026-03-27T16:13:50Z",
+  "subject": "fix(mobile): increase touch targets for mobile page controls and export buttons",
+  "body": "Improve touch target sizes on mobile to meet or approach the 44px minimum\nrecommended by Apple HIG and WCAG 2.5.8 for reliable finger interaction.\n\n1. ContextBar page management buttons: w-10 h-10 (40px) → w-11 h-11 (44px)\n   on mobile. Affects move, duplicate, add, delete buttons in the mobile-only\n   pages row (sm:hidden block).\n\n2. ContextBar PageDot: w-8 h-8 (32px) → w-10 h-10 sm:w-8 sm:h-8 (40px on\n   mobile, 32px on desktop). Frequent page-switching action needs larger target.\n\n3. ExportButtons format selector: py-1.5 (~28px) → py-2.5 sm:py-1.5 (~40px\n   on mobile). PNG/JPG/WebP buttons were too short for reliable tapping.\n\n4. ContentTab clear text button: w-7 h-7 (28px) → w-8 h-8 sm:w-7 sm:h-7\n   (32px on mobile). Was the smallest interactive element in the app.\n\nTags: mobile, touch-targets, ux, accessibility\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-review-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_011jgP4mxQrtNwqYrjXh4PNU",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review-sweep",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "increase touch targets for mobile page controls and export buttons",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 10,
+    "deletions": 10
+  },
+  "files": [
+    "src/components/ContentTab.jsx",
+    "src/components/ContextBar.jsx",
+    "src/components/ExportButtons.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,46 @@
+{
+  "sha": "d145ad8",
+  "fullSha": "d145ad82742dbd2685f3ab6255af2f713652fc96",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-18T09:43:20Z",
+  "commitDate": "2026-03-18T09:43:20Z",
+  "subject": "fix(review): address code review findings across branch",
+  "body": "Fix stale state in SummaryField (realtime sync), harden markAllAsRead\nwith Promise.allSettled for partial failure resilience, eliminate\nsubscription churn in useModules via fetchVersions ref pattern,\nclean up redundant regex range, and document N+1 version fetching.\n\nTags: review, bugfix, hardening, cleanup\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: api-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01G52a5oQY1JKzyjwx2t857e",
+  "tags": [
+    "bugfix",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "api-migration",
+  "semver": "patch",
+  "scope": "review",
+  "title": "address code review findings across branch",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 35,
+    "deletions": 13
+  },
+  "files": [
+    "docs/TODO.md",
+    "src/components/modules/ModuleSummaryEditor.tsx",
+    "src/constants/tones.ts",
+    "src/hooks/useModules.ts",
+    "src/hooks/useNotifications.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

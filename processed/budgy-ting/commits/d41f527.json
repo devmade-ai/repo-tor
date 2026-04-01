@@ -1,0 +1,49 @@
+{
+  "sha": "d41f527",
+  "fullSha": "d41f527ecd152e77527839ad5ab4963615fd58b0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T20:22:25Z",
+  "commitDate": "2026-03-12T20:22:25Z",
+  "subject": "refactor(composables): extract useTagInput, usePagination, formatDateForDisplay",
+  "body": "Extract duplicated logic into reusable composables:\n\n- useTagInput: tag input with keyboard nav, autocomplete from tagCache +\n  known tags, blur/debounce handling. Replaces ~70 lines duplicated in\n  TransactionEditModal and ImportStepReview.\n- usePagination: currentPage, totalPages, paginatedItems, resetPage.\n  Replaces ~15 lines duplicated in TransactionTable and ImportStepReview.\n- formatDateForDisplay: ISO date string to locale display format.\n  Replaces duplicate formatDate/displayDate in TransactionTable and\n  TransactionEditModal.\n- BottomSheet: use useDialogA11y instead of inline Escape handler,\n  gaining focus trapping and focus restoration for consistency with\n  all other dialogs.\n\nTags: cleanup, composables, a11y\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: tailwind-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01BjAeM7ydoMdMtmH8E5xoY8",
+  "tags": [
+    "refactor",
+    "simplify",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "tailwind-migration",
+  "semver": "patch",
+  "scope": "composables",
+  "title": "extract useTagInput, usePagination, formatDateForDisplay",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 252,
+    "deletions": 242
+  },
+  "files": [
+    "src/components/BottomSheet.vue",
+    "src/components/TransactionEditModal.vue",
+    "src/components/TransactionTable.vue",
+    "src/composables/useFormat.ts",
+    "src/composables/usePagination.ts",
+    "src/composables/useTagInput.ts",
+    "src/views/import-steps/ImportStepReview.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

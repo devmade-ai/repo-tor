@@ -1,0 +1,55 @@
+{
+  "sha": "88750a0",
+  "fullSha": "88750a0d6b0a5fc520360ed88d2d67559e19acbe",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T09:53:06Z",
+  "commitDate": "2026-02-26T09:53:06Z",
+  "subject": "fix(polish): add expired module treatment, input validation, notification triggers, mobile fixes",
+  "body": "Complete Phase 7 frontend polish:\n- Expired modules: greyed-out cards with \"Expired\" badge, warning banners,\n  signing toggle hidden, batch sign excludes expired\n- Input validation: character counters and limits on module content (10K),\n  notes (2K), proposals (10K)\n- PDF verification: loading state with disabled button during generation\n- Notification triggers: wired to all key events (signing, proposals, notes,\n  sequence approval, splits, status changes, handshake, agreement requests)\n- Mobile: responsive notification dropdown, flex-wrap on PDF preview buttons\n\nTags: polish, expired, validation, notifications, mobile, phase7\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mvp-frontend\nSemver: patch\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+  "tags": [
+    "bugfix",
+    "validation",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mvp-frontend",
+  "semver": "patch",
+  "scope": "polish",
+  "title": "add expired module treatment, input validation, notification triggers, mobile fixes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 232,
+    "deletions": 85
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/agreements/PdfPreview.tsx",
+    "src/components/common/NotificationBell.tsx",
+    "src/components/modules/AddNoteForm.tsx",
+    "src/components/modules/BatchSignActions.tsx",
+    "src/components/modules/ModuleCard.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/components/modules/ProposeChangeForm.tsx",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/pages/ProjectDetailPage.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

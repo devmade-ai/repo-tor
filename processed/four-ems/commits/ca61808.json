@@ -1,0 +1,48 @@
+{
+  "sha": "ca61808",
+  "fullSha": "ca6180843512977e78342e1caf08cdf4c076783d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T18:32:07Z",
+  "commitDate": "2026-02-26T18:32:07Z",
+  "subject": "fix(deploy): add GitHub Pages deployment workflow and fix base paths",
+  "body": "GitHub Pages was not deploying because:\n1. No GitHub Actions workflow existed to build and deploy\n2. Vite had no `base` config — assets loaded from `/` instead of `/four-ems/`\n3. No 404.html for SPA routing — React Router deep links returned 404\n4. BrowserRouter had no basename — routes didn't match under /four-ems/\n5. PWA manifest scope/start_url pointed to `/` instead of `/four-ems/`\n6. Embed code dialog used `window.location.origin` without base path\n\nAdded:\n- .github/workflows/deploy.yml — builds on push to main, deploys via\n  actions/deploy-pages (artifact-based, GitHub's recommended approach)\n- public/404.html — redirects to index.html preserving path for SPA routing\n- index.html restore script — converts 404 redirect query back to real path\n\nFixed:\n- vite.config.ts: added `base: '/four-ems/'` and updated PWA manifest paths\n- src/main.tsx: added `basename=\"/four-ems\"` to BrowserRouter\n- BuilderPage.tsx: embed baseUrl now includes BASE_URL from Vite\n\nTags: deployment, github-pages, pwa, routing, ci\nComplexity: 3\nUrgency: 4\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: deployment\nSemver: minor\n\nhttps://claude.ai/code/session_01CBD23Ktkx4Q8M31e4kiyNT",
+  "tags": [
+    "feature",
+    "ci",
+    "config"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "deployment",
+  "semver": "minor",
+  "scope": "deploy",
+  "title": "add GitHub Pages deployment workflow and fix base paths",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 104,
+    "deletions": 4
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "index.html",
+    "public/404.html",
+    "src/main.tsx",
+    "src/pages/BuilderPage.tsx",
+    "vite.config.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,41 @@
+{
+  "sha": "839c287",
+  "fullSha": "839c287cb32ac7546c5233c00a274d13271e0b19",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T06:25:38Z",
+  "commitDate": "2026-03-13T06:25:38Z",
+  "subject": "refactor(triggers): sequential sweep with pause-between-each and priority order",
+  "body": "start/go now runs triggers one at a time in priority order\n(rev → aud → doc → tap → perf → sec → dbg), pausing after each\nfor user to fix/skip/stop. This ensures the most important checks\nrun first since most sweeps won't complete all 7 before merging.\n\nclean/cln and improve/imp moved to standalone-only (not in sequence).\n\nTags: documentation, triggers, dx, process\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "developer-experience",
+  "semver": "patch",
+  "scope": "triggers",
+  "title": "sequential sweep with pause-between-each and priority order",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 25,
+    "deletions": 2
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}

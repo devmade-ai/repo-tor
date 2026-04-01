@@ -1,0 +1,43 @@
+{
+  "sha": "3ecc61d",
+  "fullSha": "3ecc61d87532499fe789ad4373094957bf89a10b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T10:45:52Z",
+  "commitDate": "2026-03-28T10:45:52Z",
+  "subject": "perf(builder): extract type arrays to constants, scope PageTabs selector",
+  "body": "- FieldPropertiesPanel: extract 6 inline array literals to module-level\n  constants (PLACEHOLDER_EXCLUDED, REQUIRED_EXCLUDED, OPTIONS_TYPES,\n  LAYOUT_TYPES, TEXT_VALIDATION_TYPES, CONDITIONS_EXCLUDED). Eliminates\n  array recreation and GC pressure on every render during field editing.\n- PageTabs: narrow Zustand selector from full `s.definition` to\n  `s.definition.pages`. Prevents re-renders when field content changes\n  on any page — PageTabs only needs page titles and field counts.\n\nTags: performance, re-renders, zustand\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: ui-polish\nSemver: patch\n\nhttps://claude.ai/code/session_019RERHAL7VcW919sjxjdT1m",
+  "tags": [
+    "performance",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ui-polish",
+  "semver": "patch",
+  "scope": "builder",
+  "title": "extract type arrays to constants, scope PageTabs selector",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 24,
+    "deletions": 13
+  },
+  "files": [
+    "src/components/builder/FieldPropertiesPanel.tsx",
+    "src/components/builder/PageTabs.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "internal"
+}

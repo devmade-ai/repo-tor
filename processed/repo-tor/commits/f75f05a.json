@@ -1,0 +1,56 @@
+{
+  "sha": "f75f05a",
+  "fullSha": "f75f05ac8da7bd9c543e315748a0c6ecff07af84",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T12:34:06Z",
+  "commitDate": "2026-03-27T12:34:06Z",
+  "subject": "fix(ui): address review findings — accessibility, inline styles, constants",
+  "body": "Fix all 6 findings from code review:\n\n1. DetailPane: Move inline style to .detail-pane-empty CSS class\n   (CLAUDE.md prohibits static inline styles)\n2. HamburgerMenu: Add arrow key navigation between menu items\n   (WAI-ARIA menu pattern expects up/down arrow support)\n3. HamburgerMenu: Import version from package.json instead of\n   hardcoding \"v1.0.0\" (stays in sync on version bumps)\n4. QuickGuide: Focus modal container on open via useEffect +\n   tabIndex={-1} (keyboard users need to know focus moved)\n5. ShowMoreButton: Remove className prop, unify spacing to 12px\n   margin-top in CSS (was inconsistent across grid vs list contexts)\n6. Centralize pagination limits in PAGE_LIMITS constant in state.js\n   (was scattered as magic numbers across 8 files)\n\nTags: accessibility, ui, refactor, clean\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01Pawpns2DextM3UtszvADr6",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "address review findings — accessibility, inline styles, constants",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 100,
+    "deletions": 26
+  },
+  "files": [
+    "dashboard/js/components/DetailPane.jsx",
+    "dashboard/js/components/HamburgerMenu.jsx",
+    "dashboard/js/components/QuickGuide.jsx",
+    "dashboard/js/components/ShowMoreButton.jsx",
+    "dashboard/js/sections/Contributors.jsx",
+    "dashboard/js/sections/Discover.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/js/sections/Projects.jsx",
+    "dashboard/js/sections/Tags.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/js/state.js",
+    "dashboard/styles.css",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}

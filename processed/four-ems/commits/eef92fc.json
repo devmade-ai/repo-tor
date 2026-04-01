@@ -1,0 +1,46 @@
+{
+  "sha": "eef92fc",
+  "fullSha": "eef92fcc22e6ee4470a2a58811a6bf60475faa75",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T20:02:58Z",
+  "commitDate": "2026-03-27T20:02:58Z",
+  "subject": "fix(ui): increase all undersized touch targets across builder and dashboard",
+  "body": "- BuilderPage mobile Create button: py-1.5 text-xs (~24px) → py-2.5\n  text-sm (~40px)\n- BuilderPage mobile menu button: p-1.5 (~28px) → p-2.5 (~36px)\n- BuilderCanvas mobile move up/down buttons: p-2 (~34px) → p-2.5 (~38px)\n- BuilderCanvas duplicate button: p-2 → p-2.5 mobile, md:p-2 desktop\n- BuilderCanvas remove button: p-2 → p-2.5 mobile, md:p-2 desktop\n- PageTabs rename button: p-1.5 (~24px) → p-2 mobile, md:p-1.5 desktop\n- PageTabs remove button: p-1.5 (~24px) → p-2 mobile, md:p-1.5 desktop\n- ResponsesPage export button: py-1.5 (~28px) → py-2 (~36px)\n\nAll interactive elements now meet or approach WCAG 2.5.5 minimum (44px)\ntouch target size on mobile, with compact sizing preserved for desktop\nvia responsive md: prefixes.\n\nTags: accessibility, mobile, touch-targets\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ui-polish\nSemver: patch\n\nhttps://claude.ai/code/session_019RERHAL7VcW919sjxjdT1m",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ui-polish",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "increase all undersized touch targets across builder and dashboard",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 9,
+    "deletions": 9
+  },
+  "files": [
+    "src/components/builder/BuilderCanvas.tsx",
+    "src/components/builder/PageTabs.tsx",
+    "src/pages/BuilderPage.tsx",
+    "src/pages/ResponsesPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}

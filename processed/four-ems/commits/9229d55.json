@@ -1,0 +1,50 @@
+{
+  "sha": "9229d55",
+  "fullSha": "9229d5521bfc1943fe8e16feef69fef0dcc7169c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T16:18:52Z",
+  "commitDate": "2026-03-27T16:18:52Z",
+  "subject": "fix(ui): address code review findings — ARIA IDs, scroll lock, icons, cleanup",
+  "body": "- ConfirmDialog: use React useId() for unique ARIA IDs per instance,\n  preventing ID collisions when multiple dialogs render simultaneously\n- Extract ref-counted scroll lock to src/lib/scrollLock.ts, shared by\n  ConfirmDialog and BottomSheet — fixes body overflow race when both\n  overlays are open\n- Remove dead subtle-pop keyframe, add faster animate-dialog-in (0.15s)\n  for immediate-feel confirmation dialogs\n- Fix Unpublish icon from plus-sign to eye-with-slash (semantic clarity)\n- Fix Publish icon from generic circle to globe (represents \"go live\")\n- Refactor PageTabs IIFE into pre-computed variable + simple conditional\n\nTags: ui, accessibility, cleanup, bug-fix\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ui-polish\nSemver: patch\n\nhttps://claude.ai/code/session_019RERHAL7VcW919sjxjdT1m",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ui",
+    "removal"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ui-polish",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "address code review findings — ARIA IDs, scroll lock, icons, cleanup",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 88,
+    "deletions": 38
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/builder/PageTabs.tsx",
+    "src/components/ui/BottomSheet.tsx",
+    "src/components/ui/ConfirmDialog.tsx",
+    "src/index.css",
+    "src/lib/scrollLock.ts",
+    "src/pages/BuilderPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}

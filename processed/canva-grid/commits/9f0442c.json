@@ -1,0 +1,41 @@
+{
+  "sha": "9f0442c",
+  "fullSha": "9f0442c398bd88d8d9732658ed15ee6960ae3cb1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T20:44:26Z",
+  "commitDate": "2026-03-28T20:44:26Z",
+  "subject": "fix(platforms): correct 3 platform dimensions verified against current specs",
+  "body": "Web-searched all 13 new platform dimensions against official/authoritative\nsources. 10 were correct, 3 needed updating:\n\n1. YouTube End Screen: 1280×720 → 1920×1080\n   Was using thumbnail size, not full end screen template size.\n   Source: Snappa/Riverside YouTube outro guides (2026)\n\n2. Product Square: 1000×1000 → 2000×2000\n   1000px was Amazon's minimum. Modern e-commerce platforms (Shopify,\n   Amazon, eBay) all recommend 2000px+ for zoom functionality.\n   Source: Shopify/Squareshot product image guides (2026)\n\n3. Product Portrait: 800×1200 → 1200×1800\n   Too small for modern displays. Increased to match 2:3 ratio at\n   a size that supports zoom on high-DPI screens.\n   Source: Photoroom/Shopify image size guides (2026)\n\nTags: platforms, dimensions, data-accuracy\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: todo-implementation\nSemver: patch\n\nhttps://claude.ai/code/session_011jgP4mxQrtNwqYrjXh4PNU",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "todo-implementation",
+  "semver": "patch",
+  "scope": "platforms",
+  "title": "correct 3 platform dimensions verified against current specs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 3
+  },
+  "files": [
+    "src/config/platforms.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,65 @@
+{
+  "sha": "350f684",
+  "fullSha": "350f6843f161d5d6024da271c58ba6faafe23658",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T06:40:45Z",
+  "commitDate": "2026-02-26T06:40:45Z",
+  "subject": "feat(phase2): add counterparty, invitations, handshake, and proposal system",
+  "body": "Phase 2 frontend with mock data:\n- Role switcher in header to toggle creator/counterparty views\n- Project invitation flow (email + passphrase form)\n- Handshake status component (pending/accepted states)\n- Counterparty read-only module view with propose change button\n- Proposal system: create, accept, reject, counter-proposal flow\n- Agreement request flow: counterparty requests, creator accepts\n- Role-based UI controls (edit/delete/reorder hidden from counterparty)\n- GitHub Actions workflow for GitHub Pages deployment\n- Updated backend spec with Phase 2 tables and RLS policies\n\ntype: feature\ncomplexity: large\nurgency: medium\nimpact: high\nrisk: low\ndebt: none\nepic: Phase 2 — Counterparty & Invitations\nsemver: minor\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "phase2-counterparty",
+  "semver": "minor",
+  "scope": "phase2",
+  "title": "add counterparty, invitations, handshake, and proposal system",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 23,
+    "additions": 1132,
+    "deletions": 98
+  },
+  "files": [
+    ".github/workflows/deploy.yml",
+    "docs/BACKEND_SPEC.md",
+    "src/components/agreements/AgreementCard.tsx",
+    "src/components/agreements/RequestAgreementForm.tsx",
+    "src/components/modules/ModuleCard.tsx",
+    "src/components/modules/ModuleViewer.tsx",
+    "src/components/modules/ProposalCard.tsx",
+    "src/components/modules/ProposeChangeForm.tsx",
+    "src/components/projects/HandshakeStatus.tsx",
+    "src/components/projects/InviteCounterpartyForm.tsx",
+    "src/components/projects/ProjectCard.tsx",
+    "src/context/AuthContext.tsx",
+    "src/data/mockAgreements.ts",
+    "src/data/mockProjects.ts",
+    "src/hooks/useAgreements.ts",
+    "src/hooks/useProjects.ts",
+    "src/hooks/useProposals.ts",
+    "src/layouts/AppLayout.tsx",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/pages/ProjectDetailPage.tsx",
+    "src/pages/ProjectListPage.tsx",
+    "src/types/index.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

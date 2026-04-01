@@ -1,0 +1,58 @@
+{
+  "sha": "b81350e",
+  "fullSha": "b81350e06f98d8c5fe4944b551066dd0499c5ac5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T12:19:25Z",
+  "commitDate": "2026-03-13T12:19:25Z",
+  "subject": "fix(audit): resolve 13 code quality issues from audit sweep",
+  "body": "Race conditions, memory leaks, math errors, and validation gaps\nidentified by the `audit` trigger. All fixes are minimal and targeted.\n\nCritical: RAF leak (useDialogA11y), HMR interval leak (usePWAUpdate)\nHigh: cosine div-by-zero, waitForModel interval leak, hardcoded indices,\n      FileReader lifecycle leak\nMedium: non-null assertion, confidence div-by-zero, diagnostic timeout\n        noise, silent DB failure logging\nLow: NaN guard in Holt init, full-scan import validation, timeout\n     cleanup pattern consistency\n\nTags: audit, race-condition, memory-leak, math, validation, cleanup\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01EDm1yAUNe71KZC2BSvCMV4",
+  "tags": [
+    "bugfix",
+    "performance",
+    "memory",
+    "error-handling",
+    "validation"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "resolve 13 code quality issues from audit sweep",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 144,
+    "deletions": 64
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/composables/useDialogA11y.ts",
+    "src/composables/usePWAInstall.ts",
+    "src/composables/usePWAUpdate.ts",
+    "src/composables/useTagAutocomplete.ts",
+    "src/composables/useTagInput.ts",
+    "src/engine/exportImport.ts",
+    "src/engine/forecast.ts",
+    "src/engine/matching.ts",
+    "src/engine/patterns.ts",
+    "src/ml/useTagSuggestions.ts",
+    "src/views/import-steps/ImportStepReview.vue",
+    "src/views/import-steps/ImportStepUpload.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 2,
+  "impact": "internal"
+}

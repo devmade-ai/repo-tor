@@ -1,0 +1,42 @@
+{
+  "sha": "7ae8462",
+  "fullSha": "7ae846257bbeb515a69676cfa1349f4d26f5031b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-29T23:04:23Z",
+  "commitDate": "2026-03-29T23:04:23Z",
+  "subject": "fix(pwa): service worker regex missing @main in CDN URL pattern",
+  "body": "The manifest.json URL contains @main (canva-grid-assets@main/manifest.json)\nbut the SW urlPattern regex expected a bare slash after the repo name. This\ncaused the manifest to fall through to the CacheFirst images rule instead of\nStaleWhileRevalidate, locking users into stale manifests for up to 30 days.\n\nAdd optional (@[^/]+)? group to both CDN URL patterns so they match\nversioned jsDelivr URLs (@main, @v2, etc.).\n\nTags: pwa, cache, service-worker, sample-images\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: sample-images\nSemver: patch\n\nhttps://claude.ai/code/session_01D8KRFu6iV5xhR34PXfS1Pj",
+  "tags": [
+    "bugfix",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "sample-images",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "service worker regex missing @main in CDN URL pattern",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "vite.config.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 4,
+  "impact": "user-facing"
+}

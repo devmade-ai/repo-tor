@@ -1,0 +1,55 @@
+{
+  "sha": "052ddcb",
+  "fullSha": "052ddcbf8324de6454942e8f8f6ca3dafeadad80",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-04T19:20:07Z",
+  "commitDate": "2026-03-04T19:20:07Z",
+  "subject": "fix(audit): critical detectFrequency bug, dead code removal, code quality fixes",
+  "body": "Fix detectFrequency() called with string[] dates instead of number[] intervals,\ncausing all new imported recurring patterns to have frequency:null and produce\nzero forecast projections. Also fix timer leak, strengthen import validation,\nreuse isDuplicate utility, remove orphaned components and unused exports.\n\nTags: audit, bugfix, patterns, import, cleanup\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: actuals-first-pivot\nSemver: patch\n\nhttps://claude.ai/code/session_01CuU4JLJcWUf92LLHXcqyK8",
+  "tags": [
+    "bugfix",
+    "removal",
+    "validation"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "actuals-first-pivot",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "critical detectFrequency bug, dead code removal, code quality fixes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 87,
+    "deletions": 226
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/MetricsGrid.vue",
+    "src/components/ScrollHint.vue",
+    "src/composables/useFormValidation.ts",
+    "src/composables/useId.ts",
+    "src/composables/useTagAutocomplete.ts",
+    "src/engine/exportImport.ts",
+    "src/types/models.ts",
+    "src/views/NewImportWizard.vue",
+    "src/views/WorkspaceCreateView.vue",
+    "src/views/WorkspaceDashboard.vue",
+    "src/views/import-steps/ImportStepUpload.vue"
+  ],
+  "repo_id": "budgy-ting",
+  "urgency": 4,
+  "impact": "user-facing"
+}

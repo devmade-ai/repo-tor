@@ -1,0 +1,65 @@
+{
+  "sha": "100f17d",
+  "fullSha": "100f17dc82ab501fa7ae53620cb62de5c00207be",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-16T04:34:22Z",
+  "commitDate": "2026-03-16T04:34:22Z",
+  "subject": "feat(api): migrate data layer from direct Supabase to tool-till-tees API",
+  "body": "All 8 data hooks now route mutations through the tool-till-tees REST API\ninstead of direct Supabase queries. Supabase client retained for auth and\nrealtime subscriptions only.\n\nNew src/api/ layer:\n- client.ts: base fetch wrapper with auth headers and error normalization\n- Per-resource modules: projects, agreements, modules, proposals, notes,\n  notifications, signatures, pdfVerifications\n\nMigrated hooks: useProjects, useAgreements, useModules, useProposals,\nuseNotes, useNotifications, useSignatureLog, usePdfVerifications.\n\nMigrated AgreementDetailPage.tsx splitAgreement from supabase.rpc to hook.\n\nRemaining Supabase RPC calls (need API endpoints in tool-till-tees):\n- acceptHandshake (no standalone endpoint)\n- moveModule (API expects full order, not direction)\n- fetchVersions bulk query (no bulk versions endpoint)\n\nTags: api, migration, architecture, refactor\nComplexity: 4\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: api-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01G52a5oQY1JKzyjwx2t857e",
+  "tags": [
+    "feature",
+    "migration",
+    "refactor"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "api-migration",
+  "semver": "minor",
+  "scope": "api",
+  "title": "migrate data layer from direct Supabase to tool-till-tees API",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 23,
+    "additions": 514,
+    "deletions": 373
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/PLAN_api_migration.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/api/agreements.ts",
+    "src/api/client.ts",
+    "src/api/modules.ts",
+    "src/api/notes.ts",
+    "src/api/notifications.ts",
+    "src/api/pdfVerifications.ts",
+    "src/api/projects.ts",
+    "src/api/proposals.ts",
+    "src/api/signatures.ts",
+    "src/hooks/useAgreements.ts",
+    "src/hooks/useModules.ts",
+    "src/hooks/useNotes.ts",
+    "src/hooks/useNotifications.ts",
+    "src/hooks/usePdfVerifications.ts",
+    "src/hooks/useProjects.ts",
+    "src/hooks/useProposals.ts",
+    "src/hooks/useSignatureLog.ts",
+    "src/pages/AgreementDetailPage.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

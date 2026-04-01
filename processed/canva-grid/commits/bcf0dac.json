@@ -1,0 +1,53 @@
+{
+  "sha": "bcf0dac",
+  "fullSha": "bcf0dac8ad8849bc4a717c22cbc69fef060b3238",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T19:02:04Z",
+  "commitDate": "2026-03-28T19:02:04Z",
+  "subject": "refactor(extract): split MediaTab, ContentTab into sub-components + platform search",
+  "body": "Extract sub-components from 2 oversized files and add platform picker search.\n\nMediaTab.jsx (1397 → 882 lines):\n- Extracted AIPromptHelper.jsx (266 lines) — AI image prompt builder UI\n- Extracted SampleImagesSection.jsx (266 lines) — CDN sample image gallery\n\nContentTab.jsx (915 → 419 lines):\n- Extracted TextStyleControls.jsx (172 lines) — size/bold/italic/spacing toolbar\n- Extracted FreeformEditor.jsx (341 lines) — FreeformBlockEditor + FreeformCellEditor\n\nApp.jsx layout extraction (partial):\n- Created ReaderMode.jsx, MobileLayout.jsx, DesktopLayout.jsx files\n- Not yet wired in — render branches still inline (tracked in TODO)\n- Imports commented with KEEP marker for future use\n\nPlatformPreview.jsx — search filter:\n- Added text search input to platform selector\n- Filters by platform group name or format name\n- Auto-expands matching categories when searching\n- Addresses \"Platform picker modal redesign\" TODO partially\n\nTags: refactor, extract, media, content, platform, search\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: extract-large-components\nSemver: patch\n\nhttps://claude.ai/code/session_011jgP4mxQrtNwqYrjXh4PNU",
+  "tags": [
+    "refactor",
+    "simplify",
+    "feature"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "extract-large-components",
+  "semver": "patch",
+  "scope": "extract",
+  "title": "split MediaTab, ContentTab into sub-components + platform search",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 1571,
+    "deletions": 1064
+  },
+  "files": [
+    "src/App.jsx",
+    "src/components/AIPromptHelper.jsx",
+    "src/components/ContentTab.jsx",
+    "src/components/DesktopLayout.jsx",
+    "src/components/FreeformEditor.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/MobileLayout.jsx",
+    "src/components/PlatformPreview.jsx",
+    "src/components/ReaderMode.jsx",
+    "src/components/SampleImagesSection.jsx",
+    "src/components/TextStyleControls.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "9200b87",
+  "fullSha": "9200b871f0f7136943c8ffb9ecf2353165fd8452",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T20:20:21Z",
+  "commitDate": "2026-03-28T20:20:21Z",
+  "subject": "fix(tests): fix TypeScript build errors in test files",
+  "body": "- conditions.test.ts: add missing target_type and target_id to\n  ConditionGroup objects. Extract group() helper with defaults to\n  avoid repeating boilerplate fields in every test.\n- validation.test.ts: remove duplicate 'type' property from makeField\n  defaults — caller always provides type via the required override,\n  so the default was always overwritten (TS2783).\n\nBoth fixes resolve tsc -b errors that broke the Vercel deploy.\n\nTags: testing, bug-fix, typescript\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: ui-polish\nSemver: patch\n\nhttps://claude.ai/code/session_019RERHAL7VcW919sjxjdT1m",
+  "tags": [
+    "test-fix",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ui-polish",
+  "semver": "patch",
+  "scope": "tests",
+  "title": "fix TypeScript build errors in test files",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 24,
+    "deletions": 16
+  },
+  "files": [
+    "src/lib/__tests__/conditions.test.ts",
+    "src/lib/__tests__/validation.test.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 4,
+  "impact": "infrastructure"
+}

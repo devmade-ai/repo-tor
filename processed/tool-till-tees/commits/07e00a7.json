@@ -1,0 +1,48 @@
+{
+  "sha": "07e00a7",
+  "fullSha": "07e00a764f7ed54282808d5597fdd1b8db8aae2c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-20T17:35:50Z",
+  "commitDate": "2026-03-20T17:35:50Z",
+  "subject": "docs: comprehensive documentation audit — add Sancio endpoints, fix stale references",
+  "body": "Documentation audit triggered by `docs` checklist. Found 10 issues across\n8 files where docs had diverged from actual code.\n\nChanges:\n- API.md: added full Sancio endpoint reference (~25 endpoints were entirely\n  undocumented), fixed CORS origins (removed stale devmade-ai.github.io,\n  added glow-props/see-veo/sun-sea-o)\n- README.md: updated \"two systems\" to three, added Sancio endpoints table\n- USER_GUIDE.md: added Sancio section with core concepts and workflow,\n  fixed field types (removed url/file/scale/multi_select, added\n  checkbox_group/heading/hidden), added in/not_in operators\n- TESTING_GUIDE.md: added 4 Sancio test suites to existing coverage\n  section (validation 48, invite 8, verify-passphrase 6, projects 7)\n- BACKEND_SPEC.md: fixed route paths (/api/invite → /api/sancio/invite),\n  changed Resend → Nodemailer SMTP, removed RESEND_API_KEY, added\n  sender_tone field to notes and proposals tables\n- SESSION_NOTES.md: rewritten for current session\n- HISTORY.md: added 2026-03-20 entries\n- SPEC_API_NAMING_CONSISTENCY.md: marked as implemented\n\nTags: documentation, audit, sancio, api\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: api-naming-consistency\nSemver: patch\n\nhttps://claude.ai/code/session_01UbML2iNtUDfsikv2Kdjfzg",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "api-naming-consistency",
+  "semver": "patch",
+  "scope": null,
+  "title": "comprehensive documentation audit — add Sancio endpoints, fix stale references",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 350,
+    "deletions": 26
+  },
+  "files": [
+    "API.md",
+    "README.md",
+    "docs/BACKEND_SPEC.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/SPEC_API_NAMING_CONSISTENCY.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}

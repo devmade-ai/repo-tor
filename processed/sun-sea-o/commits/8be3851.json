@@ -1,0 +1,61 @@
+{
+  "sha": "8be3851",
+  "fullSha": "8be3851266ee2687b1432f8abf57da51a125a36f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-15T13:25:58Z",
+  "commitDate": "2026-03-15T13:25:58Z",
+  "subject": "feat(modules): multi-word intent labels + micro-summary system",
+  "body": "Phase A: Enhanced intent labels — expanded defaults from 6 to 8\n(added condition, declaration; replaced protection with remedy),\nincreased max length to 60 chars, relaxed normalization to allow\nmulti-word labels and accented characters for Latin phrases.\n\nPhase B: Micro-summary system — three optional plain-language fields\n(summary_does, summary_when, summary_consequence) per module.\nCreator fills them via collapsible editor (save-on-blur per field),\ncounterparty sees them in a summary card above clause content.\nModule cards show summary_does instead of content preview when available.\n\nTags: feature, modules, intents, summaries, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: intent-labels-and-summaries\nSemver: minor\n\nhttps://claude.ai/code/session_01G52a5oQY1JKzyjwx2t857e",
+  "tags": [
+    "feature",
+    "ui",
+    "ux",
+    "database",
+    "schema"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "intent-labels-and-summaries",
+  "semver": "minor",
+  "scope": "modules",
+  "title": "multi-word intent labels + micro-summary system",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 17,
+    "additions": 315,
+    "deletions": 36
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/USER_GUIDE.md",
+    "src/components/common/ToneSelector.tsx",
+    "src/components/modules/IntentSelector.tsx",
+    "src/components/modules/ModuleCard.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/components/modules/ModuleSummaryCard.tsx",
+    "src/components/modules/ModuleSummaryEditor.tsx",
+    "src/components/modules/ModuleViewer.tsx",
+    "src/constants/tones.ts",
+    "src/hooks/useModules.ts",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/types/index.ts",
+    "supabase/migrations/20260315000001_update_intent_defaults_multiword.sql",
+    "supabase/migrations/20260315000002_add_module_summaries.sql"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

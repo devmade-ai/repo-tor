@@ -1,0 +1,71 @@
+{
+  "sha": "93f7f77",
+  "fullSha": "93f7f77f8cd8c6eddced4e53e9e933f26ab708e0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com"
+  },
+  "timestamp": "2026-02-26T19:22:51Z",
+  "commitDate": "2026-02-26T19:22:51Z",
+  "subject": "Merge pull request #4 from devmade-ai/claude/implement-backend-spec-QHlLt",
+  "body": "Implement full Supabase backend with RLS, triggers, and edge functions",
+  "tags": [
+    "merge"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "backend-implementation",
+  "semver": "patch",
+  "scope": null,
+  "title": "Merge pull request #4 from devmade-ai/claude/implement-backend-spec-QHlLt",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [
+    "#4"
+  ],
+  "stats": {
+    "filesChanged": 29,
+    "additions": 2754,
+    "deletions": 843
+  },
+  "files": [
+    ".env.example",
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/config/supabase.ts",
+    "src/context/AuthContext.tsx",
+    "src/hooks/useAgreements.ts",
+    "src/hooks/useModules.ts",
+    "src/hooks/useNotes.ts",
+    "src/hooks/useNotifications.ts",
+    "src/hooks/usePdfVerifications.ts",
+    "src/hooks/useProjectRole.ts",
+    "src/hooks/useProjects.ts",
+    "src/hooks/useProposals.ts",
+    "src/hooks/useSignatureLog.ts",
+    "src/layouts/AppLayout.tsx",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/pages/ProjectDetailPage.tsx",
+    "src/pages/ProjectListPage.tsx",
+    "supabase/config.toml",
+    "supabase/functions/send-invitation/index.ts",
+    "supabase/functions/verify-passphrase/index.ts",
+    "supabase/migrations/20260226000001_create_schema.sql",
+    "supabase/migrations/20260226000002_rls_policies.sql",
+    "supabase/migrations/20260226000003_business_logic.sql",
+    "supabase/migrations/20260226000004_cron_jobs.sql",
+    "supabase/seed/module_templates.sql"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

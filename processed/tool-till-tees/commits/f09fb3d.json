@@ -1,0 +1,41 @@
+{
+  "sha": "f09fb3d",
+  "fullSha": "f09fb3d39ff92a8b08acb869a0e36d0de8cf439d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T06:07:15Z",
+  "commitDate": "2026-03-13T06:07:15Z",
+  "subject": "refactor(triggers): split audit into focused triggers, add short aliases",
+  "body": "Old audit was a mega-checklist covering performance, security, and code quality.\nNow split into three focused triggers (perf, sec, aud) so users can target what\nthey care about. Every trigger gets both a full word and a short alias.\n\nRenamed: cleanup→clean/cln, debug-check→debug/dbg, sweep→start/go,\nsuggestions→improve/imp. Added: performance/perf, security/sec.\n\nTags: documentation, triggers, dx\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "developer-experience",
+  "semver": "patch",
+  "scope": "triggers",
+  "title": "split audit into focused triggers, add short aliases",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 32,
+    "deletions": 14
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}

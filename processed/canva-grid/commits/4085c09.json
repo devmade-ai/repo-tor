@@ -1,0 +1,50 @@
+{
+  "sha": "4085c09",
+  "fullSha": "4085c094ff87d64af7c87e5b646e78f79e1d047e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T19:08:36Z",
+  "commitDate": "2026-03-28T19:08:36Z",
+  "subject": "refactor(typescript): migrate config + utils to TypeScript, wire App.jsx layout components",
+  "body": "TypeScript migration Phases 1-2:\n- Added tsconfig.json with strict mode, ESNext modules, bundler resolution\n- Migrated config/textDefaults.js → .ts with TextLayer, FreeformBlock interfaces\n- Migrated config/fonts.js → .ts with FontEntry interface\n- Migrated config/sampleImages.js → .ts\n- Migrated utils/layoutHelpers.js → .ts with Section interface\n\nApp.jsx layout extraction wiring:\n- App.jsx render branches now use ReaderMode, MobileLayout, DesktopLayout\n- App.jsx reduced from ~814 to ~530 lines (state orchestrator role)\n- Props passed to each layout component\n\nDocumentation:\n- TODO.md updated: 9 items completed, 3 remaining (wire validation,\n  TS phases 3-4, expand test coverage)\n- HISTORY.md updated with all completed work\n\nTags: typescript, refactor, migration, app-layout, config\nComplexity: 3\nUrgency: 1\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: typescript-migration\nSemver: patch\n\nhttps://claude.ai/code/session_011jgP4mxQrtNwqYrjXh4PNU",
+  "tags": [
+    "refactor",
+    "migration",
+    "types"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "typescript-migration",
+  "semver": "patch",
+  "scope": "typescript",
+  "title": "migrate config + utils to TypeScript, wire App.jsx layout components",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 230,
+    "deletions": 291
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/TODO.md",
+    "src/App.jsx",
+    "src/config/fonts.ts",
+    "src/config/sampleImages.ts",
+    "src/config/textDefaults.ts",
+    "src/utils/layoutHelpers.ts",
+    "tsconfig.json"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 1,
+  "impact": "internal"
+}

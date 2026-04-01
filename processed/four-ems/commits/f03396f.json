@@ -1,0 +1,50 @@
+{
+  "sha": "f03396f",
+  "fullSha": "f03396f9d5b1de989dfce3324ccf2c69b3156573",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T20:04:24Z",
+  "commitDate": "2026-03-13T20:04:24Z",
+  "subject": "feat(imp): ErrorBoundary, API errors, mobile a11y, sample data banner",
+  "body": "- Wrap routes in ErrorBoundary to prevent white-screen crashes\n- Improve API error parsing for non-JSON responses (HTML proxy errors)\n- Add Escape key dismiss to builder mobile menu\n- Add sample data banner to ResponsesPage when backend unavailable\n- Validate pages.length > 0 in PublicFormPage\n- Update SESSION_NOTES.md and HISTORY.md\n\nTags: error-handling, accessibility, ux, documentation\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: hardening-sweep\nSemver: minor\n\nhttps://claude.ai/code/session_01D1vPh85VCNSPwbxHLjFtAF",
+  "tags": [
+    "feature",
+    "error-handling",
+    "accessibility",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "hardening-sweep",
+  "semver": "minor",
+  "scope": "imp",
+  "title": "ErrorBoundary, API errors, mobile a11y, sample data banner",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 95,
+    "deletions": 19
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/App.tsx",
+    "src/lib/api.ts",
+    "src/pages/BuilderPage.tsx",
+    "src/pages/PublicFormPage.tsx",
+    "src/pages/ResponsesPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,46 @@
+{
+  "sha": "c7c82d2",
+  "fullSha": "c7c82d2faf1c73dc25504ab8c5b42a4aeb098cf7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-20T14:40:47Z",
+  "commitDate": "2026-03-20T14:40:47Z",
+  "subject": "fix(api): send snake_case field names in API request bodies",
+  "body": "The tool-till-tees backend expects snake_case JSON keys. Updated all\nAPI client functions to send snake_case field names over the wire:\n- inviteCounterparty: projectId→project_id, counterpartyEmail→counterparty_email, passphraseLink→passphrase_link\n- splitAgreement: moduleIds→module_ids, newTitle→new_title\n- batchToggleReadyToSign: moduleIds→module_ids\n- resolveProposal: responseContent→response_content\n- createVerification: agreementId→agreement_id\n\nTags: api, bugfix, snake-case\nComplexity: 1\nUrgency: 3\nImpact: api\nRisk: low\nDebt: paid\nEpic: backend-integration\nSemver: patch\n\nhttps://claude.ai/code/session_01HRPhbJPtRkXhEynjKV4RW9",
+  "tags": [
+    "bugfix",
+    "api"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "backend-integration",
+  "semver": "patch",
+  "scope": "api",
+  "title": "send snake_case field names in API request bodies",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 8,
+    "deletions": 8
+  },
+  "files": [
+    "src/api/agreements.ts",
+    "src/api/modules.ts",
+    "src/api/pdfVerifications.ts",
+    "src/api/projects.ts",
+    "src/api/proposals.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "api"
+}

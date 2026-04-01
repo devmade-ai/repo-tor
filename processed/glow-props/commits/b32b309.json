@@ -1,0 +1,44 @@
+{
+  "sha": "b32b309",
+  "fullSha": "b32b3093494509538c1e3f613d3810717057527e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-29T14:19:07Z",
+  "commitDate": "2026-03-29T14:19:07Z",
+  "subject": "fix(theme): use querySelectorAll for meta theme-color, reorder Key Lessons, add PWA cross-ref",
+  "body": "Fixes a semantic bug where querySelector only returned the first of two\nmeta theme-color tags, leaving the second stale and potentially\nconflicting with the active theme. Switched to querySelectorAll with\nforEach to update all matching tags.\n\nAlso reorganizes 16 Key Lessons into logical groups (Foundations, HTML &\nbrowser chrome, CSS & Tailwind, Storage & sync, React Native) and adds\na cross-reference in the PWA System section linking manifest theme_color\nto the dynamic meta updates in the Theme & Dark Mode section.\n\nTags: documentation, theme, dark-mode, bugfix, querySelectorAll\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01DSPkLBsTQZSY1UywLgPdQB",
+  "tags": [
+    "bugfix",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "use querySelectorAll for meta theme-color, reorder Key Lessons, add PWA cross-ref",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 51,
+    "deletions": 27
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 2,
+  "impact": "internal"
+}

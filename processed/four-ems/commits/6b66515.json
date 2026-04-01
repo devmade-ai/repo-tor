@@ -1,0 +1,46 @@
+{
+  "sha": "6b66515",
+  "fullSha": "6b6651556f04bc11b2fbf39a814cc480029ea056",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-01T23:59:03Z",
+  "commitDate": "2026-03-01T23:59:03Z",
+  "subject": "feat(pwa): add install prompt with debug logging",
+  "body": "Implement the missing PWA install system:\n- usePWAInstall hook: consumes early-captured beforeinstallprompt event,\n  detects browser type, tracks analytics, logs all state changes to the\n  debug system so the debug pill shows install-related diagnostics.\n- InstallPrompt banner: shows \"Install\" for Chromium browsers (native\n  prompt), \"How to Install\" for Safari/Firefox (manual instructions).\n  \"Not now\" dismisses and persists to localStorage.\n- InstallInstructionsModal: browser-specific step-by-step install guides\n  for Safari iOS, Safari macOS, Firefox Android, and Firefox Desktop.\n\nThe index.html already captures beforeinstallprompt early — the hook\nconsumes that stashed event on mount, with a fallback listener for\nfirst-visit timing where the SW registers after React mounts.\n\nTags: pwa, install, debug, ui\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: pwa-install\nSemver: minor\n\nhttps://claude.ai/code/session_01TXGa9mxKvWRiUsP9KJgAcX",
+  "tags": [
+    "feature",
+    "ui",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa-install",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "add install prompt with debug logging",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 418,
+    "deletions": 0
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/InstallInstructionsModal.tsx",
+    "src/components/InstallPrompt.tsx",
+    "src/hooks/usePWAInstall.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "user-facing"
+}

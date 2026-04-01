@@ -1,0 +1,42 @@
+{
+  "sha": "4f339a7",
+  "fullSha": "4f339a7ff9053a665f9dfb1f776c621fa526b695",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-18T21:00:08Z",
+  "commitDate": "2026-03-18T21:00:08Z",
+  "subject": "fix(builder): reset store when creating a new form",
+  "body": "Navigating to /forms/new left stale data from the example form or a\nprevious edit in the Zustand store, so users saw old pages and fields\ninstead of a blank form. Added a resetForm() call on mount for the\nnew-form route, skipped when an imported definition is passed via\nrouter state.\n\nTags: bug, builder, ux\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: form-builder\nSemver: patch\n\nhttps://claude.ai/code/session_01BiNWegdMQNfRw2kZdFKDz9",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "form-builder",
+  "semver": "patch",
+  "scope": "builder",
+  "title": "reset store when creating a new form",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 11,
+    "deletions": 0
+  },
+  "files": [
+    "src/pages/BuilderPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "user-facing"
+}

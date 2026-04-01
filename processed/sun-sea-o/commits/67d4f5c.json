@@ -1,0 +1,49 @@
+{
+  "sha": "67d4f5c",
+  "fullSha": "67d4f5c1cfb0c4bb5dff242c129dbe64d2f9b6ff",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T06:50:27Z",
+  "commitDate": "2026-02-26T06:50:27Z",
+  "subject": "docs(phase2): update all docs, add localStorage migration",
+  "body": "- Updated CLAUDE.md: Project Status, Architecture, Key State Structure\n- Updated USER_GUIDE.md: role switching, invitations, handshake, proposals\n- Updated TESTING_GUIDE.md: 8 new Phase 2 test scenarios, expanded regression checklist\n- Updated SESSION_NOTES.md: Phase 2 session summary\n- Updated TODO.md: marked Phase 2 items complete, expanded Phase 3-7 todos\n- Updated HISTORY.md: full Phase 2 changelog\n- Added localStorage migration in useProjects and useAgreements for old data\n  missing Phase 2 fields (handshake, requested_by)\n\nTags: documentation, migration, phase2\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: Phase 2 — Counterparty & Invitations\nSemver: patch\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+  "tags": [
+    "docs",
+    "data-migration"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "phase2-counterparty",
+  "semver": "patch",
+  "scope": "phase2",
+  "title": "update all docs, add localStorage migration",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 356,
+    "deletions": 62
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md",
+    "src/hooks/useAgreements.ts",
+    "src/hooks/useProjects.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

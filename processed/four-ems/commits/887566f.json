@@ -1,0 +1,73 @@
+{
+  "sha": "887566f",
+  "fullSha": "887566fa78b901db6191e19d28189371f6729d51",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T21:08:57Z",
+  "commitDate": "2026-02-24T21:08:57Z",
+  "subject": "feat(foundation): scaffold Phase 0 — Vite + React + TypeScript project with routing, types, and store",
+  "body": "Sets up the complete project foundation for the form builder:\n- Vite 6 + React 19 + TypeScript with Tailwind CSS and PWA support\n- Form definition TypeScript schema (the builder/renderer contract)\n- Zustand store with all builder actions (field/page CRUD, reorder, save status)\n- API client wrapper for Vercel backend + Supabase client\n- React Router with 7 routes (form list, builder, preview, responses, public form, 404)\n- Shell pages for all routes with three-panel builder layout\n- Build passes clean: tsc + vite build (~75 kB gzipped)\n\nTags: foundation, scaffold, react, typescript, tailwind, zustand, routing\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: neutral\nEpic: form-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+  "tags": [
+    "init",
+    "feature",
+    "config"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "form-builder",
+  "semver": "minor",
+  "scope": "foundation",
+  "title": "scaffold Phase 0 — Vite + React + TypeScript project with routing, types, and store",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 31,
+    "additions": 8474,
+    "deletions": 14
+  },
+  "files": [
+    ".env.example",
+    ".gitignore",
+    "CLAUDE.md",
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "postcss.config.js",
+    "public/favicon.svg",
+    "src/App.tsx",
+    "src/index.css",
+    "src/lib/api.ts",
+    "src/lib/supabase.ts",
+    "src/main.tsx",
+    "src/pages/BuilderPage.tsx",
+    "src/pages/FormListPage.tsx",
+    "src/pages/NotFoundPage.tsx",
+    "src/pages/PreviewPage.tsx",
+    "src/pages/PublicFormPage.tsx",
+    "src/pages/ResponsesPage.tsx",
+    "src/stores/formStore.ts",
+    "src/types/form.ts",
+    "src/vite-env.d.ts",
+    "tailwind.config.js",
+    "tsconfig.app.json",
+    "tsconfig.json",
+    "tsconfig.node.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

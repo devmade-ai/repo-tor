@@ -1,0 +1,53 @@
+{
+  "sha": "bbcc3f0",
+  "fullSha": "bbcc3f0a53fe4dd327045a0671184a7785358421",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-17T14:42:41Z",
+  "commitDate": "2026-03-17T14:42:41Z",
+  "subject": "feat(sancio): add missing validation fields, new endpoints, and unscoped GETs",
+  "body": "Frontend (sun-sea-o) has migrated from direct Supabase to the REST API.\nThis implements the remaining gaps so affected features stop failing at runtime.\n\n1. Validation gaps (existing endpoints):\n   - validateModuleUpdate: add intent, summary_does, summary_when, summary_consequence\n   - validateNoteInput: add sender_tone\n   - validateProposalInput: add sender_tone\n\n2. New endpoints:\n   - POST /projects/:id/accept-handshake — counterparty handshake acceptance\n   - POST /modules/:id/move — move module up/down (swap positions)\n   - POST /modules/batch-ready — batch toggle ready-to-sign\n\n3. Unscoped GET endpoints (optional parent ID params):\n   - GET /agreements — optional projectId\n   - GET /modules — optional agreementId\n   - GET /notes — optional agreementId\n   - GET /proposals — optional moduleId\n   - GET /pdf-verifications — optional agreementId/code\n\n17 new validation tests added. All 89 tests pass. Typecheck clean.\n\nTags: api, sancio, validation, endpoints\nComplexity: 4\nUrgency: 3\nImpact: api\nRisk: medium\nDebt: neutral\nEpic: sancio-api-migration\nSemver: minor\n\nhttps://claude.ai/code/session_01YEN2Uc9FyWJ9SFcTRJFHJX",
+  "tags": [
+    "feature",
+    "api",
+    "test-unit"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "neutral",
+  "epic": "sancio-api-migration",
+  "semver": "minor",
+  "scope": "sancio",
+  "title": "add missing validation fields, new endpoints, and unscoped GETs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 756,
+    "deletions": 40
+  },
+  "files": [
+    "api/__tests__/sancio/validation.test.ts",
+    "api/sancio/[...path].ts",
+    "lib/routes/sancio/agreements.ts",
+    "lib/routes/sancio/misc.ts",
+    "lib/routes/sancio/module-actions.ts",
+    "lib/routes/sancio/modules.ts",
+    "lib/routes/sancio/notes.ts",
+    "lib/routes/sancio/projects.ts",
+    "lib/routes/sancio/proposals.ts",
+    "lib/sancio/constants.ts",
+    "lib/sancio/validation.ts"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "api"
+}
