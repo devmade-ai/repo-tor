@@ -1,0 +1,71 @@
+{
+  "sha": "f13ffcf",
+  "fullSha": "f13ffcfb017025262a377810cefda710ecbfaa3d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-03T02:59:52Z",
+  "commitDate": "2026-03-03T02:59:52Z",
+  "subject": "fix(audit): implement all code review findings — bugs, a11y, UX, quality",
+  "body": "Fix 3 high-priority bugs: Create/Save buttons with no onClick handler,\ntitle editing not persisting to store, and api.ts crash on 204 responses.\nAdd focus trapping (WCAG 2.4.3) to all 3 dialogs, arrow key navigation\nto RatingField, keyboard support for mobile submission cards.\nExtract shared Spinner and StatusBadge components, consolidate duplicate\nisFieldEmpty, optimize Zustand selectors, replace UI jargon with plain\nlanguage, and fix WCAG contrast on all interactive gray-300 elements.\n\nTags: audit, bugs, accessibility, ux, refactor, code-quality\nComplexity: 4\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: code-review-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01KVyJqJKXbP2YdEurt3rQTx",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ux",
+    "refactor"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-review-audit",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "implement all code review findings — bugs, a11y, UX, quality",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 28,
+    "additions": 494,
+    "deletions": 175
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "public/embed.js",
+    "src/App.tsx",
+    "src/components/builder/BuilderCanvas.tsx",
+    "src/components/builder/BuilderHelpers.tsx",
+    "src/components/builder/ConditionBuilder.tsx",
+    "src/components/builder/EmbedCodeDialog.tsx",
+    "src/components/builder/FieldPropertiesPanel.tsx",
+    "src/components/builder/ImportFormDialog.tsx",
+    "src/components/builder/OptionsEditor.tsx",
+    "src/components/builder/PageTabs.tsx",
+    "src/components/dashboard/SubmissionTable.tsx",
+    "src/components/renderer/FormRenderer.tsx",
+    "src/components/renderer/fields/RatingField.tsx",
+    "src/components/ui/BottomSheet.tsx",
+    "src/components/ui/Spinner.tsx",
+    "src/components/ui/StatusBadge.tsx",
+    "src/hooks/useFocusTrap.ts",
+    "src/lib/api.ts",
+    "src/lib/conditions.ts",
+    "src/lib/formImport.ts",
+    "src/lib/validation.ts",
+    "src/pages/BuilderPage.tsx",
+    "src/pages/FormListPage.tsx",
+    "src/pages/PublicFormPage.tsx",
+    "src/pages/ResponsesPage.tsx",
+    "src/stores/formStore.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "user-facing"
+}

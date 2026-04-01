@@ -1,0 +1,41 @@
+{
+  "sha": "a19e98e",
+  "fullSha": "a19e98e80f30fc9acabeb30d5e33e369deb41b9f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-27T13:44:22Z",
+  "commitDate": "2026-02-27T13:44:22Z",
+  "subject": "chore(config): remove stale GitHub Pages migration comment",
+  "body": "The migration from GitHub Pages to Vercel was already completed.\nRemoved the leftover comment referencing the old base path and\n404.html hack — the code already speaks for itself (no base\nproperty, vercel.json handles routing).\n\nNo GitHub Actions workflow files existed to delete. All base-path\nprefixes were already cleaned up in a prior migration.\n\nTags: cleanup, deployment\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch\n\nhttps://claude.ai/code/session_01Hab7FR371YXvcriT1bR33f",
+  "tags": [
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "deployment",
+  "semver": "patch",
+  "scope": "config",
+  "title": "remove stale GitHub Pages migration comment",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 0,
+    "deletions": 4
+  },
+  "files": [
+    "vite.config.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 1,
+  "impact": "internal"
+}

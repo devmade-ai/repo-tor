@@ -1,0 +1,65 @@
+{
+  "sha": "d6554ff",
+  "fullSha": "d6554ff72d7e364be7c27a4da22fa8711f6cf0fa",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T10:27:29Z",
+  "commitDate": "2026-03-02T10:27:29Z",
+  "subject": "fix(quality): comprehensive code audit fixes across codebase",
+  "body": "Fixes memory leaks, type safety issues, code duplication, silent\nfailures, accessibility gaps, and config problems found during audit.\n\n**Critical fixes:**\n- useAutoSave: Fix timer leak + wire to real API (was a no-op placeholder)\n- usePWAUpdate: Fix setInterval leak (never cleaned up on unmount)\n- supabase.ts: Export as `SupabaseClient | null` instead of unsafe cast\n- useAuth/api: Add null guards for nullable supabase client\n\n**Shared utilities extracted (eliminate 3-way duplication):**\n- lib/clipboard.ts: copyToClipboard with textarea fallback + success bool\n- lib/formatters.ts: formatDisplayValue, formatShortDate, formatFullDate\n\n**Error handling improved:**\n- ResponsesPage: Revert optimistic updates on failure, show error banner\n- validation.ts: Log invalid regex patterns via debugLog instead of silent skip\n- ImportFormDialog: File size validation (5 MB max)\n\n**Accessibility:**\n- BuilderCanvas: aria-label + title on drag handle\n- SubmissionTable: tabIndex, role=\"button\", onKeyDown for keyboard nav\n\n**Performance:**\n- FieldPropertiesPanel: useMemo for field lookup\n- ConditionBuilder: useMemo for sourceFields\n\n**Type safety:**\n- formImport: Type guard instead of `as string` cast for field type validation\n- validation: Consistent Set usage for option validation\n\n**Config:**\n- vite.config.ts: Maskable icon → 1024x1024 per CLAUDE.md spec\n- package.json: Remove broken lint script (no ESLint config exists)\n\n**Code cleanup:**\n- conditions.ts: Extract isFieldValueEmpty helper (was repeated 4x)\n\nTags: audit, quality, memory-leak, type-safety, accessibility, performance\nComplexity: 4\nUrgency: 3\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: code-audit\nSemver: patch\n\nhttps://claude.ai/code/session_01UFyeJMd6zWqcphPNksCE9q",
+  "tags": [
+    "bugfix",
+    "memory",
+    "accessibility",
+    "performance",
+    "refactor"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-audit",
+  "semver": "patch",
+  "scope": "quality",
+  "title": "comprehensive code audit fixes across codebase",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 21,
+    "additions": 223,
+    "deletions": 145
+  },
+  "files": [
+    "package.json",
+    "src/components/DebugPill.tsx",
+    "src/components/builder/BuilderCanvas.tsx",
+    "src/components/builder/ConditionBuilder.tsx",
+    "src/components/builder/EmbedCodeDialog.tsx",
+    "src/components/builder/FieldPropertiesPanel.tsx",
+    "src/components/builder/ImportFormDialog.tsx",
+    "src/components/dashboard/SubmissionDetail.tsx",
+    "src/components/dashboard/SubmissionTable.tsx",
+    "src/hooks/useAuth.ts",
+    "src/hooks/useAutoSave.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "src/lib/api.ts",
+    "src/lib/clipboard.ts",
+    "src/lib/conditions.ts",
+    "src/lib/formImport.ts",
+    "src/lib/formatters.ts",
+    "src/lib/supabase.ts",
+    "src/lib/validation.ts",
+    "src/pages/ResponsesPage.tsx",
+    "vite.config.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "internal"
+}

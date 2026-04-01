@@ -1,0 +1,42 @@
+{
+  "sha": "1ad61fb",
+  "fullSha": "1ad61fba0a374d696e5c6c24a3706fffb091b29d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-27T09:05:21Z",
+  "commitDate": "2026-02-27T09:05:21Z",
+  "subject": "fix(api): strip trailing slash from API base URL to prevent double-slash",
+  "body": "VITE_API_BASE_URL is typically set with a trailing slash (e.g.\n\"https://tool-till-tees.vercel.app/\"). When concatenated with paths\nlike \"/api/forms\", this produces a double-slash URL that fails to\nfetch, causing the form list to fall back to demo mode and display\n\"Connect a backend\" — even when the user is authenticated.\n\nFix: strip trailing slashes from API_BASE at init time.\n\nTags: api, bugfix, mobile\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: backend-connection\nSemver: patch\n\nhttps://claude.ai/code/session_01H2BubpGFj8u9T3pDWHH4MM",
+  "tags": [
+    "bugfix",
+    "api"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "backend-connection",
+  "semver": "patch",
+  "scope": "api",
+  "title": "strip trailing slash from API base URL to prevent double-slash",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 1
+  },
+  "files": [
+    "src/lib/api.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 4,
+  "impact": "user-facing"
+}

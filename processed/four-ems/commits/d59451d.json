@@ -1,0 +1,49 @@
+{
+  "sha": "d59451d",
+  "fullSha": "d59451d36b7cde88701cf1002129df94dbfcbf33",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T00:56:50Z",
+  "commitDate": "2026-03-02T00:56:50Z",
+  "subject": "feat(import): add document-to-form conversion via AI-assisted import",
+  "body": "Users with existing questionnaire documents can now convert them into Four Ems\nforms using any AI assistant. The workflow: copy format instructions from the app,\ngive them to an AI alongside the document, paste the AI's JSON output back, and\ncreate a draft form for editing.\n\nNew files:\n- src/lib/formatInstructions.ts: Self-contained AI prompt with JSON schema, field\n  type reference, and example\n- src/lib/formImport.ts: Lenient JSON parser with structural validation, auto-ID\n  generation, markdown fence stripping, and option value auto-generation\n- src/components/builder/ImportFormDialog.tsx: Two-step tabbed dialog (copy\n  instructions → paste JSON → validate → create draft)\n\nModified:\n- FormListPage: \"Import\" button next to \"New Form\", opens dialog, creates draft\n  via API or falls back to router state for demo mode\n- BuilderPage: Hydrates from imported definition passed via router state\n\nTags: import, ai, conversion, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: document-import\nSemver: minor\n\nhttps://claude.ai/code/session_01UzEXGrnukvC4aSKDdhXeSQ",
+  "tags": [
+    "feature",
+    "ux"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "document-import",
+  "semver": "minor",
+  "scope": "import",
+  "title": "add document-to-form conversion via AI-assisted import",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 811,
+    "deletions": 26
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "src/components/builder/ImportFormDialog.tsx",
+    "src/lib/formImport.ts",
+    "src/lib/formatInstructions.ts",
+    "src/pages/BuilderPage.tsx",
+    "src/pages/FormListPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}

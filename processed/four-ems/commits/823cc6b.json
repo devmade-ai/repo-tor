@@ -1,0 +1,44 @@
+{
+  "sha": "823cc6b",
+  "fullSha": "823cc6ba98b04f5d4d351933bcad2f7ec3e5adf9",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-27T07:42:03Z",
+  "commitDate": "2026-02-27T07:42:03Z",
+  "subject": "fix(build): resolve TypeScript compilation errors breaking Vercel deploy",
+  "body": "Guard against possibly-undefined TouchList items in BottomSheet swipe\nhandlers and remove unused saveStatusLabel variable in BuilderPage.\n\nTags: build, typescript, fix\nComplexity: 1\nUrgency: 4\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deploy\nSemver: patch\n\nhttps://claude.ai/code/session_01Sh38f61Qzh8kXQKnGxipNk",
+  "tags": [
+    "bugfix",
+    "build",
+    "types"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "deploy",
+  "semver": "patch",
+  "scope": "build",
+  "title": "resolve TypeScript compilation errors breaking Vercel deploy",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 6,
+    "deletions": 9
+  },
+  "files": [
+    "src/components/ui/BottomSheet.tsx",
+    "src/pages/BuilderPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 4,
+  "impact": "infrastructure"
+}
