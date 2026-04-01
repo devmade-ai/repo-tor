@@ -1,0 +1,47 @@
+{
+  "sha": "766e67b",
+  "fullSha": "766e67b3bbb5e6c8bf07d10bdb70f616fb9af26c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-28T20:13:01Z",
+  "commitDate": "2026-03-28T20:13:01Z",
+  "subject": "fix(cleanup): address 4 issues found during branch verification",
+  "body": "1. SaveLoadModal.jsx: Add aria-label to design list items with\n   role=\"button\" — screen readers couldn't announce purpose.\n\n2. ReaderMode.jsx: Add aria-label=\"Back to Editor\" on back button —\n   mobile renders icon-only (text hidden via sm:inline).\n\n3. MediaTab.jsx: Remove unused FULLBLEED_STRUCTURE import — only\n   normalizeStructure is needed after deduplication refactor.\n\n4. ContextBar.jsx: Same unused FULLBLEED_STRUCTURE import removal.\n\n5. useAdState.js: Fix stale comment on TEXT_ELEMENT_IDS — was \"used\n   only in legacy migration\" but now also used in applyStylePreset\n   for look text styles.\n\nTags: cleanup, a11y, unused-imports, stale-comments\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-review-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_011jgP4mxQrtNwqYrjXh4PNU",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review-sweep",
+  "semver": "patch",
+  "scope": "cleanup",
+  "title": "address 4 issues found during branch verification",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 5,
+    "deletions": 4
+  },
+  "files": [
+    "src/components/ContextBar.jsx",
+    "src/components/MediaTab.jsx",
+    "src/components/ReaderMode.jsx",
+    "src/components/SaveLoadModal.jsx",
+    "src/hooks/useAdState.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

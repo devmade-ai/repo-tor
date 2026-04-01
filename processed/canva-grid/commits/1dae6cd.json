@@ -1,0 +1,43 @@
+{
+  "sha": "1dae6cd",
+  "fullSha": "1dae6cdf51c1721af5b466f98f2df7a4ff9b03e4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-29T23:37:39Z",
+  "commitDate": "2026-03-29T23:37:39Z",
+  "subject": "fix(cache): add cache-busting to sample manifest fetch",
+  "body": "The previous NetworkFirst SW fix wasn't enough because jsDelivr CDN\ncaches @main URLs for ~24 hours at the edge, and browsers can serve\nstale HTTP-cached responses before the SW even sees the request.\n\nAppends an hourly-rotating ?v= param to the manifest fetch URL,\nbypassing both jsDelivr edge cache and browser HTTP cache. Also\nupdates the SW regex to match manifest URLs with query strings.\n\nTags: pwa, cache, media, sample-images\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: sample-images\nSemver: patch",
+  "tags": [
+    "bugfix",
+    "caching"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "sample-images",
+  "semver": "patch",
+  "scope": "cache",
+  "title": "add cache-busting to sample manifest fetch",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 8,
+    "deletions": 3
+  },
+  "files": [
+    "src/components/SampleImagesSection.jsx",
+    "vite.config.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 4,
+  "impact": "user-facing"
+}

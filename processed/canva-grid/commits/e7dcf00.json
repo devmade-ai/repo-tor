@@ -1,0 +1,60 @@
+{
+  "sha": "e7dcf00",
+  "fullSha": "e7dcf006d6ba296c6c478a848b19a0330afa4feb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-30T20:29:16Z",
+  "commitDate": "2026-03-30T20:29:16Z",
+  "subject": "feat(ui): z-index scale, burger menu disclosure pattern, timer audit",
+  "body": "Three glow-props alignment items:\n\n1. Z-index scale standardization: Aligned all 21 z-index values\n   across 11 files to canonical scale — canvas 0-10, headers 20,\n   sheets 30, nav 40, menu 40/50, modals 60, toasts 70, debug 80.\n\n2. Burger menu disclosure pattern: Extracted BurgerMenu.jsx from\n   inline MobileLayout code. Adds cursor-pointer on backdrop (iOS\n   Safari fix), hasBeenOpenRef focus guard, overscroll-contain,\n   useId() for aria-controls, Escape key handler, nav+ul/li\n   disclosure semantics (replaces incorrect role=menu/menuitem).\n\n3. Timer leak audit: All 9 useEffect hooks with setTimeout/setInterval\n   have proper cleanup. No nested timeouts found. No changes needed.\n\nTags: ui, a11y, z-index, burger-menu, accessibility, glow-props-alignment\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: glow-props-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_014mcGJ9aQpye35BKYQhFp4j",
+  "tags": [
+    "feature",
+    "refactor",
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "glow-props-alignment",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "z-index scale, burger menu disclosure pattern, timer audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 17,
+    "additions": 174,
+    "deletions": 54
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/TODO.md",
+    "src/App.jsx",
+    "src/components/BottomSheet.jsx",
+    "src/components/BurgerMenu.jsx",
+    "src/components/ContextBar.jsx",
+    "src/components/DebugPill.jsx",
+    "src/components/DesktopLayout.jsx",
+    "src/components/InstallInstructionsModal.jsx",
+    "src/components/KeyboardShortcutsOverlay.jsx",
+    "src/components/MobileLayout.jsx",
+    "src/components/MobileNav.jsx",
+    "src/components/SaveLoadModal.jsx",
+    "src/components/Toast.jsx",
+    "src/components/Tooltip.jsx",
+    "src/components/TutorialModal.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

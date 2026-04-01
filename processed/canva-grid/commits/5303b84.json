@@ -1,0 +1,51 @@
+{
+  "sha": "5303b84",
+  "fullSha": "5303b842a533a6728262b3c2459e00d2b3669123",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-30T20:15:35Z",
+  "commitDate": "2026-03-30T20:15:35Z",
+  "subject": "feat(dark-mode): cross-tab sync, meta theme-color, color-scheme, safe storage",
+  "body": "Implement all 4 high-priority glow-props alignment items for dark mode:\n\n1. Cross-tab sync: storage event listener updates all open tabs when\n   dark mode is toggled in any tab.\n2. Dynamic meta theme-color: replaced static #7c3aed with two\n   media-queried tags (light=#FAFAFA, dark=#0F0F23). Hook updates\n   both via querySelectorAll on manual toggle.\n3. color-scheme: dark on html.dark: native form inputs, selects,\n   and scrollbars now match dark theme.\n4. Safe localStorage: wrapped all calls in safeStorageGet/safeStorageSet\n   with try/catch to prevent crashes in sandboxed iframes.\n\nBonus: added dark mode flash prevention inline script in index.html\nto apply .dark class from localStorage before first paint.\n\nTags: dark-mode, pwa, a11y, resilience, glow-props-alignment\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: glow-props-alignment\nSemver: minor\n\nhttps://claude.ai/code/session_014mcGJ9aQpye35BKYQhFp4j",
+  "tags": [
+    "feature",
+    "ui",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "glow-props-alignment",
+  "semver": "minor",
+  "scope": "dark-mode",
+  "title": "cross-tab sync, meta theme-color, color-scheme, safe storage",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#7",
+    "#0"
+  ],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 92,
+    "deletions": 20
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/TODO.md",
+    "index.html",
+    "src/hooks/useDarkMode.js",
+    "src/index.css"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

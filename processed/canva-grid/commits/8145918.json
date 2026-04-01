@@ -1,0 +1,42 @@
+{
+  "sha": "8145918",
+  "fullSha": "8145918b4cc5c6b617cda02d561413a9cbb75cf8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-29T23:06:49Z",
+  "commitDate": "2026-03-29T23:06:49Z",
+  "subject": "fix(pwa): use NetworkFirst for sample images manifest",
+  "body": "StaleWhileRevalidate always serves the stale cached manifest first,\nrequiring 3 app opens before new images appear. The manifest is ~3KB\nso the network cost is negligible. NetworkFirst with a 5s timeout\nensures users see fresh images on first load after SW update, with\noffline fallback.\n\nTags: pwa, cache, service-worker, sample-images\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: sample-images\nSemver: patch\n\nhttps://claude.ai/code/session_01D8KRFu6iV5xhR34PXfS1Pj",
+  "tags": [
+    "bugfix",
+    "caching"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "sample-images",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "use NetworkFirst for sample images manifest",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 2,
+    "deletions": 1
+  },
+  "files": [
+    "vite.config.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 4,
+  "impact": "user-facing"
+}

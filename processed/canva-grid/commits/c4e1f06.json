@@ -1,0 +1,44 @@
+{
+  "sha": "c4e1f06",
+  "fullSha": "c4e1f06fbdcb2245e88fa14458bde07aea51f040",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-29T13:29:50Z",
+  "commitDate": "2026-03-29T13:29:50Z",
+  "subject": "feat(config): expand to 15 WordPress-era look presets (one per year)",
+  "body": "Replace the 5 era-grouped WP looks with 15 individual looks, one for\neach WordPress default theme year (2010–2025, skipping 2018):\n\nEra 1 — Fixed Layouts (2010–2013):\n  Heritage (Lora+Lato), Neutral (Raleway), Airy (Open Sans),\n  Vivid (Bitter+Source Sans)\n\nEra 2 — Mobile-First (2014–2017):\n  Magazine (Lato), Readable (Noto Sans+Serif), Typeset\n  (Merriweather+Montserrat), Enterprise (Libre Franklin)\n\nEra 3 — Block-Aware Classic (2019–2021):\n  Gutenberg (Inter+Lora), Warmth (Inter), Pastel (Manrope)\n\nEra 4 — Block Theme Revolution (2022–2025):\n  Botanical (Source Serif+Inter), Fluid (DM Sans), Editorial\n  (Cardo+Inter), Flux (Manrope+Literata)\n\nAlso adds Noto Sans font to support TT15's heading/body pairing.\n\nTags: config, looks, fonts, wordpress, design-tokens\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: wordpress-design-tokens\nSemver: minor\n\nhttps://claude.ai/code/session_01ArqCKLNB2equr8vTQgcMN9",
+  "tags": [
+    "feature",
+    "ui",
+    "config"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "wordpress-design-tokens",
+  "semver": "minor",
+  "scope": "config",
+  "title": "expand to 15 WordPress-era look presets (one per year)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 386,
+    "deletions": 77
+  },
+  "files": [
+    "src/config/fonts.ts",
+    "src/config/stylePresets.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

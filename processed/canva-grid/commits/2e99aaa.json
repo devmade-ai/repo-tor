@@ -1,0 +1,42 @@
+{
+  "sha": "2e99aaa",
+  "fullSha": "2e99aaaa07970270133cfc2b1d263b3ca7dd1fef",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-29T13:58:32Z",
+  "commitDate": "2026-03-29T13:58:32Z",
+  "subject": "fix(themes): rename 3 themes to avoid name overlap with look presets",
+  "body": "Themes describe colors, looks describe style — names should reflect that.\nRenamed to eliminate user confusion from identical names in different sections:\n\n- Minimal → Muted (pre-existing overlap with Minimal look)\n- Pastel → Sage (overlapped with Pastel look; describes sage green primary)\n- Editorial → Parchment (overlapped with Editorial look; describes warm white)\n\nIDs unchanged — no state migration needed.\n\nTags: themes, ux, naming\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: wordpress-design-tokens\nSemver: patch\n\nhttps://claude.ai/code/session_01ArqCKLNB2equr8vTQgcMN9",
+  "tags": [
+    "naming",
+    "ux"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "wordpress-design-tokens",
+  "semver": "patch",
+  "scope": "themes",
+  "title": "rename 3 themes to avoid name overlap with look presets",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 3
+  },
+  "files": [
+    "src/config/themes.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}
