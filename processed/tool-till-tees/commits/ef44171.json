@@ -1,0 +1,44 @@
+{
+  "sha": "ef44171",
+  "fullSha": "ef441711d26176fa90991330f74c4ea2413834b1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-07T19:37:23Z",
+  "commitDate": "2026-03-07T19:37:23Z",
+  "subject": "fix(cors): add see-veo.vercel.app to allowed origins and set preflight headers",
+  "body": "The /api/health endpoint was blocking cross-origin requests from\nsee-veo.vercel.app because the origin wasn't in the CORS allowlist.\nAlso added Access-Control-Allow-Methods and Access-Control-Allow-Headers\nto OPTIONS preflight responses — these were missing from all endpoints.\n\nTags: cors, api, bugfix\nComplexity: 1\nUrgency: 3\nImpact: api\nRisk: low\nDebt: paid\nEpic: cors\nSemver: patch\n\nhttps://claude.ai/code/session_01RvGq98J3cgJFYUird1bw3q",
+  "tags": [
+    "bugfix",
+    "api",
+    "config"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "cors",
+  "semver": "patch",
+  "scope": "cors",
+  "title": "add see-veo.vercel.app to allowed origins and set preflight headers",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 27,
+    "deletions": 2
+  },
+  "files": [
+    "api/__tests__/health.test.ts",
+    "lib/cors.ts"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "api"
+}
