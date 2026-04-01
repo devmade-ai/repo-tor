@@ -1,0 +1,45 @@
+{
+  "sha": "9cabac0",
+  "fullSha": "9cabac02f12afdb965fca5576ffa31532b493a3e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T19:45:05Z",
+  "commitDate": "2026-03-13T19:45:05Z",
+  "subject": "fix(audit): timer leaks, race conditions, and double-save protection",
+  "body": "Code audit fixes:\n\n- ResponsesPage: Track setTimeout IDs in refs, clean up on unmount to\n  prevent setState on dead component. Fix stale closure in handleStatusChange\n  by reverting only the specific submission that failed (not the full array),\n  preserving concurrent optimistic updates to other submissions.\n- useAutoSave: Add isSavingRef guard to prevent concurrent save() calls.\n  If a save is in-flight, the next debounce trigger is skipped. The\n  finally block resets the flag so the next dirty change triggers a save.\n- usePWAInstall: Document why the eslint-disable-next-line is intentional\n  (all deps are constants from useState initializers, never change).\n\nTags: audit, timer-leak, race-condition, auto-save, pwa\nComplexity: 3\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01D1vPh85VCNSPwbxHLjFtAF",
+  "tags": [
+    "bugfix",
+    "memory",
+    "error-handling"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": "audit",
+  "title": "timer leaks, race conditions, and double-save protection",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 47,
+    "deletions": 14
+  },
+  "files": [
+    "src/hooks/useAutoSave.ts",
+    "src/hooks/usePWAInstall.ts",
+    "src/pages/ResponsesPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "internal"
+}

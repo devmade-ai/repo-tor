@@ -1,0 +1,42 @@
+{
+  "sha": "e8c1bd0",
+  "fullSha": "e8c1bd0ccf73990ee2c17ef60f837e19689669b1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-18T21:05:05Z",
+  "commitDate": "2026-03-18T21:05:05Z",
+  "subject": "fix(builder): warn user when imported form hasn't been saved",
+  "body": "When the import API fails, the form data is passed via router state to\n/forms/new. Previously this was silent — no feedback, and the router\nstate was immediately cleared so a refresh would lose the data.\n\nNow:\n- Shows an amber banner: \"This imported form hasn't been saved yet.\n  Click Create to save it.\"\n- Keeps router state until save succeeds, so refresh preserves the data\n- Clears banner and router state after successful save\n\nTags: bug, import, ux\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: form-builder\nSemver: patch\n\nhttps://claude.ai/code/session_01BiNWegdMQNfRw2kZdFKDz9",
+  "tags": [
+    "bugfix",
+    "ux"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "form-builder",
+  "semver": "patch",
+  "scope": "builder",
+  "title": "warn user when imported form hasn't been saved",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 24,
+    "deletions": 4
+  },
+  "files": [
+    "src/pages/BuilderPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "user-facing"
+}

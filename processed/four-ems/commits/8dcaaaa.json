@@ -1,0 +1,46 @@
+{
+  "sha": "8dcaaaa",
+  "fullSha": "8dcaaaac7242b1339283c94b0c1aecc97844d662",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T19:49:27Z",
+  "commitDate": "2026-03-13T19:49:27Z",
+  "subject": "fix(mobile): increase touch target sizes for WCAG 2.5.5 compliance",
+  "body": "Bump padding on interactive elements that were below the 44px minimum:\n\n- RadioField/CheckboxGroupField: py-2 → py-2.5 (~40px → ~44px with text)\n- RatingField stars: add p-1 padding for explicit 44px+ touch area\n- PageTabs remove button: p-1 → p-1.5 (~24px → ~30px, constrained by tab height)\n- SubmissionTable filter buttons: py-1 → py-1.5 (~28px → ~34px)\n- SubmissionTable pagination buttons: py-1/px-2 → py-1.5/px-3\n\nTags: mobile, accessibility, touch-targets, wcag\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01D1vPh85VCNSPwbxHLjFtAF",
+  "tags": [
+    "bugfix",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": "mobile",
+  "title": "increase touch target sizes for WCAG 2.5.5 compliance",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 7,
+    "deletions": 7
+  },
+  "files": [
+    "src/components/builder/PageTabs.tsx",
+    "src/components/dashboard/SubmissionTable.tsx",
+    "src/components/renderer/fields/CheckboxGroupField.tsx",
+    "src/components/renderer/fields/RadioField.tsx",
+    "src/components/renderer/fields/RatingField.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}

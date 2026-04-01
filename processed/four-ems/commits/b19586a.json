@@ -1,0 +1,48 @@
+{
+  "sha": "b19586a",
+  "fullSha": "b19586a17c66247107097b26395d26cb6eaa3b16",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T19:41:15Z",
+  "commitDate": "2026-03-13T19:41:15Z",
+  "subject": "fix(review): strengthen edge cases across conditions, validation, embed, and builder",
+  "body": "Code review sweep fixes:\n\n- conditions.ts: Replace raw String() coercion with normalizeForComparison()\n  that trims whitespace and handles null/undefined consistently. Prevents\n  accidental type coercion between number/string field values.\n- embedResize.ts: Debounce MutationObserver callback (100ms) to reduce\n  excessive postMessage calls when many DOM mutations fire in quick succession.\n  Clean up timer on disconnect.\n- FieldPropertiesPanel.tsx: Add maxLength=255 to field label input to prevent\n  layout-breaking long labels in the builder.\n- FormRenderer.tsx: Improve hidden field URL param normalization — now replaces\n  all non-alphanumeric chars (not just spaces) with underscores. Also caps\n  hidden field values at 10k chars as a safeguard against malicious definitions.\n- validation.ts: Show a clear \"too long to validate\" message when input exceeds\n  1000 chars, instead of silently truncating and giving a misleading error.\n- TODO.md: Track server-side CSV export as a scalability item.\n\nTags: review, conditions, validation, embed, builder, security\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01D1vPh85VCNSPwbxHLjFtAF",
+  "tags": [
+    "bugfix",
+    "validation",
+    "security"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": "review",
+  "title": "strengthen edge cases across conditions, validation, embed, and builder",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 45,
+    "deletions": 11
+  },
+  "files": [
+    "docs/TODO.md",
+    "src/components/builder/FieldPropertiesPanel.tsx",
+    "src/components/renderer/FormRenderer.tsx",
+    "src/lib/conditions.ts",
+    "src/lib/embedResize.ts",
+    "src/lib/validation.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "internal"
+}

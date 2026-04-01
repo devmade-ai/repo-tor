@@ -1,0 +1,41 @@
+{
+  "sha": "788e224",
+  "fullSha": "788e224ebca7271ffc3bd15369409eb5c2b2b6fc",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T19:54:11Z",
+  "commitDate": "2026-03-13T19:54:11Z",
+  "subject": "docs(todo): add server-side pagination for submissions",
+  "body": "Track the need for API-level pagination on the submissions endpoint.\nCurrently ResponsesPage fetches all submissions at once, which won't\nscale for forms with 1000+ responses. Complements the existing CSV\nexport scalability item.\n\nTags: documentation, scalability, performance\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: neutral\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01D1vPh85VCNSPwbxHLjFtAF",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": "todo",
+  "title": "add server-side pagination for submissions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 0
+  },
+  "files": [
+    "docs/TODO.md"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "internal"
+}

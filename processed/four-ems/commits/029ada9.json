@@ -1,0 +1,43 @@
+{
+  "sha": "029ada9",
+  "fullSha": "029ada99683ffce51a0d1f9c906a11e48c101dba",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-14T06:53:20Z",
+  "commitDate": "2026-03-14T06:53:20Z",
+  "subject": "fix(rev): array comparison bug in conditions, auto-save debounce churn",
+  "body": "conditions.ts: normalizeForComparison joined arrays with commas, causing\nfalse matches when values contained commas (e.g. [\"a,b\",\"c\"] matched\n[\"a\",\"b,c\"]). Now uses null-byte separator with sorted element-wise\ncomparison for equals/not_equals on array values (checkbox groups).\n\nuseAutoSave.ts: removed `definition` from useEffect deps — the save\nfunction reads current definition from the store at call-time, so\nincluding it restarted the 2s debounce timer on every keystroke.\n\nTags: bugfix, conditions, auto-save, review\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: form-builder\nSemver: patch\n\nhttps://claude.ai/code/session_01D1vPh85VCNSPwbxHLjFtAF",
+  "tags": [
+    "bugfix",
+    "validation"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "form-builder",
+  "semver": "patch",
+  "scope": "rev",
+  "title": "array comparison bug in conditions, auto-save debounce churn",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 29,
+    "deletions": 7
+  },
+  "files": [
+    "src/hooks/useAutoSave.ts",
+    "src/lib/conditions.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "user-facing"
+}

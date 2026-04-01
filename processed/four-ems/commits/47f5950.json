@@ -1,0 +1,49 @@
+{
+  "sha": "47f5950",
+  "fullSha": "47f595020a546b687a451f90a0b080f35b1deca5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-19T04:29:45Z",
+  "commitDate": "2026-03-19T04:29:45Z",
+  "subject": "feat(builder): wire form create, publish, and share lifecycle",
+  "body": "New forms are now created via POST /api/forms on first save, with the\nURL updating from /forms/new to /forms/:id without remounting. Existing\nforms are loaded from the API so slug, status, and title are available.\nAdded publish/unpublish buttons (desktop + mobile) that toggle status\nvia PUT. A green \"Live\" banner shows the public URL with copy-link when\npublished. Embed code now uses the real form slug instead of the route\nparam ID. Title rename persists to the API instead of only updating the\nlocal store.\n\nTags: forms, publish, share, lifecycle, builder\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: form-lifecycle\nSemver: minor\n\nhttps://claude.ai/code/session_01BiNWegdMQNfRw2kZdFKDz9",
+  "tags": [
+    "feature",
+    "ui",
+    "ux",
+    "api"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "form-lifecycle",
+  "semver": "minor",
+  "scope": "builder",
+  "title": "wire form create, publish, and share lifecycle",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 243,
+    "deletions": 54
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/hooks/useAutoSave.ts",
+    "src/pages/BuilderPage.tsx",
+    "src/stores/formStore.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 3,
+  "impact": "user-facing"
+}

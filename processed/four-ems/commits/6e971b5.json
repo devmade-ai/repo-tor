@@ -1,0 +1,44 @@
+{
+  "sha": "6e971b5",
+  "fullSha": "6e971b5c53284738fd24076e862aae4009863276",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-18T18:10:56Z",
+  "commitDate": "2026-03-18T18:10:56Z",
+  "subject": "feat(builder): add page-level conditional logic configuration",
+  "body": "When no field is selected, the right panel now shows page settings with\na ConditionBuilder for conditional page visibility. Generalized\nConditionBuilder to accept both field and page targets via generic props\n(conditions, targetId, targetType). Added amber dot indicator on page\ntabs that have conditions. First page is guarded — conditions disabled\nwith explanatory message.\n\nTags: conditional-logic, builder, ui, pages\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: conditional-logic\nSemver: minor\n\nhttps://claude.ai/code/session_01BiNWegdMQNfRw2kZdFKDz9",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "conditional-logic",
+  "semver": "minor",
+  "scope": "builder",
+  "title": "add page-level conditional logic configuration",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 110,
+    "deletions": 20
+  },
+  "files": [
+    "src/components/builder/ConditionBuilder.tsx",
+    "src/components/builder/FieldPropertiesPanel.tsx",
+    "src/components/builder/PageTabs.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}
