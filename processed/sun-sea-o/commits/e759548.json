@@ -1,0 +1,47 @@
+{
+  "sha": "e759548",
+  "fullSha": "e7595480f0c7723bb7a63fea87040466c3c75c56",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T18:57:14Z",
+  "commitDate": "2026-02-26T18:57:14Z",
+  "subject": "refactor(debug): rewrite DebugPill to match glow-props spec",
+  "body": "Rewrites the debug pill to align with the spec from glow-props/CLAUDE.md:\n\n- Separate React root (debug-root div) so the pill survives App crashes\n- Centralized debugLog.ts event store: circular buffer of 200 entries with\n  pub/sub, source tags (boot/db/graph/graphData/pwa/render/global/seed),\n  and severity levels (info/success/warn/error)\n- Module-level console.error/warn interception and window.onerror hooks\n  installed at import time, before React mounts\n- Two-tab expanded UI: Log (scrollable, color-coded by source & severity,\n  auto-scrolls to newest, timestamps as HH:MM:SS.mmm) and Environment\n  (URL, user agent, screen/viewport, online, protocol, standalone, SW\n  support, IndexedDB support)\n- Collapsed pill shows \"dbg\" label with entry count plus error/warning badges\n- Copy generates full debug report (environment + all entries) with textarea\n  fallback; Clear wipes all entries\n\nTags: ui, debug, dx, refactor\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: debug-tooling\nSemver: minor\n\nhttps://claude.ai/code/session_014rXNLPD7mQftk2mLrtQRHY",
+  "tags": [
+    "refactor",
+    "ui",
+    "monitoring"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-tooling",
+  "semver": "minor",
+  "scope": "debug",
+  "title": "rewrite DebugPill to match glow-props spec",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 344,
+    "deletions": 134
+  },
+  "files": [
+    "index.html",
+    "src/App.tsx",
+    "src/components/common/DebugPill.tsx",
+    "src/main.tsx",
+    "src/utils/debugLog.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "user-facing"
+}

@@ -1,0 +1,69 @@
+{
+  "sha": "1ab3c26",
+  "fullSha": "1ab3c26270e203b2857fa539fff9fd6b2fa18fd8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T09:15:23Z",
+  "commitDate": "2026-02-26T09:15:23Z",
+  "subject": "feat(phase3-7): add signature log, notifications, PDF, splitting, nudge/expiry, error handling",
+  "body": "Complete frontend implementation for Phases 3 (remaining), 4, 5, 6, and 7:\n- Signature log with IP/user agent/timestamp tracking\n- In-app notification system with bell icon and dropdown panel\n- PDF preview with SHA-256 verification codes\n- Agreement splitting (copy modules to new agreement)\n- Module nudge period and auto-expire configuration\n- Error boundary for React render error recovery\n- Offline indicator for network status\n- Agreement status management (Start, Reopen)\n\nTags: signing, notifications, pdf, splitting, nudge, error-handling, offline, phase3, phase4, phase5, phase6, phase7\nComplexity: 5\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: mvp-frontend\nSemver: minor\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 5,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "mvp-frontend",
+  "semver": "minor",
+  "scope": "phase3-7",
+  "title": "add signature log, notifications, PDF, splitting, nudge/expiry, error handling",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "SHA-256"
+  ],
+  "stats": {
+    "filesChanged": 26,
+    "additions": 1388,
+    "deletions": 76
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/BACKEND_SPEC.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md",
+    "src/App.tsx",
+    "src/components/agreements/PdfPreview.tsx",
+    "src/components/agreements/SplitAgreementForm.tsx",
+    "src/components/common/ErrorBoundary.tsx",
+    "src/components/common/NotificationBell.tsx",
+    "src/components/common/OfflineIndicator.tsx",
+    "src/components/modules/NudgeExpiryConfig.tsx",
+    "src/components/modules/SignatureLog.tsx",
+    "src/data/mockAgreements.ts",
+    "src/data/mockModules.ts",
+    "src/hooks/useAgreements.ts",
+    "src/hooks/useModules.ts",
+    "src/hooks/useNotifications.ts",
+    "src/hooks/usePdfVerifications.ts",
+    "src/hooks/useSignatureLog.ts",
+    "src/layouts/AppLayout.tsx",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/types/index.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

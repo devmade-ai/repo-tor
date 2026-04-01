@@ -1,0 +1,66 @@
+{
+  "sha": "a1eeae7",
+  "fullSha": "a1eeae7a2f3d9bfbe8aecab09f2ce0a38abd7d5d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T12:16:21Z",
+  "commitDate": "2026-02-26T12:16:21Z",
+  "subject": "fix(ux): comprehensive mobile and UX improvements across 23 files",
+  "body": "Addresses iOS Safari issues, touch targets, accessibility, and general\nUX clarity for non-technical users on mobile devices.\n\nMobile fixes:\n- Prevent iOS auto-zoom on inputs (text-base on mobile, text-sm on desktop)\n- Add viewport-fit=cover for iPhone notch/home indicator support\n- Replace min-h-screen with min-h-dvh for iOS Safari dynamic toolbar\n- Toast safe-area inset for iPhone home indicator\n- Modal scrollable content with max-height for keyboard overlap\n- Reduce modal padding on mobile (p-4 sm:p-6)\n- Increase touch targets on move buttons, modal close, notification delete (44px min)\n- Replace \"Sign out\" text with icon on mobile to reduce header crowding\n- Reduce header gap to gap-1 on mobile\n- Stack signature log IP/user-agent vertically on mobile\n- Fix notification dropdown rubber-banding with overscroll-contain\n- Add breadcrumb scroll fade indicator\n\nUX clarity:\n- Ready-to-sign toggle now says \"Undo ready status\" when active\n- Back buttons styled as recognizable button with hover state\n- Edit mode shows \"Editing\" badge for visual indicator\n- Batch sign \"Cancel\" changed to \"Done\" for clearer intent\n- \"Counterparty\" renamed to \"Other party\" in header role switcher\n- Tooltip on role switcher explains counterparty meaning\n- Truncated card titles now show full text on hover\n- Version history shows last-updated timestamp on current version\n- Expired modules: move/delete buttons disabled with explanatory tooltip\n\nAccessibility:\n- aria-describedby links form errors to their inputs\n- aria-invalid on inputs with errors\n- role=\"alert\" on error messages\n- aria-hidden on decorative SVGs in back buttons\n- Module content viewer uses break-words for long content\n\nTags: ux, mobile, accessibility, ios, pwa\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: polish-hardening\nSemver: patch\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ux",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "polish-hardening",
+  "semver": "patch",
+  "scope": "ux",
+  "title": "comprehensive mobile and UX improvements across 23 files",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 23,
+    "additions": 82,
+    "deletions": 52
+  },
+  "files": [
+    "index.html",
+    "src/components/agreements/AgreementCard.tsx",
+    "src/components/common/ErrorBoundary.tsx",
+    "src/components/common/Input.tsx",
+    "src/components/common/Modal.tsx",
+    "src/components/common/NotificationBell.tsx",
+    "src/components/common/TextArea.tsx",
+    "src/components/common/Toast.tsx",
+    "src/components/modules/BatchSignActions.tsx",
+    "src/components/modules/ModuleCard.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/components/modules/ModuleViewer.tsx",
+    "src/components/modules/NudgeExpiryConfig.tsx",
+    "src/components/modules/ReadyToSignToggle.tsx",
+    "src/components/modules/SignatureLog.tsx",
+    "src/components/modules/VersionHistoryPanel.tsx",
+    "src/components/projects/ProjectCard.tsx",
+    "src/index.css",
+    "src/layouts/AppLayout.tsx",
+    "src/layouts/AuthLayout.tsx",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/NotFoundPage.tsx",
+    "src/pages/ProjectDetailPage.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "user-facing"
+}

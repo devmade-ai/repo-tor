@@ -1,0 +1,44 @@
+{
+  "sha": "37f0a9d",
+  "fullSha": "37f0a9de12a1813e9d24e7883ae7524996dca67b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T18:52:52Z",
+  "commitDate": "2026-02-26T18:52:52Z",
+  "subject": "feat(debug): add DebugPill component that shows on page load",
+  "body": "Adds a fixed-position debug pill (bottom-right corner) that renders\nimmediately on page load, outside of routing and auth. It captures\nconsole errors, warnings, unhandled promise rejections, and global\nerrors from mount time onward. The pill shows a green \"OK\" or red\nerror count, and expands on click to show a scrollable log with\ncopy/clear actions. This gives users diagnostic info to report even\nwithout devtools.\n\nTags: ui, debug, dx\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: debug-tooling\nSemver: minor\n\nhttps://claude.ai/code/session_014rXNLPD7mQftk2mLrtQRHY",
+  "tags": [
+    "feature",
+    "ui",
+    "monitoring"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "debug-tooling",
+  "semver": "minor",
+  "scope": "debug",
+  "title": "add DebugPill component that shows on page load",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 180,
+    "deletions": 0
+  },
+  "files": [
+    "src/App.tsx",
+    "src/components/common/DebugPill.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "user-facing"
+}

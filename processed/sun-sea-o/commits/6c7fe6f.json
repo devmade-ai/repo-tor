@@ -1,0 +1,63 @@
+{
+  "sha": "6c7fe6f",
+  "fullSha": "6c7fe6feae8563cbe4696ec1125aad900af2461c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T11:54:03Z",
+  "commitDate": "2026-02-26T11:54:03Z",
+  "subject": "feat(frontend-complete): PWA prompt, accessibility, README, backend spec audit",
+  "body": "Complete all remaining frontend work:\n- PWA install prompt: captures beforeinstallprompt, dismissible banner\n- README rewrite: full feature list, setup guide, documentation table\n- Accessibility audit (31 issues, all high/medium fixed):\n  - ARIA roles: Toast, LoadingSpinner, ErrorBoundary, OfflineIndicator\n  - Modal: aria-labelledby, focus ring on close\n  - NotificationBell: Escape close, keyboard nav, dynamic aria-label\n  - Breadcrumb nav label, role switcher label, decorative SVG hidden\n  - NotFoundPage heading hierarchy, NudgeExpiryConfig describedby\n- Backend spec rewrite against actual code:\n  - Content length limits table, module_version triggers\n  - Frontend vs backend notification types clarified\n  - Business logic section, cron specs, Resend config, bcrypt cost\n  - Removed is_system from templates, split_approved from types\n- Missing signature logs: handshake_signed, sequence_approved\n- Module amendment notification when signed module edited\n\nTags: frontend-complete, pwa, accessibility, backend-spec, documentation\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mvp-frontend\nSemver: minor\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+  "tags": [
+    "feature",
+    "accessibility",
+    "docs"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mvp-frontend",
+  "semver": "minor",
+  "scope": "frontend-complete",
+  "title": "PWA prompt, accessibility, README, backend spec audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 21,
+    "additions": 419,
+    "deletions": 109
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/BACKEND_SPEC.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/common/EmptyState.tsx",
+    "src/components/common/ErrorBoundary.tsx",
+    "src/components/common/LoadingSpinner.tsx",
+    "src/components/common/Modal.tsx",
+    "src/components/common/NotificationBell.tsx",
+    "src/components/common/OfflineIndicator.tsx",
+    "src/components/common/PwaInstallPrompt.tsx",
+    "src/components/common/Toast.tsx",
+    "src/components/modules/NudgeExpiryConfig.tsx",
+    "src/layouts/AppLayout.tsx",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/pages/NotFoundPage.tsx",
+    "src/pages/ProjectDetailPage.tsx",
+    "src/types/index.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

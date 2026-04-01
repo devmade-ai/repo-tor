@@ -1,0 +1,73 @@
+{
+  "sha": "d12d83f",
+  "fullSha": "d12d83f5ba14c4324a27919ba83400d84e47eb70",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T19:19:41Z",
+  "commitDate": "2026-02-26T19:19:41Z",
+  "subject": "feat(backend): implement full Supabase backend and migrate frontend from localStorage",
+  "body": "Complete backend implementation per docs/BACKEND_SPEC.md:\n- Database schema: 11 tables, 7 enum types, indexes, constraints\n- RLS policies for all tables with project membership helpers\n- Business logic: 15 triggers/RPCs (auto-lock, amendment, split, signing)\n- Cron jobs: daily nudge and auto-expiry schedulers via pg_cron\n- Edge Functions: send-invitation (bcrypt+Resend) and verify-passphrase\n- Seed data: 6 module templates\n\nFrontend migration from localStorage to Supabase:\n- Rewrote all 9 hooks to use Supabase queries with realtime subscriptions\n- Replaced mock auth with Supabase Auth + Google OAuth\n- Added useProjectRole hook for per-project role determination\n- Removed role switcher, mock users, client-side notification/signature creation\n- Updated pages to use server-side triggers for notifications and logging\n\nTags: backend, supabase, migration, auth, rls, triggers, edge-functions\nComplexity: 5\nUrgency: 2\nImpact: api\nRisk: medium\nDebt: paid\nEpic: backend-implementation\nSemver: major\n\nhttps://claude.ai/code/session_01DYj6Zx4tZstjALbT2NN59F",
+  "tags": [
+    "feature",
+    "database",
+    "schema",
+    "auth",
+    "migration"
+  ],
+  "complexity": 5,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "backend-implementation",
+  "semver": "major",
+  "scope": "backend",
+  "title": "implement full Supabase backend and migrate frontend from localStorage",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 29,
+    "additions": 2754,
+    "deletions": 843
+  },
+  "files": [
+    ".env.example",
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/config/supabase.ts",
+    "src/context/AuthContext.tsx",
+    "src/hooks/useAgreements.ts",
+    "src/hooks/useModules.ts",
+    "src/hooks/useNotes.ts",
+    "src/hooks/useNotifications.ts",
+    "src/hooks/usePdfVerifications.ts",
+    "src/hooks/useProjectRole.ts",
+    "src/hooks/useProjects.ts",
+    "src/hooks/useProposals.ts",
+    "src/hooks/useSignatureLog.ts",
+    "src/layouts/AppLayout.tsx",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/pages/ProjectDetailPage.tsx",
+    "src/pages/ProjectListPage.tsx",
+    "supabase/config.toml",
+    "supabase/functions/send-invitation/index.ts",
+    "supabase/functions/verify-passphrase/index.ts",
+    "supabase/migrations/20260226000001_create_schema.sql",
+    "supabase/migrations/20260226000002_rls_policies.sql",
+    "supabase/migrations/20260226000003_business_logic.sql",
+    "supabase/migrations/20260226000004_cron_jobs.sql",
+    "supabase/seed/module_templates.sql"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "api"
+}

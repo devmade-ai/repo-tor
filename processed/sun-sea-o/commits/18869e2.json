@@ -1,0 +1,65 @@
+{
+  "sha": "18869e2",
+  "fullSha": "18869e29eeca62cad2d4125170bbba43a827a3f0",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T08:59:58Z",
+  "commitDate": "2026-02-26T08:59:58Z",
+  "subject": "feat(phase3): add signing, notes, version history, and sequence sign-off",
+  "body": "Phase 3 frontend implementation adds the complete signing and negotiation\ntracking layer. Modules can now be independently signed by both parties\nwith auto-lock when both mark ready, batch signing for efficiency, and\namendment flow that preserves version history. Notes with source tagging\nenable tracking of discussions across channels. Sequence sign-off ensures\nboth parties approve the final module ordering before an agreement is\nfully locked.\n\nTags: signing, notes, version-history, ui, hooks, components\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: phase3-signing-notes-versions\nSemver: minor\n\nhttps://claude.ai/code/session_012pZxvfZW3By5dZthuRQTQH",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "phase3-signing-notes-versions",
+  "semver": "minor",
+  "scope": "phase3",
+  "title": "add signing, notes, version history, and sequence sign-off",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 24,
+    "additions": 1339,
+    "deletions": 53
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/BACKEND_SPEC.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md",
+    "src/components/agreements/SequenceSignOff.tsx",
+    "src/components/modules/AddNoteForm.tsx",
+    "src/components/modules/BatchSignActions.tsx",
+    "src/components/modules/ModuleCard.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/components/modules/NotesList.tsx",
+    "src/components/modules/ReadyToSignToggle.tsx",
+    "src/components/modules/SigningStatus.tsx",
+    "src/components/modules/VersionHistoryPanel.tsx",
+    "src/data/mockAgreements.ts",
+    "src/data/mockModules.ts",
+    "src/hooks/useAgreements.ts",
+    "src/hooks/useModules.ts",
+    "src/hooks/useNotes.ts",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/types/index.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

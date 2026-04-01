@@ -1,0 +1,54 @@
+{
+  "sha": "6db4c5f",
+  "fullSha": "6db4c5fc0100fefa23ac42725b80f04579ed898b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-26T22:17:51Z",
+  "commitDate": "2026-02-26T22:17:51Z",
+  "subject": "feat(icons): add SVG source icon and sharp generation pipeline",
+  "body": "Replaces the solid-color placeholder PNGs with an actual S lettermark\nicon for Sancio. Follows the glow-props pattern: single SVG source at\npublic/icon-source.svg, converted to sized PNGs via scripts/generate-icons.mjs\nusing sharp.\n\nGenerated icons: favicon.png (48px), pwa-192x192.png, pwa-512x512.png,\npwa-maskable-512x512.png, pwa-1024x1024.png.\n\nAlso fixes the manifest icon entries — splits the combined \"any maskable\"\npurpose into separate entries with individual purpose values, which some\ntools and browsers handle more reliably. Switches favicon from .ico to\n.png for consistency with the generation pipeline.\n\nTags: icons, pwa, branding, sharp, glow-props\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_01FfhgQ6RQhi8RYe15pDbt1y",
+  "tags": [
+    "feature",
+    "ui",
+    "build"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-hardening",
+  "semver": "minor",
+  "scope": "icons",
+  "title": "add SVG source icon and sharp generation pipeline",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 12,
+    "additions": 645,
+    "deletions": 5
+  },
+  "files": [
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "public/favicon.ico",
+    "public/favicon.png",
+    "public/icon-source.svg",
+    "public/pwa-1024x1024.png",
+    "public/pwa-192x192.png",
+    "public/pwa-512x512.png",
+    "public/pwa-maskable-512x512.png",
+    "scripts/generate-icons.mjs",
+    "vite.config.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

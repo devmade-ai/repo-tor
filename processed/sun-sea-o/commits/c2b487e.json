@@ -1,0 +1,45 @@
+{
+  "sha": "c2b487e",
+  "fullSha": "c2b487e0197af0d4293dab2bbe4d8c08526c5c49",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-27T05:05:27Z",
+  "commitDate": "2026-02-27T05:05:27Z",
+  "subject": "fix(boot): decouple DebugPill from App and add zero-dependency error overlay",
+  "body": "The blank white screen with no debug pill happens because main.tsx\nstatically imports both App and DebugPill. If any module in App's deep\ndependency tree (react-router, supabase, pages, hooks) throws during\nevaluation, the entire ES module fails and DebugPill never mounts —\nleaving the user with zero diagnostic information.\n\nThree changes to make the boot process resilient:\n\n1. Dynamic import for App — DebugPill now mounts first via static import\n   (tiny chain: React + debugLog). App loads asynchronously via import().\n   If App's chunk fails, DebugPill still renders and shows the error.\n\n2. Inline error overlay in index.html — a classic (non-module) script\n   that catches errors and shows them on screen before any React code\n   runs. Also includes a 10-second boot timeout to catch silent failures.\n\n3. Boot-stage logging — debugLog calls at each boot stage (main.tsx\n   executing, DebugPill mounted, App loading, App rendered, Supabase\n   config status) so the debug pill shows exactly where things went wrong.\n\nTags: boot, debug, resilience, blank-screen\nComplexity: 3\nUrgency: 5\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: blank-screen-fix\nSemver: patch\n\nhttps://claude.ai/code/session_01QFokShfsCKZPxvHy5SuERg",
+  "tags": [
+    "bugfix",
+    "error-handling",
+    "monitoring"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "blank-screen-fix",
+  "semver": "patch",
+  "scope": "boot",
+  "title": "decouple DebugPill from App and add zero-dependency error overlay",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 104,
+    "deletions": 8
+  },
+  "files": [
+    "index.html",
+    "src/App.tsx",
+    "src/main.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 5,
+  "impact": "user-facing"
+}

@@ -1,0 +1,64 @@
+{
+  "sha": "254ebd9",
+  "fullSha": "254ebd9e725e14db2d3e59704c768c972e4cfe2d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com"
+  },
+  "timestamp": "2026-02-26T22:28:15Z",
+  "commitDate": "2026-02-26T22:28:15Z",
+  "subject": "Merge pull request #5 from devmade-ai/claude/fix-blank-screen-ZTNIS",
+  "body": "Add PWA install detection, browser-specific flows, and update prompts",
+  "tags": [
+    "merge"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "pwa-hardening",
+  "semver": "patch",
+  "scope": null,
+  "title": "Merge pull request #5 from devmade-ai/claude/fix-blank-screen-ZTNIS",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [
+    "#5"
+  ],
+  "stats": {
+    "filesChanged": 22,
+    "additions": 1183,
+    "deletions": 80
+  },
+  "files": [
+    "CLAUDE.md",
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "public/favicon.ico",
+    "public/favicon.png",
+    "public/icon-source.svg",
+    "public/pwa-1024x1024.png",
+    "public/pwa-192x192.png",
+    "public/pwa-512x512.png",
+    "public/pwa-maskable-512x512.png",
+    "scripts/generate-icons.mjs",
+    "src/components/auth/GoogleLoginButton.tsx",
+    "src/components/common/InstallInstructionsModal.tsx",
+    "src/components/common/PwaInstallPrompt.tsx",
+    "src/config/supabase.ts",
+    "src/context/AuthContext.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "src/layouts/AppLayout.tsx",
+    "src/pages/LoginPage.tsx",
+    "vite.config.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}
