@@ -1,0 +1,45 @@
+{
+  "sha": "1dd712c",
+  "fullSha": "1dd712cfd76786acc5b0eb6223e2dfa7e86ebe88",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-30T18:39:24Z",
+  "commitDate": "2026-03-30T18:39:24Z",
+  "subject": "fix(hero): restore tagline glow animation with swapped colors",
+  "body": "Previous commit incorrectly removed the glow animation entirely.\nRestored text-glow keyframes with colors swapped so the tagline\nglows from muted gray and lands on sky blue (#38bdf8). Added\nforwards fill mode so the final sky blue color persists.\n\nTags: styling, hero, animation\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: hero-styling\nSemver: patch\n\nhttps://claude.ai/code/session_01V7Kft3jUEWzSmt4T6g8d5w",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "hero-styling",
+  "semver": "patch",
+  "scope": "hero",
+  "title": "restore tagline glow animation with swapped colors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#38"
+  ],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 13,
+    "deletions": 1
+  },
+  "files": [
+    "src/components/Hero.tsx",
+    "src/index.css"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "user-facing"
+}

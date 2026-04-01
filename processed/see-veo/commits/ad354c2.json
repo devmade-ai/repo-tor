@@ -1,0 +1,43 @@
+{
+  "sha": "ad354c2",
+  "fullSha": "ad354c25e4f2ecb7b90a1184f76d46e1ec972a35",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-26T21:35:08Z",
+  "commitDate": "2026-03-26T21:35:08Z",
+  "subject": "fix(charts): add allow-same-origin to iframe sandbox so charts can fetch data",
+  "body": "Without allow-same-origin, sandboxed iframes are treated as opaque origins\nand cannot make fetch/XHR requests to load chart data from the repo-tor API.\nThe embed script loaded successfully but charts rendered empty because all\nnetwork requests from within the iframe were blocked.\n\nTags: embed, charts, iframe, sandbox\nComplexity: 1\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: activity-charts\nSemver: patch\n\nhttps://claude.ai/code/session_01F2HWt3Keo8x6whwTjGTv2W",
+  "tags": [
+    "bugfix",
+    "security"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "activity-charts",
+  "semver": "patch",
+  "scope": "charts",
+  "title": "add allow-same-origin to iframe sandbox so charts can fetch data",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 2,
+    "deletions": 2
+  },
+  "files": [
+    "src/components/ActivityCharts.tsx",
+    "src/components/ActivityTimeline.tsx"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 4,
+  "impact": "user-facing"
+}

@@ -1,0 +1,47 @@
+{
+  "sha": "402a77c",
+  "fullSha": "402a77cc7e6e328b973b9bb67e1078874c7e83a5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-26T20:56:13Z",
+  "commitDate": "2026-03-26T20:56:13Z",
+  "subject": "fix(review): email validation, timer cleanup, focus restore, keys",
+  "body": "- Fix email length check to validate trimmed value (validation.ts)\n- Clear error auto-dismiss timer when user manually dismisses error\n  in InterestForm (prevents redundant setState after unmount)\n- Restore focus to trigger element when InstallInstructionsModal\n  closes (WCAG 2.4.3 focus order)\n- Show fallback message in modal when browser has no install steps\n  (Firefox Desktop returns empty steps array)\n- Switch About and TimelineItem to index-based keys with prefixes\n  to avoid collision on duplicate content strings\n\nTags: bugfix, a11y, validation, focus, wcag\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-review\nSemver: patch\n\nhttps://claude.ai/code/session_01NM5G3Mv2TWp4ewPMLWDBAv",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "validation"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-review",
+  "semver": "patch",
+  "scope": "review",
+  "title": "email validation, timer cleanup, focus restore, keys",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 26,
+    "deletions": 7
+  },
+  "files": [
+    "src/components/About.tsx",
+    "src/components/InstallInstructionsModal.tsx",
+    "src/components/InterestForm.tsx",
+    "src/components/TimelineItem.tsx",
+    "src/utils/validation.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "user-facing"
+}
