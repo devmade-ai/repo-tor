@@ -1,0 +1,47 @@
+{
+  "sha": "fc6e5c3",
+  "fullSha": "fc6e5c350cbedbbab81b8b7dfba8b52fdb52a954",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-23T17:17:54Z",
+  "commitDate": "2026-03-23T17:17:54Z",
+  "subject": "docs: fix documentation inaccuracies found in cross-repo audit",
+  "body": "- package.json name: `tool-till-tees-api` → `tool-till-tees` (match repo name)\n- USER_GUIDE.md: field type count \"12\" → \"13\" (text listed 13, number said 12)\n- CLAUDE.md: Sancio endpoint count \"23\" → \"26\" (missed cron + accept-handshake)\n- README.md: added missing cron endpoints to Sancio table (nudge, auto-expire)\n- Updated SESSION_NOTES.md and HISTORY.md\n\nTags: documentation, accuracy, audit\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: documentation\nSemver: patch\n\nhttps://claude.ai/code/session_01FSWmD675Xn1ifSNUizryGc",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "documentation",
+  "semver": "patch",
+  "scope": null,
+  "title": "fix documentation inaccuracies found in cross-repo audit",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 29,
+    "deletions": 23
+  },
+  "files": [
+    "CLAUDE.md",
+    "README.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_GUIDE.md",
+    "package-lock.json",
+    "package.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}

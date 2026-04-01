@@ -1,0 +1,47 @@
+{
+  "sha": "f3d093c",
+  "fullSha": "f3d093c0cc16cdce3df2de28094f5ba3c60ba097",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-19T12:51:32Z",
+  "commitDate": "2026-03-19T12:51:32Z",
+  "subject": "fix(forms): align field types and condition logic with frontend",
+  "body": "The frontend (four-ems) and backend had diverged on field types and\ncondition evaluation. checkbox_group submissions were unvalidated (fell\nthrough to default), condition model used different shapes (fieldId vs\nfield_id, targetFieldId vs per-field conditions), and type definitions\nincluded backend-only types with no frontend components.\n\nChanges:\n- FieldType: removed url/file/scale/multi_select, added checkbox_group/heading/hidden\n- Condition: fieldId → field_id, value accepts string[], added in/not_in operators\n- ConditionGroup: targetFieldId → target_id + target_type + action (show/hide)\n- FormField: added frontend rendering-hint properties (layout, min/max_selections, etc.)\n- Validation: checkbox_group with min/max selections, separate rating from number, removed dead cases\n- Conditions: per-field conditions, page-level conditions, action-aware evaluation\n\nTags: forms, validation, conditions, types, alignment\nComplexity: 3\nUrgency: 3\nImpact: api\nRisk: medium\nDebt: paid\nEpic: four-ems-forms\nSemver: minor\n\nhttps://claude.ai/code/session_01JqVFZ316cyaysF7G984H7C",
+  "tags": [
+    "bugfix",
+    "types",
+    "api"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "four-ems-forms",
+  "semver": "minor",
+  "scope": "forms",
+  "title": "align field types and condition logic with frontend",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 162,
+    "deletions": 64
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "lib/form-conditions.ts",
+    "lib/form-validation.ts",
+    "lib/forms-types.ts"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "api"
+}

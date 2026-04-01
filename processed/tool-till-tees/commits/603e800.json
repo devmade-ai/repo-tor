@@ -1,0 +1,42 @@
+{
+  "sha": "603e800",
+  "fullSha": "603e8003e8431e34445c9be7b9758a76a16e3abe",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T06:30:31Z",
+  "commitDate": "2026-03-13T06:30:31Z",
+  "subject": "fix(triggers): remove duplicate clean/cln definition",
+  "body": "clean/cln was defined twice — once in the individual triggers list\n(line 454) and again after start/go (line 494). Removed the duplicate.\n\nTags: documentation, triggers, cleanup\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch",
+  "tags": [
+    "docs",
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "developer-experience",
+  "semver": "patch",
+  "scope": "triggers",
+  "title": "remove duplicate clean/cln definition",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 0,
+    "deletions": 9
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}

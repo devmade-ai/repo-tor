@@ -1,0 +1,41 @@
+{
+  "sha": "38be3bc",
+  "fullSha": "38be3bc0930bb70b78cfe432aa518c2d8632d736",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T06:32:03Z",
+  "commitDate": "2026-03-13T06:32:03Z",
+  "subject": "refactor(triggers): reorder definitions to match priority sequence",
+  "body": "Trigger definitions now appear in the same order as the start/go\npriority sequence: rev → aud → doc → tap → cln → perf → sec → dbg → imp.\nstart/go moved to the end since it's a meta-trigger that references the others.\n\nTags: documentation, triggers, dx\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "developer-experience",
+  "semver": "patch",
+  "scope": "triggers",
+  "title": "reorder definitions to match priority sequence",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 33,
+    "deletions": 33
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 1,
+  "impact": "internal"
+}

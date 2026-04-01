@@ -1,0 +1,43 @@
+{
+  "sha": "0259cef",
+  "fullSha": "0259cefb83389871167aa08e52c406c9387e5b77",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-17T14:48:34Z",
+  "commitDate": "2026-03-17T14:48:34Z",
+  "subject": "fix(sancio): add missing signature log, notifications to new endpoints",
+  "body": "Review found 3 behavioral gaps vs existing endpoint patterns:\n\n1. accept-handshake: now logs signature (handshake_signed) matching\n   moduleReady/approveSequence patterns, and notifies the other party.\n\n2. batch-ready: now sends a single aggregated notification after the\n   batch completes, matching individual moduleReady behavior without\n   sending N separate notifications.\n\nTags: api, sancio, review-fix\nComplexity: 2\nUrgency: 3\nImpact: api\nRisk: low\nDebt: paid\nEpic: sancio-api-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01YEN2Uc9FyWJ9SFcTRJFHJX",
+  "tags": [
+    "bugfix",
+    "api"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "sancio-api-migration",
+  "semver": "patch",
+  "scope": "sancio",
+  "title": "add missing signature log, notifications to new endpoints",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 48,
+    "deletions": 0
+  },
+  "files": [
+    "lib/routes/sancio/module-actions.ts",
+    "lib/routes/sancio/projects.ts"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "api"
+}

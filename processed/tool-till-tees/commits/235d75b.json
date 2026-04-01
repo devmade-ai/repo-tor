@@ -1,0 +1,41 @@
+{
+  "sha": "235d75b",
+  "fullSha": "235d75b6a706adcb4b7e7a695637085a10b71832",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T06:48:51Z",
+  "commitDate": "2026-03-13T06:48:51Z",
+  "subject": "fix(triggers): remove auto-advance, always pause after each trigger",
+  "body": "The auto-advance rule let the AI skip through all triggers in one\nmessage when findings were empty. This defeats the purpose of the\nsequential sweep. Now the AI must always stop and wait for the user\nafter each trigger, even with no findings.\n\nTags: documentation, triggers, process\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "developer-experience",
+  "semver": "patch",
+  "scope": "triggers",
+  "title": "remove auto-advance, always pause after each trigger",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 1,
+    "deletions": 1
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "internal"
+}

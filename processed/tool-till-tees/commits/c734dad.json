@@ -1,0 +1,41 @@
+{
+  "sha": "c734dad",
+  "fullSha": "c734dad6f142917a0606f7694cfc8414a331480d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-13T06:26:26Z",
+  "commitDate": "2026-03-13T06:26:26Z",
+  "subject": "fix(triggers): include clean and improve in start/go sweep sequence",
+  "body": "Wrongly excluded cln and imp from the sweep — a full sweep should\ninclude everything. They're now at the end of the priority sequence\n(after dbg) since they're lower priority but still part of the sweep.\n\nTags: documentation, triggers, dx\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: developer-experience\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "developer-experience",
+  "semver": "patch",
+  "scope": "triggers",
+  "title": "include clean and improve in start/go sweep sequence",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 5
+  },
+  "files": [
+    "CLAUDE.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "internal"
+}
