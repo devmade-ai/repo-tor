@@ -1,0 +1,54 @@
+{
+  "sha": "6cb8088",
+  "fullSha": "6cb808830d674890a3821ab1243ed1ee3b8bd247",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T21:32:55Z",
+  "commitDate": "2026-02-24T21:32:55Z",
+  "subject": "feat(builder): implement three-panel form builder with DnD, properties, and conditions",
+  "body": "Phase 2 implementation — the form builder UI:\n- Field type registry: centralized config for all 13 types with defaults and palette display\n- FieldPalette: draggable cards grouped by category (input/choice/layout), click-to-add\n- BuilderCanvas: sortable field cards via dnd-kit, drag handles, selection, remove\n- FieldPropertiesPanel: dynamic per-type property editing (label, placeholder, required,\n  validation, options, layout, rating config, heading size, hidden defaults)\n- OptionsEditor: add/remove/reorder options with auto-slug value generation\n- ConditionBuilder: \"Show when...\" toggle with field/operator/value, AND/OR, show/hide\n- PageTabs: add/remove/inline rename, field count badges, delete confirmation\n- DndContext in BuilderPage: palette drops create fields, canvas drags reorder\n- useAutoSave hook: 2s debounced save with status indicator (placeholder API)\n\nTags: builder, dnd-kit, forms, drag-and-drop, properties\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: added (auto-save uses placeholder API)\nEpic: form-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 4,
+  "risk": "low",
+  "debt": "added",
+  "epic": "form-builder",
+  "semver": "minor",
+  "scope": "builder",
+  "title": "implement three-panel form builder with DnD, properties, and conditions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 1556,
+    "deletions": 88
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/builder/BuilderCanvas.tsx",
+    "src/components/builder/ConditionBuilder.tsx",
+    "src/components/builder/FieldPalette.tsx",
+    "src/components/builder/FieldPropertiesPanel.tsx",
+    "src/components/builder/OptionsEditor.tsx",
+    "src/components/builder/PageTabs.tsx",
+    "src/components/builder/fieldTypeRegistry.ts",
+    "src/hooks/useAutoSave.ts",
+    "src/pages/BuilderPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}

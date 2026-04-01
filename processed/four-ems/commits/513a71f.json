@@ -1,0 +1,49 @@
+{
+  "sha": "513a71f",
+  "fullSha": "513a71f14cde4308139cdcbc2d36a8a9371b0fab",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-02-24T21:44:12Z",
+  "commitDate": "2026-02-24T21:44:12Z",
+  "subject": "feat(dashboard): implement response dashboard with table, detail view, and CSV export",
+  "body": "Phase 4 implementation — submission management:\n- SubmissionTable: sortable (date, status), filterable (all/new/read/archived),\n  paginated (20/page). Shows first 3 field values as summary columns.\n  Inline status change actions (mark read, archive).\n- SubmissionDetail: slide-over panel showing all field values for a response.\n  Status management actions. Metadata display (submission time, time to complete).\n- CSV export: client-side generation with proper escaping, downloads as file.\n  Includes all submittable fields plus timestamp and status.\n- ResponsesPage: loads submissions from API with dev fallback to sample data.\n  Optimistic status updates. Split layout: table + optional detail panel.\n\nTags: dashboard, submissions, csv, responses\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: form-builder\nSemver: minor\n\nhttps://claude.ai/code/session_01ER5Tz5qzKajjUZAeNCfuiV",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "form-builder",
+  "semver": "minor",
+  "scope": "dashboard",
+  "title": "implement response dashboard with table, detail view, and CSV export",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 674,
+    "deletions": 38
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/dashboard/SubmissionDetail.tsx",
+    "src/components/dashboard/SubmissionTable.tsx",
+    "src/lib/csvExport.ts",
+    "src/pages/ResponsesPage.tsx"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}
