@@ -1,0 +1,51 @@
+{
+  "sha": "733b399",
+  "fullSha": "733b399c7177432f53c71a07e46a30e01ef95f08",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-26T18:53:40Z",
+  "commitDate": "2026-03-26T18:53:40Z",
+  "subject": "test(components): add render and interaction tests for all CV sections and PWA hooks",
+  "body": "Adds 56 new tests across 3 test files, bringing the total to 108:\n- Component render tests for Hero, About, Experience, Education, Skills, Projects\n- InterestForm interaction tests covering validation, submission, honeypot, and error states\n- PWA hook tests for usePWAInstall (install prompt, appinstalled event) and usePWAUpdate\n\nAdds @testing-library/react and @testing-library/user-event as dev dependencies.\nAdds vitest resolve alias for virtual:pwa-register/react (Vite virtual module unavailable in test mode).\n\nTags: testing, components, pwa, hooks, forms\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: test-coverage\nSemver: minor\n\nhttps://claude.ai/code/session_01DkB3RgpCGbDkdzYs5jZXAu",
+  "tags": [
+    "test-unit",
+    "dependency-add"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "test-coverage",
+  "semver": "minor",
+  "scope": "components",
+  "title": "add render and interaction tests for all CV sections and PWA hooks",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 982,
+    "deletions": 16
+  },
+  "files": [
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "package-lock.json",
+    "package.json",
+    "src/test/__mocks__/virtual-pwa-register-react.ts",
+    "src/test/components.test.tsx",
+    "src/test/interest-form.test.tsx",
+    "src/test/pwa-hooks.test.ts",
+    "vitest.config.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "internal"
+}

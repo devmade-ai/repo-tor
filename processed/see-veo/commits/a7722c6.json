@@ -1,0 +1,45 @@
+{
+  "sha": "a7722c6",
+  "fullSha": "a7722c6fa9f4f76a3903302593ae3113db5c1bf4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-26T20:39:34Z",
+  "commitDate": "2026-03-26T20:39:34Z",
+  "subject": "feat(debug): add PWA lifecycle logs, embed success log, reduce noise",
+  "body": "- Add debug logs to usePWAInstall: early-prompt-captured, prompt-captured,\n  prompt-shown, prompt-result (accepted/dismissed), app-installed\n- Add debug logs to usePWAUpdate: sw-registered (with state), update-available,\n  update-applied\n- Add success log to useRepoTorEmbed when embed.js loads (was error-only)\n- Remove static constants (apiUrl, timeoutMs, maxAttempts) from InterestForm\n  submit log to reduce noise — these never change between submissions\n\nAll PWA logs use the existing 'PWA' DebugSource type which was previously\ndefined but unused.\n\nTags: debug, pwa, logging, embed\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: debug-coverage\nSemver: patch\n\nhttps://claude.ai/code/session_01NM5G3Mv2TWp4ewPMLWDBAv",
+  "tags": [
+    "feature",
+    "logging"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "debug-coverage",
+  "semver": "patch",
+  "scope": "debug",
+  "title": "add PWA lifecycle logs, embed success log, reduce noise",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 41,
+    "deletions": 10
+  },
+  "files": [
+    "src/components/InterestForm.tsx",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "src/hooks/useRepoTorEmbed.ts"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 2,
+  "impact": "internal"
+}

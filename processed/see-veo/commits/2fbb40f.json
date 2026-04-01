@@ -1,0 +1,47 @@
+{
+  "sha": "2fbb40f",
+  "fullSha": "2fbb40f8248e2c770da550a2511d73fea0639c6f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-26T20:35:39Z",
+  "commitDate": "2026-03-26T20:35:39Z",
+  "subject": "security: add CSP headers, tighten iframe sandbox, harden bot detection",
+  "body": "- Add security headers to vercel.json: Content-Security-Policy,\n  X-Frame-Options (SAMEORIGIN), X-Content-Type-Options (nosniff),\n  Referrer-Policy, and Permissions-Policy\n- Remove allow-same-origin from iframe sandbox attributes — prevents\n  embedded content from accessing parent cookies/localStorage\n- Replace real API URL in .env.example with empty placeholder to avoid\n  exposing the endpoint in source control\n- Add timing-based bot detection to InterestForm — reject submissions\n  faster than 1 second (supplements existing honeypot field)\n- Update test setup to mock Date.now for timing check bypass\n\nTags: security, csp, headers, iframe, bot-detection\nComplexity: 2\nUrgency: 3\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: security\nSemver: minor\n\nhttps://claude.ai/code/session_01NM5G3Mv2TWp4ewPMLWDBAv",
+  "tags": [
+    "security",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "security",
+  "semver": "minor",
+  "scope": null,
+  "title": "add CSP headers, tighten iframe sandbox, harden bot detection",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 46,
+    "deletions": 7
+  },
+  "files": [
+    ".env.example",
+    "src/components/ActivityCharts.tsx",
+    "src/components/ActivityTimeline.tsx",
+    "src/components/InterestForm.tsx",
+    "src/test/interest-form.test.tsx",
+    "vercel.json"
+  ],
+  "repo_id": "see-veo",
+  "urgency": 3,
+  "impact": "infrastructure"
+}
