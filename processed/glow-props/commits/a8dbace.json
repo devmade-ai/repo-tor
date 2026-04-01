@@ -1,0 +1,44 @@
+{
+  "sha": "a8dbace",
+  "fullSha": "a8dbace55faf5d64d69aed3ef1a3d3dbcb69d527",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-30T22:34:09Z",
+  "commitDate": "2026-03-30T22:34:09Z",
+  "subject": "fix(theme): remove meta theme-color suggested implementation",
+  "body": "The Meta Theme-Color section suggested dynamically switching theme-color\nbetween background colors on dark mode toggle. This caused invisible\nstatus bar text when the OS color scheme opposed the app theme. Removed\nthe entire section, the dynamic update from the useDarkMode hook, and\nthe related Key Lessons. Projects should handle theme-color on their own\nterms, not follow a flawed pattern.\n\nTags: pwa, theme, dark-mode, documentation, cleanup\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01MKpWWuwCfg9Fg2kvyRGM6v",
+  "tags": [
+    "removal",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "remove meta theme-color suggested implementation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 28,
+    "deletions": 46
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "glow-props",
+  "urgency": 3,
+  "impact": "user-facing"
+}
