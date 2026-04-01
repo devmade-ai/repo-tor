@@ -1,0 +1,42 @@
+{
+  "sha": "4e24456",
+  "fullSha": "4e2445620971db7b0806780aca50bd8e4440532e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T13:08:56Z",
+  "commitDate": "2026-03-31T13:08:56Z",
+  "subject": "fix(tooltip): prevent stuck tooltips on mobile touch devices",
+  "body": "Touch devices fire mouseEnter on tap but never fire mouseLeave,\nleaving tooltip portals stuck on screen. Skip showing tooltips\nentirely on touch devices since hover previews are meaningless\nwithout a cursor.\n\nTags: ui, mobile, tooltip\nComplexity: 1\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01CUbrcKiqF8PCen8HzHXzWH",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "tooltip",
+  "title": "prevent stuck tooltips on mobile touch devices",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 7,
+    "deletions": 0
+  },
+  "files": [
+    "src/components/Tooltip.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 3,
+  "impact": "user-facing"
+}

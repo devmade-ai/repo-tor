@@ -1,0 +1,43 @@
+{
+  "sha": "531c51a",
+  "fullSha": "531c51a0bbf842f990660a1cc1489f6e52f18ce8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T07:37:37Z",
+  "commitDate": "2026-03-31T07:37:37Z",
+  "subject": "fix(themes): improve readability of preset theme colors",
+  "body": "Review of WCAG contrast ratios revealed several themes with poor\ntext readability. Changes:\n\n- Sage: swap primary/secondary (was pastel-on-pastel, now dark bg\n  with light text — 10.03:1 AAA)\n- Vibrant → Ruby: replace clashing purple/yellow/pink with deep\n  burgundy/cream/gold jewel tone (sec 9.16:1 AAA, acc 4.67:1 AA)\n- Candy: darken pink primary (#ec4899 → #be185d), white secondary,\n  light gold accent (sec 6.04:1 AA, acc 4.85:1 AA)\n- Neon: desaturate garish pure-RGB neon tones to softer variants\n  that still pop (sec 11.36:1 AAA, acc 8.05:1 AAA)\n\nTags: themes, a11y, contrast, colors\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-readability\nSemver: minor\n\nhttps://claude.ai/code/session_01RRd7KrNd7EQQZX8oxL9XsH",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-readability",
+  "semver": "minor",
+  "scope": "themes",
+  "title": "improve readability of preset theme colors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 11,
+    "deletions": 4
+  },
+  "files": [
+    "src/config/themes.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

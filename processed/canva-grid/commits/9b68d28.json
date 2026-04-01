@@ -1,0 +1,43 @@
+{
+  "sha": "9b68d28",
+  "fullSha": "9b68d28b2a3061da98c2d510babb2ddaf999ef3e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T10:17:53Z",
+  "commitDate": "2026-03-31T10:17:53Z",
+  "subject": "fix(ui): increase variant toggle touch targets to 44px minimum",
+  "body": "Light/Dark toggle buttons were ~36px tall, below the 44px minimum\nrecommended for mobile touch targets. Added min-h-[44px] and slightly\nlarger icons for better tap accuracy in the BottomSheet on mobile.\n\nTags: ui, mobile, accessibility\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-variants\nSemver: patch\n\nhttps://claude.ai/code/session_018wuGq47B845KqHWD9whWMK",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-variants",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "increase variant toggle touch targets to 44px minimum",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 4,
+    "deletions": 4
+  },
+  "files": [
+    "src/components/TemplatesTab.jsx"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}

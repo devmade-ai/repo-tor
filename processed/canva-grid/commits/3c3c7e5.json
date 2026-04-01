@@ -1,0 +1,42 @@
+{
+  "sha": "3c3c7e5",
+  "fullSha": "3c3c7e5b8075efa808592c96ab2b2c912352cb5e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-31T10:16:59Z",
+  "commitDate": "2026-03-31T10:16:59Z",
+  "subject": "fix(themes): darken Forest light accent for WCAG 3:1 contrast",
+  "body": "Forest light accent #ca8a04 on #f0fdf4 background only achieved 2.81:1\ncontrast ratio, failing WCAG 3:1 minimum for UI elements. Darkened to\n#a16207 which scores 4.76:1 — same gold used by Earth light variant.\n\nTags: themes, accessibility\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-variants\nSemver: patch\n\nhttps://claude.ai/code/session_018wuGq47B845KqHWD9whWMK",
+  "tags": [
+    "bugfix",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-variants",
+  "semver": "patch",
+  "scope": "themes",
+  "title": "darken Forest light accent for WCAG 3:1 contrast",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 2
+  },
+  "files": [
+    "src/config/themes.js"
+  ],
+  "repo_id": "canva-grid",
+  "urgency": 2,
+  "impact": "user-facing"
+}
