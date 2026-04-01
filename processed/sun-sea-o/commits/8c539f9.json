@@ -1,0 +1,57 @@
+{
+  "sha": "8c539f9",
+  "fullSha": "8c539f98d6496b66a7d32f817e9c43abccaa508e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-14T09:00:33Z",
+  "commitDate": "2026-03-14T09:00:33Z",
+  "subject": "feat(intents): add intent tagging to modules",
+  "body": "Intent tags let the creator categorize what a module clause is meant to do.\nSix defaults: obligation, permission, restriction, definition, process,\nprotection. Custom intents supported via the same label system as tones.\n\nGeneralized ToneSelector to accept configurable defaults, label, and\nplaceholder props so it can be reused for both tones (notes/proposals)\nand intents (modules).\n\nNew files:\n- src/components/modules/IntentSelector.tsx: wrapper with intent defaults\n\nModified:\n- ToneSelector: now accepts defaults, label, customPlaceholder props\n- ModuleEditor: IntentSelector below content, saves immediately on change\n- ModuleViewer: read-only intent pills\n- ModuleCard: intent pills in agreement module list\n- Module type: added intent: string[]\n- useModules: updateModule accepts intent field\n- constants/tones.ts: DEFAULT_INTENTS, MAX_INTENTS_PER_MODULE\n\nDatabase:\n- Migration adds intent text[] to sancio_modules\n\nTags: feature, intents, modules, ui\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: tone-tagging\nSemver: minor\n\nhttps://claude.ai/code/session_01EmCE2WvzPQTKco5LiQq9qo",
+  "tags": [
+    "feature",
+    "ui",
+    "database",
+    "schema"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "tone-tagging",
+  "semver": "minor",
+  "scope": "intents",
+  "title": "add intent tagging to modules",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 145,
+    "deletions": 29
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "src/components/common/ToneSelector.tsx",
+    "src/components/modules/IntentSelector.tsx",
+    "src/components/modules/ModuleCard.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/components/modules/ModuleViewer.tsx",
+    "src/constants/tones.ts",
+    "src/hooks/useModules.ts",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/types/index.ts",
+    "supabase/migrations/20260314000002_add_module_intent.sql"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

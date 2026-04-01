@@ -1,0 +1,52 @@
+{
+  "sha": "addb217",
+  "fullSha": "addb217b2d646f6830e54f04633d19a3966d155f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-16T15:07:16Z",
+  "commitDate": "2026-03-16T15:07:16Z",
+  "subject": "fix(api): correct API contract mismatches found during review",
+  "body": "Breaking fixes:\n- PUT /proposals/:id: response_content → responseContent (camelCase)\n- POST /pdf-verifications: agreement_id → agreementId (camelCase)\n\nData loss prevention:\n- Module intent/summary fields: split into API fields (title, content,\n  nudge, expire) + direct Supabase for unsupported fields (intent,\n  summary_does, summary_when, summary_consequence)\n- Note/proposal sender_tone: create via API then update tone via Supabase\n- Both are temporary until tool-till-tees validation is updated\n\nArchitecture fix:\n- GET endpoints for agreements, modules, notes, proposals, pdf-verifications\n  require parent ID params — restored Supabase for global initial fetch\n  (hooks use global store + client-side filtering)\n- Notifications and signatures work without params — kept on API\n- Removed dead resetSequenceSignatures (unused, sent empty body)\n- Cleaned up createAgreement to not send server-determined fields\n\nTags: bugfix, api, migration\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: medium\nDebt: added\nEpic: api-migration\nSemver: patch\n\nhttps://claude.ai/code/session_01G52a5oQY1JKzyjwx2t857e",
+  "tags": [
+    "bugfix",
+    "api"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "added",
+  "epic": "api-migration",
+  "semver": "patch",
+  "scope": "api",
+  "title": "correct API contract mismatches found during review",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 180,
+    "deletions": 73
+  },
+  "files": [
+    "docs/TODO.md",
+    "src/api/agreements.ts",
+    "src/api/modules.ts",
+    "src/api/notes.ts",
+    "src/api/pdfVerifications.ts",
+    "src/api/proposals.ts",
+    "src/hooks/useAgreements.ts",
+    "src/hooks/useModules.ts",
+    "src/hooks/useNotes.ts",
+    "src/hooks/usePdfVerifications.ts",
+    "src/hooks/useProposals.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "user-facing"
+}

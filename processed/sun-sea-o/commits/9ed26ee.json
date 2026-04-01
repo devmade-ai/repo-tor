@@ -1,0 +1,62 @@
+{
+  "sha": "9ed26ee",
+  "fullSha": "9ed26ee9d1ecb3543ba514918de23c3b24753efb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-14T08:43:00Z",
+  "commitDate": "2026-03-14T08:43:00Z",
+  "subject": "feat(tones): add tone tagging to notes and proposals",
+  "body": "Tone tags let users convey intent when adding notes or proposing changes.\nAdapted from synctone's tone system with agreement-specific defaults\n(clarification, suggestion, concern, firm, supportive, urgent).\n\nNew files:\n- src/constants/tones.ts: defaults, color hashing, normalization\n- src/utils/recentTones.ts: localStorage persistence for custom tones\n- src/components/common/ToneSelector.tsx: inline picker (defaults, recent, custom)\n- src/components/common/TonePills.tsx: read-only colored pill display\n\nIntegration:\n- AddNoteForm & ProposeChangeForm: ToneSelector at creation time\n- NotesList & ProposalCard: TonePills display\n- useNotes & useProposals hooks: sender_tone in create operations\n- All page-level handlers updated to thread tones through\n\nDatabase:\n- Migration adds sender_tone text[] to sancio_notes and sancio_proposals\n\nTags: feature, tones, notes, proposals, ui\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: tone-tagging\nSemver: minor\n\nhttps://claude.ai/code/session_01EmCE2WvzPQTKco5LiQq9qo",
+  "tags": [
+    "feature",
+    "ui",
+    "database",
+    "schema"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "tone-tagging",
+  "semver": "minor",
+  "scope": "tones",
+  "title": "add tone tagging to notes and proposals",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 19,
+    "additions": 447,
+    "deletions": 41
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "src/components/agreements/AgreementNotesSection.tsx",
+    "src/components/common/TonePills.tsx",
+    "src/components/common/ToneSelector.tsx",
+    "src/components/modules/AddNoteForm.tsx",
+    "src/components/modules/NotesList.tsx",
+    "src/components/modules/ProposalCard.tsx",
+    "src/components/modules/ProposeChangeForm.tsx",
+    "src/constants/tones.ts",
+    "src/hooks/useNotes.ts",
+    "src/hooks/useProposals.ts",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/types/index.ts",
+    "src/utils/recentTones.ts",
+    "supabase/migrations/20260314000001_add_sender_tone.sql"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

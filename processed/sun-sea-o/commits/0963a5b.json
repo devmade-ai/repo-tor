@@ -1,0 +1,47 @@
+{
+  "sha": "0963a5b",
+  "fullSha": "0963a5b1d92fe7d63b3f977cbed7240c603ac453",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T15:53:46Z",
+  "commitDate": "2026-03-27T15:53:46Z",
+  "subject": "fix(modules): resolve 10 issues in contract upload feature",
+  "body": "Bugs fixed:\n- Stale props: ContractUploadPreview ignored new candidates when\n  sub-section toggle changed. Added key prop to force remount.\n- Duplicate flow infinite loop: \"Upload anyway\" re-opened file picker\n  which re-triggered duplicate detection. Now stores ParseResult in\n  duplicate state and proceeds directly to preview.\n- Retry progress tracking: retrying failed modules replaced the entire\n  progress array with a shorter one, losing successful items. Now merges\n  retry results back at the correct indices.\n- hardSplitAtWordBoundary title count: used pre-filter chunk count in\n  titles like \"(2/5)\" when only 3 chunks existed. Now filters first.\n- handleSplitOversized double computation: called splitOversizedSection\n  twice. Now computes once and reuses.\n\nStandards fixes:\n- Touch targets: preview move buttons were 36px, below WCAG 2.5.5\n  minimum 44px. Matched to existing ModuleCard pattern.\n- Duplicated MODULE_CONTENT_LIMIT: exported from contractSplitter,\n  imported in ContractUploadPreview instead of redeclaring.\n- BATCH_SIZE inside component: moved to module scope as UPLOAD_BATCH_SIZE.\n- PDF type annotation: replaced complex conditional type inference with\n  simple let + await pattern, letting TypeScript infer the type.\n- recordUpload on partial failure: hash was recorded even when some\n  modules failed, causing false duplicate warnings on retry. Now only\n  records on full success.\n\nTags: bugfix, quality, accessibility, modules, upload\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: contract-upload\nSemver: patch\n\nhttps://claude.ai/code/session_01KQFyjLRpK1QAMT31nJY4qz",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "validation"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "contract-upload",
+  "semver": "patch",
+  "scope": "modules",
+  "title": "resolve 10 issues in contract upload feature",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 84,
+    "deletions": 43
+  },
+  "files": [
+    "src/components/modules/ContractUploadPreview.tsx",
+    "src/components/modules/TemplateSelector.tsx",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/utils/contractSplitter.ts",
+    "src/utils/documentParser.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "user-facing"
+}

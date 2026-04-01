@@ -1,0 +1,80 @@
+{
+  "sha": "a52cd74",
+  "fullSha": "a52cd74cb4412b785be6b9bf37125aaee1185f53",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "GitHub",
+    "email": "noreply@github.com"
+  },
+  "timestamp": "2026-03-18T09:48:11Z",
+  "commitDate": "2026-03-18T09:48:11Z",
+  "subject": "Merge pull request #16 from devmade-ai/claude/review-implementation-plan-vd1Ho",
+  "body": "Migrate frontend from direct Supabase to tool-till-tees API",
+  "tags": [
+    "merge"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "api-migration",
+  "semver": "patch",
+  "scope": null,
+  "title": "Merge pull request #16 from devmade-ai/claude/review-implementation-plan-vd1Ho",
+  "is_conventional": false,
+  "has_breaking_change": false,
+  "references": [
+    "#16"
+  ],
+  "stats": {
+    "filesChanged": 38,
+    "additions": 1428,
+    "deletions": 488
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/HISTORY.md",
+    "docs/PLAN_api_migration.md",
+    "docs/SESSION_NOTES.md",
+    "docs/SPEC_tool_till_tees_additions.md",
+    "docs/TESTING_GUIDE.md",
+    "docs/TODO.md",
+    "docs/USER_GUIDE.md",
+    "src/api/agreements.ts",
+    "src/api/client.ts",
+    "src/api/modules.ts",
+    "src/api/notes.ts",
+    "src/api/notifications.ts",
+    "src/api/pdfVerifications.ts",
+    "src/api/projects.ts",
+    "src/api/proposals.ts",
+    "src/api/signatures.ts",
+    "src/components/common/ToneSelector.tsx",
+    "src/components/modules/IntentSelector.tsx",
+    "src/components/modules/ModuleCard.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/components/modules/ModuleSummaryCard.tsx",
+    "src/components/modules/ModuleSummaryEditor.tsx",
+    "src/components/modules/ModuleViewer.tsx",
+    "src/constants/tones.ts",
+    "src/hooks/useAgreements.ts",
+    "src/hooks/useModules.ts",
+    "src/hooks/useNotes.ts",
+    "src/hooks/useNotifications.ts",
+    "src/hooks/usePdfVerifications.ts",
+    "src/hooks/useProjects.ts",
+    "src/hooks/useProposals.ts",
+    "src/hooks/useSignatureLog.ts",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/types/index.ts",
+    "supabase/migrations/20260315000001_update_intent_defaults_multiword.sql",
+    "supabase/migrations/20260315000002_add_module_summaries.sql"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "e44183a",
+  "fullSha": "e44183afac2614a8bca3ef4bfbcad363434b2c6e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T16:01:41Z",
+  "commitDate": "2026-03-27T16:01:41Z",
+  "subject": "fix(modules): resolve 5 minor issues from third review pass",
+  "body": "- Side effect in state updater: recordUpload (localStorage write)\n  was inside a setUploadState callback. React StrictMode calls\n  updaters twice. Moved side effect outside the updater.\n- Duplicate source note on retry: handleUploadModules created a\n  [Source:] note on every call including retries. Added isRetry\n  flag to skip note creation on retry calls.\n- Hash not recorded after successful retry: handleRetryFailed\n  never called recordUpload after all items succeeded. Added\n  hash recording after retry completes.\n- Stale comment: referenced old constant name BATCH_SIZE instead\n  of UPLOAD_BATCH_SIZE.\n- Misleading JSDoc: onRetryFailed prop described as \"number of\n  failed items\" but is a callback.\n\nTags: bugfix, quality, modules, upload\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: contract-upload\nSemver: patch\n\nhttps://claude.ai/code/session_01KQFyjLRpK1QAMT31nJY4qz",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "contract-upload",
+  "semver": "patch",
+  "scope": "modules",
+  "title": "resolve 5 minor issues from third review pass",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 28,
+    "deletions": 8
+  },
+  "files": [
+    "src/components/modules/ContractUploadPreview.tsx",
+    "src/components/modules/TemplateSelector.tsx",
+    "src/pages/AgreementDetailPage.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}
