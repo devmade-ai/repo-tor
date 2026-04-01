@@ -1,0 +1,56 @@
+{
+  "sha": "9f00f55",
+  "fullSha": "9f00f55ec55d13a4cfa226314e530ceeac36c472",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T21:49:33Z",
+  "commitDate": "2026-03-05T21:49:33Z",
+  "subject": "fix(quality): address code audit findings across codebase",
+  "body": "Implements all items from the code quality audit:\n\n- Fix timer leak in DebugPill.tsx (ref+cleanup pattern for copy feedback)\n- Replace `as unknown as Record` double-casts with typed Navigator\n  interface in browser.d.ts (usePWAInstall, DebugPill)\n- Add `declare module 'virtual:pwa-register/react'` to eliminate\n  @ts-expect-error in usePWAUpdate\n- Standardize error state across all data hooks (usePdfVerifications,\n  useNotifications, useSignatureLog now expose `error` like other hooks)\n- Add try/catch to ProjectDetailPage.saveEdit() and\n  ModuleEditor.handleSave() with user-facing error feedback\n- Split AgreementDetailPage (405 lines) into AgreementHeader,\n  AgreementModulesSection, and AgreementNotesSection sub-components\n- Consolidate 6 modal boolean states into single discriminated\n  `ActiveModal` union type, preventing impossible states\n\nTags: cleanup, refactor, error-handling, types, components\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: code-quality\nSemver: minor\n\nhttps://claude.ai/code/session_01AaBomMvLRDhH4LSzarLMgC",
+  "tags": [
+    "bugfix",
+    "refactor",
+    "error-handling",
+    "types"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "minor",
+  "scope": "quality",
+  "title": "address code audit findings across codebase",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 465,
+    "deletions": 259
+  },
+  "files": [
+    "src/components/agreements/AgreementHeader.tsx",
+    "src/components/agreements/AgreementModulesSection.tsx",
+    "src/components/agreements/AgreementNotesSection.tsx",
+    "src/components/common/DebugPill.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/hooks/useNotifications.ts",
+    "src/hooks/usePWAInstall.ts",
+    "src/hooks/usePWAUpdate.ts",
+    "src/hooks/usePdfVerifications.ts",
+    "src/hooks/useSignatureLog.ts",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ProjectDetailPage.tsx",
+    "src/types/browser.d.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

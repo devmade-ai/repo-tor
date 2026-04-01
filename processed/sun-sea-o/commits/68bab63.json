@@ -1,0 +1,52 @@
+{
+  "sha": "68bab63",
+  "fullSha": "68bab63acd4f6883062529107cfed2ffcaad7e7a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-02T09:51:50Z",
+  "commitDate": "2026-03-02T09:51:50Z",
+  "subject": "fix(quality): remove dead code, add error handling, fix hook violations",
+  "body": "Codebase review identified several issues:\n- Dead mock data files (mockAgreements, mockModules, mockProjects) never\n  imported after Supabase migration — deleted\n- getSession() in AuthContext had no .catch(), causing silent failures on\n  network errors — added catch with loading state fallthrough\n- Async handlers in AgreementDetailPage called updateAgreement without\n  await and without try/catch — errors silently swallowed, toast fired\n  before operation completed — now properly awaited with error toasts\n- handleGenerateVerification passed unused snapshotContent parameter\n  (server-side RPC ignores it) — removed dead parameter from hook type\n  and call site\n- useCallback called inline in JSX (Rules of Hooks violation) in 3 page\n  files — extracted to component body as clearToast\n- ErrorBoundary logged stack traces via console.error in production —\n  gated behind import.meta.env.DEV\n- Modal close button missing type=\"button\" — could cause accidental form\n  submission when Modal wraps a form\n\nTags: cleanup, dead-code, error-handling, hooks, security\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01Uj27tTm6zHL9oc5yPrtjDW",
+  "tags": [
+    "bugfix",
+    "removal",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": "quality",
+  "title": "remove dead code, add error handling, fix hook violations",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 41,
+    "deletions": 203
+  },
+  "files": [
+    "src/components/common/ErrorBoundary.tsx",
+    "src/components/common/Modal.tsx",
+    "src/context/AuthContext.tsx",
+    "src/data/mockAgreements.ts",
+    "src/data/mockModules.ts",
+    "src/data/mockProjects.ts",
+    "src/hooks/usePdfVerifications.ts",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/pages/ProjectDetailPage.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

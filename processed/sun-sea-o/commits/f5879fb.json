@@ -1,0 +1,46 @@
+{
+  "sha": "f5879fb",
+  "fullSha": "f5879fb4d3cfb628605d1ff428d28b65e25db629",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T15:10:00Z",
+  "commitDate": "2026-03-05T15:10:00Z",
+  "subject": "feat(pdf): add print-friendly CSS, no-print utility, and page-break rules",
+  "body": "Brings PDF/print output in line with the glow-props reference pattern:\nthree simple pieces that make window.print() produce clean PDFs.\n\n1. @media print rules in index.css:\n   - White background, black text for printer-friendly output\n   - print-color-adjust for accurate color reproduction\n   - Link underlines for visibility on paper\n   - Root container background override\n\n2. .no-print utility class applied to:\n   - App header, breadcrumbs, skip-to-content link\n   - PWA install prompt, update/offline banners\n   - PDF action buttons (generate, print, close)\n   - Sticky save bar in module editor\n   - Toast notifications\n   - Mobile PDF hint text\n\n3. .print-avoid-break class on PdfPreview:\n   - Agreement header block\n   - Each module section (title + content + signatures)\n   - Verification code block\n   - Prevents content from splitting across page boundaries\n\nAlso adds print: Tailwind utilities on PdfPreview text elements\nto ensure readable black text regardless of screen theme colors.\n\nTags: pdf, print, ux, css\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: ux-polish\nSemver: minor\n\nhttps://claude.ai/code/session_01AaBomMvLRDhH4LSzarLMgC",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "ux-polish",
+  "semver": "minor",
+  "scope": "pdf",
+  "title": "add print-friendly CSS, no-print utility, and page-break rules",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 72,
+    "deletions": 29
+  },
+  "files": [
+    "src/components/agreements/PdfPreview.tsx",
+    "src/components/common/Toast.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/index.css",
+    "src/layouts/AppLayout.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

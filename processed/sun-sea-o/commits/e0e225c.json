@@ -1,0 +1,41 @@
+{
+  "sha": "e0e225c",
+  "fullSha": "e0e225ca4553c57cb7481104211d0d28fd63f682",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-05T21:41:52Z",
+  "commitDate": "2026-03-05T21:41:52Z",
+  "subject": "chore(cleanup): remove unused generateId utility",
+  "body": "generateId() was never imported anywhere in the codebase. All IDs are\nnow generated server-side by Supabase, making this client-side helper\ndead code.\n\nTags: cleanup, dead-code\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: code-quality\nSemver: patch\n\nhttps://claude.ai/code/session_01AaBomMvLRDhH4LSzarLMgC",
+  "tags": [
+    "removal"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "code-quality",
+  "semver": "patch",
+  "scope": "cleanup",
+  "title": "remove unused generateId utility",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 0,
+    "deletions": 3
+  },
+  "files": [
+    "src/utils/generateId.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 1,
+  "impact": "internal"
+}

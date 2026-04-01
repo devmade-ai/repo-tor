@@ -1,0 +1,42 @@
+{
+  "sha": "5b2b321",
+  "fullSha": "5b2b3211d0367a43af021c9cf986db1c29dc7c75",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-12T19:53:29Z",
+  "commitDate": "2026-03-12T19:53:29Z",
+  "subject": "docs(ops): document shared Supabase migration process and pitfalls",
+  "body": "Added the stub-file approach for pushing migrations to a shared Supabase\ndatabase. Never use `migration repair --status reverted` on another\nproject's migrations — it deletes them from the history table and breaks\nthat project's tracking. The stub approach avoids touching the history\ntable entirely.\n\nTags: documentation, supabase, migrations, operations\nComplexity: 1\nUrgency: 3\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: deployment\nSemver: patch\n\nhttps://claude.ai/code/session_014cFTQ1sp7MLmqqosmhKLJv",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "deployment",
+  "semver": "patch",
+  "scope": "ops",
+  "title": "document shared Supabase migration process and pitfalls",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 36,
+    "deletions": 8
+  },
+  "files": [
+    "docs/AI_MISTAKES.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "infrastructure"
+}
