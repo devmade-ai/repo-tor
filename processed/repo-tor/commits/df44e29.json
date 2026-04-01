@@ -1,0 +1,41 @@
+{
+  "sha": "df44e29",
+  "fullSha": "df44e29b2ee338ab76702d742e231be0caf3f64f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T11:49:12Z",
+  "commitDate": "2026-03-27T11:49:12Z",
+  "subject": "fix(ui): move useShowMore hooks before early returns in Projects",
+  "body": "The two useShowMore calls were placed after the loadError early return,\nviolating React's rules of hooks (hooks must be called unconditionally\nin the same order every render). Moved them above both early returns.\n\nTags: bugfix, hooks\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01Pawpns2DextM3UtszvADr6",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "move useShowMore hooks before early returns in Projects",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 9,
+    "deletions": 8
+  },
+  "files": [
+    "dashboard/js/sections/Projects.jsx"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "internal"
+}

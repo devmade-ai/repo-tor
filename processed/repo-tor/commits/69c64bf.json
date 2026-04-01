@@ -1,0 +1,44 @@
+{
+  "sha": "69c64bf",
+  "fullSha": "69c64bf8dcdcc48a1cea84d5b5f4d26792d9a6e5",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T11:46:17Z",
+  "commitDate": "2026-03-27T11:46:17Z",
+  "subject": "fix(ui): address review findings in pagination and CSS",
+  "body": "- useShowMore: Replace setState-in-useMemo anti-pattern with useEffect;\n  add items.length to reset deps so pagination resets on filter changes\n- Timeline: Add missing filteredCommits dependency in commitListContent\n  useMemo (executive/management view used it without declaring it)\n- CSS: Add print media rules for show-more-btn, hamburger-menu,\n  quick-guide overlay/modal so they don't appear in PDF exports\n- CSS: Align quick-guide z-index (200→998, 201→999) with other modals\n  (DetailPane, SettingsPane) to prevent layering conflicts\n\nTags: bugfix, review, ui\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: mobile-ux\nSemver: patch\n\nhttps://claude.ai/code/session_01Pawpns2DextM3UtszvADr6",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "address review findings in pagination and CSS",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 18,
+    "deletions": 10
+  },
+  "files": [
+    "dashboard/js/hooks/useShowMore.js",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 3,
+  "impact": "user-facing"
+}

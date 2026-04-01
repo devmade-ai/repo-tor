@@ -1,0 +1,52 @@
+{
+  "sha": "0226f0e",
+  "fullSha": "0226f0ef332ddd450d077bb11f891370a23238b2",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-03-27T11:35:56Z",
+  "commitDate": "2026-03-27T11:35:56Z",
+  "subject": "feat(ui): add responsive pagination across all list sections",
+  "body": "Create useShowMore hook for consistent \"Show more\" pagination with\ndifferent limits for mobile vs desktop. Apply to 7 locations:\n\n- DetailPane: 10 mobile / 20 desktop (was unbounded — could freeze)\n- Timeline commits: 10 mobile / 25 desktop (was 100 — too many)\n- Progress epics: 6 mobile / 12 desktop (was unbounded)\n- Contributors: 6 mobile / 8 desktop (was hardcoded 8)\n- Tags: 8 mobile / all desktop (was unbounded)\n- Discover files: 5 mobile / 10 desktop (was hardcoded 10)\n- Projects: 6 mobile / 12 desktop (was unbounded)\n\nEach section shows a \"Show more\" button that loads the next batch.\nLimits are calibrated to avoid overwhelming scroll on mobile while\nconsidering co-located sections sharing the same tab.\n\nTags: ui, mobile, performance, ux\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: mobile-ux\nSemver: minor\n\nhttps://claude.ai/code/session_01Pawpns2DextM3UtszvADr6",
+  "tags": [
+    "feature",
+    "ui",
+    "ux",
+    "performance"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "mobile-ux",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "add responsive pagination across all list sections",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 231,
+    "deletions": 52
+  },
+  "files": [
+    "dashboard/js/components/DetailPane.jsx",
+    "dashboard/js/hooks/useShowMore.js",
+    "dashboard/js/sections/Contributors.jsx",
+    "dashboard/js/sections/Discover.jsx",
+    "dashboard/js/sections/Progress.jsx",
+    "dashboard/js/sections/Projects.jsx",
+    "dashboard/js/sections/Tags.jsx",
+    "dashboard/js/sections/Timeline.jsx",
+    "dashboard/styles.css"
+  ],
+  "repo_id": "repo-tor",
+  "urgency": 2,
+  "impact": "user-facing"
+}
