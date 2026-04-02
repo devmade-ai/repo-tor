@@ -105,7 +105,18 @@ export default function EmbedRenderer({ embedIds }) {
             // Only post when height actually changes to avoid unnecessary parent reflows
             if (height !== lastHeight) {
                 lastHeight = height;
-                window.parent.postMessage({ type: 'repo-tor:resize', height }, '*');
+                // Requirement: Send resize height to parent for iframe auto-sizing
+                // Approach: Use parent origin from referrer or '*' as fallback.
+                //   Wildcard is acceptable here because the data (height number) is
+                //   non-sensitive. The embed.js listener validates message type and
+                //   matches iframe source before acting.
+                // Alternatives:
+                //   - Strict origin: Rejected — embed can be on any domain, origin unknown at build time
+                //   - Don't send: Rejected — breaks iframe auto-resize feature
+                const targetOrigin = document.referrer
+                    ? new URL(document.referrer).origin
+                    : '*';
+                window.parent.postMessage({ type: 'repo-tor:resize', height }, targetOrigin);
             }
         };
 

@@ -23,7 +23,7 @@ const STEPS = [
     },
     {
         title: 'Explore the Tabs',
-        body: 'Use the tabs at the top to switch between views. Summary gives you the highlights, Timeline shows trends, Breakdown has detailed numbers, Health flags potential issues, and Discover reveals fun insights.',
+        body: 'Use the tabs at the top to switch between views. Summary gives you the highlights, Timeline shows trends, Breakdown has detailed numbers, Health flags potential issues, Discover reveals fun insights, and Projects shows all your repositories.',
         icon: (
             <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h7" />

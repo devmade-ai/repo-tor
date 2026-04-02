@@ -135,17 +135,13 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Escape key closes detail pane
 - [ ] Mobile: detail pane appears as bottom sheet
 
-**Dark Mode:**
-- [ ] Toggle button switches theme
-- [ ] All charts re-render in dark mode
-- [ ] Detail pane respects dark mode
-- [ ] Preference persists on page reload
-
-**Private Mode:**
-- [ ] Toggle button enables/disables
-- [ ] Author names become anonymous
-- [ ] Commit messages are hidden/sanitized
-- [ ] Preference persists on page reload
+**Theme (Light/Dark Mode):**
+- [ ] Dashboard respects system preference on first visit
+- [ ] Theme persists across page reloads (check localStorage `darkMode`)
+- [ ] Cross-tab sync: changing theme in one tab updates other tabs
+- [ ] No flash of wrong theme on page load (flash prevention script)
+- [ ] All charts render correctly in both light and dark modes
+- [ ] Detail pane, filter sidebar, settings pane all follow theme
 
 ### Commit Hooks
 

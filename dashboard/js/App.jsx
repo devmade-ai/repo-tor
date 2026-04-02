@@ -140,6 +140,23 @@ export default function App() {
                 //   - Config file: Rejected — requires build step or server-side config
                 const dataUrlParam = new URLSearchParams(window.location.search).get('data');
 
+                // Requirement: Validate ?data= URL to prevent SSRF and unsafe schemes
+                // Approach: Only allow http/https URLs. Reject file://, data://, ftp://, etc.
+                // Alternatives:
+                //   - Allow any URL: Rejected — SSRF risk, could fetch internal network resources
+                //   - Restrict to same-origin only: Rejected — legitimate use case for cross-origin data
+                if (dataUrlParam) {
+                    try {
+                        const parsed = new URL(dataUrlParam, window.location.origin);
+                        if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
+                            throw new Error('Only http and https URLs are supported for the data parameter.');
+                        }
+                    } catch (urlErr) {
+                        if (urlErr.message.includes('Only http')) throw urlErr;
+                        throw new Error('The data URL is not valid. Please check the URL format.');
+                    }
+                }
+
                 // Phase 1: Load summary data
                 let r;
                 if (dataUrlParam) {
@@ -174,16 +191,25 @@ export default function App() {
 
                 dispatch({ type: 'SET_COMMITS_LOADING', payload: true });
 
-                // Fetch all month files in parallel
+                // Fetch all month files in parallel, tracking failures individually
+                const failedMonths = [];
                 const monthPromises = commitMonths.map(async (month) => {
                     const url = `./data-commits/${month}.json`;
-                    const resp = await fetch(url, { signal: controller.signal });
-                    if (!resp.ok) {
-                        console.warn(`Failed to load commits for ${month}: HTTP ${resp.status}`);
+                    try {
+                        const resp = await fetch(url, { signal: controller.signal });
+                        if (!resp.ok) {
+                            failedMonths.push(month);
+                            console.warn(`Failed to load commits for ${month}: HTTP ${resp.status}`);
+                            return [];
+                        }
+                        const monthData = await resp.json();
+                        return monthData.commits || [];
+                    } catch (monthErr) {
+                        if (monthErr.name === 'AbortError') throw monthErr;
+                        failedMonths.push(month);
+                        console.warn(`Failed to load commits for ${month}:`, monthErr.message);
                         return [];
                     }
-                    const monthData = await resp.json();
-                    return monthData.commits || [];
                 });
 
                 const monthArrays = await Promise.all(monthPromises);
@@ -195,6 +221,15 @@ export default function App() {
                     .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
                 dispatch({ type: 'LOAD_COMMITS', payload: allCommits });
+
+                // Show warning if some months failed to load — user should know
+                // their data may be incomplete
+                if (failedMonths.length > 0) {
+                    setLoadError(
+                        `Some data could not be loaded (${failedMonths.join(', ')}). ` +
+                        'The dashboard may show incomplete results for those months.'
+                    );
+                }
             } catch (err) {
                 if (err.name === 'AbortError') return;
                 console.error('Failed to load data:', err);
@@ -367,11 +402,11 @@ export default function App() {
 
     return (
         <div className="min-h-screen dashboard-enter">
-            <Header />
-            <div className="no-print"><TabBar /></div>
+            <ErrorBoundary><Header /></ErrorBoundary>
+            <div className="no-print"><ErrorBoundary><TabBar /></ErrorBoundary></div>
             <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
                 <div className="dashboard-layout mt-6">
-                    <div className="no-print"><FilterSidebar /></div>
+                    <div className="no-print"><ErrorBoundary><FilterSidebar /></ErrorBoundary></div>
                     <div className="tab-content-area">
                         <ErrorBoundary key={state.activeTab}>
                             {state.activeTab === 'overview' && <Summary />}
@@ -398,8 +433,8 @@ export default function App() {
                     </div>
                 </div>
             </div>
-            <div className="no-print"><DetailPane /></div>
-            <div className="no-print"><SettingsPane /></div>
+            <div className="no-print"><ErrorBoundary><DetailPane /></ErrorBoundary></div>
+            <div className="no-print"><ErrorBoundary><SettingsPane /></ErrorBoundary></div>
             {/* Success toast — brief confirmation after file upload */}
             {loadSuccess && (
                 <div className="toast show" role="status" aria-live="polite">

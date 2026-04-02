@@ -127,8 +127,8 @@ class RootErrorBoundary extends React.Component {
     }
 }
 
-// Dark mode (prevent flash)
-document.documentElement.classList.add('dark');
+// Theme is applied by the flash prevention script in index.html <head>.
+// Do NOT set dark class here — it would override the user's stored preference.
 
 const root = createRoot(document.getElementById('root'));
 root.render(

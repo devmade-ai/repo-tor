@@ -503,7 +503,7 @@ Shows how much effort went into multi-commit initiatives like feature builds or 
 
 ## Theme
 
-The dashboard uses a dark theme optimized for readability and reduced eye strain. Author names are always anonymized for privacy.
+The dashboard supports both light and dark themes. On first visit, it follows your system preference (dark or light mode). Your choice is remembered across visits and syncs across browser tabs. Author names are anonymized in the dashboard for privacy.
 
 ---
 

@@ -242,6 +242,10 @@ updateSW = registerSW({
     },
     onRegisterError(error) {
         console.error('SW registration error:', error);
+        // Route to debug pill so users without DevTools can see SW failures
+        if (typeof window.__debugPushError === 'function') {
+            window.__debugPushError('Service worker registration failed: ' + error.message, error.stack);
+        }
     }
 });
 

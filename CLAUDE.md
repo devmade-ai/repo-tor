@@ -382,7 +382,7 @@ Each implementation is in its own file under `docs/implementations/`:
 | Timer Leaks | [`TIMER_LEAKS.md`](docs/implementations/TIMER_LEAKS.md) | Nested timeout cleanup patterns for `useEffect` | Implemented |
 | HTTPS Proxy | [`HTTPS_PROXY.md`](docs/implementations/HTTPS_PROXY.md) | Node.js HTTP CONNECT tunnel for proxy environments | Not needed (uses curl) |
 | Burger Menu | [`BURGER_MENU.md`](docs/implementations/BURGER_MENU.md) | Disclosure-pattern dropdown with a11y, iOS Safari fixes, focus management | Implemented (audit pending) |
-| Theme & Dark Mode | [`THEME_DARK_MODE.md`](docs/implementations/THEME_DARK_MODE.md) | Flash prevention, cross-tab sync, safe localStorage, system preference fallback | Partial (dark-only CSS vars) |
+| Theme & Dark Mode | [`THEME_DARK_MODE.md`](docs/implementations/THEME_DARK_MODE.md) | Flash prevention, cross-tab sync, safe localStorage, system preference fallback | Implemented |
 
 ---
 

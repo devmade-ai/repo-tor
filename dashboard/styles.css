@@ -121,6 +121,14 @@
             --glow-warning: 0 0 15px rgba(234, 179, 8, 0.3);
         }
 
+        /* Safe area insets for devices with notch/home indicator */
+        body {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+
         /* Base styles */
         * {
             font-family: var(--font-sans);
@@ -1438,8 +1446,9 @@
             margin-left: auto;
         }
         .filter-mode-toggle button {
-            padding: 2px 5px;
-            font-size: 8px;
+            padding: 6px 10px;
+            font-size: 10px;
+            min-height: 32px;
             border: 1px solid var(--border-color);
             background: var(--bg-tertiary);
             color: var(--text-tertiary);
