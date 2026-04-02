@@ -134,8 +134,9 @@ export default function App() {
     //   - Only load commits on demand: Rejected — too complex for filter/drilldown interactions
     useEffect(() => {
         const controller = new AbortController();
+        let timedOut = false;
         // Timeout: abort fetch after 30s to prevent indefinite hangs on slow networks
-        const timeoutId = setTimeout(() => controller.abort(), 30000);
+        const timeoutId = setTimeout(() => { timedOut = true; controller.abort(); }, 30000);
 
         async function loadData() {
             try {
@@ -198,39 +199,39 @@ export default function App() {
 
                 dispatch({ type: 'SET_COMMITS_LOADING', payload: true });
 
-                // Fetch all month files in parallel, tracking failures individually
-                const failedMonths = [];
+                // Fetch all month files in parallel. Each promise returns
+                // { commits, failed } so failures are collected from results
+                // after Promise.all — no shared mutable array across async callbacks.
                 const monthPromises = commitMonths.map(async (month) => {
                     const url = `./data-commits/${month}.json`;
                     try {
                         const resp = await fetch(url, { signal: controller.signal });
                         if (!resp.ok) {
-                            failedMonths.push(month);
                             console.warn(`Failed to load commits for ${month}: HTTP ${resp.status}`);
-                            return [];
+                            return { commits: [], failed: month };
                         }
                         const monthData = await resp.json();
-                        return monthData.commits || [];
+                        return { commits: monthData.commits || [], failed: null };
                     } catch (monthErr) {
                         if (monthErr.name === 'AbortError') throw monthErr;
-                        failedMonths.push(month);
                         console.warn(`Failed to load commits for ${month}:`, monthErr.message);
-                        return [];
+                        return { commits: [], failed: month };
                     }
                 });
 
-                const monthArrays = await Promise.all(monthPromises);
+                const monthResults = await Promise.all(monthPromises);
                 if (controller.signal.aborted) return;
 
                 // Merge all month commits, sort newest first
-                const allCommits = monthArrays
-                    .flat()
+                const allCommits = monthResults
+                    .flatMap(r => r.commits)
                     .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
                 dispatch({ type: 'LOAD_COMMITS', payload: allCommits });
 
                 // Show warning if some months failed to load — user should know
                 // their data may be incomplete
+                const failedMonths = monthResults.filter(r => r.failed).map(r => r.failed);
                 if (failedMonths.length > 0) {
                     setLoadError(
                         `Some data could not be loaded (${failedMonths.join(', ')}). ` +
@@ -239,8 +240,8 @@ export default function App() {
                 }
             } catch (err) {
                 if (err.name === 'AbortError') {
-                    // Distinguish user-initiated abort from timeout
-                    if (controller.signal.aborted) {
+                    // Timeout abort: show error. Component unmount abort: do nothing.
+                    if (timedOut) {
                         setLoadError('Loading took too long. Check your connection and try again, or upload a data file below.');
                         setInitialLoading(false);
                     }
@@ -288,8 +289,8 @@ export default function App() {
             }
             // Clamp vertical: keep within viewport bottom
             top = Math.min(top, window.innerHeight - tooltip.offsetHeight - 4);
-            tooltip.style.left = left + 'px';
-            tooltip.style.top = top + 'px';
+            tooltip.style.left = Math.round(left) + 'px';
+            tooltip.style.top = Math.round(top) + 'px';
         }
 
         function handleMouseOut(e) {
