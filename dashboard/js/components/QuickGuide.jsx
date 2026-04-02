@@ -94,7 +94,7 @@ export default function QuickGuide({ open, onClose }) {
     return (
         <>
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-            <div className="quick-guide-overlay" onClick={onClose} aria-hidden="true" />
+            <div className="quick-guide-overlay" onClick={onClose} role="presentation" />
             <div
                 ref={trapRef}
                 className="quick-guide-modal"

@@ -625,7 +625,7 @@ async function main() {
   }
 
   authToken = tokenInfo.token;
-  console.log(`Authentication: Using ${tokenInfo.source} from environment`);
+  console.log('Authentication: Token loaded successfully');
 
   // Verify token works by checking rate limit
   try {

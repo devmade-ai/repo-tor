@@ -20,7 +20,7 @@ import { handleKeyActivate } from '../utils.js';
  * @param {string} label - Display label (contributor name, repo name, or "All Contributors")
  * @param {Function} [onClick] - Optional click handler to open detail pane
  */
-export function UrgencyBar({ counts, total, label, onClick }) {
+export const UrgencyBar = React.memo(function UrgencyBar({ counts, total, label, onClick }) {
     const plannedPct = total > 0 ? Math.round((counts.planned / total) * 100) : 0;
     const normalPct = total > 0 ? Math.round((counts.normal / total) * 100) : 0;
     const reactivePct = total > 0 ? Math.round((counts.reactive / total) * 100) : 0;
@@ -47,7 +47,7 @@ export function UrgencyBar({ counts, total, label, onClick }) {
             </div>
         </div>
     );
-}
+});
 
 /**
  * Stacked bar showing user-facing / internal / infrastructure / api impact distribution.
@@ -56,7 +56,7 @@ export function UrgencyBar({ counts, total, label, onClick }) {
  * @param {string} label - Display label (contributor name, repo name, or "All Contributors")
  * @param {Function} [onClick] - Optional click handler to open detail pane
  */
-export function ImpactBar({ counts, total, label, onClick }) {
+export const ImpactBar = React.memo(function ImpactBar({ counts, total, label, onClick }) {
     const userPct = total > 0 ? Math.round(((counts['user-facing'] || 0) / total) * 100) : 0;
     const internalPct = total > 0 ? Math.round(((counts['internal'] || 0) / total) * 100) : 0;
     const infraPct = total > 0 ? Math.round(((counts['infrastructure'] || 0) / total) * 100) : 0;
@@ -86,4 +86,4 @@ export function ImpactBar({ counts, total, label, onClick }) {
             </div>
         </div>
     );
-}
+});

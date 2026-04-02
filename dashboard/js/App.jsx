@@ -97,9 +97,14 @@ if (embedIds) {
 
     const bgParam = params.get('bg');
     if (bgParam) {
-        const bgValue = bgParam === 'transparent' ? 'transparent'
-            : bgParam.startsWith('#') ? bgParam : `#${bgParam}`;
-        document.documentElement.style.setProperty('--bg-primary', bgValue);
+        // Validate: only accept 'transparent' or valid hex color (3-8 hex chars)
+        // to prevent CSS injection via malformed values
+        const hexValue = bgParam.startsWith('#') ? bgParam : `#${bgParam}`;
+        if (bgParam === 'transparent') {
+            document.documentElement.style.setProperty('--bg-primary', 'transparent');
+        } else if (/^#[0-9a-fA-F]{3,8}$/.test(hexValue)) {
+            document.documentElement.style.setProperty('--bg-primary', hexValue);
+        }
     }
 }
 
@@ -129,6 +134,8 @@ export default function App() {
     //   - Only load commits on demand: Rejected — too complex for filter/drilldown interactions
     useEffect(() => {
         const controller = new AbortController();
+        // Timeout: abort fetch after 30s to prevent indefinite hangs on slow networks
+        const timeoutId = setTimeout(() => controller.abort(), 30000);
 
         async function loadData() {
             try {
@@ -231,7 +238,14 @@ export default function App() {
                     );
                 }
             } catch (err) {
-                if (err.name === 'AbortError') return;
+                if (err.name === 'AbortError') {
+                    // Distinguish user-initiated abort from timeout
+                    if (controller.signal.aborted) {
+                        setLoadError('Loading took too long. Check your connection and try again, or upload a data file below.');
+                        setInitialLoading(false);
+                    }
+                    return;
+                }
                 console.error('Failed to load data:', err);
                 const isJsonParseError = err instanceof SyntaxError;
                 const userMessage = isJsonParseError
@@ -239,12 +253,13 @@ export default function App() {
                     : 'Something went wrong loading the dashboard. Please try again, or upload a data file below.';
                 setLoadError(userMessage);
             } finally {
+                clearTimeout(timeoutId);
                 if (!controller.signal.aborted) setInitialLoading(false);
             }
         }
 
         loadData();
-        return () => controller.abort();
+        return () => { clearTimeout(timeoutId); controller.abort(); };
     }, []);
 
     // Heatmap tooltip handler
@@ -271,6 +286,8 @@ export default function App() {
             if (top < 4) {
                 top = rect.bottom + 6;
             }
+            // Clamp vertical: keep within viewport bottom
+            top = Math.min(top, window.innerHeight - tooltip.offsetHeight - 4);
             tooltip.style.left = left + 'px';
             tooltip.style.top = top + 'px';
         }

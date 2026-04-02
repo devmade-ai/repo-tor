@@ -39,11 +39,10 @@ export default function DetailPane() {
 
     return (
         <>
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
             <div
                 className={`detail-pane-overlay ${open ? 'open' : ''}`}
                 onClick={handleClose}
-                aria-hidden="true"
+                role="presentation"
             />
             <div
                 ref={trapRef}

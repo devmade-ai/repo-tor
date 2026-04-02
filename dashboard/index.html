@@ -100,11 +100,13 @@
         var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         var ctrl = navigator.serviceWorker && navigator.serviceWorker.controller ? 'active' : 'none';
         return [
+          'Network: ' + (navigator.onLine ? 'online' : 'OFFLINE'),
           'Service Worker support: ' + (sw ? 'yes' : 'no'),
           'SW controller: ' + ctrl,
           'Standalone mode: ' + standalone,
           'PWA installed flag: ' + (standalone || (function() { try { return localStorage.getItem('pwaInstalled') === 'true'; } catch(e) { return false; } })()),
           'React mounted: ' + !!window.__debugReactMounted,
+          'Theme: ' + (document.documentElement.classList.contains('dark') ? 'dark' : 'light'),
           'Errors: ' + errors.length,
           'User agent: ' + navigator.userAgent,
         ].join('\n');
@@ -233,7 +235,7 @@
         // Append inside the flex container
         var flex = root.querySelector('div');
         if (flex) flex.appendChild(warning);
-      }, 10000);
+      }, 20000);
 
       // Let main.jsx signal when React is mounted
       window.__debugClearLoadTimer = function() {

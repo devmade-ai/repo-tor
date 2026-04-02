@@ -192,11 +192,10 @@ export default function FilterSidebar() {
             </div>
 
             {/* Mobile overlay */}
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
             <div
                 className={`filter-sidebar-overlay ${state.filterSidebarOpen ? 'open' : ''}`}
                 onClick={() => dispatch({ type: 'CLOSE_FILTER_SIDEBAR' })}
-                aria-hidden="true"
+                role="presentation"
             />
         </>
     );
