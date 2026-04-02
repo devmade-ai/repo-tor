@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useApp } from './AppContext.jsx';
+import { useToast } from './components/Toast.jsx';
 import Header from './components/Header.jsx';
 import TabBar from './components/TabBar.jsx';
 import DropZone from './components/DropZone.jsx';
@@ -97,21 +98,22 @@ if (embedIds) {
 
     const bgParam = params.get('bg');
     if (bgParam) {
-        const bgValue = bgParam === 'transparent' ? 'transparent'
-            : bgParam.startsWith('#') ? bgParam : `#${bgParam}`;
-        document.documentElement.style.setProperty('--bg-primary', bgValue);
+        // Validate: only accept 'transparent' or valid hex color (3-8 hex chars)
+        // to prevent CSS injection via malformed values
+        const hexValue = bgParam.startsWith('#') ? bgParam : `#${bgParam}`;
+        if (bgParam === 'transparent') {
+            document.documentElement.style.setProperty('--bg-primary', 'transparent');
+        } else if (/^#[0-9a-fA-F]{3,8}$/.test(hexValue)) {
+            document.documentElement.style.setProperty('--bg-primary', hexValue);
+        }
     }
 }
 
 export default function App() {
     const { state, dispatch } = useApp();
+    const { addToast } = useToast();
     const [loadError, setLoadError] = useState(null);
-    const [loadSuccess, setLoadSuccess] = useState(null);
     const [initialLoading, setInitialLoading] = useState(true);
-    // Track toast dismiss timeout so it can be cleared on unmount
-    // (prevents state update on unmounted component — glow-props timer leak pattern)
-    const toastTimerRef = useRef(null);
-    useEffect(() => () => { if (toastTimerRef.current) clearTimeout(toastTimerRef.current); }, []);
 
     // Lock body scroll when any overlay pane is open
     useEffect(() => {
@@ -129,15 +131,51 @@ export default function App() {
     //   - Only load commits on demand: Rejected — too complex for filter/drilldown interactions
     useEffect(() => {
         const controller = new AbortController();
+        let timedOut = false;
+        // Timeout: abort fetch after 30s to prevent indefinite hangs on slow networks
+        const timeoutId = setTimeout(() => { timedOut = true; controller.abort(); }, 30000);
 
         async function loadData() {
             try {
-                // Phase 1: Load summary (data.json)
-                const r = await fetch('./data.json', { signal: controller.signal });
-                if (r.status === 404) return; // No data file — user can upload
-                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                // Requirement: Accept data URL via ?data= query param for external hosting
+                // Approach: Check URL params first, fall back to ./data.json. The ?data=
+                //   param lets users host their data.json elsewhere and point the dashboard at it.
+                // Alternatives:
+                //   - postMessage from parent: Rejected — adds complexity for iframe use case
+                //   - Config file: Rejected — requires build step or server-side config
+                const dataUrlParam = new URLSearchParams(window.location.search).get('data');
+
+                // Requirement: Validate ?data= URL to prevent SSRF and unsafe schemes
+                // Approach: Only allow http/https URLs. Reject file://, data://, ftp://, etc.
+                // Alternatives:
+                //   - Allow any URL: Rejected — SSRF risk, could fetch internal network resources
+                //   - Restrict to same-origin only: Rejected — legitimate use case for cross-origin data
+                if (dataUrlParam) {
+                    try {
+                        const parsed = new URL(dataUrlParam, window.location.origin);
+                        if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
+                            throw new Error('Only http and https URLs are supported for the data parameter.');
+                        }
+                    } catch (urlErr) {
+                        if (urlErr.message.includes('Only http')) throw urlErr;
+                        throw new Error('The data URL is not valid. Please check the URL format.');
+                    }
+                }
+
+                // Phase 1: Load summary data
+                let r;
+                if (dataUrlParam) {
+                    r = await fetch(dataUrlParam, { signal: controller.signal });
+                    if (!r.ok) {
+                        throw new Error(`Could not load data from the provided URL (HTTP ${r.status}). Check the URL and try again.`);
+                    }
+                } else {
+                    r = await fetch('./data.json', { signal: controller.signal });
+                    if (r.status === 404) return; // No data file — user can upload
+                    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                }
                 const ct = r.headers.get('content-type') || '';
-                if (ct.includes('text/html')) return; // SPA rewrite, not JSON
+                if (!dataUrlParam && ct.includes('text/html')) return; // SPA rewrite, not JSON
 
                 const data = await r.json();
                 if (!data) return;
@@ -158,42 +196,71 @@ export default function App() {
 
                 dispatch({ type: 'SET_COMMITS_LOADING', payload: true });
 
-                // Fetch all month files in parallel
+                // Fetch all month files in parallel. Each promise returns
+                // { commits, failed } so failures are collected from results
+                // after Promise.all — no shared mutable array across async callbacks.
                 const monthPromises = commitMonths.map(async (month) => {
                     const url = `./data-commits/${month}.json`;
-                    const resp = await fetch(url, { signal: controller.signal });
-                    if (!resp.ok) {
-                        console.warn(`Failed to load commits for ${month}: HTTP ${resp.status}`);
-                        return [];
+                    try {
+                        const resp = await fetch(url, { signal: controller.signal });
+                        if (!resp.ok) {
+                            console.warn(`Failed to load commits for ${month}: HTTP ${resp.status}`);
+                            return { commits: [], failed: month };
+                        }
+                        const monthData = await resp.json();
+                        return { commits: monthData.commits || [], failed: null };
+                    } catch (monthErr) {
+                        if (monthErr.name === 'AbortError') throw monthErr;
+                        console.warn(`Failed to load commits for ${month}:`, monthErr.message);
+                        return { commits: [], failed: month };
                     }
-                    const monthData = await resp.json();
-                    return monthData.commits || [];
                 });
 
-                const monthArrays = await Promise.all(monthPromises);
+                const monthResults = await Promise.all(monthPromises);
                 if (controller.signal.aborted) return;
 
                 // Merge all month commits, sort newest first
-                const allCommits = monthArrays
-                    .flat()
+                const allCommits = monthResults
+                    .flatMap(r => r.commits)
                     .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
                 dispatch({ type: 'LOAD_COMMITS', payload: allCommits });
+
+                // Show warning if some months failed to load — user should know
+                // their data may be incomplete
+                const failedMonths = monthResults.filter(r => r.failed).map(r => r.failed);
+                if (failedMonths.length > 0) {
+                    setLoadError(
+                        `Some data could not be loaded (${failedMonths.join(', ')}). ` +
+                        'The dashboard may show incomplete results for those months.'
+                    );
+                }
             } catch (err) {
-                if (err.name === 'AbortError') return;
+                if (err.name === 'AbortError') {
+                    // Timeout abort: show error. Component unmount abort: do nothing.
+                    if (timedOut) {
+                        setLoadError('Loading took too long. Check your connection and try again, or upload a data file below.');
+                        setInitialLoading(false);
+                    }
+                    return;
+                }
                 console.error('Failed to load data:', err);
+                if (typeof window.__debugPushError === 'function') {
+                    window.__debugPushError('Data load failed: ' + err.message, err.stack);
+                }
                 const isJsonParseError = err instanceof SyntaxError;
                 const userMessage = isJsonParseError
                     ? 'The dashboard data file could not be read. It may be corrupted or in the wrong format. Try uploading a fresh export below.'
                     : 'Something went wrong loading the dashboard. Please try again, or upload a data file below.';
                 setLoadError(userMessage);
             } finally {
+                clearTimeout(timeoutId);
                 if (!controller.signal.aborted) setInitialLoading(false);
             }
         }
 
         loadData();
-        return () => controller.abort();
+        return () => { clearTimeout(timeoutId); controller.abort(); };
     }, []);
 
     // Heatmap tooltip handler
@@ -220,8 +287,10 @@ export default function App() {
             if (top < 4) {
                 top = rect.bottom + 6;
             }
-            tooltip.style.left = left + 'px';
-            tooltip.style.top = top + 'px';
+            // Clamp vertical: keep within viewport bottom
+            top = Math.min(top, window.innerHeight - tooltip.offsetHeight - 4);
+            tooltip.style.left = Math.round(left) + 'px';
+            tooltip.style.top = Math.round(top) + 'px';
         }
 
         function handleMouseOut(e) {
@@ -273,31 +342,28 @@ export default function App() {
         }
 
         setLoadError(null);
-        setLoadSuccess(null);
         Promise.all(readers).then(datasets => {
             if (datasets.length === 0) return;
             const combined = combineDatasets(datasets);
             if (combined) {
                 dispatch({ type: 'LOAD_DATA', payload: combined });
-                // Requirement: Provide success feedback after data upload
-                // Approach: Brief toast message with commit/repo count
                 const commitCount = combined.commits?.length || 0;
                 const repoNames = Array.isArray(combined.metadata?.repo_name)
                     ? combined.metadata.repo_name : combined.metadata?.repo_name ? [combined.metadata.repo_name] : [];
                 const repoText = repoNames.length > 0 ? ` from ${repoNames.length} repo${repoNames.length !== 1 ? 's' : ''}` : '';
-                setLoadSuccess(`Loaded ${commitCount.toLocaleString()} commits${repoText}`);
-                if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
-                toastTimerRef.current = setTimeout(() => setLoadSuccess(null), 4000);
+                addToast(`Loaded ${commitCount.toLocaleString()} changes${repoText}`, { type: 'success', duration: 4000 });
             }
         }).catch(err => {
             console.error('Error loading files:', err);
-            // Requirement: Distinguish error types for non-technical users
+            if (typeof window.__debugPushError === 'function') {
+                window.__debugPushError('File upload failed: ' + err.message, err.stack);
+            }
             const message = err instanceof SyntaxError
                 ? 'This file doesn\'t look like valid dashboard data. Try exporting from the extraction script first.'
                 : `Something went wrong reading the file: ${err.message}`;
             setLoadError(message);
         });
-    }, [dispatch]);
+    }, [dispatch, addToast]);
 
     // Wait for initial data.json fetch before deciding what to show
     if (initialLoading) {
@@ -351,11 +417,11 @@ export default function App() {
 
     return (
         <div className="min-h-screen dashboard-enter">
-            <Header />
-            <div className="no-print"><TabBar /></div>
+            <ErrorBoundary><Header /></ErrorBoundary>
+            <div className="no-print"><ErrorBoundary><TabBar /></ErrorBoundary></div>
             <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
                 <div className="dashboard-layout mt-6">
-                    <div className="no-print"><FilterSidebar /></div>
+                    <div className="no-print"><ErrorBoundary><FilterSidebar /></ErrorBoundary></div>
                     <div className="tab-content-area">
                         <ErrorBoundary key={state.activeTab}>
                             {state.activeTab === 'overview' && <Summary />}
@@ -382,14 +448,8 @@ export default function App() {
                     </div>
                 </div>
             </div>
-            <div className="no-print"><DetailPane /></div>
-            <div className="no-print"><SettingsPane /></div>
-            {/* Success toast — brief confirmation after file upload */}
-            {loadSuccess && (
-                <div className="toast show" role="status" aria-live="polite">
-                    {loadSuccess}
-                </div>
-            )}
+            <div className="no-print"><ErrorBoundary><DetailPane /></ErrorBoundary></div>
+            <div className="no-print"><ErrorBoundary><SettingsPane /></ErrorBoundary></div>
         </div>
     );
 }

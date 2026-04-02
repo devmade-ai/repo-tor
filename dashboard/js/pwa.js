@@ -15,6 +15,18 @@
 
 import { registerSW } from 'virtual:pwa-register';
 
+// Safe localStorage wrappers — local copies to avoid importing utils.js
+// (pwa.js loads early and shouldn't depend on the full utils module chain)
+function safeStorageGet(key) {
+    try { return localStorage.getItem(key); } catch { return null; }
+}
+function safeStorageSet(key, value) {
+    try { localStorage.setItem(key, String(value)); } catch { /* sandboxed */ }
+}
+function safeStorageRemove(key) {
+    try { localStorage.removeItem(key); } catch { /* sandboxed */ }
+}
+
 // === State ===
 let deferredInstallPrompt = null;
 let updateSW = null;
@@ -57,8 +69,9 @@ function getBrowserInfo() {
 }
 
 /**
- * Returns browser-specific install instructions for browsers
- * that don't support beforeinstallprompt.
+ * Returns browser-specific install instructions for the InstallInstructionsModal.
+ * Data-driven: the modal renders whatever this returns — adding a browser is one switch case.
+ * Returns { browser, steps, note? } matching the glow-props PWA_SYSTEM.md pattern.
  */
 export function getInstallInstructions() {
     const { browser, platform } = getBrowserInfo();
@@ -66,36 +79,103 @@ export function getInstallInstructions() {
     switch (browser) {
         case 'safari':
         case 'safari-mac':
+            if (platform === 'ios' || platform === 'ipados') {
+                return {
+                    browser: 'Safari (iOS)',
+                    steps: [
+                        'Tap the Share button (square with arrow) at the bottom of the screen',
+                        'Scroll down and tap "Add to Home Screen"',
+                        'Tap "Add" in the top right corner',
+                    ],
+                };
+            }
             return {
-                title: 'Install from Safari',
-                steps: platform === 'ios' || platform === 'ipados'
-                    ? ['Tap the Share button (square with arrow)', 'Scroll down and tap "Add to Home Screen"', 'Tap "Add" to confirm']
-                    : ['Click File in the menu bar', 'Click "Add to Dock\u2026"', 'Click "Add" to confirm']
+                browser: 'Safari (macOS)',
+                steps: [
+                    'Click File in the menu bar',
+                    'Select "Add to Dock\u2026"',
+                    'Click "Add" to confirm',
+                ],
             };
         case 'chrome-ios':
         case 'edge-ios':
         case 'firefox-ios':
             return {
-                title: 'Install on iOS',
-                steps: ['Open this page in Safari', 'Tap the Share button (square with arrow)', 'Tap "Add to Home Screen"']
+                browser: 'iOS Browser',
+                steps: [
+                    'Open this page in Safari (iOS requires Safari for installation)',
+                    'Tap the Share button (square with arrow)',
+                    'Tap "Add to Home Screen"',
+                ],
+                note: 'Only Safari can install apps on iOS. Other browsers use Safari\u2019s engine but lack the install option.',
             };
         case 'firefox':
-            return platform === 'android'
-                ? { title: 'Install from Firefox', steps: ['Tap the menu (three dots)', 'Tap "Install"'] }
-                : { title: 'Install from Firefox', steps: ['Firefox desktop has limited PWA support', 'Try opening this page in Chrome or Edge for the best experience'] };
-        case 'chrome':
-        case 'edge':
+            if (platform === 'android') {
+                return {
+                    browser: 'Firefox (Mobile)',
+                    steps: [
+                        'Tap the menu button (three dots)',
+                        'Tap "Add to Home screen"',
+                        'Tap "Add" to confirm',
+                    ],
+                };
+            }
+            return {
+                browser: 'Firefox (Desktop)',
+                steps: [
+                    'Firefox desktop does not support PWA installation',
+                    'For the best experience, use Chrome, Edge, or Brave',
+                    'Alternatively, bookmark this page for quick access',
+                ],
+                note: 'Firefox removed PWA support for desktop in 2021.',
+            };
         case 'brave':
             return {
-                title: `Install from ${browser.charAt(0).toUpperCase() + browser.slice(1)}`,
-                steps: ['Click the install icon in the address bar', 'Or open Menu \u2192 "Install app"']
+                browser: 'Brave',
+                steps: [
+                    'Click the install icon in the address bar (computer with down arrow)',
+                    'Or click the menu (\u2261) \u2192 "Install App\u2026"',
+                    'Click "Install" to confirm',
+                ],
+                note: 'If the install option doesn\u2019t appear, check that Brave Shields isn\u2019t blocking it.',
+            };
+        case 'chrome':
+        case 'edge':
+            return {
+                browser: browser === 'edge' ? 'Microsoft Edge' : 'Google Chrome',
+                steps: [
+                    'Click the install icon in the address bar (computer with down arrow)',
+                    'Or click the menu (\u22ee) \u2192 "Install App\u2026"',
+                    'Click "Install" to confirm',
+                ],
             };
         default:
             return {
-                title: 'Install as App',
-                steps: ['Look for an install option in your browser menu', 'Or try opening this page in Chrome or Edge']
+                browser: 'Your Browser',
+                steps: [
+                    'Look for an "Install" or "Add to Home Screen" option in your browser menu',
+                    'For the best experience, use Chrome, Edge, or Brave',
+                ],
             };
     }
+}
+
+/**
+ * Whether the current browser supports the native beforeinstallprompt API.
+ * If false, show manual install instructions instead.
+ */
+export function supportsNativeInstall() {
+    const { browser } = getBrowserInfo();
+    return ['chrome', 'edge', 'brave'].includes(browser);
+}
+
+/**
+ * Whether the current browser supports manual PWA installation.
+ * Safari and Firefox can install manually but don't fire beforeinstallprompt.
+ */
+export function supportsManualInstall() {
+    const { browser } = getBrowserInfo();
+    return ['safari', 'safari-mac', 'firefox', 'chrome-ios', 'edge-ios', 'firefox-ios'].includes(browser);
 }
 
 // === Install: Prompt handling ===
@@ -118,7 +198,7 @@ function consumeEarlyCapturedEvent() {
 
 const earlyCaptured = consumeEarlyCapturedEvent();
 if (earlyCaptured) {
-    localStorage.removeItem('pwaInstalled');
+    safeStorageRemove('pwaInstalled');
     deferredInstallPrompt = earlyCaptured;
     _installReady = true;
     // Defer event dispatch so React listeners are attached by the time it fires
@@ -130,7 +210,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     // The browser only fires this event when the app is NOT installed.
     // Clear any stale flag from a previous install that was since removed.
-    localStorage.removeItem('pwaInstalled');
+    safeStorageRemove('pwaInstalled');
     deferredInstallPrompt = e;
     _installReady = true;
     window.dispatchEvent(new CustomEvent('pwa-install-ready'));
@@ -139,7 +219,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 window.addEventListener('appinstalled', () => {
     deferredInstallPrompt = null;
     _installReady = false;
-    localStorage.setItem('pwaInstalled', 'true');
+    safeStorageSet('pwaInstalled', 'true');
     window.dispatchEvent(new CustomEvent('pwa-installed'));
 });
 
@@ -164,7 +244,7 @@ export function getPWAState() {
 
 /** Whether the app is running as an installed PWA */
 export function isInstalledPWA() {
-    return isStandalone || localStorage.getItem('pwaInstalled') === 'true';
+    return isStandalone || safeStorageGet('pwaInstalled') === 'true';
 }
 
 /** Whether the app is running in standalone mode */
@@ -230,6 +310,10 @@ updateSW = registerSW({
     },
     onRegisterError(error) {
         console.error('SW registration error:', error);
+        // Route to debug pill so users without DevTools can see SW failures
+        if (typeof window.__debugPushError === 'function') {
+            window.__debugPushError('Service worker registration failed: ' + error.message, error.stack);
+        }
     }
 });
 

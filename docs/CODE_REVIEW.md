@@ -307,9 +307,9 @@ Uses `@v4`/`@v3` tags that can be updated by action maintainers. Pin to specific
 
 The project is Vite/React but `.gitignore` contains Jekyll-specific entries from the GitHub Pages template.
 
-### 6.7 Duplicate icons directories (LOW)
+### 6.7 Duplicate icons directories (RESOLVED)
 
-Icons exist in both `dashboard/icons/` and `dashboard/public/icons/`. One set is likely unused.
+~~Icons exist in both `dashboard/icons/` and `dashboard/public/icons/`.~~ Both directories deleted. Icons now generated from `assets/icon-source.svg` via Sharp to `assets/images/` and `dashboard/public/assets/images/`.
 
 ### 6.8 `cancel-in-progress: false` wastes CI minutes (LOW)
 

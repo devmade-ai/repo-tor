@@ -70,6 +70,7 @@ Embedding apps can customize chart colors via URL parameters. This is useful whe
 
 | Parameter | Format | Example | Description |
 |-----------|--------|---------|-------------|
+| `data` | URL (http/https) | `data=https://example.com/data.json` | Load dashboard data from an external URL instead of the built-in file |
 | `bg` | hex or `transparent` | `bg=FFFFFF` | Background color of the embedded element (default: dark `#1B1B1B`) |
 | `palette` | preset name | `palette=warm` | Apply a named color palette |
 | `colors` | comma-separated hex | `colors=FF6B35,004E89,1A936F` | Custom series colors for multi-dataset charts |

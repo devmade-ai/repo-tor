@@ -2,12 +2,37 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Git Analytics Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%232D68FF'/%3E%3Ctext x='50' y='50' text-anchor='middle' dy='.35em' font-family='monospace' font-size='60' fill='white'%3Eg%3C/text%3E%3C/svg%3E">
+    <!--
+      Theme flash prevention: classic script (not module) that runs synchronously
+      during HTML parse — before any stylesheet or module loads. Reads darkMode
+      from localStorage and applies .dark class + color-scheme before first paint.
+      Falls back to system preference on first visit. Must match defaults in
+      AppContext.jsx theme handling.
+      See: docs/implementations/THEME_DARK_MODE.md
+    -->
+    <script>
+    (function() {
+      try {
+        var stored = localStorage.getItem('darkMode');
+        var isDark = stored !== null
+          ? stored === 'true'
+          : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch(e) {
+        // localStorage unavailable — keep default (dark class from HTML)
+      }
+    })();
+    </script>
 </head>
 <body>
     <div id="root">
@@ -75,11 +100,13 @@
         var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         var ctrl = navigator.serviceWorker && navigator.serviceWorker.controller ? 'active' : 'none';
         return [
+          'Network: ' + (navigator.onLine ? 'online' : 'OFFLINE'),
           'Service Worker support: ' + (sw ? 'yes' : 'no'),
           'SW controller: ' + ctrl,
           'Standalone mode: ' + standalone,
-          'PWA installed flag: ' + (standalone || localStorage.getItem('pwaInstalled') === 'true'),
+          'PWA installed flag: ' + (standalone || (function() { try { return localStorage.getItem('pwaInstalled') === 'true'; } catch(e) { return false; } })()),
           'React mounted: ' + !!window.__debugReactMounted,
+          'Theme: ' + (document.documentElement.classList.contains('dark') ? 'dark' : 'light'),
           'Errors: ' + errors.length,
           'User agent: ' + navigator.userAgent,
         ].join('\n');
@@ -208,7 +235,7 @@
         // Append inside the flex container
         var flex = root.querySelector('div');
         if (flex) flex.appendChild(warning);
-      }, 10000);
+      }, 20000);
 
       // Let main.jsx signal when React is mounted
       window.__debugClearLoadTimer = function() {

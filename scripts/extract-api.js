@@ -220,14 +220,16 @@ function curlGitHubAsync(url) {
   });
 }
 
-/** Run async tasks with a concurrency limit */
+/** Run async tasks with a concurrency limit.
+ *  Uses queue.shift() instead of shared idx++ to avoid any ambiguity
+ *  about concurrent access patterns in async worker loops. */
 async function pMap(items, fn, concurrency = 5) {
   const results = new Array(items.length);
-  let idx = 0;
+  const queue = items.map((item, i) => ({ item, i }));
   async function worker() {
-    while (idx < items.length) {
-      const i = idx++;
-      results[i] = await fn(items[i], i);
+    while (queue.length > 0) {
+      const { item, i } = queue.shift();
+      results[i] = await fn(item, i);
     }
   }
   await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, () => worker()));
@@ -625,7 +627,7 @@ async function main() {
   }
 
   authToken = tokenInfo.token;
-  console.log(`Authentication: Using ${tokenInfo.source} from environment`);
+  console.log('Authentication: Token loaded successfully');
 
   // Verify token works by checking rate limit
   try {

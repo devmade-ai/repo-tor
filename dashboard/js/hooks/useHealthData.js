@@ -7,7 +7,7 @@
 //   conceptually belong ("over time" = Timeline, "by person" = Contributors).
 
 import { useMemo } from 'react';
-import { getAuthorEmail } from '../utils.js';
+import { getAuthorEmail, getWorkPattern } from '../utils.js';
 
 /**
  * Custom hook that computes Health section data from filtered commits.
@@ -27,20 +27,16 @@ export default function useHealthData(filteredCommits, state) {
         const reactiveCount = filteredCommits.filter(c => c.urgency >= 4).length;
         const reactivePct = total > 0 ? Math.round((reactiveCount / total) * 100) : 0;
 
-        const weekendCount = filteredCommits.filter(c => {
-            if (!c.timestamp) return false;
-            const date = new Date(c.timestamp);
-            const day = date.getDay();
-            return day === 0 || day === 6;
-        }).length;
+        // Reuse getWorkPattern() for consistent work hours/weekend detection
+        // (was duplicated inline — see utils.js for the canonical implementation)
+        let weekendCount = 0;
+        let afterHoursCount = 0;
+        filteredCommits.forEach(c => {
+            const pattern = getWorkPattern(c);
+            if (pattern.isWeekend) weekendCount++;
+            if (pattern.isAfterHours) afterHoursCount++;
+        });
         const weekendPct = total > 0 ? Math.round((weekendCount / total) * 100) : 0;
-
-        const afterHoursCount = filteredCommits.filter(c => {
-            if (!c.timestamp) return false;
-            const date = new Date(c.timestamp);
-            const hour = date.getHours();
-            return hour < state.workHourStart || hour >= state.workHourEnd;
-        }).length;
         const afterHoursPct = total > 0 ? Math.round((afterHoursCount / total) * 100) : 0;
 
         return { total, securityCount, reactivePct, weekendPct, afterHoursPct };

@@ -3,6 +3,25 @@
 
 import { state, anonymousNames, authorAnonMap, getViewConfig } from './state.js';
 
+// === Safe localStorage Wrappers ===
+// Requirement: Prevent crashes in sandboxed iframes, disabled-storage settings,
+//   and enterprise environments where localStorage throws SecurityError.
+// Approach: Wrap all localStorage access in try/catch. Fall back to null/no-op.
+// Alternatives:
+//   - Raw localStorage calls: Rejected — crashes in sandboxed contexts
+//   - Feature detection only: Rejected — some environments allow getItem but throw on setItem
+export function safeStorageGet(key) {
+    try { return localStorage.getItem(key); } catch { return null; }
+}
+
+export function safeStorageSet(key, value) {
+    try { localStorage.setItem(key, String(value)); } catch { /* sandboxed iframe, disabled storage */ }
+}
+
+export function safeStorageRemove(key) {
+    try { localStorage.removeItem(key); } catch { /* sandboxed iframe, disabled storage */ }
+}
+
 // Keyboard handler for clickable non-button elements (Enter/Space activates click)
 export function handleKeyActivate(callback) {
     return (e) => {
@@ -244,18 +263,24 @@ export function getTagClass(tag) {
     return TAG_COLORS[tag] ? `tag-${tag}` : 'tag-dynamic';
 }
 
-// Returns a style object for dynamic tag colors
+// Returns a style object for dynamic tag colors.
+// Cached at module level to avoid creating new objects on every render
+// (500+ tags × re-renders = thousands of unnecessary allocations).
+const tagStyleCache = new Map();
 export function getTagStyleObject(tag) {
     if (TAG_COLORS[tag]) return {};
+    if (tagStyleCache.has(tag)) return tagStyleCache.get(tag);
     const color = getDynamicTagColor(tag);
     const r = parseInt(color.slice(1, 3), 16);
     const g = parseInt(color.slice(3, 5), 16);
     const b = parseInt(color.slice(5, 7), 16);
-    return {
+    const style = {
         '--tag-bg': `rgba(${r}, ${g}, ${b}, 0.2)`,
         '--tag-color': color,
         '--tag-border': `rgba(${r}, ${g}, ${b}, 0.3)`,
     };
+    tagStyleCache.set(tag, style);
+    return style;
 }
 
 // === Author Resolution ===

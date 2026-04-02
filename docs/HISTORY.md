@@ -2,6 +2,93 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-04-02
+
+### Full 9-trigger audit sweep and fixes
+
+**Why:** Ran all 9 audit triggers (review, audit, docs, mobile, clean, performance, security, debug, improve) in parallel. Found 41 unique findings across all categories. Implemented fixes for all critical, high, medium, and low-priority items.
+
+**Critical fixes (C1-C5):**
+- Removed unconditional dark class in main.jsx that overrode flash prevention
+- Added URL validation for ?data= param (SSRF prevention — http/https only)
+- Replaced postMessage wildcard '*' with referrer-based origin; added source validation in embed.js
+- Routed ErrorBoundary errors to debug pill via __debugPushError
+- Added per-file try/catch for month commit fetches with user-facing failure warning
+
+**High fixes (H1-H10):**
+- Added viewport-fit=cover and safe-area-inset padding for iOS notch/home indicator
+- Increased filter mode toggle button size (was 2px padding, now 6px + min-height)
+- Added security headers to vercel.json (X-Content-Type-Options, X-Frame-Options, Referrer-Policy)
+- Routed SW registration errors to debug pill
+- Wrapped Header, TabBar, FilterSidebar, DetailPane, SettingsPane in ErrorBoundary
+- Fixed TESTING_GUIDE (removed nonexistent dark mode toggle + private mode sections)
+- Updated CLAUDE.md dark mode status to "Implemented"
+- Updated USER_GUIDE.md theme section for light/dark support
+- Added Projects tab to QuickGuide onboarding
+
+**Medium fixes (M1-M16):**
+- Added 30s fetch timeout with user-friendly timeout error message
+- Cached tag style objects in module-level Map
+- Replaced duplicate work hours logic in useHealthData with getWorkPattern()
+- Added network status and theme to debug pill diagnostics
+- Wrapped UrgencyBar/ImpactBar in React.memo
+- Validated ?bg= param against hex regex
+- Removed token source from extract-api.js log
+- Replaced aria-hidden="true" with role="presentation" on all backdrop overlays
+
+**Low fixes (L1-L6):**
+- Added vertical clamping to heatmap tooltip
+- Increased loading timeout from 10s to 20s
+- Added explanatory comment for ISO week calculation
+
+---
+
+## 2026-04-02
+
+### Cross-project alignment with glow-props
+
+**Why:** Compared repo-tor's CLAUDE.md against glow-props' shared CLAUDE.md and suggested implementations. Found 24 actionable items across documentation, accessibility, infrastructure, theming, embedding, and extraction.
+
+**What (24 items completed):**
+
+**CLAUDE.md updates (1-4):**
+1. Fixed "class" → "component" terminology in Code Organization
+2. Added React-specific quality checks (dangerouslySetInnerHTML, missing keys, re-renders)
+3. Added build tools check to AI Notes
+4. Added QuickGuide sync note to AI Notes
+
+**Suggested Implementations restructure (5-7):**
+5. Extracted ~200 lines of inlined implementations to `docs/implementations/` (8 files)
+6. Added Burger Menu implementation reference
+7. Added Theme & Dark Mode implementation reference
+
+**HamburgerMenu accessibility & iOS fixes (8-13):**
+8. Added `cursor-pointer` on backdrop overlay for iOS Safari
+9. Added `useId()` for unique `aria-controls`
+10. Added `hasBeenOpenRef` focus guard
+11. Added `cancelAnimationFrame` cleanup
+12. Added `overscroll-contain` on menu card
+13. Switched from `role="menu"` to disclosure pattern (`nav`/`ul`/`li`)
+
+**Layout & Infrastructure (14-16):**
+14. Adopted z-index scale convention (CSS variables `--z-base` through `--z-debug`)
+15. Added safe localStorage wrappers (`safeStorageGet`/`safeStorageSet`/`safeStorageRemove`)
+16. Added `sharp` to devDependencies
+
+**Dark mode improvements (17-20):**
+17. Added full light theme CSS variables (`:root` = light, `html.dark` = dark override)
+18. Added flash prevention inline `<script>` in `<head>`
+19. Added cross-tab theme sync via `storage` event
+20. Added system preference fallback via `matchMedia`
+
+**Embedding & extraction (21-24):**
+21. Added `?data=<url>` query param for loading data from external URL
+22. Added Vite library build config (`vite.config.lib.js`, `js/lib.js`, `npm run build:lib`)
+23. Researched device/platform attribution — infeasible with native git data
+24. Added `--no-merges` CLI flag to `extract.js`
+
+---
+
 ## 2026-03-27
 
 ### Mobile UX improvements

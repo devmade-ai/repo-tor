@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState } from 'react';
 import { state as globalState, VIEW_LEVELS } from './state.js';
-import { getCommitTags, getAuthorEmail, getUrgencyLabel } from './utils.js';
+import { getCommitTags, getAuthorEmail, getUrgencyLabel, safeStorageGet, safeStorageSet } from './utils.js';
 
 // Requirement: Prevent unnecessary re-renders when components only need to dispatch actions
 // Approach: Split into two contexts — DispatchContext (stable identity, never changes) and
@@ -29,22 +29,32 @@ const DEFAULT_FILTERS = {
 function loadInitialState() {
     let savedFilters = null;
     try {
-        const saved = localStorage.getItem('dashboardFilters');
+        const saved = safeStorageGet('dashboardFilters');
         if (saved) savedFilters = JSON.parse(saved);
     } catch (e) { console.warn('Failed to read filters from localStorage:', e.message); }
 
+    // Requirement: Dark mode state must match the class applied by the flash
+    //   prevention script in index.html <head>. Read from localStorage with
+    //   system preference fallback — same logic as the inline script.
+    // Approach: Initial state reads darkMode from localStorage. If not set,
+    //   falls back to prefers-color-scheme media query. Persists on toggle.
+    const storedDark = safeStorageGet('darkMode');
+    const initialDarkMode = storedDark !== null
+        ? storedDark === 'true'
+        : document.documentElement.classList.contains('dark');
+
     return {
         data: null,
+        darkMode: initialDarkMode,
         activeTab: 'overview',
-        currentViewLevel: localStorage.getItem('viewLevel') || 'developer',
-        useUTC: localStorage.getItem('useUTC') === 'true',
-        workHourStart: parseInt(localStorage.getItem('workHourStart') || '8', 10),
-        workHourEnd: parseInt(localStorage.getItem('workHourEnd') || '17', 10),
+        currentViewLevel: safeStorageGet('viewLevel') || 'developer',
+        useUTC: safeStorageGet('useUTC') === 'true',
+        workHourStart: parseInt(safeStorageGet('workHourStart') || '8', 10),
+        workHourEnd: parseInt(safeStorageGet('workHourEnd') || '17', 10),
         detailPane: { open: false, title: '', subtitle: '', commits: [], filterInfo: null },
         filterSidebarOpen: false,
         settingsPaneOpen: false,
         filters: savedFilters || { ...DEFAULT_FILTERS },
-        commitListVisible: 100,
         // Requirement: Track commit loading state for time-windowed lazy loading
         // Approach: Separate commitsLoading flag so dashboard can show charts from
         //   pre-aggregated data while commits are still loading in background
@@ -57,7 +67,7 @@ function loadInitialState() {
 function reducer(state, action) {
     switch (action.type) {
         case 'LOAD_DATA':
-            return { ...state, data: action.payload, commitListVisible: 100 };
+            return { ...state, data: action.payload };
         // Requirement: Merge lazy-loaded commits into existing summary data
         // Approach: New action type merges commits array into state.data without
         //   replacing the summary/aggregation data already loaded
@@ -119,10 +129,8 @@ function reducer(state, action) {
             return { ...state, settingsPaneOpen: !state.settingsPaneOpen };
         case 'CLOSE_SETTINGS_PANE':
             return { ...state, settingsPaneOpen: false };
-        case 'SET_COMMIT_LIST_VISIBLE':
-            return { ...state, commitListVisible: action.payload };
-        case 'LOAD_MORE_COMMITS':
-            return { ...state, commitListVisible: state.commitListVisible + 100 };
+        case 'SET_DARK_MODE':
+            return { ...state, darkMode: action.payload };
         default:
             return state;
     }
@@ -248,22 +256,61 @@ export function AppProvider({ children }) {
 
     // Persist settings to localStorage
     useEffect(() => {
-        localStorage.setItem('viewLevel', state.currentViewLevel);
+        safeStorageSet('viewLevel', state.currentViewLevel);
     }, [state.currentViewLevel]);
     useEffect(() => {
-        localStorage.setItem('useUTC', String(state.useUTC));
+        safeStorageSet('useUTC', String(state.useUTC));
     }, [state.useUTC]);
     useEffect(() => {
-        localStorage.setItem('workHourStart', String(state.workHourStart));
-        localStorage.setItem('workHourEnd', String(state.workHourEnd));
+        safeStorageSet('workHourStart', String(state.workHourStart));
+        safeStorageSet('workHourEnd', String(state.workHourEnd));
     }, [state.workHourStart, state.workHourEnd]);
     useEffect(() => {
         try {
-            localStorage.setItem('dashboardFilters', JSON.stringify(state.filters));
+            safeStorageSet('dashboardFilters', JSON.stringify(state.filters));
         } catch (e) {
             console.warn('Failed to save filters to localStorage:', e.message);
         }
     }, [state.filters]);
+
+    // Apply dark mode to DOM and persist
+    useEffect(() => {
+        if (state.darkMode) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        safeStorageSet('darkMode', String(state.darkMode));
+    }, [state.darkMode]);
+
+    // Cross-tab sync: listen for darkMode changes from other tabs.
+    // The storage event only fires in OTHER tabs (not the one that wrote),
+    // so there's no infinite loop. Empty dependency array — listener lives
+    // for the entire component lifecycle. No stale closure issue because
+    // we dispatch unconditionally (reducer handles dedup).
+    useEffect(() => {
+        function handleStorage(e) {
+            if (e.key === 'darkMode' && e.newValue !== null) {
+                dispatch({ type: 'SET_DARK_MODE', payload: e.newValue === 'true' });
+            }
+        }
+        window.addEventListener('storage', handleStorage);
+        return () => window.removeEventListener('storage', handleStorage);
+    }, []);
+
+    // System preference fallback: track OS dark mode changes, but only when
+    // the user hasn't manually set a preference (no darkMode in localStorage).
+    // Once they toggle manually, their choice persists and OS changes are ignored.
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        function handleChange(e) {
+            if (safeStorageGet('darkMode') === null) {
+                dispatch({ type: 'SET_DARK_MODE', payload: e.matches });
+            }
+        }
+        mediaQuery.addEventListener('change', handleChange);
+        return () => mediaQuery.removeEventListener('change', handleChange);
+    }, []);
 
     // Helper to count active filters
     const activeFilterCount = useMemo(() => {

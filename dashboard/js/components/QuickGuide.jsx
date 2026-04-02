@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import useFocusTrap from '../hooks/useFocusTrap.js';
 import useEscapeKey from '../hooks/useEscapeKey.js';
+import { safeStorageGet, safeStorageSet } from '../utils.js';
 
 // Requirement: Provide a simple onboarding tutorial for non-technical users
 // Approach: 4-step modal with Next/Back navigation, auto-shows on first visit
@@ -22,7 +23,7 @@ const STEPS = [
     },
     {
         title: 'Explore the Tabs',
-        body: 'Use the tabs at the top to switch between views. Summary gives you the highlights, Timeline shows trends, Breakdown has detailed numbers, Health flags potential issues, and Discover reveals fun insights.',
+        body: 'Use the tabs at the top to switch between views. Summary gives you the highlights, Timeline shows trends, Breakdown has detailed numbers, Health flags potential issues, Discover reveals fun insights, and Projects shows all your repositories.',
         icon: (
             <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h7" />
@@ -93,7 +94,7 @@ export default function QuickGuide({ open, onClose }) {
     return (
         <>
             {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-            <div className="quick-guide-overlay" onClick={onClose} aria-hidden="true" />
+            <div className="quick-guide-overlay" onClick={onClose} role="presentation" />
             <div
                 ref={trapRef}
                 className="quick-guide-modal"
@@ -156,16 +157,10 @@ export default function QuickGuide({ open, onClose }) {
 
 /** Returns true if the user has never seen the quick guide */
 QuickGuide.shouldAutoShow = function () {
-    try {
-        return localStorage.getItem(STORAGE_KEY) !== 'true';
-    } catch {
-        return false;
-    }
+    return safeStorageGet(STORAGE_KEY) !== 'true';
 };
 
 /** Mark the quick guide as seen */
 QuickGuide.markSeen = function () {
-    try {
-        localStorage.setItem(STORAGE_KEY, 'true');
-    } catch { /* ignore */ }
+    safeStorageSet(STORAGE_KEY, 'true');
 };

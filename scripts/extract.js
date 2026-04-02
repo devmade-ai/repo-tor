@@ -8,7 +8,7 @@
  * NOTE: This script extracts RAW data only. Tags and complexity are left
  * empty for AI analysis via the @data persona (see DATA_OPERATIONS.md).
  *
- * Usage: node extract.js [repo-path] [--output=reports/]
+ * Usage: node extract.js [repo-path] [--output=reports/] [--no-merges]
  */
 
 import { execFileSync } from 'child_process';
@@ -21,10 +21,13 @@ import { toKebabCase, writeJson } from './lib/utils.js';
 const args = process.argv.slice(2);
 let repoPath = process.cwd();
 let outputDir = 'reports';
+let excludeMerges = false;
 
 args.forEach(arg => {
   if (arg.startsWith('--output=')) {
     outputDir = arg.split('=')[1];
+  } else if (arg === '--no-merges') {
+    excludeMerges = true;
   } else if (!arg.startsWith('--')) {
     repoPath = path.resolve(arg);
   }
@@ -64,7 +67,12 @@ function extractCommits() {
     '%b',      // body
   ].join('%n');
 
-  const logOutput = git(['log', '--all', `--pretty=format:${format}${delimiter}`]);
+  // Requirement: Optional merge commit filtering via --no-merges CLI flag
+  // Approach: Pass --no-merges to git log when flag is set. This excludes merge
+  //   commits at the git level, preventing double-counting in analytics.
+  const logArgs = ['log', '--all', `--pretty=format:${format}${delimiter}`];
+  if (excludeMerges) logArgs.push('--no-merges');
+  const logOutput = git(logArgs);
 
   if (!logOutput) {
     console.log('No commits found or git log failed');
@@ -127,7 +135,9 @@ function extractCommits() {
   //   - `git diff-tree --numstat`: Rejected — needs per-commit calls for boundary handling
   console.log(`Extracting stats for ${commits.length} commits (batched)...`);
 
-  const numstatOutput = git(['log', '--all', '--numstat', '--format=COMMIT_BOUNDARY:%H']);
+  const numstatArgs = ['log', '--all', '--numstat', '--format=COMMIT_BOUNDARY:%H'];
+  if (excludeMerges) numstatArgs.push('--no-merges');
+  const numstatOutput = git(numstatArgs);
   if (numstatOutput) {
     const statsByFullSha = new Map();
     let currentSha = null;

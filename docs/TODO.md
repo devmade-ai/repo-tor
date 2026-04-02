@@ -9,15 +9,13 @@ Remaining tasks for Git Analytics Reporting System.
 ## Backlog
 
 ### Embedding
-1. [ ] Optional: Accept data URL via `?data=` query param
-2. [ ] Optional: postMessage API for parent-to-iframe data push (resize messages already implemented)
-3. [ ] Optional: Vite library build for direct React component import
-4. [ ] Optional: Light theme CSS variables (currently only dark theme is fully defined)
+
+1. [ ] Optional: Vite library build — entry point and config exist (`js/lib.js`, `vite.config.lib.js`, `npm run build:lib`) but needs testing with a consumer project, documentation, and npm publish setup
 
 ### Research
-1. [ ] Device/platform attribution (mobile vs desktop commits)
-2. [ ] Merge commit filtering options
+
+1. [ ] Device/platform attribution — investigated 2026-04-02, git does not store device info natively. Proxy indicators (email domain, timezone, commit message patterns) are weak signals. Would require a separate heuristic analysis module. Low priority unless a strong use case emerges.
 
 ---
 
-*Last updated: 2026-03-03 - Documentation review completed; all doc-vs-code discrepancies fixed.*
+*Last updated: 2026-04-02 — All 24 cross-project alignment items completed. Moved completed items to HISTORY.md.*

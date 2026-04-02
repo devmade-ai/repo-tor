@@ -7,6 +7,8 @@ export function aggregateByWeekPeriod(commits) {
         if (!c.timestamp) return;
         const date = new Date(c.timestamp);
         const weekStart = new Date(date);
+        // ISO week: Monday is day 0. getDay() returns 0=Sunday, so (day + 6) % 7
+        // maps Sunday→6, Monday→0, Tuesday→1, etc. Subtracting gives the Monday.
         weekStart.setDate(date.getDate() - ((date.getDay() + 6) % 7));
         const key = weekStart.toISOString().substring(0, 10);
         if (!byWeek[key]) {

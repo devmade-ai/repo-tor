@@ -1,21 +1,35 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useApp } from '../AppContext.jsx';
-import { installPWA, applyUpdate, getPWAState } from '../pwa.js';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useApp, useAppDispatch } from '../AppContext.jsx';
+import { installPWA, applyUpdate, getPWAState, getInstallInstructions, supportsManualInstall, isInstalledPWA } from '../pwa.js';
 import HamburgerMenu from './HamburgerMenu.jsx';
 import QuickGuide from './QuickGuide.jsx';
+import InstallInstructionsModal from './InstallInstructionsModal.jsx';
 
 // Requirement: Clean, minimal header with hamburger menu for secondary actions
 // Approach: Keep filter toggle + settings as direct buttons (frequently used),
-//   move PDF/Install/Update/Guide into a hamburger menu to reduce clutter.
+//   move PDF/Install/Update/Guide/Theme into a data-driven hamburger menu.
+//   Items array constructed per the standard menu items table in BURGER_MENU.md.
 // Alternatives:
 //   - Keep all buttons visible: Rejected — too many buttons, especially on mobile
 //   - Tab bar with overflow: Rejected — confuses navigation tabs with actions
 
+// SVG icon helpers — kept inline to avoid extra component files for simple icons
+const icons = {
+    guide: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+    pdf: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>,
+    theme: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>,
+    install: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>,
+    update: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>,
+    book: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>,
+};
+
 export default function Header() {
-    const { state, dispatch, activeFilterCount, filteredCommits } = useApp();
+    const { state, activeFilterCount, filteredCommits } = useApp();
+    const { dispatch } = useAppDispatch();
     const [installReady, setInstallReady] = useState(false);
     const [updateAvailable, setUpdateAvailable] = useState(false);
     const [guideOpen, setGuideOpen] = useState(false);
+    const [installModalOpen, setInstallModalOpen] = useState(false);
 
     const repoName = state.data?.metadata?.repo_name;
     const totalCount = state.data?.commits?.length || 0;
@@ -27,13 +41,6 @@ export default function Header() {
         repoDisplay = Array.isArray(repoName) ? repoName.join(', ') : repoName;
     }
 
-    // Requirement: Make it clear when filters reduce the visible data set
-    // Approach: Show "Showing X of Y changes" when filtered, clickable to open filters.
-    //   Plain "Y changes" when no filters active.
-    // Alternatives:
-    //   - Always show total only: Rejected — hides that filters are active, confusing
-    //   - Badge/icon indicator: Rejected — less clear than explicit text for non-technical users
-    //   - Dismissible banner: Rejected — adds clutter; inline clickable text is less intrusive
     const handleOpenFilters = useCallback(() => {
         if (!state.filterSidebarOpen) {
             dispatch({ type: 'TOGGLE_FILTER_SIDEBAR' });
@@ -41,7 +48,8 @@ export default function Header() {
     }, [state.filterSidebarOpen, dispatch]);
 
     // Seed from pwa.js module state (catches events that fired before mount),
-    // then listen for subsequent changes.
+    // then listen for subsequent changes. Also show install option for browsers
+    // that support manual installation (Safari, Firefox) after a short delay.
     useEffect(() => {
         const current = getPWAState();
         if (current.installReady) setInstallReady(true);
@@ -55,10 +63,17 @@ export default function Header() {
         window.addEventListener('pwa-installed', handleInstalled);
         window.addEventListener('pwa-update-available', handleUpdateAvailable);
 
+        const manualTimeout = setTimeout(() => {
+            if (!getPWAState().installReady && supportsManualInstall()) {
+                setInstallReady(true);
+            }
+        }, 1000);
+
         return () => {
             window.removeEventListener('pwa-install-ready', handleInstallReady);
             window.removeEventListener('pwa-installed', handleInstalled);
             window.removeEventListener('pwa-update-available', handleUpdateAvailable);
+            clearTimeout(manualTimeout);
         };
     }, []);
 
@@ -73,22 +88,31 @@ export default function Header() {
     const handleInstall = useCallback(async () => {
         const prompted = await installPWA();
         if (!prompted) {
-            dispatch({ type: 'TOGGLE_SETTINGS_PANE' });
+            setInstallModalOpen(true);
         }
-    }, [dispatch]);
-
-    const handleUpdate = useCallback(() => {
-        applyUpdate();
     }, []);
 
-    const handleOpenGuide = useCallback(() => {
-        setGuideOpen(true);
-    }, []);
+    const handleToggleDarkMode = useCallback(() => {
+        dispatch({ type: 'SET_DARK_MODE', payload: !state.darkMode });
+    }, [state.darkMode, dispatch]);
 
     const handleCloseGuide = useCallback(() => {
         setGuideOpen(false);
         QuickGuide.markSeen();
     }, []);
+
+    // Requirement: Data-driven menu items per BURGER_MENU.md standard menu items table
+    // Approach: Build items array with visibility conditions. Menu renders only visible items.
+    // Alternatives:
+    //   - Hardcoded JSX per item in menu: Rejected — adding items requires component edits
+    const menuItems = useMemo(() => [
+        { label: 'Quick Guide', action: () => setGuideOpen(true), icon: icons.guide },
+        { label: 'User Guide', action: () => window.open('https://github.com/devmade-ai/repo-tor#readme', '_blank'), icon: icons.book, external: true },
+        { label: state.darkMode ? 'Light mode' : 'Dark mode', action: handleToggleDarkMode, icon: icons.theme, separator: true },
+        { label: 'Save as PDF', action: () => window.print(), icon: icons.pdf },
+        { label: 'Install App', action: handleInstall, icon: icons.install, visible: installReady && !isInstalledPWA(), separator: true },
+        { label: 'Check for Updates', action: () => applyUpdate(), icon: icons.update, visible: updateAvailable, highlight: true },
+    ], [state.darkMode, handleToggleDarkMode, handleInstall, installReady, updateAvailable, setGuideOpen]);
 
     return (
         <>
@@ -116,14 +140,7 @@ export default function Header() {
                             {updateAvailable && (
                                 <span className="hamburger-update-dot" title="Update available" />
                             )}
-                            <HamburgerMenu
-                                onOpenGuide={handleOpenGuide}
-                                onSavePDF={() => window.print()}
-                                onInstall={handleInstall}
-                                onUpdate={handleUpdate}
-                                installReady={installReady}
-                                updateAvailable={updateAvailable}
-                            />
+                            <HamburgerMenu items={menuItems} />
                             <button
                                 onClick={() => dispatch({ type: 'TOGGLE_FILTER_SIDEBAR' })}
                                 className={`filter-toggle relative ${state.filterSidebarOpen ? 'active' : ''}`}
@@ -167,6 +184,11 @@ export default function Header() {
                 </div>
             </header>
             <QuickGuide open={guideOpen} onClose={handleCloseGuide} />
+            <InstallInstructionsModal
+                isOpen={installModalOpen}
+                onClose={() => setInstallModalOpen(false)}
+                instructions={installModalOpen ? getInstallInstructions() : null}
+            />
         </>
     );
 }

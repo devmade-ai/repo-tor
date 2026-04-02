@@ -14,9 +14,14 @@
     if (!event.data || event.data.type !== 'repo-tor:resize') return;
 
     var height = event.data.height;
-    if (typeof height !== 'number' || height <= 0) return;
+    if (typeof height !== 'number' || height <= 0 || height > 50000) return;
 
-    // Find which iframe sent this message and resize it
+    // Requirement: Validate message source matches an iframe on this page
+    // Approach: Match event.source against iframe contentWindow before acting.
+    //   This ensures only messages from our own embedded iframes trigger resizes.
+    // Alternatives:
+    //   - Check event.origin: Rejected — embed URL varies per deployment
+    //   - Accept any message: Rejected — other scripts could trigger unwanted resizes
     var iframes = document.querySelectorAll('iframe');
     for (var i = 0; i < iframes.length; i++) {
       if (iframes[i].contentWindow === event.source) {

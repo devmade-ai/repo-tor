@@ -3,30 +3,104 @@
 /* Dark mode uses class-based approach (html.dark) */
 @custom-variant dark (&:where(.dark, .dark *));
 
-        /* Dark Theme */
+        /* Light Theme (default) */
+        /* Requirement: Support both light and dark themes via CSS variables
+           Approach: :root defines light theme, html.dark overrides with dark values.
+             The html element starts with class="dark" for backward compatibility
+             (existing users see dark by default). Flash prevention script in <head>
+             applies the correct class before first paint.
+           Alternatives:
+             - prefers-color-scheme media query only: Rejected — no manual toggle
+             - Separate stylesheet per theme: Rejected — doubles CSS, harder to maintain */
         :root {
-            color-scheme: dark;
+            color-scheme: light;
 
             /* Primary Palette */
             --color-primary: #2D68FF;
-            --color-background: #1B1B1B;
-            --color-foreground: #FFFFFF;
-            --color-card: #2a2a2a;
-            --color-secondary: #767676;
-            --color-border: #333333;
+            --color-background: #F8F9FA;
+            --color-foreground: #1a1a1a;
+            --color-card: #FFFFFF;
+            --color-secondary: #6b7280;
+            --color-border: #e5e7eb;
 
             /* Extended Palette */
-            --color-primary-dark: #121213;
-            --color-primary-light: #2a2a2a;
-            --color-secondary-dark: #333333;
-            --color-secondary-light: #222222;
+            --color-primary-dark: #1a4fd6;
+            --color-primary-light: #eef2ff;
+            --color-secondary-dark: #d1d5db;
+            --color-secondary-light: #f3f4f6;
 
             /* Semantic Colors */
             --color-success: #16A34A;
             --color-error: #EF4444;
             --color-warning: #EAB308;
 
-            /* Mapped Variables (for compatibility) */
+            /* Mapped Variables */
+            --bg-primary: #F8F9FA;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #f3f4f6;
+            --bg-hover: #f3f4f6;
+            --text-primary: #1a1a1a;
+            --text-secondary: #374151;
+            --text-tertiary: #6b7280;
+            --text-muted: #9ca3af;
+            --border-color: #e5e7eb;
+            --border-light: #f3f4f6;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --color-primary-alpha: rgba(45, 104, 255, 0.08);
+            --chart-grid: rgba(0, 0, 0, 0.08);
+
+            /* Spacing (8px base) */
+            --spacing-base: 8px;
+            --section-gap: 24px;
+            --card-gap: 16px;
+            --content-padding: 24px;
+
+            /* Z-Index Scale — standardized layers to prevent stacking conflicts.
+               See docs/implementations/BURGER_MENU.md for the full scale. */
+            --z-base: 10;
+            --z-sticky: 20;
+            --z-sticky-header: 21;
+            --z-drawer-backdrop: 28;
+            --z-drawer: 30;
+            --z-menu-backdrop: 40;
+            --z-menu: 50;
+            --z-modal-backdrop: 58;
+            --z-modal: 60;
+            --z-toast: 70;
+            --z-debug: 80;
+
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+
+            /* Fonts */
+            --font-sans: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+
+            /* Techy accents */
+            --glow-primary: 0 0 20px rgba(45, 104, 255, 0.15);
+            --glow-success: 0 0 15px rgba(22, 163, 74, 0.15);
+            --glow-warning: 0 0 15px rgba(234, 179, 8, 0.15);
+        }
+
+        /* Dark Theme Override — applied when html has class="dark" */
+        html.dark {
+            color-scheme: dark;
+
+            --color-background: #1B1B1B;
+            --color-foreground: #FFFFFF;
+            --color-card: #2a2a2a;
+            --color-secondary: #767676;
+            --color-border: #333333;
+
+            --color-primary-dark: #121213;
+            --color-primary-light: #2a2a2a;
+            --color-secondary-dark: #333333;
+            --color-secondary-light: #222222;
+
             --bg-primary: #1B1B1B;
             --bg-secondary: #2a2a2a;
             --bg-tertiary: #333333;
@@ -42,26 +116,17 @@
             --color-primary-alpha: rgba(45, 104, 255, 0.1);
             --chart-grid: rgba(255, 255, 255, 0.1);
 
-            /* Spacing (8px base) */
-            --spacing-base: 8px;
-            --section-gap: 24px;
-            --card-gap: 16px;
-            --content-padding: 24px;
-
-            /* Border Radius */
-            --radius-sm: 4px;
-            --radius-md: 8px;
-            --radius-lg: 12px;
-            --radius-full: 9999px;
-
-            /* Fonts */
-            --font-sans: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
-
-            /* Techy accents */
             --glow-primary: 0 0 20px rgba(45, 104, 255, 0.3);
             --glow-success: 0 0 15px rgba(22, 163, 74, 0.3);
             --glow-warning: 0 0 15px rgba(234, 179, 8, 0.3);
+        }
+
+        /* Safe area insets for devices with notch/home indicator */
+        body {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
         }
 
         /* Base styles */
@@ -97,12 +162,11 @@
         }
 
         /* Techy header accent */
-        /* z-index: 101 so the hamburger dropdown (z-index: 100, absolutely
-           positioned inside the header) renders above the sticky tabs-bar
-           (z-index: 100). Without this, the tabs-bar covers the dropdown. */
+        /* z-index: sticky-header (21) so the hamburger dropdown renders above
+           the sticky tabs-bar (z-index: sticky/20). */
         .dashboard-header {
             position: relative;
-            z-index: 101;
+            z-index: var(--z-sticky-header);
         }
         .dashboard-header::after {
             content: '';
@@ -136,22 +200,39 @@
             opacity: 0.85;
         }
 
-        /* Hamburger menu — dropdown for secondary header actions */
+        /* Hamburger menu — disclosure-pattern dropdown for secondary header actions.
+           Uses backdrop overlay (not click-outside hook) for iOS Safari compatibility.
+           See docs/implementations/BURGER_MENU.md for pattern details. */
         .hamburger-menu {
             position: relative;
+        }
+        /* Backdrop — cursor: pointer required for iOS Safari.
+           iOS does not fire click events on empty <div> elements without it. */
+        .hamburger-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: var(--z-menu-backdrop);
+            cursor: pointer;
         }
         .hamburger-dropdown {
             position: absolute;
             top: calc(100% + 6px);
             left: 0;
             min-width: 200px;
+            max-width: calc(100vw - 2rem);
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            z-index: 100;
+            z-index: var(--z-menu);
             padding: 4px 0;
+            overscroll-behavior: contain;
             animation: hamburger-fade-in 0.12s ease-out;
+        }
+        .hamburger-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
         @keyframes hamburger-fade-in {
             from { opacity: 0; transform: translateY(-4px); }
@@ -170,19 +251,45 @@
             cursor: pointer;
             text-align: left;
             transition: background 0.1s;
+            outline: none;
         }
         .hamburger-item:hover {
             background: var(--bg-hover);
         }
-        .hamburger-item svg {
+        .hamburger-item:focus-visible {
+            box-shadow: inset 0 0 0 2px var(--color-primary);
+        }
+        .hamburger-item-icon {
             flex-shrink: 0;
             color: var(--text-tertiary);
+            display: flex;
+        }
+        .hamburger-item-label {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .hamburger-item-external {
+            width: 12px;
+            height: 12px;
+            flex-shrink: 0;
+            opacity: 0.4;
         }
         .hamburger-item-highlight {
             color: var(--color-primary);
         }
-        .hamburger-item-highlight svg {
+        .hamburger-item-highlight .hamburger-item-icon {
             color: var(--color-primary);
+        }
+        .hamburger-item-destructive {
+            color: var(--color-error);
+        }
+        .hamburger-item-destructive .hamburger-item-icon {
+            color: var(--color-error);
+        }
+        .hamburger-item-destructive:hover {
+            background: rgba(239, 68, 68, 0.1);
         }
         .hamburger-divider {
             height: 1px;
@@ -214,7 +321,7 @@
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.6);
-            z-index: 998;
+            z-index: var(--z-modal-backdrop);
             animation: quick-guide-fade-in 0.2s ease-out;
         }
         @keyframes quick-guide-fade-in {
@@ -231,7 +338,7 @@
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg, 12px);
             box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
-            z-index: 999;
+            z-index: var(--z-modal);
             padding: 32px 28px 24px;
             animation: quick-guide-slide-in 0.25s ease-out;
         }
@@ -552,25 +659,170 @@
             height: 16px;
         }
 
-        /* Toast notification - dark theme */
-        .toast {
+        /* Toast notification system — context-based, stacking, auto-dismiss.
+           See docs/implementations/PWA_SYSTEM.md for the pattern. */
+        .toast-container {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-            padding: 12px 16px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            font-size: 14px;
-            z-index: 1000;
-            opacity: 0;
-            transform: translateY(16px);
-            transition: all 0.3s ease;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+            z-index: var(--z-toast);
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 8px;
+            max-width: 400px;
+            width: calc(100% - 32px);
+            pointer-events: none;
         }
-        .toast.show {
+        .toast-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            pointer-events: auto;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .toast-enter {
             opacity: 1;
             transform: translateY(0);
+        }
+        .toast-exit {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+        .toast-message {
+            flex: 1;
+        }
+        .toast-dismiss {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            opacity: 0.7;
+            font-size: 12px;
+            color: inherit;
+            margin: -8px -12px -8px 0;
+        }
+        .toast-dismiss:hover {
+            opacity: 1;
+        }
+        /* Toast type colors */
+        .toast-success {
+            background: var(--color-success);
+            color: #fff;
+        }
+        .toast-error {
+            background: var(--color-error);
+            color: #fff;
+        }
+        .toast-info {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .toast-warning {
+            background: var(--color-warning);
+            color: #1a1a1a;
+        }
+
+        /* Install instructions modal — data-driven, focus-trapped.
+           See docs/implementations/PWA_SYSTEM.md for the pattern. */
+        .install-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: var(--z-modal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .install-modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+        .install-modal {
+            position: relative;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+            max-width: 420px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 24px;
+        }
+        .install-modal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .install-modal-header svg {
+            color: var(--color-primary);
+            flex-shrink: 0;
+        }
+        .install-modal-steps {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .install-modal-step {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .install-modal-step-number {
+            width: 24px;
+            height: 24px;
+            background: var(--color-primary-alpha);
+            color: var(--color-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .install-modal-note {
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid rgba(234, 179, 8, 0.3);
+            border-radius: var(--radius-md);
+            padding: 10px 12px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: var(--color-warning);
+        }
+        .install-modal-benefits {
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+        }
+        .install-modal-benefits ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .install-modal-benefits li::before {
+            content: '\2713  ';
+            color: var(--color-success);
+        }
+        .install-modal-close {
+            width: 100%;
+            margin-top: 16px;
         }
 
         /* Icon buttons - dark theme */
@@ -657,7 +909,7 @@
         /* Custom heatmap tooltip (replaces native title for touch + instant response) */
         .heatmap-tooltip {
             position: fixed;
-            z-index: 1000;
+            z-index: var(--z-toast);
             pointer-events: none;
             background: var(--bg-secondary);
             color: var(--text-primary);
@@ -845,7 +1097,7 @@
             align-items: center;
             justify-content: center;
             border-radius: var(--radius-lg);
-            z-index: 10;
+            z-index: var(--z-base);
         }
         .card-loading {
             position: relative;
@@ -893,7 +1145,7 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
-            z-index: 998;
+            z-index: var(--z-drawer-backdrop);
         }
         .detail-pane-overlay.open {
             opacity: 1;
@@ -911,7 +1163,7 @@
             border-left: 1px solid var(--border-color);
             transform: translateX(100%);
             transition: transform 0.3s ease, visibility 0.3s ease;
-            z-index: 999;
+            z-index: var(--z-drawer);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -1054,7 +1306,7 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
-            z-index: 998;
+            z-index: var(--z-drawer-backdrop);
         }
         .settings-pane-overlay.open {
             opacity: 1;
@@ -1072,7 +1324,7 @@
             border-left: 1px solid var(--border-color);
             transform: translateX(100%);
             transition: transform 0.3s ease, visibility 0.3s ease;
-            z-index: 999;
+            z-index: var(--z-drawer);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -1264,7 +1516,7 @@
         .tabs-bar {
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: var(--z-sticky);
             background: var(--bg-primary);
             border-bottom: 1px solid var(--border-color);
         }
@@ -1365,8 +1617,9 @@
             margin-left: auto;
         }
         .filter-mode-toggle button {
-            padding: 2px 5px;
-            font-size: 8px;
+            padding: 6px 10px;
+            font-size: 10px;
+            min-height: 32px;
             border: 1px solid var(--border-color);
             background: var(--bg-tertiary);
             color: var(--text-tertiary);
@@ -1443,7 +1696,7 @@
             border: 1px solid var(--border-color);
             border-radius: var(--radius-sm);
             box-shadow: var(--shadow-lg);
-            z-index: 100;
+            z-index: var(--z-sticky);
             display: none;
         }
         .filter-multi-select-dropdown.open {
@@ -1492,7 +1745,7 @@
                 top: 0;
                 left: 0;
                 height: 100%;
-                z-index: 200;
+                z-index: var(--z-drawer);
                 width: 300px;
                 max-width: 85vw;
                 transform: translateX(-100%);
@@ -1517,7 +1770,7 @@
                 position: fixed;
                 inset: 0;
                 background: rgba(0, 0, 0, 0.8);
-                z-index: 199;
+                z-index: var(--z-drawer-backdrop);
                 opacity: 0;
                 visibility: hidden;
                 transition: all 0.3s ease;

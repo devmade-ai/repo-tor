@@ -25,6 +25,16 @@ When multiple files are loaded:
 
 **Tip:** Use the server-side aggregation script (`scripts/aggregate-processed.js`) for better author identity mapping when the same person uses different emails across repositories.
 
+### Loading from a URL
+
+You can point the dashboard at an external data file using the `?data=` URL parameter:
+
+```
+https://repo-tor.vercel.app/?data=https://example.com/my-data.json
+```
+
+Only `http://` and `https://` URLs are accepted. The dashboard will load the data from that URL instead of the built-in data file. If the URL is unreachable or the file is invalid, you'll see an error message with the option to upload a file instead.
+
 ## Settings Panel
 
 ## Header
@@ -34,7 +44,7 @@ The header shows the repository name and change count:
 - **Filters active:** `repo-name — Showing 1,234 of 5,000 changes · Filtered` (click to open filters)
 
 Three buttons appear on the right:
-- **Menu (☰)** — Opens a dropdown with Quick Guide, Save as PDF, Install App, and Check for Updates
+- **Menu (☰)** — Opens a dropdown with Quick Guide, User Guide (opens in new tab), Dark/Light mode toggle, Save as PDF, Install App (when available), and Check for Updates (when available)
 - **Filter** — Opens the filter sidebar (badge shows active filter count)
 - **Settings (⚙)** — Opens the settings panel
 
@@ -503,7 +513,7 @@ Shows how much effort went into multi-commit initiatives like feature builds or 
 
 ## Theme
 
-The dashboard uses a dark theme optimized for readability and reduced eye strain. Author names are always anonymized for privacy.
+The dashboard supports both light and dark themes. On first visit, it follows your system preference (dark or light mode). Your choice is remembered across visits and syncs across browser tabs. Author names are anonymized in the dashboard for privacy.
 
 ---
 

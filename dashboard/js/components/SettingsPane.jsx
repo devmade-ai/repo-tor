@@ -65,11 +65,10 @@ export default function SettingsPane() {
 
     return (
         <>
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
             <div
                 className={`settings-pane-overlay ${state.settingsPaneOpen ? 'open' : ''}`}
                 onClick={handleClose}
-                aria-hidden="true"
+                role="presentation"
             />
             <div
                 ref={trapRef}
