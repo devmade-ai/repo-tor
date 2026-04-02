@@ -1001,7 +1001,7 @@
       "timestamp": "2026-01-20T15:41:25+00:00",
       "commitDate": "2026-01-20T15:41:25+00:00",
       "subject": "feat: enhance comparison view with summary and winner indicators",
-      "body": "Add \"Quick Summary\" section at top of comparison view:\n- Shows best-for insights per option (e.g., \"Best for net profit and lower TP risk\")\n- Grid layout adapts to number of options being compared\n- Only displays when there are clear winners to report\n\nAdd winner indicators in comparison table:\n- ★ star icon marks best value for each metric\n- Green text and background highlighting for winning values\n- Smart detection avoids marking ties as winners\n\nCompletes Priority 3 of Negotiation Mode implementation:\n- Summary row in comparison view\n- Winner indicators per metric",
+      "body": "Add \"Quick Summary\" section at top of comparison view:\n- Shows best-for insights per option (e.g., \"Best for net profit and lower TP risk\")\n- Grid layout adapts to number of options being compared\n- Only displays when there are clear winners to report\n\nAdd winner indicators in comparison table:\n- \u2605 star icon marks best value for each metric\n- Green text and background highlighting for winning values\n- Smart detection avoids marking ties as winners\n\nCompletes Priority 3 of Negotiation Mode implementation:\n- Summary row in comparison view\n- Winner indicators per metric",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -1281,7 +1281,7 @@
       "timestamp": "2026-01-20T11:57:48+00:00",
       "commitDate": "2026-01-20T11:57:48+00:00",
       "subject": "docs: complete discovery session and document findings",
-      "body": "Applied Discovery Framework to understand actual tool usage:\n- Key finding: tool used WITH clients in live negotiations, not as back-office calculator\n- Actual users: tech-sales + non-technical exec + finance exec\n- Tool enters after discovery, during \"let's structure this together\"\n\nCreated DISCOVERY_FINDINGS.md with:\n- Full session documentation (People, Flow, Data, Why Now)\n- Gap analysis comparing findings vs current solution\n- 5 design principles derived from discovery\n- Plan: define negotiation mode → audit UI → create fix list\n\nUpdated TODO.md with high-priority alignment tasks\nUpdated SESSION_NOTES.md with current state and next steps",
+      "body": "Applied Discovery Framework to understand actual tool usage:\n- Key finding: tool used WITH clients in live negotiations, not as back-office calculator\n- Actual users: tech-sales + non-technical exec + finance exec\n- Tool enters after discovery, during \"let's structure this together\"\n\nCreated DISCOVERY_FINDINGS.md with:\n- Full session documentation (People, Flow, Data, Why Now)\n- Gap analysis comparing findings vs current solution\n- 5 design principles derived from discovery\n- Plan: define negotiation mode \u2192 audit UI \u2192 create fix list\n\nUpdated TODO.md with high-priority alignment tasks\nUpdated SESSION_NOTES.md with current state and next steps",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -4391,7 +4391,7 @@
       "timestamp": "2026-01-19T13:34:52+00:00",
       "commitDate": "2026-01-19T13:34:52+00:00",
       "subject": "feat: add heatmap, dark mode, and filter persistence",
-      "body": "- Add activity heatmap to Timing tab (24×7 hour/day grid)\n- Add dark mode toggle with system preference detection\n- Add localStorage persistence for filters, tab, and settings\n- Update documentation with new features\n\nImplements stretch goal (heatmap) and infrastructure items\n(dark mode, filter persistence) from TODO.md",
+      "body": "- Add activity heatmap to Timing tab (24\u00d77 hour/day grid)\n- Add dark mode toggle with system preference detection\n- Add localStorage persistence for filters, tab, and settings\n- Update documentation with new features\n\nImplements stretch goal (heatmap) and infrastructure items\n(dark mode, filter persistence) from TODO.md",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -4549,7 +4549,7 @@
       "timestamp": "2026-01-19T12:58:24+00:00",
       "commitDate": "2026-01-19T12:58:24+00:00",
       "subject": "refactor: replace vanity metrics with meaningful work metrics",
-      "body": "Remove commits/lines focus, add metrics that actually matter:\n\nSummary Cards:\n- Lines Added → Files Changed (scope)\n- Lines Removed → Avg Complexity (1-5)\n- Commits → Top Work Type (focus)\n\nExecutive Summary:\n- Commits → Features Built\n- Contributors → Bugs Fixed\n- Add Complexity + Files Touched with trends\n\nThe dashboard now shows what kind of work is being done,\nhow complex it is, and how much of the codebase is affected -\nnot vanity metrics like line counts.",
+      "body": "Remove commits/lines focus, add metrics that actually matter:\n\nSummary Cards:\n- Lines Added \u2192 Files Changed (scope)\n- Lines Removed \u2192 Avg Complexity (1-5)\n- Commits \u2192 Top Work Type (focus)\n\nExecutive Summary:\n- Commits \u2192 Features Built\n- Contributors \u2192 Bugs Fixed\n- Add Complexity + Files Touched with trends\n\nThe dashboard now shows what kind of work is being done,\nhow complex it is, and how much of the codebase is affected -\nnot vanity metrics like line counts.",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -4888,7 +4888,7 @@
       "timestamp": "2026-01-19T10:41:27+00:00",
       "commitDate": "2026-01-19T10:41:27+00:00",
       "subject": "feat: add Executive Summary tab with period comparison",
-      "body": "Add new Summary tab as default view for executive quick scanning:\n- Period selector (week/month/quarter vs previous)\n- Quick stats cards with trend indicators (↑/↓ %)\n- Work breakdown doughnut chart\n- Key highlights (top contributor, busiest day, etc.)\n- Activity snapshot (avg/day, after-hours, weekend, holiday)",
+      "body": "Add new Summary tab as default view for executive quick scanning:\n- Period selector (week/month/quarter vs previous)\n- Quick stats cards with trend indicators (\u2191/\u2193 %)\n- Work breakdown doughnut chart\n- Key highlights (top contributor, busiest day, etc.)\n- Activity snapshot (avg/day, after-hours, weekend, holiday)",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -5036,7 +5036,7 @@
       "timestamp": "2026-01-19T11:13:46+02:00",
       "commitDate": "2026-01-19T11:13:46+02:00",
       "subject": "feat: implement tag-based extraction with complexity scoring",
-      "body": "Phase 1 - extract.js:\n- Add CONVENTIONAL_TO_TAG mapping (feat→feature, fix→bugfix, etc.)\n- parseCommitMessage() returns tags[] array instead of single type\n- Add calculateComplexity() function (1-5 scale)\n- Summary outputs tagBreakdown and complexityBreakdown\n- Contributors/files track tagCounts instead of types\n\nPhase 4 - aggregate.js:\n- Tag-aware aggregation with tagCounts\n- Summary outputs tagBreakdown and complexityBreakdown\n- Monthly aggregation tracks tags per month\n\nData regenerated for repo-tor with new format.\nDocs updated (USER_GUIDE, HISTORY, SESSION_NOTES, TODO).\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "body": "Phase 1 - extract.js:\n- Add CONVENTIONAL_TO_TAG mapping (feat\u2192feature, fix\u2192bugfix, etc.)\n- parseCommitMessage() returns tags[] array instead of single type\n- Add calculateComplexity() function (1-5 scale)\n- Summary outputs tagBreakdown and complexityBreakdown\n- Contributors/files track tagCounts instead of types\n\nPhase 4 - aggregate.js:\n- Tag-aware aggregation with tagCounts\n- Summary outputs tagBreakdown and complexityBreakdown\n- Monthly aggregation tracks tags per month\n\nData regenerated for repo-tor with new format.\nDocs updated (USER_GUIDE, HISTORY, SESSION_NOTES, TODO).\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -5124,7 +5124,7 @@
       "timestamp": "2026-01-19T10:45:23+02:00",
       "commitDate": "2026-01-19T10:45:23+02:00",
       "subject": "docs: refocus on tag-based analytics with AI-driven extraction",
-      "body": "Shift tool focus to three core metrics:\n- When: timestamp analytics (hour, day, work hours, weekends)\n- What: AI-analyzed tags from commit messages (multiple per commit)\n- Complexity: score based on files changed + tag count\n\nAdd EXTRACTION_PLAYBOOK.md with \"feed the chicken\" trigger phrase.\nReorganize TODO.md around new direction (Foundation → Views → Polish).\nRemove completed items from TODO (tracked in HISTORY.md).\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "body": "Shift tool focus to three core metrics:\n- When: timestamp analytics (hour, day, work hours, weekends)\n- What: AI-analyzed tags from commit messages (multiple per commit)\n- Complexity: score based on files changed + tag count\n\nAdd EXTRACTION_PLAYBOOK.md with \"feed the chicken\" trigger phrase.\nReorganize TODO.md around new direction (Foundation \u2192 Views \u2192 Polish).\nRemove completed items from TODO (tracked in HISTORY.md).\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -7973,7 +7973,7 @@
       "timestamp": "2026-01-18T11:44:10+00:00",
       "commitDate": "2026-01-18T11:44:10+00:00",
       "subject": "docs: enhance Model 6 SaaS use cases with missing elements",
-      "body": "Technical corrections:\n- Add jurisdictional characterisation caveat (services vs royalties)\n- Note implementation cost capitalisation exception to OPEX claim\n- Correct 6G regulatory reference (SARB → POPIA/sector regulations)\n- Add PE implications note to 6G data residency\n\nNew content:\n- Add IP ownership guidance section for 6E customisations\n- Cross-reference 6I with Model 2F (white-label comparison)\n- Add \"Standard SaaS Contract Elements\" section covering:\n  - Service credits and downtime economics\n  - Data portability and exit rights\n  - Auto-renewal and termination mechanics\n  - Data ownership and usage rights\n\nSelection guide restructured:\n- Group into pricing variants (6A-6D) and combinable options\n- Show example enterprise combination (6B + 6F + 6G + 6H)\n- Add common mistakes for data portability, IP ownership, characterisation",
+      "body": "Technical corrections:\n- Add jurisdictional characterisation caveat (services vs royalties)\n- Note implementation cost capitalisation exception to OPEX claim\n- Correct 6G regulatory reference (SARB \u2192 POPIA/sector regulations)\n- Add PE implications note to 6G data residency\n\nNew content:\n- Add IP ownership guidance section for 6E customisations\n- Cross-reference 6I with Model 2F (white-label comparison)\n- Add \"Standard SaaS Contract Elements\" section covering:\n  - Service credits and downtime economics\n  - Data portability and exit rights\n  - Auto-renewal and termination mechanics\n  - Data ownership and usage rights\n\nSelection guide restructured:\n- Group into pricing variants (6A-6D) and combinable options\n- Show example enterprise combination (6B + 6F + 6G + 6H)\n- Add common mistakes for data portability, IP ownership, characterisation",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -8491,7 +8491,7 @@
       "timestamp": "2026-01-17T18:44:40+00:00",
       "commitDate": "2026-01-17T18:44:40+00:00",
       "subject": "Add Auto button to reset text alignment to cell default",
-      "body": "Previously, the only way to reset a per-element text alignment back to\nthe cell default was a small \"×\" button that was easy to miss. Now there\nis a dedicated \"Auto\" button (first in the alignment options) with a\nfaded icon that clearly shows when cell default is being used.",
+      "body": "Previously, the only way to reset a per-element text alignment back to\nthe cell default was a small \"\u00d7\" button that was easy to miss. Now there\nis a dedicated \"Auto\" button (first in the alignment options) with a\nfaded icon that clearly shows when cell default is being used.",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -8666,7 +8666,7 @@
       "timestamp": "2026-01-17T17:10:30+00:00",
       "commitDate": "2026-01-17T17:10:30+00:00",
       "subject": "Add UI refactor plan for workflow-based tabs",
-      "body": "Created docs/REFACTOR_PLAN.md with complete plan for:\n- New tab structure: Templates → Media → Content → Layout → Style\n- Templates as entry point (merged Quick Styles + Layouts)\n- Collapsible sections instead of nested sub-tabs\n- Content tab owning text placement controls\n- Style tab merging Theme + Fonts + Overlay + Spacing\n- Implementation order and migration guide\n\nUpdated SESSION_NOTES.md with session summary.",
+      "body": "Created docs/REFACTOR_PLAN.md with complete plan for:\n- New tab structure: Templates \u2192 Media \u2192 Content \u2192 Layout \u2192 Style\n- Templates as entry point (merged Quick Styles + Layouts)\n- Collapsible sections instead of nested sub-tabs\n- Content tab owning text placement controls\n- Style tab merging Theme + Fonts + Overlay + Spacing\n- Implementation order and migration guide\n\nUpdated SESSION_NOTES.md with session summary.",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -8700,7 +8700,7 @@
       "timestamp": "2026-01-17T16:39:08+00:00",
       "commitDate": "2026-01-17T16:39:08+00:00",
       "subject": "Clarify preset naming across documentation",
-      "body": "Rename preset types to avoid confusion:\n- Layout Presets → \"Layouts\" (20 grid templates)\n- Style Presets → \"Quick Styles\" (theme + font combinations)\n- Theme Presets → \"Themes\" (color schemes)\n\nAdded \"Preset Types (Naming Clarification)\" table to CLAUDE.md\nAdded \"Quick Styles\" section to README.md\nUpdated all references to use consistent terminology",
+      "body": "Rename preset types to avoid confusion:\n- Layout Presets \u2192 \"Layouts\" (20 grid templates)\n- Style Presets \u2192 \"Quick Styles\" (theme + font combinations)\n- Theme Presets \u2192 \"Themes\" (color schemes)\n\nAdded \"Preset Types (Naming Clarification)\" table to CLAUDE.md\nAdded \"Quick Styles\" section to README.md\nUpdated all references to use consistent terminology",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -9066,7 +9066,7 @@
       "timestamp": "2026-01-17T07:30:35+00:00",
       "commitDate": "2026-01-17T07:30:35+00:00",
       "subject": "Add per-text-element horizontal alignment",
-      "body": "Changes alignment from cell-level to text-level for horizontal alignment:\n- Each text element (title, tagline, etc.) can now have its own textAlign\n- Alignment fallback chain: element → cell → global\n- Keeps vertical alignment at cell level (appropriate for layout positioning)\n\nUse case: centered headline with left-aligned body text in same cell\n\nChanges:\n- useAdState.js: Add textAlign/textVerticalAlign to each text group\n- AdCanvas.jsx: Apply per-element alignment via alignSelf + textAlign\n- LayoutSelector.jsx: Add alignment buttons per text element in Placement tab\n- CLAUDE.md: Document new alignment architecture",
+      "body": "Changes alignment from cell-level to text-level for horizontal alignment:\n- Each text element (title, tagline, etc.) can now have its own textAlign\n- Alignment fallback chain: element \u2192 cell \u2192 global\n- Keeps vertical alignment at cell level (appropriate for layout positioning)\n\nUse case: centered headline with left-aligned body text in same cell\n\nChanges:\n- useAdState.js: Add textAlign/textVerticalAlign to each text group\n- AdCanvas.jsx: Apply per-element alignment via alignSelf + textAlign\n- LayoutSelector.jsx: Add alignment buttons per text element in Placement tab\n- CLAUDE.md: Document new alignment architecture",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -9850,7 +9850,7 @@
       "timestamp": "2026-01-17T00:24:41+02:00",
       "commitDate": "2026-01-17T00:24:41+02:00",
       "subject": "Add contextual micro-tips to overlay controls",
-      "body": "Tips appear in Image tab (Filters + Overlay sections) and Layout → Overlay tab,\nproviding real-time guidance based on current settings:\n- Overlay type-specific advice (solid, gradient, vignette)\n- Opacity range recommendations (low/mid/high)\n- Grayscale + overlay duotone technique hint\n- Blur usage tip for text legibility\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
+      "body": "Tips appear in Image tab (Filters + Overlay sections) and Layout \u2192 Overlay tab,\nproviding real-time guidance based on current settings:\n- Overlay type-specific advice (solid, gradient, vignette)\n- Opacity range recommendations (low/mid/high)\n- Grayscale + overlay duotone technique hint\n- Blur usage tip for text legibility\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -10027,7 +10027,7 @@
       "timestamp": "2026-01-16T20:10:24+00:00",
       "commitDate": "2026-01-16T20:10:24+00:00",
       "subject": "Consolidate accent colors to blue-only palette",
-      "body": "Replaced purple and amber accent colors with blue throughout the UI\nfor a more cohesive, professional look. Color system now uses:\n- Blue: primary actions, selection states, active UI\n- Green: visibility/enabled states (semantic)\n- Red: destructive actions and errors (semantic)\n\nChanges:\n- LayoutSelector: purple→blue for structure editing, cell selection\n- LayoutSelector: amber→blue for text group assignments\n- ImageUploader: amber→red for error messages (semantic correction)",
+      "body": "Replaced purple and amber accent colors with blue throughout the UI\nfor a more cohesive, professional look. Color system now uses:\n- Blue: primary actions, selection states, active UI\n- Green: visibility/enabled states (semantic)\n- Red: destructive actions and errors (semantic)\n\nChanges:\n- LayoutSelector: purple\u2192blue for structure editing, cell selection\n- LayoutSelector: amber\u2192blue for text group assignments\n- ImageUploader: amber\u2192red for error messages (semantic correction)",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -11355,7 +11355,7 @@
       "timestamp": "2026-01-14T00:28:26+00:00",
       "commitDate": "2026-01-14T00:28:26+00:00",
       "subject": "Overhaul Image tab UX - cleaner flow and collapsible sections",
-      "body": "- Reorganize section order: Upload → Remove → Settings → Effects → Logo\n- Add collapsible Section component with sensible defaults\n  - Settings: open by default\n  - Style Presets, Filters, Overlay: collapsed by default\n  - Logo: collapsed unless logo exists\n- Move Remove button immediately after upload area (was buried after Quick Layout)\n- Remove Quick Layout presets from Image tab (belongs in Layout tab)\n- Remove unused layout-related props from ImageUploader\n- Clean up imports (removed layout preset dependencies)",
+      "body": "- Reorganize section order: Upload \u2192 Remove \u2192 Settings \u2192 Effects \u2192 Logo\n- Add collapsible Section component with sensible defaults\n  - Settings: open by default\n  - Style Presets, Filters, Overlay: collapsed by default\n  - Logo: collapsed unless logo exists\n- Move Remove button immediately after upload area (was buried after Quick Layout)\n- Remove Quick Layout presets from Image tab (belongs in Layout tab)\n- Remove unused layout-related props from ImageUploader\n- Clean up imports (removed layout preset dependencies)",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -15016,7 +15016,7 @@
       "timestamp": "2026-01-10T01:57:05+00:00",
       "commitDate": "2026-01-10T01:57:05+00:00",
       "subject": "refactor: complete removal of Combined/Shareholder perspective references",
-      "body": "Code changes:\n- Remove 'combined' perspective fallbacks in perspective-toggle.js\n- Remove combined projection generation in growth-projections.js\n- Remove consolidation rendering in compliance-analyzer.js\n- Remove consolidation fields from all 6 model files\n- Remove unused 'combined' parameter from tax position calculation\n- Update keyboard shortcuts display (removed 'C' key)\n\nDocumentation updates:\n- Update README.md to show two-perspective analysis\n- Update BUSINESS_GUIDE.md to remove shareholder view references\n- Update MANUAL_TESTING_GUIDE.md to remove shareholder testing\n- Remove Shareholder Perspective sections from all model concept docs\n- Update registry.js and results-display.js comments\n- Delete completed REFACTOR_PLAN_REMOVE_COMBINED.md\n\nTerminology updates:\n- 'three perspectives' → 'two perspectives'\n- 'Net Effect' references removed\n- 'combined asset maximisation' → clearer client-focused language",
+      "body": "Code changes:\n- Remove 'combined' perspective fallbacks in perspective-toggle.js\n- Remove combined projection generation in growth-projections.js\n- Remove consolidation rendering in compliance-analyzer.js\n- Remove consolidation fields from all 6 model files\n- Remove unused 'combined' parameter from tax position calculation\n- Update keyboard shortcuts display (removed 'C' key)\n\nDocumentation updates:\n- Update README.md to show two-perspective analysis\n- Update BUSINESS_GUIDE.md to remove shareholder view references\n- Update MANUAL_TESTING_GUIDE.md to remove shareholder testing\n- Remove Shareholder Perspective sections from all model concept docs\n- Update registry.js and results-display.js comments\n- Delete completed REFACTOR_PLAN_REMOVE_COMBINED.md\n\nTerminology updates:\n- 'three perspectives' \u2192 'two perspectives'\n- 'Net Effect' references removed\n- 'combined asset maximisation' \u2192 clearer client-focused language",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -15954,7 +15954,7 @@
       "timestamp": "2026-01-09T19:38:11+00:00",
       "commitDate": "2026-01-09T19:38:11+00:00",
       "subject": "Refactor testing to workflow-based logical assertions",
-      "body": "Replace numerical math tests with readable workflow-based tests that verify\ndisplayed values are logically correct based on user actions and inputs.\n\nChanges:\n- Create ASSERTIONS library with reusable logical checks\n- Each assertion has: field name, readable logic formula, description\n- Define WORKFLOW_SCENARIOS that read like user stories\n- Tests now verify \"Developer Revenue = Cost × (1 + Markup)\" logic\n- Not testing math (1000 × 1.1 = 1100), testing business logic\n- Update UI to display stories, workflow badges, and assertion formulas",
+      "body": "Replace numerical math tests with readable workflow-based tests that verify\ndisplayed values are logically correct based on user actions and inputs.\n\nChanges:\n- Create ASSERTIONS library with reusable logical checks\n- Each assertion has: field name, readable logic formula, description\n- Define WORKFLOW_SCENARIOS that read like user stories\n- Tests now verify \"Developer Revenue = Cost \u00d7 (1 + Markup)\" logic\n- Not testing math (1000 \u00d7 1.1 = 1100), testing business logic\n- Update UI to display stories, workflow badges, and assertion formulas",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -16357,7 +16357,7 @@
       "timestamp": "2026-01-09T14:39:40+00:00",
       "commitDate": "2026-01-09T14:39:40+00:00",
       "subject": "Add version tracking diff view and cost estimation helper",
-      "body": "Implements the remaining usage scenario priorities:\n\nPriority 4 - Save & Iterate:\n- Added diff-view.js: Shows what changed between two saved options\n- Displays input changes, setting changes, and result impact\n- Visual badges for added/removed/changed fields\n- \"What Changed?\" button in comparison manager (requires 2 selections)\n\nPriority 6 - Cost Estimation Helper:\n- Added cost-estimator.js: Hours × rate calculator\n- Phase breakdown (Discovery, Design, Development, Testing, Deployment)\n- Contingency percentage calculation\n- \"Use Estimate\" button populates calculator inputs\n- Link added to input form section\n\nUpdated USAGE_SCENARIOS_REVIEW.md:\n- All 6 priorities now marked as implemented\n- Updated workflow step ratings to reflect current state\n- Added implementation summary with file locations",
+      "body": "Implements the remaining usage scenario priorities:\n\nPriority 4 - Save & Iterate:\n- Added diff-view.js: Shows what changed between two saved options\n- Displays input changes, setting changes, and result impact\n- Visual badges for added/removed/changed fields\n- \"What Changed?\" button in comparison manager (requires 2 selections)\n\nPriority 6 - Cost Estimation Helper:\n- Added cost-estimator.js: Hours \u00d7 rate calculator\n- Phase breakdown (Discovery, Design, Development, Testing, Deployment)\n- Contingency percentage calculation\n- \"Use Estimate\" button populates calculator inputs\n- Link added to input form section\n\nUpdated USAGE_SCENARIOS_REVIEW.md:\n- All 6 priorities now marked as implemented\n- Updated workflow step ratings to reflect current state\n- Added implementation summary with file locations",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -16508,7 +16508,7 @@
       "timestamp": "2026-01-09T11:08:10+00:00",
       "commitDate": "2026-01-09T11:08:10+00:00",
       "subject": "Update claude.md with accurate stats and missing features",
-      "body": "- Update module count: ~35 → ~40 modules\n- Update line count: ~12,000 → ~28,000 lines\n- Remove reference to non-existent IMPLEMENTATION_ROADMAP.md\n- Remove obsolete \"13 phases completed\" claim\n- Add Options Overview feature documentation\n- Add Compare Mode feature documentation\n- Add USAGE_SCENARIOS_REVIEW.md to file structure",
+      "body": "- Update module count: ~35 \u2192 ~40 modules\n- Update line count: ~12,000 \u2192 ~28,000 lines\n- Remove reference to non-existent IMPLEMENTATION_ROADMAP.md\n- Remove obsolete \"13 phases completed\" claim\n- Add Options Overview feature documentation\n- Add Compare Mode feature documentation\n- Add USAGE_SCENARIOS_REVIEW.md to file structure",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -16642,7 +16642,7 @@
       "timestamp": "2026-01-09T07:41:11+00:00",
       "commitDate": "2026-01-09T07:41:11+00:00",
       "subject": "Update documentation to reflect current codebase",
-      "body": "- Add 5 missing files to claude.md file structure:\n  - ui/intercompany/party-selector.js (Party relationship selector)\n  - ui/intercompany/options-overview.js (Options Overview grid)\n  - ui/intercompany/comparison-manager.js (Compare Mode saved options)\n  - ui/intercompany/comparison-view.js (Compare Mode side-by-side view)\n  - utils/storage.js (localStorage persistence)\n- Fix docs/ references: IMPLEMENTATION_ROADMAP.md → IMPLEMENTATION_PLAN.md\n- Remove references to non-existent PHASE_0_PREPARATION.md\n- Update module count: 16 modules → ~35 modules (~12,000 lines)",
+      "body": "- Add 5 missing files to claude.md file structure:\n  - ui/intercompany/party-selector.js (Party relationship selector)\n  - ui/intercompany/options-overview.js (Options Overview grid)\n  - ui/intercompany/comparison-manager.js (Compare Mode saved options)\n  - ui/intercompany/comparison-view.js (Compare Mode side-by-side view)\n  - utils/storage.js (localStorage persistence)\n- Fix docs/ references: IMPLEMENTATION_ROADMAP.md \u2192 IMPLEMENTATION_PLAN.md\n- Remove references to non-existent PHASE_0_PREPARATION.md\n- Update module count: 16 modules \u2192 ~35 modules (~12,000 lines)",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -17698,7 +17698,7 @@
       "timestamp": "2026-01-08T13:10:50+00:00",
       "commitDate": "2026-01-08T13:10:50+00:00",
       "subject": "Update documentation to reflect new tool scope",
-      "body": "docs/README.md:\n- Rename to \"Software Transaction Structuring Tool\"\n- Update perspectives: Developer/Buyer/Combined → Your Company/Client/Net Effect\n- Update model status (all implemented)\n- Remove \"inter-company\" framing\n\ndocs/BUSINESS_GUIDE.md:\n- Update title and target audience\n- Reframe purpose: software company + any client\n- Add scope clarification (works for ANY client, consolidated accounting not in scope)\n- Update key sections: capabilities, who should use it, two modes\n- Update model descriptions with Your Company/Client terminology",
+      "body": "docs/README.md:\n- Rename to \"Software Transaction Structuring Tool\"\n- Update perspectives: Developer/Buyer/Combined \u2192 Your Company/Client/Net Effect\n- Update model status (all implemented)\n- Remove \"inter-company\" framing\n\ndocs/BUSINESS_GUIDE.md:\n- Update title and target audience\n- Reframe purpose: software company + any client\n- Add scope clarification (works for ANY client, consolidated accounting not in scope)\n- Update key sections: capabilities, who should use it, two modes\n- Update model descriptions with Your Company/Client terminology",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -17732,7 +17732,7 @@
       "timestamp": "2026-01-08T13:05:54+00:00",
       "commitDate": "2026-01-08T13:05:54+00:00",
       "subject": "Update wizard: remove consolidation question, update terminology",
-      "body": "- Remove 'consolidation' from QUESTION_ORDER (out of scope)\n- Update all wizard labels: Buyer → Client, Developer → Your company\n- Update descriptions to use \"you/your\" instead of \"Developer\"\n- Keep consolidation factor definition for backwards compatibility but it's no longer used",
+      "body": "- Remove 'consolidation' from QUESTION_ORDER (out of scope)\n- Update all wizard labels: Buyer \u2192 Client, Developer \u2192 Your company\n- Update descriptions to use \"you/your\" instead of \"Developer\"\n- Keep consolidation factor definition for backwards compatibility but it's no longer used",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -17765,7 +17765,7 @@
       "timestamp": "2026-01-08T11:44:33+00:00",
       "commitDate": "2026-01-08T11:44:33+00:00",
       "subject": "Clarify tool scope: software company + any client, not inter-company focus",
-      "body": "- Change default from related parties to independent parties\n- Remove consolidation options from entity config UI (out of scope)\n- Rename \"Developer Entity\" to \"Your Company\", \"Buyer Entity\" to \"Client\"\n- Update \"Combined\" perspective to \"Net Effect\" with simplified view\n- Remove consolidation elimination section from results display\n- Update terminology throughout: \"Inter-Company Tool\" → \"Transaction Structuring Tool\"\n- Update documentation (claude.md) to reflect correct scope\n\nThe tool is for a software company to compare transaction models with ANY client\n(related or not) to maximize value for both parties on projects/products.\nConsolidated accounting is explicitly NOT in scope.",
+      "body": "- Change default from related parties to independent parties\n- Remove consolidation options from entity config UI (out of scope)\n- Rename \"Developer Entity\" to \"Your Company\", \"Buyer Entity\" to \"Client\"\n- Update \"Combined\" perspective to \"Net Effect\" with simplified view\n- Remove consolidation elimination section from results display\n- Update terminology throughout: \"Inter-Company Tool\" \u2192 \"Transaction Structuring Tool\"\n- Update documentation (claude.md) to reflect correct scope\n\nThe tool is for a software company to compare transaction models with ANY client\n(related or not) to maximize value for both parties on projects/products.\nConsolidated accounting is explicitly NOT in scope.",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -18146,7 +18146,7 @@
       "timestamp": "2026-01-08T07:45:41+00:00",
       "commitDate": "2026-01-08T07:45:41+00:00",
       "subject": "Update documentation to reflect info icon styling changes",
-      "body": "- Change references from \"?\" to \"ⓘ\" (info icon) in all docs\n- Update UI_UX_GUIDE.md tooltip section and changelog\n- Update HISTORY.md tooltip system description\n- Update README.md help system description",
+      "body": "- Change references from \"?\" to \"\u24d8\" (info icon) in all docs\n- Update UI_UX_GUIDE.md tooltip section and changelog\n- Update HISTORY.md tooltip system description\n- Update README.md help system description",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -20224,7 +20224,7 @@
       "timestamp": "2026-01-06T12:05:07+00:00",
       "commitDate": "2026-01-06T12:05:07+00:00",
       "subject": "Comprehensive UI/UX improvements for better accessibility and usability",
-      "body": "## Accessibility Enhancements\n- Added ARIA attributes (role, aria-modal, aria-labelledby, aria-describedby)\n- Implemented keyboard navigation with ESC key support for modals\n- Added focus management and restoration for modal dialogs\n- Enhanced focus states with visible indicators across all interactive elements\n- Added aria-live regions for toast notifications and validation feedback\n\n## Mobile Optimizations\n- Implemented sticky calculate button for mobile (stays visible while scrolling)\n- Increased touch target sizes to 44px minimum (iOS guidelines)\n- Added responsive font sizing (16px minimum to prevent iOS zoom)\n- Improved spacing and padding for mobile devices\n- Enhanced responsive grid layout (1-column mobile, 3-column desktop)\n\n## Form Improvements\n- Added collapsible form sections (Pricing, Seller Costs, Buyer Value)\n- Implemented inline validation with real-time feedback\n- Enhanced input hints with icon indicators (💡)\n- Added success indicators (✓) for valid inputs\n- Improved error messages with helpful suggestions\n\n## Visual Feedback\n- Implemented toast notification system (success, error, warning, info)\n- Added loading states with spinner animation for calculate button\n- Enhanced empty state with visual hierarchy and icons\n- Improved validation warnings with color-coded severity\n- Added smooth animations (slide-in, fade-in) throughout\n\n## Keyboard Shortcuts\n- Ctrl/Cmd + Enter: Calculate equilibrium\n- ESC: Close modal dialogs\n- ?: Show keyboard shortcuts help\n- Tab: Navigate between fields\n- Added keyboard shortcut hints in UI\n\n## Design System Updates\n- Improved visual hierarchy with better spacing and typography\n- Added consistent color palette for semantic states\n- Enhanced focus states with box-shadow indicators\n- Implemented section dividers for better content separation\n- Added hover effects for metric cards and interactive elements\n\n## Documentation\n- Created comprehensive UI_UX_GUIDE.md with all features documented\n- Updated README.md to highlight new accessibility features\n- Documented all keyboard shortcuts and interaction patterns\n- Added best practices for accessibility and mobile UX\n\n## Technical Improvements\n- Refactored form generation for better maintainability\n- Added validateInputField utility for inline validation\n- Implemented showToast utility for consistent notifications\n- Enhanced modal keyboard handling with event listeners\n- Improved error handling with try-catch and user-friendly messages\n\nAll changes maintain backward compatibility and enhance the user experience\nwithout breaking existing functionality.",
+      "body": "## Accessibility Enhancements\n- Added ARIA attributes (role, aria-modal, aria-labelledby, aria-describedby)\n- Implemented keyboard navigation with ESC key support for modals\n- Added focus management and restoration for modal dialogs\n- Enhanced focus states with visible indicators across all interactive elements\n- Added aria-live regions for toast notifications and validation feedback\n\n## Mobile Optimizations\n- Implemented sticky calculate button for mobile (stays visible while scrolling)\n- Increased touch target sizes to 44px minimum (iOS guidelines)\n- Added responsive font sizing (16px minimum to prevent iOS zoom)\n- Improved spacing and padding for mobile devices\n- Enhanced responsive grid layout (1-column mobile, 3-column desktop)\n\n## Form Improvements\n- Added collapsible form sections (Pricing, Seller Costs, Buyer Value)\n- Implemented inline validation with real-time feedback\n- Enhanced input hints with icon indicators (\ud83d\udca1)\n- Added success indicators (\u2713) for valid inputs\n- Improved error messages with helpful suggestions\n\n## Visual Feedback\n- Implemented toast notification system (success, error, warning, info)\n- Added loading states with spinner animation for calculate button\n- Enhanced empty state with visual hierarchy and icons\n- Improved validation warnings with color-coded severity\n- Added smooth animations (slide-in, fade-in) throughout\n\n## Keyboard Shortcuts\n- Ctrl/Cmd + Enter: Calculate equilibrium\n- ESC: Close modal dialogs\n- ?: Show keyboard shortcuts help\n- Tab: Navigate between fields\n- Added keyboard shortcut hints in UI\n\n## Design System Updates\n- Improved visual hierarchy with better spacing and typography\n- Added consistent color palette for semantic states\n- Enhanced focus states with box-shadow indicators\n- Implemented section dividers for better content separation\n- Added hover effects for metric cards and interactive elements\n\n## Documentation\n- Created comprehensive UI_UX_GUIDE.md with all features documented\n- Updated README.md to highlight new accessibility features\n- Documented all keyboard shortcuts and interaction patterns\n- Added best practices for accessibility and mobile UX\n\n## Technical Improvements\n- Refactored form generation for better maintainability\n- Added validateInputField utility for inline validation\n- Implemented showToast utility for consistent notifications\n- Enhanced modal keyboard handling with event listeners\n- Improved error handling with try-catch and user-friendly messages\n\nAll changes maintain backward compatibility and enhance the user experience\nwithout breaking existing functionality.",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -20297,7 +20297,7 @@
       "timestamp": "2026-01-06T08:42:29+00:00",
       "commitDate": "2026-01-06T08:42:29+00:00",
       "subject": "Streamline documentation structure - remove outdated files and create business guide",
-      "body": "This commit simplifies the project's documentation structure by:\n\nREMOVED (5 outdated files):\n- FRAMEWORK_ALIGNMENT_PLAN.md (described different system)\n- QUICK_START_ALIGNMENT.md (planned features that were simplified)\n- IMPLEMENTATION_PROGRESS.md (outdated file references)\n- SIMPLIFICATION_SUMMARY.md (historical context only)\n- TODO_REMAINING_WORK.md (merged into HISTORY.md)\n\nUPDATED (3 files):\n- README.md: Simplified to 106 lines (from 270), focused on quick overview\n- claude.md: Added documentation structure section, designated as primary technical reference\n- HISTORY.md: Added entry for documentation cleanup, designated as ongoing changelog\n\nCREATED (1 file):\n- BUSINESS_GUIDE.md: Comprehensive 800+ line user guide with detailed pricing model explanations, tutorials, examples, and best practices\n\nNew Documentation Structure:\n├── README.md         # Quick overview (business users)\n├── BUSINESS_GUIDE.md # Detailed user guide (business users)\n├── CALCULATIONS.md   # Formula explanations (technical users)\n├── claude.md         # Architecture & dev guide (developers/AI)\n└── HISTORY.md        # Ongoing changelog (developers)\n\nBenefits:\n- Clear separation between business and technical documentation\n- Reduced redundancy (removed 1,800+ lines of duplicate content)\n- claude.md and HISTORY.md designated as primary living documents\n- Easier maintenance with fewer files to keep updated\n- Better onboarding for both business users and developers",
+      "body": "This commit simplifies the project's documentation structure by:\n\nREMOVED (5 outdated files):\n- FRAMEWORK_ALIGNMENT_PLAN.md (described different system)\n- QUICK_START_ALIGNMENT.md (planned features that were simplified)\n- IMPLEMENTATION_PROGRESS.md (outdated file references)\n- SIMPLIFICATION_SUMMARY.md (historical context only)\n- TODO_REMAINING_WORK.md (merged into HISTORY.md)\n\nUPDATED (3 files):\n- README.md: Simplified to 106 lines (from 270), focused on quick overview\n- claude.md: Added documentation structure section, designated as primary technical reference\n- HISTORY.md: Added entry for documentation cleanup, designated as ongoing changelog\n\nCREATED (1 file):\n- BUSINESS_GUIDE.md: Comprehensive 800+ line user guide with detailed pricing model explanations, tutorials, examples, and best practices\n\nNew Documentation Structure:\n\u251c\u2500\u2500 README.md         # Quick overview (business users)\n\u251c\u2500\u2500 BUSINESS_GUIDE.md # Detailed user guide (business users)\n\u251c\u2500\u2500 CALCULATIONS.md   # Formula explanations (technical users)\n\u251c\u2500\u2500 claude.md         # Architecture & dev guide (developers/AI)\n\u2514\u2500\u2500 HISTORY.md        # Ongoing changelog (developers)\n\nBenefits:\n- Clear separation between business and technical documentation\n- Reduced redundancy (removed 1,800+ lines of duplicate content)\n- claude.md and HISTORY.md designated as primary living documents\n- Easier maintenance with fewer files to keep updated\n- Better onboarding for both business users and developers",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -20652,7 +20652,7 @@
       "timestamp": "2026-01-05T22:46:34+00:00",
       "commitDate": "2026-01-05T22:46:34+00:00",
       "subject": "Add simplification documentation and remaining work tracking",
-      "body": "This commit adds comprehensive documentation about the pricing calculator simplification:\n\n1. SIMPLIFICATION_SUMMARY.md\n   - Details what changed from complex to simple\n   - Documents the new 5-model approach\n   - Explains the equilibrium analysis concept\n   - Provides before/after comparison\n   - Lists files modified/created\n\n2. TODO_REMAINING_WORK.md\n   - Tracks completed work (core models, calculations, results display)\n   - Lists remaining UI integration tasks\n   - Provides testing checklist\n   - Includes quick implementation guide\n   - Describes expected final user experience\n\nCore simplification is complete:\n✅ Models reduced from 20 to 5\n✅ Static unit economics (no growth projections)\n✅ Seller/buyer/equilibrium analysis implemented\n✅ SA pricing defaults created\n✅ New results display component built\n✅ README updated\n\nRemaining work:\n⏳ Update UI (index.html, forms.js, initialization.js)\n⏳ Update charts for static data\n⏳ Remove unused files\n⏳ End-to-end testing",
+      "body": "This commit adds comprehensive documentation about the pricing calculator simplification:\n\n1. SIMPLIFICATION_SUMMARY.md\n   - Details what changed from complex to simple\n   - Documents the new 5-model approach\n   - Explains the equilibrium analysis concept\n   - Provides before/after comparison\n   - Lists files modified/created\n\n2. TODO_REMAINING_WORK.md\n   - Tracks completed work (core models, calculations, results display)\n   - Lists remaining UI integration tasks\n   - Provides testing checklist\n   - Includes quick implementation guide\n   - Describes expected final user experience\n\nCore simplification is complete:\n\u2705 Models reduced from 20 to 5\n\u2705 Static unit economics (no growth projections)\n\u2705 Seller/buyer/equilibrium analysis implemented\n\u2705 SA pricing defaults created\n\u2705 New results display component built\n\u2705 README updated\n\nRemaining work:\n\u23f3 Update UI (index.html, forms.js, initialization.js)\n\u23f3 Update charts for static data\n\u23f3 Remove unused files\n\u23f3 End-to-end testing",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -20792,7 +20792,7 @@
       "timestamp": "2026-01-05T21:41:00+02:00",
       "commitDate": "2026-01-05T21:41:00+02:00",
       "subject": "Fix comprehensive duplicate declaration errors in dependency injection",
-      "body": "Resolved SyntaxError: Identifier has already been declared for 5 functions\nthat were incorrectly self-injected in ui/initialization.js module.\n\nRoot Cause:\n- Functions defined in initialization.js were forward-declared AND exported\n- app.js was injecting initialization functions back into initialization.js\n- This violated the dependency injection pattern: only inject from OTHER modules\n\nFunctions Fixed:\n- generateModelCheckboxes\n- updateSelectedSummary\n- updateCalculateButton\n- onModelSelectionChange\n- updateInputForms\n\nChanges:\n- ui/initialization.js: Removed 5 self-references from forward declarations\n- app.js: Removed 5 self-injection calls from setUIHandlers\n- claude.md: Updated documentation with comprehensive fix details\n\nCorrect Pattern:\n✅ Inject admin.generateAdminPanel into initialization.js (cross-module)\n✅ Inject events.onInputChange into initialization.js (cross-module)\n❌ Inject initialization.generateModelCheckboxes into itself (self-reference)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
+      "body": "Resolved SyntaxError: Identifier has already been declared for 5 functions\nthat were incorrectly self-injected in ui/initialization.js module.\n\nRoot Cause:\n- Functions defined in initialization.js were forward-declared AND exported\n- app.js was injecting initialization functions back into initialization.js\n- This violated the dependency injection pattern: only inject from OTHER modules\n\nFunctions Fixed:\n- generateModelCheckboxes\n- updateSelectedSummary\n- updateCalculateButton\n- onModelSelectionChange\n- updateInputForms\n\nChanges:\n- ui/initialization.js: Removed 5 self-references from forward declarations\n- app.js: Removed 5 self-injection calls from setUIHandlers\n- claude.md: Updated documentation with comprehensive fix details\n\nCorrect Pattern:\n\u2705 Inject admin.generateAdminPanel into initialization.js (cross-module)\n\u2705 Inject events.onInputChange into initialization.js (cross-module)\n\u274c Inject initialization.generateModelCheckboxes into itself (self-reference)\n\n\ud83e\udd16 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -20827,7 +20827,7 @@
       "timestamp": "2026-01-05T21:27:15+02:00",
       "commitDate": "2026-01-05T21:27:15+02:00",
       "subject": "Fix duplicate declaration of generateModelCheckboxes in initialization.js",
-      "body": "Removed generateModelCheckboxes from dependency injection pattern as it was\nincorrectly trying to inject its own function into itself via app.js.\n\nIssue: Uncaught SyntaxError: Identifier 'generateModelCheckboxes' has already been declared\n- generateModelCheckboxes was forward-declared on line 11\n- Assigned via handlers on line 22\n- Exported as function on line 392\n\nThis created a duplicate declaration error. The function is now kept as a\nlocally exported function and called directly within the module.\n\nPattern clarification: Use dependency injection only for functions from\nOTHER modules, not self-references.\n\nFiles modified:\n- ui/initialization.js (removed 1 duplicate from forward declarations and setter)\n- claude.md (documented bug fix in Recent Bug Fixes section)\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
+      "body": "Removed generateModelCheckboxes from dependency injection pattern as it was\nincorrectly trying to inject its own function into itself via app.js.\n\nIssue: Uncaught SyntaxError: Identifier 'generateModelCheckboxes' has already been declared\n- generateModelCheckboxes was forward-declared on line 11\n- Assigned via handlers on line 22\n- Exported as function on line 392\n\nThis created a duplicate declaration error. The function is now kept as a\nlocally exported function and called directly within the module.\n\nPattern clarification: Use dependency injection only for functions from\nOTHER modules, not self-references.\n\nFiles modified:\n- ui/initialization.js (removed 1 duplicate from forward declarations and setter)\n- claude.md (documented bug fix in Recent Bug Fixes section)\n\n\ud83e\udd16 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -20861,7 +20861,7 @@
       "timestamp": "2026-01-05T21:21:44+02:00",
       "commitDate": "2026-01-05T21:21:44+02:00",
       "subject": "Fix duplicate declaration errors in client-budget.js",
-      "body": "Removed duplicate function declarations that were causing SyntaxError:\n- renderUniversalMetrics\n- renderComparisonCharts\n- renderRaceChart\n- renderComparisonTable\n\nThese functions were both forward-declared as dependency injection\nvariables AND exported as local functions, causing JavaScript to\nthrow 'Identifier has already been declared' errors.\n\nRoot cause: During modular refactoring, these functions were moved\nfrom app.js to client-budget.js but forward declarations weren't\ncleaned up.\n\nUpdated claude.md with bug fix documentation.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
+      "body": "Removed duplicate function declarations that were causing SyntaxError:\n- renderUniversalMetrics\n- renderComparisonCharts\n- renderRaceChart\n- renderComparisonTable\n\nThese functions were both forward-declared as dependency injection\nvariables AND exported as local functions, causing JavaScript to\nthrow 'Identifier has already been declared' errors.\n\nRoot cause: During modular refactoring, these functions were moved\nfrom app.js to client-budget.js but forward declarations weren't\ncleaned up.\n\nUpdated claude.md with bug fix documentation.\n\n\ud83e\udd16 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -21335,7 +21335,7 @@
       "timestamp": "2026-01-01T15:20:11+00:00",
       "commitDate": "2026-01-01T15:20:11+00:00",
       "subject": "Update all documentation to reflect modular architecture",
-      "body": "Updated documentation files to accurately describe the new modular codebase structure following the January 2026 refactoring from monolithic app.js to 16 specialized modules.\n\n## Changes\n\n### claude.md\n- Updated file structure section with complete modular directory tree\n- Added new \"Modular Architecture\" section explaining benefits and organization\n- Updated deployment description (ES6 modules instead of single-file)\n- Updated tech stack to mention modular architecture\n- Revised \"Development Workflow\" with module-specific guidance\n- Updated \"Common Tasks\" with new file locations for each type of change\n- Replaced \"Single-File Architecture\" limitation with \"Modular Architecture\" benefits\n- Updated performance targets to reflect ES6 module loading\n- Enhanced browser compatibility section to mention ES6 module support\n- Updated \"AI Assistant Guidelines\" with module navigation advice\n- Added comprehensive \"Major Refactoring\" entry to recent improvements\n- Updated final note to reference modular code locations\n\n### README.md\n- Changed description from \"single HTML file\" to \"modular ES6 JavaScript architecture\"\n- Updated Technology Stack to mention ES6 JavaScript and 16 modules\n- Updated Browser Support to note ES6 module requirement\n- Fixed line count in changelog: 96% reduction (6,377 → 243 lines)\n\n### FRAMEWORK_ALIGNMENT_PLAN.md\n- Added note explaining codebase is now modular\n- Updated Migration Checklist with actual module file paths\n- Marked all code changes as completed with correct file locations\n\n### QUICK_START_ALIGNMENT.md\n- Updated module line counts to match actual codebase\n- Removed duplicate app.js entry\n- Corrected app.js line count from ~500 to ~243 lines\n\n## Impact\nAll documentation now accurately reflects:\n- 7-directory modular structure\n- 16 specialized modules totaling ~6,800 lines\n- ES6 module system with import/export\n- Dependency injection pattern\n- 96% reduction in main orchestrator file size",
+      "body": "Updated documentation files to accurately describe the new modular codebase structure following the January 2026 refactoring from monolithic app.js to 16 specialized modules.\n\n## Changes\n\n### claude.md\n- Updated file structure section with complete modular directory tree\n- Added new \"Modular Architecture\" section explaining benefits and organization\n- Updated deployment description (ES6 modules instead of single-file)\n- Updated tech stack to mention modular architecture\n- Revised \"Development Workflow\" with module-specific guidance\n- Updated \"Common Tasks\" with new file locations for each type of change\n- Replaced \"Single-File Architecture\" limitation with \"Modular Architecture\" benefits\n- Updated performance targets to reflect ES6 module loading\n- Enhanced browser compatibility section to mention ES6 module support\n- Updated \"AI Assistant Guidelines\" with module navigation advice\n- Added comprehensive \"Major Refactoring\" entry to recent improvements\n- Updated final note to reference modular code locations\n\n### README.md\n- Changed description from \"single HTML file\" to \"modular ES6 JavaScript architecture\"\n- Updated Technology Stack to mention ES6 JavaScript and 16 modules\n- Updated Browser Support to note ES6 module requirement\n- Fixed line count in changelog: 96% reduction (6,377 \u2192 243 lines)\n\n### FRAMEWORK_ALIGNMENT_PLAN.md\n- Added note explaining codebase is now modular\n- Updated Migration Checklist with actual module file paths\n- Marked all code changes as completed with correct file locations\n\n### QUICK_START_ALIGNMENT.md\n- Updated module line counts to match actual codebase\n- Removed duplicate app.js entry\n- Corrected app.js line count from ~500 to ~243 lines\n\n## Impact\nAll documentation now accurately reflects:\n- 7-directory modular structure\n- 16 specialized modules totaling ~6,800 lines\n- ES6 module system with import/export\n- Dependency injection pattern\n- 96% reduction in main orchestrator file size",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -21404,7 +21404,7 @@
       "timestamp": "2026-01-01T15:10:02+00:00",
       "commitDate": "2026-01-01T15:10:02+00:00",
       "subject": "Refactor monolithic app.js into modular architecture",
-      "body": "Major refactoring to improve maintainability, testability, and developer experience.\n\n## Changes\n\n### Architecture\n- Extracted 6,377-line monolithic app.js into 12 specialized modules\n- Organized code into 7 directories with clear separation of concerns\n- Implemented ES6 module system with proper imports/exports\n- Created main app.js orchestrator (now ~500 lines)\n\n### New Directory Structure\n- config/ - Global configuration and application state (1 file)\n- framework/ - Three-layer framework implementation (4 files)\n  - model-families.js - Model family groupings\n  - categories.js - Layer 1: Core function categories\n  - delivery.js - Layer 2: Delivery mechanisms\n  - services.js - Layer 3: Service models\n- models/ - All 20 revenue model definitions (1 file, ~1,250 lines)\n- utils/ - Utility functions for formatting, validation, calculations (1 file, ~810 lines)\n- charts/ - Chart rendering with ApexCharts (1 file, ~730 lines)\n- calculators/ - Calculation engines (2 files, ~1,300 lines)\n  - engine.js - Core calculation engine\n  - client-budget.js - Client budget calculator\n- ui/ - User interface logic (5 files, ~1,600 lines)\n  - forms.js - Dynamic form generation\n  - events.js - Event handlers\n  - initialization.js - App initialization logic\n  - admin.js - Admin panel functionality\n  - modals.js - Tooltip and modal functions\n\n### Technical Improvements\n- Resolved circular dependencies using dependency injection pattern\n- Each module has clear, single responsibility\n- Proper encapsulation with explicit exports\n- Maintained backward compatibility with existing HTML\n- All JavaScript files pass syntax validation\n\n### Documentation Updates\n- Updated README.md with new project structure and module descriptions\n- Added modular architecture benefits section\n- Updated QUICK_START_ALIGNMENT.md with modular structure examples\n- Added notes to IMPLEMENTATION_PROGRESS.md and FRAMEWORK_ALIGNMENT_PLAN.md\n- Added comprehensive changelog entry for refactoring\n\n### Benefits\n- 92% reduction in main file size (6,377 lines → ~500 lines)\n- Better maintainability and code navigation\n- Individual modules can be unit tested independently\n- Reduced cognitive load for developers\n- Easier to add new revenue models or features\n- Improved scalability for future development\n\n### Testing\n- All JavaScript files validated for syntax errors\n- Module structure verified\n- Import/export dependencies confirmed\n- No breaking changes to existing functionality",
+      "body": "Major refactoring to improve maintainability, testability, and developer experience.\n\n## Changes\n\n### Architecture\n- Extracted 6,377-line monolithic app.js into 12 specialized modules\n- Organized code into 7 directories with clear separation of concerns\n- Implemented ES6 module system with proper imports/exports\n- Created main app.js orchestrator (now ~500 lines)\n\n### New Directory Structure\n- config/ - Global configuration and application state (1 file)\n- framework/ - Three-layer framework implementation (4 files)\n  - model-families.js - Model family groupings\n  - categories.js - Layer 1: Core function categories\n  - delivery.js - Layer 2: Delivery mechanisms\n  - services.js - Layer 3: Service models\n- models/ - All 20 revenue model definitions (1 file, ~1,250 lines)\n- utils/ - Utility functions for formatting, validation, calculations (1 file, ~810 lines)\n- charts/ - Chart rendering with ApexCharts (1 file, ~730 lines)\n- calculators/ - Calculation engines (2 files, ~1,300 lines)\n  - engine.js - Core calculation engine\n  - client-budget.js - Client budget calculator\n- ui/ - User interface logic (5 files, ~1,600 lines)\n  - forms.js - Dynamic form generation\n  - events.js - Event handlers\n  - initialization.js - App initialization logic\n  - admin.js - Admin panel functionality\n  - modals.js - Tooltip and modal functions\n\n### Technical Improvements\n- Resolved circular dependencies using dependency injection pattern\n- Each module has clear, single responsibility\n- Proper encapsulation with explicit exports\n- Maintained backward compatibility with existing HTML\n- All JavaScript files pass syntax validation\n\n### Documentation Updates\n- Updated README.md with new project structure and module descriptions\n- Added modular architecture benefits section\n- Updated QUICK_START_ALIGNMENT.md with modular structure examples\n- Added notes to IMPLEMENTATION_PROGRESS.md and FRAMEWORK_ALIGNMENT_PLAN.md\n- Added comprehensive changelog entry for refactoring\n\n### Benefits\n- 92% reduction in main file size (6,377 lines \u2192 ~500 lines)\n- Better maintainability and code navigation\n- Individual modules can be unit tested independently\n- Reduced cognitive load for developers\n- Easier to add new revenue models or features\n- Improved scalability for future development\n\n### Testing\n- All JavaScript files validated for syntax errors\n- Module structure verified\n- Import/export dependencies confirmed\n- No breaking changes to existing functionality",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -21660,7 +21660,7 @@
       "timestamp": "2025-12-31T22:10:25+00:00",
       "commitDate": "2025-12-31T22:10:25+00:00",
       "subject": "Enhance calculator with explanations, tooltips, and variable display",
-      "body": "Major improvements to calculator transparency and usability:\n\nFeatures Added:\n- Clickable tooltips: Interactive info icons (ⓘ) throughout the interface\n  - Input fields show detailed parameter explanations and context\n  - Metric cards display calculation methods and benchmarks\n  - Model info shows formulas, methodology, and use cases\n- Calculation explanations: Comprehensive CALCULATION_EXPLANATIONS object\n  - Formulas for all 20 revenue models\n  - Step-by-step methodology descriptions\n  - Key metrics and use cases for each model\n- Variables summary panel: Display all inputs used in calculations\n  - Shows formatted values for transparency\n  - Available in both single and comparison modes\n  - Clickable info icons on each variable\n- Zero value support: Intelligent validation for realistic scenarios\n  - Allow zero for optional variables (startingCustomers, expansionRate)\n  - Context-aware warnings (zero customers + zero base)\n  - Maintain errors for nonsensical zeros (price = 0)\n\nTechnical Changes:\n- Added tooltip modal component with backdrop and close functionality\n- Updated input form generation with clickable info icons\n- Enhanced metric cards to use onclick instead of title attribute\n- Created displayVariablesSummary() function for input transparency\n- Modified validation rules to support zero values appropriately\n- Updated README with new features documentation\n\nFiles Modified:\n- app.js: Core functionality, tooltips, validation, displays\n- index.html: Tooltip modal structure\n- README.md: Documentation of new features\n\nAll changes maintain backward compatibility and improve user experience\nwithout breaking existing functionality.",
+      "body": "Major improvements to calculator transparency and usability:\n\nFeatures Added:\n- Clickable tooltips: Interactive info icons (\u24d8) throughout the interface\n  - Input fields show detailed parameter explanations and context\n  - Metric cards display calculation methods and benchmarks\n  - Model info shows formulas, methodology, and use cases\n- Calculation explanations: Comprehensive CALCULATION_EXPLANATIONS object\n  - Formulas for all 20 revenue models\n  - Step-by-step methodology descriptions\n  - Key metrics and use cases for each model\n- Variables summary panel: Display all inputs used in calculations\n  - Shows formatted values for transparency\n  - Available in both single and comparison modes\n  - Clickable info icons on each variable\n- Zero value support: Intelligent validation for realistic scenarios\n  - Allow zero for optional variables (startingCustomers, expansionRate)\n  - Context-aware warnings (zero customers + zero base)\n  - Maintain errors for nonsensical zeros (price = 0)\n\nTechnical Changes:\n- Added tooltip modal component with backdrop and close functionality\n- Updated input form generation with clickable info icons\n- Enhanced metric cards to use onclick instead of title attribute\n- Created displayVariablesSummary() function for input transparency\n- Modified validation rules to support zero values appropriately\n- Updated README with new features documentation\n\nFiles Modified:\n- app.js: Core functionality, tooltips, validation, displays\n- index.html: Tooltip modal structure\n- README.md: Documentation of new features\n\nAll changes maintain backward compatibility and improve user experience\nwithout breaking existing functionality.",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -21728,7 +21728,7 @@
       "timestamp": "2025-12-31T20:55:34+00:00",
       "commitDate": "2025-12-31T20:55:34+00:00",
       "subject": "Redesign table view as Admin panel for all model configuration",
-      "body": "Major Changes:\n- Removed Form/Table view toggle (was limited to selected models only)\n- Added 4th calculator mode: Admin Panel\n- Admin panel shows ALL 20 revenue models in spreadsheet-style table\n- Enables centralized editing of default parameters across all models\n- Layout: Parameters as rows, Models as columns\n- Real-time updates to model defaults\n- Sticky headers for easy navigation\n- Horizontal scrolling for all 19 models\n\nUI Updates:\n- Calculator mode buttons now in 2x2 grid (Vendor, Growth, Client, Admin)\n- Admin mode hides category/model selection (not needed)\n- Admin button uses ⚙️ icon for clarity\n\nDocumentation:\n- Updated README.md with Admin Mode usage guide\n- Updated claude.md with Admin Mode technical specification\n- Removed all references to old Table View feature\n\nTechnical Implementation:\n- New generateAdminPanel() function\n- New onAdminInputChange() event handler\n- Updated setCalculatorMode() to handle 'admin' mode\n- Removed old table view code (generateTableView, setInputView, etc.)\n- Cleaned up global state (removed currentInputView variable)",
+      "body": "Major Changes:\n- Removed Form/Table view toggle (was limited to selected models only)\n- Added 4th calculator mode: Admin Panel\n- Admin panel shows ALL 20 revenue models in spreadsheet-style table\n- Enables centralized editing of default parameters across all models\n- Layout: Parameters as rows, Models as columns\n- Real-time updates to model defaults\n- Sticky headers for easy navigation\n- Horizontal scrolling for all 19 models\n\nUI Updates:\n- Calculator mode buttons now in 2x2 grid (Vendor, Growth, Client, Admin)\n- Admin mode hides category/model selection (not needed)\n- Admin button uses \u2699\ufe0f icon for clarity\n\nDocumentation:\n- Updated README.md with Admin Mode usage guide\n- Updated claude.md with Admin Mode technical specification\n- Removed all references to old Table View feature\n\nTechnical Implementation:\n- New generateAdminPanel() function\n- New onAdminInputChange() event handler\n- Updated setCalculatorMode() to handle 'admin' mode\n- Removed old table view code (generateTableView, setInputView, etc.)\n- Cleaned up global state (removed currentInputView variable)",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -21797,7 +21797,7 @@
       "timestamp": "2025-12-31T20:38:07+00:00",
       "commitDate": "2025-12-31T20:38:07+00:00",
       "subject": "Add Client Budget Calculator mode - client/cost perspective",
-      "body": "This commit introduces a new Client Budget Calculator mode that complements\nthe existing Vendor (forward) and Growth (reverse) modes. The new mode allows\nclients/buyers to input their budget and find optimal pricing options.\n\nKey Changes:\n- UI: Added third calculator mode button \"Client\" (Budget Options)\n- HTML: New client budget input section with budget, flexibility, and priority options\n- JS: Implemented client budget calculation logic with 3 optimization strategies:\n  * Maximum Capacity: Get the most users/seats within budget\n  * Best Value: Optimize for lowest cost per unit\n  * Budget Conscious: Leave 20% buffer\n- Budget flexibility options: Strict, Moderate (±10%), Flexible (±20%)\n- Results display: Shows 3-6 pricing options with cost, capacity, and value metrics\n- Color-coded badges: Green (within budget), Yellow (within flex), Red (over)\n- Docs: Updated README.md and claude.md with client mode documentation\n\nThe three modes now serve different perspectives:\n1. Vendor Mode: Business calculating revenue from pricing parameters\n2. Growth Mode: Business with revenue target finding required inputs\n3. Client Mode: Buyer with budget finding best pricing options\n\nAll 20 revenue models now support the client budget calculator.",
+      "body": "This commit introduces a new Client Budget Calculator mode that complements\nthe existing Vendor (forward) and Growth (reverse) modes. The new mode allows\nclients/buyers to input their budget and find optimal pricing options.\n\nKey Changes:\n- UI: Added third calculator mode button \"Client\" (Budget Options)\n- HTML: New client budget input section with budget, flexibility, and priority options\n- JS: Implemented client budget calculation logic with 3 optimization strategies:\n  * Maximum Capacity: Get the most users/seats within budget\n  * Best Value: Optimize for lowest cost per unit\n  * Budget Conscious: Leave 20% buffer\n- Budget flexibility options: Strict, Moderate (\u00b110%), Flexible (\u00b120%)\n- Results display: Shows 3-6 pricing options with cost, capacity, and value metrics\n- Color-coded badges: Green (within budget), Yellow (within flex), Red (over)\n- Docs: Updated README.md and claude.md with client mode documentation\n\nThe three modes now serve different perspectives:\n1. Vendor Mode: Business calculating revenue from pricing parameters\n2. Growth Mode: Business with revenue target finding required inputs\n3. Client Mode: Buyer with budget finding best pricing options\n\nAll 20 revenue models now support the client budget calculator.",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -22003,7 +22003,7 @@
       "timestamp": "2025-12-30T10:13:34+00:00",
       "commitDate": "2025-12-30T10:13:34+00:00",
       "subject": "Set all default values to minimum realistic values for SA market",
-      "body": "Updated both pricing model inputs and category-level defaults to reflect\nminimum realistic values for early-stage companies in the South African market:\n\nPricing Models:\n- One-Time: R15,000 → R5,000 license, 25 → 5 units/month\n- Subscription: R1,800 → R500/month, 50 → 10 customers/month\n- Freemium: 500 → 100 free users, R900 → R300 paid tier\n- Usage-Based: R0.90 → R0.50/unit, 1000 → 500 usage, 20 → 5 customers\n- Tiered: R520/R1,800/R5,400 → R200/R600/R2,000, 100 → 20 customers\n- Per-Seat: R450 → R150/seat, 5 → 3 seats, 30 → 8 customers\n- Retainer: R90,000 → R25,000/month, 2 → 1 clients\n- Managed Services: R180,000 → R50,000/month, R90,000 → R25,000 setup\n- Pay-Per-Transaction: R45 → R10/transaction, 1000 → 500 transactions\n- Credits: R1.80 → R1.00/credit, 100 → 50 purchase size, 200 → 50 customers\n- Time & Materials: R2,700 → R800/hour, 5 → 2 resources\n- Fixed-Price: R900,000 → R200,000/project, 2 → 1 projects/month\n- Outcome-Based: R1,800,000 → R400,000 base value\n- Open Core: 2000 → 500 downloads, R90,000 → R30,000 enterprise\n- Marketplace: R1,800,000 → R500,000 volume, 500 → 100 buyers\n- Revenue Share: R3,600,000 → R1,000,000 revenue, 10 → 3 partners\n- Advertising: 100,000 → 25,000 users, R90 → R30 CPM\n- ELA: R9,000,000 → R2,500,000/year, 4 → 2 deals\n- Data Licensing: R900,000 → R250,000 license, R1,800 → R500 usage fee\n- White Label: R1,800,000 → R500,000 setup, R180,000 → R50,000/month\n\nCategory Defaults: Updated all LAYER_1_CATEGORIES to minimum range values\nreflecting conservative, achievable targets for SA bootstrapped/early-stage businesses.",
+      "body": "Updated both pricing model inputs and category-level defaults to reflect\nminimum realistic values for early-stage companies in the South African market:\n\nPricing Models:\n- One-Time: R15,000 \u2192 R5,000 license, 25 \u2192 5 units/month\n- Subscription: R1,800 \u2192 R500/month, 50 \u2192 10 customers/month\n- Freemium: 500 \u2192 100 free users, R900 \u2192 R300 paid tier\n- Usage-Based: R0.90 \u2192 R0.50/unit, 1000 \u2192 500 usage, 20 \u2192 5 customers\n- Tiered: R520/R1,800/R5,400 \u2192 R200/R600/R2,000, 100 \u2192 20 customers\n- Per-Seat: R450 \u2192 R150/seat, 5 \u2192 3 seats, 30 \u2192 8 customers\n- Retainer: R90,000 \u2192 R25,000/month, 2 \u2192 1 clients\n- Managed Services: R180,000 \u2192 R50,000/month, R90,000 \u2192 R25,000 setup\n- Pay-Per-Transaction: R45 \u2192 R10/transaction, 1000 \u2192 500 transactions\n- Credits: R1.80 \u2192 R1.00/credit, 100 \u2192 50 purchase size, 200 \u2192 50 customers\n- Time & Materials: R2,700 \u2192 R800/hour, 5 \u2192 2 resources\n- Fixed-Price: R900,000 \u2192 R200,000/project, 2 \u2192 1 projects/month\n- Outcome-Based: R1,800,000 \u2192 R400,000 base value\n- Open Core: 2000 \u2192 500 downloads, R90,000 \u2192 R30,000 enterprise\n- Marketplace: R1,800,000 \u2192 R500,000 volume, 500 \u2192 100 buyers\n- Revenue Share: R3,600,000 \u2192 R1,000,000 revenue, 10 \u2192 3 partners\n- Advertising: 100,000 \u2192 25,000 users, R90 \u2192 R30 CPM\n- ELA: R9,000,000 \u2192 R2,500,000/year, 4 \u2192 2 deals\n- Data Licensing: R900,000 \u2192 R250,000 license, R1,800 \u2192 R500 usage fee\n- White Label: R1,800,000 \u2192 R500,000 setup, R180,000 \u2192 R50,000/month\n\nCategory Defaults: Updated all LAYER_1_CATEGORIES to minimum range values\nreflecting conservative, achievable targets for SA bootstrapped/early-stage businesses.",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -22020,275 +22020,6 @@
         "app.js"
       ],
       "repo_id": "model-pear"
-    },
-    {
-      "sha": "fea759f",
-      "fullSha": "fea759f3f09c2a1fba89a694b7dc02574e265240",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-29T23:57:04+02:00",
-      "commitDate": "2025-12-29T23:57:04+02:00",
-      "subject": "Merge pull request #19 from illuminAI-select/claude/restore-autoscroll-visualization-24ETg",
-      "body": "Restore auto-scroll to visualization after fixing freeze issue",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #19 from illuminAI-select/claude/restore-autoscroll-visualization-24ETg",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#19"
-      ],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 7,
-        "deletions": 0
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "59ce555",
-      "fullSha": "59ce55565fd1c07c77dfdabff628d56630996d55",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-29T21:55:47+00:00",
-      "commitDate": "2025-12-29T21:55:47+00:00",
-      "subject": "Restore auto-scroll to visualization after fixing freeze issue",
-      "body": "The page freeze when clicking \"Update Visualization\" was caused by CSS\ntransitions on 10,000 squares (fixed in commit cfd34da), not by the\nscrollIntoView call that was removed in commit 55a33c8.\n\nNow that the actual performance issue is resolved, we can safely restore\nthe auto-scroll functionality for better UX. When users click \"Update\nVisualization\" (especially from the sidebar button), the page smoothly\nscrolls to show the visualization at the top.\n\nChanges:\n- Restore scrollIntoView call in reshuffle() function (app.js:424-428)\n- Update claude.md documentation to note auto-scroll feature\n- No performance impact since CSS transitions remain removed",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Restore auto-scroll to visualization after fixing freeze issue",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 7,
-        "deletions": 0
-      },
-      "files": [
-        "assets/js/app.js",
-        "claude.md"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "7e3ad0f",
-      "fullSha": "7e3ad0fa76ea0e2a07f415c6a90ef45b7e2b0796",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-29T23:44:39+02:00",
-      "commitDate": "2025-12-29T23:44:39+02:00",
-      "subject": "Merge pull request #18 from illuminAI-select/claude/fix-visualization-freeze-ZHt5T",
-      "body": "Fix visualization freeze by removing CSS transition",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #18 from illuminAI-select/claude/fix-visualization-freeze-ZHt5T",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#18"
-      ],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 1,
-        "deletions": 3
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "cfd34da",
-      "fullSha": "cfd34dad5e672e4c6a93182247411fb4114c1bd3",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-29T21:43:48+00:00",
-      "commitDate": "2025-12-29T21:43:48+00:00",
-      "subject": "Fix visualization freeze by removing CSS transition",
-      "body": "The page was freezing when clicking \"Update Visualization\" buttons due to\nCSS transitions on 10,000 squares being animated simultaneously. This\noverwhelmed the browser's rendering engine.\n\nChanges:\n- Remove transition from .square class in styles.css (line 521)\n- Update claude.md to document the performance issue\n- Remove outdated animation improvement suggestion from docs\n\nThe visualization now updates instantly without freezing, providing better\nUX as users can see the new distribution immediately rather than waiting\nfor a 0.4s fade animation.",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Fix visualization freeze by removing CSS transition",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 1,
-        "deletions": 3
-      },
-      "files": [
-        "assets/css/styles.css",
-        "claude.md"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "65f9490",
-      "fullSha": "65f9490a134498348dc424522688fba3c3c9a787",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-29T23:32:36+02:00",
-      "commitDate": "2025-12-29T23:32:36+02:00",
-      "subject": "Merge pull request #17 from illuminAI-select/claude/fix-button-placement-performance-g4BRt",
-      "body": "Fix button placement and performance issues",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #17 from illuminAI-select/claude/fix-button-placement-performance-g4BRt",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#17"
-      ],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 25,
-        "deletions": 48
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "55a33c8",
-      "fullSha": "55a33c8cff60339699fddc24b5501a5f39ad1c50",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-29T21:31:43+00:00",
-      "commitDate": "2025-12-29T21:31:43+00:00",
-      "subject": "Fix button placement and performance issues",
-      "body": "- Move \"Update Visualization\" button below the image as a standalone element instead of overlaying it\n- Remove absolute positioning and update CSS for better visual hierarchy\n- Fix page freeze on visualization update by removing scrollIntoView call\n- Optimize DOM manipulation using classList.toggle instead of building separate arrays\n- Update help documentation to reflect UI changes and improved performance\n- Add responsive styling for the new button placement\n\nPerformance improvements:\n- Removed automatic scrolling that competed with DOM updates\n- Simplified class toggling logic reducing operations from 3 loops to 1\n- Eliminates janky behavior when clicking Update Visualization",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Fix button placement and performance issues",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 25,
-        "deletions": 48
-      },
-      "files": [
-        "assets/css/styles.css",
-        "assets/js/app.js",
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "81d6bfd",
-      "fullSha": "81d6bfdb34b4a39be22829ad462a7685d889fdbc",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-29T19:37:28+02:00",
-      "commitDate": "2025-12-29T19:37:28+02:00",
-      "subject": "Merge pull request #16 from illuminAI-select/claude/add-visualization-button-UpVtJ",
-      "body": "Add update visualization button below image",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #16 from illuminAI-select/claude/add-visualization-button-UpVtJ",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#16"
-      ],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 45,
-        "deletions": 0
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "44c6403",
-      "fullSha": "44c64038568ddc24f50fd8abd4caffd5b8ced749",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-29T17:36:33+00:00",
-      "commitDate": "2025-12-29T17:36:33+00:00",
-      "subject": "Add update visualization button below image",
-      "body": "Added a centered \"Update Visualization\" button positioned at the bottom of the visualization container. The button features the app's signature purple gradient styling and is fully responsive across all device sizes.",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Add update visualization button below image",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 45,
-        "deletions": 0
-      },
-      "files": [
-        "assets/css/styles.css",
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
     },
     {
       "sha": "65281fe",
@@ -22525,209 +22256,6 @@
       "repo_id": "model-pear"
     },
     {
-      "sha": "11d98b7",
-      "fullSha": "11d98b7f21c9f2985d6c71873651e98f7b0ba16d",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-27T21:25:55+02:00",
-      "commitDate": "2025-12-27T21:25:55+02:00",
-      "subject": "Merge pull request #15 from illuminAI-select/claude/reorganize-help-ui-4Ntg0",
-      "body": "Reorganize help UI and improve channel interaction",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #15 from illuminAI-select/claude/reorganize-help-ui-4Ntg0",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#15"
-      ],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 76,
-        "deletions": 46
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "eea7ca8",
-      "fullSha": "eea7ca891d70b8461f6af40a426f0b3781ef7c8d",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-27T19:19:36+00:00",
-      "commitDate": "2025-12-27T19:19:36+00:00",
-      "subject": "Reorganize help UI and improve channel interaction",
-      "body": "- Move help button from main content area to top of sidebar\n- Improve help button styling with gradient background and better alignment\n- Fix help modal closing behavior with proper event handling\n- Make inactive channels collapsed by default on initial load\n- Auto-expand channels when activated, auto-collapse when deactivated\n- Enhance visual appeal with improved spacing and transitions",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Reorganize help UI and improve channel interaction",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 76,
-        "deletions": 46
-      },
-      "files": [
-        "assets/css/styles.css",
-        "assets/js/app.js",
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "ac51301",
-      "fullSha": "ac51301cbe76e29ff6af5163e25ca57db5887485",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-27T21:07:54+02:00",
-      "commitDate": "2025-12-27T21:07:54+02:00",
-      "subject": "Merge pull request #14 from illuminAI-select/claude/add-help-documentation-B6aGi",
-      "body": "Add comprehensive help documentation with modal",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #14 from illuminAI-select/claude/add-help-documentation-B6aGi",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#14"
-      ],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 404,
-        "deletions": 2
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "342d78f",
-      "fullSha": "342d78f023e529ce8ba9ed9bffc91e3c15efc08e",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-27T19:06:57+00:00",
-      "commitDate": "2025-12-27T19:06:57+00:00",
-      "subject": "Add comprehensive help documentation with modal",
-      "body": "Implemented an interactive help modal to guide users through the application:\n- Added help button with icon in the main header\n- Created detailed modal with sections covering:\n  * What is Chatty Chart and visualization explanation\n  * Getting started guide with step-by-step instructions\n  * Channel controls documentation\n  * Quick actions reference\n  * Important notes and constraints\n  * Use cases for the tool\n- Styled modal with responsive design and smooth animations\n- Implemented JavaScript handlers for open/close interactions\n- Added keyboard support (ESC to close) and click-outside-to-close\n- Ensured accessibility with ARIA labels and semantic HTML\n- Mobile-optimized layout with proper responsive breakpoints\n\nThis addresses the need for in-app help to explain what the tool does and how to use it effectively.",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Add comprehensive help documentation with modal",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 404,
-        "deletions": 2
-      },
-      "files": [
-        "assets/css/styles.css",
-        "assets/js/app.js",
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "39b8abd",
-      "fullSha": "39b8abd206580d68448d898947443532a115470b",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-27T21:01:34+02:00",
-      "commitDate": "2025-12-27T21:01:34+02:00",
-      "subject": "Merge pull request #13 from illuminAI-select/claude/collapsible-sections-volume-split-Zf22c",
-      "body": "Add collapsible sections and automatic volume splitting",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #13 from illuminAI-select/claude/collapsible-sections-volume-split-Zf22c",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#13"
-      ],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 165,
-        "deletions": 27
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "c0372cb",
-      "fullSha": "c0372cb74eabad62a8f0db62376bd18c97f41c21",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-27T18:58:24+00:00",
-      "commitDate": "2025-12-27T18:58:24+00:00",
-      "subject": "Add collapsible sections and automatic volume splitting",
-      "body": "Implemented the following features:\n- Collapsible channel sections with toggle button\n- Initial load shows only 'calls' channel active at 100% volume\n- Automatic volume splitting between unlocked and active channels\n- Volume splitting triggers on both lock events and active status changes\n\nThe automatic volume splitting ensures percentages always add up to 100%\nby distributing available percentage equally among unlocked, active channels.",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Add collapsible sections and automatic volume splitting",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 165,
-        "deletions": 27
-      },
-      "files": [
-        "assets/css/styles.css",
-        "assets/js/app.js"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
       "sha": "765a991",
       "fullSha": "765a99158599eb1acd67960765d374e7c3dcb1f5",
       "author_id": "devmade.ai@gmail.com",
@@ -22775,7 +22303,7 @@
       "timestamp": "2025-12-26T04:31:41+00:00",
       "commitDate": "2025-12-26T04:31:41+00:00",
       "subject": "Complete framework alignment: Add category context to results and update docs",
-      "body": "This commit completes the framework alignment implementation (95% done):\n\n✅ Added category context header to results display (app.js:3481-3513)\n- Shows selected category, delivery mechanism, and service model\n- Displays cost impact and service characteristics\n- Provides full context for calculation results\n\n✅ Updated IMPLEMENTATION_PROGRESS.md to reflect completion status\n- Phase 1 (Data Layer): 100% complete\n- Phase 2 (UI Implementation): 100% complete\n- Phase 3 (Calculation Engine): 100% complete\n- Phase 4 (Industry Benchmarks): 25% complete (context header added)\n- Updated success criteria: All functional requirements met\n\nFramework is now fully functional with:\n✅ 10 software categories with pricing contexts\n✅ 5 delivery mechanisms with pricing multipliers\n✅ 4 service models with business impact\n✅ 20 pricing models all updated with modifiers\n✅ Category-specific defaults in input forms\n✅ Layer 2/3 modifiers applied to all calculations\n✅ Results display with full calculation context\n\nRemaining work is optional enhancements only:\n- Additional benchmark indicators (nice-to-have UX)\n- Style improvements (optional polish)\n- End-to-end testing (recommended for QA)\n\nThe Revenue Model Calculator now provides industry-aligned,\ncontext-aware pricing guidance across all software categories.",
+      "body": "This commit completes the framework alignment implementation (95% done):\n\n\u2705 Added category context header to results display (app.js:3481-3513)\n- Shows selected category, delivery mechanism, and service model\n- Displays cost impact and service characteristics\n- Provides full context for calculation results\n\n\u2705 Updated IMPLEMENTATION_PROGRESS.md to reflect completion status\n- Phase 1 (Data Layer): 100% complete\n- Phase 2 (UI Implementation): 100% complete\n- Phase 3 (Calculation Engine): 100% complete\n- Phase 4 (Industry Benchmarks): 25% complete (context header added)\n- Updated success criteria: All functional requirements met\n\nFramework is now fully functional with:\n\u2705 10 software categories with pricing contexts\n\u2705 5 delivery mechanisms with pricing multipliers\n\u2705 4 service models with business impact\n\u2705 20 pricing models all updated with modifiers\n\u2705 Category-specific defaults in input forms\n\u2705 Layer 2/3 modifiers applied to all calculations\n\u2705 Results display with full calculation context\n\nRemaining work is optional enhancements only:\n- Additional benchmark indicators (nice-to-have UX)\n- Style improvements (optional polish)\n- End-to-end testing (recommended for QA)\n\nThe Revenue Model Calculator now provides industry-aligned,\ncontext-aware pricing guidance across all software categories.",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -22809,7 +22337,7 @@
       "timestamp": "2025-12-26T04:27:49+00:00",
       "commitDate": "2025-12-26T04:27:49+00:00",
       "subject": "Implement Layer 2/3 framework modifiers across all pricing models",
-      "body": "This commit completes the calculation engine integration for the framework alignment:\n\n✅ Added central applyFrameworkModifiers() helper function\n- Consistently applies Layer 2 (Delivery) and Layer 3 (Service) modifiers\n- Handles self-hosted one-time conversions\n- Adds managed services base fees\n- Adjusts pricing, churn rates, and CAC\n\n✅ Updated generateAllForms() to use category-specific defaults\n- Applies pricing defaults from LAYER_1_CATEGORIES\n- Shows category-specific hint text for ranges and benchmarks\n- Maps common inputs (price, churnRate, conversionRate) to context data\n\n✅ Updated all 20 pricing model calculate() functions:\nCore models:\n- per-seat: Applies modifiers to seat pricing and churn\n- usage-based: Applies modifiers to per-unit pricing\n- tiered: Applies modifiers to all three tier prices\n- freemium: Applies modifiers to paid tier pricing and churn\n- subscription: Applies modifiers to monthly price and churn\n\nAdditional models (15 total):\n- one-time, retainer, managed-services, pay-per-transaction\n- credits-token, time-materials, fixed-price, outcome-based\n- open-core, marketplace, revenue-share, advertising\n- ela, data-licensing, white-label\n\nEach model now:\n1. Calls applyFrameworkModifiers() at start of calculate()\n2. Uses modifiers.price instead of raw input price\n3. Uses modifiers.churn instead of raw churn rate\n4. Adds managed services revenue when applicable\n5. Includes debug info (appliedPrice, appliedChurnRate)\n\nThis enables the full framework flow:\nCategory → Models → Delivery → Service → Calculate\n\nNext steps: Testing and industry benchmarks display",
+      "body": "This commit completes the calculation engine integration for the framework alignment:\n\n\u2705 Added central applyFrameworkModifiers() helper function\n- Consistently applies Layer 2 (Delivery) and Layer 3 (Service) modifiers\n- Handles self-hosted one-time conversions\n- Adds managed services base fees\n- Adjusts pricing, churn rates, and CAC\n\n\u2705 Updated generateAllForms() to use category-specific defaults\n- Applies pricing defaults from LAYER_1_CATEGORIES\n- Shows category-specific hint text for ranges and benchmarks\n- Maps common inputs (price, churnRate, conversionRate) to context data\n\n\u2705 Updated all 20 pricing model calculate() functions:\nCore models:\n- per-seat: Applies modifiers to seat pricing and churn\n- usage-based: Applies modifiers to per-unit pricing\n- tiered: Applies modifiers to all three tier prices\n- freemium: Applies modifiers to paid tier pricing and churn\n- subscription: Applies modifiers to monthly price and churn\n\nAdditional models (15 total):\n- one-time, retainer, managed-services, pay-per-transaction\n- credits-token, time-materials, fixed-price, outcome-based\n- open-core, marketplace, revenue-share, advertising\n- ela, data-licensing, white-label\n\nEach model now:\n1. Calls applyFrameworkModifiers() at start of calculate()\n2. Uses modifiers.price instead of raw input price\n3. Uses modifiers.churn instead of raw churn rate\n4. Adds managed services revenue when applicable\n5. Includes debug info (appliedPrice, appliedChurnRate)\n\nThis enables the full framework flow:\nCategory \u2192 Models \u2192 Delivery \u2192 Service \u2192 Calculate\n\nNext steps: Testing and industry benchmarks display",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -22908,7 +22436,7 @@
       "timestamp": "2025-12-25T23:07:46+00:00",
       "commitDate": "2025-12-25T23:07:46+00:00",
       "subject": "Implement framework alignment: Layer 1, 2, 3 structure and UI",
-      "body": "Major Changes:\n- Added Layer 1 (Core Function Categories): 10 software categories with pricing contexts\n- Added Layer 2 (Delivery Mechanisms): 5 delivery options with modifiers\n- Added Layer 3 (Service Models): 4 service levels with impact metrics\n- Redesigned UI with 4-step flow: Category → Models → Delivery/Service → Inputs\n- Implemented category-based model filtering with context-specific pricing hints\n- Added event handlers for category selection and Layer 2/3 options\n\nData Structures:\n- LAYER_1_CATEGORIES: 10 categories including dev-devops, business-ops, marketing, etc.\n- LAYER_2_DELIVERY: cloud-saas, self-hosted, hybrid, mobile, api-embedded\n- LAYER_3_SERVICE: self-service, managed-services, professional-services, hybrid-modular\n- Helper functions for applying delivery and service modifiers\n\nUI Updates:\n- Step 1: Category selector with description and examples\n- Step 2: Filtered model checkboxes with category-specific pricing ranges\n- Step 3: Radio buttons for delivery mechanism and service model\n- Step 4: Model-specific inputs (existing functionality)\n\nNext Steps:\n- Apply Layer 2/3 modifiers in calculation engine\n- Update input forms with category-specific defaults\n- Add industry benchmark displays\n- Test complete user flows",
+      "body": "Major Changes:\n- Added Layer 1 (Core Function Categories): 10 software categories with pricing contexts\n- Added Layer 2 (Delivery Mechanisms): 5 delivery options with modifiers\n- Added Layer 3 (Service Models): 4 service levels with impact metrics\n- Redesigned UI with 4-step flow: Category \u2192 Models \u2192 Delivery/Service \u2192 Inputs\n- Implemented category-based model filtering with context-specific pricing hints\n- Added event handlers for category selection and Layer 2/3 options\n\nData Structures:\n- LAYER_1_CATEGORIES: 10 categories including dev-devops, business-ops, marketing, etc.\n- LAYER_2_DELIVERY: cloud-saas, self-hosted, hybrid, mobile, api-embedded\n- LAYER_3_SERVICE: self-service, managed-services, professional-services, hybrid-modular\n- Helper functions for applying delivery and service modifiers\n\nUI Updates:\n- Step 1: Category selector with description and examples\n- Step 2: Filtered model checkboxes with category-specific pricing ranges\n- Step 3: Radio buttons for delivery mechanism and service model\n- Step 4: Model-specific inputs (existing functionality)\n\nNext Steps:\n- Apply Layer 2/3 modifiers in calculation engine\n- Update input forms with category-specific defaults\n- Add industry benchmark displays\n- Test complete user flows",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -23042,7 +22570,7 @@
       "timestamp": "2025-12-25T22:01:02+00:00",
       "commitDate": "2025-12-25T22:01:02+00:00",
       "subject": "Refactor claude.md with best practices and goal alignment",
-      "body": "- Reduce file size by 67% (1,285 → 426 lines)\n- Focus on architecture and patterns over implementation details\n- Add AI-friendly structure with clear status indicators\n- Include code examples showing key implementation patterns\n- Document line number references for common tasks\n- Emphasize core goal: multi-model revenue comparison\n- Add troubleshooting section and common tasks guide\n- Remove outdated content and completed TODO items",
+      "body": "- Reduce file size by 67% (1,285 \u2192 426 lines)\n- Focus on architecture and patterns over implementation details\n- Add AI-friendly structure with clear status indicators\n- Include code examples showing key implementation patterns\n- Document line number references for common tasks\n- Emphasize core goal: multi-model revenue comparison\n- Add troubleshooting section and common tasks guide\n- Remove outdated content and completed TODO items",
       "tags": [],
       "complexity": null,
       "scope": null,
@@ -23631,960 +23159,6 @@
         "LICENSE"
       ],
       "repo_id": "model-pear"
-    },
-    {
-      "sha": "c11d7a9",
-      "fullSha": "c11d7a99137d23908feb57d3eef2ec9d474ec9c3",
-      "author_id": "jacotheron87",
-      "author": {
-        "name": "jacotheron87",
-        "email": "34473836+jacotheron87@users.noreply.github.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-25T11:27:23+02:00",
-      "commitDate": "2025-12-25T11:27:23+02:00",
-      "subject": "Merge pull request #12 from illuminAI-select/claude/fix-visualization-reveal-OCfEd",
-      "body": "Fix visualization reveal logic - invert covered/visible behavior",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #12 from illuminAI-select/claude/fix-visualization-reveal-OCfEd",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#12"
-      ],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 9,
-        "deletions": 7
-      },
-      "files": [],
-      "repo_id": "chatty-chart",
-      "author_canonical": "jacotheron87"
-    },
-    {
-      "sha": "9d43411",
-      "fullSha": "9d4341196c1ba75b2adbbfa0edf365bc0d5edf85",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-25T09:26:28+00:00",
-      "commitDate": "2025-12-25T09:26:28+00:00",
-      "subject": "Fix visualization reveal logic - invert covered/visible behavior",
-      "body": "The visualization was backwards: squares that should be visible (analyzed) were being covered instead. Fixed by inverting the logic so that 'analyzed' squares are revealed (not covered) and the remaining squares are covered (hidden).",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Fix visualization reveal logic - invert covered/visible behavior",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 9,
-        "deletions": 7
-      },
-      "files": [
-        "assets/js/app.js"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "7abb500",
-      "fullSha": "7abb50028c7d366cd51c1d5d8b6f57ec8394e00f",
-      "author_id": "jacotheron87",
-      "author": {
-        "name": "jacotheron87",
-        "email": "34473836+jacotheron87@users.noreply.github.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-25T11:19:41+02:00",
-      "commitDate": "2025-12-25T11:19:41+02:00",
-      "subject": "Merge pull request #11 from illuminAI-select/claude/reorganize-visualization-layout-MtOZT",
-      "body": "Reorganize layout: swap columns, reverse overlay, add auto-scroll",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #11 from illuminAI-select/claude/reorganize-visualization-layout-MtOZT",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#11"
-      ],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 32,
-        "deletions": 26
-      },
-      "files": [],
-      "repo_id": "chatty-chart",
-      "author_canonical": "jacotheron87"
-    },
-    {
-      "sha": "5e1ecc2",
-      "fullSha": "5e1ecc25c9ff98be171c222da8cd08d01591a3db",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-25T09:18:38+00:00",
-      "commitDate": "2025-12-25T09:18:38+00:00",
-      "subject": "Reorganize layout: swap columns, reverse overlay, add auto-scroll",
-      "body": "- Swap visualization and input columns so visualization appears first (left on desktop)\n- Remove initial black overlay - visualization now starts fully visible\n- Reverse overlay behavior - analyzed data now covers the image instead of revealing it\n- Add auto-scroll to top when visualization updates for better UX\n- Rename CSS class from 'transparent' to 'covered' to reflect new behavior",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Reorganize layout: swap columns, reverse overlay, add auto-scroll",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 32,
-        "deletions": 26
-      },
-      "files": [
-        "assets/css/styles.css",
-        "assets/js/app.js",
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "f79903e",
-      "fullSha": "f79903e768167113489cb91a8447f9ce4ea63f92",
-      "author_id": "jacotheron87",
-      "author": {
-        "name": "jacotheron87",
-        "email": "34473836+jacotheron87@users.noreply.github.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-25T05:50:48+02:00",
-      "commitDate": "2025-12-25T05:50:48+02:00",
-      "subject": "Merge pull request #10 from illuminAI-select/claude/analyze-project-purpose-jJRDX",
-      "body": "Analyze project purpose and use case",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #10 from illuminAI-select/claude/analyze-project-purpose-jJRDX",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#10"
-      ],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 48,
-        "deletions": 32
-      },
-      "files": [],
-      "repo_id": "chatty-chart",
-      "author_canonical": "jacotheron87"
-    },
-    {
-      "sha": "b3aef0d",
-      "fullSha": "b3aef0da6aaf98c5807c9e1d2f2de96e4494d5bf",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-25T03:49:31+00:00",
-      "commitDate": "2025-12-25T03:49:31+00:00",
-      "subject": "Update messaging to emphasize sales/education purpose",
-      "body": "Transform project messaging to focus on client education about missing\nanalytics opportunities, especially in audio/call channels.\n\nKey changes:\n- Reposition as sales tool showing hidden value in unanalyzed data\n- Add \"The Problem\" section highlighting 95% of call data is invisible\n- Update all UI labels to be client-focused and business-oriented\n- Include use cases for sales presentations and ROI demonstrations\n- Add guide for using tool in client meetings\n\nThis better reflects the tool's purpose: visually demonstrating to\nclients what they're missing by not doing comprehensive analytics.",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Update messaging to emphasize sales/education purpose",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 48,
-        "deletions": 32
-      },
-      "files": [
-        "README.md",
-        "assets/js/app.js",
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "a9de08e",
-      "fullSha": "a9de08eaf627fc4e9f01f5b86329fafabf534f79",
-      "author_id": "jacotheron87",
-      "author": {
-        "name": "jacotheron87",
-        "email": "34473836+jacotheron87@users.noreply.github.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-25T05:35:53+02:00",
-      "commitDate": "2025-12-25T05:35:53+02:00",
-      "subject": "Merge pull request #9 from illuminAI-select/claude/replace-image-DjgQI",
-      "body": "Replace current image with new one",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #9 from illuminAI-select/claude/replace-image-DjgQI",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#9"
-      ],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 3,
-        "deletions": 3
-      },
-      "files": [],
-      "repo_id": "chatty-chart",
-      "author_canonical": "jacotheron87"
-    },
-    {
-      "sha": "a90977d",
-      "fullSha": "a90977d17bba15b4bede1d7f5782c2926f3f5847",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-25T03:34:10+00:00",
-      "commitDate": "2025-12-25T03:34:10+00:00",
-      "subject": "Replace customer service image with analytics iceberg visualization",
-      "body": "- Add analytics-iceberg.png showing communication channels and data analytics\n- Remove old FinServ customer service image\n- Update image reference in index.html\n- Update README.md to reflect new image name",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Replace customer service image with analytics iceberg visualization",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 4,
-        "additions": 3,
-        "deletions": 3
-      },
-      "files": [
-        "README.md",
-        "assets/images/FinServ - Customer Service & Account Support.png",
-        "assets/images/analytics-iceberg.png",
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "1bd2407",
-      "fullSha": "1bd2407edbd71d88066d14cc4b736bab5d85357d",
-      "author_id": "illuminai.select@gmail.com",
-      "author": {
-        "name": "illuminAI-select",
-        "email": "illuminai.select@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-25T05:31:08+02:00",
-      "commitDate": "2025-12-25T05:31:08+02:00",
-      "subject": "image upload",
-      "body": "",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "image upload",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 0,
-        "deletions": 0
-      },
-      "files": [
-        "assets/images/analytics-iceberg.png"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "b76f5b0",
-      "fullSha": "b76f5b0e2f936494a3da9c3e3a40cfb0c393609e",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-24T23:57:00+02:00",
-      "commitDate": "2025-12-24T23:57:00+02:00",
-      "subject": "Merge pull request #8 from illuminAI-select/claude/optimize-mobile-visibility-fa2yZ",
-      "body": "Optimize mobile performance for visibility preset updates",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #8 from illuminAI-select/claude/optimize-mobile-visibility-fa2yZ",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#8"
-      ],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 106,
-        "deletions": 38
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "a3864d5",
-      "fullSha": "a3864d5613ffe740261e43726cb30b8ab21f0f63",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-24T21:56:08+00:00",
-      "commitDate": "2025-12-24T21:56:08+00:00",
-      "subject": "Optimize mobile performance for visibility preset updates",
-      "body": "Performance improvements:\n- Replace Set-based random selection with efficient Fisher-Yates shuffle\n- Add debouncing (300ms) to prevent rapid successive updates\n- Batch DOM updates using requestAnimationFrame for smoother rendering\n- Only modify squares that need class changes (avoid unnecessary reflows)\n- Add loading state to prevent simultaneous update conflicts\n- Auto-trigger visualization update after preset selection\n\nThese optimizations significantly reduce resource usage on mobile devices\nwhen using quick visibility presets.",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Optimize mobile performance for visibility preset updates",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 106,
-        "deletions": 38
-      },
-      "files": [
-        "assets/js/app.js",
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "fc74c6c",
-      "fullSha": "fc74c6c1de6ea5f5f7fd9a5f4b95f344cfe9c602",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-24T23:42:06+02:00",
-      "commitDate": "2025-12-24T23:42:06+02:00",
-      "subject": "Merge pull request #7 from illuminAI-select/claude/improve-input-ux-k5fvi",
-      "body": "Improve input UX with clearer wording and mobile-friendly controls",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #7 from illuminAI-select/claude/improve-input-ux-k5fvi",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#7"
-      ],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 273,
-        "deletions": 52
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "b27387f",
-      "fullSha": "b27387f32d7ae9ea83cc2df4641c0b0bc4e06402",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-24T21:41:03+00:00",
-      "commitDate": "2025-12-24T21:41:03+00:00",
-      "subject": "Improve input UX with clearer wording and mobile-friendly controls",
-      "body": "- Replace technical jargon with user-friendly labels\n  - \"Communication Channel Inputs\" → \"Adjust Your Channels\"\n  - \"Analyzed %\" → \"Visibility\"\n  - \"Enabled\" → \"Active\"\n  - \"Reshuffle\" → \"Update Visualization\"\n  - \"Distribute Remaining %\" → \"Auto-Balance Channels\"\n\n- Add helpful contextual descriptions throughout the UI\n  - Main help text explaining what the tool does\n  - Section explanations for preset buttons\n  - Inline help text for each control (\"% of total data\", \"How much you can see\")\n\n- Improve mobile touch interaction\n  - Add +/- stepper buttons for easier value adjustment on mobile\n  - Replace cramped sliders with touch-friendly number inputs\n  - Keep sliders visible on desktop only\n  - Larger touch targets (44x44px minimum)\n\n- Enhance visual hierarchy and layout\n  - Better structured control rows with clear labels\n  - Lock icon (🔒) instead of checkbox for locking channels\n  - Separated sections with descriptive headings\n  - Improved spacing and typography\n\nThis makes the interface intuitive for users without context while maintaining all functionality.",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Improve input UX with clearer wording and mobile-friendly controls",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 3,
-        "additions": 273,
-        "deletions": 52
-      },
-      "files": [
-        "assets/css/styles.css",
-        "assets/js/app.js",
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "385741a",
-      "fullSha": "385741aa64860a23bb2f858ed64c2752ccdad5e0",
-      "author_id": "illuminai.select@gmail.com",
-      "author": {
-        "name": "illuminAI-select",
-        "email": "illuminai.select@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-24T23:19:17+02:00",
-      "commitDate": "2025-12-24T23:19:17+02:00",
-      "subject": "Merge pull request #6 from illuminAI-select/claude/mobile-responsive-restructure-OTCPC",
-      "body": "Restructure project with mobile-first responsive design",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #6 from illuminAI-select/claude/mobile-responsive-restructure-OTCPC",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#6"
-      ],
-      "stats": {
-        "filesChanged": 5,
-        "additions": 805,
-        "deletions": 596
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "7130d88",
-      "fullSha": "7130d8835fe2146fefec3d920e5aa445854d2153",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-24T21:17:35+00:00",
-      "commitDate": "2025-12-24T21:17:35+00:00",
-      "subject": "Restructure project with mobile-first responsive design",
-      "body": "- Implemented industry-standard project structure with assets folders\n- Separated concerns: external CSS and JavaScript files\n- Enhanced mobile responsiveness with mobile-first approach\n- Added proper touch targets (44px minimum) for mobile devices\n- Improved responsive breakpoints: 480px, 768px, 1024px, 1280px\n- Optimized layout to stack on mobile, side-by-side on desktop\n- Added semantic HTML5 elements and accessibility attributes\n- Updated README with project structure and features documentation\n\nThe index.html remains in root for GitHub Pages compatibility.",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Restructure project with mobile-first responsive design",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 5,
-        "additions": 805,
-        "deletions": 596
-      },
-      "files": [
-        "README.md",
-        "assets/css/styles.css",
-        "assets/images/FinServ - Customer Service & Account Support.png",
-        "assets/js/app.js",
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "152740e",
-      "fullSha": "152740e3e185d13a9f4fa670d336539ae6d87300",
-      "author_id": "illuminai.select@gmail.com",
-      "author": {
-        "name": "illuminAI-select",
-        "email": "illuminai.select@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-24T23:05:33+02:00",
-      "commitDate": "2025-12-24T23:05:33+02:00",
-      "subject": "Merge pull request #5 from illuminAI-select/claude/fix-ui-styling-4wVj7",
-      "body": "Fix UI styling issues",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #5 from illuminAI-select/claude/fix-ui-styling-4wVj7",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#5"
-      ],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 3,
-        "deletions": 2
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "6538c0b",
-      "fullSha": "6538c0ba384f444c377740ef3e88c80b963bb71d",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-24T21:04:24+00:00",
-      "commitDate": "2025-12-24T21:04:24+00:00",
-      "subject": "Fix UI styling issues",
-      "body": "- Add dark background to input fields for better text readability\n- Make black overlay fully opaque (remove transparency)\n- Align visualization column to top instead of center",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Fix UI styling issues",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 3,
-        "deletions": 2
-      },
-      "files": [
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "5131086",
-      "fullSha": "51310861617ec6c7de99da914bb971e53880a34f",
-      "author_id": "illuminai.select@gmail.com",
-      "author": {
-        "name": "illuminAI-select",
-        "email": "illuminai.select@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-24T22:58:55+02:00",
-      "commitDate": "2025-12-24T22:58:55+02:00",
-      "subject": "Merge pull request #4 from illuminAI-select/claude/dark-theme-611Uu",
-      "body": "Implement dark theme design",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #4 from illuminAI-select/claude/dark-theme-611Uu",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#4"
-      ],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 19,
-        "deletions": 18
-      },
-      "files": [
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "2ac41ed",
-      "fullSha": "2ac41edc01207d32577ab4048105aebff7fd04fb",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-24T20:56:22+00:00",
-      "commitDate": "2025-12-24T20:56:22+00:00",
-      "subject": "Implement dark theme design",
-      "body": "Dark theme updates:\n- Convert all color variables to dark palette\n- Background: Deep slate (#0f172a)\n- Surface: Dark slate (#1e293b, #334155)\n- Text: Light slate (#f1f5f9, #94a3b8)\n- Primary: Vibrant purple gradient (#7c3aed → #a855f7)\n- Update all shadows for better visibility on dark backgrounds\n- Adjust channel group gradients for dark mode\n- Update content area gradient\n- Enhance input focus states with purple glow\n- Update reset button styling for dark theme\n- Improve range slider contrast",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Implement dark theme design",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#0",
-        "#1",
-        "#334155",
-        "#94",
-        "#7"
-      ],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 19,
-        "deletions": 18
-      },
-      "files": [
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "21a0dc2",
-      "fullSha": "21a0dc200822b8313fd1becca671530e3c89686f",
-      "author_id": "illuminai.select@gmail.com",
-      "author": {
-        "name": "illuminAI-select",
-        "email": "illuminai.select@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-24T22:53:28+02:00",
-      "commitDate": "2025-12-24T22:53:28+02:00",
-      "subject": "Merge pull request #3 from illuminAI-select/claude/mobile-improvements-611Uu",
-      "body": "Improve mobile responsiveness with enhanced touch targets",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #3 from illuminAI-select/claude/mobile-improvements-611Uu",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#3"
-      ],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 122,
-        "deletions": 0
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "80605b8",
-      "fullSha": "80605b884d523347b80d4b6b24f448cb6b8bc074",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-24T20:35:24+00:00",
-      "commitDate": "2025-12-24T20:35:24+00:00",
-      "subject": "Improve mobile responsiveness with enhanced touch targets",
-      "body": "Mobile improvements:\n- Add comprehensive mobile styles for screens ≤800px\n- Implement 44px minimum touch targets for all interactive elements\n- Set font-size: 16px on inputs to prevent iOS zoom\n- Increase slider thumb size to 24px for easier touch\n- Increase checkbox touch area to 44x44px\n- Improve button touch targets (min 48px height)\n- Switch preset buttons to 2-column layout on mobile\n- Adjust spacing and padding for mobile screens\n- Add extra small device support (≤480px)\n- Optimize visualization container for mobile viewports\n- Remove border-right on mobile sidebar, add border-bottom\n- Allow body height to be auto on mobile for better scrolling",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Improve mobile responsiveness with enhanced touch targets",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 122,
-        "deletions": 0
-      },
-      "files": [
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "b22a2c5",
-      "fullSha": "b22a2c58ce754609e1c9fae6a6cb5cad18b67b64",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-24T22:26:58+02:00",
-      "commitDate": "2025-12-24T22:26:58+02:00",
-      "subject": "Merge pull request #2 from illuminAI-select/claude/add-claude-md-611Uu",
-      "body": "Modernize UI with contemporary design system",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #2 from illuminAI-select/claude/add-claude-md-611Uu",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#2"
-      ],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 151,
-        "deletions": 36
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "1174a01",
-      "fullSha": "1174a01182daa0dee103f4d881b256cc1e7d5e2f",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-24T20:20:17+00:00",
-      "commitDate": "2025-12-24T20:20:17+00:00",
-      "subject": "Modernize UI with contemporary design system",
-      "body": "Design improvements:\n- Add CSS custom properties for consistent theming\n- Implement purple gradient color scheme (#667eea → #764ba2)\n- Use modern system font stack\n- Add card-based design with subtle shadows and hover effects\n- Create gradient text headings\n- Implement custom-styled range sliders with gradient thumbs\n- Add focus states with glow effects\n- Enhance buttons with lift animations\n- Add gradient background to content area\n- Improve spacing, typography, and visual hierarchy\n- Smooth transitions with cubic-bezier easing",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Modernize UI with contemporary design system",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#667",
-        "#764"
-      ],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 151,
-        "deletions": 36
-      },
-      "files": [
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "759b929",
-      "fullSha": "759b929c8a53b0f4e097f84adc5f498f3e966c32",
-      "author_id": "devmade.ai@gmail.com",
-      "author": {
-        "name": "devmade-ai",
-        "email": "devmade.ai@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-12-24T22:15:01+02:00",
-      "commitDate": "2025-12-24T22:15:01+02:00",
-      "subject": "Merge pull request #1 from illuminAI-select/claude/add-claude-md-611Uu",
-      "body": "Add comprehensive claude.md documentation",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Merge pull request #1 from illuminAI-select/claude/add-claude-md-611Uu",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [
-        "#1"
-      ],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 146,
-        "deletions": 0
-      },
-      "files": [],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "2b7f741",
-      "fullSha": "2b7f7411e1d18f6b26d381af15e55c77ebd96ffd",
-      "author_id": "noreply@anthropic.com",
-      "author": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "committer": {
-        "name": "Claude",
-        "email": "noreply@anthropic.com"
-      },
-      "timestamp": "2025-12-24T20:13:25+00:00",
-      "commitDate": "2025-12-24T20:13:25+00:00",
-      "subject": "Add comprehensive claude.md documentation",
-      "body": "- Document project overview and purpose\n- Describe technology stack and architecture\n- Explain all features and interactive controls\n- Detail code organization and structure\n- Include development considerations and use cases",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Add comprehensive claude.md documentation",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 146,
-        "deletions": 0
-      },
-      "files": [
-        "claude.md"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "fd42669",
-      "fullSha": "fd42669a79b6c7a5d117c97473c31fdae253a1ed",
-      "author_id": "illuminai.select@gmail.com",
-      "author": {
-        "name": "illuminAI-select",
-        "email": "illuminai.select@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-06-16T11:08:44+02:00",
-      "commitDate": "2025-06-16T11:08:44+02:00",
-      "subject": "Add files via upload",
-      "body": "",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Add files via upload",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 0,
-        "deletions": 0
-      },
-      "files": [
-        "FinServ - Customer Service & Account Support.png"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "e20be4f",
-      "fullSha": "e20be4f8fa4a359ecae7d6fb74253b52f63da4fa",
-      "author_id": "illuminai.select@gmail.com",
-      "author": {
-        "name": "illuminAI-select",
-        "email": "illuminai.select@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-06-16T11:07:54+02:00",
-      "commitDate": "2025-06-16T11:07:54+02:00",
-      "subject": "Create index.html",
-      "body": "",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Create index.html",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 1,
-        "additions": 367,
-        "deletions": 0
-      },
-      "files": [
-        "index.html"
-      ],
-      "repo_id": "chatty-chart"
-    },
-    {
-      "sha": "f5090f0",
-      "fullSha": "f5090f0edec8ce5afb2cf67a78b324731f3005c9",
-      "author_id": "illuminai.select@gmail.com",
-      "author": {
-        "name": "illuminAI-select",
-        "email": "illuminai.select@gmail.com"
-      },
-      "committer": {
-        "name": "GitHub",
-        "email": "noreply@github.com"
-      },
-      "timestamp": "2025-06-16T11:03:48+02:00",
-      "commitDate": "2025-06-16T11:03:48+02:00",
-      "subject": "Initial commit",
-      "body": "",
-      "tags": [],
-      "complexity": null,
-      "scope": null,
-      "title": "Initial commit",
-      "is_conventional": false,
-      "has_breaking_change": false,
-      "references": [],
-      "stats": {
-        "filesChanged": 2,
-        "additions": 662,
-        "deletions": 0
-      },
-      "files": [
-        "LICENSE",
-        "README.md"
-      ],
-      "repo_id": "chatty-chart"
     }
   ]
 }

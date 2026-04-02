@@ -106,6 +106,15 @@ args.forEach(arg => {
   }
 });
 
+// Requirement: Permanently exclude discontinued repos from aggregation
+// Approach: Skip these repo directories during loadAllRepos(). Deleting
+//   processed/ data removes current data; this list prevents re-inclusion
+//   if someone accidentally re-extracts the repo.
+// Alternatives:
+//   - Only delete processed data: Rejected — re-extraction would re-include
+//   - Config file: Rejected — overkill for a short static list
+const EXCLUDED_REPOS = new Set(['chatty-chart']);
+
 // === Data Loading ===
 
 /**
@@ -185,7 +194,8 @@ function loadAllRepos() {
   }
 
   const repoDirs = fs.readdirSync(PROCESSED_DIR)
-    .filter(d => fs.statSync(path.join(PROCESSED_DIR, d)).isDirectory());
+    .filter(d => fs.statSync(path.join(PROCESSED_DIR, d)).isDirectory())
+    .filter(d => !EXCLUDED_REPOS.has(d));
 
   console.log(`\nLoading processed data from ${repoDirs.length} repos:\n`);
 
