@@ -24,11 +24,11 @@ These rules are non-negotiable. Stop and ask before proceeding if any rule would
 ### Code Organization
 
 - [ ] Prefer smaller, focused files and functions
-- [ ] Pause and consider extraction at: 500 lines (file), 100 lines (function), 400 lines (class)
-- [ ] Strongly consider refactoring at: 800+ lines (file), 150+ lines (function), 600+ lines (class)
+- [ ] Pause and consider extraction at: 500 lines (file), 100 lines (function), 400 lines (component)
+- [ ] Strongly consider refactoring at: 800+ lines (file), 150+ lines (function), 600+ lines (component)
 - [ ] Extract reusable logic into separate modules/files immediately
 - [ ] Group related functionality into logical directories
-- [ ] Split large classes into smaller, focused classes when responsibilities diverge
+- [ ] Split large components into smaller, focused components when responsibilities diverge
 
 ### Decision Documentation in Code
 
@@ -103,9 +103,9 @@ During every change, actively scan for:
 - [ ] Edge cases not covered
 - [ ] Inconsistent naming
 - [ ] Code duplication that should be extracted
-- [ ] Missing validation
-- [ ] Security concerns
-- [ ] Performance issues
+- [ ] Missing input validation at boundaries
+- [ ] Security concerns (XSS via `dangerouslySetInnerHTML`, unsanitized user input)
+- [ ] Performance issues (unnecessary re-renders, missing keys, large re-computations)
 
 Report findings even if not directly related to current task.
 
@@ -118,7 +118,7 @@ Report findings even if not directly related to current task.
 **URL:** `https://raw.githubusercontent.com/devmade-ai/glow-props/main/CLAUDE.md`
 
 Shared coding standards, patterns, and suggested implementations across devmade-ai projects.
-Check periodically for new patterns to adopt. Last reviewed: 2026-03-26.
+Check periodically for new patterns to adopt. Last reviewed: 2026-04-02.
 
 **Adopted patterns:**
 - PWA install prompt race condition fix (inline `beforeinstallprompt` capture in HTML)
@@ -131,6 +131,10 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-03-26.
 - `// KEEP:` convention for preserved commented-out code
 - Bug report clarification rule (ask before fixing)
 - Prohibition: no interactive prompts, no feature removal during cleanup without checking docs
+- Burger Menu disclosure pattern (a11y, iOS Safari fixes, focus management, z-index scale)
+- Safe localStorage wrappers (`safeStorageGet`/`safeStorageSet` for sandboxed environments)
+- Theme flash prevention (inline `<head>` script for dark mode before first paint)
+- Z-index scale convention (0–80 standardized layers)
 
 ---
 
@@ -366,422 +370,18 @@ Rules:
 
 Reference patterns from glow-props for features across all projects. Adapt file names and frameworks to this project (React 19 + Vite + Tailwind v4).
 
-### PWA System
-
-Four parts, built on `vite-plugin-pwa` (^0.21.1) with React.
-
-#### Vite Config (`vite.config.js`)
-
-```javascript
-import { VitePWA } from 'vite-plugin-pwa'
-
-// Inside defineConfig plugins array:
-VitePWA({
-  registerType: 'prompt',
-  includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
-  manifest: {
-    name: 'Your App',
-    short_name: 'App',
-    description: 'Description here',
-    id: '/',
-    theme_color: '#10b981',
-    background_color: '#ffffff',
-    display: 'standalone',
-    scope: '/',
-    start_url: '/',
-    prefer_related_applications: false,
-    icons: [
-      { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
-      { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
-      { src: 'pwa-1024x1024.png', sizes: '1024x1024', type: 'image/png', purpose: 'maskable' }
-    ]
-  }
-})
-```
-
-- **`registerType: 'prompt'`**: Users control when updates apply. `autoUpdate` silently refreshes mid-work.
-- **`id`**: Stable app identity. Without it, Chrome derives from `start_url` — breaks on config changes.
-- **`prefer_related_applications: false`**: Without this, Chrome may skip `beforeinstallprompt`.
-- **Separate icon purposes**: `any` for standard display (192, 512), `maskable` for full-bleed (1024). Never combine `"any maskable"`.
-
-#### Install Prompt Race Condition (`index.html`)
-
-`beforeinstallprompt` fires once. On repeat visits with a cached SW, it fires before the framework mounts — if nothing catches it, the install prompt is permanently lost.
-
-Inline classic (non-module) script before any `<script type="module">`:
-
-```html
-<script>
-  window.addEventListener('beforeinstallprompt', function (e) {
-    e.preventDefault();
-    window.__pwaInstallPromptEvent = e;
-  });
-</script>
-```
-
-#### Service Worker Updates (`usePWAUpdate.js`)
-
-```javascript
-import { useRegisterSW } from 'virtual:pwa-register/react'
-import { useEffect, useCallback } from 'react'
-
-const CHECK_INTERVAL_MS = 60 * 60 * 1000
-
-export function usePWAUpdate() {
-  const {
-    needRefresh: [needRefresh],
-    offlineReady: [offlineReady, setOfflineReady],
-    updateServiceWorker
-  } = useRegisterSW({
-    onRegisteredSW(_url, registration) {
-      if (registration) {
-        setInterval(() => registration.update(), CHECK_INTERVAL_MS)
-      }
-    }
-  })
-
-  useEffect(() => {
-    if (!offlineReady) return
-    const t = setTimeout(() => setOfflineReady(false), 3000)
-    return () => clearTimeout(t)
-  }, [offlineReady, setOfflineReady])
-
-  const updateApp = useCallback(() => {
-    updateServiceWorker(true)
-  }, [updateServiceWorker])
-
-  return { hasUpdate: needRefresh, offlineReady, updateApp }
-}
-```
-
-#### Install Detection (`usePWAInstall.js`)
-
-```javascript
-import { useState, useEffect, useCallback } from 'react'
-
-function detectBrowser() {
-  const ua = navigator.userAgent
-  if (navigator.brave) return 'brave'
-  if (/Edg\//i.test(ua)) return 'edge'
-  if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) return 'chrome'
-  if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) {
-    return /iPhone|iPad|iPod/.test(ua) ? 'safari-ios' : 'safari-macos'
-  }
-  if (/Firefox/i.test(ua)) {
-    return /Android/i.test(ua) ? 'firefox-android' : 'firefox-desktop'
-  }
-  return 'unknown'
-}
-
-function consumeEarlyCapturedEvent() {
-  const captured = window.__pwaInstallPromptEvent
-  if (captured) {
-    delete window.__pwaInstallPromptEvent
-    return captured
-  }
-  return null
-}
-
-const isStandalone = window.matchMedia('(display-mode: standalone)').matches
-  || navigator.standalone === true
-
-export function usePWAInstall() {
-  const [browser] = useState(detectBrowser)
-  const [deferredPrompt, setDeferredPrompt] = useState(consumeEarlyCapturedEvent)
-  const [installed] = useState(isStandalone)
-  const [dismissed, setDismissed] = useState(
-    () => localStorage.getItem('pwa-install-dismissed') === 'true'
-  )
-
-  useEffect(() => {
-    if (deferredPrompt) return
-    const handler = (e) => {
-      e.preventDefault()
-      setDeferredPrompt(e)
-    }
-    window.addEventListener('beforeinstallprompt', handler)
-    return () => window.removeEventListener('beforeinstallprompt', handler)
-  }, [deferredPrompt])
-
-  const canNativeInstall = !!deferredPrompt
-  const needsManualInstructions = ['safari-ios', 'safari-macos', 'firefox-android', 'firefox-desktop'].includes(browser)
-  const showInstallPrompt = !installed && !dismissed && (canNativeInstall || needsManualInstructions)
-
-  const triggerInstall = useCallback(async () => {
-    if (!deferredPrompt) return
-    await deferredPrompt.prompt()
-    const { outcome } = await deferredPrompt.userChoice
-    setDeferredPrompt(null)
-  }, [deferredPrompt])
-
-  const dismiss = useCallback(() => {
-    setDismissed(true)
-    localStorage.setItem('pwa-install-dismissed', 'true')
-  }, [])
-
-  return {
-    browser, installed, dismissed, canNativeInstall,
-    needsManualInstructions, showInstallPrompt,
-    triggerInstall, dismiss
-  }
-}
-```
-
-### Debug System
-
-In-memory event store with floating debug pill. Alpha-phase diagnostic tool.
-
-**Event store**: Pub/sub system with a capped circular buffer of 200 entries. Each entry has: `id`, `timestamp`, `source` (boot/db/graph/pwa/render/global), `severity` (info/success/warn/error), `event`, and optional `details`. Global `window.error` and `unhandledrejection` listeners capture crashes early. No external dependencies or persistence — purely in-memory.
-
-**Floating debug pill**: Renders in a separate React root (survives App crashes). Collapsed state shows a "dbg" pill with entry count and error/warning badges. Expanded state has two tabs:
-
-- **Log tab**: Scrollable list of all debug entries, color-coded by source and severity. Timestamps formatted as `HH:MM:SS.mmm`. Auto-scrolls to newest entry.
-- **Environment tab**: Runtime diagnostics — URL, user agent, screen/viewport dimensions, online status, protocol, standalone mode, service worker support.
-
-Actions: "Copy" generates a full debug report to clipboard with textarea fallback. "Clear" wipes all entries.
-
-### App Icons from SVG Source
-
-Single SVG source file, Sharp converts to all needed PNG sizes at 400 DPI for crisp edges.
-
-**Dependencies:** `sharp` (devDependency)
-
-```javascript
-// scripts/generate-icons.mjs
-import sharp from 'sharp';
-import { readFileSync, mkdirSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT = join(__dirname, '..');
-const SVG_SOURCE = join(ROOT, 'assets', 'icon-source.svg');
-const IMAGES_DIR = join(ROOT, 'assets', 'images');
-
-// 400 DPI: ~5.5x the default 72 DPI. Sharp rasterizes at this density
-// before downscaling, so edges are anti-aliased from high-res source data.
-const SVG_DENSITY = 400;
-
-const ICONS = [
-  { name: 'icon.png', size: 1024 },
-  { name: 'adaptive-icon.png', size: 1024 },
-  { name: 'splash-icon.png', size: 1024 },
-  { name: 'favicon.png', size: 48 },
-  { name: 'icon-192.png', size: 192 },
-  { name: 'icon-512.png', size: 512 },
-];
-
-async function generate() {
-  const svgBuffer = readFileSync(SVG_SOURCE);
-  mkdirSync(IMAGES_DIR, { recursive: true });
-
-  for (const icon of ICONS) {
-    await sharp(svgBuffer, { density: SVG_DENSITY })
-      .resize(icon.size, icon.size)
-      .png()
-      .toFile(join(IMAGES_DIR, icon.name));
-    console.log(`  ${icon.name} (${icon.size}x${icon.size})`);
-  }
-  console.log(`Done — ${ICONS.length} icons generated.`);
-}
-
-generate().catch((err) => {
-  console.error('Icon generation failed:', err);
-  process.exit(1);
-});
-```
-
-**SVG design rules for maskable icons:**
-- Canvas must be square (e.g. `viewBox="0 0 1024 1024"`)
-- Add `shape-rendering="geometricPrecision"` to the root `<svg>` element
-- Background fills entire canvas (no transparency)
-- Important content stays within the inner 80% (safe zone for maskable crop)
-- Design must be legible at 48px (favicon)
-
-### Download as PDF (via `window.print()`)
-
-Zero-dependency PDF download using the browser's native print dialog.
-
-**1. Trigger button:**
-```jsx
-<button type="button" onClick={() => window.print()}>
-  Download as PDF
-</button>
-```
-
-**2. The `no-print` utility class** — hide interactive elements when printing:
-```css
-@media print {
-  .no-print {
-    display: none !important;
-  }
-}
-```
-
-Apply `className="no-print"` to: navigation bars, action buttons, footers, modals, tooltips, debug overlays.
-
-**3. Print-friendly CSS overrides:**
-```css
-@media print {
-  body {
-    background: white !important;
-    color: black !important;
-  }
-  a {
-    color: black !important;
-    text-decoration: underline !important;
-  }
-  section {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-}
-```
-
-### Fix: Timer Leaks on Unmount (Nested Timeouts)
-
-Debounce patterns using `setTimeout` leak when a component unmounts mid-timeout.
-
-**Broken:**
-```javascript
-useEffect(() => {
-  const outer = setTimeout(() => {
-    doSomething();
-    const inner = setTimeout(() => save(), 500); // leaked
-  }, 300);
-  return () => clearTimeout(outer); // only clears outer
-}, [value]);
-```
-
-**Fix — track all timeout IDs:**
-```javascript
-useEffect(() => {
-  const timeouts = [];
-
-  const outer = setTimeout(() => {
-    doSomething();
-    const inner = setTimeout(() => save(), 500);
-    timeouts.push(inner);
-  }, 300);
-  timeouts.push(outer);
-
-  return () => timeouts.forEach(clearTimeout);
-}, [value]);
-```
-
-**Alternative — mounted ref guard:**
-```javascript
-const mountedRef = useRef(true);
-useEffect(() => () => { mountedRef.current = false; }, []);
-
-// In any async/timeout callback:
-if (!mountedRef.current) return;
-```
-
-**General rule:** Every `setTimeout`, `setInterval`, `addEventListener`, or `subscribe` call inside a `useEffect` needs a corresponding cleanup in the return function.
-
-### HTTPS Proxy Support for Node.js Scripts
-
-Zero-dependency HTTP CONNECT tunnel for Node.js scripts that need to reach external APIs through an HTTPS proxy. Solves the problem that Node.js's built-in `fetch()` (undici) and `https.get()` do NOT respect `HTTP_PROXY`/`HTTPS_PROXY` environment variables.
-
-```javascript
-import http from 'http';
-import https from 'https';
-
-// Detect proxy from environment variables
-const PROXY_URL = process.env.https_proxy || process.env.HTTPS_PROXY || null;
-
-function getProxyConnectOptions(targetHost) {
-  const proxy = new URL(PROXY_URL);
-  const options = {
-    host: proxy.hostname,
-    port: proxy.port,
-    method: 'CONNECT',
-    path: `${targetHost}:443`,
-    headers: { 'Host': `${targetHost}:443` },
-    timeout: 15000,
-  };
-  if (proxy.username) {
-    const auth = Buffer.from(
-      decodeURIComponent(proxy.username) + ':' + decodeURIComponent(proxy.password)
-    ).toString('base64');
-    options.headers['Proxy-Authorization'] = `Basic ${auth}`;
-  }
-  return options;
-}
-
-function httpsGet(requestUrl, headers = {}) {
-  const parsed = new URL(requestUrl);
-  if (PROXY_URL) {
-    return httpsGetViaProxy(parsed, headers);
-  }
-  return httpsGetDirect(parsed, headers);
-}
-
-function httpsGetDirect(parsed, headers) {
-  return new Promise((resolve, reject) => {
-    const req = https.get(parsed.href, { headers, timeout: 15000 }, (res) => {
-      let data = '';
-      res.on('data', (chunk) => { data += chunk; });
-      res.on('end', () => {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(JSON.parse(data));
-        } else {
-          reject(new Error(`HTTP ${res.statusCode}: ${data.substring(0, 200)}`));
-        }
-      });
-    });
-    req.on('error', reject);
-    req.on('timeout', () => { req.destroy(); reject(new Error('Request timeout')); });
-  });
-}
-
-function httpsGetViaProxy(parsed, headers) {
-  return new Promise((resolve, reject) => {
-    const connectOptions = getProxyConnectOptions(parsed.hostname);
-    const proxyReq = http.request(connectOptions);
-
-    proxyReq.on('connect', (res, socket) => {
-      if (res.statusCode !== 200) {
-        socket.destroy();
-        reject(new Error(`Proxy CONNECT failed: ${res.statusCode}`));
-        return;
-      }
-      const tlsReq = https.get({
-        host: parsed.hostname,
-        path: parsed.pathname + parsed.search,
-        headers,
-        socket,
-        servername: parsed.hostname,
-        timeout: 15000,
-      }, (tlsRes) => {
-        let data = '';
-        tlsRes.on('data', (chunk) => { data += chunk; });
-        tlsRes.on('end', () => {
-          if (tlsRes.statusCode >= 200 && tlsRes.statusCode < 300) {
-            resolve(JSON.parse(data));
-          } else {
-            reject(new Error(`HTTP ${tlsRes.statusCode}: ${data.substring(0, 200)}`));
-          }
-        });
-      });
-      tlsReq.on('error', reject);
-      tlsReq.on('timeout', () => { tlsReq.destroy(); reject(new Error('Request timeout')); });
-    });
-
-    proxyReq.on('error', reject);
-    proxyReq.on('timeout', () => { proxyReq.destroy(); reject(new Error('Proxy connect timeout')); });
-    proxyReq.end();
-  });
-}
-```
-
-**Usage:**
-```javascript
-const data = await httpsGet('https://api.example.com/status', {
-  'User-Agent': 'MyApp/1.0',
-});
-```
+Each implementation is in its own file under `docs/implementations/`:
+
+| Implementation | File | Description | Status |
+|---------------|------|-------------|--------|
+| PWA System | [`PWA_SYSTEM.md`](docs/implementations/PWA_SYSTEM.md) | Vite PWA config, install prompt, service worker updates, install detection | Implemented (event-based variant) |
+| Debug System | [`DEBUG_SYSTEM.md`](docs/implementations/DEBUG_SYSTEM.md) | In-memory event store, floating debug pill (alpha-phase) | Implemented (inline HTML variant) |
+| App Icons | [`APP_ICONS.md`](docs/implementations/APP_ICONS.md) | SVG source to PNG conversion via Sharp at 400 DPI | Implemented |
+| Download as PDF | [`DOWNLOAD_PDF.md`](docs/implementations/DOWNLOAD_PDF.md) | Zero-dependency PDF via `window.print()` | Implemented |
+| Timer Leaks | [`TIMER_LEAKS.md`](docs/implementations/TIMER_LEAKS.md) | Nested timeout cleanup patterns for `useEffect` | Implemented |
+| HTTPS Proxy | [`HTTPS_PROXY.md`](docs/implementations/HTTPS_PROXY.md) | Node.js HTTP CONNECT tunnel for proxy environments | Not needed (uses curl) |
+| Burger Menu | [`BURGER_MENU.md`](docs/implementations/BURGER_MENU.md) | Disclosure-pattern dropdown with a11y, iOS Safari fixes, focus management | Implemented (audit pending) |
+| Theme & Dark Mode | [`THEME_DARK_MODE.md`](docs/implementations/THEME_DARK_MODE.md) | Flash prevention, cross-tab sync, safe localStorage, system preference fallback | Partial (dark-only CSS vars) |
 
 ---
 
@@ -830,6 +430,8 @@ Never:
 
 - **Document your mistakes** in docs/AI_MISTAKES.md so future sessions learn from them
 - **Always read files before editing** — use the Read tool on every file before attempting to Edit it
+- **Check build tools before building** — run `npm install` or verify `node_modules/.bin/vite` exists before attempting `npm run build`. The `sharp` package may not be installed (used by prebuild icon generation), so use `./node_modules/.bin/vite build` directly to skip the prebuild step.
+- **CRITICAL: Keep `QuickGuide.jsx` up to date** — this is user-facing help content shown in-app. When tabs, sections, or features change, update the guide steps to match. Outdated guide content confuses users.
 - **Verify before assuming** — read the actual code before claiming what it does. Don't describe behavior based on file names, comments, or assumptions — check the implementation. If the user describes how something works, compare it against the actual code rather than agreeing without verification.
 - **Fix root causes, not symptoms** — when something isn't working, find out WHY before writing code. Don't add workarounds (globals, duplicate listeners, flag variables) to patch over an architectural issue. If the fix requires touching 3+ files to coordinate shared state, that's a smell — look for a simpler structural change.
 - **ASK before assuming on bug reports** — when a user reports a bug, ask clarifying questions (which mode? what did you type? what do you see?) BEFORE writing code. One clarifying question saves multiple wrong commits.

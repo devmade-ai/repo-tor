@@ -78,7 +78,7 @@
           'Service Worker support: ' + (sw ? 'yes' : 'no'),
           'SW controller: ' + ctrl,
           'Standalone mode: ' + standalone,
-          'PWA installed flag: ' + (standalone || localStorage.getItem('pwaInstalled') === 'true'),
+          'PWA installed flag: ' + (standalone || (function() { try { return localStorage.getItem('pwaInstalled') === 'true'; } catch(e) { return false; } })()),
           'React mounted: ' + !!window.__debugReactMounted,
           'Errors: ' + errors.length,
           'User agent: ' + navigator.userAgent,

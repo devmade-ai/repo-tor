@@ -3,6 +3,25 @@
 
 import { state, anonymousNames, authorAnonMap, getViewConfig } from './state.js';
 
+// === Safe localStorage Wrappers ===
+// Requirement: Prevent crashes in sandboxed iframes, disabled-storage settings,
+//   and enterprise environments where localStorage throws SecurityError.
+// Approach: Wrap all localStorage access in try/catch. Fall back to null/no-op.
+// Alternatives:
+//   - Raw localStorage calls: Rejected — crashes in sandboxed contexts
+//   - Feature detection only: Rejected — some environments allow getItem but throw on setItem
+export function safeStorageGet(key) {
+    try { return localStorage.getItem(key); } catch { return null; }
+}
+
+export function safeStorageSet(key, value) {
+    try { localStorage.setItem(key, String(value)); } catch { /* sandboxed iframe, disabled storage */ }
+}
+
+export function safeStorageRemove(key) {
+    try { localStorage.removeItem(key); } catch { /* sandboxed iframe, disabled storage */ }
+}
+
 // Keyboard handler for clickable non-button elements (Enter/Space activates click)
 export function handleKeyActivate(callback) {
     return (e) => {

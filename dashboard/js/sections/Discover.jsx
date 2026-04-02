@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { useApp } from '../AppContext.jsx';
-import { getCommitTags, getAuthorEmail, getCommitDateTime, getFilesChanged } from '../utils.js';
+import { getCommitTags, getAuthorEmail, getCommitDateTime, getFilesChanged, safeStorageGet, safeStorageSet } from '../utils.js';
 import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
@@ -278,7 +278,7 @@ const DISCOVER_METRICS = [
 // Load pinned state from localStorage
 function loadPinnedMetrics() {
     try {
-        const saved = localStorage.getItem('discoverState');
+        const saved = safeStorageGet('discoverState');
         if (saved) {
             const parsed = JSON.parse(saved);
             return parsed.pinnedMetrics || {};
@@ -289,7 +289,7 @@ function loadPinnedMetrics() {
 
 function savePinnedMetrics(pinned) {
     try {
-        localStorage.setItem('discoverState', JSON.stringify({ pinnedMetrics: pinned }));
+        safeStorageSet('discoverState', JSON.stringify({ pinnedMetrics: pinned }));
     } catch (e) { console.warn('Failed to save pinned metrics:', e.message); }
 }
 

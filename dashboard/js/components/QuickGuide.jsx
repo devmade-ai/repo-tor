@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import useFocusTrap from '../hooks/useFocusTrap.js';
 import useEscapeKey from '../hooks/useEscapeKey.js';
+import { safeStorageGet, safeStorageSet } from '../utils.js';
 
 // Requirement: Provide a simple onboarding tutorial for non-technical users
 // Approach: 4-step modal with Next/Back navigation, auto-shows on first visit
@@ -156,16 +157,10 @@ export default function QuickGuide({ open, onClose }) {
 
 /** Returns true if the user has never seen the quick guide */
 QuickGuide.shouldAutoShow = function () {
-    try {
-        return localStorage.getItem(STORAGE_KEY) !== 'true';
-    } catch {
-        return false;
-    }
+    return safeStorageGet(STORAGE_KEY) !== 'true';
 };
 
 /** Mark the quick guide as seen */
 QuickGuide.markSeen = function () {
-    try {
-        localStorage.setItem(STORAGE_KEY, 'true');
-    } catch { /* ignore */ }
+    safeStorageSet(STORAGE_KEY, 'true');
 };

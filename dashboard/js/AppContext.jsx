@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState } from 'react';
 import { state as globalState, VIEW_LEVELS } from './state.js';
-import { getCommitTags, getAuthorEmail, getUrgencyLabel } from './utils.js';
+import { getCommitTags, getAuthorEmail, getUrgencyLabel, safeStorageGet, safeStorageSet } from './utils.js';
 
 // Requirement: Prevent unnecessary re-renders when components only need to dispatch actions
 // Approach: Split into two contexts — DispatchContext (stable identity, never changes) and
@@ -29,17 +29,17 @@ const DEFAULT_FILTERS = {
 function loadInitialState() {
     let savedFilters = null;
     try {
-        const saved = localStorage.getItem('dashboardFilters');
+        const saved = safeStorageGet('dashboardFilters');
         if (saved) savedFilters = JSON.parse(saved);
     } catch (e) { console.warn('Failed to read filters from localStorage:', e.message); }
 
     return {
         data: null,
         activeTab: 'overview',
-        currentViewLevel: localStorage.getItem('viewLevel') || 'developer',
-        useUTC: localStorage.getItem('useUTC') === 'true',
-        workHourStart: parseInt(localStorage.getItem('workHourStart') || '8', 10),
-        workHourEnd: parseInt(localStorage.getItem('workHourEnd') || '17', 10),
+        currentViewLevel: safeStorageGet('viewLevel') || 'developer',
+        useUTC: safeStorageGet('useUTC') === 'true',
+        workHourStart: parseInt(safeStorageGet('workHourStart') || '8', 10),
+        workHourEnd: parseInt(safeStorageGet('workHourEnd') || '17', 10),
         detailPane: { open: false, title: '', subtitle: '', commits: [], filterInfo: null },
         filterSidebarOpen: false,
         settingsPaneOpen: false,
@@ -248,18 +248,18 @@ export function AppProvider({ children }) {
 
     // Persist settings to localStorage
     useEffect(() => {
-        localStorage.setItem('viewLevel', state.currentViewLevel);
+        safeStorageSet('viewLevel', state.currentViewLevel);
     }, [state.currentViewLevel]);
     useEffect(() => {
-        localStorage.setItem('useUTC', String(state.useUTC));
+        safeStorageSet('useUTC', String(state.useUTC));
     }, [state.useUTC]);
     useEffect(() => {
-        localStorage.setItem('workHourStart', String(state.workHourStart));
-        localStorage.setItem('workHourEnd', String(state.workHourEnd));
+        safeStorageSet('workHourStart', String(state.workHourStart));
+        safeStorageSet('workHourEnd', String(state.workHourEnd));
     }, [state.workHourStart, state.workHourEnd]);
     useEffect(() => {
         try {
-            localStorage.setItem('dashboardFilters', JSON.stringify(state.filters));
+            safeStorageSet('dashboardFilters', JSON.stringify(state.filters));
         } catch (e) {
             console.warn('Failed to save filters to localStorage:', e.message);
         }

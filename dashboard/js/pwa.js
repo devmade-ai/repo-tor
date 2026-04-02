@@ -15,6 +15,18 @@
 
 import { registerSW } from 'virtual:pwa-register';
 
+// Safe localStorage wrappers — local copies to avoid importing utils.js
+// (pwa.js loads early and shouldn't depend on the full utils module chain)
+function safeStorageGet(key) {
+    try { return localStorage.getItem(key); } catch { return null; }
+}
+function safeStorageSet(key, value) {
+    try { localStorage.setItem(key, String(value)); } catch { /* sandboxed */ }
+}
+function safeStorageRemove(key) {
+    try { localStorage.removeItem(key); } catch { /* sandboxed */ }
+}
+
 // === State ===
 let deferredInstallPrompt = null;
 let updateSW = null;
@@ -118,7 +130,7 @@ function consumeEarlyCapturedEvent() {
 
 const earlyCaptured = consumeEarlyCapturedEvent();
 if (earlyCaptured) {
-    localStorage.removeItem('pwaInstalled');
+    safeStorageRemove('pwaInstalled');
     deferredInstallPrompt = earlyCaptured;
     _installReady = true;
     // Defer event dispatch so React listeners are attached by the time it fires
@@ -130,7 +142,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     // The browser only fires this event when the app is NOT installed.
     // Clear any stale flag from a previous install that was since removed.
-    localStorage.removeItem('pwaInstalled');
+    safeStorageRemove('pwaInstalled');
     deferredInstallPrompt = e;
     _installReady = true;
     window.dispatchEvent(new CustomEvent('pwa-install-ready'));
@@ -139,7 +151,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 window.addEventListener('appinstalled', () => {
     deferredInstallPrompt = null;
     _installReady = false;
-    localStorage.setItem('pwaInstalled', 'true');
+    safeStorageSet('pwaInstalled', 'true');
     window.dispatchEvent(new CustomEvent('pwa-installed'));
 });
 
@@ -164,7 +176,7 @@ export function getPWAState() {
 
 /** Whether the app is running as an installed PWA */
 export function isInstalledPWA() {
-    return isStandalone || localStorage.getItem('pwaInstalled') === 'true';
+    return isStandalone || safeStorageGet('pwaInstalled') === 'true';
 }
 
 /** Whether the app is running in standalone mode */
