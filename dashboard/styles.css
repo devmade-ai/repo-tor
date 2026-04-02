@@ -3,44 +3,52 @@
 /* Dark mode uses class-based approach (html.dark) */
 @custom-variant dark (&:where(.dark, .dark *));
 
-        /* Dark Theme */
+        /* Light Theme (default) */
+        /* Requirement: Support both light and dark themes via CSS variables
+           Approach: :root defines light theme, html.dark overrides with dark values.
+             The html element starts with class="dark" for backward compatibility
+             (existing users see dark by default). Flash prevention script in <head>
+             applies the correct class before first paint.
+           Alternatives:
+             - prefers-color-scheme media query only: Rejected — no manual toggle
+             - Separate stylesheet per theme: Rejected — doubles CSS, harder to maintain */
         :root {
-            color-scheme: dark;
+            color-scheme: light;
 
             /* Primary Palette */
             --color-primary: #2D68FF;
-            --color-background: #1B1B1B;
-            --color-foreground: #FFFFFF;
-            --color-card: #2a2a2a;
-            --color-secondary: #767676;
-            --color-border: #333333;
+            --color-background: #F8F9FA;
+            --color-foreground: #1a1a1a;
+            --color-card: #FFFFFF;
+            --color-secondary: #6b7280;
+            --color-border: #e5e7eb;
 
             /* Extended Palette */
-            --color-primary-dark: #121213;
-            --color-primary-light: #2a2a2a;
-            --color-secondary-dark: #333333;
-            --color-secondary-light: #222222;
+            --color-primary-dark: #1a4fd6;
+            --color-primary-light: #eef2ff;
+            --color-secondary-dark: #d1d5db;
+            --color-secondary-light: #f3f4f6;
 
             /* Semantic Colors */
             --color-success: #16A34A;
             --color-error: #EF4444;
             --color-warning: #EAB308;
 
-            /* Mapped Variables (for compatibility) */
-            --bg-primary: #1B1B1B;
-            --bg-secondary: #2a2a2a;
-            --bg-tertiary: #333333;
-            --bg-hover: #222222;
-            --text-primary: #FFFFFF;
-            --text-secondary: #e5e7eb;
-            --text-tertiary: #767676;
-            --text-muted: #767676;
-            --border-color: #333333;
-            --border-light: #2a2a2a;
-            --shadow: none;
-            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
-            --color-primary-alpha: rgba(45, 104, 255, 0.1);
-            --chart-grid: rgba(255, 255, 255, 0.1);
+            /* Mapped Variables */
+            --bg-primary: #F8F9FA;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #f3f4f6;
+            --bg-hover: #f3f4f6;
+            --text-primary: #1a1a1a;
+            --text-secondary: #374151;
+            --text-tertiary: #6b7280;
+            --text-muted: #9ca3af;
+            --border-color: #e5e7eb;
+            --border-light: #f3f4f6;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --color-primary-alpha: rgba(45, 104, 255, 0.08);
+            --chart-grid: rgba(0, 0, 0, 0.08);
 
             /* Spacing (8px base) */
             --spacing-base: 8px;
@@ -73,6 +81,41 @@
             --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
 
             /* Techy accents */
+            --glow-primary: 0 0 20px rgba(45, 104, 255, 0.15);
+            --glow-success: 0 0 15px rgba(22, 163, 74, 0.15);
+            --glow-warning: 0 0 15px rgba(234, 179, 8, 0.15);
+        }
+
+        /* Dark Theme Override — applied when html has class="dark" */
+        html.dark {
+            color-scheme: dark;
+
+            --color-background: #1B1B1B;
+            --color-foreground: #FFFFFF;
+            --color-card: #2a2a2a;
+            --color-secondary: #767676;
+            --color-border: #333333;
+
+            --color-primary-dark: #121213;
+            --color-primary-light: #2a2a2a;
+            --color-secondary-dark: #333333;
+            --color-secondary-light: #222222;
+
+            --bg-primary: #1B1B1B;
+            --bg-secondary: #2a2a2a;
+            --bg-tertiary: #333333;
+            --bg-hover: #222222;
+            --text-primary: #FFFFFF;
+            --text-secondary: #e5e7eb;
+            --text-tertiary: #767676;
+            --text-muted: #767676;
+            --border-color: #333333;
+            --border-light: #2a2a2a;
+            --shadow: none;
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+            --color-primary-alpha: rgba(45, 104, 255, 0.1);
+            --chart-grid: rgba(255, 255, 255, 0.1);
+
             --glow-primary: 0 0 20px rgba(45, 104, 255, 0.3);
             --glow-success: 0 0 15px rgba(22, 163, 74, 0.3);
             --glow-warning: 0 0 15px rgba(234, 179, 8, 0.3);
