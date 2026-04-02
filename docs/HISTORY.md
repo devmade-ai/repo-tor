@@ -2,6 +2,52 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-04-02
+
+### Cross-project alignment with glow-props
+
+**Why:** Compared repo-tor's CLAUDE.md against glow-props' shared CLAUDE.md and suggested implementations. Found 24 actionable items across documentation, accessibility, infrastructure, theming, embedding, and extraction.
+
+**What (24 items completed):**
+
+**CLAUDE.md updates (1-4):**
+1. Fixed "class" → "component" terminology in Code Organization
+2. Added React-specific quality checks (dangerouslySetInnerHTML, missing keys, re-renders)
+3. Added build tools check to AI Notes
+4. Added QuickGuide sync note to AI Notes
+
+**Suggested Implementations restructure (5-7):**
+5. Extracted ~200 lines of inlined implementations to `docs/implementations/` (8 files)
+6. Added Burger Menu implementation reference
+7. Added Theme & Dark Mode implementation reference
+
+**HamburgerMenu accessibility & iOS fixes (8-13):**
+8. Added `cursor-pointer` on backdrop overlay for iOS Safari
+9. Added `useId()` for unique `aria-controls`
+10. Added `hasBeenOpenRef` focus guard
+11. Added `cancelAnimationFrame` cleanup
+12. Added `overscroll-contain` on menu card
+13. Switched from `role="menu"` to disclosure pattern (`nav`/`ul`/`li`)
+
+**Layout & Infrastructure (14-16):**
+14. Adopted z-index scale convention (CSS variables `--z-base` through `--z-debug`)
+15. Added safe localStorage wrappers (`safeStorageGet`/`safeStorageSet`/`safeStorageRemove`)
+16. Added `sharp` to devDependencies
+
+**Dark mode improvements (17-20):**
+17. Added full light theme CSS variables (`:root` = light, `html.dark` = dark override)
+18. Added flash prevention inline `<script>` in `<head>`
+19. Added cross-tab theme sync via `storage` event
+20. Added system preference fallback via `matchMedia`
+
+**Embedding & extraction (21-24):**
+21. Added `?data=<url>` query param for loading data from external URL
+22. Added Vite library build config (`vite.config.lib.js`, `js/lib.js`, `npm run build:lib`)
+23. Researched device/platform attribution — infeasible with native git data
+24. Added `--no-merges` CLI flag to `extract.js`
+
+---
+
 ## 2026-03-27
 
 ### Mobile UX improvements

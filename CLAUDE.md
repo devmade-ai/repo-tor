@@ -164,6 +164,7 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-02.
   - `js/chartColors.js` - Centralized chart color system (embed overrides)
   - `js/pwa.js` - PWA install/update logic
 - `vite.config.js` - Vite build + React + Tailwind v4 + PWA plugin config
+- `vite.config.lib.js` - Vite library build config (ES module export)
 - `hooks/commit-msg` - Validates conventional commit format
 - `docs/COMMIT_CONVENTION.md` - Team guide for commit messages
 
