@@ -155,7 +155,7 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-02.
   - `js/main.jsx` - React entry point with Chart.js registration
   - `js/AppContext.jsx` - React Context + useReducer state management
   - `js/App.jsx` - Main app component (data loading, tab routing, layout)
-  - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection, ErrorBoundary, EmbedRenderer, HealthAnomalies, HealthBars, HealthWorkPatterns, HamburgerMenu, QuickGuide, ShowMoreButton)
+  - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection, ErrorBoundary, EmbedRenderer, HealthAnomalies, HealthBars, HealthWorkPatterns, HamburgerMenu, QuickGuide, ShowMoreButton, Toast, InstallInstructionsModal)
   - `js/sections/` - Section components (Summary, Timeline, Timing, Progress, Contributors, Tags, Health, Discover, Projects)
   - `js/hooks/` - Custom hooks (useFocusTrap, useHealthData, useShowMore, useEscapeKey, useClickOutside)
   - `js/state.js` - Constants (TAB_SECTIONS, VIEW_LEVELS, THRESHOLDS) + global state compat shim
@@ -375,11 +375,10 @@ Each implementation is in its own file under `docs/implementations/`:
 
 | Implementation | File | Description | Status |
 |---------------|------|-------------|--------|
-| PWA System | [`PWA_SYSTEM.md`](docs/implementations/PWA_SYSTEM.md) | Vite PWA config, install prompt, service worker updates, install detection | Implemented (event-based variant) |
+| PWA System | [`PWA_SYSTEM.md`](docs/implementations/PWA_SYSTEM.md) | Vite PWA config, install prompt, SW updates, toast system, install modal, timer leaks | Implemented (event-based variant) |
 | Debug System | [`DEBUG_SYSTEM.md`](docs/implementations/DEBUG_SYSTEM.md) | In-memory event store, floating debug pill (alpha-phase) | Implemented (inline HTML variant) |
 | App Icons | [`APP_ICONS.md`](docs/implementations/APP_ICONS.md) | SVG source to PNG conversion via Sharp at 400 DPI | Implemented |
 | Download as PDF | [`DOWNLOAD_PDF.md`](docs/implementations/DOWNLOAD_PDF.md) | Zero-dependency PDF via `window.print()` | Implemented |
-| Timer Leaks | [`TIMER_LEAKS.md`](docs/implementations/TIMER_LEAKS.md) | Nested timeout cleanup patterns for `useEffect` | Implemented |
 | HTTPS Proxy | [`HTTPS_PROXY.md`](docs/implementations/HTTPS_PROXY.md) | Node.js HTTP CONNECT tunnel for proxy environments | Not needed (uses curl) |
 | Burger Menu | [`BURGER_MENU.md`](docs/implementations/BURGER_MENU.md) | Disclosure-pattern dropdown with a11y, iOS Safari fixes, focus management | Implemented (audit pending) |
 | Theme & Dark Mode | [`THEME_DARK_MODE.md`](docs/implementations/THEME_DARK_MODE.md) | Flash prevention, cross-tab sync, safe localStorage, system preference fallback | Implemented |

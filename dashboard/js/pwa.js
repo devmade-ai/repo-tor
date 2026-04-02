@@ -69,8 +69,9 @@ function getBrowserInfo() {
 }
 
 /**
- * Returns browser-specific install instructions for browsers
- * that don't support beforeinstallprompt.
+ * Returns browser-specific install instructions for the InstallInstructionsModal.
+ * Data-driven: the modal renders whatever this returns — adding a browser is one switch case.
+ * Returns { browser, steps, note? } matching the glow-props PWA_SYSTEM.md pattern.
  */
 export function getInstallInstructions() {
     const { browser, platform } = getBrowserInfo();
@@ -78,36 +79,103 @@ export function getInstallInstructions() {
     switch (browser) {
         case 'safari':
         case 'safari-mac':
+            if (platform === 'ios' || platform === 'ipados') {
+                return {
+                    browser: 'Safari (iOS)',
+                    steps: [
+                        'Tap the Share button (square with arrow) at the bottom of the screen',
+                        'Scroll down and tap "Add to Home Screen"',
+                        'Tap "Add" in the top right corner',
+                    ],
+                };
+            }
             return {
-                title: 'Install from Safari',
-                steps: platform === 'ios' || platform === 'ipados'
-                    ? ['Tap the Share button (square with arrow)', 'Scroll down and tap "Add to Home Screen"', 'Tap "Add" to confirm']
-                    : ['Click File in the menu bar', 'Click "Add to Dock\u2026"', 'Click "Add" to confirm']
+                browser: 'Safari (macOS)',
+                steps: [
+                    'Click File in the menu bar',
+                    'Select "Add to Dock\u2026"',
+                    'Click "Add" to confirm',
+                ],
             };
         case 'chrome-ios':
         case 'edge-ios':
         case 'firefox-ios':
             return {
-                title: 'Install on iOS',
-                steps: ['Open this page in Safari', 'Tap the Share button (square with arrow)', 'Tap "Add to Home Screen"']
+                browser: 'iOS Browser',
+                steps: [
+                    'Open this page in Safari (iOS requires Safari for installation)',
+                    'Tap the Share button (square with arrow)',
+                    'Tap "Add to Home Screen"',
+                ],
+                note: 'Only Safari can install apps on iOS. Other browsers use Safari\u2019s engine but lack the install option.',
             };
         case 'firefox':
-            return platform === 'android'
-                ? { title: 'Install from Firefox', steps: ['Tap the menu (three dots)', 'Tap "Install"'] }
-                : { title: 'Install from Firefox', steps: ['Firefox desktop has limited PWA support', 'Try opening this page in Chrome or Edge for the best experience'] };
-        case 'chrome':
-        case 'edge':
+            if (platform === 'android') {
+                return {
+                    browser: 'Firefox (Mobile)',
+                    steps: [
+                        'Tap the menu button (three dots)',
+                        'Tap "Add to Home screen"',
+                        'Tap "Add" to confirm',
+                    ],
+                };
+            }
+            return {
+                browser: 'Firefox (Desktop)',
+                steps: [
+                    'Firefox desktop does not support PWA installation',
+                    'For the best experience, use Chrome, Edge, or Brave',
+                    'Alternatively, bookmark this page for quick access',
+                ],
+                note: 'Firefox removed PWA support for desktop in 2021.',
+            };
         case 'brave':
             return {
-                title: `Install from ${browser.charAt(0).toUpperCase() + browser.slice(1)}`,
-                steps: ['Click the install icon in the address bar', 'Or open Menu \u2192 "Install app"']
+                browser: 'Brave',
+                steps: [
+                    'Click the install icon in the address bar (computer with down arrow)',
+                    'Or click the menu (\u2261) \u2192 "Install App\u2026"',
+                    'Click "Install" to confirm',
+                ],
+                note: 'If the install option doesn\u2019t appear, check that Brave Shields isn\u2019t blocking it.',
+            };
+        case 'chrome':
+        case 'edge':
+            return {
+                browser: browser === 'edge' ? 'Microsoft Edge' : 'Google Chrome',
+                steps: [
+                    'Click the install icon in the address bar (computer with down arrow)',
+                    'Or click the menu (\u22ee) \u2192 "Install App\u2026"',
+                    'Click "Install" to confirm',
+                ],
             };
         default:
             return {
-                title: 'Install as App',
-                steps: ['Look for an install option in your browser menu', 'Or try opening this page in Chrome or Edge']
+                browser: 'Your Browser',
+                steps: [
+                    'Look for an "Install" or "Add to Home Screen" option in your browser menu',
+                    'For the best experience, use Chrome, Edge, or Brave',
+                ],
             };
     }
+}
+
+/**
+ * Whether the current browser supports the native beforeinstallprompt API.
+ * If false, show manual install instructions instead.
+ */
+export function supportsNativeInstall() {
+    const { browser } = getBrowserInfo();
+    return ['chrome', 'edge', 'brave'].includes(browser);
+}
+
+/**
+ * Whether the current browser supports manual PWA installation.
+ * Safari and Firefox can install manually but don't fire beforeinstallprompt.
+ */
+export function supportsManualInstall() {
+    const { browser } = getBrowserInfo();
+    return ['safari', 'safari-mac', 'firefox', 'chrome-ios', 'edge-ios', 'firefox-ios'].includes(browser);
 }
 
 // === Install: Prompt handling ===

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useApp } from '../AppContext.jsx';
-import { installPWA, applyUpdate, getPWAState } from '../pwa.js';
+import { installPWA, applyUpdate, getPWAState, getInstallInstructions, supportsManualInstall } from '../pwa.js';
 import HamburgerMenu from './HamburgerMenu.jsx';
 import QuickGuide from './QuickGuide.jsx';
+import InstallInstructionsModal from './InstallInstructionsModal.jsx';
 
 // Requirement: Clean, minimal header with hamburger menu for secondary actions
 // Approach: Keep filter toggle + settings as direct buttons (frequently used),
@@ -16,6 +17,7 @@ export default function Header() {
     const [installReady, setInstallReady] = useState(false);
     const [updateAvailable, setUpdateAvailable] = useState(false);
     const [guideOpen, setGuideOpen] = useState(false);
+    const [installModalOpen, setInstallModalOpen] = useState(false);
 
     const repoName = state.data?.metadata?.repo_name;
     const totalCount = state.data?.commits?.length || 0;
@@ -41,7 +43,8 @@ export default function Header() {
     }, [state.filterSidebarOpen, dispatch]);
 
     // Seed from pwa.js module state (catches events that fired before mount),
-    // then listen for subsequent changes.
+    // then listen for subsequent changes. Also show install option for browsers
+    // that support manual installation (Safari, Firefox) after a short delay.
     useEffect(() => {
         const current = getPWAState();
         if (current.installReady) setInstallReady(true);
@@ -55,10 +58,18 @@ export default function Header() {
         window.addEventListener('pwa-installed', handleInstalled);
         window.addEventListener('pwa-update-available', handleUpdateAvailable);
 
+        // For Safari/Firefox: show install option after 1s if no native prompt fires
+        const manualTimeout = setTimeout(() => {
+            if (!getPWAState().installReady && supportsManualInstall()) {
+                setInstallReady(true);
+            }
+        }, 1000);
+
         return () => {
             window.removeEventListener('pwa-install-ready', handleInstallReady);
             window.removeEventListener('pwa-installed', handleInstalled);
             window.removeEventListener('pwa-update-available', handleUpdateAvailable);
+            clearTimeout(manualTimeout);
         };
     }, []);
 
@@ -70,12 +81,18 @@ export default function Header() {
         }
     }, [state.data]);
 
+    // Requirement: Show native install prompt on Chromium, manual instructions elsewhere
+    // Approach: Try native prompt first. If unavailable (Safari/Firefox), show the
+    //   data-driven InstallInstructionsModal with browser-specific steps.
+    // Alternatives:
+    //   - Always show modal: Rejected — native prompt is better UX when available
+    //   - Open settings pane: Rejected — install instructions deserve their own focused modal
     const handleInstall = useCallback(async () => {
         const prompted = await installPWA();
         if (!prompted) {
-            dispatch({ type: 'TOGGLE_SETTINGS_PANE' });
+            setInstallModalOpen(true);
         }
-    }, [dispatch]);
+    }, []);
 
     const handleUpdate = useCallback(() => {
         applyUpdate();
@@ -167,6 +184,11 @@ export default function Header() {
                 </div>
             </header>
             <QuickGuide open={guideOpen} onClose={handleCloseGuide} />
+            <InstallInstructionsModal
+                isOpen={installModalOpen}
+                onClose={() => setInstallModalOpen(false)}
+                instructions={installModalOpen ? getInstallInstructions() : null}
+            />
         </>
     );
 }

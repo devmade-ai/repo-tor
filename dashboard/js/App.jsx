@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { useApp } from './AppContext.jsx';
+import { useToast } from './components/Toast.jsx';
 import Header from './components/Header.jsx';
 import TabBar from './components/TabBar.jsx';
 import DropZone from './components/DropZone.jsx';
@@ -110,13 +111,9 @@ if (embedIds) {
 
 export default function App() {
     const { state, dispatch } = useApp();
+    const { addToast } = useToast();
     const [loadError, setLoadError] = useState(null);
-    const [loadSuccess, setLoadSuccess] = useState(null);
     const [initialLoading, setInitialLoading] = useState(true);
-    // Track toast dismiss timeout so it can be cleared on unmount
-    // (prevents state update on unmounted component — glow-props timer leak pattern)
-    const toastTimerRef = useRef(null);
-    useEffect(() => () => { if (toastTimerRef.current) clearTimeout(toastTimerRef.current); }, []);
 
     // Lock body scroll when any overlay pane is open
     useEffect(() => {
@@ -342,21 +339,16 @@ export default function App() {
         }
 
         setLoadError(null);
-        setLoadSuccess(null);
         Promise.all(readers).then(datasets => {
             if (datasets.length === 0) return;
             const combined = combineDatasets(datasets);
             if (combined) {
                 dispatch({ type: 'LOAD_DATA', payload: combined });
-                // Requirement: Provide success feedback after data upload
-                // Approach: Brief toast message with commit/repo count
                 const commitCount = combined.commits?.length || 0;
                 const repoNames = Array.isArray(combined.metadata?.repo_name)
                     ? combined.metadata.repo_name : combined.metadata?.repo_name ? [combined.metadata.repo_name] : [];
                 const repoText = repoNames.length > 0 ? ` from ${repoNames.length} repo${repoNames.length !== 1 ? 's' : ''}` : '';
-                setLoadSuccess(`Loaded ${commitCount.toLocaleString()} commits${repoText}`);
-                if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
-                toastTimerRef.current = setTimeout(() => setLoadSuccess(null), 4000);
+                addToast(`Loaded ${commitCount.toLocaleString()} changes${repoText}`, { type: 'success', duration: 4000 });
             }
         }).catch(err => {
             console.error('Error loading files:', err);
@@ -366,7 +358,7 @@ export default function App() {
                 : `Something went wrong reading the file: ${err.message}`;
             setLoadError(message);
         });
-    }, [dispatch]);
+    }, [dispatch, addToast]);
 
     // Wait for initial data.json fetch before deciding what to show
     if (initialLoading) {
@@ -453,12 +445,6 @@ export default function App() {
             </div>
             <div className="no-print"><ErrorBoundary><DetailPane /></ErrorBoundary></div>
             <div className="no-print"><ErrorBoundary><SettingsPane /></ErrorBoundary></div>
-            {/* Success toast — brief confirmation after file upload */}
-            {loadSuccess && (
-                <div className="toast show" role="status" aria-live="polite">
-                    {loadSuccess}
-                </div>
-            )}
         </div>
     );
 }
