@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * Generate PNG icons from SVG source for PWA manifest and favicon.
+ * Generate PNG icons from SVG source for PWA manifest, favicon, and app icons.
  *
  * Requirement: Single SVG source of truth, regenerate all PNGs with one command
- * Approach: Sharp converts SVG → PNG at each required size
+ * Approach: Sharp converts SVG → PNG at 400 DPI for crisp edges at all sizes
  * Alternatives:
  *   - Manual export from Figma/Inkscape: Rejected — error-prone, not reproducible
  *   - ImageMagick: Rejected — Sharp is already common in Node ecosystems, better API
@@ -21,44 +21,41 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
-const SVG_SOURCE = join(ROOT, 'dashboard', 'icons', 'icon.svg');
-const ICONS_DIR = join(ROOT, 'dashboard', 'icons');
-const PUBLIC_ICONS_DIR = join(ROOT, 'dashboard', 'public', 'icons');
+const SVG_SOURCE = join(ROOT, 'assets', 'icon-source.svg');
+const IMAGES_DIR = join(ROOT, 'assets', 'images');
 
-// Icon sizes needed for PWA manifest, favicon, and Apple touch icon
+// 400 DPI: ~5.5x the default 72 DPI. Sharp rasterizes the SVG at this density
+// before downscaling, so edges are anti-aliased from high-res source data.
+// The 192px PWA icon benefits most — edges are noticeably crisper.
+const SVG_DENSITY = 400;
+
 const ICONS = [
-    { name: 'icon-512.png', size: 512 },
-    { name: 'icon-192.png', size: 192 },
-    { name: 'apple-touch-icon.png', size: 180 },
+    { name: 'icon.png', size: 1024 },
+    { name: 'adaptive-icon.png', size: 1024 },
+    { name: 'splash-icon.png', size: 1024 },
     { name: 'favicon.png', size: 48 },
+    { name: 'icon-192.png', size: 192 },
+    { name: 'icon-512.png', size: 512 },
 ];
 
 async function generate() {
     const svgBuffer = readFileSync(SVG_SOURCE);
-    mkdirSync(ICONS_DIR, { recursive: true });
-    mkdirSync(PUBLIC_ICONS_DIR, { recursive: true });
+    mkdirSync(IMAGES_DIR, { recursive: true });
 
     console.log(`Source: ${SVG_SOURCE}`);
+    console.log(`Density: ${SVG_DENSITY} DPI`);
     console.log('');
 
     for (const icon of ICONS) {
-        // Generate to both icons/ (dev) and public/icons/ (build)
-        const targets = [
-            join(ICONS_DIR, icon.name),
-            join(PUBLIC_ICONS_DIR, icon.name),
-        ];
-
-        for (const target of targets) {
-            await sharp(svgBuffer)
-                .resize(icon.size, icon.size)
-                .png()
-                .toFile(target);
-        }
+        await sharp(svgBuffer, { density: SVG_DENSITY })
+            .resize(icon.size, icon.size)
+            .png()
+            .toFile(join(IMAGES_DIR, icon.name));
         console.log(`  ${icon.name} (${icon.size}x${icon.size})`);
     }
 
     console.log('');
-    console.log(`Done — ${ICONS.length} icons generated to icons/ and public/icons/.`);
+    console.log(`Done — ${ICONS.length} icons generated to assets/images/.`);
 }
 
 generate().catch((err) => {

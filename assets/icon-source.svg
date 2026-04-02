@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" shape-rendering="geometricPrecision">
+  <!-- App icon source of truth — edit this, run `node scripts/generate-icons.mjs` to regenerate PNGs.
+       Design rules for maskable icons:
+       - Background fills entire 1024x1024 canvas (no transparency)
+       - Important content within inner 80% (safe zone: 102-922 on each axis)
+       - Must be legible at 48px (favicon) — no fine details
+       - No gradients, opacity, glow, or fade — solid colors only for clean rasterization -->
+
+  <!-- Background — solid dark -->
+  <rect width="1024" height="1024" rx="192" fill="#1B1B1B"/>
+
+  <!-- Grid lines (techy aesthetic) — solid, subtle -->
+  <g stroke="#333333" stroke-width="2">
+    <line x1="256" y1="160" x2="256" y2="864"/>
+    <line x1="512" y1="160" x2="512" y2="864"/>
+    <line x1="768" y1="160" x2="768" y2="864"/>
+    <line x1="160" y1="352" x2="864" y2="352"/>
+    <line x1="160" y1="512" x2="864" y2="512"/>
+    <line x1="160" y1="672" x2="864" y2="672"/>
+  </g>
+
+  <!-- Chart bars — solid colors, no opacity or gradients -->
+  <rect x="208" y="560" width="96" height="304" rx="16" fill="#1E4FCC"/>
+  <rect x="368" y="400" width="96" height="464" rx="16" fill="#2558DD"/>
+  <rect x="528" y="280" width="96" height="584" rx="16" fill="#2D68FF"/>
+  <rect x="688" y="360" width="96" height="504" rx="16" fill="#2560EE"/>
+
+  <!-- Git branch symbol — solid fills, no stroke overlap -->
+  <circle cx="320" cy="200" r="32" fill="#16A34A"/>
+  <circle cx="560" cy="200" r="32" fill="#2D68FF"/>
+  <circle cx="704" cy="200" r="32" fill="#2D68FF"/>
+  <line x1="352" y1="200" x2="528" y2="200" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
+  <line x1="592" y1="200" x2="672" y2="200" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
+</svg>

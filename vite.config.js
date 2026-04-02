@@ -22,7 +22,7 @@ export default defineConfig({
       // Requirement: data.json (2.68MB) must NOT be precached — exceeds Workbox 2MB limit
       // Approach: Exclude *.json from includeAssets, list only small static assets explicitly
       // data.json is handled via runtimeCaching with NetworkFirst instead
-      includeAssets: ['icons/*.png', 'icons/*.svg', 'projects.json', 'repos/*.json'],
+      includeAssets: ['assets/images/*.png', 'projects.json', 'repos/*.json'],
       manifest: {
         name: 'Git Analytics Dashboard',
         short_name: 'Git Analytics',
@@ -40,26 +40,22 @@ export default defineConfig({
         prefer_related_applications: false,
         icons: [
           {
-            src: 'icons/icon-192.png',
+            src: 'assets/images/icon-192.png',
             sizes: '192x192',
             type: 'image/png',
+            purpose: 'any',
           },
           {
-            src: 'icons/icon-512.png',
+            src: 'assets/images/icon-512.png',
             sizes: '512x512',
             type: 'image/png',
+            purpose: 'any',
           },
           {
-            src: 'icons/icon-512.png',
-            sizes: '512x512',
+            src: 'assets/images/icon.png',
+            sizes: '1024x1024',
             type: 'image/png',
             purpose: 'maskable',
-          },
-          {
-            src: 'icons/icon.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
-            purpose: 'any',
           },
         ],
       },
