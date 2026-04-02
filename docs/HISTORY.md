@@ -4,6 +4,47 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-02
 
+### Full 9-trigger audit sweep and fixes
+
+**Why:** Ran all 9 audit triggers (review, audit, docs, mobile, clean, performance, security, debug, improve) in parallel. Found 41 unique findings across all categories. Implemented fixes for all critical, high, medium, and low-priority items.
+
+**Critical fixes (C1-C5):**
+- Removed unconditional dark class in main.jsx that overrode flash prevention
+- Added URL validation for ?data= param (SSRF prevention — http/https only)
+- Replaced postMessage wildcard '*' with referrer-based origin; added source validation in embed.js
+- Routed ErrorBoundary errors to debug pill via __debugPushError
+- Added per-file try/catch for month commit fetches with user-facing failure warning
+
+**High fixes (H1-H10):**
+- Added viewport-fit=cover and safe-area-inset padding for iOS notch/home indicator
+- Increased filter mode toggle button size (was 2px padding, now 6px + min-height)
+- Added security headers to vercel.json (X-Content-Type-Options, X-Frame-Options, Referrer-Policy)
+- Routed SW registration errors to debug pill
+- Wrapped Header, TabBar, FilterSidebar, DetailPane, SettingsPane in ErrorBoundary
+- Fixed TESTING_GUIDE (removed nonexistent dark mode toggle + private mode sections)
+- Updated CLAUDE.md dark mode status to "Implemented"
+- Updated USER_GUIDE.md theme section for light/dark support
+- Added Projects tab to QuickGuide onboarding
+
+**Medium fixes (M1-M16):**
+- Added 30s fetch timeout with user-friendly timeout error message
+- Cached tag style objects in module-level Map
+- Replaced duplicate work hours logic in useHealthData with getWorkPattern()
+- Added network status and theme to debug pill diagnostics
+- Wrapped UrgencyBar/ImpactBar in React.memo
+- Validated ?bg= param against hex regex
+- Removed token source from extract-api.js log
+- Replaced aria-hidden="true" with role="presentation" on all backdrop overlays
+
+**Low fixes (L1-L6):**
+- Added vertical clamping to heatmap tooltip
+- Increased loading timeout from 10s to 20s
+- Added explanatory comment for ISO week calculation
+
+---
+
+## 2026-04-02
+
 ### Cross-project alignment with glow-props
 
 **Why:** Compared repo-tor's CLAUDE.md against glow-props' shared CLAUDE.md and suggested implementations. Found 24 actionable items across documentation, accessibility, infrastructure, theming, embedding, and extraction.

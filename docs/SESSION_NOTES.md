@@ -4,30 +4,28 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete with role-based view levels, consistent section layouts, and PWA support.
+**Dashboard V2:** Implementation complete with role-based view levels, light/dark theme, and PWA support.
 
-**Recent Updates (2026-04-02 — Cross-project alignment with glow-props):**
+**Recent Updates (2026-04-02):**
 
-Compared repo-tor CLAUDE.md against glow-props shared CLAUDE.md and all suggested implementations. Implemented all 24 identified items:
+### Cross-project alignment with glow-props (24 items)
+- CLAUDE.md text fixes, implementations extracted to `docs/implementations/` (8 files)
+- HamburgerMenu rewritten with disclosure pattern, iOS Safari fixes, a11y
+- Z-index scale convention (CSS variables `--z-base` through `--z-debug`)
+- Safe localStorage wrappers in all modules
+- Full light/dark theme with flash prevention, cross-tab sync, system preference
+- `?data=` URL param, Vite library build, `--no-merges` flag in extract.js
+- sharp added to devDependencies
 
-- **CLAUDE.md:** Fixed terminology (class → component), added React-specific quality checks, build tools check, QuickGuide sync note
-- **Implementations restructured:** Extracted ~200 lines from CLAUDE.md to 8 files in `docs/implementations/`, added Burger Menu and Theme & Dark Mode references
-- **HamburgerMenu:** Rewrote with disclosure pattern (not ARIA menu), iOS Safari backdrop fix, `useId()`, `hasBeenOpenRef`, `cancelAnimationFrame`, `overscroll-contain`
-- **Z-index scale:** CSS variables `--z-base` through `--z-debug` (10-80 scale), all hardcoded values replaced
-- **Safe localStorage:** `safeStorageGet`/`safeStorageSet`/`safeStorageRemove` in utils.js, all raw localStorage calls replaced across AppContext, Discover, pwa.js, QuickGuide, index.html
-- **sharp:** Added to devDependencies for generate-icons.mjs
-- **Dark mode:** Full light theme CSS variables (`:root` = light, `html.dark` = dark), flash prevention `<script>` in `<head>`, cross-tab sync via `storage` event, system preference fallback via `matchMedia`, `SET_DARK_MODE` reducer action in AppContext
-- **Embedding:** `?data=<url>` query param support in App.jsx, Vite library build config (`vite.config.lib.js`, `js/lib.js`, `npm run build:lib`)
-- **Extraction:** `--no-merges` CLI flag in extract.js
-- **Research:** Device/platform attribution infeasible with native git data
+### Full 9-trigger audit sweep (41 findings fixed)
+- **Security:** URL validation for ?data= (SSRF), postMessage origin check, ?bg= hex validation, security headers in vercel.json, token source redacted from logs
+- **Bugs:** Removed dark class override in main.jsx, per-file month error handling, 30s fetch timeout
+- **Accessibility:** Backdrop overlays changed from aria-hidden to role="presentation", filter button touch targets increased, safe area insets for iOS
+- **Debug:** ErrorBoundary routes to debug pill, SW errors to pill, network status in diagnostics, loading timeout increased to 20s
+- **Performance:** Tag style cache, React.memo on HealthBars, work hours dedup in useHealthData
+- **Docs:** TESTING_GUIDE updated (removed nonexistent features), USER_GUIDE theme section, CLAUDE.md dark mode status, QuickGuide Projects tab added
+- **All components** (Header, TabBar, FilterSidebar, DetailPane, SettingsPane) wrapped in ErrorBoundary
 
-**New files:**
-- `docs/implementations/` — 8 implementation reference files (PWA, Debug, Icons, PDF, Timer, Proxy, Burger, Theme)
-- `dashboard/js/lib.js` — Library entry point
-- `vite.config.lib.js` — Library build config
+**Build:** Passes (`npm run build`).
 
-**Modified files:** CLAUDE.md, styles.css, HamburgerMenu.jsx, utils.js, AppContext.jsx, App.jsx, pwa.js, QuickGuide.jsx, Discover.jsx, index.html, package.json, extract.js, TODO.md, HISTORY.md
-
-**Build:** Passes (`npm run build`). All changes tested.
-
-**Remaining work:** See `docs/TODO.md` — only 2 items remain (library build consumer testing, device attribution research).
+**Remaining work:** See `docs/TODO.md` — 2 backlog items (library build testing, device attribution research).
