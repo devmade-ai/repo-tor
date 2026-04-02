@@ -132,12 +132,28 @@ export default function App() {
 
         async function loadData() {
             try {
-                // Phase 1: Load summary (data.json)
-                const r = await fetch('./data.json', { signal: controller.signal });
-                if (r.status === 404) return; // No data file — user can upload
-                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                // Requirement: Accept data URL via ?data= query param for external hosting
+                // Approach: Check URL params first, fall back to ./data.json. The ?data=
+                //   param lets users host their data.json elsewhere and point the dashboard at it.
+                // Alternatives:
+                //   - postMessage from parent: Rejected — adds complexity for iframe use case
+                //   - Config file: Rejected — requires build step or server-side config
+                const dataUrlParam = new URLSearchParams(window.location.search).get('data');
+
+                // Phase 1: Load summary data
+                let r;
+                if (dataUrlParam) {
+                    r = await fetch(dataUrlParam, { signal: controller.signal });
+                    if (!r.ok) {
+                        throw new Error(`Could not load data from the provided URL (HTTP ${r.status}). Check the URL and try again.`);
+                    }
+                } else {
+                    r = await fetch('./data.json', { signal: controller.signal });
+                    if (r.status === 404) return; // No data file — user can upload
+                    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                }
                 const ct = r.headers.get('content-type') || '';
-                if (ct.includes('text/html')) return; // SPA rewrite, not JSON
+                if (!dataUrlParam && ct.includes('text/html')) return; // SPA rewrite, not JSON
 
                 const data = await r.json();
                 if (!data) return;
