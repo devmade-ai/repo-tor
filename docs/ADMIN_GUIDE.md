@@ -172,6 +172,9 @@ node scripts/extract.js /path/to/repo
 
 # Specify output directory
 node scripts/extract.js /path/to/repo --output=reports
+
+# Exclude merge commits from extraction
+node scripts/extract.js /path/to/repo --no-merges
 ```
 
 ### Using the Shell Wrapper
@@ -463,6 +466,8 @@ The dashboard loads data in two phases:
 The aggregation script (`scripts/aggregate-processed.js`) writes to `dashboard/public/` by default:
 - `dashboard/public/data.json` — summary with pre-aggregated data (no raw commits)
 - `dashboard/public/data-commits/` — per-month commit files
+
+**Excluded repos:** The aggregation script has a hardcoded `EXCLUDED_REPOS` set (currently: `chatty-chart`). Repos in this set are skipped even if their `processed/` directory exists. To modify the list, edit the `EXCLUDED_REPOS` constant in `scripts/aggregate-processed.js`.
 
 ## Refreshing Data
 

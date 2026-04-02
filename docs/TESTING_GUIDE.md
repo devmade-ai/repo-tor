@@ -85,14 +85,19 @@ Guidelines and checklists for testing features from a user perspective.
 
 **Hamburger Menu:**
 - [ ] Menu button (☰) appears in header between title and filter button
-- [ ] Clicking opens dropdown with Quick Guide, Save as PDF items
-- [ ] Install App item appears only when PWA install is available
-- [ ] Check for Updates item appears only when update is available
-- [ ] Clicking outside the menu closes it
+- [ ] Clicking opens dropdown with all menu items:
+  - [ ] Quick Guide — opens onboarding tutorial
+  - [ ] User Guide — opens GitHub README in new tab (shows external link indicator ↗)
+  - [ ] Dark mode / Light mode — toggles theme, label updates to match current mode
+  - [ ] Save as PDF — triggers browser print dialog
+  - [ ] Install App — appears only when PWA install is available; shows native prompt (Chromium) or install instructions modal (Safari/Firefox)
+  - [ ] Check for Updates — appears only when update is available, highlighted in blue
+- [ ] Clicking outside the menu (backdrop) closes it
 - [ ] Pressing Escape closes the menu
 - [ ] Arrow Down/Up keys navigate between menu items
 - [ ] Arrow keys wrap around (Down on last item goes to first)
 - [ ] Enter/Space activates focused menu item
+- [ ] Separator lines divide menu item groups
 - [ ] Version number shown at bottom of menu
 
 **Quick Guide:**

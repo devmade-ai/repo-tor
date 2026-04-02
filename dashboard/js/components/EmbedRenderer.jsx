@@ -113,9 +113,11 @@ export default function EmbedRenderer({ embedIds }) {
                 // Alternatives:
                 //   - Strict origin: Rejected — embed can be on any domain, origin unknown at build time
                 //   - Don't send: Rejected — breaks iframe auto-resize feature
-                const targetOrigin = document.referrer
-                    ? new URL(document.referrer).origin
-                    : '*';
+                let targetOrigin = '*';
+                if (document.referrer) {
+                    try { targetOrigin = new URL(document.referrer).origin; }
+                    catch { /* malformed referrer — fall back to wildcard */ }
+                }
                 window.parent.postMessage({ type: 'repo-tor:resize', height }, targetOrigin);
             }
         };

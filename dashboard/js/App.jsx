@@ -245,6 +245,9 @@ export default function App() {
                     return;
                 }
                 console.error('Failed to load data:', err);
+                if (typeof window.__debugPushError === 'function') {
+                    window.__debugPushError('Data load failed: ' + err.message, err.stack);
+                }
                 const isJsonParseError = err instanceof SyntaxError;
                 const userMessage = isJsonParseError
                     ? 'The dashboard data file could not be read. It may be corrupted or in the wrong format. Try uploading a fresh export below.'
@@ -352,7 +355,9 @@ export default function App() {
             }
         }).catch(err => {
             console.error('Error loading files:', err);
-            // Requirement: Distinguish error types for non-technical users
+            if (typeof window.__debugPushError === 'function') {
+                window.__debugPushError('File upload failed: ' + err.message, err.stack);
+            }
             const message = err instanceof SyntaxError
                 ? 'This file doesn\'t look like valid dashboard data. Try exporting from the extraction script first.'
                 : `Something went wrong reading the file: ${err.message}`;

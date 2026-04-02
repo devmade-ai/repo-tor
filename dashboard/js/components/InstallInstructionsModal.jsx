@@ -7,13 +7,14 @@
 //   - External link to install guide: Rejected — interrupts user flow
 //   - Skip non-Chromium browsers: Rejected — Safari/Firefox users can still install manually
 
-import React, { useRef } from 'react';
+import React from 'react';
 import useFocusTrap from '../hooks/useFocusTrap.js';
 import useEscapeKey from '../hooks/useEscapeKey.js';
 
 export default function InstallInstructionsModal({ isOpen, onClose, instructions }) {
-    const modalRef = useRef(null);
-    useFocusTrap(modalRef, isOpen);
+    // useFocusTrap(active) returns a ref — do NOT pass a ref as first arg.
+    // Compare: DetailPane.jsx, SettingsPane.jsx, QuickGuide.jsx all use this correctly.
+    const trapRef = useFocusTrap(isOpen);
     useEscapeKey(isOpen, onClose);
 
     if (!isOpen || !instructions) return null;
@@ -26,7 +27,7 @@ export default function InstallInstructionsModal({ isOpen, onClose, instructions
                 role="presentation"
             />
             <div
-                ref={modalRef}
+                ref={trapRef}
                 className="install-modal"
                 role="dialog"
                 aria-modal="true"

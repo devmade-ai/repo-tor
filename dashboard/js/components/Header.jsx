@@ -112,7 +112,7 @@ export default function Header() {
         { label: 'Save as PDF', action: () => window.print(), icon: icons.pdf },
         { label: 'Install App', action: handleInstall, icon: icons.install, visible: installReady && !isInstalledPWA(), separator: true },
         { label: 'Check for Updates', action: () => applyUpdate(), icon: icons.update, visible: updateAvailable, highlight: true },
-    ], [state.darkMode, handleToggleDarkMode, handleInstall, installReady, updateAvailable]);
+    ], [state.darkMode, handleToggleDarkMode, handleInstall, installReady, updateAvailable, setGuideOpen]);
 
     return (
         <>

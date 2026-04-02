@@ -61,7 +61,14 @@ export default function HamburgerMenu({ items }) {
         close();
         if (timerRef.current) clearTimeout(timerRef.current);
         timerRef.current = setTimeout(async () => {
-            try { await action(); } catch (e) { console.error('Menu action failed:', e); }
+            try {
+                await action();
+            } catch (e) {
+                console.error('Menu action failed:', e);
+                if (typeof window.__debugPushError === 'function') {
+                    window.__debugPushError('Menu action failed: ' + e.message, e.stack);
+                }
+            }
         }, 150);
     }
 

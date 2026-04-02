@@ -73,7 +73,7 @@ function ToastItem({ toast, onRemove }) {
 function ToastContainer({ toasts, onRemove }) {
     if (toasts.length === 0) return null;
     return (
-        <div className="toast-container no-print">
+        <div className="toast-container no-print" aria-live="polite" aria-atomic="false">
             {toasts.map(toast => (
                 <ToastItem key={toast.id} toast={toast} onRemove={onRemove} />
             ))}

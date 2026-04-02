@@ -55,7 +55,6 @@ function loadInitialState() {
         filterSidebarOpen: false,
         settingsPaneOpen: false,
         filters: savedFilters || { ...DEFAULT_FILTERS },
-        commitListVisible: 100,
         // Requirement: Track commit loading state for time-windowed lazy loading
         // Approach: Separate commitsLoading flag so dashboard can show charts from
         //   pre-aggregated data while commits are still loading in background
@@ -68,7 +67,7 @@ function loadInitialState() {
 function reducer(state, action) {
     switch (action.type) {
         case 'LOAD_DATA':
-            return { ...state, data: action.payload, commitListVisible: 100 };
+            return { ...state, data: action.payload };
         // Requirement: Merge lazy-loaded commits into existing summary data
         // Approach: New action type merges commits array into state.data without
         //   replacing the summary/aggregation data already loaded
@@ -130,10 +129,6 @@ function reducer(state, action) {
             return { ...state, settingsPaneOpen: !state.settingsPaneOpen };
         case 'CLOSE_SETTINGS_PANE':
             return { ...state, settingsPaneOpen: false };
-        case 'SET_COMMIT_LIST_VISIBLE':
-            return { ...state, commitListVisible: action.payload };
-        case 'LOAD_MORE_COMMITS':
-            return { ...state, commitListVisible: state.commitListVisible + 100 };
         case 'SET_DARK_MODE':
             return { ...state, darkMode: action.payload };
         default:
@@ -290,19 +285,18 @@ export function AppProvider({ children }) {
 
     // Cross-tab sync: listen for darkMode changes from other tabs.
     // The storage event only fires in OTHER tabs (not the one that wrote),
-    // so there's no infinite loop.
+    // so there's no infinite loop. Empty dependency array — listener lives
+    // for the entire component lifecycle. No stale closure issue because
+    // we dispatch unconditionally (reducer handles dedup).
     useEffect(() => {
         function handleStorage(e) {
             if (e.key === 'darkMode' && e.newValue !== null) {
-                const newDark = e.newValue === 'true';
-                if (newDark !== state.darkMode) {
-                    dispatch({ type: 'SET_DARK_MODE', payload: newDark });
-                }
+                dispatch({ type: 'SET_DARK_MODE', payload: e.newValue === 'true' });
             }
         }
         window.addEventListener('storage', handleStorage);
         return () => window.removeEventListener('storage', handleStorage);
-    }, [state.darkMode]);
+    }, []);
 
     // System preference fallback: track OS dark mode changes, but only when
     // the user hasn't manually set a preference (no darkMode in localStorage).
