@@ -4,11 +4,11 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-05
 
-### Remove X-Frame-Options header blocking cross-origin embeds
+### Fix cross-origin embed blocking with dedicated /embed path
 
-**Why:** The `X-Frame-Options: SAMEORIGIN` header added in H4 audit fix (19e1e21) blocked all cross-origin iframes. This broke the embed feature — see-veo and other apps embedding repo-tor charts via `?embed=` iframes got "refused to connect" errors. Vercel header matching is path-based only, so the embed.js exemption didn't cover the actual HTML page loaded in iframes.
+**Why:** The `X-Frame-Options: SAMEORIGIN` header added in H4 audit fix (19e1e21) blocked all cross-origin iframes. This broke the embed feature — see-veo and other apps embedding repo-tor charts got "refused to connect" errors. Vercel header matching is path-based only, so the embed.js exemption didn't cover the HTML page loaded in iframes.
 
-**Fix:** Removed `X-Frame-Options: SAMEORIGIN` from vercel.json. The dashboard is public with no auth, so there's no clickjacking risk. Cross-origin framing is an intentional feature (embed system).
+**Fix:** Added `/embed` path route with X-Frame-Options exempted in vercel.json. Embeds use `/embed?charts=id1,id2` instead of `/?embed=id1,id2`. This keeps SAMEORIGIN protection on the main dashboard while allowing cross-origin framing only on the embed route. Legacy `?embed=` format still works for same-origin use.
 
 ## 2026-04-02
 

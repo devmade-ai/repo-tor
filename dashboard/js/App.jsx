@@ -70,12 +70,25 @@ function combineDatasets(datasets) {
     return combined;
 }
 
-// Detect embed mode from URL: ?embed=chart-id or ?embed=id1,id2
+// Detect embed mode from URL: ?embed=chart-id, ?embed=id1,id2, or /embed?charts=id1,id2
+// Requirement: Allow cross-origin embedding via /embed path
+// Approach: Support both /?embed= (legacy) and /embed?charts= (path-based).
+//   The /embed path gets X-Frame-Options exempted in vercel.json, enabling
+//   cross-origin iframes while keeping SAMEORIGIN on the main dashboard.
+// Alternatives:
+//   - Remove X-Frame-Options entirely: Rejected — loses clickjacking protection on main site
+//   - Query-param-only exemption: Rejected — Vercel headers match paths only, not query params
 const embedIds = (() => {
     const params = new URLSearchParams(window.location.search);
+    // Legacy: /?embed=id1,id2
     const raw = params.get('embed');
-    if (!raw) return null;
-    return raw.split(',').map(s => s.trim()).filter(Boolean);
+    if (raw) return raw.split(',').map(s => s.trim()).filter(Boolean);
+    // Path-based: /embed?charts=id1,id2
+    if (window.location.pathname === '/embed') {
+        const charts = params.get('charts');
+        if (charts) return charts.split(',').map(s => s.trim()).filter(Boolean);
+    }
+    return null;
 })();
 
 // Apply embed overrides from URL: ?theme=light|dark, ?bg=hex|transparent

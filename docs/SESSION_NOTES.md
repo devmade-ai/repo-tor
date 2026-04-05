@@ -9,8 +9,10 @@ Current state for AI assistants to continue work.
 **Recent Updates (2026-04-05):**
 
 ### X-Frame-Options fix for embeds
-- Removed `X-Frame-Options: SAMEORIGIN` from vercel.json — it was blocking cross-origin iframe embeds (see-veo and other apps showing "refused to connect")
-- Root cause: H4 audit fix applied the header globally; Vercel can't exempt by query param, so `?embed=` routes were blocked
+- Added dedicated `/embed` path route — exempted from X-Frame-Options in vercel.json
+- New embed URL: `/embed?charts=id1,id2` (cross-origin safe). Legacy `/?embed=` still works same-origin.
+- Root cause: H4 audit fix applied SAMEORIGIN globally; Vercel can't exempt by query param
+- Updated: App.jsx (path detection), index.html (debug pill skip), EMBED_REFERENCE.md
 
 **Previous Updates (2026-04-02):**
 
