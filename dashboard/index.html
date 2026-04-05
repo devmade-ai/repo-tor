@@ -51,11 +51,11 @@
       JS bundle fails to load. Captures errors, shows diagnostics, and warns
       the user if loading takes too long. The main.jsx bundle enhances this
       once it mounts (adds React component stacks, etc.).
-      Skipped in embed mode (?embed= or /embed path) — embedded charts shouldn't show debug UI.
+      Skipped in embed mode (?embed=) — embedded charts shouldn't show debug UI.
     -->
     <script>
     (function() {
-      if (new URLSearchParams(location.search).has('embed') || location.pathname === '/embed') return;
+      if (new URLSearchParams(location.search).has('embed')) return;
 
       // --- Circular buffer event store (200 entries max) ---
       var MAX_ENTRIES = 200;

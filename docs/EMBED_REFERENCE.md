@@ -4,21 +4,6 @@ Quick reference for all dashboard elements that can be embedded in external appl
 
 Each element has a `data-embed-id` attribute on its container div. Use these IDs to target specific charts when embedding.
 
-## Embed URL Format
-
-Use the `/embed` path for cross-origin iframes (recommended):
-
-```
-https://repo-tor.vercel.app/embed?charts=activity-timeline
-https://repo-tor.vercel.app/embed?charts=activity-timeline,code-changes-timeline&theme=light&bg=FFFFFF
-```
-
-The legacy `?embed=` format still works but may be blocked by `X-Frame-Options` when embedded cross-origin:
-
-```
-https://repo-tor.vercel.app/?embed=activity-timeline
-```
-
 ---
 
 ## Chart.js Charts
