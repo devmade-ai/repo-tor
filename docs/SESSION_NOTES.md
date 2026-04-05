@@ -6,7 +6,13 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, light/dark theme, and PWA support.
 
-**Recent Updates (2026-04-02):**
+**Recent Updates (2026-04-05):**
+
+### X-Frame-Options fix for embeds
+- Removed `X-Frame-Options: SAMEORIGIN` from vercel.json — it was blocking cross-origin iframe embeds (see-veo and other apps showing "refused to connect")
+- Root cause: H4 audit fix applied the header globally; Vercel can't exempt by query param, so `?embed=` routes were blocked
+
+**Previous Updates (2026-04-02):**
 
 ### Cross-project alignment with glow-props (24 items)
 - CLAUDE.md text fixes, implementations extracted to `docs/implementations/` (8 files)

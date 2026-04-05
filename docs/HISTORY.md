@@ -2,6 +2,14 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-04-05
+
+### Remove X-Frame-Options header blocking cross-origin embeds
+
+**Why:** The `X-Frame-Options: SAMEORIGIN` header added in H4 audit fix (19e1e21) blocked all cross-origin iframes. This broke the embed feature — see-veo and other apps embedding repo-tor charts via `?embed=` iframes got "refused to connect" errors. Vercel header matching is path-based only, so the embed.js exemption didn't cover the actual HTML page loaded in iframes.
+
+**Fix:** Removed `X-Frame-Options: SAMEORIGIN` from vercel.json. The dashboard is public with no auth, so there's no clickjacking risk. Cross-origin framing is an intentional feature (embed system).
+
 ## 2026-04-02
 
 ### Full 9-trigger audit sweep and fixes
