@@ -2,6 +2,14 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-04-05
+
+### Remove X-Frame-Options header blocking cross-origin embeds
+
+**Why:** The `X-Frame-Options: SAMEORIGIN` header added in H4 audit fix (19e1e21) blocked all cross-origin iframes. This broke the embed feature — see-veo and other apps embedding repo-tor charts via `?embed=` got "refused to connect" errors.
+
+**Fix:** Removed `X-Frame-Options` entirely. The dashboard is public, read-only, with no auth — there are no actions to clickjack. The embed feature is designed for cross-origin use (CVs, portfolios, external apps), so framing protection is counterproductive here.
+
 ## 2026-04-02
 
 ### Full 9-trigger audit sweep and fixes

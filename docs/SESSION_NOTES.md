@@ -6,7 +6,14 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, light/dark theme, and PWA support.
 
-**Recent Updates (2026-04-02):**
+**Recent Updates (2026-04-05):**
+
+### X-Frame-Options fix for embeds
+- Removed `X-Frame-Options: SAMEORIGIN` from vercel.json — it blocked cross-origin iframe embeds
+- Root cause: H4 audit fix applied the header globally; dashboard is public/read-only with no auth, so clickjacking protection is unnecessary
+- No changes needed in see-veo or other embedding apps — existing `?embed=` URLs work as before
+
+**Previous Updates (2026-04-02):**
 
 ### Cross-project alignment with glow-props (24 items)
 - CLAUDE.md text fixes, implementations extracted to `docs/implementations/` (8 files)
