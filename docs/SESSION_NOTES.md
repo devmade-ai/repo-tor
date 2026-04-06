@@ -13,6 +13,41 @@ Current state for AI assistants to continue work.
 - Root cause: H4 audit fix applied the header globally; dashboard is public/read-only with no auth, so clickjacking protection is unnecessary
 - No changes needed in see-veo or other embedding apps — existing `?embed=` URLs work as before
 
+### SW navigation fallback bypass for embeds (2026-04-06)
+- Added `navigateFallbackDenylist: [/[?&]embed=/]` to Workbox config in vite.config.js
+- Root cause: The PWA service worker precaches index.html with response headers. If the SW was installed when X-Frame-Options was still present, it served stale cached responses with the old header — blocking cross-origin iframes even after the header was removed from vercel.json. The iframe blocks before JS runs, so the SW never updates — a deadlock.
+- Fix: Embed URL navigations now bypass the SW entirely and go directly to the network (Vercel), always getting current headers
+
+### PWA improvements from cross-project review (2026-04-06)
+Reviewed synctone, canva-grid, and few-lap PWA implementations. Full gap analysis identified 16 differences — all addressed:
+
+**Update flow fixes:**
+1. Removed `skipWaiting`/`clientsClaim` from workbox config — conflicted with `registerType:'prompt'`
+2. User-initiated reload guard (`_userClickedUpdate`) on `controllerchange`
+3. Post-update suppression (30s sessionStorage window)
+4. `dismissUpdate()` — dismiss update prompt without applying
+5. `_isChecking` state + `pwa-checking-update` event for UI loading feedback
+6. Settle delay (1.5s) in `checkForUpdate()` and `visibilitychange`
+
+**Version detection:**
+7. `version.json` polling — catches deployments that don't change the SW file
+8. Recovery script (30s) — clears caches, unregisters SW if app fails to mount. Watches `updatefound` for installing workers.
+
+**Install improvements:**
+9. `__pwaPromptReceived` diagnostic flag (inline HTML + pwa.js)
+10. Display-mode change listener — detects browser-menu installs
+11. Install analytics — `trackInstallEvent()` stores last 50 events in localStorage
+12. `dismissInstall()` — persists to localStorage
+13. Chrome 90-day cooldown note in install instructions
+14. 5s diagnostic timeout if `beforeinstallprompt` hasn't fired on Chromium
+15. 2-layer capture decision documented (vs few-lap's 3-layer — Vite loads modules faster than Metro)
+
+**Infrastructure:**
+16. `pwaConstants.js` — extracted all timing/threshold constants
+17. `offline.html` — branded offline fallback page (precached)
+18. `offlineReady` auto-dismiss after 3s
+19. Vercel headers: `Cache-Control: no-cache` for HTML/sw.js/manifest, `immutable` for hashed assets, `Service-Worker-Allowed` for sw.js
+
 **Previous Updates (2026-04-02):**
 
 ### Cross-project alignment with glow-props (24 items)

@@ -111,7 +111,7 @@ export default function Header() {
         { label: state.darkMode ? 'Light mode' : 'Dark mode', action: handleToggleDarkMode, icon: icons.theme, separator: true },
         { label: 'Save as PDF', action: () => window.print(), icon: icons.pdf },
         { label: 'Install App', action: handleInstall, icon: icons.install, visible: installReady && !isInstalledPWA(), separator: true },
-        { label: 'Check for Updates', action: () => applyUpdate(), icon: icons.update, visible: updateAvailable, highlight: true },
+        { label: 'Update Now', action: () => applyUpdate(), icon: icons.update, visible: updateAvailable, highlight: true },
     ], [state.darkMode, handleToggleDarkMode, handleInstall, installReady, updateAvailable, setGuideOpen]);
 
     return (

@@ -60,8 +60,31 @@ export default defineConfig({
         ],
       },
       workbox: {
-        skipWaiting: true,
-        clientsClaim: true,
+        // Requirement: User-controlled updates — no auto-skipWaiting
+        // Approach: Omit skipWaiting and clientsClaim so the new SW waits until
+        //   the user explicitly triggers applyUpdate() (which calls updateSW(true)).
+        //   This matches synctone, few-lap, and canva-grid patterns.
+        // Alternatives considered:
+        //   - skipWaiting: true + clientsClaim: true: Rejected — conflicts with
+        //     registerType:'prompt'. The SW activates immediately and controllerchange
+        //     reloads the page before the user ever sees the update prompt.
+        //   - autoUpdate registerType: Rejected — user should control when reloads happen,
+        //     especially mid-analysis in the dashboard.
+        // Requirement: Embed mode iframes must bypass the SW navigation fallback
+        // Approach: navigateFallbackDenylist skips cached index.html for ?embed= URLs,
+        //   forcing them to go directly to the network (Vercel). This prevents stale
+        //   cached responses from serving old X-Frame-Options headers that block
+        //   cross-origin iframes (e.g. see-veo embedding repo-tor charts).
+        // Alternatives considered:
+        //   - Custom SW fetch handler: Rejected — requires injectManifest mode, more complex
+        //   - Strip headers in SW plugin: Rejected — can't modify precached responses retroactively
+        navigateFallbackDenylist: [/[?&]embed=/],
+        // Requirement: Branded offline page as last-resort fallback
+        // Approach: offline.html is precached via globPatterns (*.html). For normal
+        //   navigation, precached index.html serves as the SPA shell (always available).
+        //   For embed URLs (denylist skips navigateFallback), a runtimeCaching rule
+        //   catches failed navigation with a NetworkOnly handler + offline fallback.
+        // Pattern from: few-lap sw.js networkFirstWithOfflineFallback()
         // data.json excluded from precache — too large (2.68MB > Workbox 2MB limit)
         // Handled via runtimeCaching with NetworkFirst below instead
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}', 'projects.json'],
