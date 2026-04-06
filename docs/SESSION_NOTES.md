@@ -24,6 +24,8 @@ Reviewed synctone, canva-grid, and few-lap PWA implementations. Applied 4 improv
 2. **User-initiated reload guard** on `controllerchange` — only reloads when user clicks "Update", not on background SW lifecycle events (pattern from synctone/few-lap)
 3. **Post-update suppression** — 30-second sessionStorage window after update prevents false re-detection of the update prompt (pattern from synctone/few-lap)
 4. **Recovery script** in index.html — if React hasn't mounted after 30s, clears caches, unregisters SW, and reloads. Limited to 2 attempts via sessionStorage to prevent infinite loops (pattern from synctone/few-lap)
+5. **version.json polling** — `scripts/write-build-version.mjs` writes build timestamp to `dashboard/public/version.json` at build time. pwa.js fetches it on startup (3s delay), hourly, and compares with localStorage. Detects deployments that don't change the SW file (e.g. vercel.json-only changes). `version.json` is gitignored, not precached, and served with `Cache-Control: no-cache` via vercel.json
+6. **Settle delay** (1.5s) added to `checkForUpdate()` and `visibilitychange` handler — `reg.update()` is async and `reg.waiting` may not be populated immediately
 
 **Previous Updates (2026-04-02):**
 

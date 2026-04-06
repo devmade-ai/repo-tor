@@ -44,6 +44,42 @@ function wasJustUpdated() {
     return (Date.now() - Number(ts)) < JUST_UPDATED_SUPPRESS_MS;
 }
 
+// Requirement: Detect new deployments even when the SW file hasn't changed
+// Approach: Fetch /version.json (written at build time with a timestamp) and compare
+//   with localStorage. If different, surface as an update. A simple reload serves
+//   fresh assets because runtimeCaching uses NetworkFirst for data files, and
+//   the SW precache will update on the next registration if code changed.
+// Pattern from: synctone usePWAUpdate.ts (checkVersionJson), few-lap same
+// Alternatives considered:
+//   - Rely only on SW hash: Rejected — misses config-only deployments (vercel.json)
+//   - ETag checks: Rejected — CDN may strip or normalize headers
+const VERSION_STORAGE_KEY = 'pwa-build-time';
+async function checkVersionJson() {
+    try {
+        const resp = await fetch(`/version.json?t=${Date.now()}`);
+        if (!resp.ok) return;
+        const { buildTime } = await resp.json();
+        if (!buildTime) return;
+        const stored = safeStorageGet(VERSION_STORAGE_KEY);
+        if (stored && String(buildTime) !== stored) {
+            // New deployment detected — surface as update
+            if (!wasJustUpdated() && !_updateAvailable) {
+                _updateAvailable = true;
+                window.dispatchEvent(new CustomEvent('pwa-update-available'));
+            }
+        }
+        // Store current version (first visit or after update)
+        safeStorageSet(VERSION_STORAGE_KEY, String(buildTime));
+    } catch {
+        // Network error — skip silently, will retry on next interval
+    }
+}
+function storeCurrentBuildTime() {
+    fetch(`/version.json?t=${Date.now()}`).then(r => r.json()).then(({ buildTime }) => {
+        if (buildTime) safeStorageSet(VERSION_STORAGE_KEY, String(buildTime));
+    }).catch(() => {});
+}
+
 // === State ===
 let deferredInstallPrompt = null;
 let updateSW = null;
@@ -288,6 +324,7 @@ export function applyUpdate() {
     if (updateSW) {
         _userClickedUpdate = true;
         safeSessionSet('pwa-just-updated', String(Date.now()));
+        storeCurrentBuildTime();
         updateSW(true);
     }
 }
@@ -346,8 +383,14 @@ updateSW = registerSW({
     },
     onRegisteredSW(swUrl, registration) {
         if (registration) {
-            updateInterval = setInterval(() => registration.update(), 60 * 60 * 1000);
+            // Hourly: check both SW updates and version.json
+            updateInterval = setInterval(() => {
+                registration.update();
+                checkVersionJson();
+            }, 60 * 60 * 1000);
         }
+        // Initial version check on startup (deferred so it doesn't block rendering)
+        setTimeout(() => checkVersionJson(), 3000);
     },
     onRegisterError(error) {
         console.error('SW registration error:', error);

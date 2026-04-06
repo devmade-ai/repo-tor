@@ -21,6 +21,7 @@ Log of significant changes to code and documentation.
 4. Added SW recovery script in index.html — if React hasn't mounted after 30s, clears all caches, unregisters SW, and reloads (max 2 attempts per session)
 5. Added 1.5s settle delay to `checkForUpdate()` — `reg.update()` is async and `reg.waiting` may not be populated immediately after it resolves
 6. Fixed `visibilitychange` handler to surface waiting workers — the `onNeedRefresh` callback from `registerSW` only fires once during setup, so separate `reg.update()` calls need manual detection + event dispatch
+7. Added `version.json` polling — build-time timestamp file written by `scripts/write-build-version.mjs`, fetched independently of the SW. Detects deployments that don't change the SW file (e.g. vercel.json config changes). Checked on startup (3s delay), hourly, and on visibility change
 
 ## 2026-04-05
 
