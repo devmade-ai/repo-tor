@@ -306,6 +306,11 @@ export function stopUpdatePolling() {
 
 /**
  * Manual check for updates.
+ * Requirement: Explicitly check for SW updates and surface waiting workers
+ * Approach: Call reg.update(), then wait 1.5s for the async update process to
+ *   complete before checking reg.waiting/reg.installing. Without the settle delay,
+ *   the check can miss updates that are still being fetched/installed.
+ * Pattern from: synctone usePWAUpdate.ts, few-lap usePWAUpdate.ts
  * Returns: 'update-found' | 'up-to-date' | 'no-sw' | 'error'
  */
 export async function checkForUpdate() {
@@ -314,6 +319,9 @@ export async function checkForUpdate() {
         const reg = await navigator.serviceWorker.getRegistration();
         if (!reg) return 'no-sw';
         await reg.update();
+        // Settle delay — the update process is async and reg.waiting/reg.installing
+        // may not be populated immediately after reg.update() resolves
+        await new Promise(r => setTimeout(r, 1500));
         if (reg.waiting || reg.installing) {
             _updateAvailable = true;
             window.dispatchEvent(new CustomEvent('pwa-update-available'));
@@ -369,11 +377,25 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// Check for updates when page regains visibility
+// Requirement: Surface waiting SW updates on tab focus and manual refresh
+// Approach: On visibilitychange, call reg.update() and after a settle delay check
+//   for waiting/installing workers. The onNeedRefresh callback from registerSW only
+//   fires once during setup — separate reg.update() calls won't re-trigger it, so
+//   we need to dispatch the event manually if a waiting worker is found.
+// Pattern from: synctone usePWAUpdate.ts (visibility + settle), few-lap usePWAUpdate.ts
 document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible' && 'serviceWorker' in navigator) {
+        if (wasJustUpdated()) return;
         navigator.serviceWorker.getRegistration().then(reg => {
-            if (reg) reg.update();
+            if (!reg) return;
+            reg.update();
+            // Settle delay before checking for waiting worker
+            setTimeout(() => {
+                if (reg.waiting && !_updateAvailable) {
+                    _updateAvailable = true;
+                    window.dispatchEvent(new CustomEvent('pwa-update-available'));
+                }
+            }, 1500);
         }).catch(err => {
             console.warn('Failed to check for SW updates:', err.message || err);
         });
