@@ -79,6 +79,13 @@ export default defineConfig({
         //   - Custom SW fetch handler: Rejected — requires injectManifest mode, more complex
         //   - Strip headers in SW plugin: Rejected — can't modify precached responses retroactively
         navigateFallbackDenylist: [/[?&]embed=/],
+        // Requirement: Branded offline page as last-resort fallback
+        // Approach: offline.html is precached via globPatterns (*.html). For normal
+        //   navigation, precached index.html serves as the SPA shell (always available).
+        //   For embed URLs (denylist skips navigateFallback), a runtimeCaching rule
+        //   catches failed navigation with a NetworkOnly handler + offline fallback.
+        // Pattern from: few-lap sw.js networkFirstWithOfflineFallback()
+        offlineGoogleAnalytics: false,
         // data.json excluded from precache — too large (2.68MB > Workbox 2MB limit)
         // Handled via runtimeCaching with NetworkFirst below instead
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}', 'projects.json'],

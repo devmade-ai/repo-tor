@@ -23,6 +23,26 @@ Log of significant changes to code and documentation.
 6. Fixed `visibilitychange` handler to surface waiting workers — the `onNeedRefresh` callback from `registerSW` only fires once during setup, so separate `reg.update()` calls need manual detection + event dispatch
 7. Added `version.json` polling — build-time timestamp file written by `scripts/write-build-version.mjs`, fetched independently of the SW. Detects deployments that don't change the SW file (e.g. vercel.json config changes). Checked on startup (3s delay), hourly, and on visibility change
 
+### Full PWA parity with few-lap (16 gap items)
+
+**Why:** Line-by-line comparison with few-lap's PWA implementation identified 16 differences. All addressed.
+
+**Changes:**
+- `pwaConstants.js`: Extracted all timing/threshold constants (SW_UPDATE_CHECK_INTERVAL_MS, JUST_UPDATED_SUPPRESS_MS, UPDATE_SETTLE_DELAY_MS, etc.)
+- `offline.html`: Branded offline fallback page (precached by Workbox)
+- `dismissUpdate()`: Dismiss update prompt without applying (pattern from few-lap)
+- `_isChecking` state + `pwa-checking-update` event: Loading feedback during manual update checks
+- `offlineReady` auto-dismiss: 3s timeout via `pwa-offline-dismissed` event
+- `__pwaPromptReceived` flag: Set in inline HTML script + pwa.js for diagnostics
+- Display-mode change listener: Detects installs via browser menu (not just beforeinstallprompt)
+- Install analytics: `trackInstallEvent()` stores last 50 events in localStorage
+- `dismissInstall()` + `isInstallDismissed()`: Persistent install prompt dismissal
+- Chrome 90-day cooldown note: Shown in install instructions when native prompt unavailable
+- 5s diagnostic timeout: Warns in debug pill if beforeinstallprompt hasn't fired on Chromium
+- 2-layer capture documented: Explained why Vite doesn't need few-lap's 3rd layer (Metro is slower)
+- Recovery script strengthened: Now watches `updatefound` + installing worker `statechange`, clears counter on successful mount
+- vercel.json headers: `Cache-Control: no-cache` for all HTML responses, `immutable` for hashed assets, `Service-Worker-Allowed` for sw.js, `Content-Type` for manifest
+
 ## 2026-04-05
 
 ### Remove X-Frame-Options header blocking cross-origin embeds

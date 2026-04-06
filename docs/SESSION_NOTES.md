@@ -19,13 +19,34 @@ Current state for AI assistants to continue work.
 - Fix: Embed URL navigations now bypass the SW entirely and go directly to the network (Vercel), always getting current headers
 
 ### PWA improvements from cross-project review (2026-04-06)
-Reviewed synctone, canva-grid, and few-lap PWA implementations. Applied 4 improvements:
-1. **Removed `skipWaiting`/`clientsClaim`** from workbox config — conflicted with `registerType:'prompt'`, causing auto-reloads before user could see update prompt
-2. **User-initiated reload guard** on `controllerchange` — only reloads when user clicks "Update", not on background SW lifecycle events (pattern from synctone/few-lap)
-3. **Post-update suppression** — 30-second sessionStorage window after update prevents false re-detection of the update prompt (pattern from synctone/few-lap)
-4. **Recovery script** in index.html — if React hasn't mounted after 30s, clears caches, unregisters SW, and reloads. Limited to 2 attempts via sessionStorage to prevent infinite loops (pattern from synctone/few-lap)
-5. **version.json polling** — `scripts/write-build-version.mjs` writes build timestamp to `dashboard/public/version.json` at build time. pwa.js fetches it on startup (3s delay), hourly, and compares with localStorage. Detects deployments that don't change the SW file (e.g. vercel.json-only changes). `version.json` is gitignored, not precached, and served with `Cache-Control: no-cache` via vercel.json
-6. **Settle delay** (1.5s) added to `checkForUpdate()` and `visibilitychange` handler — `reg.update()` is async and `reg.waiting` may not be populated immediately
+Reviewed synctone, canva-grid, and few-lap PWA implementations. Full gap analysis identified 16 differences — all addressed:
+
+**Update flow fixes:**
+1. Removed `skipWaiting`/`clientsClaim` from workbox config — conflicted with `registerType:'prompt'`
+2. User-initiated reload guard (`_userClickedUpdate`) on `controllerchange`
+3. Post-update suppression (30s sessionStorage window)
+4. `dismissUpdate()` — dismiss update prompt without applying
+5. `_isChecking` state + `pwa-checking-update` event for UI loading feedback
+6. Settle delay (1.5s) in `checkForUpdate()` and `visibilitychange`
+
+**Version detection:**
+7. `version.json` polling — catches deployments that don't change the SW file
+8. Recovery script (30s) — clears caches, unregisters SW if app fails to mount. Watches `updatefound` for installing workers.
+
+**Install improvements:**
+9. `__pwaPromptReceived` diagnostic flag (inline HTML + pwa.js)
+10. Display-mode change listener — detects browser-menu installs
+11. Install analytics — `trackInstallEvent()` stores last 50 events in localStorage
+12. `dismissInstall()` — persists to localStorage
+13. Chrome 90-day cooldown note in install instructions
+14. 5s diagnostic timeout if `beforeinstallprompt` hasn't fired on Chromium
+15. 2-layer capture decision documented (vs few-lap's 3-layer — Vite loads modules faster than Metro)
+
+**Infrastructure:**
+16. `pwaConstants.js` — extracted all timing/threshold constants
+17. `offline.html` — branded offline fallback page (precached)
+18. `offlineReady` auto-dismiss after 3s
+19. Vercel headers: `Cache-Control: no-cache` for HTML/sw.js/manifest, `immutable` for hashed assets, `Service-Worker-Allowed` for sw.js
 
 **Previous Updates (2026-04-02):**
 

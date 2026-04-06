@@ -253,13 +253,26 @@
         if (attempts >= 2) return;
         try { sessionStorage.setItem(key, String(attempts + 1)); } catch(e) {}
 
-        // Force SW update check — if a new SW is available, install it
+        // Force SW update check — if a new SW is available, install it.
+        // Watches updatefound for installing workers (not just already-waiting ones).
+        // Pattern from: few-lap +html.tsx recovery script
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.getRegistration().then(function(reg) {
-            if (reg && reg.waiting) {
+            if (!reg) return;
+            if (reg.waiting) {
               reg.waiting.postMessage({ type: 'SKIP_WAITING' });
             }
-            if (reg) reg.update();
+            reg.update().catch(function() {});
+            // Watch for newly-installing workers triggered by update()
+            reg.addEventListener('updatefound', function() {
+              var w = reg.installing;
+              if (!w) return;
+              w.addEventListener('statechange', function() {
+                if (w.state === 'installed') {
+                  w.postMessage({ type: 'SKIP_WAITING' });
+                }
+              });
+            });
           }).catch(function() {});
 
           // If still broken after the update attempt, nuclear option: clear everything
@@ -285,6 +298,8 @@
       window.__debugClearLoadTimer = function() {
         window.__debugReactMounted = true;
         if (loadTimerId) { clearTimeout(loadTimerId); loadTimerId = null; }
+        // Clear recovery counter on successful mount (pattern from few-lap +html.tsx)
+        try { sessionStorage.removeItem('pwa-recovery-attempts'); } catch(e) {}
       };
     })();
     </script>
@@ -300,6 +315,10 @@
     window.addEventListener('beforeinstallprompt', function(e) {
       e.preventDefault();
       window.__pwaInstallPromptEvent = e;
+      // Diagnostic flag — lets hooks/debug check if event was ever received,
+      // even after the event object has been consumed by pwa.js.
+      // Pattern from: few-lap +html.tsx (__pwaPromptReceived)
+      window.__pwaPromptReceived = true;
     });
     </script>
     <script type="module" src="./js/main.jsx"></script>
