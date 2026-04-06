@@ -13,6 +13,11 @@ Current state for AI assistants to continue work.
 - Root cause: H4 audit fix applied the header globally; dashboard is public/read-only with no auth, so clickjacking protection is unnecessary
 - No changes needed in see-veo or other embedding apps — existing `?embed=` URLs work as before
 
+### SW navigation fallback bypass for embeds (2026-04-06)
+- Added `navigateFallbackDenylist: [/[?&]embed=/]` to Workbox config in vite.config.js
+- Root cause: The PWA service worker precaches index.html with response headers. If the SW was installed when X-Frame-Options was still present, it served stale cached responses with the old header — blocking cross-origin iframes even after the header was removed from vercel.json. The iframe blocks before JS runs, so the SW never updates — a deadlock.
+- Fix: Embed URL navigations now bypass the SW entirely and go directly to the network (Vercel), always getting current headers
+
 **Previous Updates (2026-04-02):**
 
 ### Cross-project alignment with glow-props (24 items)

@@ -62,6 +62,15 @@ export default defineConfig({
       workbox: {
         skipWaiting: true,
         clientsClaim: true,
+        // Requirement: Embed mode iframes must bypass the SW navigation fallback
+        // Approach: navigateFallbackDenylist skips cached index.html for ?embed= URLs,
+        //   forcing them to go directly to the network (Vercel). This prevents stale
+        //   cached responses from serving old X-Frame-Options headers that block
+        //   cross-origin iframes (e.g. see-veo embedding repo-tor charts).
+        // Alternatives considered:
+        //   - Custom SW fetch handler: Rejected — requires injectManifest mode, more complex
+        //   - Strip headers in SW plugin: Rejected — can't modify precached responses retroactively
+        navigateFallbackDenylist: [/[?&]embed=/],
         // data.json excluded from precache — too large (2.68MB > Workbox 2MB limit)
         // Handled via runtimeCaching with NetworkFirst below instead
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}', 'projects.json'],

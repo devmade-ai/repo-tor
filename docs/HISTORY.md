@@ -2,6 +2,14 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-04-06
+
+### Bypass SW navigation cache for embed URLs
+
+**Why:** Even after removing X-Frame-Options from vercel.json, the PWA service worker continued serving cached index.html responses that included the old header. Since the iframe gets blocked before JS runs, the SW update code never executes — creating a deadlock where the old SW persists indefinitely.
+
+**Fix:** Added `navigateFallbackDenylist: [/[?&]embed=/]` to the Workbox config. Embed URL navigations now bypass the SW cache entirely, going directly to the network. Normal dashboard navigation still uses the precached fallback.
+
 ## 2026-04-05
 
 ### Remove X-Frame-Options header blocking cross-origin embeds
