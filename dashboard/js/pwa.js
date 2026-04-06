@@ -86,9 +86,12 @@ async function checkVersionJson() {
     }
 }
 function storeCurrentBuildTime() {
+    // Fire-and-forget — non-critical, retries via checkVersionJson on next interval.
+    // Silent catch is intentional: network errors during update application are expected
+    // (the page is about to reload anyway).
     fetch(`/version.json?t=${Date.now()}`).then(r => r.json()).then(({ buildTime }) => {
         if (buildTime) safeStorageSet(VERSION_STORAGE_KEY, String(buildTime));
-    }).catch(() => {});
+    }).catch(() => { /* non-critical — see comment above */ });
 }
 
 // ── Install analytics ──
@@ -374,7 +377,9 @@ export async function installPWA() {
         const { outcome } = await deferredInstallPrompt.userChoice;
         trackInstallEvent(outcome === 'accepted' ? 'installed' : 'dismissed');
         deferredInstallPrompt = null;
-        return outcome === 'accepted';
+        // Return true = prompt was shown (regardless of user choice).
+        // Callers use false to decide whether to show manual install instructions.
+        return true;
     }
     return false;
 }

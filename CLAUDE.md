@@ -162,7 +162,8 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-02.
   - `js/utils.js` - Pure utility functions
   - `js/charts.js` - Chart aggregation helpers
   - `js/chartColors.js` - Centralized chart color system (embed overrides)
-  - `js/pwa.js` - PWA install/update logic
+  - `js/pwa.js` - PWA install/update logic (event-based, communicates with React via CustomEvents)
+  - `js/pwaConstants.js` - PWA timing/threshold constants (update intervals, settle delays, etc.)
 - `vite.config.js` - Vite build + React + Tailwind v4 + PWA plugin config
 - `vite.config.lib.js` - Vite library build config (ES module export)
 - `hooks/commit-msg` - Validates conventional commit format
