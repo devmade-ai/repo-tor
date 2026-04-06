@@ -10,6 +10,16 @@ Log of significant changes to code and documentation.
 
 **Fix:** Added `navigateFallbackDenylist: [/[?&]embed=/]` to the Workbox config. Embed URL navigations now bypass the SW cache entirely, going directly to the network. Normal dashboard navigation still uses the precached fallback.
 
+### PWA improvements from cross-project review (synctone, canva-grid, few-lap)
+
+**Why:** Reviewed sibling repos and found repo-tor's PWA had a skipWaiting/prompt conflict and lacked resilience patterns that other projects had adopted.
+
+**Changes:**
+1. Removed `skipWaiting: true` + `clientsClaim: true` from workbox config — conflicted with `registerType:'prompt'`, auto-reloading before user saw update prompt
+2. Added `_userClickedUpdate` guard on `controllerchange` — only reloads when user triggers update via applyUpdate(), not on background SW events
+3. Added 30-second post-update suppression via sessionStorage — prevents false "update available" re-detection after reload
+4. Added SW recovery script in index.html — if React hasn't mounted after 30s, clears all caches, unregisters SW, and reloads (max 2 attempts per session)
+
 ## 2026-04-05
 
 ### Remove X-Frame-Options header blocking cross-origin embeds

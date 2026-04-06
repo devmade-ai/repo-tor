@@ -217,25 +217,69 @@
       // Create banner immediately
       render();
 
-      // --- Loading timeout ---
-      // If React hasn't mounted after 10 seconds, show a warning in the
-      // loading indicator so the user knows something may be wrong.
+      // --- Loading timeout (20s) ---
+      // Shows a warning if React hasn't mounted. Users see a helpful message
+      // instead of an infinite spinner.
       loadTimerId = setTimeout(function() {
         if (window.__debugReactMounted) return;
         var root = document.getElementById('root');
         if (!root) return;
-        // Only add the warning if the loading spinner is still showing
-        // (React would have replaced #root contents on mount)
         var msg = root.querySelector('.loading-timeout-msg');
         if (msg) return;
         var warning = document.createElement('p');
         warning.className = 'loading-timeout-msg';
         warning.style.cssText = 'color:#f59e0b;font-size:13px;font-family:system-ui,sans-serif;text-align:center;max-width:400px;padding:0 16px';
         warning.textContent = 'This is taking longer than usual. Check the debug pill in the bottom-right corner for errors, or try reloading.';
-        // Append inside the flex container
         var flex = root.querySelector('div');
         if (flex) flex.appendChild(warning);
       }, 20000);
+
+      // --- SW recovery (30s) ---
+      // Requirement: Auto-recover from broken service worker serving corrupt assets
+      // Approach: If React hasn't mounted after 30s, clear all caches, unregister SW,
+      //   and reload. Limited to 2 attempts via sessionStorage to prevent infinite loops.
+      //   The 30s window is intentionally longer than the 20s warning — gives user time
+      //   to see the warning before auto-recovery kicks in.
+      // Pattern from: synctone +html.tsx, few-lap +html.tsx
+      // Alternatives considered:
+      //   - Manual recovery only: Rejected — users may not know how to clear SW
+      //   - Shorter timeout: Rejected — slow networks need time; 20s warning first
+      setTimeout(function() {
+        if (window.__debugReactMounted) return;
+        // Only attempt recovery twice per session to prevent infinite reload loops
+        var key = 'pwa-recovery-attempts';
+        var attempts = 0;
+        try { attempts = parseInt(sessionStorage.getItem(key) || '0', 10); } catch(e) {}
+        if (attempts >= 2) return;
+        try { sessionStorage.setItem(key, String(attempts + 1)); } catch(e) {}
+
+        // Force SW update check — if a new SW is available, install it
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistration().then(function(reg) {
+            if (reg && reg.waiting) {
+              reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+            }
+            if (reg) reg.update();
+          }).catch(function() {});
+
+          // If still broken after the update attempt, nuclear option: clear everything
+          setTimeout(function() {
+            if (window.__debugReactMounted) return;
+            if ('caches' in window) {
+              caches.keys().then(function(names) {
+                return Promise.all(names.map(function(n) { return caches.delete(n); }));
+              }).catch(function() {});
+            }
+            navigator.serviceWorker.getRegistration().then(function(reg) {
+              if (reg) reg.unregister();
+            }).then(function() {
+              window.location.reload();
+            }).catch(function() {
+              window.location.reload();
+            });
+          }, 3000);
+        }
+      }, 30000);
 
       // Let main.jsx signal when React is mounted
       window.__debugClearLoadTimer = function() {

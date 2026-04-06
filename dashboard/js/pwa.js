@@ -26,6 +26,23 @@ function safeStorageSet(key, value) {
 function safeStorageRemove(key) {
     try { localStorage.removeItem(key); } catch { /* sandboxed */ }
 }
+function safeSessionGet(key) {
+    try { return sessionStorage.getItem(key); } catch { return null; }
+}
+function safeSessionSet(key, value) {
+    try { sessionStorage.setItem(key, String(value)); } catch { /* sandboxed */ }
+}
+
+// Requirement: Suppress false update re-detection after a reload triggered by applyUpdate
+// Approach: 30-second window after update where onNeedRefresh is ignored. Prevents the
+//   "update available" prompt from flashing immediately after the user just updated.
+// Pattern from: synctone usePWAUpdate.ts (wasJustUpdated), few-lap usePWAUpdate.ts
+const JUST_UPDATED_SUPPRESS_MS = 30000;
+function wasJustUpdated() {
+    const ts = safeSessionGet('pwa-just-updated');
+    if (!ts) return false;
+    return (Date.now() - Number(ts)) < JUST_UPDATED_SUPPRESS_MS;
+}
 
 // === State ===
 let deferredInstallPrompt = null;
@@ -33,6 +50,12 @@ let updateSW = null;
 let updateInterval = null;
 let _installReady = false;
 let _updateAvailable = false;
+// Requirement: Only reload on controllerchange when user initiated the update
+// Approach: Flag set by applyUpdate() before triggering skipWaiting. Prevents
+//   unexpected reloads from background SW lifecycle events (browser auto-update,
+//   visibility check finding a new SW, etc.).
+// Pattern from: synctone usePWAUpdate.ts, few-lap usePWAUpdate.ts
+let _userClickedUpdate = false;
 
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true;
@@ -254,9 +277,17 @@ export function isStandaloneMode() {
 
 /**
  * Apply the pending update — activates the new SW and reloads.
+ * Requirement: User-controlled update flow — only reload when user clicks
+ * Approach: Set _userClickedUpdate flag before calling updateSW(true), which
+ *   sends SKIP_WAITING to the waiting SW. The controllerchange listener checks
+ *   this flag before reloading. Marks sessionStorage so the next page load
+ *   suppresses false re-detection for 30 seconds.
+ * Pattern from: synctone usePWAUpdate.ts, few-lap usePWAUpdate.ts
  */
 export function applyUpdate() {
     if (updateSW) {
+        _userClickedUpdate = true;
+        safeSessionSet('pwa-just-updated', String(Date.now()));
         updateSW(true);
     }
 }
@@ -297,6 +328,8 @@ export async function checkForUpdate() {
 // Register the service worker via vite-plugin-pwa virtual module.
 updateSW = registerSW({
     onNeedRefresh() {
+        // Suppress false re-detection in the 30s window after a user-initiated update
+        if (wasJustUpdated()) return;
         _updateAvailable = true;
         window.dispatchEvent(new CustomEvent('pwa-update-available'));
     },
@@ -317,12 +350,20 @@ updateSW = registerSW({
     }
 });
 
-// Reload when a new service worker takes control — ensures pull-to-refresh
-// gets fresh JS/CSS assets instead of stale cached versions.
+// Requirement: Only reload on controllerchange when the user initiated the update
+// Approach: Check _userClickedUpdate flag before reloading. Background SW lifecycle
+//   events (browser auto-update, visibility check) should NOT cause surprise reloads
+//   while the user is mid-analysis. The user triggers reload via applyUpdate() which
+//   sets the flag, sends SKIP_WAITING, and the controllerchange handler reloads.
+// Pattern from: synctone usePWAUpdate.ts, few-lap usePWAUpdate.ts
+// Alternatives considered:
+//   - Always reload on controllerchange: Rejected — causes surprise reloads during use
+//   - Never reload: Rejected — user would need to manually refresh after clicking update
 let refreshing = false;
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.addEventListener('controllerchange', () => {
         if (refreshing) return;
+        if (!_userClickedUpdate) return;
         refreshing = true;
         window.location.reload();
     });

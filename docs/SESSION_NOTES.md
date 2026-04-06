@@ -18,6 +18,13 @@ Current state for AI assistants to continue work.
 - Root cause: The PWA service worker precaches index.html with response headers. If the SW was installed when X-Frame-Options was still present, it served stale cached responses with the old header — blocking cross-origin iframes even after the header was removed from vercel.json. The iframe blocks before JS runs, so the SW never updates — a deadlock.
 - Fix: Embed URL navigations now bypass the SW entirely and go directly to the network (Vercel), always getting current headers
 
+### PWA improvements from cross-project review (2026-04-06)
+Reviewed synctone, canva-grid, and few-lap PWA implementations. Applied 4 improvements:
+1. **Removed `skipWaiting`/`clientsClaim`** from workbox config — conflicted with `registerType:'prompt'`, causing auto-reloads before user could see update prompt
+2. **User-initiated reload guard** on `controllerchange` — only reloads when user clicks "Update", not on background SW lifecycle events (pattern from synctone/few-lap)
+3. **Post-update suppression** — 30-second sessionStorage window after update prevents false re-detection of the update prompt (pattern from synctone/few-lap)
+4. **Recovery script** in index.html — if React hasn't mounted after 30s, clears caches, unregisters SW, and reloads. Limited to 2 attempts via sessionStorage to prevent infinite loops (pattern from synctone/few-lap)
+
 **Previous Updates (2026-04-02):**
 
 ### Cross-project alignment with glow-props (24 items)
