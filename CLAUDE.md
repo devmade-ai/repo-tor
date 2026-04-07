@@ -368,14 +368,19 @@ Rules:
 
 **Source of truth:** glow-props repo at `docs/implementations/` — there are NO local copies.
 
+To list available patterns:
+```bash
+curl -s -H "Authorization: token $(printenv GITHUB_ALL_REPO_TOKEN)" \
+  "https://api.github.com/repos/devmade-ai/glow-props/contents/docs/implementations" \
+  | python3 -c "import sys,json; [print(f['name']) for f in json.load(sys.stdin)]"
+```
+
 To fetch a pattern spec before implementing:
 ```bash
 curl -s -H "Authorization: token $(printenv GITHUB_ALL_REPO_TOKEN)" \
   "https://api.github.com/repos/devmade-ai/glow-props/contents/docs/implementations/{FILENAME}.md" \
   | python3 -c "import sys,json,base64; d=json.load(sys.stdin); print(base64.b64decode(d['content']).decode())"
 ```
-
-Available patterns: `PWA_SYSTEM.md`, `DEBUG_SYSTEM.md`, `APP_ICONS.md`, `DOWNLOAD_PDF.md`, `HTTPS_PROXY.md`, `BURGER_MENU.md`, `THEME_DARK_MODE.md`, `EVENT_BUS.md`
 
 Rules:
 - **Never create local copies** of pattern files — always fetch from glow-props
