@@ -366,9 +366,21 @@ Rules:
 
 ## Suggested Implementations
 
-**Source of truth:** `docs/implementations/` — all pattern specs live there.
+**Source of truth:** glow-props repo at `docs/implementations/` — there are NO local copies.
 
-Always read the source files in `docs/implementations/` before implementing any feature. These files contain the up-to-date, canonical specs from glow-props and may be improved between sessions. Never rely on memory or summaries — read the actual file.
+To fetch a pattern spec before implementing:
+```bash
+curl -s -H "Authorization: token $(printenv GITHUB_ALL_REPO_TOKEN)" \
+  "https://api.github.com/repos/devmade-ai/glow-props/contents/docs/implementations/{FILENAME}.md" \
+  | python3 -c "import sys,json,base64; d=json.load(sys.stdin); print(base64.b64decode(d['content']).decode())"
+```
+
+Available patterns: `PWA_SYSTEM.md`, `DEBUG_SYSTEM.md`, `APP_ICONS.md`, `DOWNLOAD_PDF.md`, `HTTPS_PROXY.md`, `BURGER_MENU.md`, `THEME_DARK_MODE.md`, `EVENT_BUS.md`
+
+Rules:
+- **Never create local copies** of pattern files — always fetch from glow-props
+- **Always fetch the latest version** before implementing — patterns are updated between sessions
+- **Never rely on memory or summaries** — read the actual spec from glow-props every time
 
 ---
 
@@ -411,6 +423,7 @@ Never:
 - Use interactive input prompts or selection UIs — list options as numbered text instead
 - Remove features during "cleanup" without checking if they're documented as intentional (see AI Mistakes)
 - Proceed with assumptions when a single clarifying question would prevent a wrong commit
+- Create local copies of implementation pattern files — always fetch from glow-props (see Suggested Implementations)
 
 ### REMINDER: READ AND FOLLOW THE PROHIBITIONS EVERY TIME
 
