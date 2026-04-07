@@ -6,42 +6,7 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, light/dark theme, and PWA support.
 
-**Recent Updates (2026-04-07):**
-
-### THEME_DARK_MODE Phase B complete (variable migration)
-- Switched DaisyUI themes to corporate/business (blue primary) — no color overrides needed
-- Aliased dashboard vars to DaisyUI where 1:1 mapping exists (e.g. `--bg-primary: var(--color-base-100)`)
-- Kept dashboard-specific vars that have no DaisyUI equivalent (text gradations, borders, shadows, spacing, z-index, radius, fonts, glows)
-- Audited 50+ CSS variables and 40+ dark: classes across 11 files
-- Remaining phases: C (component migration), D (cleanup + menu theme UI)
-
-### THEME_DARK_MODE Phase A complete (DaisyUI foundation)
-- Installed DaisyUI v5, configured `@plugin "daisyui"` with themes: `corporate` (light), `business` (dark)
-- Added `data-theme` attribute to `<html>`, flash prevention script, and AppContext
-- Added `<meta name="theme-color">` with pre-JS media queries + dynamic JS updates
-
-### DEBUG_SYSTEM complete (tasks 3a-3e)
-- Created `debugLog.js` pub/sub module — circular buffer, structured entries, URL redaction in reports
-- Created `debugConsoleInterceptor.js` — captures console.error/warn into debugLog
-- Created React `DebugPill.jsx` in separate root (`#debug-root`) — 3 tabs (Log, Environment, PWA)
-- Two-phase handoff: inline pill handles pre-React, React pill takes over on mount
-- Three-tier clipboard fallback: ClipboardItem Blob → writeText → textarea
-- DEBUG_SYSTEM implementation status: Complete
-
-### BURGER_MENU complete (tasks 2a-2d)
-- Extracted `useDisclosureFocus` hook from inlined focus logic — reusable for any disclosure component
-- Wired `useFocusTrap` into the menu — Tab key trapped within dropdown
-- Added Home/End key support alongside ArrowDown/ArrowUp
-- Added `disabled` item support — grayed-out styling, skipped by keyboard nav and focus trap
-- BURGER_MENU implementation status: Complete (theme UI pending DaisyUI migration)
-
-### APP_ICONS complete
-- Added 180px apple-touch-icon for iOS home screen
-- Generator now writes to both `assets/images/` and `dashboard/public/assets/images/` — no more manual copy
-- `<link rel="apple-touch-icon">` added to index.html
-- APP_ICONS implementation status: Complete
-
-**Previous Updates (2026-04-05):**
+**Recent Updates (2026-04-05):**
 
 ### X-Frame-Options fix for embeds
 - Removed `X-Frame-Options: SAMEORIGIN` from vercel.json — it blocked cross-origin iframe embeds

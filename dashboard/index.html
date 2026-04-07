@@ -1,19 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="dark" data-theme="business">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <!-- Theme color for browser chrome (address bar, task switcher).
-         Two tags with media queries: browser picks the correct one before JS runs.
-         JS dynamically updates these on theme toggle via AppContext. -->
-    <meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#1B1B1B" media="(prefers-color-scheme: dark)">
     <title>Git Analytics Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%232D68FF'/%3E%3Ctext x='50' y='50' text-anchor='middle' dy='.35em' font-family='monospace' font-size='60' fill='white'%3Eg%3C/text%3E%3C/svg%3E">
-    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
     <!--
       Theme flash prevention: classic script (not module) that runs synchronously
       during HTML parse — before any stylesheet or module loads. Reads darkMode
@@ -29,19 +23,11 @@
         var isDark = stored !== null
           ? stored === 'true'
           : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        var html = document.documentElement;
         if (isDark) {
-          html.classList.add('dark');
-          html.setAttribute('data-theme', 'business');
+          document.documentElement.classList.add('dark');
         } else {
-          html.classList.remove('dark');
-          html.setAttribute('data-theme', 'corporate');
+          document.documentElement.classList.remove('dark');
         }
-        // Update meta theme-color to match stored preference (overrides the
-        // media-query-based defaults if user preference differs from OS).
-        var color = isDark ? '#1B1B1B' : '#F8F9FA';
-        var metas = document.querySelectorAll('meta[name="theme-color"]');
-        for (var i = 0; i < metas.length; i++) metas[i].setAttribute('content', color);
       } catch(e) {
         // localStorage unavailable — keep default (dark class from HTML)
       }
@@ -60,9 +46,6 @@
         <noscript><p style="color:#e5e7eb;text-align:center;padding:48px;font-family:system-ui,sans-serif">JavaScript is required to run this dashboard.</p></noscript>
     </div>
     <div id="heatmap-tooltip" class="heatmap-tooltip"></div>
-    <!-- Separate React root for debug pill — survives App crashes because it's
-         outside the #root tree. Mounted by main.jsx after React loads. -->
-    <div id="debug-root"></div>
     <!--
       Debug pill & loading timeout: inline script so it works even when the
       JS bundle fails to load. Captures errors, shows diagnostics, and warns

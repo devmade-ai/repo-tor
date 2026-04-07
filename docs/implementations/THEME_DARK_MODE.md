@@ -2,29 +2,29 @@
 
 User-controlled dark/light mode with CSS variable theming, system preference fallback, persistence, flash prevention, and cross-tab sync.
 
-Adapted for repo-tor's stack: React 19 + Vite + Tailwind v4 + DaisyUI v5 with custom CSS variables.
+Adapted for repo-tor's stack: React 19 + Vite + Tailwind v4 with custom CSS variables (no DaisyUI).
 
 ## Dual-Layer Theming
 
-Tailwind v4, DaisyUI, and the CSS variable system use different mechanisms. All must be set together on every theme change:
+Tailwind v4 and the CSS variable system use different mechanisms. Both must be set together on every theme change:
 
 1. **`.dark` class on `<html>`** — Tailwind's `dark:` variant reads this for utility classes
-2. **`data-theme` attribute on `<html>`** — DaisyUI reads this for component theming (themes: `corporate` light, `business` dark)
-3. **CSS variables on `:root`** — Dashboard components read these for colors, shadows, etc.
-4. **`color-scheme: dark/light` on `html`** — Browser reads this for native form inputs, scrollbars
-5. **`<meta name="theme-color">`** — Browser reads this for address bar and task switcher color
+2. **CSS variables on `:root`** — Dashboard components read these for colors, shadows, etc.
+3. **`color-scheme: dark/light` on `html`** — Browser reads this for native form inputs, scrollbars
 
-### CSS Setup (Tailwind v4 + DaisyUI v5)
+### CSS Setup (Tailwind v4)
 
 ```css
 @import "tailwindcss";
 
-@plugin "daisyui" {
-    themes: corporate --default, business --prefersdark;
-}
-
 /* Class-based dark mode for Tailwind v4 */
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* Native form inputs must match theme */
+@layer base {
+  html { color-scheme: light; }
+  html.dark { color-scheme: dark; }
+}
 ```
 
 ## Persistence
@@ -57,11 +57,9 @@ When storage is unavailable, degrade to OS preference — no crash, no unstyled 
 
 ### Inline Script in `<head>`
 
-The theme hook/script runs after mount — too late. An inline classic `<script>` in `<head>` reads localStorage and sets `.dark` class, `data-theme` attribute, and `<meta name="theme-color">` before the first paint:
+The theme hook/script runs after mount — too late. An inline classic `<script>` in `<head>` reads localStorage and sets `.dark` class + `color-scheme` before the first paint:
 
 ```html
-<meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1B1B1B" media="(prefers-color-scheme: dark)">
 <script>
   (function() {
     try {
@@ -69,17 +67,11 @@ The theme hook/script runs after mount — too late. An inline classic `<script>
       var isDark = stored !== null
         ? stored === 'true'
         : window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var html = document.documentElement;
       if (isDark) {
-        html.classList.add('dark');
-        html.setAttribute('data-theme', 'business');
+        document.documentElement.classList.add('dark');
       } else {
-        html.classList.remove('dark');
-        html.setAttribute('data-theme', 'corporate');
+        document.documentElement.classList.remove('dark');
       }
-      var color = isDark ? '#1B1B1B' : '#F8F9FA';
-      var metas = document.querySelectorAll('meta[name="theme-color"]');
-      for (var i = 0; i < metas.length; i++) metas[i].setAttribute('content', color);
     } catch(e) {}
   })();
 </script>
@@ -87,8 +79,6 @@ The theme hook/script runs after mount — too late. An inline classic `<script>
 
 - **Must be classic script, not `type="module"`**: Module scripts are deferred — too late.
 - **try/catch**: Handles environments where localStorage is unavailable.
-- **Two `<meta name="theme-color">` tags with media queries**: Browser picks the correct one for OS preference before JS runs. The inline script overrides both to match the stored user preference.
-- **`data-theme` attribute**: DaisyUI reads this for component theming. Must be set alongside `.dark` class.
 
 ## Cross-Tab Sync
 

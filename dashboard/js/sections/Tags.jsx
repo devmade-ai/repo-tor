@@ -20,7 +20,7 @@ function useChartTextColor() {
     const colorRef = useRef('#e5e7eb');
     useLayoutEffect(() => {
         const val = getComputedStyle(document.documentElement)
-            .getPropertyValue('--color-base-content').trim();
+            .getPropertyValue('--text-secondary').trim();
         if (val) colorRef.current = val;
     }, []);
     return colorRef;

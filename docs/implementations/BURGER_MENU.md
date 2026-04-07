@@ -19,7 +19,7 @@ All projects should follow this scale to prevent stacking conflicts between the 
 
 ## Standard Menu Items
 
-Adapt per project. Show/hide based on `visible` flag. Items with `disabled: true` render grayed-out and are skipped by keyboard navigation and focus trap.
+Adapt per project. Show/hide based on state — never render disabled items.
 
 | Item | When to show | Category |
 |------|-------------|----------|

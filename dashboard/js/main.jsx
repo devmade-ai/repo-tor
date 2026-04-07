@@ -4,15 +4,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import '../styles.css';
-// Console interceptor must import before React to capture React's own warnings.
-// originalConsoleError is used by RootErrorBoundary to log to browser devtools
-// without triggering the interceptor (avoids double-capture in debugLog).
-import { originalConsoleError } from './debugConsoleInterceptor.js';
-import { debugAdd } from './debugLog.js';
 import { AppProvider } from './AppContext.jsx';
 import { ToastProvider } from './components/Toast.jsx';
 import App from './App.jsx';
-import DebugPill from './components/DebugPill.jsx';
 import './pwa.js';
 
 // Chart.js registration
@@ -35,12 +29,11 @@ ChartJS.register(
     PointElement, ArcElement, Title, Tooltip, Legend, Filler
 );
 
-// Set Chart.js defaults — read DaisyUI theme variable for text color.
-// Chart.js needs concrete color strings, not CSS functions.
+// Set Chart.js defaults for dark theme — read from CSS variables so charts
+// stay in sync with the theme automatically.
 const computedStyles = getComputedStyle(document.documentElement);
-const isDark = document.documentElement.classList.contains('dark');
-ChartJS.defaults.color = computedStyles.getPropertyValue('--color-base-content').trim() || '#e5e7eb';
-ChartJS.defaults.borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)';
+ChartJS.defaults.color = computedStyles.getPropertyValue('--text-secondary').trim() || '#e5e7eb';
+ChartJS.defaults.borderColor = computedStyles.getPropertyValue('--chart-grid').trim() || 'rgba(255,255,255,0.1)';
 
 // Set --chart-accent-rgb CSS variable from chartColors.js so heatmap CSS
 // classes can use the embed-overridden accent color. This bridges the URL
@@ -53,56 +46,35 @@ import { accentColor } from './chartColors.js';
     document.documentElement.style.setProperty('--chart-accent-rgb', `${r}, ${g}, ${b}`);
 })();
 
-// === Debug System Bridge ===
+// === Debug Banner Bridge ===
 // Requirement: Debug pill must work even when JS bundle fails to load
-// Approach: Two-phase system:
-//   1. Inline HTML pill (index.html) — handles pre-React: error capture, loading timeout,
-//      SW recovery. Works even when the bundle fails to load entirely.
-//   2. React DebugPill (mounted in #debug-root) — handles post-mount: structured log with
-//      pub/sub, 3 tabs (Log, Environment, PWA), clipboard fallbacks. Renders in a separate
-//      React root so it survives App crashes.
-//   On mount: transfer inline errors into debugLog, hide inline pill, mount React pill.
+// Approach: The debug pill is created in index.html as an inline script (no bundle
+//   dependency). This module only enhances it with React-specific error info
+//   (component stacks from ErrorBoundary). The HTML script exposes:
+//   - window.__debugPushError(msg, stack)  — push errors into the HTML pill
+//   - window.__debugErrors                 — shared error array
+//   - window.__debugClearLoadTimer()       — signal React mounted successfully
 // Alternatives:
-//   - Keep everything in inline pill: Rejected — vanilla JS DOM manipulation is
-//     unmaintainable for tabbed UI with pub/sub subscriptions
-//   - Single React root for everything: Rejected — App crash takes down debug UI
+//   - Keep debug banner in main.jsx: Rejected — pill doesn't show when bundle fails,
+//     which is exactly when you need it most (see AI_MISTAKES.md: "No fallback when
+//     React fails to mount")
+//   - Duplicate error listeners: Rejected — HTML script already captures window.onerror
+//     and unhandledrejection; adding them here would double-count errors
 
 // Signal that the JS bundle loaded and React is about to mount.
-// Clears the loading timeout warning from the HTML script.
+// Clears the 10-second loading timeout warning from the HTML script.
 if (typeof window.__debugClearLoadTimer === 'function') {
     window.__debugClearLoadTimer();
 }
 
-// Transfer pre-React errors captured by the inline pill into the debugLog module.
-// The inline pill stores errors in window.__debugErrors as {time, message, stack}.
-if (Array.isArray(window.__debugErrors)) {
-    for (const err of window.__debugErrors) {
-        debugAdd('global', 'error', err.message, err.stack ? { stack: err.stack } : null);
-    }
-}
-
-// Hide the inline HTML pill — the React pill takes over from here.
-// The inline pill remains in the DOM (for SW recovery and pre-React fallback)
-// but its UI is hidden so it doesn't overlap with the React pill.
-const inlineBanner = document.getElementById('debug-error-banner');
-if (inlineBanner) inlineBanner.style.display = 'none';
-window.__debugReactPillMounted = true;
-
-// Redirect future inline pushError calls into debugLog as well,
-// so ErrorBoundary and window.onerror still feed the React pill.
-const originalPushError = window.__debugPushError;
-window.__debugPushError = function (msg, stack) {
-    debugAdd('global', 'error', msg, stack ? { stack } : null);
-    // Keep inline pill updated as backup (in case React pill crashes)
-    if (typeof originalPushError === 'function') originalPushError(msg, stack);
-};
-
 /**
- * Push a React-specific error into the debug system.
+ * Push a React-specific error into the HTML-level debug pill.
  * Used by RootErrorBoundary to include component stack traces.
  */
 function logDebugError(message, stack) {
-    debugAdd('react', 'error', message, stack ? { stack } : null);
+    if (typeof window.__debugPushError === 'function') {
+        window.__debugPushError(message, stack);
+    }
 }
 
 // Top-level ErrorBoundary — catches any unhandled React error
@@ -118,10 +90,7 @@ class RootErrorBoundary extends React.Component {
     }
 
     componentDidCatch(error, info) {
-        // Use original (unpatched) console.error to log to browser devtools
-        // without triggering the console interceptor — logDebugError below
-        // already creates the structured debugLog entry with component stack.
-        originalConsoleError.call(console, 'Root ErrorBoundary caught:', error, info.componentStack);
+        console.error('Root ErrorBoundary caught:', error, info.componentStack);
         logDebugError(error.message, error.stack + '\n\nComponent Stack:' + info.componentStack);
     }
 
@@ -172,12 +141,3 @@ root.render(
         </ToastProvider>
     </RootErrorBoundary>
 );
-
-// Mount React DebugPill in separate root — survives App crashes.
-// Skipped in embed mode (inline HTML pill also skips embeds).
-if (!new URLSearchParams(location.search).has('embed')) {
-    const debugRoot = document.getElementById('debug-root');
-    if (debugRoot) {
-        createRoot(debugRoot).render(<DebugPill />);
-    }
-}
