@@ -273,13 +273,26 @@ export function AppProvider({ children }) {
         }
     }, [state.filters]);
 
-    // Apply dark mode to DOM and persist
+    // Apply dark mode to DOM and persist.
+    // Sets .dark class (Tailwind dark: variant), data-theme attribute
+    // (DaisyUI component theming), and <meta name="theme-color"> (browser chrome).
+    // All three must stay in sync on every theme change.
     useEffect(() => {
+        const html = document.documentElement;
+        const themeColor = state.darkMode ? '#1B1B1B' : '#F8F9FA';
         if (state.darkMode) {
-            document.documentElement.classList.add('dark');
+            html.classList.add('dark');
+            html.setAttribute('data-theme', 'business');
         } else {
-            document.documentElement.classList.remove('dark');
+            html.classList.remove('dark');
+            html.setAttribute('data-theme', 'corporate');
         }
+        // Update both <meta name="theme-color"> tags to match current theme.
+        // HTML has two tags with media queries for pre-JS; we override both
+        // so the active theme wins regardless of OS preference.
+        document.querySelectorAll('meta[name="theme-color"]').forEach(meta => {
+            meta.setAttribute('content', themeColor);
+        });
         safeStorageSet('darkMode', String(state.darkMode));
     }, [state.darkMode]);
 

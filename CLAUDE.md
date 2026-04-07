@@ -125,7 +125,7 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-02.
 - Timer/listener cleanup patterns for `useEffect` (nested timeout tracking, mounted ref guard)
 - SVG → PNG icon generation pipeline via Sharp
 - Commit metadata footers (complexity, urgency, impact, risk, debt, epic, semver)
-- Debug system (in-memory event store, floating pill — adapted to HTML-level for crash resilience)
+- Debug system (two-phase: inline HTML pill for pre-React + React DebugPill with pub/sub, 3 tabs, console interception, clipboard fallbacks, URL redaction)
 - Download as PDF via `window.print()` (`no-print` class, print-friendly CSS overrides)
 - Trigger system (10 single-word analysis commands with `start`/`go` sweep)
 - `// KEEP:` convention for preserved commented-out code
@@ -150,18 +150,20 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-02.
 - `scripts/extract-api.js` - GitHub API-based extraction (uses curl, no gh CLI needed)
 - `scripts/aggregate-processed.js` - Aggregates processed/ data into time-windowed dashboard JSON (summary + per-month commit files + weekly/daily/monthly pre-aggregations)
 - `dashboard/` - React dashboard (Vite + React + Tailwind v4 + Chart.js via react-chartjs-2)
-  - `index.html` - Minimal HTML (root div, debug pill, PWA early capture)
+  - `index.html` - Minimal HTML (root div, debug-root div, inline debug pill, PWA early capture)
   - `styles.css` - Tailwind v4 + custom CSS
   - `js/main.jsx` - React entry point with Chart.js registration
   - `js/AppContext.jsx` - React Context + useReducer state management
   - `js/App.jsx` - Main app component (data loading, tab routing, layout)
-  - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection, ErrorBoundary, EmbedRenderer, HealthAnomalies, HealthBars, HealthWorkPatterns, HamburgerMenu, QuickGuide, ShowMoreButton, Toast, InstallInstructionsModal)
+  - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection, ErrorBoundary, EmbedRenderer, HealthAnomalies, HealthBars, HealthWorkPatterns, HamburgerMenu, QuickGuide, ShowMoreButton, Toast, InstallInstructionsModal, DebugPill)
   - `js/sections/` - Section components (Summary, Timeline, Timing, Progress, Contributors, Tags, Health, Discover, Projects)
-  - `js/hooks/` - Custom hooks (useFocusTrap, useHealthData, useShowMore, useEscapeKey, useClickOutside)
+  - `js/hooks/` - Custom hooks (useFocusTrap, useDisclosureFocus, useHealthData, useShowMore, useEscapeKey, useClickOutside)
   - `js/state.js` - Constants (TAB_SECTIONS, VIEW_LEVELS, THRESHOLDS) + global state compat shim
   - `js/utils.js` - Pure utility functions
   - `js/charts.js` - Chart aggregation helpers
   - `js/chartColors.js` - Centralized chart color system (embed overrides)
+  - `js/debugLog.js` - Debug event store with pub/sub (circular buffer, structured entries)
+  - `js/debugConsoleInterceptor.js` - Patches console.error/warn to feed debugLog
   - `js/pwa.js` - PWA install/update logic (event-based, communicates with React via CustomEvents)
   - `js/pwaConstants.js` - PWA timing/threshold constants (update intervals, settle delays, etc.)
 - `vite.config.js` - Vite build + React + Tailwind v4 + PWA plugin config
@@ -220,7 +222,7 @@ SCRIPTS_PATH=scripts
 ### Stack
 ```
 LANGUAGE=JavaScript (ES modules)
-FRAMEWORK=React 19 + Vite + Tailwind v4
+FRAMEWORK=React 19 + Vite + Tailwind v4 + DaisyUI v5
 CHARTS=Chart.js via react-chartjs-2
 PACKAGE_MANAGER=npm
 BUILD=npm run build (output: dist/)
@@ -377,12 +379,12 @@ Each implementation is in its own file under `docs/implementations/`:
 | Implementation | File | Description | Status |
 |---------------|------|-------------|--------|
 | PWA System | [`PWA_SYSTEM.md`](docs/implementations/PWA_SYSTEM.md) | Vite PWA config, install prompt, SW updates, toast system, install modal, timer leaks | Implemented (event-based variant) |
-| Debug System | [`DEBUG_SYSTEM.md`](docs/implementations/DEBUG_SYSTEM.md) | In-memory event store, floating debug pill (alpha-phase) | Implemented (inline HTML variant) |
-| App Icons | [`APP_ICONS.md`](docs/implementations/APP_ICONS.md) | SVG source to PNG conversion via Sharp at 400 DPI | Implemented |
+| Debug System | [`DEBUG_SYSTEM.md`](docs/implementations/DEBUG_SYSTEM.md) | Two-phase debug: inline HTML pill (pre-React) + React DebugPill (3 tabs, pub/sub, clipboard fallbacks) | Complete |
+| App Icons | [`APP_ICONS.md`](docs/implementations/APP_ICONS.md) | SVG source to PNG conversion via Sharp at 400 DPI, dual-directory output, apple-touch-icon | Complete |
 | Download as PDF | [`DOWNLOAD_PDF.md`](docs/implementations/DOWNLOAD_PDF.md) | Zero-dependency PDF via `window.print()` | Implemented |
 | HTTPS Proxy | [`HTTPS_PROXY.md`](docs/implementations/HTTPS_PROXY.md) | Node.js HTTP CONNECT tunnel for proxy environments | Not needed (uses curl) |
-| Burger Menu | [`BURGER_MENU.md`](docs/implementations/BURGER_MENU.md) | Disclosure-pattern dropdown with a11y, iOS Safari fixes, focus management | Implemented (audit pending) |
-| Theme & Dark Mode | [`THEME_DARK_MODE.md`](docs/implementations/THEME_DARK_MODE.md) | Flash prevention, cross-tab sync, safe localStorage, system preference fallback | Implemented |
+| Burger Menu | [`BURGER_MENU.md`](docs/implementations/BURGER_MENU.md) | Disclosure-pattern dropdown with a11y, iOS Safari fixes, focus trap, disabled items, Home/End keys | Complete (theme UI pending DaisyUI) |
+| Theme & Dark Mode | [`THEME_DARK_MODE.md`](docs/implementations/THEME_DARK_MODE.md) | Flash prevention, cross-tab sync, safe localStorage, system preference fallback, DaisyUI v5, data-theme, meta theme-color | Implemented (DaisyUI migration in progress) |
 
 ---
 

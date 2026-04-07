@@ -80,7 +80,7 @@ const embedIds = (() => {
 
 // Apply embed overrides from URL: ?theme=light|dark, ?bg=hex|transparent
 // Requirement: Let embedder apps match the embedded element's background to their site
-// Approach: Override --bg-primary CSS variable (read by body and .embed-mode styles)
+// Approach: Override DaisyUI --color-base-100 variable (page background, read by body styles)
 // Alternatives:
 //   - postMessage from parent: Rejected — adds complexity, URL param is simpler and stateless
 //   - CSS variable injection from parent: Rejected — CSS can't cross iframe boundaries
@@ -90,10 +90,12 @@ if (embedIds) {
     const themeParam = params.get('theme');
     if (themeParam === 'light') {
         document.documentElement.classList.remove('dark');
+        document.documentElement.setAttribute('data-theme', 'corporate');
     }
     // dark is already the default, but be explicit if requested
     if (themeParam === 'dark') {
         document.documentElement.classList.add('dark');
+        document.documentElement.setAttribute('data-theme', 'business');
     }
 
     const bgParam = params.get('bg');
@@ -102,9 +104,9 @@ if (embedIds) {
         // to prevent CSS injection via malformed values
         const hexValue = bgParam.startsWith('#') ? bgParam : `#${bgParam}`;
         if (bgParam === 'transparent') {
-            document.documentElement.style.setProperty('--bg-primary', 'transparent');
+            document.documentElement.style.setProperty('--color-base-100', 'transparent');
         } else if (/^#[0-9a-fA-F]{3,8}$/.test(hexValue)) {
-            document.documentElement.style.setProperty('--bg-primary', hexValue);
+            document.documentElement.style.setProperty('--color-base-100', hexValue);
         }
     }
 }

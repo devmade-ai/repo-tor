@@ -2,6 +2,73 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-04-07
+
+### THEME_DARK_MODE — Phase B: Variable migration
+
+**Why:** DaisyUI themes (lofi/black) own the base color palette. Dashboard variables need to reference DaisyUI's variables where possible so there's a single source of truth. Only brand-specific colors (blue primary) need overriding — everything else uses the theme's defaults.
+
+**Changes:**
+1. Switched DaisyUI themes from lofi/black (grayscale) to corporate/business (blue primary) — no color overrides needed, themes own the full palette
+2. Aliased dashboard background/text variables to DaisyUI theme variables (e.g. `--bg-primary: var(--color-base-100)`, `--text-primary: var(--color-base-content)`)
+3. Kept dashboard-specific variables that have no DaisyUI equivalent (text gradations, borders, shadows, spacing, z-index, radius, fonts, glows, chart-grid)
+4. Audited all 50+ CSS variables and 40+ `dark:` utility classes across 11 component files
+
+**Files:** `dashboard/styles.css`
+
+### THEME_DARK_MODE — Phase A: DaisyUI foundation
+
+**Why:** Preparing for DaisyUI migration. Need DaisyUI installed and configured, `data-theme` attribute wired up alongside `.dark` class, and `<meta name="theme-color">` for browser chrome theming. This is the foundation that later phases build on — no visual changes yet.
+
+**Changes:**
+1. Installed DaisyUI v5 as devDependency
+2. Added `@plugin "daisyui"` with two themes (`corporate` light default, `business` dark) to styles.css
+3. Added `data-theme` attribute to `<html>` tag, flash prevention script, and AppContext DOM effect — DaisyUI reads this for component theming
+4. Added two `<meta name="theme-color">` tags with media queries for pre-JS browser chrome color
+5. Flash prevention script and AppContext dynamically update meta theme-color on toggle
+6. Updated THEME_DARK_MODE.md with DaisyUI setup, data-theme, and meta theme-color docs
+
+**Files:** `package.json`, `dashboard/styles.css`, `dashboard/index.html`, `dashboard/js/AppContext.jsx`, `docs/implementations/THEME_DARK_MODE.md`, `CLAUDE.md`
+
+### DEBUG_SYSTEM — Complete (React DebugPill, pub/sub, console interception, clipboard fallbacks)
+
+**Why:** The inline HTML debug pill handled pre-React errors but had no structured logging, no tab UI, no console interception, and only `writeText` for clipboard. The debug system needed a React-side component with proper pub/sub, environment diagnostics, PWA state visibility, and robust clipboard support.
+
+**Changes:**
+1. Created `debugLog.js` — typed pub/sub event store with circular buffer (200 entries), structured entries (id, timestamp, source, severity, event, details), and `debugGenerateReport()` with URL query param redaction
+2. Created `debugConsoleInterceptor.js` — patches `console.error`/`console.warn` to feed into debugLog (imported before React in main.jsx)
+3. Created `DebugPill.jsx` — React component in separate root (`#debug-root`), survives App crashes. Collapsed pill badge with error/warn counts. Expanded panel with 3 tabs: Log (auto-scroll, color-coded), Environment (runtime diagnostics), PWA (install/update state, build time, install history)
+4. Added `#debug-root` div to `index.html`
+5. Updated `main.jsx` — mounts React pill, transfers inline errors into debugLog, hides inline pill, redirects future `__debugPushError` calls
+6. Three-tier clipboard fallback: ClipboardItem Blob → writeText → textarea
+7. Added debug pill CSS styles (z-debug layer, print hidden)
+
+**Files:** `dashboard/js/debugLog.js` (new), `dashboard/js/debugConsoleInterceptor.js` (new), `dashboard/js/components/DebugPill.jsx` (new), `dashboard/js/main.jsx`, `dashboard/index.html`, `dashboard/styles.css`, `docs/implementations/DEBUG_SYSTEM.md`, `CLAUDE.md`
+
+### BURGER_MENU — Complete (focus trap, keyboard nav, disabled items, hook extraction)
+
+**Why:** The hamburger menu had inlined focus logic (not reusable), no Tab trapping (focus could escape to the page behind), no Home/End key support, and no disabled item handling.
+
+**Changes:**
+1. Extracted `useDisclosureFocus` hook — encapsulates the open/close focus cycle (focus first item on open via rAF, return to trigger on close with mount guard). Reusable for any disclosure component.
+2. Wired existing `useFocusTrap` hook into the menu — Tab/Shift+Tab now cycles within the dropdown, cannot escape to the page behind. The trap ref replaces the manual `menuRef`.
+3. Added Home/End key support — joins ArrowDown/ArrowUp in `handleMenuKeyDown`. All four keys skip `button:not([disabled])`.
+4. Added `disabled` item support — `disabled` attribute on `<button>`, `.hamburger-item-disabled` CSS class (0.4 opacity, no hover), skipped by keyboard nav and focus trap.
+
+**Files:** `dashboard/js/components/HamburgerMenu.jsx`, `dashboard/js/hooks/useDisclosureFocus.js` (new), `dashboard/styles.css`, `docs/implementations/BURGER_MENU.md`, `CLAUDE.md`
+
+### APP_ICONS — Complete (apple-touch-icon + dual-directory output)
+
+**Why:** iOS home screen used a blurry page screenshot instead of the app icon because no `<link rel="apple-touch-icon">` was present. Additionally, the icon generator only wrote to `assets/images/` but Vite serves from `dashboard/public/assets/images/` — icons had to be manually copied between directories.
+
+**Changes:**
+1. Added 180x180 `apple-touch-icon.png` to `generate-icons.mjs` icon list
+2. Updated generator to write to both `assets/images/` and `dashboard/public/assets/images/` in one pass — eliminates manual copy step and prevents directories from drifting out of sync
+3. Added `<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">` to `index.html`
+4. Updated `APP_ICONS.md` with new file structure, generator code, and apple-touch-icon documentation
+
+**Files:** `scripts/generate-icons.mjs`, `dashboard/index.html`, `docs/implementations/APP_ICONS.md`, `CLAUDE.md`
+
 ## 2026-04-06
 
 ### Bypass SW navigation cache for embed URLs
