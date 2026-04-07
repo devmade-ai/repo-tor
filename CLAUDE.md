@@ -124,22 +124,6 @@ Report findings even if not directly related to current task.
 Shared coding standards, patterns, and suggested implementations across devmade-ai projects.
 Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
 
-**Adopted patterns:**
-- PWA install prompt race condition fix (inline `beforeinstallprompt` capture in HTML)
-- Timer/listener cleanup patterns for `useEffect` (nested timeout tracking, mounted ref guard)
-- SVG → PNG icon generation pipeline via Sharp
-- Commit metadata footers (complexity, urgency, impact, risk, debt, epic, semver)
-- Debug system (in-memory event store, floating pill — adapted to HTML-level for crash resilience)
-- Download as PDF via `window.print()` (`no-print` class, print-friendly CSS overrides)
-- Trigger system (10 single-word analysis commands with `start`/`go` sweep)
-- `// KEEP:` convention for preserved commented-out code
-- Bug report clarification rule (ask before fixing)
-- Prohibition: no interactive prompts, no feature removal during cleanup without checking docs
-- Burger Menu disclosure pattern (a11y, iOS Safari fixes, focus management, z-index scale)
-- Safe localStorage wrappers (`safeStorageGet`/`safeStorageSet` for sandboxed environments)
-- Theme flash prevention (inline `<head>` script for dark mode before first paint)
-- Z-index scale convention (0–80 standardized layers)
-
 ---
 
 ## Project Overview
@@ -382,20 +366,9 @@ Rules:
 
 ## Suggested Implementations
 
-Reference patterns from glow-props for features across all projects. Adapt file names and frameworks to this project (React 19 + Vite + Tailwind v4).
+**Source of truth:** `docs/implementations/` — all pattern specs live there.
 
-Each implementation is in its own file under `docs/implementations/`:
-
-| Implementation | File | Description | Status |
-|---------------|------|-------------|--------|
-| PWA System | [`docs/implementations/PWA_SYSTEM.md`](docs/implementations/PWA_SYSTEM.md) | Vite PWA config, install prompt, service worker updates, install detection | Implemented (event-based variant) |
-| Debug System | [`docs/implementations/DEBUG_SYSTEM.md`](docs/implementations/DEBUG_SYSTEM.md) | In-memory event store, floating debug pill (alpha-phase) | Implemented (inline HTML variant) |
-| App Icons | [`docs/implementations/APP_ICONS.md`](docs/implementations/APP_ICONS.md) | SVG source to PNG conversion via Sharp at 400 DPI | Implemented |
-| Download as PDF | [`docs/implementations/DOWNLOAD_PDF.md`](docs/implementations/DOWNLOAD_PDF.md) | Zero-dependency PDF via `window.print()` | Implemented |
-| HTTPS Proxy | [`docs/implementations/HTTPS_PROXY.md`](docs/implementations/HTTPS_PROXY.md) | Node.js HTTP CONNECT tunnel for proxy environments | Not needed (uses curl) |
-| Burger Menu | [`docs/implementations/BURGER_MENU.md`](docs/implementations/BURGER_MENU.md) | Disclosure-pattern dropdown (React Web + React Native) | Implemented (audit pending) |
-| Theme & Dark Mode | [`docs/implementations/THEME_DARK_MODE.md`](docs/implementations/THEME_DARK_MODE.md) | DaisyUI dual-layer theming, per-mode theme selection, flash prevention, cross-tab sync | Implemented |
-| Event Bus | [`docs/implementations/EVENT_BUS.md`](docs/implementations/EVENT_BUS.md) | Typed pub/sub factory for service-layer events with catch-all and error isolation | Not implemented |
+Always read the source files in `docs/implementations/` before implementing any feature. These files contain the up-to-date, canonical specs from glow-props and may be improved between sessions. Never rely on memory or summaries — read the actual file.
 
 ---
 
