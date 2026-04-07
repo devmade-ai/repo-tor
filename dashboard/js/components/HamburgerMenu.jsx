@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback, useRef, useId } from 'react';
 import useEscapeKey from '../hooks/useEscapeKey.js';
+import useDisclosureFocus from '../hooks/useDisclosureFocus.js';
+import useFocusTrap from '../hooks/useFocusTrap.js';
 import { version } from '../../../package.json';
 
 // Requirement: Data-driven hamburger menu matching glow-props BurgerMenu pattern
 // Approach: Disclosure-pattern dropdown (not ARIA menu) with data-driven items array.
-//   Each item has: label, action, icon (optional), visible, separator, external, destructive.
-//   Show/hide based on state — never render disabled items.
+//   Each item has: label, action, icon (optional), visible, separator, external, destructive, disabled.
+//   Show/hide based on visible flag. Disabled items render grayed-out and are skipped by keyboard nav.
 // Alternatives:
 //   - Hardcoded JSX per item: Rejected — adding/removing items requires component edits
 //   - role="menu" pattern: Rejected — ARIA menu causes screen readers to enter forms mode
@@ -16,15 +18,16 @@ import { version } from '../../../package.json';
  * Data-driven hamburger menu. Items are filtered by `visible` (default true),
  * rendered with optional icons, separators, external indicators, and destructive styling.
  *
- * @param {Array} items - Menu items: { label, action, icon?, visible?, separator?, external?, destructive? }
+ * @param {Array} items - Menu items: { label, action, icon?, visible?, separator?, external?, destructive?, disabled?, highlight? }
  */
 export default function HamburgerMenu({ items }) {
     const menuId = useId();
     const [open, setOpen] = useState(false);
     const triggerRef = useRef(null);
-    const menuRef = useRef(null);
+    // useFocusTrap returns a ref that traps Tab/Shift+Tab within the container.
+    // Used as the menu container ref so focus cannot escape to the page behind.
+    const menuRef = useFocusTrap(open);
     const timerRef = useRef(null);
-    const hasBeenOpenRef = useRef(false);
 
     const visibleItems = items.filter(item => item.visible !== false);
 
@@ -32,22 +35,7 @@ export default function HamburgerMenu({ items }) {
     const close = useCallback(() => setOpen(false), []);
 
     useEscapeKey(open, close);
-
-    // Focus first menu item when dropdown opens, return focus to trigger on close.
-    // hasBeenOpenRef guard prevents stealing focus on initial mount (open starts false).
-    // cancelAnimationFrame cleanup prevents callback on unmounted component.
-    useEffect(() => {
-        if (open) {
-            hasBeenOpenRef.current = true;
-            const rafId = requestAnimationFrame(() => {
-                const first = menuRef.current?.querySelector('button');
-                first?.focus();
-            });
-            return () => cancelAnimationFrame(rafId);
-        } else if (hasBeenOpenRef.current) {
-            triggerRef.current?.focus();
-        }
-    }, [open]);
+    useDisclosureFocus(open, menuRef, triggerRef);
 
     // Cleanup pending action timer on unmount
     useEffect(() => {
@@ -72,18 +60,25 @@ export default function HamburgerMenu({ items }) {
         }, 150);
     }
 
-    // Arrow key navigation between menu items. Wraps around at boundaries.
+    // Keyboard navigation between menu items.
+    // ArrowDown/ArrowUp: move focus with wrap-around at boundaries.
+    // Home/End: jump to first/last item (standard disclosure pattern keys).
     function handleMenuKeyDown(e) {
-        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+        const navKeys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
+        if (!navKeys.includes(e.key)) return;
         e.preventDefault();
-        const buttons = menuRef.current?.querySelectorAll('button');
+        const buttons = menuRef.current?.querySelectorAll('button:not([disabled])');
         if (!buttons?.length) return;
         const currentIdx = Array.from(buttons).indexOf(document.activeElement);
         let nextIdx;
         if (e.key === 'ArrowDown') {
             nextIdx = currentIdx < buttons.length - 1 ? currentIdx + 1 : 0;
-        } else {
+        } else if (e.key === 'ArrowUp') {
             nextIdx = currentIdx > 0 ? currentIdx - 1 : buttons.length - 1;
+        } else if (e.key === 'Home') {
+            nextIdx = 0;
+        } else {
+            nextIdx = buttons.length - 1;
         }
         buttons[nextIdx].focus();
     }
@@ -123,8 +118,9 @@ export default function HamburgerMenu({ items }) {
                                     )}
                                     <button
                                         type="button"
-                                        className={`hamburger-item${item.destructive ? ' hamburger-item-destructive' : ''}${item.highlight ? ' hamburger-item-highlight' : ''}`}
-                                        onClick={() => handleItem(item.action)}
+                                        className={`hamburger-item${item.destructive ? ' hamburger-item-destructive' : ''}${item.highlight ? ' hamburger-item-highlight' : ''}${item.disabled ? ' hamburger-item-disabled' : ''}`}
+                                        onClick={item.disabled ? undefined : () => handleItem(item.action)}
+                                        disabled={!!item.disabled}
                                     >
                                         {item.icon && (
                                             <span className="hamburger-item-icon" aria-hidden="true">{item.icon}</span>
