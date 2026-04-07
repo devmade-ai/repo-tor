@@ -25,7 +25,7 @@ These rules are non-negotiable. Stop and ask before proceeding if any rule would
 
 - [ ] Prefer smaller, focused files and functions
 - [ ] Pause and consider extraction at: 500 lines (file), 100 lines (function), 400 lines (component)
-- [ ] Strongly consider refactoring at: 800+ lines (file), 150+ lines (function), 600+ lines (component)
+- [ ] Strongly refactor at: 800+ lines (file), 150+ lines (function), 600+ lines (component)
 - [ ] Extract reusable logic into separate modules/files immediately
 - [ ] Group related functionality into logical directories
 - [ ] Split large components into smaller, focused components when responsibilities diverge
@@ -89,6 +89,8 @@ Good: "This file doesn't look like a dashboard data file. Try exporting from the
 | `docs/USER_GUIDE.md` | Comprehensive feature documentation | When adding/changing features or UI workflows |
 | `docs/TESTING_GUIDE.md` | Manual test scenarios | When adding features that need test coverage |
 
+### REMINDER: READ AND FOLLOW THE DOCUMENTATION EVERY TIME
+
 ### Cleanup
 
 - [ ] Remove all temporary files after implementation is complete
@@ -109,6 +111,8 @@ During every change, actively scan for:
 
 Report findings even if not directly related to current task.
 
+### REMINDER: READ AND FOLLOW THE CODE STANDARDS EVERY TIME
+
 ---
 
 ## Cross-Project References
@@ -118,7 +122,7 @@ Report findings even if not directly related to current task.
 **URL:** `https://raw.githubusercontent.com/devmade-ai/glow-props/main/CLAUDE.md`
 
 Shared coding standards, patterns, and suggested implementations across devmade-ai projects.
-Check periodically for new patterns to adopt. Last reviewed: 2026-04-02.
+Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
 
 **Adopted patterns:**
 - PWA install prompt race condition fix (inline `beforeinstallprompt` capture in HTML)
@@ -263,6 +267,8 @@ Semver: patch|minor|major
 **Epic:** groups related commits under one feature/initiative name
 **Semver:** patch=bugfix, minor=new feature, major=breaking change
 
+These footers are required on every commit. No exceptions.
+
 ---
 
 # My Preferences
@@ -273,6 +279,8 @@ Semver: patch|minor|major
 2. **Gather context from documentation** (CLAUDE.md, relevant docs/)
 3. **Then proceed with the task**
 
+### REMINDER: READ AND FOLLOW THE PROCESS EVERY TIME
+
 ## Principles
 
 1. **User-first design** - Align with how real people will use the tool (top priority)
@@ -282,6 +290,8 @@ Semver: patch|minor|major
 5. **Know the purpose** - Always be aware of what the tool is for
 6. **Follow conventions** - Best practices and consistent patterns
 7. **Repeatable process** - Follow consistent steps to ensure all the above
+
+### REMINDER: READ AND FOLLOW THE PRINCIPLES EVERY TIME
 
 ## AI Checklists
 
@@ -366,6 +376,8 @@ Rules:
 - Never run multiple triggers in one response.
 - Wait for the user's explicit `fix`, `skip`, or `stop` before proceeding.
 
+### REMINDER: READ AND FOLLOW THE TRIGGERS EVERY TIME
+
 ---
 
 ## Suggested Implementations
@@ -376,13 +388,14 @@ Each implementation is in its own file under `docs/implementations/`:
 
 | Implementation | File | Description | Status |
 |---------------|------|-------------|--------|
-| PWA System | [`PWA_SYSTEM.md`](docs/implementations/PWA_SYSTEM.md) | Vite PWA config, install prompt, SW updates, toast system, install modal, timer leaks | Implemented (event-based variant) |
-| Debug System | [`DEBUG_SYSTEM.md`](docs/implementations/DEBUG_SYSTEM.md) | In-memory event store, floating debug pill (alpha-phase) | Implemented (inline HTML variant) |
-| App Icons | [`APP_ICONS.md`](docs/implementations/APP_ICONS.md) | SVG source to PNG conversion via Sharp at 400 DPI | Implemented |
-| Download as PDF | [`DOWNLOAD_PDF.md`](docs/implementations/DOWNLOAD_PDF.md) | Zero-dependency PDF via `window.print()` | Implemented |
-| HTTPS Proxy | [`HTTPS_PROXY.md`](docs/implementations/HTTPS_PROXY.md) | Node.js HTTP CONNECT tunnel for proxy environments | Not needed (uses curl) |
-| Burger Menu | [`BURGER_MENU.md`](docs/implementations/BURGER_MENU.md) | Disclosure-pattern dropdown with a11y, iOS Safari fixes, focus management | Implemented (audit pending) |
-| Theme & Dark Mode | [`THEME_DARK_MODE.md`](docs/implementations/THEME_DARK_MODE.md) | Flash prevention, cross-tab sync, safe localStorage, system preference fallback | Implemented |
+| PWA System | [`docs/implementations/PWA_SYSTEM.md`](docs/implementations/PWA_SYSTEM.md) | Vite PWA config, install prompt, service worker updates, install detection | Implemented (event-based variant) |
+| Debug System | [`docs/implementations/DEBUG_SYSTEM.md`](docs/implementations/DEBUG_SYSTEM.md) | In-memory event store, floating debug pill (alpha-phase) | Implemented (inline HTML variant) |
+| App Icons | [`docs/implementations/APP_ICONS.md`](docs/implementations/APP_ICONS.md) | SVG source to PNG conversion via Sharp at 400 DPI | Implemented |
+| Download as PDF | [`docs/implementations/DOWNLOAD_PDF.md`](docs/implementations/DOWNLOAD_PDF.md) | Zero-dependency PDF via `window.print()` | Implemented |
+| HTTPS Proxy | [`docs/implementations/HTTPS_PROXY.md`](docs/implementations/HTTPS_PROXY.md) | Node.js HTTP CONNECT tunnel for proxy environments | Not needed (uses curl) |
+| Burger Menu | [`docs/implementations/BURGER_MENU.md`](docs/implementations/BURGER_MENU.md) | Disclosure-pattern dropdown (React Web + React Native) | Implemented (audit pending) |
+| Theme & Dark Mode | [`docs/implementations/THEME_DARK_MODE.md`](docs/implementations/THEME_DARK_MODE.md) | DaisyUI dual-layer theming, per-mode theme selection, flash prevention, cross-tab sync | Implemented |
+| Event Bus | [`docs/implementations/EVENT_BUS.md`](docs/implementations/EVENT_BUS.md) | Typed pub/sub factory for service-layer events with catch-all and error isolation | Not implemented |
 
 ---
 
@@ -424,6 +437,9 @@ Never:
 - Improvise extraction/analysis workflows — follow `docs/DATA_OPERATIONS.md` exactly, step by step, using the exact formats documented (see AI Mistakes)
 - Use interactive input prompts or selection UIs — list options as numbered text instead
 - Remove features during "cleanup" without checking if they're documented as intentional (see AI Mistakes)
+- Proceed with assumptions when a single clarifying question would prevent a wrong commit
+
+### REMINDER: READ AND FOLLOW THE PROHIBITIONS EVERY TIME
 
 ---
 
@@ -443,6 +459,11 @@ Never:
 - **Commit and push changes before ending a session**
 - **Communication style:** Direct, concise responses. No filler phrases or conversational padding. State facts and actions. Ask specific questions with concrete options when clarification is needed.
 - **Claude Code mobile/web — accessing sibling repos:** Use `GITHUB_ALL_REPO_TOKEN` with the GitHub API (`api.github.com/repos/devmade-ai/{repo}/contents/{path}`) to read files from other devmade-ai repos. Use `$(printenv GITHUB_ALL_REPO_TOKEN)` not `$GITHUB_ALL_REPO_TOKEN` to avoid shell expansion issues. Never clone sibling repos — use the API instead.
+- **Check for existing patterns** in the codebase before creating new ones
+- **Clean up completed or obsolete docs/files** and remove references to them
+- **Discontinued repos — skip entirely:** `plant-fur` and `coin-zapp` are discontinued. Do not check, audit, align, or include them in cross-project operations.
+
+### REMINDER: READ AND FOLLOW THE AI NOTES EVERY TIME
 
 ### Personas
 
