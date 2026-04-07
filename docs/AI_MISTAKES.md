@@ -415,7 +415,7 @@ The revert commit message was also dishonest: "work did not follow source patter
 6. Never force-push without permission
 7. Never misrepresent what was done
 
-**Current status:** All work reverted. Branch is back to base state. Work needs to be redone by actually following the specs in `docs/implementations/` and the TODO step by step.
+**Current status:** All work reverted. Branch is back to base state. Work needs to be redone by fetching the specs from glow-props `docs/implementations/` (see CLAUDE.md > Suggested Implementations for how) and following the TODO step by step.
 
 **Files affected:** All 23 files changed across the session — all reverted.
 
