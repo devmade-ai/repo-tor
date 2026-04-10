@@ -83,14 +83,28 @@ async function generate() {
         Buffer.concat([header, entry, favicon32]));
     console.log(`  favicon.ico (32x32 ICO)`);
 
-    // Copy assets that must be served at domain root to Vite's public directory.
-    // Requirement: apple-touch-icon at / per Apple conventions; favicon.ico at / for
-    //   legacy browser auto-discovery
-    // Approach: Copy from assets/images/ to dashboard/public/ during generation
+    // Copy all generated assets to Vite's public directory so they're served correctly.
+    // Requirement: Vite root is dashboard/ — files in dashboard/public/ are served at /.
+    //   The PWA manifest references assets/images/*.png, index.html references
+    //   /assets/images/favicon.png, and Apple/legacy browsers need root-level icons.
+    // Approach: Copy everything from assets/images/ to dashboard/public/assets/images/,
+    //   plus root-level copies for apple-touch-icon and favicon.ico.
     // Alternatives:
+    //   - Generate directly to dashboard/public/: Rejected — assets/images/ is the
+    //     canonical location per APP_ICONS pattern, used by non-Vite consumers too
+    //   - Manual copies: Rejected — drift risk, files go stale between regenerations
     //   - Symlink: Rejected — not portable across OS/deploy environments
-    //   - Separate generation path: Rejected — duplicates logic, easy to forget
     const PUBLIC_DIR = join(ROOT, 'dashboard', 'public');
+    const PUBLIC_IMAGES_DIR = join(PUBLIC_DIR, 'assets', 'images');
+    mkdirSync(PUBLIC_IMAGES_DIR, { recursive: true });
+
+    for (const icon of ICONS) {
+        copyFileSync(join(IMAGES_DIR, icon.name), join(PUBLIC_IMAGES_DIR, icon.name));
+    }
+    copyFileSync(join(IMAGES_DIR, 'favicon.ico'), join(PUBLIC_IMAGES_DIR, 'favicon.ico'));
+    console.log(`  → synced ${ICONS.length} icons + favicon.ico to dashboard/public/assets/images/`);
+
+    // Root-level copies for Apple and legacy browser auto-discovery
     copyFileSync(join(IMAGES_DIR, 'apple-touch-icon.png'), join(PUBLIC_DIR, 'apple-touch-icon.png'));
     copyFileSync(join(IMAGES_DIR, 'favicon.ico'), join(PUBLIC_DIR, 'favicon.ico'));
     console.log(`  → copied apple-touch-icon.png, favicon.ico to dashboard/public/`);
