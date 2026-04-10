@@ -8,9 +8,12 @@ Current state for AI assistants to continue work.
 
 **Recent Updates (2026-04-10):**
 
-### Z-index scale normalization (debug pill)
+### Z-index scale — full audit and normalization
 - Fixed 3 hardcoded `zIndex:'99999'` in `dashboard/index.html` → `zIndex:'80'` (matches `--z-debug: 80`)
-- Full audit confirmed no other ad-hoc z-index values in the codebase
+- Fixed `.heatmap-tooltip` z-index: `var(--z-toast)` (70) → `var(--z-menu)` (50) — tooltips belong in menu/dropdown layer per Z_INDEX_SCALE pattern
+- Updated CSS scale comment to reference `Z_INDEX_SCALE.md` (was `BURGER_MENU.md`)
+- Added decision context comments: sub-layer rationale (21, 28, 58), inline debug pill z-80 explanation
+- Full audit of all 20 z-index values — no ad-hoc values remain
 - Pattern reference: glow-props `docs/implementations/Z_INDEX_SCALE.md`
 
 ### Full APP_ICONS pattern parity with glow-props

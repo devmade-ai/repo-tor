@@ -4,14 +4,18 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-10
 
-### Fix debug pill z-index — normalize to z-index scale
+### Z-index scale — full audit and normalization
 
-**Why:** The inline debug pill in `index.html` used hardcoded `zIndex:'99999'` in three places (expanded panel, collapsed error pill, collapsed "0 errors" pill). The CSS z-index scale defines `--z-debug: 80` as the topmost layer, but the inline pill bypassed it with an ad-hoc value. Per the glow-props Z_INDEX_SCALE pattern, no values outside the standard scale should exist.
+**Why:** The glow-props Z_INDEX_SCALE pattern requires every z-index in the codebase to map to a named layer. Two violations existed: the inline debug pill used hardcoded `zIndex:'99999'` (3 places), and the heatmap tooltip used `--z-toast` (70) when the scale places tooltips in the menu/dropdown layer (50).
 
 **Changes:**
-1. Replaced all three `zIndex:'99999'` occurrences in `dashboard/index.html` with `zIndex:'80'`
+1. Replaced all three `zIndex:'99999'` in `dashboard/index.html` with `zIndex:'80'` (matches `--z-debug`)
+2. Changed `.heatmap-tooltip` from `var(--z-toast)` to `var(--z-menu)` — tooltips belong at z-50 per the scale, and z-70 caused the tooltip to compete with toasts at the same level
+3. Updated CSS scale comment to reference `Z_INDEX_SCALE.md` (was pointing to `BURGER_MENU.md`)
+4. Added decision context comments explaining sub-layer choices (21 for sticky-header, 28 for drawer-backdrop, 58 for modal-backdrop) and why they deviate from the base scale's "backdrop always 40" rule
+5. Added decision context comment on inline debug pill explaining why z-80 is hardcoded (CSS variables unavailable before stylesheets load)
 
-**Audit result:** No other ad-hoc z-index values found. All styles.css usages already reference CSS variables. The only numeric values remaining are `z-index: -1` (decorative pseudo-element) and `z-index: 1` (heatmap cell hover), both within the base content layer (0–10).
+**Audit result (20 z-index values):** All values now use scale variables or justified base-content values (`-1` for decorative pseudo-element, `1` for heatmap cell hover). No ad-hoc values remain. Full audit table in commit message.
 
 ### Add Apple touch icon and favicon.ico — full APP_ICONS pattern parity
 

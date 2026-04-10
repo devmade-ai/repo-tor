@@ -115,6 +115,10 @@
       }
 
       // --- Render the banner ---
+      // z-index: 80 matches --z-debug (the topmost layer in the z-index scale).
+      // Hardcoded here because this inline script runs before stylesheets load,
+      // so CSS variables aren't available yet. Must stay in sync with
+      // --z-debug in styles.css. See: Z_INDEX_SCALE.md
       function render() {
         if (!banner) {
           banner = document.createElement('div');
