@@ -13,7 +13,7 @@ Current state for AI assistants to continue work.
 - Added 32x32 `favicon.ico` via manual ICO packing (zero extra dependencies)
 - Script copies both to `dashboard/public/` for root-level serving
 - `<link rel="apple-touch-icon">` and `<link rel="icon" type="image/x-icon">` added to `dashboard/index.html`
-- SVG inline favicon remains primary (modern browsers); `.ico` is legacy fallback
+- Removed inline SVG data URL favicon — was a second icon source outside the pipeline. Now uses generated `favicon.png` (48px) as primary, `favicon.ico` (32px) as legacy fallback
 - Build verified — both files in `dist/`, precached by Workbox (38 entries)
 - Known issue: `dashboard/public/assets/images/` contains manual copies of other icons not synced by the generate script (pre-existing, tracked in TODO.md)
 

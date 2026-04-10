@@ -17,6 +17,8 @@ Log of significant changes to code and documentation.
 
 **Not added to PWA manifest:** Apple touch icon uses the `<link>` tag mechanism, not the web app manifest icons array. The manifest icons are for Android/Chrome install.
 
+6. Removed inline SVG data URL favicon from `index.html` — was a second icon source that bypassed the generation pipeline. Replaced with `<link rel="icon" type="image/png" href="/assets/images/favicon.png">` pointing to the generated 48x48 PNG
+
 **Files changed:** `scripts/generate-icons.mjs`, `dashboard/index.html`, `assets/images/apple-touch-icon.png`, `assets/images/favicon.ico`, `dashboard/public/apple-touch-icon.png`, `dashboard/public/favicon.ico`
 
 ## 2026-04-06

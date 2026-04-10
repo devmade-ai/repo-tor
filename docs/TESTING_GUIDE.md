@@ -170,7 +170,7 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Run `npm run build` — verify `dist/apple-touch-icon.png` and `dist/favicon.ico` exist in build output
 
 **Regression:**
-- [ ] Browser favicon still shows correctly in modern browsers (SVG inline icon in tab)
+- [ ] Browser favicon shows the app icon (dark background with chart bars) in the tab — generated from icon-source.svg, not a separate design
 - [ ] PWA install on Android/Chrome still shows correct icon (192px from manifest)
 - [ ] Existing PWA installs still work after update
 
