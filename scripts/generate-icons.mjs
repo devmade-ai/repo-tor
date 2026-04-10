@@ -15,7 +15,7 @@
  */
 
 import sharp from 'sharp';
-import { readFileSync, mkdirSync } from 'fs';
+import { readFileSync, mkdirSync, copyFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -33,6 +33,7 @@ const ICONS = [
     { name: 'icon.png', size: 1024 },
     { name: 'adaptive-icon.png', size: 1024 },
     { name: 'splash-icon.png', size: 1024 },
+    { name: 'apple-touch-icon.png', size: 180 },
     { name: 'favicon.png', size: 48 },
     { name: 'icon-192.png', size: 192 },
     { name: 'icon-512.png', size: 512 },
@@ -53,6 +54,19 @@ async function generate() {
             .toFile(join(IMAGES_DIR, icon.name));
         console.log(`  ${icon.name} (${icon.size}x${icon.size})`);
     }
+
+    // Copy apple-touch-icon to Vite public root so it's served at /apple-touch-icon.png
+    // Requirement: iOS home screen icon must be at domain root per Apple conventions
+    // Approach: Copy from assets/images/ to dashboard/public/ during generation
+    // Alternatives:
+    //   - Symlink: Rejected — not portable across OS/deploy environments
+    //   - Separate generation path: Rejected — duplicates logic, easy to forget
+    const PUBLIC_DIR = join(ROOT, 'dashboard', 'public');
+    copyFileSync(
+        join(IMAGES_DIR, 'apple-touch-icon.png'),
+        join(PUBLIC_DIR, 'apple-touch-icon.png')
+    );
+    console.log(`  → copied apple-touch-icon.png to dashboard/public/`);
 
     console.log('');
     console.log(`Done — ${ICONS.length} icons generated to assets/images/.`);
