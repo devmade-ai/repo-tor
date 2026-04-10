@@ -2,6 +2,26 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-04-10
+
+### Add Apple touch icon and favicon.ico — full APP_ICONS pattern parity
+
+**Why:** The icon generation pipeline was missing two items from the glow-props APP_ICONS pattern: the 180px Apple touch icon (iOS home screen) and a 32x32 favicon.ico (Windows taskbar pinning, legacy browsers).
+
+**Changes:**
+1. Added `{ name: 'apple-touch-icon.png', size: 180 }` to `generate-icons.mjs` ICONS array
+2. Added favicon.ico generation via manual ICO packing (zero dependencies, 32x32 from SVG source)
+3. Script copies both `apple-touch-icon.png` and `favicon.ico` to `dashboard/public/` for root-level serving
+4. Added `<link rel="apple-touch-icon" href="/apple-touch-icon.png">` to `dashboard/index.html`
+5. Added `<link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="32x32">` as fallback (SVG favicon remains primary for modern browsers)
+
+**Not added to PWA manifest:** Apple touch icon uses the `<link>` tag mechanism, not the web app manifest icons array. The manifest icons are for Android/Chrome install.
+
+6. Removed inline SVG data URL favicon from `index.html` — was a second icon source that bypassed the generation pipeline. Replaced with `<link rel="icon" type="image/png" href="/assets/images/favicon.png">` pointing to the generated 48x48 PNG
+7. Script now syncs all generated files (7 PNGs + favicon.ico) to `dashboard/public/assets/images/` — eliminates pre-existing drift risk where manual copies could go stale between regenerations
+
+**Files changed:** `scripts/generate-icons.mjs`, `dashboard/index.html`, `assets/images/apple-touch-icon.png`, `assets/images/favicon.ico`, `dashboard/public/apple-touch-icon.png`, `dashboard/public/favicon.ico`, `dashboard/public/assets/images/*`
+
 ## 2026-04-06
 
 ### Bypass SW navigation cache for embed URLs

@@ -148,6 +148,32 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] All charts render correctly in both light and dark modes
 - [ ] Detail pane, filter sidebar, settings pane all follow theme
 
+### PWA Icons
+
+**Apple touch icon (iOS home screen):**
+- [ ] Open dashboard in Safari on iOS
+- [ ] Tap Share → "Add to Home Screen"
+- [ ] Verify the home screen icon shows the branded app icon (dark background with chart bars), not a blank/screenshot
+- [ ] Open the app from the home screen — verify it loads correctly in standalone mode
+
+**Favicon.ico (legacy browsers):**
+- [ ] Open dashboard in a legacy browser or IE — verify favicon appears in the tab
+- [ ] Pin the dashboard to the Windows taskbar — verify the icon displays correctly
+- [ ] Request `/favicon.ico` directly — verify 32x32 ICO file is returned
+
+**Icon generation script:**
+- [ ] Run `npm run generate-icons`
+- [ ] Verify 7 PNG icons generated in `assets/images/` (icon.png, adaptive-icon.png, splash-icon.png, apple-touch-icon.png, favicon.png, icon-192.png, icon-512.png)
+- [ ] Verify `favicon.ico` generated in `assets/images/` (32x32 ICO format)
+- [ ] Verify `apple-touch-icon.png` and `favicon.ico` copied to `dashboard/public/`
+- [ ] Verify apple-touch-icon.png is 180x180 pixels
+- [ ] Run `npm run build` — verify `dist/apple-touch-icon.png` and `dist/favicon.ico` exist in build output
+
+**Regression:**
+- [ ] Browser favicon shows the app icon (dark background with chart bars) in the tab — generated from icon-source.svg, not a separate design
+- [ ] PWA install on Android/Chrome still shows correct icon (192px from manifest)
+- [ ] Existing PWA installs still work after update
+
 ### Commit Hooks
 
 **Hook installation:**

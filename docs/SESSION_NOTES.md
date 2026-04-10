@@ -6,7 +6,18 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, light/dark theme, and PWA support.
 
-**Recent Updates (2026-04-05):**
+**Recent Updates (2026-04-10):**
+
+### Full APP_ICONS pattern parity with glow-props
+- Added 180px `apple-touch-icon.png` to `generate-icons.mjs` icon pipeline
+- Added 32x32 `favicon.ico` via manual ICO packing (zero extra dependencies)
+- Script copies both to `dashboard/public/` for root-level serving
+- `<link rel="apple-touch-icon">` and `<link rel="icon" type="image/x-icon">` added to `dashboard/index.html`
+- Removed inline SVG data URL favicon — was a second icon source outside the pipeline. Now uses generated `favicon.png` (48px) as primary, `favicon.ico` (32px) as legacy fallback
+- Build verified — both files in `dist/`, precached by Workbox (38 entries)
+- Script now syncs all generated files to `dashboard/public/assets/images/` — no more manual copies or drift risk (resolved pre-existing TODO item)
+
+**Previous Updates (2026-04-05):**
 
 ### X-Frame-Options fix for embeds
 - Removed `X-Frame-Options: SAMEORIGIN` from vercel.json — it blocked cross-origin iframe embeds

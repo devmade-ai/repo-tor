@@ -116,7 +116,7 @@ The dashboard can be installed as a Progressive Web App for offline access and a
 - **Safari (iOS):** Tap Share → "Add to Home Screen"
 - **Firefox:** Menu → "Install" (if available)
 
-Once installed, the app works offline using cached data from your last visit.
+Once installed, the app appears on your home screen with the Git Analytics icon and works offline using cached data from your last visit.
 
 **Updating the App:**
 The app updates automatically in the background when a new version is deployed. To apply a pending update, close and reopen the app. You can also manually check in Settings → Updates → "Check for Updates".
