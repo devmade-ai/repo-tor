@@ -12,10 +12,14 @@ Remaining tasks for Git Analytics Reporting System.
 
 1. [ ] Optional: Vite library build — entry point and config exist (`js/lib.js`, `vite.config.lib.js`, `npm run build:lib`) but needs testing with a consumer project, documentation, and npm publish setup
 
+### Icons / Build
+
+1. [ ] `dashboard/public/assets/images/` icons are manual copies of `assets/images/` — `generate-icons.mjs` doesn't sync them. Either automate the copy in the script or remove the duplicates and update manifest paths to reference `assets/images/` directly.
+
 ### Research
 
 1. [ ] Device/platform attribution — investigated 2026-04-02, git does not store device info natively. Proxy indicators (email domain, timezone, commit message patterns) are weak signals. Would require a separate heuristic analysis module. Low priority unless a strong use case emerges.
 
 ---
 
-*Last updated: 2026-04-02 — All 24 cross-project alignment items completed. Moved completed items to HISTORY.md.*
+*Last updated: 2026-04-10 — Added icon sync backlog item.*
