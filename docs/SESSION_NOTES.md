@@ -6,7 +6,16 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, light/dark theme, and PWA support.
 
-**Recent Updates (2026-04-05):**
+**Recent Updates (2026-04-10):**
+
+### Apple touch icon added
+- Added 180px `apple-touch-icon.png` to `generate-icons.mjs` icon pipeline
+- Script now generates to `assets/images/` and copies to `dashboard/public/` (served at `/apple-touch-icon.png`)
+- `<link rel="apple-touch-icon">` added to `dashboard/index.html`
+- Build verified — icon present in `dist/`, precached by Workbox via `globPatterns`
+- Known issue: `dashboard/public/assets/images/` contains manual copies of other icons not synced by the generate script (pre-existing, tracked in TODO.md)
+
+**Previous Updates (2026-04-05):**
 
 ### X-Frame-Options fix for embeds
 - Removed `X-Frame-Options: SAMEORIGIN` from vercel.json — it blocked cross-origin iframe embeds
@@ -70,4 +79,4 @@ Reviewed synctone, canva-grid, and few-lap PWA implementations. Full gap analysi
 
 **Build:** Passes (`npm run build`).
 
-**Remaining work:** See `docs/TODO.md` — 2 backlog items (library build testing, device attribution research).
+**Remaining work:** See `docs/TODO.md` — 3 backlog items (library build testing, icon sync automation, device attribution research).

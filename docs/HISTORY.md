@@ -2,6 +2,21 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-04-10
+
+### Add 180px Apple touch icon for iOS home screen
+
+**Why:** The icon generation pipeline was missing the Apple touch icon. iOS devices show a blank or auto-generated screenshot when users add the dashboard to their home screen instead of the branded app icon.
+
+**Changes:**
+1. Added `{ name: 'apple-touch-icon.png', size: 180 }` to `generate-icons.mjs` ICONS array
+2. Added post-generation copy step — copies the icon to `dashboard/public/` so Vite serves it at `/apple-touch-icon.png`
+3. Added `<link rel="apple-touch-icon" href="/apple-touch-icon.png">` to `dashboard/index.html`
+
+**Not added to PWA manifest:** Apple touch icon uses the `<link>` tag mechanism, not the web app manifest icons array. The manifest icons are for Android/Chrome install.
+
+**Files changed:** `scripts/generate-icons.mjs`, `dashboard/index.html`, `assets/images/apple-touch-icon.png`, `dashboard/public/apple-touch-icon.png`
+
 ## 2026-04-06
 
 ### Bypass SW navigation cache for embed URLs

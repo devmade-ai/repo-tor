@@ -148,6 +148,26 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] All charts render correctly in both light and dark modes
 - [ ] Detail pane, filter sidebar, settings pane all follow theme
 
+### PWA Icons
+
+**Apple touch icon (iOS home screen):**
+- [ ] Open dashboard in Safari on iOS
+- [ ] Tap Share → "Add to Home Screen"
+- [ ] Verify the home screen icon shows the branded app icon (blue background with "g"), not a blank/screenshot
+- [ ] Open the app from the home screen — verify it loads correctly in standalone mode
+
+**Icon generation script:**
+- [ ] Run `npm run generate-icons`
+- [ ] Verify 7 icons generated in `assets/images/` (icon.png, adaptive-icon.png, splash-icon.png, apple-touch-icon.png, favicon.png, icon-192.png, icon-512.png)
+- [ ] Verify `apple-touch-icon.png` copied to `dashboard/public/apple-touch-icon.png`
+- [ ] Verify apple-touch-icon.png is 180x180 pixels
+- [ ] Run `npm run build` — verify `dist/apple-touch-icon.png` exists in build output
+
+**Regression:**
+- [ ] Browser favicon still shows correctly (SVG inline icon in tab)
+- [ ] PWA install on Android/Chrome still shows correct icon (192px from manifest)
+- [ ] Existing PWA installs still work after update
+
 ### Commit Hooks
 
 **Hook installation:**
