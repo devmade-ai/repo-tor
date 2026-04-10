@@ -8,11 +8,13 @@ Current state for AI assistants to continue work.
 
 **Recent Updates (2026-04-10):**
 
-### Apple touch icon added
+### Full APP_ICONS pattern parity with glow-props
 - Added 180px `apple-touch-icon.png` to `generate-icons.mjs` icon pipeline
-- Script now generates to `assets/images/` and copies to `dashboard/public/` (served at `/apple-touch-icon.png`)
-- `<link rel="apple-touch-icon">` added to `dashboard/index.html`
-- Build verified — icon present in `dist/`, precached by Workbox via `globPatterns`
+- Added 32x32 `favicon.ico` via manual ICO packing (zero extra dependencies)
+- Script copies both to `dashboard/public/` for root-level serving
+- `<link rel="apple-touch-icon">` and `<link rel="icon" type="image/x-icon">` added to `dashboard/index.html`
+- SVG inline favicon remains primary (modern browsers); `.ico` is legacy fallback
+- Build verified — both files in `dist/`, precached by Workbox (38 entries)
 - Known issue: `dashboard/public/assets/images/` contains manual copies of other icons not synced by the generate script (pre-existing, tracked in TODO.md)
 
 **Previous Updates (2026-04-05):**

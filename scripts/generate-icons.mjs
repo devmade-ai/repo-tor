@@ -15,7 +15,7 @@
  */
 
 import sharp from 'sharp';
-import { readFileSync, mkdirSync, copyFileSync } from 'fs';
+import { readFileSync, mkdirSync, copyFileSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -55,21 +55,48 @@ async function generate() {
         console.log(`  ${icon.name} (${icon.size}x${icon.size})`);
     }
 
-    // Copy apple-touch-icon to Vite public root so it's served at /apple-touch-icon.png
-    // Requirement: iOS home screen icon must be at domain root per Apple conventions
+    // Requirement: favicon.ico for Windows taskbar pinning and legacy browsers
+    // Approach: Manual ICO packing from a 32x32 PNG — zero extra dependencies
+    // Alternatives:
+    //   - png-to-ico package: Rejected — adds a dependency for a stable binary format
+    //   - Skip .ico entirely: Rejected — inline SVG favicon doesn't cover legacy browsers
+    // Pattern from: glow-props APP_ICONS.md (manual ICO packing)
+    const favicon32 = await sharp(svgBuffer, { density: SVG_DENSITY })
+        .resize(32, 32).png().toBuffer();
+
+    const header = Buffer.alloc(6);
+    header.writeUInt16LE(0, 0);  // Reserved
+    header.writeUInt16LE(1, 2);  // Type: ICO
+    header.writeUInt16LE(1, 4);  // Number of images
+
+    const entry = Buffer.alloc(16);
+    entry.writeUInt8(32, 0);     // Width
+    entry.writeUInt8(32, 1);     // Height
+    entry.writeUInt8(0, 2);      // Color palette
+    entry.writeUInt8(0, 3);      // Reserved
+    entry.writeUInt16LE(1, 4);   // Color planes
+    entry.writeUInt16LE(32, 6);  // Bits per pixel
+    entry.writeUInt32LE(favicon32.length, 8);  // Image size
+    entry.writeUInt32LE(22, 12); // Offset (6 + 16 = 22)
+
+    writeFileSync(join(IMAGES_DIR, 'favicon.ico'),
+        Buffer.concat([header, entry, favicon32]));
+    console.log(`  favicon.ico (32x32 ICO)`);
+
+    // Copy assets that must be served at domain root to Vite's public directory.
+    // Requirement: apple-touch-icon at / per Apple conventions; favicon.ico at / for
+    //   legacy browser auto-discovery
     // Approach: Copy from assets/images/ to dashboard/public/ during generation
     // Alternatives:
     //   - Symlink: Rejected — not portable across OS/deploy environments
     //   - Separate generation path: Rejected — duplicates logic, easy to forget
     const PUBLIC_DIR = join(ROOT, 'dashboard', 'public');
-    copyFileSync(
-        join(IMAGES_DIR, 'apple-touch-icon.png'),
-        join(PUBLIC_DIR, 'apple-touch-icon.png')
-    );
-    console.log(`  → copied apple-touch-icon.png to dashboard/public/`);
+    copyFileSync(join(IMAGES_DIR, 'apple-touch-icon.png'), join(PUBLIC_DIR, 'apple-touch-icon.png'));
+    copyFileSync(join(IMAGES_DIR, 'favicon.ico'), join(PUBLIC_DIR, 'favicon.ico'));
+    console.log(`  → copied apple-touch-icon.png, favicon.ico to dashboard/public/`);
 
     console.log('');
-    console.log(`Done — ${ICONS.length} icons generated to assets/images/.`);
+    console.log(`Done — ${ICONS.length} icons + favicon.ico generated to assets/images/.`);
 }
 
 generate().catch((err) => {
