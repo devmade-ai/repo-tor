@@ -4,6 +4,15 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-10
 
+### Fix debug pill z-index — normalize to z-index scale
+
+**Why:** The inline debug pill in `index.html` used hardcoded `zIndex:'99999'` in three places (expanded panel, collapsed error pill, collapsed "0 errors" pill). The CSS z-index scale defines `--z-debug: 80` as the topmost layer, but the inline pill bypassed it with an ad-hoc value. Per the glow-props Z_INDEX_SCALE pattern, no values outside the standard scale should exist.
+
+**Changes:**
+1. Replaced all three `zIndex:'99999'` occurrences in `dashboard/index.html` with `zIndex:'80'`
+
+**Audit result:** No other ad-hoc z-index values found. All styles.css usages already reference CSS variables. The only numeric values remaining are `z-index: -1` (decorative pseudo-element) and `z-index: 1` (heatmap cell hover), both within the base content layer (0–10).
+
 ### Add Apple touch icon and favicon.ico — full APP_ICONS pattern parity
 
 **Why:** The icon generation pipeline was missing two items from the glow-props APP_ICONS pattern: the 180px Apple touch icon (iOS home screen) and a 32x32 favicon.ico (Windows taskbar pinning, legacy browsers).

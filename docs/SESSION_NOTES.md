@@ -8,6 +8,11 @@ Current state for AI assistants to continue work.
 
 **Recent Updates (2026-04-10):**
 
+### Z-index scale normalization (debug pill)
+- Fixed 3 hardcoded `zIndex:'99999'` in `dashboard/index.html` → `zIndex:'80'` (matches `--z-debug: 80`)
+- Full audit confirmed no other ad-hoc z-index values in the codebase
+- Pattern reference: glow-props `docs/implementations/Z_INDEX_SCALE.md`
+
 ### Full APP_ICONS pattern parity with glow-props
 - Added 180px `apple-touch-icon.png` to `generate-icons.mjs` icon pipeline
 - Added 32x32 `favicon.ico` via manual ICO packing (zero extra dependencies)
