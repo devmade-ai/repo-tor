@@ -146,7 +146,32 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Cross-tab sync: changing theme in one tab updates other tabs
 - [ ] No flash of wrong theme on page load (flash prevention script)
 - [ ] All charts render correctly in both light and dark modes
+- [ ] Chart axis labels and grid lines update color when toggling theme (not stale)
 - [ ] Detail pane, filter sidebar, settings pane all follow theme
+
+**Scroll Lock (Multiple Overlays):**
+- [ ] Open settings pane → page doesn't scroll behind overlay
+- [ ] Open Quick Guide from hamburger menu while settings pane is closed → page doesn't scroll
+- [ ] Open settings pane, then Quick Guide, close Quick Guide → settings pane still blocks scroll
+- [ ] Close all overlays → page scrolling restored
+
+**Filter Sidebar Keyboard Navigation:**
+- [ ] Click a filter dropdown trigger → dropdown opens
+- [ ] Press ArrowDown → highlight moves down through options
+- [ ] Press ArrowUp → highlight moves up through options
+- [ ] Press Enter or Space → toggles selection on highlighted option
+- [ ] Press Escape → closes dropdown without changing selection
+- [ ] Press Home → highlight jumps to first option
+- [ ] Press End → highlight jumps to last option
+- [ ] Highlighted option scrolls into view if off-screen
+
+**Accessibility (Screen Reader):**
+- [ ] Settings pane: work hour labels announce "Start" and "End" when focused
+- [ ] Health urgency bars: screen reader announces "View Planned Work: N commits (X%)"
+- [ ] Health impact bars: screen reader announces "View User-Facing impact: N commits (X%)"
+- [ ] Timeline summary cards: screen reader announces "View all N commits" and "View N contributors"
+- [ ] Progress cards: screen reader announces "View N feature commits" etc.
+- [ ] Filter MultiSelect: screen reader announces dropdown as listbox with multiselectable
 
 **Visual Stacking (Z-Index):**
 - [ ] Debug pill ("0 errors" or error count) visible in bottom-right at all times

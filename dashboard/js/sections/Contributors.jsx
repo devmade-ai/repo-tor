@@ -90,7 +90,8 @@ export default function Contributors() {
                 },
             },
         };
-    }, [aggregated, isMobile]);
+    // state.darkMode: bust memo on theme toggle so chart picks up new Chart.js defaults
+    }, [aggregated, isMobile, state.darkMode]);
 
     // --- Per-contributor urgency/impact (moved from Health — per-person data belongs here) ---
     // Only computed from loaded commits (needs per-commit urgency/impact values)

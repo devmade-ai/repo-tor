@@ -1,6 +1,8 @@
-import React, { useEffect, useCallback, useState, useRef } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useApp } from './AppContext.jsx';
 import { useToast } from './components/Toast.jsx';
+import useScrollLock from './hooks/useScrollLock.js';
+import { embedIds, isEmbedMode, themeParam, bgParam, dataUrlParam } from './urlParams.js';
 import Header from './components/Header.jsx';
 import TabBar from './components/TabBar.jsx';
 import DropZone from './components/DropZone.jsx';
@@ -9,6 +11,7 @@ import DetailPane from './components/DetailPane.jsx';
 import SettingsPane from './components/SettingsPane.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import EmbedRenderer from './components/EmbedRenderer.jsx';
+import HeatmapTooltip from './components/HeatmapTooltip.jsx';
 import Summary from './sections/Summary.jsx';
 import Timeline from './sections/Timeline.jsx';
 import Timing from './sections/Timing.jsx';
@@ -70,44 +73,8 @@ function combineDatasets(datasets) {
     return combined;
 }
 
-// Detect embed mode from URL: ?embed=chart-id or ?embed=id1,id2
-const embedIds = (() => {
-    const params = new URLSearchParams(window.location.search);
-    const raw = params.get('embed');
-    if (!raw) return null;
-    return raw.split(',').map(s => s.trim()).filter(Boolean);
-})();
-
-// Apply embed overrides from URL: ?theme=light|dark, ?bg=hex|transparent
-// Requirement: Let embedder apps match the embedded element's background to their site
-// Approach: Override --bg-primary CSS variable (read by body and .embed-mode styles)
-// Alternatives:
-//   - postMessage from parent: Rejected — adds complexity, URL param is simpler and stateless
-//   - CSS variable injection from parent: Rejected — CSS can't cross iframe boundaries
-if (embedIds) {
-    const params = new URLSearchParams(window.location.search);
-
-    const themeParam = params.get('theme');
-    if (themeParam === 'light') {
-        document.documentElement.classList.remove('dark');
-    }
-    // dark is already the default, but be explicit if requested
-    if (themeParam === 'dark') {
-        document.documentElement.classList.add('dark');
-    }
-
-    const bgParam = params.get('bg');
-    if (bgParam) {
-        // Validate: only accept 'transparent' or valid hex color (3-8 hex chars)
-        // to prevent CSS injection via malformed values
-        const hexValue = bgParam.startsWith('#') ? bgParam : `#${bgParam}`;
-        if (bgParam === 'transparent') {
-            document.documentElement.style.setProperty('--bg-primary', 'transparent');
-        } else if (/^#[0-9a-fA-F]{3,8}$/.test(hexValue)) {
-            document.documentElement.style.setProperty('--bg-primary', hexValue);
-        }
-    }
-}
+// Embed mode detection and URL param parsing handled by urlParams.js
+// Theme/bg overrides applied in useEffect below (inside React lifecycle)
 
 export default function App() {
     const { state, dispatch } = useApp();
@@ -116,11 +83,40 @@ export default function App() {
     const [initialLoading, setInitialLoading] = useState(true);
 
     // Lock body scroll when any overlay pane is open
+    // Requirement: Prevent background scrolling when panes are open
+    // Approach: Ref-counted useScrollLock hook — multiple overlays (detail pane,
+    //   settings, quick guide) can each hold a lock independently without racing.
+    // Alternatives:
+    //   - Direct document.body.style.overflow: Rejected — race condition when
+    //     multiple overlays set/clear independently (see useScrollLock.js)
+    useScrollLock(state.detailPane.open || state.settingsPaneOpen);
+
+    // Apply embed overrides from URL: ?theme=light|dark, ?bg=hex|transparent
+    // Requirement: Let embedder apps match the embedded element's background to their site
+    // Approach: Override dark class and --bg-primary CSS variable on mount.
+    //   Runs inside React lifecycle (useEffect) instead of module scope to avoid
+    //   racing with AppContext's darkMode effect which also manages the dark class.
+    // Alternatives:
+    //   - Module-scope overrides: Rejected — raced with React dark mode management
+    //   - postMessage from parent: Rejected — URL params are simpler and stateless
     useEffect(() => {
-        const anyOpen = state.detailPane.open || state.settingsPaneOpen;
-        document.body.style.overflow = anyOpen ? 'hidden' : '';
-        return () => { document.body.style.overflow = ''; };
-    }, [state.detailPane.open, state.settingsPaneOpen]);
+        if (!isEmbedMode) return;
+        if (themeParam === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else if (themeParam === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        if (bgParam) {
+            // Validate: only accept 'transparent' or valid hex color (3-8 hex chars)
+            // to prevent CSS injection via malformed values
+            const hexValue = bgParam.startsWith('#') ? bgParam : `#${bgParam}`;
+            if (bgParam === 'transparent') {
+                document.documentElement.style.setProperty('--bg-primary', 'transparent');
+            } else if (/^#[0-9a-fA-F]{3,8}$/.test(hexValue)) {
+                document.documentElement.style.setProperty('--bg-primary', hexValue);
+            }
+        }
+    }, []);
 
     // Requirement: Two-phase data loading for time-windowed file format
     // Approach: Load data.json (summary) first for fast initial paint with pre-aggregated
@@ -143,7 +139,7 @@ export default function App() {
                 // Alternatives:
                 //   - postMessage from parent: Rejected — adds complexity for iframe use case
                 //   - Config file: Rejected — requires build step or server-side config
-                const dataUrlParam = new URLSearchParams(window.location.search).get('data');
+                // dataUrlParam imported from urlParams.js (parsed once, shared across modules)
 
                 // Requirement: Validate ?data= URL to prevent SSRF and unsafe schemes
                 // Approach: Only allow http/https URLs. Reject file://, data://, ftp://, etc.
@@ -263,51 +259,9 @@ export default function App() {
         return () => { clearTimeout(timeoutId); controller.abort(); };
     }, []);
 
-    // Heatmap tooltip handler
-    useEffect(() => {
-        const tooltip = document.getElementById('heatmap-tooltip');
-        if (!tooltip) return;
-
-        function handleMouseOver(e) {
-            const target = e.target.closest('[data-tooltip]');
-            if (!target) {
-                tooltip.classList.remove('visible');
-                return;
-            }
-            tooltip.textContent = target.getAttribute('data-tooltip');
-            tooltip.classList.add('visible');
-
-            // Fix: Clamp tooltip position to viewport bounds to prevent clipping
-            const rect = target.getBoundingClientRect();
-            let left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2;
-            let top = rect.top - tooltip.offsetHeight - 6;
-            // Clamp horizontal: keep within viewport with 4px padding
-            left = Math.max(4, Math.min(left, window.innerWidth - tooltip.offsetWidth - 4));
-            // If tooltip would go above viewport, show below the target instead
-            if (top < 4) {
-                top = rect.bottom + 6;
-            }
-            // Clamp vertical: keep within viewport bottom
-            top = Math.min(top, window.innerHeight - tooltip.offsetHeight - 4);
-            tooltip.style.left = Math.round(left) + 'px';
-            tooltip.style.top = Math.round(top) + 'px';
-        }
-
-        function handleMouseOut(e) {
-            const target = e.target.closest('[data-tooltip]');
-            if (target) {
-                tooltip.classList.remove('visible');
-            }
-        }
-
-        document.addEventListener('mouseover', handleMouseOver);
-        document.addEventListener('mouseout', handleMouseOut);
-
-        return () => {
-            document.removeEventListener('mouseover', handleMouseOver);
-            document.removeEventListener('mouseout', handleMouseOut);
-        };
-    }, []);
+    // Heatmap tooltip positioning is handled by the HeatmapTooltip portal component
+    // (rendered in the JSX below). Replaced the vanilla DOM useEffect that used
+    // document.getElementById, classList, and manual style positioning.
 
     const handleFiles = useCallback((files) => {
         // Fix: Validate file size before reading to prevent browser tab hanging
@@ -369,7 +323,7 @@ export default function App() {
     if (initialLoading) {
         return (
             <div className="flex items-center justify-center min-h-screen flex-col gap-4">
-                <div className="loading-spinner" style={{ width: 36, height: 36, borderWidth: 3 }} />
+                <div className="loading-spinner loading-spinner-lg" />
                 <p className="text-sm text-themed-tertiary">Loading dashboard&hellip;</p>
             </div>
         );
@@ -450,6 +404,7 @@ export default function App() {
             </div>
             <div className="no-print"><ErrorBoundary><DetailPane /></ErrorBoundary></div>
             <div className="no-print"><ErrorBoundary><SettingsPane /></ErrorBoundary></div>
+            <HeatmapTooltip />
         </div>
     );
 }

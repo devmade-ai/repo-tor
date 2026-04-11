@@ -127,7 +127,9 @@ export default function Progress() {
                 },
             },
         };
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile]);
+    // state.darkMode: bust memo on theme toggle so react-chartjs-2 calls chart.update(),
+    // picking up the new Chart.js defaults set in AppContext's darkMode effect
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile, state.darkMode]);
 
     // Complexity Over Time chart data
     // Excludes incomplete last month (same reason as features vs bugfix trend)
@@ -202,7 +204,7 @@ export default function Progress() {
                 },
             },
         };
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile, state.darkMode]);
 
     // Epic breakdown — groups commits by epic label
     // Uses pre-aggregated epicBreakdown from summary when commits aren't loaded
@@ -282,7 +284,7 @@ export default function Progress() {
                 },
             },
         };
-    }, [semverBreakdown, hasSemverData]);
+    }, [semverBreakdown, hasSemverData, state.darkMode]);
 
     const handleCardClick = (type) => {
         let filtered, title;
@@ -357,6 +359,7 @@ export default function Progress() {
                                         className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
                                         role="button"
                                         tabIndex={0}
+                                        aria-label={`View ${label}: ${count} commits (${pct}%)`}
                                         onClick={() => handleSemverClick(key)}
                                         onKeyDown={handleKeyActivate(() => handleSemverClick(key))}
                                     >
@@ -387,6 +390,7 @@ export default function Progress() {
                                     className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
                                     role="button"
                                     tabIndex={0}
+                                    aria-label={`View ${epic}: ${count} commits (${pct}%)`}
                                     onClick={() => handleEpicClick(epic)}
                                     onKeyDown={handleKeyActivate(() => handleEpicClick(epic))}
                                 >
@@ -423,6 +427,7 @@ export default function Progress() {
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
                         role="button"
                         tabIndex={0}
+                        aria-label={`View ${metrics.featureCount} feature commits`}
                         onClick={() => handleCardClick('features')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('features'))}
                     >
@@ -433,6 +438,7 @@ export default function Progress() {
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
                         role="button"
                         tabIndex={0}
+                        aria-label={`View ${metrics.bugfixCount} bug fix commits`}
                         onClick={() => handleCardClick('bugfixes')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('bugfixes'))}
                     >
@@ -443,6 +449,7 @@ export default function Progress() {
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
                         role="button"
                         tabIndex={0}
+                        aria-label={`View ${metrics.refactorCount} refactor commits`}
                         onClick={() => handleCardClick('refactors')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('refactors'))}
                     >

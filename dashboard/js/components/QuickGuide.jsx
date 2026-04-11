@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import useFocusTrap from '../hooks/useFocusTrap.js';
 import useEscapeKey from '../hooks/useEscapeKey.js';
+import useScrollLock from '../hooks/useScrollLock.js';
 import { safeStorageGet, safeStorageSet } from '../utils.js';
 
 // Requirement: Provide a simple onboarding tutorial for non-technical users
@@ -57,8 +58,9 @@ export default function QuickGuide({ open, onClose }) {
     const trapRef = useFocusTrap(open);
 
     useEscapeKey(open, onClose);
+    useScrollLock(open);
 
-    // Reset to first step when opening, lock body scroll, and move focus into modal
+    // Reset to first step when opening and move focus into modal
     // Requirement: Keyboard users must know focus moved to the modal
     // Approach: Focus the modal container after a short delay (allows CSS transition)
     // Alternatives:
@@ -67,11 +69,9 @@ export default function QuickGuide({ open, onClose }) {
     useEffect(() => {
         if (open) {
             setStep(0);
-            document.body.style.overflow = 'hidden';
             const id = setTimeout(() => trapRef.current?.focus(), 50);
-            return () => { clearTimeout(id); document.body.style.overflow = ''; };
+            return () => clearTimeout(id);
         }
-        return () => { document.body.style.overflow = ''; };
     }, [open]);
 
     const handleNext = useCallback(() => {

@@ -1,9 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useApp } from '../AppContext.jsx';
 
+// Requirement: Multi-select dropdown with full keyboard navigation
+// Approach: Arrow keys move a highlighted index through options, Space/Enter
+//   toggles selection, Escape closes. Uses role="listbox" + role="option"
+//   with aria-activedescendant for screen reader focus tracking.
+// Alternatives:
+//   - Native <select multiple>: Rejected — can't style, poor UX on mobile
+//   - Headless UI library: Rejected — adds dependency for one component
 function MultiSelect({ options, selected, onChange }) {
     const [open, setOpen] = useState(false);
+    const [highlightIndex, setHighlightIndex] = useState(-1);
     const containerRef = useRef(null);
+    const listboxRef = useRef(null);
 
     useEffect(() => {
         if (!open) return;
@@ -12,16 +21,27 @@ function MultiSelect({ options, selected, onChange }) {
                 setOpen(false);
             }
         }
-        function handleKeyDown(e) {
-            if (e.key === 'Escape') setOpen(false);
-        }
         document.addEventListener('mousedown', handleClickOutside);
-        document.addEventListener('keydown', handleKeyDown);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
-            document.removeEventListener('keydown', handleKeyDown);
         };
     }, [open]);
+
+    // Reset highlight when opening/closing
+    useEffect(() => {
+        if (open) {
+            setHighlightIndex(0);
+        } else {
+            setHighlightIndex(-1);
+        }
+    }, [open]);
+
+    // Scroll highlighted option into view
+    useEffect(() => {
+        if (!open || highlightIndex < 0 || !listboxRef.current) return;
+        const highlighted = listboxRef.current.querySelector(`[data-index="${highlightIndex}"]`);
+        if (highlighted) highlighted.scrollIntoView({ block: 'nearest' });
+    }, [highlightIndex, open]);
 
     function getDisplayText() {
         if (selected.length === 0) return 'All';
@@ -37,6 +57,53 @@ function MultiSelect({ options, selected, onChange }) {
         }
     }
 
+    const handleKeyDown = useCallback((e) => {
+        if (!open) {
+            // Open on ArrowDown/ArrowUp/Enter/Space when closed
+            if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(e.key)) {
+                e.preventDefault();
+                setOpen(true);
+            }
+            return;
+        }
+
+        switch (e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                setHighlightIndex(i => Math.min(i + 1, options.length - 1));
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                setHighlightIndex(i => Math.max(i - 1, 0));
+                break;
+            case 'Enter':
+            case ' ':
+                e.preventDefault();
+                if (highlightIndex >= 0 && highlightIndex < options.length) {
+                    toggleOption(options[highlightIndex]);
+                }
+                break;
+            case 'Escape':
+                e.preventDefault();
+                setOpen(false);
+                break;
+            case 'Home':
+                e.preventDefault();
+                setHighlightIndex(0);
+                break;
+            case 'End':
+                e.preventDefault();
+                setHighlightIndex(options.length - 1);
+                break;
+            default:
+                break;
+        }
+    }, [open, highlightIndex, options, selected, onChange]);
+
+    const activeDescendant = open && highlightIndex >= 0 && highlightIndex < options.length
+        ? `multiselect-option-${highlightIndex}`
+        : undefined;
+
     return (
         <div className="filter-multi-select" ref={containerRef}>
             <button
@@ -44,7 +111,9 @@ function MultiSelect({ options, selected, onChange }) {
                 className="filter-multi-select-trigger"
                 aria-haspopup="listbox"
                 aria-expanded={open}
+                aria-activedescendant={activeDescendant}
                 onClick={() => setOpen(!open)}
+                onKeyDown={handleKeyDown}
             >
                 <span className="selected-text">{getDisplayText()}</span>
                 <span className="arrow">
@@ -53,26 +122,36 @@ function MultiSelect({ options, selected, onChange }) {
                     </svg>
                 </span>
             </button>
-            <div className={`filter-multi-select-dropdown ${open ? 'open' : ''}`} role="listbox">
-                {options.map(option => (
-                    <label
+            <div
+                ref={listboxRef}
+                className={`filter-multi-select-dropdown ${open ? 'open' : ''}`}
+                role="listbox"
+                aria-multiselectable="true"
+            >
+                {options.map((option, idx) => (
+                    <div
                         key={option}
-                        className={`filter-multi-select-option ${selected.includes(option) ? 'selected' : ''}`}
+                        id={`multiselect-option-${idx}`}
+                        data-index={idx}
+                        className={`filter-multi-select-option${selected.includes(option) ? ' selected' : ''}${idx === highlightIndex ? ' highlighted' : ''}`}
                         role="option"
                         aria-selected={selected.includes(option)}
                         onClick={(e) => {
                             e.preventDefault();
                             toggleOption(option);
                         }}
+                        onMouseEnter={() => setHighlightIndex(idx)}
                     >
                         <input
                             type="checkbox"
                             checked={selected.includes(option)}
                             onChange={() => toggleOption(option)}
                             onClick={(e) => e.stopPropagation()}
+                            tabIndex={-1}
+                            aria-hidden="true"
                         />
                         <span>{option}</span>
-                    </label>
+                    </div>
                 ))}
                 {options.length === 0 && (
                     <div className="filter-multi-select-option filter-empty-option">

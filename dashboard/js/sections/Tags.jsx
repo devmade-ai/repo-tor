@@ -124,7 +124,8 @@ export default function Tags() {
                 },
             },
         };
-    }, [tagData, isMobile]);
+    // state.darkMode: bust memo on theme toggle so chart picks up new Chart.js defaults
+    }, [tagData, isMobile, state.darkMode]);
 
     const handleTagClick = (tag) => {
         // During Phase 1, no commits to filter — clicking does nothing useful

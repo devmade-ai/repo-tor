@@ -902,6 +902,13 @@
             cursor: default;
             transition: transform 0.1s;
         }
+        /* Smaller cells for executive/management weekly heatmap */
+        .heatmap-cell-sm {
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            min-height: 16px;
+        }
         @media (min-width: 640px) {
             .heatmap-cell {
                 min-width: 28px;
@@ -911,10 +918,16 @@
         }
         .heatmap-cell:hover {
             transform: scale(1.1);
+            /* z-index: 1 is intentionally NOT from the CSS variable scale.
+               This is local grid stacking — lifts the hovered cell above its
+               siblings within the heatmap grid only. The grid itself never
+               competes with modals, menus, or overlays (those use --z-menu+). */
             z-index: 1;
         }
-        /* Heatmap tooltip — z-menu (50) per Z_INDEX_SCALE (tooltips = menu/dropdown layer) */
-        .heatmap-tooltip {
+        /* Heatmap tooltip — z-menu (50) per Z_INDEX_SCALE (tooltips = menu/dropdown layer).
+           #heatmap-tooltip is the portal mount point in index.html.
+           .heatmap-tooltip-inner is the React portal content (HeatmapTooltip.js). */
+        .heatmap-tooltip-inner {
             position: fixed;
             z-index: var(--z-menu);
             pointer-events: none;
@@ -929,7 +942,7 @@
             transition: opacity 0.1s;
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
-        .heatmap-tooltip.visible {
+        .heatmap-tooltip-inner.visible {
             opacity: 1;
         }
         .heatmap-label {
@@ -1082,6 +1095,20 @@
             border-radius: 50%;
             border-top-color: var(--color-primary);
             animation: spin 0.8s linear infinite;
+        }
+        .loading-spinner-sm {
+            width: 16px;
+            height: 16px;
+        }
+        .loading-spinner-md {
+            width: 28px;
+            height: 28px;
+            border-width: 3px;
+        }
+        .loading-spinner-lg {
+            width: 36px;
+            height: 36px;
+            border-width: 3px;
         }
         @keyframes spin {
             to { transform: rotate(360deg); }
@@ -1718,7 +1745,8 @@
             gap: 6px;
             line-height: 1.25;
         }
-        .filter-multi-select-option:hover {
+        .filter-multi-select-option:hover,
+        .filter-multi-select-option.highlighted {
             background: var(--bg-tertiary);
         }
         .filter-multi-select-option input[type="checkbox"] {

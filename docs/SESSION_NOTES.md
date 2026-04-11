@@ -6,7 +6,44 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, light/dark theme, and PWA support.
 
-**Recent Updates (2026-04-10):**
+**Recent Updates (2026-04-11):**
+
+### React migration hardening — 12 fixes across bugs, accessibility, and architecture
+
+Systematic review and fix of all remaining non-React patterns, race conditions, and accessibility gaps.
+
+**Bugs fixed:**
+1. `body.style.overflow` race condition — App.jsx and QuickGuide.jsx independently set/cleared scroll lock, causing conflicts when multiple overlays were open. Created ref-counted `useScrollLock` hook.
+2. Chart.js theme colors stale after dark/light toggle — CSS variables were read once at module load. Moved Chart.js color sync into AppContext's `darkMode` effect so charts update on theme toggle. Added `state.darkMode` to all 11 chart useMemo dependency arrays so react-chartjs-2 recreates options and calls `chart.update()` on theme change.
+3. SettingsPane labels not linked to selects — `<label>` elements for work hour selects had no `htmlFor`/`id` association. Added proper label-select pairing.
+
+**React migration:**
+4. Heatmap tooltip converted from vanilla DOM to React portal — replaced `document.getElementById` + `classList` + manual positioning with `HeatmapTooltip.jsx` portal component.
+5. Embed overrides moved from module scope into React lifecycle — `?theme=` and `?bg=` CSS overrides now run in `useEffect` instead of racing with AppContext's dark mode management.
+6. URL parameter parsing consolidated — created `urlParams.js` module to parse `window.location.search` once instead of 4+ times across App.jsx and chartColors.js.
+
+**Accessibility:**
+7. FilterSidebar MultiSelect keyboard navigation — added ArrowUp/Down, Enter/Space, Escape, Home/End key handling with `aria-activedescendant` and `aria-multiselectable`.
+8. Added `aria-label` to 12+ clickable elements in Health, Timeline, and Progress sections (summary cards, urgency/impact bars, epic bars, semver items, security repo buttons).
+
+**Post-implementation review (second pass):**
+9. Chart.js theme sync completed — added `state.darkMode` to all 11 chart useMemo deps across 5 section files so react-chartjs-2 recreates options on theme toggle.
+10. HeatmapTooltip: added `role="tooltip"` + `aria-hidden`, fixed positioning useEffect missing dependency array (ran on every render).
+11. Extracted inline spinner `style={{}}` to CSS classes (`.loading-spinner-sm/md/lg`) — 4 files cleaned.
+12. Extracted heatmap cell inline size to CSS class (`.heatmap-cell-sm`).
+
+**Documentation/cleanup:**
+13. Documented heatmap-cell `z-index: 1` — comment explaining it's local grid stacking, not from the CSS variable scale.
+14. Updated CLAUDE.md: architecture lists (HeatmapTooltip, useScrollLock, urlParams.js), fixed index.html description from "Minimal HTML" to accurate listing.
+15. Verified QuickGuide.jsx matches current 6-tab structure (confirmed correct).
+16. Updated USER_GUIDE.md with filter dropdown keyboard navigation instructions.
+17. Fixed SESSION_NOTES backlog count and TODO.md timestamp.
+
+**Build:** Passes (`npm run build`).
+
+**Remaining work:** See `docs/TODO.md` — 3 backlog items (library build testing, stacking context, device attribution research).
+
+**Previous Updates (2026-04-10):**
 
 ### Z-index scale — full audit and normalization
 - Fixed 3 hardcoded `zIndex:'99999'` in `dashboard/index.html` → `zIndex:'80'` (matches `--z-debug: 80`)

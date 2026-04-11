@@ -188,7 +188,9 @@ export default function Timeline() {
                 },
             },
         };
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile]);
+    // state.darkMode: bust memo on theme toggle so react-chartjs-2 calls chart.update(),
+    // picking up the new Chart.js defaults set in AppContext's darkMode effect
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile, state.darkMode]);
 
     // Code changes timeline chart data
     // Uses pre-aggregated daily data (additions/deletions) when commits aren't loaded
@@ -306,7 +308,7 @@ export default function Timeline() {
                 },
             },
         };
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile, state.darkMode]);
 
     // --- Trend charts (moved from Health section — time-based data belongs here) ---
 
@@ -354,7 +356,7 @@ export default function Timeline() {
             },
             sortedMonths,
         };
-    }, [filteredCommits, isMobile, commitsLoaded]);
+    }, [filteredCommits, isMobile, commitsLoaded, state.darkMode]);
 
     // Debt Trend — monthly debt added vs paid
     const debtTrendData = useMemo(() => {
@@ -401,7 +403,7 @@ export default function Timeline() {
                 },
             },
         };
-    }, [filteredCommits, isMobile, commitsLoaded]);
+    }, [filteredCommits, isMobile, commitsLoaded, state.darkMode]);
 
     // Impact Over Time — monthly stacked bar by impact type
     const impactTrendData = useMemo(() => {
@@ -440,7 +442,7 @@ export default function Timeline() {
                 },
             },
         };
-    }, [filteredCommits, urgencyTrendData, isMobile, commitsLoaded]);
+    }, [filteredCommits, urgencyTrendData, isMobile, commitsLoaded, state.darkMode]);
 
     // Handle card clicks
     const handleCardClick = useCallback((type) => {
@@ -550,6 +552,7 @@ export default function Timeline() {
                         className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                         role="button"
                         tabIndex={0}
+                        aria-label={`View ${period.label}: ${period.count} commits`}
                         onClick={() => handlePeriodClick(period.key)}
                         onKeyDown={handleKeyActivate(() => handlePeriodClick(period.key))}
                     >
@@ -608,7 +611,7 @@ export default function Timeline() {
                 <div className="space-y-2">
                     {!commitsLoaded && state.commitsLoading ? (
                         <div className="flex items-center gap-2 py-4 justify-center">
-                            <div className="loading-spinner" style={{ width: 16, height: 16, borderWidth: 2 }} />
+                            <div className="loading-spinner loading-spinner-sm" />
                             <p className="text-themed-tertiary text-sm">Loading commit details&hellip;</p>
                         </div>
                     ) : commitListContent.length > 0 ? (
@@ -665,6 +668,7 @@ export default function Timeline() {
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
                         role="button"
                         tabIndex={0}
+                        aria-label={`View all ${summaryData.totalCommits} commits`}
                         onClick={() => handleCardClick('total')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('total'))}
                     >
@@ -687,6 +691,7 @@ export default function Timeline() {
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
                         role="button"
                         tabIndex={0}
+                        aria-label={`View ${summaryData.contributors} contributors`}
                         onClick={() => handleCardClick('contributors')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('contributors'))}
                     >

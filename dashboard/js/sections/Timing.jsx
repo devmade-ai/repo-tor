@@ -235,7 +235,8 @@ export default function Timing() {
                 },
             },
         };
-    }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap]);
+    // state.darkMode: bust memo on theme toggle so chart picks up new Chart.js defaults
+    }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap, state.darkMode]);
 
     // Daily distribution chart
     const dayChartData = useMemo(() => {
@@ -286,7 +287,7 @@ export default function Timing() {
                 },
             },
         };
-    }, [filteredCommits, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap]);
+    }, [filteredCommits, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap, state.darkMode]);
 
     // Developer patterns — only available with loaded commits
     const developerPatterns = useMemo(() => {
@@ -361,8 +362,7 @@ export default function Timing() {
                             return (
                                 <div
                                     key={weekKey}
-                                    className={`heatmap-cell heatmap-${level}`}
-                                    style={{ width: '16px', height: '16px' }}
+                                    className={`heatmap-cell heatmap-cell-sm heatmap-${level}`}
                                     data-tooltip={`Week of ${weekLabel}: ${count} commits`}
                                 >
                                     {count > 9 ? '' : count || ''}

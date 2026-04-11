@@ -77,7 +77,11 @@ Settings are saved to your browser and persist across sessions.
 
 ## Filters
 
-Click the **filter icon** in the header to open the filter sidebar. Filters use multi-select checkboxes with per-filter modes:
+Click the **filter icon** in the header to open the filter sidebar. Filters use multi-select dropdowns with per-filter modes.
+
+**Using Filter Dropdowns:**
+- Click a dropdown to open it, then click options to select/deselect
+- **Keyboard:** Arrow keys to move between options, Space/Enter to toggle, Escape to close, Home/End to jump to first/last
 
 **Available Filters:**
 - **Tag** - Filter by commit tags (feature, bugfix, refactor, etc.)
