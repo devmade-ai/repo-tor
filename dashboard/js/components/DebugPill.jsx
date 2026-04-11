@@ -30,6 +30,8 @@ const SOURCE_COLORS = {
     auth: '#fb923c',
     db: '#34d399',
     form: '#c084fc',
+    import: '#38bdf8',
+    export: '#a3e635',
 };
 
 const SEVERITY_COLORS = {
@@ -294,9 +296,12 @@ export default function DebugPill() {
     const logRef = useRef(null);
     const diagnosticRunRef = useRef(0);
 
-    // Subscribe to debug entries
+    // Subscribe to debug entries.
+    // debugSubscribe replays all current entries immediately to new subscribers,
+    // so we don't also call setEntries(debugGetEntries()) — that would duplicate
+    // every entry (direct set + replay append). The subscription alone handles
+    // both initial population and future entries.
     useEffect(() => {
-        setEntries(debugGetEntries());
         return debugSubscribe((entry) => {
             setEntries((prev) => [...prev, entry].slice(-MAX_ENTRIES));
         });
@@ -347,6 +352,7 @@ export default function DebugPill() {
     const handleClear = useCallback(() => {
         debugClear();
         setEntries([]);
+        setReportText(null);
     }, []);
 
     const errorCount = entries.filter(e => e.severity === 'error').length;

@@ -116,21 +116,27 @@ export function debugGenerateReport() {
 // Requirement: Capture React warnings, library errors, and any console output automatically
 // Approach: Patch console.error and console.warn at module load time. Original methods are
 //   preserved and called first so DevTools output is unchanged.
+// HMR guard: Without this, each Vite hot reload re-captures the already-patched console
+//   methods as "originals," creating nested wrapper chains. After N reloads, each
+//   console.error call produces N debug entries. The guard ensures patching happens once.
 // Alternatives:
 //   - Explicit debugAdd calls everywhere: Rejected — misses third-party library errors
 //   - window.onerror only: Rejected — doesn't capture console.warn (React warnings)
-const originalError = console.error;
-const originalWarn = console.warn;
+if (!window.__debugConsolePatched) {
+    window.__debugConsolePatched = true;
+    const originalError = console.error;
+    const originalWarn = console.warn;
 
-console.error = (...args) => {
-    originalError.apply(console, args);
-    debugAdd('global', 'error', args.map(String).join(' '));
-};
+    console.error = (...args) => {
+        originalError.apply(console, args);
+        debugAdd('global', 'error', args.map(String).join(' '));
+    };
 
-console.warn = (...args) => {
-    originalWarn.apply(console, args);
-    debugAdd('global', 'warn', args.map(String).join(' '));
-};
+    console.warn = (...args) => {
+        originalWarn.apply(console, args);
+        debugAdd('global', 'warn', args.map(String).join(' '));
+    };
+}
 
 // --- Global error capture ---
 // Requirement: Capture crashes before React mounts

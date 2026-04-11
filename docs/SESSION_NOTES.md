@@ -10,7 +10,7 @@ Current state for AI assistants to continue work.
 
 ### React debug system — full debugLog module, React DebugPill, clipboard fallbacks
 
-Replaced the simple `{time, message, stack}` error array with a complete structured debug system per glow-props `DEBUG_SYSTEM.md` spec. Second pass cleaned up spec compliance issues.
+Replaced the simple `{time, message, stack}` error array with a complete structured debug system per glow-props `DEBUG_SYSTEM.md` spec. Second pass fixed spec compliance. Third pass fixed 4 bugs found via deep audit: duplicate entries on initial mount (subscription replay + direct set doubled every entry), HMR console interception accumulation (console patching created nested wrapper chains on hot reloads), Clear button not resetting visible textarea fallback, missing `import`/`export` source colors.
 
 **New files:**
 1. `js/debugLog.js` — Pub/sub circular buffer (200 entries) with typed entries (`source`, `severity`, `event`, `details`). Console interception (`console.error`/`console.warn` patched at module load). Global `window.error`/`unhandledrejection` listeners. Report generation with URL query param redaction. Ingests pre-existing inline pill errors on init.

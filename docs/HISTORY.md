@@ -4,6 +4,20 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-11
 
+### Debug system audit fixes — 4 bugs
+
+**Why:** Deep audit of the debug system found 4 bugs: duplicate entries, HMR accumulation, stale UI state, and missing source colors.
+
+**Changes:**
+1. `DebugPill.jsx` — Removed redundant `setEntries(debugGetEntries())` before `debugSubscribe()`. The subscription replays all current entries immediately, so the direct set + replay doubled every entry on initial mount.
+2. `debugLog.js` — Added `window.__debugConsolePatched` HMR guard around console.error/warn patching. Without it, each Vite hot reload re-captured the already-patched methods as "originals," creating nested wrapper chains that produced N debug entries per call after N reloads.
+3. `DebugPill.jsx` — Clear button now resets `reportText` state, dismissing the visible textarea fallback when entries are cleared.
+4. `DebugPill.jsx` — Added `import` and `export` source colors to `SOURCE_COLORS` map. App.jsx uses `debugAdd('import', ...)` for file upload errors; without a color mapping it fell back to default gray.
+
+**Files changed:** `js/debugLog.js`, `js/components/DebugPill.jsx`
+
+---
+
 ### React debug system — structured logging, React DebugPill, clipboard fallbacks
 
 **Why:** The existing debug system used a simple `{time, message, stack}` array with no structure, pub/sub, console interception, or tabbed UI. Error routing used `window.__debugPushError` guards scattered across 5 files. Replaced with a complete structured system per glow-props `DEBUG_SYSTEM.md`.
