@@ -176,3 +176,31 @@ if (Array.isArray(window.__debugErrors) && window.__debugErrors.length > 0) {
 window.__debugPushError = function (msg, stack) {
     debugAdd('global', 'error', msg, stack ? { stack } : undefined);
 };
+
+// --- Failure diagnosis ---
+// Requirement: Distinguish API failure modes for diagnostic panel and error handlers
+// Approach: no-cors HEAD probe to differentiate CORS blocks (server reachable but
+//   blocking) from deployment failures (server unreachable). Falls back to network
+//   status check for offline/browser-blocked cases.
+// Alternatives:
+//   - Rely on error.message parsing: Rejected — messages vary across browsers
+//   - Always show generic "failed": Rejected — unhelpful for debugging
+
+/**
+ * Diagnose why a fetch to a URL failed.
+ * @param {string} url — the URL that failed
+ * @returns {Promise<'not-deployed'|'cors'|'network'|'browser-blocked'>}
+ */
+export async function diagnoseFailure(url) {
+    // no-cors HEAD probe — opaque response means server is up but CORS blocks
+    try {
+        const res = await fetch(url, { mode: 'no-cors', method: 'HEAD' });
+        // Opaque response (type: 'opaque') = server reached, CORS blocking
+        if (res.type === 'opaque') return 'cors';
+        return 'not-deployed';
+    } catch {
+        // TypeError on mobile can mean network issue or browser blocking
+        if (!navigator.onLine) return 'network';
+        return 'browser-blocked';
+    }
+}

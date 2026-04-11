@@ -151,7 +151,7 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
   - `js/urlParams.js` - Centralized URL query parameter parsing (single parse, shared across modules)
   - `js/charts.js` - Chart aggregation helpers
   - `js/chartColors.js` - Centralized chart color system (embed overrides)
-  - `js/debugLog.js` - Structured debug logging with pub/sub, console interception, global error capture, report generation
+  - `js/debugLog.js` - Structured debug logging with pub/sub, console interception, global error capture, report generation, failure diagnosis
   - `js/copyToClipboard.js` - Clipboard utility with multiple fallbacks (ClipboardItem Blob, writeText, textarea)
   - `js/pwa.js` - PWA install/update logic (event-based, communicates with React via CustomEvents)
   - `js/pwaConstants.js` - PWA timing/threshold constants (update intervals, settle delays, etc.)
