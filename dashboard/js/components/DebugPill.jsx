@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { debugGetEntries, debugSubscribe, debugClear, debugGenerateReport } from '../debugLog.js';
+import { debugSubscribe, debugClear, debugGenerateReport } from '../debugLog.js';
 import { copyToClipboard } from '../copyToClipboard.js';
 
 /**
