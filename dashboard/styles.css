@@ -1,10 +1,7 @@
 @import "tailwindcss";
 
-/* Requirement: Exclude JSON data directories from Tailwind content scanning.
-   Tailwind v4 auto-scans all subdirectories of the CSS file. The data-commits/
-   and repos/ dirs contain commit history with Tailwind-like class names in commit
-   messages (e.g. "z-[9999] → z-[80]"), causing phantom CSS utilities in the build.
-   Alternatives: .gitignore exclusion — rejected, .gitignore controls VCS not CSS tooling. */
+/* Exclude data dirs — commit history contains Tailwind-like class names
+   (e.g. "z-[9999]") that generate phantom utilities in the build. */
 @source not "./public/data-commits";
 @source not "./public/repos";
 
@@ -64,20 +61,10 @@
             --card-gap: 16px;
             --content-padding: 24px;
 
-            /* Z-Index Scale — standardized stacking layers.
-               Source: glow-props docs/implementations/Z_INDEX_SCALE.md
-               8 layers with gaps of 10 for sub-layers. Every z-index in the
-               codebase must map to one of these variables — no ad-hoc values.
-
-               Sub-layers (21, 28, 58) explained below:
-               - 21 (sticky-header): Header sits 1 above sticky tabs-bar (20)
-                 so the hamburger dropdown escapes the tabs stacking context.
-               - 28 (drawer-backdrop): Below drawer (30) but above sticky (20).
-                 Separate from menu-backdrop (40) because drawers and menus can
-                 coexist — a single z-40 backdrop would conflict with the menu.
-               - 58 (modal-backdrop): Above menu (50) so the backdrop covers any
-                 open dropdown. The pattern's "backdrop always 40" assumes modals
-                 close menus; this sub-layer is a safety net if they overlap. */
+            /* Z-Index Scale — see glow-props Z_INDEX_SCALE.md.
+               Every z-index must use one of these variables.
+               Sub-layers: 21 = header above tabs (20), 28 = drawer backdrop
+               below menu backdrop (40), 58 = modal backdrop above menu (50). */
             --z-base: 10;
             --z-sticky: 20;
             --z-sticky-header: 21;
@@ -926,10 +913,7 @@
             transform: scale(1.1);
             z-index: 1;
         }
-        /* Custom heatmap tooltip (replaces native title for touch + instant response).
-           Requirement: Tooltip above drawers (30) and sticky headers (20), below
-           modals (60) and toasts (70). Z_INDEX_SCALE places tooltips in the
-           menu/dropdown layer (50). */
+        /* Heatmap tooltip — z-menu (50) per Z_INDEX_SCALE (tooltips = menu/dropdown layer) */
         .heatmap-tooltip {
             position: fixed;
             z-index: var(--z-menu);
