@@ -12,7 +12,7 @@ Log of significant changes to code and documentation.
 
 **Bugs:**
 1. Created `useScrollLock` hook — ref-counted body scroll lock replacing direct `document.body.style.overflow` in App.jsx and QuickGuide.jsx. Prevents race condition when multiple overlays open/close independently.
-2. Moved Chart.js color sync from `main.jsx` (one-time module load) to `AppContext.jsx` (darkMode useEffect). Charts now update axis/grid colors when toggling light/dark theme.
+2. Moved Chart.js color sync from `main.jsx` (one-time module load) to `AppContext.jsx` (darkMode useEffect). Added `state.darkMode` to all 11 chart useMemo dependency arrays across 5 section files so react-chartjs-2 recreates chart options and calls `chart.update()` on theme toggle.
 3. Added `htmlFor`/`id` pairing on SettingsPane work hour labels and selects for screen reader association.
 
 **React migration:**
@@ -31,7 +31,7 @@ Log of significant changes to code and documentation.
 
 **Files changed:**
 - New: `js/hooks/useScrollLock.js`, `js/components/HeatmapTooltip.jsx`, `js/urlParams.js`
-- Modified: `js/App.jsx`, `js/main.jsx`, `js/AppContext.jsx`, `js/chartColors.js`, `js/components/QuickGuide.jsx`, `js/components/SettingsPane.jsx`, `js/components/FilterSidebar.jsx`, `js/sections/Health.jsx`, `js/sections/Timeline.jsx`, `js/sections/Progress.jsx`, `styles.css`, `CLAUDE.md`
+- Modified: `js/App.jsx`, `js/main.jsx`, `js/AppContext.jsx`, `js/chartColors.js`, `js/components/QuickGuide.jsx`, `js/components/SettingsPane.jsx`, `js/components/FilterSidebar.jsx`, `js/sections/Health.jsx`, `js/sections/Timeline.jsx`, `js/sections/Progress.jsx`, `js/sections/Timing.jsx`, `js/sections/Contributors.jsx`, `js/sections/Tags.jsx`, `styles.css`, `index.html`, `CLAUDE.md`
 
 ---
 

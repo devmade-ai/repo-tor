@@ -14,7 +14,7 @@ Systematic review and fix of all remaining non-React patterns, race conditions, 
 
 **Bugs fixed:**
 1. `body.style.overflow` race condition — App.jsx and QuickGuide.jsx independently set/cleared scroll lock, causing conflicts when multiple overlays were open. Created ref-counted `useScrollLock` hook.
-2. Chart.js theme colors stale after dark/light toggle — CSS variables were read once at module load. Moved Chart.js color sync into AppContext's `darkMode` effect so charts update on theme toggle.
+2. Chart.js theme colors stale after dark/light toggle — CSS variables were read once at module load. Moved Chart.js color sync into AppContext's `darkMode` effect so charts update on theme toggle. Added `state.darkMode` to all 11 chart useMemo dependency arrays so react-chartjs-2 recreates options and calls `chart.update()` on theme change.
 3. SettingsPane labels not linked to selects — `<label>` elements for work hour selects had no `htmlFor`/`id` association. Added proper label-select pairing.
 
 **React migration:**
