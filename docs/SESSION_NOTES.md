@@ -10,22 +10,23 @@ Current state for AI assistants to continue work.
 
 ### React debug system — full debugLog module, React DebugPill, clipboard fallbacks
 
-Replaced the simple `{time, message, stack}` error array with a complete structured debug system per glow-props `DEBUG_SYSTEM.md` spec.
+Replaced the simple `{time, message, stack}` error array with a complete structured debug system per glow-props `DEBUG_SYSTEM.md` spec. Second pass cleaned up spec compliance issues.
 
 **New files:**
 1. `js/debugLog.js` — Pub/sub circular buffer (200 entries) with typed entries (`source`, `severity`, `event`, `details`). Console interception (`console.error`/`console.warn` patched at module load). Global `window.error`/`unhandledrejection` listeners. Report generation with URL query param redaction. Ingests pre-existing inline pill errors on init.
-2. `js/copyToClipboard.js` — Three-tier clipboard fallback: ClipboardItem Blob → writeText → textarea (for mobile PWA webviews).
-3. `js/components/DebugPill.jsx` — React debug pill in separate root (`#debug-root`). Survives App crashes. Uses inline styles (survives CSS load failures). 3 tabs: Log (color-coded entries), Environment (runtime info with URL redaction), PWA Diagnostics (live health checks). Hides inline pill on mount.
+2. `js/copyToClipboard.js` — Three-tier clipboard fallback: ClipboardItem Blob → writeText → textarea (for mobile PWA webviews). When all methods fail, DebugPill shows a visible textarea with auto-select for manual copy.
+3. `js/components/DebugPill.jsx` — React debug pill in separate root (`#debug-root`). Survives App crashes. Uses inline styles (survives CSS load failures). 3 tabs: Log (color-coded entries), Environment (runtime info with URL redaction), PWA Diagnostics (live health checks with manifest icon sizes/start_url/id validation and browser info). Hides inline pill on mount. Embed mode skip handled in main.jsx (not conditionally inside component — avoids React hooks violation).
 
 **Modified files:**
 4. `index.html` — Added `<div id="debug-root">` for React DebugPill mount point.
-5. `main.jsx` — Imports debugLog.js, mounts DebugPill in `#debug-root`. RootErrorBoundary uses `debugAdd`.
+5. `main.jsx` — Imports debugLog.js, mounts DebugPill in `#debug-root` (skipped in embed mode). RootErrorBoundary uses `debugAdd`.
 6. `ErrorBoundary.jsx` — Uses `debugAdd('render', 'error', ...)` instead of `window.__debugPushError`.
 7. `App.jsx` — Data load and file upload errors route through `debugAdd`.
 8. `pwa.js` — SW registration errors and install diagnostics route through `debugAdd`.
 9. `HamburgerMenu.jsx` — Menu action errors route through `debugAdd`.
+10. `Projects.jsx` — Project list load errors route through `debugAdd`.
 
-**Architecture:** Inline pill (index.html) handles pre-React boot errors. debugLog.js captures everything from module load onwards (console interception + global listeners). React DebugPill subscribes to debugLog entries and takes over visual display when React mounts. Both systems run independently — no double-counting because the inline pill is hidden once React mounts.
+**Architecture:** Inline pill (index.html) handles pre-React boot errors. debugLog.js captures everything from module load onwards (console interception + global listeners). React DebugPill subscribes to debugLog entries and takes over visual display when React mounts. Both systems run independently — no double-counting because the inline pill is hidden once React mounts. All explicit `debugAdd` callers do NOT also call `console.error`/`console.warn` to avoid duplicate entries (interception captures the remaining console calls from code that doesn't need structured source/details).
 
 ### React migration hardening — 12 fixes across bugs, accessibility, and architecture
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useApp } from '../AppContext.jsx';
+import { debugAdd } from '../debugLog.js';
 import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
@@ -32,7 +33,9 @@ export default function Projects() {
             })
             .catch(err => {
                 if (err.name === 'AbortError') return;
-                console.error('Failed to load projects.json:', err);
+                debugAdd('render', 'error', 'Failed to load projects.json: ' + err.message, {
+                    stack: err.stack,
+                });
                 setLoadError('Could not load project list. The file may not be deployed yet.');
             });
         return () => controller.abort();

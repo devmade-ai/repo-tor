@@ -17,6 +17,7 @@ import './pwa.js';
 //   - Keep inline pill only: Rejected — no structured entries, no tabs, no pub/sub
 //   - Render DebugPill inside App tree: Rejected — dies when App crashes
 import { debugAdd } from './debugLog.js';
+import { isEmbedMode } from './urlParams.js';
 import DebugPill from './components/DebugPill.jsx';
 
 // Chart.js registration
@@ -141,8 +142,9 @@ root.render(
 // Requirement: Debug pill in separate React root — survives App crashes
 // Approach: Mount DebugPill in #debug-root (added to index.html), completely isolated
 //   from the App tree. If App crashes, the debug pill still shows diagnostics.
+//   Skipped in embed mode — embedded charts shouldn't show debug UI.
 const debugRootEl = document.getElementById('debug-root');
-if (debugRootEl) {
+if (debugRootEl && !isEmbedMode) {
     const debugRoot = createRoot(debugRootEl);
     debugRoot.render(<DebugPill />);
 }

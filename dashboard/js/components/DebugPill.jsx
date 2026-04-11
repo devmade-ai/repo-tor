@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { debugGetEntries, debugSubscribe, debugClear, debugGenerateReport } from '../debugLog.js';
 import { copyToClipboard } from '../copyToClipboard.js';
-import { isEmbedMode } from '../urlParams.js';
 
 /**
  * React-based debug pill — renders in a separate React root (#debug-root).
@@ -157,13 +156,13 @@ const styles = {
     envValue: {
         color: '#d4d4d4',
     },
-    diagRow: (status) => ({
+    diagRow: {
         padding: '4px 0',
         borderBottom: '1px solid #1a1a1a',
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
-    }),
+    },
     diagDot: (status) => ({
         width: '8px',
         height: '8px',
@@ -193,6 +192,18 @@ function formatTime(ts) {
 // Alternatives:
 //   - Static environment info only: Rejected — doesn't catch runtime issues
 //   - External service: Rejected — adds dependency
+
+function getBrowserName() {
+    const ua = navigator.userAgent;
+    if (/Edg\//i.test(ua)) return 'Edge';
+    if (/Brave/i.test(ua) || (navigator.brave && navigator.brave.isBrave)) return 'Brave';
+    if (/CriOS/i.test(ua)) return 'Chrome (iOS)';
+    if (/FxiOS/i.test(ua)) return 'Firefox (iOS)';
+    if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) return 'Chrome';
+    if (/Firefox/i.test(ua)) return 'Firefox';
+    if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) return 'Safari';
+    return 'Unknown';
+}
 
 async function runDiagnostics() {
     const results = [];
@@ -225,7 +236,7 @@ async function runDiagnostics() {
         }
     }
 
-    // Manifest validation
+    // Manifest validation — spec requires icon sizes, start_url, id checks
     const manifestLink = document.querySelector('link[rel="manifest"]');
     if (manifestLink) {
         try {
@@ -233,10 +244,14 @@ async function runDiagnostics() {
             const manifest = await res.json();
             const hasIcons = manifest.icons?.length > 0;
             const hasName = !!manifest.name;
+            const iconSizes = manifest.icons?.map(i => i.sizes).join(', ') || 'none';
+            const hasStartUrl = !!manifest.start_url;
+            const hasId = !!manifest.id;
+            const allGood = hasIcons && hasName && hasStartUrl;
             results.push({
                 label: 'Manifest',
-                status: hasIcons && hasName ? 'pass' : 'warn',
-                detail: `name=${manifest.name || 'missing'}, icons=${manifest.icons?.length || 0}`,
+                status: allGood ? 'pass' : 'warn',
+                detail: `name=${manifest.name || 'missing'}, icons=${manifest.icons?.length || 0} (${iconSizes}), start_url=${hasStartUrl ? 'yes' : 'missing'}, id=${hasId ? manifest.id : 'missing'}`,
             });
         } catch {
             results.push({ label: 'Manifest', status: 'fail', detail: 'Failed to fetch' });
@@ -254,21 +269,26 @@ async function runDiagnostics() {
     const hasPrompt = !!window.__pwaInstallPromptEvent;
     results.push({ label: 'Install Prompt', status: hasPrompt ? 'pass' : 'warn', detail: hasPrompt ? 'Captured' : 'Not received' });
 
+    // Browser info — helps diagnose browser-specific PWA issues
+    results.push({ label: 'Browser', status: 'pass', detail: getBrowserName() });
+
     return results;
 }
 
 // --- Component ---
 
+// Requirement: Embed mode skip is handled in main.jsx (DebugPill is not mounted at all
+// in embed mode). This avoids calling hooks conditionally, which violates React's rules.
 export default function DebugPill() {
-    // Requirement: Skip debug pill in embedded contexts
-    if (isEmbedMode) return null;
-
     const [expanded, setExpanded] = useState(false);
     const [activeTab, setActiveTab] = useState(0);
     // Requirement: Hydration-safe initialization — useState([]) + useEffect sync
     // Approach: Initialize empty, sync in useEffect to prevent hydration mismatch
     const [entries, setEntries] = useState([]);
     const [copyLabel, setCopyLabel] = useState('Copy');
+    // Requirement: When all clipboard methods fail, show visible textarea for manual copy
+    // Approach: Set reportText to the report string, render a textarea with auto-select
+    const [reportText, setReportText] = useState(null);
     const [diagnostics, setDiagnostics] = useState([]);
     const [diagLoading, setDiagLoading] = useState(false);
     const logRef = useRef(null);
@@ -312,8 +332,16 @@ export default function DebugPill() {
     const handleCopy = useCallback(async () => {
         const report = debugGenerateReport();
         const ok = await copyToClipboard(report);
-        setCopyLabel(ok ? 'Copied!' : 'Failed');
-        setTimeout(() => setCopyLabel('Copy'), 1500);
+        if (ok) {
+            setCopyLabel('Copied!');
+            setReportText(null);
+            setTimeout(() => setCopyLabel('Copy'), 1500);
+        } else {
+            // All clipboard methods failed — show visible textarea for manual copy
+            setReportText(report);
+            setCopyLabel('Select & Copy');
+            setTimeout(() => setCopyLabel('Copy'), 3000);
+        }
     }, []);
 
     const handleClear = useCallback(() => {
@@ -370,6 +398,39 @@ export default function DebugPill() {
                 {activeTab === 1 && <EnvironmentTab />}
                 {activeTab === 2 && <PWADiagnosticsTab diagnostics={diagnostics} loading={diagLoading} />}
             </div>
+
+            {reportText && (
+                <div style={{ padding: '8px 12px', borderTop: '1px solid #333', background: '#1a1a1a' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                        <span style={{ color: '#888', fontSize: '10px' }}>
+                            Clipboard unavailable — select all text below and copy manually
+                        </span>
+                        <button
+                            style={styles.btn('#333')}
+                            onClick={() => setReportText(null)}
+                        >
+                            Dismiss
+                        </button>
+                    </div>
+                    <textarea
+                        readOnly
+                        value={reportText}
+                        onFocus={(e) => e.target.select()}
+                        style={{
+                            width: '100%',
+                            height: '120px',
+                            background: '#0f0f0f',
+                            color: '#d4d4d4',
+                            border: '1px solid #333',
+                            borderRadius: '3px',
+                            fontFamily: 'monospace',
+                            fontSize: '10px',
+                            padding: '6px',
+                            resize: 'vertical',
+                        }}
+                    />
+                </div>
+            )}
         </div>
     );
 }
@@ -442,7 +503,7 @@ function PWADiagnosticsTab({ diagnostics, loading }) {
     return (
         <div>
             {diagnostics.map((diag) => (
-                <div key={diag.label} style={styles.diagRow(diag.status)}>
+                <div key={diag.label} style={styles.diagRow}>
                     <span style={styles.diagDot(diag.status)} />
                     <span style={styles.diagLabel}>{diag.label}</span>
                     <span style={styles.diagDetail}>{diag.detail}</span>
