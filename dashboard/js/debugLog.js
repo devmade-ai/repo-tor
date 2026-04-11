@@ -25,11 +25,13 @@ const subscribers = new Set();
  * @param {'info'|'success'|'warn'|'error'} severity
  * @param {string} event — what happened
  * @param {Record<string, unknown>} [details] — structured metadata
+ * @param {number} [timestamp] — override timestamp (epoch ms). Used by the pre-React
+ *   error bridge to preserve original error times. Defaults to Date.now().
  */
-export function debugAdd(source, severity, event, details) {
+export function debugAdd(source, severity, event, details, timestamp) {
     const entry = {
         id: nextId++,
-        timestamp: Date.now(),
+        timestamp: timestamp || Date.now(),
         source,
         severity,
         event,
@@ -170,21 +172,14 @@ if (!window.__debugLogListenersAttached) {
 // Requirement: Ingest errors captured by the inline <script> in index.html before this
 //   module loaded. The inline pill stores errors as {time, message, stack} in window.__debugErrors.
 //   time is numeric epoch (Date.now()) so we can preserve the original error timestamp.
-// Approach: Create debugLog entries with the original timestamp, not the current time.
+// Approach: Call debugAdd with the optional timestamp parameter to preserve original times.
+//   No subscribers exist at module load time — DebugPill subscribes later and receives
+//   these entries via the subscription replay mechanism.
 if (Array.isArray(window.__debugErrors) && window.__debugErrors.length > 0) {
     window.__debugErrors.forEach((err) => {
-        const entry = {
-            id: nextId++,
-            timestamp: typeof err.time === 'number' ? err.time : Date.now(),
-            source: 'boot',
-            severity: 'error',
-            event: err.message || 'Unknown pre-React error',
-            details: err.stack ? { stack: err.stack } : undefined,
-        };
-        entries.push(entry);
-        if (entries.length > MAX_ENTRIES) entries.shift();
-        // Don't notify subscribers — no subscribers exist yet at module load time.
-        // DebugPill subscribes later and receives these via the replay mechanism.
+        const ts = typeof err.time === 'number' ? err.time : undefined;
+        debugAdd('boot', 'error', err.message || 'Unknown pre-React error',
+            err.stack ? { stack: err.stack } : undefined, ts);
     });
 }
 
