@@ -362,8 +362,7 @@ export default function Timing() {
                             return (
                                 <div
                                     key={weekKey}
-                                    className={`heatmap-cell heatmap-${level}`}
-                                    style={{ width: '16px', height: '16px' }}
+                                    className={`heatmap-cell heatmap-cell-sm heatmap-${level}`}
                                     data-tooltip={`Week of ${weekLabel}: ${count} commits`}
                                 >
                                     {count > 9 ? '' : count || ''}

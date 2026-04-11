@@ -26,11 +26,18 @@ Systematic review and fix of all remaining non-React patterns, race conditions, 
 7. FilterSidebar MultiSelect keyboard navigation — added ArrowUp/Down, Enter/Space, Escape, Home/End key handling with `aria-activedescendant` and `aria-multiselectable`.
 8. Added `aria-label` to 12+ clickable elements in Health, Timeline, and Progress sections (summary cards, urgency/impact bars, epic bars, semver items, security repo buttons).
 
+**Post-implementation review (second pass):**
+9. Chart.js theme sync completed — added `state.darkMode` to all 11 chart useMemo deps across 5 section files so react-chartjs-2 recreates options on theme toggle.
+10. HeatmapTooltip: added `role="tooltip"` + `aria-hidden`, fixed positioning useEffect missing dependency array (ran on every render).
+11. Extracted inline spinner `style={{}}` to CSS classes (`.loading-spinner-sm/md/lg`) — 4 files cleaned.
+12. Extracted heatmap cell inline size to CSS class (`.heatmap-cell-sm`).
+
 **Documentation/cleanup:**
-9. Documented heatmap-cell `z-index: 1` — comment explaining it's local grid stacking, not from the CSS variable scale.
-10. Updated CLAUDE.md architecture lists (HeatmapTooltip, useScrollLock, urlParams.js).
-11. Verified QuickGuide.jsx matches current 6-tab structure (confirmed correct).
-12. Fixed SESSION_NOTES backlog count (said 2, TODO has 3).
+13. Documented heatmap-cell `z-index: 1` — comment explaining it's local grid stacking, not from the CSS variable scale.
+14. Updated CLAUDE.md: architecture lists (HeatmapTooltip, useScrollLock, urlParams.js), fixed index.html description from "Minimal HTML" to accurate listing.
+15. Verified QuickGuide.jsx matches current 6-tab structure (confirmed correct).
+16. Updated USER_GUIDE.md with filter dropdown keyboard navigation instructions.
+17. Fixed SESSION_NOTES backlog count and TODO.md timestamp.
 
 **Build:** Passes (`npm run build`).
 

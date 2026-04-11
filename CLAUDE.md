@@ -138,7 +138,7 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
 - `scripts/extract-api.js` - GitHub API-based extraction (uses curl, no gh CLI needed)
 - `scripts/aggregate-processed.js` - Aggregates processed/ data into time-windowed dashboard JSON (summary + per-month commit files + weekly/daily/monthly pre-aggregations)
 - `dashboard/` - React dashboard (Vite + React + Tailwind v4 + Chart.js via react-chartjs-2)
-  - `index.html` - Minimal HTML (root div, debug pill, PWA early capture)
+  - `index.html` - HTML entry point (root div, loading spinner, theme flash prevention, debug pill, PWA early capture, SW recovery)
   - `styles.css` - Tailwind v4 + custom CSS
   - `js/main.jsx` - React entry point with Chart.js registration
   - `js/AppContext.jsx` - React Context + useReducer state management
