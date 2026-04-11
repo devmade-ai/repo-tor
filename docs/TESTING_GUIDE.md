@@ -148,6 +148,15 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] All charts render correctly in both light and dark modes
 - [ ] Detail pane, filter sidebar, settings pane all follow theme
 
+**Visual Stacking (Z-Index):**
+- [ ] Debug pill ("0 errors" or error count) visible in bottom-right at all times
+- [ ] Open Quick Guide modal → debug pill still visible above the modal overlay
+- [ ] Open hamburger menu → dropdown renders above sticky tabs bar
+- [ ] Open hamburger menu → backdrop covers content area (click backdrop closes menu)
+- [ ] Hover heatmap cell → tooltip appears above sticky headers and drawers
+- [ ] Trigger a toast (e.g. copy action) while hovering a heatmap cell → toast renders above tooltip
+- [ ] Open filter sidebar + hamburger menu → menu dropdown renders above tabs but sidebar may render above backdrop (known limitation: backdrop is inside header stacking context)
+
 ### PWA Icons
 
 **Apple touch icon (iOS home screen):**

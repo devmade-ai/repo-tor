@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* Requirement: Exclude JSON data directories from Tailwind content scanning.
+   Tailwind v4 auto-scans all subdirectories of the CSS file. The data-commits/
+   and repos/ dirs contain commit history with Tailwind-like class names in commit
+   messages (e.g. "z-[9999] → z-[80]"), causing phantom CSS utilities in the build.
+   Alternatives: .gitignore exclusion — rejected, .gitignore controls VCS not CSS tooling. */
+@source not "./public/data-commits";
+@source not "./public/repos";
+
 /* Dark mode uses class-based approach (html.dark) */
 @custom-variant dark (&:where(.dark, .dark *));
 

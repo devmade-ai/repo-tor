@@ -13,7 +13,10 @@ Current state for AI assistants to continue work.
 - Fixed `.heatmap-tooltip` z-index: `var(--z-toast)` (70) → `var(--z-menu)` (50) — tooltips belong in menu/dropdown layer per Z_INDEX_SCALE pattern
 - Updated CSS scale comment to reference `Z_INDEX_SCALE.md` (was `BURGER_MENU.md`)
 - Added decision context comments: sub-layer rationale (21, 28, 58), inline debug pill z-80 explanation
-- Full audit of all 20 z-index values — no ad-hoc values remain
+- Added `@source not` directives excluding `public/data-commits/` and `public/repos/` from Tailwind scanning — commit history in JSON data files produced phantom z-index utilities (`z-[9999]`, `z-[100]`) in the build output
+- Added z-index visual stacking test scenario to TESTING_GUIDE.md
+- Documented hamburger backdrop stacking context limitation in TODO.md (backdrop trapped inside header z-21; drawers at z-30 render above it)
+- Full audit of all 20 source z-index values — no ad-hoc values in source or build output
 - Pattern reference: glow-props `docs/implementations/Z_INDEX_SCALE.md`
 
 ### Full APP_ICONS pattern parity with glow-props
