@@ -105,7 +105,11 @@ export function debugGenerateReport() {
         ...entries.map((e) => {
             const t = new Date(e.timestamp);
             const ts = `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')}:${String(t.getSeconds()).padStart(2, '0')}.${String(t.getMilliseconds()).padStart(3, '0')}`;
-            const detail = e.details ? ` | ${JSON.stringify(e.details)}` : '';
+            let detail = '';
+            if (e.details) {
+                try { detail = ` | ${JSON.stringify(e.details)}`; }
+                catch { detail = ' | [unserializable]'; }
+            }
             return `[${ts}] [${e.severity.toUpperCase()}] [${e.source}] ${e.event}${detail}`;
         }),
     ];
@@ -127,14 +131,18 @@ if (!window.__debugConsolePatched) {
     const originalError = console.error;
     const originalWarn = console.warn;
 
+    function safeString(val) {
+        try { return String(val); } catch { return '[unstringifiable]'; }
+    }
+
     console.error = (...args) => {
         originalError.apply(console, args);
-        debugAdd('global', 'error', args.map(String).join(' '));
+        debugAdd('global', 'error', args.map(safeString).join(' '));
     };
 
     console.warn = (...args) => {
         originalWarn.apply(console, args);
-        debugAdd('global', 'warn', args.map(String).join(' '));
+        debugAdd('global', 'warn', args.map(safeString).join(' '));
     };
 }
 

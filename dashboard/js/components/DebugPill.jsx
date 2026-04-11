@@ -182,6 +182,15 @@ const styles = {
     },
 };
 
+/** Safe JSON.stringify — returns fallback string on circular references or throwing values. */
+function safeStringify(obj) {
+    try {
+        return JSON.stringify(obj);
+    } catch {
+        return '[unserializable]';
+    }
+}
+
 function formatTime(ts) {
     const t = new Date(ts);
     return `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')}:${String(t.getSeconds()).padStart(2, '0')}.${String(t.getMilliseconds()).padStart(3, '0')}`;
@@ -295,6 +304,7 @@ export default function DebugPill() {
     const [diagLoading, setDiagLoading] = useState(false);
     const logRef = useRef(null);
     const diagnosticRunRef = useRef(0);
+    const copyTimerRef = useRef(null);
 
     // Subscribe to debug entries.
     // debugSubscribe replays all current entries immediately to new subscribers,
@@ -334,18 +344,24 @@ export default function DebugPill() {
         if (inlineBanner) inlineBanner.style.display = 'none';
     }, []);
 
+    // Clean up copy label reset timer on unmount
+    useEffect(() => {
+        return () => { if (copyTimerRef.current) clearTimeout(copyTimerRef.current); };
+    }, []);
+
     const handleCopy = useCallback(async () => {
+        if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
         const report = debugGenerateReport();
         const ok = await copyToClipboard(report);
         if (ok) {
             setCopyLabel('Copied!');
             setReportText(null);
-            setTimeout(() => setCopyLabel('Copy'), 1500);
+            copyTimerRef.current = setTimeout(() => setCopyLabel('Copy'), 1500);
         } else {
             // All clipboard methods failed — show visible textarea for manual copy
             setReportText(report);
             setCopyLabel('Select & Copy');
-            setTimeout(() => setCopyLabel('Copy'), 3000);
+            copyTimerRef.current = setTimeout(() => setCopyLabel('Copy'), 3000);
         }
     }, []);
 
@@ -456,7 +472,7 @@ function LogTab({ entries }) {
                     <span>{entry.event}</span>
                     {entry.details && (
                         <span style={{ color: '#555', marginLeft: '6px', fontSize: '10px' }}>
-                            {JSON.stringify(entry.details)}
+                            {safeStringify(entry.details)}
                         </span>
                     )}
                 </div>
