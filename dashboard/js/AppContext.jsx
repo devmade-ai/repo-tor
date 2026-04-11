@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState } from 'react';
+import { Chart as ChartJS } from 'chart.js';
 import { state as globalState, VIEW_LEVELS } from './state.js';
 import { getCommitTags, getAuthorEmail, getUrgencyLabel, safeStorageGet, safeStorageSet } from './utils.js';
 
@@ -273,13 +274,24 @@ export function AppProvider({ children }) {
         }
     }, [state.filters]);
 
-    // Apply dark mode to DOM and persist
+    // Apply dark mode to DOM, sync Chart.js defaults, and persist
+    // Requirement: Chart axis labels and grid lines must update when theme toggles
+    // Approach: Re-read CSS variables after dark class changes and update Chart.js
+    //   global defaults. Previously set once in main.jsx at mount — charts kept
+    //   stale colors after toggling between light and dark mode.
+    // Alternatives:
+    //   - Per-chart color props: Rejected — every chart would need theme awareness
+    //   - CSS-only chart theming: Rejected — Chart.js renders to canvas, not DOM
     useEffect(() => {
         if (state.darkMode) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
         }
+        // Re-read CSS variables after class change and update Chart.js defaults
+        const styles = getComputedStyle(document.documentElement);
+        ChartJS.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e5e7eb';
+        ChartJS.defaults.borderColor = styles.getPropertyValue('--chart-grid').trim() || 'rgba(255,255,255,0.1)';
         safeStorageSet('darkMode', String(state.darkMode));
     }, [state.darkMode]);
 

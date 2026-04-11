@@ -236,6 +236,7 @@ export default function Health() {
                             key={repo}
                             className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                             role="button" tabIndex={0}
+                            aria-label={`View security commits for ${repo}`}
                             onClick={() => handleSecurityRepoClick(repo)}
                             onKeyDown={handleKeyActivate(() => handleSecurityRepoClick(repo))}
                         >
@@ -306,6 +307,7 @@ export default function Health() {
                                 className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
                                 role={clickable ? 'button' : undefined}
                                 tabIndex={clickable ? 0 : undefined}
+                                aria-label={clickable ? `View ${label}: ${count} commits (${pct}%)` : undefined}
                                 onClick={() => handleUrgencyFilterClick(filter)}
                                 onKeyDown={clickable ? handleKeyActivate(() => handleUrgencyFilterClick(filter)) : undefined}
                             >
@@ -333,6 +335,7 @@ export default function Health() {
                                 className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
                                 role={clickable ? 'button' : undefined}
                                 tabIndex={clickable ? 0 : undefined}
+                                aria-label={clickable ? `View ${label} impact: ${count} commits (${pct}%)` : undefined}
                                 onClick={() => handleImpactFilterClick(key)}
                                 onKeyDown={clickable ? handleKeyActivate(() => handleImpactFilterClick(key)) : undefined}
                             >

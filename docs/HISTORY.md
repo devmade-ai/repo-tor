@@ -2,6 +2,39 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-04-11
+
+### React migration hardening — bugs, accessibility, architecture
+
+**Why:** Systematic review identified 3 bugs, 3 non-React patterns, and 2 accessibility gaps remaining after the V2 migration. Fixed all 12 findings.
+
+**Changes:**
+
+**Bugs:**
+1. Created `useScrollLock` hook — ref-counted body scroll lock replacing direct `document.body.style.overflow` in App.jsx and QuickGuide.jsx. Prevents race condition when multiple overlays open/close independently.
+2. Moved Chart.js color sync from `main.jsx` (one-time module load) to `AppContext.jsx` (darkMode useEffect). Charts now update axis/grid colors when toggling light/dark theme.
+3. Added `htmlFor`/`id` pairing on SettingsPane work hour labels and selects for screen reader association.
+
+**React migration:**
+4. Converted heatmap tooltip from vanilla DOM to React portal (`HeatmapTooltip.jsx`). Removed `document.getElementById`, `classList.add/remove`, and manual `style.left/top` positioning from App.jsx. Portal mounts into existing `#heatmap-tooltip` div in index.html.
+5. Moved embed `?theme=`/`?bg=` overrides from App.jsx module scope into a `useEffect`. Eliminates race with AppContext's dark mode management that could re-add the `dark` class after embed removed it.
+6. Created `urlParams.js` — centralized URL query parameter parsing. Replaces 4+ redundant `new URLSearchParams(window.location.search)` calls in App.jsx and chartColors.js.
+
+**Accessibility:**
+7. Added full keyboard navigation to FilterSidebar `MultiSelect` — ArrowUp/Down, Enter/Space toggle, Escape close, Home/End, `aria-activedescendant`, `aria-multiselectable`. Added `.highlighted` CSS class for keyboard focus indicator.
+8. Added `aria-label` to 12+ clickable elements across Health.jsx (urgency bars, impact bars, security repo buttons), Timeline.jsx (period items, summary cards), and Progress.jsx (semver items, epic bars, feature/bugfix/refactor cards).
+
+**Documentation:**
+9. Added comment on `.heatmap-cell:hover` `z-index: 1` explaining it's local grid stacking, not from the CSS variable scale.
+10. Updated CLAUDE.md architecture lists: added HeatmapTooltip, useScrollLock, urlParams.js.
+11. Verified QuickGuide.jsx step 2 matches current 6-tab structure (Summary, Timeline, Breakdown, Health, Discover, Projects).
+
+**Files changed:**
+- New: `js/hooks/useScrollLock.js`, `js/components/HeatmapTooltip.jsx`, `js/urlParams.js`
+- Modified: `js/App.jsx`, `js/main.jsx`, `js/AppContext.jsx`, `js/chartColors.js`, `js/components/QuickGuide.jsx`, `js/components/SettingsPane.jsx`, `js/components/FilterSidebar.jsx`, `js/sections/Health.jsx`, `js/sections/Timeline.jsx`, `js/sections/Progress.jsx`, `styles.css`, `CLAUDE.md`
+
+---
+
 ## 2026-04-10
 
 ### Z-index scale — full audit and normalization

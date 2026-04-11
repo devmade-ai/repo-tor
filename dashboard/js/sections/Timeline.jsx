@@ -550,6 +550,7 @@ export default function Timeline() {
                         className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                         role="button"
                         tabIndex={0}
+                        aria-label={`View ${period.label}: ${period.count} commits`}
                         onClick={() => handlePeriodClick(period.key)}
                         onKeyDown={handleKeyActivate(() => handlePeriodClick(period.key))}
                     >
@@ -665,6 +666,7 @@ export default function Timeline() {
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
                         role="button"
                         tabIndex={0}
+                        aria-label={`View all ${summaryData.totalCommits} commits`}
                         onClick={() => handleCardClick('total')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('total'))}
                     >
@@ -687,6 +689,7 @@ export default function Timeline() {
                         className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
                         role="button"
                         tabIndex={0}
+                        aria-label={`View ${summaryData.contributors} contributors`}
                         onClick={() => handleCardClick('contributors')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('contributors'))}
                     >

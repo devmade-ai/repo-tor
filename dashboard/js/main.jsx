@@ -29,11 +29,9 @@ ChartJS.register(
     PointElement, ArcElement, Title, Tooltip, Legend, Filler
 );
 
-// Set Chart.js defaults for dark theme — read from CSS variables so charts
-// stay in sync with the theme automatically.
-const computedStyles = getComputedStyle(document.documentElement);
-ChartJS.defaults.color = computedStyles.getPropertyValue('--text-secondary').trim() || '#e5e7eb';
-ChartJS.defaults.borderColor = computedStyles.getPropertyValue('--chart-grid').trim() || 'rgba(255,255,255,0.1)';
+// Chart.js theme colors (axis labels, grid lines) are set in AppContext.jsx's
+// darkMode effect so they update on theme toggle. Initial values are set there
+// too — no need to read CSS variables here at module load time.
 
 // Set --chart-accent-rgb CSS variable from chartColors.js so heatmap CSS
 // classes can use the embed-overridden accent color. This bridges the URL

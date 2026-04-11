@@ -152,8 +152,9 @@ export default function SettingsPane() {
                         <div className="settings-section-title">Work Hours</div>
                         <div className="settings-row">
                             <div className="settings-group">
-                                <label>Start</label>
+                                <label htmlFor="work-hour-start">Start</label>
                                 <select
+                                    id="work-hour-start"
                                     className="filter-select"
                                     value={state.workHourStart}
                                     onChange={handleWorkHourStart}
@@ -164,8 +165,9 @@ export default function SettingsPane() {
                                 </select>
                             </div>
                             <div className="settings-group">
-                                <label>End</label>
+                                <label htmlFor="work-hour-end">End</label>
                                 <select
+                                    id="work-hour-end"
                                     className="filter-select"
                                     value={state.workHourEnd}
                                     onChange={handleWorkHourEnd}

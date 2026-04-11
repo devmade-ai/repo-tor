@@ -89,8 +89,11 @@ const PALETTES = {
 };
 
 // --- Parse URL overrides (runs once at module load) ---
+// Uses shared searchParams from urlParams.js to avoid redundant parsing.
+import { searchParams } from './urlParams.js';
+
 function parseColorOverrides() {
-    const params = new URLSearchParams(window.location.search);
+    const params = searchParams;
 
     // Start from default
     let series = [...DEFAULT_SERIES];
