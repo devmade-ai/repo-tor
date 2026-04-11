@@ -47,19 +47,21 @@ node scripts/extract.js /path/to/repo --output=reports
 
 ```
 dashboard/
-  index.html                    # Minimal HTML (root div, debug pill, PWA capture)
+  index.html                    # HTML entry (root div, inline debug pill, PWA capture, debug-root div)
   styles.css                    # Tailwind v4 + custom CSS
-  js/main.jsx                   # React entry point with Chart.js registration
+  js/main.jsx                   # React entry point, Chart.js registration, DebugPill mount
   js/App.jsx                    # Main app (data loading, tab routing, layout)
   js/AppContext.jsx              # React Context + useReducer state management
   js/state.js                   # Constants (TAB_MAPPING, VIEW_LEVELS, THRESHOLDS)
   js/utils.js                   # Pure utility functions
   js/charts.js                  # Chart aggregation helpers
   js/chartColors.js              # Centralized chart color system (embed overrides)
+  js/debugLog.js                # Structured debug logging (pub/sub, console interception)
+  js/copyToClipboard.js          # Clipboard utility with multiple fallbacks
   js/pwa.js                     # PWA install/update logic
-  js/components/                # Shared components (Header, TabBar, DropZone, etc.)
+  js/components/                # Shared components (Header, TabBar, DropZone, DebugPill, etc.)
   js/sections/                  # Section components (Summary, Timeline, Timing, etc.)
-  js/hooks/                     # Custom hooks (useFocusTrap, useHealthData)
+  js/hooks/                     # Custom hooks (useFocusTrap, useHealthData, useScrollLock)
   public/                       # Static assets (data.json, projects.json, icons)
 scripts/
   extract.js                    # Git log extraction (local clone)
