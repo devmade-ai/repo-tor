@@ -56,7 +56,7 @@ export default function HeatmapTooltip() {
         };
     }, [handleMouseOver, handleMouseOut]);
 
-    // Position clamping after render (needs tooltip dimensions)
+    // Position clamping after render (needs tooltip dimensions from DOM)
     useEffect(() => {
         if (!tooltip.visible || !tooltip.rect || !tooltipRef.current) return;
         const el = tooltipRef.current;
@@ -73,13 +73,15 @@ export default function HeatmapTooltip() {
         top = Math.min(top, window.innerHeight - el.offsetHeight - 4);
         el.style.left = Math.round(left) + 'px';
         el.style.top = Math.round(top) + 'px';
-    });
+    }, [tooltip.visible, tooltip.rect]);
 
     if (!mountRef.current) return null;
 
     return createPortal(
         <span
             ref={tooltipRef}
+            role="tooltip"
+            aria-hidden={!tooltip.visible}
             className={`heatmap-tooltip-inner${tooltip.visible ? ' visible' : ''}`}
         >
             {tooltip.text}

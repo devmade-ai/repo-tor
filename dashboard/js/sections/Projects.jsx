@@ -100,7 +100,7 @@ export default function Projects() {
     if (projects.length === 0) {
         return (
             <div className="flex items-center justify-center py-12">
-                <div className="loading-spinner" style={{ width: 28, height: 28, borderWidth: 3 }} />
+                <div className="loading-spinner loading-spinner-md" />
             </div>
         );
     }

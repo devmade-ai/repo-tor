@@ -323,7 +323,7 @@ export default function App() {
     if (initialLoading) {
         return (
             <div className="flex items-center justify-center min-h-screen flex-col gap-4">
-                <div className="loading-spinner" style={{ width: 36, height: 36, borderWidth: 3 }} />
+                <div className="loading-spinner loading-spinner-lg" />
                 <p className="text-sm text-themed-tertiary">Loading dashboard&hellip;</p>
             </div>
         );
