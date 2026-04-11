@@ -188,7 +188,9 @@ export default function Timeline() {
                 },
             },
         };
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile]);
+    // state.darkMode: bust memo on theme toggle so react-chartjs-2 calls chart.update(),
+    // picking up the new Chart.js defaults set in AppContext's darkMode effect
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile, state.darkMode]);
 
     // Code changes timeline chart data
     // Uses pre-aggregated daily data (additions/deletions) when commits aren't loaded
@@ -306,7 +308,7 @@ export default function Timeline() {
                 },
             },
         };
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile, state.darkMode]);
 
     // --- Trend charts (moved from Health section — time-based data belongs here) ---
 
@@ -354,7 +356,7 @@ export default function Timeline() {
             },
             sortedMonths,
         };
-    }, [filteredCommits, isMobile, commitsLoaded]);
+    }, [filteredCommits, isMobile, commitsLoaded, state.darkMode]);
 
     // Debt Trend — monthly debt added vs paid
     const debtTrendData = useMemo(() => {
@@ -401,7 +403,7 @@ export default function Timeline() {
                 },
             },
         };
-    }, [filteredCommits, isMobile, commitsLoaded]);
+    }, [filteredCommits, isMobile, commitsLoaded, state.darkMode]);
 
     // Impact Over Time — monthly stacked bar by impact type
     const impactTrendData = useMemo(() => {
@@ -440,7 +442,7 @@ export default function Timeline() {
                 },
             },
         };
-    }, [filteredCommits, urgencyTrendData, isMobile, commitsLoaded]);
+    }, [filteredCommits, urgencyTrendData, isMobile, commitsLoaded, state.darkMode]);
 
     // Handle card clicks
     const handleCardClick = useCallback((type) => {

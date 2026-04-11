@@ -127,7 +127,9 @@ export default function Progress() {
                 },
             },
         };
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile]);
+    // state.darkMode: bust memo on theme toggle so react-chartjs-2 calls chart.update(),
+    // picking up the new Chart.js defaults set in AppContext's darkMode effect
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile, state.darkMode]);
 
     // Complexity Over Time chart data
     // Excludes incomplete last month (same reason as features vs bugfix trend)
@@ -202,7 +204,7 @@ export default function Progress() {
                 },
             },
         };
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile, state.darkMode]);
 
     // Epic breakdown — groups commits by epic label
     // Uses pre-aggregated epicBreakdown from summary when commits aren't loaded
@@ -282,7 +284,7 @@ export default function Progress() {
                 },
             },
         };
-    }, [semverBreakdown, hasSemverData]);
+    }, [semverBreakdown, hasSemverData, state.darkMode]);
 
     const handleCardClick = (type) => {
         let filtered, title;

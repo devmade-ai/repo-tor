@@ -235,7 +235,8 @@ export default function Timing() {
                 },
             },
         };
-    }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap]);
+    // state.darkMode: bust memo on theme toggle so chart picks up new Chart.js defaults
+    }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap, state.darkMode]);
 
     // Daily distribution chart
     const dayChartData = useMemo(() => {
@@ -286,7 +287,7 @@ export default function Timing() {
                 },
             },
         };
-    }, [filteredCommits, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap]);
+    }, [filteredCommits, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap, state.darkMode]);
 
     // Developer patterns — only available with loaded commits
     const developerPatterns = useMemo(() => {

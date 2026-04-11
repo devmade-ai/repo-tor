@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useApp } from './AppContext.jsx';
 import { useToast } from './components/Toast.jsx';
 import useScrollLock from './hooks/useScrollLock.js';
