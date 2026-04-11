@@ -169,13 +169,22 @@ if (!window.__debugLogListenersAttached) {
 // --- Bridge pre-existing inline pill errors ---
 // Requirement: Ingest errors captured by the inline <script> in index.html before this
 //   module loaded. The inline pill stores errors as {time, message, stack} in window.__debugErrors.
-// Approach: Convert each to a debugLog entry so they appear in the React DebugPill.
+//   time is numeric epoch (Date.now()) so we can preserve the original error timestamp.
+// Approach: Create debugLog entries with the original timestamp, not the current time.
 if (Array.isArray(window.__debugErrors) && window.__debugErrors.length > 0) {
     window.__debugErrors.forEach((err) => {
-        debugAdd('boot', 'error', err.message || 'Unknown pre-React error', {
-            stack: err.stack,
-            capturedAt: err.time,
-        });
+        const entry = {
+            id: nextId++,
+            timestamp: typeof err.time === 'number' ? err.time : Date.now(),
+            source: 'boot',
+            severity: 'error',
+            event: err.message || 'Unknown pre-React error',
+            details: err.stack ? { stack: err.stack } : undefined,
+        };
+        entries.push(entry);
+        if (entries.length > MAX_ENTRIES) entries.shift();
+        // Don't notify subscribers — no subscribers exist yet at module load time.
+        // DebugPill subscribes later and receives these via the replay mechanism.
     });
 }
 
