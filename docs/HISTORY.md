@@ -4,6 +4,23 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-10
 
+### Z-index scale — full audit and normalization
+
+**Why:** The glow-props Z_INDEX_SCALE pattern requires every z-index in the codebase to map to a named layer. Two violations existed: the inline debug pill used hardcoded `zIndex:'99999'` (3 places), and the heatmap tooltip used `--z-toast` (70) when the scale places tooltips in the menu/dropdown layer (50).
+
+**Changes:**
+1. Replaced all three `zIndex:'99999'` in `dashboard/index.html` with `zIndex:'80'` (matches `--z-debug`)
+2. Changed `.heatmap-tooltip` from `var(--z-toast)` to `var(--z-menu)` — tooltips belong at z-50 per the scale, and z-70 caused the tooltip to compete with toasts at the same level
+3. Updated CSS scale comment to reference `Z_INDEX_SCALE.md` (was pointing to `BURGER_MENU.md`)
+4. Added decision context comments explaining sub-layer choices (21 for sticky-header, 28 for drawer-backdrop, 58 for modal-backdrop) and why they deviate from the base scale's "backdrop always 40" rule
+5. Added decision context comment on inline debug pill explaining why z-80 is hardcoded (CSS variables unavailable before stylesheets load)
+
+6. Added `@source not` directives to `styles.css` excluding `public/data-commits/` and `public/repos/` from Tailwind content scanning — commit history in JSON data files contained Tailwind-like class names (e.g. `z-[9999]`, `z-[100]`) causing phantom CSS utilities in the build output
+7. Added z-index visual stacking test scenario to `docs/TESTING_GUIDE.md`
+8. Documented hamburger menu stacking context limitation in `docs/TODO.md` — backdrop and dropdown are trapped inside the header's z-21 stacking context, causing drawers (z-30) to render above the backdrop
+
+**Audit result (20 z-index values):** All source values use scale variables or justified base-content values (`-1` for decorative pseudo-element, `1` for heatmap cell hover). No ad-hoc values remain in source or build output.
+
 ### Add Apple touch icon and favicon.ico — full APP_ICONS pattern parity
 
 **Why:** The icon generation pipeline was missing two items from the glow-props APP_ICONS pattern: the 180px Apple touch icon (iOS home screen) and a 32x32 favicon.ico (Windows taskbar pinning, legacy browsers).

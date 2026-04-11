@@ -115,6 +115,8 @@
       }
 
       // --- Render the banner ---
+      // zIndex 80 = --z-debug. Hardcoded because CSS vars aren't available
+      // before stylesheets load. Keep in sync with --z-debug in styles.css.
       function render() {
         if (!banner) {
           banner = document.createElement('div');
@@ -130,7 +132,7 @@
           // Expanded diagnostics / error log view
           var isErrorView = hasErrors;
           Object.assign(banner.style, {
-            position:'fixed', bottom:'0', left:'0', right:'0', zIndex:'99999',
+            position:'fixed', bottom:'0', left:'0', right:'0', zIndex:'80',
             maxHeight:'40vh', overflow:'auto',
             background: isErrorView ? '#1a0000' : '#001a00',
             borderTop: '2px solid ' + (isErrorView ? '#ff4444' : '#4ade80'),
@@ -164,7 +166,7 @@
         } else if (hasErrors) {
           // Collapsed error pill
           Object.assign(banner.style, {
-            position:'fixed', bottom:'0', right:'0', left:'auto', zIndex:'99999',
+            position:'fixed', bottom:'0', right:'0', left:'auto', zIndex:'80',
             maxHeight:'none', overflow:'visible', background:'transparent',
             borderTop:'none', fontFamily:'monospace', fontSize:'10px',
             color:'#ff6666', padding:'8px 12px',
@@ -177,7 +179,7 @@
         } else {
           // Collapsed "0 errors" pill
           Object.assign(banner.style, {
-            position:'fixed', bottom:'0', right:'0', left:'auto', zIndex:'99999',
+            position:'fixed', bottom:'0', right:'0', left:'auto', zIndex:'80',
             maxHeight:'none', overflow:'visible', background:'transparent',
             borderTop:'none', fontFamily:'monospace', fontSize:'10px',
             color:'#4ade80', padding:'8px 12px',
