@@ -173,8 +173,22 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Progress cards: screen reader announces "View N feature commits" etc.
 - [ ] Filter MultiSelect: screen reader announces dropdown as listbox with multiselectable
 
+**Debug Pill (React):**
+- [ ] On page load, inline pill shows briefly during boot, then React pill takes over
+- [ ] Collapsed pill shows "dbg" with entry count in bottom-right corner
+- [ ] Error/warning badges appear on the pill when errors or warnings are logged
+- [ ] Click pill → expands to panel with 3 tabs: Log, Environment, PWA
+- [ ] Log tab shows timestamped entries color-coded by source and severity
+- [ ] Environment tab shows URL (with query params redacted), user agent, screen, etc.
+- [ ] PWA tab runs live diagnostics (protocol, network, SW state, manifest, standalone)
+- [ ] Click "Copy" → copies full debug report to clipboard (verify URL params are redacted as `?[redacted]`)
+- [ ] Click "Clear" → empties all log entries
+- [ ] Click "Close" → collapses back to pill
+- [ ] Trigger a console.error in DevTools → entry appears in Log tab automatically
+- [ ] In embed mode (`?embed=chart-id`) → debug pill is not rendered
+
 **Visual Stacking (Z-Index):**
-- [ ] Debug pill ("0 errors" or error count) visible in bottom-right at all times
+- [ ] Debug pill visible in bottom-right at all times (z-index 80)
 - [ ] Open Quick Guide modal → debug pill still visible above the modal overlay
 - [ ] Open hamburger menu → dropdown renders above sticky tabs bar
 - [ ] Open hamburger menu → backdrop covers content area (click backdrop closes menu)

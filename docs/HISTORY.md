@@ -4,6 +4,34 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-11
 
+### React debug system — structured logging, React DebugPill, clipboard fallbacks
+
+**Why:** The existing debug system used a simple `{time, message, stack}` array with no structure, pub/sub, console interception, or tabbed UI. Error routing used `window.__debugPushError` guards scattered across 5 files. Replaced with a complete structured system per glow-props `DEBUG_SYSTEM.md`.
+
+**Changes:**
+
+**New modules:**
+1. `js/debugLog.js` — Pub/sub circular buffer (200 entries max) with structured entries: `id`, `timestamp`, `source`, `severity`, `event`, `details`. Console interception (patches `console.error`/`console.warn` at module load). Global `window.error`/`unhandledrejection` listeners (HMR guarded). `debugGenerateReport()` with URL query param redaction. Ingests pre-existing inline pill errors and overrides `window.__debugPushError` for backward compatibility.
+2. `js/copyToClipboard.js` — Three-tier clipboard fallback: ClipboardItem Blob → writeText → textarea (mobile PWA webviews).
+3. `js/components/DebugPill.jsx` — React debug pill in separate root (`#debug-root`), survives App crashes. Inline styles (survives CSS failures). Collapsed: "dbg" pill with entry count and error/warn badges. Expanded: 3 tabs — Log (timestamped, color-coded by source/severity), Environment (runtime info, URL redacted), PWA Diagnostics (live health checks: protocol, SW state, manifest, standalone, install prompt). Copy/Clear/Close actions. Hides inline pill on mount. Skipped in embed mode.
+
+**Updated error routing (5 files):**
+4. `ErrorBoundary.jsx` — `debugAdd('render', 'error', ...)` replaces `window.__debugPushError` guard.
+5. `App.jsx` — Data load and file upload errors use `debugAdd('boot'|'import', 'error', ...)`.
+6. `pwa.js` — SW registration errors and install diagnostics use `debugAdd('pwa', ...)`.
+7. `HamburgerMenu.jsx` — Menu action errors use `debugAdd('render', 'error', ...)`.
+8. `main.jsx` — RootErrorBoundary uses `debugAdd`. Mounts DebugPill in `#debug-root`. Boot lifecycle events logged.
+
+**Infrastructure:**
+9. `index.html` — Added `<div id="debug-root">` after `#heatmap-tooltip`.
+
+**Files changed:**
+- New: `js/debugLog.js`, `js/copyToClipboard.js`, `js/components/DebugPill.jsx`
+- Modified: `index.html`, `js/main.jsx`, `js/App.jsx`, `js/pwa.js`, `js/components/ErrorBoundary.jsx`, `js/components/HamburgerMenu.jsx`
+- Docs: `CLAUDE.md`, `docs/SESSION_NOTES.md`, `docs/HISTORY.md`, `docs/TESTING_GUIDE.md`
+
+---
+
 ### React migration hardening — bugs, accessibility, architecture
 
 **Why:** Systematic review identified 3 bugs, 3 non-React patterns, and 2 accessibility gaps remaining after the V2 migration. Fixed all 12 findings.

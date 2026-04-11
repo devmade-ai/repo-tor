@@ -3,6 +3,7 @@ import { useApp } from './AppContext.jsx';
 import { useToast } from './components/Toast.jsx';
 import useScrollLock from './hooks/useScrollLock.js';
 import { embedIds, isEmbedMode, themeParam, bgParam, dataUrlParam } from './urlParams.js';
+import { debugAdd } from './debugLog.js';
 import Header from './components/Header.jsx';
 import TabBar from './components/TabBar.jsx';
 import DropZone from './components/DropZone.jsx';
@@ -240,10 +241,7 @@ export default function App() {
                     }
                     return;
                 }
-                console.error('Failed to load data:', err);
-                if (typeof window.__debugPushError === 'function') {
-                    window.__debugPushError('Data load failed: ' + err.message, err.stack);
-                }
+                debugAdd('boot', 'error', 'Data load failed: ' + err.message, { stack: err.stack });
                 const isJsonParseError = err instanceof SyntaxError;
                 const userMessage = isJsonParseError
                     ? 'The dashboard data file could not be read. It may be corrupted or in the wrong format. Try uploading a fresh export below.'
@@ -308,10 +306,7 @@ export default function App() {
                 addToast(`Loaded ${commitCount.toLocaleString()} changes${repoText}`, { type: 'success', duration: 4000 });
             }
         }).catch(err => {
-            console.error('Error loading files:', err);
-            if (typeof window.__debugPushError === 'function') {
-                window.__debugPushError('File upload failed: ' + err.message, err.stack);
-            }
+            debugAdd('import', 'error', 'File upload failed: ' + err.message, { stack: err.stack });
             const message = err instanceof SyntaxError
                 ? 'This file doesn\'t look like valid dashboard data. Try exporting from the extraction script first.'
                 : `Something went wrong reading the file: ${err.message}`;

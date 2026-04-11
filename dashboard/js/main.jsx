@@ -9,6 +9,16 @@ import { ToastProvider } from './components/Toast.jsx';
 import App from './App.jsx';
 import './pwa.js';
 
+// Requirement: Structured debug logging with console interception
+// Approach: Import debugLog.js early — at module load it patches console.error/warn,
+//   installs global error listeners, and ingests pre-existing inline pill errors.
+//   DebugPill renders in a separate React root (#debug-root) so it survives App crashes.
+// Alternatives:
+//   - Keep inline pill only: Rejected — no structured entries, no tabs, no pub/sub
+//   - Render DebugPill inside App tree: Rejected — dies when App crashes
+import { debugAdd } from './debugLog.js';
+import DebugPill from './components/DebugPill.jsx';
+
 // Chart.js registration
 import {
     Chart as ChartJS,
@@ -44,36 +54,22 @@ import { accentColor } from './chartColors.js';
     document.documentElement.style.setProperty('--chart-accent-rgb', `${r}, ${g}, ${b}`);
 })();
 
-// === Debug Banner Bridge ===
+// === Debug Bridge ===
 // Requirement: Debug pill must work even when JS bundle fails to load
-// Approach: The debug pill is created in index.html as an inline script (no bundle
-//   dependency). This module only enhances it with React-specific error info
-//   (component stacks from ErrorBoundary). The HTML script exposes:
-//   - window.__debugPushError(msg, stack)  — push errors into the HTML pill
-//   - window.__debugErrors                 — shared error array
-//   - window.__debugClearLoadTimer()       — signal React mounted successfully
+// Approach: The inline pill (index.html) handles pre-React errors. debugLog.js provides
+//   a structured pub/sub store with console interception. DebugPill.jsx renders the React
+//   UI in a separate root (#debug-root). On mount it hides the inline pill and takes over.
 // Alternatives:
-//   - Keep debug banner in main.jsx: Rejected — pill doesn't show when bundle fails,
-//     which is exactly when you need it most (see AI_MISTAKES.md: "No fallback when
-//     React fails to mount")
-//   - Duplicate error listeners: Rejected — HTML script already captures window.onerror
-//     and unhandledrejection; adding them here would double-count errors
+//   - Keep inline pill only: Rejected — no structured entries, tabs, or pub/sub
+//   - Render DebugPill inside App tree: Rejected — dies when App crashes
 
 // Signal that the JS bundle loaded and React is about to mount.
-// Clears the 10-second loading timeout warning from the HTML script.
+// Clears the 20-second loading timeout warning from the HTML script.
 if (typeof window.__debugClearLoadTimer === 'function') {
     window.__debugClearLoadTimer();
 }
 
-/**
- * Push a React-specific error into the HTML-level debug pill.
- * Used by RootErrorBoundary to include component stack traces.
- */
-function logDebugError(message, stack) {
-    if (typeof window.__debugPushError === 'function') {
-        window.__debugPushError(message, stack);
-    }
-}
+debugAdd('boot', 'info', 'React bundle loaded, mounting app');
 
 // Top-level ErrorBoundary — catches any unhandled React error
 // so the user always sees feedback instead of a blank screen.
@@ -88,8 +84,10 @@ class RootErrorBoundary extends React.Component {
     }
 
     componentDidCatch(error, info) {
-        console.error('Root ErrorBoundary caught:', error, info.componentStack);
-        logDebugError(error.message, error.stack + '\n\nComponent Stack:' + info.componentStack);
+        debugAdd('render', 'error', error.message, {
+            stack: error.stack,
+            componentStack: info.componentStack,
+        });
     }
 
     // Fix: Replaced hardcoded inline style colors with CSS variable-based classes.
@@ -139,3 +137,14 @@ root.render(
         </ToastProvider>
     </RootErrorBoundary>
 );
+
+// Requirement: Debug pill in separate React root — survives App crashes
+// Approach: Mount DebugPill in #debug-root (added to index.html), completely isolated
+//   from the App tree. If App crashes, the debug pill still shows diagnostics.
+const debugRootEl = document.getElementById('debug-root');
+if (debugRootEl) {
+    const debugRoot = createRoot(debugRootEl);
+    debugRoot.render(<DebugPill />);
+}
+
+debugAdd('boot', 'success', 'React app mounted successfully');

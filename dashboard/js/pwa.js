@@ -25,6 +25,7 @@ import {
     INSTALL_DIAGNOSTIC_TIMEOUT_MS,
     INSTALL_ANALYTICS_MAX_EVENTS,
 } from './pwaConstants.js';
+import { debugAdd } from './debugLog.js';
 
 // ── Safe storage wrappers ──
 // Local copies to avoid importing utils.js
@@ -358,11 +359,8 @@ if (supportsNativeInstall() && !earlyCaptured && !window.__pwaPromptReceived && 
         if (window.__pwaPromptReceived || deferredInstallPrompt) return;
         const hasManifest = !!document.querySelector('link[rel="manifest"]');
         const swControlled = !!navigator.serviceWorker?.controller;
-        const msg = `No beforeinstallprompt after ${INSTALL_DIAGNOSTIC_TIMEOUT_MS / 1000}s — ` +
-            `manifest: ${hasManifest}, SW controlled: ${swControlled}, standalone: ${isStandalone}`;
-        if (typeof window.__debugPushError === 'function') {
-            window.__debugPushError(msg);
-        }
+        const msg = `No beforeinstallprompt after ${INSTALL_DIAGNOSTIC_TIMEOUT_MS / 1000}s`;
+        debugAdd('pwa', 'warn', msg, { manifest: hasManifest, swControlled, standalone: isStandalone });
     }, INSTALL_DIAGNOSTIC_TIMEOUT_MS);
 }
 
@@ -523,11 +521,9 @@ updateSW = registerSW({
         setTimeout(() => checkVersionJson(), VERSION_CHECK_STARTUP_DELAY_MS);
     },
     onRegisterError(error) {
-        console.error('SW registration error:', error);
-        // Route to debug pill so users without DevTools can see SW failures
-        if (typeof window.__debugPushError === 'function') {
-            window.__debugPushError('Service worker registration failed: ' + error.message, error.stack);
-        }
+        debugAdd('pwa', 'error', 'Service worker registration failed: ' + error.message, {
+            stack: error.stack,
+        });
     }
 });
 
