@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { debugSubscribe, debugClear, debugGenerateReport } from '../debugLog.js';
+import { debugSubscribe, debugClear, debugGenerateReport, formatDebugTime, safeStringify } from '../debugLog.js';
 import { copyToClipboard } from '../copyToClipboard.js';
 
 /**
@@ -182,20 +182,6 @@ const styles = {
     },
 };
 
-/** Safe JSON.stringify — returns fallback string on circular references or throwing values. */
-function safeStringify(obj) {
-    try {
-        return JSON.stringify(obj);
-    } catch {
-        return '[unserializable]';
-    }
-}
-
-function formatTime(ts) {
-    const t = new Date(ts);
-    return `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')}:${String(t.getSeconds()).padStart(2, '0')}.${String(t.getMilliseconds()).padStart(3, '0')}`;
-}
-
 // --- PWA Diagnostics ---
 // Requirement: Active health checks for diagnosing PWA issues at runtime
 // Approach: Run live probes for HTTPS, SW state, manifest validation, standalone mode,
@@ -307,11 +293,11 @@ export default function DebugPill() {
     const copyTimerRef = useRef(null);
 
     // Subscribe to debug entries.
-    // debugSubscribe replays all current entries immediately to new subscribers,
-    // so we don't also call setEntries(debugGetEntries()) — that would duplicate
-    // every entry (direct set + replay append). The subscription alone handles
-    // both initial population and future entries.
+    // Reset entries first to handle React strict mode double-mount: without the
+    // reset, the second mount's subscription replay appends to the first mount's
+    // state, doubling every entry. setEntries([]) + replay builds cleanly from empty.
     useEffect(() => {
+        setEntries([]);
         return debugSubscribe((entry) => {
             setEntries((prev) => [...prev, entry].slice(-MAX_ENTRIES));
         });
@@ -467,7 +453,7 @@ function LogTab({ entries }) {
         <div>
             {entries.map((entry) => (
                 <div key={entry.id} style={styles.logEntry(entry.severity)}>
-                    <span style={styles.timestamp}>{formatTime(entry.timestamp)}</span>
+                    <span style={styles.timestamp}>{formatDebugTime(entry.timestamp)}</span>
                     <span style={styles.sourceTag(entry.source)}>[{entry.source}]</span>
                     <span>{entry.event}</span>
                     {entry.details && (

@@ -70,6 +70,21 @@ export function debugSubscribe(fn) {
     return () => subscribers.delete(fn);
 }
 
+// --- Shared helpers ---
+// Exported for use by DebugPill (avoids duplicating formatting logic).
+
+/** Format epoch ms as HH:MM:SS.mmm */
+export function formatDebugTime(ts) {
+    const t = new Date(ts);
+    return `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')}:${String(t.getSeconds()).padStart(2, '0')}.${String(t.getMilliseconds()).padStart(3, '0')}`;
+}
+
+/** Safe JSON.stringify — returns fallback on circular references or throwing values. */
+export function safeStringify(obj) {
+    try { return JSON.stringify(obj); }
+    catch { return '[unserializable]'; }
+}
+
 // --- Report generation ---
 // Lives in the module, not the pill component — reusable by any consumer.
 
@@ -105,14 +120,8 @@ export function debugGenerateReport() {
         '',
         '--- Log ---',
         ...entries.map((e) => {
-            const t = new Date(e.timestamp);
-            const ts = `${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')}:${String(t.getSeconds()).padStart(2, '0')}.${String(t.getMilliseconds()).padStart(3, '0')}`;
-            let detail = '';
-            if (e.details) {
-                try { detail = ` | ${JSON.stringify(e.details)}`; }
-                catch { detail = ' | [unserializable]'; }
-            }
-            return `[${ts}] [${e.severity.toUpperCase()}] [${e.source}] ${e.event}${detail}`;
+            const detail = e.details ? ` | ${safeStringify(e.details)}` : '';
+            return `[${formatDebugTime(e.timestamp)}] [${e.severity.toUpperCase()}] [${e.source}] ${e.event}${detail}`;
         }),
     ];
     return lines.join('\n');
