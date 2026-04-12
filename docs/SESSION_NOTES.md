@@ -8,25 +8,23 @@ Current state for AI assistants to continue work.
 
 **Recent Updates (2026-04-11):**
 
-### React debug system — full debugLog module, React DebugPill, clipboard fallbacks
+### React debug system — structured logging, DebugPill, clipboard fallbacks (9 commits)
 
-Replaced the simple `{time, message, stack}` error array with a complete structured debug system per glow-props `DEBUG_SYSTEM.md` spec. Second pass fixed spec compliance. Third pass fixed 4 bugs found via deep audit: duplicate entries on initial mount (subscription replay + direct set doubled every entry), HMR console interception accumulation (console patching created nested wrapper chains on hot reloads), Clear button not resetting visible textarea fallback, missing `import`/`export` source colors.
+Replaced the simple `{time, message, stack}` error array with a complete structured debug system per glow-props `DEBUG_SYSTEM.md` spec. Nine commits of incremental fixes and refactors — see `docs/HISTORY.md` for full commit chronology.
 
 **New files:**
-1. `js/debugLog.js` — Pub/sub circular buffer (200 entries) with typed entries (`source`, `severity`, `event`, `details`). Console interception (`console.error`/`console.warn` patched at module load). Global `window.error`/`unhandledrejection` listeners. Report generation with URL query param redaction. Ingests pre-existing inline pill errors on init.
-2. `js/copyToClipboard.js` — Three-tier clipboard fallback: ClipboardItem Blob → writeText → textarea (for mobile PWA webviews). When all methods fail, DebugPill shows a visible textarea with auto-select for manual copy.
-3. `js/components/DebugPill.jsx` — React debug pill in separate root (`#debug-root`). Survives App crashes. Uses inline styles (survives CSS load failures). 3 tabs: Log (color-coded entries), Environment (runtime info with URL redaction), PWA Diagnostics (live health checks with manifest icon sizes/start_url/id validation and browser info). Hides inline pill on mount. Embed mode skip handled in main.jsx (not conditionally inside component — avoids React hooks violation).
+1. `js/debugLog.js` — Pub/sub circular buffer (200 entries) with typed entries (`id`, `timestamp`, `source`, `severity`, `event`, `details`). Console interception (`console.error`/`console.warn` patched with `__debugConsolePatched` HMR guard). Global `window.error`/`unhandledrejection` listeners (HMR guarded). `debugGenerateReport()` with URL query param redaction. Pre-React error bridge using `debugAdd` with optional timestamp parameter. Exported helpers: `formatDebugTime`, `safeStringify`. `diagnoseFailure` utility for API failure mode detection.
+2. `js/copyToClipboard.js` — Three-tier clipboard fallback: ClipboardItem Blob → writeText → textarea. DebugPill adds a visible textarea with auto-select when all three fail.
+3. `js/components/DebugPill.jsx` — React debug pill in separate root (`#debug-root`). Survives App crashes. Inline styles (survives CSS failures). Collapsed pill with entry count and error/warn badges. Expanded panel with 3 tabs: Log (color-coded, auto-scroll), Environment (runtime info, URL redacted), PWA Diagnostics (live probes: protocol, network, SW state, manifest with icon sizes/start_url/id, standalone, install prompt, browser info). Monotonic stale-run cancellation for diagnostics. Copy/Clear/Close actions. Embed skip at mount point (not conditional hooks). `setEntries([])` before subscribe for strict-mode safety. Timer ref cleanup on unmount.
 
 **Modified files:**
-4. `index.html` — Added `<div id="debug-root">` for React DebugPill mount point.
-5. `main.jsx` — Imports debugLog.js, mounts DebugPill in `#debug-root` (skipped in embed mode). RootErrorBoundary uses `debugAdd`.
-6. `ErrorBoundary.jsx` — Uses `debugAdd('render', 'error', ...)` instead of `window.__debugPushError`.
-7. `App.jsx` — Data load and file upload errors route through `debugAdd`.
-8. `pwa.js` — SW registration errors and install diagnostics route through `debugAdd`.
-9. `HamburgerMenu.jsx` — Menu action errors route through `debugAdd`.
-10. `Projects.jsx` — Project list load errors route through `debugAdd`.
+4. `index.html` — Added `<div id="debug-root">`. Inline pill now stores `Date.now()` (was `toLocaleTimeString()`), added `fmtTime` helper, `render()` bails early when `window.__debugReactMounted` is true.
+5. `main.jsx` — Mounts DebugPill in `#debug-root` (skipped in embed mode). RootErrorBoundary uses `debugAdd`. Boot events logged.
+6. `ErrorBoundary.jsx`, `App.jsx`, `pwa.js`, `HamburgerMenu.jsx`, `Projects.jsx` — All error routing uses direct `debugAdd` imports instead of `window.__debugPushError` guards.
 
-**Architecture:** Inline pill (index.html) handles pre-React boot errors. debugLog.js captures everything from module load onwards (console interception + global listeners). React DebugPill subscribes to debugLog entries and takes over visual display when React mounts. Both systems run independently — no double-counting because the inline pill is hidden once React mounts. All explicit `debugAdd` callers do NOT also call `console.error`/`console.warn` to avoid duplicate entries (interception captures the remaining console calls from code that doesn't need structured source/details).
+**Architecture:** Inline pill handles pre-React errors with its own local buffer and DOM banner. debugLog.js captures everything from module load onwards (console interception + global listeners + pre-React error bridge). React DebugPill subscribes to debugLog and takes over visual display when React mounts (inline banner hidden, inline `render()` bails early). The `window.__debugPushError` override in debugLog.js maintains backward compat for any remaining callers. No duplicate entries — explicit `debugAdd` callers don't also call `console.error`/`console.warn`, and console interception has an HMR guard.
+
+**Process mistakes made this session:** Force-pushed an amended commit to fix a mixed-concerns useEffect instead of creating a new commit. Documented in `docs/AI_MISTAKES.md` (2026-04-11 entry).
 
 ### React migration hardening — 12 fixes across bugs, accessibility, and architecture
 
