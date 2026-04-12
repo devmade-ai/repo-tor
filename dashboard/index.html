@@ -48,6 +48,7 @@
         <noscript><p style="color:#e5e7eb;text-align:center;padding:48px;font-family:system-ui,sans-serif">JavaScript is required to run this dashboard.</p></noscript>
     </div>
     <div id="heatmap-tooltip"></div>
+    <div id="debug-root"></div>
     <!--
       Debug pill & loading timeout: inline script so it works even when the
       JS bundle fails to load. Captures errors, shows diagnostics, and warns
@@ -69,9 +70,20 @@
       // Track whether the main JS bundle has mounted React
       window.__debugReactMounted = false;
 
+      // Format epoch ms as HH:MM:SS for display in the inline pill
+      function fmtTime(epoch) {
+        var d = new Date(epoch);
+        return d.getHours().toString().padStart(2,'0') + ':' +
+               d.getMinutes().toString().padStart(2,'0') + ':' +
+               d.getSeconds().toString().padStart(2,'0');
+      }
+
       function pushError(msg, stack) {
         if (errors.length >= MAX_ENTRIES) errors.shift();
-        errors.push({ time: new Date().toLocaleTimeString(), message: msg, stack: stack || '' });
+        // Store numeric epoch (Date.now) so debugLog.js bridge can preserve
+        // the original error timestamp instead of using module-load time.
+        // Matches spec: glow-props DEBUG_SYSTEM.md inline pill uses Date.now().
+        errors.push({ time: Date.now(), message: msg, stack: stack || '' });
         dismissed = false;
         render();
       }
@@ -118,6 +130,12 @@
       // zIndex 80 = --z-debug. Hardcoded because CSS vars aren't available
       // before stylesheets load. Keep in sync with --z-debug in styles.css.
       function render() {
+        // Once React mounts and the React DebugPill takes over, stop updating
+        // the inline banner DOM. The error listeners still fire (can't remove
+        // from inside the IIFE), but this prevents wasted DOM operations on a
+        // hidden element.
+        if (window.__debugReactMounted) return;
+
         if (!banner) {
           banner = document.createElement('div');
           banner.id = 'debug-error-banner';
@@ -157,7 +175,7 @@
           log.id = isErrorView ? 'debug-error-log' : 'debug-info-log';
           if (isErrorView) {
             log.textContent = errors.map(function(e) {
-              return '[' + e.time + '] ' + e.message + (e.stack ? '\n' + e.stack : '');
+              return '[' + fmtTime(e.time) + '] ' + e.message + (e.stack ? '\n' + e.stack : '');
             }).join('\n---\n');
           } else {
             log.textContent = getDiagnostics();
@@ -197,7 +215,7 @@
         var action = target.getAttribute('data-action');
 
         if (action === 'copy-errors') {
-          var text = errors.map(function(e) { return '[' + e.time + '] ' + e.message + '\n' + (e.stack || ''); }).join('\n---\n');
+          var text = errors.map(function(e) { return '[' + fmtTime(e.time) + '] ' + e.message + '\n' + (e.stack || ''); }).join('\n---\n');
           navigator.clipboard.writeText(text).then(function() { target.textContent = 'Copied!'; setTimeout(function(){ target.textContent = 'Copy'; }, 1500); });
         } else if (action === 'copy-diagnostics') {
           var log = banner.querySelector('#debug-info-log');

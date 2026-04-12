@@ -138,12 +138,12 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
 - `scripts/extract-api.js` - GitHub API-based extraction (uses curl, no gh CLI needed)
 - `scripts/aggregate-processed.js` - Aggregates processed/ data into time-windowed dashboard JSON (summary + per-month commit files + weekly/daily/monthly pre-aggregations)
 - `dashboard/` - React dashboard (Vite + React + Tailwind v4 + Chart.js via react-chartjs-2)
-  - `index.html` - HTML entry point (root div, loading spinner, theme flash prevention, debug pill, PWA early capture, SW recovery)
+  - `index.html` - HTML entry point (root div, loading spinner, theme flash prevention, inline debug pill, PWA early capture, SW recovery, debug-root div)
   - `styles.css` - Tailwind v4 + custom CSS
-  - `js/main.jsx` - React entry point with Chart.js registration
+  - `js/main.jsx` - React entry point with Chart.js registration, DebugPill mount in #debug-root
   - `js/AppContext.jsx` - React Context + useReducer state management
   - `js/App.jsx` - Main app component (data loading, tab routing, layout)
-  - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection, ErrorBoundary, EmbedRenderer, HeatmapTooltip, HealthAnomalies, HealthBars, HealthWorkPatterns, HamburgerMenu, QuickGuide, ShowMoreButton, Toast, InstallInstructionsModal)
+  - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection, ErrorBoundary, EmbedRenderer, HeatmapTooltip, HealthAnomalies, HealthBars, HealthWorkPatterns, HamburgerMenu, QuickGuide, ShowMoreButton, Toast, InstallInstructionsModal, DebugPill)
   - `js/sections/` - Section components (Summary, Timeline, Timing, Progress, Contributors, Tags, Health, Discover, Projects)
   - `js/hooks/` - Custom hooks (useFocusTrap, useHealthData, useShowMore, useEscapeKey, useClickOutside, useScrollLock)
   - `js/state.js` - Constants (TAB_SECTIONS, VIEW_LEVELS, THRESHOLDS) + global state compat shim
@@ -151,6 +151,8 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
   - `js/urlParams.js` - Centralized URL query parameter parsing (single parse, shared across modules)
   - `js/charts.js` - Chart aggregation helpers
   - `js/chartColors.js` - Centralized chart color system (embed overrides)
+  - `js/debugLog.js` - Structured debug logging with pub/sub, console interception, global error capture, report generation, failure diagnosis
+  - `js/copyToClipboard.js` - Clipboard utility with multiple fallbacks (ClipboardItem Blob, writeText, textarea)
   - `js/pwa.js` - PWA install/update logic (event-based, communicates with React via CustomEvents)
   - `js/pwaConstants.js` - PWA timing/threshold constants (update intervals, settle delays, etc.)
 - `vite.config.js` - Vite build + React + Tailwind v4 + PWA plugin config

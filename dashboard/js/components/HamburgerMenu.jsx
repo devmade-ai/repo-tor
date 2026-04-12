@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef, useId } from 'react';
 import useEscapeKey from '../hooks/useEscapeKey.js';
 import { version } from '../../../package.json';
+import { debugAdd } from '../debugLog.js';
 
 // Requirement: Data-driven hamburger menu matching glow-props BurgerMenu pattern
 // Approach: Disclosure-pattern dropdown (not ARIA menu) with data-driven items array.
@@ -64,10 +65,9 @@ export default function HamburgerMenu({ items }) {
             try {
                 await action();
             } catch (e) {
-                console.error('Menu action failed:', e);
-                if (typeof window.__debugPushError === 'function') {
-                    window.__debugPushError('Menu action failed: ' + e.message, e.stack);
-                }
+                debugAdd('render', 'error', 'Menu action failed: ' + e.message, {
+                    stack: e.stack,
+                });
             }
         }, 150);
     }

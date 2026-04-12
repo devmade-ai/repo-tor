@@ -1,9 +1,9 @@
 import React from 'react';
+import { debugAdd } from '../debugLog.js';
 
 // Requirement: Catch section-level React errors and show fallback UI
 // Approach: Class component ErrorBoundary wraps each tab section. Routes
-//   errors to the debug pill (window.__debugPushError) for diagnostics
-//   AND shows inline fallback with retry button.
+//   errors to debugLog for diagnostics AND shows inline fallback with retry button.
 // Alternatives:
 //   - Let errors bubble to RootErrorBoundary: Rejected — crashes entire app
 //     for a single section failure
@@ -20,14 +20,10 @@ export default class ErrorBoundary extends React.Component {
     }
 
     componentDidCatch(error, info) {
-        console.error('ErrorBoundary caught:', error, info.componentStack);
-        // Route to debug pill so errors are visible without DevTools
-        if (typeof window.__debugPushError === 'function') {
-            window.__debugPushError(
-                error.message,
-                error.stack + '\n\nComponent Stack:' + info.componentStack
-            );
-        }
+        debugAdd('render', 'error', error.message, {
+            stack: error.stack,
+            componentStack: info.componentStack,
+        });
     }
 
     render() {

@@ -4,6 +4,36 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-11
 
+### Debug system hardening — 9 commits of fixes and refactors
+
+**Why:** After the initial debug system implementation, repeated audit passes found bugs, edge cases, spec deviations, and code-quality issues. All addressed incrementally over 9 commits.
+
+**Commits (chronological):**
+
+1. `feat(debug)`: Initial debug system — debugLog module, React DebugPill, clipboard fallbacks, `#debug-root` mount, error routing updated across 5 files.
+2. `fix(debug)`: Spec compliance pass — moved embed check to main.jsx (avoid conditional hooks), removed unused `diagRow` status param, added browser info and manifest start_url/id validation, added visible textarea clipboard fallback, routed Projects.jsx through `debugAdd`.
+3. `fix(debug)`: Bug fixes pass — removed redundant `setEntries(debugGetEntries())` causing duplicate entries on mount, added `__debugConsolePatched` HMR guard preventing nested wrapper chains on hot reload, Clear button now resets `reportText`, added `import`/`export` source colors.
+4. `chore(debug)`: Removed unused `debugGetEntries` import from DebugPill (dead after fix #3).
+5. `feat(debug)`: Added `diagnoseFailure` utility per spec — no-cors HEAD probe to distinguish CORS/network/deployment failure modes.
+6. `fix(debug)`: Defensive edge-case hardening — `safeStringify` wrapper for circular references in details (would crash LogTab), `safeString` wrapper for throwing `toString()` in console interception, `copyTimerRef` for cleanup on unmount.
+7. `fix(debug)`: Pre-React error timestamp preservation — inline pill now stores `Date.now()` instead of `toLocaleTimeString()`, added `fmtTime` helper for display, `render()` bails early when `__debugReactMounted` is true (stops wasted DOM work on hidden banner).
+8. `refactor(debug)`: Bridge refactor — pre-React error ingestion now calls `debugAdd` with optional `timestamp` parameter instead of manually constructing entries and mutating internal state.
+9. `refactor(debug)`: Deduplication + strict mode fix — exported `formatDebugTime` and `safeStringify` from debugLog.js (removed duplicates in DebugPill), added `setEntries([])` before subscription to handle React strict mode double-mount cleanly.
+
+**Architecture:**
+- `debugLog.js` — Pub/sub circular buffer (200 entries), structured entries (`id`, `timestamp`, `source`, `severity`, `event`, `details`), console interception with HMR guard, global error listeners with HMR guard, report generation with URL redaction, pre-React error bridge, `debugAdd` with optional timestamp, `diagnoseFailure` utility, shared `formatDebugTime`/`safeStringify` helpers.
+- `copyToClipboard.js` — ClipboardItem Blob → writeText → textarea fallback chain.
+- `components/DebugPill.jsx` — Separate React root (survives App crashes), inline styles (survives CSS failures), 3 tabs (Log/Environment/PWA Diagnostics), monotonic stale-run cancellation, visible textarea fallback for failed clipboard, hides inline pill on mount.
+- `index.html` inline pill — Stores `Date.now()`, bails `render()` after React mounts.
+- Error routing — ErrorBoundary, App, pwa, HamburgerMenu, Projects, main.jsx all use direct `debugAdd` imports; `window.__debugPushError` override maintained for backward compat.
+
+**Files changed:**
+- New: `js/debugLog.js`, `js/copyToClipboard.js`, `js/components/DebugPill.jsx`
+- Modified: `index.html`, `js/main.jsx`, `js/App.jsx`, `js/pwa.js`, `js/components/ErrorBoundary.jsx`, `js/components/HamburgerMenu.jsx`, `js/sections/Projects.jsx`
+- Docs: `CLAUDE.md`, `README.md`, `docs/SESSION_NOTES.md`, `docs/HISTORY.md`, `docs/TESTING_GUIDE.md`, `docs/TODO.md`, `docs/AI_MISTAKES.md`
+
+---
+
 ### React migration hardening — bugs, accessibility, architecture
 
 **Why:** Systematic review identified 3 bugs, 3 non-React patterns, and 2 accessibility gaps remaining after the V2 migration. Fixed all 12 findings.
