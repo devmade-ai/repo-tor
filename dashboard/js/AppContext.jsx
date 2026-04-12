@@ -290,17 +290,20 @@ export function AppProvider({ children }) {
     //   AND data-theme (DaisyUI semantic tokens) on every theme change. Update
     //   <meta name="theme-color"> so the PWA status bar tracks the active theme.
     //   Chart axis labels and grid lines must also update on toggle.
-    // Approach: Re-read CSS variables after class change and update Chart.js
-    //   global defaults. Previously set once in main.jsx at mount — charts kept
-    //   stale colors after toggling between light and dark mode.
+    // Approach: Apply both layers, then re-read DaisyUI's resolved
+    //   --color-base-content token and feed it to Chart.js global defaults so
+    //   canvas-rendered axis labels and grid lines match the active theme.
     //   Theme names and meta colors MUST match the inline flash prevention
     //   script in index.html — duplication is unavoidable because the inline
     //   script runs before any module loads.
     // Alternatives:
-    //   - Per-chart color props: Rejected — every chart would need theme awareness
-    //   - CSS-only chart theming: Rejected — Chart.js renders to canvas, not DOM
+    //   - Per-chart color props: Rejected — every chart would need theme awareness.
+    //   - CSS-only chart theming: Rejected — Chart.js renders to canvas, not DOM.
     //   - Only .dark class (skip data-theme): Rejected — DaisyUI components
     //     fall out of sync with Tailwind dark: utilities, producing visual bugs.
+    //   - Reading a custom --text-secondary (previous approach): Rejected — the
+    //     variable no longer exists after migration; read DaisyUI's
+    //     --color-base-content directly instead.
     useEffect(() => {
         const root = document.documentElement;
         if (state.darkMode) {
@@ -315,10 +318,20 @@ export function AppProvider({ children }) {
         document.querySelectorAll('meta[name="theme-color"]').forEach(meta => {
             meta.setAttribute('content', color);
         });
-        // Re-read CSS variables after class change and update Chart.js defaults
+        // Feed Chart.js the active theme's foreground token.
+        // DaisyUI exposes --color-base-content as an oklch(...) value. Chart.js
+        // uses this as a canvas fillStyle, which the browser parses the same way
+        // as CSS — so oklch() and color-mix() both work in Chromium 111+, Firefox
+        // 113+, and Safari 16.2+ (the same baseline as the DaisyUI themes).
+        // Axis labels use 80% alpha for "secondary text" legibility, grid lines
+        // 10% alpha to stay subtle — mirrors the old --text-secondary / --chart-grid
+        // contrast ratios without needing the custom variables.
         const styles = getComputedStyle(root);
-        ChartJS.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e5e7eb';
-        ChartJS.defaults.borderColor = styles.getPropertyValue('--chart-grid').trim() || 'rgba(255,255,255,0.1)';
+        const baseContent = styles.getPropertyValue('--color-base-content').trim();
+        if (baseContent) {
+            ChartJS.defaults.color = `color-mix(in oklab, ${baseContent} 80%, transparent)`;
+            ChartJS.defaults.borderColor = `color-mix(in oklab, ${baseContent} 10%, transparent)`;
+        }
         safeStorageSet('darkMode', String(state.darkMode));
     }, [state.darkMode]);
 

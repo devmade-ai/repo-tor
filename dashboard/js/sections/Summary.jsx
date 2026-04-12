@@ -236,38 +236,52 @@ export default function Summary() {
                 {highlights.length > 0 ? (
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                         {highlights.map((h) => (
-                            <div key={h.label} className="p-3 bg-themed-tertiary rounded">
-                                <p className="text-xs text-themed-tertiary mb-1">{h.label}</p>
-                                <p className="text-sm font-semibold text-themed-primary">{h.value}</p>
+                            <div key={h.label} className="p-3 bg-base-300 rounded">
+                                <p className="text-xs text-base-content/60 mb-1">{h.label}</p>
+                                <p className="text-sm font-semibold text-base-content">{h.value}</p>
                                 {h.subvalue && (
-                                    <p className="text-xs text-themed-tertiary">{h.subvalue}</p>
+                                    <p className="text-xs text-base-content/60">{h.subvalue}</p>
                                 )}
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary text-sm">No highlights to show for the current data</p>
+                    <p className="text-base-content/60 text-sm">No highlights to show for the current data</p>
                 )}
             </CollapsibleSection>
 
-            {/* Activity Snapshot — colorful attention-grabbing cards */}
+            {/*
+              Activity Snapshot — four attention-grabbing cards.
+              Requirement: Each metric needs a visually distinct background so users
+                can scan the four stats at a glance.
+              Approach: Use DaisyUI semantic tokens (warning / info / accent / secondary)
+                with a ~15% tint for the background and the full token for the number.
+                These auto-switch with the active theme so we don't need `dark:` pairs.
+              Alternatives:
+                - Fixed Tailwind pastels (bg-amber-50 etc.) with `dark:` pairs: Rejected —
+                  the whole point of the DaisyUI migration is to eliminate `dark:` pairs
+                  and let the theme token system drive colors.
+                - Same token for all four cards: Rejected — the stats are categorically
+                  different (after-hours / weekend / holiday / complex), so visually
+                  distinct tints help users parse them at a glance.
+            */}
             <CollapsibleSection title="Activity Snapshot" subtitle="Work timing and complexity signals">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    <div className="text-center p-3 bg-amber-50 dark:bg-amber-900/20 rounded">
-                        <p className="text-2xl font-bold text-amber-600">{metrics.afterHoursCount ?? '...'}</p>
-                        <p className="text-xs text-themed-tertiary">After-hours</p>
+                    <div className="text-center p-3 bg-warning/15 rounded">
+                        <p className="text-2xl font-bold text-warning">{metrics.afterHoursCount ?? '...'}</p>
+                        <p className="text-xs text-base-content/60">After-hours</p>
                     </div>
-                    <div className="text-center p-3 bg-indigo-50 dark:bg-indigo-900/20 rounded">
-                        <p className="text-2xl font-bold text-indigo-600">{metrics.weekendCount ?? '...'}</p>
-                        <p className="text-xs text-themed-tertiary">Weekend</p>
+                    <div className="text-center p-3 bg-info/15 rounded">
+                        <p className="text-2xl font-bold text-info">{metrics.weekendCount ?? '...'}</p>
+                        <p className="text-xs text-base-content/60">Weekend</p>
                     </div>
-                    <div className="text-center p-3 bg-pink-50 dark:bg-pink-900/20 rounded">
-                        <p className="text-2xl font-bold text-pink-600">{metrics.holidayCount ?? '...'}</p>
-                        <p className="text-xs text-themed-tertiary">Holiday</p>
+                    <div className="text-center p-3 bg-accent/15 rounded">
+                        <p className="text-2xl font-bold text-accent">{metrics.holidayCount ?? '...'}</p>
+                        <p className="text-xs text-base-content/60">Holiday</p>
                     </div>
-                    <div className="text-center p-3 bg-purple-50 dark:bg-purple-900/20 rounded">
-                        <p className="text-2xl font-bold text-purple-600">{metrics.complexChanges}</p>
-                        <p className="text-xs text-themed-tertiary">Complex</p>
+                    <div className="text-center p-3 bg-secondary/15 rounded">
+                        <p className="text-2xl font-bold text-secondary">{metrics.complexChanges}</p>
+                        <p className="text-xs text-base-content/60">Complex</p>
                     </div>
                 </div>
             </CollapsibleSection>
@@ -283,9 +297,9 @@ export default function Summary() {
                         onClick={() => handleCardClick('features')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('features'))}
                     >
-                        <div className="p-4 bg-themed-tertiary rounded-lg text-center">
-                            <div className="text-2xl font-semibold text-themed-primary">{metrics.features}</div>
-                            <div className="text-sm text-themed-tertiary">Features Built</div>
+                        <div className="p-4 bg-base-300 rounded-lg text-center">
+                            <div className="text-2xl font-semibold text-base-content">{metrics.features}</div>
+                            <div className="text-sm text-base-content/60">Features Built</div>
                         </div>
                     </div>
                     <div
@@ -296,9 +310,9 @@ export default function Summary() {
                         onClick={() => handleCardClick('fixes')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('fixes'))}
                     >
-                        <div className="p-4 bg-themed-tertiary rounded-lg text-center">
-                            <div className="text-2xl font-semibold text-themed-primary">{metrics.fixes}</div>
-                            <div className="text-sm text-themed-tertiary">Bugs Fixed</div>
+                        <div className="p-4 bg-base-300 rounded-lg text-center">
+                            <div className="text-2xl font-semibold text-base-content">{metrics.fixes}</div>
+                            <div className="text-sm text-base-content/60">Bugs Fixed</div>
                         </div>
                     </div>
                     <div
@@ -309,11 +323,11 @@ export default function Summary() {
                         onClick={() => handleCardClick('urgency')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('urgency'))}
                     >
-                        <div className="p-4 bg-themed-tertiary rounded-lg text-center">
-                            <div className="text-2xl font-semibold text-themed-primary">
+                        <div className="p-4 bg-base-300 rounded-lg text-center">
+                            <div className="text-2xl font-semibold text-base-content">
                                 {metrics.avgUrgency > 0 ? metrics.avgUrgency.toFixed(1) : '-'}
                             </div>
-                            <div className="text-sm text-themed-tertiary">Avg Urgency</div>
+                            <div className="text-sm text-base-content/60">Avg Urgency</div>
                         </div>
                     </div>
                     <div
@@ -324,11 +338,11 @@ export default function Summary() {
                         onClick={() => handleCardClick('planned')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('planned'))}
                     >
-                        <div className="p-4 bg-themed-tertiary rounded-lg text-center">
-                            <div className="text-2xl font-semibold text-themed-primary">
+                        <div className="p-4 bg-base-300 rounded-lg text-center">
+                            <div className="text-2xl font-semibold text-base-content">
                                 {metrics.plannedPct > 0 ? `${metrics.plannedPct}%` : '-'}
                             </div>
-                            <div className="text-sm text-themed-tertiary">% Planned</div>
+                            <div className="text-sm text-base-content/60">% Planned</div>
                         </div>
                     </div>
                 </div>

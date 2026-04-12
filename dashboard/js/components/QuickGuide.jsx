@@ -115,7 +115,7 @@ export default function QuickGuide({ open, onClose }) {
                 </button>
 
                 <div className="quick-guide-content">
-                    <div className="quick-guide-icon text-themed-primary">
+                    <div className="quick-guide-icon text-base-content">
                         {current.icon}
                     </div>
                     <h2 className="quick-guide-title">{current.title}</h2>

@@ -214,15 +214,15 @@ export default function Contributors() {
                             return (
                                 <div
                                     key={item.label || idx}
-                                    className={`p-3 bg-themed-tertiary rounded-lg transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-base-300' : ''}`}
+                                    className={`p-3 bg-base-300 rounded-lg transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-base-300' : ''}`}
                                     role={commitsLoaded ? 'button' : undefined}
                                     tabIndex={commitsLoaded ? 0 : undefined}
                                     aria-label={commitsLoaded ? `${item.displayName}, ${item.count} commits — click for details` : undefined}
                                     onClick={() => handleCardClick(item)}
                                     onKeyDown={commitsLoaded ? handleKeyActivate(() => handleCardClick(item)) : undefined}
                                 >
-                                    <p className="font-medium text-themed-primary mb-1">{item.displayName}</p>
-                                    <p className="text-xs text-themed-tertiary mb-2">{item.count} commits</p>
+                                    <p className="font-medium text-base-content mb-1">{item.displayName}</p>
+                                    <p className="text-xs text-base-content/60 mb-2">{item.count} commits</p>
                                     <div className="space-y-1">
                                         {topTags.map(([tag, count]) => {
                                             const pct = totalTags > 0 ? Math.round((count / totalTags) * 100) : 0;
@@ -240,7 +240,7 @@ export default function Contributors() {
                                                             style={{ width: `${pct}%`, backgroundColor: getTagColor(tag) }}
                                                         />
                                                     </div>
-                                                    <span className="text-xs text-themed-tertiary w-8">{pct}%</span>
+                                                    <span className="text-xs text-base-content/60 w-8">{pct}%</span>
                                                 </div>
                                             );
                                         })}
@@ -254,7 +254,7 @@ export default function Contributors() {
                     )}
                 </>
                 ) : (
-                    <p className="text-themed-tertiary">Nothing matches the current filters. Try adjusting your selections.</p>
+                    <p className="text-base-content/60">Nothing matches the current filters. Try adjusting your selections.</p>
                 )}
             </CollapsibleSection>
 

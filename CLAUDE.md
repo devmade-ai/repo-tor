@@ -69,9 +69,14 @@ Good: "This file doesn't look like a dashboard data file. Try exporting from the
 
 - [ ] All custom styles in `dashboard/styles.css` — Tailwind + DaisyUI utility classes in JSX are fine (framework convention)
 - [ ] No inline `style={}` objects in JSX unless values are dynamic/computed
-- [ ] Use DaisyUI semantic tokens (`bg-base-100/200/300`, `text-base-content`, `text-error`, etc.) or CSS variables for theming — never hardcode theme values
+- [ ] Use DaisyUI semantic tokens for theming — never hardcode theme values:
+  - Surfaces: `bg-base-100` (page) / `bg-base-200` (cards, elevated) / `bg-base-300` (inputs, progress rails, hover states)
+  - Text: `text-base-content` (primary) / `text-base-content/80` (secondary) / `text-base-content/60` (tertiary) / `text-base-content/40` (muted)
+  - Borders: `border-base-300` (visible) / `border-base-200` (subtle)
+  - Status: `text-error` / `bg-error/10` / `text-warning` / `text-success` / `text-info` / `text-primary` / `text-secondary` / `text-accent`
 - [ ] No `<script>` tags — all JS through ES module imports (exceptions: debug pill and PWA early capture in index.html, which must run before modules load)
 - [ ] Maintain light/dark mode support via dual-layer theming (`.dark` class + `data-theme` attribute). Prefer DaisyUI semantic tokens (auto-switch with theme) over `dark:` prefix pairs. See `docs/implementations/THEME_DARK_MODE.md`.
+- [ ] Never re-introduce custom `--bg-*`, `--text-*`, `--border-*`, `--color-primary-alpha`, `--chart-grid`, or `--glow-*` variables — they were fully removed in the 2026-04-12 migration. Use DaisyUI tokens or inline `color-mix(in oklab, var(--color-primary) X%, transparent)` for tinted variants.
 
 ### Documentation
 

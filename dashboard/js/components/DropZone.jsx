@@ -74,8 +74,8 @@ export default function DropZone({ onFiles }) {
                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                         />
                     </svg>
-                    <p className="text-themed-primary font-medium">Drop JSON files here</p>
-                    <p className="text-sm text-themed-tertiary mt-2">or click to browse</p>
+                    <p className="text-base-content font-medium">Drop JSON files here</p>
+                    <p className="text-sm text-base-content/60 mt-2">or click to browse</p>
                 </div>
             </div>
             <input

@@ -93,28 +93,35 @@ export default function App() {
     useScrollLock(state.detailPane.open || state.settingsPaneOpen);
 
     // Apply embed overrides from URL: ?theme=light|dark, ?bg=hex|transparent
-    // Requirement: Let embedder apps match the embedded element's background to their site
-    // Approach: Override dark class and --bg-primary CSS variable on mount.
-    //   Runs inside React lifecycle (useEffect) instead of module scope to avoid
-    //   racing with AppContext's darkMode effect which also manages the dark class.
+    // Requirement: Let embedder apps match the embedded element's background to their site.
+    // Approach: Override the .dark class / data-theme attribute for the theme
+    //   parameter, and override DaisyUI's --color-base-100 token (the page
+    //   background) for the bg parameter. Runs inside React lifecycle (useEffect)
+    //   instead of module scope to avoid racing with AppContext's darkMode effect.
     // Alternatives:
-    //   - Module-scope overrides: Rejected — raced with React dark mode management
-    //   - postMessage from parent: Rejected — URL params are simpler and stateless
+    //   - Module-scope overrides: Rejected — raced with React dark mode management.
+    //   - postMessage from parent: Rejected — URL params are simpler and stateless.
+    //   - Override the old --bg-primary variable: Obsolete — that alias was removed
+    //     in the DaisyUI migration. --color-base-100 is the DaisyUI token body
+    //     reads via `background-color: var(--color-base-100)` in styles.css.
     useEffect(() => {
         if (!isEmbedMode) return;
+        const root = document.documentElement;
         if (themeParam === 'light') {
-            document.documentElement.classList.remove('dark');
+            root.classList.remove('dark');
+            root.setAttribute('data-theme', 'lofi');
         } else if (themeParam === 'dark') {
-            document.documentElement.classList.add('dark');
+            root.classList.add('dark');
+            root.setAttribute('data-theme', 'black');
         }
         if (bgParam) {
             // Validate: only accept 'transparent' or valid hex color (3-8 hex chars)
             // to prevent CSS injection via malformed values
             const hexValue = bgParam.startsWith('#') ? bgParam : `#${bgParam}`;
             if (bgParam === 'transparent') {
-                document.documentElement.style.setProperty('--bg-primary', 'transparent');
+                root.style.setProperty('--color-base-100', 'transparent');
             } else if (/^#[0-9a-fA-F]{3,8}$/.test(hexValue)) {
-                document.documentElement.style.setProperty('--bg-primary', hexValue);
+                root.style.setProperty('--color-base-100', hexValue);
             }
         }
     }, []);
@@ -319,7 +326,7 @@ export default function App() {
         return (
             <div className="flex items-center justify-center min-h-screen flex-col gap-4">
                 <div className="loading-spinner loading-spinner-lg" />
-                <p className="text-sm text-themed-tertiary">Loading dashboard&hellip;</p>
+                <p className="text-sm text-base-content/60">Loading dashboard&hellip;</p>
             </div>
         );
     }
@@ -344,10 +351,10 @@ export default function App() {
                 {loadError && (
                     <div role="alert" className="max-w-2xl mx-auto px-4 pt-12 pb-4">
                         <div className="card text-center">
-                            <p className="text-themed-primary text-base mb-2">
+                            <p className="text-base-content text-base mb-2">
                                 Could not load dashboard data
                             </p>
-                            <p className="text-themed-tertiary text-sm mb-4">
+                            <p className="text-base-content/60 text-sm mb-4">
                                 {loadError}
                             </p>
                             <button
@@ -377,16 +384,16 @@ export default function App() {
                             {state.activeTab === 'activity' && (
                                 <div className="space-y-6">
                                     <Timeline />
-                                    <hr className="border-themed opacity-30" />
+                                    <hr className="border-base-300 opacity-30" />
                                     <Timing />
                                 </div>
                             )}
                             {state.activeTab === 'work' && (
                                 <div className="space-y-6">
                                     <Progress />
-                                    <hr className="border-themed opacity-30" />
+                                    <hr className="border-base-300 opacity-30" />
                                     <Contributors />
-                                    <hr className="border-themed opacity-30" />
+                                    <hr className="border-base-300 opacity-30" />
                                     <Tags />
                                 </div>
                             )}

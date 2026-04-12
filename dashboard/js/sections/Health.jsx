@@ -174,21 +174,21 @@ export default function Health() {
         // Phase 1: summary events
         if (!commitsLoaded) {
             if (securityEvents.length === 0) {
-                return <p className="text-themed-tertiary text-center py-4">No security-related commits found</p>;
+                return <p className="text-base-content/60 text-center py-4">No security-related commits found</p>;
             }
             return (
                 <div className="space-y-2">
                     <div className="p-4 bg-error/10 border border-error/40 rounded-lg text-center mb-3">
                         <div className="text-3xl font-bold text-error">{securityEvents.length}</div>
-                        <div className="text-sm text-themed-secondary">Security-related commits</div>
+                        <div className="text-sm text-base-content/80">Security-related commits</div>
                     </div>
                     {securityEvents.slice(0, 5).map((event, idx) => (
                         <div key={event.sha || idx} className="p-3 bg-error/5 border border-error/20 rounded">
                             <div className="flex items-start gap-2">
                                 <span className="tag tag-security">security</span>
                                 <div className="flex-1">
-                                    <p className="text-sm font-medium text-themed-primary">{sanitizeMessage(event.subject || 'Security commit')}</p>
-                                    <p className="text-xs text-themed-tertiary mt-1">{event.timestamp ? formatDate(event.timestamp) : ''}</p>
+                                    <p className="text-sm font-medium text-base-content">{sanitizeMessage(event.subject || 'Security commit')}</p>
+                                    <p className="text-xs text-base-content/60 mt-1">{event.timestamp ? formatDate(event.timestamp) : ''}</p>
                                 </div>
                             </div>
                         </div>
@@ -198,7 +198,7 @@ export default function Health() {
         }
 
         if (securityCommits.length === 0) {
-            return <p className="text-themed-tertiary text-center py-4">No security-related commits found</p>;
+            return <p className="text-base-content/60 text-center py-4">No security-related commits found</p>;
         }
 
         // Executive view: count + date range
@@ -208,8 +208,8 @@ export default function Health() {
             return (
                 <div className="p-4 bg-error/10 border border-error/40 rounded-lg text-center">
                     <div className="text-3xl font-bold text-error mb-1">{securityCommits.length}</div>
-                    <div className="text-sm text-themed-secondary mb-2">Security-related commits</div>
-                    <div className="text-xs text-themed-tertiary">
+                    <div className="text-sm text-base-content/80 mb-2">Security-related commits</div>
+                    <div className="text-xs text-base-content/60">
                         {dateRange.earliest} &mdash; {dateRange.latest}
                         {repos.length > 0 && <><br />Across {repos.length} repositories</>}
                     </div>
@@ -229,19 +229,19 @@ export default function Health() {
                 <div className="space-y-2">
                     <div className="p-3 bg-error/10 border border-error/40 rounded-lg text-center mb-3">
                         <div className="text-2xl font-bold text-error">{securityCommits.length}</div>
-                        <div className="text-sm text-themed-secondary">Total security commits</div>
+                        <div className="text-sm text-base-content/80">Total security commits</div>
                     </div>
                     {sortedRepos.map(([repo, count]) => (
                         <div
                             key={repo}
-                            className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-base-300 transition-colors"
+                            className="p-3 bg-base-300 rounded-lg cursor-pointer hover:bg-base-300 transition-colors"
                             role="button" tabIndex={0}
                             aria-label={`View security commits for ${repo}`}
                             onClick={() => handleSecurityRepoClick(repo)}
                             onKeyDown={handleKeyActivate(() => handleSecurityRepoClick(repo))}
                         >
                             <div className="flex justify-between items-center">
-                                <span className="text-themed-primary font-medium">{repo}</span>
+                                <span className="text-base-content font-medium">{repo}</span>
                                 <span className="text-error font-semibold">{count} commits</span>
                             </div>
                         </div>
@@ -258,8 +258,8 @@ export default function Health() {
                         <div className="flex items-start gap-2">
                             <span className="tag tag-security">security</span>
                             <div className="flex-1">
-                                <p className="text-sm font-medium text-themed-primary">{sanitizeMessage(getCommitSubject(commit))}</p>
-                                <p className="text-xs text-themed-tertiary mt-1">
+                                <p className="text-sm font-medium text-base-content">{sanitizeMessage(getCommitSubject(commit))}</p>
+                                <p className="text-xs text-base-content/60 mt-1">
                                     {commit.sha} by {getAuthorName(commit)} on {formatDate(commit.timestamp)}
                                     {commit.repo_id && ` in ${commit.repo_id}`}
                                 </p>
@@ -312,8 +312,8 @@ export default function Health() {
                                 onKeyDown={clickable ? handleKeyActivate(() => handleUrgencyFilterClick(filter)) : undefined}
                             >
                                 <div className="flex justify-between text-sm mb-1">
-                                    <span className="text-themed-secondary">{label}</span>
-                                    <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
+                                    <span className="text-base-content/80">{label}</span>
+                                    <span className="text-base-content font-medium">{count} ({pct}%)</span>
                                 </div>
                                 <div className="w-full bg-base-300 rounded-full h-2">
                                     <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
@@ -340,8 +340,8 @@ export default function Health() {
                                 onKeyDown={clickable ? handleKeyActivate(() => handleImpactFilterClick(key)) : undefined}
                             >
                                 <div className="flex justify-between text-sm mb-1">
-                                    <span className="text-themed-secondary">{label}</span>
-                                    <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
+                                    <span className="text-base-content/80">{label}</span>
+                                    <span className="text-base-content font-medium">{count} ({pct}%)</span>
                                 </div>
                                 <div className="w-full bg-base-300 rounded-full h-2">
                                     <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />

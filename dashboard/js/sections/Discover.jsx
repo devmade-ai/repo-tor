@@ -568,7 +568,7 @@ export default function Discover() {
             <CollapsibleSection title="Metrics" subtitle="Pick a metric or shuffle for surprises">
                 <div className="flex justify-end mb-3">
                     <button
-                        className="text-xs text-themed-secondary hover:text-themed-primary"
+                        className="text-xs text-base-content/80 hover:text-base-content"
                         onClick={handleShuffle}
                     >
                         Shuffle
@@ -581,7 +581,7 @@ export default function Discover() {
                             <div key={selectedMetrics[idx]} className="card">
                                 <div className="flex items-center justify-between mb-2 gap-1">
                                     <select
-                                        className="metric-selector text-xs bg-themed-tertiary text-themed-secondary rounded px-1 py-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500 min-w-0 truncate"
+                                        className="metric-selector text-xs bg-base-300 text-base-content/80 rounded px-1 py-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500 min-w-0 truncate"
                                         value={isPinned ? selectedMetrics[idx] : 'random'}
                                         onChange={(e) => handleSelectChange(idx, e.target.value)}
                                     >
@@ -591,7 +591,7 @@ export default function Discover() {
                                         ))}
                                     </select>
                                     <button
-                                        className={`pin-btn text-xs flex-shrink-0 ${isPinned ? 'text-blue-500' : 'text-themed-muted'} hover:text-blue-500`}
+                                        className={`pin-btn text-xs flex-shrink-0 ${isPinned ? 'text-blue-500' : 'text-base-content/40'} hover:text-blue-500`}
                                         aria-label={isPinned ? 'Unpin this metric' : 'Pin this metric'}
                                         title={isPinned ? 'Unpin' : 'Pin this metric'}
                                         onClick={() => handlePinToggle(idx)}
@@ -601,10 +601,10 @@ export default function Discover() {
                                         </svg>
                                     </button>
                                 </div>
-                                <p className="text-2xl sm:text-3xl font-bold text-themed-primary">{metricResult.value}</p>
-                                <p className="text-xs text-themed-muted">{metricResult.sub}</p>
+                                <p className="text-2xl sm:text-3xl font-bold text-base-content">{metricResult.value}</p>
+                                <p className="text-xs text-base-content/40">{metricResult.sub}</p>
                                 {metricResult.description && (
-                                    <p className="text-xs text-themed-tertiary mt-2 leading-snug">{metricResult.description}</p>
+                                    <p className="text-xs text-base-content/60 mt-2 leading-snug">{metricResult.description}</p>
                                 )}
                             </div>
                         );
@@ -622,17 +622,17 @@ export default function Discover() {
                             const rightPct = 100 - leftPct;
 
                             return (
-                                <div key={comp.label} className="p-3 bg-themed-tertiary rounded">
-                                    <p className="text-xs text-themed-tertiary mb-2">{comp.label}</p>
+                                <div key={comp.label} className="p-3 bg-base-300 rounded">
+                                    <p className="text-xs text-base-content/60 mb-2">{comp.label}</p>
                                     <div className="flex items-center gap-2">
-                                        <span className="text-xs sm:text-sm font-medium text-themed-primary w-16 sm:w-20 flex-shrink-0">{comp.left.label}</span>
+                                        <span className="text-xs sm:text-sm font-medium text-base-content w-16 sm:w-20 flex-shrink-0">{comp.left.label}</span>
                                         <div className="flex-1 h-4 bg-base-300 rounded-full overflow-hidden flex">
                                             <div className="h-full bg-green-500" style={{ width: `${leftPct}%` }} />
                                             <div className="h-full bg-amber-500" style={{ width: `${rightPct}%` }} />
                                         </div>
-                                        <span className="text-xs sm:text-sm font-medium text-themed-primary w-16 sm:w-20 text-right flex-shrink-0">{comp.right.label}</span>
+                                        <span className="text-xs sm:text-sm font-medium text-base-content w-16 sm:w-20 text-right flex-shrink-0">{comp.right.label}</span>
                                     </div>
-                                    <div className="flex justify-between text-xs text-themed-muted mt-1">
+                                    <div className="flex justify-between text-xs text-base-content/40 mt-1">
                                         <span>{comp.left.value.toLocaleString()} ({leftPct}%)</span>
                                         <span>{comp.right.value.toLocaleString()} ({rightPct}%)</span>
                                     </div>
@@ -641,7 +641,7 @@ export default function Discover() {
                         })}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
+                    <p className="text-base-content/60 text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
                 )}
             </CollapsibleSection>
 
@@ -650,7 +650,7 @@ export default function Discover() {
                 {fileInsights === 'loading' ? (
                     <div className="flex items-center gap-2 py-4 justify-center">
                         <div className="loading-spinner loading-spinner-sm" />
-                        <p className="text-themed-tertiary text-sm">Loading file data&hellip;</p>
+                        <p className="text-base-content/60 text-sm">Loading file data&hellip;</p>
                     </div>
                 ) : visibleFiles.length > 0 ? (
                     <div className="space-y-3">
@@ -658,12 +658,12 @@ export default function Discover() {
                             <div key={path} className="flex items-center gap-3">
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center justify-between mb-1 gap-2">
-                                        <span className="text-sm font-medium text-themed-primary truncate" title={path}>
+                                        <span className="text-sm font-medium text-base-content truncate" title={path}>
                                             {name}
                                         </span>
-                                        <span className="text-xs text-themed-tertiary whitespace-nowrap">{count} changes</span>
+                                        <span className="text-xs text-base-content/60 whitespace-nowrap">{count} changes</span>
                                     </div>
-                                    <div className="h-2 bg-themed-tertiary rounded-full overflow-hidden">
+                                    <div className="h-2 bg-base-300 rounded-full overflow-hidden">
                                         <div className="h-full bg-blue-500 rounded-full" style={{ width: `${pct}%` }} />
                                     </div>
                                 </div>
@@ -674,7 +674,7 @@ export default function Discover() {
                         )}
                     </div>
                 ) : (
-                    <p className="text-themed-tertiary text-sm">No file data available for the current selection.</p>
+                    <p className="text-base-content/60 text-sm">No file data available for the current selection.</p>
                 )}
             </CollapsibleSection>
         </div>

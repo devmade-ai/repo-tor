@@ -37,14 +37,14 @@ export default function HealthWorkPatterns({ metrics, onCardClick }) {
                 {cards.map(({ type, value, label }) => (
                     <div
                         key={type}
-                        className={`p-4 bg-themed-tertiary rounded-lg text-center transition-all ${clickable ? 'cursor-pointer hover:ring-2 hover:ring-blue-500' : ''}`}
+                        className={`p-4 bg-base-300 rounded-lg text-center transition-all ${clickable ? 'cursor-pointer hover:ring-2 hover:ring-blue-500' : ''}`}
                         role={clickable ? 'button' : undefined}
                         tabIndex={clickable ? 0 : undefined}
                         onClick={clickable ? () => onCardClick(type) : undefined}
                         onKeyDown={clickable ? handleKeyActivate(() => onCardClick(type)) : undefined}
                     >
-                        <div className="text-2xl font-semibold text-themed-primary">{value}</div>
-                        <div className="text-sm text-themed-tertiary">{label}</div>
+                        <div className="text-2xl font-semibold text-base-content">{value}</div>
+                        <div className="text-sm text-base-content/60">{label}</div>
                     </div>
                 ))}
             </div>

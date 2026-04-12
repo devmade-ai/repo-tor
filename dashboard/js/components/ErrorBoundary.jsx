@@ -30,7 +30,7 @@ export default class ErrorBoundary extends React.Component {
         if (this.state.hasError) {
             return (
                 <div className="card error-boundary-card">
-                    <p className="text-themed-secondary text-sm">Something went wrong rendering this section.</p>
+                    <p className="text-base-content/80 text-sm">Something went wrong rendering this section.</p>
                     <button
                         className="btn-icon btn-secondary mt-3"
                         onClick={() => this.setState({ hasError: false, error: null })}

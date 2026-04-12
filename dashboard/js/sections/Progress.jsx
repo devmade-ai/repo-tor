@@ -365,9 +365,9 @@ export default function Progress() {
                                     >
                                         <div className="flex items-center gap-2">
                                             <div className={`w-3 h-3 rounded-full ${colorClass}`} />
-                                            <span className="text-sm text-themed-secondary font-medium">{label}</span>
-                                            <span className="text-xs text-themed-tertiary">({desc})</span>
-                                            <span className="ml-auto text-sm text-themed-primary font-medium">{count} ({pct}%)</span>
+                                            <span className="text-sm text-base-content/80 font-medium">{label}</span>
+                                            <span className="text-xs text-base-content/60">({desc})</span>
+                                            <span className="ml-auto text-sm text-base-content font-medium">{count} ({pct}%)</span>
                                         </div>
                                     </div>
                                 );
@@ -395,8 +395,8 @@ export default function Progress() {
                                     onKeyDown={handleKeyActivate(() => handleEpicClick(epic))}
                                 >
                                     <div className="flex justify-between text-sm mb-1">
-                                        <span className="text-themed-secondary font-medium">{epic}</span>
-                                        <span className="text-themed-primary font-medium">{count} commits ({pct}%)</span>
+                                        <span className="text-base-content/80 font-medium">{epic}</span>
+                                        <span className="text-base-content font-medium">{count} commits ({pct}%)</span>
                                     </div>
                                     <div className="w-full bg-base-300 rounded-full h-2">
                                         <div className="bg-indigo-500 h-2 rounded-full" style={{ width: `${pct}%` }} />
@@ -424,41 +424,41 @@ export default function Progress() {
             <CollapsibleSection title="Summary">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
-                        className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${metrics.featureCount} feature commits`}
                         onClick={() => handleCardClick('features')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('features'))}
                     >
-                        <div className="text-2xl font-semibold text-themed-primary">{metrics.featureCount}</div>
-                        <div className="text-sm text-themed-tertiary">Features</div>
+                        <div className="text-2xl font-semibold text-base-content">{metrics.featureCount}</div>
+                        <div className="text-sm text-base-content/60">Features</div>
                     </div>
                     <div
-                        className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${metrics.bugfixCount} bug fix commits`}
                         onClick={() => handleCardClick('bugfixes')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('bugfixes'))}
                     >
-                        <div className="text-2xl font-semibold text-themed-primary">{metrics.bugfixCount}</div>
-                        <div className="text-sm text-themed-tertiary">Bug Fixes</div>
+                        <div className="text-2xl font-semibold text-base-content">{metrics.bugfixCount}</div>
+                        <div className="text-sm text-base-content/60">Bug Fixes</div>
                     </div>
                     <div
-                        className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${metrics.refactorCount} refactor commits`}
                         onClick={() => handleCardClick('refactors')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('refactors'))}
                     >
-                        <div className="text-2xl font-semibold text-themed-primary">{metrics.refactorCount}</div>
-                        <div className="text-sm text-themed-tertiary">Refactors</div>
+                        <div className="text-2xl font-semibold text-base-content">{metrics.refactorCount}</div>
+                        <div className="text-sm text-base-content/60">Refactors</div>
                     </div>
-                    <div className="p-4 bg-themed-tertiary rounded-lg text-center">
-                        <div className="text-2xl font-semibold text-themed-primary">{metrics.avgComplexity}</div>
-                        <div className="text-sm text-themed-tertiary">Avg Complexity</div>
+                    <div className="p-4 bg-base-300 rounded-lg text-center">
+                        <div className="text-2xl font-semibold text-base-content">{metrics.avgComplexity}</div>
+                        <div className="text-sm text-base-content/60">Avg Complexity</div>
                     </div>
                 </div>
             </CollapsibleSection>

@@ -517,7 +517,16 @@ Shows how much effort went into multi-commit initiatives like feature builds or 
 
 ## Theme
 
-The dashboard supports both light and dark themes. On first visit, it follows your system preference (dark or light mode). Your choice is remembered across visits and syncs across browser tabs. Author names are anonymized in the dashboard for privacy.
+The dashboard supports both light and dark themes:
+
+- **First visit** — the dashboard follows your operating system's preference. If your OS is set to dark mode, the dashboard opens in dark mode; if light, it opens in light mode.
+- **Toggle manually** — open the menu (☰) and click "Light mode" / "Dark mode". The label shows what will happen when you click — so "Light mode" means "switch to light mode from the current dark mode".
+- **Your choice sticks** — once you toggle manually, the dashboard remembers your preference across visits. It will no longer follow the OS preference.
+- **Cross-tab sync** — if you have the dashboard open in multiple tabs and toggle the theme in one, the others update automatically.
+- **Mobile status bar** — on mobile devices, the browser's status bar color (iOS Safari, Android Chrome) matches the active theme so the dashboard feels integrated.
+- **Print / PDF** — saving as PDF (via the menu) forces a clean white background and black text regardless of the theme you're viewing, so exported reports are always readable when printed on paper.
+
+Author names are anonymized in the dashboard for privacy.
 
 ---
 

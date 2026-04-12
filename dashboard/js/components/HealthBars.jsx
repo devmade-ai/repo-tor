@@ -32,15 +32,15 @@ export const UrgencyBar = React.memo(function UrgencyBar({ counts, total, label,
             onClick={onClick}
         >
             <div className="flex justify-between text-sm mb-1">
-                <span className="text-themed-secondary font-medium">{label}</span>
-                <span className="text-themed-tertiary">{total} commits</span>
+                <span className="text-base-content/80 font-medium">{label}</span>
+                <span className="text-base-content/60">{total} commits</span>
             </div>
             <div className="w-full h-2 bg-base-300 rounded-full flex overflow-hidden">
                 <div className="bg-green-500 h-full" style={{ width: `${plannedPct}%` }} title={`Planned: ${counts.planned}`} />
                 <div className="bg-blue-500 h-full" style={{ width: `${normalPct}%` }} title={`Normal: ${counts.normal}`} />
                 <div className="bg-amber-500 h-full" style={{ width: `${reactivePct}%` }} title={`Reactive: ${counts.reactive}`} />
             </div>
-            <div className="flex justify-between text-xs text-themed-tertiary mt-1">
+            <div className="flex justify-between text-xs text-base-content/60 mt-1">
                 <span>Planned {plannedPct}%</span>
                 <span>Normal {normalPct}%</span>
                 <span>Reactive {reactivePct}%</span>
@@ -69,8 +69,8 @@ export const ImpactBar = React.memo(function ImpactBar({ counts, total, label, o
             onClick={onClick}
         >
             <div className="flex justify-between text-sm mb-1">
-                <span className="text-themed-secondary font-medium">{label}</span>
-                <span className="text-themed-tertiary">{total} commits</span>
+                <span className="text-base-content/80 font-medium">{label}</span>
+                <span className="text-base-content/60">{total} commits</span>
             </div>
             <div className="w-full h-2 bg-base-300 rounded-full flex overflow-hidden">
                 <div className="bg-blue-500 h-full" style={{ width: `${userPct}%` }} title={`User-facing: ${counts['user-facing'] || 0}`} />
@@ -78,7 +78,7 @@ export const ImpactBar = React.memo(function ImpactBar({ counts, total, label, o
                 <div className="bg-purple-500 h-full" style={{ width: `${infraPct}%` }} title={`Infrastructure: ${counts['infrastructure'] || 0}`} />
                 <div className="bg-green-500 h-full" style={{ width: `${apiPct}%` }} title={`API: ${counts['api'] || 0}`} />
             </div>
-            <div className="flex justify-between text-xs text-themed-tertiary mt-1">
+            <div className="flex justify-between text-xs text-base-content/60 mt-1">
                 <span>User {userPct}%</span>
                 <span>Internal {internalPct}%</span>
                 <span>Infra {infraPct}%</span>

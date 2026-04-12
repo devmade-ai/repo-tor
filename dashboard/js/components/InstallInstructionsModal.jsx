@@ -40,8 +40,8 @@ export default function InstallInstructionsModal({ isOpen, onClose, instructions
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
                     <div>
-                        <h2 className="text-themed-primary text-base font-semibold">Install App</h2>
-                        <p className="text-themed-tertiary text-xs">{instructions.browser}</p>
+                        <h2 className="text-base-content text-base font-semibold">Install App</h2>
+                        <p className="text-base-content/60 text-xs">{instructions.browser}</p>
                     </div>
                 </div>
 
@@ -50,7 +50,7 @@ export default function InstallInstructionsModal({ isOpen, onClose, instructions
                     {instructions.steps.map((step, i) => (
                         <li key={i} className="install-modal-step">
                             <span className="install-modal-step-number">{i + 1}</span>
-                            <span className="text-themed-secondary text-sm">{step}</span>
+                            <span className="text-base-content/80 text-sm">{step}</span>
                         </li>
                     ))}
                 </ol>
@@ -64,8 +64,8 @@ export default function InstallInstructionsModal({ isOpen, onClose, instructions
 
                 {/* Benefits — helps non-technical users understand WHY to install */}
                 <div className="install-modal-benefits">
-                    <p className="text-themed-tertiary text-xs mb-2">Benefits of installing:</p>
-                    <ul className="text-themed-muted text-xs">
+                    <p className="text-base-content/60 text-xs mb-2">Benefits of installing:</p>
+                    <ul className="text-base-content/40 text-xs">
                         <li>Works offline</li>
                         <li>Launches from your dock or home screen</li>
                         <li>Full-screen experience without browser controls</li>

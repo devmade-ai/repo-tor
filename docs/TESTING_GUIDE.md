@@ -140,14 +140,55 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Escape key closes detail pane
 - [ ] Mobile: detail pane appears as bottom sheet
 
-**Theme (Light/Dark Mode):**
-- [ ] Dashboard respects system preference on first visit
-- [ ] Theme persists across page reloads (check localStorage `darkMode`)
-- [ ] Cross-tab sync: changing theme in one tab updates other tabs
-- [ ] No flash of wrong theme on page load (flash prevention script)
-- [ ] All charts render correctly in both light and dark modes
-- [ ] Chart axis labels and grid lines update color when toggling theme (not stale)
-- [ ] Detail pane, filter sidebar, settings pane all follow theme
+**Theme (Light/Dark Mode) — DaisyUI dual-layer theming:**
+
+*First visit / system preference:*
+- [ ] Clear localStorage → reload → dashboard matches OS preference (dark if OS is dark, light if OS is light)
+- [ ] With no stored preference, changing OS dark mode → dashboard follows (media query listener)
+- [ ] Once user toggles manually → OS preference changes are ignored (stored preference wins)
+
+*Dual-layer attributes:*
+- [ ] In DevTools, inspect `<html>` element — in dark mode it should have BOTH `class="dark"` AND `data-theme="black"`
+- [ ] In light mode it should have NO `dark` class AND `data-theme="lofi"`
+- [ ] `html.dark { color-scheme: dark }` is applied — open Settings and see native selects use dark dropdowns in dark mode
+- [ ] In light mode, native selects use light dropdowns
+
+*Flash prevention:*
+- [ ] Reload the page in dark mode with slow network throttling — the page starts dark, no white flash before React mounts
+- [ ] Reload in light mode — page starts light, no dark flash
+
+*Cross-tab sync:*
+- [ ] Open dashboard in two tabs
+- [ ] Toggle dark mode in tab A (menu ☰ → Dark/Light mode)
+- [ ] Tab B updates to match within a frame (storage event listener)
+- [ ] Tab B also picks up the new `data-theme` attribute and `<meta name="theme-color">` value
+
+*PWA status bar:*
+- [ ] Open DevTools → Elements → `<head>` → find both `<meta name="theme-color">` tags
+- [ ] In dark mode both tags have `content="#000000"` (DaisyUI black base-100)
+- [ ] In light mode both tags have `content="#ffffff"` (DaisyUI lofi base-100)
+- [ ] On mobile (or device toolbar emulation), the browser status bar color matches
+
+*Charts:*
+- [ ] Toggle theme while on the Timeline tab — chart axis labels change color in under a second
+- [ ] No stale colors on any of the 11 charts (Summary stat cards, Timeline, Timing heatmap, Progress, Contributors, Tags doughnut, Health, Discover)
+- [ ] Chart grid lines visible but subtle in both themes (10% opacity of base-content)
+
+*Surfaces auto-switch:*
+- [ ] Cards, filter sidebar, detail pane, settings pane, hamburger dropdown, quick guide modal — all follow theme instantly
+- [ ] Borders visible in both themes
+- [ ] No white text on white background anywhere
+- [ ] No dark text on dark background anywhere
+- [ ] Hover states on interactive cards still work in both themes (base-200 / base-300)
+
+*Semantic tokens:*
+- [ ] Health section security cards use DaisyUI `error` token — background + border + count color all red family
+- [ ] Summary Activity Snapshot cards: After-hours (warning), Weekend (info), Holiday (accent), Complex (secondary)
+- [ ] Timeline complexity badges: high=secondary, medium=info, low=base-300
+- [ ] Toast notifications (success/error/warning/info) use DaisyUI semantic tokens with their `-content` foreground colors for legibility
+
+*Print/PDF:*
+- [ ] Menu → Save as PDF → print preview shows white background, black text, regardless of the dashboard's current theme
 
 **Scroll Lock (Multiple Overlays):**
 - [ ] Open settings pane → page doesn't scroll behind overlay

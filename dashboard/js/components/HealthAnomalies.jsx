@@ -49,8 +49,8 @@ export function RiskAssessment({ riskBreakdown, riskTotal, isMobile, onRiskFilte
                             onKeyDown={clickable ? handleKeyActivate(() => onRiskFilterClick(key)) : undefined}
                         >
                             <div className="flex justify-between text-sm mb-1">
-                                <span className="text-themed-secondary">{label}</span>
-                                <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
+                                <span className="text-base-content/80">{label}</span>
+                                <span className="text-base-content font-medium">{count} ({pct}%)</span>
                             </div>
                             <div className="w-full bg-base-300 rounded-full h-2">
                                 <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
@@ -96,8 +96,8 @@ export function DebtBalance({ debtBreakdown, debtTotal, isMobile, onDebtFilterCl
                             onKeyDown={clickable ? handleKeyActivate(() => onDebtFilterClick(key)) : undefined}
                         >
                             <div className="flex justify-between text-sm mb-1">
-                                <span className="text-themed-secondary">{label}</span>
-                                <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
+                                <span className="text-base-content/80">{label}</span>
+                                <span className="text-base-content font-medium">{count} ({pct}%)</span>
                             </div>
                             <div className="w-full bg-base-300 rounded-full h-2">
                                 <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
@@ -106,12 +106,12 @@ export function DebtBalance({ debtBreakdown, debtTotal, isMobile, onDebtFilterCl
                     );
                 })}
                 {/* Net debt indicator */}
-                <div className="mt-2 p-3 bg-themed-tertiary rounded text-center">
-                    <span className="text-sm text-themed-secondary">Net: </span>
+                <div className="mt-2 p-3 bg-base-300 rounded text-center">
+                    <span className="text-sm text-base-content/80">Net: </span>
                     <span className={`text-sm font-semibold ${
                         debtBreakdown.added > debtBreakdown.paid ? 'text-red-500' :
                         debtBreakdown.paid > debtBreakdown.added ? 'text-green-500' :
-                        'text-themed-tertiary'
+                        'text-base-content/60'
                     }`}>
                         {debtBreakdown.added > debtBreakdown.paid
                             ? `+${debtBreakdown.added - debtBreakdown.paid} debt accumulating`

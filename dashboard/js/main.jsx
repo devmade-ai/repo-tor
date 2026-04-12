@@ -103,13 +103,13 @@ class RootErrorBoundary extends React.Component {
                     minHeight: '100vh', flexDirection: 'column', gap: '16px',
                     padding: '24px', textAlign: 'center',
                 }}>
-                    <p className="text-themed-secondary root-error-message">
+                    <p className="text-base-content/80 root-error-message">
                         Something went wrong loading the dashboard.
                     </p>
-                    <p className="text-themed-tertiary root-error-detail">
+                    <p className="text-base-content/60 root-error-detail">
                         {this.state.error?.message || 'Unknown error'}
                     </p>
-                    <p className="text-themed-muted root-error-hint">
+                    <p className="text-base-content/40 root-error-hint">
                         Error details are in the banner below. Use &ldquo;Copy&rdquo; to share.
                     </p>
                     <button

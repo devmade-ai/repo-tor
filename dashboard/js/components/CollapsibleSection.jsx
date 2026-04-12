@@ -23,7 +23,7 @@ export default function CollapsibleSection({ title, subtitle, defaultExpanded = 
                 }}
             >
                 <div className="collapsible-title">
-                    <h3 className="text-lg font-semibold text-themed-primary">{title}</h3>
+                    <h3 className="text-lg font-semibold text-base-content">{title}</h3>
                 </div>
                 {subtitle && <span className="collapsible-subtitle">{subtitle}</span>}
                 <svg

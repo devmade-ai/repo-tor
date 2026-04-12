@@ -353,7 +353,7 @@ export default function Timing() {
             const { weeks, maxCount, totalCommits, totalWeeks, avgPerWeek } = heatmapContent;
             return (
                 <div className="weekly-heatmap">
-                    <p className="text-xs text-themed-tertiary mb-2">Weekly commit activity (most recent weeks)</p>
+                    <p className="text-xs text-base-content/60 mb-2">Weekly commit activity (most recent weeks)</p>
                     <div className="flex flex-wrap gap-1">
                         {weeks.map(([weekKey, count]) => {
                             const level = getHeatmapLevel(count, maxCount);
@@ -370,7 +370,7 @@ export default function Timing() {
                             );
                         })}
                     </div>
-                    <p className="text-xs text-themed-tertiary mt-2">
+                    <p className="text-xs text-base-content/60 mt-2">
                         {totalCommits} commits over {totalWeeks} weeks (avg {avgPerWeek}/week)
                     </p>
                 </div>
@@ -379,7 +379,7 @@ export default function Timing() {
             const { byDay, dayOrder, dayLabels, maxCount, weekdayCommits, weekendCommits, weekendPct } = heatmapContent;
             return (
                 <div className="daily-heatmap">
-                    <p className="text-xs text-themed-tertiary mb-3">Commits by day of week</p>
+                    <p className="text-xs text-base-content/60 mb-3">Commits by day of week</p>
                     <div className="space-y-2">
                         {dayOrder.map((dayIdx, i) => {
                             const count = byDay[dayIdx];
@@ -387,19 +387,19 @@ export default function Timing() {
                             const pct = maxCount > 0 ? Math.round((count / maxCount) * 100) : 0;
                             return (
                                 <div key={dayIdx} className="flex items-center gap-3">
-                                    <span className="text-sm text-themed-secondary w-24">{dayLabels[i]}</span>
+                                    <span className="text-sm text-base-content/80 w-24">{dayLabels[i]}</span>
                                     <div className="flex-1 bg-base-300 rounded-full h-4">
                                         <div
                                             className={`h-4 rounded-full heatmap-${level}`}
                                             style={{ width: `${pct}%` }}
                                         />
                                     </div>
-                                    <span className="text-sm text-themed-tertiary w-16 text-right">{count} commits</span>
+                                    <span className="text-sm text-base-content/60 w-16 text-right">{count} commits</span>
                                 </div>
                             );
                         })}
                     </div>
-                    <p className="text-xs text-themed-tertiary mt-3">
+                    <p className="text-xs text-base-content/60 mt-3">
                         Weekday: {weekdayCommits} | Weekend: {weekendCommits} ({weekendPct}%)
                     </p>
                 </div>
@@ -473,31 +473,31 @@ export default function Timing() {
             {viewConfig.timing === 'hour' && developerPatterns.length > 0 && (
                 <CollapsibleSection title="Developer Patterns" subtitle="Individual work habits" defaultExpanded={!isMobile}>
                     {/* Color legend: explain what green/amber/red means for work hours and weekends */}
-                    <div className="flex flex-wrap gap-4 text-xs text-themed-tertiary mb-4">
+                    <div className="flex flex-wrap gap-4 text-xs text-base-content/60 mb-4">
                         <span><span className="inline-block w-2 h-2 rounded-full bg-green-600 mr-1" />Mostly during work hours</span>
                         <span><span className="inline-block w-2 h-2 rounded-full bg-amber-600 mr-1" />Mixed hours</span>
                         <span><span className="inline-block w-2 h-2 rounded-full bg-red-600 mr-1" />Mostly outside work hours</span>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {developerPatterns.map((author) => (
-                            <div key={author.name} className="p-3 bg-themed-tertiary rounded-lg">
+                            <div key={author.name} className="p-3 bg-base-300 rounded-lg">
                                 <div className="flex items-center justify-between mb-2">
-                                    <span className="font-medium text-themed-primary">{author.name}</span>
-                                    <span className="text-xs text-themed-tertiary">{author.commitCount} commits</span>
+                                    <span className="font-medium text-base-content">{author.name}</span>
+                                    <span className="text-xs text-base-content/60">{author.commitCount} commits</span>
                                 </div>
                                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                                    <div className="p-2 bg-themed-secondary rounded">
-                                        <span className="text-themed-tertiary">Peak Hour</span>
-                                        <p className="font-semibold text-themed-primary">
+                                    <div className="p-2 bg-base-200 rounded">
+                                        <span className="text-base-content/60">Peak Hour</span>
+                                        <p className="font-semibold text-base-content">
                                             {author.peakHour.toString().padStart(2, '0')}:00
                                         </p>
                                     </div>
-                                    <div className="p-2 bg-themed-secondary rounded">
-                                        <span className="text-themed-tertiary">Peak Day</span>
-                                        <p className="font-semibold text-themed-primary">{author.peakDayLabel}</p>
+                                    <div className="p-2 bg-base-200 rounded">
+                                        <span className="text-base-content/60">Peak Day</span>
+                                        <p className="font-semibold text-base-content">{author.peakDayLabel}</p>
                                     </div>
-                                    <div className="p-2 bg-themed-secondary rounded">
-                                        <span className="text-themed-tertiary">Work Hours</span>
+                                    <div className="p-2 bg-base-200 rounded">
+                                        <span className="text-base-content/60">Work Hours</span>
                                         <p className={`font-semibold ${
                                             author.workHoursPct >= THRESHOLDS.workHoursGood ? 'text-green-600'
                                                 : author.workHoursPct >= THRESHOLDS.workHoursMixed ? 'text-amber-600'
@@ -506,8 +506,8 @@ export default function Timing() {
                                             {author.workHoursPct}%
                                         </p>
                                     </div>
-                                    <div className="p-2 bg-themed-secondary rounded">
-                                        <span className="text-themed-tertiary">Weekends</span>
+                                    <div className="p-2 bg-base-200 rounded">
+                                        <span className="text-base-content/60">Weekends</span>
                                         <p className={`font-semibold ${
                                             author.weekendPct <= THRESHOLDS.weekendLow ? 'text-green-600'
                                                 : author.weekendPct <= THRESHOLDS.weekendMid ? 'text-amber-600'

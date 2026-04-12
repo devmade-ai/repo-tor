@@ -95,7 +95,7 @@ export default function Projects() {
     if (loadError) {
         return (
             <div className="card projects-error">
-                <p className="text-themed-secondary">{loadError}</p>
+                <p className="text-base-content/80">{loadError}</p>
             </div>
         );
     }
@@ -148,7 +148,7 @@ function ProjectCard({ project }) {
     return (
         <div className="project-card">
             <div className="flex items-start justify-between gap-2">
-                <h4 className="text-themed-primary font-medium text-base">
+                <h4 className="text-base-content font-medium text-base">
                     {project.name}
                 </h4>
                 {project.language && (
@@ -159,11 +159,11 @@ function ProjectCard({ project }) {
             </div>
 
             {project.description && (
-                <p className="text-sm text-themed-tertiary mt-1">{project.description}</p>
+                <p className="text-sm text-base-content/60 mt-1">{project.description}</p>
             )}
 
             {project.commitCount != null && project.commitCount > 0 && (
-                <p className="text-xs text-themed-muted mt-2">
+                <p className="text-xs text-base-content/40 mt-2">
                     {project.commitCount} commits tracked
                 </p>
             )}

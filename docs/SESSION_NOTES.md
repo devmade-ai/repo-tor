@@ -4,34 +4,62 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete with role-based view levels, light/dark theme (now DaisyUI-based with dual-layer theming), and PWA support.
+**Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming, and PWA support.
 
 **Recent Updates (2026-04-12):**
 
-### DaisyUI dark mode migration — Phase 0 + infrastructure + partial component migration
+### Full DaisyUI v5 migration — infrastructure + CSS variable removal + 21-file component migration
 
-Migrated from partial custom-CSS-variable theming to DaisyUI v5 per `docs/implementations/THEME_DARK_MODE.md`. Existing custom variables coexist with DaisyUI during the transition — no big-bang rewrite of `styles.css`.
+Migrated the dashboard from partial custom-CSS-variable theming to fully DaisyUI-powered theming per `docs/implementations/THEME_DARK_MODE.md`. The migration went through all six reference phases (Phase 0 Prerequisites → Phase 1 Audit → Phase 2 Variable Removal → Phase 3 Component Migration → Phase 4 Z-Index (already normalized) → Phase 5 Verification → Phase 6 Cleanup) in a single pass.
 
-**Infrastructure (done):**
+**Phase 0 — Prerequisites:**
 - Installed `daisyui@5` (5.5.19) as devDependency.
-- Registered two themes: `lofi --default, black --prefersdark` via `@plugin "daisyui"` in `dashboard/styles.css`.
-- Added `@layer base { html { color-scheme: light; } html.dark { color-scheme: dark; } }` for native form input theming.
-- `<html>` element now has both `class="dark"` and `data-theme="black"` defaults.
-- Flash prevention inline script (`index.html`) updated to set **both** `.dark` class and `data-theme` attribute before first paint, plus overwrites `<meta name="theme-color">` tags so the PWA status bar color matches the active theme from the first frame.
-- Two `<meta name="theme-color">` tags added with `(prefers-color-scheme: light/dark)` media queries (defaults `#ffffff` for lofi, `#000000` for black).
-- `AppContext.jsx` `darkMode` effect extended to set `data-theme` and update meta theme-color tags on every toggle. Theme name + meta color constants defined at module top (must stay in sync with inline script — duplication unavoidable).
-- Cross-tab sync via `storage` event listener already existed; verified it still applies `.dark`, `data-theme`, and meta theme-color correctly via the shared effect.
+- Registered two curated themes: `lofi --default, black --prefersdark` via `@plugin "daisyui"` in `dashboard/styles.css`.
+- Added `@layer base { html { color-scheme: light; } html.dark { color-scheme: dark; } }` for native form input / scrollbar theming.
+- `<html>` element default is `class="dark" data-theme="black"`.
 
-**Component migration (~30 of 39 `dark:` pairs collapsed):**
-- `HealthBars.jsx`, `HealthAnomalies.jsx`, `Contributors.jsx`, `Tags.jsx`, `Timing.jsx`, `Progress.jsx`, `Discover.jsx`, `Timeline.jsx`, `Health.jsx` — neutral gray progress-bar rails and hover states migrated to `bg-base-300` / `hover:bg-base-200` / `hover:bg-base-300`.
-- `Health.jsx` security indicators migrated to DaisyUI `error` semantic token (`bg-error/10`, `border-error/40`, `text-error`).
-- **NOT migrated** (data viz category colors per the reference doc's "What NOT to migrate" list): `Summary.jsx` stat cards (amber/indigo/pink/purple for distinct categories) and `Timeline.jsx` complexity badges (purple=high, blue=medium).
+**Dual-layer theming wired up end-to-end:**
+- `index.html` flash prevention inline script applies BOTH `.dark` class AND `data-theme` attribute before first paint, plus overwrites both `<meta name="theme-color">` tags so the PWA status bar color matches from the first frame.
+- Two `<meta name="theme-color">` tags with `(prefers-color-scheme: light/dark)` media queries, defaults `#ffffff` (lofi base-100) and `#000000` (black base-100).
+- `AppContext.jsx` darkMode `useEffect` calls `root.setAttribute('data-theme', ...)` and overwrites both meta tags' `content` on every toggle. Constants `LIGHT_THEME`, `DARK_THEME`, `LIGHT_META_COLOR`, `DARK_META_COLOR` live at module top and MUST stay in sync with the inline flash prevention script (inline scripts can't import ES modules — duplication unavoidable).
+- Cross-tab `storage` event listener re-dispatches through the same effect, so other tabs pick up `.dark`, `data-theme`, AND meta theme-color in one place.
 
-**Remaining migration work** (deferred, tracked in `docs/TODO.md`):
-- 202 `var(--color-*)` / `var(--bg-*)` references in `styles.css` — these still work; removal requires rewriting each CSS rule with DaisyUI semantic classes.
-- Component class migration — `<button>` → `btn`, `<input>` → `input input-bordered`, custom cards → `card`, custom badges → `badge`, etc. None migrated yet.
+**Phase 2 — Custom variable removal (styles.css rewrite):**
+- Deleted the old `:root` theme-token block and the entire `html.dark` override block. The new `:root` block holds ONLY non-theme design tokens: spacing (`--spacing-base`, `--section-gap`, etc.), radius (`--radius-sm/md/lg/full`), z-index scale (`--z-base` through `--z-debug`), and fonts (`--font-sans`, `--font-mono`).
+- Every `var(--bg-primary)` → `var(--color-base-100)`, `var(--bg-secondary)` → `var(--color-base-200)`, `var(--bg-tertiary)` → `var(--color-base-300)`, `var(--bg-hover)` → `var(--color-base-300)`.
+- Every `var(--text-primary)` → `var(--color-base-content)`, `var(--text-secondary/tertiary/muted)` → `color-mix(in oklab, var(--color-base-content) 80%/60%/40%, transparent)`.
+- Every `var(--border-color)` → `var(--color-base-300)`, `var(--border-light)` → `var(--color-base-200)`.
+- Deleted custom `--color-primary-alpha` / `--glow-primary/success/warning` / `--shadow` / `--shadow-lg` / `--chart-grid` variables — replaced each usage with `color-mix(in oklab, var(--color-primary) X%, transparent)` or an inline fixed value.
+- Deleted the hardcoded `rgba(45, 104, 255, X)` brand-blue values (focus rings, hover backgrounds, drop-zone states, text-shadow, grid background) — all replaced with `color-mix` expressions against `var(--color-primary)` so the brand accent now follows the active DaisyUI theme.
+- Deleted the whole Tailwind gray-override block (`.bg-gray-50`, `.text-gray-900`, `.hover\:bg-gray-100:hover`, etc.) and the "Semantic card backgrounds" / "Semantic text colors" Tailwind hijacks. JSX now uses DaisyUI tokens directly, so those hacks are obsolete.
+- `.text-themed-primary/secondary/tertiary/muted` and `.bg-themed-primary/secondary/tertiary` and `.border-themed` utility classes deleted. All 166 consumers across 21 JSX files were migrated to DaisyUI Tailwind classes (`text-base-content`, `text-base-content/80`, `bg-base-200`, `border-base-300`, etc.).
+- Toast, btn-primary, filter-preset-btn, filter-mode-toggle, project-link-primary, filter-badge, quick-guide-btn-primary all switched from `color: white` / `color: #1a1a1a` / `color: #fff` to DaisyUI `*-content` foreground tokens (`var(--color-primary-content)`, `var(--color-warning-content)`, etc.) so legibility tracks the theme.
 
-**Build:** Passes (`./node_modules/.bin/vite build`). CSS bundle 147.16 KB → 146.06 KB.
+**Phase 3 — Component migration (all 21 JSX files):**
+- All 39 `dark:` Tailwind pairs removed from JSX. None remain as live class names (only in code comments explaining what was migrated).
+- `Summary.jsx` Activity Snapshot cards: `bg-amber-50 dark:bg-amber-900/20` etc. → `bg-warning/15` + `text-warning`, `bg-info/15` + `text-info`, `bg-accent/15` + `text-accent`, `bg-secondary/15` + `text-secondary`. Each metric now gets a distinct DaisyUI token that auto-switches with the theme.
+- `Timeline.jsx` complexity badges: purple/blue/gray tier colors → `bg-secondary/20 text-secondary` (high) / `bg-info/20 text-info` (medium) / `bg-base-300 text-base-content/80` (low).
+- `Health.jsx` security panels: all `bg-red-50 dark:bg-red-900/20` + `border-red-200 dark:border-red-800` + `text-red-600 dark:text-red-400` → `bg-error/10` + `border-error/40` + `text-error`.
+- `HealthBars.jsx` / `HealthAnomalies.jsx` / `Contributors.jsx` / `Tags.jsx` / `Timing.jsx` / `Progress.jsx` / `Discover.jsx` — progress-bar rails, hover states, and other neutral surfaces → `bg-base-300` / `hover:bg-base-200` / `hover:bg-base-300`.
+- `App.jsx` embed override: now sets `--color-base-100` (DaisyUI token) instead of the removed `--bg-primary` alias, and also toggles `data-theme` attribute alongside the `.dark` class.
+- `Tags.jsx` removed its per-component `useChartTextColor` hook and explicit `color: CHART_TEXT_COLOR` overrides — now relies on `ChartJS.defaults.color` being kept fresh by AppContext's darkMode effect. Single source of truth.
+
+**Chart.js theme sync:**
+- `AppContext.jsx` darkMode effect reads DaisyUI's `--color-base-content` oklch token and feeds it to `ChartJS.defaults.color` / `borderColor` via `color-mix(in oklab, ${baseContent} 80%/10%, transparent)`. Canvas parses color-mix() since Chrome 111 / Firefox 113 / Safari 16.2 — same baseline as DaisyUI.
+- Each chart component already has `state.darkMode` as a `useMemo` dep (done in the 2026-04-11 session), so charts rebuild when the theme toggles and pick up the new `ChartJS.defaults.color`.
+
+**Build:** Passes (`./node_modules/.bin/vite build`). CSS bundle **147.16 KB → 123.27 KB** (−23.9 KB, −16%) from deleted custom variables, gray overrides, and utility classes.
+
+**Verification (Phase 5 10-point checklist):** Passed via code inspection — dual-layer attribute correctness, flash prevention, cross-tab sync, meta theme-color, Chart.js sync, system preference fallback, focus rings, print override, scroll lock, semantic tokens. Manual browser verification recommended before shipping (see `docs/TESTING_GUIDE.md` Theme section).
+
+**Files changed (22):**
+- `package.json`, `package-lock.json` (daisyui@5 devDep)
+- `dashboard/styles.css` (rewrote top 200 lines, deleted legacy blocks, replaced 200+ var() references)
+- `dashboard/index.html` (data-theme default, dual-layer flash prevention, meta theme-color tags)
+- `dashboard/js/AppContext.jsx` (theme constants, dual-layer effect, Chart.js sync from --color-base-content)
+- `dashboard/js/App.jsx` (embed override uses --color-base-100 + data-theme)
+- `dashboard/js/main.jsx`, `dashboard/js/components/*.jsx` (13 files), `dashboard/js/sections/*.jsx` (9 files) — migrated text-themed-*/bg-themed-*/dark: classes to DaisyUI tokens
+- `CLAUDE.md`, `docs/SESSION_NOTES.md`, `docs/HISTORY.md`, `docs/TODO.md`, `docs/TESTING_GUIDE.md`, `docs/USER_GUIDE.md`
 
 ---
 

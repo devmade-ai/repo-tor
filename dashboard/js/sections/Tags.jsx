@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useLayoutEffect } from 'react';
+import React, { useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import { getCommitTags, getTagColor, getTagClass, getTagStyleObject, handleKeyActivate } from '../utils.js';
@@ -7,29 +7,19 @@ import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import useShowMore from '../hooks/useShowMore.js';
 
-// Requirement: Read CSS variable for chart text color without layout thrashing
-// Approach: useRef + useLayoutEffect reads the value once after first paint,
-//   guaranteeing stylesheets have applied. Falls back to theme default until then.
+// Requirement: The doughnut legend labels must follow the active theme.
+// Approach: Rely on Chart.js global defaults. AppContext's darkMode effect
+//   sets ChartJS.defaults.color to `color-mix(in oklab, var(--color-base-content) 80%, transparent)`
+//   on every theme change, and this chart's useMemo has state.darkMode as a
+//   dep so the chart rebuilds and picks up the new default.
+//   No per-component theme sync needed — single source of truth in AppContext.
 // Alternatives:
-//   - Module-level getComputedStyle: Rejected — can execute before stylesheets apply,
-//     returning empty/wrong value (see codebase review)
-//   - Hardcoded color: Rejected — breaks theme changes
-//   - getComputedStyle inside useMemo: Rejected — forces layout recalc on every render
-
-function useChartTextColor() {
-    const colorRef = useRef('#e5e7eb');
-    useLayoutEffect(() => {
-        const val = getComputedStyle(document.documentElement)
-            .getPropertyValue('--text-secondary').trim();
-        if (val) colorRef.current = val;
-    }, []);
-    return colorRef;
-}
+//   - Per-component CSS variable read (previous approach): Rejected — duplicated
+//     theme-sync logic across every chart-rendering section.
+//   - Hardcoded color: Rejected — breaks theme changes.
 
 export default function Tags() {
     const { state, filteredCommits, openDetailPane, isMobile, commitsLoaded } = useApp();
-    const chartTextColorRef = useChartTextColor();
-    const CHART_TEXT_COLOR = chartTextColorRef.current;
 
     // Requirement: Show tag data instantly during Phase 1 using pre-aggregated summary
     // Approach: When commits haven't loaded yet, use summary.tagBreakdown (computed at
@@ -107,14 +97,15 @@ export default function Tags() {
                             boxWidth: isMobile ? 8 : 12,
                             padding: isMobile ? 4 : 8,
                             font: { size: isMobile ? 10 : 11 },
-                            color: CHART_TEXT_COLOR,
-                        generateLabels: function (chart) {
+                            // color inherits from ChartJS.defaults.color — set by
+                            // AppContext's darkMode effect. The useMemo's state.darkMode
+                            // dep rebuilds this options object on toggle.
+                            generateLabels: function (chart) {
                                 const data = chart.data;
-                                const textColor = CHART_TEXT_COLOR;
                                 return data.labels.map((label, i) => ({
                                     text: `${label} (${data.datasets[0].data[i]})`,
                                     fillStyle: data.datasets[0].backgroundColor[i],
-                                    fontColor: textColor,
+                                    // fontColor inherits from legend.labels.color above
                                     hidden: false,
                                     index: i,
                                 }));
@@ -175,7 +166,7 @@ export default function Tags() {
                                             }}
                                         />
                                     </div>
-                                    <span className="text-sm text-themed-secondary whitespace-nowrap">
+                                    <span className="text-sm text-base-content/80 whitespace-nowrap">
                                         {count} ({(count / tagData.total * 100).toFixed(0)}%)
                                     </span>
                                 </div>
@@ -185,7 +176,7 @@ export default function Tags() {
                             )}
                         </div>
                     ) : (
-                        <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
+                        <p className="text-base-content/60 text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
                     )}
                 </CollapsibleSection>
             </div>

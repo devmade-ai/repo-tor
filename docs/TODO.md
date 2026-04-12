@@ -20,16 +20,13 @@ Remaining tasks for Git Analytics Reporting System.
 
 1. [ ] Device/platform attribution — investigated 2026-04-02, git does not store device info natively. Proxy indicators (email domain, timezone, commit message patterns) are weak signals. Would require a separate heuristic analysis module. Low priority unless a strong use case emerges.
 
-### DaisyUI migration — remaining work
+### DaisyUI migration — optional follow-up
 
-Phase 0 + infrastructure + incremental component `dark:` pair cleanup shipped on 2026-04-12. Full migration still pending:
+All six reference phases (Phase 0 Prerequisites → Phase 1 Audit → Phase 2 Variable Removal → Phase 3 Component Migration → Phase 4 Z-Index → Phase 5 Verification → Phase 6 Cleanup) shipped 2026-04-12. The remaining item below is **optional** — it would reduce custom CSS further but the theming migration is already complete.
 
-1. [ ] **Remove custom CSS variables from `styles.css`** — currently 202 `var(--color-*)` / `var(--bg-*)` / `var(--text-*)` / `var(--border-*)` / `var(--shadow-*)` references. These still work via coexistence with DaisyUI. Full removal requires rewriting each CSS rule to use DaisyUI semantic classes (`bg-base-100/200/300`, `text-base-content`, `border-base-300`, etc.). Work incrementally — see `docs/implementations/THEME_DARK_MODE.md` Phase 2 mapping table.
-2. [ ] **Component class migration** — replace raw Tailwind / custom-class elements with DaisyUI component classes: `<button>` → `btn btn-{primary|ghost|outline}`, `<input>` → `input input-bordered`, `<select>` → `select select-bordered`, cards → `card` + `card-body`, colored small labels → `badge badge-{variant}`, alert blocks → `alert alert-{variant}`.
-3. [ ] **Delete `text-themed-*` / `bg-themed-*` utility classes** from `styles.css` once their consumers are migrated — these currently wrap custom variables for use in JSX.
-4. [ ] **Consider a PWA meta theme-color build script** (`scripts/generate-theme-meta.mjs` per reference doc) if/when more than two themes are registered. Currently hardcoded for lofi/black only.
-5. [ ] **Audit post-migration** using the 10-point verification checklist in `THEME_DARK_MODE.md` Phase 5 once the remaining work above is done.
+1. [ ] **Component class migration to DaisyUI component classes** — replace raw Tailwind / custom-class elements with DaisyUI component classes: `<button>` → `btn btn-{primary|ghost|outline}`, `<input>` → `input input-bordered`, `<select>` → `select select-bordered`, cards → `card` + `card-body`, colored small labels → `badge badge-{variant}`, alert blocks → `alert alert-{variant}`. Current status: custom CSS classes (`.btn-primary`, `.card`, `.filter-select`, etc.) use DaisyUI tokens internally, which is functionally correct. Swapping to DaisyUI component classes would let us delete more custom CSS but requires careful visual review of padding, border-radius, and interactive states.
+2. [ ] **PWA meta theme-color build script** — `scripts/generate-theme-meta.mjs` (see reference doc `docs/implementations/THEME_DARK_MODE.md` for template) — only needed if we register more than 2 themes. With just lofi/black, the hardcoded `#ffffff`/`#000000` values in `index.html` and `AppContext.jsx` are manageable. If we ever add a third theme, use the build script to generate hex values from DaisyUI's oklch definitions automatically.
 
 ---
 
-*Last updated: 2026-04-12 — DaisyUI dark mode migration Phase 0 + dual-layer theming + incremental component `dark:` pair cleanup shipped.*
+*Last updated: 2026-04-12 — Full DaisyUI v5 migration complete. All six reference phases shipped. CSS bundle 147.16 KB → 123.27 KB (−16%). 39 `dark:` pairs and 166 `text-themed-*` references eliminated across 21 JSX files.*

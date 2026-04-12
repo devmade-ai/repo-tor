@@ -229,7 +229,7 @@ export default function FilterSidebar() {
         <>
             <div className={`filter-sidebar ${state.filterSidebarOpen ? 'open' : 'collapsed'}`}>
                 <div className="filter-sidebar-inner">
-                    <div className="text-xs text-themed-tertiary mb-3">
+                    <div className="text-xs text-base-content/60 mb-3">
                         Showing {filteredCommits.length} of {state.data?.commits?.length || 0} commits
                         {activeFilterCount > 0 && ` (${activeFilterCount} filters active)`}
                     </div>
