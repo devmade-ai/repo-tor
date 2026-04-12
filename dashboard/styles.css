@@ -5,8 +5,32 @@
 @source not "./public/data-commits";
 @source not "./public/repos";
 
+/* Requirement: Migrate from partial custom-variable theming to DaisyUI v5 with
+   dual-layer theming (.dark class for Tailwind dark: variant + data-theme
+   attribute for DaisyUI semantic tokens).
+   Approach: Register two DaisyUI themes (lofi for light, black for dark).
+     --default / --prefersdark set the initial theme before JavaScript runs.
+     Custom CSS variables below still work (incremental migration — DaisyUI
+     coexists with the existing variable system until every component has
+     been migrated to semantic classes like bg-base-100 / text-base-content).
+   Alternatives:
+     - Full big-bang migration: Rejected — 200+ var() references across
+       styles.css require incremental replacement to stay low-risk.
+     - Keep custom variables only: Rejected — want DaisyUI component classes
+       (btn, card, badge, alert) available to eliminate dark: pair bugs.
+   See: docs/implementations/THEME_DARK_MODE.md */
+@plugin "daisyui" {
+  themes: lofi --default, black --prefersdark;
+}
+
 /* Dark mode uses class-based approach (html.dark) */
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* Native form inputs must match the active theme (selects, inputs, scrollbars) */
+@layer base {
+  html { color-scheme: light; }
+  html.dark { color-scheme: dark; }
+}
 
         /* Light Theme (default) */
         /* Requirement: Support both light and dark themes via CSS variables

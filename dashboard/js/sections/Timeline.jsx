@@ -509,7 +509,7 @@ export default function Timeline() {
                                         ? 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300'
                                         : commit.complexity >= 2
                                             ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
-                                            : 'bg-gray-100 text-themed-secondary dark:bg-gray-700'
+                                            : 'bg-base-300 text-themed-secondary'
                                 }`}>
                                     {commit.complexity}/5
                                 </span>
@@ -549,7 +549,7 @@ export default function Timeline() {
                 return (
                     <div
                         key={period.key}
-                        className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                        className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-base-300 transition-colors"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${period.label}: ${period.count} commits`}

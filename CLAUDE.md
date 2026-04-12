@@ -67,11 +67,11 @@ Good: "This file doesn't look like a dashboard data file. Try exporting from the
 
 ### Frontend: Styles and Scripts
 
-- [ ] All custom styles in `dashboard/styles.css` — Tailwind utility classes in JSX are fine (framework convention)
+- [ ] All custom styles in `dashboard/styles.css` — Tailwind + DaisyUI utility classes in JSX are fine (framework convention)
 - [ ] No inline `style={}` objects in JSX unless values are dynamic/computed
-- [ ] Use CSS variables for theming (colors, spacing, typography) — never hardcode theme values
+- [ ] Use DaisyUI semantic tokens (`bg-base-100/200/300`, `text-base-content`, `text-error`, etc.) or CSS variables for theming — never hardcode theme values
 - [ ] No `<script>` tags — all JS through ES module imports (exceptions: debug pill and PWA early capture in index.html, which must run before modules load)
-- [ ] Maintain light/dark mode support through CSS variables
+- [ ] Maintain light/dark mode support via dual-layer theming (`.dark` class + `data-theme` attribute). Prefer DaisyUI semantic tokens (auto-switch with theme) over `dark:` prefix pairs. See `docs/implementations/THEME_DARK_MODE.md`.
 
 ### Documentation
 
@@ -137,9 +137,9 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
 - `scripts/extract.js` - Extracts git log data into structured JSON
 - `scripts/extract-api.js` - GitHub API-based extraction (uses curl, no gh CLI needed)
 - `scripts/aggregate-processed.js` - Aggregates processed/ data into time-windowed dashboard JSON (summary + per-month commit files + weekly/daily/monthly pre-aggregations)
-- `dashboard/` - React dashboard (Vite + React + Tailwind v4 + Chart.js via react-chartjs-2)
-  - `index.html` - HTML entry point (root div, loading spinner, theme flash prevention, inline debug pill, PWA early capture, SW recovery, debug-root div)
-  - `styles.css` - Tailwind v4 + custom CSS
+- `dashboard/` - React dashboard (Vite + React + Tailwind v4 + DaisyUI v5 + Chart.js via react-chartjs-2)
+  - `index.html` - HTML entry point (root div, loading spinner, dual-layer theme flash prevention setting `.dark` + `data-theme`, meta theme-color tags, inline debug pill, PWA early capture, SW recovery, debug-root div)
+  - `styles.css` - Tailwind v4 + DaisyUI v5 (`@plugin "daisyui"` with `lofi --default, black --prefersdark` themes) + custom CSS variables (coexistence during migration)
   - `js/main.jsx` - React entry point with Chart.js registration, DebugPill mount in #debug-root
   - `js/AppContext.jsx` - React Context + useReducer state management
   - `js/App.jsx` - Main app component (data loading, tab routing, layout)
@@ -211,7 +211,7 @@ SCRIPTS_PATH=scripts
 ### Stack
 ```
 LANGUAGE=JavaScript (ES modules)
-FRAMEWORK=React 19 + Vite + Tailwind v4
+FRAMEWORK=React 19 + Vite + Tailwind v4 + DaisyUI v5
 CHARTS=Chart.js via react-chartjs-2
 PACKAGE_MANAGER=npm
 BUILD=npm run build (output: dist/)

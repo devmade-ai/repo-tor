@@ -626,7 +626,7 @@ export default function Discover() {
                                     <p className="text-xs text-themed-tertiary mb-2">{comp.label}</p>
                                     <div className="flex items-center gap-2">
                                         <span className="text-xs sm:text-sm font-medium text-themed-primary w-16 sm:w-20 flex-shrink-0">{comp.left.label}</span>
-                                        <div className="flex-1 h-4 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden flex">
+                                        <div className="flex-1 h-4 bg-base-300 rounded-full overflow-hidden flex">
                                             <div className="h-full bg-green-500" style={{ width: `${leftPct}%` }} />
                                             <div className="h-full bg-amber-500" style={{ width: `${rightPct}%` }} />
                                         </div>

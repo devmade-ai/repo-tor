@@ -154,7 +154,7 @@ export default function Tags() {
                             {visibleTags.map(({ tag, count }) => (
                                 <div
                                     key={tag}
-                                    className={`flex items-center gap-3 rounded p-2 -m-2 transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+                                    className={`flex items-center gap-3 rounded p-2 -m-2 transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-base-200' : ''}`}
                                     role={commitsLoaded ? 'button' : undefined}
                                     tabIndex={commitsLoaded ? 0 : undefined}
                                     onClick={() => handleTagClick(tag)}
@@ -166,7 +166,7 @@ export default function Tags() {
                                     >
                                         {tag}
                                     </span>
-                                    <div className="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                    <div className="flex-1 bg-base-300 rounded-full h-2">
                                         <div
                                             className="h-2 rounded-full"
                                             style={{

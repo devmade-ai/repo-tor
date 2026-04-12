@@ -356,7 +356,7 @@ export default function Progress() {
                                 return (
                                     <div
                                         key={key}
-                                        className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                        className="cursor-pointer hover:bg-base-200 rounded p-2 -m-2 transition-colors"
                                         role="button"
                                         tabIndex={0}
                                         aria-label={`View ${label}: ${count} commits (${pct}%)`}
@@ -387,7 +387,7 @@ export default function Progress() {
                             return (
                                 <div
                                     key={epic}
-                                    className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                    className="cursor-pointer hover:bg-base-200 rounded p-2 -m-2 transition-colors"
                                     role="button"
                                     tabIndex={0}
                                     aria-label={`View ${epic}: ${count} commits (${pct}%)`}
@@ -398,7 +398,7 @@ export default function Progress() {
                                         <span className="text-themed-secondary font-medium">{epic}</span>
                                         <span className="text-themed-primary font-medium">{count} commits ({pct}%)</span>
                                     </div>
-                                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                    <div className="w-full bg-base-300 rounded-full h-2">
                                         <div className="bg-indigo-500 h-2 rounded-full" style={{ width: `${pct}%` }} />
                                     </div>
                                 </div>

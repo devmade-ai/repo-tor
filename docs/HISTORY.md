@@ -2,6 +2,53 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-04-12
+
+### DaisyUI dark mode migration — Phase 0 + infrastructure + incremental component migration
+
+**Why:** Project was using a partial dark-mode implementation built on custom CSS variables (`:root` for light, `html.dark` for dark), with 39 `dark:` Tailwind pairs scattered across 10 section/component files. Migrating to DaisyUI per `docs/implementations/THEME_DARK_MODE.md` provides dual-layer theming (`.dark` class + `data-theme` attribute), eliminates `dark:` pair bugs for neutral surfaces, and unlocks DaisyUI component classes (`btn`, `card`, etc.) for future work.
+
+**Changes:**
+
+**Phase 0 — DaisyUI plugin + theme infrastructure (`dashboard/styles.css`):**
+- Installed `daisyui@5` (5.5.19).
+- Added `@plugin "daisyui" { themes: lofi --default, black --prefersdark; }` — two curated themes as suggested in the migration guide. `--default` / `--prefersdark` set the initial theme before JavaScript runs.
+- Added `@layer base { html { color-scheme: light; } html.dark { color-scheme: dark; } }` so native form inputs and scrollbars match the active theme.
+- Existing custom CSS variables (`--color-*`, `--bg-*`, `--text-*`) kept in place — coexistence approach per reference doc. DaisyUI semantic tokens and custom variables now work side by side.
+
+**Dual-layer theming wired up:**
+- `dashboard/index.html` — `<html>` tag gets `data-theme="black"` default alongside `class="dark"`. Flash prevention inline script now sets **both** `.dark` class and `data-theme` attribute before first paint, matching the dual-layer requirement. Inline script also updates `<meta name="theme-color">` so the PWA status bar color flashes correctly.
+- Added two `<meta name="theme-color">` tags with `(prefers-color-scheme: light/dark)` media queries. Default values: `#ffffff` (lofi base-100) and `#000000` (black base-100).
+- `dashboard/js/AppContext.jsx` — `darkMode` effect now also calls `root.setAttribute('data-theme', …)` and overwrites both theme-color meta tags' `content` attributes so the active theme wins regardless of OS preference. New module constants `LIGHT_THEME`, `DARK_THEME`, `LIGHT_META_COLOR`, `DARK_META_COLOR` — duplication from the inline flash prevention script is unavoidable (inline scripts can't import ES modules).
+
+**Phase 2-3 — Component migration (39 `dark:` pairs audited, ~30 migrated):**
+
+Files changed — `HealthBars.jsx`, `HealthAnomalies.jsx`, `Contributors.jsx`, `Tags.jsx`, `Timing.jsx`, `Progress.jsx`, `Discover.jsx`, `Timeline.jsx`, `Health.jsx`:
+
+- `bg-gray-200 dark:bg-gray-600` / `bg-gray-200 dark:bg-gray-700` progress-bar rails → `bg-base-300` (auto-switches with theme).
+- `hover:bg-gray-50 dark:hover:bg-gray-700` card hover states → `hover:bg-base-200`.
+- `hover:bg-gray-100 dark:hover:bg-gray-600` heavier hover states → `hover:bg-base-300`.
+- `bg-gray-100 text-themed-secondary dark:bg-gray-700` (Timeline complexity badge, low level) → `bg-base-300 text-themed-secondary`.
+- Health section security indicators — `bg-red-50 dark:bg-red-900/20` → `bg-error/10`, `border-red-200 dark:border-red-800` → `border-error/40`, `text-red-600 dark:text-red-400` → `text-error`. These are semantic status indicators so DaisyUI's `error` semantic token is the right fit.
+
+**Intentionally NOT migrated** (per reference doc "What NOT to migrate: data visualization colors"):
+- `Summary.jsx` stat cards using `bg-amber-50 dark:bg-amber-900/20`, `bg-indigo-50`, `bg-pink-50`, `bg-purple-50` — these are category colors for distinct metrics, not semantic status indicators.
+- `Timeline.jsx` complexity badges using `bg-purple-100 dark:bg-purple-900` (high) and `bg-blue-100 dark:bg-blue-900` (medium) — data viz colors with fixed meaning per complexity level.
+
+**Cross-tab sync** — already existed in `AppContext.jsx` `storage` event listener. Verified it still applies correctly: when `darkMode` changes in another tab, the reducer dispatches `SET_DARK_MODE`, which re-runs the effect that sets `.dark`, `data-theme`, and meta theme-color in the current tab.
+
+**Files changed:**
+- Modified: `package.json`, `package-lock.json` (daisyui@5 devDep), `dashboard/styles.css`, `dashboard/index.html`, `dashboard/js/AppContext.jsx`, `dashboard/js/components/HealthBars.jsx`, `dashboard/js/components/HealthAnomalies.jsx`, `dashboard/js/sections/Contributors.jsx`, `dashboard/js/sections/Tags.jsx`, `dashboard/js/sections/Timing.jsx`, `dashboard/js/sections/Progress.jsx`, `dashboard/js/sections/Discover.jsx`, `dashboard/js/sections/Timeline.jsx`, `dashboard/js/sections/Health.jsx`
+- Docs: `docs/SESSION_NOTES.md`, `docs/HISTORY.md`, `docs/TODO.md`
+
+**Build:** Passes (`./node_modules/.bin/vite build`). CSS bundle 147.16 KB → 146.06 KB (slight reduction from collapsed `dark:` pairs). DaisyUI adds `[data-theme="lofi"]` and `[data-theme="black"]` selectors to the bundle.
+
+**Remaining migration work** (deferred — tracked in `docs/TODO.md`):
+- Full removal of custom CSS variables from `styles.css` — currently 202 `var(--color-*)` / `var(--bg-*)` references. These still work via the coexistence approach; deleting them requires replacing each CSS rule with a DaisyUI semantic class equivalent.
+- Component class migration — no `<button>` elements have been replaced with DaisyUI `btn` classes yet. Inputs, cards, and badges also still use raw Tailwind or custom classes. The infrastructure is now in place to migrate these incrementally.
+
+---
+
 ## 2026-04-11
 
 ### Debug system hardening — 9 commits of fixes and refactors

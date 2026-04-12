@@ -388,7 +388,7 @@ export default function Timing() {
                             return (
                                 <div key={dayIdx} className="flex items-center gap-3">
                                     <span className="text-sm text-themed-secondary w-24">{dayLabels[i]}</span>
-                                    <div className="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-4">
+                                    <div className="flex-1 bg-base-300 rounded-full h-4">
                                         <div
                                             className={`h-4 rounded-full heatmap-${level}`}
                                             style={{ width: `${pct}%` }}

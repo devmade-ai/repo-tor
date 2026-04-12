@@ -42,7 +42,7 @@ export function RiskAssessment({ riskBreakdown, riskTotal, isMobile, onRiskFilte
                     return (
                         <div
                             key={key}
-                            className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+                            className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200' : ''}`}
                             role={clickable ? 'button' : undefined}
                             tabIndex={clickable ? 0 : undefined}
                             onClick={clickable ? () => onRiskFilterClick(key) : undefined}
@@ -52,7 +52,7 @@ export function RiskAssessment({ riskBreakdown, riskTotal, isMobile, onRiskFilte
                                 <span className="text-themed-secondary">{label}</span>
                                 <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
                             </div>
-                            <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                            <div className="w-full bg-base-300 rounded-full h-2">
                                 <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
                             </div>
                         </div>
@@ -89,7 +89,7 @@ export function DebtBalance({ debtBreakdown, debtTotal, isMobile, onDebtFilterCl
                     return (
                         <div
                             key={key}
-                            className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+                            className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200' : ''}`}
                             role={clickable ? 'button' : undefined}
                             tabIndex={clickable ? 0 : undefined}
                             onClick={clickable ? () => onDebtFilterClick(key) : undefined}
@@ -99,7 +99,7 @@ export function DebtBalance({ debtBreakdown, debtTotal, isMobile, onDebtFilterCl
                                 <span className="text-themed-secondary">{label}</span>
                                 <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
                             </div>
-                            <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                            <div className="w-full bg-base-300 rounded-full h-2">
                                 <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
                             </div>
                         </div>

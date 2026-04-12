@@ -15,6 +15,17 @@ import { getCommitTags, getAuthorEmail, getUrgencyLabel, safeStorageGet, safeSto
 const AppStateContext = createContext(null);
 const DispatchContext = createContext(null);
 
+// DaisyUI theme names + PWA meta colors for dual-layer theming.
+// MUST match the inline flash prevention script in index.html and the
+// @plugin "daisyui" config in styles.css. Inline script can't import
+// ES modules, so this duplication is unavoidable.
+// Meta colors are the DaisyUI base-100 values for each theme (lofi=#ffffff,
+// black=#000000) — the color the PWA status bar should blend with.
+const LIGHT_THEME = 'lofi';
+const DARK_THEME = 'black';
+const LIGHT_META_COLOR = '#ffffff';
+const DARK_META_COLOR = '#000000';
+
 // --- Default filter shape (single source of truth) ---
 const DEFAULT_FILTERS = {
     tag: { values: ['merge'], mode: 'exclude' },
@@ -274,22 +285,38 @@ export function AppProvider({ children }) {
         }
     }, [state.filters]);
 
-    // Apply dark mode to DOM, sync Chart.js defaults, and persist
-    // Requirement: Chart axis labels and grid lines must update when theme toggles
-    // Approach: Re-read CSS variables after dark class changes and update Chart.js
+    // Apply dark mode to DOM, sync Chart.js defaults, and persist.
+    // Requirement: Dual-layer theming — set both .dark (Tailwind dark: variant)
+    //   AND data-theme (DaisyUI semantic tokens) on every theme change. Update
+    //   <meta name="theme-color"> so the PWA status bar tracks the active theme.
+    //   Chart axis labels and grid lines must also update on toggle.
+    // Approach: Re-read CSS variables after class change and update Chart.js
     //   global defaults. Previously set once in main.jsx at mount — charts kept
     //   stale colors after toggling between light and dark mode.
+    //   Theme names and meta colors MUST match the inline flash prevention
+    //   script in index.html — duplication is unavoidable because the inline
+    //   script runs before any module loads.
     // Alternatives:
     //   - Per-chart color props: Rejected — every chart would need theme awareness
     //   - CSS-only chart theming: Rejected — Chart.js renders to canvas, not DOM
+    //   - Only .dark class (skip data-theme): Rejected — DaisyUI components
+    //     fall out of sync with Tailwind dark: utilities, producing visual bugs.
     useEffect(() => {
+        const root = document.documentElement;
         if (state.darkMode) {
-            document.documentElement.classList.add('dark');
+            root.classList.add('dark');
         } else {
-            document.documentElement.classList.remove('dark');
+            root.classList.remove('dark');
         }
+        root.setAttribute('data-theme', state.darkMode ? DARK_THEME : LIGHT_THEME);
+        // Overwrite BOTH <meta name="theme-color"> tags so the active theme wins
+        // regardless of the OS preference media query.
+        const color = state.darkMode ? DARK_META_COLOR : LIGHT_META_COLOR;
+        document.querySelectorAll('meta[name="theme-color"]').forEach(meta => {
+            meta.setAttribute('content', color);
+        });
         // Re-read CSS variables after class change and update Chart.js defaults
-        const styles = getComputedStyle(document.documentElement);
+        const styles = getComputedStyle(root);
         ChartJS.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e5e7eb';
         ChartJS.defaults.borderColor = styles.getPropertyValue('--chart-grid').trim() || 'rgba(255,255,255,0.1)';
         safeStorageSet('darkMode', String(state.darkMode));

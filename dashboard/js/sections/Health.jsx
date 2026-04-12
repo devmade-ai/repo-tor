@@ -178,12 +178,12 @@ export default function Health() {
             }
             return (
                 <div className="space-y-2">
-                    <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-center mb-3">
-                        <div className="text-3xl font-bold text-red-600 dark:text-red-400">{securityEvents.length}</div>
+                    <div className="p-4 bg-error/10 border border-error/40 rounded-lg text-center mb-3">
+                        <div className="text-3xl font-bold text-error">{securityEvents.length}</div>
                         <div className="text-sm text-themed-secondary">Security-related commits</div>
                     </div>
                     {securityEvents.slice(0, 5).map((event, idx) => (
-                        <div key={event.sha || idx} className="p-3 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded">
+                        <div key={event.sha || idx} className="p-3 bg-error/5 border border-error/20 rounded">
                             <div className="flex items-start gap-2">
                                 <span className="tag tag-security">security</span>
                                 <div className="flex-1">
@@ -206,8 +206,8 @@ export default function Health() {
             const dateRange = getCommitDateRange(securityCommits);
             const repos = [...new Set(securityCommits.map(c => c.repo_id).filter(Boolean))];
             return (
-                <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-center">
-                    <div className="text-3xl font-bold text-red-600 dark:text-red-400 mb-1">{securityCommits.length}</div>
+                <div className="p-4 bg-error/10 border border-error/40 rounded-lg text-center">
+                    <div className="text-3xl font-bold text-error mb-1">{securityCommits.length}</div>
                     <div className="text-sm text-themed-secondary mb-2">Security-related commits</div>
                     <div className="text-xs text-themed-tertiary">
                         {dateRange.earliest} &mdash; {dateRange.latest}
@@ -227,14 +227,14 @@ export default function Health() {
             const sortedRepos = Object.entries(byRepo).sort((a, b) => b[1] - a[1]);
             return (
                 <div className="space-y-2">
-                    <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-center mb-3">
-                        <div className="text-2xl font-bold text-red-600 dark:text-red-400">{securityCommits.length}</div>
+                    <div className="p-3 bg-error/10 border border-error/40 rounded-lg text-center mb-3">
+                        <div className="text-2xl font-bold text-error">{securityCommits.length}</div>
                         <div className="text-sm text-themed-secondary">Total security commits</div>
                     </div>
                     {sortedRepos.map(([repo, count]) => (
                         <div
                             key={repo}
-                            className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                            className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-base-300 transition-colors"
                             role="button" tabIndex={0}
                             aria-label={`View security commits for ${repo}`}
                             onClick={() => handleSecurityRepoClick(repo)}
@@ -242,7 +242,7 @@ export default function Health() {
                         >
                             <div className="flex justify-between items-center">
                                 <span className="text-themed-primary font-medium">{repo}</span>
-                                <span className="text-red-600 dark:text-red-400 font-semibold">{count} commits</span>
+                                <span className="text-error font-semibold">{count} commits</span>
                             </div>
                         </div>
                     ))}
@@ -254,7 +254,7 @@ export default function Health() {
         return (
             <div className="space-y-2">
                 {securityCommits.map((commit, idx) => (
-                    <div key={commit.sha || idx} className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
+                    <div key={commit.sha || idx} className="p-3 bg-error/10 border border-error/40 rounded">
                         <div className="flex items-start gap-2">
                             <span className="tag tag-security">security</span>
                             <div className="flex-1">
@@ -304,7 +304,7 @@ export default function Health() {
                         return (
                             <div
                                 key={filter}
-                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200' : ''}`}
                                 role={clickable ? 'button' : undefined}
                                 tabIndex={clickable ? 0 : undefined}
                                 aria-label={clickable ? `View ${label}: ${count} commits (${pct}%)` : undefined}
@@ -315,7 +315,7 @@ export default function Health() {
                                     <span className="text-themed-secondary">{label}</span>
                                     <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
                                 </div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                <div className="w-full bg-base-300 rounded-full h-2">
                                     <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
                                 </div>
                             </div>
@@ -332,7 +332,7 @@ export default function Health() {
                         return (
                             <div
                                 key={key}
-                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200' : ''}`}
                                 role={clickable ? 'button' : undefined}
                                 tabIndex={clickable ? 0 : undefined}
                                 aria-label={clickable ? `View ${label} impact: ${count} commits (${pct}%)` : undefined}
@@ -343,7 +343,7 @@ export default function Health() {
                                     <span className="text-themed-secondary">{label}</span>
                                     <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
                                 </div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                <div className="w-full bg-base-300 rounded-full h-2">
                                     <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
                                 </div>
                             </div>

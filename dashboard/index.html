@@ -1,9 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark" data-theme="black">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Git Analytics Dashboard</title>
+    <!--
+      PWA status bar colors. Two tags with media queries provide the correct
+      initial color before JavaScript runs; the flash prevention script and
+      AppContext theme effect overwrite both content attributes on every
+      theme change so the active theme's color always wins regardless of
+      OS preference.
+      Values correspond to DaisyUI base-100 for lofi (#ffffff) and black
+      (#000000) themes.
+      See: docs/implementations/THEME_DARK_MODE.md
+    -->
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,25 +25,40 @@
     <!--
       Theme flash prevention: classic script (not module) that runs synchronously
       during HTML parse — before any stylesheet or module loads. Reads darkMode
-      from localStorage and applies .dark class + color-scheme before first paint.
+      from localStorage and applies BOTH .dark class (Tailwind dark: variant)
+      AND data-theme attribute (DaisyUI semantic tokens) before first paint.
+      Also updates <meta name="theme-color"> so the PWA status bar matches.
       Falls back to system preference on first visit. Must match defaults in
       AppContext.jsx theme handling.
       See: docs/implementations/THEME_DARK_MODE.md
     -->
     <script>
     (function() {
+      // Keep in sync with DEFAULT_LIGHT_THEME / DEFAULT_DARK_THEME in AppContext.jsx
+      // and the @plugin "daisyui" config in styles.css.
+      var LIGHT_THEME = 'lofi';
+      var DARK_THEME = 'black';
+      var LIGHT_META = '#ffffff';
+      var DARK_META = '#000000';
       try {
         var stored = localStorage.getItem('darkMode');
         var isDark = stored !== null
           ? stored === 'true'
           : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var root = document.documentElement;
         if (isDark) {
-          document.documentElement.classList.add('dark');
+          root.classList.add('dark');
         } else {
-          document.documentElement.classList.remove('dark');
+          root.classList.remove('dark');
+        }
+        root.setAttribute('data-theme', isDark ? DARK_THEME : LIGHT_THEME);
+        var color = isDark ? DARK_META : LIGHT_META;
+        var metas = document.querySelectorAll('meta[name="theme-color"]');
+        for (var i = 0; i < metas.length; i++) {
+          metas[i].setAttribute('content', color);
         }
       } catch(e) {
-        // localStorage unavailable — keep default (dark class from HTML)
+        // localStorage unavailable — keep defaults (dark class + data-theme from HTML)
       }
     })();
     </script>

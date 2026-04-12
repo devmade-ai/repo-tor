@@ -214,7 +214,7 @@ export default function Contributors() {
                             return (
                                 <div
                                     key={item.label || idx}
-                                    className={`p-3 bg-themed-tertiary rounded-lg transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600' : ''}`}
+                                    className={`p-3 bg-themed-tertiary rounded-lg transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-base-300' : ''}`}
                                     role={commitsLoaded ? 'button' : undefined}
                                     tabIndex={commitsLoaded ? 0 : undefined}
                                     aria-label={commitsLoaded ? `${item.displayName}, ${item.count} commits — click for details` : undefined}
@@ -234,7 +234,7 @@ export default function Contributors() {
                                                     >
                                                         {tag}
                                                     </span>
-                                                    <div className="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                                    <div className="flex-1 bg-base-300 rounded-full h-2">
                                                         <div
                                                             className="h-2 rounded-full"
                                                             style={{ width: `${pct}%`, backgroundColor: getTagColor(tag) }}
