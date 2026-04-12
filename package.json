@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "node scripts/write-build-version.mjs && vite build",
+    "dev": "node scripts/generate-theme-meta.mjs && vite",
+    "build": "node scripts/generate-theme-meta.mjs && node scripts/write-build-version.mjs && vite build",
     "preview": "vite preview",
     "generate-icons": "node scripts/generate-icons.mjs",
-    "build:lib": "vite build --config vite.config.lib.js"
+    "generate-theme-meta": "node scripts/generate-theme-meta.mjs",
+    "build:lib": "node scripts/generate-theme-meta.mjs && vite build --config vite.config.lib.js"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.18",

@@ -24,41 +24,74 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <!--
       Theme flash prevention: classic script (not module) that runs synchronously
-      during HTML parse — before any stylesheet or module loads. Reads darkMode
-      from localStorage and applies BOTH .dark class (Tailwind dark: variant)
-      AND data-theme attribute (DaisyUI semantic tokens) before first paint.
-      Also updates <meta name="theme-color"> so the PWA status bar matches.
-      Falls back to system preference on first visit. Must match defaults in
-      AppContext.jsx theme handling.
+      during HTML parse — before any stylesheet or module loads. Reads the
+      darkMode + lightTheme + darkTheme keys from localStorage, validates each
+      theme name against a hardcoded allowlist (so a removed theme falls back
+      instead of producing an unstyled first paint), then applies BOTH .dark
+      class (Tailwind dark: variant) AND data-theme attribute (DaisyUI semantic
+      tokens) AND <meta name="theme-color"> content before first paint. Falls
+      back to system preference when no darkMode key is set.
+
+      This script duplicates theme names and meta colors from dashboard/js/themes.js
+      because inline scripts cannot import ES modules. The duplication is
+      unavoidable but the metadata is regenerated from DaisyUI's own theme
+      values by `scripts/generate-theme-meta.mjs` during the build, so if the
+      hex values ever drift from DaisyUI's oklch definitions the build will
+      surface it.
+
+      When you add a theme: update the LIGHT_THEMES/DARK_THEMES allowlists
+      and the META map here, update dashboard/js/themes.js catalog, update
+      dashboard/styles.css @plugin config, and update
+      scripts/generate-theme-meta.mjs REGISTERED_THEMES. All four must stay
+      in sync.
+
       See: docs/implementations/THEME_DARK_MODE.md
+           dashboard/js/themes.js
     -->
     <script>
     (function() {
-      // Keep in sync with DEFAULT_LIGHT_THEME / DEFAULT_DARK_THEME in AppContext.jsx
-      // and the @plugin "daisyui" config in styles.css.
-      var LIGHT_THEME = 'lofi';
-      var DARK_THEME = 'black';
-      var LIGHT_META = '#ffffff';
-      var DARK_META = '#000000';
+      var LIGHT_THEMES = ['lofi'];
+      var DARK_THEMES = ['black'];
+      var DEFAULT_LIGHT_THEME = 'lofi';
+      var DEFAULT_DARK_THEME = 'black';
+      var META = { 'lofi': '#ffffff', 'black': '#000000' };
+
+      function validTheme(id, allowlist, fallback) {
+        for (var i = 0; i < allowlist.length; i++) {
+          if (allowlist[i] === id) return id;
+        }
+        return fallback;
+      }
+
       try {
         var stored = localStorage.getItem('darkMode');
         var isDark = stored !== null
           ? stored === 'true'
           : window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        var rawStored = isDark
+          ? localStorage.getItem('darkTheme')
+          : localStorage.getItem('lightTheme');
+        var themeName = isDark
+          ? validTheme(rawStored, DARK_THEMES, DEFAULT_DARK_THEME)
+          : validTheme(rawStored, LIGHT_THEMES, DEFAULT_LIGHT_THEME);
+
         var root = document.documentElement;
         if (isDark) {
           root.classList.add('dark');
         } else {
           root.classList.remove('dark');
         }
-        root.setAttribute('data-theme', isDark ? DARK_THEME : LIGHT_THEME);
-        var color = isDark ? DARK_META : LIGHT_META;
+        root.setAttribute('data-theme', themeName);
+
+        var color = META[themeName] || '#808080';
         var metas = document.querySelectorAll('meta[name="theme-color"]');
         for (var i = 0; i < metas.length; i++) {
           metas[i].setAttribute('content', color);
         }
       } catch(e) {
-        // localStorage unavailable — keep defaults (dark class + data-theme from HTML)
+        // localStorage unavailable — keep the defaults baked into the HTML
+        // (class="dark" data-theme="black" + meta theme-color tags).
       }
     })();
     </script>

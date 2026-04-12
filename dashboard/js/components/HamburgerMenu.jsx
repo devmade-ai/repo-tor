@@ -125,6 +125,12 @@ export default function HamburgerMenu({ items }) {
                                         type="button"
                                         className={`hamburger-item${item.destructive ? ' hamburger-item-destructive' : ''}${item.highlight ? ' hamburger-item-highlight' : ''}`}
                                         onClick={() => handleItem(item.action)}
+                                        // Requirement: items whose visible label describes a destination
+                                        //   (e.g. "Light mode") rather than an action are ambiguous to
+                                        //   screen readers without additional context. Callers can pass
+                                        //   `ariaLabel` to spell out the action ("Switch to light mode").
+                                        //   When not provided, fall back to the visible label.
+                                        aria-label={item.ariaLabel || item.label}
                                     >
                                         {item.icon && (
                                             <span className="hamburger-item-icon" aria-hidden="true">{item.icon}</span>

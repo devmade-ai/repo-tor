@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState } from 'react';
-import { Chart as ChartJS } from 'chart.js';
 import { state as globalState, VIEW_LEVELS } from './state.js';
 import { getCommitTags, getAuthorEmail, getUrgencyLabel, safeStorageGet, safeStorageSet } from './utils.js';
+import { applyTheme, getStoredTheme, validLightTheme, validDarkTheme } from './themes.js';
 
 // Requirement: Prevent unnecessary re-renders when components only need to dispatch actions
 // Approach: Split into two contexts — DispatchContext (stable identity, never changes) and
@@ -15,16 +15,13 @@ import { getCommitTags, getAuthorEmail, getUrgencyLabel, safeStorageGet, safeSto
 const AppStateContext = createContext(null);
 const DispatchContext = createContext(null);
 
-// DaisyUI theme names + PWA meta colors for dual-layer theming.
-// MUST match the inline flash prevention script in index.html and the
-// @plugin "daisyui" config in styles.css. Inline script can't import
-// ES modules, so this duplication is unavoidable.
-// Meta colors are the DaisyUI base-100 values for each theme (lofi=#ffffff,
-// black=#000000) — the color the PWA status bar should blend with.
-const LIGHT_THEME = 'lofi';
-const DARK_THEME = 'black';
-const LIGHT_META_COLOR = '#ffffff';
-const DARK_META_COLOR = '#000000';
+// Theme catalog, validators, meta colors, and the applyTheme() helper live
+// in ./themes.js so AppContext.jsx stays focused on reducer/state concerns.
+// The inline flash prevention script in index.html keeps its own small
+// duplicated copy (inline scripts can't import ES modules) — the allowlist
+// and meta color map in that script must stay in sync with themes.js, and
+// `scripts/generate-theme-meta.mjs` regenerates `generated/themeMeta.js` on
+// every build to catch DaisyUI drift automatically.
 
 // --- Default filter shape (single source of truth) ---
 const DEFAULT_FILTERS = {
@@ -287,63 +284,67 @@ export function AppProvider({ children }) {
 
     // Apply dark mode to DOM, sync Chart.js defaults, and persist.
     // Requirement: Dual-layer theming — set both .dark (Tailwind dark: variant)
-    //   AND data-theme (DaisyUI semantic tokens) on every theme change. Update
-    //   <meta name="theme-color"> so the PWA status bar tracks the active theme.
-    //   Chart axis labels and grid lines must also update on toggle.
-    // Approach: Apply both layers, then re-read DaisyUI's resolved
-    //   --color-base-content token and feed it to Chart.js global defaults so
-    //   canvas-rendered axis labels and grid lines match the active theme.
-    //   Theme names and meta colors MUST match the inline flash prevention
-    //   script in index.html — duplication is unavoidable because the inline
-    //   script runs before any module loads.
+    //   AND data-theme (DaisyUI semantic tokens) atomically on every theme
+    //   change. Update <meta name="theme-color"> so the PWA status bar tracks
+    //   the active theme. Chart axis labels and grid lines must also update.
+    // Approach: Delegate to applyTheme() from themes.js which is the single
+    //   source of truth for these DOM mutations. Same function is used by the
+    //   embed override in App.jsx and — conceptually — by the inline flash
+    //   prevention script in index.html (which keeps its own duplicated copy
+    //   since inline scripts can't import ES modules).
     // Alternatives:
-    //   - Per-chart color props: Rejected — every chart would need theme awareness.
-    //   - CSS-only chart theming: Rejected — Chart.js renders to canvas, not DOM.
-    //   - Only .dark class (skip data-theme): Rejected — DaisyUI components
-    //     fall out of sync with Tailwind dark: utilities, producing visual bugs.
-    //   - Reading a custom --text-secondary (previous approach): Rejected — the
-    //     variable no longer exists after migration; read DaisyUI's
-    //     --color-base-content directly instead.
+    //   - Inlining the DOM mutations here: Rejected — duplicated the same
+    //     logic in 3 places (AppContext, App.jsx embed, inline script) and
+    //     drifted between them.
     useEffect(() => {
-        const root = document.documentElement;
-        if (state.darkMode) {
-            root.classList.add('dark');
-        } else {
-            root.classList.remove('dark');
-        }
-        root.setAttribute('data-theme', state.darkMode ? DARK_THEME : LIGHT_THEME);
-        // Overwrite BOTH <meta name="theme-color"> tags so the active theme wins
-        // regardless of the OS preference media query.
-        const color = state.darkMode ? DARK_META_COLOR : LIGHT_META_COLOR;
-        document.querySelectorAll('meta[name="theme-color"]').forEach(meta => {
-            meta.setAttribute('content', color);
-        });
-        // Feed Chart.js the active theme's foreground token.
-        // DaisyUI exposes --color-base-content as an oklch(...) value. Chart.js
-        // uses this as a canvas fillStyle, which the browser parses the same way
-        // as CSS — so oklch() and color-mix() both work in Chromium 111+, Firefox
-        // 113+, and Safari 16.2+ (the same baseline as the DaisyUI themes).
-        // Axis labels use 80% alpha for "secondary text" legibility, grid lines
-        // 10% alpha to stay subtle — mirrors the old --text-secondary / --chart-grid
-        // contrast ratios without needing the custom variables.
-        const styles = getComputedStyle(root);
-        const baseContent = styles.getPropertyValue('--color-base-content').trim();
-        if (baseContent) {
-            ChartJS.defaults.color = `color-mix(in oklab, ${baseContent} 80%, transparent)`;
-            ChartJS.defaults.borderColor = `color-mix(in oklab, ${baseContent} 10%, transparent)`;
-        }
-        safeStorageSet('darkMode', String(state.darkMode));
+        applyTheme(state.darkMode, getStoredTheme(state.darkMode));
     }, [state.darkMode]);
 
-    // Cross-tab sync: listen for darkMode changes from other tabs.
-    // The storage event only fires in OTHER tabs (not the one that wrote),
-    // so there's no infinite loop. Empty dependency array — listener lives
-    // for the entire component lifecycle. No stale closure issue because
-    // we dispatch unconditionally (reducer handles dedup).
+    // Cross-tab sync: listen for theme changes from other tabs.
+    // Requirement: Match glow-props THEME_DARK_MODE.md reference — when a
+    //   user toggles the theme in one tab, every other open tab should
+    //   update its dark class, data-theme attribute, meta theme-color, and
+    //   Chart.js defaults without a full reload. The 'storage' event only
+    //   fires in OTHER tabs (not the one that wrote), so there's no infinite
+    //   loop.
+    // Approach: Listen for three possible keys — `darkMode` (the dark/light
+    //   boolean), `lightTheme` / `darkTheme` (the per-mode theme names that
+    //   a theme picker would write). The last two are forward-compat — today
+    //   we only have one theme per mode, but wiring them up now means a
+    //   future picker Just Works without touching this listener.
+    //   When darkMode changes, dispatch to the reducer — the darkMode useEffect
+    //   re-runs applyTheme() with the resolved theme from storage. When only
+    //   the theme name changes, call applyTheme() directly with skipPersist=true
+    //   (the new value came from another tab's localStorage write).
+    // Alternatives:
+    //   - Ignore per-mode theme keys: Rejected — future picker would need to
+    //     add a second listener and deduplicate, which is the shape of bugs.
+    //   - Full page reload on storage change: Rejected — kills in-flight
+    //     analysis and user scroll position for something a DOM attribute
+    //     flip handles in one frame.
     useEffect(() => {
         function handleStorage(e) {
             if (e.key === 'darkMode' && e.newValue !== null) {
                 dispatch({ type: 'SET_DARK_MODE', payload: e.newValue === 'true' });
+                return;
+            }
+            if (e.key === 'lightTheme' && e.newValue) {
+                // Only react if we're currently in light mode — applying a
+                // light-theme name while the user is in dark mode would flip
+                // them unexpectedly. The next darkMode toggle will pick up
+                // the new lightTheme naturally via getStoredTheme().
+                const currentDark = safeStorageGet('darkMode') === 'true';
+                if (!currentDark) {
+                    applyTheme(false, validLightTheme(e.newValue), true);
+                }
+                return;
+            }
+            if (e.key === 'darkTheme' && e.newValue) {
+                const currentDark = safeStorageGet('darkMode') === 'true';
+                if (currentDark) {
+                    applyTheme(true, validDarkTheme(e.newValue), true);
+                }
+                return;
             }
         }
         window.addEventListener('storage', handleStorage);

@@ -108,7 +108,24 @@ export default function Header() {
     const menuItems = useMemo(() => [
         { label: 'Quick Guide', action: () => setGuideOpen(true), icon: icons.guide },
         { label: 'User Guide', action: () => window.open('https://github.com/devmade-ai/repo-tor#readme', '_blank'), icon: icons.book, external: true },
-        { label: state.darkMode ? 'Light mode' : 'Dark mode', action: handleToggleDarkMode, icon: icons.theme, separator: true },
+        {
+            // Requirement: Theme toggle menu item must expose to assistive tech
+            //   (1) what mode the user is currently in and (2) what will happen
+            //   when they activate the item. The `label` text describes the
+            //   destination ("Light mode") which is ambiguous without the
+            //   current state; the explicit `ariaLabel` spells out the
+            //   transition so screen readers announce "Switch to light mode".
+            // Approach: Pass a dedicated `ariaLabel` prop that HamburgerMenu
+            //   threads into the rendered button's aria-label attribute.
+            // Reference: THEME_DARK_MODE.md Phase 5 accessibility checklist
+            //   "Theme toggle button should have aria-label (e.g., 'Switch to
+            //   dark mode') that updates when toggled."
+            label: state.darkMode ? 'Light mode' : 'Dark mode',
+            ariaLabel: state.darkMode ? 'Switch to light mode' : 'Switch to dark mode',
+            action: handleToggleDarkMode,
+            icon: icons.theme,
+            separator: true,
+        },
         { label: 'Save as PDF', action: () => window.print(), icon: icons.pdf },
         { label: 'Install App', action: handleInstall, icon: icons.install, visible: installReady && !isInstalledPWA(), separator: true },
         { label: 'Update Now', action: () => applyUpdate(), icon: icons.update, visible: updateAvailable, highlight: true },

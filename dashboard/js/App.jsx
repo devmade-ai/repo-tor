@@ -4,6 +4,7 @@ import { useToast } from './components/Toast.jsx';
 import useScrollLock from './hooks/useScrollLock.js';
 import { embedIds, isEmbedMode, themeParam, bgParam, dataUrlParam } from './urlParams.js';
 import { debugAdd } from './debugLog.js';
+import { applyTheme, DEFAULT_LIGHT_THEME, DEFAULT_DARK_THEME } from './themes.js';
 import Header from './components/Header.jsx';
 import TabBar from './components/TabBar.jsx';
 import DropZone from './components/DropZone.jsx';
@@ -93,30 +94,31 @@ export default function App() {
     useScrollLock(state.detailPane.open || state.settingsPaneOpen);
 
     // Apply embed overrides from URL: ?theme=light|dark, ?bg=hex|transparent
-    // Requirement: Let embedder apps match the embedded element's background to their site.
-    // Approach: Override the .dark class / data-theme attribute for the theme
-    //   parameter, and override DaisyUI's --color-base-100 token (the page
-    //   background) for the bg parameter. Runs inside React lifecycle (useEffect)
-    //   instead of module scope to avoid racing with AppContext's darkMode effect.
+    // Requirement: Let embedder apps match the embedded element's background
+    //   to their site. `?theme=light|dark` forces the corresponding DaisyUI
+    //   theme. `?bg=hex|transparent` overrides --color-base-100 directly.
+    // Approach: Route the theme override through themes.js applyTheme() with
+    //   skipPersist=true — the override is session-scoped and should not
+    //   pollute the user's localStorage. Then override --color-base-100 for
+    //   the background parameter. Runs in useEffect (not module scope) to
+    //   avoid racing with AppContext's initial applyTheme() call.
     // Alternatives:
     //   - Module-scope overrides: Rejected — raced with React dark mode management.
     //   - postMessage from parent: Rejected — URL params are simpler and stateless.
-    //   - Override the old --bg-primary variable: Obsolete — that alias was removed
-    //     in the DaisyUI migration. --color-base-100 is the DaisyUI token body
-    //     reads via `background-color: var(--color-base-100)` in styles.css.
+    //   - Inline DOM mutations (previous approach): Rejected — duplicated the
+    //     .dark/data-theme/meta-color logic that themes.js centralizes.
     useEffect(() => {
         if (!isEmbedMode) return;
-        const root = document.documentElement;
         if (themeParam === 'light') {
-            root.classList.remove('dark');
-            root.setAttribute('data-theme', 'lofi');
+            applyTheme(false, DEFAULT_LIGHT_THEME, /* skipPersist */ true);
         } else if (themeParam === 'dark') {
-            root.classList.add('dark');
-            root.setAttribute('data-theme', 'black');
+            applyTheme(true, DEFAULT_DARK_THEME, /* skipPersist */ true);
         }
         if (bgParam) {
             // Validate: only accept 'transparent' or valid hex color (3-8 hex chars)
-            // to prevent CSS injection via malformed values
+            // to prevent CSS injection via malformed values. --color-base-100 is
+            // the DaisyUI token body reads via `background-color: var(--color-base-100)`.
+            const root = document.documentElement;
             const hexValue = bgParam.startsWith('#') ? bgParam : `#${bgParam}`;
             if (bgParam === 'transparent') {
                 root.style.setProperty('--color-base-100', 'transparent');

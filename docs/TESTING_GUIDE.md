@@ -147,6 +147,17 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] With no stored preference, changing OS dark mode → dashboard follows (media query listener)
 - [ ] Once user toggles manually → OS preference changes are ignored (stored preference wins)
 
+*Theme ID allowlist (forward-compat):*
+- [ ] In DevTools console: `localStorage.setItem('darkTheme', 'nonsense'); location.reload()` → dashboard loads in dark mode with `data-theme="black"` (the default fallback), no unstyled flash
+- [ ] Same test with `lightTheme = 'nonsense'` after setting `darkMode = 'false'` → loads with `data-theme="lofi"`
+- [ ] `localStorage.setItem('darkTheme', 'black'); location.reload()` → loads cleanly with `data-theme="black"` (valid ID in allowlist)
+
+*Theme meta generator:*
+- [ ] `npm run build` output shows `[generate-theme-meta] wrote .../themeMeta.js` followed by each registered theme (e.g. `lofi light #ffffff`, `black dark #000000`)
+- [ ] `dashboard/js/generated/themeMeta.js` exists and contains valid `META_COLORS` / `IS_DARK` / `THEME_NAMES` exports
+- [ ] After manually editing `dashboard/js/generated/themeMeta.js` and running `npm run build` — the edit is overwritten with the regenerated content (generator is idempotent and authoritative)
+- [ ] `npm run generate-theme-meta` invokes the generator directly without running vite
+
 *Dual-layer attributes:*
 - [ ] In DevTools, inspect `<html>` element — in dark mode it should have BOTH `class="dark"` AND `data-theme="black"`
 - [ ] In light mode it should have NO `dark` class AND `data-theme="lofi"`
@@ -162,6 +173,13 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Toggle dark mode in tab A (menu ☰ → Dark/Light mode)
 - [ ] Tab B updates to match within a frame (storage event listener)
 - [ ] Tab B also picks up the new `data-theme` attribute and `<meta name="theme-color">` value
+- [ ] Forward-compat: in tab A DevTools console, run `localStorage.setItem('darkTheme', 'black')` → tab B does not break (listener validates theme name, applies with skipPersist=true)
+- [ ] Same with `localStorage.setItem('lightTheme', 'lofi')` when both tabs are in light mode
+
+*Theme toggle accessibility:*
+- [ ] Inspect the menu item for dark/light mode toggle — its button element should have `aria-label="Switch to dark mode"` (when currently in light mode) or `aria-label="Switch to light mode"` (when currently in dark mode)
+- [ ] Toggle the theme → aria-label updates to describe the next transition
+- [ ] Screen reader should announce "Switch to light mode, button" rather than just "Light mode, button"
 
 *PWA status bar:*
 - [ ] Open DevTools → Elements → `<head>` → find both `<meta name="theme-color">` tags
