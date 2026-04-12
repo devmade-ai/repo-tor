@@ -36,7 +36,7 @@
 //      scripts/generate-theme-meta.mjs (propagates catalog to four files)
 
 import { Chart as ChartJS } from 'chart.js';
-import { safeStorageGet, safeStorageSet } from './utils.js';
+import { safeStorageGet, safeStorageSet, safeStorageRemove } from './utils.js';
 import { META_COLORS } from './generated/themeMeta.js';
 
 // Chart.js is also imported by main.jsx (for component registration) and
@@ -87,28 +87,34 @@ export function validDarkTheme(id) {
 // --- Storage helpers ---
 // Storage keys (Approach A from docs/implementations/THEME_DARK_MODE.md):
 //   darkMode    - 'true' | 'false' (required once the user has toggled at least once)
-//   lightTheme  - DaisyUI theme name (optional; defaults to DEFAULT_LIGHT_THEME)
-//   darkTheme   - DaisyUI theme name (optional; defaults to DEFAULT_DARK_THEME)
+//   lightTheme  - DaisyUI theme name (optional; absent means DEFAULT_LIGHT_THEME)
+//   darkTheme   - DaisyUI theme name (optional; absent means DEFAULT_DARK_THEME)
 //
-// The per-mode keys are written only when the user picks a non-default
-// theme via the burger-menu picker. When absent, getStoredTheme returns
-// the default for that mode, so a fresh visit gets lofi/black without
-// anything needing to be in localStorage.
-export function getStoredTheme(dark) {
-    if (dark) {
-        return validDarkTheme(safeStorageGet('darkTheme') || DEFAULT_DARK_THEME);
-    }
-    return validLightTheme(safeStorageGet('lightTheme') || DEFAULT_LIGHT_THEME);
-}
-
+// The per-mode theme keys are written only when the user picks a non-default
+// theme via the burger-menu picker, and REMOVED when the user reverts to the
+// default. This keeps localStorage clean for the "user hasn't customized"
+// case and — critically — ensures that picking default after picking
+// non-default doesn't leave a stale entry that the flash prevention script
+// would read on the next reload.
+//
+// The corresponding cross-tab storage event uses e.newValue === null to
+// signal "key was removed"; the reducer's validLightTheme / validDarkTheme
+// fall back to defaults on null input, so dispatching SET_*_THEME with a
+// null payload updates state to the default. See AppContext.jsx cross-tab
+// listener for the receiving side.
 export function persistTheme(dark, themeName) {
     safeStorageSet('darkMode', String(dark));
-    // Only persist the per-mode theme key if it differs from the default.
-    // Avoids cluttering localStorage with redundant entries and makes it
-    // easier to observe "the user hasn't picked a custom theme yet".
     const defaultForMode = dark ? DEFAULT_DARK_THEME : DEFAULT_LIGHT_THEME;
+    const key = dark ? 'darkTheme' : 'lightTheme';
     if (themeName && themeName !== defaultForMode) {
-        safeStorageSet(dark ? 'darkTheme' : 'lightTheme', themeName);
+        safeStorageSet(key, themeName);
+    } else {
+        // Revert-to-default path: remove the key rather than overwriting with
+        // the default value. Absent-key and default-valued-key behave the
+        // same for readers, but remove-vs-write matters for cross-tab sync
+        // (remove fires storage event with newValue=null) and for the
+        // "clean localStorage means user hasn't customized" invariant.
+        safeStorageRemove(key);
     }
 }
 
@@ -171,9 +177,3 @@ export function applyTheme(dark, themeName, skipPersist = false) {
         persistTheme(dark, validatedName);
     }
 }
-
-// --- Debug / inspection helpers ---
-// Exposed for the debug pill and for ad-hoc console inspection. Not part of
-// the public API surface most code should care about.
-export const __allThemes = THEME_NAMES;
-export const __isDark = IS_DARK;

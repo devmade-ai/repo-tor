@@ -203,8 +203,23 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Toggle dark mode in tab A (menu ☰ → Dark/Light mode)
 - [ ] Tab B updates to match within a frame (storage event listener)
 - [ ] Tab B also picks up the new `data-theme` attribute and `<meta name="theme-color">` value
-- [ ] Forward-compat: in tab A DevTools console, run `localStorage.setItem('darkTheme', 'black')` → tab B does not break (listener validates theme name, applies with skipPersist=true)
-- [ ] Same with `localStorage.setItem('lightTheme', 'lofi')` when both tabs are in light mode
+- [ ] Pick a non-default theme in tab A (e.g. Nord in light mode) → tab B picker highlights Nord as active
+- [ ] Revert to default in tab A (pick Lo-Fi) → tab B picker highlights Lo-Fi as active. Verify `lightTheme` key was **removed** from localStorage in both tabs (not set to 'lofi').
+- [ ] **Simulated cross-tab test** (if you only have one tab — fires a synthetic storage event which the real cross-tab path uses):
+  ```js
+  // In DevTools console:
+  localStorage.setItem('darkTheme', 'dracula');
+  window.dispatchEvent(new StorageEvent('storage', {
+    key: 'darkTheme', newValue: 'dracula', storageArea: localStorage,
+  }));
+  // Expect: picker updates (if in dark mode)
+  localStorage.removeItem('darkTheme');
+  window.dispatchEvent(new StorageEvent('storage', {
+    key: 'darkTheme', newValue: null, storageArea: localStorage,
+  }));
+  // Expect: picker reverts to default (Black)
+  ```
+- [ ] Invalid payload safety: `localStorage.setItem('lightTheme', 'nonsense')` + dispatch → reducer falls back to `DEFAULT_LIGHT_THEME` ('lofi'), no unstyled state
 
 *Theme toggle accessibility:*
 - [ ] Inspect the menu item for dark/light mode toggle — its button element should have `aria-label="Switch to dark mode"` (when currently in light mode) or `aria-label="Switch to light mode"` (when currently in dark mode)

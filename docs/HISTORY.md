@@ -4,6 +4,55 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-12
 
+### Self-audit pass — dead code removal, persistence correctness, cross-tab null handling
+
+**Why:** After the reference-pattern gap closure landed, a deliberate self-audit surfaced six issues: one real runtime bug (silently masked by tree-shaking), one real persistence bug (stale key on revert-to-default), one cross-tab listener bug (null `newValue` filtered out), two dead-code imports/exports, and one minor code-clarity improvement. The user explicitly asked "anything to double check, strengthen, or improve?" — this pass addresses every finding.
+
+**Bugs fixed:**
+
+1. **`themes.js` `__allThemes` / `__isDark` exports referenced undefined `THEME_NAMES` / `IS_DARK`**. An earlier pass removed those imports from the top of `themes.js` but left the debug-helper exports at the bottom intact. Rollup tree-shook them out of the browser bundle (nothing imports them) so the dashboard worked, but `node --input-type=module -e "import('./dashboard/js/themes.js')"` threw `ReferenceError: THEME_NAMES is not defined` at module load. Detected by running themes.js through Node directly as part of the audit. Fix: deleted the dead debug exports entirely — they were speculative "exposed for ad-hoc console inspection" helpers with zero consumers, which CLAUDE.md's "Don't create helpers... for one-time operations. Don't design for hypothetical future requirements" prohibits.
+
+2. **`persistTheme` left stale `lightTheme` / `darkTheme` keys on revert-to-default**. The old implementation wrote the per-mode theme key only when `themeName !== defaultForMode`. So if the user picked Nord (non-default) then reverted to Lo-Fi (default), `persistTheme(false, 'lofi')` would write `darkMode=false` and SKIP the `lightTheme` write. `lightTheme='nord'` stayed in localStorage. On the next reload, the flash prevention script read `lightTheme=nord` and applied Nord — the user's most recent pick (Lo-Fi) was silently lost. Fix: on revert-to-default, `safeStorageRemove()` the per-mode key instead of skipping the write. Absent-key and default-valued-key behave the same for readers, but remove-vs-skip matters for "user reverted" correctness. Added `safeStorageRemove` to the `themes.js` imports and documented the revert-to-default contract in the function comment.
+
+3. **Cross-tab listener filtered `e.newValue === null` events**. The old handler had `if (e.key === 'lightTheme' && e.newValue)` which treated null as "nothing to do". But fix #2 now removes keys (firing storage events with `newValue=null`) when a user reverts to default, and other tabs need to see that signal and update their reducer state back to the default. Fix: drop the `&& e.newValue` filter and let the reducer's `validLightTheme` / `validDarkTheme` handle null → default (they already did, via the `.has(id)` check failing for null). Also handled the symmetric case for `darkMode` key removal by falling back to matchMedia. Comment rewritten to document the "null = revert to default" contract.
+
+**Dead code removed:**
+
+4. **`getStoredTheme(dark)` in `themes.js`** was defined, exported, and never called anywhere in the codebase (confirmed via grep across `dashboard/`). It was a holdover from the earlier pass where the darkMode effect called `applyTheme(state.darkMode, getStoredTheme(state.darkMode))` — that was replaced with direct reducer-state reads. The function had no consumers so it was deleted, not just unexported. CLAUDE.md: "Delete unused imports, variables, and dead code immediately."
+
+5. **Dead `getStoredTheme` import in `AppContext.jsx`**. Same reason. Removed from the import statement.
+
+**Code clarity:**
+
+6. **`loadInitialState` fallback now reads `matchMedia` directly instead of `document.documentElement.classList.contains('dark')`**. The old code relied on the flash prevention script having already set the `.dark` class from the same matchMedia query — functionally equivalent but indirect. Reading matchMedia directly keeps the function independent of DOM side effects and makes it unit-testable without a full DOM.
+
+**Optimization:**
+
+7. **`darkMode` useEffect dependency array narrowed from `[darkMode, lightTheme, darkTheme]` to `[darkMode, activeTheme]`**. `activeTheme` is now derived outside the effect as `state.darkMode ? state.darkTheme : state.lightTheme`. With the old deps, a cross-tab event that updated the NON-active mode's theme (e.g. user picks Dracula in tab A while tab B is in light mode) triggered an effect re-run in tab B that did a no-op DOM update + `getComputedStyle` + Chart.js defaults write. Harmless but wasteful. With the new deps, tab B only re-runs when the currently-applied mode's theme changes — reducer state still updates via the storage listener, so the value is ready for the next toggle.
+
+**End-to-end smoke test (new):**
+
+Added a Node-based simulation that stubs `localStorage`, `window`, `document`, `getComputedStyle`, then dynamically imports `themes.js` and exercises the catalog shape, validators, and `persistTheme` revert-to-default behavior. This caught bug #2 during the audit before any rebuild. The test is in the commit message for future reference; should be turned into a proper test harness when the project gains a test framework (none configured today).
+
+**Documentation updates:**
+
+- `CLAUDE.md` — architecture list for `js/themes.js` updated to remove mention of `getStoredTheme` (since deleted) and document `persistTheme` + `getMetaColor` explicitly.
+- `docs/TESTING_GUIDE.md` — added a simulated-cross-tab test block with copy-pasteable DevTools console snippet (`StorageEvent` dispatch), invalid-payload safety test, and an explicit "revert to default removes key" test. Cross-tab tests no longer assume two-tab access.
+- `docs/SESSION_NOTES.md` — new "Known quirks" section documenting mount-time darkMode persistence (limits OS-preference fallback to the first paint), and new "Test coverage gaps" section explicitly calling out that browser runtime testing was NOT executed this session (only `vite preview` + curl + Node-based reducer simulation).
+
+**Files changed (5 source + 3 docs):**
+
+- `dashboard/js/themes.js` — removed `__allThemes` / `__isDark` / `getStoredTheme`; fixed `persistTheme` revert path; imported `safeStorageRemove`; rewrote storage-keys comment
+- `dashboard/js/AppContext.jsx` — removed dead `getStoredTheme` import; simplified `loadInitialState` matchMedia fallback; dropped `&& e.newValue` filter in storage listener; derived `activeTheme` outside the darkMode effect and narrowed the dep array
+- `CLAUDE.md` — architecture line for `js/themes.js`
+- `docs/HISTORY.md` — this entry
+- `docs/SESSION_NOTES.md` — Known quirks + Test coverage gaps sections
+- `docs/TESTING_GUIDE.md` — simulated cross-tab + revert-to-default tests
+
+**Build:** Passes (`npm run build`). CSS bundle 157.40 KB (unchanged). JS bundle 555.83 KB (+0.08 KB from reducer tweaks). 84 modules transform. Generator prints "unchanged" for all 4 downstream files — idempotent. themes.js now loads cleanly via `node --input-type=module` (no ReferenceError). All 8 theme names, descriptions, and `[data-theme="..."]` selectors still present in the bundle. All 11 critical custom class families still emitted. End-to-end Node simulation: catalog shape OK (4 light + 4 dark), validators correct, `persistTheme` correctly removes stale keys on revert-to-default.
+
+---
+
 ### Reference-pattern gap closure — single-source theme config, 4+4 catalog, burger-menu picker, reference-shape cross-tab sync
 
 **Why:** After the reference-pattern alignment pass landed on this branch, a second side-by-side audit against `docs/implementations/THEME_DARK_MODE.md` turned up seven residual gaps (documented in the "differences" list). None were bugs that would manifest today, but all were the kind of structural drift that becomes a bug the moment someone adds a theme or changes a default. The user asked for "no shortcuts, no skipping", so this pass implements every actionable gap and documents why the two remaining (CSP hash, legacy key cleanup) would be speculative abstraction.

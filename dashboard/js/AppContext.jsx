@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useEffect, useState } from 'react';
 import { state as globalState, VIEW_LEVELS } from './state.js';
 import { getCommitTags, getAuthorEmail, getUrgencyLabel, safeStorageGet, safeStorageSet } from './utils.js';
-import { applyTheme, getStoredTheme, validLightTheme, validDarkTheme } from './themes.js';
+import { applyTheme, validLightTheme, validDarkTheme } from './themes.js';
 
 // Requirement: Prevent unnecessary re-renders when components only need to dispatch actions
 // Approach: Split into two contexts — DispatchContext (stable identity, never changes) and
@@ -47,18 +47,19 @@ function loadInitialState() {
     //   applied. Read from localStorage with system preference fallback,
     //   validate each theme name against the catalog in themes.js so a
     //   removed theme falls back silently.
-    // Approach: The flash prevention script has already read the same keys
-    //   and applied the same values, so we mirror its logic to populate the
-    //   initial reducer state. If they ever diverge the darkMode useEffect
-    //   will re-apply applyTheme() on mount and pull the DOM back into line.
+    // Approach: Mirror the flash prevention script's logic exactly —
+    //   localStorage first, matchMedia as fallback. Reading matchMedia
+    //   directly (rather than reading the .dark class the script just
+    //   applied) keeps this function independent of DOM side effects and
+    //   makes it unit-testable without a full DOM.
     // Alternatives:
     //   - Read directly from DOM attributes (classList / data-theme): Rejected —
-    //     the DOM is downstream of the script; reading localStorage gives us
-    //     the user's intent, which is what we want to hold in React state.
+    //     couples initial state to the flash prevention script's side effects
+    //     and obscures the actual source of truth (localStorage + matchMedia).
     const storedDark = safeStorageGet('darkMode');
     const initialDarkMode = storedDark !== null
         ? storedDark === 'true'
-        : document.documentElement.classList.contains('dark');
+        : window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     // Per-mode theme names (Approach A). Validators in themes.js fall back
     // to DEFAULT_LIGHT_THEME / DEFAULT_DARK_THEME when the stored value is
@@ -325,25 +326,30 @@ export function AppProvider({ children }) {
     //   AND data-theme (DaisyUI semantic tokens) atomically on every theme
     //   change. Update <meta name="theme-color"> so the PWA status bar tracks
     //   the active theme. Chart axis labels and grid lines must also update.
-    // Approach: Delegate to applyTheme() from themes.js which is the single
-    //   source of truth for these DOM mutations. Reads the currently active
-    //   theme name out of reducer state (state.darkMode ? state.darkTheme :
-    //   state.lightTheme) — matches glow-props THEME_DARK_MODE.md reference
-    //   shape where per-mode theme names live in React state. The same effect
-    //   re-runs when darkMode toggles OR when the currently active mode's
-    //   theme name changes (via SET_LIGHT_THEME / SET_DARK_THEME), so the
-    //   picker and the dark/light toggle both feed into one code path.
+    // Approach: Compute the currently active theme name from reducer state
+    //   and call applyTheme() from themes.js — the single source of truth
+    //   for these DOM mutations. The effect only depends on darkMode and
+    //   the derived activeTheme so a cross-tab event that updates the
+    //   NON-active mode's theme (e.g. user picks Dracula in tab A while
+    //   tab B is in light mode) doesn't cause an unnecessary effect re-run
+    //   in tab B — reducer state still updates via the storage listener so
+    //   the value is ready for the next toggle.
     // Alternatives:
     //   - Inlining the DOM mutations here: Rejected — duplicated the same
     //     logic in 3 places (AppContext, App.jsx embed, inline script) and
     //     drifted between them.
-    //   - Reading from localStorage inside the effect via getStoredTheme:
-    //     Rejected — couples the effect to storage instead of reducer state,
-    //     making the React tree slightly lie about its own theme state.
+    //   - Depending on [darkMode, lightTheme, darkTheme]: Rejected — caused
+    //     the effect to re-run on every cross-tab theme change regardless
+    //     of which mode was currently applied. The DOM mutations were
+    //     no-ops but the getComputedStyle + Chart.js defaults writes were
+    //     wasteful.
+    //   - Reading from localStorage inside the effect: Rejected — couples
+    //     the effect to storage instead of reducer state, making the React
+    //     tree slightly lie about its own theme state.
+    const activeTheme = state.darkMode ? state.darkTheme : state.lightTheme;
     useEffect(() => {
-        const activeTheme = state.darkMode ? state.darkTheme : state.lightTheme;
         applyTheme(state.darkMode, activeTheme);
-    }, [state.darkMode, state.lightTheme, state.darkTheme]);
+    }, [state.darkMode, activeTheme]);
 
     // Cross-tab sync: listen for theme changes from other tabs.
     // Requirement: Match the reference handler shape — when another tab
@@ -351,36 +357,43 @@ export function AppProvider({ children }) {
     //   updates its reducer state so the darkMode effect picks up the
     //   change and calls applyTheme(). The 'storage' event only fires in
     //   OTHER tabs (not the one that wrote), so there's no infinite loop.
-    // Approach: Dispatch unconditionally for each of the three keys. The
-    //   lightTheme and darkTheme dispatches update reducer state even when
-    //   the user is currently in the OTHER mode — the darkMode effect only
-    //   re-runs for the currently-applied mode's theme, so the non-current
-    //   mode's theme silently updates in state and takes effect on the
-    //   next dark/light toggle. This matches the glow-props reference
-    //   handler exactly:
-    //     else if (e.key === 'lightTheme' && e.newValue) {
-    //       setLightThemeState(validLightTheme(e.newValue))
-    //     }
-    //   with dispatch + reducer case filling in for useState.
+    // Approach: Dispatch unconditionally for each of the three keys,
+    //   INCLUDING when e.newValue is null (key removed). The lightTheme
+    //   and darkTheme keys are removed by persistTheme when the user
+    //   reverts to the default theme — other tabs need to see that signal
+    //   and update their reducer state back to the default. The reducer's
+    //   validLightTheme / validDarkTheme fall back to defaults on null
+    //   input, so dispatching with a null payload updates state to the
+    //   default. This matches the "remove key means revert to default"
+    //   contract the flash prevention script and persistTheme rely on.
     // Alternatives:
-    //   - Only dispatch when the key matches the current mode (previous
-    //     approach): Rejected — the non-current mode's state silently
-    //     lagged behind localStorage, which was functionally correct but
-    //     diverged from the reference handler shape and made reducer state
-    //     lie about the current theme choice.
+    //   - Only dispatch when the key matches the current mode (earlier
+    //     draft): Rejected — the non-current mode's state silently lagged
+    //     behind localStorage, which diverged from the reference handler
+    //     shape and made reducer state lie about the current theme choice.
+    //   - Filter out e.newValue === null (earlier draft): Rejected — the
+    //     revert-to-default path would be invisible to other tabs.
     //   - Full page reload on storage change: Rejected — kills in-flight
     //     analysis and scroll position.
     useEffect(() => {
         function handleStorage(e) {
-            if (e.key === 'darkMode' && e.newValue !== null) {
-                dispatch({ type: 'SET_DARK_MODE', payload: e.newValue === 'true' });
+            if (e.key === 'darkMode') {
+                // darkMode being removed is unusual (persistTheme always
+                // writes it) but handle it gracefully: fall back to the
+                // system preference, same as a fresh visit.
+                const next = e.newValue !== null
+                    ? e.newValue === 'true'
+                    : window.matchMedia('(prefers-color-scheme: dark)').matches;
+                dispatch({ type: 'SET_DARK_MODE', payload: next });
                 return;
             }
-            if (e.key === 'lightTheme' && e.newValue) {
+            if (e.key === 'lightTheme') {
+                // e.newValue may be null (key removed = revert to default)
+                // or a theme id. validLightTheme handles both.
                 dispatch({ type: 'SET_LIGHT_THEME', payload: e.newValue });
                 return;
             }
-            if (e.key === 'darkTheme' && e.newValue) {
+            if (e.key === 'darkTheme') {
                 dispatch({ type: 'SET_DARK_THEME', payload: e.newValue });
                 return;
             }
