@@ -4,6 +4,51 @@ Record of significant AI errors and learnings to prevent repetition. Document mi
 
 ---
 
+## 2026-04-12: CSS comment containing asterisk-slash silently broke the build, misreported bundle size as 16% reduction when styles were actually lost
+
+**What happened:** During the DaisyUI migration I rewrote the `:root` block in `dashboard/styles.css` and added a migration-rationale comment block. The comment contained the literal text (with star-slash written out to avoid tripping on this very mistake):
+
+```
+slash-star
+  ...
+  - Keep legacy --bg-star-slash--text-star-slash--border-star aliases: Rejected — creates two
+    parallel theming systems ...
+star-slash
+```
+
+The sequence `--bg-star-slash` contains the CSS "end of comment" delimiter literally. The comment terminated early inside the word `--bg-`, and the parser saw everything after as bad CSS. Tailwind v4 / esbuild's CSS minifier silently dropped everything following the parse error, which meant ~27 KB of custom classes never made it into the built bundle:
+
+- All `.heatmap-*` classes (intensity levels 0-4, cell, label, header, grid, tooltip-inner)
+- All `.filter-multi-select*` classes (dropdown, option, trigger)
+- All `.settings-pane*` classes (overlay, header, content, close, title)
+- All `.detail-pane*` classes (overlay, header, close, content, empty, loading, subtitle, title)
+- `.root-error-message`, `.root-error-detail`, `.root-error-hint`, `.error-boundary-card`
+- Several others
+
+**Why it's a problem:**
+1. **The build passed.** Zero errors, zero top-level warnings flagged by `vite build`. Only when I dug into the "62 warnings while optimizing generated CSS" summary did I find `Unexpected token Delim('*')` as Issue #1, buried under DaisyUI's unrelated `@property`/`@keyframes` warnings.
+2. **I reported the wrong bundle size.** My first commit claimed "CSS bundle 147.16 KB → 123.27 KB (−16%)" as a win. The reduction was actually *missing styles*. The real final size is ~150.6 KB (a slight increase from DaisyUI theme blocks, which is expected and correct).
+3. **The dashboard would have shipped broken.** Nothing in `vite build`'s exit code or summary revealed that half the custom classes were dropped. Settings pane, detail pane, heatmaps, filter dropdowns, modals — all would have rendered without their custom CSS, falling back to browser defaults or unstyled divs.
+4. **I almost committed it.** The only reason I caught it was because the user explicitly asked for a deeper pass ("no shortcuts"), which prompted me to write a smoke test that actually curls the served CSS and checks for specific class selectors. Without that pass, the broken build would have shipped.
+
+**What should have happened:**
+
+1. **Never write star-slash anywhere inside a CSS comment block** — even accidentally inside words like `--bg-*/--text-*` or `word*/other`. Escape by rephrasing (`--bg, --text, --border`), or use a different comment style (each `--var` on its own line), or spell it out ("asterisk-slash", "glob pattern"). Tailwind v3 tolerated this accidentally; Tailwind v4 / esbuild's stricter parser does not.
+2. **Don't trust bundle-size reductions blindly.** A large bundle-size drop during a refactor is suspicious, especially when the refactor only removed variable definitions (which are usually small). Custom class rules are the bulk of a CSS file — if deleting variables produces a 16% drop, investigate whether the build silently dropped classes.
+3. **Always grep the built CSS for critical class families** after a styles rewrite. A simple smoke test:
+   ```bash
+   CSS=$(ls dist/assets/*.css | head -1)
+   for c in heatmap-cell filter-multi-select settings-pane detail-pane error-boundary-card card btn-primary; do
+     grep -q "\\.$c" "$CSS" || echo "MISSING: $c"
+   done
+   ```
+4. **Read all `vite build` warnings, not just the final status.** The `Found N warnings while optimizing generated CSS` block is buried near the bottom but can contain fatal parse errors that the build tolerates silently.
+5. **Prefer `vite preview` + curl smoke test** over trusting the build exit code. A 2-line smoke test would have caught this before the commit.
+
+Logged 2026-04-12 during the DaisyUI migration second pass. Added CLAUDE.md Frontend checklist item prohibiting star-slash inside CSS comments.
+
+---
+
 ## 2026-01-22: Built feature without testing capability
 
 **What happened:** Built `scripts/extract-api.js` for GitHub API-based extraction without realizing it required `gh auth login` to test. The feature was coded, documented, and made the default in `update-all.sh` - all without ever running it successfully.

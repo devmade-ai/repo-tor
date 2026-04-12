@@ -109,8 +109,8 @@ export function DebtBalance({ debtBreakdown, debtTotal, isMobile, onDebtFilterCl
                 <div className="mt-2 p-3 bg-base-300 rounded text-center">
                     <span className="text-sm text-base-content/80">Net: </span>
                     <span className={`text-sm font-semibold ${
-                        debtBreakdown.added > debtBreakdown.paid ? 'text-red-500' :
-                        debtBreakdown.paid > debtBreakdown.added ? 'text-green-500' :
+                        debtBreakdown.added > debtBreakdown.paid ? 'text-error' :
+                        debtBreakdown.paid > debtBreakdown.added ? 'text-success' :
                         'text-base-content/60'
                     }`}>
                         {debtBreakdown.added > debtBreakdown.paid

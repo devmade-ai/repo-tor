@@ -675,7 +675,7 @@ export default function Timeline() {
             <CollapsibleSection title="Activity Summary">
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View all ${summaryData.totalCommits} commits`}
@@ -698,7 +698,7 @@ export default function Timeline() {
                         <div className="text-sm text-base-content/60">{summaryData.daySpan || 'Date Range'}</div>
                     </div>
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${summaryData.contributors} contributors`}

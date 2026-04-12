@@ -77,6 +77,7 @@ Good: "This file doesn't look like a dashboard data file. Try exporting from the
 - [ ] No `<script>` tags — all JS through ES module imports (exceptions: debug pill and PWA early capture in index.html, which must run before modules load)
 - [ ] Maintain light/dark mode support via dual-layer theming (`.dark` class + `data-theme` attribute). Prefer DaisyUI semantic tokens (auto-switch with theme) over `dark:` prefix pairs. See `docs/implementations/THEME_DARK_MODE.md`.
 - [ ] Never re-introduce custom `--bg-*`, `--text-*`, `--border-*`, `--color-primary-alpha`, `--chart-grid`, or `--glow-*` variables — they were fully removed in the 2026-04-12 migration. Use DaisyUI tokens or inline `color-mix(in oklab, var(--color-primary) X%, transparent)` for tinted variants.
+- [ ] **Never write asterisk-slash sequences inside CSS `/* ... */` comments** (e.g. `--bg-*/...` glob patterns). The embedded `*/` terminates the comment early and esbuild's CSS minifier silently drops everything after the break point, producing a build that passes but renders without half the custom styles. Phrase glob patterns in comments as `--bg, --text, --border` instead, or use the word "glob" / "star-slash" spelled out. This mistake already bit us once in this session — see `docs/AI_MISTAKES.md` 2026-04-12 entry.
 
 ### Documentation
 

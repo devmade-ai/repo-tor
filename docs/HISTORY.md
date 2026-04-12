@@ -84,7 +84,15 @@ The initial commit on this branch was a conservative "infrastructure + partial m
 29. Zero custom `--bg-*/--text-*/--border-*/--color-primary-alpha/--chart-grid/--glow-*/--shadow*` variables remain anywhere in the codebase (verified with comprehensive Grep — only matches are in explanatory code comments).
 30. Updated `CLAUDE.md` Frontend standards to enforce DaisyUI semantic tokens and prohibit re-introducing the deleted custom variables.
 
-**Build:** Passes (`./node_modules/.bin/vite build`). CSS bundle **147.16 KB → 123.27 KB** (−23.9 KB, −16%). All 82 modules transform. Vite preview serves correctly, DaisyUI theme blocks present in served CSS (`[data-theme="lofi"]` and `[data-theme="black"]` selectors verified via curl inspection).
+**Build:** Passes (`./node_modules/.bin/vite build`). CSS bundle **147.16 KB → 150.6 KB** (+3.5 KB, +2%). The net increase comes from DaisyUI's theme blocks and semantic component classes (btn, card, modal, etc.) which are added to the bundle; deleted custom variables / gray overrides / utility classes only partially offset the gain. All 82 modules transform. Vite preview serves correctly, DaisyUI theme selectors (`[data-theme="lofi"]` and `[data-theme="black"]`) and all 19 critical custom class families (`.heatmap-*`, `.filter-multi-select*`, `.settings-pane*`, `.detail-pane*`, `.error-boundary-card`, `.root-error-message`, `.dashboard-header`, `.card`, `.tab-btn-active`, `.btn-icon`, `.btn-primary`, `.toast-success`, `.collapsible-header`, etc.) verified via curl inspection.
+
+**Regression caught and fixed (second pass):** The first migration commit on this branch misreported the CSS bundle size as 123.27 KB — this turned out to be a build artifact of a broken CSS comment. The rewritten `:root` comment block contained the literal sequence `--bg-*/--text-*/--border-*` inside a `/* ... */`, and the embedded `*/` terminated the comment prematurely. `esbuild`'s CSS minifier silently dropped everything after that point, which included all `.heatmap-*`, `.filter-multi-select*`, `.settings-pane*`, `.detail-pane*`, `.error-boundary-card`, and several other custom class definitions. The build passed (no errors) but the dashboard would have rendered without any of those custom styles. Fixed by rephrasing the comment to avoid the `*/` sequence. Added an `@source not` note in CLAUDE.md warning future sessions never to write `--*-*/...` glob patterns inside CSS comments.
+
+**Additional semantic token migration (second pass):**
+- `Timing.jsx` author threshold indicators: `text-green-600/amber-600/red-600` → `text-success/warning/error`.
+- `HealthAnomalies.jsx` debt balance net indicator: `text-red-500/green-500` → `text-error/success`.
+- `Discover.jsx` pin button: `text-blue-500` / `hover:text-blue-500` → `text-primary` / `hover:text-primary`. Metric selector focus ring: `focus:ring-blue-500` → `focus:ring-primary`.
+- `Summary.jsx`, `Timeline.jsx`, `Progress.jsx`, `HealthWorkPatterns.jsx` stat-card hover rings: `hover:ring-blue-500` → `hover:ring-primary`.
 
 **Files changed (22 source + 6 docs):**
 - Infrastructure: `package.json`, `package-lock.json`, `dashboard/styles.css`, `dashboard/index.html`, `dashboard/js/AppContext.jsx`

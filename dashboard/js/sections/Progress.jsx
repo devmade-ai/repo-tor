@@ -424,7 +424,7 @@ export default function Progress() {
             <CollapsibleSection title="Summary">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${metrics.featureCount} feature commits`}
@@ -435,7 +435,7 @@ export default function Progress() {
                         <div className="text-sm text-base-content/60">Features</div>
                     </div>
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${metrics.bugfixCount} bug fix commits`}
@@ -446,7 +446,7 @@ export default function Progress() {
                         <div className="text-sm text-base-content/60">Bug Fixes</div>
                     </div>
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${metrics.refactorCount} refactor commits`}

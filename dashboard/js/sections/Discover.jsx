@@ -581,7 +581,7 @@ export default function Discover() {
                             <div key={selectedMetrics[idx]} className="card">
                                 <div className="flex items-center justify-between mb-2 gap-1">
                                     <select
-                                        className="metric-selector text-xs bg-base-300 text-base-content/80 rounded px-1 py-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500 min-w-0 truncate"
+                                        className="metric-selector text-xs bg-base-300 text-base-content/80 rounded px-1 py-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary min-w-0 truncate"
                                         value={isPinned ? selectedMetrics[idx] : 'random'}
                                         onChange={(e) => handleSelectChange(idx, e.target.value)}
                                     >
@@ -591,7 +591,7 @@ export default function Discover() {
                                         ))}
                                     </select>
                                     <button
-                                        className={`pin-btn text-xs flex-shrink-0 ${isPinned ? 'text-blue-500' : 'text-base-content/40'} hover:text-blue-500`}
+                                        className={`pin-btn text-xs flex-shrink-0 ${isPinned ? 'text-primary' : 'text-base-content/40'} hover:text-primary`}
                                         aria-label={isPinned ? 'Unpin this metric' : 'Pin this metric'}
                                         title={isPinned ? 'Unpin' : 'Pin this metric'}
                                         onClick={() => handlePinToggle(idx)}

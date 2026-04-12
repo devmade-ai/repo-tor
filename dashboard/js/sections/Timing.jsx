@@ -499,9 +499,9 @@ export default function Timing() {
                                     <div className="p-2 bg-base-200 rounded">
                                         <span className="text-base-content/60">Work Hours</span>
                                         <p className={`font-semibold ${
-                                            author.workHoursPct >= THRESHOLDS.workHoursGood ? 'text-green-600'
-                                                : author.workHoursPct >= THRESHOLDS.workHoursMixed ? 'text-amber-600'
-                                                    : 'text-red-600'
+                                            author.workHoursPct >= THRESHOLDS.workHoursGood ? 'text-success'
+                                                : author.workHoursPct >= THRESHOLDS.workHoursMixed ? 'text-warning'
+                                                    : 'text-error'
                                         }`}>
                                             {author.workHoursPct}%
                                         </p>
@@ -509,9 +509,9 @@ export default function Timing() {
                                     <div className="p-2 bg-base-200 rounded">
                                         <span className="text-base-content/60">Weekends</span>
                                         <p className={`font-semibold ${
-                                            author.weekendPct <= THRESHOLDS.weekendLow ? 'text-green-600'
-                                                : author.weekendPct <= THRESHOLDS.weekendMid ? 'text-amber-600'
-                                                    : 'text-red-600'
+                                            author.weekendPct <= THRESHOLDS.weekendLow ? 'text-success'
+                                                : author.weekendPct <= THRESHOLDS.weekendMid ? 'text-warning'
+                                                    : 'text-error'
                                         }`}>
                                             {author.weekendPct}%
                                         </p>

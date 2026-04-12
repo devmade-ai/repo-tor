@@ -46,8 +46,11 @@
    Alternatives:
      - Merge with Tailwind @theme directive: Rejected — mixing design tokens
        with @theme forces extra utility class generation we don't use.
-     - Keep legacy --bg-*/--text-*/--border-* aliases: Rejected — creates two
-       parallel theming systems and obscures the actual driving tokens. */
+     - Keep legacy --bg, --text, --border aliases: Rejected — creates two
+       parallel theming systems and obscures the actual driving tokens.
+   Note: avoid writing the glob patterns --bg-star-slash or --text-star-slash
+   literally inside CSS comments — the asterisk-slash sequence terminates the
+   comment and silently breaks the parser mid-file. */
 :root {
     /* Spacing (8px base) */
     --spacing-base: 8px;

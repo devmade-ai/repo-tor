@@ -290,7 +290,7 @@ export default function Summary() {
             <CollapsibleSection title="Key Stats" subtitle="Overall project numbers">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
-                        className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
+                        className="stat-card cursor-pointer hover:ring-2 hover:ring-primary rounded-lg transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`${metrics.features} features built — click to see details`}
@@ -303,7 +303,7 @@ export default function Summary() {
                         </div>
                     </div>
                     <div
-                        className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
+                        className="stat-card cursor-pointer hover:ring-2 hover:ring-primary rounded-lg transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`${metrics.fixes} bugs fixed — click to see details`}
@@ -316,7 +316,7 @@ export default function Summary() {
                         </div>
                     </div>
                     <div
-                        className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
+                        className="stat-card cursor-pointer hover:ring-2 hover:ring-primary rounded-lg transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`Average urgency ${metrics.avgUrgency > 0 ? metrics.avgUrgency.toFixed(1) : 'not available'} — click to see reactive commits`}
@@ -331,7 +331,7 @@ export default function Summary() {
                         </div>
                     </div>
                     <div
-                        className="stat-card cursor-pointer hover:ring-2 hover:ring-blue-500 rounded-lg transition-all"
+                        className="stat-card cursor-pointer hover:ring-2 hover:ring-primary rounded-lg transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`${metrics.plannedPct > 0 ? metrics.plannedPct + '% planned work' : 'No planned work data'} — click to see details`}
