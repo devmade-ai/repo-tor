@@ -152,11 +152,41 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Same test with `lightTheme = 'nonsense'` after setting `darkMode = 'false'` → loads with `data-theme="lofi"`
 - [ ] `localStorage.setItem('darkTheme', 'black'); location.reload()` → loads cleanly with `data-theme="black"` (valid ID in allowlist)
 
-*Theme meta generator:*
-- [ ] `npm run build` output shows `[generate-theme-meta] wrote .../themeMeta.js` followed by each registered theme (e.g. `lofi light #ffffff`, `black dark #000000`)
-- [ ] `dashboard/js/generated/themeMeta.js` exists and contains valid `META_COLORS` / `IS_DARK` / `THEME_NAMES` exports
-- [ ] After manually editing `dashboard/js/generated/themeMeta.js` and running `npm run build` — the edit is overwritten with the regenerated content (generator is idempotent and authoritative)
-- [ ] `npm run generate-theme-meta` invokes the generator directly without running vite
+*Theme meta generator (single source of truth):*
+- [ ] `npm run build` output shows the generator printing all 8 registered themes with their hex values (e.g. `lofi light #ffffff`, `dracula dark #282a36`)
+- [ ] Second run of `npm run build` (or `npm run generate-theme-meta`) reports all four downstream files as **unchanged** — generator is idempotent
+- [ ] `dashboard/js/generated/themeMeta.js` exists and contains `META_COLORS` / `IS_DARK` / `THEME_NAMES` exports for all 8 themes
+- [ ] `dashboard/js/themes.js` block between `/* BEGIN GENERATED: theme-catalog */` markers contains `LIGHT_THEMES`, `DARK_THEMES`, `DEFAULT_LIGHT_THEME`, `DEFAULT_DARK_THEME` matching `scripts/theme-config.js`
+- [ ] `dashboard/styles.css` block between `/* BEGIN GENERATED: daisyui-plugin */` markers contains `@plugin "daisyui" { themes: lofi --default, nord, ..., black --prefersdark, ... }` with all 8 themes
+- [ ] `dashboard/index.html` inline script block between `/* BEGIN GENERATED: flash-prevention-meta */` markers contains `LIGHT_THEMES`, `DARK_THEMES`, `DEFAULT_*_THEME`, and a `META` map with all 8 hex values
+- [ ] `npm run generate-theme-meta` runs the generator directly without touching vite
+- [ ] **Generator error paths:**
+  - [ ] Edit `scripts/theme-config.js` to set `DEFAULT_LIGHT_THEME = 'nonsense'` → generator exits with error `DEFAULT_LIGHT_THEME "nonsense" is not one of THEMES.light ids` and exit code 1
+  - [ ] Add a typo theme id (e.g. `'nonexistent-theme'`) to `THEMES.light` → generator exits with error `Could not import daisyui/theme/nonexistent-theme/object.js` and exit code 1
+  - [ ] Move `'black'` from `THEMES.dark` to `THEMES.light` → generator exits with error `theme "black" is listed under THEMES.light but DaisyUI reports color-scheme="dark"` and exit code 1
+- [ ] **Idempotence cross-check:**
+  ```bash
+  md5sum dashboard/js/generated/themeMeta.js dashboard/js/themes.js dashboard/styles.css dashboard/index.html > /tmp/before.md5
+  npm run generate-theme-meta
+  md5sum dashboard/js/generated/themeMeta.js dashboard/js/themes.js dashboard/styles.css dashboard/index.html > /tmp/after.md5
+  diff /tmp/before.md5 /tmp/after.md5  # expect: no output
+  ```
+
+*Theme picker UI (burger menu):*
+- [ ] Open the burger menu (☰) — see the dark/light toggle followed by 4 theme items for the current mode (light mode shows Lo-Fi / Nord / Emerald / Caramel Latte; dark mode shows Black / Dim / Coffee / Dracula)
+- [ ] The currently active theme has a checkmark icon and the highlight color class; inactive themes have the palette icon
+- [ ] Click a non-active theme → dashboard re-themes without a page reload, the active theme highlight moves, `data-theme` attribute on `<html>` updates, the PWA status bar `<meta name="theme-color">` content updates, all charts re-render with new axis colors
+- [ ] Toggle dark/light mode → theme list switches to show only themes for the new mode (4 items, not 8)
+- [ ] Pick a non-default theme in light mode (e.g. Nord), toggle to dark, pick a non-default theme in dark mode (e.g. Dracula), toggle back to light → Nord is still the active light theme (localStorage `lightTheme` = 'nord')
+- [ ] Clear localStorage, reload → dashboard loads with the defaults (lofi / black) and the picker shows the defaults as active
+- [ ] Hover / focus a theme item with keyboard → screen reader announces the full label like "Use Nord theme (Cool blue-gray), currently active" (or without the active suffix for inactive themes)
+
+*Adding a new theme (developer flow):*
+- [ ] Edit `scripts/theme-config.js` — add a new entry to `THEMES.light` or `THEMES.dark` with a valid DaisyUI theme id
+- [ ] Run `npm run generate-theme-meta` → generator updates all four downstream files and prints the new theme's hex value
+- [ ] Run `npm run build` → the new theme's `[data-theme="..."]` selector block appears in the built CSS
+- [ ] The new theme appears as a menu item in the appropriate mode, the inline flash prevention script's allowlist includes the new id, and the new id can be stored in localStorage without being rejected by `validTheme()`
+- [ ] **No other file edits required** — themes.js, styles.css, and index.html all update automatically
 
 *Dual-layer attributes:*
 - [ ] In DevTools, inspect `<html>` element — in dark mode it should have BOTH `class="dark"` AND `data-theme="black"`

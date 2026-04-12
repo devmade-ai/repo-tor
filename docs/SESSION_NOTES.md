@@ -4,9 +4,65 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (catalog module, `applyTheme()` helper, build-time oklch→hex theme meta generator, inline flash-prevention allowlist, forward-compat cross-tab sync), and PWA support.
+**Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes, `applyTheme()` helper, single-source-of-truth build-time catalog propagator, theme picker UI in burger menu, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist), and PWA support.
 
-**Recent Updates (2026-04-12 — third pass):**
+**Recent Updates (2026-04-12 — fourth pass):**
+
+### Reference-pattern gap closure — single-source config, 4+4 theme catalog, burger-menu theme picker, reference-shape cross-tab handler
+
+After the reference-pattern alignment pass, a second audit against `docs/implementations/THEME_DARK_MODE.md` turned up seven residual gaps — all non-critical but all structural (would decay into bugs the moment someone added a theme). This pass closes every actionable gap.
+
+**Single source of truth for theme registration:**
+- New file `scripts/theme-config.js` — exports `THEMES = { light: [...], dark: [...] }` with each entry being `{ id, name, description }`, plus `DEFAULT_LIGHT_THEME` / `DEFAULT_DARK_THEME`. This is the ONLY file humans edit when adding, removing, or renaming themes.
+- `scripts/generate-theme-meta.mjs` was rewritten to read `theme-config.js` and propagate the catalog to four downstream files via marker-based rewrite:
+  - `dashboard/js/generated/themeMeta.js` (full rewrite)
+  - `dashboard/js/themes.js` block between `/* BEGIN GENERATED: theme-catalog */` / `/* END GENERATED: theme-catalog */` — `LIGHT_THEMES`, `DARK_THEMES`, `DEFAULT_LIGHT_THEME`, `DEFAULT_DARK_THEME`
+  - `dashboard/styles.css` block between `/* BEGIN GENERATED: daisyui-plugin */` / `/* END GENERATED: daisyui-plugin */` — the `@plugin "daisyui" { themes: ... }` directive with `--default` / `--prefersdark` markers on the defaults
+  - `dashboard/index.html` block between `/* BEGIN GENERATED: flash-prevention-meta */` / `/* END GENERATED: flash-prevention-meta */` — `LIGHT_THEMES` / `DARK_THEMES` / `DEFAULT_*_THEME` / `META` constants inside the inline flash prevention script
+- The generator is idempotent: each rewrite compares new content to existing and skips the write when unchanged, so `npm run dev` doesn't bump mtimes on every prebuild and trigger Vite HMR reloads. Second run reports "unchanged" for all four files.
+- Fail-fast validation: generator exits with error if `DEFAULT_LIGHT_THEME` / `DEFAULT_DARK_THEME` aren't in their arrays, if a theme's `color-scheme` property doesn't match which array it's in (dark theme listed under light or vice versa), or if a theme ID isn't a real DaisyUI theme.
+
+**Theme catalog expanded from 1+1 to 4+4 curated themes:**
+- Light: lofi (minimal monochrome), nord (cool blue-gray), emerald (fresh green), caramellatte (warm neutral)
+- Dark: black (true OLED), dim (soft dark gray), coffee (dark roast), dracula (dev classic)
+- All 8 are DaisyUI stock themes — no custom theme definitions needed.
+- `LIGHT_THEMES` / `DARK_THEMES` in `themes.js` are now arrays of `{ id, name, description }` objects (was string arrays). The object shape matches the reference pattern and gives the theme picker UI real labels to show without a second lookup map.
+- Validator sets (`lightSet`, `darkSet`) rebuilt via `.map(t => t.id)` so the `validLightTheme` / `validDarkTheme` API stays the same.
+
+**Theme picker UI in burger menu:**
+- New menu items in `Header.jsx` `menuItems` memo: one picker item per theme in the current mode, filtered by `state.darkMode`. Active theme gets the `highlight` class + a checkmark icon; inactive themes get the palette icon.
+- `setTheme(themeName)` helper exported via `useAppDispatch()` — takes one arg, infers which mode the theme belongs to via `validLightTheme` / `validDarkTheme`, dispatches `SET_LIGHT_THEME` or `SET_DARK_THEME`. Unknown theme names are silently ignored (reducer guards).
+- Each picker item has an explicit `ariaLabel` like "Use Nord theme (Cool blue-gray), currently active" so screen readers announce the full name, description, and active state.
+- New SVG icons: `icons.palette` (theme item) and `icons.check` (active theme).
+- Menu order: Quick Guide → User Guide → **Dark/Light mode toggle** → **4 theme items for current mode** → Save as PDF → Install App → Update Now.
+
+**Cross-tab sync refactored to reference handler shape:**
+- Previously our listener filtered theme name events by current mode — if tab A wrote `lightTheme=nord` while tab B was in dark mode, tab B's listener ignored the event (the new name would still be picked up via `getStoredTheme()` on the next toggle). Functionally equivalent but structurally diverged from the reference handler which updates per-mode state unconditionally.
+- `AppContext.jsx` reducer now holds `lightTheme` and `darkTheme` as state alongside `darkMode`, matching the reference's implicit Approach A state shape.
+- New reducer action types: `SET_LIGHT_THEME`, `SET_DARK_THEME`. All three theme-related actions (`SET_DARK_MODE`, `SET_LIGHT_THEME`, `SET_DARK_THEME`) have early-return guards to skip no-op dispatches so cross-tab events that replay the current value don't re-render.
+- Cross-tab storage listener dispatches unconditionally for `darkMode`, `lightTheme`, and `darkTheme` — matches `setIsDark()` / `setLightThemeState()` / `setDarkThemeState()` in the reference.
+- The single `darkMode` effect now subscribes to `[state.darkMode, state.lightTheme, state.darkTheme]` and calls `applyTheme(dark, dark ? darkTheme : lightTheme)`. The effect only re-runs when the currently-active mode's theme changes (React compares primitives by value, so updating `lightTheme` while in dark mode is a no-op DOM-wise but the value is stored correctly for next toggle).
+
+**Initial state hydration:**
+- `loadInitialState()` now reads `lightTheme` / `darkTheme` from localStorage via `validLightTheme` / `validDarkTheme` with the catalog defaults as fallback, matching the inline flash prevention script's allowlist validation.
+
+**Documentation:**
+- New `scripts/theme-config.js` with extensive header comment and selection rationale
+- `scripts/generate-theme-meta.mjs` header rewritten to describe the four-file propagation
+- `themes.js` top comment updated — removed the "currently one theme per mode / latent feature" caveat that's now obsolete
+- BEGIN/END GENERATED comments in themes.js, styles.css, index.html explicitly warn "DO NOT edit by hand — will be overwritten on the next build; edit scripts/theme-config.js instead"
+- `CLAUDE.md` architecture list adds `scripts/theme-config.js` and expands the generator description
+- `docs/HISTORY.md`, `docs/TODO.md`, `docs/TESTING_GUIDE.md`, `docs/USER_GUIDE.md` all updated
+
+**Deliberately NOT addressed (speculative abstraction per CLAUDE.md prohibitions):**
+- CSP hash for inline flash prevention script — no CSP deployed today, computing hashes that nothing verifies is wasted work
+- Legacy localStorage key cleanup (`theme`, `colorMode`, `dark-mode`) — we never wrote those keys, so the cleanup would be a no-op defending against a problem that can't exist
+
+**Build:** Passes (`npm run build`). Generator output visible in prebuild: all 8 themes with their hex values, all four downstream files "unchanged" on second run (idempotent). CSS bundle 150.64 KB → **157.40 KB** (+6.76 KB, +4.5%) from 6 additional DaisyUI theme blocks (each ~1 KB of CSS vars). 84 modules transform (unchanged — no new modules). All 8 `[data-theme="..."]` selectors present in built CSS. All 8 theme names ("Lo-Fi", "Nord", ..., "Dracula") and descriptions ("Minimal monochrome", ..., "Dev classic") present in built JS.
+
+---
+
+**Previous Updates (2026-04-12 — third pass):**
 
 ### Reference-pattern alignment — theme catalog module, applyTheme() helper, build-time meta generator, inline allowlist
 

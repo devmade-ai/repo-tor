@@ -7,21 +7,33 @@
 
 /* Requirement: DaisyUI v5 dual-layer theming — .dark class for Tailwind
    dark: variant + data-theme attribute for DaisyUI semantic tokens.
-   Approach: Register two curated themes (lofi for light, black for dark).
-     --default / --prefersdark set the initial theme before JavaScript runs.
+   Approach: Register a curated set of DaisyUI stock themes via @plugin. The
+     --default marker on lofi and --prefersdark on black set the initial
+     theme before JavaScript runs, so flash prevention works even if
+     localStorage is unavailable.
      DaisyUI exposes `--color-base-100/200/300`, `--color-base-content`,
      `--color-primary`, `--color-success/error/warning/info`, etc. which
      this project uses as the single source of truth for theming.
    Alternatives:
      - Custom CSS variables (previous approach): Rejected — fought the cascade
-       with duplicate :root/html.dark blocks, `dark:` Tailwind pairs everywhere,
+       with duplicate :root/html.dark blocks, dark: Tailwind pairs everywhere,
        and a manual Chart.js color sync. DaisyUI eliminates all of that.
      - Full 35-theme catalog: Rejected — utility apps should stay curated.
-       Starting with 2 themes; adding more is trivial if needed.
-   See: docs/implementations/THEME_DARK_MODE.md */
+       Reference recommends 8-10 themes per mode max; we ship 4 + 4 which
+       keeps the burger-menu picker short.
+
+   BEGIN/END GENERATED markers below are read by scripts/generate-theme-meta.mjs.
+   DO NOT edit the @plugin block between the markers by hand — it will be
+   overwritten on the next build. Edit scripts/theme-config.js instead,
+   then run `npm run generate-theme-meta` (or any `npm run dev` / build).
+
+   See: docs/implementations/THEME_DARK_MODE.md
+        scripts/theme-config.js (source of truth for the catalog) */
+/* BEGIN GENERATED: daisyui-plugin */
 @plugin "daisyui" {
-  themes: lofi --default, black --prefersdark;
+  themes: lofi --default, nord, emerald, caramellatte, black --prefersdark, dim, coffee, dracula;
 }
+/* END GENERATED: daisyui-plugin */
 
 /* Dark mode uses class-based approach (html.dark).
    DaisyUI semantic tokens auto-switch with data-theme — this variant is

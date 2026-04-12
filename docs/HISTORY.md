@@ -4,6 +4,77 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-12
 
+### Reference-pattern gap closure — single-source theme config, 4+4 catalog, burger-menu picker, reference-shape cross-tab sync
+
+**Why:** After the reference-pattern alignment pass landed on this branch, a second side-by-side audit against `docs/implementations/THEME_DARK_MODE.md` turned up seven residual gaps (documented in the "differences" list). None were bugs that would manifest today, but all were the kind of structural drift that becomes a bug the moment someone adds a theme or changes a default. The user asked for "no shortcuts, no skipping", so this pass implements every actionable gap and documents why the two remaining (CSP hash, legacy key cleanup) would be speculative abstraction.
+
+**Gaps closed this pass:**
+
+1. **Section C#1 — theme catalog was string arrays, not object arrays with metadata.** The reference pattern uses `[{ id, name, description }, ...]` so the theme picker UI can show labels without a second lookup map. Closed by expanding `LIGHT_THEMES` / `DARK_THEMES` in `themes.js` to object shape and updating validators to use `.map(t => t.id)` for the allowlist sets.
+
+2. **Section C#2 — build script only regenerated the JS module, not the inline flash prevention script.** The reference says "the build script should update every file that contains theme lists or color maps so there is zero manual maintenance." Closed by making `scripts/generate-theme-meta.mjs` rewrite a marker-delimited block inside the inline `<script>` in `dashboard/index.html` — allowlists, defaults, and META map all regenerated on every build.
+
+3. **Section C#3 — build script didn't regenerate `styles.css` `@plugin` config or `themes.js` catalog arrays.** Same root cause as C#2. Closed by adding BEGIN/END GENERATED markers in both files and teaching the generator to rewrite the blocks. Four downstream files now stay in sync from a single source (`scripts/theme-config.js`).
+
+4. **Section C#5 — cross-tab handler filtered theme events by current mode instead of dispatching unconditionally.** The reference handler updates per-mode React state (`setLightThemeState` / `setDarkThemeState`) regardless of which mode the user is currently viewing; we filtered by current mode and used `getStoredTheme()` as the source of truth. Functionally equivalent but diverged from the reference handler shape. Closed by adding `lightTheme` / `darkTheme` to the reducer state, creating `SET_LIGHT_THEME` / `SET_DARK_THEME` action types, and having the cross-tab listener dispatch unconditionally.
+
+5. **Section C#7 — no theme picker UI in burger menu.** The reference explicitly puts the theme picker inside the burger menu. Closed by adding picker items to `Header.jsx` `menuItems` memo (one per theme in the current mode), threading a new `setTheme(themeName)` helper through `useAppDispatch()`, and adding an explicit `ariaLabel` with theme description + active-state announcement.
+
+6. **Catalog expanded from 1+1 to 4+4 curated themes** — prerequisite for C#7 being useful. 4 per mode sits comfortably inside the reference's "2-5 curated combos (or 8-10 themes per mode)" recommendation for utility apps. Selection: lofi/nord/emerald/caramellatte for light, black/dim/coffee/dracula for dark — all DaisyUI stock themes, no custom theme definitions.
+
+7. **Generator fail-fast validation** — new in this pass. `scripts/generate-theme-meta.mjs` now validates the config at load time and exits with a clear error if:
+   - `THEMES.light` or `THEMES.dark` are missing / empty
+   - `DEFAULT_LIGHT_THEME` isn't in `THEMES.light` ids
+   - `DEFAULT_DARK_THEME` isn't in `THEMES.dark` ids
+   - A theme's `color-scheme` property doesn't match which array it's listed under (catches "added a dark theme to the light array" typos)
+   - A theme ID isn't a real DaisyUI theme (catches "mistyped theme name" typos)
+
+**Deliberately NOT addressed (speculative abstraction per CLAUDE.md prohibitions):**
+
+- **Section C#4 — CSP hash for inline flash prevention script.** The reference notes that a strict CSP without `unsafe-inline` would block the inline script, and says to precompute a SHA-256 hash and add it to the `script-src` directive. We don't currently ship any `Content-Security-Policy` header in `vercel.json`, so computing a hash that nothing verifies would be dead code defending against a constraint that doesn't exist. If CSP is added later, the hash can be computed at that point from the already-markered script block.
+- **Section C#6 — legacy localStorage key cleanup.** The reference suggests a one-time migration that clears old theme keys like `theme`, `colorMode`, `dark-mode`. Our pre-DaisyUI system used the same `darkMode` key, so there's nothing to clean up — adding a defensive `safeStorageRemove('theme')` on every page load would be a no-op with a small runtime cost.
+
+**New files:**
+- `scripts/theme-config.js` — single source of truth for DaisyUI theme registration. Exports `THEMES = { light: [...], dark: [...] }` with `{ id, name, description }` entries plus `DEFAULT_LIGHT_THEME` / `DEFAULT_DARK_THEME`. Extensive header comment explains the propagation chain and selection rationale.
+
+**Rewritten files:**
+- `scripts/generate-theme-meta.mjs` — now reads `theme-config.js`, runs fail-fast validation, converts oklch → hex for each theme (same inlined ~30-line math), writes `generated/themeMeta.js`, and rewrites marker-delimited blocks in `themes.js`, `styles.css`, and `index.html`. Every file write is idempotent (content-equality check) so unchanged files aren't touched — `npm run dev` doesn't trigger a Vite HMR reload on every prebuild. Human-friendly stdout reports per-theme hex values and an "updated" / "unchanged" status per file.
+
+**Modified files:**
+- `dashboard/js/themes.js` — top comment rewritten for the new generator-based architecture; `LIGHT_THEMES` / `DARK_THEMES` definitions moved inside `/* BEGIN GENERATED: theme-catalog */` markers; validators updated to use `.map(t => t.id)` for the allowlist sets; dropped `THEME_NAMES` import from generated module (no longer needed — validators derive sets from the catalog arrays). Comment explicitly warns "DO NOT edit the block between markers by hand — edit scripts/theme-config.js instead".
+- `dashboard/styles.css` — `@plugin "daisyui"` block wrapped in `/* BEGIN GENERATED: daisyui-plugin */` / `/* END GENERATED: daisyui-plugin */` markers; header comment explains the generator propagation.
+- `dashboard/index.html` — inline flash prevention script's allowlists + defaults + META map wrapped in `/* BEGIN GENERATED: flash-prevention-meta */` / `/* END GENERATED: flash-prevention-meta */` markers; surrounding helpers (`validTheme` function, IIFE, DOM mutations) stay hand-maintained.
+- `dashboard/js/AppContext.jsx`:
+  - `loadInitialState()` reads `lightTheme` / `darkTheme` from localStorage with validator fallback, mirroring the inline flash prevention script's logic.
+  - Reducer state gains `lightTheme` + `darkTheme` fields.
+  - New reducer cases `SET_LIGHT_THEME` / `SET_DARK_THEME` with validation + no-op early-return guards.
+  - `SET_DARK_MODE` case also gains the no-op early-return guard.
+  - `darkMode` effect now depends on `[state.darkMode, state.lightTheme, state.darkTheme]` and calls `applyTheme(state.darkMode, state.darkMode ? state.darkTheme : state.lightTheme)`.
+  - Cross-tab storage listener dispatches unconditionally for `lightTheme` / `darkTheme` keys — matches reference handler shape.
+  - New `setTheme(themeName)` callback memoized via `useCallback`, exported through `DispatchContext` so `Header.jsx` can call it without knowing action type names.
+- `dashboard/js/components/Header.jsx`:
+  - Imports `LIGHT_THEMES` / `DARK_THEMES` from `themes.js`.
+  - Pulls `setTheme` from `useAppDispatch()`.
+  - New `icons.palette` (theme item) and `icons.check` (active theme) SVG icons.
+  - `menuItems` memo now filters the catalog to the current mode, maps each theme to a menu item with `setTheme(id)` action, `highlight` on the active theme, and a per-item `ariaLabel` announcing the theme name, description, and active state. First picker item gets a separator to visually group the picker under the mode toggle.
+
+**Build:** Passes. CSS bundle **150.64 KB → 157.40 KB** (+6.76 KB) from 6 new DaisyUI theme blocks (each ~1 KB of CSS vars — expected and unavoidable). 84 modules transform. Generator reports all 8 themes with correct hex values. Second run of the generator reports "unchanged" for all four files, confirming idempotence.
+
+**Smoke test** via `vite preview` + curl:
+- Inline HTML flash prevention script contains `'lofi', 'nord', 'emerald', 'caramellatte'`, `'black', 'dim', 'coffee', 'dracula'`, and all 8 hex values ✓
+- Built CSS contains `[data-theme="lofi"]` through `[data-theme="dracula"]` — all 8 selectors ✓
+- Built JS contains all 8 theme names ("Lo-Fi" through "Dracula") and all 8 descriptions ("Minimal monochrome" through "Dev classic") ✓
+- All 9 critical custom class families survived (`.heatmap-0`, `.filter-multi-select`, `.settings-pane`, `.detail-pane`, `.error-boundary-card`, `.dashboard-header`, `.card`, `.btn-primary`, `.toast-success`) ✓
+- Generator error paths tested: invalid `DEFAULT_LIGHT_THEME` correctly rejected with exit code 1 ✓
+
+**Files changed (7 source + 5 docs):**
+- New: `scripts/theme-config.js`
+- Rewritten: `scripts/generate-theme-meta.mjs`
+- Modified: `dashboard/js/themes.js`, `dashboard/js/AppContext.jsx`, `dashboard/js/components/Header.jsx`, `dashboard/styles.css`, `dashboard/index.html`, `dashboard/js/generated/themeMeta.js` (regenerated), `package.json` (no change this pass)
+- Docs: `CLAUDE.md`, `docs/SESSION_NOTES.md`, `docs/HISTORY.md`, `docs/TODO.md`, `docs/TESTING_GUIDE.md`, `docs/USER_GUIDE.md`
+
+---
+
 ### DaisyUI reference-pattern alignment — theme catalog module, applyTheme() helper, oklch→hex build script, inline allowlist
 
 **Why:** After the full DaisyUI migration landed on this branch, a deliberate side-by-side comparison with `docs/implementations/THEME_DARK_MODE.md` surfaced seven divergences from the reference pattern — all of them structural, none of them bugs that would immediately manifest, but all the kind of thing that decays into bugs the moment someone adds a theme or changes a default. The user explicitly asked for "no shortcuts, no skipping", so this pass closes the gap on every actionable divergence.
