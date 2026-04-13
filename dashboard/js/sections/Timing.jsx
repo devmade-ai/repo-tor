@@ -4,7 +4,11 @@ import { useApp } from '../AppContext.jsx';
 import {
     getAuthorEmail, getAuthorName, getCommitDateTime, DAY_NAMES_SHORT
 } from '../utils.js';
-import { accentColor, mutedColor } from '../chartColors.js';
+// accentColor / mutedColor are read from state.themeAccent / state.themeMuted
+// (via useApp) so charts track the active DaisyUI theme. No direct import
+// from chartColors.js — AppContext seeds state.themeAccent / state.themeMuted
+// from the bootstrap values at module load and updates them via dispatch
+// on every theme change (see AppContext.jsx darkMode effect).
 import { THRESHOLDS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 
@@ -200,7 +204,7 @@ export default function Timing() {
                     label: 'Commits',
                     data: byHour,
                     backgroundColor: byHour.map((_, i) =>
-                        (i >= state.workHourStart && i < state.workHourEnd) ? accentColor : mutedColor
+                        (i >= state.workHourStart && i < state.workHourEnd) ? state.themeAccent : state.themeMuted
                     ),
                     borderRadius: 2,
                 }],
@@ -236,7 +240,7 @@ export default function Timing() {
             },
         };
     // state.darkMode: bust memo on theme toggle so chart picks up new Chart.js defaults
-    }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap, state.darkMode]);
+    }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Daily distribution chart
     const dayChartData = useMemo(() => {
@@ -263,7 +267,7 @@ export default function Timing() {
                     label: 'Commits',
                     data: dayData,
                     backgroundColor: dayData.map((_, i) =>
-                        (i < 5) ? accentColor : mutedColor
+                        (i < 5) ? state.themeAccent : state.themeMuted
                     ),
                     borderRadius: 2,
                 }],
@@ -287,7 +291,7 @@ export default function Timing() {
                 },
             },
         };
-    }, [filteredCommits, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap, state.darkMode]);
+    }, [filteredCommits, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Developer patterns — only available with loaded commits
     const developerPatterns = useMemo(() => {

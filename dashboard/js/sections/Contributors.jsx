@@ -5,7 +5,10 @@ import {
     getTagClass, getTagStyleObject, getTagColor,
     aggregateContributors, getAuthorEmail, getAuthorName, sanitizeName, handleKeyActivate
 } from '../utils.js';
-import { getSeriesColor, mutedColor } from '../chartColors.js';
+// mutedColor is read from state.themeMuted (via useApp) so the "low complexity"
+// bar segment tracks the active DaisyUI theme. See chartColors.js runtime
+// resolver comment for the URL-override precedence rules.
+import { getSeriesColor } from '../chartColors.js';
 import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
@@ -75,7 +78,7 @@ export default function Contributors() {
                     label: 'Avg Complexity',
                     data: avgComplexities,
                     backgroundColor: avgComplexities.map(c =>
-                        c >= 3.5 ? getSeriesColor(3) : c >= 2.5 ? getSeriesColor(0) : mutedColor
+                        c >= 3.5 ? getSeriesColor(3) : c >= 2.5 ? getSeriesColor(0) : state.themeMuted
                     ),
                 }],
             },
@@ -91,7 +94,7 @@ export default function Contributors() {
             },
         };
     // state.darkMode: bust memo on theme toggle so chart picks up new Chart.js defaults
-    }, [aggregated, isMobile, state.darkMode]);
+    }, [aggregated, isMobile, state.darkMode, state.themeMuted]);
 
     // --- Per-contributor urgency/impact (moved from Health — per-person data belongs here) ---
     // Only computed from loaded commits (needs per-commit urgency/impact values)

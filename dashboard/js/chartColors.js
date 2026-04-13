@@ -92,6 +92,17 @@ const PALETTES = {
 // Uses shared searchParams from urlParams.js to avoid redundant parsing.
 import { searchParams } from './urlParams.js';
 
+// Validate hex color format: 3 or 6 hex digits, optionally prefixed with #.
+// Rejects invalid values to prevent broken CSS/chart rendering from URL params.
+// Extracted to module scope so both the initial parser and the runtime
+// resolvers below can share the same validator.
+function isValidHex(c) {
+    return /^#?[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(c);
+}
+function toHex(c) {
+    return c.startsWith('#') ? c : `#${c}`;
+}
+
 function parseColorOverrides() {
     const params = searchParams;
 
@@ -99,6 +110,13 @@ function parseColorOverrides() {
     let series = [...DEFAULT_SERIES];
     let accent = DEFAULT_ACCENT;
     let accentMuted = DEFAULT_ACCENT_MUTED;
+    // Track whether URL explicitly overrode accent/muted so the runtime
+    // resolvers below know when to fall through to theme-aware CSS variables
+    // vs sticking with an embedder-specified brand color. Without this flag
+    // we couldn't distinguish "URL set accent to the same value as the
+    // default" from "no URL override at all".
+    let accentOverridden = false;
+    let mutedOverridden = false;
 
     // ?palette=name — apply a named preset as the base
     const paletteName = params.get('palette');
@@ -106,12 +124,10 @@ function parseColorOverrides() {
         const preset = PALETTES[paletteName];
         series = [...preset.series];
         accent = preset.accent;
+        // A palette name is a deliberate embedder choice — treat it as an
+        // accent override so it survives theme changes.
+        accentOverridden = true;
     }
-
-    // Validate hex color format: 3 or 6 hex digits, optionally prefixed with #.
-    // Rejects invalid values to prevent broken CSS/chart rendering from URL params.
-    const isValidHex = (c) => /^#?[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(c);
-    const toHex = (c) => c.startsWith('#') ? c : `#${c}`;
 
     // ?colors=hex1,hex2,hex3 — override series colors (takes priority over palette)
     const colorsParam = params.get('colors');
@@ -130,15 +146,17 @@ function parseColorOverrides() {
     const accentParam = params.get('accent');
     if (accentParam && isValidHex(accentParam)) {
         accent = toHex(accentParam);
+        accentOverridden = true;
     }
 
     // ?muted=hex — override the muted/secondary color (after-hours, weekends, etc.)
     const mutedParam = params.get('muted');
     if (mutedParam && isValidHex(mutedParam)) {
         accentMuted = toHex(mutedParam);
+        mutedOverridden = true;
     }
 
-    return { series, accent, accentMuted };
+    return { series, accent, accentMuted, accentOverridden, mutedOverridden };
 }
 
 const resolved = parseColorOverrides();
@@ -152,16 +170,104 @@ const resolved = parseColorOverrides();
 export const seriesColors = resolved.series;
 
 /**
- * The resolved primary accent color. Use for single-dataset charts, heatmap
- * intensity, and any element that should match the "brand" color.
+ * Bootstrap primary accent color. Frozen at module load to either the
+ * URL-override value, the palette preset accent, or the hardcoded default.
+ * Used for:
+ *   - Pre-React bootstrap code that can't subscribe to theme state yet
+ *     (main.jsx sets --chart-accent-override from this value).
+ *   - As a fallback inside `resolveRuntimeAccent()` when the DOM isn't
+ *     available (SSR, very early bootstrap).
+ * Component code that renders inside React should prefer `state.themeAccent`
+ * from useApp() which tracks the active theme via the reducer.
  */
 export const accentColor = resolved.accent;
 
 /**
- * A muted/secondary color for contrast elements (after-hours bars, weekend
- * bars, low-complexity indicators).
+ * Bootstrap muted/secondary color. Same semantics as `accentColor` — prefer
+ * `state.themeMuted` from useApp() inside React.
  */
 export const mutedColor = resolved.accentMuted;
+
+/**
+ * True if the embedder supplied `?accent=`, `?palette=`, or `?muted=` via URL
+ * parameters. When true, the runtime resolvers below pin the returned value
+ * to the URL override across all theme changes — an embedder that chose a
+ * specific brand color wants it to survive theme picker clicks.
+ */
+export const hasUrlAccentOverride = resolved.accentOverridden;
+export const hasUrlMutedOverride = resolved.mutedOverridden;
+
+/**
+ * Resolve the active accent color at runtime — the value charts should use
+ * for single-dataset bars, heatmap fills, and any "brand" color.
+ *
+ * Requirement: Chart.js dataset colors must track the active DaisyUI theme
+ *   so `lofi` users see lofi's primary, `emerald` users see emerald's, etc.
+ *   Previously the static `accentColor` export was a frozen bootstrap value
+ *   that stayed at `#2D68FF` regardless of theme — off-brand on every theme
+ *   except lofi. AppContext's darkMode effect now dispatches SET_THEME_COLORS
+ *   with the resolved value after each theme change, and chart components
+ *   read `state.themeAccent` from useApp() so their useMemo deps trigger a
+ *   re-render on theme change.
+ *
+ * Approach:
+ *   1. If the embedder set `?accent=hex` or `?palette=name` via URL,
+ *      return the bootstrap value — embedder choice is sticky across
+ *      theme changes so a branded embed stays branded.
+ *   2. Otherwise read `--color-primary` from `getComputedStyle` on the
+ *      <html> element. DaisyUI exposes this as an oklch() value; modern
+ *      browsers (Chrome 111+, Firefox 113+, Safari 16.2+) parse oklch()
+ *      in canvas, so Chart.js can use it directly without any conversion.
+ *      This matches the existing pattern in `themes.js applyTheme()` where
+ *      `--color-base-content` is already piped into `ChartJS.defaults.color`.
+ *   3. If `getComputedStyle` returns empty (SSR, or very early bootstrap
+ *      before styles.css loaded), fall back to the bootstrap `accentColor`.
+ *
+ * Alternatives considered:
+ *   - Use `var(--color-primary)` literal in Chart.js config: Rejected —
+ *     canvas context doesn't resolve CSS variables, only the browser's CSS
+ *     parser does. Chart.js would receive the literal string "var(...)" and
+ *     fail to render.
+ *   - Convert oklch() to hex on every theme change: Rejected — we already
+ *     have oklchToHex.mjs for the theme meta generator, but modern canvas
+ *     parses oklch() natively so the conversion is unnecessary runtime cost.
+ *   - Use a React Context instead of reading computed style: Viable but
+ *     couples chartColors.js to React. The getComputedStyle approach keeps
+ *     chartColors.js framework-agnostic — embed consumers that use the
+ *     dashboard as a plain library can still call this function.
+ */
+export function resolveRuntimeAccent() {
+    if (hasUrlAccentOverride) return accentColor;
+    if (typeof window === 'undefined' || !document?.documentElement) return accentColor;
+    const cssValue = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-primary')
+        .trim();
+    return cssValue || accentColor;
+}
+
+/**
+ * Resolve the active muted/secondary color at runtime. Same semantics as
+ * `resolveRuntimeAccent()` but for the "secondary" contrast color used by
+ * after-hours bars, weekend bars, and low-complexity indicators.
+ *
+ * The DaisyUI side doesn't have a single "muted" semantic token, so we
+ * derive one from `color-mix(in oklab, var(--color-base-content) 40%, transparent)`
+ * which matches our existing `text-base-content/40` pattern for tertiary
+ * text. Modern canvas parses color-mix() natively so Chart.js accepts it
+ * as-is. The fallback chain is the same as `resolveRuntimeAccent()`.
+ */
+export function resolveRuntimeMuted() {
+    if (hasUrlMutedOverride) return mutedColor;
+    if (typeof window === 'undefined' || !document?.documentElement) return mutedColor;
+    const baseContent = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-base-content')
+        .trim();
+    if (!baseContent) return mutedColor;
+    // 40% of base-content matches the dashboard's text-base-content/40
+    // tertiary text tint, so muted chart bars visually align with the
+    // "inactive / deprioritised" text tone on the same page.
+    return `color-mix(in oklab, ${baseContent} 40%, transparent)`;
+}
 
 /**
  * Get a series color by index, cycling through the palette.

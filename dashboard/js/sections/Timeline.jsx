@@ -8,7 +8,16 @@ import {
     getUTCDateKey, getUTCMonthKey, excludeIncompleteLastMonth,
 } from '../utils.js';
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
-import { seriesColors, accentColor, getSeriesColor, withOpacity, mutedColor, buildRepoColorMap } from '../chartColors.js';
+// accentColor / mutedColor are read from state.themeAccent / state.themeMuted
+// (via useApp) so charts track the active DaisyUI theme. Static palette
+// helpers stay as direct imports — seriesColors is a 20-color multi-dataset
+// palette that's intentionally theme-independent (data-viz distinctness
+// requires more colors than DaisyUI's semantic tokens can provide), and
+// buildRepoColorMap is a deterministic repo→color mapping built from that
+// palette. See docs/DAISYUI_V5_NOTES.md "Data-viz color tokens" for the
+// distinction between theme-tracked single-accent colors and the fixed
+// multi-dataset palette.
+import { seriesColors, getSeriesColor, withOpacity, buildRepoColorMap } from '../chartColors.js';
 import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
@@ -150,7 +159,7 @@ export default function Timeline() {
             datasets = [{
                 label: 'Commits',
                 data: sortedDates.map(d => commitsByDate[d]?.total || 0),
-                backgroundColor: accentColor,
+                backgroundColor: state.themeAccent,
                 borderRadius: 2,
             }];
         }
@@ -190,7 +199,7 @@ export default function Timeline() {
         };
     // state.darkMode: bust memo on theme toggle so react-chartjs-2 calls chart.update(),
     // picking up the new Chart.js defaults set in AppContext's darkMode effect
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile, state.darkMode]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Code changes timeline chart data
     // Uses pre-aggregated daily data (additions/deletions) when commits aren't loaded
@@ -247,7 +256,7 @@ export default function Timeline() {
             datasets = [{
                 label: 'Net Lines',
                 data: sortedDates.map(d => changesByDate[d]?.total || 0),
-                backgroundColor: accentColor,
+                backgroundColor: state.themeAccent,
                 borderRadius: 2,
             }];
         }
@@ -308,7 +317,7 @@ export default function Timeline() {
                 },
             },
         };
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile, state.darkMode]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.daily, isMobile, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // --- Trend charts (moved from Health section — time-based data belongs here) ---
 
@@ -356,7 +365,7 @@ export default function Timeline() {
             },
             sortedMonths,
         };
-    }, [filteredCommits, isMobile, commitsLoaded, state.darkMode]);
+    }, [filteredCommits, isMobile, commitsLoaded, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Debt Trend — monthly debt added vs paid
     const debtTrendData = useMemo(() => {
@@ -403,7 +412,7 @@ export default function Timeline() {
                 },
             },
         };
-    }, [filteredCommits, isMobile, commitsLoaded, state.darkMode]);
+    }, [filteredCommits, isMobile, commitsLoaded, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Impact Over Time — monthly stacked bar by impact type
     const impactTrendData = useMemo(() => {
@@ -418,7 +427,7 @@ export default function Timeline() {
         const sortedMonths = urgencyTrendData?.sortedMonths || Object.keys(monthlyImpact).sort();
         if (sortedMonths.length === 0) return null;
         const impactColors = {
-            'user-facing': getSeriesColor(0), 'internal': mutedColor,
+            'user-facing': getSeriesColor(0), 'internal': state.themeMuted,
             'infrastructure': getSeriesColor(3), 'api': getSeriesColor(1),
         };
 
@@ -442,7 +451,7 @@ export default function Timeline() {
                 },
             },
         };
-    }, [filteredCommits, urgencyTrendData, isMobile, commitsLoaded, state.darkMode]);
+    }, [filteredCommits, urgencyTrendData, isMobile, commitsLoaded, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Handle card clicks
     const handleCardClick = useCallback((type) => {

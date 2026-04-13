@@ -2,6 +2,7 @@ import React, { createContext, useContext, useReducer, useMemo, useCallback, use
 import { state as globalState, VIEW_LEVELS } from './state.js';
 import { getCommitTags, getAuthorEmail, getUrgencyLabel, safeStorageGet, safeStorageSet } from './utils.js';
 import { applyTheme, validLightTheme, validDarkTheme } from './themes.js';
+import { accentColor, mutedColor, resolveRuntimeAccent, resolveRuntimeMuted } from './chartColors.js';
 
 // Requirement: Prevent unnecessary re-renders when components only need to dispatch actions
 // Approach: Split into two contexts — DispatchContext (stable identity, never changes) and
@@ -77,6 +78,17 @@ function loadInitialState() {
         // non-current mode's theme unconditionally.
         lightTheme: initialLightTheme,
         darkTheme: initialDarkTheme,
+        // Chart.js dataset accent / muted colors, resolved from the active
+        // theme's --color-primary / --color-base-content at runtime. Seeded
+        // with the bootstrap values from chartColors.js so the first render
+        // has a valid color before the darkMode effect runs and dispatches
+        // the computed-style-resolved values. After mount, AppContext's
+        // darkMode effect dispatches SET_THEME_COLORS with
+        // resolveRuntimeAccent()/resolveRuntimeMuted() return values so the
+        // chart useMemos re-run with theme-tracked colors. See chartColors.js
+        // `resolveRuntimeAccent` for the URL-override precedence rules.
+        themeAccent: accentColor,
+        themeMuted: mutedColor,
         activeTab: 'overview',
         currentViewLevel: safeStorageGet('viewLevel') || 'developer',
         useUTC: safeStorageGet('useUTC') === 'true',
@@ -178,6 +190,20 @@ function reducer(state, action) {
             const validated = validDarkTheme(action.payload);
             if (state.darkTheme === validated) return state;
             return { ...state, darkTheme: validated };
+        }
+        case 'SET_THEME_COLORS': {
+            // Dispatched by the darkMode useEffect AFTER applyTheme() has
+            // run, so getComputedStyle on the <html> element returns the
+            // newly-activated theme's CSS variable values. The dispatcher
+            // already ran resolveRuntimeAccent / resolveRuntimeMuted and
+            // passes in the resolved strings — the reducer just stores
+            // them. No-op guard skips re-renders when the resolved values
+            // are unchanged (e.g. toggling dark/light when both modes'
+            // themes happen to produce the same --color-primary, which is
+            // unlikely but cheap to guard against).
+            const { accent, muted } = action.payload;
+            if (state.themeAccent === accent && state.themeMuted === muted) return state;
+            return { ...state, themeAccent: accent, themeMuted: muted };
         }
         default:
             return state;
@@ -349,6 +375,38 @@ export function AppProvider({ children }) {
     const activeTheme = state.darkMode ? state.darkTheme : state.lightTheme;
     useEffect(() => {
         applyTheme(state.darkMode, activeTheme);
+        // After applyTheme() has mutated <html>'s data-theme attribute,
+        // getComputedStyle returns the NEW theme's --color-primary and
+        // --color-base-content values synchronously. Resolve them via the
+        // chartColors helpers (which respect the embedder's URL override)
+        // and dispatch SET_THEME_COLORS so Chart.js dataset colors track
+        // the active theme in components that read state.themeAccent /
+        // state.themeMuted via useApp(). This causes one extra render in
+        // the same tick — the first render pass uses the previous theme's
+        // accent (harmless: the DOM hasn't painted yet), the second pass
+        // after this dispatch uses the new theme's accent. The no-op
+        // guard in the reducer short-circuits when the URL override is
+        // set (accent doesn't change on theme toggle) or when the new
+        // theme happens to have identical --color-primary to the old one.
+        //
+        // Requirement: Chart.js dataset colors must track the active
+        //   DaisyUI theme so the hour-of-day heatmap, contributor bars,
+        //   timeline accent, and other single-accent visualizations match
+        //   the user's theme instead of staying at brand blue #2D68FF.
+        //   Addresses the "off-brand single-accent charts in non-default
+        //   themes" follow-up from the 2026-04-13 audit pass.
+        // Approach: Dispatch resolved hex/oklch/color-mix strings. Chart.js
+        //   canvas rendering handles oklch() and color-mix() directly in
+        //   modern browsers (same capability the existing ChartJS.defaults
+        //   sync in themes.js already relies on), so no JS-side conversion
+        //   is needed.
+        dispatch({
+            type: 'SET_THEME_COLORS',
+            payload: {
+                accent: resolveRuntimeAccent(),
+                muted: resolveRuntimeMuted(),
+            },
+        });
     }, [state.darkMode, activeTheme]);
 
     // Cross-tab sync: listen for theme changes from other tabs.
