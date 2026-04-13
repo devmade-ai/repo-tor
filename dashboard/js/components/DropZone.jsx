@@ -40,10 +40,12 @@ export default function DropZone({ onFiles }) {
         e.target.value = '';
     }, [onFiles]);
 
-    // State-conditional visual for the drag-over highlight + focus ring.
-    // Base styles come first so the drag-over overrides land last.
+    // State-conditional visual for the drag-over highlight + focus ring
+    // + hover discovery hint. Base styles come first so the drag-over
+    // overrides land last.
     const dropZoneBase =
         'border-2 border-dashed border-base-300 rounded-lg px-6 py-10 cursor-pointer transition-all ' +
+        'hover:border-primary hover:bg-primary/5 ' +
         'focus-visible:border-primary focus-visible:bg-primary/5 ' +
         'focus-visible:outline-none';
     const dropZoneActive =

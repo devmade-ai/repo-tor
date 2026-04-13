@@ -356,7 +356,7 @@ export default function Timing() {
         if (heatmapContent.type === 'weekly') {
             const { weeks, maxCount, totalCommits, totalWeeks, avgPerWeek } = heatmapContent;
             return (
-                <div className="weekly-heatmap">
+                <div>
                     <p className="text-xs text-base-content/60 mb-2">Weekly commit activity (most recent weeks)</p>
                     <div className="flex flex-wrap gap-1">
                         {weeks.map(([weekKey, count]) => {
@@ -382,7 +382,7 @@ export default function Timing() {
         } else if (heatmapContent.type === 'daily') {
             const { byDay, dayOrder, dayLabels, maxCount, weekdayCommits, weekendCommits, weekendPct } = heatmapContent;
             return (
-                <div className="daily-heatmap">
+                <div>
                     <p className="text-xs text-base-content/60 mb-3">Commits by day of week</p>
                     <div className="space-y-2">
                         {dayOrder.map((dayIdx, i) => {

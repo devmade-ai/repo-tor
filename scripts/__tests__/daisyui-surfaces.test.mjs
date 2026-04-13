@@ -376,7 +376,10 @@ test('Progress bars: Progress.jsx + Discover.jsx use native <progress> + DaisyUI
 
 test('No dead marker classes (stat-card, metric-selector, pin-btn) in JSX className attributes', async () => {
     const jsxFiles = await walkJsxFiles(join(REPO_ROOT, 'dashboard', 'js'));
-    const deadMarkers = ['stat-card', 'metric-selector', 'pin-btn'];
+    // `weekly-heatmap` + `daily-heatmap` were caught in the round-3 sweep —
+    // they'd been acting as wrapper marker classes with zero CSS rules
+    // defined anywhere. Same pattern as stat-card / metric-selector / pin-btn.
+    const deadMarkers = ['stat-card', 'metric-selector', 'pin-btn', 'weekly-heatmap', 'daily-heatmap'];
     const offenders = [];
     for (const file of jsxFiles) {
         const raw = readFileSync(file, 'utf8');

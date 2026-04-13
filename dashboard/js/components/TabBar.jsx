@@ -9,9 +9,9 @@ import { useApp } from '../AppContext.jsx';
 //   role="tablist" + role="tab" + aria-selected are on the same elements as
 //   DaisyUI's tabs expects, so we get both DaisyUI's CSS and proper ARIA.
 //   The active-state text-shadow glow uses Tailwind's arbitrary-property
-//   syntax because Tailwind v4 doesn't ship a text-shadow utility out of
-//   the box — `[text-shadow:...]` is the escape hatch for one-off CSS
-//   properties that don't have a standard utility class.
+//   syntax `[prop:value]` because Tailwind v4 doesn't ship a text-shadow
+//   utility out of the box — that bracketed syntax is the escape hatch
+//   for one-off CSS properties that don't have a standard utility class.
 // Alternatives:
 //   - Pure DaisyUI tabs with tabs-lift or tabs-box: Rejected — defaults use
 //     a different typography (sentence case, body font) that doesn't match
