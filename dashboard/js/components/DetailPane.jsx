@@ -8,7 +8,6 @@ import ShowMoreButton from './ShowMoreButton.jsx';
 import {
     formatDate,
     getCommitTags,
-    getTagClass,
     getTagStyleObject,
     getAuthorName,
     getCommitSubject,
@@ -86,7 +85,7 @@ export default function DetailPane() {
                                             {tags.map(tag => (
                                                 <span
                                                     key={tag}
-                                                    className={`tag ${getTagClass(tag)}`}
+                                                    className="tag"
                                                     style={getTagStyleObject(tag)}
                                                 >
                                                     {tag}

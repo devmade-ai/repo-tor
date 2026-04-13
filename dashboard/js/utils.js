@@ -161,7 +161,33 @@ export function getWorkPattern(commit) {
 
 
 // === Tag Colors ===
-// Semantic presets for common tags
+// Requirement: Tags have brand/semantic colors that must NOT track theme
+//   (feature=green, fix=red, docs=blue, etc. — these meanings are fixed
+//   regardless of which DaisyUI theme the user picks). CLAUDE.md explicitly
+//   carves out data-viz brand colors from the "always use semantic tokens"
+//   rule for this reason.
+// Approach: Single source of truth here. `getTagColor(tag)` returns the
+//   brand hex (used for Chart.js dataset backgrounds that need a solid
+//   fill), and `getTagStyleObject(tag)` returns the chip display style
+//   (background/color/border with per-tag alpha tuning) used for rendering
+//   tag pills across the UI. Previously the same 34 hex values were
+//   duplicated in 40+ `.tag-{name}` CSS rules in styles.css; those rules
+//   were collapsed into this module on 2026-04-13 so there is exactly one
+//   place to edit when adding, renaming, or recoloring a tag.
+// Alternatives considered:
+//   - CSS custom properties per tag (set via class): Rejected — the same
+//     duplication, just split differently (keys in JS, values in CSS).
+//   - Shadow DaisyUI's own `.badge` component with per-tag color variants:
+//     Rejected — DaisyUI's badge color modifiers (`badge-info` etc.) track
+//     the theme's semantic tokens, which is exactly what we do NOT want
+//     for brand-fixed tag colors.
+//   - Tailwind color utilities (`bg-red-500/30 text-red-400`): Rejected —
+//     leaks brand colors into inline JSX in a way that couples UI layout
+//     to the tag palette (renaming `feature` from green to teal would
+//     require editing every JSX call site).
+//
+// TAG_COLORS: primary brand color per tag. Used by Chart.js datasets
+// (solid fill) and passed to getTagStyleObject for the chip's background.
 export const TAG_COLORS = {
     // Additive (green family)
     feature: '#16A34A',
@@ -209,7 +235,28 @@ export const TAG_COLORS = {
     other: '#9ca3af'
 };
 
-// Palette for dynamic tag colors (works well on dark backgrounds)
+// TAG_TEXT_OVERRIDES: tags whose chip text uses a lighter variant of the
+// brand color family for readability on the semi-transparent background.
+// Preserved from the pre-consolidation `.tag-{name}` CSS rules where some
+// primaries (dark reds, deep purples, etc.) needed a lifted text tone to
+// stay legible on a 30%-opaque fill. Tags not listed here use TAG_COLORS
+// for both background and text. Keep this in sync with the pre-migration
+// CSS rules — reference commit history if you need to verify a value.
+const TAG_TEXT_OVERRIDES = {
+    security: '#f87171',    // bg #dc2626 (red-600) -> text red-400
+    refactor: '#a78bfa',    // bg #8b5cf6 (violet-500) -> text violet-400
+    cleanup: '#a78bfa',     // bg #7c3aed (violet-600) -> text violet-400
+    config: '#94a3b8',      // bg #64748b (slate-500) -> text slate-400
+    style: '#f472b6',       // bg #ec4899 (pink-500) -> text pink-400
+    performance: '#22d3ee', // bg #06b6d4 (cyan-500) -> text cyan-400
+    dependency: '#a3e635',  // bg #84cc16 (lime-500) -> text lime-400
+    other: '#d1d5db',       // bg #9ca3af (gray-400) -> text gray-300
+};
+
+// Palette for dynamic tag colors (works well on dark backgrounds).
+// Used when a commit has a tag name that isn't in TAG_COLORS — the hash
+// function below picks a deterministic slot so the same unknown tag
+// always renders with the same color across renders and sessions.
 export const DYNAMIC_TAG_PALETTE = [
     '#f472b6', // pink
     '#a78bfa', // purple
@@ -255,29 +302,49 @@ export function getAllTags(commits) {
     return [...tagSet].sort();
 }
 
+/** Primary brand hex for a tag. Used by Chart.js datasets and any
+ *  call site that needs a solid-fill color (not a chip style). */
 export function getTagColor(tag) {
     return TAG_COLORS[tag] || getDynamicTagColor(tag);
 }
 
-export function getTagClass(tag) {
-    return TAG_COLORS[tag] ? `tag-${tag}` : 'tag-dynamic';
-}
+// Note: `getTagClass(tag)` was removed 2026-04-13 as part of the tag-color
+// duplication collapse. JSX consumers previously combined
+// `className={`tag ${getTagClass(tag)}`}` so the returned `tag-{name}` or
+// `tag-dynamic` class could pick up per-tag CSS rules. Those rules are
+// gone now — every tag renders via `className="tag"` + the inline
+// `getTagStyleObject(tag)` style — so the helper no longer has any work
+// to do. Don't re-add it.
 
-// Returns a style object for dynamic tag colors.
-// Cached at module level to avoid creating new objects on every render
-// (500+ tags × re-renders = thousands of unnecessary allocations).
+/** Inline style object for a tag chip — { backgroundColor, color, border }.
+ *
+ *  Cached at module level so React re-renders of long tag lists (500+
+ *  tags × re-renders = thousands of allocations) hit a Map lookup
+ *  instead of recomputing the rgba strings every time.
+ *
+ *  Alpha values (0.3 bg / 0.5 border for known tags, 0.2 bg / 0.3 border
+ *  for dynamic tags) match the pre-consolidation `.tag-{name}` CSS rules
+ *  — known tags get a slightly stronger presence because they represent
+ *  established semantic categories, dynamic tags get a muted tone to
+ *  signal "this is an ad-hoc label, not a first-class category".
+ *  Text color honors TAG_TEXT_OVERRIDES so tags with dark primaries
+ *  (security, cleanup, config, etc.) get a lifted text tone for
+ *  readability on the 30%-opaque background. */
 const tagStyleCache = new Map();
 export function getTagStyleObject(tag) {
-    if (TAG_COLORS[tag]) return {};
     if (tagStyleCache.has(tag)) return tagStyleCache.get(tag);
-    const color = getDynamicTagColor(tag);
-    const r = parseInt(color.slice(1, 3), 16);
-    const g = parseInt(color.slice(3, 5), 16);
-    const b = parseInt(color.slice(5, 7), 16);
+    const isDynamic = !TAG_COLORS[tag];
+    const bgColor = isDynamic ? getDynamicTagColor(tag) : TAG_COLORS[tag];
+    const textColor = isDynamic ? bgColor : (TAG_TEXT_OVERRIDES[tag] || bgColor);
+    const r = parseInt(bgColor.slice(1, 3), 16);
+    const g = parseInt(bgColor.slice(3, 5), 16);
+    const b = parseInt(bgColor.slice(5, 7), 16);
+    const bgAlpha = isDynamic ? 0.2 : 0.3;
+    const borderAlpha = isDynamic ? 0.3 : 0.5;
     const style = {
-        '--tag-bg': `rgba(${r}, ${g}, ${b}, 0.2)`,
-        '--tag-color': color,
-        '--tag-border': `rgba(${r}, ${g}, ${b}, 0.3)`,
+        backgroundColor: `rgba(${r}, ${g}, ${b}, ${bgAlpha})`,
+        color: textColor,
+        border: `1px solid rgba(${r}, ${g}, ${b}, ${borderAlpha})`,
     };
     tagStyleCache.set(tag, style);
     return style;

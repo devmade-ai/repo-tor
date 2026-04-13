@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
-import { getCommitTags, getTagColor, getTagClass, getTagStyleObject, handleKeyActivate } from '../utils.js';
+import { getCommitTags, getTagColor, getTagStyleObject, handleKeyActivate } from '../utils.js';
 import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
@@ -152,7 +152,7 @@ export default function Tags() {
                                     onKeyDown={commitsLoaded ? handleKeyActivate(() => handleTagClick(tag)) : undefined}
                                 >
                                     <span
-                                        className={`tag ${getTagClass(tag)}`}
+                                        className="tag"
                                         style={getTagStyleObject(tag)}
                                     >
                                         {tag}

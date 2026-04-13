@@ -328,7 +328,7 @@ export default function Progress() {
     //   - Summary first: Rejected — raw counts are least engaging
     //   - Complexity before initiatives: Rejected — epic groupings are more actionable
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Feature vs Bug Fix Trend — the main story: are we building or fixing? */}
             {featFixChartData && (
                 <CollapsibleSection title="Features vs Bug Fixes Over Time" subtitle="Monthly trend">
@@ -441,7 +441,7 @@ export default function Progress() {
                         onClick={() => handleCardClick('features')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('features'))}
                     >
-                        <div className="text-2xl font-semibold text-base-content">{metrics.featureCount}</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{metrics.featureCount}</div>
                         <div className="text-sm text-base-content/60">Features</div>
                     </div>
                     <div
@@ -452,7 +452,7 @@ export default function Progress() {
                         onClick={() => handleCardClick('bugfixes')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('bugfixes'))}
                     >
-                        <div className="text-2xl font-semibold text-base-content">{metrics.bugfixCount}</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{metrics.bugfixCount}</div>
                         <div className="text-sm text-base-content/60">Bug Fixes</div>
                     </div>
                     <div
@@ -463,11 +463,11 @@ export default function Progress() {
                         onClick={() => handleCardClick('refactors')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('refactors'))}
                     >
-                        <div className="text-2xl font-semibold text-base-content">{metrics.refactorCount}</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{metrics.refactorCount}</div>
                         <div className="text-sm text-base-content/60">Refactors</div>
                     </div>
                     <div className="p-4 bg-base-300 rounded-lg text-center">
-                        <div className="text-2xl font-semibold text-base-content">{metrics.avgComplexity}</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{metrics.avgComplexity}</div>
                         <div className="text-sm text-base-content/60">Avg Complexity</div>
                     </div>
                 </div>

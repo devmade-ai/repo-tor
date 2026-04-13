@@ -115,13 +115,26 @@ body {
     color: var(--color-base-content);
 }
 
-/* Techy monospace elements */
-.font-mono, h1, h2, h3, .stat-value, .text-3xl, .text-2xl {
+/* Techy monospace headings.
+   Requirement: Section titles and page headings use a mono font for the
+     "techy/developer tool" aesthetic. This targets semantic heading
+     elements (h1/h2/h3) — it is NOT a Tailwind utility hijack.
+   Approach: Direct element selector on semantic HTML. JSX elements with
+     `text-2xl` / `text-3xl` that need mono styling apply `font-mono`
+     explicitly (consistent with the CLAUDE.md "no custom Tailwind
+     utility hijacks" rule — previously this rule had
+     `.text-3xl, .text-2xl, .stat-value, .font-mono` in its selector list,
+     which silently forced mono font on every large-text element in the
+     app; those were migrated to explicit `font-mono tracking-tight`
+     classes on 2026-04-13).
+   Alternatives considered:
+     - Add `font-mono` class to every <h1>/<h2>/<h3> in JSX: Rejected —
+       the mono-headings design is app-wide, and adding the class to
+       every heading is repetitive boilerplate that buries the intent.
+       Targeting semantic HTML elements is exactly what element selectors
+       are for. */
+h1, h2, h3 {
     font-family: var(--font-mono);
-}
-.card .text-3xl, .card .text-2xl {
-    font-family: var(--font-mono);
-    letter-spacing: -0.02em;
 }
 
 /* Techy grid background — subtle lines that pick up the active theme's
@@ -303,66 +316,18 @@ body::before {
         /* .show-more-btn migrated to DaisyUI `btn btn-ghost btn-block btn-sm`
            in dashboard/js/components/ShowMoreButton.jsx. */
 
-        /* Tag classes - adjusted for dark theme */
-        /* Fix: Increased background opacity from 0.2→0.3 and border from 0.3→0.5
-           to improve contrast and WCAG AA compliance on dark backgrounds. */
-        /* Additive (green family) */
-        .tag-feature { background-color: rgba(22, 163, 74, 0.3); color: #16A34A; border: 1px solid rgba(22, 163, 74, 0.5); }
-        .tag-enhancement { background-color: rgba(34, 197, 94, 0.3); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.5); }
-        .tag-seed { background-color: rgba(74, 222, 128, 0.3); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.5); }
-        .tag-init { background-color: rgba(16, 185, 129, 0.3); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.5); }
-        /* Problems/Fixes (red family) */
-        .tag-bugfix { background-color: rgba(239, 68, 68, 0.3); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.5); }
-        .tag-fix { background-color: rgba(239, 68, 68, 0.3); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.5); }
-        .tag-security { background-color: rgba(220, 38, 38, 0.3); color: #f87171; border: 1px solid rgba(220, 38, 38, 0.5); }
-        .tag-hotfix { background-color: rgba(248, 113, 113, 0.3); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.5); }
-        /* Removal/Revert (orange/amber) */
-        .tag-removal { background-color: rgba(245, 158, 11, 0.3); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.5); }
-        .tag-revert { background-color: rgba(251, 146, 60, 0.3); color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.5); }
-        .tag-deprecate { background-color: rgba(251, 191, 36, 0.3); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.5); }
-        /* Refactoring (purple family) */
-        .tag-refactor { background-color: rgba(139, 92, 246, 0.3); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.5); }
-        .tag-naming { background-color: rgba(167, 139, 250, 0.3); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.5); }
-        .tag-cleanup { background-color: rgba(124, 58, 237, 0.3); color: #a78bfa; border: 1px solid rgba(124, 58, 237, 0.5); }
-        /* Documentation (blue) */
-        .tag-docs { background-color: rgba(45, 104, 255, 0.3); color: #2D68FF; border: 1px solid rgba(45, 104, 255, 0.5); }
-        /* Testing (yellow) */
-        .tag-test { background-color: rgba(234, 179, 8, 0.3); color: #EAB308; border: 1px solid rgba(234, 179, 8, 0.5); }
-        .tag-test-unit { background-color: rgba(250, 204, 21, 0.3); color: #facc15; border: 1px solid rgba(250, 204, 21, 0.5); }
-        .tag-test-e2e { background-color: rgba(253, 224, 71, 0.3); color: #fde047; border: 1px solid rgba(253, 224, 71, 0.5); }
-        /* DevOps/Build (orange) */
-        .tag-build { background-color: rgba(249, 115, 22, 0.3); color: #f97316; border: 1px solid rgba(249, 115, 22, 0.5); }
-        .tag-ci { background-color: rgba(251, 146, 60, 0.3); color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.5); }
-        .tag-deploy { background-color: rgba(234, 88, 12, 0.3); color: #ea580c; border: 1px solid rgba(234, 88, 12, 0.5); }
-        /* Config/Chore (slate) */
-        .tag-config { background-color: rgba(100, 116, 139, 0.3); color: #94a3b8; border: 1px solid rgba(100, 116, 139, 0.5); }
-        .tag-chore { background-color: rgba(148, 163, 184, 0.3); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.5); }
-        /* Style/UX (pink family) */
-        .tag-style { background-color: rgba(236, 72, 153, 0.3); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.5); }
-        .tag-ux { background-color: rgba(244, 114, 182, 0.3); color: #f472b6; border: 1px solid rgba(244, 114, 182, 0.5); }
-        .tag-ui { background-color: rgba(232, 121, 249, 0.3); color: #e879f9; border: 1px solid rgba(232, 121, 249, 0.5); }
-        .tag-accessibility { background-color: rgba(217, 70, 239, 0.3); color: #d946ef; border: 1px solid rgba(217, 70, 239, 0.5); }
-        /* Performance (cyan) */
-        .tag-performance { background-color: rgba(6, 182, 212, 0.3); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.5); }
-        .tag-perf { background-color: rgba(34, 211, 238, 0.3); color: #22d3ee; border: 1px solid rgba(34, 211, 238, 0.5); }
-        /* Dependencies (lime) */
-        .tag-dependency { background-color: rgba(132, 204, 22, 0.3); color: #a3e635; border: 1px solid rgba(132, 204, 22, 0.5); }
-        .tag-deps { background-color: rgba(163, 230, 53, 0.3); color: #a3e635; border: 1px solid rgba(163, 230, 53, 0.5); }
-        /* Fallback */
-        .tag-other { background-color: rgba(156, 163, 175, 0.3); color: #d1d5db; border: 1px solid rgba(156, 163, 175, 0.5); }
-        /* Dynamic tag - uses CSS custom properties set via inline style */
-        .tag-dynamic { background-color: var(--tag-bg); color: var(--tag-color); border: 1px solid var(--tag-border); }
+        /* .tag-{name} per-tag rules + .tag-dynamic CSS-variable bridge
+           removed 2026-04-13. Tag chip colors are now computed in JS via
+           `getTagStyleObject(tag)` in dashboard/js/utils.js and applied
+           as inline style={{ backgroundColor, color, border }} on the
+           `className="tag"` span. Single source of truth for all 34
+           tag colors + 8 text-color overrides lives in `TAG_COLORS` and
+           `TAG_TEXT_OVERRIDES` in that module. Previously the same hex
+           values were duplicated across 40+ rules here (as rgba triples)
+           and 34 entries in TAG_COLORS (as hex strings) — adding or
+           renaming a tag required editing both. */
 
-        .timeline-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .timeline-dot:hover {
-            transform: scale(1.5);
-        }
+        /* .timeline-dot removed 2026-04-13 — 0 JSX consumers. */
 
         /* Panel card — migrated to DaisyUI `card bg-base-200 border border-base-300`
            + `card-body p-6 gap-0` wrapper. See CollapsibleSection.jsx, App.jsx,
@@ -381,8 +346,9 @@ body::before {
             font-weight: 500;
         }
 
-        /* Special alert-style tags */
-        .tag-breaking { background-color: rgba(234, 179, 8, 0.1); color: #EAB308; border: 1px solid rgba(234, 179, 8, 0.3); }
+        /* .tag-breaking removed 2026-04-13 — 0 JSX consumers. The
+           `has_breaking_change` commit flag is surfaced through Discover
+           metrics (a counter on the Discover tab), not as a tag chip. */
 
         /* .filter-select / .filter-input removed — migrated to DaisyUI select/input components
            (see SettingsPane.jsx work hour selects, FilterSidebar.jsx date inputs). */
@@ -681,39 +647,15 @@ body::before {
         .dashboard-enter {
             animation: dashboard-enter 0.3s ease-out;
         }
-        .skeleton {
-            background: linear-gradient(90deg, var(--color-base-300) 25%, var(--color-base-300) 50%, var(--color-base-300) 75%);
-            background-size: 200% 100%;
-            animation: skeleton-loading 1.5s infinite;
-            border-radius: var(--radius-sm);
-        }
-        @keyframes skeleton-loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-        .skeleton-commit {
-            padding: 12px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--color-base-300);
-            margin-bottom: 12px;
-        }
-        .skeleton-line {
-            height: 14px;
-            margin-bottom: 8px;
-        }
-        .skeleton-line-short {
-            width: 60%;
-        }
-        .skeleton-line-medium {
-            width: 80%;
-        }
-        .detail-pane-content-loaded {
-            animation: fadeIn 0.2s ease-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        /* Deleted 2026-04-13 as part of the "custom CSS cleanup" pass:
+           - .skeleton / .skeleton-commit / .skeleton-line[-short|-medium]
+             + @keyframes skeleton-loading: 0 JSX consumers. Also shadowed
+             DaisyUI v5's own `.skeleton` component — removing our custom
+             rule lets a future consumer use DaisyUI's `skeleton` directly.
+           - .detail-pane-content-loaded + @keyframes fadeIn: 0 consumers.
+           - .timeline-dot, .stat-label, .stat-value: 0 consumers.
+           If a loading-skeleton pattern is needed in the future, use
+           DaisyUI's `<div className="skeleton h-4 w-full" />` directly. */
 
         /* Detail Pane - Slide-out panel for drill-down (dark theme) */
         .detail-pane-overlay {
@@ -1048,19 +990,7 @@ body::before {
             }
         }
 
-        /* Stat card label styling - prevent awkward wrapping */
-        .stat-label {
-            font-size: 12px;
-            line-height: 1.3;
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
-        }
-        @media (min-width: 640px) {
-            .stat-label {
-                font-size: 14px;
-                white-space: nowrap;
-            }
-        }
+        /* .stat-label removed 2026-04-13 — 0 JSX consumers. */
 
         /* Sticky tabs bar - dark theme */
         .tabs-bar {
@@ -1284,27 +1214,22 @@ body::before {
             color: var(--color-primary);
         }
 
-        /* Mobile: tighter card padding and smaller stat text
-         * Requirement: Reduce visual weight on mobile — smaller cards, tighter spacing,
-         *   section gaps reduced so collapsed sections feel compact.
-         * Approach: Override card padding, stat text, and section spacing at 640px.
-         * Alternatives:
-         *   - Separate mobile stylesheet: Rejected — over-engineered for a few rules
-         *   - Tailwind responsive classes only: Rejected — card class is used in CSS already */
+        /* Mobile: tighter spacing for collapsible sections.
+         * Requirement: Reduce visual weight on mobile — smaller subtitle,
+         *   tighter section header. Card padding and stat-text sizing are
+         *   handled in JSX via Tailwind responsive classes (e.g.
+         *   `text-xl sm:text-2xl`, `space-y-4 sm:space-y-6`) instead of
+         *   descendant selectors that hijack Tailwind utilities.
+         * Approach: Only rules that target genuinely custom classes
+         *   (`.collapsible-header`, `.collapsible-subtitle`) live here.
+         *   The previous rules for `.card { padding: 16px }`,
+         *   `.card .text-3xl`, `.card .text-lg`, and `.space-y-6 > * + *`
+         *   were removed 2026-04-13 — the card padding rule was broken
+         *   anyway (DaisyUI's `.card` has no padding — `.card-body` does),
+         *   the text-size rules were redundant with Tailwind responsive
+         *   classes consumers already use, and the space-y-6 rule was
+         *   a fragile descendant selector targeting a Tailwind utility. */
         @media (max-width: 640px) {
-            .card {
-                padding: 16px;
-            }
-            .card .text-3xl {
-                font-size: 1.5rem;
-            }
-            .card .text-lg {
-                font-size: 0.9375rem;
-            }
-            /* Reduce gap between collapsible sections on mobile */
-            .space-y-6 > * + * {
-                margin-top: 16px;
-            }
             /* Collapsed section cards take less space on mobile */
             .collapsible-header {
                 padding: 8px 0;

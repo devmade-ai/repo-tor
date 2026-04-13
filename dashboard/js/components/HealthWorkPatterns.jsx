@@ -43,7 +43,7 @@ export default function HealthWorkPatterns({ metrics, onCardClick }) {
                         onClick={clickable ? () => onCardClick(type) : undefined}
                         onKeyDown={clickable ? handleKeyActivate(() => onCardClick(type)) : undefined}
                     >
-                        <div className="text-2xl font-semibold text-base-content">{value}</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{value}</div>
                         <div className="text-sm text-base-content/60">{label}</div>
                     </div>
                 ))}

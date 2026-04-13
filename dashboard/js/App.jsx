@@ -394,14 +394,14 @@ export default function App() {
                         <ErrorBoundary key={state.activeTab}>
                             {state.activeTab === 'overview' && <Summary />}
                             {state.activeTab === 'activity' && (
-                                <div className="space-y-6">
+                                <div className="space-y-4 sm:space-y-6">
                                     <Timeline />
                                     <hr className="border-base-300 opacity-30" />
                                     <Timing />
                                 </div>
                             )}
                             {state.activeTab === 'work' && (
-                                <div className="space-y-6">
+                                <div className="space-y-4 sm:space-y-6">
                                     <Progress />
                                     <hr className="border-base-300 opacity-30" />
                                     <Contributors />

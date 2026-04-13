@@ -456,7 +456,7 @@ export default function Timing() {
     //   - Heatmap first: Rejected — dense grid is harder to parse than a simple bar chart
     //   - Day chart higher: Rejected — "busiest day is Tuesday" is the least surprising insight
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Hourly Distribution — most interesting: reveals peak hours, early birds, night owls */}
             {viewConfig.timing === 'hour' && hourChartData && (
                 <CollapsibleSection title="Commits by Hour" subtitle="Which hours are busiest?">

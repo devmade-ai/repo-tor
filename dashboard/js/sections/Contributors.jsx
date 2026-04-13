@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
-    getTagClass, getTagStyleObject, getTagColor,
+    getTagStyleObject, getTagColor,
     aggregateContributors, getAuthorEmail, getAuthorName, sanitizeName, handleKeyActivate
 } from '../utils.js';
 // mutedColor is read from state.themeMuted (via useApp) so the "low complexity"
@@ -202,7 +202,7 @@ export default function Contributors() {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Who Does What */}
             <CollapsibleSection title="Who Does What" subtitle={commitsLoaded ? 'Top contributors and their focus areas' : 'Overall contributor breakdown'}>
                 {aggregated.length > 0 ? (
@@ -232,7 +232,7 @@ export default function Contributors() {
                                             return (
                                                 <div key={tag} className="flex items-center gap-2">
                                                     <span
-                                                        className={`tag ${getTagClass(tag)}`}
+                                                        className="tag"
                                                         style={getTagStyleObject(tag)}
                                                     >
                                                         {tag}

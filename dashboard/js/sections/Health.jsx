@@ -190,7 +190,7 @@ export default function Health() {
             return (
                 <div className="space-y-2">
                     <div role="alert" className="alert alert-error flex flex-col items-center text-center mb-3">
-                        <div className="text-3xl font-bold">{securityEvents.length}</div>
+                        <div className="text-3xl font-bold font-mono tracking-tight">{securityEvents.length}</div>
                         <div className="text-sm opacity-80">Security-related commits</div>
                     </div>
                     {securityEvents.slice(0, 5).map((event, idx) => (
@@ -218,7 +218,7 @@ export default function Health() {
             const repos = [...new Set(securityCommits.map(c => c.repo_id).filter(Boolean))];
             return (
                 <div role="alert" className="alert alert-error flex flex-col items-center text-center">
-                    <div className="text-3xl font-bold mb-1">{securityCommits.length}</div>
+                    <div className="text-3xl font-bold font-mono tracking-tight mb-1">{securityCommits.length}</div>
                     <div className="text-sm opacity-80 mb-2">Security-related commits</div>
                     <div className="text-xs opacity-60">
                         {dateRange.earliest} &mdash; {dateRange.latest}
@@ -239,7 +239,7 @@ export default function Health() {
             return (
                 <div className="space-y-2">
                     <div role="alert" className="alert alert-error flex flex-col items-center text-center mb-3">
-                        <div className="text-2xl font-bold">{securityCommits.length}</div>
+                        <div className="text-2xl font-bold font-mono tracking-tight">{securityCommits.length}</div>
                         <div className="text-sm opacity-80">Total security commits</div>
                     </div>
                     {sortedRepos.map(([repo, count]) => (
@@ -283,7 +283,7 @@ export default function Health() {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Summary Cards — anchor, always visible */}
             <HealthWorkPatterns metrics={metrics} onCardClick={clickable ? handleSummaryCardClick : undefined} />
 

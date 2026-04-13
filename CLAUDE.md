@@ -158,7 +158,7 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
   - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection, ErrorBoundary, EmbedRenderer, HeatmapTooltip, HealthAnomalies, HealthBars, HealthWorkPatterns, HamburgerMenu, QuickGuide, ShowMoreButton, Toast, InstallInstructionsModal, DebugPill)
   - `js/sections/` - Section components (Summary, Timeline, Timing, Progress, Contributors, Tags, Health, Discover, Projects)
   - `js/hooks/` - Custom hooks (useFocusTrap, useHealthData, useShowMore, useEscapeKey, useClickOutside, useScrollLock)
-  - `js/state.js` - Constants (TAB_SECTIONS, VIEW_LEVELS, THRESHOLDS) + global state compat shim
+  - `js/state.js` - Constants (VIEW_LEVELS, THRESHOLDS, PAGE_LIMITS) + global state compat shim + anonymous-name roster
   - `js/utils.js` - Pure utility functions
   - `js/urlParams.js` - Centralized URL query parameter parsing (single parse, shared across modules)
   - `js/charts.js` - Chart aggregation helpers
@@ -195,7 +195,7 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
 | Discover | `discover` | Discover |
 | Projects | `projects` | Projects |
 
-Tab-to-section mapping in `js/state.js` as `TAB_SECTIONS`. Tab routing in `js/App.jsx`.
+Tab-to-section mapping is documented in the table above; actual routing is a switch statement in `js/App.jsx` keyed on `state.activeTab`. (A previous `TAB_SECTIONS` export in `js/state.js` duplicated the table with zero active consumers and was removed 2026-04-13.)
 
 **Role-Based View Levels** — Three audiences with different detail levels:
 

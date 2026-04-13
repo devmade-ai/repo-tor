@@ -6,6 +6,62 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support. As of 2026-04-13, every user-visible surface also routes through DaisyUI's `@layer components` classes — no custom CSS class shadows any DaisyUI component.
 
+**Recent Updates (2026-04-13 — custom-CSS cleanup pass):**
+
+Fourth audit pass of the day, focused on the user's request: "are there any tailwind utilities from DaisyUI tokens that can replace custom code? any ways we can reduce our custom code more? any backward compat code that can be cleaned up? any maps / translation / conversions that can be bypassed and deleted? I don't want any custom Tailwind / css unless absolutely necessary." Six cleanup groups shipped in one sweep, all driven by that rule.
+
+**Group 1 — dead CSS removal.** Deleted `.skeleton` + `.skeleton-commit` + `.skeleton-line[-short|-medium]` + `@keyframes skeleton-loading` (0 JSX consumers, also shadowed DaisyUI v5's own `.skeleton` component — future consumers can now use `<div className="skeleton h-4 w-full" />` directly). Deleted `.timeline-dot`, `.stat-label`, `.stat-value`, `.detail-pane-content-loaded` + `@keyframes fadeIn` (0 consumers). Net: ~35 lines of CSS removed, zero behavior change.
+
+**Group 2 — custom Tailwind utility hijacks removed.** The pre-existing `styles.css` had three rules that hijacked Tailwind utilities via custom CSS:
+
+1. `.font-mono, h1, h2, h3, .stat-value, .text-3xl, .text-2xl { font-family: var(--font-mono); }` — forced mono font on every large-text element app-wide by hijacking Tailwind's `.text-3xl` / `.text-2xl`. Narrowed to `h1, h2, h3 { font-family: var(--font-mono); }` (semantic HTML targeting, not utility hijacking). Every large numeric display in JSX that needed mono explicitly gained `font-mono tracking-tight`.
+2. `.card .text-3xl, .card .text-2xl { font-family: var(--font-mono); letter-spacing: -0.02em; }` — descendant selector combining mono + tracking-tight inside cards. Duplicated the mono part (redundant) and hid the tracking-tight intent. Deleted; `tracking-tight` is now explicit on the JSX elements that need it.
+3. Mobile media query (`@media (max-width: 640px)`) contained `.card { padding: 16px }` (dead — DaisyUI's `.card` has no padding; `.card-body` does), `.card .text-3xl { font-size: 1.5rem }` (redundant — the only consumer Discover.jsx already used `text-2xl sm:text-3xl`), `.card .text-lg { font-size: 0.9375rem }` (migrated: CollapsibleSection h3 now `text-base sm:text-lg`), and `.space-y-6 > * + * { margin-top: 16px }` (fragile descendant selector targeting a Tailwind utility — migrated to `space-y-4 sm:space-y-6` on all 10 consumers). Deleted all four rules.
+
+JSX migrations for Group 2:
+- 22 large-numeric-display elements across Summary/Timeline/Progress/Health/HealthWorkPatterns/Discover gained explicit `font-mono tracking-tight`.
+- 10 `className="space-y-6"` sites migrated to `className="space-y-4 sm:space-y-6"` (App, Contributors, Discover, Health, Progress, Projects, Summary, Timeline, Timing).
+- CollapsibleSection h3 title now `text-base sm:text-lg` for mobile density (preserves the intent of the deleted mobile rule).
+
+**Group 3a — safeStorage helper deduplication.** `dashboard/js/pwa.js` had private `safeStorageGet/Set/Remove` copies alongside `utils.js`'s identical exports. The "pwa loads early, avoid the full utils chain" comment was premature optimization — utils.js imports only from state.js and has no side-effect code at import time. `pwa.js` now imports the three helpers from utils.js; the two `safeSessionGet/Set` wrappers stay local (sessionStorage isn't wrapped in utils.js, and they're the only consumers). Net: 9 lines of duplication removed.
+
+**Group 3b — tag color duplication collapsed.** The tag system had the 34 tag colors defined twice: once as hex strings in `TAG_COLORS` (utils.js), once as rgba rules in 40+ `.tag-{name}` CSS classes (styles.css). Consolidation:
+
+- Extended `TAG_COLORS` with a new `TAG_TEXT_OVERRIDES` map for the 8 tags where the chip text uses a lighter variant of the brand color for readability on the 30%-opaque background (`security`, `refactor`, `cleanup`, `config`, `style`, `performance`, `dependency`, `other`). Previously these mismatches were encoded only in CSS.
+- Generalized `getTagStyleObject(tag)` to return a direct style object `{ backgroundColor, color, border }` for ALL tags (static AND dynamic). Static tags use `0.3` / `0.5` alpha, dynamic tags use `0.2` / `0.3`. Text color honors TAG_TEXT_OVERRIDES.
+- Removed `getTagClass(tag)` export — no longer has work to do. JSX consumers now use `className="tag"` + `style={getTagStyleObject(tag)}`.
+- Deleted all 40+ `.tag-{name}` CSS rules + the `.tag-dynamic` CSS-variable bridge + the dead `.tag-breaking` (no consumers).
+- Updated 5 JSX consumers (Tags, Timeline ×2, Contributors, DetailPane) to drop the `getTagClass` call.
+
+Result: 34 tag colors defined in exactly one place (TAG_COLORS + TAG_TEXT_OVERRIDES in utils.js). Adding, renaming, or recoloring a tag now requires editing one file.
+
+**Group 4 — `TAB_SECTIONS` dead export removed.** 0 JSX consumers, duplicated the CLAUDE.md "Dashboard Architecture" tab table. Deleted the export from `state.js`, updated CLAUDE.md references so the doc table in CLAUDE.md is the single source of truth. Tab routing stays where it already is (switch statement in `App.jsx` keyed on `state.activeTab`).
+
+**New regression-guard tests.** `scripts/__tests__/daisyui-surfaces.test.mjs` gained 6 new assertions covering:
+1. Dead class re-introduction (skeleton/timeline-dot/stat-label/stat-value/detail-pane-content-loaded)
+2. Tailwind utility hijack re-introduction (`.text-3xl`/`.text-2xl` in selector with `font-family`)
+3. `.card .text-3xl`/`.card .text-2xl` descendant selector re-introduction
+4. `.space-y-6 > *` descendant selector re-introduction
+5. Per-tag CSS rule re-introduction (`.tag-{name}` with rgba)
+6. `getTagClass` export re-introduction, `TAB_SECTIONS` export re-introduction, pwa.js local safeStorage re-introduction
+
+Total tests: 21 oklchToHex + 36 DaisyUI surfaces = 57 (was 51). All pass.
+
+**Verified:**
+- `vite build` clean after every group
+- `npm test` 57/57 pass
+- `playwright test --list` enumerates all 62 E2E tests (config still parses)
+- styles.css 1531 → 1456 lines (-75)
+- Built CSS ~158 KB → ~156 KB
+- Zero `text-3xl`/`text-2xl` without `font-mono` (except Header h1 which gets mono from the h1/h2/h3 semantic targeting rule)
+- Zero hardcoded Tailwind color shades in JSX
+- Zero dead marker classes in JSX
+- Zero v4 DaisyUI cruft in built CSS
+- Zero custom classes shadowing DaisyUI component classes
+- Zero per-tag `.tag-{name}` CSS rules
+
+---
+
 **Recent Updates (2026-04-13 — deferred items landed):**
 
 Three items that had been logged as "too big for the audit pass" follow-ups now shipped. All three close out the TODO.md "Test infrastructure" + "Chart.js theme-tracking" sections.

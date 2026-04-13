@@ -230,7 +230,7 @@ export default function Summary() {
     //   - Stats first: Rejected — numbers without context are the least engaging opener
     //   - Snapshot first: Rejected — highlights surface actionable insights better
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Key Highlights — most interesting: surfaces notable patterns and surprises */}
             <CollapsibleSection title="Key Highlights" subtitle="Notable patterns in recent work">
                 {highlights.length > 0 ? (
@@ -268,19 +268,19 @@ export default function Summary() {
             <CollapsibleSection title="Activity Snapshot" subtitle="Work timing and complexity signals">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div className="text-center p-3 bg-warning/15 rounded">
-                        <p className="text-2xl font-bold text-warning">{metrics.afterHoursCount ?? '...'}</p>
+                        <p className="text-2xl font-bold font-mono tracking-tight text-warning">{metrics.afterHoursCount ?? '...'}</p>
                         <p className="text-xs text-base-content/60">After-hours</p>
                     </div>
                     <div className="text-center p-3 bg-info/15 rounded">
-                        <p className="text-2xl font-bold text-info">{metrics.weekendCount ?? '...'}</p>
+                        <p className="text-2xl font-bold font-mono tracking-tight text-info">{metrics.weekendCount ?? '...'}</p>
                         <p className="text-xs text-base-content/60">Weekend</p>
                     </div>
                     <div className="text-center p-3 bg-accent/15 rounded">
-                        <p className="text-2xl font-bold text-accent">{metrics.holidayCount ?? '...'}</p>
+                        <p className="text-2xl font-bold font-mono tracking-tight text-accent">{metrics.holidayCount ?? '...'}</p>
                         <p className="text-xs text-base-content/60">Holiday</p>
                     </div>
                     <div className="text-center p-3 bg-secondary/15 rounded">
-                        <p className="text-2xl font-bold text-secondary">{metrics.complexChanges}</p>
+                        <p className="text-2xl font-bold font-mono tracking-tight text-secondary">{metrics.complexChanges}</p>
                         <p className="text-xs text-base-content/60">Complex</p>
                     </div>
                 </div>
@@ -319,7 +319,7 @@ export default function Summary() {
                         onClick={() => handleCardClick('features')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('features'))}
                     >
-                        <div className="text-2xl font-semibold text-base-content">{metrics.features}</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{metrics.features}</div>
                         <div className="text-sm text-base-content/60">Features Built</div>
                     </div>
                     <div
@@ -330,7 +330,7 @@ export default function Summary() {
                         onClick={() => handleCardClick('fixes')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('fixes'))}
                     >
-                        <div className="text-2xl font-semibold text-base-content">{metrics.fixes}</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{metrics.fixes}</div>
                         <div className="text-sm text-base-content/60">Bugs Fixed</div>
                     </div>
                     <div
@@ -341,7 +341,7 @@ export default function Summary() {
                         onClick={() => handleCardClick('urgency')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('urgency'))}
                     >
-                        <div className="text-2xl font-semibold text-base-content">
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">
                             {metrics.avgUrgency > 0 ? metrics.avgUrgency.toFixed(1) : '-'}
                         </div>
                         <div className="text-sm text-base-content/60">Avg Urgency</div>
@@ -354,7 +354,7 @@ export default function Summary() {
                         onClick={() => handleCardClick('planned')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('planned'))}
                     >
-                        <div className="text-2xl font-semibold text-base-content">
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">
                             {metrics.plannedPct > 0 ? `${metrics.plannedPct}%` : '-'}
                         </div>
                         <div className="text-sm text-base-content/60">% Planned</div>

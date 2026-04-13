@@ -115,7 +115,7 @@ export default function Projects() {
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             <CollapsibleSection
                 title="Live Projects"
                 subtitle={`${liveProjects.length} projects with live sites`}

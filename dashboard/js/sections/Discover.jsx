@@ -563,7 +563,7 @@ export default function Discover() {
     }, [filteredCommits, commitsLoaded, state.data?.summary]);
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Metric Cards — pick a metric from the dropdown, or shuffle for surprise */}
             <CollapsibleSection title="Metrics" subtitle="Pick a metric or shuffle for surprises">
                 <div className="flex justify-end mb-3">
@@ -617,7 +617,7 @@ export default function Discover() {
                                             </svg>
                                         </button>
                                     </div>
-                                    <p className="text-2xl sm:text-3xl font-bold text-base-content">{metricResult.value}</p>
+                                    <p className="text-2xl sm:text-3xl font-bold font-mono tracking-tight text-base-content">{metricResult.value}</p>
                                     <p className="text-xs text-base-content/40">{metricResult.sub}</p>
                                     {metricResult.description && (
                                         <p className="text-xs text-base-content/60 mt-2 leading-snug">{metricResult.description}</p>

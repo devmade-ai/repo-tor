@@ -489,3 +489,110 @@ test('Built CSS ships the 8 DaisyUI semantic bg tokens used by data-viz', { skip
     }
     assert.equal(missing.length, 0, `Built CSS missing semantic bg tokens: ${missing.join(', ')}`);
 });
+
+// ----- Custom-CSS cleanup pass (2026-04-13) invariants -----
+
+test('Dead classes stay deleted (skeleton, timeline-dot, stat-label, stat-value, detail-pane-content-loaded)', () => {
+    const stylesSrc = read('dashboard/styles.css');
+    // Strip CSS comments so rationale blocks mentioning the removed names
+    // don't false-trigger the regression check.
+    const stripped = stylesSrc.replace(/\/\*[\s\S]*?\*\//g, '');
+    const deadRules = [
+        /\.skeleton\s*\{/,
+        /\.skeleton-commit\s*\{/,
+        /\.skeleton-line\s*\{/,
+        /\.timeline-dot\s*\{/,
+        /\.stat-label\s*\{/,
+        /\.stat-value\s*\{/,
+        /\.detail-pane-content-loaded\s*\{/,
+        /@keyframes skeleton-loading\b/,
+    ];
+    const reintroduced = deadRules.filter(re => re.test(stripped)).map(re => re.source);
+    assert.equal(
+        reintroduced.length, 0,
+        `Dead CSS classes re-introduced in dashboard/styles.css: ${reintroduced.join(', ')}`
+    );
+});
+
+test('Tailwind utility hijack rules stay deleted (.text-3xl/.text-2xl/.card descendant mono)', () => {
+    const stylesSrc = read('dashboard/styles.css');
+    const stripped = stylesSrc.replace(/\/\*[\s\S]*?\*\//g, '');
+    // The pre-cleanup global rule used .text-3xl, .text-2xl, .font-mono,
+    // .stat-value in its selector list. The cleanup narrowed it to only
+    // semantic HTML heading selectors (h1/h2/h3). Any re-introduction of
+    // Tailwind utility names in that rule is a regression.
+    const offendingSelectors = /\.(text-3xl|text-2xl|font-mono|stat-value)\b[^{]*\{\s*font-family/;
+    assert.doesNotMatch(
+        stripped, offendingSelectors,
+        'Tailwind utility hijack (e.g. `.text-3xl { font-family: mono }`) must not return — ' +
+        'add `font-mono` explicitly to the JSX elements that need mono typography.'
+    );
+    // The `.card .text-3xl, .card .text-2xl` descendant selector rule
+    // that duplicated the mono + added tracking-tight is also gone.
+    assert.doesNotMatch(
+        stripped, /\.card\s+\.text-3xl/,
+        '`.card .text-3xl` descendant selector must not return — use `font-mono tracking-tight` in JSX.'
+    );
+    assert.doesNotMatch(
+        stripped, /\.card\s+\.text-2xl/,
+        '`.card .text-2xl` descendant selector must not return — use `font-mono tracking-tight` in JSX.'
+    );
+    // The mobile .card { padding } / .card .text-3xl / .card .text-lg /
+    // .space-y-6 overrides are all gone. Regression-guard the space-y-6
+    // descendant selector specifically since it was the most fragile.
+    assert.doesNotMatch(
+        stripped, /\.space-y-6\s*>/,
+        '`.space-y-6 > * + *` descendant selector must not return — use `space-y-4 sm:space-y-6` in JSX.'
+    );
+});
+
+test('Tag color duplication stays collapsed (no .tag-{name} CSS rules)', () => {
+    const stylesSrc = read('dashboard/styles.css');
+    const stripped = stylesSrc.replace(/\/\*[\s\S]*?\*\//g, '');
+    // Any `.tag-{name}` rule with an rgba() fill is a re-introduction of
+    // the pre-cleanup per-tag CSS rules (which duplicated TAG_COLORS from
+    // utils.js). Allow the `.tag` base class (common layout — padding,
+    // border-radius, font-size) but flag any `.tag-name` pattern.
+    const offendingRules = stripped.match(/\.tag-[a-z-]+\s*\{[^}]*\}/g) || [];
+    assert.equal(
+        offendingRules.length, 0,
+        `Per-tag CSS rules re-introduced: ${offendingRules.slice(0, 3).join(' | ')}. ` +
+        'Tag colors must come from getTagStyleObject() in utils.js — see that module\'s ' +
+        'rationale block for the single-source-of-truth argument.'
+    );
+});
+
+test('utils.js has no getTagClass export (replaced by className="tag" + getTagStyleObject)', () => {
+    const src = read('dashboard/js/utils.js');
+    // Strip comments so the rationale note doesn't false-trigger.
+    const stripped = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+    assert.doesNotMatch(
+        stripped, /export\s+function\s+getTagClass\b/,
+        'getTagClass was removed 2026-04-13 — JSX consumers now use `className="tag"` + ' +
+        'inline style={getTagStyleObject(tag)}. Do not re-export.'
+    );
+});
+
+test('TAB_SECTIONS dead export stays deleted', () => {
+    const src = read('dashboard/js/state.js');
+    const stripped = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+    assert.doesNotMatch(
+        stripped, /export\s+const\s+TAB_SECTIONS\b/,
+        'TAB_SECTIONS was removed 2026-04-13 (0 consumers, duplicated CLAUDE.md doc table).'
+    );
+});
+
+test('pwa.js imports safeStorage helpers from utils.js (no local duplication)', () => {
+    const src = read('dashboard/js/pwa.js');
+    assert.match(
+        src, /import\s+\{[^}]*safeStorageGet[^}]*\}\s+from\s+['"]\.\/utils\.js['"]/,
+        'pwa.js must import safeStorageGet from utils.js, not define a local copy.'
+    );
+    // Strip comments before checking for local definitions to avoid
+    // false-triggering on rationale blocks that mention the old pattern.
+    const stripped = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+    assert.doesNotMatch(
+        stripped, /function\s+safeStorageGet\s*\(/,
+        'Local safeStorageGet definition in pwa.js must not return — import from utils.js.'
+    );
+});

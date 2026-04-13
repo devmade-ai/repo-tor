@@ -113,6 +113,18 @@ Canonical mappings we use across the dashboard:
 
 When you have a 3-category gradient (good/mixed/bad), use `success` / `warning` / `error` in that order. When you have a 4-category independent palette, use `info` / `neutral` / `secondary` / `accent` so all four are visibly distinct across every registered theme.
 
+## Tag chips (brand-fixed, not theme-tracked)
+
+Tags have brand/semantic colors (feature=green, fix=red, docs=blue etc.) that must NOT track theme — users need consistent semantic meaning regardless of which DaisyUI theme is active. The single source of truth lives in `dashboard/js/utils.js`:
+
+- `TAG_COLORS` — map of `tag-name → brand hex`. Used by `getTagColor(tag)` for Chart.js dataset backgrounds (solid fill) and anywhere a call site needs a plain color string.
+- `TAG_TEXT_OVERRIDES` — map of `tag-name → lighter-variant hex` for the 8 tags where the chip text needs a lifted tone for readability on the 30%-opaque background (`security`, `refactor`, `cleanup`, `config`, `style`, `performance`, `dependency`, `other`).
+- `getTagStyleObject(tag)` — returns `{ backgroundColor, color, border }` for chip display. Static tags use 0.3/0.5 alphas; dynamic tags use 0.2/0.3 alphas. Cached in a `Map` so React re-renders of long tag lists stay cheap.
+
+JSX usage: `<span className="tag" style={getTagStyleObject(tag)}>`. The `.tag` CSS class in styles.css provides ONLY common layout (padding, border-radius, font-size, font-weight) — everything color-related comes from the inline style.
+
+Previously the same 34 colors were duplicated as 40+ `.tag-{name}` rules in styles.css; that duplication was collapsed 2026-04-13. Don't re-add per-tag CSS rules — edit `TAG_COLORS` / `TAG_TEXT_OVERRIDES` instead.
+
 ## Deliberately NOT used
 
 - **DaisyUI `dropdown` component** — uses CSS `:focus` or `[open]` attribute for visibility. Conflicts with React-state-controlled menus. We use custom disclosure pattern in `HamburgerMenu.jsx`.

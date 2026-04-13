@@ -26,19 +26,22 @@ import {
     INSTALL_ANALYTICS_MAX_EVENTS,
 } from './pwaConstants.js';
 import { debugAdd } from './debugLog.js';
+import { safeStorageGet, safeStorageSet, safeStorageRemove } from './utils.js';
 
-// ── Safe storage wrappers ──
-// Local copies to avoid importing utils.js
-// (pwa.js loads early and shouldn't depend on the full utils module chain)
-function safeStorageGet(key) {
-    try { return localStorage.getItem(key); } catch { return null; }
-}
-function safeStorageSet(key, value) {
-    try { localStorage.setItem(key, String(value)); } catch { /* sandboxed */ }
-}
-function safeStorageRemove(key) {
-    try { localStorage.removeItem(key); } catch { /* sandboxed */ }
-}
+// ── Safe session wrappers ──
+// Requirement: `pwa-just-updated` is a short-lived signal that should NOT
+//   survive a browser restart — sessionStorage is the correct scope for
+//   cross-reload-but-not-cross-session suppression of the post-update
+//   "update available" false positive. utils.js only wraps localStorage
+//   (the main persistent store), so the two session helpers stay local
+//   here — they're the only consumers.
+// Alternatives:
+//   - Use localStorage + a timestamp guard: Rejected — the suppress window
+//     is 30 seconds, so any stale key that outlived the window would still
+//     trigger the guard's first branch and then no-op on the timestamp check.
+//     Correct but wastes a storage slot across sessions.
+//   - In-memory flag: Rejected — gone on reload, so post-update suppression
+//     wouldn't survive the single reload it's designed to cover.
 function safeSessionGet(key) {
     try { return sessionStorage.getItem(key); } catch { return null; }
 }

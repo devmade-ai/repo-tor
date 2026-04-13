@@ -2,7 +2,7 @@ import React, { useMemo, useCallback } from 'react';
 import { Bar, Line } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
-    formatDate, getCommitTags, getTagClass, getTagStyleObject,
+    formatDate, getCommitTags, getTagStyleObject,
     getAuthorEmail, getAuthorName, getCommitSubject,
     sanitizeMessage, getWorkPattern, getAdditions, getDeletions, handleKeyActivate,
     getUTCDateKey, getUTCMonthKey, excludeIncompleteLastMonth,
@@ -497,7 +497,7 @@ export default function Timeline() {
                                 {tags.slice(0, 3).map(t => (
                                     <span
                                         key={t}
-                                        className={`tag ${getTagClass(t)} shrink-0`}
+                                        className="tag shrink-0"
                                         style={getTagStyleObject(t)}
                                     >
                                         {t}
@@ -593,7 +593,7 @@ export default function Timeline() {
                             {tagSummary.map(([tag, count]) => (
                                 <span
                                     key={tag}
-                                    className={`tag ${getTagClass(tag)}`}
+                                    className="tag"
                                     style={getTagStyleObject(tag)}
                                 >
                                     {tag} ({count})
@@ -625,7 +625,7 @@ export default function Timeline() {
     //   - Stats first: Rejected — raw numbers are least engaging
     //   - Commit list first: Rejected — chart gives a faster visual overview
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Activity Timeline Chart — most engaging: visual pattern of activity bursts */}
             {activityChartData && (
                 <CollapsibleSection title="Commit Activity" subtitle="Daily commit count over time">
@@ -704,15 +704,15 @@ export default function Timeline() {
                         onClick={() => handleCardClick('total')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('total'))}
                     >
-                        <div className="text-2xl font-semibold text-base-content">{summaryData.totalCommits}</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{summaryData.totalCommits}</div>
                         <div className="text-sm text-base-content/60">Total Commits</div>
                     </div>
                     <div className="p-4 bg-base-300 rounded-lg text-center">
-                        <div className="text-2xl font-semibold text-base-content">{summaryData.activeDays}</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{summaryData.activeDays}</div>
                         <div className="text-sm text-base-content/60">Active Days</div>
                     </div>
                     <div className="p-4 bg-base-300 rounded-lg text-center">
-                        <div className="text-2xl font-semibold text-base-content">
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">
                             {summaryData.earliest !== 'No data'
                                 ? `${summaryData.earliest} — ${summaryData.latest}`
                                 : 'No data'}
@@ -727,11 +727,11 @@ export default function Timeline() {
                         onClick={() => handleCardClick('contributors')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('contributors'))}
                     >
-                        <div className="text-2xl font-semibold text-base-content">{summaryData.contributors}</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{summaryData.contributors}</div>
                         <div className="text-sm text-base-content/60">Contributors</div>
                     </div>
                     <div className="p-4 bg-base-300 rounded-lg text-center">
-                        <div className="text-2xl font-semibold text-base-content">{summaryData.avgPerDay}</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{summaryData.avgPerDay}</div>
                         <div className="text-sm text-base-content/60">Avg/Day</div>
                     </div>
                 </div>
