@@ -17,7 +17,13 @@ import { debugAdd } from '../debugLog.js';
  * Data-driven hamburger menu. Items are filtered by `visible` (default true),
  * rendered with optional icons, separators, external indicators, and destructive styling.
  *
- * @param {Array} items - Menu items: { label, action, icon?, visible?, separator?, external?, destructive? }
+ * @param {Array} items - Menu items: { label, action, icon?, visible?, separator?, external?, destructive?, highlight?, ariaLabel?, keepOpen? }
+ *   - `keepOpen: true` suppresses the usual close-on-click-and-act behavior so the
+ *     user can activate the item and remain in the menu. Used for theme picker
+ *     items and the dark/light mode toggle so users can rapid-preview multiple
+ *     themes (or pick a theme after toggling mode) without reopening the menu.
+ *     Pattern borrowed from glow-props where theme controls lack the
+ *     `data-close` attribute that other items have.
  */
 export default function HamburgerMenu({ items }) {
     const menuId = useId();
@@ -55,21 +61,45 @@ export default function HamburgerMenu({ items }) {
         return () => { if (timerRef.current) clearTimeout(timerRef.current); };
     }, []);
 
-    // Close-then-act pattern: close menu before executing the action to prevent
-    // visual glitches from state changes while menu is visible. 150ms accounts
-    // for the CSS fade animation. Timer cleaned up on unmount via timerRef.
-    function handleItem(action) {
+    // Run a menu item's action with shared error handling — any throw goes to
+    // the debug pill as a render error so users see the failure in context
+    // instead of a silent dead click.
+    async function runAction(action) {
+        try {
+            await action();
+        } catch (e) {
+            debugAdd('render', 'error', 'Menu action failed: ' + e.message, {
+                stack: e.stack,
+            });
+        }
+    }
+
+    // Handle a menu item click. Two modes:
+    //
+    //   1. Regular item (default): close the menu first, then run the action
+    //      after a 150ms delay. The delay matches the CSS fade animation so
+    //      state changes triggered by the action don't cause visual glitches
+    //      (text reflow, layout shift, re-render flicker) while the menu is
+    //      still visibly on screen.
+    //
+    //   2. keepOpen item: run the action immediately without closing. Used by
+    //      the dark/light toggle and the theme picker items so users can
+    //      rapid-preview multiple themes or switch modes and then pick a
+    //      theme for the new mode — all without reopening the menu. The
+    //      active-theme highlight updates in place as the React tree
+    //      re-renders from the reducer state change.
+    //
+    // Pattern borrowed from glow-props where the equivalent behavior is
+    // implemented via a `data-close` attribute on menu items that SHOULD
+    // close the menu, with theme controls deliberately omitting it.
+    function handleItem(item) {
+        if (item.keepOpen) {
+            runAction(item.action);
+            return;
+        }
         close();
         if (timerRef.current) clearTimeout(timerRef.current);
-        timerRef.current = setTimeout(async () => {
-            try {
-                await action();
-            } catch (e) {
-                debugAdd('render', 'error', 'Menu action failed: ' + e.message, {
-                    stack: e.stack,
-                });
-            }
-        }, 150);
+        timerRef.current = setTimeout(() => runAction(item.action), 150);
     }
 
     // Arrow key navigation between menu items. Wraps around at boundaries.
@@ -124,7 +154,7 @@ export default function HamburgerMenu({ items }) {
                                     <button
                                         type="button"
                                         className={`hamburger-item${item.destructive ? ' hamburger-item-destructive' : ''}${item.highlight ? ' hamburger-item-highlight' : ''}`}
-                                        onClick={() => handleItem(item.action)}
+                                        onClick={() => handleItem(item)}
                                         // Requirement: items whose visible label describes a destination
                                         //   (e.g. "Light mode") rather than an action are ambiguous to
                                         //   screen readers without additional context. Callers can pass

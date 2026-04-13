@@ -525,6 +525,7 @@ The dashboard supports both light and dark modes, with four curated themes per m
   - **Light mode:** Lo-Fi (minimal monochrome), Nord (cool blue-gray), Emerald (fresh green), Caramel Latte (warm neutral)
   - **Dark mode:** Black (true OLED), Dim (soft dark gray), Coffee (dark roast), Dracula (dev classic)
   - Click any theme to switch instantly. The currently active theme has a checkmark next to it.
+- **Rapid preview** — the menu stays open after a theme click so you can try several themes in a row without reopening the menu. Click Nord, then Emerald, then Caramel Latte to compare each. The dark/light mode toggle also keeps the menu open, so you can switch to dark mode and then pick a dark theme in the same menu session. Click anywhere outside the menu (or press Escape) when you're done.
 - **Per-mode memory** — your light-mode theme pick and your dark-mode theme pick are remembered independently. Switch to dark mode to pick a dark theme, switch back to light mode and your light theme pick is still there.
 - **Your choice sticks** — once you toggle mode or pick a theme, the dashboard remembers your preference across visits. It will no longer follow the OS preference.
 - **Cross-tab sync** — if you have the dashboard open in multiple tabs and change the theme in one, the others update automatically.

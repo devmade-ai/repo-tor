@@ -4,9 +4,18 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, theme picker UI in burger menu, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support.
+**Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support.
 
-**Recent Updates (2026-04-12 — fifth pass, canva-grid alignment):**
+**Recent Updates (2026-04-12 — sixth pass, glow-props alignment):**
+
+- Burger menu now stays open during theme picker interactions. Users can click Nord, then Emerald, then Caramel Latte in rapid succession to preview themes without reopening the menu between each click. The dark/light mode toggle is also `keepOpen: true` so a user can toggle to dark mode and then pick a dark theme in the same menu session — the theme list below the toggle swaps to the new mode's themes when the toggle dispatches.
+- Pattern borrowed from glow-props where theme controls deliberately omit the `data-close` attribute that other menu items carry. Every other menu item (Quick Guide, User Guide, Save as PDF, Install App, Update Now) keeps its existing close-then-act behavior.
+- `HamburgerMenu.handleItem()` refactored to accept the full item object, check `item.keepOpen`, and either run the action immediately (keepOpen path, no close, no delay) or close-then-act after 150 ms (default path, matches CSS fade animation). Shared error handling extracted into a `runAction(action)` helper.
+- Menu items are keyed by `item.label` — stable across re-renders, so React reconciles the buttons in place after a theme click. Focus stays on the clicked button, which is now the active theme with a checkmark and highlight class. Screen readers re-announce the button with the updated aria-label (`"Use Nord theme (Cool blue-gray), currently active"`) as natural confirmation feedback.
+
+---
+
+**Previous Updates (2026-04-12 — fifth pass, canva-grid alignment):**
 
 - Extracted `scripts/oklchToHex.mjs` as a standalone module with 21 unit tests via `node:test` (no Jest dependency). Fixes an L=1 percentage-vs-decimal edge case the old inlined version had via a heuristic that couldn't distinguish `oklch(1 0 0)` (white) from `oklch(1% 0 0)` (near-black). `npm test` runs the suite in ~150 ms.
 - Added `COLOR_KEY_OVERRIDES` to `scripts/generate-theme-meta.mjs`. Default rule now matches the reference (`--color-primary` for light themes, `--color-base-100` for dark themes) with targeted overrides for monochrome/warm-minimal light themes whose primary is near-black: `lofi → --color-base-300` (→ `#ebebeb`, borrowed from canva-grid), `caramellatte → --color-base-300` (→ `#ffd6a7`, our addition — DaisyUI ships caramellatte with `primary = oklch(0% 0 0)` literal black). Light-theme PWA status bars now use each theme's actual brand accent: `nord → #5e81ac`, `emerald → #66cc8a`.

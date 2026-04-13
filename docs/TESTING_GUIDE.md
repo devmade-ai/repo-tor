@@ -176,10 +176,15 @@ Guidelines and checklists for testing features from a user perspective.
 - [ ] Open the burger menu (☰) — see the dark/light toggle followed by 4 theme items for the current mode (light mode shows Lo-Fi / Nord / Emerald / Caramel Latte; dark mode shows Black / Dim / Coffee / Dracula)
 - [ ] The currently active theme has a checkmark icon and the highlight color class; inactive themes have the palette icon
 - [ ] Click a non-active theme → dashboard re-themes without a page reload, the active theme highlight moves, `data-theme` attribute on `<html>` updates, the PWA status bar `<meta name="theme-color">` content updates, all charts re-render with new axis colors
+- [ ] **Rapid-preview (keepOpen behavior):** with the burger menu open, click Nord → theme applies, menu stays open, Nord is now marked active with a checkmark. Click Emerald → theme applies, menu stays open, Emerald is now marked active, Nord is back to the palette icon. Click Caramel Latte → same pattern. User can preview all 4 themes for a mode in < 4 clicks from a single menu open.
+- [ ] **Mode toggle keepOpen:** with the burger menu open in light mode, click "Dark mode" → app flips to dark, menu stays open, the 4 theme items below the toggle swap from light themes (Lo-Fi/Nord/Emerald/Caramel Latte) to dark themes (Black/Dim/Coffee/Dracula). Now click Dracula → theme applies, menu stays open. Single menu session = full mode + theme switch.
+- [ ] **Focus is preserved after a theme click.** Keyboard user: Tab to "Nord", press Enter → Nord becomes active, focus stays on the Nord button (not the first menu item). Press Tab → focus moves to "Emerald" (next theme button), not back to the mode toggle.
+- [ ] **Non-theme items still close the menu.** Click "Save as PDF" → menu closes, print dialog opens 150 ms later. Click "Quick Guide" → menu closes, Quick Guide modal opens. Only theme controls have the keepOpen behavior.
 - [ ] Toggle dark/light mode → theme list switches to show only themes for the new mode (4 items, not 8)
 - [ ] Pick a non-default theme in light mode (e.g. Nord), toggle to dark, pick a non-default theme in dark mode (e.g. Dracula), toggle back to light → Nord is still the active light theme (localStorage `lightTheme` = 'nord')
 - [ ] Clear localStorage, reload → dashboard loads with the defaults (lofi / black) and the picker shows the defaults as active
-- [ ] Hover / focus a theme item with keyboard → screen reader announces the full label like "Use Nord theme (Cool blue-gray), currently active" (or without the active suffix for inactive themes)
+- [ ] Hover / focus a theme item with keyboard → screen reader announces the full label like "Use Nord theme (Cool blue-gray), currently active" (or without the active suffix for inactive themes). After clicking the button, screen reader re-announces with the updated aria-label — natural confirmation feedback.
+- [ ] **Click-outside still closes the menu** even with keepOpen items: open menu, click a theme (menu stays open), click anywhere outside the menu → menu closes. Escape key also still works.
 
 *Adding a new theme (developer flow):*
 - [ ] Edit `scripts/theme-config.js` — add a new entry to `THEMES.light` or `THEMES.dark` with a valid DaisyUI theme id

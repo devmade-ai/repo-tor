@@ -128,6 +128,13 @@ export default function Header() {
         // Build theme picker entries for the current mode. Each entry calls
         // setTheme(id) via dispatch context — the effect in AppContext picks
         // up the reducer state change and calls applyTheme() through themes.js.
+        //
+        // keepOpen: true keeps the burger menu open after each theme click so
+        // users can rapid-preview multiple themes without reopening the menu.
+        // The active-theme highlight updates in place as the React tree
+        // re-renders from the reducer state change. Pattern borrowed from
+        // glow-props where theme-picker buttons deliberately omit the
+        // `data-close` attribute that other menu items carry.
         const themeItems = activeThemeCatalog.map((theme, idx) => ({
             label: theme.name,
             // Spell out the transition for screen readers so "Nord" isn't read as
@@ -143,6 +150,7 @@ export default function Header() {
             // First theme item gets a separator above it to visually group the
             // picker under the mode toggle.
             separator: idx === 0,
+            keepOpen: true,
         }));
 
         return [
@@ -157,6 +165,10 @@ export default function Header() {
                 //   transition so screen readers announce "Switch to light mode".
                 // Approach: Pass a dedicated `ariaLabel` prop that HamburgerMenu
                 //   threads into the rendered button's aria-label attribute.
+                //   keepOpen: true lets the user toggle modes and then pick a
+                //   theme for the new mode in a single menu session — the
+                //   theme list below swaps to the new mode's themes as soon as
+                //   the toggle action dispatches.
                 // Reference: THEME_DARK_MODE.md Phase 5 accessibility checklist
                 //   "Theme toggle button should have aria-label (e.g., 'Switch to
                 //   dark mode') that updates when toggled."
@@ -165,6 +177,7 @@ export default function Header() {
                 action: handleToggleDarkMode,
                 icon: icons.theme,
                 separator: true,
+                keepOpen: true,
             },
             ...themeItems,
             { label: 'Save as PDF', action: () => window.print(), icon: icons.pdf, separator: true },

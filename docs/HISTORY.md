@@ -4,6 +4,67 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-12
 
+### glow-props alignment pass — burger menu "keepOpen" for theme picker + mode toggle
+
+**Why:** After comparing our theming against glow-props (the "Approach A" sibling using per-mode-independent storage, same shape as us), the comparison surfaced exactly one actionable UX gap: our burger menu closes after every item click, including theme picker clicks. glow-props deliberately omits the `data-close` attribute on theme controls so the menu stays open — users can rapid-preview multiple themes in a single menu session without reopening. Everything else in glow-props we already do, do better, or have rejected for documented reasons (35-theme catalog, random theme on load, regex-based multi-file rewrite, etc.). This pass closes the one actionable gap.
+
+**Changes:**
+
+1. **`dashboard/js/components/HamburgerMenu.jsx`** — `handleItem()` refactored to accept the full item object instead of just `item.action`, so it can check `item.keepOpen`. Two paths now:
+   - `keepOpen: true` → run the action immediately (no `close()`, no 150ms `setTimeout` delay)
+   - default → close the menu first, then run the action after 150ms (matches the CSS fade animation)
+   - Shared error handling extracted into a `runAction(action)` helper so both paths route errors through `debugAdd('render', 'error', ...)`.
+   - Call site updated from `handleItem(item.action)` → `handleItem(item)`.
+   - JSDoc updated to document the new `keepOpen` item field alongside the existing ones.
+
+2. **`dashboard/js/components/Header.jsx`** — marked three kinds of menu items as `keepOpen: true`:
+   - **Dark/light mode toggle** — so the user can toggle modes and then pick a theme for the new mode in one menu session (the theme list below the toggle swaps to the new mode's themes when the toggle action dispatches).
+   - **All theme picker items** (4 per mode) — so the user can click Nord, see the app re-themed, then click Emerald, then click Caramel Latte, without reopening the menu between each.
+   - Comments at both call sites document the rationale with a reference to glow-props's equivalent (`data-close` attribute omission on theme controls).
+
+**Why this is safe:**
+
+- Menu items are keyed by `item.label` in `HamburgerMenu`'s render loop, and theme names are stable across re-renders. When `activeThemeId` changes after a picker click, React reconciles the buttons in place — the clicked button's DOM element is preserved, focus stays on it, only `icon` / `highlight` / `ariaLabel` props update.
+- The `ariaLabel` change (`"Use Nord theme (Cool blue-gray)"` → `"Use Nord theme (Cool blue-gray), currently active"`) provides natural screen-reader feedback confirming the theme was applied.
+- `click-outside`, `Escape`, and the backdrop click handler all still work — the user can dismiss the menu any time; `keepOpen` only suppresses the per-item auto-close.
+- The "Save as PDF", "Install App", "Update Now", "Quick Guide", "User Guide" items keep their existing close-then-act behavior — only theme controls got `keepOpen`.
+
+**Things from glow-props deliberately NOT adopted (documented):**
+
+- **35-theme catalog.** glow-props registers every DaisyUI stock theme. Our curated 4+4 is the right tradeoff for a utility app per the reference doc's own advice ("utility apps should pick 2-5 curated combos or 8-10 themes per mode").
+- **Random theme on load.** Cute for a portfolio site; wrong for an analytics dashboard where users don't want visual surprise on every visit.
+- **Auto-classify themes from `color-scheme` property.** Only helps when registering the full catalog. Our explicit catalog already validates against DaisyUI's classification via the generator's `color-scheme` mismatch check.
+- **Regex-based rewrite of 5 HTML/JS files.** Fragile to reformatting. Our marker-delimited approach is structurally safer.
+- **Manual `npm run generate:meta-colors`.** glow-props's generator runs only on demand. Ours runs as prebuild for `dev`/`build`/`build:lib`.
+- **`head-common.html` partial.** glow-props injects the same `<head>` content into multiple HTML entry points. We have one `dashboard/index.html` — not needed.
+
+**Things glow-props SHOULD adopt from us** (upstream feedback if they look, not in scope for this repo):
+
+- **`COLOR_KEY_OVERRIDES`** — glow-props's `caramellatte` default meta color is `#000000` (pure black) because DaisyUI ships `--color-primary: oklch(0% 0 0)`. Their status bar flashes black on every visit. Our override to `--color-base-300` gives `#ffd6a7` (warm peach).
+- **`lofi` meta color** — glow-props's is `#0d0d0d` (near-black) for the same reason. Ours is `#ebebeb` via the override.
+- **Extracted `oklchToHex.mjs` + 21 unit tests** — glow-props has zero tests for the color math.
+- **L=1 percentage-vs-decimal fix** — glow-props uses the old `if (L > 1) L /= 100` heuristic.
+- **Prebuild integration** so drift is impossible between builds.
+- **Marker-delimited rewrite** instead of regex replacement.
+
+**Build and tests:**
+
+- `npm test` — 21 passing, 0 failing, 6 suites, ~145 ms.
+- `npm run build` — passes, 84 modules. CSS 160.06 KB (unchanged — no CSS change this pass). JS 555.75 → 556.03 KB (+0.28 KB for the refactored handleItem logic + `keepOpen: true` literals).
+- Generator idempotent — all 4 downstream files report `unchanged` on re-run.
+- Smoke test via `vite preview` + curl verified: `keepOpen` identifier survived minification into the JS bundle; all 8 theme names, descriptions, aria-labels, CSS theme selectors, and flash prevention hex values still present; all 11 critical custom class families still emitted.
+
+**Files changed (2 source + 3 docs):**
+
+- `dashboard/js/components/HamburgerMenu.jsx` — `handleItem()` refactor, `runAction()` helper, call-site update, JSDoc update
+- `dashboard/js/components/Header.jsx` — `keepOpen: true` on mode toggle and theme picker items, rationale comments
+- `docs/HISTORY.md` — this entry
+- `docs/SESSION_NOTES.md` — new pass summary
+- `docs/TESTING_GUIDE.md` — new test scenario for rapid-preview behavior
+- `docs/USER_GUIDE.md` — updated Theme section to mention rapid-preview
+
+---
+
 ### canva-grid alignment pass — oklchToHex module + tests, COLOR_KEY_OVERRIDES, debug flow tracing, Approach A vs B documentation
 
 **Why:** After cross-referencing our theming against canva-grid's implementation (the sibling project using "Approach B" named combos), five patterns from canva-grid were worth adopting without changing our Approach A storage shape. Four were actual gaps in our implementation; one was pure documentation. All five implemented this pass.
