@@ -289,61 +289,75 @@ export default function Summary() {
             {/* Key Stats — reference numbers, least engaging but useful for context */}
             <CollapsibleSection title="Key Stats" subtitle="Overall project numbers">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    {/*
+                      Requirement: Each key stat is a clickable tile that opens a
+                      drilldown pane. Each tile needs visible hover/focus feedback
+                      for keyboard users and a single accessible click target.
+                      Approach: One <div> per stat with the `role="button"` click
+                      target AND the visual styling (padding, background, rounded
+                      corners, text alignment) on the same element. Previously this
+                      was a two-div sandwich where the outer carried the click
+                      handler + `stat-card` marker class and the inner carried the
+                      visual classes — but `.stat-card` had no CSS rule defined, so
+                      the outer wrapper was dead weight. Merged during the DaisyUI
+                      component-class audit (2026-04-13) so there's exactly one
+                      element per tile.
+                      Alternatives:
+                        - Keep the two-div structure with `stat-card` as a marker:
+                          Rejected — dead class CLAUDE.md forbids ("Remove commented
+                          out code... no unused imports, variables, and dead code").
+                        - Use DaisyUI `stat` component: Rejected — `stat` is a
+                          horizontal stat-block with `stat-title` / `stat-value` /
+                          `stat-desc` sub-elements; our tiles are a denser 2x2 or
+                          1x4 grid that needs a different visual rhythm.
+                    */}
                     <div
-                        className="stat-card cursor-pointer hover:ring-2 hover:ring-primary rounded-lg transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`${metrics.features} features built — click to see details`}
                         onClick={() => handleCardClick('features')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('features'))}
                     >
-                        <div className="p-4 bg-base-300 rounded-lg text-center">
-                            <div className="text-2xl font-semibold text-base-content">{metrics.features}</div>
-                            <div className="text-sm text-base-content/60">Features Built</div>
-                        </div>
+                        <div className="text-2xl font-semibold text-base-content">{metrics.features}</div>
+                        <div className="text-sm text-base-content/60">Features Built</div>
                     </div>
                     <div
-                        className="stat-card cursor-pointer hover:ring-2 hover:ring-primary rounded-lg transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`${metrics.fixes} bugs fixed — click to see details`}
                         onClick={() => handleCardClick('fixes')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('fixes'))}
                     >
-                        <div className="p-4 bg-base-300 rounded-lg text-center">
-                            <div className="text-2xl font-semibold text-base-content">{metrics.fixes}</div>
-                            <div className="text-sm text-base-content/60">Bugs Fixed</div>
-                        </div>
+                        <div className="text-2xl font-semibold text-base-content">{metrics.fixes}</div>
+                        <div className="text-sm text-base-content/60">Bugs Fixed</div>
                     </div>
                     <div
-                        className="stat-card cursor-pointer hover:ring-2 hover:ring-primary rounded-lg transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`Average urgency ${metrics.avgUrgency > 0 ? metrics.avgUrgency.toFixed(1) : 'not available'} — click to see reactive commits`}
                         onClick={() => handleCardClick('urgency')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('urgency'))}
                     >
-                        <div className="p-4 bg-base-300 rounded-lg text-center">
-                            <div className="text-2xl font-semibold text-base-content">
-                                {metrics.avgUrgency > 0 ? metrics.avgUrgency.toFixed(1) : '-'}
-                            </div>
-                            <div className="text-sm text-base-content/60">Avg Urgency</div>
+                        <div className="text-2xl font-semibold text-base-content">
+                            {metrics.avgUrgency > 0 ? metrics.avgUrgency.toFixed(1) : '-'}
                         </div>
+                        <div className="text-sm text-base-content/60">Avg Urgency</div>
                     </div>
                     <div
-                        className="stat-card cursor-pointer hover:ring-2 hover:ring-primary rounded-lg transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`${metrics.plannedPct > 0 ? metrics.plannedPct + '% planned work' : 'No planned work data'} — click to see details`}
                         onClick={() => handleCardClick('planned')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('planned'))}
                     >
-                        <div className="p-4 bg-base-300 rounded-lg text-center">
-                            <div className="text-2xl font-semibold text-base-content">
-                                {metrics.plannedPct > 0 ? `${metrics.plannedPct}%` : '-'}
-                            </div>
-                            <div className="text-sm text-base-content/60">% Planned</div>
+                        <div className="text-2xl font-semibold text-base-content">
+                            {metrics.plannedPct > 0 ? `${metrics.plannedPct}%` : '-'}
                         </div>
+                        <div className="text-sm text-base-content/60">% Planned</div>
                     </div>
                 </div>
             </CollapsibleSection>
