@@ -4,6 +4,39 @@ Record of significant AI errors and learnings to prevent repetition. Document mi
 
 ---
 
+## 2026-04-13: Used DaisyUI v4 `*-bordered` form modifiers that silently don't exist in v5
+
+**What happened:** During Phase 8 of the DaisyUI component-class migration I wrote `className="select select-bordered select-sm"` for the SettingsPane work hour selects and `className="input input-bordered input-sm w-full"` for the FilterSidebar date inputs. Both classes were committed and pushed (`e020af6`). The post-migration grep audit of the built CSS turned up zero matches for `.input-bordered` or `.select-bordered` in the DaisyUI v5 output — they were v4 classes that the v5 rewrite removed.
+
+**Why this wasn't caught earlier:**
+
+1. **The visual result looked correct.** DaisyUI v5 makes the border style the DEFAULT for `.input` / `.select` — there's no `*-bordered` modifier because you no longer need to opt in. You opt OUT with `*-ghost` instead. Since the base `.input` and `.select` classes were still in the className, the fields rendered bordered and passed a visual check.
+2. **Tailwind silently drops classes that don't match any rule.** No build error, no warning — just cruft in the DOM that the stylesheet never touches.
+3. **Only a built-CSS grep catches the problem.** `grep -oE "\\.input-bordered|\\.select-bordered" dist/assets/index-*.css` returns zero matches whether or not the class is in the JSX. You have to KNOW to look for it.
+4. **Documentation and comments repeated the dead classes.** SESSION_NOTES, HISTORY, and commit messages all referenced `select-bordered` as if it were correct. The misunderstanding propagated across four files before being caught.
+
+**Root cause:** I was working from memory of DaisyUI v4 form modifiers without re-reading the v5 docs or checking a v5 example in a sibling project. DaisyUI v5 is a significant rewrite — the component API changed in ways that are easy to miss if you're composing from habit.
+
+**Fix (`de9bd4f`):** Removed `-bordered` from all four call sites, updated SESSION_NOTES to flag the fix with a link to both commits, updated this file.
+
+**Prevention rule:** Before using any DaisyUI component modifier in v5 that ends in a word like `-bordered`, `-ghost`, `-outline`, `-soft`, `-dash`, `-link`, `-accent`, `-neutral`, verify it exists in the built CSS:
+
+```bash
+./node_modules/.bin/vite build 2>&1 | tail -5
+grep -oE "\.(input|select|textarea|btn|card|alert|badge|toast|tab|modal|menu|dropdown|checkbox|radio|toggle|range|join)-[a-z-]*" dist/assets/index-*.css | sort -u
+```
+
+The output is the authoritative list of what v5 actually ships. If a token you typed isn't in that list, you're writing v4 (or imagined) syntax. Common v4 → v5 renames to watch for:
+
+- `input-bordered` / `select-bordered` / `textarea-bordered` — **REMOVED in v5**, bordered is default, use `*-ghost` to unborder
+- `btn-bordered` — likewise removed in v5
+- `form-control` (v4 wrapper) — removed, use `fieldset` + `label`
+- `input-group` — removed, use `join`
+
+Documented this in the post-migration audit section of `docs/implementations/` (TODO — future session: copy this prevention block to `docs/implementations/DAISYUI_V5_NOTES.md` or similar if a v5 cheat-sheet gets added).
+
+---
+
 ## 2026-04-12: CSS comment containing asterisk-slash silently broke the build, misreported bundle size as 16% reduction when styles were actually lost
 
 **What happened:** During the DaisyUI migration I rewrote the `:root` block in `dashboard/styles.css` and added a migration-rationale comment block. The comment contained the literal text (with star-slash written out to avoid tripping on this very mistake):
