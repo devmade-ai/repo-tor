@@ -252,14 +252,14 @@ export default function FilterSidebar() {
                         <div className="filter-date-group">
                             <input
                                 type="date"
-                                className="filter-input filter-date-input"
+                                className="input input-bordered input-sm w-full"
                                 value={state.filters.dateFrom}
                                 onChange={(e) => handleDateChange('dateFrom', e.target.value)}
                                 aria-label="Filter from date"
                             />
                             <input
                                 type="date"
-                                className="filter-input filter-date-input"
+                                className="input input-bordered input-sm w-full"
                                 value={state.filters.dateTo}
                                 onChange={(e) => handleDateChange('dateTo', e.target.value)}
                                 aria-label="Filter to date"

@@ -381,37 +381,8 @@ body::before {
         /* Special alert-style tags */
         .tag-breaking { background-color: rgba(234, 179, 8, 0.1); color: #EAB308; border: 1px solid rgba(234, 179, 8, 0.3); }
 
-        .filter-select {
-            height: 40px;
-            padding: 0 16px;
-            border: 2px solid var(--color-base-300);
-            border-radius: var(--radius-md);
-            font-size: 14px;
-            background-color: var(--color-base-200);
-            color: var(--color-base-content);
-            min-width: 0;
-            max-width: 100%;
-        }
-        .filter-select:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 2px color-mix(in oklab, var(--color-primary) 20%, transparent);
-        }
-
-        .filter-input {
-            height: 40px;
-            padding: 0 24px;
-            border: 2px solid var(--color-base-300);
-            border-radius: var(--radius-md);
-            font-size: 14px;
-            background-color: var(--color-base-200);
-            color: var(--color-base-content);
-        }
-        .filter-input:focus {
-            outline: none;
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 2px color-mix(in oklab, var(--color-primary) 20%, transparent);
-        }
+        /* .filter-select / .filter-input removed — migrated to DaisyUI select/input components
+           (see SettingsPane.jsx work hour selects, FilterSidebar.jsx date inputs). */
 
         /* Hide scrollbar for mobile tabs */
         .scrollbar-hide {
@@ -1471,10 +1442,8 @@ body::before {
             flex-direction: column;
             gap: 6px;
         }
-        .filter-date-input {
-            width: 100%;
-            padding-left: 8px;
-        }
+        /* .filter-date-input removed — date inputs migrated to DaisyUI `input input-bordered input-sm w-full`
+           in dashboard/js/components/FilterSidebar.jsx. */
         /* .filter-clear-btn — migrated to DaisyUI `btn btn-outline btn-sm w-full mt-3`
            in dashboard/js/components/FilterSidebar.jsx. */
         .filter-empty-option {
