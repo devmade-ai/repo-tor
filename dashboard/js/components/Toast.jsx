@@ -10,7 +10,7 @@
 //   - Custom .toast-* CSS classes (previous approach): Rejected — shadowed
 //     DaisyUI's built-in toast component class and required ~60 lines of
 //     hand-maintained CSS for styling, enter/exit animations, and dismiss
-//     button. DaisyUI provides all of this via `toast toast-top toast-center`
+//     button. DaisyUI provides all of this via `toast toast-bottom toast-center`
 //     + `alert alert-*` + Tailwind transition utilities.
 
 import React, { useState, useEffect, useCallback, createContext, useContext } from 'react';

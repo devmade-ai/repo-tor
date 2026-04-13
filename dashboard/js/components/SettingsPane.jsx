@@ -155,7 +155,7 @@ export default function SettingsPane() {
                                 <label htmlFor="work-hour-start">Start</label>
                                 <select
                                     id="work-hour-start"
-                                    className="select select-bordered select-sm"
+                                    className="select select-sm"
                                     value={state.workHourStart}
                                     onChange={handleWorkHourStart}
                                 >
@@ -168,7 +168,7 @@ export default function SettingsPane() {
                                 <label htmlFor="work-hour-end">End</label>
                                 <select
                                     id="work-hour-end"
-                                    className="select select-bordered select-sm"
+                                    className="select select-sm"
                                     value={state.workHourEnd}
                                     onChange={handleWorkHourEnd}
                                 >

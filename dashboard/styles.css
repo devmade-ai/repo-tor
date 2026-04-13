@@ -1472,11 +1472,13 @@ body::before {
            Alternatives:
              - :focus on everything: Rejected — shows ring on mouse clicks too, which is distracting
              - Browser defaults only: Rejected — default outlines are inconsistent and often invisible on dark bg */
-        /* Custom focus ring for the remaining bespoke interactive elements —
-           .tab-btn (Phase 7 migrates this to DaisyUI tabs), collapsible-header
-           (still custom), and filter-multi-select-trigger (Phase 10 stretch).
-           DaisyUI buttons handle their own :focus-visible ring so we don't
-           need to target them here. */
+        /* Custom focus ring for the remaining bespoke interactive elements:
+           .tab-btn (composed alongside DaisyUI's .tab — see TabBar.jsx),
+           .collapsible-header (still custom — CollapsibleSection.jsx),
+           .filter-multi-select-trigger (custom listbox — FilterSidebar.jsx;
+           audit concluded DaisyUI has no listbox primitive). DaisyUI buttons
+           handle their own :focus-visible ring so we don't need to target
+           them here. */
         .tab-btn:focus-visible,
         .collapsible-header:focus-visible,
         .filter-multi-select-trigger:focus-visible {
