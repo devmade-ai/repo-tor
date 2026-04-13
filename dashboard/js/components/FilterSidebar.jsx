@@ -8,6 +8,18 @@ import { useApp } from '../AppContext.jsx';
 // Alternatives:
 //   - Native <select multiple>: Rejected — can't style, poor UX on mobile
 //   - Headless UI library: Rejected — adds dependency for one component
+//   - DaisyUI `dropdown` + `menu`: Rejected — this widget is a WAI-ARIA
+//     listbox (role="listbox" + role="option" + aria-multiselectable), not
+//     a command menu. DaisyUI's `menu` component implies role="menu" which
+//     is semantically wrong for multi-select filter values, and DaisyUI's
+//     `dropdown` uses CSS :focus for visibility which conflicts with
+//     React-state-controlled open + highlightIndex state needed for the
+//     arrow-key navigation. DaisyUI v5 does not provide a first-class
+//     listbox component. The custom `.filter-multi-select-*` classes use
+//     `var(--color-base-*)` tokens and `color-mix()` so they track the
+//     active theme automatically — no shadowing of any DaisyUI class.
+//     The inner checkbox IS migrated to DaisyUI `checkbox` for visual
+//     consistency with the rest of the filter sidebar.
 function MultiSelect({ options, selected, onChange }) {
     const [open, setOpen] = useState(false);
     const [highlightIndex, setHighlightIndex] = useState(-1);
@@ -144,6 +156,7 @@ function MultiSelect({ options, selected, onChange }) {
                     >
                         <input
                             type="checkbox"
+                            className="checkbox checkbox-xs checkbox-primary"
                             checked={selected.includes(option)}
                             onChange={() => toggleOption(option)}
                             onClick={(e) => e.stopPropagation()}

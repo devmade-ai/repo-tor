@@ -1192,12 +1192,12 @@ body::before {
         .filter-multi-select-option.highlighted {
             background: var(--color-base-300);
         }
+        /* The inner checkbox is now DaisyUI `checkbox checkbox-xs checkbox-primary`
+           (see FilterSidebar.jsx). Only the margin reset is kept — DaisyUI
+           controls size/color/cursor. */
         .filter-multi-select-option input[type="checkbox"] {
             margin: 0;
-            cursor: pointer;
             flex-shrink: 0;
-            width: 14px;
-            height: 14px;
         }
         .filter-multi-select-option.selected {
             background: color-mix(in oklab, var(--color-primary) 10%, transparent);
