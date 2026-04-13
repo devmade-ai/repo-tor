@@ -191,10 +191,13 @@ body::before {
             z-index: var(--z-menu-backdrop);
             cursor: pointer;
         }
+        /* .hamburger-dropdown is now rendered via React Portal into document.body
+           (see HamburgerMenu.jsx stacking-context comment). Position is computed
+           in JS from the trigger's getBoundingClientRect() and applied inline,
+           so we use position:fixed with no static top/left here. The JS keeps
+           the inline style in sync with window resize / scroll while open. */
         .hamburger-dropdown {
-            position: absolute;
-            top: calc(100% + 6px);
-            left: 0;
+            position: fixed;
             min-width: 200px;
             max-width: calc(100vw - 2rem);
             background: var(--color-base-200);

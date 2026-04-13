@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef, useId } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useId, useLayoutEffect } from 'react';
+import { createPortal } from 'react-dom';
 import useEscapeKey from '../hooks/useEscapeKey.js';
 import { version } from '../../../package.json';
 import { debugAdd } from '../debugLog.js';
@@ -20,6 +21,23 @@ import { debugAdd } from '../debugLog.js';
 //     dropdown surface stays custom because no DaisyUI component fits the
 //     disclosure pattern without re-introducing the menu-role accessibility trap.
 // See docs/implementations/BURGER_MENU.md for the full cross-project reference.
+//
+// Stacking-context fix (2026-04-13):
+//   The dropdown and backdrop are rendered via createPortal() into document.body
+//   instead of remaining inside the `.dashboard-header` subtree. The header has
+//   `position: relative; z-index: var(--z-sticky-header)` which creates a
+//   stacking context that traps position:fixed children at the header's level —
+//   the drawer overlays (z-drawer=30) were rendering ABOVE the backdrop
+//   (z-menu-backdrop=40) because the menu's effective stacking-context z-index
+//   was clamped to z-sticky-header=21. Portaling to body.element bypasses the
+//   trapped context entirely so the menu layers obey their document-level z-index
+//   values. The trigger button stays inside the header (so it sticks with the
+//   nav bar); only the backdrop + dropdown surface portal out. Because the
+//   dropdown now lives outside the trigger's containing block, its position is
+//   computed from the trigger's `getBoundingClientRect()` via a useLayoutEffect,
+//   using `position: fixed` with explicit top/left and updating on window
+//   resize / scroll. See docs/TODO.md entry for prior "Low priority" note — now
+//   fixed.
 
 /**
  * Data-driven hamburger menu. Items are filtered by `visible` (default true),
@@ -36,6 +54,11 @@ import { debugAdd } from '../debugLog.js';
 export default function HamburgerMenu({ items }) {
     const menuId = useId();
     const [open, setOpen] = useState(false);
+    // triggerPos = screen coordinates of the trigger button's bottom-left
+    // corner, used as the dropdown's fixed-position origin. Recomputed every
+    // time the menu opens and on window resize/scroll while open. Null when
+    // the menu is closed (no work to do).
+    const [triggerPos, setTriggerPos] = useState(null);
     const triggerRef = useRef(null);
     const menuRef = useRef(null);
     const timerRef = useRef(null);
@@ -47,6 +70,44 @@ export default function HamburgerMenu({ items }) {
     const close = useCallback(() => setOpen(false), []);
 
     useEscapeKey(open, close);
+
+    // Compute the dropdown's fixed-position origin from the trigger's
+    // bounding rect. useLayoutEffect (not useEffect) so the measurement
+    // happens before paint and the dropdown's first frame is already
+    // correctly placed — otherwise users would briefly see it at 0,0.
+    //
+    // Requirement: dropdown must anchor to the trigger visually (same as
+    //   the pre-portal absolutely-positioned version) while being rendered
+    //   at the document-body level to escape the header's stacking context.
+    // Approach: measure getBoundingClientRect on open and on window
+    //   resize/scroll; store {top, left} in state; apply as inline fixed
+    //   position on the dropdown nav. Uses `capture: true` on scroll so
+    //   scrolling any nested scroll container also triggers an update.
+    // Alternatives:
+    //   - Popper.js / floating-ui: Rejected — adds dependency for one menu
+    //   - ResizeObserver on the trigger only: Rejected — doesn't catch
+    //     sticky-header offset changes from document scroll
+    useLayoutEffect(() => {
+        if (!open) {
+            setTriggerPos(null);
+            return;
+        }
+        function updatePosition() {
+            const rect = triggerRef.current?.getBoundingClientRect();
+            if (!rect) return;
+            setTriggerPos({
+                top: rect.bottom + 6, // 6px gap, matches the pre-portal CSS
+                left: rect.left,
+            });
+        }
+        updatePosition();
+        window.addEventListener('resize', updatePosition);
+        window.addEventListener('scroll', updatePosition, { capture: true, passive: true });
+        return () => {
+            window.removeEventListener('resize', updatePosition);
+            window.removeEventListener('scroll', updatePosition, { capture: true });
+        };
+    }, [open]);
 
     // Focus first menu item when dropdown opens, return focus to trigger on close.
     // hasBeenOpenRef guard prevents stealing focus on initial mount (open starts false).
@@ -126,6 +187,61 @@ export default function HamburgerMenu({ items }) {
         buttons[nextIdx].focus();
     }
 
+    // The portaled surface: backdrop + dropdown nav. Rendered into document.body
+    // via createPortal() so it escapes the `.dashboard-header` stacking context.
+    // Only rendered when `open && triggerPos` — triggerPos is null on the first
+    // open() tick before useLayoutEffect measures, and we don't want to flash
+    // the dropdown at 0,0 in that one frame.
+    const portalContent = (open && triggerPos) ? (
+        <>
+            {/* Backdrop — cursor-pointer required for iOS Safari.
+                position:fixed inset-0 so it covers the full viewport; now that
+                it's portaled to body, no parent stacking context traps it. */}
+            <div className="hamburger-backdrop" onClick={close} />
+            <nav
+                ref={menuRef}
+                id={menuId}
+                aria-label="Secondary actions"
+                className="hamburger-dropdown"
+                style={{ top: `${triggerPos.top}px`, left: `${triggerPos.left}px` }}
+                onKeyDown={handleMenuKeyDown}
+            >
+                <ul className="hamburger-list">
+                    {visibleItems.map((item, i) => (
+                        <li key={item.label}>
+                            {item.separator && i > 0 && (
+                                <div className="hamburger-divider" />
+                            )}
+                            <button
+                                type="button"
+                                className={`hamburger-item${item.destructive ? ' hamburger-item-destructive' : ''}${item.highlight ? ' hamburger-item-highlight' : ''}`}
+                                onClick={() => handleItem(item)}
+                                // Requirement: items whose visible label describes a destination
+                                //   (e.g. "Light mode") rather than an action are ambiguous to
+                                //   screen readers without additional context. Callers can pass
+                                //   `ariaLabel` to spell out the action ("Switch to light mode").
+                                //   When not provided, fall back to the visible label.
+                                aria-label={item.ariaLabel || item.label}
+                            >
+                                {item.icon && (
+                                    <span className="hamburger-item-icon" aria-hidden="true">{item.icon}</span>
+                                )}
+                                <span className="hamburger-item-label">{item.label}</span>
+                                {item.external && (
+                                    <svg className="hamburger-item-external" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                                        <path d="M3.5 3H9v5.5M9 3L3 9" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                )}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+                <div className="hamburger-divider" />
+                <div className="hamburger-version">v{version}</div>
+            </nav>
+        </>
+    ) : null;
+
     return (
         <div className="hamburger-menu">
             <button
@@ -141,53 +257,7 @@ export default function HamburgerMenu({ items }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
-
-            {open && (
-                <>
-                    {/* Backdrop — cursor-pointer required for iOS Safari */}
-                    <div className="hamburger-backdrop" onClick={close} />
-                    <nav
-                        ref={menuRef}
-                        id={menuId}
-                        aria-label="Secondary actions"
-                        className="hamburger-dropdown"
-                        onKeyDown={handleMenuKeyDown}
-                    >
-                        <ul className="hamburger-list">
-                            {visibleItems.map((item, i) => (
-                                <li key={item.label}>
-                                    {item.separator && i > 0 && (
-                                        <div className="hamburger-divider" />
-                                    )}
-                                    <button
-                                        type="button"
-                                        className={`hamburger-item${item.destructive ? ' hamburger-item-destructive' : ''}${item.highlight ? ' hamburger-item-highlight' : ''}`}
-                                        onClick={() => handleItem(item)}
-                                        // Requirement: items whose visible label describes a destination
-                                        //   (e.g. "Light mode") rather than an action are ambiguous to
-                                        //   screen readers without additional context. Callers can pass
-                                        //   `ariaLabel` to spell out the action ("Switch to light mode").
-                                        //   When not provided, fall back to the visible label.
-                                        aria-label={item.ariaLabel || item.label}
-                                    >
-                                        {item.icon && (
-                                            <span className="hamburger-item-icon" aria-hidden="true">{item.icon}</span>
-                                        )}
-                                        <span className="hamburger-item-label">{item.label}</span>
-                                        {item.external && (
-                                            <svg className="hamburger-item-external" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-                                                <path d="M3.5 3H9v5.5M9 3L3 9" strokeLinecap="round" strokeLinejoin="round" />
-                                            </svg>
-                                        )}
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                        <div className="hamburger-divider" />
-                        <div className="hamburger-version">v{version}</div>
-                    </nav>
-                </>
-            )}
+            {portalContent && createPortal(portalContent, document.body)}
         </div>
     );
 }
