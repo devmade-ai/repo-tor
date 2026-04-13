@@ -2,6 +2,20 @@
 
 Guidelines and checklists for testing features from a user perspective.
 
+## Automated coverage (added 2026-04-13)
+
+Three automated test layers back the manual checklists below — run them before manual testing to catch regressions cheaply:
+
+| Layer | Command | Runtime | Catches |
+|-------|---------|---------|---------|
+| **Source-level tripwire** | `npm test` | ~200ms | DaisyUI class-name regressions, dead marker classes, hardcoded Tailwind color shades, v4 cruft (`-bordered`), built-CSS shipping checks |
+| **Runtime smoke** | `npm run test:e2e` | ~30s | DOM state after React render, interaction flows (modal open, filter toggle, hamburger portal), Chart.js theme tracking |
+| **Visual regression** | `npm run test:visual` | ~60s | Silent visual drift per theme (6 tabs × 8 themes = 48 screenshot baselines) |
+
+Setup: `npm run test:e2e:install` (installs Chromium, one-time ~170MB). See `dashboard/e2e/README.md` for the full setup recipe, CI integration, and sandboxed-environment troubleshooting.
+
+The manual "DaisyUI component-class migration" checklist further down this file is the source-of-truth that the automated suites implement — when you add a manual checklist entry here, add a corresponding assertion in `scripts/__tests__/daisyui-surfaces.test.mjs` or `dashboard/e2e/daisyui-surfaces.spec.js`.
+
 ## Testing Principles
 
 - Test as a real user would use the tool

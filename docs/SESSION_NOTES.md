@@ -6,6 +6,35 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support. As of 2026-04-13, every user-visible surface also routes through DaisyUI's `@layer components` classes — no custom CSS class shadows any DaisyUI component.
 
+**Recent Updates (2026-04-13 — deferred items landed):**
+
+Three items that had been logged as "too big for the audit pass" follow-ups now shipped. All three close out the TODO.md "Test infrastructure" + "Chart.js theme-tracking" sections.
+
+1. **Chart.js runtime theme-tracking.** `chartColors.js` gained `resolveRuntimeAccent()` / `resolveRuntimeMuted()` that read `var(--color-primary)` / `var(--color-base-content)` from `getComputedStyle`, with URL override precedence (`?accent=`, `?palette=` win) for branded embeds. `AppContext` state gained `themeAccent` / `themeMuted` populated via a new `SET_THEME_COLORS` action dispatched AFTER `applyTheme()` runs. Chart components (`Timing`, `Timeline`, `Contributors`) consume `state.themeAccent` / `state.themeMuted` via `useApp()` so `useMemo` deps trigger re-render on theme change. The Progress / Discover sections already used theme-aware backgrounds so didn't need changes. Result: every single-accent chart (hour-of-day bars, weekday bars, commit volume, contributor complexity bar) now picks up the active theme's primary color instead of being frozen at brand blue. Multi-dataset charts still use the 20-color `seriesColors` palette which is intentionally hardcoded + embedder-customizable (documented in `docs/DAISYUI_V5_NOTES.md` "Data-viz color tokens").
+
+2. **Heatmap CSS theme-tracking.** The old `rgba(var(--chart-accent-rgb, 45, 104, 255), X%)` pattern stored a comma-separated RGB triple in a CSS variable, set once at bootstrap from `chartColors.accentColor`. It couldn't track theme changes and couldn't handle DaisyUI's oklch() values. Replaced with `color-mix(in oklab, var(--chart-accent-override, var(--color-primary)) X%, transparent)` — nested-var fallback chain means the default path tracks the theme's primary via DaisyUI, the override path (`--chart-accent-override`, set by `main.jsx` only when `hasUrlAccentOverride === true`) pins the color for branded embeds. High-intensity cells (`.heatmap-3/4`) use `var(--color-primary-content)` for readable text contrast instead of hardcoded `white`. Deleted the old `--chart-accent-rgb` variable + bootstrap RGB-parse block.
+
+3. **Three-tier test infrastructure.**
+   - **Source-level tripwire** — `scripts/__tests__/daisyui-surfaces.test.mjs`: 30 assertions covering every migrated surface + follow-up fix. Runs via `node:test` on every `npm test` in ~230ms. Catches source-level class-name regressions without needing a browser. Includes comment-stripping helper so rationale blocks don't false-trigger, a `dashboard/js` walker that asserts zero hardcoded Tailwind color shades, dead-marker-class sweep, and built-CSS grep verification that skips gracefully when `dist/` is missing.
+   - **Runtime smoke** — `dashboard/e2e/daisyui-surfaces.spec.js`: 14 Playwright tests walking the TESTING_GUIDE checklist in a real Chromium instance. Covers modal/toast/card/btn/tab/form-input/checkbox/loading-spinner/progress/hamburger-portal/chart-theme-tracking. The HamburgerMenu test walks the DOM parent chain to verify the dropdown is parented to `document.body` (Portal fix) AND reads `getComputedStyle(nav).position` to assert `"fixed"`. Chart theme-tracking test reads dataset `backgroundColor` before/after a theme swap.
+   - **Visual regression** — `dashboard/e2e/visual/theme-baselines.spec.js`: 48 screenshot baselines = 6 tabs × 8 themes (4 light + 4 dark). Baselines committed under `dashboard/e2e/visual/__screenshots__/`. 0.2% pixel-diff threshold tolerates font-rendering variance. Full-page captures so long scrolling tabs are covered.
+   - **Playwright config** — `playwright.config.js` with `smoke` + `visual` projects, automatic `vite preview` webServer, `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` support for sandboxed environments where Playwright's CDN is blocked.
+   - **npm scripts** — `test:e2e`, `test:e2e:install`, `test:e2e:ui`, `test:visual`, `test:visual:update`.
+   - **Docs** — `dashboard/e2e/README.md` with rationale, maintenance guide, CI recipe, troubleshooting.
+
+**Verified this session:**
+
+- `npm test` → 51/51 pass (21 existing oklchToHex + 30 new DaisyUI surface assertions).
+- `vite build` clean.
+- `playwright test --list` enumerates all 62 tests across both projects — config parses, specs are discoverable.
+- Tests themselves can't run in this sandbox (Chromium binary unavailable, CDN blocked) but are ready for CI.
+
+**Remaining items:**
+
+- Multi-dataset chart `seriesColors` palette stays hardcoded by design — data-viz perceptual distinctness requires more colors than DaisyUI's 8 semantic tokens and the palette is embedder-customizable via `?colors=` / `?palette=`. Logged in `docs/TODO.md` so a future audit doesn't re-open it as a gap.
+
+---
+
 **Recent Updates (2026-04-13 — second audit pass, DaisyUI gap sweep):**
 
 A fresh 10-step DaisyUI compliance audit against the post-sweep codebase surfaced four more gaps that weren't caught in the original pass. All four fixed in commit `de2e6ad`:

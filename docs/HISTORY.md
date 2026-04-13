@@ -4,6 +4,116 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-13
 
+### Chart.js runtime theme-tracking + Playwright test infrastructure — deferred follow-ups landed
+
+After two audit passes closed the immediate DaisyUI v5 gaps, the three items that had been documented in `docs/TODO.md` as deferred ("too big for the audit pass") are now shipped. This pass addresses them in one go.
+
+**1. Chart.js single-accent runtime theme-tracking**
+
+Previously, `dashboard/js/chartColors.js` exported static `accentColor` / `mutedColor` values that were frozen at module load from URL params or the hardcoded default `#2D68FF` brand blue. Chart components imported them directly, so non-default themes (`emerald`, `dracula`, `caramellatte` etc.) rendered single-accent charts (hour-of-day heatmap, weekday bars, commit volume bar, contributor complexity bar) in brand blue while the rest of the dashboard followed the user's theme.
+
+The fix:
+
+- `chartColors.js`:
+  - New exports `resolveRuntimeAccent()` and `resolveRuntimeMuted()` that return the URL override (sticky for branded embeds) or read `--color-primary` / `--color-base-content` from `getComputedStyle(document.documentElement)` at call time.
+  - New booleans `hasUrlAccentOverride` / `hasUrlMutedOverride` exposed from the URL parser so the resolvers can distinguish "embedder set `?accent=` to the default value" from "no URL override".
+  - `parseColorOverrides()` now tracks explicit override state alongside the resolved color.
+  - The muted resolver uses `color-mix(in oklab, var(--color-base-content) 40%, transparent)` — matches the dashboard's existing `text-base-content/40` tertiary text tint. Chart.js canvas parses color-mix() directly in modern browsers (same capability the existing `themes.js applyTheme()` uses for `ChartJS.defaults.color`).
+
+- `AppContext.jsx`:
+  - Reducer state gains `themeAccent` / `themeMuted`, seeded from `chartColors` bootstrap values.
+  - New `SET_THEME_COLORS` action type with a no-op guard that skips re-renders when the resolved values haven't changed (e.g. dark/light toggle between two themes with identical `--color-primary`).
+  - `darkMode` effect now dispatches `SET_THEME_COLORS` with `resolveRuntimeAccent()` / `resolveRuntimeMuted()` return values AFTER `applyTheme()` has mutated `data-theme`. Two-render sequence: first render uses the previous theme's accent (harmless — DOM hasn't painted yet), second render after the dispatch uses the new theme's accent and charts re-memo with the new values.
+
+- Chart section consumers migrated:
+  - `sections/Timing.jsx`: hour-of-day + weekday bar backgroundColor — now `state.themeAccent` / `state.themeMuted`. Removed the direct `accentColor` / `mutedColor` import.
+  - `sections/Timeline.jsx`: commit-volume bar + net-lines bar backgroundColor — now `state.themeAccent`. Impact chart's 'internal' segment now `state.themeMuted`. Removed `accentColor` / `mutedColor` from the imports.
+  - `sections/Contributors.jsx`: low-complexity segment color — now `state.themeMuted`. Removed `mutedColor` import.
+  - All affected `useMemo` deps updated to include `state.themeAccent` / `state.themeMuted` so chart configs rebuild when the theme changes.
+
+- `main.jsx` bootstrap updated: the `--chart-accent-override` CSS variable is now set ONLY when `hasUrlAccentOverride === true`. Previously the bootstrap always set `--chart-accent-rgb` from the resolved accent, which shadowed the theme's `--color-primary` even when no embedder was involved.
+
+Rationale blocks added at every touched site explaining the pattern with pointers to the chartColors.js comment for the URL-override precedence rules. Bootstrap-path `accentColor` / `mutedColor` exports are kept as documented "bootstrap fallbacks" for pre-React code + SSR paths.
+
+**2. Heatmap CSS theme-tracking + embed override redesign**
+
+The old heatmap CSS used `rgba(var(--chart-accent-rgb, 45, 104, 255), X%)` with a comma-separated RGB triple stored in a CSS variable. That pattern only worked because main.jsx parsed `accentColor` at bootstrap and wrote `--chart-accent-rgb: R, G, B`. It could never track theme changes (one-shot bootstrap) and couldn't handle DaisyUI's oklch() color values (wrong format).
+
+Replaced with the nested-var + color-mix approach:
+
+```css
+.heatmap-1 { background-color: color-mix(in oklab, var(--chart-accent-override, var(--color-primary)) 15%, transparent); }
+.heatmap-4 {
+    background-color: var(--chart-accent-override, var(--color-primary));
+    color: var(--color-primary-content);
+}
+```
+
+- Default path: `var(--color-primary)` resolves per-theme via DaisyUI's theme plugin, so the heatmap cells pick up `nord` blue / `emerald` green / `coffee` brown automatically.
+- Embed override: when the embedder sets `--chart-accent-override` (via `main.jsx` bootstrap from the URL `?accent=` param), that takes precedence across all themes.
+- Text contrast: high-intensity cells (`.heatmap-3`, `.heatmap-4`) now use `var(--color-primary-content)` instead of hardcoded `white`. On light themes where the primary is a pale color, white text was invisible; `--color-primary-content` is DaisyUI's semantic "contrasting foreground for content on primary" token.
+- Deleted the old `--chart-accent-rgb` variable + its RGB-parse bootstrap block in `main.jsx`.
+
+**3. Test infrastructure — three layers**
+
+Added three complementary layers of automated regression coverage for the DaisyUI migration.
+
+**Layer 1: Source-level tripwire** — `scripts/__tests__/daisyui-surfaces.test.mjs`
+
+- 30 assertions across every migration phase (1–10) + follow-up fixes (color tokens, loading spinner shadow, progress bars, dead marker classes, Chart.js theme-tracking, heatmap CSS).
+- Runs via `node:test` on every `npm test` — no browser, no transpilation, ~230ms total runtime.
+- Strategy: read source files, assert that expected DaisyUI class names are present at expected call sites AND that removed custom classes are NOT re-introduced.
+- Comment-stripping helper so rationale blocks that intentionally reference removed class names don't false-trigger the regression checks.
+- Also verifies the BUILT CSS ships the DaisyUI classes we reference (`dist/assets/index-*.css` greps for `.modal-open`, `.loading-spinner`, `.progress-info`, etc.) — skips gracefully when `dist/` is missing for fresh-clone test runs.
+- Includes a sweep-style test that walks every `.jsx` file under `dashboard/js/` and asserts zero hardcoded Tailwind color shades (`bg-red-500`, `bg-green-500`, etc.) remain outside comment blocks.
+- Includes a dead-marker-class sweep for `stat-card` / `metric-selector` / `pin-btn` re-introductions.
+- Pass rate after this commit: 51/51 total tests (30 new surface assertions + 21 existing oklchToHex tests).
+
+**Layer 2: Runtime smoke** — `dashboard/e2e/daisyui-surfaces.spec.js` (Playwright)
+
+- 14 Playwright tests walking the TESTING_GUIDE "DaisyUI component-class migration" checklist in a real Chromium instance.
+- Each test asserts a specific migrated surface renders with the expected DaisyUI classes on real DOM nodes AFTER React has rendered and CSS has resolved.
+- Interaction coverage: opens QuickGuide modal via hamburger → asserts `.modal.modal-open` / `.modal-box` / `.modal-backdrop` / `.modal-action` all present → presses Escape → asserts hidden.
+- Portal / stacking-context assertion for the HamburgerMenu Phase 9 fix — walks the DOM parent chain via `page.evaluate` to verify the dropdown is NOT a descendant of `.dashboard-header`, and reads `getComputedStyle(nav).position` to assert `"fixed"` (confirming `createPortal` worked).
+- Chart.js theme tracking: picks a non-active theme via the burger menu, waits for the chart re-memo, asserts the dataset's resolved `backgroundColor` has changed.
+- v4 cruft regression guard: `select-bordered`, `input-bordered` explicitly asserted absent via `toHaveClass(/... /).not.` — catches re-introductions that look visually correct.
+- Beforeach helper waits for the `"Loading dashboard…"` splash to go away before running assertions.
+
+**Layer 3: Visual regression** — `dashboard/e2e/visual/theme-baselines.spec.js` (Playwright)
+
+- 48 screenshot baselines = 6 tabs × (4 light + 4 dark) themes. Generated via `npm run test:visual:update`, committed to `dashboard/e2e/visual/__screenshots__/`.
+- Applies each theme by writing `darkMode` + `lightTheme` / `darkTheme` to `localStorage` and reloading — goes through the same flash-prevention + AppContext bootstrap path that users hit on fresh load. Sanity-checks `html[data-theme]` before capturing.
+- `maxDiffPixelRatio: 0.002` (0.2% pixel difference threshold) tolerates font-rendering variance across Linux headless Chromium versions without letting real regressions slip through.
+- Full-page screenshots (`fullPage: true`) so long scrolling sections (Breakdown, Projects) are in the baseline too.
+- Purpose: catch silent visual regressions that the source-level and runtime smoke tests can't see — the exact class of bug the `-bordered` v4 cruft fell into (looked correct in the default theme, never exercised in non-default themes).
+
+**Playwright configuration** — `playwright.config.js`
+
+- Two projects: `smoke` (DOM assertions) and `visual` (screenshot baselines). Smoke runs fast for every commit; visual runs explicitly via `npm run test:visual`.
+- `webServer` launches `npm run build && npm run preview --strictPort` automatically so tests always run against the production build (matches what ships).
+- `launchOptions` block honors `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` env variable so sandboxed / firewalled environments can use a system-installed Chromium as a drop-in replacement for Playwright's managed binary. Documented in `dashboard/e2e/README.md`.
+- CI-aware: `forbidOnly` rejects `test.only()` on CI, `retries: 2` on CI vs 0 locally, dot reporter on CI vs HTML locally.
+
+**Package scripts**
+
+- `npm test` — unit + source-level tests (existing, now includes the 30 new surface assertions).
+- `npm run test:e2e:install` — installs Chromium + system deps (~170MB, run once per machine/CI runner).
+- `npm run test:e2e` — runs the smoke project.
+- `npm run test:e2e:ui` — Playwright's interactive UI for debugging.
+- `npm run test:visual` — runs the visual regression project.
+- `npm run test:visual:update` — regenerates screenshot baselines after intentional visual changes.
+
+**Documentation**
+
+- `dashboard/e2e/README.md`: full rationale, maintenance guide, CI setup recipe, troubleshooting (including "Host not allowed" errors on sandboxed networks), cross-reference to `docs/TESTING_GUIDE.md`.
+- `.gitignore`: added entries for Playwright transient output (`test-results/`, `playwright-report/`, `playwright/.cache/`, screenshot diff PNGs) while keeping committed baselines tracked.
+
+**Verified**
+
+- `./node_modules/.bin/vite build` clean.
+- `npm test` → 51/51 pass (21 oklchToHex + 30 new DaisyUI surface assertions).
+- `playwright test --list` enumerates 14 smoke tests + 48 visual tests across both projects — confirms config parses and specs are discoverable. The tests themselves can't run in the current sandbox (no Chromium binary available, CDN blocked) but are ready for CI and any machine with `npm run test:e2e:install` or `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` set.
+
 ### Second audit pass — DaisyUI v5 gap sweep (hardcoded colors, loading spinner shadow, progress bars, dead marker classes)
 
 A fresh run of the 10-step DaisyUI v5 compliance audit against the post-first-audit codebase turned up four additional gaps that hadn't been caught. All four are fixed in commit `de2e6ad`.
