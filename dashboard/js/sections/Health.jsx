@@ -172,15 +172,21 @@ export default function Health() {
     // --- Security section content (view-level aware) ---
     const renderSecurityContent = () => {
         // Phase 1: summary events
+        // Each "N security-related commits" summary box is a semantic alert
+        // to the user — DaisyUI `alert alert-error` gives us role="alert",
+        // theme-aware error styling, and a consistent layout across the
+        // three view modes. Individual commit rows inside the security
+        // panel are NOT alerts (they're list items within the alert-themed
+        // section) so they keep their bespoke bg-error/10 containers.
         if (!commitsLoaded) {
             if (securityEvents.length === 0) {
                 return <p className="text-base-content/60 text-center py-4">No security-related commits found</p>;
             }
             return (
                 <div className="space-y-2">
-                    <div className="p-4 bg-error/10 border border-error/40 rounded-lg text-center mb-3">
-                        <div className="text-3xl font-bold text-error">{securityEvents.length}</div>
-                        <div className="text-sm text-base-content/80">Security-related commits</div>
+                    <div role="alert" className="alert alert-error flex flex-col items-center text-center mb-3">
+                        <div className="text-3xl font-bold">{securityEvents.length}</div>
+                        <div className="text-sm opacity-80">Security-related commits</div>
                     </div>
                     {securityEvents.slice(0, 5).map((event, idx) => (
                         <div key={event.sha || idx} className="p-3 bg-error/5 border border-error/20 rounded">
@@ -206,10 +212,10 @@ export default function Health() {
             const dateRange = getCommitDateRange(securityCommits);
             const repos = [...new Set(securityCommits.map(c => c.repo_id).filter(Boolean))];
             return (
-                <div className="p-4 bg-error/10 border border-error/40 rounded-lg text-center">
-                    <div className="text-3xl font-bold text-error mb-1">{securityCommits.length}</div>
-                    <div className="text-sm text-base-content/80 mb-2">Security-related commits</div>
-                    <div className="text-xs text-base-content/60">
+                <div role="alert" className="alert alert-error flex flex-col items-center text-center">
+                    <div className="text-3xl font-bold mb-1">{securityCommits.length}</div>
+                    <div className="text-sm opacity-80 mb-2">Security-related commits</div>
+                    <div className="text-xs opacity-60">
                         {dateRange.earliest} &mdash; {dateRange.latest}
                         {repos.length > 0 && <><br />Across {repos.length} repositories</>}
                     </div>
@@ -227,9 +233,9 @@ export default function Health() {
             const sortedRepos = Object.entries(byRepo).sort((a, b) => b[1] - a[1]);
             return (
                 <div className="space-y-2">
-                    <div className="p-3 bg-error/10 border border-error/40 rounded-lg text-center mb-3">
-                        <div className="text-2xl font-bold text-error">{securityCommits.length}</div>
-                        <div className="text-sm text-base-content/80">Total security commits</div>
+                    <div role="alert" className="alert alert-error flex flex-col items-center text-center mb-3">
+                        <div className="text-2xl font-bold">{securityCommits.length}</div>
+                        <div className="text-sm opacity-80">Total security commits</div>
                     </div>
                     {sortedRepos.map(([repo, count]) => (
                         <div
