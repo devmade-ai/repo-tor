@@ -245,7 +245,7 @@ export default function Health() {
                     {sortedRepos.map(([repo, count]) => (
                         <div
                             key={repo}
-                            className="p-3 bg-base-300 rounded-lg cursor-pointer hover:bg-base-300 transition-colors"
+                            className="p-3 bg-base-300 rounded-lg cursor-pointer hover:bg-base-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 transition-colors"
                             role="button" tabIndex={0}
                             aria-label={`View security commits for ${repo}`}
                             onClick={() => handleSecurityRepoClick(repo)}
@@ -315,7 +315,7 @@ export default function Health() {
                         return (
                             <div
                                 key={filter}
-                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200' : ''}`}
+                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2' : ''}`}
                                 role={clickable ? 'button' : undefined}
                                 tabIndex={clickable ? 0 : undefined}
                                 aria-label={clickable ? `View ${label}: ${count} commits (${pct}%)` : undefined}
@@ -343,7 +343,7 @@ export default function Health() {
                         return (
                             <div
                                 key={key}
-                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200' : ''}`}
+                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2' : ''}`}
                                 role={clickable ? 'button' : undefined}
                                 tabIndex={clickable ? 0 : undefined}
                                 aria-label={clickable ? `View ${label} impact: ${count} commits (${pct}%)` : undefined}

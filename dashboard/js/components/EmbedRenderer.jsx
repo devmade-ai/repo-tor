@@ -147,11 +147,15 @@ export default function EmbedRenderer({ embedIds }) {
     if (validIds.length === 0) {
         const attempted = embedIds.join(', ') || '(empty)';
         return (
-            <div className="embed-error">
-                <p>Chart not found: <code>{attempted}</code></p>
+            <div className="flex flex-col items-center justify-center min-h-[200px] p-6 text-center text-base-content/80 font-sans text-sm gap-2">
+                <p>Chart not found: <code className="bg-base-300 px-1.5 py-0.5 rounded text-[13px]">{attempted}</code></p>
                 <p>
-                    Check <a href="https://github.com/devmade-ai/repo-tor/blob/main/docs/EMBED_REFERENCE.md"
-                        target="_blank" rel="noopener noreferrer">EMBED_REFERENCE.md</a> for valid chart IDs.
+                    Check <a
+                        href="https://github.com/devmade-ai/repo-tor/blob/main/docs/EMBED_REFERENCE.md"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary underline"
+                    >EMBED_REFERENCE.md</a> for valid chart IDs.
                 </p>
             </div>
         );

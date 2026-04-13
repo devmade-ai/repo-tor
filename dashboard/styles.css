@@ -154,10 +154,10 @@ body::before {
 /* Techy header accent.
    z-index: sticky-header (21) so the hamburger dropdown renders above
    the sticky tabs-bar (z-index: sticky/20). */
-.dashboard-header {
-    position: relative;
-    z-index: var(--z-sticky-header);
-}
+/* .dashboard-header's base `position: relative; z-index: ...` declarations
+   migrated 2026-04-13 to inline `relative z-[21]` in Header.jsx. The
+   `::after` pseudo-element below is the only remaining reason the class
+   exists — pseudo-elements can't be expressed as Tailwind utilities. */
 .dashboard-header::after {
     content: '';
     position: absolute;
@@ -193,17 +193,11 @@ body::before {
         /* Hamburger menu — disclosure-pattern dropdown for secondary header actions.
            Uses backdrop overlay (not click-outside hook) for iOS Safari compatibility.
            See docs/implementations/BURGER_MENU.md for pattern details. */
-        .hamburger-menu {
-            position: relative;
-        }
-        /* Backdrop — cursor: pointer required for iOS Safari.
-           iOS does not fire click events on empty <div> elements without it. */
-        .hamburger-backdrop {
-            position: fixed;
-            inset: 0;
-            z-index: var(--z-menu-backdrop);
-            cursor: pointer;
-        }
+        /* .hamburger-menu removed 2026-04-13 — replaced by inline `relative`
+           Tailwind utility in HamburgerMenu.jsx. */
+        /* .hamburger-backdrop removed 2026-04-13 — replaced by inline
+           `fixed inset-0 z-40 cursor-pointer` in HamburgerMenu.jsx.
+           (z-40 = --z-menu-backdrop from the design token scale.) */
         /* .hamburger-dropdown is now rendered via React Portal into document.body
            (see HamburgerMenu.jsx stacking-context comment). Position is computed
            in JS from the trigger's getBoundingClientRect() and applied inline,
@@ -222,79 +216,26 @@ body::before {
             overscroll-behavior: contain;
             animation: hamburger-fade-in 0.12s ease-out;
         }
-        .hamburger-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
+        /* .hamburger-list removed 2026-04-13 — replaced by inline
+           `list-none m-0 p-0` in HamburgerMenu.jsx. */
         @keyframes hamburger-fade-in {
             from { opacity: 0; transform: translateY(-4px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .hamburger-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            padding: 10px 16px;
-            background: none;
-            border: none;
-            color: var(--color-base-content);
-            font-size: 14px;
-            cursor: pointer;
-            text-align: left;
-            transition: background 0.1s;
-            outline: none;
-        }
-        .hamburger-item:hover {
-            background: var(--color-base-300);
-        }
-        .hamburger-item:focus-visible {
-            box-shadow: inset 0 0 0 2px var(--color-primary);
-        }
-        .hamburger-item-icon {
-            flex-shrink: 0;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-            display: flex;
-        }
-        .hamburger-item-label {
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .hamburger-item-external {
-            width: 12px;
-            height: 12px;
-            flex-shrink: 0;
-            opacity: 0.4;
-        }
-        .hamburger-item-highlight {
-            color: var(--color-primary);
-        }
-        .hamburger-item-highlight .hamburger-item-icon {
-            color: var(--color-primary);
-        }
-        .hamburger-item-destructive {
-            color: var(--color-error);
-        }
-        .hamburger-item-destructive .hamburger-item-icon {
-            color: var(--color-error);
-        }
-        .hamburger-item-destructive:hover {
-            background: color-mix(in oklab, var(--color-error) 10%, transparent);
-        }
-        .hamburger-divider {
-            height: 1px;
-            background: var(--color-base-300);
-            margin: 4px 0;
-        }
-        .hamburger-version {
-            padding: 6px 16px;
-            font-size: 11px;
-            color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
-            font-family: var(--font-mono);
-        }
+        /* .hamburger-item + .hamburger-item-icon + .hamburger-item-label
+           + .hamburger-item-external + .hamburger-item-highlight +
+           .hamburger-item-destructive all removed 2026-04-13 — replaced
+           by inline Tailwind utilities in HamburgerMenu.jsx. Destructive
+           and highlight variants now use conditional className builders
+           driven by `item.destructive` / `item.highlight` state instead
+           of CSS descendant selectors. The icon color (text-base-content/60
+           muted, or text-inherit in destructive/highlight items) is an
+           explicit prop on the icon span rather than a descendant rule. */
+        /* .hamburger-divider removed 2026-04-13 — replaced by inline
+           `h-px bg-base-300 my-1` in HamburgerMenu.jsx. */
+        /* .hamburger-version removed 2026-04-13 — replaced by inline
+           `px-4 py-1.5 text-[11px] font-mono text-base-content/40`
+           in HamburgerMenu.jsx. */
         /* Small dot next to hamburger icon when update is available */
         .hamburger-update-dot {
             width: 8px;
@@ -424,102 +365,40 @@ body::before {
             }
         }
 
-        /* Heatmap styles - dark theme */
-        .heatmap-grid {
-            display: grid;
-            grid-template-columns: 36px repeat(7, 1fr);
-            gap: 2px;
-            min-width: 280px;
-        }
-        @media (min-width: 640px) {
-            .heatmap-grid {
-                grid-template-columns: 50px repeat(7, 1fr);
-                min-width: 400px;
-            }
-        }
-        .heatmap-cell {
-            aspect-ratio: 1;
-            min-width: 20px;
-            min-height: 20px;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 8px;
-            color: color-mix(in oklab, var(--color-base-content) 80%, transparent);
-            cursor: default;
-            transition: transform 0.1s;
-        }
-        /* Smaller cells for executive/management weekly heatmap */
-        .heatmap-cell-sm {
-            width: 16px;
-            height: 16px;
-            min-width: 16px;
-            min-height: 16px;
-        }
-        @media (min-width: 640px) {
-            .heatmap-cell {
-                min-width: 28px;
-                min-height: 28px;
-                font-size: 10px;
-            }
-        }
-        .heatmap-cell:hover {
-            transform: scale(1.1);
-            /* z-index: 1 is intentionally NOT from the CSS variable scale.
-               This is local grid stacking — lifts the hovered cell above its
-               siblings within the heatmap grid only. The grid itself never
-               competes with modals, menus, or overlays (those use --z-menu+). */
-            z-index: 1;
-        }
-        /* Heatmap tooltip — z-menu (50) per Z_INDEX_SCALE (tooltips = menu/dropdown layer).
-           #heatmap-tooltip is the portal mount point in index.html.
-           .heatmap-tooltip-inner is the React portal content (HeatmapTooltip.js). */
-        .heatmap-tooltip-inner {
-            position: fixed;
-            z-index: var(--z-menu);
-            pointer-events: none;
-            background: var(--color-base-200);
-            color: var(--color-base-content);
-            border: 1px solid var(--color-base-300);
-            border-radius: var(--radius-sm);
-            padding: 4px 8px;
-            font-size: 11px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.1s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-        .heatmap-tooltip-inner.visible {
-            opacity: 1;
-        }
-        .heatmap-label {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 4px;
-            font-size: 9px;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-        }
-        @media (min-width: 640px) {
-            .heatmap-label {
-                padding-right: 8px;
-                font-size: 11px;
-            }
-        }
-        .heatmap-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 9px;
-            font-weight: 500;
-            color: color-mix(in oklab, var(--color-base-content) 80%, transparent);
-        }
-        @media (min-width: 640px) {
-            .heatmap-header {
-                font-size: 11px;
-            }
-        }
+        /* All heatmap layout classes removed 2026-04-13 — migrated to
+           inline Tailwind utilities in Timing.jsx + HeatmapTooltip.jsx:
+             .heatmap-grid         → grid grid-cols-[36px_repeat(7,1fr)]
+                                      sm:grid-cols-[50px_repeat(7,1fr)]
+                                      gap-0.5 min-w-[280px] sm:min-w-[400px]
+             .heatmap-header       → flex items-center justify-center
+                                      text-[9px] sm:text-[11px] font-medium
+                                      text-base-content/80
+             .heatmap-label        → flex items-center justify-end
+                                      pr-1 sm:pr-2 text-[9px] sm:text-[11px]
+                                      text-base-content/60
+             .heatmap-cell         → aspect-square min-w-5 min-h-5
+                                      sm:min-w-7 sm:min-h-7 rounded-sm
+                                      flex items-center justify-center
+                                      text-[8px] sm:text-[10px]
+                                      text-base-content/80 cursor-default
+                                      transition-transform duration-100
+                                      hover:scale-110 hover:z-10
+             .heatmap-cell-sm      → w-4 h-4 min-w-4 min-h-4 (weekly variant
+                                      — no sm: upscale)
+             .heatmap-tooltip-inner → fixed z-50 pointer-events-none
+                                      bg-base-200 text-base-content
+                                      border border-base-300 rounded-sm
+                                      px-2 py-1 text-[11px] whitespace-nowrap
+                                      shadow-[0_2px_8px_rgba(0,0,0,0.3)]
+                                      transition-opacity duration-100
+                                      + conditional opacity-0/opacity-100
+                                      (replaces the `.visible` state class)
+           The 5 intensity-level classes (.heatmap-0 .. .heatmap-4) below
+           stay as-is: they're semantic data-viz intensity tokens driven
+           by `getHeatmapLevel(count, maxCount)` in JS and referenced via
+           `heatmap-${level}` template strings, and the color-mix()
+           gradients are too long to inline cleanly at every cell. */
+
         /* Heatmap intensity levels.
            Requirement: fill color tracks the active DaisyUI theme's primary
              accent by default (so `nord` users see cool blue, `emerald` users
@@ -567,76 +446,41 @@ body::before {
            text-error, bg-warning/10, etc.) which auto-switch with data-theme.
            There is no longer a need to hijack Tailwind's raw gray/color scales. */
 
-        /* Tab button styling - dark theme with techy feel */
-        .tab-btn {
-            padding: 8px 16px;
-            font-size: 13px;
-            font-weight: 500;
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-bottom: 2px solid transparent;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-            white-space: nowrap;
-            transition: all 0.15s;
-        }
-        .tab-btn:hover {
-            color: color-mix(in oklab, var(--color-base-content) 80%, transparent);
-        }
-        /* Fix: Replaced hardcoded Tailwind class selector with semantic class.
-           Active tab styling now uses CSS variables instead of hardcoded blue-500. */
-        .tab-btn-active {
-            border-color: var(--color-primary);
-            color: var(--color-primary);
-            text-shadow: 0 0 10px color-mix(in oklab, var(--color-primary) 50%, transparent);
-        }
+        /* .tab-btn + .tab-btn-active removed 2026-04-13 — migrated to
+           inline Tailwind utilities in TabBar.jsx. The active-state
+           text-shadow glow uses Tailwind's `[text-shadow:...]` arbitrary
+           property syntax because Tailwind v4 doesn't ship a text-shadow
+           utility out of the box. Focus-visible ring uses the
+           `focus-visible:outline focus-visible:outline-2
+           focus-visible:outline-primary focus-visible:outline-offset-2`
+           Tailwind variants directly. */
 
         /* Collapsible sections - dark theme */
-        .collapsible-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            padding: 12px 0;
-            user-select: none;
-        }
-        .collapsible-header:hover {
-            opacity: 0.8;
-        }
-        .collapsible-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .collapsible-chevron {
-            width: 20px;
-            height: 20px;
-            transition: transform 0.2s ease;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-            flex-shrink: 0;
-        }
-        .collapsible-header[aria-expanded="true"] .collapsible-chevron {
-            transform: rotate(180deg);
-        }
+        /* .collapsible-header, .collapsible-title, .collapsible-subtitle,
+           .collapsible-chevron removed 2026-04-13 — replaced by inline
+           Tailwind utilities in CollapsibleSection.jsx. The chevron
+           rotation is now driven by React state via conditional
+           `rotate-180` rather than the pre-existing `[aria-expanded="true"]`
+           descendant selector — the React component already has the
+           expanded state, so using it directly is cleaner than round-
+           tripping through an attribute.
+
+           .collapsible-content STAYS custom: the max-height transition
+           from `0` to `none` has no Tailwind primitive (Tailwind's
+           max-h-* utilities don't include `none`, and clamping to
+           `max-h-[9999px]` would clip long sections + create a fake
+           delay on expand when the browser runs out of height budget).
+           This is the one legitimate reason the collapsible module
+           keeps a custom CSS class. */
         .collapsible-content {
             overflow: hidden;
             transition: max-height 0.3s ease, opacity 0.2s ease;
             max-height: 0;
             opacity: 0;
         }
-        /* Fix: max-height: 2000px was an arbitrary cap that would clip long content.
-           Using max-height: none disables the cap while still allowing the CSS
-           transition to animate from 0. The transition only animates on collapse
-           (expanded→0) since none→0 doesn't interpolate, which is acceptable. */
         .collapsible-content.expanded {
             max-height: none;
             opacity: 1;
-        }
-        .collapsible-subtitle {
-            font-size: 12px;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-            margin-left: auto;
-            margin-right: 8px;
         }
 
         /* .loading-spinner / .loading-spinner-{sm,md,lg} removed — migrated to
@@ -702,75 +546,16 @@ body::before {
             visibility: visible;
         }
 
-        .detail-pane-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--color-base-300);
-            flex-shrink: 0;
-        }
-        .detail-pane-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--color-base-content);
-        }
-        .detail-pane-subtitle {
-            font-size: 12px;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-            margin-top: 4px;
-        }
-        /* .detail-pane-close migrated to DaisyUI `btn btn-sm btn-circle btn-ghost`
-           in dashboard/js/components/DetailPane.jsx. */
-
-        .detail-pane-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px;
-        }
-        .detail-pane-empty {
-            text-align: center;
-            padding: 48px 0;
-            font-size: 14px;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-        }
-
-        .detail-pane-loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 48px;
-        }
-
-        /* Detail pane commit list - dark theme */
-        .detail-commit {
-            padding: 12px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--color-base-300);
-            margin-bottom: 12px;
-            transition: background 0.15s;
-        }
-        .detail-commit:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-        .detail-commit-message {
-            font-weight: 500;
-            color: var(--color-base-content);
-            margin-bottom: 8px;
-        }
-        .detail-commit-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            font-size: 12px;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-        }
-        .detail-commit-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin-top: 8px;
-        }
+        /* .detail-pane-header + .detail-pane-title + .detail-pane-subtitle
+           + .detail-pane-content + .detail-pane-empty + .detail-pane-loading
+           + .detail-commit + .detail-commit-message + .detail-commit-meta
+           + .detail-commit-tags all removed 2026-04-13 — migrated to
+           inline Tailwind utilities in DetailPane.jsx. The only exception
+           is `.detail-pane-header`, which stays as a zero-style marker
+           class so the mobile `::before` pseudo-element drag-handle rule
+           (inside @media max-width: 640px below) can still target it.
+           The `.detail-pane-close` class was already migrated to
+           DaisyUI `btn btn-sm btn-circle btn-ghost` in an earlier pass. */
 
         /* Mobile: Bottom sheet variant */
         @media (max-width: 640px) {
@@ -793,9 +578,12 @@ body::before {
                 transform: translateY(0);
                 visibility: visible;
             }
-            .detail-pane-header {
-                padding: 12px 16px;
-            }
+            /* .detail-pane-header + .detail-pane-content mobile padding
+               overrides migrated to `max-md:px-4 max-md:py-3` and
+               `max-md:p-4` on the JSX wrappers. The drag-handle ::before
+               pseudo-element below is the ONLY reason .detail-pane-header
+               still exists as a marker class — pseudo-elements can't be
+               expressed as Tailwind utilities. */
             .detail-pane-header::before {
                 content: '';
                 position: absolute;
@@ -806,9 +594,6 @@ body::before {
                 height: 4px;
                 background: var(--color-base-300);
                 border-radius: 2px;
-            }
-            .detail-pane-content {
-                padding: 16px;
             }
         }
 
@@ -849,116 +634,32 @@ body::before {
             visibility: visible;
         }
 
-        .settings-pane-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--color-base-300);
-            flex-shrink: 0;
-        }
-        .settings-pane-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--color-base-content);
-        }
-        /* .settings-pane-close migrated to DaisyUI `btn btn-sm btn-circle btn-ghost`
-           in dashboard/js/components/SettingsPane.jsx. */
+        /* All settings-pane internals migrated 2026-04-13 to inline
+           Tailwind utilities in SettingsPane.jsx:
+             .settings-pane-header     → kept as marker for mobile ::before drag handle
+             .settings-pane-title      → text-lg font-semibold text-base-content
+             .settings-pane-content    → flex-1 overflow-y-auto p-6 max-md:p-4
+             .settings-section-title   → text-[11px] font-semibold uppercase tracking-wider text-base-content/60 mb-3
+             .settings-group           → removed (flex-1 on work-hour groups, otherwise no wrapper)
+             .settings-group label     → block text-[13px] font-medium text-base-content/80 mb-1.5
+             .settings-toggle          → flex items-center justify-between p-3 bg-base-300 rounded-md cursor-pointer transition-colors
+             .settings-toggle-label    → text-[13px] font-medium text-base-content/80
+             .settings-toggle-hint     → text-[11px] text-base-content/40 mt-0.5
+             .settings-toggle-switch   → pure Tailwind with `after:` pseudo variant
+                                          (relative w-11 h-6 rounded-xl ... after:content-['']
+                                          after:absolute after:top-0.5 after:left-0.5 ...)
+             .settings-toggle.active   → conditional className based on useUTC state
+             .settings-row             → flex gap-3
+             .settings-view-level-group → flex flex-col gap-2
+             .settings-work-hours-hint  → text-[11px] text-base-content/40 mt-2
 
-        .settings-pane-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px;
-        }
-
-        .settings-section {
-            margin-bottom: 24px;
-        }
-        .settings-section:last-child {
-            margin-bottom: 0;
-        }
-        .settings-section-title {
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-            margin-bottom: 12px;
-        }
-        .settings-group {
-            margin-bottom: 16px;
-        }
-        .settings-group:last-child {
-            margin-bottom: 0;
-        }
-        .settings-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
-            color: color-mix(in oklab, var(--color-base-content) 80%, transparent);
-            margin-bottom: 6px;
-        }
-        .settings-group .settings-hint {
-            font-size: 11px;
-            color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
-            margin-top: 4px;
-        }
-        .settings-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px;
-            background: var(--color-base-300);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            transition: background 0.15s;
-        }
-        .settings-toggle:hover {
-            background: var(--color-base-300);
-        }
-        .settings-toggle-label {
-            font-size: 13px;
-            font-weight: 500;
-            color: color-mix(in oklab, var(--color-base-content) 80%, transparent);
-        }
-        .settings-toggle-hint {
-            font-size: 11px;
-            color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
-            margin-top: 2px;
-        }
-        .settings-toggle-switch {
-            width: 44px;
-            height: 24px;
-            background: var(--color-base-300);
-            border-radius: 12px;
-            position: relative;
-            transition: background 0.2s;
-            flex-shrink: 0;
-        }
-        .settings-toggle-switch::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border-radius: 50%;
-            transition: transform 0.2s;
-        }
-        .settings-toggle.active .settings-toggle-switch {
-            background: var(--color-primary);
-        }
-        .settings-toggle.active .settings-toggle-switch::after {
-            transform: translateX(20px);
-        }
-        .settings-row {
-            display: flex;
-            gap: 12px;
-        }
-        .settings-row .settings-group {
-            flex: 1;
-        }
+           The only remaining custom classes in the settings module are
+           `.settings-pane` + `.settings-pane-overlay` (transform-based
+           slide-over transitions) and `.settings-pane-header` (as a
+           zero-style marker for the mobile drag-handle ::before pseudo).
+           Shared Tailwind class strings for section titles and toggle
+           variants are extracted as JS constants inside SettingsPane.jsx
+           so each block doesn't repeat the full utility list. */
 
         /* Mobile: Bottom sheet variant for settings */
         @media (max-width: 640px) {
@@ -979,9 +680,11 @@ body::before {
             .settings-pane.open {
                 transform: translateY(0);
             }
-            .settings-pane-header {
-                padding: 12px 16px;
-            }
+            /* .settings-pane-header + .settings-pane-content mobile
+               padding overrides migrated to `max-md:` Tailwind classes
+               on the JSX wrappers. The drag-handle ::before pseudo
+               below is the ONLY remaining reason .settings-pane-header
+               stays as a marker class. */
             .settings-pane-header::before {
                 content: '';
                 position: absolute;
@@ -993,31 +696,21 @@ body::before {
                 background: var(--color-base-300);
                 border-radius: 2px;
             }
-            .settings-pane-content {
-                padding: 16px;
-            }
         }
 
         /* .stat-label removed 2026-04-13 — 0 JSX consumers. */
 
-        /* Sticky tabs bar - dark theme */
-        .tabs-bar {
-            position: sticky;
-            top: 0;
-            z-index: var(--z-sticky);
-            background: var(--color-base-100);
-            border-bottom: 1px solid var(--color-base-300);
-        }
+        /* .tabs-bar removed 2026-04-13 — replaced by inline
+           `sticky top-0 z-20 bg-base-100 border-b border-base-300`
+           in TabBar.jsx. */
 
         /* .filter-toggle — migrated to DaisyUI `btn btn-ghost btn-square`
            (with `btn-active` when the sidebar is open) in Header.jsx. */
 
         /* Dashboard layout with sidebar */
-        .dashboard-layout {
-            display: flex;
-            gap: 24px;
-            position: relative;
-        }
+        /* .dashboard-layout removed 2026-04-13 — replaced by inline
+           `flex gap-6 relative` in App.jsx. Mobile override (gap-0) is
+           handled by the responsive `sm:gap-6` pattern in JSX. */
 
         /* Filter sidebar - dark theme */
         .filter-sidebar {
@@ -1030,29 +723,22 @@ body::before {
             width: 0;
             margin-left: -24px;
         }
-        .filter-sidebar-inner {
-            width: 280px;
-            padding: 16px;
-            background: var(--color-base-200);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--color-base-300);
-        }
-        .filter-sidebar-inner .filter-group {
-            margin-bottom: 16px;
-        }
-        .filter-sidebar-inner .filter-group:last-child {
-            margin-bottom: 0;
-        }
-        .filter-sidebar-inner label {
-            display: block;
-            font-size: 12px;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-            margin-bottom: 4px;
-        }
-        .filter-sidebar-inner select,
-        .filter-sidebar-inner input {
-            width: 100%;
-        }
+        /* .filter-sidebar-inner + its descendant rules removed 2026-04-13
+           — all migrated to inline Tailwind utilities in FilterSidebar.jsx:
+             - Base styles (w-[280px] p-4 bg-base-200 rounded-lg border
+               border-base-300) on the sidebar-inner wrapper
+             - Mobile-drawer override (w-full h-full rounded-none
+               overflow-y-auto pt-6) via `max-md:` variants
+             - space-y-4 for the filter-group vertical rhythm (replaces
+               the descendant `margin-bottom: 16px` rule)
+             - label { display: block; font-size: 12px; ... } migrated to
+               explicit `block text-xs text-base-content/60 mb-1` on each
+               <label> in FilterSidebar.jsx (the descendant selector had
+               been targeting all labels indiscriminately — explicit
+               classes make each label's typography visible at its site)
+             - .filter-sidebar-inner select/input { width: 100% } — the
+               DaisyUI `select select-sm` / `input input-sm w-full` classes
+               already carry `w-full` explicitly */
         /* .filter-preset-btn — unused (no JSX consumer found in audit).
            Deleted along with the rest of the Phase 6 button cleanup. */
 
@@ -1067,82 +753,24 @@ body::before {
            now lives inside a `flex items-center` wrapper so the label's
            block-level margin doesn't stack with the wrapper's own mb-1;
            removing the override has no visual effect. */
-        .filter-multi-select {
-            position: relative;
-        }
-        .filter-multi-select-trigger {
-            width: 100%;
-            padding: 6px 8px;
-            font-size: 12px;
-            border: 1px solid var(--color-base-300);
-            border-radius: var(--radius-sm);
-            background: var(--color-base-200);
-            color: var(--color-base-content);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 32px;
-        }
-        .filter-multi-select-trigger:hover {
-            border-color: var(--color-primary);
-        }
-        .filter-multi-select-trigger .selected-text {
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .filter-multi-select-trigger .arrow {
-            margin-left: 4px;
-            opacity: 0.5;
-        }
-        .filter-multi-select-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            max-height: 200px;
-            overflow-y: auto;
-            background: var(--color-base-200);
-            border: 1px solid var(--color-base-300);
-            border-radius: var(--radius-sm);
-            box-shadow: 0 10px 25px rgb(0 0 0 / 0.25);
-            z-index: var(--z-sticky);
-            display: none;
-        }
-        .filter-multi-select-dropdown.open {
-            display: block;
-        }
-        .filter-multi-select-option {
-            display: flex;
-            align-items: center;
-            padding: 6px 8px;
-            cursor: pointer;
-            font-size: 12px;
-            gap: 6px;
-            line-height: 1.25;
-        }
-        .filter-multi-select-option:hover,
-        .filter-multi-select-option.highlighted {
-            background: var(--color-base-300);
-        }
-        /* The inner checkbox is now DaisyUI `checkbox checkbox-xs checkbox-primary`
-           (see FilterSidebar.jsx). Only the margin reset is kept — DaisyUI
-           controls size/color/cursor. */
-        .filter-multi-select-option input[type="checkbox"] {
-            margin: 0;
-            flex-shrink: 0;
-        }
-        .filter-multi-select-option.selected {
-            background: color-mix(in oklab, var(--color-primary) 10%, transparent);
-        }
+        /* .filter-multi-select, .filter-multi-select-trigger,
+           .filter-multi-select-dropdown, .filter-multi-select-option,
+           .selected-text, .arrow removed 2026-04-13 — all rules migrated
+           to inline Tailwind utilities in FilterSidebar.jsx.
 
-        /* Tab content area */
-        .tab-content-area {
-            flex: 1;
-            min-width: 0;
-        }
+           Open/closed dropdown state, selected-row highlight, and
+           keyboard-highlighted row are now driven by conditional
+           className builders in JSX (React state is the source of
+           truth — no more state-class + descendant selector round
+           trip). The `.filter-multi-select-trigger` marker class is
+           kept ONLY as an identifier for the focus-visible outline
+           rule below (the listbox is a WAI-ARIA listbox, not a DaisyUI
+           btn, so it doesn't inherit DaisyUI's own focus-visible ring).
+           Inner checkbox uses DaisyUI `checkbox checkbox-xs
+           checkbox-primary` — no per-input rule needed. */
+
+        /* .tab-content-area removed 2026-04-13 — replaced by inline
+           `flex-1 min-w-0` in App.jsx. */
 
         /* Mobile: Filter sidebar as overlay */
         @media (max-width: 768px) {
@@ -1150,9 +778,8 @@ body::before {
                Approach: Reset gap since sidebar is position:fixed overlay on mobile
                Alternatives: Hide sidebar wrapper with display:none — rejected,
                would break sidebar open/close transitions */
-            .dashboard-layout {
-                gap: 0;
-            }
+            /* .dashboard-layout mobile override removed — the JSX wrapper
+               uses `gap-0 sm:gap-6` responsive classes instead. */
             .filter-sidebar {
                 position: fixed;
                 top: 0;
@@ -1172,13 +799,9 @@ body::before {
             .filter-sidebar.open {
                 transform: translateX(0);
             }
-            .filter-sidebar-inner {
-                width: 100%;
-                height: 100%;
-                border-radius: 0;
-                overflow-y: auto;
-                padding-top: 24px;
-            }
+            /* .filter-sidebar-inner mobile overrides migrated to
+               `max-md:` Tailwind variants on the wrapper div in
+               FilterSidebar.jsx. */
             .filter-sidebar-overlay {
                 position: fixed;
                 inset: 0;
@@ -1195,32 +818,14 @@ body::before {
         }
 
         /* Drop zone for file upload */
-        .drop-zone {
-            border: 2px dashed var(--color-base-300);
-            border-radius: var(--radius-lg);
-            padding: 40px 24px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .drop-zone:hover, .drop-zone:focus-visible {
-            border-color: var(--color-primary);
-            background: color-mix(in oklab, var(--color-primary) 5%, transparent);
-        }
-        .drop-zone.drag-over {
-            border-color: var(--color-primary);
-            background: color-mix(in oklab, var(--color-primary) 10%, transparent);
-            box-shadow: 0 0 20px color-mix(in oklab, var(--color-primary) 25%, transparent);
-        }
-        .drop-zone-icon {
-            width: 48px;
-            height: 48px;
-            margin: 0 auto 12px;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-        }
-        .drop-zone:hover .drop-zone-icon,
-        .drop-zone.drag-over .drop-zone-icon {
-            color: var(--color-primary);
-        }
+        /* .drop-zone + .drop-zone-icon removed 2026-04-13 — migrated to
+           inline Tailwind utilities in DropZone.jsx. The drag-over state
+           is now a conditional className driven by React `isDragOver`
+           state instead of a `.drag-over` CSS modifier + descendant
+           selectors. Focus-visible styles use Tailwind's
+           `focus-visible:border-primary focus-visible:bg-primary/5`
+           variants directly. The icon color flip (base-content/60 →
+           primary during drag-over) is also a conditional className. */
 
         /* Mobile: tighter spacing for collapsible sections.
          * Requirement: Reduce visual weight on mobile — smaller subtitle,
@@ -1237,23 +842,13 @@ body::before {
          *   the text-size rules were redundant with Tailwind responsive
          *   classes consumers already use, and the space-y-6 rule was
          *   a fragile descendant selector targeting a Tailwind utility. */
-        @media (max-width: 640px) {
-            /* Collapsed section cards take less space on mobile */
-            .collapsible-header {
-                padding: 8px 0;
-            }
-            /* Subtitle line in collapsible header — smaller on mobile */
-            .collapsible-subtitle {
-                font-size: 11px;
-                display: none;
-            }
-            /* The .btn-icon / .btn-theme / .filter-toggle mobile-size override
-               used to live here. DaisyUI `btn-square` is already 40px on
-               desktop; on mobile the 40px size is fine and we no longer
-               need to override. If mobile crowding becomes an issue again,
-               use DaisyUI's `btn-sm` variant conditionally on mobile
-               breakpoints instead of shrinking the fixed height here. */
-        }
+        /* Mobile media query previously contained padding + text-size
+           overrides for .collapsible-header / .collapsible-subtitle —
+           those are now handled in JSX via responsive Tailwind classes
+           (`py-2 sm:py-3` on the header, `hidden sm:inline` on the
+           subtitle). Entire @media block removed because every rule in
+           it had been migrated; DaisyUI + Tailwind responsive utilities
+           now drive all mobile-specific styling. */
 
         /* ===== Embed Mode =====
          * Minimal chrome for iframe embedding. Hides all dashboard UI except
@@ -1293,32 +888,17 @@ body::before {
             opacity: 1;
         }
 
-        /* Error state for invalid embed IDs */
-        .embed-error {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 200px;
-            padding: 24px;
-            text-align: center;
-            color: color-mix(in oklab, var(--color-base-content) 80%, transparent);
-            font-family: system-ui, sans-serif;
-            font-size: 14px;
-            gap: 8px;
-        }
-
-        .embed-error code {
-            background: var(--color-base-300);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 13px;
-        }
-
-        .embed-error a {
-            color: var(--color-primary);
-            text-decoration: underline;
-        }
+        /* .embed-error removed 2026-04-13 — migrated to inline Tailwind
+           utilities in App.jsx + EmbedRenderer.jsx:
+             `flex flex-col items-center justify-center min-h-[200px] p-6
+              text-center text-base-content/80 font-sans text-sm gap-2`
+           The `.embed-error code` and `.embed-error a` descendant rules
+           previously styled the inline <code> and <a> elements that may
+           appear inside the error message. Those are now Tailwind
+           utilities applied directly at each call site via element-level
+           classes (<code className="bg-base-300 px-1.5 py-0.5 rounded
+           text-[13px]">, <a className="text-primary underline">) when
+           the error render actually includes them. */
 
         /* Hide decorative grid pattern in embed mode — would leak through
            when embedder sets ?bg=transparent to inherit their page background */
@@ -1335,36 +915,19 @@ body::before {
         /* .projects-error and .project-card deleted — migrated to DaisyUI
            `card bg-base-200 border border-base-300` with `card-body` inner
            wrapper. See dashboard/js/sections/Projects.jsx. */
-        .project-lang-badge {
-            font-size: 10px;
-            font-weight: 500;
-            font-family: var(--font-mono);
-            padding: 2px 8px;
-            border-radius: var(--radius-full);
-            background: var(--color-base-300);
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
+        /* .project-lang-badge removed 2026-04-13 — migrated to inline
+           `text-[10px] font-medium font-mono px-2 py-0.5 rounded-full
+            bg-base-300 text-base-content/60 whitespace-nowrap shrink-0`
+           in Projects.jsx. */
         /* .project-link / .project-link-primary / .project-link-secondary —
            migrated to DaisyUI `btn btn-primary btn-xs` / `btn btn-outline btn-xs`
            in dashboard/js/sections/Projects.jsx. */
 
-        /* Drop zone container — centered layout for the file upload screen */
-        .drop-zone-container {
-            min-height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .drop-zone-heading {
-            color: var(--color-base-content);
-            font-size: 20px;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 24px;
-            font-family: var(--font-mono, monospace);
-        }
+        /* .drop-zone-container + .drop-zone-heading removed 2026-04-13
+           — migrated to inline Tailwind utilities in DropZone.jsx:
+             .drop-zone-container → min-h-[60vh] flex flex-col justify-center
+             .drop-zone-heading   → text-base-content text-xl font-semibold
+                                     text-center mb-6 font-mono */
 
         /* Filter sidebar layout helpers — most migrated to inline
            Tailwind utilities in FilterSidebar.jsx:
@@ -1375,17 +938,10 @@ body::before {
            - .filter-group-header → flex items-center mb-1
            No custom filter helper rules remain in this block. */
 
-        /* Settings pane layout helpers */
-        .settings-view-level-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .settings-work-hours-hint {
-            font-size: 11px;
-            color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
-            margin-top: 8px;
-        }
+        /* .settings-view-level-group + .settings-work-hours-hint
+           removed 2026-04-13 — migrated to inline Tailwind utilities
+           (`flex flex-col gap-2` and `text-[11px] text-base-content/40 mt-2`)
+           in SettingsPane.jsx. */
 
         /* .filter-badge — migrated to DaisyUI `badge badge-primary badge-xs`
            inline inside the filter-toggle button in Header.jsx. */
@@ -1396,26 +952,20 @@ body::before {
            Alternatives:
              - :focus on everything: Rejected — shows ring on mouse clicks too, which is distracting
              - Browser defaults only: Rejected — default outlines are inconsistent and often invisible on dark bg */
-        /* Custom focus ring for the remaining bespoke interactive elements:
-           .tab-btn (composed alongside DaisyUI's .tab — see TabBar.jsx),
-           .collapsible-header (still custom — CollapsibleSection.jsx),
-           .filter-multi-select-trigger (custom listbox — FilterSidebar.jsx;
-           audit concluded DaisyUI has no listbox primitive). DaisyUI buttons
-           handle their own :focus-visible ring so we don't need to target
-           them here. */
-        .tab-btn:focus-visible,
-        .collapsible-header:focus-visible,
-        .filter-multi-select-trigger:focus-visible {
-            outline: 2px solid var(--color-primary);
-            outline-offset: 2px;
-        }
+        /* No custom `:focus-visible` rules remain — every consumer uses
+           Tailwind's `focus-visible:outline focus-visible:outline-2
+           focus-visible:outline-primary focus-visible:outline-offset-2`
+           variants directly. DaisyUI buttons carry their own focus ring
+           via the `btn` class's built-in styles. */
 
-        /* Generic focus ring for role="button" elements and interactive cards */
-        [role="button"]:focus-visible,
-        [role="tab"]:focus-visible {
-            outline: 2px solid var(--color-primary);
-            outline-offset: 2px;
-        }
+        /* The `[role="button"]:focus-visible` and `[role="tab"]:focus-visible`
+           attribute-selector rules that used to live here are gone.
+           Every role="button" tile and role="tab" button in dashboard/js
+           now carries its own `focus-visible:outline focus-visible:outline-2
+           focus-visible:outline-primary focus-visible:outline-offset-2`
+           (or the `focus-visible:ring-*` equivalent paired with an existing
+           `hover:ring-2` pattern) inline — keeping focus styling visible
+           at the call site instead of hidden in a cross-cutting CSS rule. */
 
         /* === Accessibility: Reduced motion ===
            Respect user preference for reduced motion */

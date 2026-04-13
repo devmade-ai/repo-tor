@@ -578,7 +578,7 @@ export default function Timeline() {
                 return (
                     <div
                         key={period.key}
-                        className="p-3 bg-base-300 rounded-lg cursor-pointer hover:bg-base-300 transition-colors"
+                        className="p-3 bg-base-300 rounded-lg cursor-pointer hover:bg-base-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 transition-colors"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${period.label}: ${period.count} commits`}
@@ -697,7 +697,7 @@ export default function Timeline() {
             <CollapsibleSection title="Activity Summary">
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View all ${summaryData.totalCommits} commits`}
@@ -720,7 +720,7 @@ export default function Timeline() {
                         <div className="text-sm text-base-content/60">{summaryData.daySpan || 'Date Range'}</div>
                     </div>
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${summaryData.contributors} contributors`}

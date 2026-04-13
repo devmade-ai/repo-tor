@@ -358,7 +358,7 @@ export default function Progress() {
                                 return (
                                     <div
                                         key={key}
-                                        className="cursor-pointer hover:bg-base-200 rounded p-2 -m-2 transition-colors"
+                                        className="cursor-pointer hover:bg-base-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded p-2 -m-2 transition-colors"
                                         role="button"
                                         tabIndex={0}
                                         aria-label={`View ${label}: ${count} commits (${pct}%)`}
@@ -389,7 +389,7 @@ export default function Progress() {
                             return (
                                 <div
                                     key={epic}
-                                    className="cursor-pointer hover:bg-base-200 rounded p-2 -m-2 transition-colors"
+                                    className="cursor-pointer hover:bg-base-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded p-2 -m-2 transition-colors"
                                     role="button"
                                     tabIndex={0}
                                     aria-label={`View ${epic}: ${count} commits (${pct}%)`}
@@ -434,7 +434,7 @@ export default function Progress() {
             <CollapsibleSection title="Summary">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${metrics.featureCount} feature commits`}
@@ -445,7 +445,7 @@ export default function Progress() {
                         <div className="text-sm text-base-content/60">Features</div>
                     </div>
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${metrics.bugfixCount} bug fix commits`}
@@ -456,7 +456,7 @@ export default function Progress() {
                         <div className="text-sm text-base-content/60">Bug Fixes</div>
                     </div>
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${metrics.refactorCount} refactor commits`}

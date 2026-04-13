@@ -6,6 +6,74 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support. As of 2026-04-13, every user-visible surface also routes through DaisyUI's `@layer components` classes — no custom CSS class shadows any DaisyUI component.
 
+**Recent Updates (2026-04-13 — full custom-CSS sweep, round 3):**
+
+Continued audit of "no custom Tailwind / CSS unless absolutely necessary" after the user flagged that round 2 was still too conservative. The earlier rounds left ~80 custom class wrappers that were just named aliases for Tailwind utility groupings — they had no Tailwind-incompatible features, I just hadn't migrated them. This round migrates all of them.
+
+**Migrations (alphabetical within each group):**
+
+Trivial one-liners:
+- `.hamburger-menu` → `relative`
+- `.hamburger-list` → `list-none m-0 p-0`
+- `.hamburger-divider` → `h-px bg-base-300 my-1`
+- `.hamburger-version` → `px-4 py-1.5 text-[11px] font-mono text-base-content/40`
+- `.dashboard-layout` → `flex gap-0 sm:gap-6 relative` (with responsive mobile gap)
+- `.tabs-bar` → `sticky top-0 z-20 bg-base-100 border-b border-base-300`
+- `.tab-content-area` → `flex-1 min-w-0`
+- `.settings-section` → `mb-6`
+
+Dashboard header: the `::after` gradient stays (pseudo-element); base `position: relative; z-index: var(--z-sticky-header)` → inline `relative z-[21]` in Header.jsx.
+
+Collapsible section: `.collapsible-header`, `.collapsible-title`, `.collapsible-subtitle` all inlined. `.collapsible-chevron` rotation now driven by React state via conditional `rotate-180` instead of descendant `[aria-expanded="true"]` selector. `.collapsible-content` stays (max-height: 0 → none transition has no Tailwind primitive). `.collapsible-header` kept as zero-style marker class ONLY so `.embed-mode .collapsible-header { display: none }` can still target it.
+
+Hamburger menu items: `.hamburger-item`, `.hamburger-item-icon`, `.hamburger-item-label`, `.hamburger-item-external`, `.hamburger-item-highlight`, `.hamburger-item-destructive` all migrated. Destructive / highlight state variants are now conditional className builders driven by `item.destructive` / `item.highlight` props — descendant selectors on icon color replaced with explicit conditional `text-*` classes. `.hamburger-backdrop` → `fixed inset-0 z-40 cursor-pointer`.
+
+Filter multi-select listbox: `.filter-multi-select`, `.filter-multi-select-trigger`, `.filter-multi-select-dropdown`, `.filter-multi-select-option`, `.selected-text`, `.arrow`, `.filter-group`, `.filter-sidebar-inner` all migrated. State classes (`.open`, `.selected`, `.highlighted`) converted to conditional className builders. Mobile drawer override via `max-md:` Tailwind variants.
+
+Detail pane internals: `.detail-pane-content`, `.detail-pane-title`, `.detail-pane-subtitle`, `.detail-pane-empty`, `.detail-pane-loading`, `.detail-commit`, `.detail-commit-message`, `.detail-commit-meta`, `.detail-commit-tags` all inlined. `.detail-pane-header` kept as zero-style marker for mobile `::before` drag handle. `.detail-pane` and `.detail-pane-overlay` stay (transform slide-over transitions).
+
+Settings pane internals: `.settings-pane-title`, `.settings-pane-content`, `.settings-section-title`, `.settings-group`, `.settings-group label`, `.settings-group .settings-hint`, `.settings-toggle`, `.settings-toggle-label`, `.settings-toggle-hint`, `.settings-toggle-switch` (+ `::after` thumb!), `.settings-toggle.active` state, `.settings-row`, `.settings-view-level-group`, `.settings-work-hours-hint`, `.settings-hint` all migrated. The toggle switch's `::after` thumb pseudo-element is now expressed via Tailwind's `after:` variant. `.settings-pane`, `.settings-pane-overlay`, `.settings-pane-header` (marker for mobile drag handle) stay.
+
+Drop zone: `.drop-zone`, `.drop-zone-container`, `.drop-zone-heading`, `.drop-zone-icon` all migrated. Drag-over state driven by React `isDragOver` state via conditional className builder. Icon color flip (base-content/60 → primary during drag-over) also inline conditional.
+
+Heatmap: `.heatmap-grid`, `.heatmap-header`, `.heatmap-label`, `.heatmap-cell`, `.heatmap-cell-sm`, `.heatmap-tooltip-inner` all migrated. Grid template columns use Tailwind arbitrary values `grid-cols-[36px_repeat(7,1fr)]`. Tooltip opacity state conditional. `.heatmap-0/1/2/3/4` intensity levels STAY as custom classes (dynamic `heatmap-${level}` JSX reference, color-mix gradients too long to inline at every cell).
+
+Embed + misc: `.embed-error` → inline flex col layout. `.project-lang-badge` → inline Tailwind with `text-[10px]` arbitrary value. `<code>` + `<a>` inside embed-error messages get explicit Tailwind classes.
+
+TabBar: `.tab-btn` and `.tab-btn-active` both migrated. Shared class strings extracted as `TAB_BASE_CLASSES` and `TAB_ACTIVE_CLASSES` JS constants. Active-state text-shadow uses Tailwind's `[text-shadow:...]` arbitrary property syntax because Tailwind v4 doesn't ship a text-shadow utility.
+
+Global a11y rule: `[role="button"]:focus-visible, [role="tab"]:focus-visible` attribute-selector rule removed. Every `role="button"` tile in Timeline/Progress/Summary/Health/HealthBars/HealthAnomalies/HealthWorkPatterns/CollapsibleSection/DropZone/FilterSidebar now carries its own `focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2` (or `focus-visible:ring-*` equivalent paired with `hover:ring-*`) inline. New `FOCUS_RING_CLASSES` constant in utils.js exported for consumers that need the long string — but most consumers use the inline form directly.
+
+**Final custom-class count:**
+
+24 custom classes remain (down from ~96), all genuinely necessary:
+
+| Category | Classes |
+|---|---|
+| Pseudo-element | `dashboard-header` (::after gradient), `detail-pane-header` + `settings-pane-header` (mobile ::before drag handles) |
+| @keyframes | `dashboard-enter`, `hamburger-dropdown`, `hamburger-update-dot` |
+| Non-Tailwind CSS transition | `collapsible-content` (max-h: 0 → none) |
+| Transform slide-over drawers | `filter-sidebar` + overlay, `detail-pane` + overlay, `settings-pane` + overlay |
+| Not shipped by Tailwind | `scrollbar-hide` (::webkit-scrollbar), `header-filter-hint` (font: inherit) |
+| Data-viz intensity gradient | `heatmap-0/1/2/3/4` (dynamic JSX reference `heatmap-${level}`) |
+| Isolated error-boundary rendering | `root-error-message`, `root-error-detail`, `root-error-hint` |
+| Root state marker | `embed-mode` (consumed by descendant selectors for embed-only rendering) |
+
+**New regression guard: styles.css allowlist**
+
+`scripts/__tests__/daisyui-surfaces.test.mjs` gained a strict `styles.css allowlist` test that enumerates the 24 legitimate custom classes and FAILS if any new primary rule head appears in styles.css that isn't in the list. Test body includes guidance: add to the allowlist only if the new class has a documented Tailwind-incompatible feature. Also verifies every allowlisted class still has a rule (allowlist stays in sync with reality).
+
+**Build impact:**
+
+- `dashboard/styles.css`: 1531 → 1008 lines (−523, −34%).
+- `dist/assets/index-*.css`: ~156 KB → ~154 KB (built CSS bundle — most of our deletions were small per-rule blocks, offset by Tailwind generating the new utility classes).
+- `dist/assets/index-*.js`: unchanged.
+- `npm test` 60 → 61 (new allowlist guard). All pass.
+- `playwright test --list` still enumerates 62 e2e tests.
+- `vite build` clean after every group's intermediate commit.
+
+---
+
 **Recent Updates (2026-04-13 — custom-CSS cleanup round 2 + caught regressions):**
 
 Immediate follow-up to the first custom-CSS cleanup round earlier today. Post-cleanup self-audit surfaced 5 more Tailwind-replaceable custom classes and 3 consumers missed in the earlier tag sweep.

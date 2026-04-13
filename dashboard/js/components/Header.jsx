@@ -198,7 +198,7 @@ export default function Header() {
 
     return (
         <>
-            <header className="dashboard-header px-4 md:px-8 py-3 sm:py-6">
+            <header className="dashboard-header relative z-[21] px-4 md:px-8 py-3 sm:py-6">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>

@@ -8,6 +8,16 @@ const VIEW_LEVEL_DESCRIPTIONS = {
     developer: 'Full detail, individual commits',
 };
 
+// Shared Tailwind class strings for settings pane building blocks.
+// Kept as JS constants instead of custom CSS classes per the 2026-04-13
+// custom-CSS cleanup rule (no custom class unless the pattern needs
+// CSS features Tailwind can't express). These strings are read by the
+// JSX below; nothing else in the app consumes them.
+const SECTION_TITLE_CLASSES = 'text-[11px] font-semibold uppercase tracking-wider text-base-content/60 mb-3';
+const TOGGLE_BASE_CLASSES = 'flex items-center justify-between p-3 bg-base-300 rounded-md cursor-pointer transition-colors hover:bg-base-300';
+const TOGGLE_LABEL_CLASSES = 'text-[13px] font-medium text-base-content/80';
+const TOGGLE_HINT_CLASSES = 'text-[11px] text-base-content/40 mt-0.5';
+
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -77,8 +87,12 @@ export default function SettingsPane() {
                 aria-modal={state.settingsPaneOpen}
                 aria-label="Settings"
             >
-                <div className="settings-pane-header">
-                    <span className="settings-pane-title">Settings</span>
+                {/* `settings-pane-header` is kept as a zero-style marker
+                    class so the mobile `::before` pseudo drag-handle rule
+                    in styles.css can still target it. All layout styles
+                    are inline. */}
+                <div className="settings-pane-header flex items-center justify-between px-6 py-4 border-b border-base-300 shrink-0 max-md:px-4 max-md:py-3 max-md:relative">
+                    <span className="text-lg font-semibold text-base-content">Settings</span>
                     <button className="btn btn-sm btn-circle btn-ghost" onClick={handleClose} aria-label="Close settings">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                             <line x1="18" y1="6" x2="6" y2="18" />
@@ -86,17 +100,17 @@ export default function SettingsPane() {
                         </svg>
                     </button>
                 </div>
-                <div className="settings-pane-content">
+                <div className="flex-1 overflow-y-auto p-6 max-md:p-4">
                     {/* View Level */}
-                    <div className="settings-section" role="radiogroup" aria-label="View level">
-                        <div className="settings-section-title">View Level</div>
-                        <div className="settings-view-level-group">
+                    <div className="mb-6" role="radiogroup" aria-label="View level">
+                        <div className={SECTION_TITLE_CLASSES}>View Level</div>
+                        <div className="flex flex-col gap-2">
                             {['executive', 'management', 'developer'].map(level => {
                                 const isActive = state.currentViewLevel === level;
                                 return (
                                     <div
                                         key={level}
-                                        className={`settings-toggle ${isActive ? 'active' : ''}`}
+                                        className={TOGGLE_BASE_CLASSES}
                                         role="radio"
                                         aria-checked={isActive}
                                         tabIndex={0}
@@ -109,11 +123,11 @@ export default function SettingsPane() {
                                         }}
                                     >
                                         <div>
-                                            <div className="settings-toggle-label">{capitalize(level)}</div>
-                                            <div className="settings-toggle-hint">{VIEW_LEVEL_DESCRIPTIONS[level]}</div>
+                                            <div className={TOGGLE_LABEL_CLASSES}>{capitalize(level)}</div>
+                                            <div className={TOGGLE_HINT_CLASSES}>{VIEW_LEVEL_DESCRIPTIONS[level]}</div>
                                         </div>
                                         {isActive && (
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                            <svg className="w-5 h-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                                 <polyline points="20 6 9 17 4 12" />
                                             </svg>
                                         )}
@@ -124,10 +138,10 @@ export default function SettingsPane() {
                     </div>
 
                     {/* Timezone */}
-                    <div className="settings-section">
-                        <div className="settings-section-title">Timezone</div>
+                    <div className="mb-6">
+                        <div className={SECTION_TITLE_CLASSES}>Timezone</div>
                         <div
-                            className={`settings-toggle ${state.useUTC ? 'active' : ''}`}
+                            className={TOGGLE_BASE_CLASSES}
                             role="switch"
                             aria-checked={state.useUTC}
                             tabIndex={0}
@@ -140,22 +154,30 @@ export default function SettingsPane() {
                             }}
                         >
                             <div>
-                                <div className="settings-toggle-label">Use UTC</div>
-                                <div className="settings-toggle-hint">Show times in UTC instead of local</div>
+                                <div className={TOGGLE_LABEL_CLASSES}>Use UTC</div>
+                                <div className={TOGGLE_HINT_CLASSES}>Show times in UTC instead of local</div>
                             </div>
-                            <div className="settings-toggle-switch" />
+                            {/* Toggle switch — the `::after` thumb pseudo-element is
+                                expressed via Tailwind's `after:` variant so the
+                                classic pill switch renders without any custom CSS.
+                                Thumb translate distance (20px) matches the switch
+                                width (44px) minus thumb width (20px) minus 2×
+                                padding (4px) = 20px travel. */}
+                            <div
+                                className={`relative w-11 h-6 rounded-xl shrink-0 transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-5 after:h-5 after:bg-white after:rounded-full after:transition-transform ${state.useUTC ? 'bg-primary after:translate-x-5' : 'bg-base-300'}`}
+                            />
                         </div>
                     </div>
 
                     {/* Work Hours */}
-                    <div className="settings-section">
-                        <div className="settings-section-title">Work Hours</div>
-                        <div className="settings-row">
-                            <div className="settings-group">
-                                <label htmlFor="work-hour-start">Start</label>
+                    <div className="mb-6">
+                        <div className={SECTION_TITLE_CLASSES}>Work Hours</div>
+                        <div className="flex gap-3">
+                            <div className="flex-1">
+                                <label htmlFor="work-hour-start" className="block text-[13px] font-medium text-base-content/80 mb-1.5">Start</label>
                                 <select
                                     id="work-hour-start"
-                                    className="select select-sm"
+                                    className="select select-sm w-full"
                                     value={state.workHourStart}
                                     onChange={handleWorkHourStart}
                                 >
@@ -164,11 +186,11 @@ export default function SettingsPane() {
                                     ))}
                                 </select>
                             </div>
-                            <div className="settings-group">
-                                <label htmlFor="work-hour-end">End</label>
+                            <div className="flex-1">
+                                <label htmlFor="work-hour-end" className="block text-[13px] font-medium text-base-content/80 mb-1.5">End</label>
                                 <select
                                     id="work-hour-end"
-                                    className="select select-sm"
+                                    className="select select-sm w-full"
                                     value={state.workHourEnd}
                                     onChange={handleWorkHourEnd}
                                 >
@@ -178,7 +200,7 @@ export default function SettingsPane() {
                                 </select>
                             </div>
                         </div>
-                        <div className="settings-hint settings-work-hours-hint">
+                        <div className="text-[11px] text-base-content/40 mt-2">
                             Commits outside these hours are flagged as after-hours
                         </div>
                     </div>

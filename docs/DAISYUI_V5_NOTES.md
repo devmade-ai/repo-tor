@@ -125,6 +125,43 @@ JSX usage: `<span className="inline-block px-2 py-0.5 rounded-full text-xs font-
 
 Previously the same 34 colors were duplicated as 40+ `.tag-{name}` rules in styles.css; that duplication was collapsed 2026-04-13. The `.tag` base class that carried the shared layout utilities was also deleted in a follow-up pass the same day (replaced by explicit Tailwind classes on each consumer — see commit log). Don't re-add either the per-tag rules or the base class — edit `TAG_COLORS` / `TAG_TEXT_OVERRIDES` in `dashboard/js/utils.js` instead.
 
+## The 24 legitimate custom CSS classes
+
+After the 2026-04-13 custom-CSS cleanup sweep, `dashboard/styles.css` contains exactly 24 custom class definitions — every other styling decision goes through DaisyUI component classes or Tailwind utilities inline at the JSX consumer. Adding a new primary rule head requires extending the `LEGITIMATE_CUSTOM_CLASSES` allowlist in `scripts/__tests__/daisyui-surfaces.test.mjs` AND documenting a Tailwind-incompatible rationale in a rule header comment.
+
+**Pseudo-elements** (`::after` / `::before` can't be expressed as Tailwind utilities):
+- `dashboard-header` — `::after` gradient accent line
+- `detail-pane-header`, `settings-pane-header` — zero-style marker classes for mobile `::before` drag-handle pills
+
+**@keyframes animations**:
+- `dashboard-enter` — page-load fade-in
+- `hamburger-dropdown` — dropdown surface fade-in + complex box-shadow
+- `hamburger-update-dot` — PWA update indicator pulse
+
+**Non-Tailwind CSS transition values**:
+- `collapsible-content` — `max-height: 0 → max-height: none` transition. Tailwind's `max-h-*` utilities don't include `none`, and clamping to `max-h-[9999px]` would clip long sections.
+
+**Transform-based slide-over drawer shells**:
+- `filter-sidebar` + `filter-sidebar-overlay` — filter drawer
+- `detail-pane` + `detail-pane-overlay` — drill-down pane
+- `settings-pane` + `settings-pane-overlay` — settings pane
+- All three use `transform: translateX(100%)` ↔ `translateX(0)` transitions driven by a `.open` state class applied from React. The descendant-selector state-class pattern and the coordinated overlay + pane transitions are not cleanly expressible as inline conditional Tailwind without re-implementing the whole drawer pattern.
+
+**Not shipped by Tailwind**:
+- `scrollbar-hide` — `::-webkit-scrollbar { display: none }` pseudo-element + iOS scroll behavior. Not in default Tailwind; adding a plugin for one consumer is over-engineering.
+- `header-filter-hint` — `font: inherit` shorthand has no clean Tailwind equivalent (you'd need to re-specify family + size + weight + line-height + etc.)
+
+**Data-viz intensity gradient** (dynamic JSX references):
+- `heatmap-0`, `heatmap-1`, `heatmap-2`, `heatmap-3`, `heatmap-4` — referenced via `heatmap-${level}` template literals in Timing.jsx. Inlining the `color-mix(in oklab, var(--chart-accent-override, var(--color-primary)) N%, transparent)` gradient at every cell would duplicate the expression 168 times (24×7 full heatmap) plus 10-20 times per weekly variant. Keeping 5 class definitions is cleaner.
+
+**Isolated rendering that survives CSS load failure**:
+- `root-error-message`, `root-error-detail`, `root-error-hint` — the root error boundary renders in an isolated React root that must render correctly even when styles.css fails to load. Uses only typography classes with safe fallbacks; layout stays inline (flex centering).
+
+**Root state marker read by descendant selectors**:
+- `embed-mode` — applied to the root element in embed-iframe mode. Multiple descendant selectors in styles.css (`.embed-mode .card`, `.embed-mode .collapsible-header`, `.embed-mode .collapsible-content .pt-2`, etc.) strip dashboard chrome to leave just the embedded chart.
+
+Everything else — `.hamburger-item`, `.settings-toggle`, `.detail-pane-content`, `.filter-multi-select-option`, `.collapsible-header`, `.tab-btn`, etc. — was migrated to inline Tailwind utilities. If a future PR adds a new custom class wrapper, it fails the allowlist test and needs either a Tailwind migration or a documented rationale.
+
 ## Deliberately NOT used
 
 - **DaisyUI `dropdown` component** — uses CSS `:focus` or `[open]` attribute for visibility. Conflicts with React-state-controlled menus. We use custom disclosure pattern in `HamburgerMenu.jsx`.

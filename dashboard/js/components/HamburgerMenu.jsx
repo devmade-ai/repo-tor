@@ -194,10 +194,13 @@ export default function HamburgerMenu({ items }) {
     // the dropdown at 0,0 in that one frame.
     const portalContent = (open && triggerPos) ? (
         <>
-            {/* Backdrop — cursor-pointer required for iOS Safari.
-                position:fixed inset-0 so it covers the full viewport; now that
-                it's portaled to body, no parent stacking context traps it. */}
-            <div className="hamburger-backdrop" onClick={close} />
+            {/* Backdrop — cursor-pointer required for iOS Safari (iOS does
+                not fire click events on empty <div> elements without cursor:
+                pointer set). position:fixed inset-0 covers the full viewport;
+                z-[40] = var(--z-menu-backdrop) below the dropdown's z-[50].
+                Now that it's portaled to body, no parent stacking context
+                traps it. */}
+            <div className="fixed inset-0 z-40 cursor-pointer" onClick={close} />
             <nav
                 ref={menuRef}
                 id={menuId}
@@ -206,44 +209,60 @@ export default function HamburgerMenu({ items }) {
                 style={{ top: `${triggerPos.top}px`, left: `${triggerPos.left}px` }}
                 onKeyDown={handleMenuKeyDown}
             >
-                <ul className="hamburger-list">
-                    {visibleItems.map((item, i) => (
-                        <li key={item.label}>
-                            {item.separator && i > 0 && (
-                                <div className="hamburger-divider" />
-                            )}
-                            <button
-                                type="button"
-                                className={`hamburger-item${item.destructive ? ' hamburger-item-destructive' : ''}${item.highlight ? ' hamburger-item-highlight' : ''}`}
-                                onClick={() => handleItem(item)}
-                                // Requirement: items whose visible label describes a destination
-                                //   (e.g. "Light mode") rather than an action are ambiguous to
-                                //   screen readers without additional context. Callers can pass
-                                //   `ariaLabel` to spell out the action ("Switch to light mode").
-                                //   When not provided, fall back to the visible label.
-                                aria-label={item.ariaLabel || item.label}
-                            >
-                                {item.icon && (
-                                    <span className="hamburger-item-icon" aria-hidden="true">{item.icon}</span>
+                <ul className="list-none m-0 p-0">
+                    {visibleItems.map((item, i) => {
+                        // Color variants for destructive / highlight / default items.
+                        // The icon's text-*-60 muting stays as-is via an
+                        // explicit color on the icon <span> (default case
+                        // only — destructive/highlight items inherit the
+                        // button's text color through `text-inherit` so the
+                        // label and icon match).
+                        const itemColors = item.destructive
+                            ? 'text-error hover:bg-error/10'
+                            : item.highlight
+                            ? 'text-primary hover:bg-base-300'
+                            : 'text-base-content hover:bg-base-300';
+                        const iconColor = item.destructive || item.highlight
+                            ? 'text-inherit'
+                            : 'text-base-content/60';
+                        return (
+                            <li key={item.label}>
+                                {item.separator && i > 0 && (
+                                    <div className="h-px bg-base-300 my-1" />
                                 )}
-                                <span className="hamburger-item-label">{item.label}</span>
-                                {item.external && (
-                                    <svg className="hamburger-item-external" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-                                        <path d="M3.5 3H9v5.5M9 3L3 9" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
-                                )}
-                            </button>
-                        </li>
-                    ))}
+                                <button
+                                    type="button"
+                                    className={`flex items-center gap-2.5 w-full px-4 py-2.5 bg-transparent border-0 text-sm text-left cursor-pointer transition-colors outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--color-primary)] ${itemColors}`}
+                                    onClick={() => handleItem(item)}
+                                    // Requirement: items whose visible label describes a destination
+                                    //   (e.g. "Light mode") rather than an action are ambiguous to
+                                    //   screen readers without additional context. Callers can pass
+                                    //   `ariaLabel` to spell out the action ("Switch to light mode").
+                                    //   When not provided, fall back to the visible label.
+                                    aria-label={item.ariaLabel || item.label}
+                                >
+                                    {item.icon && (
+                                        <span className={`shrink-0 flex ${iconColor}`} aria-hidden="true">{item.icon}</span>
+                                    )}
+                                    <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{item.label}</span>
+                                    {item.external && (
+                                        <svg className="w-3 h-3 shrink-0 opacity-40" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+                                            <path d="M3.5 3H9v5.5M9 3L3 9" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    )}
+                                </button>
+                            </li>
+                        );
+                    })}
                 </ul>
-                <div className="hamburger-divider" />
-                <div className="hamburger-version">v{version}</div>
+                <div className="h-px bg-base-300 my-1" />
+                <div className="px-4 py-1.5 text-[11px] font-mono text-base-content/40">v{version}</div>
             </nav>
         </>
     ) : null;
 
     return (
-        <div className="hamburger-menu">
+        <div className="relative">
             <button
                 ref={triggerRef}
                 type="button"

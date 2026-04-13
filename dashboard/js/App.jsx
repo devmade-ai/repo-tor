@@ -345,7 +345,7 @@ export default function App() {
     if (embedIds) {
         if (!state.data) {
             return (
-                <div className="embed-error">
+                <div className="flex flex-col items-center justify-center min-h-[200px] p-6 text-center text-base-content/80 font-sans text-sm gap-2">
                     <p>No data available to display this chart.</p>
                     <p>Make sure data.json is deployed.</p>
                 </div>
@@ -388,9 +388,9 @@ export default function App() {
             <ErrorBoundary><Header /></ErrorBoundary>
             <div className="print:hidden"><ErrorBoundary><TabBar /></ErrorBoundary></div>
             <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
-                <div className="dashboard-layout mt-6">
+                <div className="flex gap-0 sm:gap-6 relative mt-6">
                     <div className="print:hidden"><ErrorBoundary><FilterSidebar /></ErrorBoundary></div>
-                    <div className="tab-content-area">
+                    <div className="flex-1 min-w-0">
                         <ErrorBoundary key={state.activeTab}>
                             {state.activeTab === 'overview' && <Summary />}
                             {state.activeTab === 'activity' && (

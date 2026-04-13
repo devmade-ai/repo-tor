@@ -27,7 +27,7 @@ export const UrgencyBar = React.memo(function UrgencyBar({ counts, total, label,
 
     return (
         <div
-            className={`p-2 -m-2 transition-colors ${onClick ? 'cursor-pointer hover:bg-base-200 rounded' : ''}`}
+            className={`p-2 -m-2 transition-colors ${onClick ? 'cursor-pointer hover:bg-base-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded' : ''}`}
             {...(onClick ? { role: 'button', tabIndex: 0, onKeyDown: handleKeyActivate(onClick) } : {})}
             onClick={onClick}
         >
@@ -64,7 +64,7 @@ export const ImpactBar = React.memo(function ImpactBar({ counts, total, label, o
 
     return (
         <div
-            className={`p-2 -m-2 transition-colors ${onClick ? 'cursor-pointer hover:bg-base-200 rounded' : ''}`}
+            className={`p-2 -m-2 transition-colors ${onClick ? 'cursor-pointer hover:bg-base-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded' : ''}`}
             {...(onClick ? { role: 'button', tabIndex: 0, onKeyDown: handleKeyActivate(onClick) } : {})}
             onClick={onClick}
         >

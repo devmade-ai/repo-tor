@@ -43,7 +43,7 @@ export function RiskAssessment({ riskBreakdown, riskTotal, isMobile, onRiskFilte
                     return (
                         <div
                             key={key}
-                            className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200' : ''}`}
+                            className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2' : ''}`}
                             role={clickable ? 'button' : undefined}
                             tabIndex={clickable ? 0 : undefined}
                             onClick={clickable ? () => onRiskFilterClick(key) : undefined}
@@ -91,7 +91,7 @@ export function DebtBalance({ debtBreakdown, debtTotal, isMobile, onDebtFilterCl
                     return (
                         <div
                             key={key}
-                            className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200' : ''}`}
+                            className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2' : ''}`}
                             role={clickable ? 'button' : undefined}
                             tabIndex={clickable ? 0 : undefined}
                             onClick={clickable ? () => onDebtFilterClick(key) : undefined}

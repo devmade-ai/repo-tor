@@ -211,16 +211,28 @@ test('Phase 7 — TabBar uses DaisyUI tabs + tab class composition with ARIA', (
     assert.match(src, /className="tabs tabs-border/);
     assert.match(src, /role="tablist"/);
     assert.match(src, /role="tab"/);
-    assert.match(src, /tab tab-btn /);
-    assert.match(src, /tab-active tab-btn-active/);
+    // TAB_BASE_CLASSES must include DaisyUI's `tab` class so the tab-bar
+    // gets DaisyUI's structural tab styling. The `.tab-btn` custom class
+    // was deleted 2026-04-13 — typography is now inline Tailwind utilities
+    // (font-mono uppercase tracking-wider text-base-content/60).
+    assert.match(src, /TAB_BASE_CLASSES\s*=\s*\n?\s*['"`]tab /);
+    assert.match(src, /font-mono uppercase/);
+    // Active-state class must include `tab-active` (DaisyUI's selected-tab
+    // class) plus the theme-aware text-shadow glow.
+    assert.match(src, /TAB_ACTIVE_CLASSES\s*=/);
+    assert.match(src, /tab-active border-primary text-primary/);
+    assert.match(src, /\[text-shadow:0_0_10px_color-mix/);
 });
 
 // ----- Phase 8: Form inputs (post-audit fix — DaisyUI v5 makes bordered default) -----
 
 test('Phase 8 — SettingsPane selects use DaisyUI select class (no v4 -bordered cruft)', () => {
     const src = read('dashboard/js/components/SettingsPane.jsx');
-    const selectMatches = src.match(/className="select select-sm"/g);
-    assert.ok(selectMatches && selectMatches.length === 2, `Expected 2 work hour <select> uses, found ${selectMatches?.length ?? 0}`);
+    // The 2026-04-13 custom-CSS cleanup added `w-full` inline (the
+    // previous `.settings-group select { width: 100% }` descendant rule
+    // was deleted), so both selects now carry `select select-sm w-full`.
+    const selectMatches = src.match(/className="select select-sm w-full"/g);
+    assert.ok(selectMatches && selectMatches.length === 2, `Expected 2 work hour <select> uses with "select select-sm w-full", found ${selectMatches?.length ?? 0}`);
     // Must not re-introduce the v4 `-bordered` cruft.
     assert.doesNotMatch(src, /select-bordered/, 'DaisyUI v5 removed `select-bordered` — see docs/DAISYUI_V5_NOTES.md');
     assert.doesNotMatch(src, /filter-select/, 'Dead .filter-select custom class must not be re-introduced');
@@ -240,22 +252,38 @@ test('Phase 9 — HamburgerMenu uses React Portal to escape header stacking cont
     const src = read('dashboard/js/components/HamburgerMenu.jsx');
     assert.match(src, /import \{ createPortal \} from 'react-dom'/);
     assert.match(src, /createPortal\(portalContent, document\.body\)/);
-    // Destructive hover must use theme-aware color-mix. Isolate the
-    // .hamburger-item-destructive:hover rule body — the rest of styles.css
-    // has intentional hardcoded rgba() values for the .tag-* palette
-    // (brand/semantic fixed colors that should NOT track theme).
-    const stylesSrc = read('dashboard/styles.css');
-    const destructiveRuleMatch = stylesSrc.match(/\.hamburger-item-destructive:hover\s*\{[^}]+\}/);
-    assert.ok(destructiveRuleMatch, 'Could not find .hamburger-item-destructive:hover rule in styles.css');
-    assert.match(destructiveRuleMatch[0], /color-mix\(in oklab,\s*var\(--color-error\)/, 'Hamburger destructive hover must use color-mix(var(--color-error)) — not hardcoded rgba()');
-    assert.doesNotMatch(destructiveRuleMatch[0], /rgba\(/, 'Hamburger destructive hover must not use hardcoded rgba()');
+    // Destructive hover must use theme-aware bg-error/10 Tailwind utility
+    // (the 2026-04-13 custom-CSS cleanup migrated the
+    // .hamburger-item-destructive:hover rule to inline Tailwind in JSX).
+    // The bg-error/10 utility resolves to `color-mix(in oklab,
+    // var(--color-error) 10%, transparent)` via DaisyUI's semantic token
+    // system, so the end-user color is identical — just sourced from
+    // Tailwind instead of a hand-rolled CSS rule.
+    assert.match(
+        src, /hover:bg-error\/10/,
+        'HamburgerMenu destructive items must use Tailwind `hover:bg-error/10` ' +
+        'for theme-aware hover background. Was previously in styles.css as ' +
+        '`.hamburger-item-destructive:hover { background: color-mix(...) }`.'
+    );
+    // Regression guard: the old hardcoded `rgba(239, 68, 68, ...)` must
+    // not return anywhere in the JSX — explicit rgba() is a sign the
+    // color-token migration was reversed.
+    assert.doesNotMatch(
+        src, /rgba\s*\(\s*239/,
+        'HamburgerMenu must not use hardcoded `rgba(239, 68, 68, ...)` — ' +
+        'use Tailwind `bg-error/10` or DaisyUI semantic tokens.'
+    );
 });
 
 // ----- Phase 10: FilterSidebar multi-select inner checkbox -----
 
 test('Phase 10 — FilterSidebar multi-select inner checkbox uses DaisyUI checkbox', () => {
     const src = read('dashboard/js/components/FilterSidebar.jsx');
-    assert.match(src, /className="checkbox checkbox-xs checkbox-primary"/);
+    // The 2026-04-13 custom-CSS cleanup inlined `.filter-multi-select-option
+    // input[type="checkbox"] { margin: 0; flex-shrink: 0 }` onto the
+    // checkbox className, so the full string is now
+    // `checkbox checkbox-xs checkbox-primary m-0 shrink-0`.
+    assert.match(src, /className="checkbox checkbox-xs checkbox-primary(?: m-0 shrink-0)?"/);
 });
 
 // ----- Follow-up audit: loading spinner shadow removal -----
@@ -488,6 +516,106 @@ test('Built CSS ships the 8 DaisyUI semantic bg tokens used by data-viz', { skip
         if (!new RegExp(`\\.bg-${token}\\b`).test(builtCss)) missing.push(`bg-${token}`);
     }
     assert.equal(missing.length, 0, `Built CSS missing semantic bg tokens: ${missing.join(', ')}`);
+});
+
+// ----- Final allowlist: ONLY these custom classes may remain in styles.css -----
+
+test('styles.css allowlist — only legitimate custom classes remain', () => {
+    // The 2026-04-13 "no custom CSS unless absolutely necessary" sweep
+    // migrated ~80 custom class wrappers to inline Tailwind utilities.
+    // The classes below are the ones that SHOULD stay custom — each has
+    // a Tailwind-incompatible feature (pseudo-element, @keyframes, CSS
+    // transition from a non-Tailwind value like `max-height: none`,
+    // complex state-class descendant selectors for transform slide-overs,
+    // or isolated rendering that survives CSS load failure).
+    //
+    // If a new primary rule head appears in styles.css that isn't in this
+    // allowlist, this test fails. Add it to the list ONLY if the rule
+    // has a Tailwind-incompatible feature documented in a rationale
+    // block. If the new rule is just a layout/typography alias, migrate
+    // it to inline Tailwind utilities instead of extending the allowlist.
+    const LEGITIMATE_CUSTOM_CLASSES = new Set([
+        // --- Transform-based slide-over drawers (state class + transform transitions) ---
+        'filter-sidebar',
+        'filter-sidebar-overlay',
+        'detail-pane',
+        'detail-pane-overlay',
+        'detail-pane-header',         // zero-style marker for mobile ::before drag handle
+        'settings-pane',
+        'settings-pane-overlay',
+        'settings-pane-header',       // zero-style marker for mobile ::before drag handle
+        // --- Pseudo-elements (::after gradient, ::before drag handles) ---
+        'dashboard-header',           // ::after gradient accent line
+        // --- @keyframes animations ---
+        'dashboard-enter',            // fade-in on page load
+        'hamburger-dropdown',         // fade-in + complex box-shadow
+        'hamburger-update-dot',       // pulse animation
+        // --- React-state transitions with Tailwind-incompatible values ---
+        'collapsible-content',        // max-height: 0 → none transition
+        // --- Isolated rendering that must survive CSS load failure ---
+        'root-error-message',
+        'root-error-detail',
+        'root-error-hint',
+        // --- Not shipped by Tailwind ---
+        'scrollbar-hide',             // ::-webkit-scrollbar pseudo + iOS scroll
+        'header-filter-hint',         // `font: inherit` shorthand
+        // --- Data-viz intensity levels (dynamic JSX reference `heatmap-${level}`) ---
+        'heatmap-0',
+        'heatmap-1',
+        'heatmap-2',
+        'heatmap-3',
+        'heatmap-4',
+        // --- Root state marker consumed by descendant selectors in styles.css ---
+        'embed-mode',                 // triggers chart-only rendering in embeds
+    ]);
+
+    // DaisyUI component classes that appear in styles.css ONLY inside
+    // override blocks (print media, embed-mode descendants). They're
+    // not custom class definitions — they're overrides of DaisyUI's own
+    // classes. The Python rule-head extractor can't distinguish these,
+    // so we exempt them explicitly.
+    const DAISYUI_OVERRIDES = new Set(['card', 'modal', 'btn', 'tab', 'tabs']);
+
+    const stylesSrc = read('dashboard/styles.css');
+    // Strip comments so rationale blocks that reference removed classes
+    // don't false-trigger.
+    const stripped = stylesSrc.replace(/\/\*[\s\S]*?\*\//g, '');
+    // Extract primary rule-head class names (class starts a rule).
+    const seen = new Set();
+    for (const line of stripped.split('\n')) {
+        const m = line.match(/^\s*\.([a-zA-Z][a-zA-Z0-9_-]+)/);
+        if (m && line.includes('{')) seen.add(m[1]);
+    }
+
+    const unauthorized = [];
+    for (const name of seen) {
+        if (LEGITIMATE_CUSTOM_CLASSES.has(name)) continue;
+        if (DAISYUI_OVERRIDES.has(name)) continue;
+        unauthorized.push(name);
+    }
+
+    assert.equal(
+        unauthorized.length, 0,
+        `Unauthorized custom class(es) in dashboard/styles.css: ${unauthorized.sort().join(', ')}\n\n` +
+        'Add the class to LEGITIMATE_CUSTOM_CLASSES above ONLY if it has a Tailwind-incompatible ' +
+        'feature documented in a rationale block (pseudo-element, @keyframes, max-height:none transition, ' +
+        'transform-based slide-over state, CSS-load-failure survival, or unshipped utility like scrollbar-hide). ' +
+        'Otherwise migrate it to inline Tailwind utilities at its JSX consumers and delete the rule.'
+    );
+
+    // Also verify every legitimate class in the allowlist ACTUALLY still
+    // has a rule — the allowlist should stay in sync with reality, and
+    // a stale entry (allowlisted but no rule) means a migration removed
+    // the rule but forgot to update the allowlist.
+    const missingFromCss = [];
+    for (const name of LEGITIMATE_CUSTOM_CLASSES) {
+        if (!seen.has(name)) missingFromCss.push(name);
+    }
+    assert.equal(
+        missingFromCss.length, 0,
+        `Allowlisted classes no longer have rules in styles.css: ${missingFromCss.join(', ')}\n` +
+        'Remove them from LEGITIMATE_CUSTOM_CLASSES — the allowlist must track reality.'
+    );
 });
 
 // ----- Custom-CSS cleanup pass (2026-04-13) invariants -----

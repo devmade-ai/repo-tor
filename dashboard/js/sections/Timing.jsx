@@ -366,7 +366,7 @@ export default function Timing() {
                             return (
                                 <div
                                     key={weekKey}
-                                    className={`heatmap-cell heatmap-cell-sm heatmap-${level}`}
+                                    className={`w-4 h-4 min-w-4 min-h-4 rounded-sm flex items-center justify-center text-[8px] text-base-content/80 cursor-default transition-transform duration-100 hover:scale-110 hover:z-10 heatmap-${level}`}
                                     data-tooltip={`Week of ${weekLabel}: ${count} commits`}
                                 >
                                     {count > 9 ? '' : count || ''}
@@ -412,17 +412,17 @@ export default function Timing() {
             // Developer view: full 24x7 hourly heatmap
             const { matrix, maxCount, dayOrder, dayLabels } = heatmapContent;
             return (
-                <div className="heatmap-grid">
+                <div className="grid grid-cols-[36px_repeat(7,1fr)] gap-0.5 min-w-[280px] sm:grid-cols-[50px_repeat(7,1fr)] sm:min-w-[400px]">
                     {/* Header row */}
-                    <div className="heatmap-label"></div>
+                    <div />
                     {dayLabels.map(d => (
-                        <div key={d} className="heatmap-header">{d}</div>
+                        <div key={d} className="flex items-center justify-center text-[9px] sm:text-[11px] font-medium text-base-content/80">{d}</div>
                     ))}
 
                     {/* Data rows */}
                     {Array.from({ length: 24 }, (_, hour) => (
                         <React.Fragment key={hour}>
-                            <div className="heatmap-label">
+                            <div className="flex items-center justify-end pr-1 sm:pr-2 text-[9px] sm:text-[11px] text-base-content/60">
                                 {hour % 3 === 0 ? `${hour.toString().padStart(2, '0')}:00` : ''}
                             </div>
                             {dayOrder.map((dayIdx, i) => {
@@ -432,7 +432,7 @@ export default function Timing() {
                                 return (
                                     <div
                                         key={dayIdx}
-                                        className={`heatmap-cell heatmap-${level}`}
+                                        className={`aspect-square min-w-5 min-h-5 sm:min-w-7 sm:min-h-7 rounded-sm flex items-center justify-center text-[8px] sm:text-[10px] text-base-content/80 cursor-default transition-transform duration-100 hover:scale-110 hover:z-10 heatmap-${level}`}
                                         data-tooltip={tooltip}
                                     >
                                         {count || ''}

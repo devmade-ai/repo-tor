@@ -312,7 +312,7 @@ export default function Summary() {
                           1x4 grid that needs a different visual rhythm.
                     */}
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`${metrics.features} features built — click to see details`}
@@ -323,7 +323,7 @@ export default function Summary() {
                         <div className="text-sm text-base-content/60">Features Built</div>
                     </div>
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`${metrics.fixes} bugs fixed — click to see details`}
@@ -334,7 +334,7 @@ export default function Summary() {
                         <div className="text-sm text-base-content/60">Bugs Fixed</div>
                     </div>
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`Average urgency ${metrics.avgUrgency > 0 ? metrics.avgUrgency.toFixed(1) : 'not available'} — click to see reactive commits`}
@@ -347,7 +347,7 @@ export default function Summary() {
                         <div className="text-sm text-base-content/60">Avg Urgency</div>
                     </div>
                     <div
-                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`${metrics.plannedPct > 0 ? metrics.plannedPct + '% planned work' : 'No planned work data'} — click to see details`}

@@ -116,19 +116,24 @@ function MultiSelect({ options, selected, onChange }) {
         ? `multiselect-option-${highlightIndex}`
         : undefined;
 
+    // Tailwind class strings extracted for readability — base layout
+    // for each multi-select option, reused in both the live option loop
+    // and the empty-state placeholder below.
+    const optionBaseClasses = 'flex items-center px-2 py-1.5 cursor-pointer text-xs gap-1.5 leading-tight';
+
     return (
-        <div className="filter-multi-select" ref={containerRef}>
+        <div className="relative" ref={containerRef}>
             <button
                 type="button"
-                className="filter-multi-select-trigger"
+                className="w-full px-2 py-1.5 text-xs border border-base-300 rounded-sm bg-base-200 text-base-content cursor-pointer flex justify-between items-center min-h-8 hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
                 aria-haspopup="listbox"
                 aria-expanded={open}
                 aria-activedescendant={activeDescendant}
                 onClick={() => setOpen(!open)}
                 onKeyDown={handleKeyDown}
             >
-                <span className="selected-text">{getDisplayText()}</span>
-                <span className="arrow">
+                <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{getDisplayText()}</span>
+                <span className="ml-1 opacity-50">
                     <svg width="10" height="10" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
@@ -136,38 +141,52 @@ function MultiSelect({ options, selected, onChange }) {
             </button>
             <div
                 ref={listboxRef}
-                className={`filter-multi-select-dropdown ${open ? 'open' : ''}`}
+                className={`absolute top-full left-0 right-0 max-h-[200px] overflow-y-auto bg-base-200 border border-base-300 rounded-sm shadow-[0_10px_25px_rgb(0_0_0/0.25)] z-20 ${open ? 'block' : 'hidden'}`}
                 role="listbox"
                 aria-multiselectable="true"
             >
-                {options.map((option, idx) => (
-                    <div
-                        key={option}
-                        id={`multiselect-option-${idx}`}
-                        data-index={idx}
-                        className={`filter-multi-select-option${selected.includes(option) ? ' selected' : ''}${idx === highlightIndex ? ' highlighted' : ''}`}
-                        role="option"
-                        aria-selected={selected.includes(option)}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            toggleOption(option);
-                        }}
-                        onMouseEnter={() => setHighlightIndex(idx)}
-                    >
-                        <input
-                            type="checkbox"
-                            className="checkbox checkbox-xs checkbox-primary"
-                            checked={selected.includes(option)}
-                            onChange={() => toggleOption(option)}
-                            onClick={(e) => e.stopPropagation()}
-                            tabIndex={-1}
-                            aria-hidden="true"
-                        />
-                        <span>{option}</span>
-                    </div>
-                ))}
+                {options.map((option, idx) => {
+                    // Selection + highlight state drives the row background:
+                    // keyboard-highlighted row wins over selected, which wins
+                    // over the hover-only default. Matches the old CSS
+                    // cascade where `.highlighted` was listed after
+                    // `.selected` so the highlighted class took precedence.
+                    const isSelected = selected.includes(option);
+                    const isHighlighted = idx === highlightIndex;
+                    const bgClass = isHighlighted
+                        ? 'bg-base-300'
+                        : isSelected
+                        ? 'bg-primary/10 hover:bg-base-300'
+                        : 'hover:bg-base-300';
+                    return (
+                        <div
+                            key={option}
+                            id={`multiselect-option-${idx}`}
+                            data-index={idx}
+                            className={`${optionBaseClasses} ${bgClass}`}
+                            role="option"
+                            aria-selected={isSelected}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                toggleOption(option);
+                            }}
+                            onMouseEnter={() => setHighlightIndex(idx)}
+                        >
+                            <input
+                                type="checkbox"
+                                className="checkbox checkbox-xs checkbox-primary m-0 shrink-0"
+                                checked={isSelected}
+                                onChange={() => toggleOption(option)}
+                                onClick={(e) => e.stopPropagation()}
+                                tabIndex={-1}
+                                aria-hidden="true"
+                            />
+                            <span>{option}</span>
+                        </div>
+                    );
+                })}
                 {options.length === 0 && (
-                    <div className="filter-multi-select-option text-base-content/40 cursor-default">
+                    <div className={`${optionBaseClasses} text-base-content/40 cursor-default`}>
                         No options available
                     </div>
                 )}
@@ -195,12 +214,12 @@ function FilterGroup({ label, filterType, options }) {
     }
 
     return (
-        <div className="filter-group">
+        <div>
             <div className="flex items-center mb-1">
                 {/* `mb-0` cancels the global `.filter-sidebar-inner label`
                     margin-bottom rule in styles.css — without it the label
                     would add 4px to the flex row height. */}
-                <label className="mb-0">{label}</label>
+                <label className="block text-xs text-base-content/60 mb-0">{label}</label>
                 {/*
                   Include/Exclude mode toggle — DaisyUI `join` + `btn btn-xs`
                   segmented buttons. `btn-active` marks the selected mode.
@@ -251,7 +270,7 @@ export default function FilterSidebar() {
     return (
         <>
             <div className={`filter-sidebar ${state.filterSidebarOpen ? 'open' : 'collapsed'}`}>
-                <div className="filter-sidebar-inner">
+                <div className="w-[280px] p-4 bg-base-200 rounded-lg border border-base-300 space-y-4 max-md:w-full max-md:h-full max-md:rounded-none max-md:border-0 max-md:overflow-y-auto max-md:pt-6">
                     <div className="text-xs text-base-content/60 mb-3">
                         Showing {filteredCommits.length} of {state.data?.commits?.length || 0} commits
                         {activeFilterCount > 0 && ` (${activeFilterCount} filters active)`}
@@ -263,8 +282,8 @@ export default function FilterSidebar() {
                     <FilterGroup label="Urgency" filterType="urgency" options={filterOptions.urgencies} />
                     <FilterGroup label="Impact" filterType="impact" options={filterOptions.impacts} />
 
-                    <div className="filter-group">
-                        <label>Date Range</label>
+                    <div>
+                        <label className="block text-xs text-base-content/60 mb-1">Date Range</label>
                         <div className="flex flex-col gap-1.5">
                             <input
                                 type="date"

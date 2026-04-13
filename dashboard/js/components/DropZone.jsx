@@ -40,11 +40,22 @@ export default function DropZone({ onFiles }) {
         e.target.value = '';
     }, [onFiles]);
 
+    // State-conditional visual for the drag-over highlight + focus ring.
+    // Base styles come first so the drag-over overrides land last.
+    const dropZoneBase =
+        'border-2 border-dashed border-base-300 rounded-lg px-6 py-10 cursor-pointer transition-all ' +
+        'focus-visible:border-primary focus-visible:bg-primary/5 ' +
+        'focus-visible:outline-none';
+    const dropZoneActive =
+        'border-primary bg-primary/10 shadow-[0_0_20px_color-mix(in_oklab,var(--color-primary)_25%,transparent)]';
+    // Icon color flips to primary during drag-over.
+    const iconColor = isDragOver ? 'text-primary' : 'text-base-content/60';
+
     return (
-        <div className="max-w-2xl mx-auto px-4 py-16 drop-zone-container">
-            <h1 className="drop-zone-heading">Git Analytics Dashboard</h1>
+        <div className="max-w-2xl mx-auto px-4 py-16 min-h-[60vh] flex flex-col justify-center">
+            <h1 className="text-base-content text-xl font-semibold text-center mb-6 font-mono">Git Analytics Dashboard</h1>
             <div
-                className={`drop-zone ${isDragOver ? 'drag-over' : ''}`}
+                className={`${dropZoneBase} ${isDragOver ? dropZoneActive : ''}`}
                 onClick={handleClick}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -61,7 +72,7 @@ export default function DropZone({ onFiles }) {
             >
                 <div className="text-center">
                     <svg
-                        className="drop-zone-icon mx-auto"
+                        className={`w-12 h-12 mx-auto mb-3 transition-colors ${iconColor}`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"

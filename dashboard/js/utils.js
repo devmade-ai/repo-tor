@@ -32,6 +32,34 @@ export function handleKeyActivate(callback) {
     };
 }
 
+// Shared Tailwind class string for the focus-visible ring used on every
+// `role="button"` non-native-button element across the dashboard (stat
+// tiles, category cards, drill-down tiles, settings toggles, etc.).
+// Native <button>/<input> elements inherit DaisyUI's own focus rings
+// through the `btn`/`input` classes — this constant is only for the
+// div/span wrappers that play the role of a button but need an explicit
+// focus indicator for keyboard users.
+//
+// Requirement: Previously a global `[role="button"]:focus-visible`
+//   attribute selector rule lived in styles.css. The 2026-04-13
+//   custom-CSS cleanup pass migrated every named class wrapper to
+//   inline Tailwind utilities, and this constant replaces the one
+//   attribute-selector rule left in the bespoke-focus section — the
+//   "no custom CSS unless necessary" rule applies to attribute selectors
+//   too, not just class selectors.
+// Approach: Export a plain string so consumers append it to their
+//   className template literals. Kept here in utils.js rather than a
+//   new file because CLAUDE.md prefers editing existing files over
+//   creating new ones for small additions.
+// Alternatives considered:
+//   - React component wrapper (<InteractiveCard />): Rejected — would
+//     require 15+ consumer updates + an extra wrapper element per tile.
+//   - CSS @layer rule on `[role="button"]`: Rejected — that's the
+//     custom CSS pattern we're trying to eliminate.
+export const FOCUS_RING_CLASSES =
+    'focus-visible:outline focus-visible:outline-2 ' +
+    'focus-visible:outline-primary focus-visible:outline-offset-2';
+
 // --- getUrgencyLabel ---
 export function getUrgencyLabel(urgency) {
     if (urgency <= 2) return 'Planned';
