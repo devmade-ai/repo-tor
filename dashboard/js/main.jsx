@@ -44,16 +44,32 @@ ChartJS.register(
 // darkMode effect so they update on theme toggle. Initial values are set there
 // too — no need to read CSS variables here at module load time.
 
-// Set --chart-accent-rgb CSS variable from chartColors.js so heatmap CSS
-// classes can use the embed-overridden accent color. This bridges the URL
-// param (parsed in JS) to the CSS heatmap intensity classes.
-import { accentColor } from './chartColors.js';
-(() => {
-    const r = parseInt(accentColor.slice(1, 3), 16);
-    const g = parseInt(accentColor.slice(3, 5), 16);
-    const b = parseInt(accentColor.slice(5, 7), 16);
-    document.documentElement.style.setProperty('--chart-accent-rgb', `${r}, ${g}, ${b}`);
-})();
+// Bridge the embedder's URL `?accent=` / `?palette=` override to CSS via
+// `--chart-accent-override`. The heatmap intensity rules in styles.css use
+// `var(--chart-accent-override, var(--color-primary))` so when this property
+// is unset the heatmap tracks the active DaisyUI theme's --color-primary
+// automatically. When the embedder supplied a URL override, we pin the CSS
+// property so all themes render the embed brand color instead.
+//
+// Requirement: Embedders that use the dashboard inside a branded iframe
+//   want their chosen accent color to survive theme picker clicks. For
+//   in-dashboard use (no embed override) the heatmap should track the
+//   active theme so lofi/nord/emerald/caramellatte/black/dim/coffee/dracula
+//   users each see their theme's primary instead of brand blue.
+// Approach: Only set --chart-accent-override when an explicit URL override
+//   was supplied. The CSS `var()` fallback chain handles the no-override
+//   case for free.
+// Alternatives:
+//   - Always set --chart-accent-override to the bootstrap accent: Rejected
+//     — would shadow DaisyUI's --color-primary even when no embedder is
+//     involved, re-introducing the "off-brand single-accent charts" bug
+//     the 2026-04-13 audit caught.
+//   - Set via JavaScript on every theme change: Rejected — the CSS var()
+//     fallback already handles theme tracking without any JS involvement.
+import { accentColor, hasUrlAccentOverride } from './chartColors.js';
+if (hasUrlAccentOverride) {
+    document.documentElement.style.setProperty('--chart-accent-override', accentColor);
+}
 
 // === Debug Bridge ===
 // Requirement: Debug pill must work even when JS bundle fails to load

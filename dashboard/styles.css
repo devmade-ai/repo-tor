@@ -546,14 +546,41 @@ body::before {
                 font-size: 11px;
             }
         }
-        /* Heatmap intensity levels — uses --chart-accent-rgb (set by chartColors.js)
-           so embedding apps can override the heatmap color via ?accent= URL param.
-           Falls back to primary blue (45, 104, 255) when no override is present. */
+        /* Heatmap intensity levels.
+           Requirement: fill color tracks the active DaisyUI theme's primary
+             accent by default (so `nord` users see cool blue, `emerald` users
+             see green, etc.) but embedders can still override via the URL
+             `?accent=hex` param to pin a brand color.
+           Approach: use `var(--chart-accent-override, var(--color-primary))`
+             — the nested var() fallback means when --chart-accent-override
+             is unset (no URL param), the rule resolves to --color-primary
+             which DaisyUI sets per theme via the theme plugin. When the
+             embedder sets --chart-accent-override via main.jsx (from the
+             URL `?accent=` param), that takes precedence. color-mix() gives
+             us the intensity fades without needing RGB triples — it accepts
+             oklch() input and produces smooth intensity bands that read
+             correctly across all 8 registered themes.
+           Alternatives:
+             - Keep --chart-accent-rgb with oklch→RGB conversion on every
+               theme change: Rejected — requires a JS color-space conversion
+               step that duplicates the oklchToHex script, and the rgba()
+               path can't handle P3 wide-gamut colors while color-mix(in oklab)
+               can.
+             - Swap color-mix() for a series of static .heatmap-N rules per
+               theme: Rejected — 5 levels × 8 themes = 40 rules, and would
+               drift from DaisyUI's primary every time a theme changes.
+           Migrated 2026-04-13 as part of the Chart.js theme-tracking pass. */
         .heatmap-0 { background-color: var(--color-base-300); }
-        .heatmap-1 { background-color: rgba(var(--chart-accent-rgb, 45, 104, 255), 0.15); }
-        .heatmap-2 { background-color: rgba(var(--chart-accent-rgb, 45, 104, 255), 0.35); }
-        .heatmap-3 { background-color: rgba(var(--chart-accent-rgb, 45, 104, 255), 0.6); color: white; }
-        .heatmap-4 { background-color: rgb(var(--chart-accent-rgb, 45, 104, 255)); color: white; }
+        .heatmap-1 { background-color: color-mix(in oklab, var(--chart-accent-override, var(--color-primary)) 15%, transparent); }
+        .heatmap-2 { background-color: color-mix(in oklab, var(--chart-accent-override, var(--color-primary)) 35%, transparent); }
+        .heatmap-3 {
+            background-color: color-mix(in oklab, var(--chart-accent-override, var(--color-primary)) 60%, transparent);
+            color: var(--color-primary-content);
+        }
+        .heatmap-4 {
+            background-color: var(--chart-accent-override, var(--color-primary));
+            color: var(--color-primary-content);
+        }
 
         /* Deleted blocks that used to live here:
            - Tailwind gray class overrides (.bg-gray-*, .text-gray-*, .border-gray-*)
