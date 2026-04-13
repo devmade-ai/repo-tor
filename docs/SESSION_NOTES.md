@@ -4,9 +4,44 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support.
+**Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support. As of 2026-04-13, every user-visible surface also routes through DaisyUI's `@layer components` classes — no custom CSS class shadows any DaisyUI component.
 
-**Recent Updates (2026-04-12 — sixth pass, glow-props alignment):**
+**Recent Updates (2026-04-13 — DaisyUI component-class migration, 10 phases):**
+
+A side-by-side audit against canva-grid/glow-props surfaced a serious "shadowing" finding: our custom unlayered classes (`.card`, `.btn-*`, `.badge`, `.toast-*`) were silently overriding DaisyUI's `@layer components` versions. Every consumer that thought it was getting DaisyUI's component was actually getting our custom fork. This pass migrates the consumers to DaisyUI component classes and deletes the shadow definitions.
+
+Ten commits on `claude/migrate-daisyui-dark-mode-toG0Y`, each a single phase:
+
+1. `d8ef996` Phase 1 — QuickGuide + InstallInstructionsModal → DaisyUI `modal` + `modal-box` + `modal-backdrop`. Warning note in InstallInstructionsModal → `alert alert-warning alert-soft`. Chose CSS-class form (`<div className="modal modal-open">`) over native `<dialog>` for React state control.
+2. `1610c90` Phase 2 — Toast → DaisyUI `toast toast-bottom toast-center` + `alert alert-{variant}`. Custom keyframes replaced with Tailwind transition utilities. Inline `style={{ zIndex: 'var(--z-toast)' }}` so toasts stack above the debug pill.
+3. `588e7c2` Phase 3 — Health.jsx security summary containers → `<div role="alert" className="alert alert-error ...">`. Per-commit list items kept as bespoke `bg-error/10` divs.
+4. `0128995` Phase 4 — Timeline Holiday/Weekend/After-Hours badges → `badge badge-{accent|info|warning} badge-sm`. Deleted `.badge-*` custom classes (CRITICAL shadow removed).
+5. `66c888c` Phase 5 — CollapsibleSection/ErrorBoundary/App/Projects/Discover → `card bg-base-200 border border-base-300` + `card-body`. Deleted `.card` and `.card:hover` (CRITICAL shadow removed).
+6. `17fb91a` Phase 6 — Every button migrated to `btn btn-{variant}`. Header filter toggle, HamburgerMenu trigger, ShowMoreButton, FilterSidebar Include/Exclude segmented toggle (via `join` + `join-item btn btn-xs`), Clear All, DetailPane/SettingsPane close buttons. Deleted `.btn-icon`, `.btn-primary`, `.btn-secondary`, `.btn-theme`, `.show-more-btn`, `.filter-toggle`, `.filter-clear-btn`, `.filter-preset-btn`, `.filter-mode-toggle`, `.project-link*`, `.detail-pane-close`, `.settings-pane-close`, `.filter-badge`. Print rule updated to attribute selector `[aria-label^="Show "].btn`.
+7. `41a3276` Phase 7 — TabBar adds `tabs tabs-border` + `tab tab-active` class composition while keeping the custom `.tab-btn` mono-uppercase typography. `role="tablist"` + `role="tab"` + `aria-selected` are on the same elements DaisyUI expects.
+8. `e020af6` Phase 8 — SettingsPane work hour `<select>` → `select select-bordered select-sm`. FilterSidebar date `<input>` → `input input-bordered input-sm w-full`. Deleted `.filter-select`, `.filter-input`, `.filter-date-input`.
+9. `9db2a10` Phase 9 — HamburgerMenu audit. Verified `.hamburger-*` prefix is unique (no shadow). Fixed hardcoded `rgba(239, 68, 68, 0.1)` → `color-mix(in oklab, var(--color-error) 10%, transparent)` on destructive hover. Documented why DaisyUI `dropdown` + `menu` cannot replace the disclosure-pattern surface: `dropdown` uses CSS `:focus` (incompatible with React state + keepOpen theme picker), and `menu` implies `role="menu"` which BURGER_MENU.md explicitly rejects.
+10. `94d90f3` Phase 10 — FilterSidebar multi-select audit. The widget is a WAI-ARIA listbox (`role="listbox"` + `role="option"` + `aria-multiselectable`), not a menu. DaisyUI v5 has no listbox primitive. Inner `<input type="checkbox">` migrated to `checkbox checkbox-xs checkbox-primary` for visual consistency. Rationale documented in the component header.
+
+**Shadowing risk audit — before vs after:**
+
+- Before: `.card`, `.btn-*`, `.badge`, `.toast-*` classes lived unlayered and silently overrode `@layer components` definitions from DaisyUI. The override worked only while our custom versions stayed in sync with DaisyUI's layout expectations — a latent regression trap.
+- After: zero shadowing. Remaining custom classes use unique prefixes that DaisyUI does not define (`.tab-btn`, `.hamburger-*`, `.filter-multi-select*`, `.detail-pane*`, `.settings-pane*`, `.filter-sidebar*`, `.dashboard-header`, `.tag`, `.tag-*`, `.heatmap-*`). Each one is documented at its use-site with a rationale block.
+
+**Deliberately NOT migrated (documented):**
+
+- HamburgerMenu dropdown surface — disclosure pattern, not ARIA menu. DaisyUI `dropdown` conflicts with React state control.
+- FilterSidebar multi-select dropdown surface — it's a listbox, DaisyUI has no listbox primitive.
+- CollapsibleSection expand/collapse — stateless DaisyUI `collapse` can't match React-state-driven per-section IDs.
+- FilterSidebar drawer / DetailPane / SettingsPane shells — custom focus traps + scroll lock + escape-key patterns. DaisyUI `drawer` is coupled to the `drawer-toggle` checkbox pattern which conflicts with React state.
+
+**Build:** 10 successful builds (one per phase). Final bundle CSS 158.82 KB (26.96 KB gzipped), JS 557.84 KB (175.82 KB gzipped), 84 modules transform, PWA precache 41 entries. Net CSS deletion across the sweep is ~400 lines of custom component classes; the DaisyUI classes we now reference were already bundled from `@plugin "daisyui"`.
+
+**Testing gap:** No browser runtime test performed — the TESTING_GUIDE's migration checklist should be walked through in a real browser before considering the migration user-verified. All 10 phase builds were smoke-tested via `./node_modules/.bin/vite build` only.
+
+---
+
+**Previous Updates (2026-04-12 — sixth pass, glow-props alignment):**
 
 - Burger menu now stays open during theme picker interactions. Users can click Nord, then Emerald, then Caramel Latte in rapid succession to preview themes without reopening the menu between each click. The dark/light mode toggle is also `keepOpen: true` so a user can toggle to dark mode and then pick a dark theme in the same menu session — the theme list below the toggle swaps to the new mode's themes when the toggle dispatches.
 - Pattern borrowed from glow-props where theme controls deliberately omit the `data-close` attribute that other menu items carry. Every other menu item (Quick Guide, User Guide, Save as PDF, Install App, Update Now) keeps its existing close-then-act behavior.

@@ -258,6 +258,73 @@ Guidelines and checklists for testing features from a user perspective.
 *Print/PDF:*
 - [ ] Menu → Save as PDF → print preview shows white background, black text, regardless of the dashboard's current theme
 
+**DaisyUI component-class migration (2026-04-13):**
+
+Walk through these checks after switching theme to verify every migrated surface picks up the active DaisyUI theme's tokens. Run the checks in both a light theme and a dark theme.
+
+*Modals (Phase 1):*
+- [ ] Menu → Quick Guide → modal opens with proper backdrop, close button visible in top-right, footer Next/Done buttons styled as DaisyUI `btn-primary`/`btn-ghost`
+- [ ] Quick Guide close button (`btn btn-sm btn-circle btn-ghost`) has ghost hover tint matching theme
+- [ ] Menu → Install App → modal opens with step list + warning note rendered as `alert alert-warning alert-soft` (not a bespoke bg-warning/10 block)
+- [ ] Both modals dismiss on Escape, backdrop click, and close button
+
+*Toasts (Phase 2):*
+- [ ] Trigger a toast (e.g. load a bad data file, apply a filter) → toast appears at the bottom, centered
+- [ ] Toast alert background matches its variant (`alert-success` green, `alert-error` red, `alert-warning` yellow, `alert-info` blue) in both themes
+- [ ] Toast dismiss button is a tiny circle ghost button (`btn btn-ghost btn-xs btn-circle`)
+- [ ] Toast enter fades in smoothly, dismiss fades out with translate-y-2
+- [ ] Toast stacks above the debug pill (z-index from `--z-toast`)
+
+*Health security summary (Phase 3):*
+- [ ] Health tab → Security section → any of the three summary containers (Secrets, Vulnerabilities, Auth) with findings render as DaisyUI `alert alert-error` (red tinted background, centered text, error icon ghost)
+- [ ] The `role="alert"` attribute is present (check DevTools)
+- [ ] Per-commit list items below still use the compact `bg-error/10` block (deliberately not migrated)
+
+*Timeline badges (Phase 4):*
+- [ ] Timeline tab → find a commit with Holiday badge → renders as `badge badge-accent badge-sm`
+- [ ] Weekend badge → `badge badge-info badge-sm`
+- [ ] After Hours badge → `badge badge-warning badge-sm`
+- [ ] All three badges use DaisyUI semantic colors — switch themes and confirm the colors change
+
+*Cards (Phase 5):*
+- [ ] Every CollapsibleSection renders as `card bg-base-200` with a visible `border-base-300` in both themes
+- [ ] Error boundary (force an error in React DevTools) renders as a `card` with `role="alert"` + "Try again" button
+- [ ] Projects tab → ProjectCard tiles render as `card` with `card-body p-4 gap-0`, hover border tints to `primary/40`
+- [ ] Discover tab → metric cards render as `card` with `card-body p-5 gap-0`
+
+*Buttons (Phase 6):*
+- [ ] Header filter toggle → `btn btn-ghost btn-square`, shows active state when filters pane is open
+- [ ] Header filter badge (when filters active) → `badge badge-primary badge-xs` in top-right of the filter toggle
+- [ ] Header settings button → `btn btn-ghost btn-square`
+- [ ] Hamburger menu trigger → `btn btn-ghost btn-square`
+- [ ] Show More buttons in Timeline/Breakdown/Projects → `btn btn-ghost btn-block btn-sm`
+- [ ] FilterSidebar Include/Exclude toggle → `join` segmented buttons, Include active uses `btn-primary`, Exclude active uses `btn-error` (red)
+- [ ] FilterSidebar Clear All → `btn btn-outline btn-sm w-full`
+- [ ] DetailPane + SettingsPane close buttons → `btn btn-sm btn-circle btn-ghost`
+
+*Tabs (Phase 7):*
+- [ ] TabBar renders as `tabs tabs-border` with `role="tablist"` + `aria-label="Dashboard sections"`
+- [ ] Each tab has `role="tab"`, `aria-selected={isActive}`, and both `tab tab-btn` + (if active) `tab-active tab-btn-active`
+- [ ] Active tab still has the mono-uppercase typography from `.tab-btn` (typography from custom class, border from DaisyUI `tabs-border`)
+- [ ] Tab bar scrolls horizontally on narrow screens without showing a scrollbar
+
+*Form inputs (Phase 8):*
+- [ ] Settings pane → Work Hours → Start/End selects render as `select select-bordered select-sm` — notice DaisyUI's chevron arrow and hover border
+- [ ] Filter sidebar → Date Range → both date inputs render as `input input-bordered input-sm w-full`
+- [ ] Switch themes → selects and inputs pick up the new theme's bordered-input style automatically
+
+*HamburgerMenu (Phase 9):*
+- [ ] Open hamburger menu → trigger and items still look and behave the same (no regression)
+- [ ] Hover a destructive menu item (if any) → hover tint is now theme-aware (red-family for the active theme's error color, not hardcoded red)
+- [ ] Keyboard nav still works (arrow keys, Enter, Escape)
+- [ ] Theme picker items still `keepOpen: true` — click multiple themes without reopening the menu
+
+*FilterSidebar multi-select (Phase 10):*
+- [ ] Open any filter dropdown (Tags, Authors, Repos, Urgency, Impact) → checkbox in each option renders as DaisyUI `checkbox checkbox-xs checkbox-primary` (square with check mark)
+- [ ] Switch themes → checkbox fills with the active theme's primary color when checked
+- [ ] Keyboard nav still works (arrow keys move highlight, Space/Enter toggles, Escape closes)
+- [ ] Selected options still get the `bg-primary/10` tint on their row
+
 **Scroll Lock (Multiple Overlays):**
 - [ ] Open settings pane → page doesn't scroll behind overlay
 - [ ] Open Quick Guide from hamburger menu while settings pane is closed → page doesn't scroll
