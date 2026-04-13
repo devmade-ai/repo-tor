@@ -114,7 +114,7 @@ class RootErrorBoundary extends React.Component {
                     </p>
                     <button
                         onClick={() => window.location.reload()}
-                        className="btn-icon btn-primary"
+                        className="btn btn-primary"
                     >
                         Reload
                     </button>

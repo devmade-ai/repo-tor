@@ -123,7 +123,7 @@ export default function HamburgerMenu({ items }) {
             <button
                 ref={triggerRef}
                 type="button"
-                className="btn-theme"
+                className="btn btn-ghost btn-square"
                 onClick={toggle}
                 aria-label="Menu"
                 aria-expanded={open}

@@ -12,7 +12,7 @@ export default function ShowMoreButton({ remaining, pageSize, onClick }) {
     return (
         <button
             type="button"
-            className="show-more-btn"
+            className="btn btn-ghost btn-block btn-sm mt-3"
             onClick={onClick}
             aria-label={`Show ${nextBatch} more items, ${remaining} remaining`}
         >

@@ -297,30 +297,8 @@ body::before {
            Tailwind utilities. See dashboard/js/components/QuickGuide.jsx.
            The old .quick-guide-* custom classes used to live here. */
 
-        /* Requirement: Consistent "Show more" button across all paginated sections
-         * Approach: Full-width button with subtle background, transitions on hover
-         * Alternatives:
-         *   - Link-style text: Rejected — too small for touch targets on mobile
-         *   - Infinite scroll: Rejected — users lose sense of position in the list */
-        .show-more-btn {
-            display: block;
-            width: 100%;
-            padding: 10px 16px;
-            margin-top: 12px;
-            font-size: 13px;
-            font-weight: 500;
-            color: color-mix(in oklab, var(--color-base-content) 80%, transparent);
-            background: var(--color-base-300);
-            border: none;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: background 0.15s, color 0.15s;
-            text-align: center;
-        }
-        .show-more-btn:hover {
-            background: var(--color-base-300);
-            color: var(--color-base-content);
-        }
+        /* .show-more-btn migrated to DaisyUI `btn btn-ghost btn-block btn-sm`
+           in dashboard/js/components/ShowMoreButton.jsx. */
 
         /* Tag classes - adjusted for dark theme */
         /* Fix: Increased background opacity from 0.2→0.3 and border from 0.3→0.5
@@ -450,42 +428,10 @@ body::before {
            .badge-after-hours / .badge-weekend / .badge-holiday custom classes
            used to live here and shadowed DaisyUI's built-in .badge. */
 
-        /* Export/Share buttons - dark theme with techy feel */
-        .btn-icon {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            height: 40px;
-            padding: 0 32px;
-            font-size: 12px;
-            font-weight: 500;
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-        .btn-primary {
-            background-color: var(--color-primary);
-            color: var(--color-primary-content);
-        }
-        .btn-primary:hover {
-            background-color: color-mix(in oklab, var(--color-primary) 90%, transparent);
-            box-shadow: 0 0 20px color-mix(in oklab, var(--color-primary) 25%, transparent);
-        }
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--color-base-content);
-            border: 1px solid var(--color-base-300);
-        }
-        .btn-secondary:hover {
-            background-color: var(--color-base-200);
-        }
-        .btn-icon svg {
-            width: 16px;
-            height: 16px;
-        }
+        /* .btn-icon / .btn-primary / .btn-secondary — migrated to DaisyUI
+           `btn btn-primary` / `btn btn-outline` / `btn btn-ghost` classes
+           in dashboard/js/*. The old custom rules shadowed DaisyUI's built-in
+           .btn-primary / .btn-secondary. */
 
         /* Toast notification system — migrated to DaisyUI `toast toast-bottom
            toast-center` + `alert alert-success/error/warning/info` +
@@ -500,27 +446,8 @@ body::before {
            dashboard/js/components/InstallInstructionsModal.jsx. The old
            .install-modal-* custom classes used to live here. */
 
-        /* Icon buttons - dark theme */
-        .btn-theme {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: var(--radius-sm);
-            background: transparent;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-        .btn-theme:hover {
-            background-color: var(--color-base-300);
-            color: var(--color-base-content);
-        }
-        .btn-theme svg {
-            width: 20px;
-            height: 20px;
-        }
+        /* .btn-theme — migrated to DaisyUI `btn btn-ghost btn-square` in
+           Header.jsx + HamburgerMenu.jsx. */
 
         /* Print styles for PDF
          * Requirement: Clean, readable output when users save dashboard as PDF
@@ -536,8 +463,11 @@ body::before {
             .dashboard-header { background: white !important; border-bottom: 1px solid #e5e7eb; }
             /* Hide interactive chrome and modals when printing. `.modal` is
                DaisyUI's modal wrapper; QuickGuide and InstallInstructionsModal
-               both render inside it after the Phase 1 migration. */
-            .show-more-btn,
+               both render inside it after the Phase 1 migration. Show-more
+               buttons use DaisyUI `.btn.btn-block` after the Phase 6
+               migration — matched via attribute since `.btn` alone is too
+               broad. */
+            [aria-label^="Show "].btn,
             .hamburger-menu,
             .modal { display: none !important; }
             .header-filter-hint {
@@ -872,22 +802,8 @@ body::before {
             color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
             margin-top: 4px;
         }
-        .detail-pane-close {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: var(--radius-sm);
-            background: transparent;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-        .detail-pane-close:hover {
-            background: var(--color-base-300);
-            color: var(--color-base-content);
-        }
+        /* .detail-pane-close migrated to DaisyUI `btn btn-sm btn-circle btn-ghost`
+           in dashboard/js/components/DetailPane.jsx. */
 
         .detail-pane-content {
             flex: 1;
@@ -1028,22 +944,8 @@ body::before {
             font-weight: 600;
             color: var(--color-base-content);
         }
-        .settings-pane-close {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: var(--radius-sm);
-            background: transparent;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-        .settings-pane-close:hover {
-            background: var(--color-base-300);
-            color: var(--color-base-content);
-        }
+        /* .settings-pane-close migrated to DaisyUI `btn btn-sm btn-circle btn-ghost`
+           in dashboard/js/components/SettingsPane.jsx. */
 
         .settings-pane-content {
             flex: 1;
@@ -1201,34 +1103,8 @@ body::before {
             border-bottom: 1px solid var(--color-base-300);
         }
 
-        /* Filter toggle button - dark theme */
-        .filter-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-sm);
-            background: transparent;
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-            cursor: pointer;
-            transition: all 0.15s;
-            border: 1px solid transparent;
-            flex-shrink: 0;
-        }
-        .filter-toggle:hover {
-            background: var(--color-base-300);
-            color: var(--color-base-content);
-        }
-        .filter-toggle.active {
-            background: var(--color-base-300);
-            color: var(--color-base-content);
-            border-color: var(--color-base-300);
-        }
-        .filter-toggle svg {
-            width: 20px;
-            height: 20px;
-        }
+        /* .filter-toggle — migrated to DaisyUI `btn btn-ghost btn-square`
+           (with `btn-active` when the sidebar is open) in Header.jsx. */
 
         /* Dashboard layout with sidebar */
         .dashboard-layout {
@@ -1271,62 +1147,12 @@ body::before {
         .filter-sidebar-inner input {
             width: 100%;
         }
-        .filter-preset-btn {
-            padding: 4px 8px;
-            font-size: 11px;
-            border: 1px solid var(--color-base-300);
-            border-radius: var(--radius-sm);
-            background: var(--color-base-300);
-            color: color-mix(in oklab, var(--color-base-content) 80%, transparent);
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-        .filter-preset-btn:hover {
-            background: var(--color-primary);
-            border-color: var(--color-primary);
-            color: var(--color-primary-content);
-        }
-        .filter-preset-btn.active {
-            background: var(--color-primary);
-            border-color: var(--color-primary);
-            color: var(--color-primary-content);
-        }
-        .filter-mode-toggle {
-            display: flex;
-            gap: 2px;
-            margin-left: auto;
-        }
-        .filter-mode-toggle button {
-            padding: 6px 10px;
-            font-size: 10px;
-            min-height: 32px;
-            border: 1px solid var(--color-base-300);
-            background: var(--color-base-300);
-            color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-            cursor: pointer;
-            transition: all 0.15s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .filter-mode-toggle button:first-child {
-            border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-        }
-        .filter-mode-toggle button:last-child {
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-        }
-        .filter-mode-toggle button:hover {
-            border-color: var(--color-primary);
-            color: var(--color-base-content);
-        }
-        .filter-mode-toggle button.active {
-            background: var(--color-primary);
-            border-color: var(--color-primary);
-            color: var(--color-primary-content);
-        }
-        .filter-mode-toggle button.exclude.active {
-            background: var(--color-error);
-            border-color: var(--color-error);
-        }
+        /* .filter-preset-btn — unused (no JSX consumer found in audit).
+           Deleted along with the rest of the Phase 6 button cleanup. */
+
+        /* .filter-mode-toggle — migrated to DaisyUI `join` wrapper +
+           `join-item btn btn-xs` (btn-primary for include, btn-error for
+           exclude) in dashboard/js/components/FilterSidebar.jsx. */
         .filter-group-header {
             display: flex;
             align-items: center;
@@ -1520,20 +1346,12 @@ body::before {
                 font-size: 11px;
                 display: none;
             }
-            /* Requirement: Reduce header button sizes on mobile to save vertical space
-             * Approach: Shrink from 40px to 36px height, reduce horizontal padding
-             * Alternatives:
-             *   - Hide buttons behind overflow menu: Rejected — adds complexity, hurts discoverability
-             *   - Keep same size: Rejected — 40px buttons + 48px padding wastes space on small screens */
-            .btn-icon {
-                height: 36px;
-                padding: 0 20px;
-            }
-            .btn-theme,
-            .filter-toggle {
-                width: 36px;
-                height: 36px;
-            }
+            /* The .btn-icon / .btn-theme / .filter-toggle mobile-size override
+               used to live here. DaisyUI `btn-square` is already 40px on
+               desktop; on mobile the 40px size is fine and we no longer
+               need to override. If mobile crowding becomes an issue again,
+               use DaisyUI's `btn-sm` variant conditionally on mobile
+               breakpoints instead of shrinking the fixed height here. */
         }
 
         /* ===== Embed Mode =====
@@ -1627,35 +1445,9 @@ body::before {
             white-space: nowrap;
             flex-shrink: 0;
         }
-        .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 12px;
-            font-weight: 500;
-            font-family: var(--font-mono);
-            padding: 4px 10px;
-            border-radius: var(--radius-sm);
-            text-decoration: none;
-            transition: all 0.15s;
-        }
-        .project-link-primary {
-            background: var(--color-primary);
-            color: var(--color-primary-content);
-        }
-        .project-link-primary:hover {
-            box-shadow: 0 0 20px color-mix(in oklab, var(--color-primary) 25%, transparent);
-            opacity: 0.9;
-        }
-        .project-link-secondary {
-            background: var(--color-base-300);
-            color: color-mix(in oklab, var(--color-base-content) 80%, transparent);
-            border: 1px solid var(--color-base-300);
-        }
-        .project-link-secondary:hover {
-            background: var(--color-base-300);
-            color: var(--color-base-content);
-        }
+        /* .project-link / .project-link-primary / .project-link-secondary —
+           migrated to DaisyUI `btn btn-primary btn-xs` / `btn btn-outline btn-xs`
+           in dashboard/js/sections/Projects.jsx. */
 
         /* Drop zone container — centered layout for the file upload screen */
         .drop-zone-container {
@@ -1683,11 +1475,8 @@ body::before {
             width: 100%;
             padding-left: 8px;
         }
-        .filter-clear-btn {
-            width: 100%;
-            margin-top: 12px;
-            justify-content: center;
-        }
+        /* .filter-clear-btn — migrated to DaisyUI `btn btn-outline btn-sm w-full mt-3`
+           in dashboard/js/components/FilterSidebar.jsx. */
         .filter-empty-option {
             color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
             cursor: default;
@@ -1705,24 +1494,8 @@ body::before {
             margin-top: 8px;
         }
 
-        /* Filter badge on toggle button - dark theme */
-        .filter-toggle .filter-badge {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            min-width: 16px;
-            height: 16px;
-            background: var(--color-primary);
-            border-radius: 9999px;
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--color-primary-content);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
-            padding: 0 3px;
-        }
+        /* .filter-badge — migrated to DaisyUI `badge badge-primary badge-xs`
+           inline inside the filter-toggle button in Header.jsx. */
 
         /* === Accessibility: Focus-visible states ===
            Requirement: All interactive elements need visible keyboard focus indicators
@@ -1730,12 +1503,14 @@ body::before {
            Alternatives:
              - :focus on everything: Rejected — shows ring on mouse clicks too, which is distracting
              - Browser defaults only: Rejected — default outlines are inconsistent and often invisible on dark bg */
+        /* Custom focus ring for the remaining bespoke interactive elements —
+           .tab-btn (Phase 7 migrates this to DaisyUI tabs), collapsible-header
+           (still custom), and filter-multi-select-trigger (Phase 10 stretch).
+           DaisyUI buttons handle their own :focus-visible ring so we don't
+           need to target them here. */
         .tab-btn:focus-visible,
-        .btn-icon:focus-visible,
         .collapsible-header:focus-visible,
-        .filter-multi-select-trigger:focus-visible,
-        .filter-mode-toggle button:focus-visible,
-        .filter-clear-btn:focus-visible {
+        .filter-multi-select-trigger:focus-visible {
             outline: 2px solid var(--color-primary);
             outline-offset: 2px;
         }

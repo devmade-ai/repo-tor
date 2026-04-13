@@ -185,10 +185,17 @@ function FilterGroup({ label, filterType, options }) {
         <div className="filter-group">
             <div className="filter-group-header">
                 <label>{label}</label>
-                <div className="filter-mode-toggle">
+                {/*
+                  Include/Exclude mode toggle — DaisyUI `join` + `btn btn-xs`
+                  segmented buttons. `btn-active` marks the selected mode.
+                  The exclude button gets `btn-error` when active so the red
+                  visually reinforces "hide matches". Previously a bespoke
+                  .filter-mode-toggle wrapper with custom rgba backgrounds.
+                */}
+                <div className="join ml-auto">
                     <button
                         type="button"
-                        className={filter.mode === 'include' ? 'active' : ''}
+                        className={`join-item btn btn-xs ${filter.mode === 'include' ? 'btn-active btn-primary' : 'btn-ghost'}`}
                         aria-pressed={filter.mode === 'include'}
                         onClick={() => handleModeChange('include')}
                         title="Show only selected items"
@@ -197,7 +204,7 @@ function FilterGroup({ label, filterType, options }) {
                     </button>
                     <button
                         type="button"
-                        className={`exclude ${filter.mode === 'exclude' ? 'active' : ''}`}
+                        className={`join-item btn btn-xs ${filter.mode === 'exclude' ? 'btn-active btn-error' : 'btn-ghost'}`}
                         aria-pressed={filter.mode === 'exclude'}
                         onClick={() => handleModeChange('exclude')}
                         title="Hide selected items"
@@ -262,7 +269,7 @@ export default function FilterSidebar() {
 
                     <button
                         type="button"
-                        className="btn-icon btn-secondary filter-clear-btn"
+                        className="btn btn-outline btn-sm w-full mt-3"
                         onClick={() => dispatch({ type: 'CLEAR_FILTERS' })}
                     >
                         Clear All

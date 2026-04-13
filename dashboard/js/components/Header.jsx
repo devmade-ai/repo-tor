@@ -225,11 +225,11 @@ export default function Header() {
                             <HamburgerMenu items={menuItems} />
                             <button
                                 onClick={() => dispatch({ type: 'TOGGLE_FILTER_SIDEBAR' })}
-                                className={`filter-toggle relative ${state.filterSidebarOpen ? 'active' : ''}`}
+                                className={`btn btn-ghost btn-square relative ${state.filterSidebarOpen ? 'btn-active' : ''}`}
                                 aria-label={activeFilterCount > 0 ? `Toggle filters (${activeFilterCount} active)` : 'Toggle filters'}
                                 aria-expanded={state.filterSidebarOpen}
                             >
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -238,12 +238,12 @@ export default function Header() {
                                     />
                                 </svg>
                                 {activeFilterCount > 0 && (
-                                    <span className="filter-badge">{activeFilterCount}</span>
+                                    <span className="badge badge-primary badge-xs absolute -top-0.5 -right-0.5">{activeFilterCount}</span>
                                 )}
                             </button>
                             <button
                                 onClick={() => dispatch({ type: 'TOGGLE_SETTINGS_PANE' })}
-                                className="btn-theme"
+                                className="btn btn-ghost btn-square"
                                 aria-label="Settings"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

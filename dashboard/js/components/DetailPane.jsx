@@ -56,7 +56,7 @@ export default function DetailPane() {
                         <div className="detail-pane-title">{title}</div>
                         {subtitle && <div className="detail-pane-subtitle">{subtitle}</div>}
                     </div>
-                    <button type="button" className="detail-pane-close" onClick={handleClose} aria-label="Close detail pane">
+                    <button type="button" className="btn btn-sm btn-circle btn-ghost" onClick={handleClose} aria-label="Close detail pane">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
