@@ -35,7 +35,7 @@ export default function CollapsibleSection({ title, subtitle, defaultExpanded = 
                     layout, interaction, and focus styles are inline
                     Tailwind below. */}
                 <div
-                    className="collapsible-header flex items-center justify-between cursor-pointer py-2 sm:py-3 select-none hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                    className="collapsible-header flex items-center justify-between cursor-pointer py-2 sm:py-3 select-none hover:opacity-80 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
                     role="button"
                     tabIndex={0}
                     aria-expanded={expanded}

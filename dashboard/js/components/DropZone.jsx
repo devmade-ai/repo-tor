@@ -42,12 +42,14 @@ export default function DropZone({ onFiles }) {
 
     // State-conditional visual for the drag-over highlight + focus ring
     // + hover discovery hint. Base styles come first so the drag-over
-    // overrides land last.
+    // overrides land last. Focus-visible adds an explicit outline ring
+    // on top of the border/bg tint for strong keyboard visibility —
+    // matches TabBar's focus pattern for consistency.
     const dropZoneBase =
         'border-2 border-dashed border-base-300 rounded-lg px-6 py-10 cursor-pointer transition-all ' +
         'hover:border-primary hover:bg-primary/5 ' +
         'focus-visible:border-primary focus-visible:bg-primary/5 ' +
-        'focus-visible:outline-none';
+        'focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2';
     const dropZoneActive =
         'border-primary bg-primary/10 shadow-[0_0_20px_color-mix(in_oklab,var(--color-primary)_25%,transparent)]';
     // Icon color flips to primary during drag-over.

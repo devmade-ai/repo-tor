@@ -157,14 +157,19 @@ export default function SettingsPane() {
                                 <div className={TOGGLE_LABEL_CLASSES}>Use UTC</div>
                                 <div className={TOGGLE_HINT_CLASSES}>Show times in UTC instead of local</div>
                             </div>
-                            {/* Toggle switch — the `::after` thumb pseudo-element is
-                                expressed via Tailwind's `after:` variant so the
-                                classic pill switch renders without any custom CSS.
-                                Thumb translate distance (20px) matches the switch
-                                width (44px) minus thumb width (20px) minus 2×
-                                padding (4px) = 20px travel. */}
-                            <div
-                                className={`relative w-11 h-6 rounded-xl shrink-0 transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-5 after:h-5 after:bg-white after:rounded-full after:transition-transform ${state.useUTC ? 'bg-primary after:translate-x-5' : 'bg-base-300'}`}
+                            {/* DaisyUI native `toggle` component — the parent
+                                row owns role="switch" + keyboard handling, so
+                                the checkbox is presentational (tabIndex=-1,
+                                aria-hidden). readOnly silences React's
+                                controlled-without-onChange warning; the
+                                parent onClick mutates state.useUTC. */}
+                            <input
+                                type="checkbox"
+                                className="toggle toggle-primary shrink-0"
+                                checked={state.useUTC}
+                                readOnly
+                                tabIndex={-1}
+                                aria-hidden="true"
                             />
                         </div>
                     </div>

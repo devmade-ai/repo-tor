@@ -578,7 +578,7 @@ export default function Timeline() {
                 return (
                     <div
                         key={period.key}
-                        className="p-3 bg-base-300 rounded-lg cursor-pointer hover:bg-base-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 transition-colors"
+                        className="p-3 bg-base-300 rounded-lg cursor-pointer hover:bg-base-300 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 transition-colors"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${period.label}: ${period.count} commits`}

@@ -27,7 +27,7 @@ const TAB_BASE_CLASSES =
     'tracking-wider border-b-2 border-transparent ' +
     'text-base-content/60 whitespace-nowrap transition-all duration-150 ' +
     'hover:text-base-content/80 ' +
-    'focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2';
+    'focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2';
 const TAB_ACTIVE_CLASSES =
     'tab-active border-primary text-primary ' +
     '[text-shadow:0_0_10px_color-mix(in_oklab,var(--color-primary)_50%,transparent)]';

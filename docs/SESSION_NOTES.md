@@ -6,6 +6,18 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support. As of 2026-04-13, every user-visible surface also routes through DaisyUI's `@layer components` classes — no custom CSS class shadows any DaisyUI component.
 
+**Recent Updates (2026-04-13 — post-migration audit fixes):**
+
+Fresh-eyes audit of the branch caught 8 issues introduced during the round-3 custom-CSS sweep:
+1. **SettingsPane toggle** reimplemented DaisyUI's native `.toggle` component and hardcoded `after:bg-white` — replaced with `<input type="checkbox" className="toggle toggle-primary" readOnly aria-hidden="true" />` (parent row still owns role="switch" + keyboard handling).
+2. **FilterSidebar MultiSelect** selected-row hover inverted the cascade — `'bg-primary/10 hover:bg-base-300'` made hovering a selected row visually deselect it. Fixed to `'bg-primary/10 hover:bg-primary/20'`.
+3. **DetailPane commit row** `hover:bg-white/5` was invisible on light themes — replaced with `hover:bg-base-content/5`.
+4. **DropZone** `focus-visible:outline-none` was a a11y regression — replaced with explicit `outline-2 outline-primary outline-offset-2` matching TabBar.
+5. **FilterSidebar** stale comment referenced deleted `.filter-multi-select-*` classes + stale `mb-0` override for deleted descendant selector — cleaned up.
+6. **Redundant `focus-visible:outline` + `outline-2`** (9 files) — in Tailwind v4, `.outline-2` already sets both style and width. Dropped the bare `outline` everywhere `outline-2` is applied. Includes `FOCUS_RING_CLASSES` in `utils.js` (note: declared but currently unused).
+
+Build clean, 61/61 tests pass, all new class names verified in built CSS.
+
 **Recent Updates (2026-04-13 — full custom-CSS sweep, round 3):**
 
 Continued audit of "no custom Tailwind / CSS unless absolutely necessary" after the user flagged that round 2 was still too conservative. The earlier rounds left ~80 custom class wrappers that were just named aliases for Tailwind utility groupings — they had no Tailwind-incompatible features, I just hadn't migrated them. This round migrates all of them.

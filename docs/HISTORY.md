@@ -4,6 +4,29 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-13
 
+### Post-migration audit fixes (8 issues across 12 files)
+
+Fresh-eyes audit of the `claude/migrate-daisyui-dark-mode-toG0Y` branch caught 2 CLAUDE.md violations, 2 user-visible UX regressions, 1 a11y regression, and 3 hygiene items introduced during the round-3 custom-CSS sweep. All fixed without architectural changes.
+
+**Fix 1+2 — SettingsPane toggle (SettingsPane.jsx):** The UTC toggle was hand-rolled as `<div className="relative w-11 h-6 ... after:content-[''] after:bg-white ...">`, reimplementing DaisyUI's native `.toggle` component AND violating the "never hardcode theme values" CLAUDE.md rule via `after:bg-white` (which left the thumb pure white on every light theme). Replaced with `<input type="checkbox" className="toggle toggle-primary shrink-0" checked={state.useUTC} readOnly tabIndex={-1} aria-hidden="true" />`. The parent row still owns `role="switch"` + keyboard handling; the input is purely presentational. `readOnly` silences React's controlled-without-onChange warning.
+
+**Fix 3 — FilterSidebar selected-row hover inversion (FilterSidebar.jsx:159):** My Tailwind migration of the MultiSelect option cascade wrote `'bg-primary/10 hover:bg-base-300'` for the selected branch — meaning hovering a selected row *replaced* the selection tint with the default hover tint, visually deselecting it. The old CSS kept the `.selected` background through `:hover` via cascade order. Fixed to `'bg-primary/10 hover:bg-primary/20'` so hovering a selected row *deepens* the tint.
+
+**Fix 4 — DetailPane hardcoded hover color (DetailPane.jsx:79):** Commit row used `hover:bg-white/5` which is invisible on the 4 light themes (lofi, nord, emerald, caramellatte) AND violates "never hardcode theme values". Replaced with `hover:bg-base-content/5` — 5% of the inverted text color, so it shows as a subtle dark tint on light themes and a subtle light tint on dark themes.
+
+**Fix 5 — DropZone focus outline a11y regression (DropZone.jsx):** The migration added `focus-visible:outline-none` that wasn't in the old CSS, leaving keyboard users with only a subtle border/bg tint on focus. Replaced with explicit `focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2` — matches TabBar's focus pattern for consistency.
+
+**Fix 6+7 — FilterSidebar stale references (FilterSidebar.jsx):** The MultiSelect rationale comment still described the deleted `.filter-multi-select-*` custom classes and their theme-tracking via `var(--color-base-*)` — rewrote to describe the current inline-Tailwind approach. The `mb-0` override on the FilterGroup `<label>` was a no-op carried over from the deleted `.filter-sidebar-inner label` descendant selector — removed.
+
+**Fix 8 — Redundant `focus-visible:outline` + `outline-2` (9 files):** In Tailwind v4, `.outline-2` already sets `outline-style:var(--tw-outline-style);outline-width:2px` and `--tw-outline-style` defaults to `solid`, so the bare `focus-visible:outline` alongside `focus-visible:outline-2` is redundant (and sets outline-width:1px which cascade overrides with 2px). Removed the bare class from: `utils.js FOCUS_RING_CLASSES`, `TabBar.jsx`, `CollapsibleSection.jsx`, `FilterSidebar.jsx` (MultiSelect trigger), `DropZone.jsx`, `Progress.jsx` (×2), `Health.jsx` (×3), `Timeline.jsx`, `HealthAnomalies.jsx` (×2), `HealthBars.jsx` (×2). Visually identical — verified by rebuilding and confirming `.focus-visible\:outline-2:focus-visible{outline-style:var(--tw-outline-style);outline-width:2px}` still ships.
+
+**Verified:**
+- `./node_modules/.bin/vite build` clean (3.37s)
+- `npm test` — 61/61 pass
+- DaisyUI `.toggle` + `.toggle-primary` both ship in built CSS (`.toggle-primary:checked,.toggle-primary[aria-checked=true]{--input-color:var(--color-primary)}`)
+- `hover:bg-base-content/5`, `hover:bg-primary/20`, `focus-visible:outline-2` all present in built CSS
+- No `focus-visible:outline focus-visible:outline-2` pairings remain in dashboard/js
+
 ### Custom-CSS cleanup — round 3 (full sweep to the strict minimum)
 
 User flagged that round 2 was still too conservative after asking "why does it look like there are still a shit ton of unnecessary custom stuff?". Honest audit showed ~80 of the ~96 custom classes were just named aliases for Tailwind utility groupings with no Tailwind-incompatible features — I'd been drawing the "needs custom" line at "has any CSS feature worth naming" instead of "has a Tailwind-incompatible feature". Round 3 is the full sweep to the strict minimum.

@@ -4,7 +4,12 @@ import { useApp } from '../AppContext.jsx';
 // Requirement: Multi-select dropdown with full keyboard navigation
 // Approach: Arrow keys move a highlighted index through options, Space/Enter
 //   toggles selection, Escape closes. Uses role="listbox" + role="option"
-//   with aria-activedescendant for screen reader focus tracking.
+//   with aria-activedescendant for screen reader focus tracking. Styling
+//   is inline Tailwind utilities using DaisyUI semantic tokens
+//   (`bg-base-200`, `bg-primary/10`, etc.) — the old
+//   `.filter-multi-select-*` custom classes were removed in the 2026-04-13
+//   custom-CSS cleanup. The inner checkbox uses DaisyUI `checkbox` for
+//   visual consistency with the rest of the filter sidebar.
 // Alternatives:
 //   - Native <select multiple>: Rejected — can't style, poor UX on mobile
 //   - Headless UI library: Rejected — adds dependency for one component
@@ -15,11 +20,7 @@ import { useApp } from '../AppContext.jsx';
 //     `dropdown` uses CSS :focus for visibility which conflicts with
 //     React-state-controlled open + highlightIndex state needed for the
 //     arrow-key navigation. DaisyUI v5 does not provide a first-class
-//     listbox component. The custom `.filter-multi-select-*` classes use
-//     `var(--color-base-*)` tokens and `color-mix()` so they track the
-//     active theme automatically — no shadowing of any DaisyUI class.
-//     The inner checkbox IS migrated to DaisyUI `checkbox` for visual
-//     consistency with the rest of the filter sidebar.
+//     listbox component.
 function MultiSelect({ options, selected, onChange }) {
     const [open, setOpen] = useState(false);
     const [highlightIndex, setHighlightIndex] = useState(-1);
@@ -125,7 +126,7 @@ function MultiSelect({ options, selected, onChange }) {
         <div className="relative" ref={containerRef}>
             <button
                 type="button"
-                className="w-full px-2 py-1.5 text-xs border border-base-300 rounded-sm bg-base-200 text-base-content cursor-pointer flex justify-between items-center min-h-8 hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                className="w-full px-2 py-1.5 text-xs border border-base-300 rounded-sm bg-base-200 text-base-content cursor-pointer flex justify-between items-center min-h-8 hover:border-primary focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
                 aria-haspopup="listbox"
                 aria-expanded={open}
                 aria-activedescendant={activeDescendant}
@@ -156,7 +157,7 @@ function MultiSelect({ options, selected, onChange }) {
                     const bgClass = isHighlighted
                         ? 'bg-base-300'
                         : isSelected
-                        ? 'bg-primary/10 hover:bg-base-300'
+                        ? 'bg-primary/10 hover:bg-primary/20'
                         : 'hover:bg-base-300';
                     return (
                         <div
@@ -216,10 +217,7 @@ function FilterGroup({ label, filterType, options }) {
     return (
         <div>
             <div className="flex items-center mb-1">
-                {/* `mb-0` cancels the global `.filter-sidebar-inner label`
-                    margin-bottom rule in styles.css — without it the label
-                    would add 4px to the flex row height. */}
-                <label className="block text-xs text-base-content/60 mb-0">{label}</label>
+                <label className="block text-xs text-base-content/60">{label}</label>
                 {/*
                   Include/Exclude mode toggle — DaisyUI `join` + `btn btn-xs`
                   segmented buttons. `btn-active` marks the selected mode.

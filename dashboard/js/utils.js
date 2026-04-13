@@ -57,8 +57,7 @@ export function handleKeyActivate(callback) {
 //   - CSS @layer rule on `[role="button"]`: Rejected — that's the
 //     custom CSS pattern we're trying to eliminate.
 export const FOCUS_RING_CLASSES =
-    'focus-visible:outline focus-visible:outline-2 ' +
-    'focus-visible:outline-primary focus-visible:outline-offset-2';
+    'focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2';
 
 // --- getUrgencyLabel ---
 export function getUrgencyLabel(urgency) {

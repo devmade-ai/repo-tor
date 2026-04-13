@@ -76,7 +76,7 @@ export default function DetailPane() {
                                 const tags = getCommitTags(commit);
 
                                 return (
-                                    <div key={commit.sha || index} className="p-3 rounded-md border border-base-300 mb-3 transition-colors hover:bg-white/5">
+                                    <div key={commit.sha || index} className="p-3 rounded-md border border-base-300 mb-3 transition-colors hover:bg-base-content/5">
                                         <div className="font-medium text-base-content mb-2">
                                             {message}
                                         </div>
