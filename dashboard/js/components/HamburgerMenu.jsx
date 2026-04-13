@@ -11,6 +11,14 @@ import { debugAdd } from '../debugLog.js';
 //   - Hardcoded JSX per item: Rejected — adding/removing items requires component edits
 //   - role="menu" pattern: Rejected — ARIA menu causes screen readers to enter forms mode
 //   - Headless UI Disclosure: Viable — adds dependency for a single component
+//   - DaisyUI `dropdown` + `dropdown-content menu`: Rejected — DaisyUI's dropdown
+//     shows/hides via CSS `:focus` or the `[open]` attribute, which conflicts with
+//     our React-state-controlled `open` flag (needed for keepOpen theme picker
+//     behavior and async action error capture). DaisyUI's `menu` also implies
+//     `role="menu"`, which we explicitly avoid per the BURGER_MENU pattern. The
+//     trigger button IS migrated to DaisyUI (`btn btn-ghost btn-square`); the
+//     dropdown surface stays custom because no DaisyUI component fits the
+//     disclosure pattern without re-introducing the menu-role accessibility trap.
 // See docs/implementations/BURGER_MENU.md for the full cross-project reference.
 
 /**
