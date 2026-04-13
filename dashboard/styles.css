@@ -455,30 +455,10 @@ body::before {
             display: none;
         }
 
-        /* Work pattern badges - dark theme */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 2px 6px;
-            border-radius: var(--radius-sm);
-            font-size: 10px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
-        }
-        .badge-after-hours {
-            background-color: rgba(234, 179, 8, 0.2);
-            color: #EAB308;
-        }
-        .badge-weekend {
-            background-color: rgba(139, 92, 246, 0.2);
-            color: #a78bfa;
-        }
-        .badge-holiday {
-            background-color: rgba(236, 72, 153, 0.2);
-            color: #f472b6;
-        }
+        /* Work pattern badges — migrated to DaisyUI `badge badge-accent/info/warning`
+           variants in dashboard/js/sections/Timeline.jsx. The old .badge +
+           .badge-after-hours / .badge-weekend / .badge-holiday custom classes
+           used to live here and shadowed DaisyUI's built-in .badge. */
 
         /* Export/Share buttons - dark theme with techy feel */
         .btn-icon {

@@ -532,14 +532,24 @@ export default function Timeline() {
                             {commit.repo_id && (
                                 <span className="text-base-content/40">&middot; {commit.repo_id}</span>
                             )}
+                            {/*
+                              Work-pattern badges — DaisyUI semantic variants
+                              (badge-accent for Holiday, badge-info for Weekend,
+                              badge-warning for After Hours). Previously used
+                              custom .badge-holiday / .badge-weekend /
+                              .badge-after-hours classes that hand-rolled rgba
+                              colors AND shadowed DaisyUI's built-in .badge.
+                              badge-sm keeps the footprint compact inside the
+                              commit metadata row.
+                            */}
                             {workPattern.isHoliday && (
-                                <span className="badge badge-holiday ml-1">Holiday</span>
+                                <span className="badge badge-accent badge-sm ml-1">Holiday</span>
                             )}
                             {workPattern.isWeekend && (
-                                <span className="badge badge-weekend ml-1">Weekend</span>
+                                <span className="badge badge-info badge-sm ml-1">Weekend</span>
                             )}
                             {!workPattern.isWeekend && workPattern.isAfterHours && (
-                                <span className="badge badge-after-hours ml-1">After Hours</span>
+                                <span className="badge badge-warning badge-sm ml-1">After Hours</span>
                             )}
                         </div>
                     </div>
