@@ -29,14 +29,16 @@ export default class ErrorBoundary extends React.Component {
     render() {
         if (this.state.hasError) {
             return (
-                <div className="card error-boundary-card">
-                    <p className="text-base-content/80 text-sm">Something went wrong rendering this section.</p>
-                    <button
-                        className="btn-icon btn-secondary mt-3"
-                        onClick={() => this.setState({ hasError: false, error: null })}
-                    >
-                        Try again
-                    </button>
+                <div role="alert" className="card bg-base-200 border border-base-300">
+                    <div className="card-body items-center text-center py-8">
+                        <p className="text-base-content/80 text-sm">Something went wrong rendering this section.</p>
+                        <button
+                            className="btn btn-outline btn-sm mt-3"
+                            onClick={() => this.setState({ hasError: false, error: null })}
+                        >
+                            Try again
+                        </button>
+                    </div>
                 </div>
             );
         }

@@ -351,20 +351,22 @@ export default function App() {
         return (
             <div className="dashboard-enter">
                 {loadError && (
-                    <div role="alert" className="max-w-2xl mx-auto px-4 pt-12 pb-4">
-                        <div className="card text-center">
-                            <p className="text-base-content text-base mb-2">
-                                Could not load dashboard data
-                            </p>
-                            <p className="text-base-content/60 text-sm mb-4">
-                                {loadError}
-                            </p>
-                            <button
-                                onClick={() => window.location.reload()}
-                                className="btn-icon btn-primary"
-                            >
-                                Retry
-                            </button>
+                    <div className="max-w-2xl mx-auto px-4 pt-12 pb-4">
+                        <div role="alert" className="card bg-base-200 border border-base-300">
+                            <div className="card-body items-center text-center">
+                                <p className="text-base-content text-base mb-2">
+                                    Could not load dashboard data
+                                </p>
+                                <p className="text-base-content/60 text-sm mb-4">
+                                    {loadError}
+                                </p>
+                                <button
+                                    onClick={() => window.location.reload()}
+                                    className="btn btn-primary"
+                                >
+                                    Retry
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )}

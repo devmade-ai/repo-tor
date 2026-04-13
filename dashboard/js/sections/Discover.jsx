@@ -578,34 +578,36 @@ export default function Discover() {
                     {metricValues.map((metricResult, idx) => {
                         const isPinned = !!pinnedMetrics[idx];
                         return (
-                            <div key={selectedMetrics[idx]} className="card">
-                                <div className="flex items-center justify-between mb-2 gap-1">
-                                    <select
-                                        className="metric-selector text-xs bg-base-300 text-base-content/80 rounded px-1 py-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary min-w-0 truncate"
-                                        value={isPinned ? selectedMetrics[idx] : 'random'}
-                                        onChange={(e) => handleSelectChange(idx, e.target.value)}
-                                    >
-                                        <option value="random">Random</option>
-                                        {DISCOVER_METRICS.map(m => (
-                                            <option key={m.id} value={m.id}>{m.label}</option>
-                                        ))}
-                                    </select>
-                                    <button
-                                        className={`pin-btn text-xs flex-shrink-0 ${isPinned ? 'text-primary' : 'text-base-content/40'} hover:text-primary`}
-                                        aria-label={isPinned ? 'Unpin this metric' : 'Pin this metric'}
-                                        title={isPinned ? 'Unpin' : 'Pin this metric'}
-                                        onClick={() => handlePinToggle(idx)}
-                                    >
-                                        <svg className="w-4 h-4" fill={isPinned ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                                        </svg>
-                                    </button>
+                            <div key={selectedMetrics[idx]} className="card bg-base-200 border border-base-300">
+                                <div className="card-body p-5 gap-0">
+                                    <div className="flex items-center justify-between mb-2 gap-1">
+                                        <select
+                                            className="metric-selector text-xs bg-base-300 text-base-content/80 rounded px-1 py-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary min-w-0 truncate"
+                                            value={isPinned ? selectedMetrics[idx] : 'random'}
+                                            onChange={(e) => handleSelectChange(idx, e.target.value)}
+                                        >
+                                            <option value="random">Random</option>
+                                            {DISCOVER_METRICS.map(m => (
+                                                <option key={m.id} value={m.id}>{m.label}</option>
+                                            ))}
+                                        </select>
+                                        <button
+                                            className={`pin-btn text-xs flex-shrink-0 ${isPinned ? 'text-primary' : 'text-base-content/40'} hover:text-primary`}
+                                            aria-label={isPinned ? 'Unpin this metric' : 'Pin this metric'}
+                                            title={isPinned ? 'Unpin' : 'Pin this metric'}
+                                            onClick={() => handlePinToggle(idx)}
+                                        >
+                                            <svg className="w-4 h-4" fill={isPinned ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <p className="text-2xl sm:text-3xl font-bold text-base-content">{metricResult.value}</p>
+                                    <p className="text-xs text-base-content/40">{metricResult.sub}</p>
+                                    {metricResult.description && (
+                                        <p className="text-xs text-base-content/60 mt-2 leading-snug">{metricResult.description}</p>
+                                    )}
                                 </div>
-                                <p className="text-2xl sm:text-3xl font-bold text-base-content">{metricResult.value}</p>
-                                <p className="text-xs text-base-content/40">{metricResult.sub}</p>
-                                {metricResult.description && (
-                                    <p className="text-xs text-base-content/60 mt-2 leading-snug">{metricResult.description}</p>
-                                )}
                             </div>
                         );
                     })}

@@ -94,8 +94,10 @@ export default function Projects() {
 
     if (loadError) {
         return (
-            <div className="card projects-error">
-                <p className="text-base-content/80">{loadError}</p>
+            <div role="alert" className="card bg-base-200 border border-base-300">
+                <div className="card-body items-center text-center py-8">
+                    <p className="text-base-content/80">{loadError}</p>
+                </div>
             </div>
         );
     }
@@ -146,7 +148,8 @@ export default function Projects() {
 
 function ProjectCard({ project }) {
     return (
-        <div className="project-card">
+        <div className="card bg-base-200 border border-base-300 hover:border-primary/40 transition-colors">
+            <div className="card-body p-4 gap-0">
             <div className="flex items-start justify-between gap-2">
                 <h4 className="text-base-content font-medium text-base">
                     {project.name}
@@ -197,6 +200,7 @@ function ProjectCard({ project }) {
                         GitHub
                     </a>
                 )}
+            </div>
             </div>
         </div>
     );
