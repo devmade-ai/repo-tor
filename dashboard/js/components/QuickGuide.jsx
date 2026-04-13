@@ -91,20 +91,27 @@ export default function QuickGuide({ open, onClose }) {
     const current = STEPS[step];
     const isLast = step === STEPS.length - 1;
 
+    // DaisyUI modal structure (CSS-class form, not native <dialog>):
+    //   <div class="modal modal-open"> positioning wrapper + backdrop
+    //     <div class="modal-box"> centered content box
+    //     <div class="modal-backdrop"> click-outside layer (transparent by
+    //       default — modal wrapper provides the dim overlay)
+    // We use the CSS-class form instead of <dialog> + showModal() because
+    // React state controls open/close, not native dialog semantics. The
+    // modal-backdrop div handles click-outside-to-close; useEscapeKey
+    // handles Escape.
     return (
-        <>
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-            <div className="quick-guide-overlay" onClick={onClose} role="presentation" />
-            <div
-                ref={trapRef}
-                className="quick-guide-modal"
-                role="dialog"
-                aria-modal="true"
-                aria-label="Quick Guide"
-                tabIndex={-1}
-            >
+        <div
+            ref={trapRef}
+            className="modal modal-open"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Quick Guide"
+            tabIndex={-1}
+        >
+            <div className="modal-box relative w-[min(420px,calc(100vw-32px))] px-7 pt-8 pb-6">
                 <button
-                    className="quick-guide-close"
+                    className="btn btn-sm btn-circle btn-ghost absolute right-3 top-3"
                     onClick={onClose}
                     aria-label="Close guide"
                 >
@@ -114,28 +121,31 @@ export default function QuickGuide({ open, onClose }) {
                     </svg>
                 </button>
 
-                <div className="quick-guide-content">
-                    <div className="quick-guide-icon text-base-content">
+                <div className="text-center mb-6">
+                    <div className="flex justify-center mb-4 opacity-80 text-base-content">
                         {current.icon}
                     </div>
-                    <h2 className="quick-guide-title">{current.title}</h2>
-                    <p className="quick-guide-body">{current.body}</p>
+                    <h2 className="text-lg font-semibold text-base-content mb-2.5">{current.title}</h2>
+                    <p className="text-sm leading-relaxed text-base-content/80">{current.body}</p>
                 </div>
 
-                <div className="quick-guide-footer">
-                    <div className="quick-guide-dots">
+                <div className="modal-action mt-0 flex items-center justify-between">
+                    {/* Pagination dots — visual progress indicator for the 4-step guide */}
+                    <div className="flex gap-1.5" aria-hidden="true">
                         {STEPS.map((_, i) => (
                             <span
                                 key={i}
-                                className={`quick-guide-dot ${i === step ? 'active' : ''}`}
+                                className={`w-2 h-2 rounded-full transition-colors ${
+                                    i === step ? 'bg-primary' : 'bg-base-300'
+                                }`}
                             />
                         ))}
                     </div>
-                    <div className="quick-guide-actions">
+                    <div className="flex gap-2">
                         {step > 0 && (
                             <button
                                 type="button"
-                                className="quick-guide-btn-secondary"
+                                className="btn btn-ghost btn-sm"
                                 onClick={handleBack}
                             >
                                 Back
@@ -143,7 +153,7 @@ export default function QuickGuide({ open, onClose }) {
                         )}
                         <button
                             type="button"
-                            className="quick-guide-btn-primary"
+                            className="btn btn-primary btn-sm"
                             onClick={handleNext}
                         >
                             {isLast ? 'Got it' : 'Next'}
@@ -151,7 +161,9 @@ export default function QuickGuide({ open, onClose }) {
                     </div>
                 </div>
             </div>
-        </>
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+            <div className="modal-backdrop" onClick={onClose} role="presentation" />
+        </div>
     );
 }
 

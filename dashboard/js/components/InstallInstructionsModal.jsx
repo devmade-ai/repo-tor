@@ -19,24 +19,22 @@ export default function InstallInstructionsModal({ isOpen, onClose, instructions
 
     if (!isOpen || !instructions) return null;
 
+    // DaisyUI modal (CSS-class form). Structure mirrors QuickGuide — see
+    // that component for the rationale on using the CSS-class form instead
+    // of the native <dialog> element.
     return (
-        <div className="install-modal-overlay">
-            <div
-                className="install-modal-backdrop"
-                onClick={onClose}
-                role="presentation"
-            />
-            <div
-                ref={trapRef}
-                className="install-modal"
-                role="dialog"
-                aria-modal="true"
-                aria-label="Install app"
-                tabIndex={-1}
-            >
+        <div
+            ref={trapRef}
+            className="modal modal-open"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Install app"
+            tabIndex={-1}
+        >
+            <div className="modal-box w-[420px] max-w-[calc(100vw-32px)]">
                 {/* Header */}
-                <div className="install-modal-header">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <div className="flex items-center gap-3 mb-4">
+                    <svg className="w-5 h-5 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
                     <div>
@@ -45,41 +43,54 @@ export default function InstallInstructionsModal({ isOpen, onClose, instructions
                     </div>
                 </div>
 
-                {/* Numbered steps — rendered from data */}
-                <ol className="install-modal-steps">
+                {/* Numbered steps — rendered from data. Each step has a
+                    circular badge with the step number and a one-line
+                    instruction. */}
+                <ol className="list-none p-0 m-0 mb-4 flex flex-col gap-2">
                     {instructions.steps.map((step, i) => (
-                        <li key={i} className="install-modal-step">
-                            <span className="install-modal-step-number">{i + 1}</span>
+                        <li key={i} className="flex items-start gap-3">
+                            <span
+                                className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold shrink-0 bg-primary/10 text-primary"
+                                aria-hidden="true"
+                            >
+                                {i + 1}
+                            </span>
                             <span className="text-base-content/80 text-sm">{step}</span>
                         </li>
                     ))}
                 </ol>
 
-                {/* Optional warning note (e.g., Brave Shields, Firefox desktop) */}
+                {/* Optional warning note (e.g., Brave Shields, Firefox
+                    desktop). Uses DaisyUI alert-warning with alert-soft for
+                    a muted inline warning box. */}
                 {instructions.note && (
-                    <div className="install-modal-note">
-                        <strong>Note:</strong> {instructions.note}
+                    <div role="alert" className="alert alert-warning alert-soft text-xs mb-4">
+                        <span><strong>Note:</strong> {instructions.note}</span>
                     </div>
                 )}
 
-                {/* Benefits — helps non-technical users understand WHY to install */}
-                <div className="install-modal-benefits">
+                {/* Benefits — helps non-technical users understand WHY to install. */}
+                <div className="border-t border-base-300 pt-4">
                     <p className="text-base-content/60 text-xs mb-2">Benefits of installing:</p>
-                    <ul className="text-base-content/40 text-xs">
-                        <li>Works offline</li>
-                        <li>Launches from your dock or home screen</li>
-                        <li>Full-screen experience without browser controls</li>
+                    <ul className="text-base-content/60 text-xs list-none p-0 m-0 flex flex-col gap-1">
+                        <li>✓ Works offline</li>
+                        <li>✓ Launches from your dock or home screen</li>
+                        <li>✓ Full-screen experience without browser controls</li>
                     </ul>
                 </div>
 
-                <button
-                    type="button"
-                    className="btn-primary install-modal-close"
-                    onClick={onClose}
-                >
-                    Got it
-                </button>
+                <div className="modal-action mt-4">
+                    <button
+                        type="button"
+                        className="btn btn-primary btn-block"
+                        onClick={onClose}
+                    >
+                        Got it
+                    </button>
+                </div>
             </div>
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+            <div className="modal-backdrop" onClick={onClose} role="presentation" />
         </div>
     );
 }
