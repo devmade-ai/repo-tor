@@ -46,3 +46,13 @@ dist/
 
 # Generated at build time (scripts/write-build-version.mjs)
 dashboard/public/version.json
+
+# Playwright test artifacts (reports, traces, videos, generated screenshots).
+# Screenshot BASELINES live in dashboard/e2e/visual/__screenshots__/ and
+# are committed — the patterns below only exclude transient output.
+/test-results/
+/playwright-report/
+/playwright/.cache/
+# Any screenshot diff output (only produced on failing visual tests).
+**/*-actual.png
+**/*-diff.png
