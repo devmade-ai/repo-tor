@@ -667,8 +667,11 @@ export default function Discover() {
             {/* File Insights — most changed files (with fun names), least engaging */}
             <CollapsibleSection title="Most Changed Files" subtitle={`Top ${fileList.length} files by number of changes`}>
                 {fileInsights === 'loading' ? (
-                    <div className="flex items-center gap-2 py-4 justify-center">
-                        <span className="loading loading-spinner loading-sm text-primary" aria-label="Loading" />
+                    <div
+                        className="flex items-center gap-2 py-4 justify-center"
+                        role="status"
+                    >
+                        <span className="loading loading-spinner loading-sm text-primary" aria-hidden="true" />
                         <p className="text-base-content/60 text-sm">Loading file data&hellip;</p>
                     </div>
                 ) : visibleFiles.length > 0 ? (

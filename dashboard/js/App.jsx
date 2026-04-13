@@ -326,8 +326,16 @@ export default function App() {
     // Wait for initial data.json fetch before deciding what to show
     if (initialLoading) {
         return (
-            <div className="flex items-center justify-center min-h-screen flex-col gap-4">
-                <span className="loading loading-spinner loading-lg text-primary" aria-label="Loading" />
+            <div
+                className="flex items-center justify-center min-h-screen flex-col gap-4"
+                role="status"
+            >
+                {/* role="status" is an implicit aria-live="polite" live region — adding
+                    an explicit aria-live here would duplicate the semantics, same trap
+                    as the Toast nested-live-region fix earlier today. The <p> text
+                    below carries the announcement; the spinner is decorative and
+                    aria-hidden. */}
+                <span className="loading loading-spinner loading-lg text-primary" aria-hidden="true" />
                 <p className="text-sm text-base-content/60">Loading dashboard&hellip;</p>
             </div>
         );

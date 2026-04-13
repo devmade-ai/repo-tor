@@ -630,8 +630,11 @@ export default function Timeline() {
             <CollapsibleSection title="Recent Changes" subtitle={showingText} defaultExpanded={!isMobile}>
                 <div className="space-y-2">
                     {!commitsLoaded && state.commitsLoading ? (
-                        <div className="flex items-center gap-2 py-4 justify-center">
-                            <span className="loading loading-spinner loading-sm text-primary" aria-label="Loading" />
+                        <div
+                            className="flex items-center gap-2 py-4 justify-center"
+                            role="status"
+                        >
+                            <span className="loading loading-spinner loading-sm text-primary" aria-hidden="true" />
                             <p className="text-base-content/60 text-sm">Loading commit details&hellip;</p>
                         </div>
                     ) : commitListContent.length > 0 ? (
