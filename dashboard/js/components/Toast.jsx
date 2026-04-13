@@ -64,6 +64,18 @@ const ALERT_CLASS_BY_TYPE = {
  *     phase (removing custom .toast-* CSS).
  *   - React Spring / Framer Motion: Rejected — adds dependency for
  *     6 lines of Tailwind.
+ *
+ * Accessibility — ARIA live regions:
+ *   Each ToastItem carries its own `role` — `alert` (implies aria-live
+ *   "assertive") for error toasts, `status` (implies aria-live "polite")
+ *   for everything else. The parent ToastContainer deliberately does NOT
+ *   set its own aria-live: if it did, every new child would be announced
+ *   twice (once by the parent's live region and once by the child's role).
+ *   Per WAI-ARIA 1.2 §5.2.2 ("Live Region Roles"), role="alert" and
+ *   role="status" are implicit live regions by themselves, so the child
+ *   role is sufficient. This was a subtle regression in the pre-audit
+ *   commit (`1610c90`) where the container had an explicit
+ *   `aria-live="polite"` alongside the per-item roles.
  */
 function ToastItem({ toast, onRemove }) {
     const [isExiting, setIsExiting] = useState(false);
@@ -88,8 +100,11 @@ function ToastItem({ toast, onRemove }) {
             className={`${alertClass} shadow-lg transition-all duration-200 ease-out ${
                 isExiting ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'
             }`}
+            // role="alert" implies aria-live="assertive"; role="status"
+            // implies aria-live="polite". Don't duplicate aria-live here —
+            // that would create a nested live region with the parent
+            // container and cause double screen-reader announcements.
             role={toast.type === 'error' ? 'alert' : 'status'}
-            aria-live={toast.type === 'error' ? 'assertive' : 'polite'}
         >
             <span className="flex-1">{toast.message}</span>
             <button
@@ -111,14 +126,17 @@ function ToastItem({ toast, onRemove }) {
 // default z-index doesn't stack above our custom debug pill (--z-debug:80)
 // or against the dashboard drawer layers, so we pin it explicitly.
 // The `no-print` class keeps toasts out of PDF exports.
+//
+// No `aria-live` on this container: each ToastItem carries its own implicit
+// live region via role="alert"/role="status" (see ToastItem comment above).
+// Setting aria-live here would create a nested live region and cause
+// screen readers to announce every new toast twice.
 function ToastContainer({ toasts, onRemove }) {
     if (toasts.length === 0) return null;
     return (
         <div
             className="toast toast-bottom toast-center no-print"
             style={{ zIndex: 'var(--z-toast)' }}
-            aria-live="polite"
-            aria-atomic="false"
         >
             {toasts.map(toast => (
                 <ToastItem key={toast.id} toast={toast} onRemove={onRemove} />
