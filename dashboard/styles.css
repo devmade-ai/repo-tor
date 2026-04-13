@@ -517,79 +517,13 @@ body::before {
             height: 16px;
         }
 
-        /* Toast notification system — context-based, stacking, auto-dismiss.
-           See docs/implementations/PWA_SYSTEM.md for the pattern. */
-        .toast-container {
-            position: fixed;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
-            z-index: var(--z-toast);
-            display: flex;
-            flex-direction: column-reverse;
-            gap: 8px;
-            max-width: 400px;
-            width: calc(100% - 32px);
-            pointer-events: none;
-        }
-        .toast-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            border-radius: var(--radius-md);
-            font-size: 14px;
-            font-weight: 500;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-            pointer-events: auto;
-            transition: opacity 0.2s ease, transform 0.2s ease;
-        }
-        .toast-enter {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .toast-exit {
-            opacity: 0;
-            transform: translateY(8px);
-        }
-        .toast-message {
-            flex: 1;
-        }
-        .toast-dismiss {
-            background: none;
-            border: none;
-            padding: 8px 12px;
-            cursor: pointer;
-            border-radius: var(--radius-sm);
-            opacity: 0.7;
-            font-size: 12px;
-            color: inherit;
-            margin: -8px -12px -8px 0;
-        }
-        .toast-dismiss:hover {
-            opacity: 1;
-        }
-        /* Toast type colors — use DaisyUI semantic tokens and their matching
-           *-content foreground colors so text stays legible across themes
-           (e.g., warning-content is dark text on a yellow background,
-           success-content is light text on a green background). */
-        .toast-success {
-            background: var(--color-success);
-            color: var(--color-success-content);
-        }
-        .toast-error {
-            background: var(--color-error);
-            color: var(--color-error-content);
-        }
-        .toast-info {
-            background: var(--color-base-200);
-            color: var(--color-base-content);
-            border: 1px solid var(--color-base-300);
-        }
-        .toast-warning {
-            background: var(--color-warning);
-            color: var(--color-warning-content);
-        }
+        /* Toast notification system — migrated to DaisyUI `toast toast-bottom
+           toast-center` + `alert alert-success/error/warning/info` +
+           `btn btn-ghost btn-xs btn-circle` dismiss button + Tailwind
+           transition utilities for enter/exit animation. See
+           dashboard/js/components/Toast.jsx. The old .toast-* custom classes
+           used to live here and shadowed DaisyUI's built-in `.toast` and
+           `.alert` component classes. */
 
         /* Install instructions modal — migrated to DaisyUI `modal` + `modal-box` +
            `alert alert-warning alert-soft` + Tailwind utilities. See
