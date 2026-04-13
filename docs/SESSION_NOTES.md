@@ -6,6 +6,26 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support. As of 2026-04-13, every user-visible surface also routes through DaisyUI's `@layer components` classes — no custom CSS class shadows any DaisyUI component.
 
+**Recent Updates (2026-04-13 — post-migration audit follow-up):**
+
+After the 10-phase DaisyUI component-class sweep landed and was pushed, a self-audit pass turned up four loose ends that were originally flagged as "out of scope" or "deferred". All four are now fixed.
+
+1. **`select-bordered` / `input-bordered` v4 cruft (`de9bd4f`)** — Phase 8 shipped DaisyUI v4 form modifiers that don't exist in v5 (v5 makes bordered the default; `*-ghost` is the opt-out). Tailwind silently dropped the dead tokens. The fields still rendered correctly because the base `.input` / `.select` carries the bordered look in v5, but the JSX lied about its intent. Removed the `-bordered` tokens from both work hour selects and both date inputs. Created `docs/DAISYUI_V5_NOTES.md` as a project-local cheat sheet covering the full v4→v5 removed-modifier table, a grep recipe for verifying which classes ship in the built CSS, our project conventions for every component family, and the components we deliberately do NOT use (`dropdown`, `menu`, `collapse`, `drawer`). Logged the trap in `docs/AI_MISTAKES.md` so future sessions don't repeat it. Registered the new doc in `CLAUDE.md`'s documentation table.
+
+2. **`.stat-card` dead wrapper (Summary.jsx)** — The Key Stats grid had a two-div sandwich where the outer carried `role="button"` + click handler + a `stat-card` marker class with no CSS rule, and the inner carried the visual classes (padding, background, rounding). Merged into a single div per tile so there's exactly one element per click target with both the interaction and the visual classes. Documented the rejection of DaisyUI's `stat` component (wrong rhythm — `stat` is a horizontal stat-block, our tiles are a 1×4 / 2×2 grid).
+
+3. **Toast nested aria-live (Toast.jsx)** — `ToastContainer` had an explicit `aria-live="polite"` and each `ToastItem` ALSO had its own `role="alert"` (implies aria-live="assertive") or `role="status"` (implies aria-live="polite"). Per WAI-ARIA 1.2 §5.2.2, role="alert" and role="status" are implicit live regions — adding aria-live to a parent of those creates a nested live region and screen readers announce every new toast TWICE. Removed the redundant `aria-live` and `aria-atomic` from the container; the per-item role attributes are sufficient on their own. Removed the per-item explicit `aria-live` too since the role implies it. Documentation block at the top of `ToastItem` explains the rule so future edits don't re-add either layer.
+
+4. **HamburgerMenu stacking-context trap** — The long-standing "Low priority" TODO entry: `.dashboard-header` has `position: relative; z-index: var(--z-sticky-header)` which creates a stacking context that traps fixed-position children at the header's level. Drawer overlays (z-drawer=30) were rendering ABOVE the menu backdrop (z-menu-backdrop=40) because the menu's effective z-index was clamped to z-sticky-header=21. Fixed by rendering the backdrop + dropdown via `createPortal()` into `document.body` so they escape the trapped stacking context. The trigger button stays inside the header (sticks with the nav bar); only the surface portals out. Position is now computed from the trigger's `getBoundingClientRect()` in a `useLayoutEffect` and applied as inline `top`/`left` on the `position: fixed` dropdown. Listeners on `window` resize and capture-phase scroll keep the position in sync while the menu is open. Removed the now-obsolete `top: calc(100% + 6px); left: 0; position: absolute` from the `.hamburger-dropdown` CSS rule (replaced with `position: fixed` + a comment explaining the inline-style anchor pattern). The TODO entry was deleted from `docs/TODO.md`.
+
+Two follow-up items added to `docs/TODO.md` "Test infrastructure":
+- Browser-runtime smoke test (Playwright) for the DaisyUI migration checklist
+- Visual regression baselines (8 per tab — 4 light + 4 dark themes)
+
+These are the items the audit explicitly flagged as "could strengthen further" — they remain pending because they require setting up a test runner that this session can't bring up in the sandbox.
+
+---
+
 **Recent Updates (2026-04-13 — DaisyUI component-class migration, 10 phases):**
 
 A side-by-side audit against canva-grid/glow-props surfaced a serious "shadowing" finding: our custom unlayered classes (`.card`, `.btn-*`, `.badge`, `.toast-*`) were silently overriding DaisyUI's `@layer components` versions. Every consumer that thought it was getting DaisyUI's component was actually getting our custom fork. This pass migrates the consumers to DaisyUI component classes and deletes the shadow definitions.

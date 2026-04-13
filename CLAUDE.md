@@ -91,6 +91,7 @@ Good: "This file doesn't look like a dashboard data file. Try exporting from the
 | `docs/HISTORY.md` | Changelog of completed work | When completing TODO items or significant changes |
 | `docs/USER_ACTIONS.md` | Manual tasks requiring user intervention | When tasks need external action (credentials, dashboards) |
 | `docs/AI_MISTAKES.md` | Record of significant AI errors and learnings | After making a mistake that wasted time or broke things |
+| `docs/DAISYUI_V5_NOTES.md` | DaisyUI v5 cheat sheet — v4→v5 renames, project conventions, verification recipe, deliberately-not-used components | When encountering a new DaisyUI v5 quirk, or when adding a new component class to JSX |
 | `README.md` | User-facing application guide | When features change that affect user interaction |
 | `docs/USER_GUIDE.md` | Comprehensive feature documentation | When adding/changing features or UI workflows |
 | `docs/TESTING_GUIDE.md` | Manual test scenarios | When adding features that need test coverage |

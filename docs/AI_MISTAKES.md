@@ -19,21 +19,14 @@ Record of significant AI errors and learnings to prevent repetition. Document mi
 
 **Fix (`de9bd4f`):** Removed `-bordered` from all four call sites, updated SESSION_NOTES to flag the fix with a link to both commits, updated this file.
 
-**Prevention rule:** Before using any DaisyUI component modifier in v5 that ends in a word like `-bordered`, `-ghost`, `-outline`, `-soft`, `-dash`, `-link`, `-accent`, `-neutral`, verify it exists in the built CSS:
+**Prevention rule:** Before using any DaisyUI component modifier in v5 that ends in a word like `-bordered`, `-ghost`, `-outline`, `-soft`, `-dash`, `-link`, `-accent`, `-neutral`, verify it exists in the built CSS using the recipe in `docs/DAISYUI_V5_NOTES.md`. That file is the authoritative project-local cheat sheet covering:
 
-```bash
-./node_modules/.bin/vite build 2>&1 | tail -5
-grep -oE "\.(input|select|textarea|btn|card|alert|badge|toast|tab|modal|menu|dropdown|checkbox|radio|toggle|range|join)-[a-z-]*" dist/assets/index-*.css | sort -u
-```
+- The full v4 → v5 removed-modifier table (`input-bordered`, `btn-bordered`, `form-control`, `input-group`, `card-bordered`, `card-compact`, `tab-bordered`, `menu-compact` etc.)
+- The grep recipe to enumerate what DaisyUI v5 actually ships in the built CSS
+- Our project conventions for cards, buttons, badges, alerts, modals, toasts, tabs, form inputs, checkboxes
+- Components we deliberately do NOT use (`dropdown`, `menu`, `collapse`, `drawer`) and why
 
-The output is the authoritative list of what v5 actually ships. If a token you typed isn't in that list, you're writing v4 (or imagined) syntax. Common v4 → v5 renames to watch for:
-
-- `input-bordered` / `select-bordered` / `textarea-bordered` — **REMOVED in v5**, bordered is default, use `*-ghost` to unborder
-- `btn-bordered` — likewise removed in v5
-- `form-control` (v4 wrapper) — removed, use `fieldset` + `label`
-- `input-group` — removed, use `join`
-
-Documented this in the post-migration audit section of `docs/implementations/` (TODO — future session: copy this prevention block to `docs/implementations/DAISYUI_V5_NOTES.md` or similar if a v5 cheat-sheet gets added).
+Maintain that file when you encounter a new DaisyUI v5 quirk so the cheat sheet stays current.
 
 ---
 

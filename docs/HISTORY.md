@@ -4,6 +4,58 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-13
 
+### Post-migration audit — four loose-end fixes (cruft, dead wrapper, double-aria-live, stacking context)
+
+After the 10-phase DaisyUI component-class sweep was pushed, a self-audit of the migration surfaced four items originally flagged as "out of scope" or "deferred". Each was non-trivial enough to warrant its own commit; together they close every actionable item from the audit summary.
+
+**1. DaisyUI v4 `*-bordered` cruft removal (`de9bd4f` + `9e2b154`):**
+
+Phase 8 shipped `select select-bordered select-sm` and `input input-bordered input-sm w-full`. DaisyUI v5 removed the `-bordered` form modifiers because v5 makes the bordered style the default — `*-ghost` is the v5 opt-out for the no-border variant. Tailwind silently drops unknown classes, so the visual result was correct (the base `.select` / `.input` carries the v5 default border) but the JSX referenced four tokens that produced zero CSS rules.
+
+- `dashboard/js/components/SettingsPane.jsx`: both work hour selects → `select select-sm`.
+- `dashboard/js/components/FilterSidebar.jsx`: both date inputs → `input input-sm w-full`.
+- `dashboard/js/components/Toast.jsx`: top comment said `toast-top` but the code uses `toast-bottom` — aligned.
+- `dashboard/styles.css`: stale Phase-7/Phase-10 comment in the focus-visible block — updated to current.
+- New `docs/DAISYUI_V5_NOTES.md`: project-local cheat sheet covering the full v4→v5 removed-modifier table (`input-bordered`, `select-bordered`, `textarea-bordered`, `btn-bordered`, `form-control`, `input-group`, `card-bordered`, `card-compact`, `tab-bordered`, `tab-lifted`, `menu-compact`, `menu-normal`, `card-side`, `btn-group`), a grep recipe for verifying which DaisyUI v5 classes ship in the built CSS, our project conventions for cards/buttons/badges/alerts/modals/toasts/tabs/inputs/checkboxes, and the DaisyUI components we deliberately do NOT use (`dropdown`, `menu`, `collapse`, `drawer`) with rejection reasons.
+- `docs/AI_MISTAKES.md`: 2026-04-13 entry recording the `*-bordered` trap as a cautionary post-mortem with a pointer to `DAISYUI_V5_NOTES.md`.
+- `CLAUDE.md`: documentation table now lists `docs/DAISYUI_V5_NOTES.md` with its update trigger ("when encountering a new DaisyUI v5 quirk, or when adding a new component class to JSX").
+
+**2. `.stat-card` dead-wrapper merge (Summary.jsx):**
+
+The Key Stats grid in `Summary.jsx` had a two-div sandwich for each tile: outer carried `role="button"` + click handler + `tabIndex` + a `stat-card` marker class with no CSS rule defined; inner carried the visual classes (`p-4 bg-base-300 rounded-lg text-center`). The outer was dead weight — the marker class did nothing, and the click target / focus ring was visually wrapping the inner's rounded corners with no real benefit.
+
+- Merged into a single `<div>` per tile carrying both the interaction (`role="button"`, `tabIndex`, `aria-label`, `onClick`, `onKeyDown`) and the visual classes (`p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary transition-all`).
+- Documented the rejection of DaisyUI's `stat` component in the merged comment block: `stat` is a horizontal stat-block with `stat-title` / `stat-value` / `stat-desc` sub-elements; our tiles are a denser 1×4 / 2×2 grid that needs a different visual rhythm.
+
+**3. Toast nested aria-live double-announce fix (Toast.jsx):**
+
+`ToastContainer` had `aria-live="polite" aria-atomic="false"` AND each `ToastItem` had `role={toast.type === 'error' ? 'alert' : 'status'}` plus an explicit `aria-live`. Per WAI-ARIA 1.2 §5.2.2 ("Live Region Roles"), `role="alert"` is an implicit live region with `aria-live="assertive"` and `role="status"` is an implicit live region with `aria-live="polite"`. Wrapping a live region in another live region creates a nested live region and screen readers announce every new child TWICE.
+
+- Removed `aria-live` and `aria-atomic` from `ToastContainer`.
+- Removed the redundant explicit `aria-live` from `ToastItem` (the role attribute already implies it).
+- Added a documentation block at the top of `ToastItem` explaining the rule so future edits don't re-add either layer.
+
+**4. HamburgerMenu stacking-context fix via React Portal:**
+
+The long-standing `docs/TODO.md` "Stacking Context" entry: `.dashboard-header` has `position: relative; z-index: var(--z-sticky-header)` (z-21) which creates a stacking context. The hamburger menu's backdrop (`z-menu-backdrop` = 40) and dropdown (`z-menu` = 50) were children of `.dashboard-header`, so their effective stacking-context z-index was clamped to z-21 from the document level. Drawer overlays (`z-drawer` = 30) at document-root level rendered ABOVE the menu backdrop. Functionally rare because the menu auto-closes on item selection, but a real regression trap waiting to bite.
+
+- `dashboard/js/components/HamburgerMenu.jsx`: imported `createPortal` from `react-dom`. The trigger button stays inside the header subtree (sticks with the nav bar); only the backdrop + dropdown surface are now rendered via `createPortal(portalContent, document.body)` so they escape the trapped stacking context.
+- Position computed from the trigger's `getBoundingClientRect()` in a `useLayoutEffect` (not `useEffect` — measurement must happen before paint so the dropdown's first frame is correctly placed). Applied as inline `top` / `left` style on the `position: fixed` dropdown.
+- Listeners on `window` resize and capture-phase scroll keep the position in sync while the menu is open. Capture-phase ensures scrolling any nested scroll container also triggers an update, not just the document root.
+- `dashboard/styles.css`: the `.hamburger-dropdown` rule replaces `position: absolute; top: calc(100% + 6px); left: 0` with `position: fixed` (no static offsets) and adds a comment block explaining the inline-style anchor pattern.
+- `triggerPos` state guards the first render: the portal renders nothing until `useLayoutEffect` measures the trigger, so users never see the dropdown flash at 0,0 in the one frame between open() and the first measurement.
+- Z-index unchanged (`z-menu` = 50) — the dropdown is now genuinely at document-root level so the value is the effective screen z-index.
+- Removed the TODO.md "Stacking Context" entry.
+
+**Two follow-up items added to TODO.md "Test infrastructure":**
+
+- Browser-runtime smoke test (Playwright) for the DaisyUI component-class migration. The 2026-04-13 sweep was verified by `vite build` + grep against the built CSS — every phase passed those checks but no real browser was driven to click through the modals/toasts/drawers. Should walk the TESTING_GUIDE "DaisyUI component-class migration" checklist in CI.
+- Visual regression suite (Playwright screenshot baselines per tab × per theme — 8 baselines per tab) to catch silent regressions if a future change re-introduces a shadow class or an unrecognized DaisyUI modifier.
+
+These remain pending because they require setting up a test runner that this session can't bring up in the sandbox. The TODO.md entries describe what they should check.
+
+**Build:** All four fix commits passed `./node_modules/.bin/vite build` clean. `node --test scripts/__tests__/oklchToHex.test.mjs` still 21/21 passing.
+
 ### DaisyUI component-class migration — 10-phase "unshadow" sweep
 
 **Why:** After the full DaisyUI theming migration (six reference phases + two alignment passes) landed on 2026-04-12, a side-by-side audit against canva-grid/glow-props turned up one serious finding: our custom CSS classes `.card`, `.btn-*`, `.badge`, `.toast-*` were silently overriding DaisyUI's built-in component classes because unlayered CSS wins over `@layer components`. Every consumer that thought it was getting DaisyUI's `card` was actually getting our custom version, and the override only worked as long as our custom class stayed in sync with DaisyUI's layout expectations. This was the same "shadowing" footgun the DaisyUI docs warn about. This pass migrates the consumers to proper DaisyUI component classes and deletes the custom shadow classes so there is only one source of truth per component.
