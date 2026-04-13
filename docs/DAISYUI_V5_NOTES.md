@@ -6,6 +6,8 @@ Project-local reference for DaisyUI v5 quirks, v4→v5 renames, and conventions 
 
 **Why this file exists:** A post-migration audit found that Phase 8 of the DaisyUI component-class sweep shipped `select select-bordered select-sm` and `input input-bordered input-sm w-full`, which compiled without error but the `-bordered` tokens didn't exist — they were v4 modifiers that v5 removed. Tailwind silently drops unknown classes, so the visual result looked correct (because v5 makes bordered the default) but the code lied about its intent. See `docs/AI_MISTAKES.md` 2026-04-13 entry for the full post-mortem.
 
+A second audit pass (same date, commit `de2e6ad`) caught three more gaps that had gotten in: hardcoded Tailwind color classes (`bg-green-500` etc.) in data-viz categories that should have been DaisyUI semantic tokens, the custom `.loading-spinner` class shadowing DaisyUI v5's own loading variant, and two-div wrapper+fill progress bar patterns that should have been native `<progress>` elements. Each of those is covered in the sections below.
+
 ---
 
 ## v4 → v5 removed modifiers
@@ -85,6 +87,27 @@ These are the DaisyUI v5 patterns we standardized on across the 10-phase migrati
 **Tabs:** `tabs tabs-border` on the parent with `role="tablist" aria-label="..."`, each tab gets `tab` + our custom `tab-btn` typography, active state adds `tab-active tab-btn-active`.
 **Form inputs:** `input input-sm` / `select select-sm` / `textarea textarea-sm` — bordered is the default in v5, do not add `*-bordered`.
 **Checkboxes:** `checkbox checkbox-xs checkbox-primary` (v5 supports `-primary/-secondary/-accent` etc. color modifiers).
+**Loading spinners:** `<span className="loading loading-spinner loading-{xs|sm|md|lg} text-primary" aria-label="Loading" />`. The base `.loading` provides display + aspect-ratio + mask-image mechanics; the variant (`loading-spinner` / `loading-dots` / `loading-ring` / `loading-ball` / `loading-bars`) picks the animation SVG; the size adjusts width via `calc(var(--size-selector,.25rem)*N)`; `text-primary` (or any `text-*` utility) threads the active theme's color through DaisyUI's `currentColor` fill. Do NOT use `loading-spinner` alone — it's a variant, not a base, and without `loading` it has no geometry.
+**Progress bars:** `<progress className="progress progress-{primary|info|success|warning|error|secondary|accent} w-full" value={pct} max="100" aria-label="..." />`. Native `<progress>` element — screen readers announce "X percent of 100" automatically. Use for SINGLE-VALUE progress bars. For multi-segment stacked bars, keep the custom `<div className="bg-base-300 rounded-full"><div className="bg-{token}" style={{ width }} /></div>` pattern with DaisyUI semantic tokens for each segment — native `<progress>` can't render multiple simultaneous values.
+
+## Data-viz color tokens
+
+For charts / bars / legend dots where categories encode meaning, ALWAYS use DaisyUI semantic tokens — never hardcoded Tailwind shades like `bg-green-500` or `bg-red-600`. Hardcoded shades don't track the active theme: on dark themes (`black`, `dim`, `coffee`) mid-saturation shades can blend with the base; on warm themes (`caramellatte`) they clash.
+
+Canonical mappings we use across the dashboard:
+
+| Semantic meaning | DaisyUI token | Typical use |
+|---|---|---|
+| "Good" / success / safe / planned | `bg-success` / `text-success` | Planned work, low risk, debt paid, minor semver, work-hours legend |
+| "Neutral info" / normal / ongoing | `bg-info` / `text-info` | Routine work, user-facing impact, patch semver, file-change progress |
+| "Caution" / medium risk / reactive | `bg-warning` / `text-warning` | Reactive work, medium risk, right-side comparison, mixed-hours legend |
+| "Bad" / error / high risk / broken | `bg-error` / `text-error` | High risk, debt added, major semver, outside-work-hours legend |
+| "Background" / internal / inactive | `bg-neutral` / `text-neutral` | Internal impact, neutral debt, "no change" states |
+| "Generic primary accent" | `bg-primary` / `text-primary` | Epic progress bars, tile hover rings, generic single-value progress |
+| "Secondary accent" | `bg-secondary` | Infrastructure impact (distinct from internal/neutral) |
+| "Tertiary accent" | `bg-accent` | API impact (distinct from success so a 4-category impact chart renders with 4 visibly-different colors) |
+
+When you have a 3-category gradient (good/mixed/bad), use `success` / `warning` / `error` in that order. When you have a 4-category independent palette, use `info` / `neutral` / `secondary` / `accent` so all four are visibly distinct across every registered theme.
 
 ## Deliberately NOT used
 
