@@ -20,11 +20,15 @@ import { copyToClipboard } from '../copyToClipboard.js';
 const MAX_ENTRIES = 200;
 const TABS = ['Log', 'Environment', 'PWA'];
 
-// Source color mapping for log entries
+// Source color mapping for log entries.
+// Unknown sources fall back to '#94a3b8' (neutral gray) via the lookup in
+// sourceTag() below, so adding a new source here is optional — but named
+// colors make the log tab scannable when filtering by category.
 const SOURCE_COLORS = {
     pwa: '#2dd4bf',
     boot: '#a78bfa',
     render: '#60a5fa',
+    theme: '#c4b5fd',   // lavender — distinct from render (blue) and boot (purple)
     global: '#f87171',
     api: '#fbbf24',
     auth: '#fb923c',

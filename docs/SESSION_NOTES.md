@@ -4,7 +4,18 @@ Current state for AI assistants to continue work.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes, `applyTheme()` helper, single-source-of-truth build-time catalog propagator, theme picker UI in burger menu, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist), and PWA support.
+**Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, theme picker UI in burger menu, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support.
+
+**Recent Updates (2026-04-12 — fifth pass, canva-grid alignment):**
+
+- Extracted `scripts/oklchToHex.mjs` as a standalone module with 21 unit tests via `node:test` (no Jest dependency). Fixes an L=1 percentage-vs-decimal edge case the old inlined version had via a heuristic that couldn't distinguish `oklch(1 0 0)` (white) from `oklch(1% 0 0)` (near-black). `npm test` runs the suite in ~150 ms.
+- Added `COLOR_KEY_OVERRIDES` to `scripts/generate-theme-meta.mjs`. Default rule now matches the reference (`--color-primary` for light themes, `--color-base-100` for dark themes) with targeted overrides for monochrome/warm-minimal light themes whose primary is near-black: `lofi → --color-base-300` (→ `#ebebeb`, borrowed from canva-grid), `caramellatte → --color-base-300` (→ `#ffd6a7`, our addition — DaisyUI ships caramellatte with `primary = oklch(0% 0 0)` literal black). Light-theme PWA status bars now use each theme's actual brand accent: `nord → #5e81ac`, `emerald → #66cc8a`.
+- Added theme-change flow tracing via `debugLog`. New `theme` source color (lavender `#c4b5fd`) in `DebugPill.jsx` `SOURCE_COLORS`. Every `applyTheme()` call emits a `theme-applied` event with `{dark, requested, validated, skipPersist}` — `requested !== validated` signals a stale or cross-mode theme id dispatch. Pattern borrowed from canva-grid's `useDarkMode` hook.
+- Documented the Approach A (per-mode independent, 3 storage keys) vs Approach B (named combos, 2 storage keys) tradeoff in `CLAUDE.md`'s Dashboard Architecture section, with reference to canva-grid as the Approach B sibling project and rationale for why we chose A.
+
+---
+
+**Previous Updates (2026-04-12 — earlier passes):**
 
 **Recent Updates (2026-04-12 — fourth pass):**
 

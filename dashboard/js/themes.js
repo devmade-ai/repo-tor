@@ -37,6 +37,7 @@
 
 import { Chart as ChartJS } from 'chart.js';
 import { safeStorageGet, safeStorageSet, safeStorageRemove } from './utils.js';
+import { debugAdd } from './debugLog.js';
 import { META_COLORS } from './generated/themeMeta.js';
 
 // Chart.js is also imported by main.jsx (for component registration) and
@@ -118,6 +119,19 @@ export function persistTheme(dark, themeName) {
     }
 }
 
+// --- Theme-change flow tracing ---
+// applyTheme() is called from several places (AppContext darkMode effect,
+// App.jsx embed override, cross-tab storage listener) and can be a source
+// of subtle bugs when one of those paths runs with stale state or in the
+// wrong order. Each call is logged to the debug pill's log tab so
+// developers can see the exact sequence of theme changes during a
+// session. Severity is 'info' — these are normal events, not warnings.
+// Pattern borrowed from canva-grid's useDarkMode hook which logs every
+// theme transition to its debug log.
+function logThemeEvent(event, details) {
+    debugAdd('theme', 'info', event, details);
+}
+
 // --- Meta color lookup ---
 export function getMetaColor(themeName) {
     return META_COLORS[themeName] || '#808080';
@@ -176,4 +190,15 @@ export function applyTheme(dark, themeName, skipPersist = false) {
     if (!skipPersist) {
         persistTheme(dark, validatedName);
     }
+
+    // Flow trace: log after DOM mutations + persistence so the debug log
+    // shows the fully-applied state. `requested` vs `validatedName` tells
+    // developers whether the validator had to fall back to a default
+    // (e.g. "someone dispatched with a stale or cross-mode theme id").
+    logThemeEvent('theme-applied', {
+        dark,
+        requested: themeName,
+        validated: validatedName,
+        skipPersist,
+    });
 }

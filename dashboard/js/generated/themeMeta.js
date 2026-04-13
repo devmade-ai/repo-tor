@@ -8,10 +8,10 @@
 // used as the PWA status bar color via <meta name="theme-color">.
 
 export const META_COLORS = {
-  "lofi": "#ffffff",
-  "nord": "#eceff4",
-  "emerald": "#ffffff",
-  "caramellatte": "#fff7ed",
+  "lofi": "#ebebeb",
+  "nord": "#5e81ac",
+  "emerald": "#66cc8a",
+  "caramellatte": "#ffd6a7",
   "black": "#000000",
   "dim": "#2a303c",
   "coffee": "#261b25",

@@ -205,6 +205,20 @@ Tab-to-section mapping in `js/state.js` as `TAB_SECTIONS`. Tab routing in `js/Ap
 
 Executive and Management views show interpretation guidance hints; Developer view shows raw data. Selection persists in localStorage.
 
+**Theming — Approach A (per-mode independent)**
+
+This project follows the "Approach A" theme persistence shape from `docs/implementations/THEME_DARK_MODE.md`:
+
+- Storage keys: `darkMode` (required once user has toggled), `lightTheme` (optional per-mode theme name), `darkTheme` (optional per-mode theme name)
+- User picks a dark/light mode and, independently, a theme for each mode from a curated catalog
+- Catalog: 4 light themes (`lofi`, `nord`, `emerald`, `caramellatte`) + 4 dark themes (`black`, `dim`, `coffee`, `dracula`)
+- Theme picker lives inside the burger menu, filtered to the current mode
+- Reducer state holds `lightTheme` and `darkTheme` in `AppContext` so cross-tab sync can update the non-active mode's theme without DOM flicker
+
+**Why Approach A (and not Approach B named combos)** — sibling projects in the devmade-ai org use the alternate "Approach B" shape where the user picks a named combo (e.g. `Mono` = lofi/black, `Luxe` = fantasy/luxury) with a single `themeCombo` storage key. Examples: canva-grid, graphiki, few-lap, synctone. That shape is simpler when each combo is pre-vetted and the design goal is a cohesive branded experience across modes. We chose Approach A because the dashboard is a utility app with no brand-coupled theme pairings — a user picking Nord in light mode has no reason to also want Coffee in dark mode, and forcing them into a combo constrains the choice unnecessarily. Approach A gives `4 × 4 = 16` possible (mode, theme) combinations vs Approach B's `2 × 2 = 4` combo options, at the cost of a slightly more complex picker UX (two clicks: pick mode, pick theme).
+
+See `docs/implementations/THEME_DARK_MODE.md` for the full reference and `scripts/theme-config.js` for the curated catalog.
+
 ---
 
 ## Project-Specific Configuration

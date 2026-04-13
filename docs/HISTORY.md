@@ -4,6 +4,93 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-12
 
+### canva-grid alignment pass — oklchToHex module + tests, COLOR_KEY_OVERRIDES, debug flow tracing, Approach A vs B documentation
+
+**Why:** After cross-referencing our theming against canva-grid's implementation (the sibling project using "Approach B" named combos), five patterns from canva-grid were worth adopting without changing our Approach A storage shape. Four were actual gaps in our implementation; one was pure documentation. All five implemented this pass.
+
+**1. Extracted `scripts/oklchToHex.mjs` into its own module with 21 unit tests**
+
+Previously the oklch → hex color math was inlined inside `scripts/generate-theme-meta.mjs` with zero tests. Extraction gives it:
+
+- A standalone module at `scripts/oklchToHex.mjs` that the generator imports.
+- A test file at `scripts/__tests__/oklchToHex.test.mjs` using Node's built-in `node:test` runner and `node:assert/strict` — **no Jest dependency**. Adding Jest for one module would be disproportionate; `node:test` has been stable since Node 20 and we're on Node 22.
+- 21 tests covering: boundary values (pure black / white / mid gray), achromatic colors invariant across hue, optional hue, alpha channel handling, whitespace tolerance, the L=1 percentage-vs-decimal edge case (see below), DaisyUI fixtures (`nord primary → #5e81ac`, `dracula base-100 → #282a36`, etc.), out-of-gamut clamping, and non-oklch input rejection.
+
+**2. Fixed the L=1 percentage-vs-decimal edge case**
+
+The old inlined version used `if (L > 1) L /= 100` as a heuristic to normalize percentage input. This fails at the L=1 boundary: `oklch(1 0 0)` (decimal, meaning white) and `oklch(1% 0 0)` (percent, meaning near-black) both keep L=1 and would both produce white. DaisyUI always uses percentage form so this never triggered in practice, but the fix is free.
+
+The new module captures the percent sign explicitly via the regex `([\d.]+)(%?)` and only divides by 100 when the `%` character was matched. Three dedicated tests pin the behavior:
+- `oklch(1 0 0)` → `#ffffff` (white)
+- `oklch(1% 0 0)` → near-black with R channel < 10
+- `oklch(0.5 0 0)` === `oklch(50% 0 0)`
+
+**3. Added `COLOR_KEY_OVERRIDES` to the generator**
+
+The reference pattern's default rule is "light themes use `--color-primary`, dark themes use `--color-base-100`". This works for most themes but breaks on monochrome/warm-minimal light themes whose `--color-primary` is near-black or literally `oklch(0% 0 0)` — producing a jarring dark PWA status bar on an otherwise-light app.
+
+Pattern borrowed from canva-grid's generator. We add two entries:
+- **`lofi`**: `--color-primary` is `oklch(15.906% 0 0)` ≈ `#1c1c1c`. Override to `--color-base-300` → `#ebebeb` (neutral light gray). Same value canva-grid uses.
+- **`caramellatte`**: `--color-primary` is literally `oklch(0% 0 0)` = pure black (DaisyUI design decision). Override to `--color-base-300` → `#ffd6a7` (warm peach — the "caramel" tone from the theme's surface palette). canva-grid doesn't have caramellatte in its catalog so this override is our own addition, following the same pattern.
+
+New hex values after the override:
+```
+lofi          light  #ebebeb  base-300  (was #ffffff)
+nord          light  #5e81ac  primary   (was #ffffff — we used base-100 for everything previously)
+emerald       light  #66cc8a  primary   (was #ffffff)
+caramellatte  light  #ffd6a7  base-300  (was #fff7ed)
+black         dark   #000000  base-100
+dim           dark   #2a303c  base-100
+coffee        dark   #261b25  base-100
+dracula       dark   #282a36  base-100
+```
+
+The dark themes are unchanged (still using base-100 per the default rule). Light themes now have theme-appropriate brand colors instead of uniform white, which makes the PWA status bar visually distinguishable between themes on mobile.
+
+**Previous approach vs new approach:** In the previous pass, I chose `--color-base-100` for all themes with the rationale "status bar should blend with main surface". That was a conscious divergence from the reference pattern which I explicitly documented. The canva-grid comparison revealed a better option: follow the reference default (primary for light, base-100 for dark) AND add targeted overrides for themes where the default produces bad results. This gives us the best of both — brand accent colors on status bars for most themes, with graceful fallbacks for the problem cases.
+
+**4. Added theme-change flow tracing via `debugLog`**
+
+canva-grid's `useDarkMode` hook logs every theme transition to its debug log — helpful during development to see the sequence of events when diagnosing "I picked Nord but it shows Lo-Fi" type bugs. Adopted the same pattern:
+
+- `dashboard/js/components/DebugPill.jsx` gains a `theme: '#c4b5fd'` (lavender) entry in `SOURCE_COLORS` so theme events are visually distinct in the debug pill's log tab from render errors (blue) and boot events (purple).
+- `dashboard/js/themes.js` imports `debugAdd` from `./debugLog.js` and exposes a `logThemeEvent(event, details)` helper.
+- `applyTheme()` calls `logThemeEvent('theme-applied', { dark, requested, validated, skipPersist })` at the end of every invocation. `requested` vs `validated` tells developers whether the validator had to fall back to a default (signaling a stale or cross-mode theme id was dispatched).
+- Every theme-apply path gets logged once: mount via AppContext darkMode effect, user-initiated toggle, `setTheme()` picker click, cross-tab storage event, App.jsx embed override.
+
+`debugLog.js` has zero imports and no module-load side effects that depend on `themes.js`, so there's no circular dependency risk. Verified by running `themes.js` through Node with a browser-shaped stub — module loads, exports are present, `applyTheme()` runs through the `debugAdd` call path without throwing.
+
+**5. Documented the Approach A vs B tradeoff in `CLAUDE.md`**
+
+The reference pattern describes two theme persistence shapes — "Approach A" (per-mode independent, 3 keys: `darkMode`/`lightTheme`/`darkTheme`) and "Approach B" (named combos, 2 keys: `darkMode`/`themeCombo`). canva-grid uses Approach B; we use Approach A. Added a new "Theming — Approach A (per-mode independent)" section to `CLAUDE.md`'s Dashboard Architecture that explains:
+
+- Which storage keys we use
+- Our curated catalog (4 light + 4 dark = 8 total)
+- Why we chose Approach A over B: the dashboard is a utility app with no brand-coupled theme pairings, so constraining users to pre-vetted combos (canva-grid's 2 × 2 = 4 options) is unnecessarily restrictive compared to Approach A's 4 × 4 = 16 independent (mode, theme) combinations. The tradeoff is a slightly more complex picker UX (two clicks: mode then theme) vs canva-grid's single-click combo buttons.
+- Links to sibling projects using Approach B as reference.
+
+**Files changed (6 source + 2 generator + 2 test + 1 doc):**
+
+- New: `scripts/oklchToHex.mjs` — standalone oklch → hex module with improved percentage-vs-decimal handling
+- New: `scripts/__tests__/oklchToHex.test.mjs` — 21 unit tests covering CSS Color Level 4 edge cases and DaisyUI fixtures
+- Modified: `scripts/generate-theme-meta.mjs` — imports oklchToHex instead of inlining, adds `COLOR_KEY_OVERRIDES` map, per-theme `colorKey` field in the collected metadata, richer stdout report showing the CSS variable used for each theme
+- Modified: `dashboard/js/themes.js` — imports `debugAdd`, adds `logThemeEvent()` helper, calls it from `applyTheme()`
+- Modified: `dashboard/js/components/DebugPill.jsx` — adds `theme: '#c4b5fd'` to `SOURCE_COLORS`
+- Modified: `dashboard/js/generated/themeMeta.js`, `dashboard/index.html` — regenerated hex values (lofi `#ffffff→#ebebeb`, caramellatte → `#ffd6a7`, nord → `#5e81ac`, emerald → `#66cc8a`)
+- Modified: `package.json` — adds `"test": "node --test scripts/__tests__/*.test.mjs"` script
+- Modified: `CLAUDE.md` — new "Theming — Approach A (per-mode independent)" section under Dashboard Architecture
+
+**Build and test:** `npm test` — 21 passing, 0 failing, 6 suites. `npm run build` — passes, 84 modules transform. CSS bundle 157.40 → 160.06 KB (+2.66 KB from added Tailwind class scanning for the new debug source color). Generator idempotence verified — second run reports all four downstream files "unchanged". `themes.js` loads cleanly via Node direct import with browser stub. All 8 `[data-theme="..."]` selectors present in the built CSS. All 8 new hex values present in the inline flash prevention script. All 15 critical custom class families still emitted.
+
+**Deliberately NOT adopted from canva-grid** (documented rationale):
+
+- **Combo-based persistence (Approach B).** Structural change that would lose per-mode-independent theme choice. We explicitly chose Approach A; canva-grid's comparison confirms the tradeoff is a conscious decision, not a gap.
+- **Theme picker in page header instead of burger menu.** canva-grid's inline `join` component is more discoverable but our dashboard header already has tab navigation, filter controls, and settings — no room. Burger menu placement is a deliberate UX decision for our layout.
+- **Regex-based `index.html` rewrite.** canva-grid uses `html.replace(/var combos = [^;]+;/, ...)` which silently fails if anyone reformats the inline script. Our marker-based `BEGIN/END GENERATED` approach fails loudly on missing markers and survives reformatting.
+- **Manual `npm run generate-theme-meta`.** canva-grid's generator runs only on-demand (not in `prebuild`). Ours runs as the first step of every `npm run dev` / `build` / `build:lib` so drift is impossible.
+
+---
+
 ### Self-audit pass — dead code removal, persistence correctness, cross-tab null handling
 
 **Why:** After the reference-pattern gap closure landed, a deliberate self-audit surfaced six issues: one real runtime bug (silently masked by tree-shaking), one real persistence bug (stale key on revert-to-default), one cross-tab listener bug (null `newValue` filtered out), two dead-code imports/exports, and one minor code-clarity improvement. The user explicitly asked "anything to double check, strengthen, or improve?" — this pass addresses every finding.

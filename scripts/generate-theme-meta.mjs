@@ -65,6 +65,7 @@ import {
     DEFAULT_LIGHT_THEME,
     DEFAULT_DARK_THEME,
 } from './theme-config.js';
+import { oklchToHex } from './oklchToHex.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, '..');
@@ -94,65 +95,63 @@ if (!darkIds.has(DEFAULT_DARK_THEME)) {
 }
 
 // --- oklch() -> hex conversion ---
-// Self-contained. No dependency on a color library.
+// The actual math lives in scripts/oklchToHex.mjs so it can be unit-tested
+// independently (see scripts/__tests__/oklchToHex.test.mjs, run via
+// `npm test`). This used to be inlined in this file; extracting it gave
+// us 21 unit tests covering the CSS Color Level 4 edge cases, including
+// the L=1 percentage-vs-decimal boundary that the old inlined version
+// got wrong via the `if (L > 1) L /= 100` heuristic.
+
+// --- Per-theme color-key overrides ---
+// Default rule from docs/implementations/THEME_DARK_MODE.md:
+//   - Light themes use --color-primary as the PWA status bar color (the
+//     theme's brand accent).
+//   - Dark themes use --color-base-100 (the theme's main surface).
 //
-// Pipeline: parse oklch() -> oklab -> linear sRGB (via LMS) -> gamma-corrected
-// sRGB -> hex. Reference: https://bottosson.github.io/posts/oklab/
+// This default is right for most themes, but some light themes have a
+// --color-primary that doesn't represent the theme feel — typically
+// monochrome or warm-minimal themes whose primary is near-black, which
+// produces a jarring dark status bar on an otherwise-light app. For those
+// we override which CSS variable we read. Keys below are DaisyUI theme
+// ids from theme-config.js; values are the CSS variable name to read
+// instead.
 //
-// Validated against DaisyUI's own values during development:
-//   lofi   base-100 oklch(100% 0 0) -> #ffffff
-//   black  base-100 oklch(0% 0 0)   -> #000000
-//   nord   base-100 oklch(95.127% 0.007 260.731) -> close to Nord's snow-storm palette
-function oklchToHex(oklchStr) {
-    const match = oklchStr.match(/oklch\(\s*([\d.]+)%?\s+([\d.]+)\s+([\d.]+)\s*\)/);
-    if (!match) return null;
-    let [, L, C, H] = match.map(Number);
-    if (L > 1) L /= 100; // normalize percentage form
-
-    const hRad = (H * Math.PI) / 180;
-    const a = C * Math.cos(hRad);
-    const b = C * Math.sin(hRad);
-
-    // oklab -> linear sRGB via LMS
-    const l_ = L + 0.3963377774 * a + 0.2158037573 * b;
-    const m_ = L - 0.1055613458 * a - 0.0638541728 * b;
-    const s_ = L - 0.0894841775 * a - 1.2914855480 * b;
-    const lCube = l_ ** 3;
-    const mCube = m_ ** 3;
-    const sCube = s_ ** 3;
-    const r = 4.0767416621 * lCube - 3.3077115913 * mCube + 0.2309699292 * sCube;
-    const g = -1.2684380046 * lCube + 2.6097574011 * mCube - 0.3413193965 * sCube;
-    const bV = -0.0041960863 * lCube - 0.7034186147 * mCube + 1.7076147010 * sCube;
-
-    // Gamma-corrected sRGB -> [0, 255]
-    const gamma = (v) =>
-        Math.max(
-            0,
-            Math.min(
-                255,
-                Math.round(
-                    (v <= 0.0031308 ? 12.92 * v : 1.055 * v ** (1 / 2.4) - 0.055) * 255
-                )
-            )
-        );
-    return `#${[r, g, bV]
-        .map(gamma)
-        .map((v) => v.toString(16).padStart(2, '0'))
-        .join('')}`;
-}
+// Pattern borrowed from canva-grid's scripts/generate-theme-meta.mjs.
+// canva-grid's override map is just `lofi: --color-base-300`. We add
+// caramellatte for the same reason (DaisyUI ships it with primary =
+// literal oklch(0% 0 0), i.e. pure black).
+const COLOR_KEY_OVERRIDES = {
+    // lofi's --color-primary is oklch(15.906% 0 0) ≈ #1c1c1c (near-black),
+    // which looks wrong as a light-mode status bar. Use --color-base-300
+    // (oklch(94% 0 0) ≈ #ebebeb, a neutral light gray) instead — still
+    // matches the monochrome aesthetic without flashing near-black on
+    // mobile status bars.
+    lofi: '--color-base-300',
+    // caramellatte's --color-primary is oklch(0% 0 0) = pure black, a
+    // DaisyUI design decision. For a "warm neutral" light theme that
+    // otherwise uses creams and tans, a black status bar is visually
+    // wrong. --color-base-300 (oklch(90% 0.076 70.697) ≈ warm tan) is
+    // the most distinctive "caramel" tone available from the base
+    // surface palette and blends cleanly with the theme's main surfaces.
+    caramellatte: '--color-base-300',
+};
 
 // --- Collect theme metadata from DaisyUI ---
-// Each registered theme's `object.js` exports a plain object of CSS variables
-// with a `color-scheme` key ('light' or 'dark'). We verify the color-scheme
-// matches which array the theme is in (catches config errors where a dark
-// theme was accidentally added to THEMES.light or vice versa), then convert
-// --color-base-100 from oklch() to hex as the PWA status bar color. We use
-// base-100 (the theme's main surface) for both light and dark themes because
-// the status bar should blend with the main surface — deliberately diverging
-// from the reference's "use --color-primary for light" rule because lofi's
-// primary is nearly black and would flash a near-black status bar on an
-// otherwise-white light-mode app. See docs/implementations/THEME_DARK_MODE.md
-// migration notes for the rationale.
+// Each registered theme's per-theme object.js (found at
+// node_modules/daisyui/theme/<id>/object.js) exports a plain object of
+// CSS variables with a `color-scheme` key ('light' or 'dark'). We verify
+// color-scheme matches which THEMES array the theme is listed in — this
+// catches config typos where a dark theme was accidentally added to
+// THEMES.light or vice versa before they render wrong in a real browser.
+//
+// For the meta theme-color itself, we read one variable per theme:
+//   - Light themes default to `--color-primary` (the theme's brand accent)
+//   - Dark themes default to `--color-base-100` (the theme's main surface)
+//   - Any theme in COLOR_KEY_OVERRIDES uses the override variable instead.
+// Reference: docs/implementations/THEME_DARK_MODE.md PWA Meta Theme-Color
+// section. The light->primary rule is the reference default; we borrow
+// the per-theme override mechanism from canva-grid to handle monochrome
+// themes whose primary is too dark to read as a status bar.
 const collected = {};
 const allThemes = [...THEMES.light, ...THEMES.dark];
 const expectedDark = new Map([
@@ -188,16 +187,30 @@ for (const theme of allThemes) {
         process.exit(1);
     }
 
-    const base100 = themeObj['--color-base-100'];
-    const hex = oklchToHex(base100 || '');
-    if (!hex) {
+    // Which CSS variable to read for this theme's meta color.
+    // Resolution order: explicit override -> mode default.
+    const defaultKey = isDarkActual ? '--color-base-100' : '--color-primary';
+    const colorKey = COLOR_KEY_OVERRIDES[theme.id] || defaultKey;
+    const oklch = themeObj[colorKey];
+    if (!oklch) {
         console.error(
-            `[generate-theme-meta] Failed to convert "${base100}" for theme "${theme.id}"`
+            `[generate-theme-meta] theme "${theme.id}" is missing ${colorKey}`
+        );
+        console.error(
+            `  Check COLOR_KEY_OVERRIDES or DaisyUI's theme object for this id.`
         );
         process.exit(1);
     }
 
-    collected[theme.id] = { isDark: isDarkActual, metaColor: hex };
+    const hex = oklchToHex(oklch);
+    if (!hex) {
+        console.error(
+            `[generate-theme-meta] Failed to convert ${colorKey}="${oklch}" for theme "${theme.id}"`
+        );
+        process.exit(1);
+    }
+
+    collected[theme.id] = { isDark: isDarkActual, metaColor: hex, colorKey };
 }
 
 // --- Output 1: dashboard/js/generated/themeMeta.js (full rewrite) ---
@@ -355,8 +368,15 @@ const indexHtmlChanged = rewriteBetweenMarkers(
 );
 
 // --- Human-friendly stdout ---
-for (const [id, { isDark, metaColor }] of Object.entries(collected)) {
-    console.log(`  ${id.padEnd(16)} ${isDark ? 'dark ' : 'light'}  ${metaColor}`);
+// Report each theme with its mode, the CSS variable we read, and the hex
+// result. The variable name tells reviewers at a glance whether a theme
+// is using the default (primary for light, base-100 for dark) or an
+// override from COLOR_KEY_OVERRIDES.
+for (const [id, { isDark, metaColor, colorKey }] of Object.entries(collected)) {
+    const keyDisplay = colorKey.replace('--color-', '');
+    console.log(
+        `  ${id.padEnd(16)} ${isDark ? 'dark ' : 'light'}  ${metaColor}   ${keyDisplay}`
+    );
 }
 console.log(
     `[generate-theme-meta] ${generatedChanged ? 'updated' : 'unchanged'}   dashboard/js/generated/themeMeta.js`
