@@ -581,8 +581,15 @@ export default function Discover() {
                             <div key={selectedMetrics[idx]} className="card bg-base-200 border border-base-300">
                                 <div className="card-body p-5 gap-0">
                                     <div className="flex items-center justify-between mb-2 gap-1">
+                                        {/* Compact inline metric picker — kept as a raw <select> with
+                                            Tailwind utilities instead of DaisyUI `select select-xs`
+                                            because DaisyUI's select ships a 2rem minimum height and
+                                            a chevron icon that's wrong for this ultra-dense inline
+                                            control (the whole card-body is p-5 and the dropdown sits
+                                            beside a pin toggle in a flex row). Dead `metric-selector`
+                                            marker class removed during the 2026-04-13 audit pass. */}
                                         <select
-                                            className="metric-selector text-xs bg-base-300 text-base-content/80 rounded px-1 py-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary min-w-0 truncate"
+                                            className="text-xs bg-base-300 text-base-content/80 rounded px-1 py-0.5 cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary min-w-0 truncate"
                                             value={isPinned ? selectedMetrics[idx] : 'random'}
                                             onChange={(e) => handleSelectChange(idx, e.target.value)}
                                         >
@@ -591,8 +598,16 @@ export default function Discover() {
                                                 <option key={m.id} value={m.id}>{m.label}</option>
                                             ))}
                                         </select>
+                                        {/* Bare icon toggle — kept as a raw <button> with Tailwind
+                                            text-color utilities instead of DaisyUI `btn btn-ghost btn-xs`
+                                            because the pin toggle is a bare 16px icon that sits inline
+                                            with the metric title. DaisyUI's btn applies padding, min
+                                            height, and a pill border-radius that would shift the
+                                            header layout. Dead `pin-btn` marker class removed during
+                                            the 2026-04-13 audit pass. */}
                                         <button
-                                            className={`pin-btn text-xs flex-shrink-0 ${isPinned ? 'text-primary' : 'text-base-content/40'} hover:text-primary`}
+                                            type="button"
+                                            className={`text-xs flex-shrink-0 ${isPinned ? 'text-primary' : 'text-base-content/40'} hover:text-primary`}
                                             aria-label={isPinned ? 'Unpin this metric' : 'Pin this metric'}
                                             title={isPinned ? 'Unpin' : 'Pin this metric'}
                                             onClick={() => handlePinToggle(idx)}
@@ -629,8 +644,10 @@ export default function Discover() {
                                     <div className="flex items-center gap-2">
                                         <span className="text-xs sm:text-sm font-medium text-base-content w-16 sm:w-20 flex-shrink-0">{comp.left.label}</span>
                                         <div className="flex-1 h-4 bg-base-300 rounded-full overflow-hidden flex">
-                                            <div className="h-full bg-green-500" style={{ width: `${leftPct}%` }} />
-                                            <div className="h-full bg-amber-500" style={{ width: `${rightPct}%` }} />
+                                            {/* Two-sided comparison bar — success/warning semantic pair
+                                                reads as "good vs caution" regardless of active theme. */}
+                                            <div className="h-full bg-success" style={{ width: `${leftPct}%` }} />
+                                            <div className="h-full bg-warning" style={{ width: `${rightPct}%` }} />
                                         </div>
                                         <span className="text-xs sm:text-sm font-medium text-base-content w-16 sm:w-20 text-right flex-shrink-0">{comp.right.label}</span>
                                     </div>
@@ -651,7 +668,7 @@ export default function Discover() {
             <CollapsibleSection title="Most Changed Files" subtitle={`Top ${fileList.length} files by number of changes`}>
                 {fileInsights === 'loading' ? (
                     <div className="flex items-center gap-2 py-4 justify-center">
-                        <div className="loading-spinner loading-spinner-sm" />
+                        <span className="loading loading-spinner loading-sm text-primary" aria-label="Loading" />
                         <p className="text-base-content/60 text-sm">Loading file data&hellip;</p>
                     </div>
                 ) : visibleFiles.length > 0 ? (
@@ -665,9 +682,16 @@ export default function Discover() {
                                         </span>
                                         <span className="text-xs text-base-content/60 whitespace-nowrap">{count} changes</span>
                                     </div>
-                                    <div className="h-2 bg-base-300 rounded-full overflow-hidden">
-                                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${pct}%` }} />
-                                    </div>
+                                    {/* Native <progress> with DaisyUI progress + progress-info variant.
+                                        Screen readers announce "{name} progress: X percent", the fill
+                                        color tracks the active theme's info token, and the single
+                                        semantic element replaces the prior two-div wrapper pattern. */}
+                                    <progress
+                                        className="progress progress-info w-full"
+                                        value={pct}
+                                        max="100"
+                                        aria-label={`${name} changes: ${pct} percent of top file`}
+                                    />
                                 </div>
                             </div>
                         ))}

@@ -26,10 +26,11 @@ import { handleKeyActivate } from '../utils.js';
  * @param {Function} onRiskFilterClick - Handler called with risk level key ('low'|'medium'|'high')
  */
 export function RiskAssessment({ riskBreakdown, riskTotal, isMobile, onRiskFilterClick }) {
+    // Semantic DaisyUI tokens so the risk gradient tracks the active theme.
     const riskItems = [
-        { key: 'high', label: 'High Risk', colorClass: 'bg-red-500' },
-        { key: 'medium', label: 'Medium Risk', colorClass: 'bg-amber-500' },
-        { key: 'low', label: 'Low Risk', colorClass: 'bg-green-500' },
+        { key: 'high', label: 'High Risk', colorClass: 'bg-error' },
+        { key: 'medium', label: 'Medium Risk', colorClass: 'bg-warning' },
+        { key: 'low', label: 'Low Risk', colorClass: 'bg-success' },
     ];
     const clickable = typeof onRiskFilterClick === 'function';
 
@@ -73,10 +74,11 @@ export function RiskAssessment({ riskBreakdown, riskTotal, isMobile, onRiskFilte
  * @param {Function} onDebtFilterClick - Handler called with debt key ('added'|'paid'|'neutral')
  */
 export function DebtBalance({ debtBreakdown, debtTotal, isMobile, onDebtFilterClick }) {
+    // Semantic DaisyUI tokens so debt direction tracks the active theme.
     const debtItems = [
-        { key: 'added', label: 'Debt Added', colorClass: 'bg-red-500' },
-        { key: 'paid', label: 'Debt Paid Down', colorClass: 'bg-green-500' },
-        { key: 'neutral', label: 'No Change', colorClass: 'bg-gray-400' },
+        { key: 'added', label: 'Debt Added', colorClass: 'bg-error' },
+        { key: 'paid', label: 'Debt Paid Down', colorClass: 'bg-success' },
+        { key: 'neutral', label: 'No Change', colorClass: 'bg-neutral' },
     ];
     const clickable = typeof onDebtFilterClick === 'function';
 

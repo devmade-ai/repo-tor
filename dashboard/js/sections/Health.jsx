@@ -153,17 +153,22 @@ export default function Health() {
         openDetailPane(`${repo} Security`, `${filtered.length} commits`, filtered);
     };
 
+    // Semantic DaisyUI tokens so categories track the active theme. Urgency
+    // uses success/info/warning (3-category severity gradient); impact uses
+    // info/neutral/secondary/accent (4 distinct tokens so all four show up
+    // as visibly different colors in every registered theme). Must match
+    // HealthBars.jsx which renders the same categories in its stacked bar.
     const urgencyItems = [
-        { label: 'Planned Work', count: urgencyBreakdown.planned, colorClass: 'bg-green-500', filter: 'planned' },
-        { label: 'Routine Work', count: urgencyBreakdown.normal, colorClass: 'bg-blue-500', filter: 'normal' },
-        { label: 'Urgent Fixes', count: urgencyBreakdown.reactive, colorClass: 'bg-amber-500', filter: 'reactive' },
+        { label: 'Planned Work', count: urgencyBreakdown.planned, colorClass: 'bg-success', filter: 'planned' },
+        { label: 'Routine Work', count: urgencyBreakdown.normal, colorClass: 'bg-info', filter: 'normal' },
+        { label: 'Urgent Fixes', count: urgencyBreakdown.reactive, colorClass: 'bg-warning', filter: 'reactive' },
     ];
 
     const impactItems = [
-        { key: 'user-facing', label: 'User-Facing', colorClass: 'bg-blue-500' },
-        { key: 'internal', label: 'Internal', colorClass: 'bg-gray-500' },
-        { key: 'infrastructure', label: 'Infrastructure', colorClass: 'bg-purple-500' },
-        { key: 'api', label: 'API', colorClass: 'bg-green-500' },
+        { key: 'user-facing', label: 'User-Facing', colorClass: 'bg-info' },
+        { key: 'internal', label: 'Internal', colorClass: 'bg-neutral' },
+        { key: 'infrastructure', label: 'Infrastructure', colorClass: 'bg-secondary' },
+        { key: 'api', label: 'API', colorClass: 'bg-accent' },
     ].map(item => ({
         ...item,
         count: impactBreakdown[item.key],

@@ -105,7 +105,7 @@ export default function Projects() {
     if (projects.length === 0) {
         return (
             <div className="flex items-center justify-center py-12">
-                <div className="loading-spinner loading-spinner-md" />
+                <span className="loading loading-spinner loading-md text-primary" aria-label="Loading projects" />
             </div>
         );
     }

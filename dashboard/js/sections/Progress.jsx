@@ -346,10 +346,12 @@ export default function Progress() {
                             <Doughnut data={semverChartData.data} options={semverChartData.options} />
                         </div>
                         <div className="space-y-3 flex flex-col justify-center">
+                            {/* Semantic DaisyUI tokens so semver severity gradient tracks theme.
+                                patch=info (safe), minor=success (forward progress), major=error (breaking). */}
                             {[
-                                { key: 'patch', label: 'Patches', desc: 'Bug fixes', colorClass: 'bg-blue-500' },
-                                { key: 'minor', label: 'Minor', desc: 'New features', colorClass: 'bg-green-500' },
-                                { key: 'major', label: 'Major', desc: 'Breaking changes', colorClass: 'bg-red-500' },
+                                { key: 'patch', label: 'Patches', desc: 'Bug fixes', colorClass: 'bg-info' },
+                                { key: 'minor', label: 'Minor', desc: 'New features', colorClass: 'bg-success' },
+                                { key: 'major', label: 'Major', desc: 'Breaking changes', colorClass: 'bg-error' },
                             ].map(({ key, label, desc, colorClass }) => {
                                 const count = semverBreakdown[key];
                                 const pct = semverTotal > 0 ? Math.round((count / semverTotal) * 100) : 0;
@@ -398,9 +400,17 @@ export default function Progress() {
                                         <span className="text-base-content/80 font-medium">{epic}</span>
                                         <span className="text-base-content font-medium">{count} commits ({pct}%)</span>
                                     </div>
-                                    <div className="w-full bg-base-300 rounded-full h-2">
-                                        <div className="bg-indigo-500 h-2 rounded-full" style={{ width: `${pct}%` }} />
-                                    </div>
+                                    {/* Native <progress> with DaisyUI's progress class + progress-primary
+                                        theme variant — gives us screen-reader "X% of 100" announcement,
+                                        a single semantic element, and auto-switch of the fill color to
+                                        the active theme's primary accent. DaisyUI v5 ships .progress at
+                                        height .5rem which matches our prior custom h-2 visual. */}
+                                    <progress
+                                        className="progress progress-primary w-full"
+                                        value={pct}
+                                        max="100"
+                                        aria-label={`${epic} progress: ${pct} percent`}
+                                    />
                                 </div>
                             );
                         })}

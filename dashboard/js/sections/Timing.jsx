@@ -472,11 +472,12 @@ export default function Timing() {
             {/* Developer Patterns — fascinating per-person detail, collapsed on mobile */}
             {viewConfig.timing === 'hour' && developerPatterns.length > 0 && (
                 <CollapsibleSection title="Developer Patterns" subtitle="Individual work habits" defaultExpanded={!isMobile}>
-                    {/* Color legend: explain what green/amber/red means for work hours and weekends */}
+                    {/* Color legend: semantic DaisyUI tokens so the work-hours gradient
+                        (good/mixed/bad) tracks the active theme's success/warning/error. */}
                     <div className="flex flex-wrap gap-4 text-xs text-base-content/60 mb-4">
-                        <span><span className="inline-block w-2 h-2 rounded-full bg-green-600 mr-1" />Mostly during work hours</span>
-                        <span><span className="inline-block w-2 h-2 rounded-full bg-amber-600 mr-1" />Mixed hours</span>
-                        <span><span className="inline-block w-2 h-2 rounded-full bg-red-600 mr-1" />Mostly outside work hours</span>
+                        <span><span className="inline-block w-2 h-2 rounded-full bg-success mr-1" />Mostly during work hours</span>
+                        <span><span className="inline-block w-2 h-2 rounded-full bg-warning mr-1" />Mixed hours</span>
+                        <span><span className="inline-block w-2 h-2 rounded-full bg-error mr-1" />Mostly outside work hours</span>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {developerPatterns.map((author) => (

@@ -327,7 +327,7 @@ export default function App() {
     if (initialLoading) {
         return (
             <div className="flex items-center justify-center min-h-screen flex-col gap-4">
-                <div className="loading-spinner loading-spinner-lg" />
+                <span className="loading loading-spinner loading-lg text-primary" aria-label="Loading" />
                 <p className="text-sm text-base-content/60">Loading dashboard&hellip;</p>
             </div>
         );

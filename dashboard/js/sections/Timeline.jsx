@@ -631,7 +631,7 @@ export default function Timeline() {
                 <div className="space-y-2">
                     {!commitsLoaded && state.commitsLoading ? (
                         <div className="flex items-center gap-2 py-4 justify-center">
-                            <div className="loading-spinner loading-spinner-sm" />
+                            <span className="loading loading-spinner loading-sm text-primary" aria-label="Loading" />
                             <p className="text-base-content/60 text-sm">Loading commit details&hellip;</p>
                         </div>
                     ) : commitListContent.length > 0 ? (
