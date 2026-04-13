@@ -386,10 +386,10 @@ export default function App() {
     return (
         <div className="min-h-screen dashboard-enter">
             <ErrorBoundary><Header /></ErrorBoundary>
-            <div className="no-print"><ErrorBoundary><TabBar /></ErrorBoundary></div>
+            <div className="print:hidden"><ErrorBoundary><TabBar /></ErrorBoundary></div>
             <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
                 <div className="dashboard-layout mt-6">
-                    <div className="no-print"><ErrorBoundary><FilterSidebar /></ErrorBoundary></div>
+                    <div className="print:hidden"><ErrorBoundary><FilterSidebar /></ErrorBoundary></div>
                     <div className="tab-content-area">
                         <ErrorBoundary key={state.activeTab}>
                             {state.activeTab === 'overview' && <Summary />}
@@ -416,8 +416,8 @@ export default function App() {
                     </div>
                 </div>
             </div>
-            <div className="no-print"><ErrorBoundary><DetailPane /></ErrorBoundary></div>
-            <div className="no-print"><ErrorBoundary><SettingsPane /></ErrorBoundary></div>
+            <div className="print:hidden"><ErrorBoundary><DetailPane /></ErrorBoundary></div>
+            <div className="print:hidden"><ErrorBoundary><SettingsPane /></ErrorBoundary></div>
             <HeatmapTooltip />
         </div>
     );

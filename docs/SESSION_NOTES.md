@@ -6,6 +6,33 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support. As of 2026-04-13, every user-visible surface also routes through DaisyUI's `@layer components` classes — no custom CSS class shadows any DaisyUI component.
 
+**Recent Updates (2026-04-13 — custom-CSS cleanup round 2 + caught regressions):**
+
+Immediate follow-up to the first custom-CSS cleanup round earlier today. Post-cleanup self-audit surfaced 5 more Tailwind-replaceable custom classes and 3 consumers missed in the earlier tag sweep.
+
+Additional migrations:
+
+1. **`.tag` base class deleted** — the earlier round kept it as a shared layout class (padding, border-radius, font-size, font-weight) but all 5 declarations are Tailwind-replaceable: `inline-block px-2 py-0.5 rounded-full text-xs font-medium`. Inlined at all 5 JSX consumers. There is now NO `.tag` CSS class — layout AND colors are both inline on each chip.
+2. **`.no-print` → Tailwind `print:hidden` variant** (7 consumers: App.jsx ×4, Toast.jsx, Header.jsx). Tailwind v4 generates the `@media print { display: none }` rule automatically.
+3. **`.filter-group-header` → `flex items-center mb-1`** (plus explicit `mb-0` on the inner label to override the global `.filter-sidebar-inner label { margin-bottom: 4px }` rule).
+4. **`.filter-date-group` → `flex flex-col gap-1.5`** (1 consumer).
+5. **`.filter-empty-option` → `text-base-content/40 cursor-default`** (1 consumer).
+
+**Regression caught during audit:**
+
+A sweep for stale `className="tag"` patterns surfaced three consumers I missed in the earlier tag cleanup sweep — `Health.jsx:199`, `Health.jsx:270` (`<span className="tag tag-security">security</span>` hardcoded labels), and `Timeline.jsx:507` (`<span className="tag tag-other shrink-0">+{N}</span>` "+N more" badge). These were using the deleted `.tag` + `.tag-{name}` class combo, so they were rendering as UNSTYLED text on any build. Fixed all three to use the new inline Tailwind + `getTagStyleObject` pattern. Health.jsx also gained a `getTagStyleObject` import.
+
+**Strengthened regression guard:** the source-level tag test previously only asserted the 4 known consumer files contained the Tailwind class string at least once. Rewritten to sweep every `.jsx` file in `dashboard/js/` and fail on any `className` containing `tag` as a bare token OR any `tag-{name}` legacy class from a comprehensive list of 34+ known names. Comment-stripped so rationale blocks don't false-trigger. Added Health.jsx to the consumer list. This test WOULD have caught the three missed consumers if it had existed earlier today.
+
+**Verified after this round:**
+
+- `vite build` clean. `npm test` 60/60 pass (was 57 — 3 new assertions: strengthened tag sweep, `.no-print` class absence, `print:hidden` variant presence in built CSS).
+- Zero `.tag` base class, zero `.tag-{name}`, zero `.tag-dynamic`, zero `.no-print`, zero `.filter-group-header`, zero `.filter-date-group`, zero `.filter-empty-option` in styles.css.
+- Zero `className="tag"` / `className="tag ..."` / `className="tag-{name}"` / `className="...no-print..."` in any JSX file.
+- All 14 new/replacement Tailwind utilities present in built CSS (`inline-block`, `px-2`, `py-0.5`, `rounded-full`, `text-xs`, `font-medium`, `print:hidden`, `flex`, `items-center`, `mb-0`, `mb-1`, `flex-col`, `gap-1.5`, `text-base-content/40`, `cursor-default`).
+
+---
+
 **Recent Updates (2026-04-13 — custom-CSS cleanup pass):**
 
 Fourth audit pass of the day, focused on the user's request: "are there any tailwind utilities from DaisyUI tokens that can replace custom code? any ways we can reduce our custom code more? any backward compat code that can be cleaned up? any maps / translation / conversions that can be bypassed and deleted? I don't want any custom Tailwind / css unless absolutely necessary." Six cleanup groups shipped in one sweep, all driven by that rule.

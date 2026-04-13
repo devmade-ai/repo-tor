@@ -125,7 +125,8 @@ function ToastItem({ toast, onRemove }) {
 // threads our --z-toast scale value (70) into the element — DaisyUI's
 // default z-index doesn't stack above our custom debug pill (--z-debug:80)
 // or against the dashboard drawer layers, so we pin it explicitly.
-// The `no-print` class keeps toasts out of PDF exports.
+// `print:hidden` keeps toasts out of PDF exports via Tailwind's built-in
+// print variant (was the custom `.no-print` class before 2026-04-13).
 //
 // No `aria-live` on this container: each ToastItem carries its own implicit
 // live region via role="alert"/role="status" (see ToastItem comment above).
@@ -135,7 +136,7 @@ function ToastContainer({ toasts, onRemove }) {
     if (toasts.length === 0) return null;
     return (
         <div
-            className="toast toast-bottom toast-center no-print"
+            className="toast toast-bottom toast-center print:hidden"
             style={{ zIndex: 'var(--z-toast)' }}
         >
             {toasts.map(toast => (

@@ -497,14 +497,14 @@ export default function Timeline() {
                                 {tags.slice(0, 3).map(t => (
                                     <span
                                         key={t}
-                                        className="tag shrink-0"
+                                        className="inline-block px-2 py-0.5 rounded-full text-xs font-medium shrink-0"
                                         style={getTagStyleObject(t)}
                                     >
                                         {t}
                                     </span>
                                 ))}
                                 {tags.length > 3 && (
-                                    <span className="tag tag-other shrink-0">+{tags.length - 3}</span>
+                                    <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium shrink-0" style={getTagStyleObject('other')}>+{tags.length - 3}</span>
                                 )}
                             </div>
                             <div className="flex-1 min-w-0">
@@ -593,7 +593,7 @@ export default function Timeline() {
                             {tagSummary.map(([tag, count]) => (
                                 <span
                                     key={tag}
-                                    className="tag"
+                                    className="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
                                     style={getTagStyleObject(tag)}
                                 >
                                     {tag} ({count})

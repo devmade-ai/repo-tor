@@ -319,13 +319,16 @@ body::before {
         /* .tag-{name} per-tag rules + .tag-dynamic CSS-variable bridge
            removed 2026-04-13. Tag chip colors are now computed in JS via
            `getTagStyleObject(tag)` in dashboard/js/utils.js and applied
-           as inline style={{ backgroundColor, color, border }} on the
-           `className="tag"` span. Single source of truth for all 34
-           tag colors + 8 text-color overrides lives in `TAG_COLORS` and
-           `TAG_TEXT_OVERRIDES` in that module. Previously the same hex
-           values were duplicated across 40+ rules here (as rgba triples)
-           and 34 entries in TAG_COLORS (as hex strings) — adding or
-           renaming a tag required editing both. */
+           as inline style={{ backgroundColor, color, border }} on a
+           plain <span>. The `.tag` base class (which previously carried
+           shared layout) was also deleted the same day — layout is now
+           pure Tailwind utilities: `inline-block px-2 py-0.5 rounded-full
+           text-xs font-medium` at each consumer. Single source of truth
+           for all 34 tag colors + 8 text-color overrides lives in
+           `TAG_COLORS` and `TAG_TEXT_OVERRIDES` in that module.
+           Previously the same hex values were duplicated across 40+ rules
+           here (as rgba triples) and 34 entries in TAG_COLORS (as hex
+           strings) — adding or renaming a tag required editing both. */
 
         /* .timeline-dot removed 2026-04-13 — 0 JSX consumers. */
 
@@ -338,13 +341,15 @@ body::before {
            All consumers now use DaisyUI Tailwind utilities directly
            (text-base-content, text-base-content/80, bg-base-200, border-base-300). */
 
-        .tag {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: var(--radius-full);
-            font-size: 12px;
-            font-weight: 500;
-        }
+        /* .tag base class removed 2026-04-13 — replaced by inline
+           Tailwind utilities at each JSX consumer:
+             `inline-block px-2 py-0.5 rounded-full text-xs font-medium`
+           Five consumers: sections/Tags.jsx, sections/Timeline.jsx (×2),
+           sections/Contributors.jsx, components/DetailPane.jsx. Tag chip
+           colors still come from inline `style={getTagStyleObject(tag)}`
+           sourced from TAG_COLORS in utils.js (see that module's
+           rationale block). There is no `.tag` CSS class anywhere —
+           all layout AND color for tag chips lives inline. */
 
         /* .tag-breaking removed 2026-04-13 — 0 JSX consumers. The
            `has_breaking_change` commit flag is surfaced through Discover
@@ -396,7 +401,10 @@ body::before {
          *   something window.print() does natively across all browsers */
         @media print {
             body { background: white !important; color: black !important; }
-            .no-print { display: none !important; }
+            /* .no-print custom class removed 2026-04-13 — JSX consumers
+               use Tailwind's `print:hidden` variant directly, which
+               generates an equivalent `@media print { display: none }`
+               rule automatically via Tailwind v4's variant system. */
             .card { box-shadow: none !important; border: 1px solid #e5e7eb; }
             a { color: black !important; text-decoration: underline !important; }
             section { break-inside: avoid; page-break-inside: avoid; }
@@ -1051,14 +1059,14 @@ body::before {
         /* .filter-mode-toggle — migrated to DaisyUI `join` wrapper +
            `join-item btn btn-xs` (btn-primary for include, btn-error for
            exclude) in dashboard/js/components/FilterSidebar.jsx. */
-        .filter-group-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 4px;
-        }
-        .filter-group-header label {
-            margin-bottom: 0;
-        }
+        /* .filter-group-header removed 2026-04-13 — migrated to inline
+           Tailwind utilities `flex items-center mb-1` in FilterSidebar.jsx.
+           The descendant rule `.filter-group-header label { margin-bottom: 0 }`
+           was needed only because `.filter-sidebar-inner label` applies
+           `margin-bottom: 4px` globally. The group-header's `label`
+           now lives inside a `flex items-center` wrapper so the label's
+           block-level margin doesn't stack with the wrapper's own mb-1;
+           removing the override has no visual effect. */
         .filter-multi-select {
             position: relative;
         }
@@ -1358,20 +1366,14 @@ body::before {
             font-family: var(--font-mono, monospace);
         }
 
-        /* Filter sidebar layout helpers */
-        .filter-date-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-        /* .filter-date-input removed — date inputs migrated to DaisyUI `input input-bordered input-sm w-full`
-           in dashboard/js/components/FilterSidebar.jsx. */
-        /* .filter-clear-btn — migrated to DaisyUI `btn btn-outline btn-sm w-full mt-3`
-           in dashboard/js/components/FilterSidebar.jsx. */
-        .filter-empty-option {
-            color: color-mix(in oklab, var(--color-base-content) 40%, transparent);
-            cursor: default;
-        }
+        /* Filter sidebar layout helpers — most migrated to inline
+           Tailwind utilities in FilterSidebar.jsx:
+           - .filter-date-group → flex flex-col gap-1.5
+           - .filter-empty-option → text-base-content/40 cursor-default
+           - .filter-date-input → DaisyUI `input input-sm w-full`
+           - .filter-clear-btn → DaisyUI `btn btn-outline btn-sm w-full mt-3`
+           - .filter-group-header → flex items-center mb-1
+           No custom filter helper rules remain in this block. */
 
         /* Settings pane layout helpers */
         .settings-view-level-group {

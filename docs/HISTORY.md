@@ -4,6 +4,62 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-13
 
+### Custom-CSS cleanup pass — round 2 (base classes + print variant + filter helpers + caught regressions)
+
+Immediate follow-up to the first custom-CSS cleanup round earlier today. Post-cleanup self-audit flagged a handful of additional Tailwind-replaceable custom classes AND three consumers I missed in the tag cleanup sweep.
+
+**Additional Tailwind-utility migrations:**
+
+1. **`.tag` base class → inline Tailwind utilities.** The earlier round deleted the 40+ `.tag-{name}` per-tag color rules and `.tag-dynamic` variable bridge but kept `.tag` as a base layout class (padding, border-radius, font-size, font-weight). All five declarations are available as Tailwind utilities: `inline-block px-2 py-0.5 rounded-full text-xs font-medium`. Deleted the `.tag` rule; all 5 JSX consumers now carry the full 5-utility class string inline. There is no `.tag` CSS class anywhere — tag chip layout AND colors are both inline.
+
+2. **`.no-print` custom class → Tailwind `print:hidden` variant.** The custom class was a 1-rule `@media print { display: none !important }` block. Tailwind v4 ships a `print:` variant that generates an equivalent rule automatically when `print:hidden` appears in source. Migrated 7 consumers (App.jsx ×4, Toast.jsx, Header.jsx) and deleted the custom rule. Verified `.print\:hidden` ships in the built CSS after the migration.
+
+3. **`.filter-group-header` → `flex items-center mb-1`.** Plus the associated `.filter-group-header label { margin-bottom: 0 }` override — replaced with an explicit `mb-0` class on the label in JSX (needed because the global `.filter-sidebar-inner label { margin-bottom: 4px }` rule would otherwise apply to labels inside the flex wrapper).
+
+4. **`.filter-date-group` → `flex flex-col gap-1.5`.** 1 consumer in FilterSidebar.jsx, 3 declarations all Tailwind-replaceable.
+
+5. **`.filter-empty-option` → `text-base-content/40 cursor-default`.** 1 consumer, 2 declarations all Tailwind-replaceable.
+
+**Regression caught during the audit:**
+
+A sweep for stale `className="tag"` patterns surfaced three consumers I missed in the earlier tag-color cleanup sweep:
+- `Health.jsx:199` — hardcoded `<span className="tag tag-security">security</span>` label inside the security event alert
+- `Health.jsx:270` — same, in a different security panel
+- `Timeline.jsx:507` — `<span className="tag tag-other shrink-0">+{tags.length - 3}</span>` "+N more" badge for tags beyond the first 3 displayed
+
+These used the old `.tag` + `.tag-{name}` CSS class combo, which was deleted in the earlier round. Since the CSS rules no longer exist, these three spans were rendering as UNSTYLED text (no background, no padding, no border-radius). Probably not noticeable on a local dev preview but would have been a visible regression on any deployed build. Fixed by migrating all three to the same `inline-block px-2 py-0.5 rounded-full text-xs font-medium` + `style={getTagStyleObject(...)}` pattern the other tag chip consumers use. Health.jsx also gained a `getTagStyleObject` import (previously didn't need it).
+
+**Strengthened regression guard:**
+
+The source-level `.tag base class stays deleted` test was previously weak — it only verified that the 4 originally-known tag consumer files contained the Tailwind class string at least once, and that `.tag { ... }` wasn't in styles.css. The strengthened version sweeps every `.jsx` file in `dashboard/js/` and fails if any `className` attribute contains:
+
+- `tag` as a bare space-delimited token (catches `className="tag"` / `className="tag shrink-0"` / `className="tag tag-security"`), OR
+- Any `tag-{name}` per-tag class from the 34+ legacy names (`tag-feature`, `tag-bugfix`, `tag-docs`, etc.)
+
+Comment-stripped so rationale blocks that mention the removed classes don't false-trigger. Added Health.jsx to the consumer-list assertion so future tag chips in that file are covered too. This is the test that WOULD have caught the three missed consumers if it had existed during the earlier round.
+
+**Documentation sync:**
+
+- `docs/DAISYUI_V5_NOTES.md` "Tag chips" section: updated the JSX usage example from `className="tag"` to the full Tailwind utility string, noted the `.tag` base class was deleted in the follow-up pass.
+- `dashboard/js/utils.js` `getTagClass` removal comment: updated to mention the base-class deletion too.
+- `dashboard/styles.css` `.tag-{name}` removal rationale block: updated to reflect that the `.tag` base class is also gone.
+- `dashboard/js/components/Toast.jsx`: inline comment about `no-print` updated to mention the `print:hidden` migration.
+
+**Build impact:**
+
+- styles.css: 1456 → 1455 lines (-1 from delete/comment swap balance).
+- No change to bundled CSS size (the deleted rules were small; the migration shifted to inline utility classes that Tailwind tree-shakes per-file usage).
+- `npm test` 57 → 60 (3 new assertions: tag sweep, `.no-print` custom class absence, print:hidden variant presence in built CSS).
+- `vite build` clean; `playwright test --list` still enumerates 62 e2e tests.
+
+**Verified invariants after the round:**
+
+- Zero `.tag { }` base class, zero `.tag-{name}` per-tag rules, zero `.tag-dynamic` CSS-variable bridge.
+- Zero `className="tag"` or `className="tag-..."` in any JSX file (the sweep test catches both).
+- Zero `.no-print` custom class, zero `className="...no-print..."` consumers.
+- Zero `.filter-group-header`, `.filter-date-group`, `.filter-empty-option` custom rules.
+- All 5 Tailwind chip utilities (`inline-block`, `px-2`, `py-0.5`, `rounded-full`, `text-xs`, `font-medium`) plus `print:hidden`, `flex`, `items-center`, `mb-0`, `mb-1`, `flex-col`, `gap-1.5`, `text-base-content/40`, `cursor-default` all present in the built CSS.
+
 ### Custom-CSS cleanup pass — utility-hijack removal, dead rule deletion, tag-color deduplication
 
 Driven by a fresh audit of the codebase against "no custom Tailwind / CSS unless absolutely necessary — only with explicit approval". Six cleanup groups shipped as a single pass after user approval.

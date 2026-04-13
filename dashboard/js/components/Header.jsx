@@ -218,7 +218,7 @@ export default function Header() {
                                 )}
                             </p>
                         </div>
-                        <div className="flex items-center gap-2 flex-wrap no-print">
+                        <div className="flex items-center gap-2 flex-wrap print:hidden">
                             {updateAvailable && (
                                 <span className="hamburger-update-dot" title="Update available" />
                             )}

@@ -232,7 +232,7 @@ export default function Contributors() {
                                             return (
                                                 <div key={tag} className="flex items-center gap-2">
                                                     <span
-                                                        className="tag"
+                                                        className="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
                                                         style={getTagStyleObject(tag)}
                                                     >
                                                         {tag}

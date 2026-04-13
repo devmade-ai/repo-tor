@@ -596,3 +596,106 @@ test('pwa.js imports safeStorage helpers from utils.js (no local duplication)', 
         'Local safeStorageGet definition in pwa.js must not return — import from utils.js.'
     );
 });
+
+test('.tag base class stays deleted — tag chips use inline Tailwind utilities', async () => {
+    const stylesSrc = read('dashboard/styles.css');
+    const stripped = stylesSrc.replace(/\/\*[\s\S]*?\*\//g, '');
+    assert.doesNotMatch(
+        stripped, /^\s*\.tag\s*\{/m,
+        '.tag base class must not return — use inline Tailwind utilities ' +
+        '(inline-block px-2 py-0.5 rounded-full text-xs font-medium) in JSX.'
+    );
+    // Sweep every .jsx file for any className attribute that includes `tag`
+    // as a standalone space-delimited token. This catches regressions like
+    // `className="tag tag-security"` (space-delimited "tag" + legacy
+    // per-tag class) — neither should appear in JSX after the 2026-04-13
+    // tag cleanup. Tag chips must use the full Tailwind class string
+    // `inline-block px-2 py-0.5 rounded-full text-xs font-medium` plus
+    // an inline style object from `getTagStyleObject(tagName)`.
+    const jsxFiles = await walkJsxFiles(join(REPO_ROOT, 'dashboard', 'js'));
+    // Pattern: className attribute whose value contains `tag` as a bare
+    // token separated by whitespace (or alone). Must not match className
+    // values that only contain `tag-chip` / `tag-dynamic` / etc.
+    const bareTagPattern = /className\s*=\s*["'](?:[^"']*\s)?tag(?:\s[^"']*)?["']/;
+    // Pattern: className attribute containing any `tag-{name}` legacy
+    // per-tag class. Catches consumers that kept the old mapping.
+    const perTagPattern = /className\s*=\s*["'][^"']*\btag-(?:feature|enhancement|seed|init|bugfix|fix|security|hotfix|removal|revert|deprecate|refactor|naming|cleanup|docs|test|test-unit|test-e2e|build|ci|deploy|config|chore|style|ux|ui|accessibility|performance|perf|dependency|deps|other|dynamic|breaking)\b[^"']*["']/;
+    const offenders = [];
+    for (const file of jsxFiles) {
+        const raw = readFileSync(file, 'utf8');
+        const src = stripComments(raw);
+        const lines = src.split('\n');
+        lines.forEach((line, i) => {
+            if (line.trimStart().startsWith('//')) return;
+            if (bareTagPattern.test(line) || perTagPattern.test(line)) {
+                offenders.push(`${file.replace(REPO_ROOT + '/', '')}:${i + 1} — ${line.trim()}`);
+            }
+        });
+    }
+    assert.equal(
+        offenders.length, 0,
+        `Tag chip regression(s):\n${offenders.join('\n')}\n\n` +
+        'Tag chips must use `className="inline-block px-2 py-0.5 rounded-full text-xs font-medium"` ' +
+        'plus `style={getTagStyleObject(tagName)}`. The `.tag` base class and the ' +
+        '`.tag-{name}` per-tag classes were removed on 2026-04-13.'
+    );
+    // Every tag-chip consumer must use the full 5-utility Tailwind
+    // combination so chip layout is consistent. This is a secondary
+    // check (the sweep above is the primary regression guard).
+    const tagConsumers = [
+        'dashboard/js/sections/Tags.jsx',
+        'dashboard/js/sections/Timeline.jsx',
+        'dashboard/js/sections/Contributors.jsx',
+        'dashboard/js/components/DetailPane.jsx',
+        'dashboard/js/sections/Health.jsx',
+    ];
+    for (const path of tagConsumers) {
+        const src = read(path);
+        assert.match(
+            src, /inline-block\s+px-2\s+py-0\.5\s+rounded-full\s+text-xs\s+font-medium/,
+            `${path}: tag chip consumers must use the full Tailwind class ` +
+            `string "inline-block px-2 py-0.5 rounded-full text-xs font-medium" ` +
+            `for consistent chip layout.`
+        );
+    }
+});
+
+test('.no-print custom class stays deleted — JSX uses Tailwind print:hidden variant', () => {
+    const stylesSrc = read('dashboard/styles.css');
+    const stripped = stylesSrc.replace(/\/\*[\s\S]*?\*\//g, '');
+    // The print media query must not re-introduce `.no-print { display: none }`.
+    assert.doesNotMatch(
+        stripped, /\.no-print\s*\{\s*display\s*:\s*none/,
+        '.no-print custom class must not return — use Tailwind print:hidden variant in JSX.'
+    );
+    // Every JSX consumer that needs print-hiding must use `print:hidden`
+    // instead of `no-print`.
+    const printConsumers = [
+        'dashboard/js/App.jsx',
+        'dashboard/js/components/Toast.jsx',
+        'dashboard/js/components/Header.jsx',
+    ];
+    for (const path of printConsumers) {
+        const src = read(path);
+        // Skip checks if the file doesn't use any print-hiding at all
+        // (some files may have moved the surface elsewhere over time).
+        const hasPrintContent = /print:hidden|no-print/.test(src);
+        if (!hasPrintContent) continue;
+        const strippedSrc = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+        assert.doesNotMatch(
+            strippedSrc, /className\s*=\s*['"][^'"]*\bno-print\b/,
+            `${path}: JSX must use print:hidden (Tailwind variant) instead of no-print (custom class).`
+        );
+    }
+});
+
+test('Built CSS ships Tailwind print:hidden variant', { skip: !builtCss }, () => {
+    // Tailwind v4 generates `.print\:hidden` rules under @media print
+    // when the class is referenced in source. Verify the variant shipped
+    // so the migration from .no-print is complete.
+    assert.match(
+        builtCss, /\.print\\:hidden/,
+        'Built CSS missing print:hidden utility — Tailwind should generate ' +
+        'this when the class appears in JSX. Re-run `vite build`.'
+    );
+});

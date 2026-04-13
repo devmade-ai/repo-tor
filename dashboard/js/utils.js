@@ -312,9 +312,11 @@ export function getTagColor(tag) {
 // duplication collapse. JSX consumers previously combined
 // `className={`tag ${getTagClass(tag)}`}` so the returned `tag-{name}` or
 // `tag-dynamic` class could pick up per-tag CSS rules. Those rules are
-// gone now — every tag renders via `className="tag"` + the inline
-// `getTagStyleObject(tag)` style — so the helper no longer has any work
-// to do. Don't re-add it.
+// gone now — every tag renders with inline Tailwind layout utilities
+// (`inline-block px-2 py-0.5 rounded-full text-xs font-medium`) plus the
+// `getTagStyleObject(tag)` inline style for colors. The `.tag` base CSS
+// class was also deleted in a follow-up pass the same day. Don't re-add
+// any of them.
 
 /** Inline style object for a tag chip — { backgroundColor, color, border }.
  *

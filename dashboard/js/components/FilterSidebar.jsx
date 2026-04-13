@@ -167,7 +167,7 @@ function MultiSelect({ options, selected, onChange }) {
                     </div>
                 ))}
                 {options.length === 0 && (
-                    <div className="filter-multi-select-option filter-empty-option">
+                    <div className="filter-multi-select-option text-base-content/40 cursor-default">
                         No options available
                     </div>
                 )}
@@ -196,8 +196,11 @@ function FilterGroup({ label, filterType, options }) {
 
     return (
         <div className="filter-group">
-            <div className="filter-group-header">
-                <label>{label}</label>
+            <div className="flex items-center mb-1">
+                {/* `mb-0` cancels the global `.filter-sidebar-inner label`
+                    margin-bottom rule in styles.css — without it the label
+                    would add 4px to the flex row height. */}
+                <label className="mb-0">{label}</label>
                 {/*
                   Include/Exclude mode toggle — DaisyUI `join` + `btn btn-xs`
                   segmented buttons. `btn-active` marks the selected mode.
@@ -262,7 +265,7 @@ export default function FilterSidebar() {
 
                     <div className="filter-group">
                         <label>Date Range</label>
-                        <div className="filter-date-group">
+                        <div className="flex flex-col gap-1.5">
                             <input
                                 type="date"
                                 className="input input-sm w-full"
