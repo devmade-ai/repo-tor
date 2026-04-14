@@ -122,9 +122,13 @@ function ToastItem({ toast, onRemove }) {
 // DaisyUI's `toast` class is a positioning wrapper that stacks children
 // in the corner of the viewport. `toast-bottom toast-center` matches our
 // pre-migration placement (bottom center). An inline z-index style
-// threads our --z-toast scale value (70) into the element — DaisyUI's
-// default z-index doesn't stack above our custom debug pill (--z-debug:80)
-// or against the dashboard drawer layers, so we pin it explicitly.
+// threads our --z-toast scale value (70) into the element via the Tailwind
+// arbitrary `z-[var(--z-toast)]` utility — DaisyUI's default z-index doesn't
+// stack above our custom debug pill (--z-debug:80) or against the dashboard
+// drawer layers, so we pin it explicitly. Previously this was an inline
+// `style={{ zIndex: 'var(--z-toast)' }}`; the Tailwind arbitrary class form
+// is equivalent at runtime (both resolve the CSS var via the same DOM path)
+// but keeps the value in the className template like every other utility.
 // `print:hidden` keeps toasts out of PDF exports via Tailwind's built-in
 // print variant (was the custom `.no-print` class before 2026-04-13).
 //
@@ -136,8 +140,7 @@ function ToastContainer({ toasts, onRemove }) {
     if (toasts.length === 0) return null;
     return (
         <div
-            className="toast toast-bottom toast-center print:hidden"
-            style={{ zIndex: 'var(--z-toast)' }}
+            className="toast toast-bottom toast-center print:hidden z-[var(--z-toast)]"
         >
             {toasts.map(toast => (
                 <ToastItem key={toast.id} toast={toast} onRemove={onRemove} />

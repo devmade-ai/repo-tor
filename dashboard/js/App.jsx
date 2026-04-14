@@ -345,7 +345,7 @@ export default function App() {
     if (embedIds) {
         if (!state.data) {
             return (
-                <div className="flex flex-col items-center justify-center min-h-[200px] p-6 text-center text-base-content/80 font-sans text-sm gap-2">
+                <div className="flex flex-col items-center justify-center min-h-50 p-6 text-center text-base-content/80 font-sans text-sm gap-2">
                     <p>No data available to display this chart.</p>
                     <p>Make sure data.json is deployed.</p>
                 </div>

@@ -142,7 +142,7 @@ function MultiSelect({ options, selected, onChange }) {
             </button>
             <div
                 ref={listboxRef}
-                className={`absolute top-full left-0 right-0 max-h-[200px] overflow-y-auto bg-base-200 border border-base-300 rounded-sm shadow-[0_10px_25px_rgb(0_0_0/0.25)] z-20 ${open ? 'block' : 'hidden'}`}
+                className={`absolute top-full left-0 right-0 max-h-50 overflow-y-auto bg-base-200 border border-base-300 rounded-sm shadow-[0_10px_25px_rgb(0_0_0/0.25)] z-20 ${open ? 'block' : 'hidden'}`}
                 role="listbox"
                 aria-multiselectable="true"
             >
@@ -281,7 +281,7 @@ export default function FilterSidebar() {
     return (
         <>
             <div className={`filter-sidebar ${state.filterSidebarOpen ? 'open' : 'collapsed'}`}>
-                <div className="w-[280px] p-4 bg-base-200 rounded-lg border border-base-300 space-y-4 max-md:w-full max-md:h-full max-md:rounded-none max-md:border-0 max-md:overflow-y-auto max-md:pt-6">
+                <div className="w-70 p-4 bg-base-200 rounded-lg border border-base-300 space-y-4 max-md:w-full max-md:h-full max-md:rounded-none max-md:border-0 max-md:overflow-y-auto max-md:pt-6">
                     <div className="text-xs text-base-content/60 mb-3">
                         Showing {filteredCommits.length} of {state.data?.commits?.length || 0} commits
                         {activeFilterCount > 0 && ` (${activeFilterCount} filters active)`}

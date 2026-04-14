@@ -232,7 +232,7 @@ export default function HamburgerMenu({ items }) {
                                 )}
                                 <button
                                     type="button"
-                                    className={`flex items-center gap-2.5 w-full px-4 py-2.5 bg-transparent border-0 text-sm text-left cursor-pointer transition-colors outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--color-primary)] ${itemColors}`}
+                                    className={`flex items-center gap-2.5 w-full px-4 py-2.5 bg-transparent border-0 text-sm text-left cursor-pointer transition-colors outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary ${itemColors}`}
                                     onClick={() => handleItem(item)}
                                     // Requirement: items whose visible label describes a destination
                                     //   (e.g. "Light mode") rather than an action are ambiguous to

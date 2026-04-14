@@ -412,7 +412,7 @@ export default function Timing() {
             // Developer view: full 24x7 hourly heatmap
             const { matrix, maxCount, dayOrder, dayLabels } = heatmapContent;
             return (
-                <div className="grid grid-cols-[36px_repeat(7,1fr)] gap-0.5 min-w-[280px] sm:grid-cols-[50px_repeat(7,1fr)] sm:min-w-[400px]">
+                <div className="grid grid-cols-[36px_repeat(7,1fr)] gap-0.5 min-w-70 sm:grid-cols-[50px_repeat(7,1fr)] sm:min-w-100">
                     {/* Header row */}
                     <div />
                     {dayLabels.map(d => (

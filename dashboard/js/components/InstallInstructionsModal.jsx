@@ -31,7 +31,7 @@ export default function InstallInstructionsModal({ isOpen, onClose, instructions
             aria-label="Install app"
             tabIndex={-1}
         >
-            <div className="modal-box w-[420px] max-w-[calc(100vw-32px)]">
+            <div className="modal-box w-105 max-w-[calc(100vw-32px)]">
                 {/* Header */}
                 <div className="flex items-center gap-3 mb-4">
                     <svg className="w-5 h-5 text-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
