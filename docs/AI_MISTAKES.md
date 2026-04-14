@@ -4,6 +4,41 @@ Record of significant AI errors and learnings to prevent repetition. Document mi
 
 ---
 
+## 2026-04-14: Migrating state-dependent classes without tracing cascade priority between variants
+
+**What happened:** During the round-3 custom-CSS cleanup sweep (`405f1ec`) I migrated several custom classes that had multiple state variants (selected, highlighted, hover, focus, drag-over) to inline Tailwind conditional builders. The migrations built cleanly and passed tests, but the 2026-04-14 fresh-eyes audit caught four separate regressions where I'd flattened the state cascade incorrectly:
+
+1. **SettingsPane toggle thumb — `after:bg-white`** hardcoded the thumb colour that DaisyUI's native `.toggle` would have supplied via `--color-base-100`. The old custom CSS also had `background: white` but the migration should have been to DaisyUI's `.toggle` component, not a hand-rolled `after:` pseudo element.
+
+2. **FilterSidebar MultiSelect selected row — `hover:bg-base-300`** on the `isSelected` branch *replaced* the primary-tinted selection background (`bg-primary/10`) on hover. The old CSS cascade kept `.selected` through `:hover` because `.selected { bg }` was listed after `:hover { bg }` in the source order. The Tailwind rewrite lost that priority by putting `hover:bg-base-300` on the same declaration as the selection background — the later hover value silently overrode the selection tint at runtime. Hovering a selected row visually deselected it.
+
+3. **FilterSidebar MultiSelect keyboard-highlighted row** — same bug class, different trigger. The `isHighlighted` branch returned `bg-base-300` for *all* highlighted rows, regardless of whether that row was also selected. Arrow-key navigation over a selected row lost the primary tint. My first audit pass caught only the `isSelected && hover` case and missed the `isHighlighted && isSelected` case because I was thinking "hover vs selected" rather than enumerating the full 2×2 state grid.
+
+4. **SettingsPane toggle row hover — `hover:bg-base-300`** on a `bg-base-300` base. The original CSS had `.settings-toggle { background: var(--bg-tertiary) }` + `.settings-toggle:hover { background: var(--bg-hover) }` where `--bg-tertiary` and `--bg-hover` were *different* colours (`#333` and `#222` respectively in dark mode). The migration mapped both to `bg-base-300`, making the hover a silent no-op. Zero visual feedback on hover.
+
+5. **DropZone `focus-visible:outline-none`** removed the 2px primary outline that had been applied to every `role="button"` element via a global attribute-selector rule (`[role="button"]:focus-visible { outline: 2px solid primary }` added in commit `9fabee9` as an intentional a11y improvement). The migration inlined the focus ring on every consumer EXCEPT DropZone, which got `outline-none` because I'd already added `focus-visible:border-primary focus-visible:bg-primary/5` and thought the border+bg was the whole focus indicator. I didn't realize the global rule added a SECOND layer on top.
+
+**Why it wasn't caught earlier:** Tailwind's `hover:*` / `focus-visible:*` variants look declarative ("selected AND hovered"), but they're implemented as CSS media-style query rules that compose via standard cascade rules. My mental model was "each className branch is a full state" when the runtime reality is "every matching rule applies, order wins ties". For state-dependent styles with three or more orthogonal dimensions (selected × highlighted × hover), a flat conditional string builder drops information — whichever branch the ternary picks, the user's actual state may activate multiple branches and require a different combined style.
+
+**Root cause:** I migrated these classes by translating the OLD CSS *source order* into a single-ternary Tailwind conditional, without explicitly enumerating the 2^N state combinations to check that each produced the right combined background. I also didn't compare the migrated component against the pre-migration version in a live browser — I trusted build cleanness and visual spot-checks.
+
+**Fixes (`38a2092` initial + follow-up commit):**
+
+- **Toggle:** Replaced hand-rolled `after:` pseudo + hardcoded white thumb with DaisyUI's native `<input type="checkbox" className="toggle toggle-primary">`. Follow-up commit refactored to a proper `<label>` + native input + `onChange` pattern (the initial fix used `readOnly` + `aria-hidden` checkbox inside a `role="switch"` div which had its own race condition because `readOnly` is a no-op on HTML checkboxes).
+- **FilterSidebar:** Enumerated all four `isSelected × isHighlighted` combinations explicitly in the ternary: `highlighted && selected → bg-primary/30`, `highlighted → bg-base-300`, `selected → bg-primary/10 hover:bg-primary/20`, `default → hover:bg-base-300`.
+- **Settings toggle hover:** `hover:bg-base-300` → `hover:bg-base-content/5` (theme-aware 5% overlay tint).
+- **DropZone:** Restored the focus outline via explicit `focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2` inline.
+
+**Prevention rules:**
+
+1. **When migrating state-dependent CSS, write down the state truth table first.** For two orthogonal boolean states, enumerate all four combinations and assign each its own background. For three booleans, eight combinations. Don't collapse to a single ternary until you've verified each row of the table produces the right visual.
+2. **When the old CSS has `:hover` and a state class (`.selected`, `.active`, etc.) both setting the same property, check source order.** The last one wins in the cascade. In Tailwind, encoding that priority means putting the winner's value on the same branch as the loser, not in a separate `hover:*` variant.
+3. **When removing custom CSS rules during a cleanup sweep, grep for attribute-selector rules (`[role=...]`, `[aria-...]`, `[data-...]`) that target the same elements via attribute rather than class.** They're easy to overlook and they apply to every element with the attribute, not just the ones whose class you just deleted.
+4. **When the migration is for a component that has both mouse AND keyboard interaction states (selected+hover, highlighted+focused, drag-over+focused), diff the pre- and post-migration screenshots in both interaction modes.** Mouse hover is visible to a visual check; keyboard-highlighted state is not (you have to tab in).
+5. **DaisyUI ships `.toggle`, `.checkbox`, `.radio`, `.range`, `.rating`, `.file-input` natively for a reason.** Before hand-rolling any form control, check if DaisyUI already has one — search the `DAISYUI_V5_NOTES.md` cheat sheet or grep the built CSS for `.{control-name}`.
+
+---
+
 ## 2026-04-13: Used DaisyUI v4 `*-bordered` form modifiers that silently don't exist in v5
 
 **What happened:** During Phase 8 of the DaisyUI component-class migration I wrote `className="select select-bordered select-sm"` for the SettingsPane work hour selects and `className="input input-bordered input-sm w-full"` for the FilterSidebar date inputs. Both classes were committed and pushed (`e020af6`). The post-migration grep audit of the built CSS turned up zero matches for `.input-bordered` or `.select-bordered` in the DaisyUI v5 output — they were v4 classes that the v5 rewrite removed.

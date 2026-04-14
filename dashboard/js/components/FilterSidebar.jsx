@@ -147,14 +147,27 @@ function MultiSelect({ options, selected, onChange }) {
                 aria-multiselectable="true"
             >
                 {options.map((option, idx) => {
-                    // Selection + highlight state drives the row background:
-                    // keyboard-highlighted row wins over selected, which wins
-                    // over the hover-only default. Matches the old CSS
-                    // cascade where `.highlighted` was listed after
-                    // `.selected` so the highlighted class took precedence.
+                    // Selection + highlight state drives the row background.
+                    // Four combinations, in cascade priority:
+                    //   highlighted + selected → `bg-primary/30` (strongest
+                    //     primary tint so keyboard-highlighted selected rows
+                    //     don't visually "deselect" while navigating)
+                    //   highlighted (not selected) → `bg-base-300` (neutral
+                    //     surface lift matching mouse hover)
+                    //   selected (not highlighted) → `bg-primary/10` + a
+                    //     slightly deeper `hover:bg-primary/20` so mouse
+                    //     hover on a selected row deepens the tint instead
+                    //     of replacing it
+                    //   neither → `hover:bg-base-300` (discoverable hover)
+                    // Earlier migration collapsed the highlighted branch to a
+                    // single `bg-base-300` regardless of selection, which
+                    // lost the primary tint for keyboard-highlighted selected
+                    // rows — caught in the 2026-04-14 post-migration audit.
                     const isSelected = selected.includes(option);
                     const isHighlighted = idx === highlightIndex;
-                    const bgClass = isHighlighted
+                    const bgClass = isHighlighted && isSelected
+                        ? 'bg-primary/30'
+                        : isHighlighted
                         ? 'bg-base-300'
                         : isSelected
                         ? 'bg-primary/10 hover:bg-primary/20'

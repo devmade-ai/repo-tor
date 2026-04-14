@@ -6,15 +6,34 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support. As of 2026-04-13, every user-visible surface also routes through DaisyUI's `@layer components` classes — no custom CSS class shadows any DaisyUI component.
 
-**Recent Updates (2026-04-13 — post-migration audit fixes):**
+**Recent Updates (2026-04-14 — post-migration audit follow-up commit):**
+
+A second commit cleaned up everything the first audit pass left on the table after the user asked for a no-shortcuts review:
+
+1. **SettingsPane UTC toggle — proper native architecture.** The first audit fix swapped the hand-rolled `after:` pseudo thumb for DaisyUI's `.toggle` but kept the `<div role="switch">` + `readOnly` + `aria-hidden` presentational pattern, which has issues: `readOnly` is a no-op on HTML checkboxes (React only accepts it to silence the controlled-without-onChange warning) and the parent `onClick` raced with the checkbox's native click handler. The follow-up refactored to a native `<label>` wrapping `<input type="checkbox" className="toggle toggle-primary" onChange={...}>`. HTML's native label-for association makes the whole row clickable, `onChange` reads `e.target.checked` directly (no stale-closure risk), and the input owns focus / keyboard / ARIA semantics natively with zero duplication.
+2. **TOGGLE_BASE_CLASSES no-op hover** — renamed to `TOGGLE_ROW_CLASSES` and replaced `hover:bg-base-300` (no-op on a `bg-base-300` base — silent typo carried over from the migration of the original `--bg-tertiary` / `--bg-hover` dual-colour hover) with `hover:bg-base-content/5` for a real theme-aware overlay tint. Fixes the hover affordance on both the UTC row and the ViewLevel radio rows.
+3. **FilterSidebar MultiSelect highlighted+selected state** — the 2×2 state grid (`isSelected × isHighlighted`) was collapsed to a single ternary that dropped the primary tint for keyboard-highlighted selected rows. The first audit fix only addressed the mouse-hover branch; the follow-up enumerated all four combinations explicitly with `highlighted && selected → bg-primary/30`, `highlighted → bg-base-300`, `selected → bg-primary/10 hover:bg-primary/20`, `default → hover:bg-base-300`.
+4. **Dead code** — `FOCUS_RING_CLASSES` in `dashboard/js/utils.js` was declared but had zero consumers (grepped `import.*FOCUS_RING_CLASSES` → no hits). Deleted the export + its ~20-line rationale block; the inline focus-ring string lives directly on each consumer.
+5. **Docs**:
+   - `dashboard/styles.css` lines 645-651 — stale comment block still described the old `after:` pseudo approach; rewritten to point at the DaisyUI `toggle` component and the `TOGGLE_ROW_CLASSES` constant.
+   - `docs/DAISYUI_V5_NOTES.md` — added a new "Toggles (switches)" bullet under project conventions explaining the `<label>` + `<input type="checkbox" class="toggle toggle-primary">` pattern and why hand-rolled alternatives are wrong.
+   - `docs/AI_MISTAKES.md` — added a 2026-04-14 entry about "migrating state-dependent classes without tracing cascade priority between variants" covering all five regressions the audit caught + five prevention rules.
+
+**Outstanding (not addressed in this session):**
+
+- **Playwright visual regression baselines will drift.** The toggle now renders as a DaisyUI pill (different pixel layout than the hand-rolled divs), the hover backgrounds shifted from `base-300` to `base-content/5` overlay, the highlighted-selected FilterSidebar row is now `primary/30`, and the DropZone focus state has an outline ring. All four changes will produce pixel diffs against `dashboard/e2e/visual/theme-baselines.spec.js` baselines. Next person to run `npx playwright test` in CI/locally should accept the new baselines with `--update-snapshots` after visually verifying correctness.
+- **SettingsPane ViewLevel radiogroup a11y** — still uses `<div role="radio">` + `tabIndex={0}` on every item with only Enter/Space handling. A WAI-ARIA radiogroup should have exactly one `tabIndex=0` at a time (the focused one) and arrow-key navigation should move focus between items. Leaving as-is because converting to native `<input type="radio">` + `<label>` pattern is a larger refactor outside the audit's scope.
+- **The SettingsPane toggle wasn't verified in a live browser.** The DaisyUI `.toggle` class ships in the built CSS and the refactored component is structurally correct, but I didn't run `npm run dev` and spot-check all 8 themes. Quick verification: open settings pane, toggle UTC, confirm pill switch animates correctly in lofi/nord/emerald/caramellatte (light) and black/dim/coffee/dracula (dark).
+
+**Recent Updates (2026-04-13 — post-migration audit fixes, initial commit `38a2092`):**
 
 Fresh-eyes audit of the branch caught 8 issues introduced during the round-3 custom-CSS sweep:
-1. **SettingsPane toggle** reimplemented DaisyUI's native `.toggle` component and hardcoded `after:bg-white` — replaced with `<input type="checkbox" className="toggle toggle-primary" readOnly aria-hidden="true" />` (parent row still owns role="switch" + keyboard handling).
-2. **FilterSidebar MultiSelect** selected-row hover inverted the cascade — `'bg-primary/10 hover:bg-base-300'` made hovering a selected row visually deselect it. Fixed to `'bg-primary/10 hover:bg-primary/20'`.
+1. **SettingsPane toggle** reimplemented DaisyUI's native `.toggle` component and hardcoded `after:bg-white` — replaced with DaisyUI `<input class="toggle toggle-primary">` (initial fix; superseded by follow-up refactor above).
+2. **FilterSidebar MultiSelect** selected-row hover inverted the cascade — `'bg-primary/10 hover:bg-base-300'` made hovering a selected row visually deselect it. Fixed to `'bg-primary/10 hover:bg-primary/20'` (initial fix; supplemented by highlighted+selected grid fix above).
 3. **DetailPane commit row** `hover:bg-white/5` was invisible on light themes — replaced with `hover:bg-base-content/5`.
 4. **DropZone** `focus-visible:outline-none` was a a11y regression — replaced with explicit `outline-2 outline-primary outline-offset-2` matching TabBar.
 5. **FilterSidebar** stale comment referenced deleted `.filter-multi-select-*` classes + stale `mb-0` override for deleted descendant selector — cleaned up.
-6. **Redundant `focus-visible:outline` + `outline-2`** (9 files) — in Tailwind v4, `.outline-2` already sets both style and width. Dropped the bare `outline` everywhere `outline-2` is applied. Includes `FOCUS_RING_CLASSES` in `utils.js` (note: declared but currently unused).
+6. **Redundant `focus-visible:outline` + `outline-2`** (9 files) — in Tailwind v4, `.outline-2` already sets both style and width. Dropped the bare `outline` everywhere `outline-2` is applied.
 
 Build clean, 61/61 tests pass, all new class names verified in built CSS.
 

@@ -13,8 +13,15 @@ const VIEW_LEVEL_DESCRIPTIONS = {
 // custom-CSS cleanup rule (no custom class unless the pattern needs
 // CSS features Tailwind can't express). These strings are read by the
 // JSX below; nothing else in the app consumes them.
+//
+// TOGGLE_ROW_CLASSES: Shared row layout for both the ViewLevel radio
+// rows AND the UTC checkbox label — base surface is `bg-base-300`
+// (lifted tile), hover applies a 5% `base-content` tint overlay for a
+// theme-aware interactive feedback (the earlier migration wrote
+// `hover:bg-base-300` which is a no-op on a `bg-base-300` base —
+// silent regression caught in the 2026-04-14 post-migration audit).
 const SECTION_TITLE_CLASSES = 'text-[11px] font-semibold uppercase tracking-wider text-base-content/60 mb-3';
-const TOGGLE_BASE_CLASSES = 'flex items-center justify-between p-3 bg-base-300 rounded-md cursor-pointer transition-colors hover:bg-base-300';
+const TOGGLE_ROW_CLASSES = 'flex items-center justify-between p-3 bg-base-300 rounded-md cursor-pointer transition-colors hover:bg-base-content/5';
 const TOGGLE_LABEL_CLASSES = 'text-[13px] font-medium text-base-content/80';
 const TOGGLE_HINT_CLASSES = 'text-[11px] text-base-content/40 mt-0.5';
 
@@ -53,8 +60,12 @@ export default function SettingsPane() {
         dispatch({ type: 'SET_VIEW_LEVEL', payload: level });
     }
 
-    function handleToggleUTC() {
-        dispatch({ type: 'SET_USE_UTC', payload: !state.useUTC });
+    function handleToggleUTC(e) {
+        // Native checkbox onChange provides the new value on e.target.checked.
+        // Reading from the event (not the closure) matches the work-hour
+        // select handlers and avoids any stale-closure surprise if React
+        // ever batches multiple dispatches.
+        dispatch({ type: 'SET_USE_UTC', payload: e.target.checked });
     }
 
     function handleWorkHourStart(e) {
@@ -110,7 +121,7 @@ export default function SettingsPane() {
                                 return (
                                     <div
                                         key={level}
-                                        className={TOGGLE_BASE_CLASSES}
+                                        className={TOGGLE_ROW_CLASSES}
                                         role="radio"
                                         aria-checked={isActive}
                                         tabIndex={0}
@@ -137,41 +148,44 @@ export default function SettingsPane() {
                         </div>
                     </div>
 
-                    {/* Timezone */}
+                    {/* Timezone
+                        Requirement: Switch-style toggle for UTC vs local
+                          timezone. Accessible to keyboard + screen readers.
+                        Approach: Native `<input type="checkbox">` inside a
+                          wrapping `<label>` so clicking anywhere on the row
+                          toggles the checkbox through HTML's native label
+                          association. The input owns all semantics (focus,
+                          Space/Enter activation, role="checkbox"), so the
+                          label is pure presentation with no ARIA duplication.
+                          DaisyUI's `toggle toggle-primary` renders the pill
+                          switch visual.
+                        Alternatives:
+                          - `<div role="switch">` + custom onClick/onKeyDown +
+                            `readOnly` presentational checkbox: Rejected
+                            2026-04-14. Duplicated semantics, `readOnly` is
+                            a no-op on checkboxes per HTML spec (React only
+                            accepts it to silence a warning), and direct
+                            clicks on the checkbox caused a flicker race
+                            where React reconciled back the native toggle.
+                          - Hand-rolled `after:` pseudo thumb: Rejected —
+                            reimplements what DaisyUI ships natively, and
+                            hardcoded `after:bg-white` violated the "never
+                            hardcode theme values" rule. */}
                     <div className="mb-6">
                         <div className={SECTION_TITLE_CLASSES}>Timezone</div>
-                        <div
-                            className={TOGGLE_BASE_CLASSES}
-                            role="switch"
-                            aria-checked={state.useUTC}
-                            tabIndex={0}
-                            onClick={handleToggleUTC}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter' || e.key === ' ') {
-                                    e.preventDefault();
-                                    handleToggleUTC();
-                                }
-                            }}
-                        >
+                        <label className={TOGGLE_ROW_CLASSES}>
                             <div>
                                 <div className={TOGGLE_LABEL_CLASSES}>Use UTC</div>
                                 <div className={TOGGLE_HINT_CLASSES}>Show times in UTC instead of local</div>
                             </div>
-                            {/* DaisyUI native `toggle` component — the parent
-                                row owns role="switch" + keyboard handling, so
-                                the checkbox is presentational (tabIndex=-1,
-                                aria-hidden). readOnly silences React's
-                                controlled-without-onChange warning; the
-                                parent onClick mutates state.useUTC. */}
                             <input
                                 type="checkbox"
                                 className="toggle toggle-primary shrink-0"
                                 checked={state.useUTC}
-                                readOnly
-                                tabIndex={-1}
-                                aria-hidden="true"
+                                onChange={handleToggleUTC}
+                                aria-label="Use UTC timezone"
                             />
-                        </div>
+                        </label>
                     </div>
 
                     {/* Work Hours */}

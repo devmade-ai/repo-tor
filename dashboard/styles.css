@@ -642,13 +642,27 @@ body::before {
              .settings-section-title   → text-[11px] font-semibold uppercase tracking-wider text-base-content/60 mb-3
              .settings-group           → removed (flex-1 on work-hour groups, otherwise no wrapper)
              .settings-group label     → block text-[13px] font-medium text-base-content/80 mb-1.5
-             .settings-toggle          → flex items-center justify-between p-3 bg-base-300 rounded-md cursor-pointer transition-colors
+             .settings-toggle          → shared TOGGLE_ROW_CLASSES constant
+                                          (flex items-center justify-between p-3
+                                          bg-base-300 rounded-md cursor-pointer
+                                          transition-colors hover:bg-base-content/5)
+                                          — applied to a <label> wrapper for the
+                                          UTC row and to <div role="radio"> rows
+                                          for the ViewLevel radiogroup
              .settings-toggle-label    → text-[13px] font-medium text-base-content/80
              .settings-toggle-hint     → text-[11px] text-base-content/40 mt-0.5
-             .settings-toggle-switch   → pure Tailwind with `after:` pseudo variant
-                                          (relative w-11 h-6 rounded-xl ... after:content-['']
-                                          after:absolute after:top-0.5 after:left-0.5 ...)
-             .settings-toggle.active   → conditional className based on useUTC state
+             .settings-toggle-switch   → DaisyUI `toggle toggle-primary` native
+                                          component on a native <input
+                                          type="checkbox"> (the earlier migration
+                                          reimplemented the pill switch with
+                                          inline `after:` pseudo + hardcoded
+                                          `after:bg-white`; the 2026-04-14 audit
+                                          replaced it with DaisyUI's own toggle
+                                          which theme-tracks the thumb colour)
+             .settings-toggle.active   → driven by the native <input> `checked`
+                                          attribute; DaisyUI's
+                                          `.toggle-primary:checked` selector
+                                          handles the active-state colour
              .settings-row             → flex gap-3
              .settings-view-level-group → flex flex-col gap-2
              .settings-work-hours-hint  → text-[11px] text-base-content/40 mt-2
