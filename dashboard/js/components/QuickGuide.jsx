@@ -109,7 +109,7 @@ export default function QuickGuide({ open, onClose }) {
             aria-label="Quick Guide"
             tabIndex={-1}
         >
-            <div className="modal-box relative w-[min(420px,calc(100vw-32px))] px-7 pt-8 pb-6">
+            <div className="modal-box relative w-modal-responsive px-7 pt-8 pb-6">
                 <button
                     className="btn btn-sm btn-circle btn-ghost absolute right-3 top-3"
                     onClick={onClose}

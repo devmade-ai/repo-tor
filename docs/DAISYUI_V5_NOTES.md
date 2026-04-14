@@ -63,6 +63,30 @@ grep -oE "\\.select[a-zA-Z-]*" dist/assets/index-*.css | sort -u
 
 These are the DaisyUI v5 patterns we standardized on across the 10-phase migration (2026-04-13). Keep them consistent when adding new components.
 
+**Zero arbitrary Tailwind values** (2026-04-14): as a hard rule, `text-[11px]`, `shadow-[0_2px_8px...]`, `grid-cols-[36px_repeat...]`, `w-[min(...)]`, `[text-shadow:...]` and similar arbitrary bracket syntax are banned. Replace with stock utilities, theme-scale CSS vars, `@theme` tokens, or `@utility` directives in this order (see CLAUDE.md "Frontend: Styles and Scripts" for the full precedence list). The `@theme` block in `dashboard/styles.css` currently defines:
+
+- **Compact font sizes** (below/between Tailwind's 12/14/16 default scale):
+  - `--text-8` (8px, heatmap cells desktop) → `text-8`
+  - `--text-9` (9px, heatmap labels mobile) → `text-9`
+  - `--text-10` (10px, heatmap cells mobile, project language badges) → `text-10`
+  - `--text-11` (11px, settings hints, tooltips, hamburger version, tab bar) → `text-11`
+  - `--text-13` (13px, settings labels, tab titles, embed error code) → `text-13`
+
+- **Elevated-surface shadows** (Tailwind's stock shadow-md/lg/xl use ~10% opacity which is too subtle for tooltips / dropdowns against variable backgrounds):
+  - `--shadow-tooltip` (0 2px 8px rgba(0,0,0,0.3)) → `shadow-tooltip`
+  - `--shadow-dropdown` (0 10px 25px rgba(0,0,0,0.25)) → `shadow-dropdown`
+  - `--shadow-dropzone-glow` (0 0 20px color-mix(primary 25%)) → `shadow-dropzone-glow`
+
+The `@utility` directives defined in `dashboard/styles.css` cover values that don't fit a standard Tailwind namespace:
+
+- `grid-heatmap-m` / `grid-heatmap-d` — 7-column day grid with 36px / 50px row-label column for the Timing heatmap
+- `w-modal-responsive` — `min(420px, calc(100vw - 32px))` for QuickGuide modal width
+- `max-w-viewport-margin` — `calc(100vw - 32px)` cap for viewport-margin modals
+- `min-h-hero` — `60vh` hero height for the dashboard drop zone landing
+- `text-shadow-primary-glow` — `0 0 10px color-mix(var(--color-primary) 50%)` for active tab glow (Tailwind v4 has no text-shadow utility)
+
+These `@utility` classes are first-class utility-layer extensions — they don't count as "custom classes" in the allowlist test (which only scans for `.classname {` primary rules in styles.css, not `@utility <name>` blocks). Add new ones when a pattern repeats OR when an arbitrary value would otherwise leak into JSX.
+
 **Cards:**
 ```jsx
 <div className="card bg-base-200 border border-base-300">

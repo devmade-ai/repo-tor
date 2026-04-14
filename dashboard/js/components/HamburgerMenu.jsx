@@ -256,7 +256,7 @@ export default function HamburgerMenu({ items }) {
                     })}
                 </ul>
                 <div className="h-px bg-base-300 my-1" />
-                <div className="px-4 py-1.5 text-[11px] font-mono text-base-content/40">v{version}</div>
+                <div className="px-4 py-1.5 text-11 font-mono text-base-content/40">v{version}</div>
             </nav>
         </>
     ) : null;

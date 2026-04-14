@@ -159,7 +159,7 @@ function ProjectCard({ project }) {
                     {project.name}
                 </h4>
                 {project.language && (
-                    <span className="text-[10px] font-medium font-mono px-2 py-0.5 rounded-full bg-base-300 text-base-content/60 whitespace-nowrap shrink-0">
+                    <span className="text-10 font-medium font-mono px-2 py-0.5 rounded-full bg-base-300 text-base-content/60 whitespace-nowrap shrink-0">
                         {project.language}
                     </span>
                 )}

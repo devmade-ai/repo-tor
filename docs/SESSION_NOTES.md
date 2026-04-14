@@ -6,6 +6,19 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support. As of 2026-04-13, every user-visible surface also routes through DaisyUI's `@layer components` classes — no custom CSS class shadows any DaisyUI component.
 
+**Recent Updates (2026-04-14 — zero-arbitrary-values sweep):**
+
+After Phase 1 shipped safe drop-in replacements (`min-h-[200px]` → `min-h-50`, `z-[21]` → `z-[var(--z-sticky-header)]`, `focus-visible:shadow-[inset_0_0_0_2px_var]` → `focus-visible:ring-2 ring-inset ring-primary`, inline `zIndex` → class, etc.), the user asked for a full sweep of every remaining arbitrary Tailwind bracket value — "theme tokens for everything always".
+
+Added to `dashboard/styles.css`:
+
+- `@theme` block with 8 tokens: `--text-8/9/10/11/13` (font sizes below/between Tailwind's 12/14/16 default scale) and `--shadow-tooltip`, `--shadow-dropdown`, `--shadow-dropzone-glow` (higher-opacity shadows for tooltips and dropdowns that read too subtly with stock `shadow-md/lg/xl`)
+- `@utility` directives for 6 non-standard namespaces: `grid-heatmap-m/d` (heatmap grid templates), `w-modal-responsive` (min/calc modal width), `max-w-viewport-margin` (calc viewport-margin cap), `min-h-hero` (60vh hero), `text-shadow-primary-glow` (active tab glow — Tailwind v4 has no text-shadow utility)
+
+JSX replacements across Timing, Projects, HamburgerMenu, HeatmapTooltip, TabBar, SettingsPane, EmbedRenderer, DropZone, FilterSidebar, QuickGuide, InstallInstructionsModal. 61/61 tests pass; test assertion for the TabBar active-glow updated to match the new `text-shadow-primary-glow` utility.
+
+CLAUDE.md gained a new rule under "Frontend: Styles and Scripts" listing the 6-tier precedence for replacing arbitrary values (stock utility → DaisyUI token → CSS var arbitrary → `@theme` → `@utility` → arbitrary bracket as last resort). DAISYUI_V5_NOTES.md gained an inventory of every defined `@theme` token and `@utility` directive with rationale.
+
 **Recent Updates (2026-04-14 — post-migration audit follow-up commit):**
 
 A second commit cleaned up everything the first audit pass left on the table after the user asked for a no-shortcuts review:

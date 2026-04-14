@@ -69,6 +69,13 @@ Good: "This file doesn't look like a dashboard data file. Try exporting from the
 
 - [ ] All custom styles in `dashboard/styles.css` — Tailwind + DaisyUI utility classes in JSX are fine (framework convention)
 - [ ] No inline `style={}` objects in JSX unless values are dynamic/computed
+- [ ] **No arbitrary Tailwind bracket values (`text-[11px]`, `shadow-[0_2px...]`, `grid-cols-[36px_repeat...]`) unless no stock utility, `@theme` token, or `@utility` directive can replace them.** Prefer in this order:
+  1. Stock Tailwind utility (`min-h-50`, `w-70`, `shadow-lg`, `ring-2 ring-inset`)
+  2. DaisyUI semantic token (`text-primary`, `bg-base-200`)
+  3. Theme-scale CSS var inside an arbitrary (`z-[var(--z-sticky-header)]`) — only when the value lives in the `:root` design-token scale
+  4. `@theme` token in styles.css → generates a first-class utility (`--text-11` → `text-11`, `--shadow-tooltip` → `shadow-tooltip`)
+  5. `@utility <name>` directive in styles.css → custom utility for non-standard namespaces (text-shadow, grid templates, calc/min widths) — does NOT count as a "custom class" for the allowlist test since it's a utility-layer extension
+  6. Arbitrary bracket value (`[text-shadow:...]`, `grid-cols-[...]`) — only when none of the above works (document rationale in-code)
 - [ ] Use DaisyUI semantic tokens for theming — never hardcode theme values:
   - Surfaces: `bg-base-100` (page) / `bg-base-200` (cards, elevated) / `bg-base-300` (inputs, progress rails, hover states)
   - Text: `text-base-content` (primary) / `text-base-content/80` (secondary) / `text-base-content/60` (tertiary) / `text-base-content/40` (muted)

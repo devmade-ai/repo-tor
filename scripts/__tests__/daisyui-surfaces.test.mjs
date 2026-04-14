@@ -218,10 +218,12 @@ test('Phase 7 — TabBar uses DaisyUI tabs + tab class composition with ARIA', (
     assert.match(src, /TAB_BASE_CLASSES\s*=\s*\n?\s*['"`]tab /);
     assert.match(src, /font-mono uppercase/);
     // Active-state class must include `tab-active` (DaisyUI's selected-tab
-    // class) plus the theme-aware text-shadow glow.
+    // class) plus the theme-aware text-shadow glow, which is now defined
+    // as an @utility in styles.css (`text-shadow-primary-glow`) instead
+    // of an inline `[text-shadow:...]` arbitrary value.
     assert.match(src, /TAB_ACTIVE_CLASSES\s*=/);
     assert.match(src, /tab-active border-primary text-primary/);
-    assert.match(src, /\[text-shadow:0_0_10px_color-mix/);
+    assert.match(src, /text-shadow-primary-glow/);
 });
 
 // ----- Phase 8: Form inputs (post-audit fix — DaisyUI v5 makes bordered default) -----

@@ -4,6 +4,60 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-14
 
+### Zero-arbitrary-values sweep — @theme + @utility token migration
+
+User asked "are there any tailwind utilities / daisyui tokens that can replace hard coded values / custom / inline code? i don't want any custom / inline / hard coded Tailwind / css unless absolutely necessary (only with explicit approval)". Phase 1 shipped the safe drop-ins (Tailwind v4 stock spacing scale, CSS var restoration, ring-inset utility). Phase 2 is this commit — a full sweep of every remaining arbitrary Tailwind bracket value to either `@theme` tokens or `@utility` directives in `dashboard/styles.css`.
+
+**`@theme` tokens added** (Tailwind v4 standard namespaces that auto-generate utilities):
+
+- `--text-8` through `--text-13` (five font-size tokens: 8/9/10/11/13 px) → `text-8`, `text-9`, `text-10`, `text-11`, `text-13` utilities
+- `--shadow-tooltip`, `--shadow-dropdown`, `--shadow-dropzone-glow` → `shadow-tooltip`, `shadow-dropdown`, `shadow-dropzone-glow` utilities with full `--tw-inset-shadow`/`--tw-ring-shadow` composition so they stack with other Tailwind shadow variants correctly
+
+**`@utility` directives added** (non-standard namespaces that `@theme` can't express):
+
+- `grid-heatmap-m` / `grid-heatmap-d` — `grid-template-columns: 36px repeat(7, 1fr)` / `50px repeat(7, 1fr)` for the Timing heatmap mobile + desktop variants
+- `w-modal-responsive` — `width: min(420px, calc(100vw - 32px))` for QuickGuide
+- `max-w-viewport-margin` — `max-width: calc(100vw - 32px)` for InstallInstructionsModal
+- `min-h-hero` — `min-height: 60vh` for the dashboard drop zone landing
+- `text-shadow-primary-glow` — `text-shadow: 0 0 10px color-mix(primary 50%)` for active tab label (Tailwind v4 has no text-shadow utility out of the box)
+
+**JSX replacements across 10 files:**
+
+| Before | After |
+|---|---|
+| `text-[8px]`, `text-[9px]`, `text-[10px]`, `text-[11px]`, `text-[13px]` | `text-8`, `text-9`, `text-10`, `text-11`, `text-13` |
+| `shadow-[0_2px_8px_rgba(0,0,0,0.3)]` | `shadow-tooltip` |
+| `shadow-[0_10px_25px_rgb(0_0_0/0.25)]` | `shadow-dropdown` |
+| `shadow-[0_0_20px_color-mix(...)]` | `shadow-dropzone-glow` |
+| `[text-shadow:0_0_10px_color-mix(...)]` | `text-shadow-primary-glow` |
+| `grid-cols-[36px_repeat(7,1fr)]` | `grid-heatmap-m` |
+| `sm:grid-cols-[50px_repeat(7,1fr)]` | `sm:grid-heatmap-d` |
+| `w-[min(420px,calc(100vw-32px))]` | `w-modal-responsive` |
+| `max-w-[calc(100vw-32px)]` | `max-w-viewport-margin` |
+| `min-h-[60vh]` | `min-h-hero` |
+
+Files touched: `Timing.jsx` (heatmap cells + grid + labels, 5 replacements), `Projects.jsx`, `HamburgerMenu.jsx`, `HeatmapTooltip.jsx`, `TabBar.jsx`, `SettingsPane.jsx` (shared constants + work-hour labels + hint, 5 replacements), `EmbedRenderer.jsx`, `DropZone.jsx`, `FilterSidebar.jsx`, `QuickGuide.jsx`, `InstallInstructionsModal.jsx`.
+
+**Test update:** `Phase 7 — TabBar uses DaisyUI tabs + tab class composition with ARIA` assertion updated to match `/text-shadow-primary-glow/` instead of the removed `/\[text-shadow:0_0_10px_color-mix/` regex.
+
+**CLAUDE.md** — added a new rule under "Frontend: Styles and Scripts" listing the 6-tier precedence for replacing arbitrary values: stock Tailwind → DaisyUI semantic token → CSS var inside arbitrary → `@theme` token → `@utility` directive → arbitrary bracket (last resort, document rationale).
+
+**DAISYUI_V5_NOTES.md** — added "Zero arbitrary Tailwind values" note under project conventions enumerating every `@theme` token and `@utility` directive currently defined, with the rationale for each.
+
+**Verified:**
+- `vite build` clean (2.92s, CSS 149.91 KB → 149.91 KB, negligible delta)
+- `npm test` — 61/61 pass
+- All new utilities confirmed in built CSS: `.text-8`, `.text-9`, `.text-10`, `.text-11`, `.text-13`, `.shadow-tooltip`, `.shadow-dropdown`, `.shadow-dropzone-glow`, `.grid-heatmap-m`, `.sm\:grid-heatmap-d`, `.w-modal-responsive`, `.max-w-viewport-margin`, `.min-h-hero`, `.text-shadow-primary-glow`
+- Grep of `dashboard/js` for `text-\[[0-9]|shadow-\[[0-9_]|\[text-shadow|grid-cols-\[[0-9]|min-h-\[[0-9]|max-h-\[[0-9]|w-\[[0-9]|min-w-\[[0-9]|max-w-\[calc|w-\[min\(` returns zero actual code hits (the one match is in a CollapsibleSection.jsx comment explaining why `max-h-[9999px]` would clip)
+- 24-class allowlist test still passes — `@theme` and `@utility` don't write `.classname {` primary rules in styles.css, so the regex scanner doesn't detect them as new custom classes
+
+**Remaining legitimate arbitraries / inline styles** (documented, not regressions):
+
+- Dynamic `style={{ width: \`${pct}%\` }}` progress bars and `style={{ height: chartHeight }}` chart containers — computed from data at runtime
+- DebugPill.jsx inline styles — isolated React root that must survive CSS load failure (documented)
+- main.jsx error boundary inline layout — must render without CSS (documented)
+- Tags.jsx / Contributors.jsx `style={{ backgroundColor: getTagColor(tag) }}` — brand-fixed per-tag palette (documented as intentional non-theme-tracked)
+
 ### Post-migration audit — follow-up commit (deferred/skipped items cleanup)
 
 After the first audit commit shipped, the user asked for a no-shortcuts review of the audit's own output to catch anything deferred or skipped. This follow-up addresses everything the first pass left on the table.

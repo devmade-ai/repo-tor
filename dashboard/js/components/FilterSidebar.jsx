@@ -142,7 +142,7 @@ function MultiSelect({ options, selected, onChange }) {
             </button>
             <div
                 ref={listboxRef}
-                className={`absolute top-full left-0 right-0 max-h-50 overflow-y-auto bg-base-200 border border-base-300 rounded-sm shadow-[0_10px_25px_rgb(0_0_0/0.25)] z-20 ${open ? 'block' : 'hidden'}`}
+                className={`absolute top-full left-0 right-0 max-h-50 overflow-y-auto bg-base-200 border border-base-300 rounded-sm shadow-dropdown z-20 ${open ? 'block' : 'hidden'}`}
                 role="listbox"
                 aria-multiselectable="true"
             >

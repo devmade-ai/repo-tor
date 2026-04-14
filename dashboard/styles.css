@@ -97,6 +97,96 @@
     --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
 }
 
+/* Requirement: Extend Tailwind v4's default scales with tokens for values
+     we use repeatedly in the JSX so consumers can reference them as
+     first-class utilities (`text-11`, `shadow-dropdown`) instead of
+     arbitrary bracketed values (`text-[11px]`, `shadow-[0_10px_...]`).
+   Approach: Tailwind v4 @theme block. Any `--<category>-<name>: value`
+     registered here becomes a named utility in the generated CSS. The
+     standard categories we use:
+       --text-<name>   → text-<name>   (font-size)
+       --shadow-<name> → shadow-<name> (box-shadow)
+   Alternatives considered:
+     - Keep arbitrary `text-[11px]` / `shadow-[...]`: Rejected — the
+       user explicitly asked to eliminate arbitrary Tailwind values
+       when a theme token or standard utility can replace them.
+     - Use :root variables + reference them inside arbitrary classes
+       (`text-[var(--text-11)]`): Rejected — still arbitrary syntax,
+       doesn't remove the brackets at the consumer site.
+     - Round to nearest stock size (text-xs for 11/13): Rejected —
+       shifts the visual design by 1-3px at every consumer and the
+       dashboard's dense layouts depend on the exact sizes.
+   The `--<name>` naming uses pixel-integer suffixes (text-8, text-11)
+   so each consumer sees the literal size in the class name. Semantic
+   names (text-mini, text-label) obscure the intent. */
+@theme {
+    /* Compact font sizes — below/between Tailwind's default
+       text-xs (12px) / text-sm (14px) / text-base (16px) scale. */
+    --text-8: 0.5rem;       /* 8px  — heatmap cells (desktop variant) */
+    --text-9: 0.5625rem;    /* 9px  — heatmap row labels (mobile variant) */
+    --text-10: 0.625rem;    /* 10px — heatmap cells (mobile), project lang badges */
+    --text-11: 0.6875rem;   /* 11px — settings hints, tooltips, hamburger version, tab bar typography */
+    --text-13: 0.8125rem;   /* 13px — settings labels, tab bar titles, embed error code */
+
+    /* Elevated-surface shadows — Tailwind's stock shadow-md/lg/xl all
+       use ~10% opacity which reads too subtly against variable base-200
+       / base-300 section backgrounds. These tokens pick higher opacity
+       values tuned for the tooltip + dropdown contexts. */
+    --shadow-tooltip: 0 2px 8px rgb(0 0 0 / 0.3);
+    --shadow-dropdown: 0 10px 25px rgb(0 0 0 / 0.25);
+    --shadow-dropzone-glow: 0 0 20px color-mix(in oklab, var(--color-primary) 25%, transparent);
+}
+
+/* Requirement: Custom utilities for values that don't fit any of
+     Tailwind v4's standard @theme namespaces (text-shadow isn't in
+     v4's default utility set; grid-template-columns / width / height
+     with min()/calc() expressions aren't generated from @theme tokens).
+   Approach: Tailwind v4 @utility directive — declares a named class
+     that Tailwind inserts into the utility layer. Unlike regular
+     custom CSS classes in styles.css, these ARE utility classes
+     conceptually (used exclusively via className, not targeted by
+     descendant selectors), so the daisyui-surfaces allowlist test
+     doesn't need to include them.
+   Alternatives considered:
+     - Inline arbitrary values (`grid-cols-[36px_repeat(7,1fr)]`):
+       Rejected — the user asked to eliminate arbitrary values.
+     - Define custom :root CSS vars and reference them inside arbitrary
+       classes (`grid-cols-[var(--grid-heatmap-m)]`): Rejected — still
+       uses arbitrary syntax at the call site.
+     - Add custom classes to styles.css with allowlist entries:
+       Rejected — @utility is the Tailwind v4 idiom for extending the
+       utility layer without touching the custom-class allowlist. */
+@utility grid-heatmap-m {
+    /* Mobile heatmap: narrower row-label column for tighter screens */
+    grid-template-columns: 36px repeat(7, 1fr);
+}
+@utility grid-heatmap-d {
+    /* Desktop heatmap: wider row-label column for full hour labels */
+    grid-template-columns: 50px repeat(7, 1fr);
+}
+@utility w-modal-responsive {
+    /* Modal width clamped to 420px but never wider than the viewport
+       minus 32px safe margin on each side. Used by QuickGuide. */
+    width: min(420px, calc(100vw - 32px));
+}
+@utility max-w-viewport-margin {
+    /* Cap element max-width to leave a 32px total horizontal margin
+       against the viewport edges. Used by InstallInstructionsModal. */
+    max-width: calc(100vw - 32px);
+}
+@utility min-h-hero {
+    /* Hero-sized minimum height for the dashboard drop zone landing
+       screen — 60% of viewport height keeps the upload target the
+       dominant element on first page load. */
+    min-height: 60vh;
+}
+@utility text-shadow-primary-glow {
+    /* Primary-tinted glow for active tab labels. Tailwind v4 has no
+       text-shadow utility out of the box. `color-mix` threads the
+       active theme's primary colour through at 50% opacity. */
+    text-shadow: 0 0 10px color-mix(in oklab, var(--color-primary) 50%, transparent);
+}
+
 /* Safe area insets for devices with notch/home indicator */
 body {
     padding-top: env(safe-area-inset-top);

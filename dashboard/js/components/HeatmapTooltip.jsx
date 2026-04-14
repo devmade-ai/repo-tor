@@ -82,7 +82,7 @@ export default function HeatmapTooltip() {
             ref={tooltipRef}
             role="tooltip"
             aria-hidden={!tooltip.visible}
-            className={`fixed z-50 pointer-events-none bg-base-200 text-base-content border border-base-300 rounded-sm px-2 py-1 text-[11px] whitespace-nowrap shadow-[0_2px_8px_rgba(0,0,0,0.3)] transition-opacity duration-100 ${tooltip.visible ? 'opacity-100' : 'opacity-0'}`}
+            className={`fixed z-50 pointer-events-none bg-base-200 text-base-content border border-base-300 rounded-sm px-2 py-1 text-11 whitespace-nowrap shadow-tooltip transition-opacity duration-100 ${tooltip.visible ? 'opacity-100' : 'opacity-0'}`}
         >
             {tooltip.text}
         </span>,

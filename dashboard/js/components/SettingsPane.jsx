@@ -20,10 +20,10 @@ const VIEW_LEVEL_DESCRIPTIONS = {
 // theme-aware interactive feedback (the earlier migration wrote
 // `hover:bg-base-300` which is a no-op on a `bg-base-300` base —
 // silent regression caught in the 2026-04-14 post-migration audit).
-const SECTION_TITLE_CLASSES = 'text-[11px] font-semibold uppercase tracking-wider text-base-content/60 mb-3';
+const SECTION_TITLE_CLASSES = 'text-11 font-semibold uppercase tracking-wider text-base-content/60 mb-3';
 const TOGGLE_ROW_CLASSES = 'flex items-center justify-between p-3 bg-base-300 rounded-md cursor-pointer transition-colors hover:bg-base-content/5';
-const TOGGLE_LABEL_CLASSES = 'text-[13px] font-medium text-base-content/80';
-const TOGGLE_HINT_CLASSES = 'text-[11px] text-base-content/40 mt-0.5';
+const TOGGLE_LABEL_CLASSES = 'text-13 font-medium text-base-content/80';
+const TOGGLE_HINT_CLASSES = 'text-11 text-base-content/40 mt-0.5';
 
 function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -193,7 +193,7 @@ export default function SettingsPane() {
                         <div className={SECTION_TITLE_CLASSES}>Work Hours</div>
                         <div className="flex gap-3">
                             <div className="flex-1">
-                                <label htmlFor="work-hour-start" className="block text-[13px] font-medium text-base-content/80 mb-1.5">Start</label>
+                                <label htmlFor="work-hour-start" className="block text-13 font-medium text-base-content/80 mb-1.5">Start</label>
                                 <select
                                     id="work-hour-start"
                                     className="select select-sm w-full"
@@ -206,7 +206,7 @@ export default function SettingsPane() {
                                 </select>
                             </div>
                             <div className="flex-1">
-                                <label htmlFor="work-hour-end" className="block text-[13px] font-medium text-base-content/80 mb-1.5">End</label>
+                                <label htmlFor="work-hour-end" className="block text-13 font-medium text-base-content/80 mb-1.5">End</label>
                                 <select
                                     id="work-hour-end"
                                     className="select select-sm w-full"
@@ -219,7 +219,7 @@ export default function SettingsPane() {
                                 </select>
                             </div>
                         </div>
-                        <div className="text-[11px] text-base-content/40 mt-2">
+                        <div className="text-11 text-base-content/40 mt-2">
                             Commits outside these hours are flagged as after-hours
                         </div>
                     </div>
