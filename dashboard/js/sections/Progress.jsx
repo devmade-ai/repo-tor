@@ -344,7 +344,7 @@ export default function Progress() {
             {hasSemverData && (
                 <CollapsibleSection title="Change Types" subtitle="Patch, minor, and major releases">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div data-embed-id="semver-distribution" style={{ height: isMobile ? '180px' : '200px' }}>
+                        <div data-embed-id="semver-distribution" className="h-45 sm:h-50">
                             <Doughnut data={semverChartData.data} options={semverChartData.options} />
                         </div>
                         <div className="space-y-3 flex flex-col justify-center">

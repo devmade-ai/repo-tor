@@ -70,9 +70,22 @@
     --card-gap: 16px;
     --content-padding: 24px;
 
-    /* Z-Index Scale — see glow-props Z_INDEX_SCALE.md.
-       Sub-layers: 21 = sticky-header above tabs (20),
-                   58 = modal backdrop above menu (50).
+    /* Z-Index Scale — design-token reference for the project's stacking
+       order. Most consumers use stock Tailwind z-N utilities directly
+       (z-10, z-20, z-30, z-40, z-50) rather than `z-[var(--z-base)]`
+       arbitrary-value forms; the variables exist as a single source of
+       truth so this comment block documents the intended layering and
+       any sub-layer between two stock Tailwind values gets a named token.
+       Sub-layer values referenced via `z-[var(--z-...)]` arbitrary
+       utilities (the only place the variables are read directly):
+         - --z-sticky-header (21) → Header.jsx, sits 1 above sticky tabs
+           (z-20) so the header always covers a scrolling tab strip.
+         - --z-toast (70) → Toast.jsx, above the modal scale (60s) and
+           below the debug pill (80) so toast notifications appear over
+           any open modal but never hide the debug surface.
+       Stock-utility consumers (no arbitrary value needed):
+         - z-10 base content, z-20 sticky tabs, z-30 fixed panes,
+           z-40 menu backdrop, z-50 menu / modal scale anchor.
        --z-drawer / --z-drawer-backdrop deleted 2026-04-15 — all panes
        now use stock Tailwind z-30/z-40 utilities directly. */
     --z-base: 10;
