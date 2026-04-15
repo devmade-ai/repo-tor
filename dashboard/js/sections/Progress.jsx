@@ -127,9 +127,11 @@ export default function Progress() {
                 },
             },
         };
-    // state.darkMode: bust memo on theme toggle so react-chartjs-2 calls chart.update(),
-    // picking up the new Chart.js defaults set in AppContext's darkMode effect
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile, state.darkMode]);
+    // state.themeAccent/Muted: bust memo on any theme change (including
+    // inter-theme switches like lofi → nord where darkMode stays constant)
+    // so `getSeriesColor(N)` re-resolves the new theme's semantic tokens
+    // and react-chartjs-2 picks up the updated dataset colors.
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Complexity Over Time chart data
     // Excludes incomplete last month (same reason as features vs bugfix trend)
@@ -204,7 +206,7 @@ export default function Progress() {
                 },
             },
         };
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile, state.darkMode]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Epic breakdown — groups commits by epic label
     // Uses pre-aggregated epicBreakdown from summary when commits aren't loaded
@@ -284,7 +286,7 @@ export default function Progress() {
                 },
             },
         };
-    }, [semverBreakdown, hasSemverData, state.darkMode]);
+    }, [semverBreakdown, hasSemverData, state.darkMode, state.themeAccent, state.themeMuted]);
 
     const handleCardClick = (type) => {
         let filtered, title;

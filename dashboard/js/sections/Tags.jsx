@@ -64,10 +64,12 @@ export default function Tags() {
         const total = counts.reduce((a, b) => a + b, 0);
 
         return { sortedTags, tags, counts, colors, total };
-    // state.darkMode: theme changes remap semantic colour tokens at runtime
-    // via resolveTagSemanticColor — rebuild tagData.colors so Chart.js picks
-    // up the new values.
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.tagBreakdown, state.darkMode, state.lightTheme, state.darkTheme]);
+    // state.themeAccent/Muted: theme changes dispatch SET_THEME_COLORS
+    // which updates these values; including them in deps rebuilds
+    // tagData.colors so Chart.js picks up the new semantic token values
+    // (covers both dark/light toggle and inter-theme switches like
+    // lofi → nord where darkMode stays constant).
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.tagBreakdown, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Paginate tag list — 8 mobile / show all desktop (0 = no limit)
     const {
@@ -118,8 +120,12 @@ export default function Tags() {
                 },
             },
         };
-    // state.darkMode: bust memo on theme toggle so chart picks up new Chart.js defaults
-    }, [tagData, isMobile, state.darkMode]);
+    // tagData already rebuilds on theme change (its deps include
+    // state.themeAccent/Muted) so this chart inherits the new colors
+    // via the tagData reference. Extra theme deps included here for
+    // safety in case Chart.js defaults (from AppContext.darkMode effect)
+    // lag behind.
+    }, [tagData, isMobile, state.darkMode, state.themeAccent, state.themeMuted]);
 
     const handleTagClick = (tag) => {
         // During Phase 1, no commits to filter — clicking does nothing useful
