@@ -383,13 +383,32 @@ export default function App() {
         );
     }
 
-    // Nested DaisyUI drawers — one each for filter (left side, lg:drawer-open
-    // for inline-on-desktop behaviour), detail pane (right side), settings
-    // pane (right side). Each drawer's native checkbox is controlled by the
-    // corresponding reducer state; onChange dispatches the matching toggle
-    // action. DaisyUI handles positioning, slide animation, overlay rendering,
-    // and click-outside-to-close via the label[htmlFor] pattern; React still
-    // owns the open/closed state via AppContext.
+    // Layout architecture: ONE DaisyUI drawer for the filter sidebar,
+    // plus two fixed-positioned slide-over panes (detail + settings)
+    // using stock Tailwind utilities for the transform animation.
+    //
+    // Why not three nested DaisyUI drawers (the previous attempt)?
+    //   - DaisyUI v5's drawer is designed for one-drawer-per-page UX.
+    //     Nesting three (filter → detail → settings) was an undocumented
+    //     pattern, and the click-outside / focus / z-index behaviour
+    //     across three drawer-overlays could not be verified without
+    //     running a browser. The simpler architecture below uses ONE
+    //     drawer for the filter (the standard `lg:drawer-open` pattern,
+    //     well-supported) and two plain fixed-positioned slide-overs
+    //     for detail and settings.
+    //   - Detail and settings panes are simple `fixed top-0 right-0
+    //     h-screen w-full max-w-{lg|sm}` with a `transform translate-x-{0|full}`
+    //     swap driven by reducer state. Stock Tailwind utilities only
+    //     — no custom classes, no custom CSS, no @utility directives.
+    //     Same vanilla-DaisyUI policy compliance as the rest of the app.
+    //   - Backdrop overlays are `fixed inset-0 bg-black/60 transition-opacity`
+    //     siblings of each pane that toggle pointer-events + opacity
+    //     based on the pane's open state. Click-to-close handled by
+    //     onClick → dispatch.
+    //
+    // Filter sidebar still uses DaisyUI `drawer lg:drawer-open` so it's
+    // inline on desktop (lg+) and overlay on mobile — that's the
+    // documented standard pattern and works without nesting.
     return (
         <div className="drawer lg:drawer-open">
             <input
@@ -401,65 +420,61 @@ export default function App() {
                 aria-label="Toggle filter sidebar"
             />
             <div className="drawer-content flex flex-col min-h-screen">
-                <div className="drawer drawer-end">
-                    <input
-                        id="detail-drawer-toggle"
-                        type="checkbox"
-                        className="drawer-toggle"
-                        checked={state.detailPane.open}
-                        onChange={e => { if (!e.target.checked) dispatch({ type: 'CLOSE_DETAIL_PANE' }); }}
-                        aria-label="Toggle detail pane"
-                    />
-                    <div className="drawer-content flex flex-col min-h-screen">
-                        <div className="drawer drawer-end">
-                            <input
-                                id="settings-drawer-toggle"
-                                type="checkbox"
-                                className="drawer-toggle"
-                                checked={state.settingsPaneOpen}
-                                onChange={e => dispatch({ type: e.target.checked ? 'OPEN_SETTINGS_PANE' : 'CLOSE_SETTINGS_PANE' })}
-                                aria-label="Toggle settings pane"
-                            />
-                            <div className="drawer-content flex flex-col min-h-screen">
-                                <ErrorBoundary><Header /></ErrorBoundary>
-                                <div className="print:hidden"><ErrorBoundary><TabBar /></ErrorBoundary></div>
-                                <div className="max-w-7xl mx-auto w-full px-4 md:px-8 pb-12 flex-1">
-                                    <ErrorBoundary key={state.activeTab}>
-                                        {state.activeTab === 'overview' && <Summary />}
-                                        {state.activeTab === 'activity' && (
-                                            <div className="space-y-4 sm:space-y-6">
-                                                <Timeline />
-                                                <hr className="border-base-300 opacity-30" />
-                                                <Timing />
-                                            </div>
-                                        )}
-                                        {state.activeTab === 'work' && (
-                                            <div className="space-y-4 sm:space-y-6">
-                                                <Progress />
-                                                <hr className="border-base-300 opacity-30" />
-                                                <Contributors />
-                                                <hr className="border-base-300 opacity-30" />
-                                                <Tags />
-                                            </div>
-                                        )}
-                                        {state.activeTab === 'health' && <Health />}
-                                        {state.activeTab === 'discover' && <Discover />}
-                                        {state.activeTab === 'projects' && <Projects />}
-                                    </ErrorBoundary>
-                                </div>
-                                <HeatmapTooltip />
+                <ErrorBoundary><Header /></ErrorBoundary>
+                <div className="print:hidden"><ErrorBoundary><TabBar /></ErrorBoundary></div>
+                <main className="max-w-7xl mx-auto w-full px-4 md:px-8 pb-12 flex-1">
+                    <ErrorBoundary key={state.activeTab}>
+                        {state.activeTab === 'overview' && <Summary />}
+                        {state.activeTab === 'activity' && (
+                            <div className="space-y-4 sm:space-y-6">
+                                <Timeline />
+                                <hr className="border-base-300 opacity-30" />
+                                <Timing />
                             </div>
-                            <div className="drawer-side print:hidden">
-                                <label htmlFor="settings-drawer-toggle" className="drawer-overlay" aria-label="Close settings" />
-                                <ErrorBoundary><SettingsPane /></ErrorBoundary>
+                        )}
+                        {state.activeTab === 'work' && (
+                            <div className="space-y-4 sm:space-y-6">
+                                <Progress />
+                                <hr className="border-base-300 opacity-30" />
+                                <Contributors />
+                                <hr className="border-base-300 opacity-30" />
+                                <Tags />
                             </div>
-                        </div>
-                    </div>
-                    <div className="drawer-side print:hidden">
-                        <label htmlFor="detail-drawer-toggle" className="drawer-overlay" aria-label="Close detail pane" />
-                        <ErrorBoundary><DetailPane /></ErrorBoundary>
-                    </div>
-                </div>
+                        )}
+                        {state.activeTab === 'health' && <Health />}
+                        {state.activeTab === 'discover' && <Discover />}
+                        {state.activeTab === 'projects' && <Projects />}
+                    </ErrorBoundary>
+                </main>
+                <HeatmapTooltip />
+
+                {/* Detail pane — fixed slide-over from the right.
+                    Uses stock Tailwind transform/transition for the
+                    slide animation, and a sibling backdrop for click-
+                    to-close. Open state controlled by React reducer. */}
+                <div
+                    className={`fixed inset-0 bg-black/60 z-30 transition-opacity duration-300 print:hidden ${state.detailPane.open ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                    onClick={() => dispatch({ type: 'CLOSE_DETAIL_PANE' })}
+                    aria-hidden="true"
+                />
+                <aside
+                    className={`fixed top-0 right-0 h-screen w-full max-w-lg z-40 transform transition-transform duration-300 print:hidden ${state.detailPane.open ? 'translate-x-0' : 'translate-x-full'}`}
+                >
+                    <ErrorBoundary><DetailPane /></ErrorBoundary>
+                </aside>
+
+                {/* Settings pane — same pattern as detail. Higher z-index
+                    so it stacks above detail when both are open. */}
+                <div
+                    className={`fixed inset-0 bg-black/60 z-40 transition-opacity duration-300 print:hidden ${state.settingsPaneOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                    onClick={() => dispatch({ type: 'CLOSE_SETTINGS_PANE' })}
+                    aria-hidden="true"
+                />
+                <aside
+                    className={`fixed top-0 right-0 h-screen w-full max-w-sm z-40 transform transition-transform duration-300 print:hidden ${state.settingsPaneOpen ? 'translate-x-0' : 'translate-x-full'}`}
+                >
+                    <ErrorBoundary><SettingsPane /></ErrorBoundary>
+                </aside>
             </div>
             <div className="drawer-side print:hidden">
                 <label htmlFor="filter-drawer-toggle" className="drawer-overlay" aria-label="Close filter sidebar" />

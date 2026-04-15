@@ -172,8 +172,6 @@ function reducer(state, action) {
             return { ...state, filterSidebarOpen: false };
         case 'TOGGLE_SETTINGS_PANE':
             return { ...state, settingsPaneOpen: !state.settingsPaneOpen };
-        case 'OPEN_SETTINGS_PANE':
-            return { ...state, settingsPaneOpen: true };
         case 'CLOSE_SETTINGS_PANE':
             return { ...state, settingsPaneOpen: false };
         case 'SET_DARK_MODE':
