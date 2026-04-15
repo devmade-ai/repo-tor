@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
-import { getCommitTags, getTagColor, getTagStyleObject, handleKeyActivate } from '../utils.js';
+import { getCommitTags, getTagBadgeClass, resolveTagSemanticColor, handleKeyActivate } from '../utils.js';
 import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
@@ -40,7 +40,7 @@ export default function Tags() {
                 .sort((a, b) => b.count - a.count);
             const tags = sortedTags.map(t => t.tag);
             const counts = sortedTags.map(t => t.count);
-            const colors = tags.map(t => getTagColor(t));
+            const colors = tags.map(t => resolveTagSemanticColor(t));
             const total = counts.reduce((a, b) => a + b, 0);
             return { sortedTags, tags, counts, colors, total };
         }
@@ -60,11 +60,14 @@ export default function Tags() {
 
         const tags = sortedTags.map(t => t.tag);
         const counts = sortedTags.map(t => t.count);
-        const colors = tags.map(t => getTagColor(t));
+        const colors = tags.map(t => resolveTagSemanticColor(t));
         const total = counts.reduce((a, b) => a + b, 0);
 
         return { sortedTags, tags, counts, colors, total };
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.tagBreakdown]);
+    // state.darkMode: theme changes remap semantic colour tokens at runtime
+    // via resolveTagSemanticColor — rebuild tagData.colors so Chart.js picks
+    // up the new values.
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.tagBreakdown, state.darkMode, state.lightTheme, state.darkTheme]);
 
     // Paginate tag list — 8 mobile / show all desktop (0 = no limit)
     const {
@@ -152,8 +155,7 @@ export default function Tags() {
                                     onKeyDown={commitsLoaded ? handleKeyActivate(() => handleTagClick(tag)) : undefined}
                                 >
                                     <span
-                                        className="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
-                                        style={getTagStyleObject(tag)}
+                                        className={`badge badge-sm ${getTagBadgeClass(tag)}`}
                                     >
                                         {tag}
                                     </span>
@@ -162,7 +164,7 @@ export default function Tags() {
                                             className="h-2 rounded-full"
                                             style={{
                                                 width: `${(count / tagData.total * 100).toFixed(1)}%`,
-                                                backgroundColor: getTagColor(tag),
+                                                backgroundColor: resolveTagSemanticColor(tag),
                                             }}
                                         />
                                     </div>

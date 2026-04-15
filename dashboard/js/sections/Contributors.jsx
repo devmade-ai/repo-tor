@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
-    getTagStyleObject, getTagColor,
+    getTagBadgeClass, resolveTagSemanticColor,
     aggregateContributors, getAuthorEmail, getAuthorName, sanitizeName, handleKeyActivate
 } from '../utils.js';
 // mutedColor is read from state.themeMuted (via useApp) so the "low complexity"
@@ -232,15 +232,14 @@ export default function Contributors() {
                                             return (
                                                 <div key={tag} className="flex items-center gap-2">
                                                     <span
-                                                        className="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
-                                                        style={getTagStyleObject(tag)}
+                                                        className={`badge badge-sm ${getTagBadgeClass(tag)}`}
                                                     >
                                                         {tag}
                                                     </span>
                                                     <div className="flex-1 bg-base-300 rounded-full h-2">
                                                         <div
                                                             className="h-2 rounded-full"
-                                                            style={{ width: `${pct}%`, backgroundColor: getTagColor(tag) }}
+                                                            style={{ width: `${pct}%`, backgroundColor: resolveTagSemanticColor(tag) }}
                                                         />
                                                     </div>
                                                     <span className="text-xs text-base-content/60 w-8">{pct}%</span>

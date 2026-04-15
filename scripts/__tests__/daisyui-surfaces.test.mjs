@@ -673,30 +673,35 @@ test('Tailwind utility hijack rules stay deleted (.text-3xl/.text-2xl/.card desc
     );
 });
 
-test('Tag color duplication stays collapsed (no .tag-{name} CSS rules)', () => {
-    const stylesSrc = read('dashboard/styles.css');
-    const stripped = stylesSrc.replace(/\/\*[\s\S]*?\*\//g, '');
-    // Any `.tag-{name}` rule with an rgba() fill is a re-introduction of
-    // the pre-cleanup per-tag CSS rules (which duplicated TAG_COLORS from
-    // utils.js). Allow the `.tag` base class (common layout — padding,
-    // border-radius, font-size) but flag any `.tag-name` pattern.
-    const offendingRules = stripped.match(/\.tag-[a-z-]+\s*\{[^}]*\}/g) || [];
-    assert.equal(
-        offendingRules.length, 0,
-        `Per-tag CSS rules re-introduced: ${offendingRules.slice(0, 3).join(' | ')}. ` +
-        'Tag colors must come from getTagStyleObject() in utils.js — see that module\'s ' +
-        'rationale block for the single-source-of-truth argument.'
-    );
-});
-
-test('utils.js has no getTagClass export (replaced by className="tag" + getTagStyleObject)', () => {
+test('Tag brand-hex palette stays deleted (vanilla DaisyUI uses badge variants)', () => {
     const src = read('dashboard/js/utils.js');
     // Strip comments so the rationale note doesn't false-trigger.
     const stripped = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+    // The old brand palette exports must stay removed.
     assert.doesNotMatch(
-        stripped, /export\s+function\s+getTagClass\b/,
-        'getTagClass was removed 2026-04-13 — JSX consumers now use `className="tag"` + ' +
-        'inline style={getTagStyleObject(tag)}. Do not re-export.'
+        stripped, /export\s+const\s+TAG_COLORS\b/,
+        'TAG_COLORS export was removed 2026-04-14 — tags now use `getTagBadgeClass(tag)` which returns a DaisyUI badge variant (badge-success/error/warning/info/secondary/accent/neutral).'
+    );
+    assert.doesNotMatch(
+        stripped, /export\s+const\s+DYNAMIC_TAG_PALETTE\b/,
+        'DYNAMIC_TAG_PALETTE was removed 2026-04-14 with the vanilla-DaisyUI tag sweep.'
+    );
+    assert.doesNotMatch(
+        stripped, /export\s+function\s+getTagColor\b/,
+        'getTagColor() was removed 2026-04-14 — chart datasets use resolveTagSemanticColor() which reads the active DaisyUI theme at runtime.'
+    );
+    assert.doesNotMatch(
+        stripped, /export\s+function\s+getTagStyleObject\b/,
+        'getTagStyleObject() was removed 2026-04-14 — tag chips use `className="badge badge-sm ${getTagBadgeClass(tag)}"` with no inline style.'
+    );
+    // The new vanilla helpers must exist.
+    assert.match(
+        stripped, /export\s+function\s+getTagBadgeClass\b/,
+        'utils.js must export getTagBadgeClass(tag) for tag chip rendering.'
+    );
+    assert.match(
+        stripped, /export\s+function\s+resolveTagSemanticColor\b/,
+        'utils.js must export resolveTagSemanticColor(tag) for Chart.js dataset backgrounds.'
     );
 });
 
@@ -724,51 +729,10 @@ test('pwa.js imports safeStorage helpers from utils.js (no local duplication)', 
     );
 });
 
-test('.tag base class stays deleted — tag chips use inline Tailwind utilities', async () => {
-    const stylesSrc = read('dashboard/styles.css');
-    const stripped = stylesSrc.replace(/\/\*[\s\S]*?\*\//g, '');
-    assert.doesNotMatch(
-        stripped, /^\s*\.tag\s*\{/m,
-        '.tag base class must not return — use inline Tailwind utilities ' +
-        '(inline-block px-2 py-0.5 rounded-full text-xs font-medium) in JSX.'
-    );
-    // Sweep every .jsx file for any className attribute that includes `tag`
-    // as a standalone space-delimited token. This catches regressions like
-    // `className="tag tag-security"` (space-delimited "tag" + legacy
-    // per-tag class) — neither should appear in JSX after the 2026-04-13
-    // tag cleanup. Tag chips must use the full Tailwind class string
-    // `inline-block px-2 py-0.5 rounded-full text-xs font-medium` plus
-    // an inline style object from `getTagStyleObject(tagName)`.
-    const jsxFiles = await walkJsxFiles(join(REPO_ROOT, 'dashboard', 'js'));
-    // Pattern: className attribute whose value contains `tag` as a bare
-    // token separated by whitespace (or alone). Must not match className
-    // values that only contain `tag-chip` / `tag-dynamic` / etc.
-    const bareTagPattern = /className\s*=\s*["'](?:[^"']*\s)?tag(?:\s[^"']*)?["']/;
-    // Pattern: className attribute containing any `tag-{name}` legacy
-    // per-tag class. Catches consumers that kept the old mapping.
-    const perTagPattern = /className\s*=\s*["'][^"']*\btag-(?:feature|enhancement|seed|init|bugfix|fix|security|hotfix|removal|revert|deprecate|refactor|naming|cleanup|docs|test|test-unit|test-e2e|build|ci|deploy|config|chore|style|ux|ui|accessibility|performance|perf|dependency|deps|other|dynamic|breaking)\b[^"']*["']/;
-    const offenders = [];
-    for (const file of jsxFiles) {
-        const raw = readFileSync(file, 'utf8');
-        const src = stripComments(raw);
-        const lines = src.split('\n');
-        lines.forEach((line, i) => {
-            if (line.trimStart().startsWith('//')) return;
-            if (bareTagPattern.test(line) || perTagPattern.test(line)) {
-                offenders.push(`${file.replace(REPO_ROOT + '/', '')}:${i + 1} — ${line.trim()}`);
-            }
-        });
-    }
-    assert.equal(
-        offenders.length, 0,
-        `Tag chip regression(s):\n${offenders.join('\n')}\n\n` +
-        'Tag chips must use `className="inline-block px-2 py-0.5 rounded-full text-xs font-medium"` ' +
-        'plus `style={getTagStyleObject(tagName)}`. The `.tag` base class and the ' +
-        '`.tag-{name}` per-tag classes were removed on 2026-04-13.'
-    );
-    // Every tag-chip consumer must use the full 5-utility Tailwind
-    // combination so chip layout is consistent. This is a secondary
-    // check (the sweep above is the primary regression guard).
+test('Tag chips use vanilla DaisyUI badge component', () => {
+    // Every tag chip must render as a DaisyUI `badge badge-sm ${variant}` span,
+    // never with the deleted `inline-block px-2 py-0.5 rounded-full text-xs
+    // font-medium` Tailwind combo or an inline `style={getTagStyleObject(...)}`.
     const tagConsumers = [
         'dashboard/js/sections/Tags.jsx',
         'dashboard/js/sections/Timeline.jsx',
@@ -778,11 +742,21 @@ test('.tag base class stays deleted — tag chips use inline Tailwind utilities'
     ];
     for (const path of tagConsumers) {
         const src = read(path);
+        // Each consumer must reference the DaisyUI badge class + the badge
+        // helper. The exact JSX varies per consumer so we check both
+        // signature substrings are present somewhere in the file.
         assert.match(
+            src, /badge badge-sm/,
+            `${path}: tag chip consumers must use \`badge badge-sm\` (DaisyUI badge component).`
+        );
+        assert.match(
+            src, /getTagBadgeClass/,
+            `${path}: tag chip consumers must call getTagBadgeClass(tag) for the variant class.`
+        );
+        // The deleted inline Tailwind tag-chip combo must not return.
+        assert.doesNotMatch(
             src, /inline-block\s+px-2\s+py-0\.5\s+rounded-full\s+text-xs\s+font-medium/,
-            `${path}: tag chip consumers must use the full Tailwind class ` +
-            `string "inline-block px-2 py-0.5 rounded-full text-xs font-medium" ` +
-            `for consistent chip layout.`
+            `${path}: the pre-DaisyUI Tailwind tag-chip class combo was deleted 2026-04-14 — use the DaisyUI badge component.`
         );
     }
 });

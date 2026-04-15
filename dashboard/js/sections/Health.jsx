@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useApp } from '../AppContext.jsx';
-import { getAuthorEmail, formatDate, getCommitSubject, sanitizeMessage, getAuthorName, getCommitDateRange, getTagStyleObject, handleKeyActivate } from '../utils.js';
+import { getAuthorEmail, formatDate, getCommitSubject, sanitizeMessage, getAuthorName, getCommitDateRange, getTagBadgeClass, handleKeyActivate } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import { UrgencyBar, ImpactBar } from '../components/HealthBars.jsx';
 import { RiskAssessment, DebtBalance } from '../components/HealthAnomalies.jsx';
@@ -196,7 +196,7 @@ export default function Health() {
                     {securityEvents.slice(0, 5).map((event, idx) => (
                         <div key={event.sha || idx} className="p-3 bg-error/5 border border-error/20 rounded">
                             <div className="flex items-start gap-2">
-                                <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium" style={getTagStyleObject('security')}>security</span>
+                                <span className={`badge badge-sm ${getTagBadgeClass('security')}`}>security</span>
                                 <div className="flex-1">
                                     <p className="text-sm font-medium text-base-content">{sanitizeMessage(event.subject || 'Security commit')}</p>
                                     <p className="text-xs text-base-content/60 mt-1">{event.timestamp ? formatDate(event.timestamp) : ''}</p>
@@ -267,7 +267,7 @@ export default function Health() {
                 {securityCommits.map((commit, idx) => (
                     <div key={commit.sha || idx} className="p-3 bg-error/10 border border-error/40 rounded">
                         <div className="flex items-start gap-2">
-                            <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium" style={getTagStyleObject('security')}>security</span>
+                            <span className={`badge badge-sm ${getTagBadgeClass('security')}`}>security</span>
                             <div className="flex-1">
                                 <p className="text-sm font-medium text-base-content">{sanitizeMessage(getCommitSubject(commit))}</p>
                                 <p className="text-xs text-base-content/60 mt-1">

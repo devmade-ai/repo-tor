@@ -160,130 +160,104 @@ export function getWorkPattern(commit) {
 }
 
 
-// === Tag Colors ===
-// Requirement: Tags have brand/semantic colors that must NOT track theme
-//   (feature=green, fix=red, docs=blue, etc. — these meanings are fixed
-//   regardless of which DaisyUI theme the user picks). CLAUDE.md explicitly
-//   carves out data-viz brand colors from the "always use semantic tokens"
-//   rule for this reason.
-// Approach: Single source of truth here. `getTagColor(tag)` returns the
-//   brand hex (used for Chart.js dataset backgrounds that need a solid
-//   fill), and `getTagStyleObject(tag)` returns the chip display style
-//   (background/color/border with per-tag alpha tuning) used for rendering
-//   tag pills across the UI. Previously the same 34 hex values were
-//   duplicated in 40+ `.tag-{name}` CSS rules in styles.css; those rules
-//   were collapsed into this module on 2026-04-13 so there is exactly one
-//   place to edit when adding, renaming, or recoloring a tag.
+// === Tag Semantics ===
+// Requirement: Tag chips must use only DaisyUI semantic badge variants
+//   so that the DaisyUI theme IS the brand colour — no static hex
+//   palette, no theme-independent values. Tags within the same semantic
+//   category render with the same DaisyUI variant.
+// Approach: `getTagBadgeClass(tag)` returns a DaisyUI badge modifier
+//   class (`badge-success`, `badge-error`, etc.) that tracks the active
+//   theme. JSX consumers compose it as `badge badge-sm ${variant}`.
+//   The 34-tag brand-hex palette (TAG_COLORS) and its companion
+//   TAG_TEXT_OVERRIDES + DYNAMIC_TAG_PALETTE + getTagStyleObject()
+//   helper were deleted 2026-04-14 in the vanilla-DaisyUI sweep. Chart.js
+//   datasets that previously called getTagColor() now resolve DaisyUI
+//   semantic tokens at runtime via chartColors.js.
 // Alternatives considered:
-//   - CSS custom properties per tag (set via class): Rejected — the same
-//     duplication, just split differently (keys in JS, values in CSS).
-//   - Shadow DaisyUI's own `.badge` component with per-tag color variants:
-//     Rejected — DaisyUI's badge color modifiers (`badge-info` etc.) track
-//     the theme's semantic tokens, which is exactly what we do NOT want
-//     for brand-fixed tag colors.
-//   - Tailwind color utilities (`bg-red-500/30 text-red-400`): Rejected —
-//     leaks brand colors into inline JSX in a way that couples UI layout
-//     to the tag palette (renaming `feature` from green to teal would
-//     require editing every JSX call site).
+//   - Keep per-tag brand hex: Rejected — user directive "i don't want
+//     brand colours or static colours anywhere".
+//   - Per-tag theme-tracked hue shifts via color-mix: Rejected — still
+//     custom, and the 34-tag palette collapses into ~7 meaningful
+//     categories anyway.
 //
-// TAG_COLORS: primary brand color per tag. Used by Chart.js datasets
-// (solid fill) and passed to getTagStyleObject for the chip's background.
-export const TAG_COLORS = {
-    // Additive (green family)
-    feature: '#16A34A',
-    enhancement: '#22c55e',
-    seed: '#4ade80',
-    init: '#10b981',
-    // Problems/Fixes (red family)
-    bugfix: '#ef4444',
-    fix: '#ef4444',
-    security: '#dc2626',
-    hotfix: '#f87171',
-    // Removal/Revert (orange/amber)
-    removal: '#f59e0b',
-    revert: '#fb923c',
-    deprecate: '#fbbf24',
-    // Refactoring (purple family)
-    refactor: '#8b5cf6',
-    naming: '#a78bfa',
-    cleanup: '#7c3aed',
-    // Documentation (blue)
-    docs: '#2D68FF',
-    // Testing (yellow)
-    test: '#EAB308',
-    'test-unit': '#facc15',
-    'test-e2e': '#fde047',
-    // DevOps/Build (orange/slate)
-    build: '#f97316',
-    ci: '#fb923c',
-    deploy: '#ea580c',
-    // Config/Chore (slate)
-    config: '#64748b',
-    chore: '#94a3b8',
-    // Style/UX (pink family)
-    style: '#ec4899',
-    ux: '#f472b6',
-    ui: '#e879f9',
-    accessibility: '#d946ef',
-    // Performance (cyan)
-    performance: '#06b6d4',
-    perf: '#22d3ee',
-    // Dependencies (lime)
-    dependency: '#84cc16',
-    deps: '#a3e635',
-    // Fallback
-    other: '#9ca3af'
+// Maps 34 commit tag names to 7 DaisyUI semantic tokens. Tags within a
+// category (feature/enhancement/seed/init → success) share the same
+// visual — a deliberate reduction from 34 distinct colours to 7 semantic
+// meanings. Users lose fine-grained tag discrimination but gain a palette
+// that tracks every DaisyUI theme.
+const TAG_SEMANTIC = {
+    // Additive / new functionality → success (green family in most themes)
+    feature: 'badge-success',
+    enhancement: 'badge-success',
+    seed: 'badge-success',
+    init: 'badge-success',
+    // Problems / fixes → error
+    bugfix: 'badge-error',
+    fix: 'badge-error',
+    security: 'badge-error',
+    hotfix: 'badge-error',
+    // Removal / revert / deprecation → warning
+    removal: 'badge-warning',
+    revert: 'badge-warning',
+    deprecate: 'badge-warning',
+    // Refactoring / cleanup → secondary
+    refactor: 'badge-secondary',
+    naming: 'badge-secondary',
+    cleanup: 'badge-secondary',
+    // Documentation / config → info
+    docs: 'badge-info',
+    config: 'badge-info',
+    // Testing / build / CI → accent
+    test: 'badge-accent',
+    'test-unit': 'badge-accent',
+    'test-e2e': 'badge-accent',
+    build: 'badge-accent',
+    ci: 'badge-accent',
+    deploy: 'badge-accent',
+    // Everything else (chore, style, ui, ux, accessibility, perf, deps, other) → neutral
+    chore: 'badge-neutral',
+    style: 'badge-neutral',
+    ux: 'badge-neutral',
+    ui: 'badge-neutral',
+    accessibility: 'badge-neutral',
+    performance: 'badge-neutral',
+    perf: 'badge-neutral',
+    dependency: 'badge-neutral',
+    deps: 'badge-neutral',
+    other: 'badge-neutral',
 };
 
-// TAG_TEXT_OVERRIDES: tags whose chip text uses a lighter variant of the
-// brand color family for readability on the semi-transparent background.
-// Preserved from the pre-consolidation `.tag-{name}` CSS rules where some
-// primaries (dark reds, deep purples, etc.) needed a lifted text tone to
-// stay legible on a 30%-opaque fill. Tags not listed here use TAG_COLORS
-// for both background and text. Keep this in sync with the pre-migration
-// CSS rules — reference commit history if you need to verify a value.
-const TAG_TEXT_OVERRIDES = {
-    security: '#f87171',    // bg #dc2626 (red-600) -> text red-400
-    refactor: '#a78bfa',    // bg #8b5cf6 (violet-500) -> text violet-400
-    cleanup: '#a78bfa',     // bg #7c3aed (violet-600) -> text violet-400
-    config: '#94a3b8',      // bg #64748b (slate-500) -> text slate-400
-    style: '#f472b6',       // bg #ec4899 (pink-500) -> text pink-400
-    performance: '#22d3ee', // bg #06b6d4 (cyan-500) -> text cyan-400
-    dependency: '#a3e635',  // bg #84cc16 (lime-500) -> text lime-400
-    other: '#d1d5db',       // bg #9ca3af (gray-400) -> text gray-300
-};
-
-// Palette for dynamic tag colors (works well on dark backgrounds).
-// Used when a commit has a tag name that isn't in TAG_COLORS — the hash
-// function below picks a deterministic slot so the same unknown tag
-// always renders with the same color across renders and sessions.
-export const DYNAMIC_TAG_PALETTE = [
-    '#f472b6', // pink
-    '#a78bfa', // purple
-    '#60a5fa', // blue
-    '#34d399', // emerald
-    '#fbbf24', // amber
-    '#fb923c', // orange
-    '#f87171', // red
-    '#2dd4bf', // teal
-    '#a3e635', // lime
-    '#e879f9', // fuchsia
-];
-
-// Simple hash function for consistent color assignment
-export function hashString(str) {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        const char = str.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash;
-    }
-    return Math.abs(hash);
+/** DaisyUI badge variant class for a tag name. Unknown tags fall back
+ *  to `badge-neutral`. Compose as `badge badge-sm ${getTagBadgeClass(tag)}`
+ *  on a `<span>` to render a theme-tracked tag chip. */
+export function getTagBadgeClass(tag) {
+    return TAG_SEMANTIC[tag] || 'badge-neutral';
 }
 
-export function getDynamicTagColor(tag) {
-    const index = hashString(tag) % DYNAMIC_TAG_PALETTE.length;
-    return DYNAMIC_TAG_PALETTE[index];
+// Map tag → DaisyUI CSS variable name for the corresponding semantic token.
+// Used by chart datasets that need a literal colour value for Chart.js
+// (which can't consume CSS classes directly). Keeps tag→semantic mapping
+// consistent with TAG_SEMANTIC above — same 7 categories.
+const TAG_SEMANTIC_VAR = {
+    feature: '--color-success', enhancement: '--color-success', seed: '--color-success', init: '--color-success',
+    bugfix: '--color-error', fix: '--color-error', security: '--color-error', hotfix: '--color-error',
+    removal: '--color-warning', revert: '--color-warning', deprecate: '--color-warning',
+    refactor: '--color-secondary', naming: '--color-secondary', cleanup: '--color-secondary',
+    docs: '--color-info', config: '--color-info',
+    test: '--color-accent', 'test-unit': '--color-accent', 'test-e2e': '--color-accent',
+    build: '--color-accent', ci: '--color-accent', deploy: '--color-accent',
+};
+
+/** Runtime-resolved DaisyUI semantic colour for a tag — reads the active
+ *  theme's `--color-<semantic>` CSS variable from computed styles and
+ *  returns the resolved value (oklch string or similar). Used by
+ *  Chart.js datasets which need literal colour values; for JSX chip
+ *  rendering use `getTagBadgeClass(tag)` instead. Returns undefined
+ *  outside a DOM context (SSR / tests). */
+export function resolveTagSemanticColor(tag) {
+    if (typeof document === 'undefined') return undefined;
+    const varName = TAG_SEMANTIC_VAR[tag] || '--color-neutral';
+    return getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || undefined;
 }
 
 // === Tag Helper Functions ===
@@ -300,56 +274,6 @@ export function getAllTags(commits) {
         getCommitTags(c).forEach(tag => tagSet.add(tag));
     });
     return [...tagSet].sort();
-}
-
-/** Primary brand hex for a tag. Used by Chart.js datasets and any
- *  call site that needs a solid-fill color (not a chip style). */
-export function getTagColor(tag) {
-    return TAG_COLORS[tag] || getDynamicTagColor(tag);
-}
-
-// Note: `getTagClass(tag)` was removed 2026-04-13 as part of the tag-color
-// duplication collapse. JSX consumers previously combined
-// `className={`tag ${getTagClass(tag)}`}` so the returned `tag-{name}` or
-// `tag-dynamic` class could pick up per-tag CSS rules. Those rules are
-// gone now — every tag renders with inline Tailwind layout utilities
-// (`inline-block px-2 py-0.5 rounded-full text-xs font-medium`) plus the
-// `getTagStyleObject(tag)` inline style for colors. The `.tag` base CSS
-// class was also deleted in a follow-up pass the same day. Don't re-add
-// any of them.
-
-/** Inline style object for a tag chip — { backgroundColor, color, border }.
- *
- *  Cached at module level so React re-renders of long tag lists (500+
- *  tags × re-renders = thousands of allocations) hit a Map lookup
- *  instead of recomputing the rgba strings every time.
- *
- *  Alpha values (0.3 bg / 0.5 border for known tags, 0.2 bg / 0.3 border
- *  for dynamic tags) match the pre-consolidation `.tag-{name}` CSS rules
- *  — known tags get a slightly stronger presence because they represent
- *  established semantic categories, dynamic tags get a muted tone to
- *  signal "this is an ad-hoc label, not a first-class category".
- *  Text color honors TAG_TEXT_OVERRIDES so tags with dark primaries
- *  (security, cleanup, config, etc.) get a lifted text tone for
- *  readability on the 30%-opaque background. */
-const tagStyleCache = new Map();
-export function getTagStyleObject(tag) {
-    if (tagStyleCache.has(tag)) return tagStyleCache.get(tag);
-    const isDynamic = !TAG_COLORS[tag];
-    const bgColor = isDynamic ? getDynamicTagColor(tag) : TAG_COLORS[tag];
-    const textColor = isDynamic ? bgColor : (TAG_TEXT_OVERRIDES[tag] || bgColor);
-    const r = parseInt(bgColor.slice(1, 3), 16);
-    const g = parseInt(bgColor.slice(3, 5), 16);
-    const b = parseInt(bgColor.slice(5, 7), 16);
-    const bgAlpha = isDynamic ? 0.2 : 0.3;
-    const borderAlpha = isDynamic ? 0.3 : 0.5;
-    const style = {
-        backgroundColor: `rgba(${r}, ${g}, ${b}, ${bgAlpha})`,
-        color: textColor,
-        border: `1px solid rgba(${r}, ${g}, ${b}, ${borderAlpha})`,
-    };
-    tagStyleCache.set(tag, style);
-    return style;
 }
 
 // === Author Resolution ===

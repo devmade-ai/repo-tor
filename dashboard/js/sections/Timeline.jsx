@@ -2,7 +2,7 @@ import React, { useMemo, useCallback } from 'react';
 import { Bar, Line } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
-    formatDate, getCommitTags, getTagStyleObject,
+    formatDate, getCommitTags, getTagBadgeClass,
     getAuthorEmail, getAuthorName, getCommitSubject,
     sanitizeMessage, getWorkPattern, getAdditions, getDeletions, handleKeyActivate,
     getUTCDateKey, getUTCMonthKey, excludeIncompleteLastMonth,
@@ -497,14 +497,13 @@ export default function Timeline() {
                                 {tags.slice(0, 3).map(t => (
                                     <span
                                         key={t}
-                                        className="inline-block px-2 py-0.5 rounded-full text-xs font-medium shrink-0"
-                                        style={getTagStyleObject(t)}
+                                        className={`badge badge-sm shrink-0 ${getTagBadgeClass(t)}`}
                                     >
                                         {t}
                                     </span>
                                 ))}
                                 {tags.length > 3 && (
-                                    <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium shrink-0" style={getTagStyleObject('other')}>+{tags.length - 3}</span>
+                                    <span className="badge badge-sm badge-neutral shrink-0">+{tags.length - 3}</span>
                                 )}
                             </div>
                             <div className="flex-1 min-w-0">
@@ -593,8 +592,7 @@ export default function Timeline() {
                             {tagSummary.map(([tag, count]) => (
                                 <span
                                     key={tag}
-                                    className="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
-                                    style={getTagStyleObject(tag)}
+                                    className={`badge badge-sm ${getTagBadgeClass(tag)}`}
                                 >
                                     {tag} ({count})
                                 </span>
