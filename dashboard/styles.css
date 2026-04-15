@@ -121,26 +121,23 @@ body {
 
 /* === Element-selector exceptions to the vanilla-only policy ===
    CLAUDE.md "Frontend: Styles and Scripts" forbids custom CSS classes.
-   The three rules below target HTML element selectors / pseudo-elements
+   The rules below target HTML element selectors / pseudo-elements
    (no class) and are documented exceptions:
 
-   1. `*` font-family reset — sets the global sans-serif font once via
-      inheritance. Tailwind v4's font-sans utility doesn't cascade by
-      default; adding font-sans to every JSX element is repetitive
-      boilerplate.
-
-   2. `h1, h2, h3 { font-mono }` — the techy-developer-tool aesthetic
+   1. `h1, h2, h3 { font-mono }` — the techy-developer-tool aesthetic
       uses a monospace font for section titles. App-wide intent applied
       via semantic HTML rather than repeating font-mono on every heading.
 
-   3. `body::before` decorative grid — the dashboard's visual signature.
+   2. `body::before` decorative grid — the dashboard's visual signature.
       Fixed-position pseudo-element with two linear-gradient lines tinted
       by color-mix(--color-primary) so the grid tracks the active theme.
-      Pseudo-elements cannot be expressed as Tailwind utilities. */
-* {
-    font-family: var(--font-sans);
-}
+      Pseudo-elements cannot be expressed as Tailwind utilities.
 
+   The previous `* { font-family: var(--font-sans) }` reset was removed
+   2026-04-15 — the same effect is achieved by `<body class="font-sans">`
+   in `dashboard/index.html`, since Tailwind's `font-sans` utility sets
+   the body font-family and every descendant inherits it via the normal
+   CSS cascade. One fewer custom CSS rule. */
 h1, h2, h3 {
     font-family: var(--font-mono);
 }
