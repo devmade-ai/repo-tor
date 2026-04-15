@@ -4,6 +4,99 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-15
 
+### Third audit-cleanup pass — exception strengthening + aggregate.js investigation
+
+A tier-based review of the CLAUDE.md exception list classified each
+of the 13 documented exceptions by "what breaks if you remove it"
+(critical / resilience / design-preference / cost). The Tier-4
+"arguably removable" exceptions were then actually removed, rather
+than left as permanent documented scar tissue. Six commits:
+
+1. **`12cd65d`** `refactor(styles): drop * font-family reset — use
+   body class="font-sans"` — The `*` universal selector was
+   applying `font-family: var(--font-sans)` explicitly to every
+   element, but the same effect is achievable by setting
+   `font-sans` on a single ancestor (body) and letting CSS
+   inheritance propagate. Verified Tailwind v4 emits
+   `.font-sans{font-family:var(--font-sans)}` by reading the
+   design-token CSS variable from `:root`. Removes one of the
+   three element-selector exceptions in styles.css.
+
+2. **`aea7c43`** `refactor(errorboundary): root fallback uses
+   Tailwind utilities, not inline style` — The root ErrorBoundary
+   in `main.jsx` had a static inline `style={}` block with
+   `minHeight: '100vh'`, flex centering, padding, gap. The
+   exception existed as defensive scaffolding for the rare
+   CSS-load-failure case, but browser user-agent default styling
+   still renders the fallback legibly in that scenario. Converted
+   to `min-h-screen flex flex-col items-center justify-center
+   gap-4 p-6 text-center`. Removes the "Root ErrorBoundary" entry
+   from the static-inline-style exception list, leaving DebugPill
+   subsystem as the only remaining exception in that category.
+
+3. **`5bcc2c2`** `refactor(styles): drop h1/h2/h3 font-mono rule —
+   use explicit utility classes` — Repo-wide grep for
+   `<h1|<h2|<h3` found only 4 JSX headings (Header, QuickGuide,
+   InstallInstructionsModal, DropZone) — the "15-20 files" boilerplate
+   estimate turned out to be much smaller. Added explicit `font-mono`
+   to the 3 headings that didn't already have it (DropZone already
+   did, pre-existing). Removes the second element-selector
+   exception, leaving only `body::before` decorative grid.
+
+4. **`0cc5d6e`** `refactor(themes): getMetaColor fallback uses
+   default theme's hex, not #808080` — The `themes.js #808080`
+   fallback was a safety net for the "unknown theme name" case,
+   but the `generate-theme-meta.mjs` build-time validator
+   guarantees every theme in the catalog has a META_COLORS entry.
+   Rewrote `getMetaColor()` to read `META_COLORS[DEFAULT_LIGHT_THEME]`
+   as the fallback (the default theme's generated hex — guaranteed
+   to exist by the generator's own invariant) and log a debug
+   event on the unreachable branch so the anomaly would surface
+   via the debug pill if it ever fires. `themes.js` source code
+   now contains zero hex literals. Removes the third hex-literal
+   exception.
+
+5. **`1e19858`** `chore(dashboard): delete 5 stale aggregate
+   artefacts at dashboard/ root` — Resolved the parked `aggregate.js`
+   investigation from the previous pass. The script is NOT dead
+   code — it's the multi-repository aggregation tool for the
+   @data / admin persona, documented in ADMIN_GUIDE.md,
+   DATA_OPERATIONS.md, DISCOVERY_SESSION.md, and CODE_REVIEW.md.
+   But the 5 JSON files at `dashboard/` root (commits.json,
+   contributors.json, files.json, metadata.json, summary.json —
+   ~960 kB total) were artefacts of a deprecated workflow that
+   used `--output=dashboard`, before the 2026-02 restructure to
+   `dashboard/public/data/` served by Vite. Zero consumers
+   anywhere in the tree — verified via repo-wide grep. Deleted;
+   `aggregate.js` and `aggregate-processed.js` both kept as-is.
+
+6. **`<this commit>`** `docs(claude): consolidate exception lists
+   after third-pass cleanup` — CLAUDE.md exception lists updated
+   to reflect the four removed exceptions. Summary of the final
+   state:
+
+     - Element-selector exceptions: 1 (was 3) — `body::before`
+       decorative grid only
+     - Arbitrary bracket value exceptions: 4 (unchanged) —
+       z-21, z-70, `grid-cols-[auto_repeat(7,1fr)]`,
+       `max-w-[calc(100vw-2rem)]`
+     - Hex literal exceptions: 2 (was 3) — DebugPill subsystem,
+       generated/themeMeta.js
+     - Static inline style exceptions: 1 (was 2) — DebugPill
+       subsystem only
+
+   Every remaining exception has a stated capability-gap or
+   resilience rationale. None of the remaining exceptions are
+   pure design preferences that could be eliminated by touching
+   more JSX — the third pass burned through those.
+
+Build + tests pass after every commit. Total files touched across
+the six commits: 15. Net change: 5 JSON artefacts deleted
+(-27,580 lines), 3 CSS element-selector rules removed, 9 hex /
+inline-style references removed, 4 JSX headings updated, 1
+ErrorBoundary render() rewritten, CLAUDE.md exception list
+trimmed from ~15 documented exceptions to 8.
+
 ### Second audit-cleanup pass — CLAUDE.md exceptions, dead code, inline styles, body rule, AppContext split
 
 A fresh-eyes audit pass over the `claude/migrate-daisyui-dark-mode-toG0Y`

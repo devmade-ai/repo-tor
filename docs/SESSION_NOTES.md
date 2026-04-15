@@ -96,6 +96,54 @@ gaps in the first pass):**
 
 Build + tests pass after every commit.
 
+**Third pass — 6 more follow-on cleanup commits (strengthened the
+exception list by actually removing 4 of the documented exceptions):**
+
+1. **`12cd65d`** — `* { font-family: var(--font-sans) }` removed from
+   styles.css; `<body class="font-sans">` in index.html achieves the
+   same inheritance via Tailwind's `.font-sans` utility reading from
+   the `:root --font-sans` variable.
+2. **`aea7c43`** — Root ErrorBoundary in `main.jsx` converted from
+   static inline `style={{}}` block to Tailwind utility classes
+   (`min-h-screen flex flex-col items-center justify-center gap-4
+   p-6 text-center`). Removes the "static inline style" exception
+   category outside the debug subsystem.
+3. **`5bcc2c2`** — `h1, h2, h3 { font-family: var(--font-mono) }`
+   removed from styles.css; added explicit `font-mono` to each of
+   the 4 JSX headings in the entire tree (Header / QuickGuide /
+   InstallInstructionsModal / DropZone — the last already had it).
+4. **`0cc5d6e`** — `themes.js` `#808080` fallback removed; the
+   `getMetaColor()` fallback path now reads
+   `META_COLORS[DEFAULT_LIGHT_THEME]` and logs a `debug` warn event
+   so the unreachable-in-practice branch surfaces via the debug pill
+   if it ever fires.
+5. **`1e19858`** — `scripts/aggregate.js` investigation resolved:
+   script is NOT dead (admin/maintainer workflow tool documented in
+   ADMIN_GUIDE.md / DATA_OPERATIONS.md / DISCOVERY_SESSION.md /
+   CODE_REVIEW.md), but the 5 stale `dashboard/{commits,files,
+   contributors,metadata,summary}.json` artefacts at dashboard/ root
+   were deleted — they had zero consumers and were leftover from a
+   deprecated data-flow that's been superseded by
+   `aggregate-processed.js` writing to `dashboard/public/`.
+6. **`<this commit>`** — CLAUDE.md exception lists consolidated to
+   reflect the 4 removed exceptions. Post-sweep-verification items
+   3+4 updated. HISTORY.md third-pass entry added.
+
+**After the third pass, the exception list is:**
+
+- **Element-selector exceptions in styles.css: 1**
+  (was 3) — only `body::before` decorative grid remains.
+- **Arbitrary bracket value exceptions: 4** (unchanged)
+  — z-21, z-70, grid-cols-[auto_repeat(7,1fr)], max-w-[calc(100vw-2rem)].
+  All four are genuine capability gaps (design-token z-scale above
+  stock, functional grid row alignment, viewport calc max-width).
+- **Hex literal exceptions: 2** (was 3) — DebugPill subsystem
+  (`components/DebugPill.jsx` + `components/debug/*`) and
+  `generated/themeMeta.js` (auto-generated PWA meta tags). `themes.js`
+  `#808080` gone.
+- **Static inline style exceptions: 1** (was 2) — DebugPill
+  subsystem only. Root ErrorBoundary gone.
+
 **Current file-size posture (all under 500-line soft-limit):**
 - Largest section: `Progress.jsx` 479
 - Largest component: `App.jsx` 490
@@ -103,7 +151,8 @@ Build + tests pass after every commit.
   monitors for growth)
 - Largest state file: `AppContext.jsx` 338 + `appReducer.js` 285 (was
   single 579-line file)
-- `styles.css` 177 (including the new body-rule comment block)
+- `styles.css` 167 (after the third-pass trim of two element-selector
+  rules)
 
 ## Open Items For Next Session
 
