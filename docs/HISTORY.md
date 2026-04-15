@@ -4,6 +4,145 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-14
 
+### Vanilla-DaisyUI sweep — 8 phases, zero custom CSS
+
+User directive: "the daisy theme is the brand colour, i don't want
+brand colours or static colours anywhere. i don't want custom borders
+or shadows or anything similar. i want everything a vanilla as possible
+using daisyui".
+
+Executed a full 8-phase sweep that ended with:
+- Zero custom CSS classes in `dashboard/styles.css` (down from 24)
+- Zero `@theme` tokens, zero `@utility` directives
+- Zero arbitrary Tailwind bracket values (except `z-[var(--z-toast)]`
+  which references a :root design-token CSS variable)
+- Zero hardcoded hex colour literals in JSX
+- Zero brand-fixed colour palettes in data constants (except
+  `DebugPill.jsx` inline hex which survives CSS load failure, and
+  `themes.js:137` fallback `#808080` as a single safety-net)
+
+Every dashboard surface now renders through DaisyUI component classes,
+DaisyUI semantic tokens, and stock Tailwind v4 utilities.
+
+**Phase 3 — revert @theme/@utility** (`1e82da2`)
+Deleted the `@theme` + `@utility` blocks added in the previous session.
+Replaced `text-8/9/10/11/13` with `text-xs`/`text-sm`, shadows with
+`shadow-lg`/`shadow-xl`, heatmap text dropped entirely (too small to
+read at stock sizes), grid template restructured to flex + grid-cols-7.
+
+**Phase 4c — heatmap intensity** (`4cb677e`)
+Deleted `.heatmap-0..4` custom classes. Replaced with
+`HEATMAP_LEVEL_CLASSES` JS constant mapping each level to stock
+`bg-base-300` / `bg-primary/20..100` utilities.
+
+**Phase 1 — tag colours** (`5e88695`)
+Deleted `TAG_COLORS` (34 brand hex), `TAG_TEXT_OVERRIDES`,
+`DYNAMIC_TAG_PALETTE`, `getTagColor`, `getTagStyleObject`,
+`hashString`, `getDynamicTagColor`. Replaced with `TAG_SEMANTIC` map
+of 34 tag names to 7 DaisyUI badge variants, `getTagBadgeClass(tag)`
+returning the variant class, and `resolveTagSemanticColor(tag)`
+reading the active theme's semantic CSS var at runtime for Chart.js
+datasets. 5 JSX consumers updated to use `badge badge-sm ${variant}`.
+
+**Phase 2 — chart colours** (`77050e8`)
+Rewrote `chartColors.js` end-to-end. Deleted `DEFAULT_SERIES` (20-hex
+palette), 4 alternate palettes (`passionate/ocean/earth/neon`),
+`DEFAULT_ACCENT`, `DEFAULT_ACCENT_MUTED`, `parseColorOverrides`,
+`hasUrlAccentOverride`, `hasUrlMutedOverride`, `seriesColors`,
+`accentColor`, `mutedColor`, `palettes`. URL parameters `?palette=`,
+`?accent=`, `?muted=`, `?colors=` all removed. Added
+`SEMANTIC_CYCLE` of 8 DaisyUI semantic variable names;
+`getSeriesColor(i)` cycles through them via `getComputedStyle` at
+call time. `resolveRuntimeAccent/Muted/getSemanticPalette/
+getRepoColor/buildRepoColorMap` all resolve DaisyUI CSS vars at
+runtime. `main.jsx` dropped the `--chart-accent-override` URL bridge.
+`AppContext` state.themeAccent / themeMuted seed empty; dispatched
+on mount + every theme change.
+
+**Phase 4b + 4g — CollapsibleSection + embed-mode** (`68d21e5`)
+CollapsibleSection migrated to DaisyUI `collapse collapse-arrow` with
+a native checkbox wired to React state. In embed mode it short-
+circuits to `<>{children}</>` so embedders get bare charts. Deleted
+`.collapsible-content` + `.embed-mode` + 7 descendant selectors. The
+embed `.card` wrapper traversal in `EmbedRenderer.jsx` now walks to
+top-level container children instead of `.card` ancestors.
+
+**Phase 4a — Drawers** (`063147b`)
+Replaced three custom slide-over panes with DaisyUI's native `drawer`
+component. `App.jsx` restructured into three nested drawer wrappers:
+outer `drawer lg:drawer-open` for FilterSidebar (inline on desktop,
+overlay below lg), middle `drawer drawer-end` for DetailPane, inner
+`drawer drawer-end` for SettingsPane. Each drawer's `<input
+type="checkbox" className="drawer-toggle">` is React-controlled via
+`checked={state.xxxOpen} onChange={dispatch(...)}`. Added
+`OPEN_FILTER_SIDEBAR` + `OPEN_SETTINGS_PANE` reducer actions.
+FilterSidebar / DetailPane / SettingsPane simplified to content-only
+components (no wrapper, no overlay, no slide transform). Deleted 10+
+CSS rules including `.filter-sidebar`, `.detail-pane`, `.settings-pane`,
+their overlays, mobile bottom-sheet `@media`, `::before` drag handle
+pseudos, and the `dashboard-enter` fade-in animation.
+
+**Phase 4d-j — remaining custom classes** (`414e348`)
+Deleted the last 9 custom classes: `.dashboard-header` + `::after`
+gradient, `.hamburger-dropdown` + fade-in keyframes,
+`.hamburger-update-dot` + pulse keyframes, `.scrollbar-hide`,
+`.header-filter-hint`, `.root-error-message/detail/hint`.
+- HamburgerMenu dropdown: inline Tailwind utilities (`fixed min-w-52
+  bg-base-200 border border-base-300 rounded-md shadow-xl z-50 py-1`)
+- Update indicator: `w-2 h-2 rounded-full bg-primary animate-pulse`
+- Filter hint button: DaisyUI `btn btn-link btn-sm`
+- Header divider: `border-b border-base-300`
+- Root error fallback: inline Tailwind text utilities
+- Mobile scrollbar: accept native scrollbar (aesthetic regression)
+- Print @media block: only element selectors (body/a/section) remain
+
+`LEGITIMATE_CUSTOM_CLASSES` allowlist set to empty Set. Zero-custom-
+class policy enforced by test.
+
+**Phase 6 — docs + final verify**
+CLAUDE.md "Frontend: Styles and Scripts" rewritten as a vanilla-only
+policy. DAISYUI_V5_NOTES.md "Project conventions" section rewritten
+with the empty-allowlist rule, the new tag-chip pattern, the drawer +
+collapse component adoptions, and the rationale for the deleted
+components. The "Deliberately NOT used" section now flags only
+`dropdown` and `menu` (drawer and collapse moved into "now used").
+
+**Verified after each phase:**
+- `vite build` clean
+- `npm test` 60/60 pass (one test dropped when two tag-chip tests
+  were merged into one during Phase 1)
+- Allowlist test passes with empty Set — any new custom class in
+  styles.css would fail the test
+
+**Visual regressions (all accepted per vanilla directive):**
+- 34 tag colours → 7 semantic variants (tags in same category look identical)
+- 20-hex chart palette → 8 semantic cycle (charts >8 series repeat colours)
+- Heatmap cells no longer show count text inline (tooltip-only)
+- Heatmap text rounded from 8-10px to 12px (`text-xs`)
+- Tooltip/dropdown shadows softer (~10% opacity vs ~25-30% custom)
+- DropZone drag-over glow replaced with ring-primary (stroke, no halo)
+- TabBar active label glow removed
+- Modal widths use DaisyUI defaults (no custom w-modal-responsive)
+- DropZone min-height uses `min-h-screen` (100vh vs custom 60vh)
+- Detail/Settings panes slide from the right on mobile too (no
+  bottom-sheet variant — DaisyUI drawer doesn't ship one)
+- Mobile drag-handle pills on pane headers removed
+- Page-load fade-in animation removed
+- Hamburger dropdown fade-in animation removed
+- Header gradient accent line replaced with plain border
+- Mobile TabBar shows native scrollbar when overflowing
+- PWA update indicator uses stock `animate-pulse` (simpler rhythm)
+
+**URL params removed:**
+- `?palette=name` (chart preset)
+- `?accent=hex` (chart brand override)
+- `?muted=hex` (chart muted override)
+- `?colors=h1,h2,h3` (chart per-series override)
+
+Embedders still get `?theme=light|dark`, `?bg=`, `?data=`, `?embed=`.
+
+## 2026-04-14
+
 ### Zero-arbitrary-values sweep — @theme + @utility token migration
 
 User asked "are there any tailwind utilities / daisyui tokens that can replace hard coded values / custom / inline code? i don't want any custom / inline / hard coded Tailwind / css unless absolutely necessary (only with explicit approval)". Phase 1 shipped the safe drop-ins (Tailwind v4 stock spacing scale, CSS var restoration, ring-inset utility). Phase 2 is this commit — a full sweep of every remaining arbitrary Tailwind bracket value to either `@theme` tokens or `@utility` directives in `dashboard/styles.css`.

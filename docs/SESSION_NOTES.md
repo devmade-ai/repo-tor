@@ -6,6 +6,23 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support. As of 2026-04-13, every user-visible surface also routes through DaisyUI's `@layer components` classes — no custom CSS class shadows any DaisyUI component.
 
+**Recent Updates (2026-04-14 — vanilla-DaisyUI sweep, 8 phases):**
+
+User directive: "the daisy theme is the brand colour... i want everything a vanilla as possible using daisyui". Executed a complete sweep:
+
+- **Phase 3** — reverted the @theme/@utility tokens added in the previous session, mapped everything to stock Tailwind (text-xs/sm, shadow-lg/xl, min-h-screen, DaisyUI modal-box defaults)
+- **Phase 4c** — heatmap `.heatmap-0..4` → JS `HEATMAP_LEVEL_CLASSES` array of stock `bg-primary/N`
+- **Phase 1** — tag colours: deleted 34-hex `TAG_COLORS` brand palette, replaced with 7-variant DaisyUI badge mapping + runtime semantic colour resolver for Chart.js
+- **Phase 2** — chart colours: deleted `chartColors.js` 20-hex default palette, 4 alt palettes, `?palette/?accent/?muted/?colors` URL overrides. Runtime `getComputedStyle` of 8 DaisyUI semantic vars
+- **Phase 4b + 4g** — CollapsibleSection → DaisyUI `collapse collapse-arrow`; embed-mode → `isEmbedMode` conditional short-circuit in CollapsibleSection
+- **Phase 4a** — drawers: three nested DaisyUI `drawer` / `drawer-end` wrappers in App.jsx replacing `.filter-sidebar` / `.detail-pane` / `.settings-pane` custom slide-overs
+- **Phase 4d-j** — remaining custom classes: `.dashboard-header`, `.hamburger-dropdown`, `.hamburger-update-dot`, `.scrollbar-hide`, `.header-filter-hint`, `.root-error-*` all deleted and migrated to stock utilities or DaisyUI components
+- **Phase 6** — CLAUDE.md + DAISYUI_V5_NOTES rewritten with zero-custom-class policy. Allowlist test set to empty Set.
+
+Final state: `dashboard/styles.css` contains zero custom class definitions. Every dashboard surface tracks the active DaisyUI theme. Build + tests clean.
+
+**Visual regressions accepted:** 34 tag colours → 7 semantic, 20-hex charts → 8 semantic cycle, heatmap cell text dropped, mobile drag-handles removed, bottom-sheet variant gone (panes slide from right on mobile too), page-load and dropdown fade-in animations removed, header gradient accent replaced with plain border.
+
 **Recent Updates (2026-04-14 — zero-arbitrary-values sweep):**
 
 After Phase 1 shipped safe drop-in replacements (`min-h-[200px]` → `min-h-50`, `z-[21]` → `z-[var(--z-sticky-header)]`, `focus-visible:shadow-[inset_0_0_0_2px_var]` → `focus-visible:ring-2 ring-inset ring-primary`, inline `zIndex` → class, etc.), the user asked for a full sweep of every remaining arbitrary Tailwind bracket value — "theme tokens for everything always".

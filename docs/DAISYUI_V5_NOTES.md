@@ -61,31 +61,21 @@ grep -oE "\\.select[a-zA-Z-]*" dist/assets/index-*.css | sort -u
 
 ## Project conventions we use
 
-These are the DaisyUI v5 patterns we standardized on across the 10-phase migration (2026-04-13). Keep them consistent when adding new components.
+**Vanilla-only policy** (2026-04-14): only DaisyUI component classes,
+DaisyUI semantic tokens, and stock Tailwind v4 utilities. Zero custom
+CSS classes, zero `@theme` extensions, zero `@utility` directives, zero
+arbitrary bracket values, zero brand hex literals in JSX or JS data.
+The daisy theme IS the brand colour.
 
-**Zero arbitrary Tailwind values** (2026-04-14): as a hard rule, `text-[11px]`, `shadow-[0_2px_8px...]`, `grid-cols-[36px_repeat...]`, `w-[min(...)]`, `[text-shadow:...]` and similar arbitrary bracket syntax are banned. Replace with stock utilities, theme-scale CSS vars, `@theme` tokens, or `@utility` directives in this order (see CLAUDE.md "Frontend: Styles and Scripts" for the full precedence list). The `@theme` block in `dashboard/styles.css` currently defines:
+The `LEGITIMATE_CUSTOM_CLASSES` allowlist in `daisyui-surfaces.test.mjs`
+is an **empty Set** — any new `.classname {` primary rule in
+`dashboard/styles.css` fails the test. Migration path for new patterns:
+1. Stock Tailwind v4 utility (spacing, typography, border, shadow scale)
+2. DaisyUI semantic token (`text-primary`, `bg-base-200`, `badge-success`)
+3. DaisyUI component class (`card`, `collapse`, `drawer`, `modal`, `toast`)
+4. Runtime resolution via `getComputedStyle` (Chart.js dataset colours)
 
-- **Compact font sizes** (below/between Tailwind's 12/14/16 default scale):
-  - `--text-8` (8px, heatmap cells desktop) → `text-8`
-  - `--text-9` (9px, heatmap labels mobile) → `text-9`
-  - `--text-10` (10px, heatmap cells mobile, project language badges) → `text-10`
-  - `--text-11` (11px, settings hints, tooltips, hamburger version, tab bar) → `text-11`
-  - `--text-13` (13px, settings labels, tab titles, embed error code) → `text-13`
-
-- **Elevated-surface shadows** (Tailwind's stock shadow-md/lg/xl use ~10% opacity which is too subtle for tooltips / dropdowns against variable backgrounds):
-  - `--shadow-tooltip` (0 2px 8px rgba(0,0,0,0.3)) → `shadow-tooltip`
-  - `--shadow-dropdown` (0 10px 25px rgba(0,0,0,0.25)) → `shadow-dropdown`
-  - `--shadow-dropzone-glow` (0 0 20px color-mix(primary 25%)) → `shadow-dropzone-glow`
-
-The `@utility` directives defined in `dashboard/styles.css` cover values that don't fit a standard Tailwind namespace:
-
-- `grid-heatmap-m` / `grid-heatmap-d` — 7-column day grid with 36px / 50px row-label column for the Timing heatmap
-- `w-modal-responsive` — `min(420px, calc(100vw - 32px))` for QuickGuide modal width
-- `max-w-viewport-margin` — `calc(100vw - 32px)` cap for viewport-margin modals
-- `min-h-hero` — `60vh` hero height for the dashboard drop zone landing
-- `text-shadow-primary-glow` — `0 0 10px color-mix(var(--color-primary) 50%)` for active tab glow (Tailwind v4 has no text-shadow utility)
-
-These `@utility` classes are first-class utility-layer extensions — they don't count as "custom classes" in the allowlist test (which only scans for `.classname {` primary rules in styles.css, not `@utility <name>` blocks). Add new ones when a pattern repeats OR when an arbitrary value would otherwise leak into JSX.
+If none of those fits, the feature is out of scope for the dashboard.
 
 **Cards:**
 ```jsx
@@ -107,15 +97,17 @@ These `@utility` classes are first-class utility-layer extensions — they don't
 **Badges:** `badge badge-{primary|secondary|accent|info|success|warning|error} badge-{xs|sm}`
 **Alerts:** `alert alert-{info|success|warning|error}` — add `alert-soft` for muted inline variant, always set `role="alert"` on the container.
 **Modals:** `<div className="modal modal-open">` + `<div className="modal-box">` + `<div className="modal-backdrop">`. CSS-class form (not native `<dialog>`) for React state control.
-**Toast:** `toast toast-bottom toast-center` wrapper + individual items with `alert alert-{variant}`. Pin `zIndex: 'var(--z-toast)'` inline so toasts stack above the debug pill.
-**Tabs:** `tabs tabs-border` on the parent with `role="tablist" aria-label="..."`, each tab gets `tab` + our custom `tab-btn` typography, active state adds `tab-active tab-btn-active`.
+**Toast:** `toast toast-bottom toast-center z-[var(--z-toast)]` wrapper + individual items with `alert alert-{variant}`. `z-[var(--z-toast)]` is the only permitted arbitrary-bracket value — it references a design-token CSS variable that can't be expressed as a stock utility (the `--z-toast` scale lives in `:root`).
+**Tabs:** `tabs tabs-border` on the parent with `role="tablist" aria-label="..."`, each tab gets `tab` + inline mono-uppercase typography utilities, active state adds `tab-active` + `text-primary font-semibold`.
+**Drawer (slide-over panes):** `<div className="drawer drawer-end">` (or `drawer lg:drawer-open` for filter sidebar inline-on-desktop) + `<input type="checkbox" className="drawer-toggle" checked={state} onChange={...} />` + `<div className="drawer-content">{main}</div>` + `<div className="drawer-side"><label htmlFor="..." className="drawer-overlay" />{pane}</div>`. Multiple drawers nest — each drawer's `drawer-content` contains the next drawer wrapper. See `App.jsx` for the three-drawer composition (filter → detail → settings).
+**Collapse (sections):** `<div className="collapse collapse-arrow bg-base-200 border border-base-300">` + `<input type="checkbox" checked={expanded} onChange={...} />` + `<div className="collapse-title">` + `<div className="collapse-content">`. The `collapse-open` / `collapse-close` modifier classes force the open state to match React-controlled `expanded`.
 **Form inputs:** `input input-sm` / `select select-sm` / `textarea textarea-sm` — bordered is the default in v5, do not add `*-bordered`.
 **Checkboxes:** `checkbox checkbox-xs checkbox-primary` (v5 supports `-primary/-secondary/-accent` etc. color modifiers).
 **Toggles (switches):** `<input type="checkbox" className="toggle toggle-primary" checked={state} onChange={handler} aria-label="..." />` wrapped in a `<label className="row-layout">...<input .../></label>` so the label's native `for` association makes the entire row clickable without custom `onClick` handlers. Do NOT hand-roll a toggle with `after:` pseudo-element + hardcoded `after:bg-white` — that reimplements the pill switch AND breaks light themes. Do NOT use `<div role="switch">` with a presentational `readOnly` checkbox inside — `readOnly` is a no-op on HTML checkboxes (only React accepts it to silence controlled-without-onChange warnings), and the parent click handler races with the checkbox's native toggle. The native `<label>` + `<input>` pattern handles keyboard (Space/Enter toggle built in), screen readers (announces as switch), and larger tap target, without any duplicated ARIA. Matches the 2026-04-14 audit refactor.
 **Loading spinners:** `<span className="loading loading-spinner loading-{xs|sm|md|lg} text-primary" aria-label="Loading" />`. The base `.loading` provides display + aspect-ratio + mask-image mechanics; the variant (`loading-spinner` / `loading-dots` / `loading-ring` / `loading-ball` / `loading-bars`) picks the animation SVG; the size adjusts width via `calc(var(--size-selector,.25rem)*N)`; `text-primary` (or any `text-*` utility) threads the active theme's color through DaisyUI's `currentColor` fill. Do NOT use `loading-spinner` alone — it's a variant, not a base, and without `loading` it has no geometry.
 **Progress bars:** `<progress className="progress progress-{primary|info|success|warning|error|secondary|accent} w-full" value={pct} max="100" aria-label="..." />`. Native `<progress>` element — screen readers announce "X percent of 100" automatically. Use for SINGLE-VALUE progress bars. For multi-segment stacked bars, keep the custom `<div className="bg-base-300 rounded-full"><div className="bg-{token}" style={{ width }} /></div>` pattern with DaisyUI semantic tokens for each segment — native `<progress>` can't render multiple simultaneous values.
 
-**Chart.js dataset colors (theme-tracked):** Chart components must read accent / muted from `state.themeAccent` / `state.themeMuted` via `useApp()`, NOT from the static `accentColor` / `mutedColor` exports in `chartColors.js`. The static exports are frozen at module load and only serve as bootstrap fallbacks for pre-React code. The runtime values come from `chartColors.resolveRuntimeAccent()` / `resolveRuntimeMuted()` which read `var(--color-primary)` / `var(--color-base-content)` from `getComputedStyle` — DaisyUI exposes these as oklch() values, and modern browser canvas parses oklch() + color-mix() directly so Chart.js can use them without any JS-side conversion. `AppContext`'s `darkMode` effect dispatches `SET_THEME_COLORS` after every `applyTheme()` call, which re-populates `state.themeAccent` / `state.themeMuted`. Chart `useMemo` deps must include `state.themeAccent` / `state.themeMuted` so the data object rebuilds on theme change and react-chartjs-2 calls `chart.update()` with the new colors. URL override precedence (`?accent=hex`, `?palette=name`) is preserved via `hasUrlAccentOverride` / `hasUrlMutedOverride` flags — an embedder who supplied a branded accent wants it sticky across theme picker clicks.
+**Chart.js dataset colors (theme-tracked, vanilla-only):** Chart components read colours from DaisyUI semantic CSS variables at runtime via `chartColors.js` helpers. The 8-slot semantic cycle is `[primary, secondary, accent, info, success, warning, error, neutral]`; charts with >8 series cycle through it repeating. `getSeriesColor(i)`, `getSemanticPalette()`, `resolveRuntimeAccent()`, `resolveRuntimeMuted()`, `getRepoColor()`, `buildRepoColorMap()` all read `getComputedStyle(document.documentElement).getPropertyValue('--color-*')` at call time — modern browser canvas parses oklch() + color-mix() natively so Chart.js accepts the values directly. `state.themeAccent` / `state.themeMuted` live in AppContext and are dispatched via `SET_THEME_COLORS` after every `applyTheme()` call; chart `useMemo` deps must include `state.themeAccent` / `state.themeMuted` so datasets rebuild on theme change. There are **no URL overrides** (`?palette=`, `?accent=`, `?muted=`, `?colors=` were all deleted in the 2026-04-14 vanilla sweep) — embedders pick a DaisyUI theme via `?theme=light|dark` and the dashboard respects it.
 
 **Heatmap CSS (theme-tracked with embed override):** use `color-mix(in oklab, var(--chart-accent-override, var(--color-primary)) X%, transparent)`. Nested `var()` fallback — the default path tracks `--color-primary` per theme via DaisyUI's theme plugin, and `main.jsx` only sets `--chart-accent-override` when the embedder supplied a URL `?accent=` override. High-intensity cells use `var(--color-primary-content)` for readable text contrast (NOT hardcoded `white`, which is invisible on light themes where the primary is a pale color).
 
@@ -138,61 +130,89 @@ Canonical mappings we use across the dashboard:
 
 When you have a 3-category gradient (good/mixed/bad), use `success` / `warning` / `error` in that order. When you have a 4-category independent palette, use `info` / `neutral` / `secondary` / `accent` so all four are visibly distinct across every registered theme.
 
-## Tag chips (brand-fixed, not theme-tracked)
+## Tag chips (theme-tracked via DaisyUI semantic badges)
 
-Tags have brand/semantic colors (feature=green, fix=red, docs=blue etc.) that must NOT track theme — users need consistent semantic meaning regardless of which DaisyUI theme is active. The single source of truth lives in `dashboard/js/utils.js`:
+Tag chips use DaisyUI's `badge` component with a semantic variant that
+tracks the active theme. The vanilla-DaisyUI sweep (2026-04-14) deleted
+the 34-hex brand palette (`TAG_COLORS`, `TAG_TEXT_OVERRIDES`,
+`DYNAMIC_TAG_PALETTE`, `getTagColor`, `getTagStyleObject`) and replaced
+it with `TAG_SEMANTIC` — a map of 34 tag names to 7 DaisyUI badge
+variants:
 
-- `TAG_COLORS` — map of `tag-name → brand hex`. Used by `getTagColor(tag)` for Chart.js dataset backgrounds (solid fill) and anywhere a call site needs a plain color string.
-- `TAG_TEXT_OVERRIDES` — map of `tag-name → lighter-variant hex` for the 8 tags where the chip text needs a lifted tone for readability on the 30%-opaque background (`security`, `refactor`, `cleanup`, `config`, `style`, `performance`, `dependency`, `other`).
-- `getTagStyleObject(tag)` — returns `{ backgroundColor, color, border }` for chip display. Static tags use 0.3/0.5 alphas; dynamic tags use 0.2/0.3 alphas. Cached in a `Map` so React re-renders of long tag lists stay cheap.
+- `feature/enhancement/seed/init` → `badge-success`
+- `bugfix/fix/security/hotfix` → `badge-error`
+- `removal/revert/deprecate` → `badge-warning`
+- `refactor/naming/cleanup` → `badge-secondary`
+- `docs/config` → `badge-info`
+- `test/test-unit/test-e2e/build/ci/deploy` → `badge-accent`
+- everything else → `badge-neutral`
 
-JSX usage: `<span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium" style={getTagStyleObject(tag)}>`. The chip layout is pure Tailwind utilities — there is no `.tag` CSS class anymore. Everything color-related comes from the inline style object.
+JSX usage: `<span className={\`badge badge-sm ${getTagBadgeClass(tag)}\`}>{tag}</span>`.
 
-Previously the same 34 colors were duplicated as 40+ `.tag-{name}` rules in styles.css; that duplication was collapsed 2026-04-13. The `.tag` base class that carried the shared layout utilities was also deleted in a follow-up pass the same day (replaced by explicit Tailwind classes on each consumer — see commit log). Don't re-add either the per-tag rules or the base class — edit `TAG_COLORS` / `TAG_TEXT_OVERRIDES` in `dashboard/js/utils.js` instead.
+For Chart.js datasets that need a literal colour value (Chart.js can't
+consume CSS classes), `resolveTagSemanticColor(tag)` in `utils.js`
+reads the corresponding `--color-<semantic>` CSS variable from computed
+style at call time.
 
-## The 24 legitimate custom CSS classes
+Tradeoff: 34 distinct tag colours collapse to 7 semantic variants.
+Tags within a category look identical. Accepted per vanilla directive
+— "the daisy theme is the brand colour".
 
-After the 2026-04-13 custom-CSS cleanup sweep, `dashboard/styles.css` contains exactly 24 custom class definitions — every other styling decision goes through DaisyUI component classes or Tailwind utilities inline at the JSX consumer. Adding a new primary rule head requires extending the `LEGITIMATE_CUSTOM_CLASSES` allowlist in `scripts/__tests__/daisyui-surfaces.test.mjs` AND documenting a Tailwind-incompatible rationale in a rule header comment.
+## Custom CSS policy: zero
 
-**Pseudo-elements** (`::after` / `::before` can't be expressed as Tailwind utilities):
-- `dashboard-header` — `::after` gradient accent line
-- `detail-pane-header`, `settings-pane-header` — zero-style marker classes for mobile `::before` drag-handle pills
+`dashboard/styles.css` contains only the DaisyUI `@plugin` registration,
+the Tailwind `@import`, the `:root` block of non-theme design tokens
+(z-index scale, radius, fonts — no colours), body safe-area padding,
+the reduced-motion `@media` query, and print overrides for element
+selectors. **Zero `.classname { }` primary rules.**
 
-**@keyframes animations**:
-- `dashboard-enter` — page-load fade-in
-- `hamburger-dropdown` — dropdown surface fade-in + complex box-shadow
-- `hamburger-update-dot` — PWA update indicator pulse
+The `LEGITIMATE_CUSTOM_CLASSES` allowlist in the surface test is an
+**empty Set**. Any new primary rule in styles.css fails the test. If
+you find yourself wanting to add a class, the answer is one of:
 
-**Non-Tailwind CSS transition values**:
-- `collapsible-content` — `max-height: 0 → max-height: none` transition. Tailwind's `max-h-*` utilities don't include `none`, and clamping to `max-h-[9999px]` would clip long sections.
+1. Use a stock Tailwind utility.
+2. Use a DaisyUI semantic token or component class.
+3. Drop the feature.
 
-**Transform-based slide-over drawer shells**:
-- `filter-sidebar` + `filter-sidebar-overlay` — filter drawer
-- `detail-pane` + `detail-pane-overlay` — drill-down pane
-- `settings-pane` + `settings-pane-overlay` — settings pane
-- All three use `transform: translateX(100%)` ↔ `translateX(0)` transitions driven by a `.open` state class applied from React. The descendant-selector state-class pattern and the coordinated overlay + pane transitions are not cleanly expressible as inline conditional Tailwind without re-implementing the whole drawer pattern.
+Deleted classes from the 2026-04-14 sweep (all migrated to stock
+DaisyUI / Tailwind or removed):
 
-**Not shipped by Tailwind**:
-- `scrollbar-hide` — `::-webkit-scrollbar { display: none }` pseudo-element + iOS scroll behavior. Not in default Tailwind; adding a plugin for one consumer is over-engineering.
-- `header-filter-hint` — `font: inherit` shorthand has no clean Tailwind equivalent (you'd need to re-specify family + size + weight + line-height + etc.)
+- `.dashboard-header` + `::after` gradient — replaced by `border-b border-base-300`
+- `.hamburger-dropdown` + `@keyframes hamburger-fade-in` — inline Tailwind + no animation
+- `.hamburger-update-dot` + `@keyframes hamburger-pulse` — `animate-pulse` stock utility
+- `.scrollbar-hide` — accept visible mobile scrollbars
+- `.header-filter-hint` — DaisyUI `btn btn-link`
+- `.root-error-message/detail/hint` — inline Tailwind in main.jsx
+- `.dashboard-enter` + `@keyframes dashboard-enter` — no entry animation
+- `.collapsible-content` — DaisyUI `collapse` component
+- `.detail-pane` + `.detail-pane-overlay` + `.detail-pane-header` — DaisyUI `drawer drawer-end`
+- `.settings-pane` + `.settings-pane-overlay` + `.settings-pane-header` — DaisyUI `drawer drawer-end`
+- `.filter-sidebar` + `.filter-sidebar-overlay` + mobile media block — DaisyUI `drawer lg:drawer-open`
+- `.embed-mode` + 7 descendant selectors — `isEmbedMode` conditional render
+- `.heatmap-0..4` — `HEATMAP_LEVEL_CLASSES` JS constant with stock `bg-primary/N` utilities
 
-**Data-viz intensity gradient** (dynamic JSX references):
-- `heatmap-0`, `heatmap-1`, `heatmap-2`, `heatmap-3`, `heatmap-4` — referenced via `heatmap-${level}` template literals in Timing.jsx. Inlining the `color-mix(in oklab, var(--chart-accent-override, var(--color-primary)) N%, transparent)` gradient at every cell would duplicate the expression 168 times (24×7 full heatmap) plus 10-20 times per weekly variant. Keeping 5 class definitions is cleaner.
+## Previously "deliberately NOT used" — now used
 
-**Isolated rendering that survives CSS load failure**:
-- `root-error-message`, `root-error-detail`, `root-error-hint` — the root error boundary renders in an isolated React root that must render correctly even when styles.css fails to load. Uses only typography classes with safe fallbacks; layout stays inline (flex centering).
+The vanilla sweep overrides the previous "these components conflict with
+our React state model" rejections. We now use these DaisyUI components:
 
-**Root state marker read by descendant selectors**:
-- `embed-mode` — applied to the root element in embed-iframe mode. Multiple descendant selectors in styles.css (`.embed-mode .card`, `.embed-mode .collapsible-header`, `.embed-mode .collapsible-content .pt-2`, etc.) strip dashboard chrome to leave just the embedded chart.
+- **`drawer`** — three nested drawer wrappers in App.jsx (filter, detail,
+  settings). React state syncs to native `<input type="checkbox" checked
+  onChange>` on each drawer-toggle. Works fine with controlled state; the
+  previous objection was overblown.
+- **`collapse`** — CollapsibleSection.jsx uses the native component with
+  a React-controlled checkbox. The previous max-height:none custom
+  transition is replaced by DaisyUI's default animation.
 
-Everything else — `.hamburger-item`, `.settings-toggle`, `.detail-pane-content`, `.filter-multi-select-option`, `.collapsible-header`, `.tab-btn`, etc. — was migrated to inline Tailwind utilities. If a future PR adds a new custom class wrapper, it fails the allowlist test and needs either a Tailwind migration or a documented rationale.
-
-## Deliberately NOT used
-
-- **DaisyUI `dropdown` component** — uses CSS `:focus` or `[open]` attribute for visibility. Conflicts with React-state-controlled menus. We use custom disclosure pattern in `HamburgerMenu.jsx`.
-- **DaisyUI `menu` component** — implies `role="menu"` which screen readers treat as ARIA menu (forces forms mode). We use custom listbox (`role="listbox"`) or plain buttons with disclosure pattern.
-- **DaisyUI `collapse` component** — stateless CSS checkbox approach. Doesn't match React reducer state; doesn't support our chevron rotation / max-height transition. We use `CollapsibleSection.jsx` with React state.
-- **DaisyUI `drawer` component** — coupled to a `drawer-toggle` checkbox. Conflicts with React-state-controlled drawer visibility. We use custom `.filter-sidebar` / `.detail-pane` / `.settings-pane` slide-over panes.
+Still deliberately NOT used:
+- **`dropdown`** — HamburgerMenu.jsx keeps its React-state disclosure
+  pattern (portal + inline-position computed from trigger bbox). The
+  menu needs to be openable/closeable from outside the trigger for
+  theme picker cascade + async action error capture, which DaisyUI's
+  `:focus`/`[open]` CSS-driven dropdown can't support.
+- **`menu`** — would impose `role="menu"` on secondary-action lists,
+  which screen readers treat as an ARIA menu (forms mode). We use
+  plain buttons with disclosure semantics.
 
 ## Theme registration
 

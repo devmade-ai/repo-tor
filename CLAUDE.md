@@ -67,15 +67,18 @@ Good: "This file doesn't look like a dashboard data file. Try exporting from the
 
 ### Frontend: Styles and Scripts
 
-- [ ] All custom styles in `dashboard/styles.css` — Tailwind + DaisyUI utility classes in JSX are fine (framework convention)
-- [ ] No inline `style={}` objects in JSX unless values are dynamic/computed
-- [ ] **No arbitrary Tailwind bracket values (`text-[11px]`, `shadow-[0_2px...]`, `grid-cols-[36px_repeat...]`) unless no stock utility, `@theme` token, or `@utility` directive can replace them.** Prefer in this order:
-  1. Stock Tailwind utility (`min-h-50`, `w-70`, `shadow-lg`, `ring-2 ring-inset`)
-  2. DaisyUI semantic token (`text-primary`, `bg-base-200`)
-  3. Theme-scale CSS var inside an arbitrary (`z-[var(--z-sticky-header)]`) — only when the value lives in the `:root` design-token scale
-  4. `@theme` token in styles.css → generates a first-class utility (`--text-11` → `text-11`, `--shadow-tooltip` → `shadow-tooltip`)
-  5. `@utility <name>` directive in styles.css → custom utility for non-standard namespaces (text-shadow, grid templates, calc/min widths) — does NOT count as a "custom class" for the allowlist test since it's a utility-layer extension
-  6. Arbitrary bracket value (`[text-shadow:...]`, `grid-cols-[...]`) — only when none of the above works (document rationale in-code)
+**Vanilla-only policy** (2026-04-14): the dashboard uses only DaisyUI
+component classes, DaisyUI semantic tokens, and stock Tailwind v4
+utilities. No custom CSS classes, no @theme extensions, no @utility
+directives, no arbitrary bracket values, no hardcoded brand colours.
+The daisy theme IS the brand colour.
+
+- [ ] **No custom CSS classes in `dashboard/styles.css`.** The allowlist test enforces a zero-custom-class policy. styles.css contains only the DaisyUI `@plugin` registration, Tailwind `@import`, `:root` non-theme design tokens (z-index scale, font families, spacing-base, radius), body safe-area padding, reduced-motion media query, and print overrides for element selectors. No `.classname { }` primary rules.
+- [ ] **No `@theme` tokens** — Tailwind's default scales are used as-is. Text sizes use `text-xs`/`text-sm`/`text-base`/etc., spacing uses the stock integer scale, shadows use `shadow-md`/`shadow-lg`/`shadow-xl`, colours use DaisyUI semantic tokens.
+- [ ] **No `@utility` directives** — if a style pattern can't be expressed with stock utilities + DaisyUI, it's out of scope.
+- [ ] **No arbitrary bracket values** (`text-[11px]`, `shadow-[...]`, `grid-cols-[...]`, `w-[420px]`) — round to nearest stock, redesign, or drop the feature.
+- [ ] **No hex colour literals anywhere in JSX or JS data constants.** Chart palettes, tag colours, repo colours all resolve DaisyUI semantic CSS variables at runtime via `getComputedStyle`. Exceptions: `DebugPill.jsx` inline hex (documented — isolated React root that survives CSS failure), `themes.js` fallback `#808080` (single safety-net hex).
+- [ ] No inline `style={}` objects in JSX unless values are runtime-computed from data (progress-bar widths, chart container heights, portal positioning, Chart.js dataset colours resolved at runtime).
 - [ ] Use DaisyUI semantic tokens for theming — never hardcode theme values:
   - Surfaces: `bg-base-100` (page) / `bg-base-200` (cards, elevated) / `bg-base-300` (inputs, progress rails, hover states)
   - Text: `text-base-content` (primary) / `text-base-content/80` (secondary) / `text-base-content/60` (tertiary) / `text-base-content/40` (muted)
