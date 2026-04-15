@@ -157,7 +157,7 @@ export default function EmbedRenderer({ embedIds }) {
     if (validIds.length === 0) {
         const attempted = embedIds.join(', ') || '(empty)';
         return (
-            <div className="flex flex-col items-center justify-center min-h-50 p-6 text-center text-base-content/80 font-sans text-sm gap-2">
+            <div className="flex flex-col items-center justify-center min-h-50 p-6 text-center text-base-content/80 text-sm gap-2">
                 <p>Chart not found: <code className="bg-base-300 px-1.5 py-0.5 rounded text-sm">{attempted}</code></p>
                 <p>
                     Check <a

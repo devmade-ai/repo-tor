@@ -215,18 +215,25 @@ function reducer(state, action) {
 // --- Filter logic ---
 function filterCommits(commits, filters) {
     if (!commits) return [];
+
+    // Hoist date-range bounds out of the filter callback. Without this,
+    // every commit triggers two `new Date()` constructions plus a
+    // setHours mutation — for a 10k-commit dataset that's 20k+
+    // allocations per filter operation. Hoisted: 0-2 allocations total.
+    const fromBoundMs = filters.dateFrom ? new Date(filters.dateFrom).getTime() : null;
+    let toBoundMs = null;
+    if (filters.dateTo) {
+        const toDate = new Date(filters.dateTo);
+        toDate.setHours(23, 59, 59, 999);
+        toBoundMs = toDate.getTime();
+    }
+
     return commits.filter(commit => {
-        // Date range
-        if (filters.dateFrom) {
-            const fromDate = new Date(filters.dateFrom);
-            const commitDate = new Date(commit.timestamp);
-            if (commitDate < fromDate) return false;
-        }
-        if (filters.dateTo) {
-            const toDate = new Date(filters.dateTo);
-            toDate.setHours(23, 59, 59, 999);
-            const commitDate = new Date(commit.timestamp);
-            if (commitDate > toDate) return false;
+        // Date range — compare in milliseconds to avoid per-commit Date construction
+        if (fromBoundMs !== null || toBoundMs !== null) {
+            const commitMs = new Date(commit.timestamp).getTime();
+            if (fromBoundMs !== null && commitMs < fromBoundMs) return false;
+            if (toBoundMs !== null && commitMs > toBoundMs) return false;
         }
         // Tag filter
         if (filters.tag.values.length > 0) {

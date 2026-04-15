@@ -345,7 +345,7 @@ export default function App() {
     if (embedIds) {
         if (!state.data) {
             return (
-                <div className="flex flex-col items-center justify-center min-h-50 p-6 text-center text-base-content/80 font-sans text-sm gap-2">
+                <div className="flex flex-col items-center justify-center min-h-50 p-6 text-center text-base-content/80 text-sm gap-2">
                     <p>No data available to display this chart.</p>
                     <p>Make sure data.json is deployed.</p>
                 </div>
@@ -463,10 +463,15 @@ export default function App() {
                     <ErrorBoundary><DetailPane /></ErrorBoundary>
                 </aside>
 
-                {/* Settings pane — same pattern as detail. Higher z-index
-                    so it stacks above detail when both are open. */}
+                {/* Settings pane — same z-index pair as detail (z-30
+                    backdrop + z-40 aside). Stacks ABOVE detail when both
+                    are open via DOM source order: settings markup comes
+                    after detail in this tree, so at equal z-index the
+                    later-painted elements win. No need to escalate
+                    z-index further — keeping both panes at the same
+                    layer keeps the pane hierarchy symmetric. */}
                 <div
-                    className={`fixed inset-0 bg-black/60 z-40 transition-opacity duration-300 print:hidden ${state.settingsPaneOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                    className={`fixed inset-0 bg-black/60 z-30 transition-opacity duration-300 print:hidden ${state.settingsPaneOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                     onClick={() => dispatch({ type: 'CLOSE_SETTINGS_PANE' })}
                     aria-hidden="true"
                 />
