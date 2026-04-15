@@ -558,20 +558,11 @@ test('styles.css allowlist — only legitimate custom classes remain', () => {
     // has a Tailwind-incompatible feature documented in a rationale
     // block. If the new rule is just a layout/typography alias, migrate
     // it to inline Tailwind utilities instead of extending the allowlist.
-    const LEGITIMATE_CUSTOM_CLASSES = new Set([
-        // --- Pseudo-elements (::after gradient accent on the header) ---
-        'dashboard-header',           // ::after gradient accent line
-        // --- @keyframes animations ---
-        'hamburger-dropdown',         // fade-in + complex box-shadow
-        'hamburger-update-dot',       // pulse animation
-        // --- Isolated rendering that must survive CSS load failure ---
-        'root-error-message',
-        'root-error-detail',
-        'root-error-hint',
-        // --- Not shipped by Tailwind ---
-        'scrollbar-hide',             // ::-webkit-scrollbar pseudo + iOS scroll
-        'header-filter-hint',         // `font: inherit` shorthand
-    ]);
+    // The 2026-04-14 vanilla-DaisyUI sweep aims for an empty allowlist.
+    // Anything here is a short-term exception until it can be migrated or
+    // accepted as unavoidable. Currently empty — the sweep completed with
+    // every custom class removed.
+    const LEGITIMATE_CUSTOM_CLASSES = new Set([]);
 
     // DaisyUI component classes that appear in styles.css ONLY inside
     // override blocks (print media, embed-mode descendants). They're

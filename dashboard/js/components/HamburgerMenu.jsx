@@ -205,7 +205,7 @@ export default function HamburgerMenu({ items }) {
                 ref={menuRef}
                 id={menuId}
                 aria-label="Secondary actions"
-                className="hamburger-dropdown"
+                className="fixed min-w-52 max-w-[calc(100vw-2rem)] bg-base-200 border border-base-300 rounded-md shadow-xl z-50 py-1 overscroll-contain"
                 style={{ top: `${triggerPos.top}px`, left: `${triggerPos.left}px` }}
                 onKeyDown={handleMenuKeyDown}
             >

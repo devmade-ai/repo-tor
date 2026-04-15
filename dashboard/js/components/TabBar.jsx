@@ -47,7 +47,7 @@ export default function TabBar() {
         <div className="sticky top-0 z-20 bg-base-100 border-b border-base-300">
             <div className="max-w-7xl mx-auto px-4 md:px-8">
                 <div
-                    className="tabs tabs-border flex overflow-x-auto scrollbar-hide"
+                    className="tabs tabs-border flex overflow-x-auto"
                     role="tablist"
                     aria-label="Dashboard sections"
                 >

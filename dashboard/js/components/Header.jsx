@@ -198,7 +198,7 @@ export default function Header() {
 
     return (
         <>
-            <header className="dashboard-header relative z-[var(--z-sticky-header)] px-4 md:px-8 py-3 sm:py-6">
+            <header className="relative z-[var(--z-sticky-header)] px-4 md:px-8 py-3 sm:py-6 border-b border-base-300">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
@@ -209,7 +209,7 @@ export default function Header() {
                                     <button
                                         type="button"
                                         onClick={handleOpenFilters}
-                                        className="header-filter-hint"
+                                        className="btn btn-link btn-sm p-0 min-h-0 h-auto text-primary"
                                     >
                                         Showing {filteredCount.toLocaleString()} of {totalCount.toLocaleString()} changes &middot; Filtered
                                     </button>
@@ -220,7 +220,7 @@ export default function Header() {
                         </div>
                         <div className="flex items-center gap-2 flex-wrap print:hidden">
                             {updateAvailable && (
-                                <span className="hamburger-update-dot" title="Update available" />
+                                <span className="w-2 h-2 rounded-full bg-primary shrink-0 animate-pulse" title="Update available" />
                             )}
                             <HamburgerMenu items={menuItems} />
                             <button
