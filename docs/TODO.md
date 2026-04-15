@@ -27,13 +27,6 @@ Remaining tasks for Git Analytics Reporting System.
     - **AppContext / appReducer split**: no visible change expected. Verify filters still apply, dark mode still toggles, cross-tab sync still works (open two tabs, toggle theme in one, confirm the other updates). The reducer logic was moved wholesale, not rewritten.
     - **Timeline `handleCardClick` micro-fix**: clicking the "Contributors" summary card at the bottom of the Timeline tab should open the detail pane with the correct author count in the subtitle. Compare against a known count from the raw data.
 
-### Investigations
-
-1. [ ] **`scripts/aggregate.js` data flow** — this script writes `dashboard/{commits,files,contributors,metadata,summary}.json` (lines 411-415) but no JS module under `dashboard/js/` imports from those JSON files. The active aggregator is `scripts/aggregate-processed.js` which writes to `dashboard/public/data/`. Either:
-    - **(a) `aggregate.js` is dead** — the legacy pre-aggregator was supposed to be replaced by `aggregate-processed.js` and the leftover JSON files in `dashboard/` are stale artefacts. If so, delete the script + the 5 JSON files + any references in package.json scripts and HISTORY.md.
-    - **(b) `aggregate.js` is still used out-of-tree** — by an external CI workflow or a manual data extraction recipe documented in `docs/DATA_OPERATIONS.md`. If so, document the consumer in the script's header block and add a comment explaining why the JSON outputs aren't imported by the dashboard.
-   Investigation steps: grep `aggregate.js` references across the repo (npm scripts, GitHub Actions, docs/), check `git log -- scripts/aggregate.js` for the most recent change, and ask the user if they recall when the script was last run.
-
 ### File-size monitoring
 
 1. [ ] **`dashboard/js/hooks/useTimelineCharts.js`** is 416 lines after the 2026-04-15 extraction. It sits under the 500-line soft-limit with ~84 lines of headroom. Not actionable today — but if any new Timeline chart is added (or one of the existing five grows), consider splitting the five useMemo blocks into two hooks:
