@@ -11,21 +11,15 @@
      --default marker on lofi and --prefersdark on black set the initial
      theme before JavaScript runs, so flash prevention works even if
      localStorage is unavailable.
-     DaisyUI exposes `--color-base-100/200/300`, `--color-base-content`,
-     `--color-primary`, `--color-success/error/warning/info`, etc. which
-     this project uses as the single source of truth for theming.
    Alternatives:
-     - Custom CSS variables (previous approach): Rejected — fought the cascade
-       with duplicate :root/html.dark blocks, dark: Tailwind pairs everywhere,
-       and a manual Chart.js color sync. DaisyUI eliminates all of that.
-     - Full 35-theme catalog: Rejected — utility apps should stay curated.
-       Reference recommends 8-10 themes per mode max; we ship 4 + 4 which
-       keeps the burger-menu picker short.
+     - Custom CSS variables: Rejected — fought the cascade with duplicate
+       :root/html.dark blocks, dark: pairs everywhere, manual Chart.js sync.
+     - Full 35-theme catalog: Rejected — utility apps stay curated.
+       Reference recommends 8-10 themes per mode max; we ship 4 + 4.
 
    BEGIN/END GENERATED markers below are read by scripts/generate-theme-meta.mjs.
    DO NOT edit the @plugin block between the markers by hand — it will be
-   overwritten on the next build. Edit scripts/theme-config.js instead,
-   then run `npm run generate-theme-meta` (or any `npm run dev` / build).
+   overwritten on the next build. Edit scripts/theme-config.js instead.
 
    See: docs/implementations/THEME_DARK_MODE.md
         scripts/theme-config.js (source of truth for the catalog) */
@@ -54,15 +48,10 @@
    Approach: Single :root block holding ONLY non-theme values. All color /
      surface / text / border tokens come from DaisyUI via `[data-theme]`
      selectors and are referenced as `var(--color-base-*)`, `var(--color-primary)`,
-     etc. throughout this file.
-   Alternatives:
-     - Merge with Tailwind @theme directive: Rejected — mixing design tokens
-       with @theme forces extra utility class generation we don't use.
-     - Keep legacy --bg, --text, --border aliases: Rejected — creates two
-       parallel theming systems and obscures the actual driving tokens.
-   Note: avoid writing the glob patterns --bg-star-slash or --text-star-slash
-   literally inside CSS comments — the asterisk-slash sequence terminates the
-   comment and silently breaks the parser mid-file. */
+     etc. throughout the JSX consumers.
+   Note: never write the literal asterisk-slash sequence inside a CSS comment
+     glob pattern — esbuild's minifier silently truncates the file at that
+     point. Spell it "star-slash" or list patterns comma-separated instead. */
 :root {
     /* Spacing (8px base) */
     --spacing-base: 8px;
@@ -85,9 +74,7 @@
            any open modal but never hide the debug surface.
        Stock-utility consumers (no arbitrary value needed):
          - z-10 base content, z-20 sticky tabs, z-30 fixed panes,
-           z-40 menu backdrop, z-50 menu / modal scale anchor.
-       --z-drawer / --z-drawer-backdrop deleted 2026-04-15 — all panes
-       now use stock Tailwind z-30/z-40 utilities directly. */
+           z-40 menu backdrop, z-50 menu / modal scale anchor. */
     --z-base: 10;
     --z-sticky: 20;
     --z-sticky-header: 21;
@@ -115,53 +102,30 @@ body {
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
+    background-color: var(--color-base-100);
+    color: var(--color-base-content);
 }
 
 /* === Element-selector exceptions to the vanilla-only policy ===
-   CLAUDE.md "Frontend: Styles and Scripts" forbids custom CSS classes
-   in styles.css. Element selectors (no class) and pseudo-elements are
-   not "custom classes" but they are still custom CSS. The three rules
-   below are documented exceptions:
+   CLAUDE.md "Frontend: Styles and Scripts" forbids custom CSS classes.
+   The three rules below target HTML element selectors / pseudo-elements
+   (no class) and are documented exceptions:
 
-   1. `*` font-family reset — sets the global sans-serif font once
-      via inheritance instead of adding `font-sans` to every JSX
-      element. DaisyUI's theme plugin sets some font properties on
-      body but doesn't reset descendants explicitly; this rule
-      prevents inherited browser defaults from leaking through.
-      Alternative rejected: editing index.html to add `font-sans` to
-      <body> wouldn't reach descendants because Tailwind's font-sans
-      utility doesn't cascade by default in v4.
+   1. `*` font-family reset — sets the global sans-serif font once via
+      inheritance. Tailwind v4's font-sans utility doesn't cascade by
+      default; adding font-sans to every JSX element is repetitive
+      boilerplate.
 
-   2. `h1, h2, h3 { font-family: mono }` — the techy-developer-tool
-      visual aesthetic uses a monospace font for section titles. This
-      is app-wide intent applied via semantic HTML rather than
-      repeating `font-mono` on every <h1>/<h2>/<h3> JSX usage. The
-      "stat-value / .text-3xl" sibling selectors that used to live
-      here were Tailwind-utility hijacks and are gone — only the
-      semantic heading selectors remain.
-      Alternative rejected: adding `font-mono` to every heading in
-      JSX (~15-20 edits) is repetitive boilerplate that obscures the
-      design intent.
+   2. `h1, h2, h3 { font-mono }` — the techy-developer-tool aesthetic
+      uses a monospace font for section titles. App-wide intent applied
+      via semantic HTML rather than repeating font-mono on every heading.
 
-   3. `body::before` decorative grid background — the dashboard's
-      visual signature. A fixed-position pseudo-element with two
-      linear-gradient lines tinted by `color-mix(--color-primary)`
-      so the grid tracks the active theme. Pseudo-elements cannot
-      be expressed as Tailwind utilities, and removing the grid would
-      visually plain-ify the dashboard.
-      Alternative rejected: removing the grid entirely.
-
-   These three rules are the ONLY remaining custom CSS in styles.css
-   beyond DaisyUI's @plugin registration, the :root design tokens,
-   safe-area body padding, and the @media reduced-motion override.
-   No new element-selector rules should be added. */
+   3. `body::before` decorative grid — the dashboard's visual signature.
+      Fixed-position pseudo-element with two linear-gradient lines tinted
+      by color-mix(--color-primary) so the grid tracks the active theme.
+      Pseudo-elements cannot be expressed as Tailwind utilities. */
 * {
     font-family: var(--font-sans);
-}
-
-body {
-    background-color: var(--color-base-100);
-    color: var(--color-base-content);
 }
 
 h1, h2, h3 {
@@ -180,342 +144,21 @@ body::before {
     z-index: -1;
 }
 
-/* Techy header accent.
-   z-index: sticky-header (21) so the hamburger dropdown renders above
-   the sticky tabs-bar (z-index: sticky/20). */
-/* .dashboard-header::after decorative gradient accent line deleted
-   2026-04-14 — vanilla sweep removes cosmetic pseudo-elements.
-   Header.jsx now uses `border-b border-base-300` for the divider. */
+/* Print styles — element-selector overrides only. JSX consumers use
+   Tailwind's `print:hidden` variant directly on chrome they want hidden. */
+@media print {
+    body { background: white !important; color: black !important; }
+    a { color: black !important; text-decoration: underline !important; }
+    section { break-inside: avoid; page-break-inside: avoid; }
+}
 
-/* .header-filter-hint deleted 2026-04-14 — migrated to DaisyUI
-   `btn btn-link btn-sm` in Header.jsx. */
-
-        /* Hamburger menu — disclosure-pattern dropdown for secondary header actions.
-           Uses backdrop overlay (not click-outside hook) for iOS Safari compatibility.
-           See docs/implementations/BURGER_MENU.md for pattern details. */
-        /* .hamburger-menu removed 2026-04-13 — replaced by inline `relative`
-           Tailwind utility in HamburgerMenu.jsx. */
-        /* .hamburger-backdrop removed 2026-04-13 — replaced by inline
-           `fixed inset-0 z-40 cursor-pointer` in HamburgerMenu.jsx.
-           (z-40 = --z-menu-backdrop from the design token scale.) */
-        /* .hamburger-dropdown + @keyframes hamburger-fade-in deleted
-           2026-04-14 — HamburgerMenu.jsx now uses inline Tailwind
-           utilities (`fixed min-w-52 max-w-[calc(100vw-2rem)] bg-base-200
-           border border-base-300 rounded-md shadow-xl z-50 py-1`).
-           The fade-in animation is gone — vanilla DaisyUI doesn't
-           animate dropdown entrance.
-           .hamburger-update-dot + @keyframes hamburger-pulse deleted
-           2026-04-14 — replaced by Tailwind `animate-pulse` on a
-           `w-2 h-2 rounded-full bg-primary` span in Header.jsx. */
-
-        /* QuickGuide modal — migrated to DaisyUI `modal` + `modal-box` + `btn` +
-           Tailwind utilities. See dashboard/js/components/QuickGuide.jsx.
-           The old .quick-guide-* custom classes used to live here. */
-
-        /* .show-more-btn migrated to DaisyUI `btn btn-ghost btn-block btn-sm`
-           in dashboard/js/components/ShowMoreButton.jsx. */
-
-        /* .tag-{name} per-tag rules + .tag-dynamic CSS-variable bridge
-           removed 2026-04-13. Tag chip colors are now computed in JS via
-           `getTagStyleObject(tag)` in dashboard/js/utils.js and applied
-           as inline style={{ backgroundColor, color, border }} on a
-           plain <span>. The `.tag` base class (which previously carried
-           shared layout) was also deleted the same day — layout is now
-           pure Tailwind utilities: `inline-block px-2 py-0.5 rounded-full
-           text-xs font-medium` at each consumer. Single source of truth
-           for all 34 tag colors + 8 text-color overrides lives in
-           `TAG_COLORS` and `TAG_TEXT_OVERRIDES` in that module.
-           Previously the same hex values were duplicated across 40+ rules
-           here (as rgba triples) and 34 entries in TAG_COLORS (as hex
-           strings) — adding or renaming a tag required editing both. */
-
-        /* .timeline-dot removed 2026-04-13 — 0 JSX consumers. */
-
-        /* Panel card — migrated to DaisyUI `card bg-base-200 border border-base-300`
-           + `card-body p-6 gap-0` wrapper. See CollapsibleSection.jsx, App.jsx,
-           ErrorBoundary.jsx, Projects.jsx, Discover.jsx. The old .card custom
-           class used to live here and shadowed DaisyUI's built-in .card. */
-
-        /* Deleted: .text-themed-* / .bg-themed-* / .border-themed utility classes.
-           All consumers now use DaisyUI Tailwind utilities directly
-           (text-base-content, text-base-content/80, bg-base-200, border-base-300). */
-
-        /* .tag base class removed 2026-04-13 — replaced by inline
-           Tailwind utilities at each JSX consumer:
-             `inline-block px-2 py-0.5 rounded-full text-xs font-medium`
-           Five consumers: sections/Tags.jsx, sections/Timeline.jsx (×2),
-           sections/Contributors.jsx, components/DetailPane.jsx. Tag chip
-           colors still come from inline `style={getTagStyleObject(tag)}`
-           sourced from TAG_COLORS in utils.js (see that module's
-           rationale block). There is no `.tag` CSS class anywhere —
-           all layout AND color for tag chips lives inline. */
-
-        /* .tag-breaking removed 2026-04-13 — 0 JSX consumers. The
-           `has_breaking_change` commit flag is surfaced through Discover
-           metrics (a counter on the Discover tab), not as a tag chip. */
-
-        /* .filter-select / .filter-input removed — migrated to DaisyUI select/input components
-           (see SettingsPane.jsx work hour selects, FilterSidebar.jsx date inputs). */
-
-        /* .scrollbar-hide deleted 2026-04-14 — mobile tab bar now shows
-           the native scrollbar when overflowing. Minor aesthetic regression,
-           but vanilla directive says no custom CSS. */
-
-        /* Work pattern badges — migrated to DaisyUI `badge badge-accent/info/warning`
-           variants in dashboard/js/sections/Timeline.jsx. The old .badge +
-           .badge-after-hours / .badge-weekend / .badge-holiday custom classes
-           used to live here and shadowed DaisyUI's built-in .badge. */
-
-        /* .btn-icon / .btn-primary / .btn-secondary — migrated to DaisyUI
-           `btn btn-primary` / `btn btn-outline` / `btn btn-ghost` classes
-           in dashboard/js/*. The old custom rules shadowed DaisyUI's built-in
-           .btn-primary / .btn-secondary. */
-
-        /* Toast notification system — migrated to DaisyUI `toast toast-bottom
-           toast-center` + `alert alert-success/error/warning/info` +
-           `btn btn-ghost btn-xs btn-circle` dismiss button + Tailwind
-           transition utilities for enter/exit animation. See
-           dashboard/js/components/Toast.jsx. The old .toast-* custom classes
-           used to live here and shadowed DaisyUI's built-in `.toast` and
-           `.alert` component classes. */
-
-        /* Install instructions modal — migrated to DaisyUI `modal` + `modal-box` +
-           `alert alert-warning alert-soft` + Tailwind utilities. See
-           dashboard/js/components/InstallInstructionsModal.jsx. The old
-           .install-modal-* custom classes used to live here. */
-
-        /* .btn-theme — migrated to DaisyUI `btn btn-ghost btn-square` in
-           Header.jsx + HamburgerMenu.jsx. */
-
-        /* Print styles for PDF — minimal overrides.
-         * Only element selectors and DaisyUI component classes (.card,
-         * .modal). Every dashboard-specific custom class reference was
-         * deleted 2026-04-14 alongside the vanilla-DaisyUI sweep. JSX
-         * consumers use Tailwind's `print:hidden` variant directly on
-         * chrome they want hidden (the print variant generates an
-         * equivalent @media print rule).
-         * PDF library alternative rejected: adds dependency for what
-         * window.print() does natively. */
-        @media print {
-            body { background: white !important; color: black !important; }
-            a { color: black !important; text-decoration: underline !important; }
-            section { break-inside: avoid; page-break-inside: avoid; }
-        }
-
-        /* Heatmap classes (.heatmap-grid/header/label/cell/cell-sm and
-           .heatmap-0..4 intensity levels) all deleted 2026-04-13/14.
-           Timing.jsx now uses a single `grid-cols-[auto_repeat(7,1fr)]`
-           CSS grid (the one documented arbitrary-bracket exception in
-           CLAUDE.md "Frontend: Styles and Scripts") for row alignment,
-           and a `HEATMAP_LEVEL_CLASSES` JS constant maps intensity
-           levels to stock `bg-base-300` / `bg-primary/20..60` / `bg-primary`
-           utilities. See sections/Timing.jsx for the current implementation. */
-
-        /* Deleted blocks that used to live here:
-           - Tailwind gray class overrides (.bg-gray-*, .text-gray-*, .border-gray-*)
-             that remapped Tailwind neutrals into the old custom dark theme.
-           - Semantic card background overrides (.bg-amber-50, .bg-indigo-50, etc.)
-             that made Tailwind pastel colors darker in dark mode.
-           - Semantic text color overrides (.text-green-600, .text-red-600, etc.)
-             mapped to custom --color-* tokens.
-           With DaisyUI, JSX uses semantic tokens directly (bg-base-200,
-           text-error, bg-warning/10, etc.) which auto-switch with data-theme.
-           There is no longer a need to hijack Tailwind's raw gray/color scales. */
-
-        /* .tab-btn + .tab-btn-active removed 2026-04-13 — migrated to
-           inline Tailwind utilities in TabBar.jsx. The active-state
-           text-shadow glow uses Tailwind's arbitrary-property syntax
-           because Tailwind v4 doesn't ship a text-shadow utility out of
-           the box. Focus-visible ring uses the
-           `focus-visible:outline focus-visible:outline-2
-           focus-visible:outline-primary focus-visible:outline-offset-2`
-           Tailwind variants directly. */
-
-        /* Collapsible sections - dark theme */
-        /* .collapsible-content / .collapsible-header / .collapsible-title /
-           .collapsible-subtitle / .collapsible-chevron all deleted 2026-04-14
-           as part of the vanilla-DaisyUI sweep. CollapsibleSection.jsx now
-           uses DaisyUI's native `collapse collapse-arrow` component with a
-           native checkbox wired to React state. Embed mode short-circuits
-           before the collapse wrapper entirely and renders just {children}. */
-
-        /* .loading-spinner / .loading-spinner-{sm,md,lg} removed — migrated to
-           DaisyUI `loading loading-spinner loading-{sm|md|lg}`. The old custom
-           classes were shadowing DaisyUI's own `.loading-spinner` variant
-           (same trap as the earlier .card / .btn / .badge / .toast shadow
-           removal). See docs/DAISYUI_V5_NOTES.md for the migration pattern.
-           .loading-overlay was dead CSS with no JSX consumer — deleted.
-           .card-loading was already deleted in the Phase 5 card migration. */
-
-        /* .dashboard-enter fade-in animation deleted 2026-04-14 — the
-           dashboard now renders immediately on load with no animation.
-           The vanilla-DaisyUI sweep removed cosmetic entry animations. */
-        /* Deleted 2026-04-13 as part of the "custom CSS cleanup" pass:
-           - .skeleton / .skeleton-commit / .skeleton-line[-short|-medium]
-             + @keyframes skeleton-loading: 0 JSX consumers. Also shadowed
-             DaisyUI v5's own `.skeleton` component — removing our custom
-             rule lets a future consumer use DaisyUI's `skeleton` directly.
-           - .detail-pane-content-loaded + @keyframes fadeIn: 0 consumers.
-           - .timeline-dot, .stat-label, .stat-value: 0 consumers.
-           If a loading-skeleton pattern is needed in the future, use
-           DaisyUI's `<div className="skeleton h-4 w-full" />` directly. */
-
-        /* Detail Pane / Settings Pane / Filter Sidebar — the three
-           slide-over drawers are now vanilla DaisyUI `drawer` / `drawer-end`
-           components wrapped in App.jsx. Deleted 2026-04-14:
-             .detail-pane + .detail-pane.open + mobile bottom-sheet media
-             .detail-pane-overlay + .detail-pane-overlay.open
-             .detail-pane-header::before (mobile drag handle)
-             .settings-pane + .settings-pane.open + mobile bottom-sheet media
-             .settings-pane-overlay + .settings-pane-overlay.open
-             .settings-pane-header::before (mobile drag handle)
-             .filter-sidebar + .filter-sidebar.open + .filter-sidebar.collapsed
-             .filter-sidebar-overlay + .filter-sidebar-overlay.open
-             @media (max-width: 768px) .filter-sidebar transforms
-           DaisyUI drawer handles transform-based slide animation, overlay
-           rendering, and click-outside-to-close via label[htmlFor]. The
-           mobile drag-handle ::before pseudo-elements are gone — DaisyUI
-           doesn't ship one and the vanilla rule is "no custom anything". */
-
-        /* .stat-label removed 2026-04-13 — 0 JSX consumers. */
-
-        /* .tabs-bar removed 2026-04-13 — replaced by inline
-           `sticky top-0 z-20 bg-base-100 border-b border-base-300`
-           in TabBar.jsx. */
-
-        /* .filter-toggle — migrated to DaisyUI `btn btn-ghost btn-square`
-           (with `btn-active` when the sidebar is open) in Header.jsx. */
-
-        /* Dashboard layout with sidebar */
-        /* .dashboard-layout removed 2026-04-13 — replaced by inline
-           `flex gap-6 relative` in App.jsx. Mobile override (gap-0) is
-           handled by the responsive `sm:gap-6` pattern in JSX. */
-
-        /* .filter-sidebar / .filter-sidebar-overlay / .filter-sidebar-inner
-           + all descendant rules and the @media (max-width: 768px) mobile
-           block deleted 2026-04-14. DaisyUI drawer component in App.jsx
-           handles width, positioning, overlay, and mobile vs desktop
-           responsive behaviour via `lg:drawer-open`. */
-
-        /* Drop zone for file upload */
-        /* .drop-zone + .drop-zone-icon removed 2026-04-13 — migrated to
-           inline Tailwind utilities in DropZone.jsx. The drag-over state
-           is now a conditional className driven by React `isDragOver`
-           state instead of a `.drag-over` CSS modifier + descendant
-           selectors. Focus-visible styles use Tailwind's
-           `focus-visible:border-primary focus-visible:bg-primary/5`
-           variants directly. The icon color flip (base-content/60 →
-           primary during drag-over) is also a conditional className. */
-
-        /* Mobile: tighter spacing for collapsible sections.
-         * Requirement: Reduce visual weight on mobile — smaller subtitle,
-         *   tighter section header. Card padding and stat-text sizing are
-         *   handled in JSX via Tailwind responsive classes (e.g.
-         *   `text-xl sm:text-2xl`, `space-y-4 sm:space-y-6`) instead of
-         *   descendant selectors that hijack Tailwind utilities.
-         * Approach: Only rules that target genuinely custom classes
-         *   (`.collapsible-header`, `.collapsible-subtitle`) live here.
-         *   The previous rules for `.card { padding: 16px }`,
-         *   `.card .text-3xl`, `.card .text-lg`, and `.space-y-6 > * + *`
-         *   were removed 2026-04-13 — the card padding rule was broken
-         *   anyway (DaisyUI's `.card` has no padding — `.card-body` does),
-         *   the text-size rules were redundant with Tailwind responsive
-         *   classes consumers already use, and the space-y-6 rule was
-         *   a fragile descendant selector targeting a Tailwind utility. */
-        /* Mobile media query previously contained padding + text-size
-           overrides for .collapsible-header / .collapsible-subtitle —
-           those are now handled in JSX via responsive Tailwind classes
-           (`py-2 sm:py-3` on the header, `hidden sm:inline` on the
-           subtitle). Entire @media block removed because every rule in
-           it had been migrated; DaisyUI + Tailwind responsive utilities
-           now drive all mobile-specific styling. */
-
-        /* ===== Embed Mode =====
-         * The .embed-mode root class and its 7 descendant selectors were
-         * deleted 2026-04-14 in the vanilla-DaisyUI sweep. CollapsibleSection
-         * short-circuits to render `{children}` only in embed mode (no card,
-         * no header, no collapse), and EmbedRenderer wraps everything in a
-         * plain `p-4 bg-base-100` div. The DOM traversal that used to hide
-         * non-target .card ancestors now walks to the top-level child of the
-         * container instead — see EmbedRenderer.jsx useLayoutEffect. Debug
-         * banner hiding in embed mode is no longer needed: the debug-root
-         * mount in main.jsx already checks `!isEmbedMode`. */
-
-        /* .projects-error and .project-card deleted — migrated to DaisyUI
-           `card bg-base-200 border border-base-300` with `card-body` inner
-           wrapper. See dashboard/js/sections/Projects.jsx. */
-        /* .project-lang-badge removed 2026-04-13 — migrated to inline
-           `text-[10px] font-medium font-mono px-2 py-0.5 rounded-full
-            bg-base-300 text-base-content/60 whitespace-nowrap shrink-0`
-           in Projects.jsx. */
-        /* .project-link / .project-link-primary / .project-link-secondary —
-           migrated to DaisyUI `btn btn-primary btn-xs` / `btn btn-outline btn-xs`
-           in dashboard/js/sections/Projects.jsx. */
-
-        /* .drop-zone-container + .drop-zone-heading deleted 2026-04-13.
-           DropZone.jsx now uses inline Tailwind utilities:
-             .drop-zone-container → min-h-screen flex flex-col justify-center
-             .drop-zone-heading   → text-base-content text-xl font-semibold
-                                     text-center mb-6 font-mono */
-
-        /* Filter sidebar layout helpers — most migrated to inline
-           Tailwind utilities in FilterSidebar.jsx:
-           - .filter-date-group → flex flex-col gap-1.5
-           - .filter-empty-option → text-base-content/40 cursor-default
-           - .filter-date-input → DaisyUI `input input-sm w-full`
-           - .filter-clear-btn → DaisyUI `btn btn-outline btn-sm w-full mt-3`
-           - .filter-group-header → flex items-center mb-1
-           No custom filter helper rules remain in this block. */
-
-        /* .settings-view-level-group + .settings-work-hours-hint
-           removed 2026-04-13 — migrated to inline Tailwind utilities
-           (`flex flex-col gap-2` and `text-[11px] text-base-content/40 mt-2`)
-           in SettingsPane.jsx. */
-
-        /* .filter-badge — migrated to DaisyUI `badge badge-primary badge-xs`
-           inline inside the filter-toggle button in Header.jsx. */
-
-        /* === Accessibility: Focus-visible states ===
-           Requirement: All interactive elements need visible keyboard focus indicators
-           Approach: Use :focus-visible (not :focus) to only show ring for keyboard users
-           Alternatives:
-             - :focus on everything: Rejected — shows ring on mouse clicks too, which is distracting
-             - Browser defaults only: Rejected — default outlines are inconsistent and often invisible on dark bg */
-        /* No custom `:focus-visible` rules remain — every consumer uses
-           Tailwind's `focus-visible:outline focus-visible:outline-2
-           focus-visible:outline-primary focus-visible:outline-offset-2`
-           variants directly. DaisyUI buttons carry their own focus ring
-           via the `btn` class's built-in styles. */
-
-        /* The `[role="button"]:focus-visible` and `[role="tab"]:focus-visible`
-           attribute-selector rules that used to live here are gone.
-           Every role="button" tile and role="tab" button in dashboard/js
-           now carries its own `focus-visible:outline focus-visible:outline-2
-           focus-visible:outline-primary focus-visible:outline-offset-2`
-           (or the `focus-visible:ring-*` equivalent paired with an existing
-           `hover:ring-2` pattern) inline — keeping focus styling visible
-           at the call site instead of hidden in a cross-cutting CSS rule. */
-
-        /* === Accessibility: Reduced motion ===
-           Respect user preference for reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-            /* The universal selector is enough on its own — DaisyUI's
-               .loading spinner, our .dashboard-enter fade, and every
-               Tailwind transition all honor this at maximum specificity
-               via !important. Removed the stale `.loading-spinner`
-               pointer rule now that the class is gone (migrated to
-               DaisyUI `loading loading-spinner`). */
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* .root-error-* classes deleted 2026-04-14 — main.jsx root error
-           boundary uses inline Tailwind utilities directly. If CSS load
-           fails the error screen falls back to browser default styling.
-           Acceptable given the vanilla-only directive. */
-        /* .error-boundary-card deleted — migrated to DaisyUI
-           `card bg-base-200 border border-base-300` + `card-body items-center
-           text-center py-8` in dashboard/js/components/ErrorBoundary.jsx. */
+/* Reduced motion — respect user preference. The universal selector is
+   sufficient: DaisyUI loading spinners and every Tailwind transition
+   honor this at maximum specificity via !important. */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
