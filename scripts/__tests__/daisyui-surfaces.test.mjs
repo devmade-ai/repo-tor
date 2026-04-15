@@ -455,12 +455,23 @@ test('chartColors.js is vanilla DaisyUI (no brand hex, no URL overrides)', () =>
 });
 
 test('AppContext dispatches SET_THEME_COLORS after applyTheme()', () => {
-    const src = read('dashboard/js/AppContext.jsx');
-    assert.match(src, /case 'SET_THEME_COLORS'/);
+    // Reducer switch cases moved from AppContext.jsx into appReducer.js
+    // on 2026-04-15 (line-count split — AppContext was 579 lines, over
+    // the 500-line soft-limit). The SET_THEME_COLORS handler now lives
+    // in the reducer module; the provider still dispatches the action
+    // from its darkMode useEffect. Assertions are split across both
+    // files to verify the wiring end-to-end.
+    const reducerSrc = read('dashboard/js/appReducer.js');
+    assert.match(reducerSrc, /case 'SET_THEME_COLORS'/);
+
+    const contextSrc = read('dashboard/js/AppContext.jsx');
     // The darkMode effect should call resolveRuntimeAccent/Muted + dispatch.
-    assert.match(src, /dispatch\(\{\s*type: 'SET_THEME_COLORS'/);
-    assert.match(src, /resolveRuntimeAccent\(\)/);
-    assert.match(src, /resolveRuntimeMuted\(\)/);
+    assert.match(contextSrc, /dispatch\(\{\s*type: 'SET_THEME_COLORS'/);
+    assert.match(contextSrc, /resolveRuntimeAccent\(\)/);
+    assert.match(contextSrc, /resolveRuntimeMuted\(\)/);
+    // Sanity-check the import wiring between the two files so a future
+    // refactor that renames the extracted module gets caught.
+    assert.match(contextSrc, /from\s+['"]\.\/appReducer\.js['"]/);
 });
 
 // ----- Heatmap intensity: JS-driven stock Tailwind utilities -----
