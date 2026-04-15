@@ -177,13 +177,13 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
   - `js/App.jsx` - Main app component (data loading, tab routing, layout)
   - `js/components/` - Shared components (Header, TabBar, DropZone, FilterSidebar, DetailPane, SettingsPane, CollapsibleSection, ErrorBoundary, EmbedRenderer, HeatmapTooltip, HealthAnomalies, HealthBars, HealthWorkPatterns, HamburgerMenu, QuickGuide, ShowMoreButton, Toast, InstallInstructionsModal, DebugPill, TimingHeatmap). The `components/debug/` subdirectory holds the `DebugPill` extraction (`debugStyles.js` inline-style + colour-map module, `DebugTabs.jsx` log/environment/PWA tab bodies) — split out 2026-04-15 to keep `DebugPill.jsx` under the 500-line soft-limit.
   - `js/sections/` - Section components (Summary, Timeline, Timing, Progress, Contributors, Tags, Health, Discover, Projects). The `sections/discover/` subdirectory holds `discoverData.js` — the 21-entry metric pool + `getRandomMetrics` picker + `getHumorousFileName` generator extracted from `Discover.jsx` on 2026-04-15.
-  - `js/hooks/` - Custom hooks (useFocusTrap, useHealthData, useShowMore, useEscapeKey, useClickOutside, useScrollLock, useTimelineCharts). `useTimelineCharts` was extracted from `sections/Timeline.jsx` on 2026-04-15 and returns all five Timeline chart-data objects (`activityChartData`, `codeChangesChartData`, `urgencyTrendData`, `debtTrendData`, `impactTrendData`) with their original dep arrays — the hook exists purely to keep `Timeline.jsx` under the 500-line soft-limit.
+  - `js/hooks/` - Custom hooks (useFocusTrap, useHealthData, useShowMore, useEscapeKey, useScrollLock, useTimelineCharts). `useTimelineCharts` was extracted from `sections/Timeline.jsx` on 2026-04-15 and returns all five Timeline chart-data objects (`activityChartData`, `codeChangesChartData`, `urgencyTrendData`, `debtTrendData`, `impactTrendData`) with their original dep arrays — the hook exists purely to keep `Timeline.jsx` under the 500-line soft-limit.
   - `js/state.js` - Constants (VIEW_LEVELS, THRESHOLDS, PAGE_LIMITS) + global state compat shim + anonymous-name roster
   - `js/utils.js` - Pure utility functions
   - `js/urlParams.js` - Centralized URL query parameter parsing (single parse, shared across modules)
   - `js/charts.js` - Chart aggregation helpers
   - `js/chartColors.js` - Centralized chart color system (embed overrides)
-  - `js/debugLog.js` - Structured debug logging with pub/sub, console interception, global error capture, report generation, failure diagnosis
+  - `js/debugLog.js` - Structured debug logging with pub/sub, console interception, global error capture, and report generation
   - `js/copyToClipboard.js` - Clipboard utility with multiple fallbacks (ClipboardItem Blob, writeText, textarea)
   - `js/pwa.js` - PWA install/update logic (event-based, communicates with React via CustomEvents)
   - `js/pwaConstants.js` - PWA timing/threshold constants (update intervals, settle delays, etc.)

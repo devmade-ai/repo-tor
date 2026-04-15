@@ -62,8 +62,9 @@ export function sanitizeMessage(message) {
 }
 
 // === South African Public Holidays ===
-// Format: 'YYYY-MM-DD' for fixed dates, calculated for moveable feasts
-export const SA_HOLIDAYS = {
+// Format: 'YYYY-MM-DD' for fixed dates, calculated for moveable feasts.
+// Module-private — consumed only by buildHolidaySet() below.
+const SA_HOLIDAYS = {
     // Fixed holidays (apply every year)
     fixed: [
         { month: 1, day: 1, name: "New Year's Day" },
@@ -313,14 +314,7 @@ export function formatDate(isoString) {
     });
 }
 
-export function formatNumber(num) {
-    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-    if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-    return num.toString();
-}
-
 // === Day / Time Helpers ===
-export const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export const DAY_NAMES_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export function getCommitDateTime(commit) {
@@ -452,10 +446,9 @@ export function aggregateContributors(commits) {
     }
 }
 
-/**
- * Aggregate commits by tag
- */
-export function aggregateByTag(commits) {
+// Aggregate commits by tag — module-private, consumed only by
+// aggregateContributors() above.
+function aggregateByTag(commits) {
     const tags = {};
     commits.forEach(c => {
         getCommitTags(c).forEach(tag => {
@@ -466,7 +459,9 @@ export function aggregateByTag(commits) {
 }
 
 /**
- * Get date range from commits
+ * Get date range (earliest / latest day) from a commit array.
+ * Returns { earliest, latest } as YYYY-MM-DD strings, or 'N/A' when empty.
+ * Consumed by sections/Health.jsx for the security-commits summary panel.
  */
 export function getCommitDateRange(commits) {
     if (!commits || commits.length === 0) {
@@ -476,41 +471,6 @@ export function getCommitDateRange(commits) {
     return {
         earliest: dates[0]?.substring(0, 10) || 'N/A',
         latest: dates[dates.length - 1]?.substring(0, 10) || 'N/A'
-    };
-}
-
-/**
- * Aggregate for detail pane drilldown based on view level
- */
-export function aggregateForDrilldown(commits, context) {
-    const config = getViewConfig();
-
-    if (config.drilldown === 'commits') {
-        // Developer: return full commit list
-        return { type: 'commits', data: commits };
-    }
-
-    // Executive/Management: return summary stats
-    const uniqueAuthors = new Set(commits.map(c => getAuthorEmail(c)));
-    const tagCounts = aggregateByTag(commits);
-    const repos = [...new Set(commits.map(c => c.repo_id).filter(Boolean))];
-
-    return {
-        type: 'summary',
-        data: {
-            totalCommits: commits.length,
-            contributorCount: uniqueAuthors.size,
-            tagBreakdown: tagCounts,
-            repoCount: repos.length,
-            dateRange: getCommitDateRange(commits),
-            // For management, include repo breakdown
-            ...(config.contributors === 'repo' && {
-                byRepo: repos.map(r => ({
-                    name: r,
-                    count: commits.filter(c => c.repo_id === r).length
-                })).sort((a, b) => b.count - a.count)
-            })
-        }
     };
 }
 

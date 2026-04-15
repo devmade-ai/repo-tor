@@ -126,8 +126,10 @@ function dimNeutral(opacity) {
  * neutral (visible but muted), active public-facing repos cycle through
  * the 8-slot semantic palette. All values resolve to the active DaisyUI
  * theme at call time.
+ *
+ * Module-private — only `buildRepoColorMap` below consumes this helper.
  */
-export function getRepoColor(repoName, activeIndex) {
+function getRepoColor(repoName, activeIndex) {
     if (DISCONTINUED_REPOS.has(repoName)) return dimNeutral(0.3);
     if (INTERNAL_REPOS.has(repoName)) return dimNeutral(0.6);
     return getSeriesColor(activeIndex);

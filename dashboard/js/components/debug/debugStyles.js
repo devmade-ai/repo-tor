@@ -17,11 +17,12 @@
  * under the 500-line soft-limit (CLAUDE.md "Code Organization").
  */
 
-// Source color mapping for log entries.
-// Unknown sources fall back to '#94a3b8' (neutral gray) via the lookup in
-// sourceTag() below, so adding a new source here is optional — but named
-// colors make the log tab scannable when filtering by category.
-export const SOURCE_COLORS = {
+// Source color mapping for log entries. Module-private — consumed only
+// by `styles.sourceTag` below. Unknown sources fall back to '#94a3b8'
+// (neutral gray) via the lookup in sourceTag(), so adding a new source
+// here is optional — but named colors make the log tab scannable when
+// filtering by category.
+const SOURCE_COLORS = {
     pwa: '#2dd4bf',
     boot: '#a78bfa',
     render: '#60a5fa',
@@ -35,7 +36,9 @@ export const SOURCE_COLORS = {
     export: '#a3e635',
 };
 
-export const SEVERITY_COLORS = {
+// Severity color mapping. Module-private — consumed only by
+// `styles.logEntry` below.
+const SEVERITY_COLORS = {
     info: '#94a3b8',
     success: '#4ade80',
     warn: '#fbbf24',
