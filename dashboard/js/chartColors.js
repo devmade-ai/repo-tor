@@ -112,22 +112,41 @@ export function withOpacity(color, opacity) {
 // --- Repo category helpers ---
 // Repos have three display categories — discontinued, internal, and active.
 // Each category maps to a DaisyUI semantic token so the chart tracks the
-// active theme. Discontinued = neutral (faded, inactive), internal =
-// base-content (present but muted on any theme), active = cycle through
-// the 8-colour semantic palette.
+// active theme. The visual hierarchy preserves the pre-vanilla design
+// where active repos are most prominent, internal repos are dimmer, and
+// discontinued repos are the dimmest. All three resolve at runtime so
+// theme changes update colours via the chart useMemo deps that include
+// state.themeAccent / state.themeMuted.
+//
+// Implementation: both inactive categories use `--color-neutral` with
+// different opacity overlays via color-mix. Internal at 60% (clearly
+// visible but de-emphasised), discontinued at 30% (barely-there ghost).
+// Active cycles through the 8-slot semantic palette via getSeriesColor.
+//
+// Earlier vanilla-sweep version mapped internal → `--color-base-content`
+// (the primary text colour, HIGH contrast) which inverted the intended
+// hierarchy — internal repos rendered MORE prominent than active ones
+// because base-content is near-pure-black/white in most themes. Fixed
+// 2026-04-15 to use neutral with opacity instead.
 const DISCONTINUED_REPOS = new Set(['coin-zapp', 'plant-fur', 'chatty-chart']);
 const INTERNAL_REPOS = new Set(['tool-till-tees', 'glow-props', 'canva-grid-assets', 'repo-tor']);
 
+function dimNeutral(opacity) {
+    const neutral = readCssVar('--color-neutral');
+    if (!neutral) return '';
+    return `color-mix(in oklab, ${neutral} ${Math.round(opacity * 100)}%, transparent)`;
+}
+
 /**
  * Get a chart colour for a repo based on its category. Discontinued repos
- * get the active theme's neutral token; internal repos get base-content;
- * active public-facing repos cycle through the semantic palette by their
- * position among active repos. All values resolve to the active DaisyUI
+ * get a 30%-opacity neutral overlay (ghost), internal repos get 60%
+ * neutral (visible but muted), active public-facing repos cycle through
+ * the 8-slot semantic palette. All values resolve to the active DaisyUI
  * theme at call time.
  */
 export function getRepoColor(repoName, activeIndex) {
-    if (DISCONTINUED_REPOS.has(repoName)) return readCssVar('--color-neutral');
-    if (INTERNAL_REPOS.has(repoName)) return readCssVar('--color-base-content');
+    if (DISCONTINUED_REPOS.has(repoName)) return dimNeutral(0.3);
+    if (INTERNAL_REPOS.has(repoName)) return dimNeutral(0.6);
     return getSeriesColor(activeIndex);
 }
 

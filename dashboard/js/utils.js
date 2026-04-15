@@ -165,88 +165,60 @@ export function getWorkPattern(commit) {
 //   so that the DaisyUI theme IS the brand colour — no static hex
 //   palette, no theme-independent values. Tags within the same semantic
 //   category render with the same DaisyUI variant.
-// Approach: `getTagBadgeClass(tag)` returns a DaisyUI badge modifier
-//   class (`badge-success`, `badge-error`, etc.) that tracks the active
-//   theme. JSX consumers compose it as `badge badge-sm ${variant}`.
-//   The 34-tag brand-hex palette (TAG_COLORS) and its companion
-//   TAG_TEXT_OVERRIDES + DYNAMIC_TAG_PALETTE + getTagStyleObject()
-//   helper were deleted 2026-04-14 in the vanilla-DaisyUI sweep. Chart.js
-//   datasets that previously called getTagColor() now resolve DaisyUI
-//   semantic tokens at runtime via chartColors.js.
+// Approach: One source of truth — `TAG_SEMANTIC_BASE` maps each tag
+//   name to one of 7 DaisyUI semantic bases (success/error/warning/
+//   secondary/info/accent/neutral). Two derivation helpers expose:
+//     - `getTagBadgeClass(tag)` → `badge-${base}` for JSX chip render
+//     - `resolveTagSemanticColor(tag)` → runtime CSS var value for
+//       Chart.js dataset backgrounds (which need literal colours, not
+//       class names)
+//   Both helpers fall back to `neutral` for unknown tags. The 34-tag
+//   brand-hex palette (TAG_COLORS) and its companions TAG_TEXT_OVERRIDES
+//   + DYNAMIC_TAG_PALETTE + getTagStyleObject() were deleted 2026-04-14
+//   in the vanilla-DaisyUI sweep.
 // Alternatives considered:
 //   - Keep per-tag brand hex: Rejected — user directive "i don't want
 //     brand colours or static colours anywhere".
-//   - Per-tag theme-tracked hue shifts via color-mix: Rejected — still
-//     custom, and the 34-tag palette collapses into ~7 meaningful
-//     categories anyway.
+//   - Two parallel maps (TAG_SEMANTIC_BADGE + TAG_SEMANTIC_VAR): Rejected
+//     2026-04-14. The first vanilla-sweep version had this duplication
+//     — adding a new tag to one map and forgetting the other would let
+//     chips and chart datasets disagree. One source of truth via
+//     `TAG_SEMANTIC_BASE` is safer.
 //
-// Maps 34 commit tag names to 7 DaisyUI semantic tokens. Tags within a
+// Maps 34 commit tag names to 7 DaisyUI semantic bases. Tags within a
 // category (feature/enhancement/seed/init → success) share the same
 // visual — a deliberate reduction from 34 distinct colours to 7 semantic
 // meanings. Users lose fine-grained tag discrimination but gain a palette
-// that tracks every DaisyUI theme.
-const TAG_SEMANTIC = {
+// that tracks every DaisyUI theme. Tags not listed here fall back to
+// `neutral` via `tagSemanticBase()`.
+const TAG_SEMANTIC_BASE = {
     // Additive / new functionality → success (green family in most themes)
-    feature: 'badge-success',
-    enhancement: 'badge-success',
-    seed: 'badge-success',
-    init: 'badge-success',
+    feature: 'success', enhancement: 'success', seed: 'success', init: 'success',
     // Problems / fixes → error
-    bugfix: 'badge-error',
-    fix: 'badge-error',
-    security: 'badge-error',
-    hotfix: 'badge-error',
+    bugfix: 'error', fix: 'error', security: 'error', hotfix: 'error',
     // Removal / revert / deprecation → warning
-    removal: 'badge-warning',
-    revert: 'badge-warning',
-    deprecate: 'badge-warning',
+    removal: 'warning', revert: 'warning', deprecate: 'warning',
     // Refactoring / cleanup → secondary
-    refactor: 'badge-secondary',
-    naming: 'badge-secondary',
-    cleanup: 'badge-secondary',
+    refactor: 'secondary', naming: 'secondary', cleanup: 'secondary',
     // Documentation / config → info
-    docs: 'badge-info',
-    config: 'badge-info',
+    docs: 'info', config: 'info',
     // Testing / build / CI → accent
-    test: 'badge-accent',
-    'test-unit': 'badge-accent',
-    'test-e2e': 'badge-accent',
-    build: 'badge-accent',
-    ci: 'badge-accent',
-    deploy: 'badge-accent',
-    // Everything else (chore, style, ui, ux, accessibility, perf, deps, other) → neutral
-    chore: 'badge-neutral',
-    style: 'badge-neutral',
-    ux: 'badge-neutral',
-    ui: 'badge-neutral',
-    accessibility: 'badge-neutral',
-    performance: 'badge-neutral',
-    perf: 'badge-neutral',
-    dependency: 'badge-neutral',
-    deps: 'badge-neutral',
-    other: 'badge-neutral',
+    test: 'accent', 'test-unit': 'accent', 'test-e2e': 'accent',
+    build: 'accent', ci: 'accent', deploy: 'accent',
+    // Everything else (chore, style, ui, ux, accessibility, perf, deps, other)
+    // falls through to the `neutral` default in tagSemanticBase().
 };
+
+function tagSemanticBase(tag) {
+    return TAG_SEMANTIC_BASE[tag] || 'neutral';
+}
 
 /** DaisyUI badge variant class for a tag name. Unknown tags fall back
  *  to `badge-neutral`. Compose as `badge badge-sm ${getTagBadgeClass(tag)}`
  *  on a `<span>` to render a theme-tracked tag chip. */
 export function getTagBadgeClass(tag) {
-    return TAG_SEMANTIC[tag] || 'badge-neutral';
+    return `badge-${tagSemanticBase(tag)}`;
 }
-
-// Map tag → DaisyUI CSS variable name for the corresponding semantic token.
-// Used by chart datasets that need a literal colour value for Chart.js
-// (which can't consume CSS classes directly). Keeps tag→semantic mapping
-// consistent with TAG_SEMANTIC above — same 7 categories.
-const TAG_SEMANTIC_VAR = {
-    feature: '--color-success', enhancement: '--color-success', seed: '--color-success', init: '--color-success',
-    bugfix: '--color-error', fix: '--color-error', security: '--color-error', hotfix: '--color-error',
-    removal: '--color-warning', revert: '--color-warning', deprecate: '--color-warning',
-    refactor: '--color-secondary', naming: '--color-secondary', cleanup: '--color-secondary',
-    docs: '--color-info', config: '--color-info',
-    test: '--color-accent', 'test-unit': '--color-accent', 'test-e2e': '--color-accent',
-    build: '--color-accent', ci: '--color-accent', deploy: '--color-accent',
-};
 
 /** Runtime-resolved DaisyUI semantic colour for a tag — reads the active
  *  theme's `--color-<semantic>` CSS variable from computed styles and
@@ -256,7 +228,7 @@ const TAG_SEMANTIC_VAR = {
  *  outside a DOM context (SSR / tests). */
 export function resolveTagSemanticColor(tag) {
     if (typeof document === 'undefined') return undefined;
-    const varName = TAG_SEMANTIC_VAR[tag] || '--color-neutral';
+    const varName = `--color-${tagSemanticBase(tag)}`;
     return getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || undefined;
 }
 

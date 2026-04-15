@@ -282,7 +282,7 @@ export default function FilterSidebar() {
     }
 
     return (
-        <aside className="menu bg-base-200 min-h-full w-80 p-4 space-y-4">
+        <aside className="bg-base-200 min-h-full w-80 p-4 space-y-4">
             <div className="text-xs text-base-content/60 mb-3">
                 Showing {filteredCommits.length} of {state.data?.commits?.length || 0} commits
                 {activeFilterCount > 0 && ` (${activeFilterCount} filters active)`}

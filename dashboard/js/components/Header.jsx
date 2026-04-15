@@ -209,7 +209,7 @@ export default function Header() {
                                     <button
                                         type="button"
                                         onClick={handleOpenFilters}
-                                        className="btn btn-link btn-sm p-0 min-h-0 h-auto text-primary"
+                                        className="text-primary underline underline-offset-2 hover:opacity-80 cursor-pointer"
                                     >
                                         Showing {filteredCount.toLocaleString()} of {totalCount.toLocaleString()} changes &middot; Filtered
                                     </button>
