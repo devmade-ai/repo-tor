@@ -2,9 +2,10 @@
 //
 // Requirement: catch regressions that would let a custom class silently shadow
 //   a DaisyUI @layer components rule (the exact trap the 2026-04-13 10-phase
-//   sweep fixed). The full browser-runtime test lives in dashboard/e2e and
-//   runs under Playwright in CI; this file is a source-level tripwire that
-//   runs in every local test invocation without needing a browser binary.
+//   sweep fixed). This file is the project's only automated test layer —
+//   browser-runtime tests (Playwright) were removed 2026-04-15 because the
+//   spec files were never run; see docs/HISTORY.md and docs/TODO.md
+//   "Browser test coverage (future)" for context.
 //
 // Approach: read each migrated source file and assert that:
 //   1. The DaisyUI class name is still present at its expected call site.
@@ -16,13 +17,12 @@
 //   - Rendering each component via react-dom/server renderToString: Rejected —
 //     requires JSX transpilation at test time (adds a tsx/esbuild dep), and
 //     doesn't cover components that depend on React Context (AppContext,
-//     which needs a provider + mock data). The browser-runtime Playwright
-//     spec covers the composition / interaction layer; this file covers
-//     the source-level invariants those tests also check but can catch at
-//     zero cost in unit time.
-//   - JSDOM full app bootstrap: Rejected — slow, fragile, and duplicates
-//     Playwright's E2E coverage without the benefit of real browser
-//     rendering or real CSS evaluation.
+//     which needs a provider + mock data). Source-level grepping is enough
+//     for class-name regressions which are the highest-value catch.
+//   - JSDOM full app bootstrap: Rejected — slow, fragile, and doesn't
+//     verify the actual built CSS that ships to users (which is what the
+//     "built CSS shipping checks" assertions cover via direct file reads
+//     of dist/assets/index-*.css).
 //
 // When to update: add a new assertion here every time a component is
 // migrated to (or away from) a DaisyUI component class, matching the
