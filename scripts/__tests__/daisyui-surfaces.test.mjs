@@ -417,13 +417,18 @@ test('Chart.js components read theme accent from state.themeAccent / state.theme
     const timingSrc = read('dashboard/js/sections/Timing.jsx');
     assert.match(timingSrc, /state\.themeAccent/, 'Timing.jsx should read state.themeAccent');
     assert.match(timingSrc, /state\.themeMuted/, 'Timing.jsx should read state.themeMuted');
-    // Timeline.jsx commit bars and net-lines bars should track theme.
-    const timelineSrc = read('dashboard/js/sections/Timeline.jsx');
-    const timelineAccentMatches = timelineSrc.match(/state\.themeAccent/g);
+    // Timeline chart-data builders extracted into hooks/useTimelineCharts.js
+    // on 2026-04-15 — assertion now reads the hook file. The commit-bar
+    // and net-lines bar charts both reference state.themeAccent.
+    const timelineHookSrc = read('dashboard/js/hooks/useTimelineCharts.js');
+    const timelineAccentMatches = timelineHookSrc.match(/state\.themeAccent/g);
     assert.ok(
         timelineAccentMatches && timelineAccentMatches.length >= 2,
-        `Timeline.jsx should read state.themeAccent in at least 2 chart memos, found ${timelineAccentMatches?.length ?? 0}`
+        `useTimelineCharts.js should read state.themeAccent in at least 2 chart memos, found ${timelineAccentMatches?.length ?? 0}`
     );
+    // Sanity-check that Timeline.jsx still consumes the hook.
+    const timelineSrc = read('dashboard/js/sections/Timeline.jsx');
+    assert.match(timelineSrc, /useTimelineCharts/, 'Timeline.jsx should call useTimelineCharts hook');
     // Contributors.jsx low-complexity segment should track theme.
     const contribSrc = read('dashboard/js/sections/Contributors.jsx');
     assert.match(contribSrc, /state\.themeMuted/, 'Contributors.jsx should read state.themeMuted for low-complexity segment');
