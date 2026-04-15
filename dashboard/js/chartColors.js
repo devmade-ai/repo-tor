@@ -1,318 +1,141 @@
 /**
- * Centralized chart color configuration for the dashboard.
+ * Vanilla-DaisyUI chart colour resolver.
  *
- * Requirement: Allow embedding apps to customize graph colors via URL parameters
- * Approach: Single module that all tab components import colors from. Reads
- *   ?colors= (series palette), ?accent= (primary color), and ?palette= (named
- *   presets) from the URL at load time. Falls back to defaults when no overrides
- *   are provided, so the full dashboard is unaffected.
- * Alternatives:
- *   - CSS variable overrides: Rejected — CSS variables can't cross iframe
- *     boundaries, so the embedding app couldn't set them
- *   - postMessage API: Rejected — adds complexity; URL params are simpler
- *     and stateless (bookmarkable, shareable)
- *   - Per-chart URL params: Rejected — too many params; a shared palette
- *     covers the common case cleanly
- */
-
-// --- Default palette ---
-// 20 perceptually distinct colors for multi-series charts. Ordered so that
-// semantic colors (red=error, green=success, yellow=warning) appear late in
-// the sequence — early positions use neutral hues (blue, purple, teal, pink,
-// orange) to avoid implying status when items are just data categories.
-const DEFAULT_SERIES = [
-    '#2D68FF', '#a78bfa', '#22d3ee', '#EC4899', '#F97316', '#8B5CF6',
-    '#14B8A6', '#06B6D4', '#D946EF', '#0EA5E9', '#6366F1', '#FB923C',
-    '#84CC16', '#CA8A04', '#10B981', '#16A34A', '#EAB308', '#F43F5E',
-    '#EF4444', '#E11D48',
-];
-const DEFAULT_ACCENT = '#2D68FF';
-const DEFAULT_ACCENT_MUTED = '#94a3b8';
-
-// --- Named palette presets ---
-// Curated palettes that embedders can use via ?palette=name instead of
-// specifying individual hex values. Each defines a series (for multi-dataset
-// charts) and an accent (for single-color charts like heatmaps).
-const PALETTES = {
-    // Default dashboard palette
-    default: { series: DEFAULT_SERIES, accent: DEFAULT_ACCENT },
-    // Warm tones — good for light-background embeds
-    warm: {
-        series: [
-            '#E63946', '#F4A261', '#E9C46A', '#2A9D8F', '#264653', '#606C38',
-            '#D62828', '#F77F00', '#FCBF49', '#457B9D', '#1D3557', '#A8DADC',
-            '#BC4749', '#DDA15E', '#FEFAE0', '#588157', '#3A5A40', '#CDB4DB',
-            '#E76F51', '#264653',
-        ],
-        accent: '#E63946',
-    },
-    // Cool tones — corporate / professional feel
-    cool: {
-        series: [
-            '#0077B6', '#00B4D8', '#90E0EF', '#CAF0F8', '#023E8A', '#48CAE4',
-            '#0096C7', '#ADE8F4', '#03045E', '#0077B6', '#00B4D8', '#90E0EF',
-            '#1B4965', '#5FA8D3', '#62B6CB', '#BEE9E8', '#1B9AAA', '#06D6A0',
-            '#118AB2', '#073B4C',
-        ],
-        accent: '#0077B6',
-    },
-    // Earth tones — natural, muted colors
-    earth: {
-        series: [
-            '#606C38', '#283618', '#DDA15E', '#BC6C25', '#FEFAE0', '#9B2226',
-            '#588157', '#3A5A40', '#A3B18A', '#DAD7CD', '#6B705C', '#CB997E',
-            '#B7B7A4', '#FFE8D6', '#DDBEA9', '#A5A58D', '#8B5E3C', '#D4A373',
-            '#CCD5AE', '#E9EDC9',
-        ],
-        accent: '#606C38',
-    },
-    // Vibrant — high contrast, colorful
-    vibrant: {
-        series: [
-            '#FF006E', '#8338EC', '#3A86FF', '#06D6A0', '#FFD166', '#EF476F',
-            '#118AB2', '#073B4C', '#F72585', '#7209B7', '#4361EE', '#4CC9F0',
-            '#FB5607', '#FF006E', '#3A0CA3', '#4895EF', '#80FFDB', '#F15BB5',
-            '#FEE440', '#00BBF9',
-        ],
-        accent: '#FF006E',
-    },
-    // Monochrome — single-hue variations (uses accent for tints)
-    mono: {
-        series: [
-            '#1D4ED8', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE', '#DBEAFE',
-            '#1E3A8A', '#2563EB', '#3B82F6', '#6390F0', '#818CF8', '#A5B4FC',
-            '#C7D2FE', '#312E81', '#4338CA', '#4F46E5', '#6366F1', '#7C3AED',
-            '#8B5CF6', '#A78BFA',
-        ],
-        accent: '#1D4ED8',
-    },
-};
-
-// --- Parse URL overrides (runs once at module load) ---
-// Uses shared searchParams from urlParams.js to avoid redundant parsing.
-import { searchParams } from './urlParams.js';
-
-// Validate hex color format: 3 or 6 hex digits, optionally prefixed with #.
-// Rejects invalid values to prevent broken CSS/chart rendering from URL params.
-// Extracted to module scope so both the initial parser and the runtime
-// resolvers below can share the same validator.
-function isValidHex(c) {
-    return /^#?[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(c);
-}
-function toHex(c) {
-    return c.startsWith('#') ? c : `#${c}`;
-}
-
-function parseColorOverrides() {
-    const params = searchParams;
-
-    // Start from default
-    let series = [...DEFAULT_SERIES];
-    let accent = DEFAULT_ACCENT;
-    let accentMuted = DEFAULT_ACCENT_MUTED;
-    // Track whether URL explicitly overrode accent/muted so the runtime
-    // resolvers below know when to fall through to theme-aware CSS variables
-    // vs sticking with an embedder-specified brand color. Without this flag
-    // we couldn't distinguish "URL set accent to the same value as the
-    // default" from "no URL override at all".
-    let accentOverridden = false;
-    let mutedOverridden = false;
-
-    // ?palette=name — apply a named preset as the base
-    const paletteName = params.get('palette');
-    if (paletteName && PALETTES[paletteName]) {
-        const preset = PALETTES[paletteName];
-        series = [...preset.series];
-        accent = preset.accent;
-        // A palette name is a deliberate embedder choice — treat it as an
-        // accent override so it survives theme changes.
-        accentOverridden = true;
-    }
-
-    // ?colors=hex1,hex2,hex3 — override series colors (takes priority over palette)
-    const colorsParam = params.get('colors');
-    if (colorsParam) {
-        const parsed = colorsParam
-            .split(',')
-            .map(c => c.trim())
-            .filter(c => c && isValidHex(c))
-            .map(toHex);
-        if (parsed.length > 0) {
-            series = parsed;
-        }
-    }
-
-    // ?accent=hex — override the primary accent color (takes priority over palette)
-    const accentParam = params.get('accent');
-    if (accentParam && isValidHex(accentParam)) {
-        accent = toHex(accentParam);
-        accentOverridden = true;
-    }
-
-    // ?muted=hex — override the muted/secondary color (after-hours, weekends, etc.)
-    const mutedParam = params.get('muted');
-    if (mutedParam && isValidHex(mutedParam)) {
-        accentMuted = toHex(mutedParam);
-        mutedOverridden = true;
-    }
-
-    return { series, accent, accentMuted, accentOverridden, mutedOverridden };
-}
-
-const resolved = parseColorOverrides();
-
-// --- Exported color accessors ---
-
-/**
- * The resolved series palette. Use for multi-dataset charts (stacked bars,
- * multi-line charts). Cycle through with index % length.
- */
-export const seriesColors = resolved.series;
-
-/**
- * Bootstrap primary accent color. Frozen at module load to either the
- * URL-override value, the palette preset accent, or the hardcoded default.
- * Used for:
- *   - Pre-React bootstrap code that can't subscribe to theme state yet
- *     (main.jsx sets --chart-accent-override from this value).
- *   - As a fallback inside `resolveRuntimeAccent()` when the DOM isn't
- *     available (SSR, very early bootstrap).
- * Component code that renders inside React should prefer `state.themeAccent`
- * from useApp() which tracks the active theme via the reducer.
- */
-export const accentColor = resolved.accent;
-
-/**
- * Bootstrap muted/secondary color. Same semantics as `accentColor` — prefer
- * `state.themeMuted` from useApp() inside React.
- */
-export const mutedColor = resolved.accentMuted;
-
-/**
- * True if the embedder supplied `?accent=`, `?palette=`, or `?muted=` via URL
- * parameters. When true, the runtime resolvers below pin the returned value
- * to the URL override across all theme changes — an embedder that chose a
- * specific brand color wants it to survive theme picker clicks.
- */
-export const hasUrlAccentOverride = resolved.accentOverridden;
-export const hasUrlMutedOverride = resolved.mutedOverridden;
-
-/**
- * Resolve the active accent color at runtime — the value charts should use
- * for single-dataset bars, heatmap fills, and any "brand" color.
+ * Requirement: Chart.js datasets must use only DaisyUI semantic tokens so
+ *   every chart tracks the active theme. No static brand palette, no URL
+ *   overrides, no hardcoded hex — "the daisy theme is the brand colour".
+ * Approach: At runtime, read DaisyUI's semantic colour custom properties
+ *   from `getComputedStyle(document.documentElement)` and return the
+ *   resolved values (oklch strings or similar). Modern browsers (Chrome
+ *   111+, Firefox 113+, Safari 16.2+) parse oklch() in canvas, so Chart.js
+ *   accepts the values directly without a conversion step.
  *
- * Requirement: Chart.js dataset colors must track the active DaisyUI theme
- *   so `lofi` users see lofi's primary, `emerald` users see emerald's, etc.
- *   Previously the static `accentColor` export was a frozen bootstrap value
- *   that stayed at `#2D68FF` regardless of theme — off-brand on every theme
- *   except lofi. AppContext's darkMode effect now dispatches SET_THEME_COLORS
- *   with the resolved value after each theme change, and chart components
- *   read `state.themeAccent` from useApp() so their useMemo deps trigger a
- *   re-render on theme change.
- *
- * Approach:
- *   1. If the embedder set `?accent=hex` or `?palette=name` via URL,
- *      return the bootstrap value — embedder choice is sticky across
- *      theme changes so a branded embed stays branded.
- *   2. Otherwise read `--color-primary` from `getComputedStyle` on the
- *      <html> element. DaisyUI exposes this as an oklch() value; modern
- *      browsers (Chrome 111+, Firefox 113+, Safari 16.2+) parse oklch()
- *      in canvas, so Chart.js can use it directly without any conversion.
- *      This matches the existing pattern in `themes.js applyTheme()` where
- *      `--color-base-content` is already piped into `ChartJS.defaults.color`.
- *   3. If `getComputedStyle` returns empty (SSR, or very early bootstrap
- *      before styles.css loaded), fall back to the bootstrap `accentColor`.
+ *   Chart datasets with multiple categories cycle through an 8-colour
+ *   sequence of DaisyUI semantic tokens (primary → secondary → accent →
+ *   info → success → warning → error → neutral). Charts with more than
+ *   eight series repeat colours. The previous 20-hex palette offered more
+ *   distinct values at the cost of being theme-independent; the vanilla
+ *   version prioritises theme fidelity.
  *
  * Alternatives considered:
- *   - Use `var(--color-primary)` literal in Chart.js config: Rejected —
- *     canvas context doesn't resolve CSS variables, only the browser's CSS
- *     parser does. Chart.js would receive the literal string "var(...)" and
- *     fail to render.
- *   - Convert oklch() to hex on every theme change: Rejected — we already
- *     have oklchToHex.mjs for the theme meta generator, but modern canvas
- *     parses oklch() natively so the conversion is unnecessary runtime cost.
- *   - Use a React Context instead of reading computed style: Viable but
- *     couples chartColors.js to React. The getComputedStyle approach keeps
- *     chartColors.js framework-agnostic — embed consumers that use the
- *     dashboard as a plain library can still call this function.
+ *   - 20-hex brand palette (previous state): Rejected — user directive
+ *     "i don't want brand colours or static colours anywhere".
+ *   - Use `var(--color-*)` literals in Chart.js config: Rejected — canvas
+ *     context doesn't resolve CSS variables, only the browser's CSS parser
+ *     does.
+ *   - Generate lightened/darkened variants with color-mix to extend beyond
+ *     8 colours: Possible but over-engineered for now. If a chart actually
+ *     has >8 distinct series, we can add a second cycle later.
  */
-export function resolveRuntimeAccent() {
-    if (hasUrlAccentOverride) return accentColor;
-    if (typeof window === 'undefined' || !document?.documentElement) return accentColor;
-    const cssValue = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-primary')
-        .trim();
-    return cssValue || accentColor;
+
+// Eight DaisyUI semantic CSS variables, in visual-interest order for
+// chart cycling. Primary leads because it's the "default dataset" colour
+// across the UI; info/success/warning/error come after the tinted colour
+// families so the first five slots of a multi-category chart are visually
+// distinct without implying status.
+const SEMANTIC_CYCLE = [
+    '--color-primary',
+    '--color-secondary',
+    '--color-accent',
+    '--color-info',
+    '--color-success',
+    '--color-warning',
+    '--color-error',
+    '--color-neutral',
+];
+
+function readCssVar(name) {
+    if (typeof document === 'undefined' || !document.documentElement) return '';
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
 /**
- * Resolve the active muted/secondary color at runtime. Same semantics as
- * `resolveRuntimeAccent()` but for the "secondary" contrast color used by
- * after-hours bars, weekend bars, and low-complexity indicators.
- *
- * The DaisyUI side doesn't have a single "muted" semantic token, so we
- * derive one from `color-mix(in oklab, var(--color-base-content) 40%, transparent)`
- * which matches our existing `text-base-content/40` pattern for tertiary
- * text. Modern canvas parses color-mix() natively so Chart.js accepts it
- * as-is. The fallback chain is the same as `resolveRuntimeAccent()`.
+ * Active theme's primary colour. Reads --color-primary at call time so
+ * every invocation reflects the current theme. Returns empty string in
+ * non-DOM contexts (SSR, tests) — callers must handle the empty case.
+ */
+export function resolveRuntimeAccent() {
+    return readCssVar('--color-primary');
+}
+
+/**
+ * Active theme's "muted" colour — used for secondary/de-emphasised chart
+ * segments (after-hours bars, weekend bars, low-complexity indicators).
+ * Derived as `color-mix(in oklab, <base-content> 40%, transparent)` which
+ * matches the dashboard's `text-base-content/40` tertiary-text convention
+ * so muted chart bars visually align with the "inactive" text tone.
+ * Modern canvas parses color-mix() natively so Chart.js accepts it as-is.
  */
 export function resolveRuntimeMuted() {
-    if (hasUrlMutedOverride) return mutedColor;
-    if (typeof window === 'undefined' || !document?.documentElement) return mutedColor;
-    const baseContent = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-base-content')
-        .trim();
-    if (!baseContent) return mutedColor;
-    // 40% of base-content matches the dashboard's text-base-content/40
-    // tertiary text tint, so muted chart bars visually align with the
-    // "inactive / deprioritised" text tone on the same page.
+    const baseContent = readCssVar('--color-base-content');
+    if (!baseContent) return '';
     return `color-mix(in oklab, ${baseContent} 40%, transparent)`;
 }
 
 /**
- * Get a series color by index, cycling through the palette.
+ * Full 8-colour semantic palette, resolved at call time. Used by
+ * chart datasets that need a fixed ordering — iterate with index %
+ * length for cycling.
  */
-export function getSeriesColor(index) {
-    return seriesColors[index % seriesColors.length];
+export function getSemanticPalette() {
+    return SEMANTIC_CYCLE.map(readCssVar);
 }
 
-// --- Repo category colors ---
-// Requirement: Visually distinguish repo status on charts — discontinued repos
-//   gray, internal repos white, public-facing active repos get palette colors.
-// Approach: Centralized category map + getRepoColor() so all charts share the
-//   same logic without duplicating category lists.
-// Alternatives:
-//   - Per-chart category checks: Rejected — duplicates category lists across files
-//   - Config file / repos.json field: Rejected — adds complexity for a display concern
+/**
+ * Get a series colour by index, cycling through the 8 DaisyUI semantic
+ * tokens. Resolves at call time so every invocation reflects the active
+ * theme.
+ */
+export function getSeriesColor(index) {
+    return readCssVar(SEMANTIC_CYCLE[index % SEMANTIC_CYCLE.length]);
+}
 
+/**
+ * Sequence of 8 CSS variable names — exposed for consumers that want to
+ * iterate the semantic cycle without calling getSemanticPalette() (e.g.
+ * to build a className array from the variable names). Prefer
+ * `getSemanticPalette()` or `getSeriesColor(i)` for runtime colour values.
+ */
+export const SEMANTIC_CYCLE_VARS = [...SEMANTIC_CYCLE];
+
+/**
+ * Generate an rgba()/color-mix wrapper for a resolved colour at the given
+ * opacity. Used for chart fill backgrounds (e.g., area under line charts).
+ * Accepts any CSS colour value the browser understands — oklch strings
+ * from DaisyUI, color-mix expressions, etc.
+ */
+export function withOpacity(color, opacity) {
+    if (!color) return '';
+    return `color-mix(in oklab, ${color} ${Math.round(opacity * 100)}%, transparent)`;
+}
+
+// --- Repo category helpers ---
+// Repos have three display categories — discontinued, internal, and active.
+// Each category maps to a DaisyUI semantic token so the chart tracks the
+// active theme. Discontinued = neutral (faded, inactive), internal =
+// base-content (present but muted on any theme), active = cycle through
+// the 8-colour semantic palette.
 const DISCONTINUED_REPOS = new Set(['coin-zapp', 'plant-fur', 'chatty-chart']);
 const INTERNAL_REPOS = new Set(['tool-till-tees', 'glow-props', 'canva-grid-assets', 'repo-tor']);
 
-const COLOR_DISCONTINUED = '#4b5563'; // gray-600 — faded, clearly inactive
-const COLOR_INTERNAL = '#d1d5db';     // gray-300 — light, present but muted
-
 /**
- * Get a chart color for a repo based on its category.
- * - Discontinued repos → gray
- * - Internal repos → white/light gray
- * - Public-facing active repos → palette color (by index among active repos)
- *
- * @param {string} repoName - The repository name
- * @param {number} activeIndex - Index among public-facing repos (for palette cycling)
+ * Get a chart colour for a repo based on its category. Discontinued repos
+ * get the active theme's neutral token; internal repos get base-content;
+ * active public-facing repos cycle through the semantic palette by their
+ * position among active repos. All values resolve to the active DaisyUI
+ * theme at call time.
  */
 export function getRepoColor(repoName, activeIndex) {
-    if (DISCONTINUED_REPOS.has(repoName)) return COLOR_DISCONTINUED;
-    if (INTERNAL_REPOS.has(repoName)) return COLOR_INTERNAL;
+    if (DISCONTINUED_REPOS.has(repoName)) return readCssVar('--color-neutral');
+    if (INTERNAL_REPOS.has(repoName)) return readCssVar('--color-base-content');
     return getSeriesColor(activeIndex);
 }
 
 /**
- * Build a color map for a list of repos, using category-aware colors.
- * Public-facing repos get sequential palette colors; discontinued/internal
- * get fixed colors regardless of position.
- *
- * @param {string[]} repos - List of repo names
- * @returns {Object<string, string>} Map of repo name → hex color
+ * Build a colour map for a list of repos, using category-aware colours.
+ * Public-facing repos get sequential semantic-cycle colours; discontinued
+ * and internal repos get their category's fixed token. Resolves at call
+ * time so the caller should memoize on theme state.
  */
 export function buildRepoColorMap(repos) {
     const colorMap = {};
@@ -325,19 +148,3 @@ export function buildRepoColorMap(repos) {
     }
     return colorMap;
 }
-
-/**
- * Generate an rgba() string from a hex color at the given opacity.
- * Used for chart fill backgrounds (e.g., area under line charts).
- */
-export function withOpacity(hex, opacity) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
-}
-
-/**
- * The named palette presets, exported for documentation/settings UI.
- */
-export const palettes = PALETTES;

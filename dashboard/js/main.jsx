@@ -40,36 +40,15 @@ ChartJS.register(
     PointElement, ArcElement, Title, Tooltip, Legend, Filler
 );
 
-// Chart.js theme colors (axis labels, grid lines) are set in AppContext.jsx's
-// darkMode effect so they update on theme toggle. Initial values are set there
-// too — no need to read CSS variables here at module load time.
-
-// Bridge the embedder's URL `?accent=` / `?palette=` override to CSS via
-// `--chart-accent-override`. The heatmap intensity rules in styles.css use
-// `var(--chart-accent-override, var(--color-primary))` so when this property
-// is unset the heatmap tracks the active DaisyUI theme's --color-primary
-// automatically. When the embedder supplied a URL override, we pin the CSS
-// property so all themes render the embed brand color instead.
-//
-// Requirement: Embedders that use the dashboard inside a branded iframe
-//   want their chosen accent color to survive theme picker clicks. For
-//   in-dashboard use (no embed override) the heatmap should track the
-//   active theme so lofi/nord/emerald/caramellatte/black/dim/coffee/dracula
-//   users each see their theme's primary instead of brand blue.
-// Approach: Only set --chart-accent-override when an explicit URL override
-//   was supplied. The CSS `var()` fallback chain handles the no-override
-//   case for free.
-// Alternatives:
-//   - Always set --chart-accent-override to the bootstrap accent: Rejected
-//     — would shadow DaisyUI's --color-primary even when no embedder is
-//     involved, re-introducing the "off-brand single-accent charts" bug
-//     the 2026-04-13 audit caught.
-//   - Set via JavaScript on every theme change: Rejected — the CSS var()
-//     fallback already handles theme tracking without any JS involvement.
-import { accentColor, hasUrlAccentOverride } from './chartColors.js';
-if (hasUrlAccentOverride) {
-    document.documentElement.style.setProperty('--chart-accent-override', accentColor);
-}
+// Chart.js theme colours (axis labels, grid lines) are set in
+// AppContext.jsx's darkMode effect so they update on theme toggle.
+// chartColors.js resolves DaisyUI semantic tokens at runtime via
+// getComputedStyle — no URL overrides, no bootstrap brand colour to
+// bridge. The vanilla-DaisyUI sweep (2026-04-14) deleted `?palette`,
+// `?accent`, `?muted`, and `?colors` URL parameters along with the
+// `--chart-accent-override` CSS variable they set; embedders now see
+// whatever DaisyUI theme they configured via `?theme=` or left at the
+// default.
 
 // === Debug Bridge ===
 // Requirement: Debug pill must work even when JS bundle fails to load

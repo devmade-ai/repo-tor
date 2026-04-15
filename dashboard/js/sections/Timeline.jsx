@@ -8,16 +8,12 @@ import {
     getUTCDateKey, getUTCMonthKey, excludeIncompleteLastMonth,
 } from '../utils.js';
 import { aggregateByWeekPeriod, aggregateByDayPeriod } from '../charts.js';
-// accentColor / mutedColor are read from state.themeAccent / state.themeMuted
-// (via useApp) so charts track the active DaisyUI theme. Static palette
-// helpers stay as direct imports — seriesColors is a 20-color multi-dataset
-// palette that's intentionally theme-independent (data-viz distinctness
-// requires more colors than DaisyUI's semantic tokens can provide), and
-// buildRepoColorMap is a deterministic repo→color mapping built from that
-// palette. See docs/DAISYUI_V5_NOTES.md "Data-viz color tokens" for the
-// distinction between theme-tracked single-accent colors and the fixed
-// multi-dataset palette.
-import { seriesColors, getSeriesColor, withOpacity, buildRepoColorMap } from '../chartColors.js';
+// Chart colours come from DaisyUI semantic tokens via the runtime
+// resolvers in chartColors.js — all calls re-read computed styles so
+// every invocation reflects the active theme. state.themeAccent /
+// state.themeMuted are dispatched by AppContext's darkMode effect so
+// the chart useMemos rebuild when the theme changes.
+import { getSeriesColor, withOpacity, buildRepoColorMap } from '../chartColors.js';
 import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';

@@ -2,7 +2,7 @@ import React, { createContext, useContext, useReducer, useMemo, useCallback, use
 import { state as globalState, VIEW_LEVELS } from './state.js';
 import { getCommitTags, getAuthorEmail, getUrgencyLabel, safeStorageGet, safeStorageSet } from './utils.js';
 import { applyTheme, validLightTheme, validDarkTheme } from './themes.js';
-import { accentColor, mutedColor, resolveRuntimeAccent, resolveRuntimeMuted } from './chartColors.js';
+import { resolveRuntimeAccent, resolveRuntimeMuted } from './chartColors.js';
 
 // Requirement: Prevent unnecessary re-renders when components only need to dispatch actions
 // Approach: Split into two contexts — DispatchContext (stable identity, never changes) and
@@ -80,15 +80,13 @@ function loadInitialState() {
         darkTheme: initialDarkTheme,
         // Chart.js dataset accent / muted colors, resolved from the active
         // theme's --color-primary / --color-base-content at runtime. Seeded
-        // with the bootstrap values from chartColors.js so the first render
-        // has a valid color before the darkMode effect runs and dispatches
-        // the computed-style-resolved values. After mount, AppContext's
-        // darkMode effect dispatches SET_THEME_COLORS with
-        // resolveRuntimeAccent()/resolveRuntimeMuted() return values so the
-        // chart useMemos re-run with theme-tracked colors. See chartColors.js
-        // `resolveRuntimeAccent` for the URL-override precedence rules.
-        themeAccent: accentColor,
-        themeMuted: mutedColor,
+        // empty; the darkMode effect runs resolveRuntimeAccent() /
+        // resolveRuntimeMuted() on mount and dispatches SET_THEME_COLORS so
+        // the chart useMemos re-run with theme-tracked values. Chart sections
+        // gate their dataset builders on a non-empty themeAccent so they
+        // don't run with an empty string on the first render.
+        themeAccent: '',
+        themeMuted: '',
         activeTab: 'overview',
         currentViewLevel: safeStorageGet('viewLevel') || 'developer',
         useUTC: safeStorageGet('useUTC') === 'true',

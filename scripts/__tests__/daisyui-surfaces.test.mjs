@@ -421,13 +421,24 @@ test('Chart.js components read theme accent from state.themeAccent / state.theme
     assert.match(contribSrc, /state\.themeMuted/, 'Contributors.jsx should read state.themeMuted for low-complexity segment');
 });
 
-test('chartColors.js exposes runtime theme resolvers', () => {
+test('chartColors.js is vanilla DaisyUI (no brand hex, no URL overrides)', () => {
     const src = read('dashboard/js/chartColors.js');
+    // Runtime resolvers must still exist.
     assert.match(src, /export function resolveRuntimeAccent/);
     assert.match(src, /export function resolveRuntimeMuted/);
-    assert.match(src, /export const hasUrlAccentOverride/);
-    // resolveRuntimeAccent must read --color-primary from computed style
-    assert.match(src, /getPropertyValue\s*\(\s*'--color-primary'\s*\)/);
+    // Must read --color-primary / --color-base-content via getComputedStyle.
+    assert.match(src, /getPropertyValue/);
+    assert.match(src, /--color-primary/);
+    assert.match(src, /--color-base-content/);
+    // The 2026-04-14 vanilla sweep removed every URL override and every
+    // brand hex — regression-guard so they don't come back.
+    assert.doesNotMatch(src, /hasUrlAccentOverride/, 'hasUrlAccentOverride was deleted with the URL-override sweep');
+    assert.doesNotMatch(src, /hasUrlMutedOverride/, 'hasUrlMutedOverride was deleted with the URL-override sweep');
+    assert.doesNotMatch(src, /DEFAULT_SERIES/, 'DEFAULT_SERIES brand palette was deleted — use SEMANTIC_CYCLE');
+    assert.doesNotMatch(src, /DEFAULT_ACCENT/, 'DEFAULT_ACCENT brand hex was deleted');
+    assert.doesNotMatch(src, /PALETTES\b/, 'PALETTES preset map was deleted');
+    // No hex colour literals anywhere in the file.
+    assert.doesNotMatch(src, /#[0-9a-fA-F]{6}\b/, 'chartColors.js must not contain any hex colour literals in vanilla mode');
 });
 
 test('AppContext dispatches SET_THEME_COLORS after applyTheme()', () => {
