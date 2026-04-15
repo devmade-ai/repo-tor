@@ -73,15 +73,6 @@ export function resolveRuntimeMuted() {
 }
 
 /**
- * Full 8-colour semantic palette, resolved at call time. Used by
- * chart datasets that need a fixed ordering — iterate with index %
- * length for cycling.
- */
-export function getSemanticPalette() {
-    return SEMANTIC_CYCLE.map(readCssVar);
-}
-
-/**
  * Get a series colour by index, cycling through the 8 DaisyUI semantic
  * tokens. Resolves at call time so every invocation reflects the active
  * theme.
@@ -89,14 +80,6 @@ export function getSemanticPalette() {
 export function getSeriesColor(index) {
     return readCssVar(SEMANTIC_CYCLE[index % SEMANTIC_CYCLE.length]);
 }
-
-/**
- * Sequence of 8 CSS variable names — exposed for consumers that want to
- * iterate the semantic cycle without calling getSemanticPalette() (e.g.
- * to build a className array from the variable names). Prefer
- * `getSemanticPalette()` or `getSeriesColor(i)` for runtime colour values.
- */
-export const SEMANTIC_CYCLE_VARS = [...SEMANTIC_CYCLE];
 
 /**
  * Generate an rgba()/color-mix wrapper for a resolved colour at the given

@@ -40,7 +40,7 @@ export function getUrgencyLabel(urgency) {
 }
 
 // --- Anonymous / Sanitize Helpers ---
-export function getAnonymousName(email) {
+function getAnonymousName(email) {
     if (!authorAnonMap.has(email)) {
         const index = authorAnonMap.size % anonymousNames.length;
         authorAnonMap.set(email, anonymousNames[index]);
@@ -104,7 +104,7 @@ function computeEasterSunday(year) {
 }
 
 // Build holiday lookup set for quick checking
-export function buildHolidaySet() {
+function buildHolidaySet() {
     const holidays = new Set();
     const currentYear = new Date().getFullYear();
     // Cover a wide range: historical data (2015) through 5 years into the future
@@ -136,7 +136,7 @@ export function buildHolidaySet() {
     }
     return holidays;
 }
-export const holidaySet = buildHolidaySet();
+const holidaySet = buildHolidaySet();
 
 // === Work Pattern Helpers ===
 export function getWorkPattern(commit) {
@@ -238,14 +238,6 @@ export function getCommitTags(commit) {
         return commit.tags;
     }
     return ['other'];
-}
-
-export function getAllTags(commits) {
-    const tagSet = new Set();
-    commits.forEach(c => {
-        getCommitTags(c).forEach(tag => tagSet.add(tag));
-    });
-    return [...tagSet].sort();
 }
 
 // === Author Resolution ===

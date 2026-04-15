@@ -36,6 +36,3 @@ export const bgParam = params.get('bg');
 
 /** Data URL from ?data=url */
 export const dataUrlParam = params.get('data');
-
-/** Raw URLSearchParams for modules that need other params (chartColors.js) */
-export const searchParams = params;

@@ -44,11 +44,14 @@ export default function Header() {
         repoDisplay = Array.isArray(repoName) ? repoName.join(', ') : repoName;
     }
 
+    // Idempotent open: dispatch OPEN_FILTER_SIDEBAR (sets to true) instead
+    // of TOGGLE behind a guard. The reducer-level open action removes the
+    // need to read filterSidebarOpen from state, so this stays a stable
+    // callback (only `dispatch` in deps) and avoids a re-bind on every
+    // sidebar toggle elsewhere in the app.
     const handleOpenFilters = useCallback(() => {
-        if (!state.filterSidebarOpen) {
-            dispatch({ type: 'TOGGLE_FILTER_SIDEBAR' });
-        }
-    }, [state.filterSidebarOpen, dispatch]);
+        dispatch({ type: 'OPEN_FILTER_SIDEBAR' });
+    }, [dispatch]);
 
     // Seed from pwa.js module state (catches events that fired before mount),
     // then listen for subsequent changes. Also show install option for browsers
