@@ -109,16 +109,15 @@ export default function Timeline() {
         if (type === 'total') {
             openDetailPane('All Commits', `${filteredCommits.length} commits`, filteredCommits, { type: 'all', value: '' });
         } else if (type === 'contributors') {
-            const contributors = {};
-            filteredCommits.forEach(c => {
-                const email = getAuthorEmail(c);
-                if (!contributors[email]) {
-                    contributors[email] = { name: getAuthorName(c), count: 0 };
-                }
-                contributors[email].count++;
-            });
-            const sorted = Object.values(contributors).sort((a, b) => b.count - a.count);
-            openDetailPane('Contributors', `${sorted.length} active`, filteredCommits);
+            // Only the unique-count is needed for the detail-pane subtitle.
+            // The full `filteredCommits` array is passed through as the
+            // payload — the detail pane does its own per-author
+            // aggregation downstream, so there's no reason to build an
+            // intermediate name/count map here. A prior version allocated
+            // a full object map + sorted array just to read `.length` off
+            // it; replaced with a Set over the author email stream.
+            const uniqueAuthors = new Set(filteredCommits.map(getAuthorEmail)).size;
+            openDetailPane('Contributors', `${uniqueAuthors} active`, filteredCommits);
         }
     }, [filteredCommits, openDetailPane]);
 
