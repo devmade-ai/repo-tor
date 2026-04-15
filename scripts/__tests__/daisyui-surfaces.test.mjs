@@ -439,24 +439,24 @@ test('AppContext dispatches SET_THEME_COLORS after applyTheme()', () => {
     assert.match(src, /resolveRuntimeMuted\(\)/);
 });
 
-// ----- Heatmap CSS: theme-tracking + embed override -----
+// ----- Heatmap intensity: JS-driven stock Tailwind utilities -----
 
-test('Heatmap CSS uses color-mix + --chart-accent-override fallback chain', () => {
+test('Heatmap intensity levels use stock bg-primary/N utilities (no custom .heatmap-N classes)', () => {
+    const timingSrc = read('dashboard/js/sections/Timing.jsx');
+    // Must define the five-entry JS palette mapping level → stock Tailwind class.
+    assert.match(timingSrc, /HEATMAP_LEVEL_CLASSES\s*=/);
+    assert.match(timingSrc, /'bg-base-300'/);
+    assert.match(timingSrc, /'bg-primary\/20'/);
+    assert.match(timingSrc, /'bg-primary\/40'/);
+    assert.match(timingSrc, /'bg-primary\/60'/);
+    // Must not re-introduce the deleted .heatmap-N custom class references.
+    assert.doesNotMatch(timingSrc, /heatmap-\$\{level\}/, 'heatmap-${level} template literal was replaced by HEATMAP_LEVEL_CLASSES[level]');
+
+    // styles.css must not re-introduce the deleted .heatmap-N primary rules.
     const stylesSrc = read('dashboard/styles.css');
-    // Strip CSS block comments so rationale text referencing the removed
-    // --chart-accent-rgb variable doesn't false-trigger the regression check.
     const stripped = stylesSrc.replace(/\/\*[\s\S]*?\*\//g, '');
-    // Must use the nested var() fallback chain.
-    assert.match(stripped, /var\(--chart-accent-override,\s*var\(--color-primary\)\)/);
-    // Must use color-mix for intensity bands.
-    assert.match(stripped, /color-mix\(in oklab, var\(--chart-accent-override, var\(--color-primary\)\) 15%/);
-    assert.match(stripped, /color-mix\(in oklab, var\(--chart-accent-override, var\(--color-primary\)\) 35%/);
-    assert.match(stripped, /color-mix\(in oklab, var\(--chart-accent-override, var\(--color-primary\)\) 60%/);
-    // Must NOT re-introduce the old --chart-accent-rgb rgba() pattern.
-    assert.doesNotMatch(stripped, /--chart-accent-rgb/, 'Old --chart-accent-rgb CSS variable must not return — migrated to --chart-accent-override');
-    // High-intensity cells must use --color-primary-content for readable text
-    // (not hardcoded `white`, which is invisible on light themes).
-    assert.match(stripped, /color: var\(--color-primary-content\)/);
+    assert.doesNotMatch(stripped, /^\s*\.heatmap-[0-4]\s*\{/m, '.heatmap-N custom classes were deleted 2026-04-14 — do not re-introduce');
+    assert.doesNotMatch(stripped, /--chart-accent-override/, 'The --chart-accent-override embed hook was deleted with the vanilla-DaisyUI chart palette migration');
 });
 
 // ----- Built-CSS shipping checks (skip if dist/ missing) -----
@@ -564,12 +564,6 @@ test('styles.css allowlist — only legitimate custom classes remain', () => {
         // --- Not shipped by Tailwind ---
         'scrollbar-hide',             // ::-webkit-scrollbar pseudo + iOS scroll
         'header-filter-hint',         // `font: inherit` shorthand
-        // --- Data-viz intensity levels (dynamic JSX reference `heatmap-${level}`) ---
-        'heatmap-0',
-        'heatmap-1',
-        'heatmap-2',
-        'heatmap-3',
-        'heatmap-4',
         // --- Root state marker consumed by descendant selectors in styles.css ---
         'embed-mode',                 // triggers chart-only rendering in embeds
     ]);

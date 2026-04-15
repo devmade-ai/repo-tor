@@ -399,41 +399,16 @@ body::before {
            `heatmap-${level}` template strings, and the color-mix()
            gradients are too long to inline cleanly at every cell. */
 
-        /* Heatmap intensity levels.
-           Requirement: fill color tracks the active DaisyUI theme's primary
-             accent by default (so `nord` users see cool blue, `emerald` users
-             see green, etc.) but embedders can still override via the URL
-             `?accent=hex` param to pin a brand color.
-           Approach: use `var(--chart-accent-override, var(--color-primary))`
-             — the nested var() fallback means when --chart-accent-override
-             is unset (no URL param), the rule resolves to --color-primary
-             which DaisyUI sets per theme via the theme plugin. When the
-             embedder sets --chart-accent-override via main.jsx (from the
-             URL `?accent=` param), that takes precedence. color-mix() gives
-             us the intensity fades without needing RGB triples — it accepts
-             oklch() input and produces smooth intensity bands that read
-             correctly across all 8 registered themes.
-           Alternatives:
-             - Keep --chart-accent-rgb with oklch→RGB conversion on every
-               theme change: Rejected — requires a JS color-space conversion
-               step that duplicates the oklchToHex script, and the rgba()
-               path can't handle P3 wide-gamut colors while color-mix(in oklab)
-               can.
-             - Swap color-mix() for a series of static .heatmap-N rules per
-               theme: Rejected — 5 levels × 8 themes = 40 rules, and would
-               drift from DaisyUI's primary every time a theme changes.
-           Migrated 2026-04-13 as part of the Chart.js theme-tracking pass. */
-        .heatmap-0 { background-color: var(--color-base-300); }
-        .heatmap-1 { background-color: color-mix(in oklab, var(--chart-accent-override, var(--color-primary)) 15%, transparent); }
-        .heatmap-2 { background-color: color-mix(in oklab, var(--chart-accent-override, var(--color-primary)) 35%, transparent); }
-        .heatmap-3 {
-            background-color: color-mix(in oklab, var(--chart-accent-override, var(--color-primary)) 60%, transparent);
-            color: var(--color-primary-content);
-        }
-        .heatmap-4 {
-            background-color: var(--chart-accent-override, var(--color-primary));
-            color: var(--color-primary-content);
-        }
+        /* Deleted 2026-04-14 — the five .heatmap-N custom classes (intensity
+           levels 0-4) were replaced by a JS `HEATMAP_LEVEL_CLASSES` constant
+           in sections/Timing.jsx that maps each level to a stock DaisyUI
+           `bg-base-300` / `bg-primary/20` / `bg-primary/40` / `bg-primary/60`
+           / `bg-primary` utility. All 5 class name strings appear as literal
+           array entries so Tailwind's content scanner picks them up and
+           generates the utility rules without needing a safelist. The
+           `?accent=` URL override went away with chartColors.js in the
+           vanilla-DaisyUI sweep — intensity now strictly tracks the active
+           theme's primary. */
 
         /* Deleted blocks that used to live here:
            - Tailwind gray class overrides (.bg-gray-*, .text-gray-*, .border-gray-*)

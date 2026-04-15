@@ -21,6 +21,20 @@ function getHeatmapLevel(count, maxCount) {
     return 4;
 }
 
+// Vanilla-DaisyUI heatmap intensity palette: each level maps to a
+// stock Tailwind utility that tracks the active DaisyUI theme's primary
+// colour. Tailwind v4's content scanner sees these literal strings in
+// the array and generates the utility rules without needing a safelist.
+// Previously `.heatmap-0..4` custom classes in styles.css — removed
+// 2026-04-14 in the vanilla-DaisyUI sweep.
+const HEATMAP_LEVEL_CLASSES = [
+    'bg-base-300',    // level 0 — no activity
+    'bg-primary/20',  // level 1
+    'bg-primary/40',  // level 2
+    'bg-primary/60',  // level 3
+    'bg-primary',     // level 4 — max activity
+];
+
 // Requirement: Show timing data during Phase 1 using pre-aggregated hourlyHeatmap
 // Approach: When commits haven't loaded, use summary.hourlyHeatmap (24×7 matrix +
 //   byHour + byDay arrays computed at aggregation time using UTC). Once commits load,
@@ -366,7 +380,7 @@ export default function Timing() {
                             return (
                                 <div
                                     key={weekKey}
-                                    className={`w-4 h-4 min-w-4 min-h-4 rounded-sm cursor-default transition-transform duration-100 hover:scale-110 hover:z-10 heatmap-${level}`}
+                                    className={`w-4 h-4 min-w-4 min-h-4 rounded-sm cursor-default transition-transform duration-100 hover:scale-110 hover:z-10 ${HEATMAP_LEVEL_CLASSES[level]}`}
                                     data-tooltip={`Week of ${weekLabel}: ${count} commits`}
                                 />
                             );
@@ -392,7 +406,7 @@ export default function Timing() {
                                     <span className="text-sm text-base-content/80 w-24">{dayLabels[i]}</span>
                                     <div className="flex-1 bg-base-300 rounded-full h-4">
                                         <div
-                                            className={`h-4 rounded-full heatmap-${level}`}
+                                            className={`h-4 rounded-full ${HEATMAP_LEVEL_CLASSES[level]}`}
                                             style={{ width: `${pct}%` }}
                                         />
                                     </div>
@@ -440,7 +454,7 @@ export default function Timing() {
                                 return (
                                     <div
                                         key={`${hour}-${dayIdx}`}
-                                        className={`aspect-square min-w-5 min-h-5 sm:min-w-7 sm:min-h-7 rounded-sm cursor-default transition-transform duration-100 hover:scale-110 hover:z-10 heatmap-${level}`}
+                                        className={`aspect-square min-w-5 min-h-5 sm:min-w-7 sm:min-h-7 rounded-sm cursor-default transition-transform duration-100 hover:scale-110 hover:z-10 ${HEATMAP_LEVEL_CLASSES[level]}`}
                                         data-tooltip={tooltip}
                                     />
                                 );
