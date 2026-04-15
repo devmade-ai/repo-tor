@@ -431,32 +431,12 @@ body::before {
            Tailwind variants directly. */
 
         /* Collapsible sections - dark theme */
-        /* .collapsible-header, .collapsible-title, .collapsible-subtitle,
-           .collapsible-chevron removed 2026-04-13 — replaced by inline
-           Tailwind utilities in CollapsibleSection.jsx. The chevron
-           rotation is now driven by React state via conditional
-           `rotate-180` rather than the pre-existing `[aria-expanded="true"]`
-           descendant selector — the React component already has the
-           expanded state, so using it directly is cleaner than round-
-           tripping through an attribute.
-
-           .collapsible-content STAYS custom: the max-height transition
-           from `0` to `none` has no Tailwind primitive (Tailwind's
-           max-h-* utilities don't include `none`, and clamping to
-           `max-h-[9999px]` would clip long sections + create a fake
-           delay on expand when the browser runs out of height budget).
-           This is the one legitimate reason the collapsible module
-           keeps a custom CSS class. */
-        .collapsible-content {
-            overflow: hidden;
-            transition: max-height 0.3s ease, opacity 0.2s ease;
-            max-height: 0;
-            opacity: 0;
-        }
-        .collapsible-content.expanded {
-            max-height: none;
-            opacity: 1;
-        }
+        /* .collapsible-content / .collapsible-header / .collapsible-title /
+           .collapsible-subtitle / .collapsible-chevron all deleted 2026-04-14
+           as part of the vanilla-DaisyUI sweep. CollapsibleSection.jsx now
+           uses DaisyUI's native `collapse collapse-arrow` component with a
+           native checkbox wired to React state. Embed mode short-circuits
+           before the collapse wrapper entirely and renders just {children}. */
 
         /* .loading-spinner / .loading-spinner-{sm,md,lg} removed — migrated to
            DaisyUI `loading loading-spinner loading-{sm|md|lg}`. The old custom
@@ -840,66 +820,15 @@ body::before {
            now drive all mobile-specific styling. */
 
         /* ===== Embed Mode =====
-         * Minimal chrome for iframe embedding. Hides all dashboard UI except
-         * the target chart(s). JS adds .embed-target to visible .card elements.
-         */
-        .embed-mode {
-            padding: 16px;
-            background: var(--color-base-100);
-        }
-
-        /* Hide collapsible section headers — chart only, no title */
-        .embed-mode .collapsible-header {
-            display: none;
-        }
-
-        /* Remove card styling — chart floats cleanly in the iframe */
-        .embed-mode .card.embed-target {
-            background: transparent;
-            border: none;
-            box-shadow: none;
-            padding: 0;
-        }
-
-        .embed-mode .card.embed-target:hover {
-            border-color: transparent;
-            box-shadow: none;
-        }
-
-        /* Remove inner padding from collapsible content */
-        .embed-mode .collapsible-content .pt-2 {
-            padding-top: 0;
-        }
-
-        /* Ensure collapsible content is always expanded in embed mode */
-        .embed-mode .collapsible-content {
-            max-height: none;
-            opacity: 1;
-        }
-
-        /* .embed-error removed 2026-04-13 — migrated to inline Tailwind
-           utilities in App.jsx + EmbedRenderer.jsx:
-             `flex flex-col items-center justify-center min-h-[200px] p-6
-              text-center text-base-content/80 font-sans text-sm gap-2`
-           The `.embed-error code` and `.embed-error a` descendant rules
-           previously styled the inline <code> and <a> elements that may
-           appear inside the error message. Those are now Tailwind
-           utilities applied directly at each call site via element-level
-           classes (<code className="bg-base-300 px-1.5 py-0.5 rounded
-           text-[13px]">, <a className="text-primary underline">) when
-           the error render actually includes them. */
-
-        /* Hide decorative grid pattern in embed mode — would leak through
-           when embedder sets ?bg=transparent to inherit their page background */
-        body:has(.embed-mode)::before {
-            display: none;
-        }
-
-        /* Hide debug banner in embed mode */
-        .embed-mode ~ #debug-error-banner,
-        body:has(.embed-mode) #debug-error-banner {
-            display: none !important;
-        }
+         * The .embed-mode root class and its 7 descendant selectors were
+         * deleted 2026-04-14 in the vanilla-DaisyUI sweep. CollapsibleSection
+         * short-circuits to render `{children}` only in embed mode (no card,
+         * no header, no collapse), and EmbedRenderer wraps everything in a
+         * plain `p-4 bg-base-100` div. The DOM traversal that used to hide
+         * non-target .card ancestors now walks to the top-level child of the
+         * container instead — see EmbedRenderer.jsx useLayoutEffect. Debug
+         * banner hiding in embed mode is no longer needed: the debug-root
+         * mount in main.jsx already checks `!isEmbedMode`. */
 
         /* .projects-error and .project-card deleted — migrated to DaisyUI
            `card bg-base-200 border border-base-300` with `card-body` inner

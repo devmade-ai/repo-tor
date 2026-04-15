@@ -139,10 +139,18 @@ test('Phase 4 — Timeline badges use DaisyUI semantic variants', () => {
 
 // ----- Phase 5: Card unshadow -----
 
-test('Phase 5 — CollapsibleSection uses DaisyUI card + card-body', () => {
+test('Phase 5 — CollapsibleSection uses DaisyUI collapse component', () => {
+    // Post-2026-04-14 vanilla-DaisyUI sweep: CollapsibleSection migrated
+    // from a hand-rolled card + custom `.collapsible-content` transition
+    // to DaisyUI's native `collapse collapse-arrow` component with a
+    // native checkbox wired to React state. Embed mode short-circuits
+    // to `{children}` so embedders get the bare chart.
     const src = read('dashboard/js/components/CollapsibleSection.jsx');
-    assert.match(src, /className="card bg-base-200 border border-base-300"/);
-    assert.match(src, /className="card-body /, 'card-body wrapper missing');
+    assert.match(src, /collapse collapse-arrow/);
+    assert.match(src, /bg-base-200 border border-base-300/);
+    assert.match(src, /collapse-title/);
+    assert.match(src, /collapse-content/);
+    assert.match(src, /isEmbedMode/, 'CollapsibleSection must short-circuit in embed mode');
 });
 
 test('Phase 5 — ErrorBoundary uses DaisyUI card + role="alert"', () => {
@@ -566,8 +574,6 @@ test('styles.css allowlist — only legitimate custom classes remain', () => {
         'dashboard-enter',            // fade-in on page load
         'hamburger-dropdown',         // fade-in + complex box-shadow
         'hamburger-update-dot',       // pulse animation
-        // --- React-state transitions with Tailwind-incompatible values ---
-        'collapsible-content',        // max-height: 0 → none transition
         // --- Isolated rendering that must survive CSS load failure ---
         'root-error-message',
         'root-error-detail',
@@ -575,8 +581,6 @@ test('styles.css allowlist — only legitimate custom classes remain', () => {
         // --- Not shipped by Tailwind ---
         'scrollbar-hide',             // ::-webkit-scrollbar pseudo + iOS scroll
         'header-filter-hint',         // `font: inherit` shorthand
-        // --- Root state marker consumed by descendant selectors in styles.css ---
-        'embed-mode',                 // triggers chart-only rendering in embeds
     ]);
 
     // DaisyUI component classes that appear in styles.css ONLY inside

@@ -60,27 +60,39 @@ export default function EmbedRenderer({ embedIds }) {
         });
     });
 
-    // After render, hide all .card sections except those containing target charts.
-    // Walk up from each [data-embed-id] to its .card ancestor and toggle visibility.
+    // After render, hide all top-level section wrappers except those
+    // containing target charts. In embed mode CollapsibleSection returns
+    // a React fragment instead of a card, so the chart's immediate
+    // ancestor is the `[data-embed-id]` element's parent chain up to the
+    // section wrapper inserted by the section component (e.g. Timeline
+    // wraps each chart in a `<div className="space-y-4 ...">`). We walk
+    // up to the container child that contains `[data-embed-id]` and
+    // toggle its display, leaving only the matching chart(s) visible.
+    //
+    // The previous implementation used `.card` ancestor walks, but with
+    // the vanilla-DaisyUI CollapsibleSection migration embed mode no
+    // longer renders `.card` wrappers — we walk to the first child of
+    // `container` that contains the embed element instead.
     useLayoutEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
-        // First: hide ALL .card elements inside the container
-        container.querySelectorAll('.card').forEach(card => {
-            card.style.display = 'none';
+        // First: hide every top-level child of the container.
+        Array.from(container.children).forEach(child => {
+            child.style.display = 'none';
         });
 
-        // Then: show cards that contain a matching embed ID
+        // Then: show top-level children that contain a matching embed ID.
         validIds.forEach(id => {
             const target = container.querySelector(`[data-embed-id="${id}"]`);
             if (!target) return;
-
-            // Walk up to the .card ancestor
-            const card = target.closest('.card');
-            if (card) {
-                card.style.display = '';
-                card.classList.add('embed-target');
+            // Walk up to the top-level child of the container.
+            let node = target;
+            while (node.parentElement && node.parentElement !== container) {
+                node = node.parentElement;
+            }
+            if (node.parentElement === container) {
+                node.style.display = '';
             }
         });
     }, [validIds.join(',')]);
@@ -162,7 +174,7 @@ export default function EmbedRenderer({ embedIds }) {
     }
 
     return (
-        <div ref={containerRef} className="embed-mode">
+        <div ref={containerRef} className="p-4 bg-base-100">
             <ErrorBoundary>
                 {sectionsToRender.map((SectionComponent, idx) => (
                     <SectionComponent key={idx} />
