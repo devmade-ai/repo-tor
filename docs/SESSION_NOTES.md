@@ -6,6 +6,10 @@ Current state for AI assistants to continue work.
 
 **Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support. As of 2026-04-13, every user-visible surface also routes through DaisyUI's `@layer components` classes — no custom CSS class shadows any DaisyUI component.
 
+**Recent Updates (2026-04-15 — Playwright removed):**
+
+Deleted everything Playwright-related — `playwright.config.js`, `dashboard/e2e/` directory (functional spec + visual regression spec + README), `@playwright/test` devDep, all 5 npm scripts (`test:e2e`, `test:e2e:install`, `test:e2e:ui`, `test:visual`, `test:visual:update`), and the .gitignore Playwright artifact patterns. The original 2026-04-13 Playwright commit (`af0f02d`) added 1337 lines across 8 files but never produced any baseline screenshots — the session that committed it had no Chromium binary in its sandbox, so the spec files sat unrun. By 2026-04-15 it was clear the visual regression layer was misleading documentation rather than working coverage. Removed entirely; future re-introduction tracked in `docs/TODO.md` "Browser test coverage (future)" with notes on what to do differently. **Source-level `node:test` tripwire (`scripts/__tests__/daisyui-surfaces.test.mjs`) remains as the only automated layer** — 60 tests, ~250ms, no browser, no setup. Catches DaisyUI class regressions, dead marker classes, hardcoded shades, v4 cruft, and built-CSS shipping checks.
+
 **Recent Updates (2026-04-14 — vanilla-DaisyUI sweep, 8 phases):**
 
 User directive: "the daisy theme is the brand colour... i want everything a vanilla as possible using daisyui". Executed a complete sweep:
@@ -51,9 +55,9 @@ A second commit cleaned up everything the first audit pass left on the table aft
 
 **Outstanding (not addressed in this session):**
 
-- **Playwright visual regression baselines will drift.** The toggle now renders as a DaisyUI pill (different pixel layout than the hand-rolled divs), the hover backgrounds shifted from `base-300` to `base-content/5` overlay, the highlighted-selected FilterSidebar row is now `primary/30`, and the DropZone focus state has an outline ring. All four changes will produce pixel diffs against `dashboard/e2e/visual/theme-baselines.spec.js` baselines. Next person to run `npx playwright test` in CI/locally should accept the new baselines with `--update-snapshots` after visually verifying correctness.
 - **SettingsPane ViewLevel radiogroup a11y** — still uses `<div role="radio">` + `tabIndex={0}` on every item with only Enter/Space handling. A WAI-ARIA radiogroup should have exactly one `tabIndex=0` at a time (the focused one) and arrow-key navigation should move focus between items. Leaving as-is because converting to native `<input type="radio">` + `<label>` pattern is a larger refactor outside the audit's scope.
 - **The SettingsPane toggle wasn't verified in a live browser.** The DaisyUI `.toggle` class ships in the built CSS and the refactored component is structurally correct, but I didn't run `npm run dev` and spot-check all 8 themes. Quick verification: open settings pane, toggle UTC, confirm pill switch animates correctly in lofi/nord/emerald/caramellatte (light) and black/dim/coffee/dracula (dark).
+- **Playwright visual regression note removed 2026-04-15** — the entire Playwright + e2e directory has been deleted (see top entry).
 
 **Recent Updates (2026-04-13 — post-migration audit fixes, initial commit `38a2092`):**
 
@@ -130,7 +134,6 @@ Global a11y rule: `[role="button"]:focus-visible, [role="tab"]:focus-visible` at
 - `dist/assets/index-*.css`: ~156 KB → ~154 KB (built CSS bundle — most of our deletions were small per-rule blocks, offset by Tailwind generating the new utility classes).
 - `dist/assets/index-*.js`: unchanged.
 - `npm test` 60 → 61 (new allowlist guard). All pass.
-- `playwright test --list` still enumerates 62 e2e tests.
 - `vite build` clean after every group's intermediate commit.
 
 ---
@@ -206,7 +209,6 @@ Total tests: 21 oklchToHex + 36 DaisyUI surfaces = 57 (was 51). All pass.
 **Verified:**
 - `vite build` clean after every group
 - `npm test` 57/57 pass
-- `playwright test --list` enumerates all 62 E2E tests (config still parses)
 - styles.css 1531 → 1456 lines (-75)
 - Built CSS ~158 KB → ~156 KB
 - Zero `text-3xl`/`text-2xl` without `font-mono` (except Header h1 which gets mono from the h1/h2/h3 semantic targeting rule)
@@ -226,20 +228,12 @@ Three items that had been logged as "too big for the audit pass" follow-ups now 
 
 2. **Heatmap CSS theme-tracking.** The old `rgba(var(--chart-accent-rgb, 45, 104, 255), X%)` pattern stored a comma-separated RGB triple in a CSS variable, set once at bootstrap from `chartColors.accentColor`. It couldn't track theme changes and couldn't handle DaisyUI's oklch() values. Replaced with `color-mix(in oklab, var(--chart-accent-override, var(--color-primary)) X%, transparent)` — nested-var fallback chain means the default path tracks the theme's primary via DaisyUI, the override path (`--chart-accent-override`, set by `main.jsx` only when `hasUrlAccentOverride === true`) pins the color for branded embeds. High-intensity cells (`.heatmap-3/4`) use `var(--color-primary-content)` for readable text contrast instead of hardcoded `white`. Deleted the old `--chart-accent-rgb` variable + bootstrap RGB-parse block.
 
-3. **Three-tier test infrastructure.**
-   - **Source-level tripwire** — `scripts/__tests__/daisyui-surfaces.test.mjs`: 30 assertions covering every migrated surface + follow-up fix. Runs via `node:test` on every `npm test` in ~230ms. Catches source-level class-name regressions without needing a browser. Includes comment-stripping helper so rationale blocks don't false-trigger, a `dashboard/js` walker that asserts zero hardcoded Tailwind color shades, dead-marker-class sweep, and built-CSS grep verification that skips gracefully when `dist/` is missing.
-   - **Runtime smoke** — `dashboard/e2e/daisyui-surfaces.spec.js`: 14 Playwright tests walking the TESTING_GUIDE checklist in a real Chromium instance. Covers modal/toast/card/btn/tab/form-input/checkbox/loading-spinner/progress/hamburger-portal/chart-theme-tracking. The HamburgerMenu test walks the DOM parent chain to verify the dropdown is parented to `document.body` (Portal fix) AND reads `getComputedStyle(nav).position` to assert `"fixed"`. Chart theme-tracking test reads dataset `backgroundColor` before/after a theme swap.
-   - **Visual regression** — `dashboard/e2e/visual/theme-baselines.spec.js`: 48 screenshot baselines = 6 tabs × 8 themes (4 light + 4 dark). Baselines committed under `dashboard/e2e/visual/__screenshots__/`. 0.2% pixel-diff threshold tolerates font-rendering variance. Full-page captures so long scrolling tabs are covered.
-   - **Playwright config** — `playwright.config.js` with `smoke` + `visual` projects, automatic `vite preview` webServer, `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` support for sandboxed environments where Playwright's CDN is blocked.
-   - **npm scripts** — `test:e2e`, `test:e2e:install`, `test:e2e:ui`, `test:visual`, `test:visual:update`.
-   - **Docs** — `dashboard/e2e/README.md` with rationale, maintenance guide, CI recipe, troubleshooting.
+3. **Source-level test tripwire** — `scripts/__tests__/daisyui-surfaces.test.mjs`: 30 assertions covering every migrated surface + follow-up fix. Runs via `node:test` on every `npm test` in ~230ms. Catches source-level class-name regressions without needing a browser. Includes comment-stripping helper so rationale blocks don't false-trigger, a `dashboard/js` walker that asserts zero hardcoded Tailwind color shades, dead-marker-class sweep, and built-CSS grep verification that skips gracefully when `dist/` is missing. (A second + third browser-based layer was added at the same time but later removed 2026-04-15 — see top of file.)
 
 **Verified this session:**
 
 - `npm test` → 51/51 pass (21 existing oklchToHex + 30 new DaisyUI surface assertions).
 - `vite build` clean.
-- `playwright test --list` enumerates all 62 tests across both projects — config parses, specs are discoverable.
-- Tests themselves can't run in this sandbox (Chromium binary unavailable, CDN blocked) but are ready for CI.
 
 **Remaining items:**
 

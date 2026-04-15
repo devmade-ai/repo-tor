@@ -9,15 +9,9 @@
     "generate-icons": "node scripts/generate-icons.mjs",
     "generate-theme-meta": "node scripts/generate-theme-meta.mjs",
     "build:lib": "node scripts/generate-theme-meta.mjs && vite build --config vite.config.lib.js",
-    "test": "node --test scripts/__tests__/*.test.mjs",
-    "test:e2e": "playwright test",
-    "test:e2e:install": "playwright install --with-deps chromium",
-    "test:e2e:ui": "playwright test --ui",
-    "test:visual": "playwright test --project=visual",
-    "test:visual:update": "playwright test --project=visual --update-snapshots"
+    "test": "node --test scripts/__tests__/*.test.mjs"
   },
   "devDependencies": {
-    "@playwright/test": "^1.59.1",
     "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",

@@ -105,7 +105,6 @@ The daisy theme IS the brand colour.
 | `README.md` | User-facing application guide | When features change that affect user interaction |
 | `docs/USER_GUIDE.md` | Comprehensive feature documentation | When adding/changing features or UI workflows |
 | `docs/TESTING_GUIDE.md` | Manual test scenarios | When adding features that need test coverage |
-| `dashboard/e2e/README.md` | Playwright E2E + visual regression test setup + CI recipe | When changing test infrastructure, adding specs, or hitting sandbox/CI browser-setup issues |
 
 ### REMINDER: READ AND FOLLOW THE DOCUMENTATION EVERY TIME
 

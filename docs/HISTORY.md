@@ -2,6 +2,75 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-04-15
+
+### Removed Playwright + e2e dir + visual baselines
+
+Deleted everything Playwright-related from the project. The original
+2026-04-13 commit (`af0f02d test(daisyui): add three-layer automated
+regression coverage`) added 1337 lines across 8 files (`playwright.config.js`,
+`dashboard/e2e/README.md`, `dashboard/e2e/daisyui-surfaces.spec.js`,
+`dashboard/e2e/visual/theme-baselines.spec.js`, `@playwright/test`
+devDep, 5 npm scripts, `.gitignore` patterns) — but never produced any
+baseline screenshots because the session that committed it had no
+Chromium binary in its sandbox. The spec files sat unrun across every
+subsequent session. By the 2026-04-15 fresh-eyes audit it was clear
+the visual regression "coverage" was misleading documentation rather
+than working tests, and several earlier audit reports incorrectly
+warned that "baselines will drift" when there were no baselines to
+drift from.
+
+Deleted in this commit:
+  - `playwright.config.js`
+  - `dashboard/e2e/` directory (3 files, 642 lines)
+  - `@playwright/test ^1.59.1` devDependency from package.json
+  - 5 npm scripts: `test:e2e`, `test:e2e:install`, `test:e2e:ui`,
+    `test:visual`, `test:visual:update`
+  - 5 `.gitignore` lines for Playwright artifacts
+  - 1 row from CLAUDE.md docs table (`dashboard/e2e/README.md` entry)
+  - Stale references in TESTING_GUIDE.md (rewrote "Automated coverage"
+    section to describe only the source-level tripwire layer)
+  - Stale "Re-capture Playwright baselines" entry from TODO.md
+
+Re-installed node_modules to refresh package-lock.json — confirmed
+`@playwright/test` and transitive deps (`playwright`, `playwright-core`)
+are no longer present.
+
+Future re-introduction is tracked in `docs/TODO.md` "Browser test
+coverage (future)" with notes on what to do differently:
+  - Verify the runner can actually execute in the target environment
+    BEFORE writing specs. The previous attempt set up everything
+    without ever running it.
+  - Decide scope first. Visual regression has high maintenance cost
+    (every UI change requires baseline re-capture + visual review).
+    Functional smoke tests are higher value-per-byte. Start with
+    smoke only.
+  - Existing source-level tripwire (`scripts/__tests__/daisyui-surfaces.test.mjs`)
+    catches DaisyUI class regressions without a browser. New browser
+    tests should complement it, not replace it.
+  - Reference for the previous attempt: commit `af0f02d` in git
+    history. Resurrect as a starting point if useful, but treat as a
+    draft — most assertions reference DaisyUI v5 phase markers that
+    have shifted with subsequent refactors.
+
+Verified after removal:
+  - vite build clean
+  - 60/60 source-level tests still pass (`npm test`)
+  - Zero references to playwright / dashboard/e2e / @playwright /
+    test:e2e / test:visual / theme-baselines remain in CLAUDE.md,
+    package.json, .gitignore, TESTING_GUIDE.md, or TODO.md
+    (historical references in older HISTORY.md entries are left in
+    place as changelog context)
+
+Tags: chore, testing, cleanup, dependency
+Complexity: 2
+Urgency: 1
+Impact: infrastructure
+Risk: low
+Debt: paid
+Epic: dependency-cleanup
+Semver: patch
+
 ## 2026-04-14
 
 ### Vanilla-DaisyUI sweep — 8 phases, zero custom CSS

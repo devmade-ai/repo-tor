@@ -2,19 +2,17 @@
 
 Guidelines and checklists for testing features from a user perspective.
 
-## Automated coverage (added 2026-04-13)
+## Automated coverage
 
-Three automated test layers back the manual checklists below — run them before manual testing to catch regressions cheaply:
+Source-level tripwire only — the project currently has one automated layer:
 
 | Layer | Command | Runtime | Catches |
 |-------|---------|---------|---------|
-| **Source-level tripwire** | `npm test` | ~200ms | DaisyUI class-name regressions, dead marker classes, hardcoded Tailwind color shades, v4 cruft (`-bordered`), built-CSS shipping checks |
-| **Runtime smoke** | `npm run test:e2e` | ~30s | DOM state after React render, interaction flows (modal open, filter toggle, hamburger portal), Chart.js theme tracking |
-| **Visual regression** | `npm run test:visual` | ~60s | Silent visual drift per theme (6 tabs × 8 themes = 48 screenshot baselines) |
+| **Source-level tripwire** | `npm test` | ~250ms | DaisyUI class-name regressions, dead marker classes, hardcoded Tailwind color shades, v4 cruft (`-bordered`), built-CSS shipping checks, oklch→hex unit tests |
 
-Setup: `npm run test:e2e:install` (installs Chromium, one-time ~170MB). See `dashboard/e2e/README.md` for the full setup recipe, CI integration, and sandboxed-environment troubleshooting.
+The `node:test` runner walks `scripts/__tests__/*.test.mjs`. No browser, no transpilation, runs on every clone without setup. The `daisyui-surfaces.test.mjs` file is the source-of-truth for what JSX must contain after the DaisyUI migration; the manual checklists further down this file describe the behaviours to verify by hand.
 
-The manual "DaisyUI component-class migration" checklist further down this file is the source-of-truth that the automated suites implement — when you add a manual checklist entry here, add a corresponding assertion in `scripts/__tests__/daisyui-surfaces.test.mjs` or `dashboard/e2e/daisyui-surfaces.spec.js`.
+Browser-based runtime / visual regression coverage was removed 2026-04-15 — see `docs/TODO.md` "Browser test coverage" for the future re-introduction plan (Playwright was tried in April 2026 but never produced any baselines because the sandbox session that added it had no Chromium binary).
 
 ## Testing Principles
 
