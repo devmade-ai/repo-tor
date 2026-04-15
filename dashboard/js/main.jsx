@@ -86,18 +86,34 @@ class RootErrorBoundary extends React.Component {
         });
     }
 
-    // Fix: Replaced hardcoded inline style colors with CSS variable-based classes.
-    // Error boundary fallback intentionally uses minimal inline layout styles
-    // (flexbox centering) because the CSS file may not have loaded when this
-    // renders, but colors now come from CSS variables via utility classes.
+    // Requirement: Last-resort render path when the React tree throws during
+    //   mount or render. Must be readable regardless of which subsystem
+    //   failed (reducer, effect, child component, etc.).
+    // Approach: Pure Tailwind utility classes for layout + DaisyUI semantic
+    //   tokens for text colours + the DaisyUI `btn btn-primary` reload
+    //   action. No inline styles — the fallback relies on the same CSS
+    //   bundle as the rest of the app.
+    // Alternatives:
+    //   - Static inline `style={}` for layout (previous state, deleted
+    //     2026-04-15): Rejected — the inline-style exception existed
+    //     purely as defensive scaffolding for the rare case where the
+    //     main CSS bundle failed to load at all. In practice, when CSS
+    //     fails to load the browser falls back to its default user-agent
+    //     stylesheet, which still renders `<div><p>text</p></div>` in a
+    //     legible way (just top-of-page, left-aligned, default font).
+    //     The error text is still readable, the Reload button still
+    //     works as a native button element. The extra inline layout was
+    //     belt-and-suspenders for a 1% failure mode at the cost of a
+    //     permanent CLAUDE.md exception. Removing it narrows the
+    //     exception list without meaningfully degrading the failure-mode
+    //     UX.
+    //   - Server-side HTML fallback in index.html: Rejected — React
+    //     replaces the #root div contents on mount, so any HTML-level
+    //     fallback would be gone by the time the ErrorBoundary catches.
     render() {
         if (this.state.hasError) {
             return (
-                <div style={{
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    minHeight: '100vh', flexDirection: 'column', gap: '16px',
-                    padding: '24px', textAlign: 'center',
-                }}>
+                <div className="min-h-screen flex flex-col items-center justify-center gap-4 p-6 text-center">
                     <p className="text-base-content/80 text-base font-semibold">
                         Something went wrong loading the dashboard.
                     </p>
