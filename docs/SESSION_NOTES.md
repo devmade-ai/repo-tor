@@ -57,22 +57,53 @@ follow-on cleanup commit series. All commits listed below are on the
 12. **`2f815d1`** — Timeline.jsx 735 → 390 (extract hooks/useTimelineCharts.js)
 13. **`fd0985b`** — TODO.md verification entries + aggregate.js investigation
 
-**Second pass — follow-on cleanup commits (fresh-eyes audit caught gaps
-in the first pass):**
+**Second pass — 8 follow-on cleanup commits (fresh-eyes audit caught
+gaps in the first pass):**
 
-- **`09ca333`** — CLAUDE.md exceptions expanded again: debug subsystem
-  covers new subdirectory, TimingHeatmap path fix, root ErrorBoundary
-  inline-style exception, ADMIN_GUIDE.md added to docs table.
-- **`3520a6f`** — Dead-code sweep round 2: deleted `debugGetEntries`,
-  `diagnoseFailure`, `formatNumber`, `aggregateForDrilldown`, `DAY_NAMES`,
-  and `useClickOutside.js`; unexported `SA_HOLIDAYS`, `aggregateByTag`,
-  `getRepoColor`, `SOURCE_COLORS`, `SEVERITY_COLORS`. Six files touched.
-- Subsequent commits in the second pass (doc drift, chartHeight
-  utilities, Timeline handleCardClick, body-rule investigation,
-  AppContext split, TODO monitoring) — see `git log` on the branch for
-  the full list.
+1. **`09ca333`** — CLAUDE.md exceptions expanded: hex-literal exception
+   now covers the entire `components/debug/` subtree (was
+   `DebugPill.jsx` only); `grid-cols-[auto_repeat(7,1fr)]` path
+   updated to `TimingHeatmap.jsx`; new inline-style exception for the
+   root `main.jsx` ErrorBoundary; ADMIN_GUIDE.md added to docs table;
+   Key Components list refreshed with new files.
+2. **`3520a6f`** — Dead-code sweep round 2: deleted `debugGetEntries`,
+   `diagnoseFailure`, `formatNumber`, `aggregateForDrilldown`,
+   `DAY_NAMES`, and `hooks/useClickOutside.js`; unexported
+   `SA_HOLIDAYS`, `aggregateByTag`, `getRepoColor`, `SOURCE_COLORS`,
+   `SEVERITY_COLORS`.
+3. **`44b6393`** — Hygiene batch: SESSION_NOTES sha backfill,
+   HamburgerMenu `z-[40]` stale-comment rewrite, Header `setGuideOpen`
+   dropped from dep array.
+4. **`7a5a5c9`** — `chartHeight` inline-style → utility classes at 11
+   call sites across Timeline / Progress / Timing / Tags. Heights:
+   `h-55 sm:h-75` (220/300), `h-50 sm:h-62` (200/248), `h-62 sm:h-87`
+   (248/348). Contributors runtime-computed height preserved.
+5. **`dfc7245`** — Timeline `handleCardClick('contributors')` replaces
+   full map+sort with `new Set(...).size` — O(n) Set inserts only.
+6. **`39cd3cf`** — `body { background-color / color }` removed from
+   `styles.css` after verifying DaisyUI v5 base layer emits
+   `:root, [data-theme] { background: var(--root-bg); color:
+   var(--color-base-content); }` in
+   `node_modules/daisyui/base/rootcolor.css`.
+7. **`5ecfad7`** — `AppContext.jsx` split: 579 → 338 lines by
+   extracting reducer + initial-state + filter predicate + DEFAULT_FILTERS
+   into new pure-data `dashboard/js/appReducer.js` (285 lines, zero
+   React imports).
+8. **`<this commit>`** — TODO.md post-sweep-verification item #4
+   covering the second-pass changes, File-size Monitoring section for
+   `useTimelineCharts.js` + `AppContext.jsx`, footer rewrite describing
+   both audit passes, HISTORY.md 2026-04-15 entry for the whole batch.
 
 Build + tests pass after every commit.
+
+**Current file-size posture (all under 500-line soft-limit):**
+- Largest section: `Progress.jsx` 479
+- Largest component: `App.jsx` 490
+- Largest shared module: `useTimelineCharts.js` 416 (TODO item
+  monitors for growth)
+- Largest state file: `AppContext.jsx` 338 + `appReducer.js` 285 (was
+  single 579-line file)
+- `styles.css` 177 (including the new body-rule comment block)
 
 ## Open Items For Next Session
 

@@ -4,6 +4,101 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-15
 
+### Second audit-cleanup pass — CLAUDE.md exceptions, dead code, inline styles, body rule, AppContext split
+
+A fresh-eyes audit pass over the `claude/migrate-daisyui-dark-mode-toG0Y`
+branch (reading files as if new to the codebase, cross-checking actual
+code against CLAUDE.md rules, spot-checking agent reports) caught 20
+issues the first audit pass missed. Eight commits landed:
+
+1. **`09ca333`** `docs(claude): expand exceptions for debug subsystem +
+   ErrorBoundary + paths` — CLAUDE.md hex-literal exception expanded
+   from just `DebugPill.jsx` to cover the entire `components/debug/`
+   subtree (the 2026-04-15 split moved most hex into
+   `debug/debugStyles.js` and `debug/DebugTabs.jsx` — both inherit the
+   same "isolated React root must survive CSS load failure" rationale
+   but weren't explicitly named). Bracket-value exception for
+   `grid-cols-[auto_repeat(7,1fr)]` updated from `Timing.jsx` to
+   `components/TimingHeatmap.jsx` path. New "inline style" exception
+   documented for the root ErrorBoundary in `main.jsx` (static layout
+   values are intentional so the fallback renders even when Tailwind
+   CSS fails to load). `docs/ADMIN_GUIDE.md` added to the docs table.
+   Key Components list refreshed with `TimingHeatmap`, `components/debug/`,
+   `sections/discover/`, `useTimelineCharts`, and `appReducer.js`.
+
+2. **`3520a6f`** `refactor(cleanup): delete 4 dead exports, unexport 4
+   internals, drop dead hook` — repo-wide grep found 9 zero-consumer
+   exports. Deleted: `debugLog.js` `debugGetEntries` + `diagnoseFailure`;
+   `utils.js` `formatNumber` + `aggregateForDrilldown` + `DAY_NAMES`;
+   `hooks/useClickOutside.js` file (no imports anywhere). Demoted to
+   module-private: `utils.js` `SA_HOLIDAYS` + `aggregateByTag`;
+   `chartColors.js` `getRepoColor`; `debug/debugStyles.js` `SOURCE_COLORS`
+   + `SEVERITY_COLORS`. Close call averted: `getCommitDateRange` was
+   briefly considered dead but Health.jsx:217 still uses it.
+
+3. **`44b6393`** `chore(hygiene): session notes shas, hamburger comment,
+   header dep array` — `SESSION_NOTES.md` commit shas 7-13 backfilled,
+   HamburgerMenu.jsx stale `z-[40]/z-[50]` comment rewritten to
+   describe the current stock `z-40`/`z-50` utilities, Header.jsx
+   `menuItems` useMemo dropped the useState setter from its dep array.
+
+4. **`7a5a5c9`** `refactor(charts): replace chartHeight inline style
+   with utility classes` — eleven call sites across five files
+   converted from `style={{ height: chartHeight }}` (where chartHeight
+   was a breakpoint-based string) to `className={chartHeightClasses}`
+   using stock Tailwind h-N utilities. Height mapping: Timing
+   `h-50 sm:h-62` (200 / 248), Progress `h-55 sm:h-75` (220 / 300),
+   Timeline `h-55 sm:h-75` (220 / 300), Tags `h-62 sm:h-87` (248 / 348).
+   The 2px deltas on Timing/Tags are imperceptible and honour the
+   CLAUDE.md "round to nearest stock" rule. Contributors.jsx inline
+   height at line 266 deliberately preserved — its height is
+   runtime-computed from the number of top contributors (1 to 8),
+   which is the "runtime-computed from data" allowance.
+
+5. **`dfc7245`** `perf(timeline): handleCardClick builds only the count
+   it needs` — the "Contributors" summary card handler was allocating a
+   full `{email: {name, count}}` map + sorted array just to read the
+   unique-author count. Replaced with
+   `new Set(filteredCommits.map(getAuthorEmail)).size`. Identical
+   behaviour (same subtitle string, same payload), O(n) allocation
+   instead of O(n) objects + O(k log k) sort on 10k-commit datasets.
+
+6. **`39cd3cf`** `fix(styles): drop redundant body bg/color — DaisyUI
+   base already sets it` — verified by reading
+   `node_modules/daisyui/base/rootcolor.css` that DaisyUI v5's base
+   layer emits `:root, [data-theme] { background: var(--page-scroll-bg,
+   var(--root-bg)); color: var(--color-base-content); }`. Since the
+   theme flash-prevention script sets `data-theme` on `<html>`, DaisyUI
+   paints the viewport background on the root element automatically —
+   our explicit `body { background-color / color }` pair was
+   overpainting with the identical tokens DaisyUI already emitted.
+   Removed the two declarations; the body rule now only holds
+   safe-area padding. Confirmed via grep of the built CSS bundle that
+   the DaisyUI `:root, [data-theme]` rule still ships. Live browser
+   verification across all 8 themes filed under post-sweep-verification
+   TODO item #4.
+
+7. **`5ecfad7`** `refactor(context): extract reducer + filter logic to
+   appReducer.js` — `AppContext.jsx` was 579 lines (over the 500-line
+   soft-limit). Clean split at the pure-data / React boundary: the
+   reducer switch, `loadInitialState`, `DEFAULT_FILTERS`, and
+   `filterCommits` moved into `dashboard/js/appReducer.js` (285 lines,
+   zero React imports). `AppContext.jsx` now owns only the
+   React-specific layer (context creation, provider component, every
+   useEffect / useMemo / useCallback, consumer hooks) and is 338
+   lines. The `daisyui-surfaces.test.mjs` tripwire for `SET_THEME_COLORS`
+   was updated to read both files and verify the import wiring.
+
+8. **`<this commit>`** `docs(todo): monitoring entries + second-pass
+   verification checklist` — `docs/TODO.md` updated with
+   post-sweep-verification item #4 (second-pass browser spot-checks),
+   new "File-size monitoring" section for `useTimelineCharts.js` (416
+   lines, 84 lines of headroom) and `AppContext.jsx` (338 lines,
+   monitoring guidance if it grows again). Footer summary rewritten
+   to describe both audit passes and their scope.
+
+All eight commits: build clean, 60/60 tests pass after each commit.
+
 ### Removed Playwright + e2e dir + visual baselines
 
 Deleted everything Playwright-related from the project. The original
