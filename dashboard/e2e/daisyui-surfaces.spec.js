@@ -223,20 +223,22 @@ test.describe('DaisyUI component-class migration — runtime surfaces', () => {
 
     // ----- Phase 9: HamburgerMenu portal + stacking context fix -----
 
-    test('Phase 9: HamburgerMenu dropdown is portaled to document.body (not inside .dashboard-header)', async ({ page }) => {
+    test('Phase 9: HamburgerMenu dropdown is portaled to document.body (not inside a <header>)', async ({ page }) => {
         await page.getByRole('button', { name: 'Menu' }).click();
 
         // The dropdown nav should exist as a child of document.body,
-        // not a descendant of the header — this is what the portal fix
-        // guarantees. Playwright's `evaluateHandle` can walk the DOM
-        // parent chain to assert the ancestry.
+        // not a descendant of <header> — this is what the portal fix
+        // guarantees. The vanilla-DaisyUI sweep (2026-04-14) deleted
+        // the `.dashboard-header` and `.hamburger-dropdown` custom
+        // classes; the dropdown is now `<nav aria-label="Secondary
+        // actions">` and the header is a plain <header> element.
         const dropdownIsPortaled = await page.evaluate(() => {
-            const nav = document.querySelector('.hamburger-dropdown');
+            const nav = document.querySelector('nav[aria-label="Secondary actions"]');
             if (!nav) return null;
-            // Check that no ancestor is .dashboard-header.
+            // Check that no ancestor is <header>.
             let current = nav.parentElement;
             while (current) {
-                if (current.classList && current.classList.contains('dashboard-header')) {
+                if (current.tagName === 'HEADER') {
                     return 'trapped';
                 }
                 current = current.parentElement;
@@ -248,14 +250,14 @@ test.describe('DaisyUI component-class migration — runtime surfaces', () => {
         // The dropdown should use position:fixed (not absolute) because
         // createPortal detaches it from the trigger's containing block.
         const dropdownPosition = await page.evaluate(() => {
-            const nav = document.querySelector('.hamburger-dropdown');
+            const nav = document.querySelector('nav[aria-label="Secondary actions"]');
             return nav ? getComputedStyle(nav).position : null;
         });
         expect(dropdownPosition).toBe('fixed');
 
         // Close via backdrop click — also part of the portal path.
-        await page.locator('.hamburger-backdrop').click();
-        await expect(page.locator('.hamburger-dropdown')).toBeHidden();
+        await page.locator('[data-testid="hamburger-backdrop"]').click();
+        await expect(page.locator('nav[aria-label="Secondary actions"]')).toBeHidden();
     });
 
     // ----- Phase 10: FilterSidebar multi-select checkbox -----

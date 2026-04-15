@@ -225,7 +225,7 @@ export default function Header() {
                             <HamburgerMenu items={menuItems} />
                             <button
                                 onClick={() => dispatch({ type: 'TOGGLE_FILTER_SIDEBAR' })}
-                                className={`btn btn-ghost btn-square relative ${state.filterSidebarOpen ? 'btn-active' : ''}`}
+                                className={`btn btn-ghost btn-square relative lg:hidden ${state.filterSidebarOpen ? 'btn-active' : ''}`}
                                 aria-label={activeFilterCount > 0 ? `Toggle filters (${activeFilterCount} active)` : 'Toggle filters'}
                                 aria-expanded={state.filterSidebarOpen}
                             >

@@ -80,13 +80,15 @@ function loadInitialState() {
         darkTheme: initialDarkTheme,
         // Chart.js dataset accent / muted colors, resolved from the active
         // theme's --color-primary / --color-base-content at runtime. Seeded
-        // empty; the darkMode effect runs resolveRuntimeAccent() /
-        // resolveRuntimeMuted() on mount and dispatches SET_THEME_COLORS so
-        // the chart useMemos re-run with theme-tracked values. Chart sections
-        // gate their dataset builders on a non-empty themeAccent so they
-        // don't run with an empty string on the first render.
-        themeAccent: '',
-        themeMuted: '',
+        // at init by calling resolveRuntimeAccent() / resolveRuntimeMuted()
+        // directly — by the time React mounts, index.html's flash-prevention
+        // script in <head> has already applied the DaisyUI theme (set the
+        // <html data-theme> attribute) so getComputedStyle returns the
+        // correct values for the initial render. The darkMode useEffect
+        // still dispatches SET_THEME_COLORS on every subsequent theme
+        // change to keep these values in sync.
+        themeAccent: resolveRuntimeAccent(),
+        themeMuted: resolveRuntimeMuted(),
         activeTab: 'overview',
         currentViewLevel: safeStorageGet('viewLevel') || 'developer',
         useUTC: safeStorageGet('useUTC') === 'true',
@@ -394,9 +396,9 @@ export function AppProvider({ children }) {
         // Requirement: Chart.js dataset colors must track the active
         //   DaisyUI theme so the hour-of-day heatmap, contributor bars,
         //   timeline accent, and other single-accent visualizations match
-        //   the user's theme instead of staying at brand blue #2D68FF.
-        //   Addresses the "off-brand single-accent charts in non-default
-        //   themes" follow-up from the 2026-04-13 audit pass.
+        //   the user's theme. The vanilla-DaisyUI sweep (2026-04-14)
+        //   deleted every brand-hex palette — chartColors.js now reads
+        //   8 DaisyUI semantic CSS variables at runtime.
         // Approach: Dispatch resolved hex/oklch/color-mix strings. Chart.js
         //   canvas rendering handles oklch() and color-mix() directly in
         //   modern browsers (same capability the existing ChartJS.defaults

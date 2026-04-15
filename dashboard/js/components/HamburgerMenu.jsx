@@ -200,7 +200,7 @@ export default function HamburgerMenu({ items }) {
                 z-[40] = var(--z-menu-backdrop) below the dropdown's z-[50].
                 Now that it's portaled to body, no parent stacking context
                 traps it. */}
-            <div className="fixed inset-0 z-40 cursor-pointer" onClick={close} />
+            <div data-testid="hamburger-backdrop" className="fixed inset-0 z-40 cursor-pointer" onClick={close} />
             <nav
                 ref={menuRef}
                 id={menuId}
