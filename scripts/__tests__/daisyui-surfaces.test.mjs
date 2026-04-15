@@ -461,15 +461,26 @@ test('AppContext dispatches SET_THEME_COLORS after applyTheme()', () => {
 // ----- Heatmap intensity: JS-driven stock Tailwind utilities -----
 
 test('Heatmap intensity levels use stock bg-primary/N utilities (no custom .heatmap-N classes)', () => {
-    const timingSrc = read('dashboard/js/sections/Timing.jsx');
+    // The HEATMAP_LEVEL_CLASSES palette + render branches were extracted
+    // from sections/Timing.jsx into components/TimingHeatmap.jsx on
+    // 2026-04-15 to keep Timing.jsx under the 500-line component
+    // soft-limit. The check now reads the extracted file; the assertions
+    // about the deleted .heatmap-N styles.css rules still apply globally.
+    const heatmapSrc = read('dashboard/js/components/TimingHeatmap.jsx');
     // Must define the five-entry JS palette mapping level → stock Tailwind class.
-    assert.match(timingSrc, /HEATMAP_LEVEL_CLASSES\s*=/);
-    assert.match(timingSrc, /'bg-base-300'/);
-    assert.match(timingSrc, /'bg-primary\/20'/);
-    assert.match(timingSrc, /'bg-primary\/40'/);
-    assert.match(timingSrc, /'bg-primary\/60'/);
+    assert.match(heatmapSrc, /HEATMAP_LEVEL_CLASSES\s*=/);
+    assert.match(heatmapSrc, /'bg-base-300'/);
+    assert.match(heatmapSrc, /'bg-primary\/20'/);
+    assert.match(heatmapSrc, /'bg-primary\/40'/);
+    assert.match(heatmapSrc, /'bg-primary\/60'/);
     // Must not re-introduce the deleted .heatmap-N custom class references.
-    assert.doesNotMatch(timingSrc, /heatmap-\$\{level\}/, 'heatmap-${level} template literal was replaced by HEATMAP_LEVEL_CLASSES[level]');
+    assert.doesNotMatch(heatmapSrc, /heatmap-\$\{level\}/, 'heatmap-${level} template literal was replaced by HEATMAP_LEVEL_CLASSES[level]');
+
+    // sections/Timing.jsx must still render the heatmap via the extracted
+    // component — guards against accidental re-inlining of the render code.
+    const timingSrc = read('dashboard/js/sections/Timing.jsx');
+    assert.match(timingSrc, /import\s+TimingHeatmap\s+from/);
+    assert.match(timingSrc, /<TimingHeatmap\b/);
 
     // styles.css must not re-introduce the deleted .heatmap-N primary rules.
     const stylesSrc = read('dashboard/styles.css');
