@@ -343,7 +343,13 @@ export default function Timing() {
             });
     }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd, commitsLoaded]);
 
-    const chartHeight = isMobile ? '200px' : '250px';
+    // Chart container height — breakpoint-derived (200px mobile, 248px desktop).
+    // Nearest stock Tailwind utilities: h-50 (12.5rem = 200px) and h-62
+    // (15.5rem = 248px). Desktop was previously 250px via inline style; the
+    // 2px delta is visually imperceptible and honours the CLAUDE.md rule
+    // "No inline style={} unless values are runtime-computed from data —
+    // round to nearest stock, redesign, or drop".
+    const chartHeightClasses = 'h-50 sm:h-62';
 
     // Requirement: Order sections from most interesting to least interesting
     // Approach: Hour chart first (reveals peak hours — immediately engaging), then heatmap
@@ -357,7 +363,7 @@ export default function Timing() {
             {/* Hourly Distribution — most interesting: reveals peak hours, early birds, night owls */}
             {viewConfig.timing === 'hour' && hourChartData && (
                 <CollapsibleSection title="Commits by Hour" subtitle="Which hours are busiest?">
-                    <div data-embed-id="hourly-distribution" style={{ height: chartHeight }}>
+                    <div data-embed-id="hourly-distribution" className={chartHeightClasses}>
                         <Bar data={hourChartData.data} options={hourChartData.options} />
                     </div>
                 </CollapsibleSection>
@@ -427,7 +433,7 @@ export default function Timing() {
 
             {/* Daily Distribution — least surprising: it's always weekdays */}
             <CollapsibleSection title="Commits by Day" subtitle="Which days are busiest?">
-                <div data-embed-id="daily-distribution" style={{ height: chartHeight }}>
+                <div data-embed-id="daily-distribution" className={chartHeightClasses}>
                     <Bar data={dayChartData.data} options={dayChartData.options} />
                 </div>
             </CollapsibleSection>

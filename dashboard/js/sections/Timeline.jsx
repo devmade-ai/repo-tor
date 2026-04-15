@@ -265,7 +265,11 @@ export default function Timeline() {
     const hasMore = viewConfig.drilldown === 'commits' && commitsHasMore;
     const remaining = commitsRemaining;
 
-    const chartHeight = isMobile ? '220px' : '300px';
+    // Chart container height — breakpoint-derived (220px mobile, 300px desktop).
+    // Exact stock Tailwind: h-55 (13.75rem = 220px) and h-75 (18.75rem = 300px).
+    // Per CLAUDE.md "No inline style={} unless values are runtime-computed
+    // from data" — a breakpoint switch is not data, it's a responsive class.
+    const chartHeightClasses = 'h-55 sm:h-75';
 
     // Requirement: Order sections from most interesting to least interesting
     // Approach: Visual chart first (shows activity bursts), then browsable commit list,
@@ -278,7 +282,7 @@ export default function Timeline() {
             {/* Activity Timeline Chart — most engaging: visual pattern of activity bursts */}
             {activityChartData && (
                 <CollapsibleSection title="Commit Activity" subtitle="Daily commit count over time">
-                    <div data-embed-id="activity-timeline" style={{ height: chartHeight }}>
+                    <div data-embed-id="activity-timeline" className={chartHeightClasses}>
                         <Bar data={activityChartData.data} options={activityChartData.options} />
                     </div>
                 </CollapsibleSection>
@@ -309,7 +313,7 @@ export default function Timeline() {
             {/* Code Changes Timeline Chart — secondary chart, collapsed on mobile */}
             {codeChangesChartData && (
                 <CollapsibleSection title="Lines Changed" subtitle="Net code additions and deletions" defaultExpanded={!isMobile}>
-                    <div data-embed-id="code-changes-timeline" style={{ height: chartHeight }}>
+                    <div data-embed-id="code-changes-timeline" className={chartHeightClasses}>
                         <Bar data={codeChangesChartData.data} options={codeChangesChartData.options} />
                     </div>
                 </CollapsibleSection>
@@ -318,7 +322,7 @@ export default function Timeline() {
             {/* Urgency Trend — only shows after commits load */}
             {urgencyTrendData && (
                 <CollapsibleSection title="Urgency Over Time" subtitle="Is urgency increasing or decreasing?" defaultExpanded={!isMobile}>
-                    <div data-embed-id="urgency-trend" style={{ height: chartHeight }}>
+                    <div data-embed-id="urgency-trend" className={chartHeightClasses}>
                         <Line data={urgencyTrendData.data} options={urgencyTrendData.options} />
                     </div>
                 </CollapsibleSection>
@@ -327,7 +331,7 @@ export default function Timeline() {
             {/* Debt Trend — only shows after commits load */}
             {debtTrendData && (
                 <CollapsibleSection title="Debt Trend" subtitle="Monthly debt added vs paid" defaultExpanded={!isMobile}>
-                    <div data-embed-id="debt-trend" style={{ height: chartHeight }}>
+                    <div data-embed-id="debt-trend" className={chartHeightClasses}>
                         <Line data={debtTrendData.data} options={debtTrendData.options} />
                     </div>
                 </CollapsibleSection>
@@ -336,7 +340,7 @@ export default function Timeline() {
             {/* Impact Over Time — only shows after commits load */}
             {impactTrendData && (
                 <CollapsibleSection title="Impact Over Time" subtitle="Monthly breakdown by area" defaultExpanded={!isMobile}>
-                    <div data-embed-id="impact-over-time" style={{ height: chartHeight }}>
+                    <div data-embed-id="impact-over-time" className={chartHeightClasses}>
                         <Bar data={impactTrendData.data} options={impactTrendData.options} />
                     </div>
                 </CollapsibleSection>

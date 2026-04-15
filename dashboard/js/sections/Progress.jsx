@@ -321,7 +321,11 @@ export default function Progress() {
         openDetailPane(labels[level] || level, `${filtered.length} commits`, filtered);
     };
 
-    const chartHeight = isMobile ? '220px' : '300px';
+    // Chart container height — breakpoint-derived (220px mobile, 300px desktop).
+    // Exact stock Tailwind: h-55 (13.75rem = 220px) and h-75 (18.75rem = 300px).
+    // Per CLAUDE.md "No inline style={} unless values are runtime-computed
+    // from data" — a breakpoint switch is not data, it's a responsive class.
+    const chartHeightClasses = 'h-55 sm:h-75';
 
     // Requirement: Order sections from most interesting to least interesting
     // Approach: Trend chart first (tells the main story), then visual doughnut, then
@@ -334,7 +338,7 @@ export default function Progress() {
             {/* Feature vs Bug Fix Trend — the main story: are we building or fixing? */}
             {featFixChartData && (
                 <CollapsibleSection title="Features vs Bug Fixes Over Time" subtitle="Monthly trend">
-                    <div data-embed-id="feature-vs-bugfix-trend" style={{ height: chartHeight }}>
+                    <div data-embed-id="feature-vs-bugfix-trend" className={chartHeightClasses}>
                         <Line data={featFixChartData.data} options={featFixChartData.options} />
                     </div>
                 </CollapsibleSection>
@@ -426,7 +430,7 @@ export default function Progress() {
             {/* Complexity Over Time — niche trend, collapsed on mobile */}
             {complexityChartData && (
                 <CollapsibleSection title="Complexity Over Time" subtitle="Average complexity per month" defaultExpanded={!isMobile}>
-                    <div data-embed-id="complexity-over-time" style={{ height: chartHeight }}>
+                    <div data-embed-id="complexity-over-time" className={chartHeightClasses}>
                         <Line data={complexityChartData.data} options={complexityChartData.options} />
                     </div>
                 </CollapsibleSection>

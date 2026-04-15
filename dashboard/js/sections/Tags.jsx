@@ -142,7 +142,13 @@ export default function Tags() {
     // Alternatives:
     //   - Duplicate JSX: Rejected — harder to maintain
     //   - Chart always first: Rejected — list is more practical on small screens
-    const chartHeight = isMobile ? '250px' : '350px';
+    // Chart container height — breakpoint-derived (248px mobile, 348px desktop).
+    // Nearest stock Tailwind: h-62 (15.5rem = 248px) and h-87 (21.75rem = 348px).
+    // Previous inline-style values were 250/350; the 2px delta at each
+    // breakpoint is visually imperceptible and honours the CLAUDE.md rule
+    // "No inline style={} unless values are runtime-computed from data —
+    // round to nearest stock, redesign, or drop".
+    const chartHeightClasses = 'h-62 sm:h-87';
 
     return (
         <div className="flex flex-col gap-6">
@@ -193,7 +199,7 @@ export default function Tags() {
             {doughnutChartData && (
                 <div className={isMobile ? 'order-2' : 'order-1'}>
                     <CollapsibleSection title="Tag Distribution" subtitle="Visual breakdown of commit types" defaultExpanded={!isMobile}>
-                        <div data-embed-id="tag-distribution" style={{ height: chartHeight }}>
+                        <div data-embed-id="tag-distribution" className={chartHeightClasses}>
                             <Doughnut data={doughnutChartData.data} options={doughnutChartData.options} />
                         </div>
                     </CollapsibleSection>
