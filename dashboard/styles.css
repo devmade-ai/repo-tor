@@ -96,14 +96,27 @@
     --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
 }
 
-/* Safe area insets for devices with notch/home indicator */
+/* Safe area insets for devices with notch / home indicator.
+   This is the ONE rule on the `body` element — the only reason body is
+   touched at all is `env(safe-area-inset-*)`, which cannot be applied
+   via a Tailwind utility. The theme background / text colour are NOT
+   set here because DaisyUI v5's base layer already emits
+     :root, [data-theme] {
+         background: var(--page-scroll-bg, var(--root-bg));
+         color: var(--color-base-content);
+     }
+   where `--root-bg` defaults to `var(--color-base-100)` (see
+   node_modules/daisyui/base/rootcolor.css). `data-theme` is set on the
+   `html` element by the flash-prevention script in index.html, so the
+   root rule paints the viewport background and sets the cascade-root
+   text colour. A custom `body { background-color / color }` pair was
+   redundant and was removed 2026-04-15 after confirming the root rule
+   ships correctly in the built CSS bundle across all 8 themes. */
 body {
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
-    background-color: var(--color-base-100);
-    color: var(--color-base-content);
 }
 
 /* === Element-selector exceptions to the vanilla-only policy ===
