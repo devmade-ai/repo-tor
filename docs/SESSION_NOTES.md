@@ -33,11 +33,15 @@ sandbox lacked a Chromium binary. Future re-introduction is tracked in
 "obtain a Chromium binary first" note. The single automated layer is
 the source-level tripwire under `scripts/__tests__/`.
 
-## Last Session's Work — Audit Cleanup
+## Recent Audit-Cleanup Work
 
-The user requested a no-shortcuts fresh-eyes audit of every change on
-the branch. Findings were batched into 13 commits, all merged into the
-branch this session:
+The branch has had two fresh-eyes audit passes. The first (2026-04-15)
+produced 13 commits covering the original findings set; the second
+(same day) caught gaps introduced by the first and produced a
+follow-on cleanup commit series. All commits listed below are on the
+`claude/migrate-daisyui-dark-mode-toG0Y` branch.
+
+**First pass — 13 commits:**
 
 1. **`4a8bd00`** — z-index symmetry, font-sans override, Date filter perf
 2. **`7d92b77`** — SettingsPane View Level → native `<fieldset>` + radio
@@ -45,9 +49,28 @@ branch this session:
 4. **`4e4f672`** — 5 dead exports removed, Header filter callback simplified
 5. **`8ca34f8`** — Progress inline → utility, QuickGuide mobile copy, z-index doc
 6. **`64e2c6c`** — styles.css trimmed 521 → 164 lines (tombstone removal)
-7-13. — SESSION_NOTES rewrite, HISTORY archive, file-size refactors of
-       Timing / DebugPill / Discover / Timeline, TODO notes (in progress
-       at session end — check git log for completion status)
+7. **`51d16d2`** — SESSION_NOTES.md rewritten as compact 77-line snapshot
+8. **`2036661`** — HISTORY.md split, pre-April 2026 entries archived
+9. **`4f38b72`** — Timing.jsx 573 → 436 (extract components/TimingHeatmap.jsx)
+10. **`feb7129`** — DebugPill.jsx 527 → 200 (extract debug/DebugTabs.jsx + debug/debugStyles.js)
+11. **`f0bd185`** — Discover.jsx 711 → 430 (extract sections/discover/discoverData.js)
+12. **`2f815d1`** — Timeline.jsx 735 → 390 (extract hooks/useTimelineCharts.js)
+13. **`fd0985b`** — TODO.md verification entries + aggregate.js investigation
+
+**Second pass — follow-on cleanup commits (fresh-eyes audit caught gaps
+in the first pass):**
+
+- **`09ca333`** — CLAUDE.md exceptions expanded again: debug subsystem
+  covers new subdirectory, TimingHeatmap path fix, root ErrorBoundary
+  inline-style exception, ADMIN_GUIDE.md added to docs table.
+- **`3520a6f`** — Dead-code sweep round 2: deleted `debugGetEntries`,
+  `diagnoseFailure`, `formatNumber`, `aggregateForDrilldown`, `DAY_NAMES`,
+  and `useClickOutside.js`; unexported `SA_HOLIDAYS`, `aggregateByTag`,
+  `getRepoColor`, `SOURCE_COLORS`, `SEVERITY_COLORS`. Six files touched.
+- Subsequent commits in the second pass (doc drift, chartHeight
+  utilities, Timeline handleCardClick, body-rule investigation,
+  AppContext split, TODO monitoring) — see `git log` on the branch for
+  the full list.
 
 Build + tests pass after every commit.
 

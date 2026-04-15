@@ -187,6 +187,10 @@ export default function Header() {
             { label: 'Install App', action: handleInstall, icon: icons.install, visible: installReady && !isInstalledPWA(), separator: true },
             { label: 'Update Now', action: () => applyUpdate(), icon: icons.update, visible: updateAvailable, highlight: true },
         ];
+        // `setGuideOpen` is a React setState setter — guaranteed stable
+        // identity across renders — so it's deliberately omitted from this
+        // dep array. Including it would be harmless but misleading
+        // (suggests it could change).
     }, [
         state.darkMode,
         activeThemeCatalog,
@@ -196,7 +200,6 @@ export default function Header() {
         handleInstall,
         installReady,
         updateAvailable,
-        setGuideOpen,
     ]);
 
     return (

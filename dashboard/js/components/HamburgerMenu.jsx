@@ -196,10 +196,14 @@ export default function HamburgerMenu({ items }) {
         <>
             {/* Backdrop — cursor-pointer required for iOS Safari (iOS does
                 not fire click events on empty <div> elements without cursor:
-                pointer set). position:fixed inset-0 covers the full viewport;
-                z-[40] = var(--z-menu-backdrop) below the dropdown's z-[50].
-                Now that it's portaled to body, no parent stacking context
-                traps it. */}
+                pointer set). position:fixed inset-0 covers the full viewport.
+                Stacking: stock `z-40` (= --z-menu-backdrop in the :root
+                design token scale) sits below the dropdown's stock `z-50`
+                (= --z-menu). Both use stock Tailwind utilities directly —
+                no `z-[var(...)]` arbitrary values needed because the
+                menu-backdrop/menu layers line up with Tailwind's default
+                scale exactly. Now that it's portaled to body, no parent
+                stacking context traps the backdrop. */}
             <div data-testid="hamburger-backdrop" className="fixed inset-0 z-40 cursor-pointer" onClick={close} />
             <nav
                 ref={menuRef}
