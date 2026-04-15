@@ -105,7 +105,8 @@ The daisy theme IS the brand colour.
 | `CLAUDE.md` | AI preferences, project overview, architecture | When architecture, state structures, or preferences change |
 | `docs/SESSION_NOTES.md` | Compact context snapshot for session continuity | Rewrite at session end with fresh summary |
 | `docs/TODO.md` | AI-managed backlog (pending items only) | When noticing improvements; move completed to HISTORY.md |
-| `docs/HISTORY.md` | Changelog of completed work | When completing TODO items or significant changes |
+| `docs/HISTORY.md` | Changelog of completed work (active = April 2026 onward) | When completing TODO items or significant changes |
+| `docs/HISTORY_ARCHIVE.md` | Archived pre-April-2026 changelog entries | Only when trimming `HISTORY.md` once it grows unwieldy again — see file header for split rules |
 | `docs/USER_ACTIONS.md` | Manual tasks requiring user intervention | When tasks need external action (credentials, dashboards) |
 | `docs/AI_MISTAKES.md` | Record of significant AI errors and learnings | After making a mistake that wasted time or broke things |
 | `docs/DAISYUI_V5_NOTES.md` | DaisyUI v5 cheat sheet — v4→v5 renames, project conventions, verification recipe, deliberately-not-used components | When encountering a new DaisyUI v5 quirk, or when adding a new component class to JSX |
