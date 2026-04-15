@@ -366,11 +366,9 @@ export default function Timing() {
                             return (
                                 <div
                                     key={weekKey}
-                                    className={`w-4 h-4 min-w-4 min-h-4 rounded-sm flex items-center justify-center text-8 text-base-content/80 cursor-default transition-transform duration-100 hover:scale-110 hover:z-10 heatmap-${level}`}
+                                    className={`w-4 h-4 min-w-4 min-h-4 rounded-sm cursor-default transition-transform duration-100 hover:scale-110 hover:z-10 heatmap-${level}`}
                                     data-tooltip={`Week of ${weekLabel}: ${count} commits`}
-                                >
-                                    {count > 9 ? '' : count || ''}
-                                </div>
+                                />
                             );
                         })}
                     </div>
@@ -409,38 +407,46 @@ export default function Timing() {
                 </div>
             );
         } else {
-            // Developer view: full 24x7 hourly heatmap
+            // Developer view: full 24x7 hourly heatmap.
+            // Layout: flex row with fixed-width label column + grid of day cells.
+            // Uses stock Tailwind flex + grid-cols-7 (no custom grid templates).
             const { matrix, maxCount, dayOrder, dayLabels } = heatmapContent;
             return (
-                <div className="grid grid-heatmap-m gap-0.5 min-w-70 sm:grid-heatmap-d sm:min-w-100">
-                    {/* Header row */}
-                    <div />
-                    {dayLabels.map(d => (
-                        <div key={d} className="flex items-center justify-center text-9 sm:text-11 font-medium text-base-content/80">{d}</div>
-                    ))}
-
-                    {/* Data rows */}
-                    {Array.from({ length: 24 }, (_, hour) => (
-                        <React.Fragment key={hour}>
-                            <div className="flex items-center justify-end pr-1 sm:pr-2 text-9 sm:text-11 text-base-content/60">
+                <div className="flex gap-0.5 min-w-70 sm:min-w-100">
+                    {/* Label column: hour labels */}
+                    <div className="flex flex-col gap-0.5 w-10 sm:w-12 shrink-0">
+                        <div className="h-4 sm:h-5" />
+                        {Array.from({ length: 24 }, (_, hour) => (
+                            <div
+                                key={hour}
+                                className="aspect-square min-h-5 sm:min-h-7 flex items-center justify-end pr-1 sm:pr-2 text-xs text-base-content/60"
+                            >
                                 {hour % 3 === 0 ? `${hour.toString().padStart(2, '0')}:00` : ''}
                             </div>
-                            {dayOrder.map((dayIdx, i) => {
+                        ))}
+                    </div>
+                    {/* Day grid: 7 columns × (1 header + 24 hours) rows */}
+                    <div className="grid grid-cols-7 gap-0.5 flex-1">
+                        {/* Header row */}
+                        {dayLabels.map(d => (
+                            <div key={d} className="flex items-center justify-center text-xs font-medium text-base-content/80 h-4 sm:h-5">{d}</div>
+                        ))}
+                        {/* Data cells: 24 hours × 7 days (interleaved, flowing left-to-right top-to-bottom) */}
+                        {Array.from({ length: 24 }, (_, hour) =>
+                            dayOrder.map((dayIdx, i) => {
                                 const count = matrix[hour][dayIdx];
                                 const level = getHeatmapLevel(count, maxCount);
                                 const tooltip = `${dayLabels[i]} ${hour}:00 - ${count} commit${count !== 1 ? 's' : ''}`;
                                 return (
                                     <div
-                                        key={dayIdx}
-                                        className={`aspect-square min-w-5 min-h-5 sm:min-w-7 sm:min-h-7 rounded-sm flex items-center justify-center text-8 sm:text-10 text-base-content/80 cursor-default transition-transform duration-100 hover:scale-110 hover:z-10 heatmap-${level}`}
+                                        key={`${hour}-${dayIdx}`}
+                                        className={`aspect-square min-w-5 min-h-5 sm:min-w-7 sm:min-h-7 rounded-sm cursor-default transition-transform duration-100 hover:scale-110 hover:z-10 heatmap-${level}`}
                                         data-tooltip={tooltip}
-                                    >
-                                        {count || ''}
-                                    </div>
+                                    />
                                 );
-                            })}
-                        </React.Fragment>
-                    ))}
+                            })
+                        )}
+                    </div>
                 </div>
             );
         }

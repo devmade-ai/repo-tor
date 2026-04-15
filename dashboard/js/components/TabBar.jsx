@@ -23,13 +23,13 @@ import { useApp } from '../AppContext.jsx';
 //   - Use <Tab> as a component: Rejected — 6 tabs with minimal variance;
 //     a map() + class composition is clearer.
 const TAB_BASE_CLASSES =
-    'tab px-4 py-2 text-13 font-medium font-mono uppercase ' +
+    'tab px-4 py-2 text-sm font-medium font-mono uppercase ' +
     'tracking-wider border-b-2 border-transparent ' +
     'text-base-content/60 whitespace-nowrap transition-all duration-150 ' +
     'hover:text-base-content/80 ' +
     'focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2';
 const TAB_ACTIVE_CLASSES =
-    'tab-active border-primary text-primary text-shadow-primary-glow';
+    'tab-active border-primary text-primary font-semibold';
 
 const TABS = [
     { id: 'overview', label: 'Summary' },

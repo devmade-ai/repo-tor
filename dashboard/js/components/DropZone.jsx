@@ -51,12 +51,12 @@ export default function DropZone({ onFiles }) {
         'focus-visible:border-primary focus-visible:bg-primary/5 ' +
         'focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2';
     const dropZoneActive =
-        'border-primary bg-primary/10 shadow-dropzone-glow';
+        'border-primary bg-primary/10 ring-2 ring-primary ring-offset-2 ring-offset-base-100';
     // Icon color flips to primary during drag-over.
     const iconColor = isDragOver ? 'text-primary' : 'text-base-content/60';
 
     return (
-        <div className="max-w-2xl mx-auto px-4 py-16 min-h-hero flex flex-col justify-center">
+        <div className="max-w-2xl mx-auto px-4 py-16 min-h-screen flex flex-col justify-center">
             <h1 className="text-base-content text-xl font-semibold text-center mb-6 font-mono">Git Analytics Dashboard</h1>
             <div
                 className={`${dropZoneBase} ${isDragOver ? dropZoneActive : ''}`}

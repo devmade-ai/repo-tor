@@ -148,7 +148,7 @@ export default function EmbedRenderer({ embedIds }) {
         const attempted = embedIds.join(', ') || '(empty)';
         return (
             <div className="flex flex-col items-center justify-center min-h-50 p-6 text-center text-base-content/80 font-sans text-sm gap-2">
-                <p>Chart not found: <code className="bg-base-300 px-1.5 py-0.5 rounded text-13">{attempted}</code></p>
+                <p>Chart not found: <code className="bg-base-300 px-1.5 py-0.5 rounded text-sm">{attempted}</code></p>
                 <p>
                     Check <a
                         href="https://github.com/devmade-ai/repo-tor/blob/main/docs/EMBED_REFERENCE.md"
