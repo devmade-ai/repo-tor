@@ -133,8 +133,41 @@ function logThemeEvent(event, details) {
 }
 
 // --- Meta color lookup ---
+// Requirement: Return the PWA `<meta name="theme-color">` hex for a
+//   theme name. Called by applyTheme() after validLightTheme /
+//   validDarkTheme has already validated the name against the catalog,
+//   so under normal operation the lookup always hits.
+// Approach: Primary lookup against the generated META_COLORS map. If
+//   the hit is missing (should be impossible in a clean build — the
+//   generator sources both META_COLORS and the theme catalog from the
+//   same scripts/theme-config.js file), log a debug event so the
+//   anomaly shows up in the debug pill, then fall back to the default
+//   light theme's meta colour. The secondary lookup is guaranteed by
+//   the generator's own invariant: the DEFAULT_LIGHT_THEME must exist
+//   in META_COLORS, otherwise the generator fails its validation step
+//   at build time and the file is never regenerated.
+// Alternatives:
+//   - Throw on missing entry: Rejected — would crash the initial theme
+//     apply path during development if someone adds a theme to
+//     theme-config.js but forgets to regenerate. The whole point of
+//     a fallback is graceful degradation during that window.
+//   - Hardcoded `#808080` neutral gray (previous state, deleted
+//     2026-04-15): Rejected — a hex literal in the source code triggers
+//     the CLAUDE.md hex-literal rule even though the value is
+//     unreachable under normal operation, and the gray doesn't match
+//     any theme's actual surface colour so it looks broken on any
+//     browser that renders the meta tag.
+//   - Return null / undefined: Rejected — `<meta content={null}>` is
+//     invalid HTML and different browsers handle it differently. A
+//     non-empty default is the defensive choice.
 export function getMetaColor(themeName) {
-    return META_COLORS[themeName] || '#808080';
+    const hit = META_COLORS[themeName];
+    if (hit) return hit;
+    debugAdd('theme', 'warn', 'getMetaColor: unknown theme name, falling back to default', {
+        themeName,
+        defaultLightTheme: DEFAULT_LIGHT_THEME,
+    });
+    return META_COLORS[DEFAULT_LIGHT_THEME];
 }
 
 // --- applyTheme: single source of truth for DOM mutations ---
