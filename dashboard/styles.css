@@ -71,14 +71,13 @@
     --content-padding: 24px;
 
     /* Z-Index Scale — see glow-props Z_INDEX_SCALE.md.
-       Every z-index must use one of these variables.
-       Sub-layers: 21 = header above tabs (20), 28 = drawer backdrop
-       below menu backdrop (40), 58 = modal backdrop above menu (50). */
+       Sub-layers: 21 = sticky-header above tabs (20),
+                   58 = modal backdrop above menu (50).
+       --z-drawer / --z-drawer-backdrop deleted 2026-04-15 — all panes
+       now use stock Tailwind z-30/z-40 utilities directly. */
     --z-base: 10;
     --z-sticky: 20;
     --z-sticky-header: 21;
-    --z-drawer-backdrop: 28;
-    --z-drawer: 30;
     --z-menu-backdrop: 40;
     --z-menu: 50;
     --z-modal-backdrop: 58;
@@ -105,7 +104,44 @@ body {
     padding-right: env(safe-area-inset-right);
 }
 
-/* Base styles */
+/* === Element-selector exceptions to the vanilla-only policy ===
+   CLAUDE.md "Frontend: Styles and Scripts" forbids custom CSS classes
+   in styles.css. Element selectors (no class) and pseudo-elements are
+   not "custom classes" but they are still custom CSS. The three rules
+   below are documented exceptions:
+
+   1. `*` font-family reset — sets the global sans-serif font once
+      via inheritance instead of adding `font-sans` to every JSX
+      element. DaisyUI's theme plugin sets some font properties on
+      body but doesn't reset descendants explicitly; this rule
+      prevents inherited browser defaults from leaking through.
+      Alternative rejected: editing index.html to add `font-sans` to
+      <body> wouldn't reach descendants because Tailwind's font-sans
+      utility doesn't cascade by default in v4.
+
+   2. `h1, h2, h3 { font-family: mono }` — the techy-developer-tool
+      visual aesthetic uses a monospace font for section titles. This
+      is app-wide intent applied via semantic HTML rather than
+      repeating `font-mono` on every <h1>/<h2>/<h3> JSX usage. The
+      "stat-value / .text-3xl" sibling selectors that used to live
+      here were Tailwind-utility hijacks and are gone — only the
+      semantic heading selectors remain.
+      Alternative rejected: adding `font-mono` to every heading in
+      JSX (~15-20 edits) is repetitive boilerplate that obscures the
+      design intent.
+
+   3. `body::before` decorative grid background — the dashboard's
+      visual signature. A fixed-position pseudo-element with two
+      linear-gradient lines tinted by `color-mix(--color-primary)`
+      so the grid tracks the active theme. Pseudo-elements cannot
+      be expressed as Tailwind utilities, and removing the grid would
+      visually plain-ify the dashboard.
+      Alternative rejected: removing the grid entirely.
+
+   These three rules are the ONLY remaining custom CSS in styles.css
+   beyond DaisyUI's @plugin registration, the :root design tokens,
+   safe-area body padding, and the @media reduced-motion override.
+   No new element-selector rules should be added. */
 * {
     font-family: var(--font-sans);
 }
@@ -115,30 +151,10 @@ body {
     color: var(--color-base-content);
 }
 
-/* Techy monospace headings.
-   Requirement: Section titles and page headings use a mono font for the
-     "techy/developer tool" aesthetic. This targets semantic heading
-     elements (h1/h2/h3) — it is NOT a Tailwind utility hijack.
-   Approach: Direct element selector on semantic HTML. JSX elements with
-     `text-2xl` / `text-3xl` that need mono styling apply `font-mono`
-     explicitly (consistent with the CLAUDE.md "no custom Tailwind
-     utility hijacks" rule — previously this rule had
-     `.text-3xl, .text-2xl, .stat-value, .font-mono` in its selector list,
-     which silently forced mono font on every large-text element in the
-     app; those were migrated to explicit `font-mono tracking-tight`
-     classes on 2026-04-13).
-   Alternatives considered:
-     - Add `font-mono` class to every <h1>/<h2>/<h3> in JSX: Rejected —
-       the mono-headings design is app-wide, and adding the class to
-       every heading is repetitive boilerplate that buries the intent.
-       Targeting semantic HTML elements is exactly what element selectors
-       are for. */
 h1, h2, h3 {
     font-family: var(--font-mono);
 }
 
-/* Techy grid background — subtle lines that pick up the active theme's
-   primary color so the brand accent stays consistent across themes. */
 body::before {
     content: '';
     position: fixed;
@@ -273,50 +289,14 @@ body::before {
             section { break-inside: avoid; page-break-inside: avoid; }
         }
 
-        /* All heatmap layout classes removed 2026-04-13 — migrated to
-           inline Tailwind utilities in Timing.jsx + HeatmapTooltip.jsx:
-             .heatmap-grid         → grid grid-cols-[36px_repeat(7,1fr)]
-                                      sm:grid-cols-[50px_repeat(7,1fr)]
-                                      gap-0.5 min-w-[280px] sm:min-w-[400px]
-             .heatmap-header       → flex items-center justify-center
-                                      text-[9px] sm:text-[11px] font-medium
-                                      text-base-content/80
-             .heatmap-label        → flex items-center justify-end
-                                      pr-1 sm:pr-2 text-[9px] sm:text-[11px]
-                                      text-base-content/60
-             .heatmap-cell         → aspect-square min-w-5 min-h-5
-                                      sm:min-w-7 sm:min-h-7 rounded-sm
-                                      flex items-center justify-center
-                                      text-[8px] sm:text-[10px]
-                                      text-base-content/80 cursor-default
-                                      transition-transform duration-100
-                                      hover:scale-110 hover:z-10
-             .heatmap-cell-sm      → w-4 h-4 min-w-4 min-h-4 (weekly variant
-                                      — no sm: upscale)
-             .heatmap-tooltip-inner → fixed z-50 pointer-events-none
-                                      bg-base-200 text-base-content
-                                      border border-base-300 rounded-sm
-                                      px-2 py-1 text-[11px] whitespace-nowrap
-                                      shadow-[0_2px_8px_rgba(0,0,0,0.3)]
-                                      transition-opacity duration-100
-                                      + conditional opacity-0/opacity-100
-                                      (replaces the `.visible` state class)
-           The 5 intensity-level classes (.heatmap-0 .. .heatmap-4) below
-           stay as-is: they're semantic data-viz intensity tokens driven
-           by `getHeatmapLevel(count, maxCount)` in JS and referenced via
-           `heatmap-${level}` template strings, and the color-mix()
-           gradients are too long to inline cleanly at every cell. */
-
-        /* Deleted 2026-04-14 — the five .heatmap-N custom classes (intensity
-           levels 0-4) were replaced by a JS `HEATMAP_LEVEL_CLASSES` constant
-           in sections/Timing.jsx that maps each level to a stock DaisyUI
-           `bg-base-300` / `bg-primary/20` / `bg-primary/40` / `bg-primary/60`
-           / `bg-primary` utility. All 5 class name strings appear as literal
-           array entries so Tailwind's content scanner picks them up and
-           generates the utility rules without needing a safelist. The
-           `?accent=` URL override went away with chartColors.js in the
-           vanilla-DaisyUI sweep — intensity now strictly tracks the active
-           theme's primary. */
+        /* Heatmap classes (.heatmap-grid/header/label/cell/cell-sm and
+           .heatmap-0..4 intensity levels) all deleted 2026-04-13/14.
+           Timing.jsx now uses a single `grid-cols-[auto_repeat(7,1fr)]`
+           CSS grid (the one documented arbitrary-bracket exception in
+           CLAUDE.md "Frontend: Styles and Scripts") for row alignment,
+           and a `HEATMAP_LEVEL_CLASSES` JS constant maps intensity
+           levels to stock `bg-base-300` / `bg-primary/20..60` / `bg-primary`
+           utilities. See sections/Timing.jsx for the current implementation. */
 
         /* Deleted blocks that used to live here:
            - Tailwind gray class overrides (.bg-gray-*, .text-gray-*, .border-gray-*)
