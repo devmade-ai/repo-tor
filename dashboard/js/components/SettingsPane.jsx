@@ -102,41 +102,54 @@ export default function SettingsPane() {
                 </button>
             </div>
             <div className="flex-1 overflow-y-auto p-6">
-                {/* View Level */}
-                <div className="mb-6" role="radiogroup" aria-label="View level">
-                    <div className={SECTION_TITLE_CLASSES}>View Level</div>
+                {/* View Level
+                    Requirement: Three mutually-exclusive view modes (Executive,
+                      Management, Developer). Accessible to keyboard + screen
+                      readers per WAI-ARIA radiogroup pattern.
+                    Approach: Native `<fieldset>` + `<legend>` + three
+                      `<input type="radio">` + wrapping `<label>` per option.
+                      HTML handles roving tabindex (Tab moves to the radio
+                      group; arrow keys move between options), focus, ARIA
+                      semantics ("1 of 3" announced once per group, not per
+                      option), and form association — all for free.
+                    Alternatives:
+                      - `<div role="radiogroup">` + `<div role="radio" tabIndex={0}>`
+                        per option (previous state, deleted 2026-04-15):
+                        Rejected. Every radio had `tabIndex={0}` so Tab cycled
+                        through all 3 individually; arrow-key navigation
+                        wasn't implemented; screen readers announced "radio
+                        button, 1 of 3" three times. Roving tabindex requires
+                        manual focus management — way more code than the
+                        native pattern.
+                      - DaisyUI `radio` component on each option without
+                        fieldset: Rejected. The `<fieldset>` + `<legend>`
+                        wrapper is the proper a11y container for grouped
+                        radios; without it the legend isn't associated with
+                        the group. */}
+                <fieldset className="mb-6">
+                    <legend className={SECTION_TITLE_CLASSES}>View Level</legend>
                     <div className="flex flex-col gap-2">
-                        {['executive', 'management', 'developer'].map(level => {
-                            const isActive = state.currentViewLevel === level;
-                            return (
-                                <div
-                                    key={level}
-                                    className={TOGGLE_ROW_CLASSES}
-                                    role="radio"
-                                    aria-checked={isActive}
-                                    tabIndex={0}
-                                    onClick={() => handleViewLevel(level)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter' || e.key === ' ') {
-                                            e.preventDefault();
-                                            handleViewLevel(level);
-                                        }
-                                    }}
-                                >
-                                    <div>
-                                        <div className={TOGGLE_LABEL_CLASSES}>{capitalize(level)}</div>
-                                        <div className={TOGGLE_HINT_CLASSES}>{VIEW_LEVEL_DESCRIPTIONS[level]}</div>
+                        {['executive', 'management', 'developer'].map(level => (
+                            <label key={level} className={TOGGLE_ROW_CLASSES}>
+                                <input
+                                    type="radio"
+                                    name="view-level"
+                                    value={level}
+                                    checked={state.currentViewLevel === level}
+                                    onChange={() => handleViewLevel(level)}
+                                    className="radio radio-primary shrink-0 order-2"
+                                    aria-describedby={`view-level-${level}-desc`}
+                                />
+                                <div className="flex-1">
+                                    <div className={TOGGLE_LABEL_CLASSES}>{capitalize(level)}</div>
+                                    <div id={`view-level-${level}-desc`} className={TOGGLE_HINT_CLASSES}>
+                                        {VIEW_LEVEL_DESCRIPTIONS[level]}
                                     </div>
-                                    {isActive && (
-                                        <svg className="w-5 h-5 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                            <polyline points="20 6 9 17 4 12" />
-                                        </svg>
-                                    )}
                                 </div>
-                            );
-                        })}
+                            </label>
+                        ))}
                     </div>
-                </div>
+                </fieldset>
 
                 {/* Timezone
                     Requirement: Switch-style toggle for UTC vs local
