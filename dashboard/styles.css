@@ -446,14 +446,9 @@ body::before {
            .loading-overlay was dead CSS with no JSX consumer — deleted.
            .card-loading was already deleted in the Phase 5 card migration. */
 
-        /* Fade-in for dashboard content after loading */
-        @keyframes dashboard-enter {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .dashboard-enter {
-            animation: dashboard-enter 0.3s ease-out;
-        }
+        /* .dashboard-enter fade-in animation deleted 2026-04-14 — the
+           dashboard now renders immediately on load with no animation.
+           The vanilla-DaisyUI sweep removed cosmetic entry animations. */
         /* Deleted 2026-04-13 as part of the "custom CSS cleanup" pass:
            - .skeleton / .skeleton-commit / .skeleton-line[-short|-medium]
              + @keyframes skeleton-loading: 0 JSX consumers. Also shadowed
@@ -464,208 +459,22 @@ body::before {
            If a loading-skeleton pattern is needed in the future, use
            DaisyUI's `<div className="skeleton h-4 w-full" />` directly. */
 
-        /* Detail Pane - Slide-out panel for drill-down (dark theme) */
-        .detail-pane-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: var(--z-drawer-backdrop);
-        }
-        .detail-pane-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .detail-pane {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            max-width: 480px;
-            height: 100%;
-            background: var(--color-base-200);
-            border-left: 1px solid var(--color-base-300);
-            transform: translateX(100%);
-            transition: transform 0.3s ease, visibility 0.3s ease;
-            z-index: var(--z-drawer);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            visibility: hidden;
-        }
-        .detail-pane.open {
-            transform: translateX(0);
-            visibility: visible;
-        }
-
-        /* .detail-pane-header + .detail-pane-title + .detail-pane-subtitle
-           + .detail-pane-content + .detail-pane-empty + .detail-pane-loading
-           + .detail-commit + .detail-commit-message + .detail-commit-meta
-           + .detail-commit-tags all removed 2026-04-13 — migrated to
-           inline Tailwind utilities in DetailPane.jsx. The only exception
-           is `.detail-pane-header`, which stays as a zero-style marker
-           class so the mobile `::before` pseudo-element drag-handle rule
-           (inside @media max-width: 640px below) can still target it.
-           The `.detail-pane-close` class was already migrated to
-           DaisyUI `btn btn-sm btn-circle btn-ghost` in an earlier pass. */
-
-        /* Mobile: Bottom sheet variant */
-        @media (max-width: 640px) {
-            .detail-pane {
-                top: auto;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                width: 100%;
-                max-width: none;
-                height: 85vh;
-                max-height: 85vh;
-                border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-                border-left: none;
-                border-top: 1px solid var(--color-base-300);
-                transform: translateY(100%);
-                visibility: hidden;
-            }
-            .detail-pane.open {
-                transform: translateY(0);
-                visibility: visible;
-            }
-            /* .detail-pane-header + .detail-pane-content mobile padding
-               overrides migrated to `max-md:px-4 max-md:py-3` and
-               `max-md:p-4` on the JSX wrappers. The drag-handle ::before
-               pseudo-element below is the ONLY reason .detail-pane-header
-               still exists as a marker class — pseudo-elements can't be
-               expressed as Tailwind utilities. */
-            .detail-pane-header::before {
-                content: '';
-                position: absolute;
-                top: 8px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 32px;
-                height: 4px;
-                background: var(--color-base-300);
-                border-radius: 2px;
-            }
-        }
-
-        /* Settings Panel - Slide-out panel for configuration */
-        .settings-pane-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: var(--z-drawer-backdrop);
-        }
-        .settings-pane-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .settings-pane {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            max-width: 360px;
-            height: 100%;
-            background: var(--color-base-200);
-            border-left: 1px solid var(--color-base-300);
-            transform: translateX(100%);
-            transition: transform 0.3s ease, visibility 0.3s ease;
-            z-index: var(--z-drawer);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            visibility: hidden;
-        }
-        .settings-pane.open {
-            transform: translateX(0);
-            visibility: visible;
-        }
-
-        /* All settings-pane internals migrated 2026-04-13 to inline
-           Tailwind utilities in SettingsPane.jsx:
-             .settings-pane-header     → kept as marker for mobile ::before drag handle
-             .settings-pane-title      → text-lg font-semibold text-base-content
-             .settings-pane-content    → flex-1 overflow-y-auto p-6 max-md:p-4
-             .settings-section-title   → text-[11px] font-semibold uppercase tracking-wider text-base-content/60 mb-3
-             .settings-group           → removed (flex-1 on work-hour groups, otherwise no wrapper)
-             .settings-group label     → block text-[13px] font-medium text-base-content/80 mb-1.5
-             .settings-toggle          → shared TOGGLE_ROW_CLASSES constant
-                                          (flex items-center justify-between p-3
-                                          bg-base-300 rounded-md cursor-pointer
-                                          transition-colors hover:bg-base-content/5)
-                                          — applied to a <label> wrapper for the
-                                          UTC row and to <div role="radio"> rows
-                                          for the ViewLevel radiogroup
-             .settings-toggle-label    → text-[13px] font-medium text-base-content/80
-             .settings-toggle-hint     → text-[11px] text-base-content/40 mt-0.5
-             .settings-toggle-switch   → DaisyUI `toggle toggle-primary` native
-                                          component on a native <input
-                                          type="checkbox"> (the earlier migration
-                                          reimplemented the pill switch with
-                                          inline `after:` pseudo + hardcoded
-                                          `after:bg-white`; the 2026-04-14 audit
-                                          replaced it with DaisyUI's own toggle
-                                          which theme-tracks the thumb colour)
-             .settings-toggle.active   → driven by the native <input> `checked`
-                                          attribute; DaisyUI's
-                                          `.toggle-primary:checked` selector
-                                          handles the active-state colour
-             .settings-row             → flex gap-3
-             .settings-view-level-group → flex flex-col gap-2
-             .settings-work-hours-hint  → text-[11px] text-base-content/40 mt-2
-
-           The only remaining custom classes in the settings module are
-           `.settings-pane` + `.settings-pane-overlay` (transform-based
-           slide-over transitions) and `.settings-pane-header` (as a
-           zero-style marker for the mobile drag-handle ::before pseudo).
-           Shared Tailwind class strings for section titles and toggle
-           variants are extracted as JS constants inside SettingsPane.jsx
-           so each block doesn't repeat the full utility list. */
-
-        /* Mobile: Bottom sheet variant for settings */
-        @media (max-width: 640px) {
-            .settings-pane {
-                top: auto;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                width: 100%;
-                max-width: none;
-                height: 85vh;
-                max-height: 85vh;
-                border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-                border-left: none;
-                border-top: 1px solid var(--color-base-300);
-                transform: translateY(100%);
-            }
-            .settings-pane.open {
-                transform: translateY(0);
-            }
-            /* .settings-pane-header + .settings-pane-content mobile
-               padding overrides migrated to `max-md:` Tailwind classes
-               on the JSX wrappers. The drag-handle ::before pseudo
-               below is the ONLY remaining reason .settings-pane-header
-               stays as a marker class. */
-            .settings-pane-header::before {
-                content: '';
-                position: absolute;
-                top: 8px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 32px;
-                height: 4px;
-                background: var(--color-base-300);
-                border-radius: 2px;
-            }
-        }
+        /* Detail Pane / Settings Pane / Filter Sidebar — the three
+           slide-over drawers are now vanilla DaisyUI `drawer` / `drawer-end`
+           components wrapped in App.jsx. Deleted 2026-04-14:
+             .detail-pane + .detail-pane.open + mobile bottom-sheet media
+             .detail-pane-overlay + .detail-pane-overlay.open
+             .detail-pane-header::before (mobile drag handle)
+             .settings-pane + .settings-pane.open + mobile bottom-sheet media
+             .settings-pane-overlay + .settings-pane-overlay.open
+             .settings-pane-header::before (mobile drag handle)
+             .filter-sidebar + .filter-sidebar.open + .filter-sidebar.collapsed
+             .filter-sidebar-overlay + .filter-sidebar-overlay.open
+             @media (max-width: 768px) .filter-sidebar transforms
+           DaisyUI drawer handles transform-based slide animation, overlay
+           rendering, and click-outside-to-close via label[htmlFor]. The
+           mobile drag-handle ::before pseudo-elements are gone — DaisyUI
+           doesn't ship one and the vanilla rule is "no custom anything". */
 
         /* .stat-label removed 2026-04-13 — 0 JSX consumers. */
 
@@ -681,110 +490,11 @@ body::before {
            `flex gap-6 relative` in App.jsx. Mobile override (gap-0) is
            handled by the responsive `sm:gap-6` pattern in JSX. */
 
-        /* Filter sidebar - dark theme */
-        .filter-sidebar {
-            width: 280px;
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-        .filter-sidebar.collapsed {
-            width: 0;
-            margin-left: -24px;
-        }
-        /* .filter-sidebar-inner + its descendant rules removed 2026-04-13
-           — all migrated to inline Tailwind utilities in FilterSidebar.jsx:
-             - Base styles (w-[280px] p-4 bg-base-200 rounded-lg border
-               border-base-300) on the sidebar-inner wrapper
-             - Mobile-drawer override (w-full h-full rounded-none
-               overflow-y-auto pt-6) via `max-md:` variants
-             - space-y-4 for the filter-group vertical rhythm (replaces
-               the descendant `margin-bottom: 16px` rule)
-             - label { display: block; font-size: 12px; ... } migrated to
-               explicit `block text-xs text-base-content/60 mb-1` on each
-               <label> in FilterSidebar.jsx (the descendant selector had
-               been targeting all labels indiscriminately — explicit
-               classes make each label's typography visible at its site)
-             - .filter-sidebar-inner select/input { width: 100% } — the
-               DaisyUI `select select-sm` / `input input-sm w-full` classes
-               already carry `w-full` explicitly */
-        /* .filter-preset-btn — unused (no JSX consumer found in audit).
-           Deleted along with the rest of the Phase 6 button cleanup. */
-
-        /* .filter-mode-toggle — migrated to DaisyUI `join` wrapper +
-           `join-item btn btn-xs` (btn-primary for include, btn-error for
-           exclude) in dashboard/js/components/FilterSidebar.jsx. */
-        /* .filter-group-header removed 2026-04-13 — migrated to inline
-           Tailwind utilities `flex items-center mb-1` in FilterSidebar.jsx.
-           The descendant rule `.filter-group-header label { margin-bottom: 0 }`
-           was needed only because `.filter-sidebar-inner label` applies
-           `margin-bottom: 4px` globally. The group-header's `label`
-           now lives inside a `flex items-center` wrapper so the label's
-           block-level margin doesn't stack with the wrapper's own mb-1;
-           removing the override has no visual effect. */
-        /* .filter-multi-select, .filter-multi-select-trigger,
-           .filter-multi-select-dropdown, .filter-multi-select-option,
-           .selected-text, .arrow removed 2026-04-13 — all rules migrated
-           to inline Tailwind utilities in FilterSidebar.jsx.
-
-           Open/closed dropdown state, selected-row highlight, and
-           keyboard-highlighted row are now driven by conditional
-           className builders in JSX (React state is the source of
-           truth — no more state-class + descendant selector round
-           trip). The `.filter-multi-select-trigger` marker class is
-           kept ONLY as an identifier for the focus-visible outline
-           rule below (the listbox is a WAI-ARIA listbox, not a DaisyUI
-           btn, so it doesn't inherit DaisyUI's own focus-visible ring).
-           Inner checkbox uses DaisyUI `checkbox checkbox-xs
-           checkbox-primary` — no per-input rule needed. */
-
-        /* .tab-content-area removed 2026-04-13 — replaced by inline
-           `flex-1 min-w-0` in App.jsx. */
-
-        /* Mobile: Filter sidebar as overlay */
-        @media (max-width: 768px) {
-            /* Requirement: Remove left gap on mobile caused by sidebar flex gap
-               Approach: Reset gap since sidebar is position:fixed overlay on mobile
-               Alternatives: Hide sidebar wrapper with display:none — rejected,
-               would break sidebar open/close transitions */
-            /* .dashboard-layout mobile override removed — the JSX wrapper
-               uses `gap-0 sm:gap-6` responsive classes instead. */
-            .filter-sidebar {
-                position: fixed;
-                top: 0;
-                left: 0;
-                height: 100%;
-                z-index: var(--z-drawer);
-                width: 300px;
-                max-width: 85vw;
-                transform: translateX(-100%);
-                margin: 0;
-            }
-            .filter-sidebar.collapsed {
-                width: 300px;
-                max-width: 85vw;
-                margin-left: 0;
-            }
-            .filter-sidebar.open {
-                transform: translateX(0);
-            }
-            /* .filter-sidebar-inner mobile overrides migrated to
-               `max-md:` Tailwind variants on the wrapper div in
-               FilterSidebar.jsx. */
-            .filter-sidebar-overlay {
-                position: fixed;
-                inset: 0;
-                background: rgba(0, 0, 0, 0.8);
-                z-index: var(--z-drawer-backdrop);
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease;
-            }
-            .filter-sidebar-overlay.open {
-                opacity: 1;
-                visibility: visible;
-            }
-        }
+        /* .filter-sidebar / .filter-sidebar-overlay / .filter-sidebar-inner
+           + all descendant rules and the @media (max-width: 768px) mobile
+           block deleted 2026-04-14. DaisyUI drawer component in App.jsx
+           handles width, positioning, overlay, and mobile vs desktop
+           responsive behaviour via `lg:drawer-open`. */
 
         /* Drop zone for file upload */
         /* .drop-zone + .drop-zone-icon removed 2026-04-13 — migrated to

@@ -85,33 +85,23 @@ export default function SettingsPane() {
     const hours = Array.from({ length: 24 }, (_, i) => i);
 
     return (
-        <>
-            <div
-                className={`settings-pane-overlay ${state.settingsPaneOpen ? 'open' : ''}`}
-                onClick={handleClose}
-                role="presentation"
-            />
-            <div
-                ref={trapRef}
-                className={`settings-pane ${state.settingsPaneOpen ? 'open' : ''}`}
-                role="dialog"
-                aria-modal={state.settingsPaneOpen}
-                aria-label="Settings"
-            >
-                {/* `settings-pane-header` is kept as a zero-style marker
-                    class so the mobile `::before` pseudo drag-handle rule
-                    in styles.css can still target it. All layout styles
-                    are inline. */}
-                <div className="settings-pane-header flex items-center justify-between px-6 py-4 border-b border-base-300 shrink-0 max-md:px-4 max-md:py-3 max-md:relative">
-                    <span className="text-lg font-semibold text-base-content">Settings</span>
-                    <button className="btn btn-sm btn-circle btn-ghost" onClick={handleClose} aria-label="Close settings">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
-                    </button>
-                </div>
-                <div className="flex-1 overflow-y-auto p-6 max-md:p-4">
+        <div
+            ref={trapRef}
+            className="flex flex-col h-full w-full max-w-sm bg-base-200 border-l border-base-300"
+            role="dialog"
+            aria-modal={state.settingsPaneOpen}
+            aria-label="Settings"
+        >
+            <div className="flex items-center justify-between px-6 py-4 border-b border-base-300 shrink-0">
+                <span className="text-lg font-semibold text-base-content">Settings</span>
+                <button className="btn btn-sm btn-circle btn-ghost" onClick={handleClose} aria-label="Close settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-6">
                     {/* View Level */}
                     <div className="mb-6" role="radiogroup" aria-label="View level">
                         <div className={SECTION_TITLE_CLASSES}>View Level</div>
@@ -219,12 +209,11 @@ export default function SettingsPane() {
                                 </select>
                             </div>
                         </div>
-                        <div className="text-xs text-base-content/40 mt-2">
-                            Commits outside these hours are flagged as after-hours
-                        </div>
+                    <div className="text-xs text-base-content/40 mt-2">
+                        Commits outside these hours are flagged as after-hours
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

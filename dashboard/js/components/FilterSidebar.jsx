@@ -268,6 +268,9 @@ function FilterGroup({ label, filterType, options }) {
     );
 }
 
+// Content-only component — App.jsx wraps this in a DaisyUI `drawer-side`
+// that handles positioning, slide animation, and overlay. This component
+// renders just the filter panel's inner content.
 export default function FilterSidebar() {
     const { state, dispatch, filteredCommits, filterOptions, activeFilterCount } = useApp();
 
@@ -279,56 +282,45 @@ export default function FilterSidebar() {
     }
 
     return (
-        <>
-            <div className={`filter-sidebar ${state.filterSidebarOpen ? 'open' : 'collapsed'}`}>
-                <div className="w-70 p-4 bg-base-200 rounded-lg border border-base-300 space-y-4 max-md:w-full max-md:h-full max-md:rounded-none max-md:border-0 max-md:overflow-y-auto max-md:pt-6">
-                    <div className="text-xs text-base-content/60 mb-3">
-                        Showing {filteredCommits.length} of {state.data?.commits?.length || 0} commits
-                        {activeFilterCount > 0 && ` (${activeFilterCount} filters active)`}
-                    </div>
+        <aside className="menu bg-base-200 min-h-full w-80 p-4 space-y-4">
+            <div className="text-xs text-base-content/60 mb-3">
+                Showing {filteredCommits.length} of {state.data?.commits?.length || 0} commits
+                {activeFilterCount > 0 && ` (${activeFilterCount} filters active)`}
+            </div>
 
-                    <FilterGroup label="Tags" filterType="tag" options={filterOptions.tags} />
-                    <FilterGroup label="Authors" filterType="author" options={filterOptions.authors} />
-                    <FilterGroup label="Repos" filterType="repo" options={filterOptions.repos} />
-                    <FilterGroup label="Urgency" filterType="urgency" options={filterOptions.urgencies} />
-                    <FilterGroup label="Impact" filterType="impact" options={filterOptions.impacts} />
+            <FilterGroup label="Tags" filterType="tag" options={filterOptions.tags} />
+            <FilterGroup label="Authors" filterType="author" options={filterOptions.authors} />
+            <FilterGroup label="Repos" filterType="repo" options={filterOptions.repos} />
+            <FilterGroup label="Urgency" filterType="urgency" options={filterOptions.urgencies} />
+            <FilterGroup label="Impact" filterType="impact" options={filterOptions.impacts} />
 
-                    <div>
-                        <label className="block text-xs text-base-content/60 mb-1">Date Range</label>
-                        <div className="flex flex-col gap-1.5">
-                            <input
-                                type="date"
-                                className="input input-sm w-full"
-                                value={state.filters.dateFrom}
-                                onChange={(e) => handleDateChange('dateFrom', e.target.value)}
-                                aria-label="Filter from date"
-                            />
-                            <input
-                                type="date"
-                                className="input input-sm w-full"
-                                value={state.filters.dateTo}
-                                onChange={(e) => handleDateChange('dateTo', e.target.value)}
-                                aria-label="Filter to date"
-                            />
-                        </div>
-                    </div>
-
-                    <button
-                        type="button"
-                        className="btn btn-outline btn-sm w-full mt-3"
-                        onClick={() => dispatch({ type: 'CLEAR_FILTERS' })}
-                    >
-                        Clear All
-                    </button>
+            <div>
+                <label className="block text-xs text-base-content/60 mb-1">Date Range</label>
+                <div className="flex flex-col gap-1.5">
+                    <input
+                        type="date"
+                        className="input input-sm w-full"
+                        value={state.filters.dateFrom}
+                        onChange={(e) => handleDateChange('dateFrom', e.target.value)}
+                        aria-label="Filter from date"
+                    />
+                    <input
+                        type="date"
+                        className="input input-sm w-full"
+                        value={state.filters.dateTo}
+                        onChange={(e) => handleDateChange('dateTo', e.target.value)}
+                        aria-label="Filter to date"
+                    />
                 </div>
             </div>
 
-            {/* Mobile overlay */}
-            <div
-                className={`filter-sidebar-overlay ${state.filterSidebarOpen ? 'open' : ''}`}
-                onClick={() => dispatch({ type: 'CLOSE_FILTER_SIDEBAR' })}
-                role="presentation"
-            />
-        </>
+            <button
+                type="button"
+                className="btn btn-outline btn-sm w-full mt-3"
+                onClick={() => dispatch({ type: 'CLEAR_FILTERS' })}
+            >
+                Clear All
+            </button>
+        </aside>
     );
 }

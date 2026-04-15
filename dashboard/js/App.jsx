@@ -357,7 +357,7 @@ export default function App() {
     // If no data loaded, show the drop zone (or error)
     if (!state.data) {
         return (
-            <div className="dashboard-enter">
+            <div>
                 {loadError && (
                     <div className="max-w-2xl mx-auto px-4 pt-12 pb-4">
                         <div role="alert" className="card bg-base-200 border border-base-300">
@@ -383,42 +383,88 @@ export default function App() {
         );
     }
 
+    // Nested DaisyUI drawers — one each for filter (left side, lg:drawer-open
+    // for inline-on-desktop behaviour), detail pane (right side), settings
+    // pane (right side). Each drawer's native checkbox is controlled by the
+    // corresponding reducer state; onChange dispatches the matching toggle
+    // action. DaisyUI handles positioning, slide animation, overlay rendering,
+    // and click-outside-to-close via the label[htmlFor] pattern; React still
+    // owns the open/closed state via AppContext.
     return (
-        <div className="min-h-screen dashboard-enter">
-            <ErrorBoundary><Header /></ErrorBoundary>
-            <div className="print:hidden"><ErrorBoundary><TabBar /></ErrorBoundary></div>
-            <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
-                <div className="flex gap-0 sm:gap-6 relative mt-6">
-                    <div className="print:hidden"><ErrorBoundary><FilterSidebar /></ErrorBoundary></div>
-                    <div className="flex-1 min-w-0">
-                        <ErrorBoundary key={state.activeTab}>
-                            {state.activeTab === 'overview' && <Summary />}
-                            {state.activeTab === 'activity' && (
-                                <div className="space-y-4 sm:space-y-6">
-                                    <Timeline />
-                                    <hr className="border-base-300 opacity-30" />
-                                    <Timing />
+        <div className="drawer lg:drawer-open">
+            <input
+                id="filter-drawer-toggle"
+                type="checkbox"
+                className="drawer-toggle"
+                checked={state.filterSidebarOpen}
+                onChange={e => dispatch({ type: e.target.checked ? 'OPEN_FILTER_SIDEBAR' : 'CLOSE_FILTER_SIDEBAR' })}
+                aria-label="Toggle filter sidebar"
+            />
+            <div className="drawer-content flex flex-col min-h-screen">
+                <div className="drawer drawer-end">
+                    <input
+                        id="detail-drawer-toggle"
+                        type="checkbox"
+                        className="drawer-toggle"
+                        checked={state.detailPane.open}
+                        onChange={e => { if (!e.target.checked) dispatch({ type: 'CLOSE_DETAIL_PANE' }); }}
+                        aria-label="Toggle detail pane"
+                    />
+                    <div className="drawer-content flex flex-col min-h-screen">
+                        <div className="drawer drawer-end">
+                            <input
+                                id="settings-drawer-toggle"
+                                type="checkbox"
+                                className="drawer-toggle"
+                                checked={state.settingsPaneOpen}
+                                onChange={e => dispatch({ type: e.target.checked ? 'OPEN_SETTINGS_PANE' : 'CLOSE_SETTINGS_PANE' })}
+                                aria-label="Toggle settings pane"
+                            />
+                            <div className="drawer-content flex flex-col min-h-screen">
+                                <ErrorBoundary><Header /></ErrorBoundary>
+                                <div className="print:hidden"><ErrorBoundary><TabBar /></ErrorBoundary></div>
+                                <div className="max-w-7xl mx-auto w-full px-4 md:px-8 pb-12 flex-1">
+                                    <ErrorBoundary key={state.activeTab}>
+                                        {state.activeTab === 'overview' && <Summary />}
+                                        {state.activeTab === 'activity' && (
+                                            <div className="space-y-4 sm:space-y-6">
+                                                <Timeline />
+                                                <hr className="border-base-300 opacity-30" />
+                                                <Timing />
+                                            </div>
+                                        )}
+                                        {state.activeTab === 'work' && (
+                                            <div className="space-y-4 sm:space-y-6">
+                                                <Progress />
+                                                <hr className="border-base-300 opacity-30" />
+                                                <Contributors />
+                                                <hr className="border-base-300 opacity-30" />
+                                                <Tags />
+                                            </div>
+                                        )}
+                                        {state.activeTab === 'health' && <Health />}
+                                        {state.activeTab === 'discover' && <Discover />}
+                                        {state.activeTab === 'projects' && <Projects />}
+                                    </ErrorBoundary>
                                 </div>
-                            )}
-                            {state.activeTab === 'work' && (
-                                <div className="space-y-4 sm:space-y-6">
-                                    <Progress />
-                                    <hr className="border-base-300 opacity-30" />
-                                    <Contributors />
-                                    <hr className="border-base-300 opacity-30" />
-                                    <Tags />
-                                </div>
-                            )}
-                            {state.activeTab === 'health' && <Health />}
-                            {state.activeTab === 'discover' && <Discover />}
-                            {state.activeTab === 'projects' && <Projects />}
-                        </ErrorBoundary>
+                                <HeatmapTooltip />
+                            </div>
+                            <div className="drawer-side print:hidden">
+                                <label htmlFor="settings-drawer-toggle" className="drawer-overlay" aria-label="Close settings" />
+                                <ErrorBoundary><SettingsPane /></ErrorBoundary>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="drawer-side print:hidden">
+                        <label htmlFor="detail-drawer-toggle" className="drawer-overlay" aria-label="Close detail pane" />
+                        <ErrorBoundary><DetailPane /></ErrorBoundary>
                     </div>
                 </div>
             </div>
-            <div className="print:hidden"><ErrorBoundary><DetailPane /></ErrorBoundary></div>
-            <div className="print:hidden"><ErrorBoundary><SettingsPane /></ErrorBoundary></div>
-            <HeatmapTooltip />
+            <div className="drawer-side print:hidden">
+                <label htmlFor="filter-drawer-toggle" className="drawer-overlay" aria-label="Close filter sidebar" />
+                <ErrorBoundary><FilterSidebar /></ErrorBoundary>
+            </div>
         </div>
     );
 }

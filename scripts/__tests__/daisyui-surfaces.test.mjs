@@ -559,19 +559,9 @@ test('styles.css allowlist — only legitimate custom classes remain', () => {
     // block. If the new rule is just a layout/typography alias, migrate
     // it to inline Tailwind utilities instead of extending the allowlist.
     const LEGITIMATE_CUSTOM_CLASSES = new Set([
-        // --- Transform-based slide-over drawers (state class + transform transitions) ---
-        'filter-sidebar',
-        'filter-sidebar-overlay',
-        'detail-pane',
-        'detail-pane-overlay',
-        'detail-pane-header',         // zero-style marker for mobile ::before drag handle
-        'settings-pane',
-        'settings-pane-overlay',
-        'settings-pane-header',       // zero-style marker for mobile ::before drag handle
-        // --- Pseudo-elements (::after gradient, ::before drag handles) ---
+        // --- Pseudo-elements (::after gradient accent on the header) ---
         'dashboard-header',           // ::after gradient accent line
         // --- @keyframes animations ---
-        'dashboard-enter',            // fade-in on page load
         'hamburger-dropdown',         // fade-in + complex box-shadow
         'hamburger-update-dot',       // pulse animation
         // --- Isolated rendering that must survive CSS load failure ---
