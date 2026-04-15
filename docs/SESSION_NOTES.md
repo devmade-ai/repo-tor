@@ -1,624 +1,77 @@
 # Session Notes
 
-Current state for AI assistants to continue work.
+Compact context snapshot for AI continuity. Rewritten 2026-04-15 at the
+end of the `claude/migrate-daisyui-dark-mode-toG0Y` audit-cleanup pass.
+Detailed history lives in `docs/HISTORY.md` and the git log.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete with role-based view levels, DaisyUI v5 dual-layer light/dark theming following the full `docs/implementations/THEME_DARK_MODE.md` reference (theme catalog module with 4+4 curated themes using per-theme PWA color-key overrides, `applyTheme()` helper with debug flow tracing, single-source-of-truth build-time catalog propagator, burger-menu theme picker with rapid-preview keep-open behavior, reference-shape cross-tab sync with per-mode React state, inline flash-prevention allowlist, unit-tested oklch→hex converter), and PWA support. As of 2026-04-13, every user-visible surface also routes through DaisyUI's `@layer components` classes — no custom CSS class shadows any DaisyUI component.
-
-**Recent Updates (2026-04-15 — Playwright removed):**
-
-Deleted everything Playwright-related — `playwright.config.js`, `dashboard/e2e/` directory (functional spec + visual regression spec + README), `@playwright/test` devDep, all 5 npm scripts (`test:e2e`, `test:e2e:install`, `test:e2e:ui`, `test:visual`, `test:visual:update`), and the .gitignore Playwright artifact patterns. The original 2026-04-13 Playwright commit (`af0f02d`) added 1337 lines across 8 files but never produced any baseline screenshots — the session that committed it had no Chromium binary in its sandbox, so the spec files sat unrun. By 2026-04-15 it was clear the visual regression layer was misleading documentation rather than working coverage. Removed entirely; future re-introduction tracked in `docs/TODO.md` "Browser test coverage (future)" with notes on what to do differently. **Source-level `node:test` tripwire (`scripts/__tests__/daisyui-surfaces.test.mjs`) remains as the only automated layer** — 60 tests, ~250ms, no browser, no setup. Catches DaisyUI class regressions, dead marker classes, hardcoded shades, v4 cruft, and built-CSS shipping checks.
-
-**Recent Updates (2026-04-14 — vanilla-DaisyUI sweep, 8 phases):**
-
-User directive: "the daisy theme is the brand colour... i want everything a vanilla as possible using daisyui". Executed a complete sweep:
-
-- **Phase 3** — reverted the @theme/@utility tokens added in the previous session, mapped everything to stock Tailwind (text-xs/sm, shadow-lg/xl, min-h-screen, DaisyUI modal-box defaults)
-- **Phase 4c** — heatmap `.heatmap-0..4` → JS `HEATMAP_LEVEL_CLASSES` array of stock `bg-primary/N`
-- **Phase 1** — tag colours: deleted 34-hex `TAG_COLORS` brand palette, replaced with 7-variant DaisyUI badge mapping + runtime semantic colour resolver for Chart.js
-- **Phase 2** — chart colours: deleted `chartColors.js` 20-hex default palette, 4 alt palettes, `?palette/?accent/?muted/?colors` URL overrides. Runtime `getComputedStyle` of 8 DaisyUI semantic vars
-- **Phase 4b + 4g** — CollapsibleSection → DaisyUI `collapse collapse-arrow`; embed-mode → `isEmbedMode` conditional short-circuit in CollapsibleSection
-- **Phase 4a** — drawers: three nested DaisyUI `drawer` / `drawer-end` wrappers in App.jsx replacing `.filter-sidebar` / `.detail-pane` / `.settings-pane` custom slide-overs
-- **Phase 4d-j** — remaining custom classes: `.dashboard-header`, `.hamburger-dropdown`, `.hamburger-update-dot`, `.scrollbar-hide`, `.header-filter-hint`, `.root-error-*` all deleted and migrated to stock utilities or DaisyUI components
-- **Phase 6** — CLAUDE.md + DAISYUI_V5_NOTES rewritten with zero-custom-class policy. Allowlist test set to empty Set.
-
-Final state: `dashboard/styles.css` contains zero custom class definitions. Every dashboard surface tracks the active DaisyUI theme. Build + tests clean.
-
-**Visual regressions accepted:** 34 tag colours → 7 semantic, 20-hex charts → 8 semantic cycle, heatmap cell text dropped, mobile drag-handles removed, bottom-sheet variant gone (panes slide from right on mobile too), page-load and dropdown fade-in animations removed, header gradient accent replaced with plain border.
-
-**Recent Updates (2026-04-14 — zero-arbitrary-values sweep):**
-
-After Phase 1 shipped safe drop-in replacements (`min-h-[200px]` → `min-h-50`, `z-[21]` → `z-[var(--z-sticky-header)]`, `focus-visible:shadow-[inset_0_0_0_2px_var]` → `focus-visible:ring-2 ring-inset ring-primary`, inline `zIndex` → class, etc.), the user asked for a full sweep of every remaining arbitrary Tailwind bracket value — "theme tokens for everything always".
-
-Added to `dashboard/styles.css`:
-
-- `@theme` block with 8 tokens: `--text-8/9/10/11/13` (font sizes below/between Tailwind's 12/14/16 default scale) and `--shadow-tooltip`, `--shadow-dropdown`, `--shadow-dropzone-glow` (higher-opacity shadows for tooltips and dropdowns that read too subtly with stock `shadow-md/lg/xl`)
-- `@utility` directives for 6 non-standard namespaces: `grid-heatmap-m/d` (heatmap grid templates), `w-modal-responsive` (min/calc modal width), `max-w-viewport-margin` (calc viewport-margin cap), `min-h-hero` (60vh hero), `text-shadow-primary-glow` (active tab glow — Tailwind v4 has no text-shadow utility)
-
-JSX replacements across Timing, Projects, HamburgerMenu, HeatmapTooltip, TabBar, SettingsPane, EmbedRenderer, DropZone, FilterSidebar, QuickGuide, InstallInstructionsModal. 61/61 tests pass; test assertion for the TabBar active-glow updated to match the new `text-shadow-primary-glow` utility.
-
-CLAUDE.md gained a new rule under "Frontend: Styles and Scripts" listing the 6-tier precedence for replacing arbitrary values (stock utility → DaisyUI token → CSS var arbitrary → `@theme` → `@utility` → arbitrary bracket as last resort). DAISYUI_V5_NOTES.md gained an inventory of every defined `@theme` token and `@utility` directive with rationale.
-
-**Recent Updates (2026-04-14 — post-migration audit follow-up commit):**
-
-A second commit cleaned up everything the first audit pass left on the table after the user asked for a no-shortcuts review:
-
-1. **SettingsPane UTC toggle — proper native architecture.** The first audit fix swapped the hand-rolled `after:` pseudo thumb for DaisyUI's `.toggle` but kept the `<div role="switch">` + `readOnly` + `aria-hidden` presentational pattern, which has issues: `readOnly` is a no-op on HTML checkboxes (React only accepts it to silence the controlled-without-onChange warning) and the parent `onClick` raced with the checkbox's native click handler. The follow-up refactored to a native `<label>` wrapping `<input type="checkbox" className="toggle toggle-primary" onChange={...}>`. HTML's native label-for association makes the whole row clickable, `onChange` reads `e.target.checked` directly (no stale-closure risk), and the input owns focus / keyboard / ARIA semantics natively with zero duplication.
-2. **TOGGLE_BASE_CLASSES no-op hover** — renamed to `TOGGLE_ROW_CLASSES` and replaced `hover:bg-base-300` (no-op on a `bg-base-300` base — silent typo carried over from the migration of the original `--bg-tertiary` / `--bg-hover` dual-colour hover) with `hover:bg-base-content/5` for a real theme-aware overlay tint. Fixes the hover affordance on both the UTC row and the ViewLevel radio rows.
-3. **FilterSidebar MultiSelect highlighted+selected state** — the 2×2 state grid (`isSelected × isHighlighted`) was collapsed to a single ternary that dropped the primary tint for keyboard-highlighted selected rows. The first audit fix only addressed the mouse-hover branch; the follow-up enumerated all four combinations explicitly with `highlighted && selected → bg-primary/30`, `highlighted → bg-base-300`, `selected → bg-primary/10 hover:bg-primary/20`, `default → hover:bg-base-300`.
-4. **Dead code** — `FOCUS_RING_CLASSES` in `dashboard/js/utils.js` was declared but had zero consumers (grepped `import.*FOCUS_RING_CLASSES` → no hits). Deleted the export + its ~20-line rationale block; the inline focus-ring string lives directly on each consumer.
-5. **Docs**:
-   - `dashboard/styles.css` lines 645-651 — stale comment block still described the old `after:` pseudo approach; rewritten to point at the DaisyUI `toggle` component and the `TOGGLE_ROW_CLASSES` constant.
-   - `docs/DAISYUI_V5_NOTES.md` — added a new "Toggles (switches)" bullet under project conventions explaining the `<label>` + `<input type="checkbox" class="toggle toggle-primary">` pattern and why hand-rolled alternatives are wrong.
-   - `docs/AI_MISTAKES.md` — added a 2026-04-14 entry about "migrating state-dependent classes without tracing cascade priority between variants" covering all five regressions the audit caught + five prevention rules.
-
-**Outstanding (not addressed in this session):**
-
-- **SettingsPane ViewLevel radiogroup a11y** — still uses `<div role="radio">` + `tabIndex={0}` on every item with only Enter/Space handling. A WAI-ARIA radiogroup should have exactly one `tabIndex=0` at a time (the focused one) and arrow-key navigation should move focus between items. Leaving as-is because converting to native `<input type="radio">` + `<label>` pattern is a larger refactor outside the audit's scope.
-- **The SettingsPane toggle wasn't verified in a live browser.** The DaisyUI `.toggle` class ships in the built CSS and the refactored component is structurally correct, but I didn't run `npm run dev` and spot-check all 8 themes. Quick verification: open settings pane, toggle UTC, confirm pill switch animates correctly in lofi/nord/emerald/caramellatte (light) and black/dim/coffee/dracula (dark).
-- **Playwright visual regression note removed 2026-04-15** — the entire Playwright + e2e directory has been deleted (see top entry).
-
-**Recent Updates (2026-04-13 — post-migration audit fixes, initial commit `38a2092`):**
-
-Fresh-eyes audit of the branch caught 8 issues introduced during the round-3 custom-CSS sweep:
-1. **SettingsPane toggle** reimplemented DaisyUI's native `.toggle` component and hardcoded `after:bg-white` — replaced with DaisyUI `<input class="toggle toggle-primary">` (initial fix; superseded by follow-up refactor above).
-2. **FilterSidebar MultiSelect** selected-row hover inverted the cascade — `'bg-primary/10 hover:bg-base-300'` made hovering a selected row visually deselect it. Fixed to `'bg-primary/10 hover:bg-primary/20'` (initial fix; supplemented by highlighted+selected grid fix above).
-3. **DetailPane commit row** `hover:bg-white/5` was invisible on light themes — replaced with `hover:bg-base-content/5`.
-4. **DropZone** `focus-visible:outline-none` was a a11y regression — replaced with explicit `outline-2 outline-primary outline-offset-2` matching TabBar.
-5. **FilterSidebar** stale comment referenced deleted `.filter-multi-select-*` classes + stale `mb-0` override for deleted descendant selector — cleaned up.
-6. **Redundant `focus-visible:outline` + `outline-2`** (9 files) — in Tailwind v4, `.outline-2` already sets both style and width. Dropped the bare `outline` everywhere `outline-2` is applied.
-
-Build clean, 61/61 tests pass, all new class names verified in built CSS.
-
-**Recent Updates (2026-04-13 — full custom-CSS sweep, round 3):**
-
-Continued audit of "no custom Tailwind / CSS unless absolutely necessary" after the user flagged that round 2 was still too conservative. The earlier rounds left ~80 custom class wrappers that were just named aliases for Tailwind utility groupings — they had no Tailwind-incompatible features, I just hadn't migrated them. This round migrates all of them.
-
-**Migrations (alphabetical within each group):**
-
-Trivial one-liners:
-- `.hamburger-menu` → `relative`
-- `.hamburger-list` → `list-none m-0 p-0`
-- `.hamburger-divider` → `h-px bg-base-300 my-1`
-- `.hamburger-version` → `px-4 py-1.5 text-[11px] font-mono text-base-content/40`
-- `.dashboard-layout` → `flex gap-0 sm:gap-6 relative` (with responsive mobile gap)
-- `.tabs-bar` → `sticky top-0 z-20 bg-base-100 border-b border-base-300`
-- `.tab-content-area` → `flex-1 min-w-0`
-- `.settings-section` → `mb-6`
-
-Dashboard header: the `::after` gradient stays (pseudo-element); base `position: relative; z-index: var(--z-sticky-header)` → inline `relative z-[21]` in Header.jsx.
-
-Collapsible section: `.collapsible-header`, `.collapsible-title`, `.collapsible-subtitle` all inlined. `.collapsible-chevron` rotation now driven by React state via conditional `rotate-180` instead of descendant `[aria-expanded="true"]` selector. `.collapsible-content` stays (max-height: 0 → none transition has no Tailwind primitive). `.collapsible-header` kept as zero-style marker class ONLY so `.embed-mode .collapsible-header { display: none }` can still target it.
-
-Hamburger menu items: `.hamburger-item`, `.hamburger-item-icon`, `.hamburger-item-label`, `.hamburger-item-external`, `.hamburger-item-highlight`, `.hamburger-item-destructive` all migrated. Destructive / highlight state variants are now conditional className builders driven by `item.destructive` / `item.highlight` props — descendant selectors on icon color replaced with explicit conditional `text-*` classes. `.hamburger-backdrop` → `fixed inset-0 z-40 cursor-pointer`.
-
-Filter multi-select listbox: `.filter-multi-select`, `.filter-multi-select-trigger`, `.filter-multi-select-dropdown`, `.filter-multi-select-option`, `.selected-text`, `.arrow`, `.filter-group`, `.filter-sidebar-inner` all migrated. State classes (`.open`, `.selected`, `.highlighted`) converted to conditional className builders. Mobile drawer override via `max-md:` Tailwind variants.
-
-Detail pane internals: `.detail-pane-content`, `.detail-pane-title`, `.detail-pane-subtitle`, `.detail-pane-empty`, `.detail-pane-loading`, `.detail-commit`, `.detail-commit-message`, `.detail-commit-meta`, `.detail-commit-tags` all inlined. `.detail-pane-header` kept as zero-style marker for mobile `::before` drag handle. `.detail-pane` and `.detail-pane-overlay` stay (transform slide-over transitions).
-
-Settings pane internals: `.settings-pane-title`, `.settings-pane-content`, `.settings-section-title`, `.settings-group`, `.settings-group label`, `.settings-group .settings-hint`, `.settings-toggle`, `.settings-toggle-label`, `.settings-toggle-hint`, `.settings-toggle-switch` (+ `::after` thumb!), `.settings-toggle.active` state, `.settings-row`, `.settings-view-level-group`, `.settings-work-hours-hint`, `.settings-hint` all migrated. The toggle switch's `::after` thumb pseudo-element is now expressed via Tailwind's `after:` variant. `.settings-pane`, `.settings-pane-overlay`, `.settings-pane-header` (marker for mobile drag handle) stay.
-
-Drop zone: `.drop-zone`, `.drop-zone-container`, `.drop-zone-heading`, `.drop-zone-icon` all migrated. Drag-over state driven by React `isDragOver` state via conditional className builder. Icon color flip (base-content/60 → primary during drag-over) also inline conditional.
-
-Heatmap: `.heatmap-grid`, `.heatmap-header`, `.heatmap-label`, `.heatmap-cell`, `.heatmap-cell-sm`, `.heatmap-tooltip-inner` all migrated. Grid template columns use Tailwind arbitrary values `grid-cols-[36px_repeat(7,1fr)]`. Tooltip opacity state conditional. `.heatmap-0/1/2/3/4` intensity levels STAY as custom classes (dynamic `heatmap-${level}` JSX reference, color-mix gradients too long to inline at every cell).
-
-Embed + misc: `.embed-error` → inline flex col layout. `.project-lang-badge` → inline Tailwind with `text-[10px]` arbitrary value. `<code>` + `<a>` inside embed-error messages get explicit Tailwind classes.
-
-TabBar: `.tab-btn` and `.tab-btn-active` both migrated. Shared class strings extracted as `TAB_BASE_CLASSES` and `TAB_ACTIVE_CLASSES` JS constants. Active-state text-shadow uses Tailwind's `[text-shadow:...]` arbitrary property syntax because Tailwind v4 doesn't ship a text-shadow utility.
-
-Global a11y rule: `[role="button"]:focus-visible, [role="tab"]:focus-visible` attribute-selector rule removed. Every `role="button"` tile in Timeline/Progress/Summary/Health/HealthBars/HealthAnomalies/HealthWorkPatterns/CollapsibleSection/DropZone/FilterSidebar now carries its own `focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2` (or `focus-visible:ring-*` equivalent paired with `hover:ring-*`) inline. New `FOCUS_RING_CLASSES` constant in utils.js exported for consumers that need the long string — but most consumers use the inline form directly.
-
-**Final custom-class count:**
-
-24 custom classes remain (down from ~96), all genuinely necessary:
-
-| Category | Classes |
-|---|---|
-| Pseudo-element | `dashboard-header` (::after gradient), `detail-pane-header` + `settings-pane-header` (mobile ::before drag handles) |
-| @keyframes | `dashboard-enter`, `hamburger-dropdown`, `hamburger-update-dot` |
-| Non-Tailwind CSS transition | `collapsible-content` (max-h: 0 → none) |
-| Transform slide-over drawers | `filter-sidebar` + overlay, `detail-pane` + overlay, `settings-pane` + overlay |
-| Not shipped by Tailwind | `scrollbar-hide` (::webkit-scrollbar), `header-filter-hint` (font: inherit) |
-| Data-viz intensity gradient | `heatmap-0/1/2/3/4` (dynamic JSX reference `heatmap-${level}`) |
-| Isolated error-boundary rendering | `root-error-message`, `root-error-detail`, `root-error-hint` |
-| Root state marker | `embed-mode` (consumed by descendant selectors for embed-only rendering) |
-
-**New regression guard: styles.css allowlist**
-
-`scripts/__tests__/daisyui-surfaces.test.mjs` gained a strict `styles.css allowlist` test that enumerates the 24 legitimate custom classes and FAILS if any new primary rule head appears in styles.css that isn't in the list. Test body includes guidance: add to the allowlist only if the new class has a documented Tailwind-incompatible feature. Also verifies every allowlisted class still has a rule (allowlist stays in sync with reality).
-
-**Build impact:**
-
-- `dashboard/styles.css`: 1531 → 1008 lines (−523, −34%).
-- `dist/assets/index-*.css`: ~156 KB → ~154 KB (built CSS bundle — most of our deletions were small per-rule blocks, offset by Tailwind generating the new utility classes).
-- `dist/assets/index-*.js`: unchanged.
-- `npm test` 60 → 61 (new allowlist guard). All pass.
-- `vite build` clean after every group's intermediate commit.
-
----
-
-**Recent Updates (2026-04-13 — custom-CSS cleanup round 2 + caught regressions):**
-
-Immediate follow-up to the first custom-CSS cleanup round earlier today. Post-cleanup self-audit surfaced 5 more Tailwind-replaceable custom classes and 3 consumers missed in the earlier tag sweep.
-
-Additional migrations:
-
-1. **`.tag` base class deleted** — the earlier round kept it as a shared layout class (padding, border-radius, font-size, font-weight) but all 5 declarations are Tailwind-replaceable: `inline-block px-2 py-0.5 rounded-full text-xs font-medium`. Inlined at all 5 JSX consumers. There is now NO `.tag` CSS class — layout AND colors are both inline on each chip.
-2. **`.no-print` → Tailwind `print:hidden` variant** (7 consumers: App.jsx ×4, Toast.jsx, Header.jsx). Tailwind v4 generates the `@media print { display: none }` rule automatically.
-3. **`.filter-group-header` → `flex items-center mb-1`** (plus explicit `mb-0` on the inner label to override the global `.filter-sidebar-inner label { margin-bottom: 4px }` rule).
-4. **`.filter-date-group` → `flex flex-col gap-1.5`** (1 consumer).
-5. **`.filter-empty-option` → `text-base-content/40 cursor-default`** (1 consumer).
-
-**Regression caught during audit:**
-
-A sweep for stale `className="tag"` patterns surfaced three consumers I missed in the earlier tag cleanup sweep — `Health.jsx:199`, `Health.jsx:270` (`<span className="tag tag-security">security</span>` hardcoded labels), and `Timeline.jsx:507` (`<span className="tag tag-other shrink-0">+{N}</span>` "+N more" badge). These were using the deleted `.tag` + `.tag-{name}` class combo, so they were rendering as UNSTYLED text on any build. Fixed all three to use the new inline Tailwind + `getTagStyleObject` pattern. Health.jsx also gained a `getTagStyleObject` import.
-
-**Strengthened regression guard:** the source-level tag test previously only asserted the 4 known consumer files contained the Tailwind class string at least once. Rewritten to sweep every `.jsx` file in `dashboard/js/` and fail on any `className` containing `tag` as a bare token OR any `tag-{name}` legacy class from a comprehensive list of 34+ known names. Comment-stripped so rationale blocks don't false-trigger. Added Health.jsx to the consumer list. This test WOULD have caught the three missed consumers if it had existed earlier today.
-
-**Verified after this round:**
-
-- `vite build` clean. `npm test` 60/60 pass (was 57 — 3 new assertions: strengthened tag sweep, `.no-print` class absence, `print:hidden` variant presence in built CSS).
-- Zero `.tag` base class, zero `.tag-{name}`, zero `.tag-dynamic`, zero `.no-print`, zero `.filter-group-header`, zero `.filter-date-group`, zero `.filter-empty-option` in styles.css.
-- Zero `className="tag"` / `className="tag ..."` / `className="tag-{name}"` / `className="...no-print..."` in any JSX file.
-- All 14 new/replacement Tailwind utilities present in built CSS (`inline-block`, `px-2`, `py-0.5`, `rounded-full`, `text-xs`, `font-medium`, `print:hidden`, `flex`, `items-center`, `mb-0`, `mb-1`, `flex-col`, `gap-1.5`, `text-base-content/40`, `cursor-default`).
-
----
-
-**Recent Updates (2026-04-13 — custom-CSS cleanup pass):**
-
-Fourth audit pass of the day, focused on the user's request: "are there any tailwind utilities from DaisyUI tokens that can replace custom code? any ways we can reduce our custom code more? any backward compat code that can be cleaned up? any maps / translation / conversions that can be bypassed and deleted? I don't want any custom Tailwind / css unless absolutely necessary." Six cleanup groups shipped in one sweep, all driven by that rule.
-
-**Group 1 — dead CSS removal.** Deleted `.skeleton` + `.skeleton-commit` + `.skeleton-line[-short|-medium]` + `@keyframes skeleton-loading` (0 JSX consumers, also shadowed DaisyUI v5's own `.skeleton` component — future consumers can now use `<div className="skeleton h-4 w-full" />` directly). Deleted `.timeline-dot`, `.stat-label`, `.stat-value`, `.detail-pane-content-loaded` + `@keyframes fadeIn` (0 consumers). Net: ~35 lines of CSS removed, zero behavior change.
-
-**Group 2 — custom Tailwind utility hijacks removed.** The pre-existing `styles.css` had three rules that hijacked Tailwind utilities via custom CSS:
-
-1. `.font-mono, h1, h2, h3, .stat-value, .text-3xl, .text-2xl { font-family: var(--font-mono); }` — forced mono font on every large-text element app-wide by hijacking Tailwind's `.text-3xl` / `.text-2xl`. Narrowed to `h1, h2, h3 { font-family: var(--font-mono); }` (semantic HTML targeting, not utility hijacking). Every large numeric display in JSX that needed mono explicitly gained `font-mono tracking-tight`.
-2. `.card .text-3xl, .card .text-2xl { font-family: var(--font-mono); letter-spacing: -0.02em; }` — descendant selector combining mono + tracking-tight inside cards. Duplicated the mono part (redundant) and hid the tracking-tight intent. Deleted; `tracking-tight` is now explicit on the JSX elements that need it.
-3. Mobile media query (`@media (max-width: 640px)`) contained `.card { padding: 16px }` (dead — DaisyUI's `.card` has no padding; `.card-body` does), `.card .text-3xl { font-size: 1.5rem }` (redundant — the only consumer Discover.jsx already used `text-2xl sm:text-3xl`), `.card .text-lg { font-size: 0.9375rem }` (migrated: CollapsibleSection h3 now `text-base sm:text-lg`), and `.space-y-6 > * + * { margin-top: 16px }` (fragile descendant selector targeting a Tailwind utility — migrated to `space-y-4 sm:space-y-6` on all 10 consumers). Deleted all four rules.
-
-JSX migrations for Group 2:
-- 22 large-numeric-display elements across Summary/Timeline/Progress/Health/HealthWorkPatterns/Discover gained explicit `font-mono tracking-tight`.
-- 10 `className="space-y-6"` sites migrated to `className="space-y-4 sm:space-y-6"` (App, Contributors, Discover, Health, Progress, Projects, Summary, Timeline, Timing).
-- CollapsibleSection h3 title now `text-base sm:text-lg` for mobile density (preserves the intent of the deleted mobile rule).
-
-**Group 3a — safeStorage helper deduplication.** `dashboard/js/pwa.js` had private `safeStorageGet/Set/Remove` copies alongside `utils.js`'s identical exports. The "pwa loads early, avoid the full utils chain" comment was premature optimization — utils.js imports only from state.js and has no side-effect code at import time. `pwa.js` now imports the three helpers from utils.js; the two `safeSessionGet/Set` wrappers stay local (sessionStorage isn't wrapped in utils.js, and they're the only consumers). Net: 9 lines of duplication removed.
-
-**Group 3b — tag color duplication collapsed.** The tag system had the 34 tag colors defined twice: once as hex strings in `TAG_COLORS` (utils.js), once as rgba rules in 40+ `.tag-{name}` CSS classes (styles.css). Consolidation:
-
-- Extended `TAG_COLORS` with a new `TAG_TEXT_OVERRIDES` map for the 8 tags where the chip text uses a lighter variant of the brand color for readability on the 30%-opaque background (`security`, `refactor`, `cleanup`, `config`, `style`, `performance`, `dependency`, `other`). Previously these mismatches were encoded only in CSS.
-- Generalized `getTagStyleObject(tag)` to return a direct style object `{ backgroundColor, color, border }` for ALL tags (static AND dynamic). Static tags use `0.3` / `0.5` alpha, dynamic tags use `0.2` / `0.3`. Text color honors TAG_TEXT_OVERRIDES.
-- Removed `getTagClass(tag)` export — no longer has work to do. JSX consumers now use `className="tag"` + `style={getTagStyleObject(tag)}`.
-- Deleted all 40+ `.tag-{name}` CSS rules + the `.tag-dynamic` CSS-variable bridge + the dead `.tag-breaking` (no consumers).
-- Updated 5 JSX consumers (Tags, Timeline ×2, Contributors, DetailPane) to drop the `getTagClass` call.
-
-Result: 34 tag colors defined in exactly one place (TAG_COLORS + TAG_TEXT_OVERRIDES in utils.js). Adding, renaming, or recoloring a tag now requires editing one file.
-
-**Group 4 — `TAB_SECTIONS` dead export removed.** 0 JSX consumers, duplicated the CLAUDE.md "Dashboard Architecture" tab table. Deleted the export from `state.js`, updated CLAUDE.md references so the doc table in CLAUDE.md is the single source of truth. Tab routing stays where it already is (switch statement in `App.jsx` keyed on `state.activeTab`).
-
-**New regression-guard tests.** `scripts/__tests__/daisyui-surfaces.test.mjs` gained 6 new assertions covering:
-1. Dead class re-introduction (skeleton/timeline-dot/stat-label/stat-value/detail-pane-content-loaded)
-2. Tailwind utility hijack re-introduction (`.text-3xl`/`.text-2xl` in selector with `font-family`)
-3. `.card .text-3xl`/`.card .text-2xl` descendant selector re-introduction
-4. `.space-y-6 > *` descendant selector re-introduction
-5. Per-tag CSS rule re-introduction (`.tag-{name}` with rgba)
-6. `getTagClass` export re-introduction, `TAB_SECTIONS` export re-introduction, pwa.js local safeStorage re-introduction
-
-Total tests: 21 oklchToHex + 36 DaisyUI surfaces = 57 (was 51). All pass.
-
-**Verified:**
-- `vite build` clean after every group
-- `npm test` 57/57 pass
-- styles.css 1531 → 1456 lines (-75)
-- Built CSS ~158 KB → ~156 KB
-- Zero `text-3xl`/`text-2xl` without `font-mono` (except Header h1 which gets mono from the h1/h2/h3 semantic targeting rule)
-- Zero hardcoded Tailwind color shades in JSX
-- Zero dead marker classes in JSX
-- Zero v4 DaisyUI cruft in built CSS
-- Zero custom classes shadowing DaisyUI component classes
-- Zero per-tag `.tag-{name}` CSS rules
-
----
-
-**Recent Updates (2026-04-13 — deferred items landed):**
-
-Three items that had been logged as "too big for the audit pass" follow-ups now shipped. All three close out the TODO.md "Test infrastructure" + "Chart.js theme-tracking" sections.
-
-1. **Chart.js runtime theme-tracking.** `chartColors.js` gained `resolveRuntimeAccent()` / `resolveRuntimeMuted()` that read `var(--color-primary)` / `var(--color-base-content)` from `getComputedStyle`, with URL override precedence (`?accent=`, `?palette=` win) for branded embeds. `AppContext` state gained `themeAccent` / `themeMuted` populated via a new `SET_THEME_COLORS` action dispatched AFTER `applyTheme()` runs. Chart components (`Timing`, `Timeline`, `Contributors`) consume `state.themeAccent` / `state.themeMuted` via `useApp()` so `useMemo` deps trigger re-render on theme change. The Progress / Discover sections already used theme-aware backgrounds so didn't need changes. Result: every single-accent chart (hour-of-day bars, weekday bars, commit volume, contributor complexity bar) now picks up the active theme's primary color instead of being frozen at brand blue. Multi-dataset charts still use the 20-color `seriesColors` palette which is intentionally hardcoded + embedder-customizable (documented in `docs/DAISYUI_V5_NOTES.md` "Data-viz color tokens").
-
-2. **Heatmap CSS theme-tracking.** The old `rgba(var(--chart-accent-rgb, 45, 104, 255), X%)` pattern stored a comma-separated RGB triple in a CSS variable, set once at bootstrap from `chartColors.accentColor`. It couldn't track theme changes and couldn't handle DaisyUI's oklch() values. Replaced with `color-mix(in oklab, var(--chart-accent-override, var(--color-primary)) X%, transparent)` — nested-var fallback chain means the default path tracks the theme's primary via DaisyUI, the override path (`--chart-accent-override`, set by `main.jsx` only when `hasUrlAccentOverride === true`) pins the color for branded embeds. High-intensity cells (`.heatmap-3/4`) use `var(--color-primary-content)` for readable text contrast instead of hardcoded `white`. Deleted the old `--chart-accent-rgb` variable + bootstrap RGB-parse block.
-
-3. **Source-level test tripwire** — `scripts/__tests__/daisyui-surfaces.test.mjs`: 30 assertions covering every migrated surface + follow-up fix. Runs via `node:test` on every `npm test` in ~230ms. Catches source-level class-name regressions without needing a browser. Includes comment-stripping helper so rationale blocks don't false-trigger, a `dashboard/js` walker that asserts zero hardcoded Tailwind color shades, dead-marker-class sweep, and built-CSS grep verification that skips gracefully when `dist/` is missing. (A second + third browser-based layer was added at the same time but later removed 2026-04-15 — see top of file.)
-
-**Verified this session:**
-
-- `npm test` → 51/51 pass (21 existing oklchToHex + 30 new DaisyUI surface assertions).
-- `vite build` clean.
-
-**Remaining items:**
-
-- Multi-dataset chart `seriesColors` palette stays hardcoded by design — data-viz perceptual distinctness requires more colors than DaisyUI's 8 semantic tokens and the palette is embedder-customizable via `?colors=` / `?palette=`. Logged in `docs/TODO.md` so a future audit doesn't re-open it as a gap.
-
----
-
-**Recent Updates (2026-04-13 — second audit pass, DaisyUI gap sweep):**
-
-A fresh 10-step DaisyUI compliance audit against the post-sweep codebase surfaced four more gaps that weren't caught in the original pass. All four fixed in commit `de2e6ad`:
-
-1. **Hardcoded Tailwind color classes → DaisyUI semantic tokens.** Data-viz categories were using fixed `bg-green-500`, `bg-red-500`, `bg-amber-500`, `bg-blue-500`, `bg-purple-500`, `bg-gray-500`, `bg-indigo-500` shades that don't track the active theme. On `black` / `dim` / `coffee` dark themes these mid-saturation tones can blend with the page background; on `caramellatte` they clash with the warm base. Migrated HealthBars (urgency + impact stacked bars), HealthAnomalies (risk + debt risk bars), Health.jsx (urgency + impact list items), Progress.jsx (semver chips), Discover.jsx (comparison bar), Timing.jsx (developer-pattern legend dots) to use `bg-success` / `bg-info` / `bg-warning` / `bg-error` / `bg-primary` / `bg-secondary` / `bg-accent` / `bg-neutral`. Impact uses the 4-token palette (`info`/`neutral`/`secondary`/`accent`) so all four categories render as visibly distinct colors in every registered theme.
-
-2. **`.loading-spinner` custom class shadow removal.** Our custom `.loading-spinner` rule shadowed DaisyUI v5's own `.loading-spinner` animation variant — same trap as the earlier `.card` / `.btn` / `.badge` / `.toast` shadow cases from the 10-phase sweep. Migrated every consumer (App.jsx, Timeline.jsx, Projects.jsx, Discover.jsx) to `<span className="loading loading-spinner loading-{sm|md|lg} text-primary" aria-label="Loading" />`. Deleted the custom `.loading-spinner`, `.loading-spinner-sm/md/lg`, dead `.loading-overlay`, and unused `@keyframes spin` rules from styles.css. Simplified the `prefers-reduced-motion` rule to drop the stale `.loading-spinner` target.
-
-3. **Single-value progress bars → native `<progress>`.** The `Progress.jsx` epic breakdown bar and the `Discover.jsx` file-change bar were using two-div wrapper+fill pattern. Migrated both to the native `<progress className="progress progress-{primary|info} w-full" value={pct} max="100" aria-label="..." />` element. One semantic element per bar (was two divs), free screen-reader announcements ("X percent of 100"), and color that tracks the theme automatically. Stacked bars (HealthBars, Discover comparison bar) stay custom because native `<progress>` can't render a multi-segment stacked bar. Verified that `.progress-primary` and `.progress-info` ship in the built CSS via Tailwind's content-based tree-shaker.
-
-4. **Dead marker classes in Discover.jsx.** Like the `stat-card` case fixed in the prior audit, `metric-selector` (on a `<select>`) and `pin-btn` (on a `<button>`) were orphan marker classes with no CSS rule defined. Removed both class names; the actual styling was already on the same elements via Tailwind utilities. Added rationale comment blocks at both sites explaining why DaisyUI's `select select-xs` / `btn btn-ghost btn-xs` were rejected (the metric picker is an ultra-dense inline control inside `p-5` card-body beside a pin toggle — DaisyUI's `select` ships a 2rem min-height + chevron that would overflow; the pin toggle is a bare 16px icon — DaisyUI's `btn` would apply padding + min-height + pill radius that would shift the card header layout). Also added missing `type="button"` to the pin toggle.
-
-**Intentionally skipped during this pass:**
-
-- **HamburgerMenu `.hamburger-divider` → DaisyUI `divider`.** DaisyUI's `divider` is a flex-centered divider with ~1rem margin and optional text-label support. Our `.hamburger-divider` is a compact 1px line with 4px margin for the dense menu. The unique `.hamburger-*` prefix doesn't shadow any DaisyUI class, so there's no v5 compliance issue.
-- **HeatmapTooltip custom portal-based tooltip.** `HeatmapTooltip.jsx` already documents the rejection of DaisyUI's `tooltip` class: per-cell tooltips would require hundreds of static `data-tip` attributes on every heatmap cell; DaisyUI's CSS-only `:hover` tooltip can't viewport-clamp; our portal-based delegation pattern is more efficient.
-- **DebugPill inline hex colors.** `DebugPill.jsx` documents that it runs in a separate React root (`#debug-root`) that survives App crashes and CSS load failures; it deliberately uses inline styles + hardcoded hex values so it renders correctly even when Tailwind/DaisyUI CSS is missing.
-
----
-
-**Recent Updates (2026-04-13 — post-migration audit follow-up):**
-
-After the 10-phase DaisyUI component-class sweep landed and was pushed, a self-audit pass turned up four loose ends that were originally flagged as "out of scope" or "deferred". All four are now fixed.
-
-1. **`select-bordered` / `input-bordered` v4 cruft (`de9bd4f`)** — Phase 8 shipped DaisyUI v4 form modifiers that don't exist in v5 (v5 makes bordered the default; `*-ghost` is the opt-out). Tailwind silently dropped the dead tokens. The fields still rendered correctly because the base `.input` / `.select` carries the bordered look in v5, but the JSX lied about its intent. Removed the `-bordered` tokens from both work hour selects and both date inputs. Created `docs/DAISYUI_V5_NOTES.md` as a project-local cheat sheet covering the full v4→v5 removed-modifier table, a grep recipe for verifying which classes ship in the built CSS, our project conventions for every component family, and the components we deliberately do NOT use (`dropdown`, `menu`, `collapse`, `drawer`). Logged the trap in `docs/AI_MISTAKES.md` so future sessions don't repeat it. Registered the new doc in `CLAUDE.md`'s documentation table.
-
-2. **`.stat-card` dead wrapper (Summary.jsx)** — The Key Stats grid had a two-div sandwich where the outer carried `role="button"` + click handler + a `stat-card` marker class with no CSS rule, and the inner carried the visual classes (padding, background, rounding). Merged into a single div per tile so there's exactly one element per click target with both the interaction and the visual classes. Documented the rejection of DaisyUI's `stat` component (wrong rhythm — `stat` is a horizontal stat-block, our tiles are a 1×4 / 2×2 grid).
-
-3. **Toast nested aria-live (Toast.jsx)** — `ToastContainer` had an explicit `aria-live="polite"` and each `ToastItem` ALSO had its own `role="alert"` (implies aria-live="assertive") or `role="status"` (implies aria-live="polite"). Per WAI-ARIA 1.2 §5.2.2, role="alert" and role="status" are implicit live regions — adding aria-live to a parent of those creates a nested live region and screen readers announce every new toast TWICE. Removed the redundant `aria-live` and `aria-atomic` from the container; the per-item role attributes are sufficient on their own. Removed the per-item explicit `aria-live` too since the role implies it. Documentation block at the top of `ToastItem` explains the rule so future edits don't re-add either layer.
-
-4. **HamburgerMenu stacking-context trap** — The long-standing "Low priority" TODO entry: `.dashboard-header` has `position: relative; z-index: var(--z-sticky-header)` which creates a stacking context that traps fixed-position children at the header's level. Drawer overlays (z-drawer=30) were rendering ABOVE the menu backdrop (z-menu-backdrop=40) because the menu's effective z-index was clamped to z-sticky-header=21. Fixed by rendering the backdrop + dropdown via `createPortal()` into `document.body` so they escape the trapped stacking context. The trigger button stays inside the header (sticks with the nav bar); only the surface portals out. Position is now computed from the trigger's `getBoundingClientRect()` in a `useLayoutEffect` and applied as inline `top`/`left` on the `position: fixed` dropdown. Listeners on `window` resize and capture-phase scroll keep the position in sync while the menu is open. Removed the now-obsolete `top: calc(100% + 6px); left: 0; position: absolute` from the `.hamburger-dropdown` CSS rule (replaced with `position: fixed` + a comment explaining the inline-style anchor pattern). The TODO entry was deleted from `docs/TODO.md`.
-
-Two follow-up items added to `docs/TODO.md` "Test infrastructure":
-- Browser-runtime smoke test (Playwright) for the DaisyUI migration checklist
-- Visual regression baselines (8 per tab — 4 light + 4 dark themes)
-
-These are the items the audit explicitly flagged as "could strengthen further" — they remain pending because they require setting up a test runner that this session can't bring up in the sandbox.
-
----
-
-**Recent Updates (2026-04-13 — DaisyUI component-class migration, 10 phases):**
-
-A side-by-side audit against canva-grid/glow-props surfaced a serious "shadowing" finding: our custom unlayered classes (`.card`, `.btn-*`, `.badge`, `.toast-*`) were silently overriding DaisyUI's `@layer components` versions. Every consumer that thought it was getting DaisyUI's component was actually getting our custom fork. This pass migrates the consumers to DaisyUI component classes and deletes the shadow definitions.
-
-Ten commits on `claude/migrate-daisyui-dark-mode-toG0Y`, each a single phase:
-
-1. `d8ef996` Phase 1 — QuickGuide + InstallInstructionsModal → DaisyUI `modal` + `modal-box` + `modal-backdrop`. Warning note in InstallInstructionsModal → `alert alert-warning alert-soft`. Chose CSS-class form (`<div className="modal modal-open">`) over native `<dialog>` for React state control.
-2. `1610c90` Phase 2 — Toast → DaisyUI `toast toast-bottom toast-center` + `alert alert-{variant}`. Custom keyframes replaced with Tailwind transition utilities. Inline `style={{ zIndex: 'var(--z-toast)' }}` so toasts stack above the debug pill.
-3. `588e7c2` Phase 3 — Health.jsx security summary containers → `<div role="alert" className="alert alert-error ...">`. Per-commit list items kept as bespoke `bg-error/10` divs.
-4. `0128995` Phase 4 — Timeline Holiday/Weekend/After-Hours badges → `badge badge-{accent|info|warning} badge-sm`. Deleted `.badge-*` custom classes (CRITICAL shadow removed).
-5. `66c888c` Phase 5 — CollapsibleSection/ErrorBoundary/App/Projects/Discover → `card bg-base-200 border border-base-300` + `card-body`. Deleted `.card` and `.card:hover` (CRITICAL shadow removed).
-6. `17fb91a` Phase 6 — Every button migrated to `btn btn-{variant}`. Header filter toggle, HamburgerMenu trigger, ShowMoreButton, FilterSidebar Include/Exclude segmented toggle (via `join` + `join-item btn btn-xs`), Clear All, DetailPane/SettingsPane close buttons. Deleted `.btn-icon`, `.btn-primary`, `.btn-secondary`, `.btn-theme`, `.show-more-btn`, `.filter-toggle`, `.filter-clear-btn`, `.filter-preset-btn`, `.filter-mode-toggle`, `.project-link*`, `.detail-pane-close`, `.settings-pane-close`, `.filter-badge`. Print rule updated to attribute selector `[aria-label^="Show "].btn`.
-7. `41a3276` Phase 7 — TabBar adds `tabs tabs-border` + `tab tab-active` class composition while keeping the custom `.tab-btn` mono-uppercase typography. `role="tablist"` + `role="tab"` + `aria-selected` are on the same elements DaisyUI expects.
-8. `e020af6` Phase 8 — SettingsPane work hour `<select>` → `select select-sm`. FilterSidebar date `<input>` → `input input-sm w-full`. Deleted `.filter-select`, `.filter-input`, `.filter-date-input`. (Initial commit used `select-bordered` / `input-bordered` v4 tokens that DaisyUI v5 silently ignores; fixed in `de9bd4f` — v5 makes the bordered style the default for `.input`/`.select` and exposes `*-ghost` for the no-border variant.)
-9. `9db2a10` Phase 9 — HamburgerMenu audit. Verified `.hamburger-*` prefix is unique (no shadow). Fixed hardcoded `rgba(239, 68, 68, 0.1)` → `color-mix(in oklab, var(--color-error) 10%, transparent)` on destructive hover. Documented why DaisyUI `dropdown` + `menu` cannot replace the disclosure-pattern surface: `dropdown` uses CSS `:focus` (incompatible with React state + keepOpen theme picker), and `menu` implies `role="menu"` which BURGER_MENU.md explicitly rejects.
-10. `94d90f3` Phase 10 — FilterSidebar multi-select audit. The widget is a WAI-ARIA listbox (`role="listbox"` + `role="option"` + `aria-multiselectable`), not a menu. DaisyUI v5 has no listbox primitive. Inner `<input type="checkbox">` migrated to `checkbox checkbox-xs checkbox-primary` for visual consistency. Rationale documented in the component header.
-
-**Shadowing risk audit — before vs after:**
-
-- Before: `.card`, `.btn-*`, `.badge`, `.toast-*` classes lived unlayered and silently overrode `@layer components` definitions from DaisyUI. The override worked only while our custom versions stayed in sync with DaisyUI's layout expectations — a latent regression trap.
-- After: zero shadowing. Remaining custom classes use unique prefixes that DaisyUI does not define (`.tab-btn`, `.hamburger-*`, `.filter-multi-select*`, `.detail-pane*`, `.settings-pane*`, `.filter-sidebar*`, `.dashboard-header`, `.tag`, `.tag-*`, `.heatmap-*`). Each one is documented at its use-site with a rationale block.
-
-**Deliberately NOT migrated (documented):**
-
-- HamburgerMenu dropdown surface — disclosure pattern, not ARIA menu. DaisyUI `dropdown` conflicts with React state control.
-- FilterSidebar multi-select dropdown surface — it's a listbox, DaisyUI has no listbox primitive.
-- CollapsibleSection expand/collapse — stateless DaisyUI `collapse` can't match React-state-driven per-section IDs.
-- FilterSidebar drawer / DetailPane / SettingsPane shells — custom focus traps + scroll lock + escape-key patterns. DaisyUI `drawer` is coupled to the `drawer-toggle` checkbox pattern which conflicts with React state.
-
-**Build:** 10 successful builds (one per phase). Final bundle CSS 158.82 KB (26.96 KB gzipped), JS 557.84 KB (175.82 KB gzipped), 84 modules transform, PWA precache 41 entries. Net CSS deletion across the sweep is ~400 lines of custom component classes; the DaisyUI classes we now reference were already bundled from `@plugin "daisyui"`.
-
-**Testing gap:** No browser runtime test performed — the TESTING_GUIDE's migration checklist should be walked through in a real browser before considering the migration user-verified. All 10 phase builds were smoke-tested via `./node_modules/.bin/vite build` only.
-
----
-
-**Previous Updates (2026-04-12 — sixth pass, glow-props alignment):**
-
-- Burger menu now stays open during theme picker interactions. Users can click Nord, then Emerald, then Caramel Latte in rapid succession to preview themes without reopening the menu between each click. The dark/light mode toggle is also `keepOpen: true` so a user can toggle to dark mode and then pick a dark theme in the same menu session — the theme list below the toggle swaps to the new mode's themes when the toggle dispatches.
-- Pattern borrowed from glow-props where theme controls deliberately omit the `data-close` attribute that other menu items carry. Every other menu item (Quick Guide, User Guide, Save as PDF, Install App, Update Now) keeps its existing close-then-act behavior.
-- `HamburgerMenu.handleItem()` refactored to accept the full item object, check `item.keepOpen`, and either run the action immediately (keepOpen path, no close, no delay) or close-then-act after 150 ms (default path, matches CSS fade animation). Shared error handling extracted into a `runAction(action)` helper.
-- Menu items are keyed by `item.label` — stable across re-renders, so React reconciles the buttons in place after a theme click. Focus stays on the clicked button, which is now the active theme with a checkmark and highlight class. Screen readers re-announce the button with the updated aria-label (`"Use Nord theme (Cool blue-gray), currently active"`) as natural confirmation feedback.
-
----
-
-**Previous Updates (2026-04-12 — fifth pass, canva-grid alignment):**
-
-- Extracted `scripts/oklchToHex.mjs` as a standalone module with 21 unit tests via `node:test` (no Jest dependency). Fixes an L=1 percentage-vs-decimal edge case the old inlined version had via a heuristic that couldn't distinguish `oklch(1 0 0)` (white) from `oklch(1% 0 0)` (near-black). `npm test` runs the suite in ~150 ms.
-- Added `COLOR_KEY_OVERRIDES` to `scripts/generate-theme-meta.mjs`. Default rule now matches the reference (`--color-primary` for light themes, `--color-base-100` for dark themes) with targeted overrides for monochrome/warm-minimal light themes whose primary is near-black: `lofi → --color-base-300` (→ `#ebebeb`, borrowed from canva-grid), `caramellatte → --color-base-300` (→ `#ffd6a7`, our addition — DaisyUI ships caramellatte with `primary = oklch(0% 0 0)` literal black). Light-theme PWA status bars now use each theme's actual brand accent: `nord → #5e81ac`, `emerald → #66cc8a`.
-- Added theme-change flow tracing via `debugLog`. New `theme` source color (lavender `#c4b5fd`) in `DebugPill.jsx` `SOURCE_COLORS`. Every `applyTheme()` call emits a `theme-applied` event with `{dark, requested, validated, skipPersist}` — `requested !== validated` signals a stale or cross-mode theme id dispatch. Pattern borrowed from canva-grid's `useDarkMode` hook.
-- Documented the Approach A (per-mode independent, 3 storage keys) vs Approach B (named combos, 2 storage keys) tradeoff in `CLAUDE.md`'s Dashboard Architecture section, with reference to canva-grid as the Approach B sibling project and rationale for why we chose A.
-
----
-
-**Previous Updates (2026-04-12 — earlier passes):**
-
-**Recent Updates (2026-04-12 — fourth pass):**
-
-### Reference-pattern gap closure — single-source config, 4+4 theme catalog, burger-menu theme picker, reference-shape cross-tab handler
-
-After the reference-pattern alignment pass, a second audit against `docs/implementations/THEME_DARK_MODE.md` turned up seven residual gaps — all non-critical but all structural (would decay into bugs the moment someone added a theme). This pass closes every actionable gap.
-
-**Single source of truth for theme registration:**
-- New file `scripts/theme-config.js` — exports `THEMES = { light: [...], dark: [...] }` with each entry being `{ id, name, description }`, plus `DEFAULT_LIGHT_THEME` / `DEFAULT_DARK_THEME`. This is the ONLY file humans edit when adding, removing, or renaming themes.
-- `scripts/generate-theme-meta.mjs` was rewritten to read `theme-config.js` and propagate the catalog to four downstream files via marker-based rewrite:
-  - `dashboard/js/generated/themeMeta.js` (full rewrite)
-  - `dashboard/js/themes.js` block between `/* BEGIN GENERATED: theme-catalog */` / `/* END GENERATED: theme-catalog */` — `LIGHT_THEMES`, `DARK_THEMES`, `DEFAULT_LIGHT_THEME`, `DEFAULT_DARK_THEME`
-  - `dashboard/styles.css` block between `/* BEGIN GENERATED: daisyui-plugin */` / `/* END GENERATED: daisyui-plugin */` — the `@plugin "daisyui" { themes: ... }` directive with `--default` / `--prefersdark` markers on the defaults
-  - `dashboard/index.html` block between `/* BEGIN GENERATED: flash-prevention-meta */` / `/* END GENERATED: flash-prevention-meta */` — `LIGHT_THEMES` / `DARK_THEMES` / `DEFAULT_*_THEME` / `META` constants inside the inline flash prevention script
-- The generator is idempotent: each rewrite compares new content to existing and skips the write when unchanged, so `npm run dev` doesn't bump mtimes on every prebuild and trigger Vite HMR reloads. Second run reports "unchanged" for all four files.
-- Fail-fast validation: generator exits with error if `DEFAULT_LIGHT_THEME` / `DEFAULT_DARK_THEME` aren't in their arrays, if a theme's `color-scheme` property doesn't match which array it's in (dark theme listed under light or vice versa), or if a theme ID isn't a real DaisyUI theme.
-
-**Theme catalog expanded from 1+1 to 4+4 curated themes:**
-- Light: lofi (minimal monochrome), nord (cool blue-gray), emerald (fresh green), caramellatte (warm neutral)
-- Dark: black (true OLED), dim (soft dark gray), coffee (dark roast), dracula (dev classic)
-- All 8 are DaisyUI stock themes — no custom theme definitions needed.
-- `LIGHT_THEMES` / `DARK_THEMES` in `themes.js` are now arrays of `{ id, name, description }` objects (was string arrays). The object shape matches the reference pattern and gives the theme picker UI real labels to show without a second lookup map.
-- Validator sets (`lightSet`, `darkSet`) rebuilt via `.map(t => t.id)` so the `validLightTheme` / `validDarkTheme` API stays the same.
-
-**Theme picker UI in burger menu:**
-- New menu items in `Header.jsx` `menuItems` memo: one picker item per theme in the current mode, filtered by `state.darkMode`. Active theme gets the `highlight` class + a checkmark icon; inactive themes get the palette icon.
-- `setTheme(themeName)` helper exported via `useAppDispatch()` — takes one arg, infers which mode the theme belongs to via `validLightTheme` / `validDarkTheme`, dispatches `SET_LIGHT_THEME` or `SET_DARK_THEME`. Unknown theme names are silently ignored (reducer guards).
-- Each picker item has an explicit `ariaLabel` like "Use Nord theme (Cool blue-gray), currently active" so screen readers announce the full name, description, and active state.
-- New SVG icons: `icons.palette` (theme item) and `icons.check` (active theme).
-- Menu order: Quick Guide → User Guide → **Dark/Light mode toggle** → **4 theme items for current mode** → Save as PDF → Install App → Update Now.
-
-**Cross-tab sync refactored to reference handler shape:**
-- Previously our listener filtered theme name events by current mode — if tab A wrote `lightTheme=nord` while tab B was in dark mode, tab B's listener ignored the event (the new name would still be picked up via `getStoredTheme()` on the next toggle). Functionally equivalent but structurally diverged from the reference handler which updates per-mode state unconditionally.
-- `AppContext.jsx` reducer now holds `lightTheme` and `darkTheme` as state alongside `darkMode`, matching the reference's implicit Approach A state shape.
-- New reducer action types: `SET_LIGHT_THEME`, `SET_DARK_THEME`. All three theme-related actions (`SET_DARK_MODE`, `SET_LIGHT_THEME`, `SET_DARK_THEME`) have early-return guards to skip no-op dispatches so cross-tab events that replay the current value don't re-render.
-- Cross-tab storage listener dispatches unconditionally for `darkMode`, `lightTheme`, and `darkTheme` — matches `setIsDark()` / `setLightThemeState()` / `setDarkThemeState()` in the reference.
-- The single `darkMode` effect now subscribes to `[state.darkMode, state.lightTheme, state.darkTheme]` and calls `applyTheme(dark, dark ? darkTheme : lightTheme)`. The effect only re-runs when the currently-active mode's theme changes (React compares primitives by value, so updating `lightTheme` while in dark mode is a no-op DOM-wise but the value is stored correctly for next toggle).
-
-**Initial state hydration:**
-- `loadInitialState()` now reads `lightTheme` / `darkTheme` from localStorage via `validLightTheme` / `validDarkTheme` with the catalog defaults as fallback, matching the inline flash prevention script's allowlist validation.
-
-**Documentation:**
-- New `scripts/theme-config.js` with extensive header comment and selection rationale
-- `scripts/generate-theme-meta.mjs` header rewritten to describe the four-file propagation
-- `themes.js` top comment updated — removed the "currently one theme per mode / latent feature" caveat that's now obsolete
-- BEGIN/END GENERATED comments in themes.js, styles.css, index.html explicitly warn "DO NOT edit by hand — will be overwritten on the next build; edit scripts/theme-config.js instead"
-- `CLAUDE.md` architecture list adds `scripts/theme-config.js` and expands the generator description
-- `docs/HISTORY.md`, `docs/TODO.md`, `docs/TESTING_GUIDE.md`, `docs/USER_GUIDE.md` all updated
-
-**Deliberately NOT addressed (speculative abstraction per CLAUDE.md prohibitions):**
-- CSP hash for inline flash prevention script — no CSP deployed today, computing hashes that nothing verifies is wasted work
-- Legacy localStorage key cleanup (`theme`, `colorMode`, `dark-mode`) — we never wrote those keys, so the cleanup would be a no-op defending against a problem that can't exist
-
-**Known quirks (pre-existing, not fixed this pass):**
-- **Mount-time `darkMode` persistence limits OS preference fallback.** The reference handler comment says "Once the user toggles manually, their choice persists and OS changes are ignored" — but our darkMode `useEffect` calls `applyTheme()` on every mount, which calls `persistTheme()`, which writes `darkMode` unconditionally. On a fresh visit, mount stores whatever `matchMedia('(prefers-color-scheme: dark)').matches` returned (via `loadInitialState` fallback), and from that point forward the matchMedia listener's guard `safeStorageGet('darkMode') === null` is always false so OS changes are ignored. In practice this means the OS-follow behavior only spans the few milliseconds between page load and React mount. Pre-existing behavior that matches the reference pattern's unconditional `persistTheme`, but worth noting. Fix would require splitting "apply to DOM" from "persist to storage" so mount-time applyTheme skips persistence.
-
-**Test coverage gaps (for future sessions):**
-- **Browser runtime testing was NOT executed.** All smoke tests this session used `vite preview` + curl to fetch the built HTML/CSS/JS and `grep` for expected strings. The actual theme picker click flow, cross-tab sync via a real storage event fired between two browser tabs, Chart.js axis color sync on theme toggle, and the reducer's no-op-guard behavior under rapid dispatches were NOT exercised in a browser. The `node --input-type=module` smoke test (see commit `<hash>` end-to-end reducer/persistence test) exercised `persistTheme`, `validLightTheme`, `validDarkTheme`, and the catalog shape — but not the React tree. Next session should run the built dashboard in a real browser (ideally with the TESTING_GUIDE Theme section as a checklist) before considering the migration "verified".
-
-**Build:** Passes (`npm run build`). Generator output visible in prebuild: all 8 themes with their hex values, all four downstream files "unchanged" on second run (idempotent). CSS bundle 150.64 KB → **157.40 KB** (+6.76 KB, +4.5%) from 6 additional DaisyUI theme blocks (each ~1 KB of CSS vars). 84 modules transform (unchanged — no new modules). All 8 `[data-theme="..."]` selectors present in built CSS. All 8 theme names ("Lo-Fi", "Nord", ..., "Dracula") and descriptions ("Minimal monochrome", ..., "Dev classic") present in built JS.
-
----
-
-**Previous Updates (2026-04-12 — third pass):**
-
-### Reference-pattern alignment — theme catalog module, applyTheme() helper, build-time meta generator, inline allowlist
-
-After the full DaisyUI migration + regression fix landed, a side-by-side comparison against `docs/implementations/THEME_DARK_MODE.md` surfaced several divergences — theme name constants hardcoded in AppContext instead of a shared catalog, dual-layer DOM logic duplicated across three callsites instead of routed through a single `applyTheme()` helper, PWA meta colors hardcoded manually instead of being generated from DaisyUI's own oklch definitions, no theme ID validation, no forward-compat `lightTheme`/`darkTheme` storage keys, and no explicit `aria-label` on the theme toggle menu item. This pass addresses all of them:
-
-**New files:**
-- `scripts/generate-theme-meta.mjs` — reads each registered DaisyUI theme's `theme/*/object.js` via dynamic import, converts `--color-base-100` from oklch() to hex with an inlined ~30-line converter (no color library dependency), and writes `dashboard/js/generated/themeMeta.js` with `META_COLORS` / `IS_DARK` / `THEME_NAMES`. Runs as the first step of both `npm run dev` and `npm run build` so the generated file never drifts from DaisyUI.
-- `dashboard/js/themes.js` — the theme catalog module. Exports `LIGHT_THEMES`, `DARK_THEMES`, `DEFAULT_LIGHT_THEME`, `DEFAULT_DARK_THEME`, `validLightTheme()`, `validDarkTheme()`, `getStoredTheme()`, `persistTheme()`, `getMetaColor()`, and — most importantly — `applyTheme(dark, themeName, skipPersist)`: the single place that mutates `.dark` class, `data-theme` attribute, `<meta name="theme-color">` content, and Chart.js defaults. Every theme-affecting caller now routes through this function.
-- `dashboard/js/generated/themeMeta.js` — auto-generated, committed so dev works on a fresh clone. Header comment says DO NOT EDIT BY HAND. Regenerated by the prebuild hook on every build.
-
-**Refactored:**
-- `AppContext.jsx` darkMode `useEffect` is now a single-line `applyTheme(state.darkMode, getStoredTheme(state.darkMode))` call. The old 30-line inline DOM-mutation block — which had duplicated the same logic that the `index.html` flash prevention script and `App.jsx` embed override also duplicated — is gone. Removed the `LIGHT_THEME` / `DARK_THEME` / `LIGHT_META_COLOR` / `DARK_META_COLOR` module constants (moved to `themes.js`).
-- `AppContext.jsx` cross-tab `storage` listener now handles three keys instead of one: `darkMode` (dispatches to reducer, which triggers the effect), `lightTheme` (calls `applyTheme(false, validLightTheme(newValue), true)` if the user is currently in light mode), `darkTheme` (same for dark mode). Forward-compat — today there's no UI for writing the per-mode keys, but when a theme picker is added the listener just works without a second pass.
-- `App.jsx` embed override: `?theme=light|dark` now calls `applyTheme(..., true)` with `skipPersist=true` instead of doing its own `classList` + `setAttribute` + `setProperty` dance. `?bg=...` still sets `--color-base-100` directly since it's a pure override, not a theme swap.
-- `index.html` inline flash prevention script gained a hardcoded allowlist (`LIGHT_THEMES = ['lofi']`, `DARK_THEMES = ['black']`) and a `validTheme(id, allowlist, fallback)` helper. Reads `lightTheme` / `darkTheme` from localStorage in addition to `darkMode`, validates each, falls back to defaults if the stored theme was removed. Uses the `META` map inline for meta theme-color content. Comment explicitly documents the four-place sync requirement (this script + `themes.js` + `styles.css` `@plugin` config + `generate-theme-meta.mjs REGISTERED_THEMES`).
-- `Header.jsx` theme toggle menu item gained an explicit `ariaLabel: 'Switch to light mode' / 'Switch to dark mode'` that updates with state. Threaded through `HamburgerMenu.jsx` via a new `item.ariaLabel` prop (falls back to `item.label` for menu items that don't need a distinct screen-reader label).
-- `package.json` `dev` / `build` / `build:lib` scripts all prefix with `node scripts/generate-theme-meta.mjs &&` so the generated theme meta is always fresh. Also exposes `npm run generate-theme-meta` for manual invocation after adding themes.
-
-**Build:** Passes. CSS bundle is still **150.64 KB** (same as post-regression-fix — no CSS change in this pass). 84 modules transform (up from 82; two new modules: `themes.js` and `generated/themeMeta.js`). Smoke-tested via `vite preview` + curl: HTML contains `<html lang="en" class="dark" data-theme="black">`, both `<meta name="theme-color">` tags with media queries, inline script with allowlist + `validTheme` + META map. CSS contains both `[data-theme="lofi"]` and `[data-theme="black"]` selectors and all 14 critical custom class families (`.heatmap-0..4`, `.heatmap-cell`, `.filter-multi-select*`, `.settings-pane*`, `.detail-pane*`, `.error-boundary-card`, `.dashboard-header`, `.card`, `.btn-primary`, `.toast-success`).
-
----
-
-**Previous Updates (2026-04-12 — second pass, regression fix):**
-
-### Full DaisyUI v5 migration — infrastructure + CSS variable removal + 21-file component migration
-
-Migrated the dashboard from partial custom-CSS-variable theming to fully DaisyUI-powered theming per `docs/implementations/THEME_DARK_MODE.md`. The migration went through all six reference phases (Phase 0 Prerequisites → Phase 1 Audit → Phase 2 Variable Removal → Phase 3 Component Migration → Phase 4 Z-Index (already normalized) → Phase 5 Verification → Phase 6 Cleanup) in a single pass.
-
-**Phase 0 — Prerequisites:**
-- Installed `daisyui@5` (5.5.19) as devDependency.
-- Registered two curated themes: `lofi --default, black --prefersdark` via `@plugin "daisyui"` in `dashboard/styles.css`.
-- Added `@layer base { html { color-scheme: light; } html.dark { color-scheme: dark; } }` for native form input / scrollbar theming.
-- `<html>` element default is `class="dark" data-theme="black"`.
-
-**Dual-layer theming wired up end-to-end:**
-- `index.html` flash prevention inline script applies BOTH `.dark` class AND `data-theme` attribute before first paint, plus overwrites both `<meta name="theme-color">` tags so the PWA status bar color matches from the first frame.
-- Two `<meta name="theme-color">` tags with `(prefers-color-scheme: light/dark)` media queries, defaults `#ffffff` (lofi base-100) and `#000000` (black base-100).
-- `AppContext.jsx` darkMode `useEffect` calls `root.setAttribute('data-theme', ...)` and overwrites both meta tags' `content` on every toggle. Constants `LIGHT_THEME`, `DARK_THEME`, `LIGHT_META_COLOR`, `DARK_META_COLOR` live at module top and MUST stay in sync with the inline flash prevention script (inline scripts can't import ES modules — duplication unavoidable).
-- Cross-tab `storage` event listener re-dispatches through the same effect, so other tabs pick up `.dark`, `data-theme`, AND meta theme-color in one place.
-
-**Phase 2 — Custom variable removal (styles.css rewrite):**
-- Deleted the old `:root` theme-token block and the entire `html.dark` override block. The new `:root` block holds ONLY non-theme design tokens: spacing (`--spacing-base`, `--section-gap`, etc.), radius (`--radius-sm/md/lg/full`), z-index scale (`--z-base` through `--z-debug`), and fonts (`--font-sans`, `--font-mono`).
-- Every `var(--bg-primary)` → `var(--color-base-100)`, `var(--bg-secondary)` → `var(--color-base-200)`, `var(--bg-tertiary)` → `var(--color-base-300)`, `var(--bg-hover)` → `var(--color-base-300)`.
-- Every `var(--text-primary)` → `var(--color-base-content)`, `var(--text-secondary/tertiary/muted)` → `color-mix(in oklab, var(--color-base-content) 80%/60%/40%, transparent)`.
-- Every `var(--border-color)` → `var(--color-base-300)`, `var(--border-light)` → `var(--color-base-200)`.
-- Deleted custom `--color-primary-alpha` / `--glow-primary/success/warning` / `--shadow` / `--shadow-lg` / `--chart-grid` variables — replaced each usage with `color-mix(in oklab, var(--color-primary) X%, transparent)` or an inline fixed value.
-- Deleted the hardcoded `rgba(45, 104, 255, X)` brand-blue values (focus rings, hover backgrounds, drop-zone states, text-shadow, grid background) — all replaced with `color-mix` expressions against `var(--color-primary)` so the brand accent now follows the active DaisyUI theme.
-- Deleted the whole Tailwind gray-override block (`.bg-gray-50`, `.text-gray-900`, `.hover\:bg-gray-100:hover`, etc.) and the "Semantic card backgrounds" / "Semantic text colors" Tailwind hijacks. JSX now uses DaisyUI tokens directly, so those hacks are obsolete.
-- `.text-themed-primary/secondary/tertiary/muted` and `.bg-themed-primary/secondary/tertiary` and `.border-themed` utility classes deleted. All 166 consumers across 21 JSX files were migrated to DaisyUI Tailwind classes (`text-base-content`, `text-base-content/80`, `bg-base-200`, `border-base-300`, etc.).
-- Toast, btn-primary, filter-preset-btn, filter-mode-toggle, project-link-primary, filter-badge, quick-guide-btn-primary all switched from `color: white` / `color: #1a1a1a` / `color: #fff` to DaisyUI `*-content` foreground tokens (`var(--color-primary-content)`, `var(--color-warning-content)`, etc.) so legibility tracks the theme.
-
-**Phase 3 — Component migration (all 21 JSX files):**
-- All 39 `dark:` Tailwind pairs removed from JSX. None remain as live class names (only in code comments explaining what was migrated).
-- `Summary.jsx` Activity Snapshot cards: `bg-amber-50 dark:bg-amber-900/20` etc. → `bg-warning/15` + `text-warning`, `bg-info/15` + `text-info`, `bg-accent/15` + `text-accent`, `bg-secondary/15` + `text-secondary`. Each metric now gets a distinct DaisyUI token that auto-switches with the theme.
-- `Timeline.jsx` complexity badges: purple/blue/gray tier colors → `bg-secondary/20 text-secondary` (high) / `bg-info/20 text-info` (medium) / `bg-base-300 text-base-content/80` (low).
-- `Health.jsx` security panels: all `bg-red-50 dark:bg-red-900/20` + `border-red-200 dark:border-red-800` + `text-red-600 dark:text-red-400` → `bg-error/10` + `border-error/40` + `text-error`.
-- `HealthBars.jsx` / `HealthAnomalies.jsx` / `Contributors.jsx` / `Tags.jsx` / `Timing.jsx` / `Progress.jsx` / `Discover.jsx` — progress-bar rails, hover states, and other neutral surfaces → `bg-base-300` / `hover:bg-base-200` / `hover:bg-base-300`.
-- `App.jsx` embed override: now sets `--color-base-100` (DaisyUI token) instead of the removed `--bg-primary` alias, and also toggles `data-theme` attribute alongside the `.dark` class.
-- `Tags.jsx` removed its per-component `useChartTextColor` hook and explicit `color: CHART_TEXT_COLOR` overrides — now relies on `ChartJS.defaults.color` being kept fresh by AppContext's darkMode effect. Single source of truth.
-
-**Chart.js theme sync:**
-- `AppContext.jsx` darkMode effect reads DaisyUI's `--color-base-content` oklch token and feeds it to `ChartJS.defaults.color` / `borderColor` via `color-mix(in oklab, ${baseContent} 80%/10%, transparent)`. Canvas parses color-mix() since Chrome 111 / Firefox 113 / Safari 16.2 — same baseline as DaisyUI.
-- Each chart component already has `state.darkMode` as a `useMemo` dep (done in the 2026-04-11 session), so charts rebuild when the theme toggles and pick up the new `ChartJS.defaults.color`.
-
-**Build:** Passes (`./node_modules/.bin/vite build`). CSS bundle **147.16 KB → 150.6 KB** (+3.5 KB, +2%) — the +2% comes from DaisyUI's theme selector blocks and semantic component classes (btn, card, modal, etc.) being added to the bundle. Deleted custom variables / gray overrides / utility classes partially offset the gain.
-
-> **Regression caught and fixed 2026-04-12 (second pass):** the first migration commit on this branch reported a misleading 123 KB bundle size. The reduction turned out to be an artifact of a broken CSS comment — the rewritten `:root` block contained the literal sequence `--bg-*/--text-*/--border-*` inside a `/* ... */` block, and the embedded `*/` terminated the comment prematurely. `esbuild`'s CSS minifier silently dropped everything after that point, which included all heatmap, filter-multi-select, settings-pane, detail-pane, error-boundary, and several other custom class definitions. The build didn't fail but the dashboard would have rendered without any of those custom styles. Fixed by rephrasing the comment to avoid the `*/` sequence. Full smoke test added via `vite preview` + curl to verify all critical custom classes are present in the built CSS.
-
-**Verification (Phase 5 10-point checklist):** Passed via code inspection — dual-layer attribute correctness, flash prevention, cross-tab sync, meta theme-color, Chart.js sync, system preference fallback, focus rings, print override, scroll lock, semantic tokens. Manual browser verification recommended before shipping (see `docs/TESTING_GUIDE.md` Theme section).
-
-**Files changed (22):**
-- `package.json`, `package-lock.json` (daisyui@5 devDep)
-- `dashboard/styles.css` (rewrote top 200 lines, deleted legacy blocks, replaced 200+ var() references)
-- `dashboard/index.html` (data-theme default, dual-layer flash prevention, meta theme-color tags)
-- `dashboard/js/AppContext.jsx` (theme constants, dual-layer effect, Chart.js sync from --color-base-content)
-- `dashboard/js/App.jsx` (embed override uses --color-base-100 + data-theme)
-- `dashboard/js/main.jsx`, `dashboard/js/components/*.jsx` (13 files), `dashboard/js/sections/*.jsx` (9 files) — migrated text-themed-*/bg-themed-*/dark: classes to DaisyUI tokens
-- `CLAUDE.md`, `docs/SESSION_NOTES.md`, `docs/HISTORY.md`, `docs/TODO.md`, `docs/TESTING_GUIDE.md`, `docs/USER_GUIDE.md`
-
----
-
-**Previous Updates (2026-04-11):**
-
-### React debug system — structured logging, DebugPill, clipboard fallbacks (9 commits)
-
-Replaced the simple `{time, message, stack}` error array with a complete structured debug system per glow-props `DEBUG_SYSTEM.md` spec. Nine commits of incremental fixes and refactors — see `docs/HISTORY.md` for full commit chronology.
-
-**New files:**
-1. `js/debugLog.js` — Pub/sub circular buffer (200 entries) with typed entries (`id`, `timestamp`, `source`, `severity`, `event`, `details`). Console interception (`console.error`/`console.warn` patched with `__debugConsolePatched` HMR guard). Global `window.error`/`unhandledrejection` listeners (HMR guarded). `debugGenerateReport()` with URL query param redaction. Pre-React error bridge using `debugAdd` with optional timestamp parameter. Exported helpers: `formatDebugTime`, `safeStringify`. `diagnoseFailure` utility for API failure mode detection.
-2. `js/copyToClipboard.js` — Three-tier clipboard fallback: ClipboardItem Blob → writeText → textarea. DebugPill adds a visible textarea with auto-select when all three fail.
-3. `js/components/DebugPill.jsx` — React debug pill in separate root (`#debug-root`). Survives App crashes. Inline styles (survives CSS failures). Collapsed pill with entry count and error/warn badges. Expanded panel with 3 tabs: Log (color-coded, auto-scroll), Environment (runtime info, URL redacted), PWA Diagnostics (live probes: protocol, network, SW state, manifest with icon sizes/start_url/id, standalone, install prompt, browser info). Monotonic stale-run cancellation for diagnostics. Copy/Clear/Close actions. Embed skip at mount point (not conditional hooks). `setEntries([])` before subscribe for strict-mode safety. Timer ref cleanup on unmount.
-
-**Modified files:**
-4. `index.html` — Added `<div id="debug-root">`. Inline pill now stores `Date.now()` (was `toLocaleTimeString()`), added `fmtTime` helper, `render()` bails early when `window.__debugReactMounted` is true.
-5. `main.jsx` — Mounts DebugPill in `#debug-root` (skipped in embed mode). RootErrorBoundary uses `debugAdd`. Boot events logged.
-6. `ErrorBoundary.jsx`, `App.jsx`, `pwa.js`, `HamburgerMenu.jsx`, `Projects.jsx` — All error routing uses direct `debugAdd` imports instead of `window.__debugPushError` guards.
-
-**Architecture:** Inline pill handles pre-React errors with its own local buffer and DOM banner. debugLog.js captures everything from module load onwards (console interception + global listeners + pre-React error bridge). React DebugPill subscribes to debugLog and takes over visual display when React mounts (inline banner hidden, inline `render()` bails early). The `window.__debugPushError` override in debugLog.js maintains backward compat for any remaining callers. No duplicate entries — explicit `debugAdd` callers don't also call `console.error`/`console.warn`, and console interception has an HMR guard.
-
-**Process mistakes made this session:** Force-pushed an amended commit to fix a mixed-concerns useEffect instead of creating a new commit. Documented in `docs/AI_MISTAKES.md` (2026-04-11 entry).
-
-### React migration hardening — 12 fixes across bugs, accessibility, and architecture
-
-Systematic review and fix of all remaining non-React patterns, race conditions, and accessibility gaps.
-
-**Bugs fixed:**
-1. `body.style.overflow` race condition — App.jsx and QuickGuide.jsx independently set/cleared scroll lock, causing conflicts when multiple overlays were open. Created ref-counted `useScrollLock` hook.
-2. Chart.js theme colors stale after dark/light toggle — CSS variables were read once at module load. Moved Chart.js color sync into AppContext's `darkMode` effect so charts update on theme toggle. Added `state.darkMode` to all 11 chart useMemo dependency arrays so react-chartjs-2 recreates options and calls `chart.update()` on theme change.
-3. SettingsPane labels not linked to selects — `<label>` elements for work hour selects had no `htmlFor`/`id` association. Added proper label-select pairing.
-
-**React migration:**
-4. Heatmap tooltip converted from vanilla DOM to React portal — replaced `document.getElementById` + `classList` + manual positioning with `HeatmapTooltip.jsx` portal component.
-5. Embed overrides moved from module scope into React lifecycle — `?theme=` and `?bg=` CSS overrides now run in `useEffect` instead of racing with AppContext's dark mode management.
-6. URL parameter parsing consolidated — created `urlParams.js` module to parse `window.location.search` once instead of 4+ times across App.jsx and chartColors.js.
-
-**Accessibility:**
-7. FilterSidebar MultiSelect keyboard navigation — added ArrowUp/Down, Enter/Space, Escape, Home/End key handling with `aria-activedescendant` and `aria-multiselectable`.
-8. Added `aria-label` to 12+ clickable elements in Health, Timeline, and Progress sections (summary cards, urgency/impact bars, epic bars, semver items, security repo buttons).
-
-**Post-implementation review (second pass):**
-9. Chart.js theme sync completed — added `state.darkMode` to all 11 chart useMemo deps across 5 section files so react-chartjs-2 recreates options on theme toggle.
-10. HeatmapTooltip: added `role="tooltip"` + `aria-hidden`, fixed positioning useEffect missing dependency array (ran on every render).
-11. Extracted inline spinner `style={{}}` to CSS classes (`.loading-spinner-sm/md/lg`) — 4 files cleaned.
-12. Extracted heatmap cell inline size to CSS class (`.heatmap-cell-sm`).
-
-**Documentation/cleanup:**
-13. Documented heatmap-cell `z-index: 1` — comment explaining it's local grid stacking, not from the CSS variable scale.
-14. Updated CLAUDE.md: architecture lists (HeatmapTooltip, useScrollLock, urlParams.js), fixed index.html description from "Minimal HTML" to accurate listing.
-15. Verified QuickGuide.jsx matches current 6-tab structure (confirmed correct).
-16. Updated USER_GUIDE.md with filter dropdown keyboard navigation instructions.
-17. Fixed SESSION_NOTES backlog count and TODO.md timestamp.
-
-**Build:** Passes (`npm run build`).
-
-**Remaining work:** See `docs/TODO.md` — 3 backlog items (library build testing, stacking context, device attribution research).
-
-**Previous Updates (2026-04-10):**
-
-### Z-index scale — full audit and normalization
-- Fixed 3 hardcoded `zIndex:'99999'` in `dashboard/index.html` → `zIndex:'80'` (matches `--z-debug: 80`)
-- Fixed `.heatmap-tooltip` z-index: `var(--z-toast)` (70) → `var(--z-menu)` (50) — tooltips belong in menu/dropdown layer per Z_INDEX_SCALE pattern
-- Updated CSS scale comment to reference `Z_INDEX_SCALE.md` (was `BURGER_MENU.md`)
-- Added decision context comments: sub-layer rationale (21, 28, 58), inline debug pill z-80 explanation
-- Added `@source not` directives excluding `public/data-commits/` and `public/repos/` from Tailwind scanning — commit history in JSON data files produced phantom z-index utilities (`z-[9999]`, `z-[100]`) in the build output
-- Added z-index visual stacking test scenario to TESTING_GUIDE.md
-- Documented hamburger backdrop stacking context limitation in TODO.md (backdrop trapped inside header z-21; drawers at z-30 render above it)
-- Full audit of all 20 source z-index values — no ad-hoc values in source or build output
-- Pattern reference: glow-props `docs/implementations/Z_INDEX_SCALE.md`
-
-### Full APP_ICONS pattern parity with glow-props
-- Added 180px `apple-touch-icon.png` to `generate-icons.mjs` icon pipeline
-- Added 32x32 `favicon.ico` via manual ICO packing (zero extra dependencies)
-- Script copies both to `dashboard/public/` for root-level serving
-- `<link rel="apple-touch-icon">` and `<link rel="icon" type="image/x-icon">` added to `dashboard/index.html`
-- Removed inline SVG data URL favicon — was a second icon source outside the pipeline. Now uses generated `favicon.png` (48px) as primary, `favicon.ico` (32px) as legacy fallback
-- Build verified — both files in `dist/`, precached by Workbox (38 entries)
-- Script now syncs all generated files to `dashboard/public/assets/images/` — no more manual copies or drift risk (resolved pre-existing TODO item)
-
-**Previous Updates (2026-04-05):**
-
-### X-Frame-Options fix for embeds
-- Removed `X-Frame-Options: SAMEORIGIN` from vercel.json — it blocked cross-origin iframe embeds
-- Root cause: H4 audit fix applied the header globally; dashboard is public/read-only with no auth, so clickjacking protection is unnecessary
-- No changes needed in see-veo or other embedding apps — existing `?embed=` URLs work as before
-
-### SW navigation fallback bypass for embeds (2026-04-06)
-- Added `navigateFallbackDenylist: [/[?&]embed=/]` to Workbox config in vite.config.js
-- Root cause: The PWA service worker precaches index.html with response headers. If the SW was installed when X-Frame-Options was still present, it served stale cached responses with the old header — blocking cross-origin iframes even after the header was removed from vercel.json. The iframe blocks before JS runs, so the SW never updates — a deadlock.
-- Fix: Embed URL navigations now bypass the SW entirely and go directly to the network (Vercel), always getting current headers
-
-### PWA improvements from cross-project review (2026-04-06)
-Reviewed synctone, canva-grid, and few-lap PWA implementations. Full gap analysis identified 16 differences — all addressed:
-
-**Update flow fixes:**
-1. Removed `skipWaiting`/`clientsClaim` from workbox config — conflicted with `registerType:'prompt'`
-2. User-initiated reload guard (`_userClickedUpdate`) on `controllerchange`
-3. Post-update suppression (30s sessionStorage window)
-4. `dismissUpdate()` — dismiss update prompt without applying
-5. `_isChecking` state + `pwa-checking-update` event for UI loading feedback
-6. Settle delay (1.5s) in `checkForUpdate()` and `visibilitychange`
-
-**Version detection:**
-7. `version.json` polling — catches deployments that don't change the SW file
-8. Recovery script (30s) — clears caches, unregisters SW if app fails to mount. Watches `updatefound` for installing workers.
-
-**Install improvements:**
-9. `__pwaPromptReceived` diagnostic flag (inline HTML + pwa.js)
-10. Display-mode change listener — detects browser-menu installs
-11. Install analytics — `trackInstallEvent()` stores last 50 events in localStorage
-12. `dismissInstall()` — persists to localStorage
-13. Chrome 90-day cooldown note in install instructions
-14. 5s diagnostic timeout if `beforeinstallprompt` hasn't fired on Chromium
-15. 2-layer capture decision documented (vs few-lap's 3-layer — Vite loads modules faster than Metro)
-
-**Infrastructure:**
-16. `pwaConstants.js` — extracted all timing/threshold constants
-17. `offline.html` — branded offline fallback page (precached)
-18. `offlineReady` auto-dismiss after 3s
-19. Vercel headers: `Cache-Control: no-cache` for HTML/sw.js/manifest, `immutable` for hashed assets, `Service-Worker-Allowed` for sw.js
-
-**Previous Updates (2026-04-02):**
-
-### Cross-project alignment with glow-props (24 items)
-- CLAUDE.md text fixes, implementations extracted to `docs/implementations/` (8 files)
-- HamburgerMenu rewritten with disclosure pattern, iOS Safari fixes, a11y
-- Z-index scale convention (CSS variables `--z-base` through `--z-debug`)
-- Safe localStorage wrappers in all modules
-- Full light/dark theme with flash prevention, cross-tab sync, system preference
-- `?data=` URL param, Vite library build, `--no-merges` flag in extract.js
-- sharp added to devDependencies
-
-### Full 9-trigger audit sweep (41 findings fixed)
-- **Security:** URL validation for ?data= (SSRF), postMessage origin check, ?bg= hex validation, security headers in vercel.json, token source redacted from logs
-- **Bugs:** Removed dark class override in main.jsx, per-file month error handling, 30s fetch timeout
-- **Accessibility:** Backdrop overlays changed from aria-hidden to role="presentation", filter button touch targets increased, safe area insets for iOS
-- **Debug:** ErrorBoundary routes to debug pill, SW errors to pill, network status in diagnostics, loading timeout increased to 20s
-- **Performance:** Tag style cache, React.memo on HealthBars, work hours dedup in useHealthData
-- **Docs:** TESTING_GUIDE updated (removed nonexistent features), USER_GUIDE theme section, CLAUDE.md dark mode status, QuickGuide Projects tab added
-- **All components** (Header, TabBar, FilterSidebar, DetailPane, SettingsPane) wrapped in ErrorBoundary
-
-**Build:** Passes (`npm run build`).
-
-**Remaining work:** See `docs/TODO.md` — 2 backlog items (library build testing, device attribution research).
+**Branch:** `claude/migrate-daisyui-dark-mode-toG0Y` (ahead of `main`).
+
+**Dashboard V2:** Stable. Role-based view levels (Executive / Management /
+Developer), DaisyUI v5 dual-layer theming following
+`docs/implementations/THEME_DARK_MODE.md` Approach A (per-mode independent
+themes, 4 light + 4 dark in the curated catalog), PWA support, embed
+mode via `?embed=chart-id`, single `node:test` source-level tripwire
+(60 tests, ~250 ms, no browser).
+
+**Vanilla-DaisyUI policy:** Locked in. `dashboard/styles.css` contains
+zero custom CSS classes (allowlist test enforces). All theming flows
+through DaisyUI semantic tokens. Element-selector exceptions are
+documented in CLAUDE.md "Frontend: Styles and Scripts" and in the
+styles.css block itself: `*` font reset, `h1,h2,h3` mono headings,
+`body::before` decorative grid background. Documented arbitrary-bracket
+exceptions: `z-[var(--z-sticky-header)]`, `z-[var(--z-toast)]`,
+`grid-cols-[auto_repeat(7,1fr)]`, `max-w-[calc(100vw-2rem)]`. Documented
+hex literal exceptions: `DebugPill.jsx`, `themes.js #808080`,
+`generated/themeMeta.js`.
+
+**Testing:** Playwright was removed entirely on 2026-04-15 — the
+`af0f02d` commit that introduced it never produced baselines because the
+sandbox lacked a Chromium binary. Future re-introduction is tracked in
+`docs/TODO.md` "Browser test coverage (future)" with an explicit
+"obtain a Chromium binary first" note. The single automated layer is
+the source-level tripwire under `scripts/__tests__/`.
+
+## Last Session's Work — Audit Cleanup
+
+The user requested a no-shortcuts fresh-eyes audit of every change on
+the branch. Findings were batched into 13 commits, all merged into the
+branch this session:
+
+1. **`4a8bd00`** — z-index symmetry, font-sans override, Date filter perf
+2. **`7d92b77`** — SettingsPane View Level → native `<fieldset>` + radio
+3. **`d104b37`** — CLAUDE.md exception lists expanded with rationale
+4. **`4e4f672`** — 5 dead exports removed, Header filter callback simplified
+5. **`8ca34f8`** — Progress inline → utility, QuickGuide mobile copy, z-index doc
+6. **`64e2c6c`** — styles.css trimmed 521 → 164 lines (tombstone removal)
+7-13. — SESSION_NOTES rewrite, HISTORY archive, file-size refactors of
+       Timing / DebugPill / Discover / Timeline, TODO notes (in progress
+       at session end — check git log for completion status)
+
+Build + tests pass after every commit.
+
+## Open Items For Next Session
+
+- **`scripts/aggregate.js`** — investigate whether this pre-aggregator is
+  still part of the live workflow. It writes
+  `dashboard/{commits,files,contributors,metadata,summary}.json` which
+  no JS module imports. Either the data flow has been quietly replaced by
+  `aggregate-processed.js` (in which case both the script and the JSON
+  files can be deleted) or there's an out-of-tree consumer that needs
+  documenting.
+- **Live browser verification** of the SettingsPane radio + UTC toggle
+  refactor. Structurally correct and unit-tested but not opened in
+  `npm run dev`. Quick check: open Settings pane, click each ViewLevel
+  row, toggle UTC, confirm radio bullet renders on the right and the
+  toggle pill animates in all 8 themes.
+- **`docs/TODO.md`** carries everything else flagged during the audit.
+
+## Pointers
+
+- Architecture, paths, conventions, theming approach: `CLAUDE.md`
+- Detailed change history: `docs/HISTORY.md`
+- AI mistakes to avoid: `docs/AI_MISTAKES.md`
+- DaisyUI v5 conventions: `docs/DAISYUI_V5_NOTES.md`
+- Theme system reference: `docs/implementations/THEME_DARK_MODE.md`
+- Source-of-truth theme catalog: `scripts/theme-config.js`
