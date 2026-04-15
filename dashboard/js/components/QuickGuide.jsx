@@ -125,7 +125,7 @@ export default function QuickGuide({ open, onClose }) {
                     <div className="flex justify-center mb-4 opacity-80 text-base-content">
                         {current.icon}
                     </div>
-                    <h2 className="text-lg font-semibold text-base-content mb-2.5">{current.title}</h2>
+                    <h2 className="text-lg font-semibold font-mono text-base-content mb-2.5">{current.title}</h2>
                     <p className="text-sm leading-relaxed text-base-content/80">{current.body}</p>
                 </div>
 

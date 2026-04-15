@@ -121,27 +121,28 @@ body {
 
 /* === Element-selector exceptions to the vanilla-only policy ===
    CLAUDE.md "Frontend: Styles and Scripts" forbids custom CSS classes.
-   The rules below target HTML element selectors / pseudo-elements
-   (no class) and are documented exceptions:
+   The single remaining element-selector rule below (`body::before`)
+   is a pseudo-element that cannot be expressed as a Tailwind utility
+   — the one place where keeping a custom CSS rule beats any
+   utility-only alternative.
 
-   1. `h1, h2, h3 { font-mono }` — the techy-developer-tool aesthetic
-      uses a monospace font for section titles. App-wide intent applied
-      via semantic HTML rather than repeating font-mono on every heading.
+   Previous element-selector exceptions, removed 2026-04-15 as part
+   of the second audit-cleanup pass:
 
-   2. `body::before` decorative grid — the dashboard's visual signature.
-      Fixed-position pseudo-element with two linear-gradient lines tinted
-      by color-mix(--color-primary) so the grid tracks the active theme.
-      Pseudo-elements cannot be expressed as Tailwind utilities.
+   - `* { font-family: var(--font-sans) }` — replaced by
+     `<body class="font-sans">` in `dashboard/index.html`. Tailwind's
+     `font-sans` utility sets font-family on body and every descendant
+     inherits it via the CSS cascade.
 
-   The previous `* { font-family: var(--font-sans) }` reset was removed
-   2026-04-15 — the same effect is achieved by `<body class="font-sans">`
-   in `dashboard/index.html`, since Tailwind's `font-sans` utility sets
-   the body font-family and every descendant inherits it via the normal
-   CSS cascade. One fewer custom CSS rule. */
-h1, h2, h3 {
-    font-family: var(--font-mono);
-}
+   - `h1, h2, h3 { font-family: var(--font-mono) }` — replaced by an
+     explicit `font-mono` utility class on every JSX heading (4 sites
+     total: Header "Git Analytics", QuickGuide step titles, DropZone
+     hero, InstallInstructionsModal title). Four one-word edits was a
+     smaller total surface than a cross-cutting element selector.
 
+   `body::before` decorative grid — the dashboard's visual signature.
+   Fixed-position pseudo-element with two linear-gradient lines tinted
+   by color-mix(--color-primary) so the grid tracks the active theme. */
 body::before {
     content: '';
     position: fixed;
