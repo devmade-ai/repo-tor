@@ -3,36 +3,42 @@ import { isEmbedMode } from '../urlParams.js';
 
 // Requirement: Wrap each dashboard section in a bordered card with a
 //   collapsible header that toggles the section body's visibility. In
-//   embed mode (iframe embedding), skip all card chrome entirely and
-//   render just the children so the embed shows the bare chart.
+//   embed mode (iframe embedding), strip all card chrome and render a
+//   minimal wrapper so EmbedRenderer can isolate individual charts.
 // Approach: DaisyUI `collapse collapse-arrow` component, React-controlled
 //   via a native checkbox. DaisyUI's collapse uses a checkbox for state,
 //   which we wire to our React `expanded` state via `onChange`. The
 //   `collapse-open` / `collapse-close` modifier classes force the open
-//   state so controlled behaviour is deterministic. Embed mode short-
-//   circuits before the collapse wrapper — no card, no header, no
-//   collapse mechanism, just `{children}` inside a minimal wrapper.
+//   state so controlled behaviour is deterministic. Embed mode renders
+//   a per-section `<div data-embed-wrapper>` so EmbedRenderer's
+//   `useLayoutEffect` can `closest('[data-embed-wrapper]')` walk from
+//   each `[data-embed-id]` target to its wrapping CollapsibleSection —
+//   this gives per-chart isolation inside multi-chart sections like
+//   Timeline (which contains 5 separate embed charts).
 // Alternatives considered:
-//   - Custom card + max-height:none transition (previous state): Rejected
-//     — required a custom `.collapsible-content` class in styles.css
-//     with a non-stock CSS transition value. The vanilla-DaisyUI sweep
-//     (2026-04-14) moved to the native component.
-//   - Re-render CollapsibleSection differently per embed: Rejected —
-//     early return is the simplest branching and matches how embeds work
-//     elsewhere (EmbedRenderer also early-returns on validId failure).
-//   - Pass isEmbed as a prop: Rejected — every consumer would need to
-//     thread it through. Direct import from urlParams is the same
-//     pattern used in main.jsx and App.jsx.
+//   - Return `<>{children}</>` Fragment in embed mode (earlier state):
+//     Rejected 2026-04-14. A Fragment has no DOM ancestor, so embedded
+//     charts inside the same section share a top-level parent and
+//     `?embed=activity-timeline` would show all 5 Timeline charts
+//     instead of just the one requested.
+//   - Use an `ErrorBoundary` wrapper in embed mode: Rejected — the
+//     bare data-attribute div is the minimal viable marker and doesn't
+//     add error-boundary nesting that EmbedRenderer would need to
+//     work around.
+// Rules of Hooks: `useState` must be called BEFORE any early return
+//   so React's hook count stays consistent across renders. The isEmbed
+//   branch is a module-level constant so this is theoretically safe
+//   as-is, but eslint-plugin-react-hooks flags the pattern and any
+//   future refactor that made it dynamic would crash with "Rendered
+//   fewer hooks than expected."
 export default function CollapsibleSection({ title, subtitle, defaultExpanded = true, children }) {
-    // Embed mode: strip all chrome, render just the children. EmbedRenderer
-    // uses DOM traversal to find [data-embed-id] elements inside these
-    // children and show only the card ancestors containing a match — since
-    // we don't render a card wrapper in embed mode, that ancestor is one
-    // of the children itself (the chart container div).
-    if (isEmbedMode) return <>{children}</>;
-
     const [expanded, setExpanded] = useState(defaultExpanded);
-    const sectionId = title.toLowerCase().replace(/\s+/g, '-');
+
+    // Embed mode: wrap in a data-attribute div so EmbedRenderer can
+    // target individual CollapsibleSection instances via closest()
+    // DOM traversal. No card, no header, no collapse mechanism — just
+    // the children inside a marker div.
+    if (isEmbedMode) return <div data-embed-wrapper="">{children}</div>;
 
     return (
         <div
@@ -40,7 +46,6 @@ export default function CollapsibleSection({ title, subtitle, defaultExpanded = 
         >
             <input
                 type="checkbox"
-                id={`${sectionId}-toggle`}
                 checked={expanded}
                 onChange={e => setExpanded(e.target.checked)}
                 aria-label={`Toggle ${title} section`}

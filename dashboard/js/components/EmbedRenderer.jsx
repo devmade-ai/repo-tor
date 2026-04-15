@@ -60,40 +60,38 @@ export default function EmbedRenderer({ embedIds }) {
         });
     });
 
-    // After render, hide all top-level section wrappers except those
-    // containing target charts. In embed mode CollapsibleSection returns
-    // a React fragment instead of a card, so the chart's immediate
-    // ancestor is the `[data-embed-id]` element's parent chain up to the
-    // section wrapper inserted by the section component (e.g. Timeline
-    // wraps each chart in a `<div className="space-y-4 ...">`). We walk
-    // up to the container child that contains `[data-embed-id]` and
-    // toggle its display, leaving only the matching chart(s) visible.
+    // After render, hide every `[data-embed-wrapper]` element (one per
+    // CollapsibleSection in embed mode) except those whose subtree
+    // contains a matching `[data-embed-id]`. This gives per-chart
+    // isolation even inside multi-chart sections — Timeline contains
+    // 5 embeddable charts, each wrapped in its own CollapsibleSection
+    // which renders `<div data-embed-wrapper>` in embed mode, so
+    // `?embed=activity-timeline` correctly shows only that single chart.
     //
-    // The previous implementation used `.card` ancestor walks, but with
-    // the vanilla-DaisyUI CollapsibleSection migration embed mode no
-    // longer renders `.card` wrappers — we walk to the first child of
-    // `container` that contains the embed element instead.
+    // Previous implementations:
+    //   - Pre-vanilla sweep: `.closest('.card')` walked to DaisyUI card
+    //     ancestors. Worked because CollapsibleSection rendered a card
+    //     in both embed and non-embed modes, just styled differently.
+    //   - Post-vanilla sweep first-pass: walked to top-level container
+    //     child. Broke per-chart isolation — all 5 Timeline charts
+    //     shared the same top-level parent.
+    //   - Current: walk to `.closest('[data-embed-wrapper]')`. Each
+    //     CollapsibleSection owns its own wrapper, so isolation works.
     useLayoutEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
-        // First: hide every top-level child of the container.
-        Array.from(container.children).forEach(child => {
-            child.style.display = 'none';
+        // First: hide every embed wrapper.
+        container.querySelectorAll('[data-embed-wrapper]').forEach(el => {
+            el.style.display = 'none';
         });
 
-        // Then: show top-level children that contain a matching embed ID.
+        // Then: show wrappers that contain a matching embed ID.
         validIds.forEach(id => {
             const target = container.querySelector(`[data-embed-id="${id}"]`);
             if (!target) return;
-            // Walk up to the top-level child of the container.
-            let node = target;
-            while (node.parentElement && node.parentElement !== container) {
-                node = node.parentElement;
-            }
-            if (node.parentElement === container) {
-                node.style.display = '';
-            }
+            const wrapper = target.closest('[data-embed-wrapper]');
+            if (wrapper) wrapper.style.display = '';
         });
     }, [validIds.join(',')]);
 
@@ -175,11 +173,16 @@ export default function EmbedRenderer({ embedIds }) {
 
     return (
         <div ref={containerRef} className="p-4 bg-base-100">
-            <ErrorBoundary>
-                {sectionsToRender.map((SectionComponent, idx) => (
-                    <SectionComponent key={idx} />
-                ))}
-            </ErrorBoundary>
+            {/* Per-section ErrorBoundary so a single broken chart doesn't
+                take down the entire embed iframe — the user would see a
+                blank iframe otherwise because the hide/show traversal
+                would target the error fallback div instead of the
+                expected section wrapper. */}
+            {sectionsToRender.map((SectionComponent, idx) => (
+                <ErrorBoundary key={idx}>
+                    <SectionComponent />
+                </ErrorBoundary>
+            ))}
         </div>
     );
 }

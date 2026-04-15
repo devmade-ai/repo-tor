@@ -421,33 +421,47 @@ export default function Timing() {
                 </div>
             );
         } else {
-            // Developer view: full 24x7 hourly heatmap.
-            // Layout: flex row with fixed-width label column + grid of day cells.
-            // Uses stock Tailwind flex + grid-cols-7 (no custom grid templates).
+            // Developer view: full 24×7 hourly heatmap.
+            //
+            // Layout: single CSS grid with `auto repeat(7, 1fr)` — label
+            // column is `auto` (fits text content), day columns are equal
+            // 1fr width. Each hour row contains 1 label cell + 7 day
+            // cells as siblings in the same grid, so row heights are
+            // shared automatically. Labels and data always align.
+            //
+            // Previous attempts:
+            //   - Flex wrapper + separate `grid-cols-7` for day cells
+            //     (2026-04-14 vanilla-sweep first pass): Broke row
+            //     alignment because label column and data grid had
+            //     independent cell sizing. Labels were `aspect-square`
+            //     at w-12 → 48px, while data cells at flex-1 were
+            //     ~91px on desktop. Rows didn't line up.
+            //   - `grid-cols-8` with label as column 1: Makes label
+            //     column 1/8 of grid width — too wide on desktop, wastes
+            //     horizontal space, labels look lost in their cell.
+            //
+            // `grid-cols-[auto_repeat(7,1fr)]` is the ONE documented
+            // arbitrary bracket exception in the vanilla-DaisyUI policy.
+            // Grid templates with mixed auto + repeat() aren't
+            // expressible as stock Tailwind utilities, and row
+            // alignment is a functional data-correctness requirement
+            // (not cosmetic). Documented in CLAUDE.md "Frontend: Styles
+            // and Scripts" as a permitted exception.
             const { matrix, maxCount, dayOrder, dayLabels } = heatmapContent;
             return (
-                <div className="flex gap-0.5 min-w-70 sm:min-w-100">
-                    {/* Label column: hour labels */}
-                    <div className="flex flex-col gap-0.5 w-10 sm:w-12 shrink-0">
-                        <div className="h-4 sm:h-5" />
-                        {Array.from({ length: 24 }, (_, hour) => (
-                            <div
-                                key={hour}
-                                className="aspect-square min-h-5 sm:min-h-7 flex items-center justify-end pr-1 sm:pr-2 text-xs text-base-content/60"
-                            >
+                <div className="grid grid-cols-[auto_repeat(7,1fr)] gap-0.5 min-w-70 sm:min-w-100">
+                    {/* Header row: empty top-left corner + 7 day labels */}
+                    <div className="h-4 sm:h-5" />
+                    {dayLabels.map(d => (
+                        <div key={d} className="flex items-center justify-center text-xs font-medium text-base-content/80 h-4 sm:h-5">{d}</div>
+                    ))}
+                    {/* Data rows: for each hour, 1 label cell + 7 day cells */}
+                    {Array.from({ length: 24 }, (_, hour) => (
+                        <React.Fragment key={hour}>
+                            <div className="flex items-center justify-end pr-1 sm:pr-2 text-xs text-base-content/60 whitespace-nowrap">
                                 {hour % 3 === 0 ? `${hour.toString().padStart(2, '0')}:00` : ''}
                             </div>
-                        ))}
-                    </div>
-                    {/* Day grid: 7 columns × (1 header + 24 hours) rows */}
-                    <div className="grid grid-cols-7 gap-0.5 flex-1">
-                        {/* Header row */}
-                        {dayLabels.map(d => (
-                            <div key={d} className="flex items-center justify-center text-xs font-medium text-base-content/80 h-4 sm:h-5">{d}</div>
-                        ))}
-                        {/* Data cells: 24 hours × 7 days (interleaved, flowing left-to-right top-to-bottom) */}
-                        {Array.from({ length: 24 }, (_, hour) =>
-                            dayOrder.map((dayIdx, i) => {
+                            {dayOrder.map((dayIdx, i) => {
                                 const count = matrix[hour][dayIdx];
                                 const level = getHeatmapLevel(count, maxCount);
                                 const tooltip = `${dayLabels[i]} ${hour}:00 - ${count} commit${count !== 1 ? 's' : ''}`;
@@ -458,9 +472,9 @@ export default function Timing() {
                                         data-tooltip={tooltip}
                                     />
                                 );
-                            })
-                        )}
-                    </div>
+                            })}
+                        </React.Fragment>
+                    ))}
                 </div>
             );
         }
