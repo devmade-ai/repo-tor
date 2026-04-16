@@ -4,6 +4,18 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-16
 
+### Strengthen PWA icon cache-bust (assertions, warning, smoke test, user note)
+
+Follow-up pass after the cache-bust fix below. Five changes addressing the self-review findings:
+
+1. **`iconCacheBustHtml` no longer fails silently.** The original used `String.prototype.replace` on literal hrefs — when the literal isn't found it returns the original string, no error. A future reformat of `dashboard/index.html` (single-quoted attrs, attribute reorder, query already present) would have shipped a manifest with versioned icons but a `<head>` with un-versioned ones, surfacing only on the next icon change after deploy. Plugin now walks an explicit `REPLACEMENTS` table and `throw`s with a clear message pointing at the affected literal. Failure is caught at `vite build` / `vite dev` AND by the new smoke test.
+2. **`iconVersion` warns on missing icons.** Previously returned `'0'` silently if a file was missing — a deleted-by-accident icon would have shipped with `?v=0` and 404'd at runtime. Now logs a clear `console.warn` pointing at `npm run generate-icons`. We don't `throw` because a fresh-clone dev run legitimately has no icons until the first generate; CI builds always run generate first, so production hashes are always real.
+3. **Corrected `cleanupOutdatedCaches` rationale** (was overstated). The previous narrative claimed it "drops the previous build's precache entries on activation" — that's wrong. Per Workbox source, it only deletes cache stores whose names use a different `workbox-precache-*` prefix than the active SW (i.e. cross-major-version cleanup). Same-prefix entries with stale revisions are already replaced by Workbox's normal precache install flow. Option is still kept (defends against future Workbox major-version bumps); the comment now describes what it actually does.
+4. **New tripwire test** `scripts/__tests__/icon-cache-bust.test.mjs` (9 tests, total 65 → 74). Two layers: source-level assertions always run (`iconCacheBustHtml` plugin defined, wired before VitePWA, workbox options present, `dashboard/index.html` still contains the exact literal hrefs), built-output assertions skip with a logged warning when `dist/` is absent (every manifest icon URL has `?v=<8-hex>`, every `<link rel="icon|apple-touch-icon">` href has `?v=<8-hex>`, no un-versioned icon URLs leaked through, `dist/sw.js` contains `cleanupOutdatedCaches()` and `/^v$/` inside `ignoreURLParametersMatching`).
+5. **User-facing OS-cache note** added to `InstallInstructionsModal.jsx` as a collapsed `<details>` block ("Already installed and the icon looks outdated?"). Explains in plain language that the OS keeps icons cached separately from the browser and the user must remove the app first. Collapsed by default so first-time installers aren't confused; discoverable for the small subset who hit the issue.
+
+Build clean (`vite build`); 74/74 tests pass against fresh `dist/`.
+
 ### Fix stale PWA icon after re-install (cache-busting via content hash)
 
 Re-installing the PWA (or simply clearing site data) kept showing the old icon because the icon URLs (`assets/images/icon-192.png`, `apple-touch-icon.png`, `favicon.ico`, ...) never changed — so the browser HTTP cache, the Vercel CDN, the Workbox precache, and Chrome's WebAPK shadow all kept serving the previous bytes.
@@ -11,12 +23,12 @@ Re-installing the PWA (or simply clearing site data) kept showing the old icon b
 Changes in `vite.config.js`:
 
 1. SHA-256 each icon file in `dashboard/public/` at config-load time, take the first 8 chars, and append `?v=<hash>` to (a) the three PWA manifest icon entries (192/512/1024) and (b) the static `<link rel="icon|apple-touch-icon">` tags in `index.html` via a small `transformIndexHtml` plugin (`iconCacheBustHtml`).
-2. Add `workbox.cleanupOutdatedCaches: true` so the SW drops the previous build's precache entries on activation. (Was missing — caught by the glow-props `PWA_SYSTEM.md` pattern review.)
+2. Add `workbox.cleanupOutdatedCaches: true` for cross-major-version Workbox precache cleanup. (Caught by the glow-props `PWA_SYSTEM.md` pattern review. The original commit message and HISTORY entry overstated this option's effect — corrected in the strengthening pass above.)
 3. Add `workbox.ignoreURLParametersMatching: [/^utm_/, /^v$/]` so the versioned URLs still hit the precached entries (Workbox would otherwise miss `icon-192.png?v=abc` against the precached `icon-192.png`).
 
-Hash is derived from file contents, so the version only changes when the icons actually change — no manual bumping. New URL → fresh fetch at every cache layer the web app controls; new manifest icon URL → Chrome WebAPK regeneration on next update check. OS-level icon caches (Springboard, Android launcher, Windows icon cache, macOS Icon Services) are platform-controlled and still require a full PWA uninstall to refresh — documented in the new code comment.
+Hash is derived from file contents, so the version only changes when the icons actually change — no manual bumping. New URL → fresh fetch at every cache layer the web app controls; new manifest icon URL → Chrome WebAPK regeneration on next update check. OS-level icon caches (Springboard, Android launcher, Windows icon cache, macOS Icon Services) are platform-controlled and still require a full PWA uninstall to refresh — documented in the new code comment AND in the install modal as of the strengthening pass.
 
-Verified: `dist/manifest.webmanifest` icons render as e.g. `icon-192.png?v=de08cd78`; `dist/index.html` link tags render as e.g. `favicon.png?v=05809e07`; `dist/sw.js` contains `cleanupOutdatedCaches()` and `ignoreURLParametersMatching:[/^utm_/,/^v$/]`. 65/65 tests pass.
+Verified: `dist/manifest.webmanifest` icons render as e.g. `icon-192.png?v=de08cd78`; `dist/index.html` link tags render as e.g. `favicon.png?v=05809e07`; `dist/sw.js` contains `cleanupOutdatedCaches()` and `ignoreURLParametersMatching:[/^utm_/,/^v$/]`. Tests passed at the time of the original commit (65/65); strengthening pass added 9 tripwire tests bringing the count to 74.
 
 Pattern proposal drafted for glow-props (`PWA_ICON_CACHE.md`) — not yet contributed upstream.
 

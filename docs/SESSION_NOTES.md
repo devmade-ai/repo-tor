@@ -1,26 +1,44 @@
 # Session Notes
 
 Compact context snapshot for AI continuity. Updated 2026-04-16 after
-the PWA icon cache-busting fix (vite.config.js content-hash versioning
-+ workbox cleanupOutdatedCaches/ignoreURLParametersMatching).
+the PWA icon cache-bust fix + strengthening pass (assertions, missing-
+icon warning, OS-cache user note, 9-test tripwire, corrected narrative).
 Detailed history lives in `docs/HISTORY.md` and the git log.
 
 ## Current State
 
 **Branch:** `claude/fix-pwa-icon-cache-p2JOQ`.
 
-**Last change:** PWA icon cache-busting. `vite.config.js` now SHA-256s
-each icon file in `dashboard/public/` at config-load time and appends
-`?v=<8-char-hash>` to the manifest icon URLs (192/512/1024) and the
-static link tags in `index.html` (favicon.png, favicon.ico,
-apple-touch-icon.png) via a `transformIndexHtml` plugin
-(`iconCacheBustHtml`). Also added `workbox.cleanupOutdatedCaches: true`
-and `workbox.ignoreURLParametersMatching: [/^utm_/, /^v$/]` so the
-versioned URLs hit precache and stale entries get swept on activation.
-OS-level icon caches (Springboard, Android launcher, etc.) still need
-a full uninstall — documented in the code comment. Fix unblocks every
-cache layer the web app actually controls. A glow-props pattern
-proposal (`PWA_ICON_CACHE.md`) is drafted but not yet contributed.
+**Last change:** PWA icon cache-bust strengthening pass (5 changes):
+
+1. `iconCacheBustHtml` Vite plugin now `throw`s on missing literal
+   hrefs instead of silently no-op'ing — prevents shipping a manifest
+   with versioned icons but a `<head>` with un-versioned ones if anyone
+   reformats `dashboard/index.html`.
+2. `iconVersion` `console.warn`s when an icon file is missing instead
+   of silently returning `'0'` — surfaces accidental icon deletion.
+3. Corrected the `cleanupOutdatedCaches` rationale comment: it sweeps
+   cross-major-version Workbox precache stores, not per-build stale
+   entries (those are handled by Workbox's normal install flow). Option
+   is still kept; comment now describes what it actually does.
+4. New tripwire test `scripts/__tests__/icon-cache-bust.test.mjs`
+   (9 tests, total 65 → 74). Source assertions always run; built-output
+   assertions skip with logged warning when `dist/` is absent.
+5. User-facing OS-cache note added to `InstallInstructionsModal.jsx`
+   as a collapsed `<details>` ("Already installed and the icon looks
+   outdated?") — explains in plain language that the OS caches icons
+   separately from the browser.
+
+**Original cache-bust fix** (still in place, just strengthened):
+`vite.config.js` SHA-256s each icon in `dashboard/public/` at
+config-load time and appends `?v=<8-char-hash>` to the manifest icon
+URLs (192/512/1024) and the static link tags in `index.html`
+(favicon.png, favicon.ico, apple-touch-icon.png) via the
+`transformIndexHtml` plugin. `workbox.ignoreURLParametersMatching`
+includes `/^v$/` so the versioned URLs still hit precache.
+
+A glow-props pattern proposal (`PWA_ICON_CACHE.md`) is drafted but
+not yet contributed upstream.
 
 **Dashboard V2:** Stable. Role-based view levels (Executive / Management /
 Developer), DaisyUI v5 dual-layer theming following
