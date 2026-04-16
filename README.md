@@ -61,7 +61,7 @@ dashboard/
   js/pwa.js                     # PWA install/update logic
   js/components/                # Shared components (Header, TabBar, DropZone, DebugPill, etc.)
   js/sections/                  # Section components (Summary, Timeline, Timing, etc.)
-  js/hooks/                     # Custom hooks (useFocusTrap, useHealthData, useScrollLock)
+  js/hooks/                     # Custom hooks (useDisclosureFocus, useFocusTrap, useHealthData, useScrollLock)
   public/                       # Static assets (data.json, projects.json, icons)
 scripts/
   extract.js                    # Git log extraction (local clone)
