@@ -27,20 +27,20 @@ export const UrgencyBar = React.memo(function UrgencyBar({ counts, total, label,
 
     return (
         <div
-            className={`p-2 -m-2 transition-colors ${onClick ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded' : ''}`}
+            className={`p-2 -m-2 transition-colors ${onClick ? 'cursor-pointer hover:bg-base-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded' : ''}`}
             {...(onClick ? { role: 'button', tabIndex: 0, onKeyDown: handleKeyActivate(onClick) } : {})}
             onClick={onClick}
         >
             <div className="flex justify-between text-sm mb-1">
-                <span className="text-themed-secondary font-medium">{label}</span>
-                <span className="text-themed-tertiary">{total} commits</span>
+                <span className="text-base-content/80 font-medium">{label}</span>
+                <span className="text-base-content/60">{total} commits</span>
             </div>
-            <div className="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
-                <div className="bg-green-500 h-full" style={{ width: `${plannedPct}%` }} title={`Planned: ${counts.planned}`} />
-                <div className="bg-blue-500 h-full" style={{ width: `${normalPct}%` }} title={`Normal: ${counts.normal}`} />
-                <div className="bg-amber-500 h-full" style={{ width: `${reactivePct}%` }} title={`Reactive: ${counts.reactive}`} />
+            <div className="w-full h-2 bg-base-300 rounded-full flex overflow-hidden">
+                <div className="bg-success h-full" style={{ width: `${plannedPct}%` }} title={`Planned: ${counts.planned}`} />
+                <div className="bg-info h-full" style={{ width: `${normalPct}%` }} title={`Normal: ${counts.normal}`} />
+                <div className="bg-warning h-full" style={{ width: `${reactivePct}%` }} title={`Reactive: ${counts.reactive}`} />
             </div>
-            <div className="flex justify-between text-xs text-themed-tertiary mt-1">
+            <div className="flex justify-between text-xs text-base-content/60 mt-1">
                 <span>Planned {plannedPct}%</span>
                 <span>Normal {normalPct}%</span>
                 <span>Reactive {reactivePct}%</span>
@@ -64,21 +64,21 @@ export const ImpactBar = React.memo(function ImpactBar({ counts, total, label, o
 
     return (
         <div
-            className={`p-2 -m-2 transition-colors ${onClick ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded' : ''}`}
+            className={`p-2 -m-2 transition-colors ${onClick ? 'cursor-pointer hover:bg-base-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded' : ''}`}
             {...(onClick ? { role: 'button', tabIndex: 0, onKeyDown: handleKeyActivate(onClick) } : {})}
             onClick={onClick}
         >
             <div className="flex justify-between text-sm mb-1">
-                <span className="text-themed-secondary font-medium">{label}</span>
-                <span className="text-themed-tertiary">{total} commits</span>
+                <span className="text-base-content/80 font-medium">{label}</span>
+                <span className="text-base-content/60">{total} commits</span>
             </div>
-            <div className="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-full flex overflow-hidden">
-                <div className="bg-blue-500 h-full" style={{ width: `${userPct}%` }} title={`User-facing: ${counts['user-facing'] || 0}`} />
-                <div className="bg-gray-500 h-full" style={{ width: `${internalPct}%` }} title={`Internal: ${counts['internal'] || 0}`} />
-                <div className="bg-purple-500 h-full" style={{ width: `${infraPct}%` }} title={`Infrastructure: ${counts['infrastructure'] || 0}`} />
-                <div className="bg-green-500 h-full" style={{ width: `${apiPct}%` }} title={`API: ${counts['api'] || 0}`} />
+            <div className="w-full h-2 bg-base-300 rounded-full flex overflow-hidden">
+                <div className="bg-info h-full" style={{ width: `${userPct}%` }} title={`User-facing: ${counts['user-facing'] || 0}`} />
+                <div className="bg-neutral h-full" style={{ width: `${internalPct}%` }} title={`Internal: ${counts['internal'] || 0}`} />
+                <div className="bg-secondary h-full" style={{ width: `${infraPct}%` }} title={`Infrastructure: ${counts['infrastructure'] || 0}`} />
+                <div className="bg-accent h-full" style={{ width: `${apiPct}%` }} title={`API: ${counts['api'] || 0}`} />
             </div>
-            <div className="flex justify-between text-xs text-themed-tertiary mt-1">
+            <div className="flex justify-between text-xs text-base-content/60 mt-1">
                 <span>User {userPct}%</span>
                 <span>Internal {internalPct}%</span>
                 <span>Infra {infraPct}%</span>

@@ -1,150 +1,237 @@
 # Session Notes
 
-Current state for AI assistants to continue work.
+Compact context snapshot for AI continuity. Rewritten 2026-04-15 at the
+end of the `claude/migrate-daisyui-dark-mode-toG0Y` audit-cleanup pass.
+Detailed history lives in `docs/HISTORY.md` and the git log.
 
 ## Current State
 
-**Dashboard V2:** Implementation complete with role-based view levels, light/dark theme, and PWA support.
+**Branch:** `claude/migrate-daisyui-dark-mode-toG0Y` (ahead of `main`).
 
-**Recent Updates (2026-04-11):**
+**Dashboard V2:** Stable. Role-based view levels (Executive / Management /
+Developer), DaisyUI v5 dual-layer theming following
+`docs/implementations/THEME_DARK_MODE.md` Approach A (per-mode independent
+themes, 4 light + 4 dark in the curated catalog), PWA support, embed
+mode via `?embed=chart-id`, single `node:test` source-level tripwire
+(60 tests, ~250 ms, no browser).
 
-### React debug system — structured logging, DebugPill, clipboard fallbacks (9 commits)
+**Vanilla-DaisyUI policy:** Locked in. `dashboard/styles.css` contains
+zero custom CSS classes (allowlist test enforces). All theming flows
+through DaisyUI semantic tokens. Element-selector exceptions are
+documented in CLAUDE.md "Frontend: Styles and Scripts" and in the
+styles.css block itself: `*` font reset, `h1,h2,h3` mono headings,
+`body::before` decorative grid background. Documented arbitrary-bracket
+exceptions: `z-[var(--z-sticky-header)]`, `z-[var(--z-toast)]`,
+`grid-cols-[auto_repeat(7,1fr)]`, `max-w-[calc(100vw-2rem)]`. Documented
+hex literal exceptions: `DebugPill.jsx`, `themes.js #808080`,
+`generated/themeMeta.js`.
 
-Replaced the simple `{time, message, stack}` error array with a complete structured debug system per glow-props `DEBUG_SYSTEM.md` spec. Nine commits of incremental fixes and refactors — see `docs/HISTORY.md` for full commit chronology.
+**Testing:** Playwright was removed entirely on 2026-04-15 — the
+`af0f02d` commit that introduced it never produced baselines because the
+sandbox lacked a Chromium binary. Future re-introduction is tracked in
+`docs/TODO.md` "Browser test coverage (future)" with an explicit
+"obtain a Chromium binary first" note. The single automated layer is
+the source-level tripwire under `scripts/__tests__/`.
 
-**New files:**
-1. `js/debugLog.js` — Pub/sub circular buffer (200 entries) with typed entries (`id`, `timestamp`, `source`, `severity`, `event`, `details`). Console interception (`console.error`/`console.warn` patched with `__debugConsolePatched` HMR guard). Global `window.error`/`unhandledrejection` listeners (HMR guarded). `debugGenerateReport()` with URL query param redaction. Pre-React error bridge using `debugAdd` with optional timestamp parameter. Exported helpers: `formatDebugTime`, `safeStringify`. `diagnoseFailure` utility for API failure mode detection.
-2. `js/copyToClipboard.js` — Three-tier clipboard fallback: ClipboardItem Blob → writeText → textarea. DebugPill adds a visible textarea with auto-select when all three fail.
-3. `js/components/DebugPill.jsx` — React debug pill in separate root (`#debug-root`). Survives App crashes. Inline styles (survives CSS failures). Collapsed pill with entry count and error/warn badges. Expanded panel with 3 tabs: Log (color-coded, auto-scroll), Environment (runtime info, URL redacted), PWA Diagnostics (live probes: protocol, network, SW state, manifest with icon sizes/start_url/id, standalone, install prompt, browser info). Monotonic stale-run cancellation for diagnostics. Copy/Clear/Close actions. Embed skip at mount point (not conditional hooks). `setEntries([])` before subscribe for strict-mode safety. Timer ref cleanup on unmount.
+## Recent Audit-Cleanup Work
 
-**Modified files:**
-4. `index.html` — Added `<div id="debug-root">`. Inline pill now stores `Date.now()` (was `toLocaleTimeString()`), added `fmtTime` helper, `render()` bails early when `window.__debugReactMounted` is true.
-5. `main.jsx` — Mounts DebugPill in `#debug-root` (skipped in embed mode). RootErrorBoundary uses `debugAdd`. Boot events logged.
-6. `ErrorBoundary.jsx`, `App.jsx`, `pwa.js`, `HamburgerMenu.jsx`, `Projects.jsx` — All error routing uses direct `debugAdd` imports instead of `window.__debugPushError` guards.
+The branch has had two fresh-eyes audit passes. The first (2026-04-15)
+produced 13 commits covering the original findings set; the second
+(same day) caught gaps introduced by the first and produced a
+follow-on cleanup commit series. All commits listed below are on the
+`claude/migrate-daisyui-dark-mode-toG0Y` branch.
 
-**Architecture:** Inline pill handles pre-React errors with its own local buffer and DOM banner. debugLog.js captures everything from module load onwards (console interception + global listeners + pre-React error bridge). React DebugPill subscribes to debugLog and takes over visual display when React mounts (inline banner hidden, inline `render()` bails early). The `window.__debugPushError` override in debugLog.js maintains backward compat for any remaining callers. No duplicate entries — explicit `debugAdd` callers don't also call `console.error`/`console.warn`, and console interception has an HMR guard.
+**First pass — 13 commits:**
 
-**Process mistakes made this session:** Force-pushed an amended commit to fix a mixed-concerns useEffect instead of creating a new commit. Documented in `docs/AI_MISTAKES.md` (2026-04-11 entry).
+1. **`4a8bd00`** — z-index symmetry, font-sans override, Date filter perf
+2. **`7d92b77`** — SettingsPane View Level → native `<fieldset>` + radio
+3. **`d104b37`** — CLAUDE.md exception lists expanded with rationale
+4. **`4e4f672`** — 5 dead exports removed, Header filter callback simplified
+5. **`8ca34f8`** — Progress inline → utility, QuickGuide mobile copy, z-index doc
+6. **`64e2c6c`** — styles.css trimmed 521 → 164 lines (tombstone removal)
+7. **`51d16d2`** — SESSION_NOTES.md rewritten as compact 77-line snapshot
+8. **`2036661`** — HISTORY.md split, pre-April 2026 entries archived
+9. **`4f38b72`** — Timing.jsx 573 → 436 (extract components/TimingHeatmap.jsx)
+10. **`feb7129`** — DebugPill.jsx 527 → 200 (extract debug/DebugTabs.jsx + debug/debugStyles.js)
+11. **`f0bd185`** — Discover.jsx 711 → 430 (extract sections/discover/discoverData.js)
+12. **`2f815d1`** — Timeline.jsx 735 → 390 (extract hooks/useTimelineCharts.js)
+13. **`fd0985b`** — TODO.md verification entries + aggregate.js investigation
 
-### React migration hardening — 12 fixes across bugs, accessibility, and architecture
+**Second pass — 8 follow-on cleanup commits (fresh-eyes audit caught
+gaps in the first pass):**
 
-Systematic review and fix of all remaining non-React patterns, race conditions, and accessibility gaps.
+1. **`09ca333`** — CLAUDE.md exceptions expanded: hex-literal exception
+   now covers the entire `components/debug/` subtree (was
+   `DebugPill.jsx` only); `grid-cols-[auto_repeat(7,1fr)]` path
+   updated to `TimingHeatmap.jsx`; new inline-style exception for the
+   root `main.jsx` ErrorBoundary; ADMIN_GUIDE.md added to docs table;
+   Key Components list refreshed with new files.
+2. **`3520a6f`** — Dead-code sweep round 2: deleted `debugGetEntries`,
+   `diagnoseFailure`, `formatNumber`, `aggregateForDrilldown`,
+   `DAY_NAMES`, and `hooks/useClickOutside.js`; unexported
+   `SA_HOLIDAYS`, `aggregateByTag`, `getRepoColor`, `SOURCE_COLORS`,
+   `SEVERITY_COLORS`.
+3. **`44b6393`** — Hygiene batch: SESSION_NOTES sha backfill,
+   HamburgerMenu `z-[40]` stale-comment rewrite, Header `setGuideOpen`
+   dropped from dep array.
+4. **`7a5a5c9`** — `chartHeight` inline-style → utility classes at 11
+   call sites across Timeline / Progress / Timing / Tags. Heights:
+   `h-55 sm:h-75` (220/300), `h-50 sm:h-62` (200/248), `h-62 sm:h-87`
+   (248/348). Contributors runtime-computed height preserved.
+5. **`dfc7245`** — Timeline `handleCardClick('contributors')` replaces
+   full map+sort with `new Set(...).size` — O(n) Set inserts only.
+6. **`39cd3cf`** — `body { background-color / color }` removed from
+   `styles.css` after verifying DaisyUI v5 base layer emits
+   `:root, [data-theme] { background: var(--root-bg); color:
+   var(--color-base-content); }` in
+   `node_modules/daisyui/base/rootcolor.css`.
+7. **`5ecfad7`** — `AppContext.jsx` split: 579 → 338 lines by
+   extracting reducer + initial-state + filter predicate + DEFAULT_FILTERS
+   into new pure-data `dashboard/js/appReducer.js` (285 lines, zero
+   React imports).
+8. **`<this commit>`** — TODO.md post-sweep-verification item #4
+   covering the second-pass changes, File-size Monitoring section for
+   `useTimelineCharts.js` + `AppContext.jsx`, footer rewrite describing
+   both audit passes, HISTORY.md 2026-04-15 entry for the whole batch.
 
-**Bugs fixed:**
-1. `body.style.overflow` race condition — App.jsx and QuickGuide.jsx independently set/cleared scroll lock, causing conflicts when multiple overlays were open. Created ref-counted `useScrollLock` hook.
-2. Chart.js theme colors stale after dark/light toggle — CSS variables were read once at module load. Moved Chart.js color sync into AppContext's `darkMode` effect so charts update on theme toggle. Added `state.darkMode` to all 11 chart useMemo dependency arrays so react-chartjs-2 recreates options and calls `chart.update()` on theme change.
-3. SettingsPane labels not linked to selects — `<label>` elements for work hour selects had no `htmlFor`/`id` association. Added proper label-select pairing.
+Build + tests pass after every commit.
 
-**React migration:**
-4. Heatmap tooltip converted from vanilla DOM to React portal — replaced `document.getElementById` + `classList` + manual positioning with `HeatmapTooltip.jsx` portal component.
-5. Embed overrides moved from module scope into React lifecycle — `?theme=` and `?bg=` CSS overrides now run in `useEffect` instead of racing with AppContext's dark mode management.
-6. URL parameter parsing consolidated — created `urlParams.js` module to parse `window.location.search` once instead of 4+ times across App.jsx and chartColors.js.
+**Third pass — 6 more follow-on cleanup commits (strengthened the
+exception list by actually removing 4 of the documented exceptions):**
 
-**Accessibility:**
-7. FilterSidebar MultiSelect keyboard navigation — added ArrowUp/Down, Enter/Space, Escape, Home/End key handling with `aria-activedescendant` and `aria-multiselectable`.
-8. Added `aria-label` to 12+ clickable elements in Health, Timeline, and Progress sections (summary cards, urgency/impact bars, epic bars, semver items, security repo buttons).
+1. **`12cd65d`** — `* { font-family: var(--font-sans) }` removed from
+   styles.css; `<body class="font-sans">` in index.html achieves the
+   same inheritance via Tailwind's `.font-sans` utility reading from
+   the `:root --font-sans` variable.
+2. **`aea7c43`** — Root ErrorBoundary in `main.jsx` converted from
+   static inline `style={{}}` block to Tailwind utility classes
+   (`min-h-screen flex flex-col items-center justify-center gap-4
+   p-6 text-center`). Removes the "static inline style" exception
+   category outside the debug subsystem.
+3. **`5bcc2c2`** — `h1, h2, h3 { font-family: var(--font-mono) }`
+   removed from styles.css; added explicit `font-mono` to each of
+   the 4 JSX headings in the entire tree (Header / QuickGuide /
+   InstallInstructionsModal / DropZone — the last already had it).
+4. **`0cc5d6e`** — `themes.js` `#808080` fallback removed; the
+   `getMetaColor()` fallback path now reads
+   `META_COLORS[DEFAULT_LIGHT_THEME]` and logs a `debug` warn event
+   so the unreachable-in-practice branch surfaces via the debug pill
+   if it ever fires.
+5. **`1e19858`** — `scripts/aggregate.js` investigation resolved:
+   script is NOT dead (admin/maintainer workflow tool documented in
+   ADMIN_GUIDE.md / DATA_OPERATIONS.md / DISCOVERY_SESSION.md /
+   CODE_REVIEW.md), but the 5 stale `dashboard/{commits,files,
+   contributors,metadata,summary}.json` artefacts at dashboard/ root
+   were deleted — they had zero consumers and were leftover from a
+   deprecated data-flow that's been superseded by
+   `aggregate-processed.js` writing to `dashboard/public/`.
+6. **`<this commit>`** — CLAUDE.md exception lists consolidated to
+   reflect the 4 removed exceptions. Post-sweep-verification items
+   3+4 updated. HISTORY.md third-pass entry added.
 
-**Post-implementation review (second pass):**
-9. Chart.js theme sync completed — added `state.darkMode` to all 11 chart useMemo deps across 5 section files so react-chartjs-2 recreates options on theme toggle.
-10. HeatmapTooltip: added `role="tooltip"` + `aria-hidden`, fixed positioning useEffect missing dependency array (ran on every render).
-11. Extracted inline spinner `style={{}}` to CSS classes (`.loading-spinner-sm/md/lg`) — 4 files cleaned.
-12. Extracted heatmap cell inline size to CSS class (`.heatmap-cell-sm`).
+**After the third pass, the exception list is:**
 
-**Documentation/cleanup:**
-13. Documented heatmap-cell `z-index: 1` — comment explaining it's local grid stacking, not from the CSS variable scale.
-14. Updated CLAUDE.md: architecture lists (HeatmapTooltip, useScrollLock, urlParams.js), fixed index.html description from "Minimal HTML" to accurate listing.
-15. Verified QuickGuide.jsx matches current 6-tab structure (confirmed correct).
-16. Updated USER_GUIDE.md with filter dropdown keyboard navigation instructions.
-17. Fixed SESSION_NOTES backlog count and TODO.md timestamp.
+- **Element-selector exceptions in styles.css: 1**
+  (was 3) — only `body::before` decorative grid remains.
+- **Arbitrary bracket value exceptions: 4** (unchanged)
+  — z-21, z-70, grid-cols-[auto_repeat(7,1fr)], max-w-[calc(100vw-2rem)].
+  All four are genuine capability gaps (design-token z-scale above
+  stock, functional grid row alignment, viewport calc max-width).
+- **Hex literal exceptions: 2** (was 3) — DebugPill subsystem
+  (`components/DebugPill.jsx` + `components/debug/*`) and
+  `generated/themeMeta.js` (auto-generated PWA meta tags). `themes.js`
+  `#808080` gone.
+- **Static inline style exceptions: 1** (was 2) — DebugPill
+  subsystem only. Root ErrorBoundary gone.
 
-**Build:** Passes (`npm run build`).
+**Fourth pass — retrospective + tripwire strengthening (4 commits):**
 
-**Remaining work:** See `docs/TODO.md` — 3 backlog items (library build testing, stacking context, device attribution research).
+After the third pass closed, a "trust but verify" retrospective
+caught five issues the three audit passes missed. Most of them
+weren't bugs — they were missing regression guards and
+under-documented scope edges.
 
-**Previous Updates (2026-04-10):**
+1. **`a7a9126`** — Added 3 tripwire regression guards that enforce
+   the CLAUDE.md exception lists at source level: bracket-value
+   allowlist (4 permitted values), hex literal scope (DebugPill
+   subsystem + themeMeta.js only), JSX heading font-mono requirement.
+   Test count 60 → 63. Without these, a future contributor could
+   drift past the rules the audits enforced.
+2. **`460e161`** — File-size sweep over the whole repo (not just
+   `dashboard/js/sections/`) caught `dashboard/js/pwa.js` at 578
+   lines (OVER soft-limit), `scripts/aggregate-processed.js` at
+   1042 lines (OVER strong-refactor 800), and `scripts/extract-api.js`
+   at 699 lines. None touched by the three audit passes because
+   they focused on section components. All three flagged in
+   docs/TODO.md with concrete split suggestions.
+3. **`57e2423`** — CLAUDE.md scope note: `dashboard/index.html`
+   contains intentional inline `style="..."` + hex literals
+   (pre-React loading spinner, noscript fallback, PWA early-capture
+   warnings) because those render before React/CSS load. A future
+   reviewer might flag them as policy violations without the
+   explicit documented scope exclusion.
+4. **`<this commit>`** — records the retrospective in HISTORY +
+   SESSION_NOTES, updates the file-size posture with the newly-found
+   oversized files.
 
-### Z-index scale — full audit and normalization
-- Fixed 3 hardcoded `zIndex:'99999'` in `dashboard/index.html` → `zIndex:'80'` (matches `--z-debug: 80`)
-- Fixed `.heatmap-tooltip` z-index: `var(--z-toast)` (70) → `var(--z-menu)` (50) — tooltips belong in menu/dropdown layer per Z_INDEX_SCALE pattern
-- Updated CSS scale comment to reference `Z_INDEX_SCALE.md` (was `BURGER_MENU.md`)
-- Added decision context comments: sub-layer rationale (21, 28, 58), inline debug pill z-80 explanation
-- Added `@source not` directives excluding `public/data-commits/` and `public/repos/` from Tailwind scanning — commit history in JSON data files produced phantom z-index utilities (`z-[9999]`, `z-[100]`) in the build output
-- Added z-index visual stacking test scenario to TESTING_GUIDE.md
-- Documented hamburger backdrop stacking context limitation in TODO.md (backdrop trapped inside header z-21; drawers at z-30 render above it)
-- Full audit of all 20 source z-index values — no ad-hoc values in source or build output
-- Pattern reference: glow-props `docs/implementations/Z_INDEX_SCALE.md`
+**Retrospective also verified prior assumptions:**
 
-### Full APP_ICONS pattern parity with glow-props
-- Added 180px `apple-touch-icon.png` to `generate-icons.mjs` icon pipeline
-- Added 32x32 `favicon.ico` via manual ICO packing (zero extra dependencies)
-- Script copies both to `dashboard/public/` for root-level serving
-- `<link rel="apple-touch-icon">` and `<link rel="icon" type="image/x-icon">` added to `dashboard/index.html`
-- Removed inline SVG data URL favicon — was a second icon source outside the pipeline. Now uses generated `favicon.png` (48px) as primary, `favicon.ico` (32px) as legacy fallback
-- Build verified — both files in `dist/`, precached by Workbox (38 entries)
-- Script now syncs all generated files to `dashboard/public/assets/images/` — no more manual copies or drift risk (resolved pre-existing TODO item)
+- Verified Tailwind v4 preflight sets `html { font-family:
+  var(--default-font-family) }` which resolves to the `:root
+  --font-sans` Figtree stack via unlayered-CSS precedence. The
+  `<body class="font-sans">` from commit 12cd65d is strictly
+  redundant but harmless and explicit. **Also discovered the OLD
+  `* { font-family }` rule was a latent bug**: it overrode Tailwind
+  preflight's `code, kbd, samp, pre { font-family: monospace }`,
+  forcing `<code>` elements to render in Figtree. The 2026-04-15
+  removal fixed a bug nobody had noticed.
+- Verified DaisyUI v5 `:root, [data-theme]` base rule still ships
+  in `node_modules/daisyui/base/rootcolor.css`, so the
+  `body { background-color / color }` removal from commit 39cd3cf
+  still holds across DaisyUI upgrades.
+- Repo-wide greps confirmed no inline-style / bracket-value / hex
+  literal regressions.
 
-**Previous Updates (2026-04-05):**
+**Current file-size posture (every file under the STRONG 800-line
+refactor limit; dashboard/js/ files mostly under the 500 soft-limit
+except pwa.js):**
 
-### X-Frame-Options fix for embeds
-- Removed `X-Frame-Options: SAMEORIGIN` from vercel.json — it blocked cross-origin iframe embeds
-- Root cause: H4 audit fix applied the header globally; dashboard is public/read-only with no auth, so clickjacking protection is unnecessary
-- No changes needed in see-veo or other embedding apps — existing `?embed=` URLs work as before
+- Largest section: `Progress.jsx` 483
+- Largest component: `App.jsx` 490
+- Largest shared module: `useTimelineCharts.js` 416 (TODO monitor)
+- Largest state file: `AppContext.jsx` 338 + `appReducer.js` 285
+- **`dashboard/js/pwa.js` 578 — OVER soft-limit** (TODO split)
+- `styles.css` 175
+- **`scripts/aggregate-processed.js` 1042 — OVER strong-limit**
+  (TODO split)
+- **`scripts/extract-api.js` 699 — OVER soft-limit** (TODO monitor)
+- Tripwire test file: `daisyui-surfaces.test.mjs` 1023 lines
+  (test files are exempt from the soft-limit per convention — they
+  accumulate assertions monotonically)
 
-### SW navigation fallback bypass for embeds (2026-04-06)
-- Added `navigateFallbackDenylist: [/[?&]embed=/]` to Workbox config in vite.config.js
-- Root cause: The PWA service worker precaches index.html with response headers. If the SW was installed when X-Frame-Options was still present, it served stale cached responses with the old header — blocking cross-origin iframes even after the header was removed from vercel.json. The iframe blocks before JS runs, so the SW never updates — a deadlock.
-- Fix: Embed URL navigations now bypass the SW entirely and go directly to the network (Vercel), always getting current headers
+## Open Items For Next Session
 
-### PWA improvements from cross-project review (2026-04-06)
-Reviewed synctone, canva-grid, and few-lap PWA implementations. Full gap analysis identified 16 differences — all addressed:
+- **Browser verification** remains the only item I can't do myself.
+  Covers the second-pass chartHeight utility rounding (2px deltas
+  on Timing/Tags), the body bg/color removal across all 8 themes,
+  the AppContext split, the Timeline `handleCardClick` micro-fix,
+  the fourth-pass `<body class="font-sans">` effective-font check,
+  and the `getMetaColor` fallback path.
+- **File-size splits** — `pwa.js`, `aggregate-processed.js`, and
+  `extract-api.js` are flagged in TODO.md with concrete suggestions
+  but not executed (they need design calls and weren't in the audit
+  scope). `useTimelineCharts.js` (416) and `AppContext.jsx` (338)
+  are still under the limit but being monitored.
+- **`docs/TODO.md`** carries everything else flagged during the four
+  audit passes — post-sweep verification checklists, file-size
+  monitoring, the future browser-test-coverage plan, and the
+  legacy `scripts/aggregate.js` reference.
 
-**Update flow fixes:**
-1. Removed `skipWaiting`/`clientsClaim` from workbox config — conflicted with `registerType:'prompt'`
-2. User-initiated reload guard (`_userClickedUpdate`) on `controllerchange`
-3. Post-update suppression (30s sessionStorage window)
-4. `dismissUpdate()` — dismiss update prompt without applying
-5. `_isChecking` state + `pwa-checking-update` event for UI loading feedback
-6. Settle delay (1.5s) in `checkForUpdate()` and `visibilitychange`
+## Pointers
 
-**Version detection:**
-7. `version.json` polling — catches deployments that don't change the SW file
-8. Recovery script (30s) — clears caches, unregisters SW if app fails to mount. Watches `updatefound` for installing workers.
-
-**Install improvements:**
-9. `__pwaPromptReceived` diagnostic flag (inline HTML + pwa.js)
-10. Display-mode change listener — detects browser-menu installs
-11. Install analytics — `trackInstallEvent()` stores last 50 events in localStorage
-12. `dismissInstall()` — persists to localStorage
-13. Chrome 90-day cooldown note in install instructions
-14. 5s diagnostic timeout if `beforeinstallprompt` hasn't fired on Chromium
-15. 2-layer capture decision documented (vs few-lap's 3-layer — Vite loads modules faster than Metro)
-
-**Infrastructure:**
-16. `pwaConstants.js` — extracted all timing/threshold constants
-17. `offline.html` — branded offline fallback page (precached)
-18. `offlineReady` auto-dismiss after 3s
-19. Vercel headers: `Cache-Control: no-cache` for HTML/sw.js/manifest, `immutable` for hashed assets, `Service-Worker-Allowed` for sw.js
-
-**Previous Updates (2026-04-02):**
-
-### Cross-project alignment with glow-props (24 items)
-- CLAUDE.md text fixes, implementations extracted to `docs/implementations/` (8 files)
-- HamburgerMenu rewritten with disclosure pattern, iOS Safari fixes, a11y
-- Z-index scale convention (CSS variables `--z-base` through `--z-debug`)
-- Safe localStorage wrappers in all modules
-- Full light/dark theme with flash prevention, cross-tab sync, system preference
-- `?data=` URL param, Vite library build, `--no-merges` flag in extract.js
-- sharp added to devDependencies
-
-### Full 9-trigger audit sweep (41 findings fixed)
-- **Security:** URL validation for ?data= (SSRF), postMessage origin check, ?bg= hex validation, security headers in vercel.json, token source redacted from logs
-- **Bugs:** Removed dark class override in main.jsx, per-file month error handling, 30s fetch timeout
-- **Accessibility:** Backdrop overlays changed from aria-hidden to role="presentation", filter button touch targets increased, safe area insets for iOS
-- **Debug:** ErrorBoundary routes to debug pill, SW errors to pill, network status in diagnostics, loading timeout increased to 20s
-- **Performance:** Tag style cache, React.memo on HealthBars, work hours dedup in useHealthData
-- **Docs:** TESTING_GUIDE updated (removed nonexistent features), USER_GUIDE theme section, CLAUDE.md dark mode status, QuickGuide Projects tab added
-- **All components** (Header, TabBar, FilterSidebar, DetailPane, SettingsPane) wrapped in ErrorBoundary
-
-**Build:** Passes (`npm run build`).
-
-**Remaining work:** See `docs/TODO.md` — 2 backlog items (library build testing, device attribution research).
+- Architecture, paths, conventions, theming approach: `CLAUDE.md`
+- Detailed change history: `docs/HISTORY.md`
+- AI mistakes to avoid: `docs/AI_MISTAKES.md`
+- DaisyUI v5 conventions: `docs/DAISYUI_V5_NOTES.md`
+- Theme system reference: `docs/implementations/THEME_DARK_MODE.md`
+- Source-of-truth theme catalog: `scripts/theme-config.js`

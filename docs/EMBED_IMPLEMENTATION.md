@@ -156,47 +156,45 @@ Hex values can include or omit the `#` prefix (e.g., `FF6B35` or `#FF6B35`).
 
 ## How It Works
 
-1. `App.jsx` reads `?embed=` from the URL at module load time
-2. If present, `?theme=` is checked and applied to `<html>` class
-3. If present, `?bg=` overrides the `--bg-primary` CSS variable (read by `body` and `.embed-mode` styles). Accepts hex or `transparent`
-4. `chartColors.js` parses `?palette=`, `?colors=`, `?accent=`, and `?muted=` at module load
-5. `main.jsx` sets `--chart-accent-rgb` CSS variable from the resolved accent color (for heatmap CSS)
-6. Data loads normally from `./data.json`
-7. Instead of the full dashboard, `EmbedRenderer` is rendered
-8. `EmbedRenderer` maps each embed ID to the tab component(s) that contain it
-9. Only the required tabs render (deduplicated — two charts in one tab = one tab render)
-10. Tab components import colors from `chartColors.js` instead of using hardcoded values
-11. `useLayoutEffect` hides all `.card` elements, then shows only those containing a matching `data-embed-id`
-12. CSS removes card borders, section headers, padding, and decorative grid pattern for clean chart display
-13. Debug banner is suppressed entirely in embed mode
-14. A `ResizeObserver` watches the embed container and posts `{ type: 'repo-tor:resize', height }` to the parent window whenever content size changes
+1. `urlParams.js` reads `?embed=`, `?theme=`, `?bg=`, `?data=` at module load time
+2. `App.jsx` checks `embedIds` from urlParams; if present it routes to `EmbedRenderer`
+3. `?theme=light|dark` is applied via `applyTheme()` with `skipPersist=true` so the override is session-scoped
+4. `?bg=hex|transparent` overrides `--color-base-100` directly for the embed page background
+5. Data loads normally from `./data.json` (or `?data=URL`)
+6. `CollapsibleSection` detects `isEmbedMode` and short-circuits to render `{children}` only — no card wrapper, no header, no collapse
+7. `EmbedRenderer` maps each embed ID to the tab component(s) that contain it, deduplicating
+8. Only the required tabs render
+9. `useLayoutEffect` hides all top-level container children, then shows only those containing a matching `[data-embed-id]` element
+10. Chart dataset colours resolve DaisyUI semantic CSS variables at runtime via `chartColors.js` — every chart tracks the active theme automatically, no per-embed override needed
+11. Debug banner is suppressed entirely in embed mode
+12. A `ResizeObserver` watches the embed container and posts `{ type: 'repo-tor:resize', height }` to the parent window whenever content size changes
 
-### Color Architecture
+### Color Architecture (vanilla DaisyUI)
 
-Chart colors are centralized in `dashboard/js/chartColors.js`. This module:
+The 2026-04-14 vanilla-DaisyUI sweep deleted every brand-hex palette and every chart-colour URL override. Charts now track the active DaisyUI theme via runtime resolution — there's no "branded embed" option beyond picking a theme.
 
-1. Defines the default series palette and accent color
-2. Defines named palette presets
-3. Parses URL parameters at module load time
-4. Exports resolved colors that all tab components import
+`dashboard/js/chartColors.js` exposes:
+- `resolveRuntimeAccent()` — reads `--color-primary` at call time
+- `resolveRuntimeMuted()` — returns `color-mix(in oklab, var(--color-base-content) 40%, transparent)`
+- `getSemanticPalette()` — 8 DaisyUI semantic colours (primary, secondary, accent, info, success, warning, error, neutral)
+- `getSeriesColor(i)` — cycles through the 8-colour semantic palette
+- `getRepoColor(repoName, activeIndex)` / `buildRepoColorMap(repos)` — repo-category-aware helpers
 
-**How colors flow to charts:**
-- **Multi-dataset charts** (stacked bars, multi-line) use `seriesColors` / `getSeriesColor(index)`
-- **Single-dataset charts** (hourly distribution, daily bars) use `accentColor` and `mutedColor`
-- **Line chart fills** use `withOpacity(color, 0.1)` for transparent backgrounds
-- **Heatmap CSS** uses `--chart-accent-rgb` CSS variable (set by main.jsx from the resolved accent)
-- **Tag colors** remain semantic (green=feature, red=bugfix) and are NOT overridden by custom colors
+**How colours flow to charts:**
+- `AppContext` dispatches `SET_THEME_COLORS` after every `applyTheme()` call, populating `state.themeAccent` / `state.themeMuted`
+- Chart `useMemo` deps include `state.themeAccent` / `state.themeMuted` so datasets rebuild on theme change
+- For multi-dataset charts that need distinct colours, `getSeriesColor(i)` resolves fresh per call — charts with >8 series cycle through the palette
+- Tag colours (`badge-success`, `badge-error`, etc.) track the theme via DaisyUI's semantic tokens; Chart.js tag datasets use `resolveTagSemanticColor(tag)` which maps each tag to one of the 8 semantic CSS variables and reads it at runtime
 
 ### Files
 
 | File | Role |
 |------|------|
-| `dashboard/js/chartColors.js` | Centralized color config, URL param parsing, palette presets |
-| `dashboard/js/App.jsx` | Reads `?embed=` and `?theme=` params, routes to `EmbedRenderer` |
-| `dashboard/js/main.jsx` | Sets `--chart-accent-rgb` CSS variable, skips debug banner in embed mode |
-| `dashboard/js/components/EmbedRenderer.jsx` | Maps IDs to tabs, renders tabs, hides non-target sections, posts height to parent |
-| `dashboard/styles.css` | `.embed-mode` styles, heatmap intensity uses `--chart-accent-rgb` |
-| `dashboard/js/tabs/*.jsx` | Import from `chartColors.js` instead of hardcoding hex values |
+| `dashboard/js/chartColors.js` | Runtime DaisyUI semantic colour resolvers (8-variable cycle) |
+| `dashboard/js/urlParams.js` | Parses `?embed=`, `?theme=`, `?bg=`, `?data=` once at module load |
+| `dashboard/js/App.jsx` | Routes to `EmbedRenderer` when `embedIds` is set |
+| `dashboard/js/components/CollapsibleSection.jsx` | Short-circuits to `<>{children}</>` in embed mode (no card/header/collapse) |
+| `dashboard/js/components/EmbedRenderer.jsx` | Maps IDs to tabs, hides non-target container children, posts height to parent |
 | `dashboard/public/embed.js` | Standalone auto-resize helper for parent pages (copied to `dist/embed.js`) |
 
 ---
@@ -336,12 +334,6 @@ import { ActivityTimeline } from 'repo-tor/charts';
 - [ ] Dark theme works in embed mode
 - [ ] Normal dashboard (no `?embed=` param) is unaffected
 - [ ] Iframe works from a different origin (cross-origin embed)
-- [ ] `?embed=activity-timeline&palette=warm` uses warm palette colors
-- [ ] `?embed=activity-timeline&colors=FF0000,00FF00,0000FF` uses custom series colors
-- [ ] `?embed=activity-heatmap&accent=FF6B35` uses custom accent for heatmap
-- [ ] `?embed=hourly-distribution&accent=FF6B35&muted=999999` uses custom accent and muted
-- [ ] `?palette=warm&colors=FF0000` — colors param overrides palette series
-- [ ] `?palette=warm&accent=0000FF` — accent param overrides palette accent
 - [ ] `?embed=activity-timeline&bg=FFFFFF` uses white background
 - [ ] `?embed=activity-timeline&bg=transparent` has no background (inherits from page)
 - [ ] `?embed=activity-timeline&bg=0D1117` uses custom dark background

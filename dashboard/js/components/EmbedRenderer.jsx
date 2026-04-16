@@ -60,28 +60,38 @@ export default function EmbedRenderer({ embedIds }) {
         });
     });
 
-    // After render, hide all .card sections except those containing target charts.
-    // Walk up from each [data-embed-id] to its .card ancestor and toggle visibility.
+    // After render, hide every `[data-embed-wrapper]` element (one per
+    // CollapsibleSection in embed mode) except those whose subtree
+    // contains a matching `[data-embed-id]`. This gives per-chart
+    // isolation even inside multi-chart sections — Timeline contains
+    // 5 embeddable charts, each wrapped in its own CollapsibleSection
+    // which renders `<div data-embed-wrapper>` in embed mode, so
+    // `?embed=activity-timeline` correctly shows only that single chart.
+    //
+    // Previous implementations:
+    //   - Pre-vanilla sweep: `.closest('.card')` walked to DaisyUI card
+    //     ancestors. Worked because CollapsibleSection rendered a card
+    //     in both embed and non-embed modes, just styled differently.
+    //   - Post-vanilla sweep first-pass: walked to top-level container
+    //     child. Broke per-chart isolation — all 5 Timeline charts
+    //     shared the same top-level parent.
+    //   - Current: walk to `.closest('[data-embed-wrapper]')`. Each
+    //     CollapsibleSection owns its own wrapper, so isolation works.
     useLayoutEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
-        // First: hide ALL .card elements inside the container
-        container.querySelectorAll('.card').forEach(card => {
-            card.style.display = 'none';
+        // First: hide every embed wrapper.
+        container.querySelectorAll('[data-embed-wrapper]').forEach(el => {
+            el.style.display = 'none';
         });
 
-        // Then: show cards that contain a matching embed ID
+        // Then: show wrappers that contain a matching embed ID.
         validIds.forEach(id => {
             const target = container.querySelector(`[data-embed-id="${id}"]`);
             if (!target) return;
-
-            // Walk up to the .card ancestor
-            const card = target.closest('.card');
-            if (card) {
-                card.style.display = '';
-                card.classList.add('embed-target');
-            }
+            const wrapper = target.closest('[data-embed-wrapper]');
+            if (wrapper) wrapper.style.display = '';
         });
     }, [validIds.join(',')]);
 
@@ -147,23 +157,32 @@ export default function EmbedRenderer({ embedIds }) {
     if (validIds.length === 0) {
         const attempted = embedIds.join(', ') || '(empty)';
         return (
-            <div className="embed-error">
-                <p>Chart not found: <code>{attempted}</code></p>
+            <div className="flex flex-col items-center justify-center min-h-50 p-6 text-center text-base-content/80 text-sm gap-2">
+                <p>Chart not found: <code className="bg-base-300 px-1.5 py-0.5 rounded text-sm">{attempted}</code></p>
                 <p>
-                    Check <a href="https://github.com/devmade-ai/repo-tor/blob/main/docs/EMBED_REFERENCE.md"
-                        target="_blank" rel="noopener noreferrer">EMBED_REFERENCE.md</a> for valid chart IDs.
+                    Check <a
+                        href="https://github.com/devmade-ai/repo-tor/blob/main/docs/EMBED_REFERENCE.md"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary underline"
+                    >EMBED_REFERENCE.md</a> for valid chart IDs.
                 </p>
             </div>
         );
     }
 
     return (
-        <div ref={containerRef} className="embed-mode">
-            <ErrorBoundary>
-                {sectionsToRender.map((SectionComponent, idx) => (
-                    <SectionComponent key={idx} />
-                ))}
-            </ErrorBoundary>
+        <div ref={containerRef} className="p-4 bg-base-100">
+            {/* Per-section ErrorBoundary so a single broken chart doesn't
+                take down the entire embed iframe — the user would see a
+                blank iframe otherwise because the hide/show traversal
+                would target the error fallback div instead of the
+                expected section wrapper. */}
+            {sectionsToRender.map((SectionComponent, idx) => (
+                <ErrorBoundary key={idx}>
+                    <SectionComponent />
+                </ErrorBoundary>
+            ))}
         </div>
     );
 }

@@ -26,19 +26,27 @@ import {
     INSTALL_ANALYTICS_MAX_EVENTS,
 } from './pwaConstants.js';
 import { debugAdd } from './debugLog.js';
+import { safeStorageGet, safeStorageSet, safeStorageRemove } from './utils.js';
+// Browser-detection helpers + per-browser install instructions were
+// extracted to pwaInstructions.js on 2026-04-15 to keep this file under
+// the 500-line soft-limit. The two modules share no state — instructions
+// are pure data, this module owns all the runtime PWA lifecycle.
+import { supportsNativeInstall } from './pwaInstructions.js';
 
-// ── Safe storage wrappers ──
-// Local copies to avoid importing utils.js
-// (pwa.js loads early and shouldn't depend on the full utils module chain)
-function safeStorageGet(key) {
-    try { return localStorage.getItem(key); } catch { return null; }
-}
-function safeStorageSet(key, value) {
-    try { localStorage.setItem(key, String(value)); } catch { /* sandboxed */ }
-}
-function safeStorageRemove(key) {
-    try { localStorage.removeItem(key); } catch { /* sandboxed */ }
-}
+// ── Safe session wrappers ──
+// Requirement: `pwa-just-updated` is a short-lived signal that should NOT
+//   survive a browser restart — sessionStorage is the correct scope for
+//   cross-reload-but-not-cross-session suppression of the post-update
+//   "update available" false positive. utils.js only wraps localStorage
+//   (the main persistent store), so the two session helpers stay local
+//   here — they're the only consumers.
+// Alternatives:
+//   - Use localStorage + a timestamp guard: Rejected — the suppress window
+//     is 30 seconds, so any stale key that outlived the window would still
+//     trigger the guard's first branch and then no-op on the timestamp check.
+//     Correct but wastes a storage slot across sessions.
+//   - In-memory flag: Rejected — gone on reload, so post-update suppression
+//     wouldn't survive the single reload it's designed to cover.
 function safeSessionGet(key) {
     try { return sessionStorage.getItem(key); } catch { return null; }
 }
@@ -127,152 +135,6 @@ let _userClickedUpdate = false;
 
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true;
-
-// ── Browser detection ──
-
-function getBrowserInfo() {
-    const ua = navigator.userAgent;
-    if (/CriOS/i.test(ua)) return { browser: 'chrome-ios', platform: 'ios' };
-    if (/FxiOS/i.test(ua)) return { browser: 'firefox-ios', platform: 'ios' };
-    if (/EdgiOS/i.test(ua)) return { browser: 'edge-ios', platform: 'ios' };
-    if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
-        return { browser: 'safari', platform: 'ios' };
-    }
-    if (/Macintosh/.test(ua) && 'ontouchend' in document) {
-        return { browser: 'safari', platform: 'ipados' };
-    }
-    if (/Macintosh/.test(ua) && /Safari/.test(ua) && !/Chrome/.test(ua)) {
-        return { browser: 'safari-mac', platform: 'macos' };
-    }
-    if (/Edg\//i.test(ua)) return { browser: 'edge', platform: 'desktop' };
-    if (/Brave/i.test(ua) || (navigator.brave && navigator.brave.isBrave)) {
-        return { browser: 'brave', platform: 'desktop' };
-    }
-    if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) {
-        if (/Android/i.test(ua)) return { browser: 'chrome', platform: 'android' };
-        return { browser: 'chrome', platform: 'desktop' };
-    }
-    if (/Firefox/i.test(ua)) {
-        if (/Android/i.test(ua)) return { browser: 'firefox', platform: 'android' };
-        return { browser: 'firefox', platform: 'desktop' };
-    }
-    return { browser: 'unknown', platform: 'unknown' };
-}
-
-/**
- * Returns browser-specific install instructions for the InstallInstructionsModal.
- * Data-driven: the modal renders whatever this returns — adding a browser is one switch case.
- * Returns { browser, steps, note? } matching the glow-props PWA_SYSTEM.md pattern.
- */
-export function getInstallInstructions() {
-    const { browser, platform } = getBrowserInfo();
-
-    switch (browser) {
-        case 'safari':
-        case 'safari-mac':
-            if (platform === 'ios' || platform === 'ipados') {
-                return {
-                    browser: 'Safari (iOS)',
-                    steps: [
-                        'Tap the Share button (square with arrow) at the bottom of the screen',
-                        'Scroll down and tap "Add to Home Screen"',
-                        'Tap "Add" in the top right corner',
-                    ],
-                };
-            }
-            return {
-                browser: 'Safari (macOS)',
-                steps: [
-                    'Click File in the menu bar',
-                    'Select "Add to Dock\u2026"',
-                    'Click "Add" to confirm',
-                ],
-            };
-        case 'chrome-ios':
-        case 'edge-ios':
-        case 'firefox-ios':
-            return {
-                browser: 'iOS Browser',
-                steps: [
-                    'Open this page in Safari (iOS requires Safari for installation)',
-                    'Tap the Share button (square with arrow)',
-                    'Tap "Add to Home Screen"',
-                ],
-                note: 'Only Safari can install apps on iOS. Other browsers use Safari\u2019s engine but lack the install option.',
-            };
-        case 'firefox':
-            if (platform === 'android') {
-                return {
-                    browser: 'Firefox (Mobile)',
-                    steps: [
-                        'Tap the menu button (three dots)',
-                        'Tap "Add to Home screen"',
-                        'Tap "Add" to confirm',
-                    ],
-                };
-            }
-            return {
-                browser: 'Firefox (Desktop)',
-                steps: [
-                    'Firefox desktop does not support PWA installation',
-                    'For the best experience, use Chrome, Edge, or Brave',
-                    'Alternatively, bookmark this page for quick access',
-                ],
-                note: 'Firefox removed PWA support for desktop in 2021.',
-            };
-        case 'brave':
-            return {
-                browser: 'Brave',
-                steps: [
-                    'Click the install icon in the address bar (computer with down arrow)',
-                    'Or click the menu (\u2261) \u2192 "Install App\u2026"',
-                    'Click "Install" to confirm',
-                ],
-                note: 'If the install option doesn\u2019t appear, check that Brave Shields isn\u2019t blocking it.',
-            };
-        case 'chrome':
-        case 'edge':
-            return {
-                browser: browser === 'edge' ? 'Microsoft Edge' : 'Google Chrome',
-                steps: [
-                    'Click the install icon in the address bar (computer with down arrow)',
-                    'Or click the menu (\u22ee) \u2192 "Install App\u2026"',
-                    'Click "Install" to confirm',
-                ],
-                // Requirement: Warn about Chrome 90-day cooldown after dismissing install prompt
-                // Pattern from: few-lap InstallInstructionsModal.tsx
-                note: !deferredInstallPrompt && supportsNativeInstall()
-                    ? 'If the install option doesn\u2019t appear, you may have previously dismissed it. Chrome hides the prompt for 90 days after dismissal. Try the browser menu instead.'
-                    : undefined,
-            };
-        default:
-            return {
-                browser: 'Your Browser',
-                steps: [
-                    'Look for an "Install" or "Add to Home Screen" option in your browser menu',
-                    'For the best experience, use Chrome, Edge, or Brave',
-                ],
-            };
-    }
-}
-
-/**
- * Whether the current browser supports the native beforeinstallprompt API.
- * If false, show manual install instructions instead.
- */
-export function supportsNativeInstall() {
-    const { browser } = getBrowserInfo();
-    return ['chrome', 'edge', 'brave'].includes(browser);
-}
-
-/**
- * Whether the current browser supports manual PWA installation.
- * Safari and Firefox can install manually but don't fire beforeinstallprompt.
- */
-export function supportsManualInstall() {
-    const { browser } = getBrowserInfo();
-    return ['safari', 'safari-mac', 'firefox', 'chrome-ios', 'edge-ios', 'firefox-ios'].includes(browser);
-}
 
 // ── Install: Prompt handling ──
 

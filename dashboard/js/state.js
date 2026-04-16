@@ -92,15 +92,8 @@ export const PAGE_LIMITS = {
     projects:     [6, 12],   // Project grids
 };
 
-// === Tab Navigation ===
-// Maps each tab button to the sections it renders (stacked vertically).
-// "Tab" = the 6 buttons in TabBar. "Section" = content rendered inside a tab.
-// Actual routing is in App.jsx — this documents the structure.
-export const TAB_SECTIONS = {
-    'overview': ['Summary'],
-    'activity': ['Timeline', 'Timing'],
-    'work': ['Progress', 'Contributors', 'Tags'],
-    'health': ['Health'],         // Security is now a section within Health
-    'discover': ['Discover'],
-    'projects': ['Projects'],
-};
+// Tab -> section mapping documentation lives in CLAUDE.md "Dashboard
+// Architecture" table — App.jsx does the actual routing as a switch
+// statement keyed on state.activeTab. The previous `TAB_SECTIONS`
+// export was removed 2026-04-13 (zero JSX consumers, pure duplication
+// of the CLAUDE.md doc table).

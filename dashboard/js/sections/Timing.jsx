@@ -4,18 +4,14 @@ import { useApp } from '../AppContext.jsx';
 import {
     getAuthorEmail, getAuthorName, getCommitDateTime, DAY_NAMES_SHORT
 } from '../utils.js';
-import { accentColor, mutedColor } from '../chartColors.js';
+// accentColor / mutedColor are read from state.themeAccent / state.themeMuted
+// (via useApp) so charts track the active DaisyUI theme. No direct import
+// from chartColors.js — AppContext seeds state.themeAccent / state.themeMuted
+// from the bootstrap values at module load and updates them via dispatch
+// on every theme change (see AppContext.jsx darkMode effect).
 import { THRESHOLDS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
-
-function getHeatmapLevel(count, maxCount) {
-    if (count === 0) return 0;
-    const ratio = count / maxCount;
-    if (ratio <= 0.25) return 1;
-    if (ratio <= 0.5) return 2;
-    if (ratio <= 0.75) return 3;
-    return 4;
-}
+import TimingHeatmap from '../components/TimingHeatmap.jsx';
 
 // Requirement: Show timing data during Phase 1 using pre-aggregated hourlyHeatmap
 // Approach: When commits haven't loaded, use summary.hourlyHeatmap (24×7 matrix +
@@ -200,7 +196,7 @@ export default function Timing() {
                     label: 'Commits',
                     data: byHour,
                     backgroundColor: byHour.map((_, i) =>
-                        (i >= state.workHourStart && i < state.workHourEnd) ? accentColor : mutedColor
+                        (i >= state.workHourStart && i < state.workHourEnd) ? state.themeAccent : state.themeMuted
                     ),
                     borderRadius: 2,
                 }],
@@ -236,7 +232,7 @@ export default function Timing() {
             },
         };
     // state.darkMode: bust memo on theme toggle so chart picks up new Chart.js defaults
-    }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap, state.darkMode]);
+    }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Daily distribution chart
     const dayChartData = useMemo(() => {
@@ -263,7 +259,7 @@ export default function Timing() {
                     label: 'Commits',
                     data: dayData,
                     backgroundColor: dayData.map((_, i) =>
-                        (i < 5) ? accentColor : mutedColor
+                        (i < 5) ? state.themeAccent : state.themeMuted
                     ),
                     borderRadius: 2,
                 }],
@@ -287,7 +283,7 @@ export default function Timing() {
                 },
             },
         };
-    }, [filteredCommits, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap, state.darkMode]);
+    }, [filteredCommits, isMobile, commitsLoaded, state.data?.summary?.hourlyHeatmap, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Developer patterns — only available with loaded commits
     const developerPatterns = useMemo(() => {
@@ -347,102 +343,13 @@ export default function Timing() {
             });
     }, [filteredCommits, viewConfig, state.workHourStart, state.workHourEnd, commitsLoaded]);
 
-    // Render heatmap based on type
-    const renderHeatmap = () => {
-        if (heatmapContent.type === 'weekly') {
-            const { weeks, maxCount, totalCommits, totalWeeks, avgPerWeek } = heatmapContent;
-            return (
-                <div className="weekly-heatmap">
-                    <p className="text-xs text-themed-tertiary mb-2">Weekly commit activity (most recent weeks)</p>
-                    <div className="flex flex-wrap gap-1">
-                        {weeks.map(([weekKey, count]) => {
-                            const level = getHeatmapLevel(count, maxCount);
-                            const weekDate = new Date(weekKey);
-                            const weekLabel = weekDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                            return (
-                                <div
-                                    key={weekKey}
-                                    className={`heatmap-cell heatmap-cell-sm heatmap-${level}`}
-                                    data-tooltip={`Week of ${weekLabel}: ${count} commits`}
-                                >
-                                    {count > 9 ? '' : count || ''}
-                                </div>
-                            );
-                        })}
-                    </div>
-                    <p className="text-xs text-themed-tertiary mt-2">
-                        {totalCommits} commits over {totalWeeks} weeks (avg {avgPerWeek}/week)
-                    </p>
-                </div>
-            );
-        } else if (heatmapContent.type === 'daily') {
-            const { byDay, dayOrder, dayLabels, maxCount, weekdayCommits, weekendCommits, weekendPct } = heatmapContent;
-            return (
-                <div className="daily-heatmap">
-                    <p className="text-xs text-themed-tertiary mb-3">Commits by day of week</p>
-                    <div className="space-y-2">
-                        {dayOrder.map((dayIdx, i) => {
-                            const count = byDay[dayIdx];
-                            const level = getHeatmapLevel(count, maxCount);
-                            const pct = maxCount > 0 ? Math.round((count / maxCount) * 100) : 0;
-                            return (
-                                <div key={dayIdx} className="flex items-center gap-3">
-                                    <span className="text-sm text-themed-secondary w-24">{dayLabels[i]}</span>
-                                    <div className="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-4">
-                                        <div
-                                            className={`h-4 rounded-full heatmap-${level}`}
-                                            style={{ width: `${pct}%` }}
-                                        />
-                                    </div>
-                                    <span className="text-sm text-themed-tertiary w-16 text-right">{count} commits</span>
-                                </div>
-                            );
-                        })}
-                    </div>
-                    <p className="text-xs text-themed-tertiary mt-3">
-                        Weekday: {weekdayCommits} | Weekend: {weekendCommits} ({weekendPct}%)
-                    </p>
-                </div>
-            );
-        } else {
-            // Developer view: full 24x7 hourly heatmap
-            const { matrix, maxCount, dayOrder, dayLabels } = heatmapContent;
-            return (
-                <div className="heatmap-grid">
-                    {/* Header row */}
-                    <div className="heatmap-label"></div>
-                    {dayLabels.map(d => (
-                        <div key={d} className="heatmap-header">{d}</div>
-                    ))}
-
-                    {/* Data rows */}
-                    {Array.from({ length: 24 }, (_, hour) => (
-                        <React.Fragment key={hour}>
-                            <div className="heatmap-label">
-                                {hour % 3 === 0 ? `${hour.toString().padStart(2, '0')}:00` : ''}
-                            </div>
-                            {dayOrder.map((dayIdx, i) => {
-                                const count = matrix[hour][dayIdx];
-                                const level = getHeatmapLevel(count, maxCount);
-                                const tooltip = `${dayLabels[i]} ${hour}:00 - ${count} commit${count !== 1 ? 's' : ''}`;
-                                return (
-                                    <div
-                                        key={dayIdx}
-                                        className={`heatmap-cell heatmap-${level}`}
-                                        data-tooltip={tooltip}
-                                    >
-                                        {count || ''}
-                                    </div>
-                                );
-                            })}
-                        </React.Fragment>
-                    ))}
-                </div>
-            );
-        }
-    };
-
-    const chartHeight = isMobile ? '200px' : '250px';
+    // Chart container height — breakpoint-derived (200px mobile, 248px desktop).
+    // Nearest stock Tailwind utilities: h-50 (12.5rem = 200px) and h-62
+    // (15.5rem = 248px). Desktop was previously 250px via inline style; the
+    // 2px delta is visually imperceptible and honours the CLAUDE.md rule
+    // "No inline style={} unless values are runtime-computed from data —
+    // round to nearest stock, redesign, or drop".
+    const chartHeightClasses = 'h-50 sm:h-62';
 
     // Requirement: Order sections from most interesting to least interesting
     // Approach: Hour chart first (reveals peak hours — immediately engaging), then heatmap
@@ -452,11 +359,11 @@ export default function Timing() {
     //   - Heatmap first: Rejected — dense grid is harder to parse than a simple bar chart
     //   - Day chart higher: Rejected — "busiest day is Tuesday" is the least surprising insight
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Hourly Distribution — most interesting: reveals peak hours, early birds, night owls */}
             {viewConfig.timing === 'hour' && hourChartData && (
                 <CollapsibleSection title="Commits by Hour" subtitle="Which hours are busiest?">
-                    <div data-embed-id="hourly-distribution" style={{ height: chartHeight }}>
+                    <div data-embed-id="hourly-distribution" className={chartHeightClasses}>
                         <Bar data={hourChartData.data} options={hourChartData.options} />
                     </div>
                 </CollapsibleSection>
@@ -465,53 +372,54 @@ export default function Timing() {
             {/* Activity Heatmap — engaging visual pattern */}
             <CollapsibleSection title="When Work Happens" subtitle="Commit activity patterns">
                 <div data-embed-id="activity-heatmap">
-                    {renderHeatmap()}
+                    <TimingHeatmap heatmapContent={heatmapContent} />
                 </div>
             </CollapsibleSection>
 
             {/* Developer Patterns — fascinating per-person detail, collapsed on mobile */}
             {viewConfig.timing === 'hour' && developerPatterns.length > 0 && (
                 <CollapsibleSection title="Developer Patterns" subtitle="Individual work habits" defaultExpanded={!isMobile}>
-                    {/* Color legend: explain what green/amber/red means for work hours and weekends */}
-                    <div className="flex flex-wrap gap-4 text-xs text-themed-tertiary mb-4">
-                        <span><span className="inline-block w-2 h-2 rounded-full bg-green-600 mr-1" />Mostly during work hours</span>
-                        <span><span className="inline-block w-2 h-2 rounded-full bg-amber-600 mr-1" />Mixed hours</span>
-                        <span><span className="inline-block w-2 h-2 rounded-full bg-red-600 mr-1" />Mostly outside work hours</span>
+                    {/* Color legend: semantic DaisyUI tokens so the work-hours gradient
+                        (good/mixed/bad) tracks the active theme's success/warning/error. */}
+                    <div className="flex flex-wrap gap-4 text-xs text-base-content/60 mb-4">
+                        <span><span className="inline-block w-2 h-2 rounded-full bg-success mr-1" />Mostly during work hours</span>
+                        <span><span className="inline-block w-2 h-2 rounded-full bg-warning mr-1" />Mixed hours</span>
+                        <span><span className="inline-block w-2 h-2 rounded-full bg-error mr-1" />Mostly outside work hours</span>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {developerPatterns.map((author) => (
-                            <div key={author.name} className="p-3 bg-themed-tertiary rounded-lg">
+                            <div key={author.name} className="p-3 bg-base-300 rounded-lg">
                                 <div className="flex items-center justify-between mb-2">
-                                    <span className="font-medium text-themed-primary">{author.name}</span>
-                                    <span className="text-xs text-themed-tertiary">{author.commitCount} commits</span>
+                                    <span className="font-medium text-base-content">{author.name}</span>
+                                    <span className="text-xs text-base-content/60">{author.commitCount} commits</span>
                                 </div>
                                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                                    <div className="p-2 bg-themed-secondary rounded">
-                                        <span className="text-themed-tertiary">Peak Hour</span>
-                                        <p className="font-semibold text-themed-primary">
+                                    <div className="p-2 bg-base-200 rounded">
+                                        <span className="text-base-content/60">Peak Hour</span>
+                                        <p className="font-semibold text-base-content">
                                             {author.peakHour.toString().padStart(2, '0')}:00
                                         </p>
                                     </div>
-                                    <div className="p-2 bg-themed-secondary rounded">
-                                        <span className="text-themed-tertiary">Peak Day</span>
-                                        <p className="font-semibold text-themed-primary">{author.peakDayLabel}</p>
+                                    <div className="p-2 bg-base-200 rounded">
+                                        <span className="text-base-content/60">Peak Day</span>
+                                        <p className="font-semibold text-base-content">{author.peakDayLabel}</p>
                                     </div>
-                                    <div className="p-2 bg-themed-secondary rounded">
-                                        <span className="text-themed-tertiary">Work Hours</span>
+                                    <div className="p-2 bg-base-200 rounded">
+                                        <span className="text-base-content/60">Work Hours</span>
                                         <p className={`font-semibold ${
-                                            author.workHoursPct >= THRESHOLDS.workHoursGood ? 'text-green-600'
-                                                : author.workHoursPct >= THRESHOLDS.workHoursMixed ? 'text-amber-600'
-                                                    : 'text-red-600'
+                                            author.workHoursPct >= THRESHOLDS.workHoursGood ? 'text-success'
+                                                : author.workHoursPct >= THRESHOLDS.workHoursMixed ? 'text-warning'
+                                                    : 'text-error'
                                         }`}>
                                             {author.workHoursPct}%
                                         </p>
                                     </div>
-                                    <div className="p-2 bg-themed-secondary rounded">
-                                        <span className="text-themed-tertiary">Weekends</span>
+                                    <div className="p-2 bg-base-200 rounded">
+                                        <span className="text-base-content/60">Weekends</span>
                                         <p className={`font-semibold ${
-                                            author.weekendPct <= THRESHOLDS.weekendLow ? 'text-green-600'
-                                                : author.weekendPct <= THRESHOLDS.weekendMid ? 'text-amber-600'
-                                                    : 'text-red-600'
+                                            author.weekendPct <= THRESHOLDS.weekendLow ? 'text-success'
+                                                : author.weekendPct <= THRESHOLDS.weekendMid ? 'text-warning'
+                                                    : 'text-error'
                                         }`}>
                                             {author.weekendPct}%
                                         </p>
@@ -525,7 +433,7 @@ export default function Timing() {
 
             {/* Daily Distribution — least surprising: it's always weekdays */}
             <CollapsibleSection title="Commits by Day" subtitle="Which days are busiest?">
-                <div data-embed-id="daily-distribution" style={{ height: chartHeight }}>
+                <div data-embed-id="daily-distribution" className={chartHeightClasses}>
                     <Bar data={dayChartData.data} options={dayChartData.options} />
                 </div>
             </CollapsibleSection>

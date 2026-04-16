@@ -2,10 +2,13 @@ import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
 import {
-    getTagClass, getTagStyleObject, getTagColor,
+    getTagBadgeClass, resolveTagSemanticColor,
     aggregateContributors, getAuthorEmail, getAuthorName, sanitizeName, handleKeyActivate
 } from '../utils.js';
-import { getSeriesColor, mutedColor } from '../chartColors.js';
+// mutedColor is read from state.themeMuted (via useApp) so the "low complexity"
+// bar segment tracks the active DaisyUI theme. See chartColors.js runtime
+// resolver comment for the URL-override precedence rules.
+import { getSeriesColor } from '../chartColors.js';
 import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
@@ -75,7 +78,7 @@ export default function Contributors() {
                     label: 'Avg Complexity',
                     data: avgComplexities,
                     backgroundColor: avgComplexities.map(c =>
-                        c >= 3.5 ? getSeriesColor(3) : c >= 2.5 ? getSeriesColor(0) : mutedColor
+                        c >= 3.5 ? getSeriesColor(3) : c >= 2.5 ? getSeriesColor(0) : state.themeMuted
                     ),
                 }],
             },
@@ -91,7 +94,7 @@ export default function Contributors() {
             },
         };
     // state.darkMode: bust memo on theme toggle so chart picks up new Chart.js defaults
-    }, [aggregated, isMobile, state.darkMode]);
+    }, [aggregated, isMobile, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // --- Per-contributor urgency/impact (moved from Health — per-person data belongs here) ---
     // Only computed from loaded commits (needs per-commit urgency/impact values)
@@ -199,7 +202,7 @@ export default function Contributors() {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Who Does What */}
             <CollapsibleSection title="Who Does What" subtitle={commitsLoaded ? 'Top contributors and their focus areas' : 'Overall contributor breakdown'}>
                 {aggregated.length > 0 ? (
@@ -214,33 +217,32 @@ export default function Contributors() {
                             return (
                                 <div
                                     key={item.label || idx}
-                                    className={`p-3 bg-themed-tertiary rounded-lg transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600' : ''}`}
+                                    className={`p-3 bg-base-300 rounded-lg transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-base-300' : ''}`}
                                     role={commitsLoaded ? 'button' : undefined}
                                     tabIndex={commitsLoaded ? 0 : undefined}
                                     aria-label={commitsLoaded ? `${item.displayName}, ${item.count} commits — click for details` : undefined}
                                     onClick={() => handleCardClick(item)}
                                     onKeyDown={commitsLoaded ? handleKeyActivate(() => handleCardClick(item)) : undefined}
                                 >
-                                    <p className="font-medium text-themed-primary mb-1">{item.displayName}</p>
-                                    <p className="text-xs text-themed-tertiary mb-2">{item.count} commits</p>
+                                    <p className="font-medium text-base-content mb-1">{item.displayName}</p>
+                                    <p className="text-xs text-base-content/60 mb-2">{item.count} commits</p>
                                     <div className="space-y-1">
                                         {topTags.map(([tag, count]) => {
                                             const pct = totalTags > 0 ? Math.round((count / totalTags) * 100) : 0;
                                             return (
                                                 <div key={tag} className="flex items-center gap-2">
                                                     <span
-                                                        className={`tag ${getTagClass(tag)}`}
-                                                        style={getTagStyleObject(tag)}
+                                                        className={`badge badge-sm ${getTagBadgeClass(tag)}`}
                                                     >
                                                         {tag}
                                                     </span>
-                                                    <div className="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                                    <div className="flex-1 bg-base-300 rounded-full h-2">
                                                         <div
                                                             className="h-2 rounded-full"
-                                                            style={{ width: `${pct}%`, backgroundColor: getTagColor(tag) }}
+                                                            style={{ width: `${pct}%`, backgroundColor: resolveTagSemanticColor(tag) }}
                                                         />
                                                     </div>
-                                                    <span className="text-xs text-themed-tertiary w-8">{pct}%</span>
+                                                    <span className="text-xs text-base-content/60 w-8">{pct}%</span>
                                                 </div>
                                             );
                                         })}
@@ -254,7 +256,7 @@ export default function Contributors() {
                     )}
                 </>
                 ) : (
-                    <p className="text-themed-tertiary">Nothing matches the current filters. Try adjusting your selections.</p>
+                    <p className="text-base-content/60">Nothing matches the current filters. Try adjusting your selections.</p>
                 )}
             </CollapsibleSection>
 

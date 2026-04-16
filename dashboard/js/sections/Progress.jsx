@@ -127,9 +127,11 @@ export default function Progress() {
                 },
             },
         };
-    // state.darkMode: bust memo on theme toggle so react-chartjs-2 calls chart.update(),
-    // picking up the new Chart.js defaults set in AppContext's darkMode effect
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile, state.darkMode]);
+    // state.themeAccent/Muted: bust memo on any theme change (including
+    // inter-theme switches like lofi → nord where darkMode stays constant)
+    // so `getSeriesColor(N)` re-resolves the new theme's semantic tokens
+    // and react-chartjs-2 picks up the updated dataset colors.
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Complexity Over Time chart data
     // Excludes incomplete last month (same reason as features vs bugfix trend)
@@ -204,7 +206,7 @@ export default function Progress() {
                 },
             },
         };
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile, state.darkMode]);
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.monthly, isMobile, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Epic breakdown — groups commits by epic label
     // Uses pre-aggregated epicBreakdown from summary when commits aren't loaded
@@ -284,7 +286,7 @@ export default function Progress() {
                 },
             },
         };
-    }, [semverBreakdown, hasSemverData, state.darkMode]);
+    }, [semverBreakdown, hasSemverData, state.darkMode, state.themeAccent, state.themeMuted]);
 
     const handleCardClick = (type) => {
         let filtered, title;
@@ -319,7 +321,11 @@ export default function Progress() {
         openDetailPane(labels[level] || level, `${filtered.length} commits`, filtered);
     };
 
-    const chartHeight = isMobile ? '220px' : '300px';
+    // Chart container height — breakpoint-derived (220px mobile, 300px desktop).
+    // Exact stock Tailwind: h-55 (13.75rem = 220px) and h-75 (18.75rem = 300px).
+    // Per CLAUDE.md "No inline style={} unless values are runtime-computed
+    // from data" — a breakpoint switch is not data, it's a responsive class.
+    const chartHeightClasses = 'h-55 sm:h-75';
 
     // Requirement: Order sections from most interesting to least interesting
     // Approach: Trend chart first (tells the main story), then visual doughnut, then
@@ -328,11 +334,11 @@ export default function Progress() {
     //   - Summary first: Rejected — raw counts are least engaging
     //   - Complexity before initiatives: Rejected — epic groupings are more actionable
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Feature vs Bug Fix Trend — the main story: are we building or fixing? */}
             {featFixChartData && (
                 <CollapsibleSection title="Features vs Bug Fixes Over Time" subtitle="Monthly trend">
-                    <div data-embed-id="feature-vs-bugfix-trend" style={{ height: chartHeight }}>
+                    <div data-embed-id="feature-vs-bugfix-trend" className={chartHeightClasses}>
                         <Line data={featFixChartData.data} options={featFixChartData.options} />
                     </div>
                 </CollapsibleSection>
@@ -342,21 +348,23 @@ export default function Progress() {
             {hasSemverData && (
                 <CollapsibleSection title="Change Types" subtitle="Patch, minor, and major releases">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div data-embed-id="semver-distribution" style={{ height: isMobile ? '180px' : '200px' }}>
+                        <div data-embed-id="semver-distribution" className="h-45 sm:h-50">
                             <Doughnut data={semverChartData.data} options={semverChartData.options} />
                         </div>
                         <div className="space-y-3 flex flex-col justify-center">
+                            {/* Semantic DaisyUI tokens so semver severity gradient tracks theme.
+                                patch=info (safe), minor=success (forward progress), major=error (breaking). */}
                             {[
-                                { key: 'patch', label: 'Patches', desc: 'Bug fixes', colorClass: 'bg-blue-500' },
-                                { key: 'minor', label: 'Minor', desc: 'New features', colorClass: 'bg-green-500' },
-                                { key: 'major', label: 'Major', desc: 'Breaking changes', colorClass: 'bg-red-500' },
+                                { key: 'patch', label: 'Patches', desc: 'Bug fixes', colorClass: 'bg-info' },
+                                { key: 'minor', label: 'Minor', desc: 'New features', colorClass: 'bg-success' },
+                                { key: 'major', label: 'Major', desc: 'Breaking changes', colorClass: 'bg-error' },
                             ].map(({ key, label, desc, colorClass }) => {
                                 const count = semverBreakdown[key];
                                 const pct = semverTotal > 0 ? Math.round((count / semverTotal) * 100) : 0;
                                 return (
                                     <div
                                         key={key}
-                                        className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                        className="cursor-pointer hover:bg-base-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded p-2 -m-2 transition-colors"
                                         role="button"
                                         tabIndex={0}
                                         aria-label={`View ${label}: ${count} commits (${pct}%)`}
@@ -365,9 +373,9 @@ export default function Progress() {
                                     >
                                         <div className="flex items-center gap-2">
                                             <div className={`w-3 h-3 rounded-full ${colorClass}`} />
-                                            <span className="text-sm text-themed-secondary font-medium">{label}</span>
-                                            <span className="text-xs text-themed-tertiary">({desc})</span>
-                                            <span className="ml-auto text-sm text-themed-primary font-medium">{count} ({pct}%)</span>
+                                            <span className="text-sm text-base-content/80 font-medium">{label}</span>
+                                            <span className="text-xs text-base-content/60">({desc})</span>
+                                            <span className="ml-auto text-sm text-base-content font-medium">{count} ({pct}%)</span>
                                         </div>
                                     </div>
                                 );
@@ -387,7 +395,7 @@ export default function Progress() {
                             return (
                                 <div
                                     key={epic}
-                                    className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 rounded p-2 -m-2 transition-colors"
+                                    className="cursor-pointer hover:bg-base-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded p-2 -m-2 transition-colors"
                                     role="button"
                                     tabIndex={0}
                                     aria-label={`View ${epic}: ${count} commits (${pct}%)`}
@@ -395,12 +403,20 @@ export default function Progress() {
                                     onKeyDown={handleKeyActivate(() => handleEpicClick(epic))}
                                 >
                                     <div className="flex justify-between text-sm mb-1">
-                                        <span className="text-themed-secondary font-medium">{epic}</span>
-                                        <span className="text-themed-primary font-medium">{count} commits ({pct}%)</span>
+                                        <span className="text-base-content/80 font-medium">{epic}</span>
+                                        <span className="text-base-content font-medium">{count} commits ({pct}%)</span>
                                     </div>
-                                    <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-                                        <div className="bg-indigo-500 h-2 rounded-full" style={{ width: `${pct}%` }} />
-                                    </div>
+                                    {/* Native <progress> with DaisyUI's progress class + progress-primary
+                                        theme variant — gives us screen-reader "X% of 100" announcement,
+                                        a single semantic element, and auto-switch of the fill color to
+                                        the active theme's primary accent. DaisyUI v5 ships .progress at
+                                        height .5rem which matches our prior custom h-2 visual. */}
+                                    <progress
+                                        className="progress progress-primary w-full"
+                                        value={pct}
+                                        max="100"
+                                        aria-label={`${epic} progress: ${pct} percent`}
+                                    />
                                 </div>
                             );
                         })}
@@ -414,7 +430,7 @@ export default function Progress() {
             {/* Complexity Over Time — niche trend, collapsed on mobile */}
             {complexityChartData && (
                 <CollapsibleSection title="Complexity Over Time" subtitle="Average complexity per month" defaultExpanded={!isMobile}>
-                    <div data-embed-id="complexity-over-time" style={{ height: chartHeight }}>
+                    <div data-embed-id="complexity-over-time" className={chartHeightClasses}>
                         <Line data={complexityChartData.data} options={complexityChartData.options} />
                     </div>
                 </CollapsibleSection>
@@ -424,41 +440,41 @@ export default function Progress() {
             <CollapsibleSection title="Summary">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     <div
-                        className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${metrics.featureCount} feature commits`}
                         onClick={() => handleCardClick('features')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('features'))}
                     >
-                        <div className="text-2xl font-semibold text-themed-primary">{metrics.featureCount}</div>
-                        <div className="text-sm text-themed-tertiary">Features</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{metrics.featureCount}</div>
+                        <div className="text-sm text-base-content/60">Features</div>
                     </div>
                     <div
-                        className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${metrics.bugfixCount} bug fix commits`}
                         onClick={() => handleCardClick('bugfixes')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('bugfixes'))}
                     >
-                        <div className="text-2xl font-semibold text-themed-primary">{metrics.bugfixCount}</div>
-                        <div className="text-sm text-themed-tertiary">Bug Fixes</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{metrics.bugfixCount}</div>
+                        <div className="text-sm text-base-content/60">Bug Fixes</div>
                     </div>
                     <div
-                        className="p-4 bg-themed-tertiary rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-blue-500 transition-all"
+                        className="p-4 bg-base-300 rounded-lg text-center cursor-pointer hover:ring-2 hover:ring-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none transition-all"
                         role="button"
                         tabIndex={0}
                         aria-label={`View ${metrics.refactorCount} refactor commits`}
                         onClick={() => handleCardClick('refactors')}
                         onKeyDown={handleKeyActivate(() => handleCardClick('refactors'))}
                     >
-                        <div className="text-2xl font-semibold text-themed-primary">{metrics.refactorCount}</div>
-                        <div className="text-sm text-themed-tertiary">Refactors</div>
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{metrics.refactorCount}</div>
+                        <div className="text-sm text-base-content/60">Refactors</div>
                     </div>
-                    <div className="p-4 bg-themed-tertiary rounded-lg text-center">
-                        <div className="text-2xl font-semibold text-themed-primary">{metrics.avgComplexity}</div>
-                        <div className="text-sm text-themed-tertiary">Avg Complexity</div>
+                    <div className="p-4 bg-base-300 rounded-lg text-center">
+                        <div className="text-2xl font-semibold font-mono tracking-tight text-base-content">{metrics.avgComplexity}</div>
+                        <div className="text-sm text-base-content/60">Avg Complexity</div>
                     </div>
                 </div>
             </CollapsibleSection>

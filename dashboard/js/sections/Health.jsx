@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useApp } from '../AppContext.jsx';
-import { getAuthorEmail, formatDate, getCommitSubject, sanitizeMessage, getAuthorName, getCommitDateRange, handleKeyActivate } from '../utils.js';
+import { getAuthorEmail, formatDate, getCommitSubject, sanitizeMessage, getAuthorName, getCommitDateRange, getTagBadgeClass, handleKeyActivate } from '../utils.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import { UrgencyBar, ImpactBar } from '../components/HealthBars.jsx';
 import { RiskAssessment, DebtBalance } from '../components/HealthAnomalies.jsx';
@@ -153,17 +153,22 @@ export default function Health() {
         openDetailPane(`${repo} Security`, `${filtered.length} commits`, filtered);
     };
 
+    // Semantic DaisyUI tokens so categories track the active theme. Urgency
+    // uses success/info/warning (3-category severity gradient); impact uses
+    // info/neutral/secondary/accent (4 distinct tokens so all four show up
+    // as visibly different colors in every registered theme). Must match
+    // HealthBars.jsx which renders the same categories in its stacked bar.
     const urgencyItems = [
-        { label: 'Planned Work', count: urgencyBreakdown.planned, colorClass: 'bg-green-500', filter: 'planned' },
-        { label: 'Routine Work', count: urgencyBreakdown.normal, colorClass: 'bg-blue-500', filter: 'normal' },
-        { label: 'Urgent Fixes', count: urgencyBreakdown.reactive, colorClass: 'bg-amber-500', filter: 'reactive' },
+        { label: 'Planned Work', count: urgencyBreakdown.planned, colorClass: 'bg-success', filter: 'planned' },
+        { label: 'Routine Work', count: urgencyBreakdown.normal, colorClass: 'bg-info', filter: 'normal' },
+        { label: 'Urgent Fixes', count: urgencyBreakdown.reactive, colorClass: 'bg-warning', filter: 'reactive' },
     ];
 
     const impactItems = [
-        { key: 'user-facing', label: 'User-Facing', colorClass: 'bg-blue-500' },
-        { key: 'internal', label: 'Internal', colorClass: 'bg-gray-500' },
-        { key: 'infrastructure', label: 'Infrastructure', colorClass: 'bg-purple-500' },
-        { key: 'api', label: 'API', colorClass: 'bg-green-500' },
+        { key: 'user-facing', label: 'User-Facing', colorClass: 'bg-info' },
+        { key: 'internal', label: 'Internal', colorClass: 'bg-neutral' },
+        { key: 'infrastructure', label: 'Infrastructure', colorClass: 'bg-secondary' },
+        { key: 'api', label: 'API', colorClass: 'bg-accent' },
     ].map(item => ({
         ...item,
         count: impactBreakdown[item.key],
@@ -172,23 +177,29 @@ export default function Health() {
     // --- Security section content (view-level aware) ---
     const renderSecurityContent = () => {
         // Phase 1: summary events
+        // Each "N security-related commits" summary box is a semantic alert
+        // to the user — DaisyUI `alert alert-error` gives us role="alert",
+        // theme-aware error styling, and a consistent layout across the
+        // three view modes. Individual commit rows inside the security
+        // panel are NOT alerts (they're list items within the alert-themed
+        // section) so they keep their bespoke bg-error/10 containers.
         if (!commitsLoaded) {
             if (securityEvents.length === 0) {
-                return <p className="text-themed-tertiary text-center py-4">No security-related commits found</p>;
+                return <p className="text-base-content/60 text-center py-4">No security-related commits found</p>;
             }
             return (
                 <div className="space-y-2">
-                    <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-center mb-3">
-                        <div className="text-3xl font-bold text-red-600 dark:text-red-400">{securityEvents.length}</div>
-                        <div className="text-sm text-themed-secondary">Security-related commits</div>
+                    <div role="alert" className="alert alert-error flex flex-col items-center text-center mb-3">
+                        <div className="text-3xl font-bold font-mono tracking-tight">{securityEvents.length}</div>
+                        <div className="text-sm opacity-80">Security-related commits</div>
                     </div>
                     {securityEvents.slice(0, 5).map((event, idx) => (
-                        <div key={event.sha || idx} className="p-3 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded">
+                        <div key={event.sha || idx} className="p-3 bg-error/5 border border-error/20 rounded">
                             <div className="flex items-start gap-2">
-                                <span className="tag tag-security">security</span>
+                                <span className={`badge badge-sm ${getTagBadgeClass('security')}`}>security</span>
                                 <div className="flex-1">
-                                    <p className="text-sm font-medium text-themed-primary">{sanitizeMessage(event.subject || 'Security commit')}</p>
-                                    <p className="text-xs text-themed-tertiary mt-1">{event.timestamp ? formatDate(event.timestamp) : ''}</p>
+                                    <p className="text-sm font-medium text-base-content">{sanitizeMessage(event.subject || 'Security commit')}</p>
+                                    <p className="text-xs text-base-content/60 mt-1">{event.timestamp ? formatDate(event.timestamp) : ''}</p>
                                 </div>
                             </div>
                         </div>
@@ -198,7 +209,7 @@ export default function Health() {
         }
 
         if (securityCommits.length === 0) {
-            return <p className="text-themed-tertiary text-center py-4">No security-related commits found</p>;
+            return <p className="text-base-content/60 text-center py-4">No security-related commits found</p>;
         }
 
         // Executive view: count + date range
@@ -206,10 +217,10 @@ export default function Health() {
             const dateRange = getCommitDateRange(securityCommits);
             const repos = [...new Set(securityCommits.map(c => c.repo_id).filter(Boolean))];
             return (
-                <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-center">
-                    <div className="text-3xl font-bold text-red-600 dark:text-red-400 mb-1">{securityCommits.length}</div>
-                    <div className="text-sm text-themed-secondary mb-2">Security-related commits</div>
-                    <div className="text-xs text-themed-tertiary">
+                <div role="alert" className="alert alert-error flex flex-col items-center text-center">
+                    <div className="text-3xl font-bold font-mono tracking-tight mb-1">{securityCommits.length}</div>
+                    <div className="text-sm opacity-80 mb-2">Security-related commits</div>
+                    <div className="text-xs opacity-60">
                         {dateRange.earliest} &mdash; {dateRange.latest}
                         {repos.length > 0 && <><br />Across {repos.length} repositories</>}
                     </div>
@@ -227,22 +238,22 @@ export default function Health() {
             const sortedRepos = Object.entries(byRepo).sort((a, b) => b[1] - a[1]);
             return (
                 <div className="space-y-2">
-                    <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-center mb-3">
-                        <div className="text-2xl font-bold text-red-600 dark:text-red-400">{securityCommits.length}</div>
-                        <div className="text-sm text-themed-secondary">Total security commits</div>
+                    <div role="alert" className="alert alert-error flex flex-col items-center text-center mb-3">
+                        <div className="text-2xl font-bold font-mono tracking-tight">{securityCommits.length}</div>
+                        <div className="text-sm opacity-80">Total security commits</div>
                     </div>
                     {sortedRepos.map(([repo, count]) => (
                         <div
                             key={repo}
-                            className="p-3 bg-themed-tertiary rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
+                            className="p-3 bg-base-300 rounded-lg cursor-pointer hover:bg-base-300 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 transition-colors"
                             role="button" tabIndex={0}
                             aria-label={`View security commits for ${repo}`}
                             onClick={() => handleSecurityRepoClick(repo)}
                             onKeyDown={handleKeyActivate(() => handleSecurityRepoClick(repo))}
                         >
                             <div className="flex justify-between items-center">
-                                <span className="text-themed-primary font-medium">{repo}</span>
-                                <span className="text-red-600 dark:text-red-400 font-semibold">{count} commits</span>
+                                <span className="text-base-content font-medium">{repo}</span>
+                                <span className="text-error font-semibold">{count} commits</span>
                             </div>
                         </div>
                     ))}
@@ -254,12 +265,12 @@ export default function Health() {
         return (
             <div className="space-y-2">
                 {securityCommits.map((commit, idx) => (
-                    <div key={commit.sha || idx} className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded">
+                    <div key={commit.sha || idx} className="p-3 bg-error/10 border border-error/40 rounded">
                         <div className="flex items-start gap-2">
-                            <span className="tag tag-security">security</span>
+                            <span className={`badge badge-sm ${getTagBadgeClass('security')}`}>security</span>
                             <div className="flex-1">
-                                <p className="text-sm font-medium text-themed-primary">{sanitizeMessage(getCommitSubject(commit))}</p>
-                                <p className="text-xs text-themed-tertiary mt-1">
+                                <p className="text-sm font-medium text-base-content">{sanitizeMessage(getCommitSubject(commit))}</p>
+                                <p className="text-xs text-base-content/60 mt-1">
                                     {commit.sha} by {getAuthorName(commit)} on {formatDate(commit.timestamp)}
                                     {commit.repo_id && ` in ${commit.repo_id}`}
                                 </p>
@@ -272,7 +283,7 @@ export default function Health() {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {/* Summary Cards — anchor, always visible */}
             <HealthWorkPatterns metrics={metrics} onCardClick={clickable ? handleSummaryCardClick : undefined} />
 
@@ -304,7 +315,7 @@ export default function Health() {
                         return (
                             <div
                                 key={filter}
-                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2' : ''}`}
                                 role={clickable ? 'button' : undefined}
                                 tabIndex={clickable ? 0 : undefined}
                                 aria-label={clickable ? `View ${label}: ${count} commits (${pct}%)` : undefined}
@@ -312,10 +323,10 @@ export default function Health() {
                                 onKeyDown={clickable ? handleKeyActivate(() => handleUrgencyFilterClick(filter)) : undefined}
                             >
                                 <div className="flex justify-between text-sm mb-1">
-                                    <span className="text-themed-secondary">{label}</span>
-                                    <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
+                                    <span className="text-base-content/80">{label}</span>
+                                    <span className="text-base-content font-medium">{count} ({pct}%)</span>
                                 </div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                <div className="w-full bg-base-300 rounded-full h-2">
                                     <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
                                 </div>
                             </div>
@@ -332,7 +343,7 @@ export default function Health() {
                         return (
                             <div
                                 key={key}
-                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+                                className={`rounded p-2 -m-2 transition-colors ${clickable ? 'cursor-pointer hover:bg-base-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2' : ''}`}
                                 role={clickable ? 'button' : undefined}
                                 tabIndex={clickable ? 0 : undefined}
                                 aria-label={clickable ? `View ${label} impact: ${count} commits (${pct}%)` : undefined}
@@ -340,10 +351,10 @@ export default function Health() {
                                 onKeyDown={clickable ? handleKeyActivate(() => handleImpactFilterClick(key)) : undefined}
                             >
                                 <div className="flex justify-between text-sm mb-1">
-                                    <span className="text-themed-secondary">{label}</span>
-                                    <span className="text-themed-primary font-medium">{count} ({pct}%)</span>
+                                    <span className="text-base-content/80">{label}</span>
+                                    <span className="text-base-content font-medium">{count} ({pct}%)</span>
                                 </div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                <div className="w-full bg-base-300 rounded-full h-2">
                                     <div className={`${colorClass} h-2 rounded-full`} style={{ width: `${pct}%` }} />
                                 </div>
                             </div>

@@ -517,7 +517,22 @@ Shows how much effort went into multi-commit initiatives like feature builds or 
 
 ## Theme
 
-The dashboard supports both light and dark themes. On first visit, it follows your system preference (dark or light mode). Your choice is remembered across visits and syncs across browser tabs. Author names are anonymized in the dashboard for privacy.
+The dashboard supports both light and dark modes, with four curated themes per mode:
+
+- **First visit** — the dashboard follows your operating system's preference. If your OS is set to dark mode, the dashboard opens in dark mode; if light, it opens in light mode.
+- **Toggle light/dark mode** — open the menu (☰) and click "Light mode" / "Dark mode". The label shows what will happen when you click, so "Light mode" means "switch to light mode from the current dark mode".
+- **Pick a theme** — below the mode toggle, the menu shows four theme options for the current mode:
+  - **Light mode:** Lo-Fi (minimal monochrome), Nord (cool blue-gray), Emerald (fresh green), Caramel Latte (warm neutral)
+  - **Dark mode:** Black (true OLED), Dim (soft dark gray), Coffee (dark roast), Dracula (dev classic)
+  - Click any theme to switch instantly. The currently active theme has a checkmark next to it.
+- **Rapid preview** — the menu stays open after a theme click so you can try several themes in a row without reopening the menu. Click Nord, then Emerald, then Caramel Latte to compare each. The dark/light mode toggle also keeps the menu open, so you can switch to dark mode and then pick a dark theme in the same menu session. Click anywhere outside the menu (or press Escape) when you're done.
+- **Per-mode memory** — your light-mode theme pick and your dark-mode theme pick are remembered independently. Switch to dark mode to pick a dark theme, switch back to light mode and your light theme pick is still there.
+- **Your choice sticks** — once you toggle mode or pick a theme, the dashboard remembers your preference across visits. It will no longer follow the OS preference.
+- **Cross-tab sync** — if you have the dashboard open in multiple tabs and change the theme in one, the others update automatically.
+- **Mobile status bar** — on mobile devices, the browser's status bar color (iOS Safari, Android Chrome) matches the active theme so the dashboard feels integrated.
+- **Print / PDF** — saving as PDF (via the menu) forces a clean white background and black text regardless of the theme you're viewing, so exported reports are always readable when printed on paper.
+
+Author names are anonymized in the dashboard for privacy.
 
 ---
 

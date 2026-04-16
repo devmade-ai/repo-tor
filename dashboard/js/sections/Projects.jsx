@@ -94,22 +94,28 @@ export default function Projects() {
 
     if (loadError) {
         return (
-            <div className="card projects-error">
-                <p className="text-themed-secondary">{loadError}</p>
+            <div role="alert" className="card bg-base-200 border border-base-300">
+                <div className="card-body items-center text-center py-8">
+                    <p className="text-base-content/80">{loadError}</p>
+                </div>
             </div>
         );
     }
 
     if (projects.length === 0) {
         return (
-            <div className="flex items-center justify-center py-12">
-                <div className="loading-spinner loading-spinner-md" />
+            <div
+                className="flex items-center justify-center py-12"
+                role="status"
+            >
+                <span className="loading loading-spinner loading-md text-primary" aria-hidden="true" />
+                <span className="sr-only">Loading projects</span>
             </div>
         );
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             <CollapsibleSection
                 title="Live Projects"
                 subtitle={`${liveProjects.length} projects with live sites`}
@@ -146,24 +152,25 @@ export default function Projects() {
 
 function ProjectCard({ project }) {
     return (
-        <div className="project-card">
+        <div className="card bg-base-200 border border-base-300 hover:border-primary/40 transition-colors">
+            <div className="card-body p-4 gap-0">
             <div className="flex items-start justify-between gap-2">
-                <h4 className="text-themed-primary font-medium text-base">
+                <h4 className="text-base-content font-medium text-base">
                     {project.name}
                 </h4>
                 {project.language && (
-                    <span className="project-lang-badge">
+                    <span className="text-xs font-medium font-mono px-2 py-0.5 rounded-full bg-base-300 text-base-content/60 whitespace-nowrap shrink-0">
                         {project.language}
                     </span>
                 )}
             </div>
 
             {project.description && (
-                <p className="text-sm text-themed-tertiary mt-1">{project.description}</p>
+                <p className="text-sm text-base-content/60 mt-1">{project.description}</p>
             )}
 
             {project.commitCount != null && project.commitCount > 0 && (
-                <p className="text-xs text-themed-muted mt-2">
+                <p className="text-xs text-base-content/40 mt-2">
                     {project.commitCount} commits tracked
                 </p>
             )}
@@ -174,7 +181,7 @@ function ProjectCard({ project }) {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="project-link project-link-primary"
+                        className="btn btn-primary btn-xs"
                     >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -189,7 +196,7 @@ function ProjectCard({ project }) {
                         href={project.repoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="project-link project-link-secondary"
+                        className="btn btn-outline btn-xs"
                     >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
@@ -197,6 +204,7 @@ function ProjectCard({ project }) {
                         GitHub
                     </a>
                 )}
+            </div>
             </div>
         </div>
     );

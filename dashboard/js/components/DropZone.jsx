@@ -40,11 +40,26 @@ export default function DropZone({ onFiles }) {
         e.target.value = '';
     }, [onFiles]);
 
+    // State-conditional visual for the drag-over highlight + focus ring
+    // + hover discovery hint. Base styles come first so the drag-over
+    // overrides land last. Focus-visible adds an explicit outline ring
+    // on top of the border/bg tint for strong keyboard visibility —
+    // matches TabBar's focus pattern for consistency.
+    const dropZoneBase =
+        'border-2 border-dashed border-base-300 rounded-lg px-6 py-10 cursor-pointer transition-all ' +
+        'hover:border-primary hover:bg-primary/5 ' +
+        'focus-visible:border-primary focus-visible:bg-primary/5 ' +
+        'focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2';
+    const dropZoneActive =
+        'border-primary bg-primary/10 ring-2 ring-primary ring-offset-2 ring-offset-base-100';
+    // Icon color flips to primary during drag-over.
+    const iconColor = isDragOver ? 'text-primary' : 'text-base-content/60';
+
     return (
-        <div className="max-w-2xl mx-auto px-4 py-16 drop-zone-container">
-            <h1 className="drop-zone-heading">Git Analytics Dashboard</h1>
+        <div className="max-w-2xl mx-auto px-4 py-16 min-h-screen flex flex-col justify-center">
+            <h1 className="text-base-content text-xl font-semibold text-center mb-6 font-mono">Git Analytics Dashboard</h1>
             <div
-                className={`drop-zone ${isDragOver ? 'drag-over' : ''}`}
+                className={`${dropZoneBase} ${isDragOver ? dropZoneActive : ''}`}
                 onClick={handleClick}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -61,7 +76,7 @@ export default function DropZone({ onFiles }) {
             >
                 <div className="text-center">
                     <svg
-                        className="drop-zone-icon mx-auto"
+                        className={`w-12 h-12 mx-auto mb-3 transition-colors ${iconColor}`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -74,8 +89,8 @@ export default function DropZone({ onFiles }) {
                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                         />
                     </svg>
-                    <p className="text-themed-primary font-medium">Drop JSON files here</p>
-                    <p className="text-sm text-themed-tertiary mt-2">or click to browse</p>
+                    <p className="text-base-content font-medium">Drop JSON files here</p>
+                    <p className="text-sm text-base-content/60 mt-2">or click to browse</p>
                 </div>
             </div>
             <input

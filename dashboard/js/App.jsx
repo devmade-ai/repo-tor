@@ -4,6 +4,7 @@ import { useToast } from './components/Toast.jsx';
 import useScrollLock from './hooks/useScrollLock.js';
 import { embedIds, isEmbedMode, themeParam, bgParam, dataUrlParam } from './urlParams.js';
 import { debugAdd } from './debugLog.js';
+import { applyTheme, DEFAULT_LIGHT_THEME, DEFAULT_DARK_THEME } from './themes.js';
 import Header from './components/Header.jsx';
 import TabBar from './components/TabBar.jsx';
 import DropZone from './components/DropZone.jsx';
@@ -93,28 +94,36 @@ export default function App() {
     useScrollLock(state.detailPane.open || state.settingsPaneOpen);
 
     // Apply embed overrides from URL: ?theme=light|dark, ?bg=hex|transparent
-    // Requirement: Let embedder apps match the embedded element's background to their site
-    // Approach: Override dark class and --bg-primary CSS variable on mount.
-    //   Runs inside React lifecycle (useEffect) instead of module scope to avoid
-    //   racing with AppContext's darkMode effect which also manages the dark class.
+    // Requirement: Let embedder apps match the embedded element's background
+    //   to their site. `?theme=light|dark` forces the corresponding DaisyUI
+    //   theme. `?bg=hex|transparent` overrides --color-base-100 directly.
+    // Approach: Route the theme override through themes.js applyTheme() with
+    //   skipPersist=true — the override is session-scoped and should not
+    //   pollute the user's localStorage. Then override --color-base-100 for
+    //   the background parameter. Runs in useEffect (not module scope) to
+    //   avoid racing with AppContext's initial applyTheme() call.
     // Alternatives:
-    //   - Module-scope overrides: Rejected — raced with React dark mode management
-    //   - postMessage from parent: Rejected — URL params are simpler and stateless
+    //   - Module-scope overrides: Rejected — raced with React dark mode management.
+    //   - postMessage from parent: Rejected — URL params are simpler and stateless.
+    //   - Inline DOM mutations (previous approach): Rejected — duplicated the
+    //     .dark/data-theme/meta-color logic that themes.js centralizes.
     useEffect(() => {
         if (!isEmbedMode) return;
         if (themeParam === 'light') {
-            document.documentElement.classList.remove('dark');
+            applyTheme(false, DEFAULT_LIGHT_THEME, /* skipPersist */ true);
         } else if (themeParam === 'dark') {
-            document.documentElement.classList.add('dark');
+            applyTheme(true, DEFAULT_DARK_THEME, /* skipPersist */ true);
         }
         if (bgParam) {
             // Validate: only accept 'transparent' or valid hex color (3-8 hex chars)
-            // to prevent CSS injection via malformed values
+            // to prevent CSS injection via malformed values. --color-base-100 is
+            // the DaisyUI token body reads via `background-color: var(--color-base-100)`.
+            const root = document.documentElement;
             const hexValue = bgParam.startsWith('#') ? bgParam : `#${bgParam}`;
             if (bgParam === 'transparent') {
-                document.documentElement.style.setProperty('--bg-primary', 'transparent');
+                root.style.setProperty('--color-base-100', 'transparent');
             } else if (/^#[0-9a-fA-F]{3,8}$/.test(hexValue)) {
-                document.documentElement.style.setProperty('--bg-primary', hexValue);
+                root.style.setProperty('--color-base-100', hexValue);
             }
         }
     }, []);
@@ -317,9 +326,17 @@ export default function App() {
     // Wait for initial data.json fetch before deciding what to show
     if (initialLoading) {
         return (
-            <div className="flex items-center justify-center min-h-screen flex-col gap-4">
-                <div className="loading-spinner loading-spinner-lg" />
-                <p className="text-sm text-themed-tertiary">Loading dashboard&hellip;</p>
+            <div
+                className="flex items-center justify-center min-h-screen flex-col gap-4"
+                role="status"
+            >
+                {/* role="status" is an implicit aria-live="polite" live region — adding
+                    an explicit aria-live here would duplicate the semantics, same trap
+                    as the Toast nested-live-region fix earlier today. The <p> text
+                    below carries the announcement; the spinner is decorative and
+                    aria-hidden. */}
+                <span className="loading loading-spinner loading-lg text-primary" aria-hidden="true" />
+                <p className="text-sm text-base-content/60">Loading dashboard&hellip;</p>
             </div>
         );
     }
@@ -328,7 +345,7 @@ export default function App() {
     if (embedIds) {
         if (!state.data) {
             return (
-                <div className="embed-error">
+                <div className="flex flex-col items-center justify-center min-h-50 p-6 text-center text-base-content/80 text-sm gap-2">
                     <p>No data available to display this chart.</p>
                     <p>Make sure data.json is deployed.</p>
                 </div>
@@ -340,22 +357,24 @@ export default function App() {
     // If no data loaded, show the drop zone (or error)
     if (!state.data) {
         return (
-            <div className="dashboard-enter">
+            <div>
                 {loadError && (
-                    <div role="alert" className="max-w-2xl mx-auto px-4 pt-12 pb-4">
-                        <div className="card text-center">
-                            <p className="text-themed-primary text-base mb-2">
-                                Could not load dashboard data
-                            </p>
-                            <p className="text-themed-tertiary text-sm mb-4">
-                                {loadError}
-                            </p>
-                            <button
-                                onClick={() => window.location.reload()}
-                                className="btn-icon btn-primary"
-                            >
-                                Retry
-                            </button>
+                    <div className="max-w-2xl mx-auto px-4 pt-12 pb-4">
+                        <div role="alert" className="card bg-base-200 border border-base-300">
+                            <div className="card-body items-center text-center">
+                                <p className="text-base-content text-base mb-2">
+                                    Could not load dashboard data
+                                </p>
+                                <p className="text-base-content/60 text-sm mb-4">
+                                    {loadError}
+                                </p>
+                                <button
+                                    onClick={() => window.location.reload()}
+                                    className="btn btn-primary"
+                                >
+                                    Retry
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -364,42 +383,108 @@ export default function App() {
         );
     }
 
+    // Layout architecture: ONE DaisyUI drawer for the filter sidebar,
+    // plus two fixed-positioned slide-over panes (detail + settings)
+    // using stock Tailwind utilities for the transform animation.
+    //
+    // Why not three nested DaisyUI drawers (the previous attempt)?
+    //   - DaisyUI v5's drawer is designed for one-drawer-per-page UX.
+    //     Nesting three (filter → detail → settings) was an undocumented
+    //     pattern, and the click-outside / focus / z-index behaviour
+    //     across three drawer-overlays could not be verified without
+    //     running a browser. The simpler architecture below uses ONE
+    //     drawer for the filter (the standard `lg:drawer-open` pattern,
+    //     well-supported) and two plain fixed-positioned slide-overs
+    //     for detail and settings.
+    //   - Detail and settings panes are simple `fixed top-0 right-0
+    //     h-screen w-full max-w-{lg|sm}` with a `transform translate-x-{0|full}`
+    //     swap driven by reducer state. Stock Tailwind utilities only
+    //     — no custom classes, no custom CSS, no @utility directives.
+    //     Same vanilla-DaisyUI policy compliance as the rest of the app.
+    //   - Backdrop overlays are `fixed inset-0 bg-black/60 transition-opacity`
+    //     siblings of each pane that toggle pointer-events + opacity
+    //     based on the pane's open state. Click-to-close handled by
+    //     onClick → dispatch.
+    //
+    // Filter sidebar still uses DaisyUI `drawer lg:drawer-open` so it's
+    // inline on desktop (lg+) and overlay on mobile — that's the
+    // documented standard pattern and works without nesting.
     return (
-        <div className="min-h-screen dashboard-enter">
-            <ErrorBoundary><Header /></ErrorBoundary>
-            <div className="no-print"><ErrorBoundary><TabBar /></ErrorBoundary></div>
-            <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
-                <div className="dashboard-layout mt-6">
-                    <div className="no-print"><ErrorBoundary><FilterSidebar /></ErrorBoundary></div>
-                    <div className="tab-content-area">
-                        <ErrorBoundary key={state.activeTab}>
-                            {state.activeTab === 'overview' && <Summary />}
-                            {state.activeTab === 'activity' && (
-                                <div className="space-y-6">
-                                    <Timeline />
-                                    <hr className="border-themed opacity-30" />
-                                    <Timing />
-                                </div>
-                            )}
-                            {state.activeTab === 'work' && (
-                                <div className="space-y-6">
-                                    <Progress />
-                                    <hr className="border-themed opacity-30" />
-                                    <Contributors />
-                                    <hr className="border-themed opacity-30" />
-                                    <Tags />
-                                </div>
-                            )}
-                            {state.activeTab === 'health' && <Health />}
-                            {state.activeTab === 'discover' && <Discover />}
-                            {state.activeTab === 'projects' && <Projects />}
-                        </ErrorBoundary>
-                    </div>
-                </div>
+        <div className="drawer lg:drawer-open">
+            <input
+                id="filter-drawer-toggle"
+                type="checkbox"
+                className="drawer-toggle"
+                checked={state.filterSidebarOpen}
+                onChange={e => dispatch({ type: e.target.checked ? 'OPEN_FILTER_SIDEBAR' : 'CLOSE_FILTER_SIDEBAR' })}
+                aria-label="Toggle filter sidebar"
+            />
+            <div className="drawer-content flex flex-col min-h-screen">
+                <ErrorBoundary><Header /></ErrorBoundary>
+                <div className="print:hidden"><ErrorBoundary><TabBar /></ErrorBoundary></div>
+                <main className="max-w-7xl mx-auto w-full px-4 md:px-8 pb-12 flex-1">
+                    <ErrorBoundary key={state.activeTab}>
+                        {state.activeTab === 'overview' && <Summary />}
+                        {state.activeTab === 'activity' && (
+                            <div className="space-y-4 sm:space-y-6">
+                                <Timeline />
+                                <hr className="border-base-300 opacity-30" />
+                                <Timing />
+                            </div>
+                        )}
+                        {state.activeTab === 'work' && (
+                            <div className="space-y-4 sm:space-y-6">
+                                <Progress />
+                                <hr className="border-base-300 opacity-30" />
+                                <Contributors />
+                                <hr className="border-base-300 opacity-30" />
+                                <Tags />
+                            </div>
+                        )}
+                        {state.activeTab === 'health' && <Health />}
+                        {state.activeTab === 'discover' && <Discover />}
+                        {state.activeTab === 'projects' && <Projects />}
+                    </ErrorBoundary>
+                </main>
+                <HeatmapTooltip />
+
+                {/* Detail pane — fixed slide-over from the right.
+                    Uses stock Tailwind transform/transition for the
+                    slide animation, and a sibling backdrop for click-
+                    to-close. Open state controlled by React reducer. */}
+                <div
+                    className={`fixed inset-0 bg-black/60 z-30 transition-opacity duration-300 print:hidden ${state.detailPane.open ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                    onClick={() => dispatch({ type: 'CLOSE_DETAIL_PANE' })}
+                    aria-hidden="true"
+                />
+                <aside
+                    className={`fixed top-0 right-0 h-screen w-full max-w-lg z-40 transform transition-transform duration-300 print:hidden ${state.detailPane.open ? 'translate-x-0' : 'translate-x-full'}`}
+                >
+                    <ErrorBoundary><DetailPane /></ErrorBoundary>
+                </aside>
+
+                {/* Settings pane — same z-index pair as detail (z-30
+                    backdrop + z-40 aside). Stacks ABOVE detail when both
+                    are open via DOM source order: settings markup comes
+                    after detail in this tree, so at equal z-index the
+                    later-painted elements win. No need to escalate
+                    z-index further — keeping both panes at the same
+                    layer keeps the pane hierarchy symmetric. */}
+                <div
+                    className={`fixed inset-0 bg-black/60 z-30 transition-opacity duration-300 print:hidden ${state.settingsPaneOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                    onClick={() => dispatch({ type: 'CLOSE_SETTINGS_PANE' })}
+                    aria-hidden="true"
+                />
+                <aside
+                    className={`fixed top-0 right-0 h-screen w-full max-w-sm z-40 transform transition-transform duration-300 print:hidden ${state.settingsPaneOpen ? 'translate-x-0' : 'translate-x-full'}`}
+                >
+                    <ErrorBoundary><SettingsPane /></ErrorBoundary>
+                </aside>
             </div>
-            <div className="no-print"><ErrorBoundary><DetailPane /></ErrorBoundary></div>
-            <div className="no-print"><ErrorBoundary><SettingsPane /></ErrorBoundary></div>
-            <HeatmapTooltip />
+            <div className="drawer-side print:hidden">
+                <label htmlFor="filter-drawer-toggle" className="drawer-overlay" aria-label="Close filter sidebar" />
+                <ErrorBoundary><FilterSidebar /></ErrorBoundary>
+            </div>
         </div>
     );
 }

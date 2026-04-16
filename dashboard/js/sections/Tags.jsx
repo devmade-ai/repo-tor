@@ -1,35 +1,25 @@
-import React, { useMemo, useRef, useLayoutEffect } from 'react';
+import React, { useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { useApp } from '../AppContext.jsx';
-import { getCommitTags, getTagColor, getTagClass, getTagStyleObject, handleKeyActivate } from '../utils.js';
+import { getCommitTags, getTagBadgeClass, resolveTagSemanticColor, handleKeyActivate } from '../utils.js';
 import { PAGE_LIMITS } from '../state.js';
 import CollapsibleSection from '../components/CollapsibleSection.jsx';
 import ShowMoreButton from '../components/ShowMoreButton.jsx';
 import useShowMore from '../hooks/useShowMore.js';
 
-// Requirement: Read CSS variable for chart text color without layout thrashing
-// Approach: useRef + useLayoutEffect reads the value once after first paint,
-//   guaranteeing stylesheets have applied. Falls back to theme default until then.
+// Requirement: The doughnut legend labels must follow the active theme.
+// Approach: Rely on Chart.js global defaults. AppContext's darkMode effect
+//   sets ChartJS.defaults.color to `color-mix(in oklab, var(--color-base-content) 80%, transparent)`
+//   on every theme change, and this chart's useMemo has state.darkMode as a
+//   dep so the chart rebuilds and picks up the new default.
+//   No per-component theme sync needed — single source of truth in AppContext.
 // Alternatives:
-//   - Module-level getComputedStyle: Rejected — can execute before stylesheets apply,
-//     returning empty/wrong value (see codebase review)
-//   - Hardcoded color: Rejected — breaks theme changes
-//   - getComputedStyle inside useMemo: Rejected — forces layout recalc on every render
-
-function useChartTextColor() {
-    const colorRef = useRef('#e5e7eb');
-    useLayoutEffect(() => {
-        const val = getComputedStyle(document.documentElement)
-            .getPropertyValue('--text-secondary').trim();
-        if (val) colorRef.current = val;
-    }, []);
-    return colorRef;
-}
+//   - Per-component CSS variable read (previous approach): Rejected — duplicated
+//     theme-sync logic across every chart-rendering section.
+//   - Hardcoded color: Rejected — breaks theme changes.
 
 export default function Tags() {
     const { state, filteredCommits, openDetailPane, isMobile, commitsLoaded } = useApp();
-    const chartTextColorRef = useChartTextColor();
-    const CHART_TEXT_COLOR = chartTextColorRef.current;
 
     // Requirement: Show tag data instantly during Phase 1 using pre-aggregated summary
     // Approach: When commits haven't loaded yet, use summary.tagBreakdown (computed at
@@ -50,7 +40,7 @@ export default function Tags() {
                 .sort((a, b) => b.count - a.count);
             const tags = sortedTags.map(t => t.tag);
             const counts = sortedTags.map(t => t.count);
-            const colors = tags.map(t => getTagColor(t));
+            const colors = tags.map(t => resolveTagSemanticColor(t));
             const total = counts.reduce((a, b) => a + b, 0);
             return { sortedTags, tags, counts, colors, total };
         }
@@ -70,11 +60,16 @@ export default function Tags() {
 
         const tags = sortedTags.map(t => t.tag);
         const counts = sortedTags.map(t => t.count);
-        const colors = tags.map(t => getTagColor(t));
+        const colors = tags.map(t => resolveTagSemanticColor(t));
         const total = counts.reduce((a, b) => a + b, 0);
 
         return { sortedTags, tags, counts, colors, total };
-    }, [filteredCommits, commitsLoaded, state.data?.summary?.tagBreakdown]);
+    // state.themeAccent/Muted: theme changes dispatch SET_THEME_COLORS
+    // which updates these values; including them in deps rebuilds
+    // tagData.colors so Chart.js picks up the new semantic token values
+    // (covers both dark/light toggle and inter-theme switches like
+    // lofi → nord where darkMode stays constant).
+    }, [filteredCommits, commitsLoaded, state.data?.summary?.tagBreakdown, state.darkMode, state.themeAccent, state.themeMuted]);
 
     // Paginate tag list — 8 mobile / show all desktop (0 = no limit)
     const {
@@ -107,14 +102,15 @@ export default function Tags() {
                             boxWidth: isMobile ? 8 : 12,
                             padding: isMobile ? 4 : 8,
                             font: { size: isMobile ? 10 : 11 },
-                            color: CHART_TEXT_COLOR,
-                        generateLabels: function (chart) {
+                            // color inherits from ChartJS.defaults.color — set by
+                            // AppContext's darkMode effect. The useMemo's state.darkMode
+                            // dep rebuilds this options object on toggle.
+                            generateLabels: function (chart) {
                                 const data = chart.data;
-                                const textColor = CHART_TEXT_COLOR;
                                 return data.labels.map((label, i) => ({
                                     text: `${label} (${data.datasets[0].data[i]})`,
                                     fillStyle: data.datasets[0].backgroundColor[i],
-                                    fontColor: textColor,
+                                    // fontColor inherits from legend.labels.color above
                                     hidden: false,
                                     index: i,
                                 }));
@@ -124,8 +120,12 @@ export default function Tags() {
                 },
             },
         };
-    // state.darkMode: bust memo on theme toggle so chart picks up new Chart.js defaults
-    }, [tagData, isMobile, state.darkMode]);
+    // tagData already rebuilds on theme change (its deps include
+    // state.themeAccent/Muted) so this chart inherits the new colors
+    // via the tagData reference. Extra theme deps included here for
+    // safety in case Chart.js defaults (from AppContext.darkMode effect)
+    // lag behind.
+    }, [tagData, isMobile, state.darkMode, state.themeAccent, state.themeMuted]);
 
     const handleTagClick = (tag) => {
         // During Phase 1, no commits to filter — clicking does nothing useful
@@ -142,7 +142,13 @@ export default function Tags() {
     // Alternatives:
     //   - Duplicate JSX: Rejected — harder to maintain
     //   - Chart always first: Rejected — list is more practical on small screens
-    const chartHeight = isMobile ? '250px' : '350px';
+    // Chart container height — breakpoint-derived (248px mobile, 348px desktop).
+    // Nearest stock Tailwind: h-62 (15.5rem = 248px) and h-87 (21.75rem = 348px).
+    // Previous inline-style values were 250/350; the 2px delta at each
+    // breakpoint is visually imperceptible and honours the CLAUDE.md rule
+    // "No inline style={} unless values are runtime-computed from data —
+    // round to nearest stock, redesign, or drop".
+    const chartHeightClasses = 'h-62 sm:h-87';
 
     return (
         <div className="flex flex-col gap-6">
@@ -154,28 +160,27 @@ export default function Tags() {
                             {visibleTags.map(({ tag, count }) => (
                                 <div
                                     key={tag}
-                                    className={`flex items-center gap-3 rounded p-2 -m-2 transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700' : ''}`}
+                                    className={`flex items-center gap-3 rounded p-2 -m-2 transition-colors ${commitsLoaded ? 'cursor-pointer hover:bg-base-200' : ''}`}
                                     role={commitsLoaded ? 'button' : undefined}
                                     tabIndex={commitsLoaded ? 0 : undefined}
                                     onClick={() => handleTagClick(tag)}
                                     onKeyDown={commitsLoaded ? handleKeyActivate(() => handleTagClick(tag)) : undefined}
                                 >
                                     <span
-                                        className={`tag ${getTagClass(tag)}`}
-                                        style={getTagStyleObject(tag)}
+                                        className={`badge badge-sm ${getTagBadgeClass(tag)}`}
                                     >
                                         {tag}
                                     </span>
-                                    <div className="flex-1 bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                                    <div className="flex-1 bg-base-300 rounded-full h-2">
                                         <div
                                             className="h-2 rounded-full"
                                             style={{
                                                 width: `${(count / tagData.total * 100).toFixed(1)}%`,
-                                                backgroundColor: getTagColor(tag),
+                                                backgroundColor: resolveTagSemanticColor(tag),
                                             }}
                                         />
                                     </div>
-                                    <span className="text-sm text-themed-secondary whitespace-nowrap">
+                                    <span className="text-sm text-base-content/80 whitespace-nowrap">
                                         {count} ({(count / tagData.total * 100).toFixed(0)}%)
                                     </span>
                                 </div>
@@ -185,7 +190,7 @@ export default function Tags() {
                             )}
                         </div>
                     ) : (
-                        <p className="text-themed-tertiary text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
+                        <p className="text-base-content/60 text-sm">Nothing matches the current filters. Try adjusting your selections.</p>
                     )}
                 </CollapsibleSection>
             </div>
@@ -194,7 +199,7 @@ export default function Tags() {
             {doughnutChartData && (
                 <div className={isMobile ? 'order-2' : 'order-1'}>
                     <CollapsibleSection title="Tag Distribution" subtitle="Visual breakdown of commit types" defaultExpanded={!isMobile}>
-                        <div data-embed-id="tag-distribution" style={{ height: chartHeight }}>
+                        <div data-embed-id="tag-distribution" className={chartHeightClasses}>
                             <Doughnut data={doughnutChartData.data} options={doughnutChartData.options} />
                         </div>
                     </CollapsibleSection>

@@ -3,17 +3,20 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "node scripts/write-build-version.mjs && vite build",
+    "dev": "node scripts/generate-theme-meta.mjs && vite",
+    "build": "node scripts/generate-theme-meta.mjs && node scripts/write-build-version.mjs && vite build",
     "preview": "vite preview",
     "generate-icons": "node scripts/generate-icons.mjs",
-    "build:lib": "vite build --config vite.config.lib.js"
+    "generate-theme-meta": "node scripts/generate-theme-meta.mjs",
+    "build:lib": "node scripts/generate-theme-meta.mjs && vite build --config vite.config.lib.js",
+    "test": "node --test scripts/__tests__/*.test.mjs"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
+    "daisyui": "^5.5.19",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.1.18",
     "vite": "^6.0.0",
