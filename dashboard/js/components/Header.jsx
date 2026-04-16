@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useApp, useAppDispatch } from '../AppContext.jsx';
-import { installPWA, applyUpdate, getPWAState, getInstallInstructions, supportsManualInstall, isInstalledPWA } from '../pwa.js';
+import { installPWA, applyUpdate, getPWAState, isInstalledPWA } from '../pwa.js';
+import { getInstallInstructions, supportsManualInstall } from '../pwaInstructions.js';
 import { LIGHT_THEMES, DARK_THEMES } from '../themes.js';
 import HamburgerMenu from './HamburgerMenu.jsx';
 import QuickGuide from './QuickGuide.jsx';
@@ -275,7 +276,7 @@ export default function Header() {
             <InstallInstructionsModal
                 isOpen={installModalOpen}
                 onClose={() => setInstallModalOpen(false)}
-                instructions={installModalOpen ? getInstallInstructions() : null}
+                instructions={installModalOpen ? getInstallInstructions({ hasDeferredPrompt: installReady }) : null}
             />
         </>
     );
