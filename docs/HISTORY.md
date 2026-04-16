@@ -2,6 +2,24 @@
 
 Log of significant changes to code and documentation.
 
+## 2026-04-16
+
+### Wire focus trap and keyboard nav improvements to HamburgerMenu
+
+Completed several items from the BURGER_MENU partial-to-complete checklist:
+
+1. **Extracted `useDisclosureFocus` hook** — Focus-on-open and return-to-trigger-on-close logic was inlined in HamburgerMenu.jsx. Extracted to `dashboard/js/hooks/useDisclosureFocus.js` following the glow-props BURGER_MENU.md spec. Reusable across any disclosure component.
+
+2. **Wired `useFocusTrap` to the menu** — The existing hook trapped Tab/Shift+Tab but was never imported by HamburgerMenu. Added an optional `externalRef` second parameter to the hook signature (backward-compatible — 4 existing callers unchanged) so HamburgerMenu can pass its own `menuRef`. Tab can no longer escape the open menu.
+
+3. **Added Home/End key support** — `handleMenuKeyDown` now handles Home (first item) and End (last item) in addition to ArrowDown/ArrowUp. Refactored from if/else to a switch statement.
+
+4. **Added `disabled` item support** — Items with `disabled: true` render with `opacity-40 cursor-not-allowed`, have the HTML `disabled` attribute set on the button, are skipped by arrow/Home/End keyboard navigation (via `button:not([disabled])` selector), and are guarded against click in `handleItem`.
+
+5. **Theme UI already present** — Verified that the dark/light toggle and per-mode theme picker (Approach A) were already fully implemented in Header.jsx with `keepOpen: true` behavior.
+
+Files changed: `HamburgerMenu.jsx`, `useFocusTrap.js`, new `useDisclosureFocus.js`, `CLAUDE.md`.
+
 ## 2026-04-15
 
 ### Retrospective pass — tripwire invariants, file-size findings, index.html scope

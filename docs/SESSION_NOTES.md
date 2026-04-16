@@ -1,12 +1,12 @@
 # Session Notes
 
-Compact context snapshot for AI continuity. Rewritten 2026-04-15 at the
-end of the `claude/migrate-daisyui-dark-mode-toG0Y` audit-cleanup pass.
+Compact context snapshot for AI continuity. Updated 2026-04-16 after
+wiring focus trap and keyboard nav improvements to HamburgerMenu.
 Detailed history lives in `docs/HISTORY.md` and the git log.
 
 ## Current State
 
-**Branch:** `claude/migrate-daisyui-dark-mode-toG0Y` (ahead of `main`).
+**Branch:** `claude/wire-focus-trap-menu-JIa8e`.
 
 **Dashboard V2:** Stable. Role-based view levels (Executive / Management /
 Developer), DaisyUI v5 dual-layer theming following
@@ -226,6 +226,26 @@ except pwa.js):**
   audit passes — post-sweep verification checklists, file-size
   monitoring, the future browser-test-coverage plan, and the
   legacy `scripts/aggregate.js` reference.
+
+## 2026-04-16 — Focus trap + keyboard nav wiring
+
+Completed BURGER_MENU partial-to-complete checklist items 1-5:
+
+1. **`useDisclosureFocus.js`** — new hook extracted from HamburgerMenu's
+   inlined focus-on-open / return-to-trigger-on-close logic.
+2. **`useFocusTrap.js`** — added optional `externalRef` second parameter.
+   HamburgerMenu passes `menuRef`; 4 existing callers (SettingsPane,
+   QuickGuide, DetailPane, InstallInstructionsModal) unchanged.
+3. **Home/End keys** — `handleMenuKeyDown` now handles 4 keys (was 2).
+4. **`disabled` items** — `opacity-40 cursor-not-allowed`, skipped by
+   keyboard nav, guarded in `handleItem`.
+5. **Theme UI** — already present (toggle + per-mode picker, keepOpen).
+
+Build passes, 64 tests pass.
+
+**Browser verification needed:** Open menu, Tab wraps at boundaries
+(last item → first), Home/End jump to first/last, disabled items
+can't be clicked or focused via keyboard.
 
 ## Pointers
 

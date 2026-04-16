@@ -4,10 +4,21 @@ const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), selec
 
 /**
  * Traps Tab key focus within a container while active.
- * Returns a ref to attach to the container element.
+ *
+ * Two calling conventions (backward-compatible):
+ *   1. useFocusTrap(active)          — creates and returns an internal ref
+ *   2. useFocusTrap(active, extRef)  — uses the caller's ref (e.g. menuRef)
+ *
+ * When the trap activates it focuses the first focusable child. Tab and
+ * Shift+Tab wrap at the container boundaries so focus cannot escape.
+ *
+ * @param {boolean} active - Whether the trap is currently active
+ * @param {React.RefObject} [externalRef] - Optional caller-owned ref to use instead of an internal one
+ * @returns {React.RefObject} The container ref (internal or external)
  */
-export default function useFocusTrap(active) {
-    const containerRef = useRef(null);
+export default function useFocusTrap(active, externalRef) {
+    const internalRef = useRef(null);
+    const containerRef = externalRef || internalRef;
 
     useEffect(() => {
         if (!active || !containerRef.current) return;
@@ -41,7 +52,7 @@ export default function useFocusTrap(active) {
 
         container.addEventListener('keydown', handleKeyDown);
         return () => container.removeEventListener('keydown', handleKeyDown);
-    }, [active]);
+    }, [active, containerRef]);
 
     return containerRef;
 }

@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useCallback, useRef, useId, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
+import useDisclosureFocus from '../hooks/useDisclosureFocus.js';
+import useFocusTrap from '../hooks/useFocusTrap.js';
 import useEscapeKey from '../hooks/useEscapeKey.js';
 import { version } from '../../../package.json';
 import { debugAdd } from '../debugLog.js';
 
 // Requirement: Data-driven hamburger menu matching glow-props BurgerMenu pattern
 // Approach: Disclosure-pattern dropdown (not ARIA menu) with data-driven items array.
-//   Each item has: label, action, icon (optional), visible, separator, external, destructive.
-//   Show/hide based on state — never render disabled items.
+//   Each item has: label, action, icon (optional), visible, disabled, separator, external, destructive.
+//   Show/hide via `visible`; gray out via `disabled` (rendered but not clickable/focusable).
 // Alternatives:
 //   - Hardcoded JSX per item: Rejected — adding/removing items requires component edits
 //   - role="menu" pattern: Rejected — ARIA menu causes screen readers to enter forms mode
@@ -43,7 +45,10 @@ import { debugAdd } from '../debugLog.js';
  * Data-driven hamburger menu. Items are filtered by `visible` (default true),
  * rendered with optional icons, separators, external indicators, and destructive styling.
  *
- * @param {Array} items - Menu items: { label, action, icon?, visible?, separator?, external?, destructive?, highlight?, ariaLabel?, keepOpen? }
+ * @param {Array} items - Menu items: { label, action, icon?, visible?, disabled?, separator?, external?, destructive?, highlight?, ariaLabel?, keepOpen? }
+ *   - `disabled: true` grays out the item, prevents click, and skips it during
+ *     keyboard navigation (ArrowUp/Down, Home/End). The HTML disabled attribute
+ *     is set on the button for native behavior; handleItem also guards early.
  *   - `keepOpen: true` suppresses the usual close-on-click-and-act behavior so the
  *     user can activate the item and remain in the menu. Used for theme picker
  *     items and the dark/light mode toggle so users can rapid-preview multiple
@@ -62,13 +67,21 @@ export default function HamburgerMenu({ items }) {
     const triggerRef = useRef(null);
     const menuRef = useRef(null);
     const timerRef = useRef(null);
-    const hasBeenOpenRef = useRef(false);
 
     const visibleItems = items.filter(item => item.visible !== false);
 
     const toggle = useCallback(() => setOpen(prev => !prev), []);
     const close = useCallback(() => setOpen(false), []);
 
+    // Requirement: Focus first item on open, return focus to trigger on close.
+    // Approach: useDisclosureFocus (extracted from prior inlined logic) handles
+    //   the rAF-delayed initial focus and trigger-return via shared refs.
+    // Requirement: Tab key must not escape the open menu.
+    // Approach: useFocusTrap wraps Tab/Shift+Tab at container boundaries.
+    //   Passes menuRef as externalRef so both hooks and the position-measuring
+    //   useLayoutEffect share the same ref on the portal <nav>.
+    useDisclosureFocus(triggerRef, menuRef, open);
+    useFocusTrap(open, menuRef);
     useEscapeKey(open, close);
 
     // Compute the dropdown's fixed-position origin from the trigger's
@@ -136,22 +149,6 @@ export default function HamburgerMenu({ items }) {
         };
     }, [open]);
 
-    // Focus first menu item when dropdown opens, return focus to trigger on close.
-    // hasBeenOpenRef guard prevents stealing focus on initial mount (open starts false).
-    // cancelAnimationFrame cleanup prevents callback on unmounted component.
-    useEffect(() => {
-        if (open) {
-            hasBeenOpenRef.current = true;
-            const rafId = requestAnimationFrame(() => {
-                const first = menuRef.current?.querySelector('button');
-                first?.focus();
-            });
-            return () => cancelAnimationFrame(rafId);
-        } else if (hasBeenOpenRef.current) {
-            triggerRef.current?.focus();
-        }
-    }, [open]);
-
     // Cleanup pending action timer on unmount
     useEffect(() => {
         return () => { if (timerRef.current) clearTimeout(timerRef.current); };
@@ -189,6 +186,7 @@ export default function HamburgerMenu({ items }) {
     // implemented via a `data-close` attribute on menu items that SHOULD
     // close the menu, with theme controls deliberately omitting it.
     function handleItem(item) {
+        if (item.disabled) return;
         if (item.keepOpen) {
             runAction(item.action);
             return;
@@ -198,20 +196,32 @@ export default function HamburgerMenu({ items }) {
         timerRef.current = setTimeout(() => runAction(item.action), 150);
     }
 
-    // Arrow key navigation between menu items. Wraps around at boundaries.
+    // Keyboard navigation between menu items. ArrowDown/ArrowUp cycle with
+    // wrapping, Home/End jump to first/last. Disabled items are skipped via
+    // the :not([disabled]) selector so they can't receive keyboard focus.
     function handleMenuKeyDown(e) {
-        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
-        e.preventDefault();
-        const buttons = menuRef.current?.querySelectorAll('button');
-        if (!buttons?.length) return;
-        const currentIdx = Array.from(buttons).indexOf(document.activeElement);
-        let nextIdx;
-        if (e.key === 'ArrowDown') {
-            nextIdx = currentIdx < buttons.length - 1 ? currentIdx + 1 : 0;
-        } else {
-            nextIdx = currentIdx > 0 ? currentIdx - 1 : buttons.length - 1;
+        const focusable = menuRef.current?.querySelectorAll('button:not([disabled])');
+        if (!focusable?.length) return;
+        const idx = Array.from(focusable).indexOf(document.activeElement);
+
+        switch (e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                focusable[(idx + 1) % focusable.length].focus();
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                focusable[(idx - 1 + focusable.length) % focusable.length].focus();
+                break;
+            case 'Home':
+                e.preventDefault();
+                focusable[0].focus();
+                break;
+            case 'End':
+                e.preventDefault();
+                focusable[focusable.length - 1].focus();
+                break;
         }
-        buttons[nextIdx].focus();
     }
 
     // The portaled surface: backdrop + dropdown nav. Rendered into document.body
@@ -242,18 +252,21 @@ export default function HamburgerMenu({ items }) {
             >
                 <ul className="list-none m-0 p-0">
                     {visibleItems.map((item, i) => {
-                        // Color variants for destructive / highlight / default items.
-                        // The icon's text-*-60 muting stays as-is via an
-                        // explicit color on the icon <span> (default case
-                        // only — destructive/highlight items inherit the
-                        // button's text color through `text-inherit` so the
-                        // label and icon match).
-                        const itemColors = item.destructive
+                        // Color variants: disabled items get muted opacity and a
+                        // not-allowed cursor. Destructive / highlight / default
+                        // items keep their existing treatment. The icon uses
+                        // text-inherit for destructive/highlight (matching the
+                        // button text) and text-base-content/60 for default.
+                        const itemColors = item.disabled
+                            ? 'opacity-40 cursor-not-allowed'
+                            : item.destructive
                             ? 'text-error hover:bg-error/10'
                             : item.highlight
                             ? 'text-primary hover:bg-base-300'
                             : 'text-base-content hover:bg-base-300';
-                        const iconColor = item.destructive || item.highlight
+                        const iconColor = item.disabled
+                            ? 'text-base-content/40'
+                            : item.destructive || item.highlight
                             ? 'text-inherit'
                             : 'text-base-content/60';
                         return (
@@ -263,6 +276,7 @@ export default function HamburgerMenu({ items }) {
                                 )}
                                 <button
                                     type="button"
+                                    disabled={item.disabled}
                                     className={`flex items-center gap-2.5 w-full px-4 py-2.5 bg-transparent border-0 text-sm text-left cursor-pointer transition-colors outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary ${itemColors}`}
                                     onClick={() => handleItem(item)}
                                     // Requirement: items whose visible label describes a destination
