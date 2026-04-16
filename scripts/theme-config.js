@@ -68,4 +68,4 @@ export const THEMES = {
 // fails the build if they don't match so a typo in either field is caught
 // immediately, not in production when a user's first paint renders unstyled.
 export const DEFAULT_LIGHT_THEME = 'lofi';
-export const DEFAULT_DARK_THEME = 'black';
+export const DEFAULT_DARK_THEME = 'dracula';

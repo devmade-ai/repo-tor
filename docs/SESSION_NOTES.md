@@ -247,6 +247,17 @@ Build passes, 64 tests pass.
 (last item → first), Home/End jump to first/last, disabled items
 can't be clicked or focused via keyboard.
 
+## 2026-04-16 — Default dark theme changed to Dracula
+
+Changed `DEFAULT_DARK_THEME` from `black` to `dracula` in
+`scripts/theme-config.js`. Generator propagated the change to
+`dashboard/index.html`, `dashboard/js/themes.js`, and
+`dashboard/styles.css` (moves `--prefersdark` from `black` to `dracula`).
+
+Users who have never toggled dark mode will now see the Dracula theme
+instead of Black on first visit. Existing users with a persisted
+`darkTheme` in localStorage are unaffected.
+
 ## Pointers
 
 - Architecture, paths, conventions, theming approach: `CLAUDE.md`
