@@ -186,7 +186,8 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
   - `js/chartColors.js` - Centralized chart color system (embed overrides)
   - `js/debugLog.js` - Structured debug logging with pub/sub, console interception, global error capture, and report generation
   - `js/copyToClipboard.js` - Clipboard utility with multiple fallbacks (ClipboardItem Blob, writeText, textarea)
-  - `js/pwa.js` - PWA install/update logic (event-based, communicates with React via CustomEvents)
+  - `js/pwa.js` - PWA install/update lifecycle (event-based, communicates with React via CustomEvents). Per-browser install instructions extracted to `pwaInstructions.js` on 2026-04-15 to keep pwa.js under 500 lines.
+  - `js/pwaInstructions.js` - Browser-detection helpers + per-browser step-by-step install instructions for the InstallInstructionsModal. Pure data module (no DOM, no React).
   - `js/pwaConstants.js` - PWA timing/threshold constants (update intervals, settle delays, etc.)
 - `vite.config.js` - Vite build + React + Tailwind v4 + PWA plugin config
 - `vite.config.lib.js` - Vite library build config (ES module export)
