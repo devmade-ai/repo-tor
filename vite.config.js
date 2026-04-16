@@ -198,8 +198,7 @@ export default defineConfig({
         //   activation. Note: same-prefix entries with stale revisions are
         //   already replaced by Workbox's normal precache install flow — this
         //   option is specifically about cross-version orphans, not per-build
-        //   cleanup. (This narrative was overstated in the original commit;
-        //   see HISTORY.md 2026-04-16 strengthening entry.)
+        //   cleanup.
         // Alternatives: manual cache.delete() in an activate handler —
         //   rejected, Workbox already handles this correctly.
         cleanupOutdatedCaches: true,

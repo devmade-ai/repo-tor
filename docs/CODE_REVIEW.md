@@ -375,7 +375,7 @@ The git log format uses `---COMMIT_DELIMITER---` as a separator. If a commit mes
 
 ### 8.2 Documentation is excellent (POSITIVE)
 
-The project has thorough documentation: `CLAUDE.md`, `SESSION_NOTES.md`, `AI_MISTAKES.md`, `TODO.md`, `HISTORY.md`, `USER_GUIDE.md`, `ADMIN_GUIDE.md`, `TESTING_GUIDE.md`, `DATA_OPERATIONS.md`, `COMMIT_CONVENTION.md`, and an ADR. The AI mistakes file documenting past errors is an unusually mature practice.
+The project has thorough documentation: `CLAUDE.md`, `SESSION_NOTES.md`, `AI_MISTAKES.md`, `TODO.md`, `USER_GUIDE.md`, `ADMIN_GUIDE.md`, `TESTING_GUIDE.md`, `DATA_OPERATIONS.md`, `COMMIT_CONVENTION.md`, and an ADR. The AI mistakes file documenting past errors is an unusually mature practice. The changelog lives in the git log (commit messages use conventional format with metadata footers) rather than a separate file.
 
 ### 8.3 `config/author-map.json` vs `.example` (NOTE)
 

@@ -4,8 +4,8 @@
 //   a DaisyUI @layer components rule (the exact trap the 2026-04-13 10-phase
 //   sweep fixed). This file is the project's only automated test layer —
 //   browser-runtime tests (Playwright) were removed 2026-04-15 because the
-//   spec files were never run; see docs/HISTORY.md and docs/TODO.md
-//   "Browser test coverage (future)" for context.
+//   spec files were never run; see docs/TODO.md "Browser test coverage
+//   (future)" and `git log` for context.
 //
 // Approach: read each migrated source file and assert that:
 //   1. The DaisyUI class name is still present at its expected call site.
