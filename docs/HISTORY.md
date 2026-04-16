@@ -13,6 +13,15 @@ Added `resolveActiveRepoColor()` which filters candidate tokens by oklch chroma 
 Before (black theme): budgy-ting=gray, canva-grid=gray, graphiki=gray, model-pear=blue, ...
 After (black theme): budgy-ting=blue, canva-grid=green, graphiki=yellow, model-pear=red, ...
 
+### Strengthen repo color fix — tripwire test, fallback warning, doc updates
+
+Follow-up pass after the chroma-filtering fix:
+
+1. **Tripwire test** — Added test 43 (`Repo color invariant: active repos get only colorful tokens in every registered theme`) to `daisyui-surfaces.test.mjs`. Reads each DaisyUI theme's token values and verifies: (a) at least 4 colorful tokens survive per theme, (b) exact expected count matches the `EXPECTED_COLORFUL_COUNT` map. Catches DaisyUI upgrades that shift a token's chroma across the 0.03 threshold. Test count 64 → 65.
+2. **Fallback warning** — Added `console.warn` in the `resolveActiveRepoColor` zero-colorful-tokens fallback. Unreachable with stock themes (all have ≥ 4 colorful status tokens) but surfaces broken custom themes during development.
+3. **Doc updates** — Updated stale "8-slot semantic cycle" descriptions in `EMBED_IMPLEMENTATION.md` (Color Architecture section), `DAISYUI_V5_NOTES.md` (Chart.js dataset colors paragraph), and `CLAUDE.md` (chartColors.js entry in Key Components) to reflect the dual-cycle design (general 8-token + filtered repo-specific 7-token).
+4. **Discovery documented** — Caramellatte's `--color-neutral` has oklch chroma 0.195 (warm brown, not gray). Internal/discontinued repos in caramellatte render as warm-toned semi-transparent overlays, not gray. This is by design — DaisyUI's neutral matches the warm palette — and the visual hierarchy is maintained through opacity. All other themes have near-gray neutrals (chroma < 0.04).
+
 ### Change default dark theme to Dracula
 
 Changed `DEFAULT_DARK_THEME` from `black` to `dracula` in `scripts/theme-config.js`. The generator propagated the change to `dashboard/index.html` (flash-prevention inline script), `dashboard/js/themes.js` (runtime catalog), and `dashboard/styles.css` (`--prefersdark` flag moved from `black` to `dracula`). Existing users with a persisted `darkTheme` in localStorage are unaffected.

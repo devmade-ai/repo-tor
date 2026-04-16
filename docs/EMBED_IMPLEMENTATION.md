@@ -176,21 +176,21 @@ The 2026-04-14 vanilla-DaisyUI sweep deleted every brand-hex palette and every c
 `dashboard/js/chartColors.js` exposes:
 - `resolveRuntimeAccent()` — reads `--color-primary` at call time
 - `resolveRuntimeMuted()` — returns `color-mix(in oklab, var(--color-base-content) 40%, transparent)`
-- `getSemanticPalette()` — 8 DaisyUI semantic colours (primary, secondary, accent, info, success, warning, error, neutral)
-- `getSeriesColor(i)` — cycles through the 8-colour semantic palette
-- `getRepoColor(repoName, activeIndex)` / `buildRepoColorMap(repos)` — repo-category-aware helpers
+- `getSeriesColor(i)` — cycles through 8 DaisyUI semantic tokens (primary → secondary → accent → info → success → warning → error → neutral) for general chart series
+- `buildRepoColorMap(repos)` — repo-category-aware map builder. Internal repos get `dimNeutral(0.6)`, discontinued repos get `dimNeutral(0.3)`, active repos cycle through `resolveActiveRepoColor(i)` which filters to colorful-only tokens at runtime (oklch chroma ≥ 0.03), guaranteeing active repos are visually distinct from the neutral grays even in monochrome themes (lofi, black)
 
 **How colours flow to charts:**
 - `AppContext` dispatches `SET_THEME_COLORS` after every `applyTheme()` call, populating `state.themeAccent` / `state.themeMuted`
 - Chart `useMemo` deps include `state.themeAccent` / `state.themeMuted` so datasets rebuild on theme change
 - For multi-dataset charts that need distinct colours, `getSeriesColor(i)` resolves fresh per call — charts with >8 series cycle through the palette
+- Repo-specific stacked charts use `buildRepoColorMap()` which filters achromatic tokens so active repos always get colorful assignments. In monochrome themes, only the 4 status tokens (info/success/warning/error) survive; colorful themes use all 7 candidate tokens
 - Tag colours (`badge-success`, `badge-error`, etc.) track the theme via DaisyUI's semantic tokens; Chart.js tag datasets use `resolveTagSemanticColor(tag)` which maps each tag to one of the 8 semantic CSS variables and reads it at runtime
 
 ### Files
 
 | File | Role |
 |------|------|
-| `dashboard/js/chartColors.js` | Runtime DaisyUI semantic colour resolvers (8-variable cycle) |
+| `dashboard/js/chartColors.js` | Runtime DaisyUI semantic colour resolvers (general 8-token cycle + chroma-filtered repo cycle) |
 | `dashboard/js/urlParams.js` | Parses `?embed=`, `?theme=`, `?bg=`, `?data=` once at module load |
 | `dashboard/js/App.jsx` | Routes to `EmbedRenderer` when `embedIds` is set |
 | `dashboard/js/components/CollapsibleSection.jsx` | Short-circuits to `<>{children}</>` in embed mode (no card/header/collapse) |

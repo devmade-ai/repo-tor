@@ -178,7 +178,11 @@ function resolveActiveRepoColor(index) {
         }
     }
     if (colorful.length === 0) {
-        // Extreme fallback: no token has chroma — use first token raw
+        // Unreachable with DaisyUI stock themes — every stock theme has at
+        // least 4 colorful status tokens. Log a warning so broken custom
+        // themes surface during development rather than silently rendering
+        // gray active repos.
+        console.warn('[chartColors] resolveActiveRepoColor: no colorful tokens found — theme may define all tokens as achromatic');
         return readCssVar(ACTIVE_REPO_TOKENS[0]);
     }
     return colorful[index % colorful.length];

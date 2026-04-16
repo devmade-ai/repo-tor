@@ -183,7 +183,7 @@ Check periodically for new patterns to adopt. Last reviewed: 2026-04-07.
   - `js/utils.js` - Pure utility functions
   - `js/urlParams.js` - Centralized URL query parameter parsing (single parse, shared across modules)
   - `js/charts.js` - Chart aggregation helpers
-  - `js/chartColors.js` - Centralized chart color system (embed overrides)
+  - `js/chartColors.js` - Centralized chart color system: general 8-token semantic cycle (`getSeriesColor`) + chroma-filtered repo cycle (`resolveActiveRepoColor` skips achromatic tokens so active repos always get colorful assignments, even in monochrome themes like lofi/black). Repo categories: active (colorful), internal (60% neutral), discontinued (30% neutral)
   - `js/debugLog.js` - Structured debug logging with pub/sub, console interception, global error capture, and report generation
   - `js/copyToClipboard.js` - Clipboard utility with multiple fallbacks (ClipboardItem Blob, writeText, textarea)
   - `js/pwa.js` - PWA install/update lifecycle (event-based, communicates with React via CustomEvents). Per-browser install instructions extracted to `pwaInstructions.js` on 2026-04-15 to keep pwa.js under 500 lines.
