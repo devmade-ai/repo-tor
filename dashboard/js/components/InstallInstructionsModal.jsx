@@ -79,6 +79,41 @@ export default function InstallInstructionsModal({ isOpen, onClose, instructions
                     </ul>
                 </div>
 
+                {/* Help for users re-installing after an icon or visual update.
+                    Requirement: After we ship a new icon, users who already
+                      have the app installed see the OLD icon on their home
+                      screen / dock / Start menu — even after they "clear site
+                      data" in the browser. We added content-hash cache-busting
+                      (vite.config.js iconCacheBustHtml + manifest icon URLs)
+                      to refresh every cache layer the web app controls. The
+                      one layer we can't reach is the operating system's icon
+                      cache (Springboard, Android launcher, Windows icon
+                      cache, macOS Icon Services), which is keyed off the
+                      installed app identity, not the URL. The only fix is for
+                      the user to remove the app and re-install it.
+                    Approach: Native <details>/<summary> for a collapsed
+                      "already installed?" hint — open by default would clutter
+                      the install flow for first-time users; collapsed by
+                      default keeps it discoverable for the small subset who
+                      need it. Plain language, no jargon (CLAUDE.md UX rules).
+                    Alternatives:
+                      - Always-visible note: Rejected — confuses first-time
+                        installers ("why is it warning me about updates?").
+                      - Separate modal: Rejected — over-engineered for a
+                        two-sentence hint; would also need its own trigger
+                        in the burger menu.
+                      - Skip entirely and document in USER_GUIDE.md only:
+                        Rejected — users hit this in-app and rarely consult
+                        the user guide proactively. */}
+                <details className="border-t border-base-300 pt-4 mt-4">
+                    <summary className="text-base-content/60 text-xs cursor-pointer hover:text-base-content">
+                        Already installed and the icon looks outdated?
+                    </summary>
+                    <p className="text-base-content/60 text-xs mt-2 leading-relaxed">
+                        Your phone or computer keeps app icons cached separately from your browser, so clearing site data alone won&apos;t refresh them. Remove the app from your home screen, dock, or Start menu first, then install it again from this menu.
+                    </p>
+                </details>
+
                 <div className="modal-action mt-4">
                     <button
                         type="button"

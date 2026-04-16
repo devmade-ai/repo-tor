@@ -184,7 +184,7 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 
 ## 2026-01-25: Not checking all docs after making changes
 
-**What happened:** After implementing dashboard changes (summary cards, section defaults, role-specific guidance), only updated SESSION_NOTES.md and HISTORY.md. Didn't check or update CLAUDE.md, README.md, or USER_GUIDE.md until user asked "nothing in claude.md or readme or any other docs?"
+**What happened:** After implementing dashboard changes (summary cards, section defaults, role-specific guidance), only updated SESSION_NOTES.md. Didn't check or update CLAUDE.md, README.md, or USER_GUIDE.md until user asked "nothing in claude.md or readme or any other docs?"
 
 **Why it's a problem:**
 - CLAUDE.md had stale "Remaining Work" listing already-completed features
@@ -432,10 +432,9 @@ Chart.defaults.color = styles.getPropertyValue('--text-secondary').trim() || '#e
 **What happened:** Made 6+ commits of significant UI changes (header resize, subtitle rewording, filter hint, hamburger menu, quick guide, pagination, cleanup extractions) without once:
 1. Reading SESSION_NOTES.md, TODO.md, or AI_MISTAKES.md at session start
 2. Updating any documentation after any commit
-3. Adding HISTORY.md entries
-4. Updating USER_GUIDE.md for user-facing changes
-5. Adding TESTING_GUIDE.md scenarios for new features
-6. Updating CLAUDE.md architecture lists for new files
+3. Updating USER_GUIDE.md for user-facing changes
+4. Adding TESTING_GUIDE.md scenarios for new features
+5. Updating CLAUDE.md architecture lists for new files
 
 Also: during the `@cln` trigger, reported findings but then unilaterally categorized some as "don't fix" without user permission. When user said "go for it" (meaning fix all), only fixed 2 of 7 findings, requiring user to call it out again.
 
@@ -455,7 +454,7 @@ Also: during the `@cln` trigger, reported findings but then unilaterally categor
 
 **Files affected:**
 - All 12 files changed on this branch were committed without doc updates
-- docs/SESSION_NOTES.md, docs/HISTORY.md, docs/USER_GUIDE.md, docs/TESTING_GUIDE.md, CLAUDE.md — all updated retroactively
+- docs/SESSION_NOTES.md, docs/USER_GUIDE.md, docs/TESTING_GUIDE.md, CLAUDE.md — all updated retroactively
 
 ---
 

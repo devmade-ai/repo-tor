@@ -1,12 +1,44 @@
 # Session Notes
 
 Compact context snapshot for AI continuity. Updated 2026-04-16 after
-repo color consistency fix + default dark theme change.
-Detailed history lives in `docs/HISTORY.md` and the git log.
+the PWA icon cache-bust fix + strengthening pass (assertions, missing-
+icon warning, OS-cache user note, 9-test tripwire, corrected narrative).
+Detailed history lives in the git log (`git log --oneline` / `git log -p`).
 
 ## Current State
 
-**Branch:** `claude/set-dracula-default-theme-Or6Kl`.
+**Branch:** `claude/fix-pwa-icon-cache-p2JOQ`.
+
+**Last change:** PWA icon cache-bust strengthening pass (5 changes):
+
+1. `iconCacheBustHtml` Vite plugin now `throw`s on missing literal
+   hrefs instead of silently no-op'ing — prevents shipping a manifest
+   with versioned icons but a `<head>` with un-versioned ones if anyone
+   reformats `dashboard/index.html`.
+2. `iconVersion` `console.warn`s when an icon file is missing instead
+   of silently returning `'0'` — surfaces accidental icon deletion.
+3. Corrected the `cleanupOutdatedCaches` rationale comment: it sweeps
+   cross-major-version Workbox precache stores, not per-build stale
+   entries (those are handled by Workbox's normal install flow). Option
+   is still kept; comment now describes what it actually does.
+4. New tripwire test `scripts/__tests__/icon-cache-bust.test.mjs`
+   (9 tests, total 65 → 74). Source assertions always run; built-output
+   assertions skip with logged warning when `dist/` is absent.
+5. User-facing OS-cache note added to `InstallInstructionsModal.jsx`
+   as a collapsed `<details>` ("Already installed and the icon looks
+   outdated?") — explains in plain language that the OS caches icons
+   separately from the browser.
+
+**Original cache-bust fix** (still in place, just strengthened):
+`vite.config.js` SHA-256s each icon in `dashboard/public/` at
+config-load time and appends `?v=<8-char-hash>` to the manifest icon
+URLs (192/512/1024) and the static link tags in `index.html`
+(favicon.png, favicon.ico, apple-touch-icon.png) via the
+`transformIndexHtml` plugin. `workbox.ignoreURLParametersMatching`
+includes `/^v$/` so the versioned URLs still hit precache.
+
+A glow-props pattern proposal (`PWA_ICON_CACHE.md`) is drafted but
+not yet contributed upstream.
 
 **Dashboard V2:** Stable. Role-based view levels (Executive / Management /
 Developer), DaisyUI v5 dual-layer theming following
@@ -50,7 +82,7 @@ follow-on cleanup commit series. All commits listed below are on the
 5. **`8ca34f8`** — Progress inline → utility, QuickGuide mobile copy, z-index doc
 6. **`64e2c6c`** — styles.css trimmed 521 → 164 lines (tombstone removal)
 7. **`51d16d2`** — SESSION_NOTES.md rewritten as compact 77-line snapshot
-8. **`2036661`** — HISTORY.md split, pre-April 2026 entries archived
+8. **`2036661`** — changelog split (pre-April 2026 entries archived; both changelog files since removed — see `git log`)
 9. **`4f38b72`** — Timing.jsx 573 → 436 (extract components/TimingHeatmap.jsx)
 10. **`feb7129`** — DebugPill.jsx 527 → 200 (extract debug/DebugTabs.jsx + debug/debugStyles.js)
 11. **`f0bd185`** — Discover.jsx 711 → 430 (extract sections/discover/discoverData.js)
@@ -92,7 +124,7 @@ gaps in the first pass):**
 8. **`<this commit>`** — TODO.md post-sweep-verification item #4
    covering the second-pass changes, File-size Monitoring section for
    `useTimelineCharts.js` + `AppContext.jsx`, footer rewrite describing
-   both audit passes, HISTORY.md 2026-04-15 entry for the whole batch.
+   both audit passes.
 
 Build + tests pass after every commit.
 
@@ -127,7 +159,7 @@ exception list by actually removing 4 of the documented exceptions):**
    `aggregate-processed.js` writing to `dashboard/public/`.
 6. **`<this commit>`** — CLAUDE.md exception lists consolidated to
    reflect the 4 removed exceptions. Post-sweep-verification items
-   3+4 updated. HISTORY.md third-pass entry added.
+   3+4 updated.
 
 **After the third pass, the exception list is:**
 
@@ -281,7 +313,7 @@ styles.css.
 ## Pointers
 
 - Architecture, paths, conventions, theming approach: `CLAUDE.md`
-- Detailed change history: `docs/HISTORY.md`
+- Detailed change history: `git log --oneline` / `git log -p`
 - AI mistakes to avoid: `docs/AI_MISTAKES.md`
 - DaisyUI v5 conventions: `docs/DAISYUI_V5_NOTES.md`
 - Theme system reference: `docs/implementations/THEME_DARK_MODE.md`

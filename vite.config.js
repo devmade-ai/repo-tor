@@ -2,6 +2,134 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import tailwindcss from '@tailwindcss/vite';
+import { createHash } from 'node:crypto';
+import { readFileSync, existsSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const PUBLIC_DIR = resolve(__dirname, 'dashboard', 'public');
+
+// Requirement: When the icon PNGs change, re-installing the PWA must show the
+//   new icon — not the old one cached by the browser HTTP layer, the Vercel
+//   CDN, the Workbox precache, or Chrome's WebAPK shadow.
+// Approach: SHA-256 each icon file at config-load time, take the first 8 chars,
+//   and append `?v=<hash>` to the URL in (a) the PWA manifest icon entries and
+//   (b) the static <link rel="icon|apple-touch-icon"> tags in index.html via a
+//   small transformIndexHtml plugin. New URL -> fresh fetch at every cache
+//   layer; manifest icon URL change -> Chrome WebAPK regeneration. Paired with
+//   workbox.cleanupOutdatedCaches + ignoreURLParametersMatching below so the
+//   SW also drops the old precache entries on the next activation.
+// Alternatives considered:
+//   - Rename files (icon-192.v2.png): Rejected — requires bumping the source
+//     filename on every change AND keeping legacy names around for transition.
+//   - Vite asset-graph hashing: Rejected — vite-plugin-pwa copies includeAssets
+//     verbatim with no hash insertion, and dashboard/public/ files bypass the
+//     asset graph entirely (Vite serves them at root as-is).
+//   - Manual version constant: Rejected — drifts the moment someone forgets to
+//     bump it after running `npm run generate-icons`.
+// Note: OS-level icon caches (Springboard / Android launcher / Windows icon
+//   cache / macOS Icon Services) are platform-controlled and cannot be
+//   invalidated by URL changes. A full uninstall is still required there. This
+//   fix unblocks every cache layer the web app actually controls.
+function iconVersion(relPath) {
+  const full = resolve(PUBLIC_DIR, relPath);
+  if (!existsSync(full)) {
+    // Requirement: A missing icon must not silently produce `?v=0` URLs that
+    //   ship to production unnoticed (would break cache-busting AND look
+    //   broken to users — 404s on every favicon request).
+    // Approach: Warn loudly at config-load time. We don't throw because a
+    //   first-time clone may legitimately not have icons yet (npm install
+    //   runs before `npm run generate-icons`), and we don't want to break
+    //   `npm run dev` for that case. The CI build step runs generate-icons
+    //   first, so production builds always have real hashes.
+    // Alternatives:
+    //   - Throw on missing: Rejected — breaks fresh-clone dev flow.
+    //   - Silent '0': Original behavior, rejected — the warning here is
+    //     what catches "I deleted icons by accident" before it reaches prod.
+    console.warn(
+      `[iconVersion] missing icon at ${full} — using '0' as version. ` +
+      `Run \`npm run generate-icons\` to regenerate.`
+    );
+    return '0';
+  }
+  return createHash('sha256').update(readFileSync(full)).digest('hex').slice(0, 8);
+}
+
+const ICON_PATHS = [
+  'assets/images/icon-192.png',
+  'assets/images/icon-512.png',
+  'assets/images/icon.png',
+  'assets/images/favicon.png',
+  'favicon.ico',
+  'apple-touch-icon.png',
+];
+
+const ICON_VERSIONS = Object.fromEntries(
+  ICON_PATHS.map((p) => [p, iconVersion(p)])
+);
+
+const versioned = (relPath) => `${relPath}?v=${ICON_VERSIONS[relPath]}`;
+
+// Vite plugin: rewrite the static icon link tags in index.html so the browser
+// fetches a unique URL whenever the icon contents change. Pairs with the
+// versioned manifest icon URLs in the VitePWA config below.
+//
+// Requirement: A reformat of index.html (single-quoted attrs, attribute
+//   reorder, query already present, leading slash dropped, ...) must not
+//   silently no-op the cache-bust. `String.replace` returns the original
+//   string when the literal is missing; that would let us ship a manifest
+//   with versioned icons but a <head> with un-versioned ones, and the bug
+//   would only surface on the next icon change after deploy.
+// Approach: Walk a list of (literal -> replacement) pairs and assert the
+//   literal appears in the source HTML before replacing. Failure is a
+//   build-time throw with a clear message pointing at the affected file
+//   and literal — caught by `vite build`, by `vite dev`, and by the
+//   icon-cache-bust smoke test which exercises this path on every `npm test`.
+// Alternatives:
+//   - Regex with optional whitespace: Rejected — silently brittle to attr
+//     reordering, and gives no signal when the regex stops matching.
+//   - String.replaceAll: Rejected — same silent-no-op failure mode.
+//   - Generated marker block in index.html (like flash-prevention-meta):
+//     Rejected — adds a build artifact in source, the assertion approach
+//     keeps the source HTML clean and pushes the contract into the test.
+function iconCacheBustHtml() {
+  const REPLACEMENTS = [
+    {
+      from: 'href="/assets/images/favicon.png"',
+      to: () => `href="/${versioned('assets/images/favicon.png')}"`,
+    },
+    {
+      from: 'href="/favicon.ico"',
+      to: () => `href="/${versioned('favicon.ico')}"`,
+    },
+    {
+      from: 'href="/apple-touch-icon.png"',
+      to: () => `href="/${versioned('apple-touch-icon.png')}"`,
+    },
+  ];
+
+  return {
+    name: 'icon-cache-bust-html',
+    transformIndexHtml(html) {
+      let out = html;
+      for (const { from, to } of REPLACEMENTS) {
+        if (!out.includes(from)) {
+          throw new Error(
+            `[icon-cache-bust-html] expected literal not found in index.html: ${from}\n` +
+            `  This plugin appends ?v=<hash> to the static icon link tags. If you ` +
+            `reformatted the tag (single quotes, attribute reorder, ...), update the ` +
+            `REPLACEMENTS table in vite.config.js to match. The icon-cache-bust ` +
+            `smoke test (scripts/__tests__/icon-cache-bust.test.mjs) catches this ` +
+            `same drift at test time.`
+          );
+        }
+        out = out.replace(from, to());
+      }
+      return out;
+    },
+  };
+}
 
 export default defineConfig({
   root: 'dashboard',
@@ -17,6 +145,7 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
+    iconCacheBustHtml(),
     VitePWA({
       registerType: 'prompt',
       // Requirement: data.json (2.68MB) must NOT be precached — exceeds Workbox 2MB limit
@@ -40,19 +169,19 @@ export default defineConfig({
         prefer_related_applications: false,
         icons: [
           {
-            src: 'assets/images/icon-192.png',
+            src: versioned('assets/images/icon-192.png'),
             sizes: '192x192',
             type: 'image/png',
             purpose: 'any',
           },
           {
-            src: 'assets/images/icon-512.png',
+            src: versioned('assets/images/icon-512.png'),
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any',
           },
           {
-            src: 'assets/images/icon.png',
+            src: versioned('assets/images/icon.png'),
             sizes: '1024x1024',
             type: 'image/png',
             purpose: 'maskable',
@@ -60,6 +189,27 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Requirement: When Workbox itself bumps a major version (or we ever
+        //   change the precache cache name), the old precache store must not
+        //   linger in the browser holding onto the previous build's icons,
+        //   HTML, and JS bundle indefinitely.
+        // Approach: cleanupOutdatedCaches deletes any cache whose name uses
+        //   an older `workbox-precache-*` prefix than the active SW, on
+        //   activation. Note: same-prefix entries with stale revisions are
+        //   already replaced by Workbox's normal precache install flow — this
+        //   option is specifically about cross-version orphans, not per-build
+        //   cleanup.
+        // Alternatives: manual cache.delete() in an activate handler —
+        //   rejected, Workbox already handles this correctly.
+        cleanupOutdatedCaches: true,
+        // Requirement: Versioned icon URLs (`?v=<hash>`) must still hit the
+        //   Workbox precache. By default Workbox only strips `utm_*` queries
+        //   before matching, so `icon-192.png?v=abc` would miss the precached
+        //   `icon-192.png` entry and fall through to the network every time.
+        // Approach: Add `/^v$/` to ignoreURLParametersMatching so precache
+        //   lookup strips the cache-bust query and still serves from cache
+        //   offline. Paired with the icon hashing above in vite.config.js.
+        ignoreURLParametersMatching: [/^utm_/, /^v$/],
         // Requirement: User-controlled updates — no auto-skipWaiting
         // Approach: Omit skipWaiting and clientsClaim so the new SW waits until
         //   the user explicitly triggers applyUpdate() (which calls updateSW(true)).

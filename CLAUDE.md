@@ -106,9 +106,7 @@ The daisy theme IS the brand colour.
 |------|---------|----------------|
 | `CLAUDE.md` | AI preferences, project overview, architecture | When architecture, state structures, or preferences change |
 | `docs/SESSION_NOTES.md` | Compact context snapshot for session continuity | Rewrite at session end with fresh summary |
-| `docs/TODO.md` | AI-managed backlog (pending items only) | When noticing improvements; move completed to HISTORY.md |
-| `docs/HISTORY.md` | Changelog of completed work (active = April 2026 onward) | When completing TODO items or significant changes |
-| `docs/HISTORY_ARCHIVE.md` | Archived pre-April-2026 changelog entries | Only when trimming `HISTORY.md` once it grows unwieldy again — see file header for split rules |
+| `docs/TODO.md` | AI-managed backlog (pending items only) | When noticing improvements; remove items as they're completed |
 | `docs/USER_ACTIONS.md` | Manual tasks requiring user intervention | When tasks need external action (credentials, dashboards) |
 | `docs/AI_MISTAKES.md` | Record of significant AI errors and learnings | After making a mistake that wasted time or broke things |
 | `docs/DAISYUI_V5_NOTES.md` | DaisyUI v5 cheat sheet — v4→v5 renames, project conventions, verification recipe, deliberately-not-used components | When encountering a new DaisyUI v5 quirk, or when adding a new component class to JSX |
@@ -116,6 +114,8 @@ The daisy theme IS the brand colour.
 | `docs/USER_GUIDE.md` | Comprehensive feature documentation | When adding/changing features or UI workflows |
 | `docs/ADMIN_GUIDE.md` | Setup, extraction, and configuration guide for admins/maintainers | When data extraction, aggregation, deploy, or PWA setup workflows change |
 | `docs/TESTING_GUIDE.md` | Manual test scenarios | When adding features that need test coverage |
+
+**Changelog:** the git log is the changelog. Don't maintain a separate `HISTORY.md` / `CHANGELOG.md` — every commit message carries the rationale via its body + metadata footers (see `docs/COMMIT_CONVENTION.md`). Use `git log --oneline` or `git log -p` to browse.
 
 ### REMINDER: READ AND FOLLOW THE DOCUMENTATION EVERY TIME
 
@@ -340,21 +340,19 @@ These footers are required on every commit. No exceptions.
 
 ### After Each Significant Task
 
-- [ ] Remove completed items from docs/TODO.md (tracked in HISTORY.md)
+- [ ] Remove completed items from docs/TODO.md
 - [ ] Update docs/SESSION_NOTES.md with current state
 - [ ] Update docs/USER_GUIDE.md if dashboard UI or interpretation changed
 - [ ] Update docs/ADMIN_GUIDE.md if setup, extraction, or configuration changed
 - [ ] Update docs/TESTING_GUIDE.md if new test scenarios needed (use structured format: step-by-step actions, where to click/look, expected results, regression checklist)
 - [ ] Update other relevant docs (COMMIT_CONVENTION.md, etc.)
-- [ ] Add entry to docs/HISTORY.md if code/docs changed
-- [ ] Commit changes (code + docs together)
+- [ ] Commit changes (code + docs together) — the commit message body is where the "what + why" lives
 
 ### Before Each Commit
 
 - [ ] Relevant docs updated for changes in this commit
-- [ ] docs/HISTORY.md entry added (if significant change)
 - [ ] docs/SESSION_NOTES.md reflects current state
-- [ ] Commit message is clear and descriptive
+- [ ] Commit message is clear and descriptive with conventional format + metadata footers
 - [ ] No unused imports, dead code, or console.log statements (see Hard Rules > Cleanup)
 
 ### Before Each Push
