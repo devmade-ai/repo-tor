@@ -875,11 +875,15 @@ test('Exception invariant: arbitrary bracket values in JSX match CLAUDE.md allow
     // alignment, viewport calc max-width). A new bracket value requires
     // either rounding to stock, redesigning, or adding a 5th exception
     // with its own rationale.
+    // The earlier `max-w-[calc(100vw-2rem)]` (HamburgerMenu.jsx) was
+    // removed on 2026-04-15 — the max-width is now computed at runtime
+    // from `window.innerWidth` in the portal positioning useLayoutEffect
+    // and applied as an inline `style={{ maxWidth }}` which is an
+    // allowed inline-style use case (portal positioning / runtime data).
     const ALLOWED_BRACKETS = new Set([
         'z-[var(--z-sticky-header)]',
         'z-[var(--z-toast)]',
         'grid-cols-[auto_repeat(7,1fr)]',
-        'max-w-[calc(100vw-2rem)]',
     ]);
 
     const jsxFiles = walkFiles(join(REPO_ROOT, 'dashboard/js'), /\.(jsx|js)$/);

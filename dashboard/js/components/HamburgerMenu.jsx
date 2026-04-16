@@ -95,9 +95,36 @@ export default function HamburgerMenu({ items }) {
         function updatePosition() {
             const rect = triggerRef.current?.getBoundingClientRect();
             if (!rect) return;
+            // Requirement: Dropdown must not overflow the viewport on narrow
+            //   phones. The trigger button is typically near the right edge
+            //   of the header, so the dropdown extends rightward from
+            //   rect.left — without a width clamp, the right edge overflows.
+            // Approach: Compute maxWidth from `window.innerWidth - 32`
+            //   (16px safe margin each side) in the same measurement pass
+            //   as top/left. This is functionally equivalent to the previous
+            //   CSS `max-w-[calc(100vw-2rem)]` but avoids the arbitrary
+            //   bracket value (CLAUDE.md policy) and uses
+            //   `window.innerWidth` instead of CSS `100vw` — the former
+            //   excludes scrollbar width on browsers where the scrollbar
+            //   overlaps the viewport, so the clamp is tighter and correct.
+            //   The value is runtime-computed from the viewport, which is an
+            //   explicitly allowed inline-style use case per CLAUDE.md.
+            // Alternatives:
+            //   - CSS `max-w-[calc(100vw-2rem)]` (previous state, deleted
+            //     2026-04-15): Rejected — arbitrary bracket value that
+            //     required a permanent CLAUDE.md exception. Also used
+            //     `100vw` which includes scrollbar width on some browsers.
+            //   - Stock `max-w-xs` (320px): Rejected — on a 320px phone the
+            //     dropdown would be allowed to be 320px wide, which is the
+            //     full viewport width with zero margin. The point is to
+            //     leave a safe margin.
+            //   - floating-ui / Popper.js: Rejected — dependency for one
+            //     menu, and the measurement is already trivial.
+            const safeMargin = 16; // px, each side
             setTriggerPos({
                 top: rect.bottom + 6, // 6px gap, matches the pre-portal CSS
                 left: rect.left,
+                maxWidth: window.innerWidth - 2 * safeMargin,
             });
         }
         updatePosition();
@@ -209,8 +236,8 @@ export default function HamburgerMenu({ items }) {
                 ref={menuRef}
                 id={menuId}
                 aria-label="Secondary actions"
-                className="fixed min-w-52 max-w-[calc(100vw-2rem)] bg-base-200 border border-base-300 rounded-md shadow-xl z-50 py-1 overscroll-contain"
-                style={{ top: `${triggerPos.top}px`, left: `${triggerPos.left}px` }}
+                className="fixed min-w-52 bg-base-200 border border-base-300 rounded-md shadow-xl z-50 py-1 overscroll-contain"
+                style={{ top: `${triggerPos.top}px`, left: `${triggerPos.left}px`, maxWidth: `${triggerPos.maxWidth}px` }}
                 onKeyDown={handleMenuKeyDown}
             >
                 <ul className="list-none m-0 p-0">
