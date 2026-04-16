@@ -4,6 +4,22 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-16
 
+### Fix stale PWA icon after re-install (cache-busting via content hash)
+
+Re-installing the PWA (or simply clearing site data) kept showing the old icon because the icon URLs (`assets/images/icon-192.png`, `apple-touch-icon.png`, `favicon.ico`, ...) never changed — so the browser HTTP cache, the Vercel CDN, the Workbox precache, and Chrome's WebAPK shadow all kept serving the previous bytes.
+
+Changes in `vite.config.js`:
+
+1. SHA-256 each icon file in `dashboard/public/` at config-load time, take the first 8 chars, and append `?v=<hash>` to (a) the three PWA manifest icon entries (192/512/1024) and (b) the static `<link rel="icon|apple-touch-icon">` tags in `index.html` via a small `transformIndexHtml` plugin (`iconCacheBustHtml`).
+2. Add `workbox.cleanupOutdatedCaches: true` so the SW drops the previous build's precache entries on activation. (Was missing — caught by the glow-props `PWA_SYSTEM.md` pattern review.)
+3. Add `workbox.ignoreURLParametersMatching: [/^utm_/, /^v$/]` so the versioned URLs still hit the precached entries (Workbox would otherwise miss `icon-192.png?v=abc` against the precached `icon-192.png`).
+
+Hash is derived from file contents, so the version only changes when the icons actually change — no manual bumping. New URL → fresh fetch at every cache layer the web app controls; new manifest icon URL → Chrome WebAPK regeneration on next update check. OS-level icon caches (Springboard, Android launcher, Windows icon cache, macOS Icon Services) are platform-controlled and still require a full PWA uninstall to refresh — documented in the new code comment.
+
+Verified: `dist/manifest.webmanifest` icons render as e.g. `icon-192.png?v=de08cd78`; `dist/index.html` link tags render as e.g. `favicon.png?v=05809e07`; `dist/sw.js` contains `cleanupOutdatedCaches()` and `ignoreURLParametersMatching:[/^utm_/,/^v$/]`. 65/65 tests pass.
+
+Pattern proposal drafted for glow-props (`PWA_ICON_CACHE.md`) — not yet contributed upstream.
+
 ### Fix active repo colors indistinguishable from gray in monochrome themes
 
 `chartColors.js` used the full semantic cycle (primary → secondary → accent → ...) for active repo colors, but monochrome DaisyUI themes (lofi, black) define primary/secondary/accent as achromatic grays — making active repos indistinguishable from the neutral gray used for internal/discontinued repos.

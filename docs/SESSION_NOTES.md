@@ -1,12 +1,26 @@
 # Session Notes
 
 Compact context snapshot for AI continuity. Updated 2026-04-16 after
-repo color consistency fix + default dark theme change.
+the PWA icon cache-busting fix (vite.config.js content-hash versioning
++ workbox cleanupOutdatedCaches/ignoreURLParametersMatching).
 Detailed history lives in `docs/HISTORY.md` and the git log.
 
 ## Current State
 
-**Branch:** `claude/set-dracula-default-theme-Or6Kl`.
+**Branch:** `claude/fix-pwa-icon-cache-p2JOQ`.
+
+**Last change:** PWA icon cache-busting. `vite.config.js` now SHA-256s
+each icon file in `dashboard/public/` at config-load time and appends
+`?v=<8-char-hash>` to the manifest icon URLs (192/512/1024) and the
+static link tags in `index.html` (favicon.png, favicon.ico,
+apple-touch-icon.png) via a `transformIndexHtml` plugin
+(`iconCacheBustHtml`). Also added `workbox.cleanupOutdatedCaches: true`
+and `workbox.ignoreURLParametersMatching: [/^utm_/, /^v$/]` so the
+versioned URLs hit precache and stale entries get swept on activation.
+OS-level icon caches (Springboard, Android launcher, etc.) still need
+a full uninstall — documented in the code comment. Fix unblocks every
+cache layer the web app actually controls. A glow-props pattern
+proposal (`PWA_ICON_CACHE.md`) is drafted but not yet contributed.
 
 **Dashboard V2:** Stable. Role-based view levels (Executive / Management /
 Developer), DaisyUI v5 dual-layer theming following
