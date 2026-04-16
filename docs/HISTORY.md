@@ -4,6 +4,15 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-16
 
+### Fix active repo colors indistinguishable from gray in monochrome themes
+
+`chartColors.js` used the full semantic cycle (primary → secondary → accent → ...) for active repo colors, but monochrome DaisyUI themes (lofi, black) define primary/secondary/accent as achromatic grays — making active repos indistinguishable from the neutral gray used for internal/discontinued repos.
+
+Added `resolveActiveRepoColor()` which filters candidate tokens by oklch chroma at runtime (threshold 0.03). In monochrome themes, only the 4 status tokens (info/success/warning/error) survive, guaranteeing all active repos get visibly colorful assignments. In colorful themes (nord, emerald, dim, dracula) all 7 tokens pass unchanged. Also removed `--color-neutral` from the active-repo candidate list since it's reserved for internal/discontinued categories.
+
+Before (black theme): budgy-ting=gray, canva-grid=gray, graphiki=gray, model-pear=blue, ...
+After (black theme): budgy-ting=blue, canva-grid=green, graphiki=yellow, model-pear=red, ...
+
 ### Change default dark theme to Dracula
 
 Changed `DEFAULT_DARK_THEME` from `black` to `dracula` in `scripts/theme-config.js`. The generator propagated the change to `dashboard/index.html` (flash-prevention inline script), `dashboard/js/themes.js` (runtime catalog), and `dashboard/styles.css` (`--prefersdark` flag moved from `black` to `dracula`). Existing users with a persisted `darkTheme` in localStorage are unaffected.

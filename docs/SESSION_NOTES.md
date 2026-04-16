@@ -247,16 +247,20 @@ Build passes, 64 tests pass.
 (last item → first), Home/End jump to first/last, disabled items
 can't be clicked or focused via keyboard.
 
-## 2026-04-16 — Default dark theme changed to Dracula
+## 2026-04-16 — Repo color consistency fix + default dark theme
 
-Changed `DEFAULT_DARK_THEME` from `black` to `dracula` in
-`scripts/theme-config.js`. Generator propagated the change to
-`dashboard/index.html`, `dashboard/js/themes.js`, and
-`dashboard/styles.css` (moves `--prefersdark` from `black` to `dracula`).
+**Repo color fix:** `chartColors.js` active repo colors now filter out
+achromatic tokens at runtime via `resolveActiveRepoColor()`. Monochrome
+themes (lofi, black) had primary/secondary/accent as gray — identical to
+the neutral used for internal/discontinued repos. The fix uses oklch
+chroma detection (threshold 0.03) so only colorful tokens are assigned.
+Status tokens (info/success/warning/error) are always colorful; identity
+tokens (primary/secondary/accent) are included only when the active theme
+gives them chroma. Neutral is excluded entirely from active-repo candidates.
 
-Users who have never toggled dark mode will now see the Dracula theme
-instead of Black on first visit. Existing users with a persisted
-`darkTheme` in localStorage are unaffected.
+**Default dark theme:** Changed from `black` to `dracula` in
+`scripts/theme-config.js`. Generator propagated to index.html, themes.js,
+styles.css.
 
 ## Pointers
 
