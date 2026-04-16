@@ -5,7 +5,8 @@
        - Important content within inner 80% (safe zone: 102-922 on each axis)
        - Must be legible at 48px (favicon) — no fine details
        - No gradients, opacity, glow, or fade — solid colors only for clean rasterization
-       Palette: DaisyUI Dracula theme (default dark theme since 2026-04-16) -->
+       Palette: DaisyUI Dracula theme (default dark theme since 2026-04-16)
+       Concept: Clean chart bars only — the app shows analytics, the icon shows analytics. -->
 
   <!-- Background — Dracula base-100 -->
   <rect width="1024" height="1024" rx="192" fill="#282a36"/>
@@ -20,30 +21,9 @@
     <line x1="160" y1="672" x2="864" y2="672"/>
   </g>
 
-  <!-- Chart bars — Dracula purple (secondary) progression, darkest to brightest -->
-  <rect x="208" y="560" width="96" height="304" rx="16" fill="#9b78d6"/>
-  <rect x="368" y="400" width="96" height="464" rx="16" fill="#a985e7"/>
-  <rect x="528" y="280" width="96" height="584" rx="16" fill="#bd93f9"/>
-  <rect x="688" y="360" width="96" height="504" rx="16" fill="#b08cef"/>
-
-  <!-- Git branch-and-merge — fork/merge diamond pattern (recognizable git graph shape).
-       Main branch: 3 nodes horizontal. Feature branch: 2 nodes forking down then merging back.
-       Lines drawn first (behind), circles on top. -->
-  <g stroke="#f8f8f3" stroke-width="14" stroke-linecap="round" fill="none">
-    <!-- Main branch path -->
-    <line x1="240" y1="175" x2="760" y2="175"/>
-    <!-- Fork: main → feature -->
-    <line x1="240" y1="175" x2="380" y2="260"/>
-    <!-- Feature branch path -->
-    <line x1="380" y1="260" x2="620" y2="260"/>
-    <!-- Merge: feature → main -->
-    <line x1="620" y1="260" x2="760" y2="175"/>
-  </g>
-  <!-- Main branch nodes — green (origin) + pink (commits) -->
-  <circle cx="240" cy="175" r="28" fill="#51fa7b"/>
-  <circle cx="500" cy="175" r="28" fill="#ff79c6"/>
-  <circle cx="760" cy="175" r="28" fill="#ff79c6"/>
-  <!-- Feature branch nodes — purple (matches chart bars) -->
-  <circle cx="380" cy="260" r="24" fill="#bd93f9"/>
-  <circle cx="620" cy="260" r="24" fill="#bd93f9"/>
+  <!-- Chart bars — 4 distinct Dracula semantic colors: purple, pink, cyan, orange -->
+  <rect x="208" y="520" width="128" height="344" rx="16" fill="#bd93f9"/>
+  <rect x="368" y="320" width="128" height="544" rx="16" fill="#ff79c6"/>
+  <rect x="528" y="200" width="128" height="664" rx="16" fill="#8be9fd"/>
+  <rect x="688" y="400" width="128" height="464" rx="16" fill="#ffb86c"/>
 </svg>
