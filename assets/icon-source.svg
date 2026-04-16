@@ -26,10 +26,24 @@
   <rect x="528" y="280" width="96" height="584" rx="16" fill="#bd93f9"/>
   <rect x="688" y="360" width="96" height="504" rx="16" fill="#b08cef"/>
 
-  <!-- Git branch symbol — Dracula green (success) + pink (primary), foreground connectors -->
-  <circle cx="320" cy="200" r="32" fill="#51fa7b"/>
-  <circle cx="560" cy="200" r="32" fill="#ff79c6"/>
-  <circle cx="704" cy="200" r="32" fill="#ff79c6"/>
-  <line x1="352" y1="200" x2="528" y2="200" stroke="#f8f8f3" stroke-width="16" stroke-linecap="round"/>
-  <line x1="592" y1="200" x2="672" y2="200" stroke="#f8f8f3" stroke-width="16" stroke-linecap="round"/>
+  <!-- Git branch-and-merge — fork/merge diamond pattern (recognizable git graph shape).
+       Main branch: 3 nodes horizontal. Feature branch: 2 nodes forking down then merging back.
+       Lines drawn first (behind), circles on top. -->
+  <g stroke="#f8f8f3" stroke-width="14" stroke-linecap="round" fill="none">
+    <!-- Main branch path -->
+    <line x1="240" y1="175" x2="760" y2="175"/>
+    <!-- Fork: main → feature -->
+    <line x1="240" y1="175" x2="380" y2="260"/>
+    <!-- Feature branch path -->
+    <line x1="380" y1="260" x2="620" y2="260"/>
+    <!-- Merge: feature → main -->
+    <line x1="620" y1="260" x2="760" y2="175"/>
+  </g>
+  <!-- Main branch nodes — green (origin) + pink (commits) -->
+  <circle cx="240" cy="175" r="28" fill="#51fa7b"/>
+  <circle cx="500" cy="175" r="28" fill="#ff79c6"/>
+  <circle cx="760" cy="175" r="28" fill="#ff79c6"/>
+  <!-- Feature branch nodes — purple (matches chart bars) -->
+  <circle cx="380" cy="260" r="24" fill="#bd93f9"/>
+  <circle cx="620" cy="260" r="24" fill="#bd93f9"/>
 </svg>
