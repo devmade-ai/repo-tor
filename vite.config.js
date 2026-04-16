@@ -31,8 +31,8 @@ export default defineConfig({
         // Approach: Explicit id prevents Chrome from deriving it from start_url
         // Alternatives: Omit id — rejected, breaks install identity on config changes/redeployments
         id: '/',
-        theme_color: '#2D68FF',
-        background_color: '#1B1B1B',
+        theme_color: '#bd93f9',
+        background_color: '#282a36',
         display: 'standalone',
         // Requirement: Ensure beforeinstallprompt fires on Chromium
         // Approach: Explicit false prevents Chrome from skipping install prompt

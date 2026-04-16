@@ -4,13 +4,15 @@
        - Background fills entire 1024x1024 canvas (no transparency)
        - Important content within inner 80% (safe zone: 102-922 on each axis)
        - Must be legible at 48px (favicon) — no fine details
-       - No gradients, opacity, glow, or fade — solid colors only for clean rasterization -->
+       - No gradients, opacity, glow, or fade — solid colors only for clean rasterization
+       Palette: DaisyUI Dracula theme (default dark theme since 2026-04-16)
+       Concept: Clean chart bars only — the app shows analytics, the icon shows analytics. -->
 
-  <!-- Background — solid dark -->
-  <rect width="1024" height="1024" rx="192" fill="#1B1B1B"/>
+  <!-- Background — Dracula base-100 -->
+  <rect width="1024" height="1024" rx="192" fill="#282a36"/>
 
-  <!-- Grid lines (techy aesthetic) — solid, subtle -->
-  <g stroke="#333333" stroke-width="2">
+  <!-- Grid lines (techy aesthetic) — Dracula neutral -->
+  <g stroke="#414558" stroke-width="2">
     <line x1="256" y1="160" x2="256" y2="864"/>
     <line x1="512" y1="160" x2="512" y2="864"/>
     <line x1="768" y1="160" x2="768" y2="864"/>
@@ -19,16 +21,10 @@
     <line x1="160" y1="672" x2="864" y2="672"/>
   </g>
 
-  <!-- Chart bars — solid colors, no opacity or gradients -->
-  <rect x="208" y="560" width="96" height="304" rx="16" fill="#1E4FCC"/>
-  <rect x="368" y="400" width="96" height="464" rx="16" fill="#2558DD"/>
-  <rect x="528" y="280" width="96" height="584" rx="16" fill="#2D68FF"/>
-  <rect x="688" y="360" width="96" height="504" rx="16" fill="#2560EE"/>
-
-  <!-- Git branch symbol — solid fills, no stroke overlap -->
-  <circle cx="320" cy="200" r="32" fill="#16A34A"/>
-  <circle cx="560" cy="200" r="32" fill="#2D68FF"/>
-  <circle cx="704" cy="200" r="32" fill="#2D68FF"/>
-  <line x1="352" y1="200" x2="528" y2="200" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
-  <line x1="592" y1="200" x2="672" y2="200" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round"/>
+  <!-- Chart bars — 4 distinct Dracula semantic colors: purple, pink, cyan, orange
+       Vertically centered: top=180, bottom=844, center=512 -->
+  <rect x="208" y="500" width="128" height="344" rx="16" fill="#bd93f9"/>
+  <rect x="368" y="300" width="128" height="544" rx="16" fill="#ff79c6"/>
+  <rect x="528" y="180" width="128" height="664" rx="16" fill="#8be9fd"/>
+  <rect x="688" y="380" width="128" height="464" rx="16" fill="#ffb86c"/>
 </svg>

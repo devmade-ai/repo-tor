@@ -1001,6 +1001,103 @@ test('Exception invariant: hex colour literals in dashboard/js are scoped to the
     );
 });
 
+test('Repo color invariant: active repos get only colorful tokens in every registered theme', () => {
+    // chartColors.js resolveActiveRepoColor() filters ACTIVE_REPO_TOKENS by
+    // oklch chroma at runtime (threshold 0.03) so active repos are always
+    // visually distinct from the neutral gray used for internal/discontinued
+    // repos. This test verifies the filtering at the source-data level by
+    // reading each registered DaisyUI theme's token values and checking that
+    // the expected number of tokens pass the chroma threshold.
+    //
+    // If a DaisyUI upgrade changes a theme's token values, this test will
+    // catch the shift — either a colorful token became achromatic (fewer
+    // palette slots for active repos) or an achromatic token gained chroma
+    // (more slots, which is fine but should be reviewed).
+    const ACTIVE_REPO_TOKENS = [
+        'primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error',
+    ];
+    const MIN_CHROMA = 0.03;
+    const CHROMA_RE = /oklch\(\s*[\d.]+%?\s+([\d.]+)/;
+
+    // Expected colorful-token count per registered theme. Update this map
+    // when adding/removing themes in scripts/theme-config.js or when a
+    // DaisyUI upgrade changes a token's chroma across the threshold.
+    const EXPECTED_COLORFUL_COUNT = {
+        lofi: 4,           // only info/success/warning/error
+        nord: 7,           // all 7 tokens
+        emerald: 7,
+        caramellatte: 6,   // primary is achromatic (pure black)
+        black: 4,          // primary/secondary/accent all achromatic
+        dim: 7,
+        coffee: 6,         // secondary chroma 0.029, just below threshold
+        dracula: 7,
+    };
+
+    // Read theme-config.js to get the registered theme list.
+    const themeConfigSrc = read('scripts/theme-config.js');
+    const themeIdMatches = [...themeConfigSrc.matchAll(/id:\s*'([^']+)'/g)];
+    const registeredThemes = themeIdMatches.map(m => m[1]);
+
+    assert.ok(
+        registeredThemes.length >= 4,
+        `Expected at least 4 registered themes, found ${registeredThemes.length}`
+    );
+
+    for (const theme of registeredThemes) {
+        // Import the DaisyUI theme object (same approach as generate-theme-meta.mjs)
+        let themeObj;
+        try {
+            themeObj = require(`daisyui/theme/${theme}/object.js`);
+            themeObj = themeObj.default || themeObj;
+        } catch {
+            assert.fail(`Could not import daisyui/theme/${theme}/object.js — is "${theme}" a valid DaisyUI theme?`);
+        }
+
+        // Count colorful tokens
+        const colorfulTokens = [];
+        const achromaticTokens = [];
+        for (const token of ACTIVE_REPO_TOKENS) {
+            const val = themeObj[`--color-${token}`];
+            assert.ok(val, `Theme "${theme}" missing --color-${token}`);
+            const match = val.match(CHROMA_RE);
+            assert.ok(match, `Theme "${theme}" --color-${token} is not oklch format: ${val}`);
+            const chroma = parseFloat(match[1]);
+            if (chroma >= MIN_CHROMA) {
+                colorfulTokens.push(token);
+            } else {
+                achromaticTokens.push(`${token} (${chroma})`);
+            }
+        }
+
+        // At least 4 colorful tokens must survive (info/success/warning/error
+        // are always colorful in DaisyUI stock themes)
+        assert.ok(
+            colorfulTokens.length >= 4,
+            `Theme "${theme}" has only ${colorfulTokens.length} colorful tokens (need >= 4). ` +
+            `Achromatic: ${achromaticTokens.join(', ')}`
+        );
+
+        // Verify exact expected count if registered in the map
+        if (EXPECTED_COLORFUL_COUNT[theme] !== undefined) {
+            assert.equal(
+                colorfulTokens.length,
+                EXPECTED_COLORFUL_COUNT[theme],
+                `Theme "${theme}" colorful token count changed: expected ${EXPECTED_COLORFUL_COUNT[theme]}, ` +
+                `got ${colorfulTokens.length}. Colorful: [${colorfulTokens.join(', ')}], ` +
+                `achromatic: [${achromaticTokens.join(', ')}]. ` +
+                'Update EXPECTED_COLORFUL_COUNT in this test if the change is intentional.'
+            );
+        }
+
+        // Neutral must NOT be in ACTIVE_REPO_TOKENS — it's reserved for
+        // internal/discontinued. Verify it exists in the theme (sanity).
+        assert.ok(
+            themeObj['--color-neutral'],
+            `Theme "${theme}" missing --color-neutral`
+        );
+    }
+});
+
 test('Exception invariant: every JSX heading carries font-mono utility class', () => {
     // The `h1, h2, h3 { font-family: var(--font-mono) }` element-selector
     // rule in styles.css was deleted 2026-04-15 in commit 5bcc2c2. The

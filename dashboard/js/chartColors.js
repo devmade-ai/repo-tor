@@ -10,12 +10,16 @@
  *   111+, Firefox 113+, Safari 16.2+) parse oklch() in canvas, so Chart.js
  *   accepts the values directly without a conversion step.
  *
- *   Chart datasets with multiple categories cycle through an 8-colour
- *   sequence of DaisyUI semantic tokens (primary → secondary → accent →
- *   info → success → warning → error → neutral). Charts with more than
- *   eight series repeat colours. The previous 20-hex palette offered more
- *   distinct values at the cost of being theme-independent; the vanilla
- *   version prioritises theme fidelity.
+ *   General chart datasets cycle through an 8-colour sequence of DaisyUI
+ *   semantic tokens (primary → secondary → accent → info → success →
+ *   warning → error → neutral) via getSeriesColor(). Repo-specific
+ *   charts use a smarter resolver (resolveActiveRepoColor) that filters
+ *   out achromatic tokens at runtime — monochrome themes like lofi and
+ *   black define primary/secondary/accent as gray, which would make
+ *   active repos indistinguishable from internal/discontinued repos.
+ *   The previous 20-hex palette offered more distinct values at the cost
+ *   of being theme-independent; the vanilla version prioritises theme
+ *   fidelity.
  *
  * Alternatives considered:
  *   - 20-hex brand palette (previous state): Rejected — user directive
@@ -104,7 +108,16 @@ export function withOpacity(color, opacity) {
 // Implementation: both inactive categories use `--color-neutral` with
 // different opacity overlays via color-mix. Internal at 60% (clearly
 // visible but de-emphasised), discontinued at 30% (barely-there ghost).
-// Active cycles through the 8-slot semantic palette via getSeriesColor.
+//
+// Active repos use `resolveActiveRepoColor` which filters tokens by
+// oklch chroma at runtime. Monochrome themes (lofi, black) define
+// primary/secondary/accent as achromatic grays identical to neutral —
+// without filtering, active repos would be indistinguishable from
+// internal/discontinued repos. The status tokens (info/success/warning/
+// error) are colorful in every DaisyUI stock theme, guaranteeing at
+// least 4 distinct colours after filtering. Neutral is excluded from
+// the active-repo candidate list entirely since it's reserved for the
+// internal/discontinued categories.
 //
 // Earlier vanilla-sweep version mapped internal → `--color-base-content`
 // (the primary text colour, HIGH contrast) which inverted the intended
@@ -120,11 +133,66 @@ function dimNeutral(opacity) {
     return `color-mix(in oklab, ${neutral} ${Math.round(opacity * 100)}%, transparent)`;
 }
 
+// Candidate tokens for active repos — neutral is excluded because it's
+// reserved for the internal/discontinued dimmed overlays.
+const ACTIVE_REPO_TOKENS = [
+    '--color-primary',
+    '--color-secondary',
+    '--color-accent',
+    '--color-info',
+    '--color-success',
+    '--color-warning',
+    '--color-error',
+];
+
+// Minimum oklch chroma to consider a colour "colorful" rather than gray.
+// Monochrome themes (lofi, black) set primary/secondary/accent to chroma 0;
+// even coffee's secondary (0.029) reads as gray. Threshold 0.03 catches all
+// of these while keeping every status token (lowest observed: coffee info at
+// 0.063) and every colorful identity token (lowest: nord secondary at 0.059).
+const MIN_ACTIVE_CHROMA = 0.03;
+
+/**
+ * Resolve a colour for an active (public-facing) repo by index.
+ *
+ * Filters out achromatic tokens whose oklch chroma falls below
+ * MIN_ACTIVE_CHROMA so active repos always stand out from the neutral
+ * grays used for internal/discontinued categories. In colorful themes
+ * (nord, emerald, dim, dracula) all 7 tokens pass; in monochrome themes
+ * (lofi, black) only the 4 status tokens survive, and active repos cycle
+ * through those.
+ */
+function resolveActiveRepoColor(index) {
+    const colorful = [];
+    for (const token of ACTIVE_REPO_TOKENS) {
+        const val = readCssVar(token);
+        if (!val) continue;
+        // DaisyUI custom properties resolve to oklch(L C H) strings.
+        // Extract chroma (2nd numeric value) to detect achromatic tokens.
+        const match = val.match(/oklch\(\s*[\d.]+%?\s+([\d.]+)/);
+        if (match) {
+            if (parseFloat(match[1]) >= MIN_ACTIVE_CHROMA) colorful.push(val);
+        } else {
+            // Non-oklch format (unlikely but safe) — include rather than exclude
+            colorful.push(val);
+        }
+    }
+    if (colorful.length === 0) {
+        // Unreachable with DaisyUI stock themes — every stock theme has at
+        // least 4 colorful status tokens. Log a warning so broken custom
+        // themes surface during development rather than silently rendering
+        // gray active repos.
+        console.warn('[chartColors] resolveActiveRepoColor: no colorful tokens found — theme may define all tokens as achromatic');
+        return readCssVar(ACTIVE_REPO_TOKENS[0]);
+    }
+    return colorful[index % colorful.length];
+}
+
 /**
  * Get a chart colour for a repo based on its category. Discontinued repos
  * get a 30%-opacity neutral overlay (ghost), internal repos get 60%
  * neutral (visible but muted), active public-facing repos cycle through
- * the 8-slot semantic palette. All values resolve to the active DaisyUI
+ * colorful semantic tokens only. All values resolve to the active DaisyUI
  * theme at call time.
  *
  * Module-private — only `buildRepoColorMap` below consumes this helper.
@@ -132,7 +200,7 @@ function dimNeutral(opacity) {
 function getRepoColor(repoName, activeIndex) {
     if (DISCONTINUED_REPOS.has(repoName)) return dimNeutral(0.3);
     if (INTERNAL_REPOS.has(repoName)) return dimNeutral(0.6);
-    return getSeriesColor(activeIndex);
+    return resolveActiveRepoColor(activeIndex);
 }
 
 /**

@@ -66,7 +66,7 @@ export const DARK_THEMES = [
 ];
 
 export const DEFAULT_LIGHT_THEME = "lofi";
-export const DEFAULT_DARK_THEME = "black";
+export const DEFAULT_DARK_THEME = "dracula";
 /* END GENERATED: theme-catalog */
 
 // --- Validation helpers ---

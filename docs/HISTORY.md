@@ -4,6 +4,44 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-16
 
+### Fix active repo colors indistinguishable from gray in monochrome themes
+
+`chartColors.js` used the full semantic cycle (primary → secondary → accent → ...) for active repo colors, but monochrome DaisyUI themes (lofi, black) define primary/secondary/accent as achromatic grays — making active repos indistinguishable from the neutral gray used for internal/discontinued repos.
+
+Added `resolveActiveRepoColor()` which filters candidate tokens by oklch chroma at runtime (threshold 0.03). In monochrome themes, only the 4 status tokens (info/success/warning/error) survive, guaranteeing all active repos get visibly colorful assignments. In colorful themes (nord, emerald, dim, dracula) all 7 tokens pass unchanged. Also removed `--color-neutral` from the active-repo candidate list since it's reserved for internal/discontinued categories.
+
+Before (black theme): budgy-ting=gray, canva-grid=gray, graphiki=gray, model-pear=blue, ...
+After (black theme): budgy-ting=blue, canva-grid=green, graphiki=yellow, model-pear=red, ...
+
+### Strengthen repo color fix — tripwire test, fallback warning, doc updates
+
+Follow-up pass after the chroma-filtering fix:
+
+1. **Tripwire test** — Added test 43 (`Repo color invariant: active repos get only colorful tokens in every registered theme`) to `daisyui-surfaces.test.mjs`. Reads each DaisyUI theme's token values and verifies: (a) at least 4 colorful tokens survive per theme, (b) exact expected count matches the `EXPECTED_COLORFUL_COUNT` map. Catches DaisyUI upgrades that shift a token's chroma across the 0.03 threshold. Test count 64 → 65.
+2. **Fallback warning** — Added `console.warn` in the `resolveActiveRepoColor` zero-colorful-tokens fallback. Unreachable with stock themes (all have ≥ 4 colorful status tokens) but surfaces broken custom themes during development.
+3. **Doc updates** — Updated stale "8-slot semantic cycle" descriptions in `EMBED_IMPLEMENTATION.md` (Color Architecture section), `DAISYUI_V5_NOTES.md` (Chart.js dataset colors paragraph), and `CLAUDE.md` (chartColors.js entry in Key Components) to reflect the dual-cycle design (general 8-token + filtered repo-specific 7-token).
+4. **Discovery documented** — Caramellatte's `--color-neutral` has oklch chroma 0.195 (warm brown, not gray). Internal/discontinued repos in caramellatte render as warm-toned semi-transparent overlays, not gray. This is by design — DaisyUI's neutral matches the warm palette — and the visual hierarchy is maintained through opacity. All other themes have near-gray neutrals (chroma < 0.04).
+
+### Rebrand SVG icon and static assets to Dracula palette
+
+Updated the master SVG (`assets/icon-source.svg`) and all generated PNGs/ICO to use the Dracula theme palette:
+
+- Background: `#1B1B1B` → `#282a36` (Dracula base-100)
+- Grid lines: `#333333` → `#414558` (Dracula neutral)
+- Chart bars: blue gradient → `#9b78d6` / `#a985e7` / `#bd93f9` / `#b08cef` (Dracula purple progression)
+- Git nodes: `#16A34A` → `#51fa7b` (Dracula green), `#2D68FF` → `#ff79c6` (Dracula pink)
+- Connectors: `#FFFFFF` → `#f8f8f3` (Dracula foreground)
+
+Also updated:
+- `vite.config.js` PWA manifest: `theme_color` → `#bd93f9`, `background_color` → `#282a36`
+- `dashboard/index.html` pre-React loading spinner: ring `#414558`, accent `#bd93f9`
+- `dashboard/public/offline.html`: background, heading, button colors to Dracula palette
+- `CLAUDE.md`: hex literal list in index.html scope note updated
+
+### Change default dark theme to Dracula
+
+Changed `DEFAULT_DARK_THEME` from `black` to `dracula` in `scripts/theme-config.js`. The generator propagated the change to `dashboard/index.html` (flash-prevention inline script), `dashboard/js/themes.js` (runtime catalog), and `dashboard/styles.css` (`--prefersdark` flag moved from `black` to `dracula`). Existing users with a persisted `darkTheme` in localStorage are unaffected.
+
 ### Wire focus trap and keyboard nav improvements to HamburgerMenu
 
 Completed several items from the BURGER_MENU partial-to-complete checklist:
