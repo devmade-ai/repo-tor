@@ -153,6 +153,24 @@ test('Phase 5 — CollapsibleSection uses DaisyUI collapse component', () => {
     assert.match(src, /isEmbedMode/, 'CollapsibleSection must short-circuit in embed mode');
 });
 
+test('Root ErrorBoundary in main.jsx uses Tailwind utilities, not inline styles', () => {
+    // The root ErrorBoundary fallback was converted from inline style={{}}
+    // to Tailwind utility classes on 2026-04-15 (commit aea7c43). This
+    // test guards against re-adding inline styles for "CSS-load-failure
+    // resilience" — the browser's user-agent default stylesheet renders
+    // the fallback legibly even without Tailwind classes, so inline
+    // layout styles are belt-and-suspenders that don't justify a
+    // permanent CLAUDE.md exception.
+    const src = read('dashboard/js/main.jsx');
+    // Must use Tailwind layout utilities (not inline style)
+    assert.match(src, /className="min-h-screen flex flex-col items-center justify-center/,
+        'Root ErrorBoundary fallback should use Tailwind min-h-screen + flex utilities');
+    // Must NOT contain inline layout styles like minHeight / flexDirection
+    // (the old pattern we removed)
+    assert.doesNotMatch(src, /style=\{\{[^}]*minHeight/,
+        'Root ErrorBoundary should not use inline style={{ minHeight }} — use Tailwind min-h-screen instead');
+});
+
 test('Phase 5 — ErrorBoundary uses DaisyUI card + role="alert"', () => {
     const src = read('dashboard/js/components/ErrorBoundary.jsx');
     assert.match(src, /role="alert" className="card bg-base-200 border border-base-300"/);
