@@ -144,31 +144,88 @@ exception list by actually removing 4 of the documented exceptions):**
 - **Static inline style exceptions: 1** (was 2) — DebugPill
   subsystem only. Root ErrorBoundary gone.
 
-**Current file-size posture (all under 500-line soft-limit):**
-- Largest section: `Progress.jsx` 479
+**Fourth pass — retrospective + tripwire strengthening (4 commits):**
+
+After the third pass closed, a "trust but verify" retrospective
+caught five issues the three audit passes missed. Most of them
+weren't bugs — they were missing regression guards and
+under-documented scope edges.
+
+1. **`a7a9126`** — Added 3 tripwire regression guards that enforce
+   the CLAUDE.md exception lists at source level: bracket-value
+   allowlist (4 permitted values), hex literal scope (DebugPill
+   subsystem + themeMeta.js only), JSX heading font-mono requirement.
+   Test count 60 → 63. Without these, a future contributor could
+   drift past the rules the audits enforced.
+2. **`460e161`** — File-size sweep over the whole repo (not just
+   `dashboard/js/sections/`) caught `dashboard/js/pwa.js` at 578
+   lines (OVER soft-limit), `scripts/aggregate-processed.js` at
+   1042 lines (OVER strong-refactor 800), and `scripts/extract-api.js`
+   at 699 lines. None touched by the three audit passes because
+   they focused on section components. All three flagged in
+   docs/TODO.md with concrete split suggestions.
+3. **`57e2423`** — CLAUDE.md scope note: `dashboard/index.html`
+   contains intentional inline `style="..."` + hex literals
+   (pre-React loading spinner, noscript fallback, PWA early-capture
+   warnings) because those render before React/CSS load. A future
+   reviewer might flag them as policy violations without the
+   explicit documented scope exclusion.
+4. **`<this commit>`** — records the retrospective in HISTORY +
+   SESSION_NOTES, updates the file-size posture with the newly-found
+   oversized files.
+
+**Retrospective also verified prior assumptions:**
+
+- Verified Tailwind v4 preflight sets `html { font-family:
+  var(--default-font-family) }` which resolves to the `:root
+  --font-sans` Figtree stack via unlayered-CSS precedence. The
+  `<body class="font-sans">` from commit 12cd65d is strictly
+  redundant but harmless and explicit. **Also discovered the OLD
+  `* { font-family }` rule was a latent bug**: it overrode Tailwind
+  preflight's `code, kbd, samp, pre { font-family: monospace }`,
+  forcing `<code>` elements to render in Figtree. The 2026-04-15
+  removal fixed a bug nobody had noticed.
+- Verified DaisyUI v5 `:root, [data-theme]` base rule still ships
+  in `node_modules/daisyui/base/rootcolor.css`, so the
+  `body { background-color / color }` removal from commit 39cd3cf
+  still holds across DaisyUI upgrades.
+- Repo-wide greps confirmed no inline-style / bracket-value / hex
+  literal regressions.
+
+**Current file-size posture (every file under the STRONG 800-line
+refactor limit; dashboard/js/ files mostly under the 500 soft-limit
+except pwa.js):**
+
+- Largest section: `Progress.jsx` 483
 - Largest component: `App.jsx` 490
-- Largest shared module: `useTimelineCharts.js` 416 (TODO item
-  monitors for growth)
-- Largest state file: `AppContext.jsx` 338 + `appReducer.js` 285 (was
-  single 579-line file)
-- `styles.css` 167 (after the third-pass trim of two element-selector
-  rules)
+- Largest shared module: `useTimelineCharts.js` 416 (TODO monitor)
+- Largest state file: `AppContext.jsx` 338 + `appReducer.js` 285
+- **`dashboard/js/pwa.js` 578 — OVER soft-limit** (TODO split)
+- `styles.css` 175
+- **`scripts/aggregate-processed.js` 1042 — OVER strong-limit**
+  (TODO split)
+- **`scripts/extract-api.js` 699 — OVER soft-limit** (TODO monitor)
+- Tripwire test file: `daisyui-surfaces.test.mjs` 1023 lines
+  (test files are exempt from the soft-limit per convention — they
+  accumulate assertions monotonically)
 
 ## Open Items For Next Session
 
-- **`scripts/aggregate.js`** — investigate whether this pre-aggregator is
-  still part of the live workflow. It writes
-  `dashboard/{commits,files,contributors,metadata,summary}.json` which
-  no JS module imports. Either the data flow has been quietly replaced by
-  `aggregate-processed.js` (in which case both the script and the JSON
-  files can be deleted) or there's an out-of-tree consumer that needs
-  documenting.
-- **Live browser verification** of the SettingsPane radio + UTC toggle
-  refactor. Structurally correct and unit-tested but not opened in
-  `npm run dev`. Quick check: open Settings pane, click each ViewLevel
-  row, toggle UTC, confirm radio bullet renders on the right and the
-  toggle pill animates in all 8 themes.
-- **`docs/TODO.md`** carries everything else flagged during the audit.
+- **Browser verification** remains the only item I can't do myself.
+  Covers the second-pass chartHeight utility rounding (2px deltas
+  on Timing/Tags), the body bg/color removal across all 8 themes,
+  the AppContext split, the Timeline `handleCardClick` micro-fix,
+  the fourth-pass `<body class="font-sans">` effective-font check,
+  and the `getMetaColor` fallback path.
+- **File-size splits** — `pwa.js`, `aggregate-processed.js`, and
+  `extract-api.js` are flagged in TODO.md with concrete suggestions
+  but not executed (they need design calls and weren't in the audit
+  scope). `useTimelineCharts.js` (416) and `AppContext.jsx` (338)
+  are still under the limit but being monitored.
+- **`docs/TODO.md`** carries everything else flagged during the four
+  audit passes — post-sweep verification checklists, file-size
+  monitoring, the future browser-test-coverage plan, and the
+  legacy `scripts/aggregate.js` reference.
 
 ## Pointers
 

@@ -4,6 +4,115 @@ Log of significant changes to code and documentation.
 
 ## 2026-04-15
 
+### Retrospective pass — tripwire invariants, file-size findings, index.html scope
+
+A "trust but verify" pass on the previous three audit cleanups caught
+five issues the audits missed or papered over. Four commits:
+
+1. **`a7a9126`** `test(tripwire): enforce CLAUDE.md exception lists at
+   source level` — The tripwire at
+   `scripts/__tests__/daisyui-surfaces.test.mjs` verified DaisyUI
+   component-class usage and the empty custom-CSS allowlist, but had
+   ZERO machine-enforced checks on the CLAUDE.md exception lists that
+   three passes had spent 29 commits locking down. A contributor
+   could drift right past the rules. Added three regression guards:
+
+   - **Bracket-value allowlist** — scans every JSX `className` attribute
+     for Tailwind-style `utility-[...]` patterns and diffs against the
+     hard-coded 4-item allowlist (`z-[var(--z-sticky-header)]`,
+     `z-[var(--z-toast)]`, `grid-cols-[auto_repeat(7,1fr)]`,
+     `max-w-[calc(100vw-2rem)]`). Any new bracket value fails with a
+     specific offender list.
+   - **Hex literal scope** — scans every `.js`/`.jsx` under
+     `dashboard/js/` for `#[0-9a-fA-F]{6}` in stripped source (comments
+     removed). Allowlist: `components/DebugPill.jsx`, the whole
+     `components/debug/` subtree, and `generated/themeMeta.js`.
+   - **JSX heading font-mono** — matches every `<h1|<h2|<h3>` opening
+     tag and fails if `font-mono` isn't in its className. Enforces
+     the contract that replaced the deleted `h1, h2, h3 { font-mono }`
+     element-selector rule from styles.css.
+
+   Each test emits file:line + offender, so a regression is
+   actionable instead of mysterious. Sanity-checked the regexes
+   against synthetic violations before committing. Test count went
+   60 → 63.
+
+2. **`460e161`** `docs(todo): flag pwa.js + scripts/ file-size
+   findings from retrospective` — Ran a file-size sweep over the
+   whole repo (not just `dashboard/js/sections/` / `components/`).
+   Caught three files the audit missed:
+
+   - **`dashboard/js/pwa.js` 578 lines** (OVER soft-limit 500) — the
+     PWA install + update logic. None of the three audit passes
+     touched it because none ran a file-size sweep over the
+     top-level `dashboard/js/*.js` modules. Added to TODO.md with
+     split guidance (install flow / update flow / instructions
+     data / event bridge).
+   - **`scripts/aggregate-processed.js` 1042 lines** (OVER
+     strong-limit 800) — the active dashboard data pipeline. Not
+     touched because `scripts/` was out of scope for the audit.
+     Added to TODO.md with suggested `scripts/aggregate/` subdirectory
+     split (read-commits / summary / time-windows / authors).
+   - **`scripts/extract-api.js` 699 lines** (OVER soft-limit 500) —
+     same out-of-scope reason. Added to TODO.md for monitoring.
+
+   None of the three are actionable today (audit batch is closing),
+   but they're now captured so the next session doesn't re-discover
+   them from scratch.
+
+3. **`57e2423`** `docs(claude): scope note — index.html pre-React
+   hex/inline-style is out of policy` — A future reviewer looking at
+   `dashboard/index.html` would see inline `style="..."` blocks with
+   hex literals (loading spinner, noscript fallback, PWA early-capture
+   warnings) and might think the vanilla-DaisyUI policy was being
+   violated. Those inline styles are intentional: they render BEFORE
+   React mounts and BEFORE the main CSS bundle loads, so Tailwind
+   classes would be invisible in the pre-React window. Added a "Scope
+   note" sub-bullet to the hex-literal exception list in CLAUDE.md
+   explaining this is a separate layer with its own pre-React rules.
+
+4. **`<this commit>`** `docs(audit): retrospective rollup in HISTORY
+   + SESSION_NOTES` — records the retrospective pass itself.
+
+### Verified invariants at the end of the retrospective
+
+The retrospective also double-checked assumptions from the prior
+passes:
+
+- **`<body class="font-sans">` inheritance** — verified Tailwind v4
+  preflight sets `html { font-family: var(--default-font-family) }`
+  where `--default-font-family` resolves to our `:root --font-sans`
+  Figtree stack (via unlayered-CSS precedence over Tailwind's
+  `@layer theme` default). The body class is strictly redundant but
+  harmless and explicit. Also discovered that the OLD `* { font-family
+  }` rule was a latent BUG: it overrode Tailwind preflight's
+  `code, kbd, samp, pre { font-family: monospace }` rule, forcing
+  `<code>` elements to render in Figtree instead of monospace. The
+  2026-04-15 removal of the `*` rule fixed a bug nobody had noticed.
+
+- **Remaining inline style={} scope** — repo-wide grep of `style=\{\{`
+  showed 27 remaining sites across `dashboard/js/`. Every one is
+  either runtime-data-derived (progress widths, Contributors height
+  from row count, portal positioning, runtime tag colours) or in the
+  DebugPill subsystem. No static inline-style regressions.
+
+- **Remaining arbitrary bracket values** — repo-wide grep showed
+  exactly 4 sites in JSX className attributes, matching the CLAUDE.md
+  allowlist exactly. Plus comment-only mentions. Clean.
+
+- **DaisyUI v5 base layer** — re-verified that
+  `node_modules/daisyui/base/rootcolor.css` still emits
+  `:root, [data-theme] { background: var(--page-scroll-bg,
+  var(--root-bg)); color: var(--color-base-content) }` so the
+  `body { background-color / color }` removal from commit 39cd3cf
+  still holds across DaisyUI upgrades.
+
+- **Test count monotonic increase** — 60 (start of retrospective)
+  → 63 (after tripwire strengthening). No tests deleted, no tests
+  weakened.
+
+Build clean (879.94 kB), 63/63 tests pass.
+
 ### Third audit-cleanup pass — exception strengthening + aggregate.js investigation
 
 A tier-based review of the CLAUDE.md exception list classified each
