@@ -823,3 +823,200 @@ test('Built CSS ships Tailwind print:hidden variant', { skip: !builtCss }, () =>
         'this when the class appears in JSX. Re-run `vite build`.'
     );
 });
+
+// ----- CLAUDE.md exception-list invariants (2026-04-15) -----
+//
+// Three audit passes over this branch progressively removed documented
+// exceptions from CLAUDE.md "Frontend: Styles and Scripts". The tests
+// below are REGRESSION GUARDS — they keep the final state locked in
+// by enumerating the exact allowed instances and failing if new
+// instances appear outside the documented scope. Each test corresponds
+// to one CLAUDE.md exception category.
+//
+// If one of these tests fails, DO NOT just add the offender to the
+// allowlist. Verify first that the new instance has a capability-gap
+// or resilience rationale that warrants a documented exception in
+// CLAUDE.md. If it does, update BOTH the allowlist here AND the
+// exception list in CLAUDE.md in the same commit. If it doesn't,
+// remove the offender instead.
+
+/**
+ * Recursively walk a directory, collecting file paths matching a regex.
+ * Used by the exception-list invariant tests below. Pure Node — no
+ * external dependencies (we're in node:test-land, not vitest-land).
+ */
+function walkFiles(dir, pattern, results = []) {
+    const fs = require('node:fs');
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+        const full = join(dir, entry.name);
+        if (entry.isDirectory()) {
+            walkFiles(full, pattern, results);
+        } else if (pattern.test(entry.name)) {
+            results.push(full);
+        }
+    }
+    return results;
+}
+
+// Dynamic require shim — node:test runs as ESM but we need readFileSync
+// + readdirSync from node:fs in the walker. Use createRequire.
+const { createRequire } = await import('node:module');
+const require = createRequire(import.meta.url);
+
+test('Exception invariant: arbitrary bracket values in JSX match CLAUDE.md allowlist exactly', () => {
+    // CLAUDE.md documents exactly 4 permitted arbitrary bracket values.
+    // Anything else in a JSX className triggers this test.
+    //
+    // If you see this test fail, read CLAUDE.md "Frontend: Styles and
+    // Scripts" → "No arbitrary bracket values" rule first. The 4
+    // documented exceptions each have a capability-gap rationale
+    // (design-token z-scale above stock Tailwind, functional grid row
+    // alignment, viewport calc max-width). A new bracket value requires
+    // either rounding to stock, redesigning, or adding a 5th exception
+    // with its own rationale.
+    const ALLOWED_BRACKETS = new Set([
+        'z-[var(--z-sticky-header)]',
+        'z-[var(--z-toast)]',
+        'grid-cols-[auto_repeat(7,1fr)]',
+        'max-w-[calc(100vw-2rem)]',
+    ]);
+
+    const jsxFiles = walkFiles(join(REPO_ROOT, 'dashboard/js'), /\.(jsx|js)$/);
+    const offenders = [];
+    // Match a Tailwind-style bracket utility: one or more words with
+    // hyphens, followed by `-[...]`. Excludes JS array subscripts
+    // like `arr[i]` because those require a preceding identifier+`[`
+    // without the `-` infix.
+    const BRACKET_RE = /\b[a-z][a-z0-9]*(?:-[a-z0-9]+)*-\[[^\]]+\]/g;
+
+    for (const file of jsxFiles) {
+        const src = readFileSync(file, 'utf8');
+        // Strip JS/JSX line comments and block comments so documentation
+        // mentions of bracket values don't trigger.
+        const stripped = src
+            .replace(/\/\*[\s\S]*?\*\//g, '')
+            .replace(/(^|[^:])\/\/[^\n]*/g, '$1');
+        // Only match inside className strings — the BRACKET_RE is permissive
+        // enough that it could catch pure JS syntax, so extract className
+        // attribute values first.
+        const classNameRe = /className\s*=\s*[{'"`]([^{}'"`]+)[}'"`]/g;
+        let cm;
+        while ((cm = classNameRe.exec(stripped)) !== null) {
+            const classString = cm[1];
+            let bm;
+            BRACKET_RE.lastIndex = 0;
+            while ((bm = BRACKET_RE.exec(classString)) !== null) {
+                const utility = bm[0];
+                if (!ALLOWED_BRACKETS.has(utility)) {
+                    offenders.push(`${file.replace(REPO_ROOT + '/', '')}: ${utility}`);
+                }
+            }
+        }
+    }
+
+    assert.equal(
+        offenders.length, 0,
+        `Arbitrary bracket value(s) outside the CLAUDE.md allowlist:\n${offenders.join('\n')}\n\n` +
+        'Allowed: ' + [...ALLOWED_BRACKETS].join(', ') + '\n' +
+        'Add to CLAUDE.md "No arbitrary bracket values" exception list ONLY if the ' +
+        'new value has a capability-gap rationale (no stock utility can express it, ' +
+        'redesign is not feasible). Otherwise round to the nearest stock utility.'
+    );
+});
+
+test('Exception invariant: hex colour literals in dashboard/js are scoped to the exception allowlist', () => {
+    // CLAUDE.md documents two locations where hex literals are permitted:
+    //   1. DebugPill subsystem: `components/DebugPill.jsx` AND every file
+    //      under `components/debug/` (resilience — must render during
+    //      CSS load failure in an isolated React root)
+    //   2. `generated/themeMeta.js` (auto-generated PWA meta colours —
+    //      browsers parse <meta content=""> as literal hex, not CSS vars)
+    //
+    // `themes.js` previously carried a `#808080` fallback; removed
+    // 2026-04-15 in commit 0cc5d6e. Any hex literal outside the allowlist
+    // triggers this test.
+    //
+    // Hex inside comments does NOT trigger — the stripped source has
+    // comments removed before the match.
+    const ALLOWED_DIRS = [
+        'dashboard/js/components/DebugPill.jsx',
+        'dashboard/js/components/debug/',
+        'dashboard/js/generated/themeMeta.js',
+    ];
+
+    const jsxFiles = walkFiles(join(REPO_ROOT, 'dashboard/js'), /\.(jsx|js)$/);
+    const offenders = [];
+    const HEX_RE = /#[0-9a-fA-F]{6}\b/g;
+
+    for (const file of jsxFiles) {
+        const relPath = file.replace(REPO_ROOT + '/', '');
+        // Skip allowlisted files.
+        if (ALLOWED_DIRS.some(allowed => relPath === allowed || relPath.startsWith(allowed))) {
+            continue;
+        }
+        const src = readFileSync(file, 'utf8');
+        // Strip JS/JSX comments — hex mentions inside rationale blocks
+        // (describing the removal) shouldn't trigger the regression check.
+        const stripped = src
+            .replace(/\/\*[\s\S]*?\*\//g, '')
+            .replace(/(^|[^:])\/\/[^\n]*/g, '$1');
+        let m;
+        while ((m = HEX_RE.exec(stripped)) !== null) {
+            offenders.push(`${relPath}: ${m[0]}`);
+        }
+    }
+
+    assert.equal(
+        offenders.length, 0,
+        `Hex colour literal(s) outside the CLAUDE.md allowlist:\n${offenders.join('\n')}\n\n` +
+        'Allowed locations:\n' +
+        '  - dashboard/js/components/DebugPill.jsx (resilience)\n' +
+        '  - dashboard/js/components/debug/* (resilience)\n' +
+        '  - dashboard/js/generated/themeMeta.js (auto-generated PWA meta)\n\n' +
+        'Use DaisyUI semantic tokens via runtime getComputedStyle resolvers ' +
+        '(resolveRuntimeAccent / resolveRuntimeMuted in chartColors.js) instead.'
+    );
+});
+
+test('Exception invariant: every JSX heading carries font-mono utility class', () => {
+    // The `h1, h2, h3 { font-family: var(--font-mono) }` element-selector
+    // rule in styles.css was deleted 2026-04-15 in commit 5bcc2c2. The
+    // app's techy-developer-tool aesthetic still applies monospace to
+    // headings, but via an explicit `font-mono` utility class on each
+    // JSX heading rather than a cross-cutting CSS rule.
+    //
+    // This test enforces the contract: every `<h1>` / `<h2>` / `<h3>` in
+    // dashboard/js must carry `font-mono` in its className. `<h4>` through
+    // `<h6>` are intentionally excluded — the old styles.css rule targeted
+    // h1-h3 only, and h4+ uses inherited body font.
+    //
+    // If a new heading is added without font-mono, either add the class
+    // or promote the heading level (e.g., to h4) if the monospace styling
+    // is undesired in that spot.
+    const jsxFiles = walkFiles(join(REPO_ROOT, 'dashboard/js'), /\.jsx$/);
+    const offenders = [];
+    // Match: `<h1 ...>` or `<h2 ...>` or `<h3 ...>`, capturing everything
+    // up to the closing `>` of the opening tag.
+    const HEADING_RE = /<h[123]\b[^>]*>/g;
+
+    for (const file of jsxFiles) {
+        const src = readFileSync(file, 'utf8');
+        let m;
+        while ((m = HEADING_RE.exec(src)) !== null) {
+            const openTag = m[0];
+            if (!/\bfont-mono\b/.test(openTag)) {
+                const lineNumber = src.slice(0, m.index).split('\n').length;
+                offenders.push(`${file.replace(REPO_ROOT + '/', '')}:${lineNumber}: ${openTag.trim()}`);
+            }
+        }
+    }
+
+    assert.equal(
+        offenders.length, 0,
+        `JSX heading(s) missing font-mono utility class:\n${offenders.join('\n')}\n\n` +
+        'The h1/h2/h3 element-selector rule in styles.css was deleted 2026-04-15. ' +
+        'Every JSX heading must carry `font-mono` explicitly. Add it to the className ' +
+        'or promote the heading level to h4+ if you want inherited body font.'
+    );
+});
