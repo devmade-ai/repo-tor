@@ -49,6 +49,11 @@ export function debugClear() {
     entries.length = 0;
 }
 
+/** Return a shallow copy of the current entries (read-only snapshot). */
+export function debugGetEntries() {
+    return entries.slice();
+}
+
 /**
  * Subscribe to new debug entries. The callback receives each new entry.
  * New subscribers immediately receive all current entries — eliminates timing

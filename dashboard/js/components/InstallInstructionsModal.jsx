@@ -12,8 +12,8 @@ import useFocusTrap from '../hooks/useFocusTrap.js';
 import useEscapeKey from '../hooks/useEscapeKey.js';
 
 export default function InstallInstructionsModal({ isOpen, onClose, instructions }) {
-    // useFocusTrap(active) returns a ref — do NOT pass a ref as first arg.
-    // Compare: DetailPane.jsx, SettingsPane.jsx, QuickGuide.jsx all use this correctly.
+    // useFocusTrap(active) returns a ref to attach to the container.
+    // Optional second arg accepts a caller-owned ref — not used here.
     const trapRef = useFocusTrap(isOpen);
     useEscapeKey(isOpen, onClose);
 
