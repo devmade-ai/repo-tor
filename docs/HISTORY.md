@@ -22,6 +22,22 @@ Follow-up pass after the chroma-filtering fix:
 3. **Doc updates** — Updated stale "8-slot semantic cycle" descriptions in `EMBED_IMPLEMENTATION.md` (Color Architecture section), `DAISYUI_V5_NOTES.md` (Chart.js dataset colors paragraph), and `CLAUDE.md` (chartColors.js entry in Key Components) to reflect the dual-cycle design (general 8-token + filtered repo-specific 7-token).
 4. **Discovery documented** — Caramellatte's `--color-neutral` has oklch chroma 0.195 (warm brown, not gray). Internal/discontinued repos in caramellatte render as warm-toned semi-transparent overlays, not gray. This is by design — DaisyUI's neutral matches the warm palette — and the visual hierarchy is maintained through opacity. All other themes have near-gray neutrals (chroma < 0.04).
 
+### Rebrand SVG icon and static assets to Dracula palette
+
+Updated the master SVG (`assets/icon-source.svg`) and all generated PNGs/ICO to use the Dracula theme palette:
+
+- Background: `#1B1B1B` → `#282a36` (Dracula base-100)
+- Grid lines: `#333333` → `#414558` (Dracula neutral)
+- Chart bars: blue gradient → `#9b78d6` / `#a985e7` / `#bd93f9` / `#b08cef` (Dracula purple progression)
+- Git nodes: `#16A34A` → `#51fa7b` (Dracula green), `#2D68FF` → `#ff79c6` (Dracula pink)
+- Connectors: `#FFFFFF` → `#f8f8f3` (Dracula foreground)
+
+Also updated:
+- `vite.config.js` PWA manifest: `theme_color` → `#bd93f9`, `background_color` → `#282a36`
+- `dashboard/index.html` pre-React loading spinner: ring `#414558`, accent `#bd93f9`
+- `dashboard/public/offline.html`: background, heading, button colors to Dracula palette
+- `CLAUDE.md`: hex literal list in index.html scope note updated
+
 ### Change default dark theme to Dracula
 
 Changed `DEFAULT_DARK_THEME` from `black` to `dracula` in `scripts/theme-config.js`. The generator propagated the change to `dashboard/index.html` (flash-prevention inline script), `dashboard/js/themes.js` (runtime catalog), and `dashboard/styles.css` (`--prefersdark` flag moved from `black` to `dracula`). Existing users with a persisted `darkTheme` in localStorage are unaffected.
