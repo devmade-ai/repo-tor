@@ -328,6 +328,22 @@ These footers are required on every commit. No exceptions.
 
 ### REMINDER: READ AND FOLLOW THE PRINCIPLES EVERY TIME
 
+## Communication
+
+Respond as if talking to yourself. Peer-to-peer, no servility.
+
+- **Direct.** No filler, no preamble, no conversational padding. State facts and actions.
+- **No sycophancy.** No "great question", "you're absolutely right", "excellent point". Acknowledge errors briefly and move on.
+- **No hedging.** Commit to a position. "I think" / "perhaps" only when genuinely uncertain.
+- **Proper solutions only.** Always suggest the right fix, not a quick hack. If the proper solution is complex, explain why the shortcut is wrong and lay out the real approach.
+- **Ask before assuming.** When a user reports a bug or makes a request, ask clarifying questions until you are certain you understand the requirement. Don't guess the cause and build a fix on an assumption — one wrong assumption wastes multiple commits.
+- **Always ask at least one question before starting work.** This is the minimum bar. Even when the request seems clear, verify scope, constraints, or intent before writing code.
+- **Concrete options.** When clarification is needed, list numbered options — never open-ended questions.
+- **Assume competence.** The reader is a developer. Don't over-explain basics.
+- **Push back.** Disagree when warranted. State your view first, then ask if they want to proceed differently.
+
+### REMINDER: READ AND FOLLOW THE COMMUNICATION RULES EVERY TIME
+
 ## AI Checklists
 
 ### At Session Start
@@ -438,16 +454,6 @@ Rules:
 
 ---
 
-## Communication Style
-
-- Direct, concise responses
-- No filler phrases or conversational padding
-- State facts and actions, not opinions
-- Ask specific questions with concrete options when clarification needed
-- Never proceed with assumptions on ambiguous requests
-
----
-
 ## Testing
 
 - Write tests for critical paths and core business logic
@@ -491,13 +497,11 @@ Never:
 - **CRITICAL: Keep `QuickGuide.jsx` up to date** — this is user-facing help content shown in-app. When tabs, sections, or features change, update the guide steps to match. Outdated guide content confuses users.
 - **Verify before assuming** — read the actual code before claiming what it does. Don't describe behavior based on file names, comments, or assumptions — check the implementation. If the user describes how something works, compare it against the actual code rather than agreeing without verification.
 - **Fix root causes, not symptoms** — when something isn't working, find out WHY before writing code. Don't add workarounds (globals, duplicate listeners, flag variables) to patch over an architectural issue. If the fix requires touching 3+ files to coordinate shared state, that's a smell — look for a simpler structural change.
-- **ASK before assuming on bug reports** — when a user reports a bug, ask clarifying questions (which mode? what did you type? what do you see?) BEFORE writing code. One clarifying question saves multiple wrong commits.
 - **Keep docs updated immediately** — update relevant docs right after each change, before moving to the next task (sessions can end abruptly)
 - **Preserve session context** — update docs/SESSION_NOTES.md after each significant task (not at the end — sessions can end abruptly)
 - **Capture ideas** — add lower priority items and improvements to docs/TODO.md so they persist between sessions
 - **Document user actions** — when manual user action is required (external dashboards, credentials, etc.), add detailed instructions to docs/USER_ACTIONS.md
 - **Commit and push changes before ending a session**
-- **Communication style:** Direct, concise responses. No filler phrases or conversational padding. State facts and actions. Ask specific questions with concrete options when clarification is needed.
 - **Claude Code mobile/web — accessing sibling repos:** Use `GITHUB_ALL_REPO_TOKEN` with the GitHub API (`api.github.com/repos/devmade-ai/{repo}/contents/{path}`) to read files from other devmade-ai repos. Use `$(printenv GITHUB_ALL_REPO_TOKEN)` not `$GITHUB_ALL_REPO_TOKEN` to avoid shell expansion issues. Never clone sibling repos — use the API instead.
 - **Check for existing patterns** in the codebase before creating new ones
 - **Clean up completed or obsolete docs/files** and remove references to them
