@@ -11,6 +11,50 @@ These rules are non-negotiable. Stop and ask before proceeding if any rule would
 - [ ] Confirm understanding before implementing non-trivial changes
 - [ ] Never assume — when in doubt, ask
 
+### User Experience (CRITICAL)
+
+Assume all dashboard users are non-technical. This is non-negotiable.
+
+- [ ] UI must be intuitive without instructions
+- [ ] Use plain language — no jargon, technical terms, or developer-speak
+- [ ] Error messages must tell users what went wrong AND what to do next, in simple terms
+- [ ] Labels, buttons, and instructions should be clear to someone unfamiliar with git analytics
+- [ ] Prioritize clarity over brevity in user-facing text
+- [ ] Confirm destructive actions with clear consequences explained
+- [ ] Provide feedback for all user actions (loading states, success confirmations, etc.)
+- [ ] Design for the least technical person who will use this
+
+Bad: "Error 500: Internal server exception"
+Good: "Something went wrong loading the dashboard. Please try again, or check your data file."
+
+Bad: "Invalid JSON schema"
+Good: "This file doesn't look like a dashboard data file. Try exporting from the extraction script first."
+
+### Documentation
+
+**AI assistants automatically maintain these documents.** Update them as you work — don't wait for the user to ask. This ensures context is always current for the next session.
+
+| File | Purpose | When to update |
+|------|---------|----------------|
+| `CLAUDE.md` | AI preferences, project overview, architecture | When architecture, state structures, or preferences change |
+| `docs/SESSION_NOTES.md` | Compact context snapshot for session continuity | Rewrite at session end with fresh summary |
+| `docs/TODO.md` | AI-managed backlog (pending items only) | When noticing improvements; remove items as they're completed |
+| `docs/USER_ACTIONS.md` | Manual tasks requiring user intervention | When tasks need external action (credentials, dashboards) |
+| `docs/AI_MISTAKES.md` | Record of significant AI errors and learnings | After making a mistake that wasted time or broke things |
+| `docs/DAISYUI_V5_NOTES.md` | DaisyUI v5 cheat sheet — v4→v5 renames, project conventions, verification recipe, deliberately-not-used components | When encountering a new DaisyUI v5 quirk, or when adding a new component class to JSX |
+| `README.md` | User-facing application guide | When features change that affect user interaction |
+| `docs/USER_GUIDE.md` | Comprehensive feature documentation | When adding/changing features or UI workflows |
+| `docs/ADMIN_GUIDE.md` | Setup, extraction, and configuration guide for admins/maintainers | When data extraction, aggregation, deploy, or PWA setup workflows change |
+| `docs/TESTING_GUIDE.md` | Manual test scenarios | When adding features that need test coverage |
+
+**Changelog:** the git log is the changelog. Don't maintain a separate `HISTORY.md` / `CHANGELOG.md` — every commit message carries the rationale via its body + metadata footers (see `docs/COMMIT_CONVENTION.md`). Use `git log --oneline` or `git log -p` to browse.
+
+### REMINDER: READ AND FOLLOW THE DOCUMENTATION EVERY TIME
+
+---
+
+## Code Standards
+
 ### Best Practices
 
 - [ ] Follow established patterns and conventions in the codebase
@@ -46,25 +90,6 @@ Example:
 //   - Blank screen + ErrorBoundary: Rejected - no feedback during load
 ```
 
-### User Experience (CRITICAL)
-
-Assume all dashboard users are non-technical. This is non-negotiable.
-
-- [ ] UI must be intuitive without instructions
-- [ ] Use plain language — no jargon, technical terms, or developer-speak
-- [ ] Error messages must tell users what went wrong AND what to do next, in simple terms
-- [ ] Labels, buttons, and instructions should be clear to someone unfamiliar with git analytics
-- [ ] Prioritize clarity over brevity in user-facing text
-- [ ] Confirm destructive actions with clear consequences explained
-- [ ] Provide feedback for all user actions (loading states, success confirmations, etc.)
-- [ ] Design for the least technical person who will use this
-
-Bad: "Error 500: Internal server exception"
-Good: "Something went wrong loading the dashboard. Please try again, or check your data file."
-
-Bad: "Invalid JSON schema"
-Good: "This file doesn't look like a dashboard data file. Try exporting from the extraction script first."
-
 ### Frontend: Styles and Scripts
 
 **Vanilla-only policy** (2026-04-14): the dashboard uses only DaisyUI
@@ -97,27 +122,6 @@ The daisy theme IS the brand colour.
 - [ ] Maintain light/dark mode support via dual-layer theming (`.dark` class + `data-theme` attribute). Prefer DaisyUI semantic tokens (auto-switch with theme) over `dark:` prefix pairs. See `docs/implementations/THEME_DARK_MODE.md`.
 - [ ] Never re-introduce custom `--bg-*`, `--text-*`, `--border-*`, `--color-primary-alpha`, `--chart-grid`, or `--glow-*` variables — they were fully removed in the 2026-04-12 migration. Use DaisyUI tokens or inline `color-mix(in oklab, var(--color-primary) X%, transparent)` for tinted variants.
 - [ ] **Never write asterisk-slash sequences inside CSS `/* ... */` comments** (e.g. `--bg-*/...` glob patterns). The embedded `*/` terminates the comment early and esbuild's CSS minifier silently drops everything after the break point, producing a build that passes but renders without half the custom styles. Phrase glob patterns in comments as `--bg, --text, --border` instead, or use the word "glob" / "star-slash" spelled out. This mistake already bit us once in this session — see `docs/AI_MISTAKES.md` 2026-04-12 entry.
-
-### Documentation
-
-**AI assistants automatically maintain these documents.** Update them as you work — don't wait for the user to ask. This ensures context is always current for the next session.
-
-| File | Purpose | When to update |
-|------|---------|----------------|
-| `CLAUDE.md` | AI preferences, project overview, architecture | When architecture, state structures, or preferences change |
-| `docs/SESSION_NOTES.md` | Compact context snapshot for session continuity | Rewrite at session end with fresh summary |
-| `docs/TODO.md` | AI-managed backlog (pending items only) | When noticing improvements; remove items as they're completed |
-| `docs/USER_ACTIONS.md` | Manual tasks requiring user intervention | When tasks need external action (credentials, dashboards) |
-| `docs/AI_MISTAKES.md` | Record of significant AI errors and learnings | After making a mistake that wasted time or broke things |
-| `docs/DAISYUI_V5_NOTES.md` | DaisyUI v5 cheat sheet — v4→v5 renames, project conventions, verification recipe, deliberately-not-used components | When encountering a new DaisyUI v5 quirk, or when adding a new component class to JSX |
-| `README.md` | User-facing application guide | When features change that affect user interaction |
-| `docs/USER_GUIDE.md` | Comprehensive feature documentation | When adding/changing features or UI workflows |
-| `docs/ADMIN_GUIDE.md` | Setup, extraction, and configuration guide for admins/maintainers | When data extraction, aggregation, deploy, or PWA setup workflows change |
-| `docs/TESTING_GUIDE.md` | Manual test scenarios | When adding features that need test coverage |
-
-**Changelog:** the git log is the changelog. Don't maintain a separate `HISTORY.md` / `CHANGELOG.md` — every commit message carries the rationale via its body + metadata footers (see `docs/COMMIT_CONVENTION.md`). Use `git log --oneline` or `git log -p` to browse.
-
-### REMINDER: READ AND FOLLOW THE DOCUMENTATION EVERY TIME
 
 ### Cleanup
 
