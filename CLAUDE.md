@@ -11,6 +11,50 @@ These rules are non-negotiable. Stop and ask before proceeding if any rule would
 - [ ] Confirm understanding before implementing non-trivial changes
 - [ ] Never assume — when in doubt, ask
 
+### User Experience (CRITICAL)
+
+Assume all dashboard users are non-technical. This is non-negotiable.
+
+- [ ] UI must be intuitive without instructions
+- [ ] Use plain language — no jargon, technical terms, or developer-speak
+- [ ] Error messages must tell users what went wrong AND what to do next, in simple terms
+- [ ] Labels, buttons, and instructions should be clear to someone unfamiliar with git analytics
+- [ ] Prioritize clarity over brevity in user-facing text
+- [ ] Confirm destructive actions with clear consequences explained
+- [ ] Provide feedback for all user actions (loading states, success confirmations, etc.)
+- [ ] Design for the least technical person who will use this
+
+Bad: "Error 500: Internal server exception"
+Good: "Something went wrong loading the dashboard. Please try again, or check your data file."
+
+Bad: "Invalid JSON schema"
+Good: "This file doesn't look like a dashboard data file. Try exporting from the extraction script first."
+
+### Documentation
+
+**AI assistants automatically maintain these documents.** Update them as you work — don't wait for the user to ask. This ensures context is always current for the next session.
+
+| File | Purpose | When to update |
+|------|---------|----------------|
+| `CLAUDE.md` | AI preferences, project overview, architecture | When architecture, state structures, or preferences change |
+| `docs/SESSION_NOTES.md` | Compact context snapshot for session continuity | Rewrite at session end with fresh summary |
+| `docs/TODO.md` | AI-managed backlog (pending items only) | When noticing improvements; remove items as they're completed |
+| `docs/USER_ACTIONS.md` | Manual tasks requiring user intervention | When tasks need external action (credentials, dashboards) |
+| `docs/AI_MISTAKES.md` | Record of significant AI errors and learnings | After making a mistake that wasted time or broke things |
+| `docs/DAISYUI_V5_NOTES.md` | DaisyUI v5 cheat sheet — v4→v5 renames, project conventions, verification recipe, deliberately-not-used components | When encountering a new DaisyUI v5 quirk, or when adding a new component class to JSX |
+| `README.md` | User-facing application guide | When features change that affect user interaction |
+| `docs/USER_GUIDE.md` | Comprehensive feature documentation | When adding/changing features or UI workflows |
+| `docs/ADMIN_GUIDE.md` | Setup, extraction, and configuration guide for admins/maintainers | When data extraction, aggregation, deploy, or PWA setup workflows change |
+| `docs/TESTING_GUIDE.md` | Manual test scenarios | When adding features that need test coverage |
+
+**Changelog:** the git log is the changelog. Don't maintain a separate `HISTORY.md` / `CHANGELOG.md` — every commit message carries the rationale via its body + metadata footers (see `docs/COMMIT_CONVENTION.md`). Use `git log --oneline` or `git log -p` to browse.
+
+### REMINDER: READ AND FOLLOW THE DOCUMENTATION EVERY TIME
+
+---
+
+## Code Standards
+
 ### Best Practices
 
 - [ ] Follow established patterns and conventions in the codebase
@@ -46,25 +90,6 @@ Example:
 //   - Blank screen + ErrorBoundary: Rejected - no feedback during load
 ```
 
-### User Experience (CRITICAL)
-
-Assume all dashboard users are non-technical. This is non-negotiable.
-
-- [ ] UI must be intuitive without instructions
-- [ ] Use plain language — no jargon, technical terms, or developer-speak
-- [ ] Error messages must tell users what went wrong AND what to do next, in simple terms
-- [ ] Labels, buttons, and instructions should be clear to someone unfamiliar with git analytics
-- [ ] Prioritize clarity over brevity in user-facing text
-- [ ] Confirm destructive actions with clear consequences explained
-- [ ] Provide feedback for all user actions (loading states, success confirmations, etc.)
-- [ ] Design for the least technical person who will use this
-
-Bad: "Error 500: Internal server exception"
-Good: "Something went wrong loading the dashboard. Please try again, or check your data file."
-
-Bad: "Invalid JSON schema"
-Good: "This file doesn't look like a dashboard data file. Try exporting from the extraction script first."
-
 ### Frontend: Styles and Scripts
 
 **Vanilla-only policy** (2026-04-14): the dashboard uses only DaisyUI
@@ -97,27 +122,6 @@ The daisy theme IS the brand colour.
 - [ ] Maintain light/dark mode support via dual-layer theming (`.dark` class + `data-theme` attribute). Prefer DaisyUI semantic tokens (auto-switch with theme) over `dark:` prefix pairs. See `docs/implementations/THEME_DARK_MODE.md`.
 - [ ] Never re-introduce custom `--bg-*`, `--text-*`, `--border-*`, `--color-primary-alpha`, `--chart-grid`, or `--glow-*` variables — they were fully removed in the 2026-04-12 migration. Use DaisyUI tokens or inline `color-mix(in oklab, var(--color-primary) X%, transparent)` for tinted variants.
 - [ ] **Never write asterisk-slash sequences inside CSS `/* ... */` comments** (e.g. `--bg-*/...` glob patterns). The embedded `*/` terminates the comment early and esbuild's CSS minifier silently drops everything after the break point, producing a build that passes but renders without half the custom styles. Phrase glob patterns in comments as `--bg, --text, --border` instead, or use the word "glob" / "star-slash" spelled out. This mistake already bit us once in this session — see `docs/AI_MISTAKES.md` 2026-04-12 entry.
-
-### Documentation
-
-**AI assistants automatically maintain these documents.** Update them as you work — don't wait for the user to ask. This ensures context is always current for the next session.
-
-| File | Purpose | When to update |
-|------|---------|----------------|
-| `CLAUDE.md` | AI preferences, project overview, architecture | When architecture, state structures, or preferences change |
-| `docs/SESSION_NOTES.md` | Compact context snapshot for session continuity | Rewrite at session end with fresh summary |
-| `docs/TODO.md` | AI-managed backlog (pending items only) | When noticing improvements; remove items as they're completed |
-| `docs/USER_ACTIONS.md` | Manual tasks requiring user intervention | When tasks need external action (credentials, dashboards) |
-| `docs/AI_MISTAKES.md` | Record of significant AI errors and learnings | After making a mistake that wasted time or broke things |
-| `docs/DAISYUI_V5_NOTES.md` | DaisyUI v5 cheat sheet — v4→v5 renames, project conventions, verification recipe, deliberately-not-used components | When encountering a new DaisyUI v5 quirk, or when adding a new component class to JSX |
-| `README.md` | User-facing application guide | When features change that affect user interaction |
-| `docs/USER_GUIDE.md` | Comprehensive feature documentation | When adding/changing features or UI workflows |
-| `docs/ADMIN_GUIDE.md` | Setup, extraction, and configuration guide for admins/maintainers | When data extraction, aggregation, deploy, or PWA setup workflows change |
-| `docs/TESTING_GUIDE.md` | Manual test scenarios | When adding features that need test coverage |
-
-**Changelog:** the git log is the changelog. Don't maintain a separate `HISTORY.md` / `CHANGELOG.md` — every commit message carries the rationale via its body + metadata footers (see `docs/COMMIT_CONVENTION.md`). Use `git log --oneline` or `git log -p` to browse.
-
-### REMINDER: READ AND FOLLOW THE DOCUMENTATION EVERY TIME
 
 ### Cleanup
 
@@ -328,6 +332,22 @@ These footers are required on every commit. No exceptions.
 
 ### REMINDER: READ AND FOLLOW THE PRINCIPLES EVERY TIME
 
+## Communication
+
+Respond as if talking to yourself. Peer-to-peer, no servility.
+
+- **Direct.** No filler, no preamble, no conversational padding. State facts and actions.
+- **No sycophancy.** No "great question", "you're absolutely right", "excellent point". Acknowledge errors briefly and move on.
+- **No hedging.** Commit to a position. "I think" / "perhaps" only when genuinely uncertain.
+- **Proper solutions only.** Always suggest the right fix, not a quick hack. If the proper solution is complex, explain why the shortcut is wrong and lay out the real approach.
+- **Ask before assuming.** When a user reports a bug or makes a request, ask clarifying questions until you are certain you understand the requirement. Don't guess the cause and build a fix on an assumption — one wrong assumption wastes multiple commits.
+- **Always ask at least one question before starting work.** This is the minimum bar. Even when the request seems clear, verify scope, constraints, or intent before writing code.
+- **Concrete options.** When clarification is needed, list numbered options — never open-ended questions.
+- **Assume competence.** The reader is a developer. Don't over-explain basics.
+- **Push back.** Disagree when warranted. State your view first, then ask if they want to proceed differently.
+
+### REMINDER: READ AND FOLLOW THE COMMUNICATION RULES EVERY TIME
+
 ## AI Checklists
 
 ### At Session Start
@@ -438,16 +458,6 @@ Rules:
 
 ---
 
-## Communication Style
-
-- Direct, concise responses
-- No filler phrases or conversational padding
-- State facts and actions, not opinions
-- Ask specific questions with concrete options when clarification needed
-- Never proceed with assumptions on ambiguous requests
-
----
-
 ## Testing
 
 - Write tests for critical paths and core business logic
@@ -491,13 +501,11 @@ Never:
 - **CRITICAL: Keep `QuickGuide.jsx` up to date** — this is user-facing help content shown in-app. When tabs, sections, or features change, update the guide steps to match. Outdated guide content confuses users.
 - **Verify before assuming** — read the actual code before claiming what it does. Don't describe behavior based on file names, comments, or assumptions — check the implementation. If the user describes how something works, compare it against the actual code rather than agreeing without verification.
 - **Fix root causes, not symptoms** — when something isn't working, find out WHY before writing code. Don't add workarounds (globals, duplicate listeners, flag variables) to patch over an architectural issue. If the fix requires touching 3+ files to coordinate shared state, that's a smell — look for a simpler structural change.
-- **ASK before assuming on bug reports** — when a user reports a bug, ask clarifying questions (which mode? what did you type? what do you see?) BEFORE writing code. One clarifying question saves multiple wrong commits.
 - **Keep docs updated immediately** — update relevant docs right after each change, before moving to the next task (sessions can end abruptly)
 - **Preserve session context** — update docs/SESSION_NOTES.md after each significant task (not at the end — sessions can end abruptly)
 - **Capture ideas** — add lower priority items and improvements to docs/TODO.md so they persist between sessions
 - **Document user actions** — when manual user action is required (external dashboards, credentials, etc.), add detailed instructions to docs/USER_ACTIONS.md
 - **Commit and push changes before ending a session**
-- **Communication style:** Direct, concise responses. No filler phrases or conversational padding. State facts and actions. Ask specific questions with concrete options when clarification is needed.
 - **Claude Code mobile/web — accessing sibling repos:** Use `GITHUB_ALL_REPO_TOKEN` with the GitHub API (`api.github.com/repos/devmade-ai/{repo}/contents/{path}`) to read files from other devmade-ai repos. Use `$(printenv GITHUB_ALL_REPO_TOKEN)` not `$GITHUB_ALL_REPO_TOKEN` to avoid shell expansion issues. Never clone sibling repos — use the API instead.
 - **Check for existing patterns** in the codebase before creating new ones
 - **Clean up completed or obsolete docs/files** and remove references to them
