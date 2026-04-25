@@ -1,0 +1,56 @@
+{
+  "sha": "5110d86",
+  "fullSha": "5110d86727db5a4a86e518fe90f1c2d835068056",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T07:23:31Z",
+  "commitDate": "2026-04-23T07:23:31Z",
+  "subject": "feat(auth): sancio-scoped dev auth bypass for sun-sea-o AUTH_BYPASS_ENABLED",
+  "body": "Closes the backend half of the sun-sea-o dev auth bypass. When the frontend\nships with AUTH_BYPASS_ENABLED=true it sends X-Dev-User-Id + X-Dev-User-Email\ninstead of Authorization: Bearer, and every sancio call 401s until the\nbackend also accepts those headers.\n\nDesign:\n- Two-gate: opt-in arg `{ allowDevBypass: true }` AND env `SANCIO_AUTH_BYPASS=true`.\n  Either alone has no effect, so a forgotten opt-in committed to main cannot\n  become a production backdoor without the env var, and an accidentally-set\n  env var cannot affect non-sancio routes.\n- Call-site opt-in instead of URL-prefix check: scoping is explicit in code\n  review, doesn't couple auth to routing, and fails closed for any new sancio\n  route added without the opt-in.\n- X-Dev-User-Email is ignored server-side — UUID is the identity.\n- All 25 sancio call sites (across 10 route files) pass allowDevBypass:true.\n  Non-sancio call sites (api/forms/*, api/submissions/*) unchanged — still\n  require JWT regardless of env state.\n\nTests cover the full matrix: env+opt-in+header → bypass; env+opt-in+no header\n→ JWT fallthrough; env+no opt-in+header → 401 (non-sancio case); no env+opt-in\n+header → 401 (env gate); non-\"true\" env values → 401; empty header → 401;\nvalid JWT passthrough unchanged; invalid JWT still 401 even with bypass env on.\n\nUSER_ACTIONS.md updated with the Vercel env var step and the full removal\npath for first real release (both sides must flip together).\n\nTags: auth, sancio, dev-bypass, sun-sea-o\nComplexity: 3\nUrgency: 3\nImpact: api\nRisk: medium\nDebt: added\nEpic: sun-sea-o-integration\nSemver: minor",
+  "tags": [
+    "feature",
+    "security",
+    "test-unit",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "added",
+  "epic": "sun-sea-o-integration",
+  "semver": "minor",
+  "scope": "auth",
+  "title": "sancio-scoped dev auth bypass for sun-sea-o AUTH_BYPASS_ENABLED",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 229,
+    "deletions": 25
+  },
+  "files": [
+    "api/__tests__/auth.test.ts",
+    "docs/USER_ACTIONS.md",
+    "lib/auth.ts",
+    "lib/routes/sancio/agreement-actions.ts",
+    "lib/routes/sancio/agreements.ts",
+    "lib/routes/sancio/auth.ts",
+    "lib/routes/sancio/misc.ts",
+    "lib/routes/sancio/module-actions.ts",
+    "lib/routes/sancio/modules.ts",
+    "lib/routes/sancio/notes.ts",
+    "lib/routes/sancio/notifications.ts",
+    "lib/routes/sancio/projects.ts",
+    "lib/routes/sancio/proposals.ts"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 3,
+  "impact": "api"
+}

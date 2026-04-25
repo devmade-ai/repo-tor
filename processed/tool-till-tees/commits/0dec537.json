@@ -1,0 +1,42 @@
+{
+  "sha": "0dec537",
+  "fullSha": "0dec537a1c82f2f6d9595cac417aec91d50a7717",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-25T16:00:36Z",
+  "commitDate": "2026-04-25T16:00:36Z",
+  "subject": "docs(session): refresh SESSION_NOTES + USER_ACTIONS for the req.url routing fix",
+  "body": "SESSION_NOTES.md still described the previous branch's approach\n(`req.query.slug` normalization). USER_ACTIONS.md still listed verification\nsteps for the previous branch and a Vercel-support escalation procedure\nthat's no longer relevant — the failure was a runtime param-key rename,\nnot a platform routing bug.\n\nRewrite both for the current branch: explain the `slug` → `...slug`\nruntime change, the req.url-based fix, the new test contract, and the\npost-deploy verification (curls + log tailing for `[sancio] fallthrough`).\n\nTags: documentation, sancio, session-notes\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sancio-api-stability\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "sancio-api-stability",
+  "semver": "patch",
+  "scope": "session",
+  "title": "refresh SESSION_NOTES + USER_ACTIONS for the req.url routing fix",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 26,
+    "deletions": 39
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}

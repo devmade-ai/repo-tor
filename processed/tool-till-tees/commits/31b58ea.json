@@ -1,0 +1,44 @@
+{
+  "sha": "31b58ea",
+  "fullSha": "31b58eaca671efdd68527d8486a5c3601269c18c",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-25T16:39:10Z",
+  "commitDate": "2026-04-25T16:39:10Z",
+  "subject": "docs(sancio): pin rename to Vercel build/edge layer; add cron verification curls",
+  "body": "Tightening pass on the prior fix:\n\n(1) Attribution: the catch-all key rename (slug → ...slug) does not come\nfrom @vercel/node — that package only parses req.query from the URL it\nreceives. The rename is in Vercel's build/edge routing layer, which\nrewrites incoming URLs onto the catch-all by appending a query string\nwhose key is the literal bracketed name from the filename. AI_MISTAKES\nand the dispatcher header now name the correct subsystem; the lesson\n(\"route from req.url, not req.query\") is unchanged. Investigation\nagainst @vercel/node's changelog and routing source did not pin the\nrename to a specific commit, but the rename is observable end-to-end\nvia req.url, which is what the fix relies on.\n\n(2) Cron verification: the cron endpoints (/api/sancio/cron/nudge,\n/auto-expire) share the dispatcher and were also broken, but Vercel\nonly invokes them on schedule (08:00 / 09:00 UTC). USER_ACTIONS.md now\nincludes manual verification curls using CRON_SECRET so the user can\nconfirm cron routing without waiting for the next scheduled run. Both\nhandlers are idempotent (no-op on modules not yet stale/expired), so\nrunning them outside the schedule is safe.\n\nTags: documentation, sancio, vercel, cron\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sancio-api-stability\nSemver: patch",
+  "tags": [
+    "docs",
+    "comments"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "sancio-api-stability",
+  "semver": "patch",
+  "scope": "sancio",
+  "title": "pin rename to Vercel build/edge layer; add cron verification curls",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 22,
+    "deletions": 14
+  },
+  "files": [
+    "api/sancio/[...slug].ts",
+    "docs/AI_MISTAKES.md",
+    "docs/USER_ACTIONS.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}

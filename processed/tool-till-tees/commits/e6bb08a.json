@@ -1,0 +1,50 @@
+{
+  "sha": "e6bb08a",
+  "fullSha": "e6bb08a80e5121032aba558244e8c6e8b3544197",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-25T15:04:56Z",
+  "commitDate": "2026-04-25T15:04:56Z",
+  "subject": "fix(sancio): unblock single-segment routes; harden multi-segment routing",
+  "body": "Root cause: api/sancio/[...path].ts read `req.query.path as string[]`. The\ncast lied — Vercel's runtime delivers the catch-all param as a bare string\nfor single-segment URLs, so segments became \"projects\" instead of\n[\"projects\"], no segments[0] branch matched, and every single-segment\nsancio request fell through to the explicit 404. The per-handler tests\nimport resource handlers directly and bypass dispatch, so this never\nfailed a test.\n\nChanges:\n- Add normalizeSegments(raw) at the top of the dispatcher: handles\n  string[] (documented shape), bare string (split on / and filter\n  Boolean — covers single AND multi-segment string forms), and undefined.\n- Add a `console.error(\"[sancio] fallthrough\", { url, method, rawSlug,\n  segments })` line before the final 404 so any future regression\n  self-diagnoses in one Vercel-logs query.\n- vercel.json: drop \"framework\": \"vite\". Vite is auto-detected from\n  vite.config.ts; declaring it explicitly may invoke SPA-aware behavior\n  that interferes with file-based API routing on the platform.\n- Rename api/sancio/[...path].ts -> [...slug].ts (via git mv) and read\n  req.query.slug. `path` is generic and overlaps with Node/URL\n  conventions; `slug` rules out a Vercel-reserved query-key collision\n  and reads more clearly. Doc references in CLAUDE.md and API.md updated.\n\nTest coverage:\n- New api/__tests__/sancio/dispatcher.test.ts (45 tests). Mocks every\n  lib/routes/sancio/* module with named \"probe\" functions that record\n  their name + post-mutation req.query, then drives every documented\n  route shape through the dispatcher. Coverage:\n    * Input shape normalization: string[], bare string, slash-separated\n      string, leading/trailing slashes, missing slug, empty array.\n    * Route table: all 26 dispatch branches, asserting both the right\n      probe ran AND req.query.id was set for by-id routes.\n    * 404 fallthrough: 11 unknown-path cases plus a console.error\n      diagnostic assertion.\n    * CORS short-circuit: dispatcher returns early without invoking any\n      handler when cors() returns true.\n\nOperational follow-up:\n- docs/USER_ACTIONS.md: post-deploy verification curl set + Vercel\n  support escalation procedure (capture diverging x-vercel-id values\n  from a working single-segment call and a failing multi-segment call)\n  in case the platform 404 on multi-segment routes persists despite\n  the framework + rename changes.\n\nTags: sancio, routing, vercel, bugfix, testing, dispatcher\nComplexity: 3\nUrgency: 4\nImpact: api\nRisk: medium\nDebt: paid\nEpic: sun-sea-o-integration\nSemver: patch\n\nhttps://claude.ai/code/session_01KeVVr1G1A7zVa4Yi2NTmfT",
+  "tags": [
+    "bugfix",
+    "test-unit",
+    "docs",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "sun-sea-o-integration",
+  "semver": "patch",
+  "scope": "sancio",
+  "title": "unblock single-segment routes; harden multi-segment routing",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 393,
+    "deletions": 41
+  },
+  "files": [
+    "API.md",
+    "CLAUDE.md",
+    "api/__tests__/sancio/dispatcher.test.ts",
+    "api/sancio/[...slug].ts",
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md",
+    "vercel.json"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 4,
+  "impact": "api"
+}

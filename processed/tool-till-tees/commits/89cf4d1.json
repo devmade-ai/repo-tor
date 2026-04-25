@@ -1,0 +1,44 @@
+{
+  "sha": "89cf4d1",
+  "fullSha": "89cf4d13fc9a2561f9e765b3895d62172eb01860",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-25T19:18:49Z",
+  "commitDate": "2026-04-25T19:18:49Z",
+  "subject": "chore(sancio): test-helper consistency, spy hygiene, prefix-coupling note",
+  "body": "Four small cleanups surfaced during a fresh-eyes audit. None change\nbehavior; all close consistency or hygiene gaps.\n\n(1) cron.test.ts: replace inline buildEmptyModulesQuery() with\ncreateMockQueryBuilder() from _helpers.ts. The shared helper already\nsupports the bare-then/await shape these tests need (no .single()),\nand this matches every other sancio test in the file. Removes a\nduplicate mock-builder pattern.\n\n(2) cron.test.ts: consolidate process.env.CRON_SECRET cleanup into a\nsingle file-level afterEach. Previously both an inner afterEach (in\nthe helper-describe) and an outer afterEach ran the same delete on\nevery test in that block. Harmless but ugly.\n\n(3) dispatcher.test.ts: add afterAll to mockRestore the console.error\nspy. Vitest isolates test files today, so the leaked spy is harmless\nin the current setup, but it's a side effect that would silently\nswallow console.error in an unrelated suite if a future shared-runtime\nchange ever changes that isolation guarantee.\n\n(4) api/sancio/[...slug].ts: add a one-line note above SANCIO_PREFIX\nspelling out that the constant is coupled to the file's location on\ndisk and to vercel.json rewrites — there is no runtime check that\nwould catch a drift if either ever moves. Future-proofs the next\nreader against silently breaking routing by relocating the dispatcher.\n\n166/166 tests still pass; typecheck clean.\n\nTags: testing, refactor, hygiene, sancio\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sancio-api-stability\nSemver: patch",
+  "tags": [
+    "refactor",
+    "test-unit"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "sancio-api-stability",
+  "semver": "patch",
+  "scope": "sancio",
+  "title": "test-helper consistency, spy hygiene, prefix-coupling note",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 32,
+    "deletions": 29
+  },
+  "files": [
+    "api/__tests__/sancio/cron.test.ts",
+    "api/__tests__/sancio/dispatcher.test.ts",
+    "api/sancio/[...slug].ts"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 1,
+  "impact": "internal"
+}

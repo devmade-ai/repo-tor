@@ -1,0 +1,41 @@
+{
+  "sha": "50347b0",
+  "fullSha": "50347b0c46010beb3d0adf894d5eb3abfc5e0558",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-25T15:11:09Z",
+  "commitDate": "2026-04-25T15:11:09Z",
+  "subject": "docs(ai-mistakes): record `as string[]` cast as root cause pattern",
+  "body": "The dispatcher 404 bug was invisible to TS and the test suite because\nthe unsafe cast told both that the runtime contract matched the type.\nFuture AI work on framework-typed query params should normalize at the\nboundary, never `as`-cast away union arms.\n\nTags: docs, ai-mistakes, sancio, lessons-learned\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: sun-sea-o-integration\nSemver: patch\n\nhttps://claude.ai/code/session_01KeVVr1G1A7zVa4Yi2NTmfT",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "sun-sea-o-integration",
+  "semver": "patch",
+  "scope": "ai-mistakes",
+  "title": "record `as string[]` cast as root cause pattern",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 8,
+    "deletions": 0
+  },
+  "files": [
+    "docs/AI_MISTAKES.md"
+  ],
+  "repo_id": "tool-till-tees",
+  "urgency": 2,
+  "impact": "internal"
+}
