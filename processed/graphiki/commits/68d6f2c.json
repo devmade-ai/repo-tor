@@ -1,0 +1,46 @@
+{
+  "sha": "68d6f2c",
+  "fullSha": "68d6f2cff0ec8775d590ef22a2496e6d1b7e608e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-20T23:21:52Z",
+  "commitDate": "2026-04-20T23:21:52Z",
+  "subject": "chore(docs+test): self-review pass — stale refs fixed, wheelSensitivity tripwire, SESSION_NOTES rewrite",
+  "body": "Self-review of the session's work caught a few small follow-ups:\n\n- src/config.test.ts: added a test asserting wheelSensitivity defaults\n  to 0.3. Previously the field had no test; a future change that drops\n  back to Cytoscape's library 1.0 (or removes the field) would have\n  silently regressed desktop zoom feel.\n\n- src/services/queryEngine.ts: reworked the file-header doc comment.\n  It still claimed the parser/evaluator/AST live in queryParser.ts\n  with an \"840-line split\" rationale that was true at the time of the\n  first split but stale after the second split (queryParser.ts is now\n  a 22-line barrel; the real code lives in src/services/query/*).\n\n- CLAUDE.md \"Query engine\" bullet: refreshed to describe the new\n  src/services/query/ layout and that queryParser.ts is the barrel.\n\n- docs/SESSION_NOTES.md: rewrote as a compact end-of-session snapshot\n  per CLAUDE.md's directive (\"Rewritten at the end of each AI session\").\n  The 13-numbered-item mid-session running log was useful while in\n  progress; the next session needs the punchline + active context, not\n  the play-by-play. Old item-1 said \"all 7 callsites\" but I'd moved\n  getNodeColor mid-session, so the count was stale anyway — the rewrite\n  drops the per-callsite breakdown that's already in git history.\n\n337 tests pass (up from 336). Lint + build clean.\n\nTags: docs, test, cleanup, self-review\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: alpha-debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_015rKh5k6MFgfyjNZDfGaWzV",
+  "tags": [
+    "docs",
+    "test-unit",
+    "refactor"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "alpha-debug-system",
+  "semver": "patch",
+  "scope": "docs+test",
+  "title": "self-review pass — stale refs fixed, wheelSensitivity tripwire, SESSION_NOTES rewrite",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 50,
+    "deletions": 49
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "src/config.test.ts",
+    "src/services/queryEngine.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

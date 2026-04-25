@@ -1,0 +1,52 @@
+{
+  "sha": "c560bb9",
+  "fullSha": "c560bb9d99ba73659a7fba8e2185d3ae34460965",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T07:44:54Z",
+  "commitDate": "2026-04-23T07:44:54Z",
+  "subject": "harden(cssColor): fingerprint-protection probe, CSS Color 5 catch-all, non-tautological tripwire",
+  "body": "Risk-pass follow-up to the cssColor rasterization fix (af48633 +\n9991eda). Addresses forward-looking issues that the green test suite\ncouldn't catch because the existing mock-canvas tests encoded the\nsame assumptions the implementation depended on.\n\nCode — cssColor.ts:\n- **Canvas integrity probe.** On first real use, paint known-distinct\n  colors (#ff0000 then #0000ff) and read each back via getImageData.\n  If reads collapse to the same RGBA (Firefox\n  `privacy.resistFingerprinting`, Tor Browser, some hardened\n  anti-fingerprinting extensions) or the probe throws,\n  `canvasIntegrityOK` flips to false and every subsequent\n  `normalizeColor` returns null — callers fall back to their hex\n  literal (visible + correct) instead of a silently-wrong rasterized\n  value. Probe cached once per canvas lifetime; reset by\n  `clearCSSColorCache`. Gated on `fillRect`/`getImageData` existing so\n  test mocks without rasterization support are not mis-classified.\n- **Harden SENTINEL_RE.** Previous regex only accepted\n  `rgba(0, 0, 0, 0)` (comma-separated, any whitespace). New regex\n  also accepts `rgb(0 0 0 / 0)` and `rgba(0 0 0 / 0)` (CSS Color 4\n  slash-alpha syntax). Prevents a browser that emits the new form\n  from misclassifying the sentinel check and flagging every assignment\n  as rejected.\n- **Extend rejection guards.** Split the previous\n  `MODERN_SYNTAX_RE` into two layers: (a) a hit-list of known-rejected\n  functions (`oklch`/`oklab`/`color`/`color-mix`/`lab`/`lch`/`hwb`/\n  `light-dark`/`contrast-color`) and (b) an `UNKNOWN_FN_RE` catch-all\n  with `KNOWN_SAFE_FN_RE` whitelist (`rgb`/`rgba`/`hsl`/`hsla`). Any\n  future CSS Color 5+ function we haven't enumerated is rejected by\n  the catch-all rather than silently leaking to Cytoscape.\n\nTests:\n- **Upgrade `cytoscapeStyles.safety.test.ts` to a raster-aware mock.**\n  The previous mock scripted `fillStyle` to downsample oklch to hex —\n  same tautological pattern documented in AI_MISTAKES. The upgraded\n  mock preserves raw values on `fillStyle` (simulates modern Chromium\n  CSS Color 4 serialization) and returns RGBA bytes from `getImageData`\n  derived from the expected-output hex. The tripwire now actually\n  exercises the production rasterization path instead of a rigged\n  fallback. Also expanded `UNKNOWN_FN_RE` coverage in the stylesheet\n  walk assertion.\n- **New cssColor tests:**\n  - TRIPWIRE for `color-mix()` + UNKNOWN_FN catch-all via selective\n    getImageData failure (probe passes on sRGB colors, fails on CSS\n    Color 4 — simulates an extension that whitelists legacy syntax).\n  - Positive + negative tests for the integrity probe (collapsed\n    uniform readbacks return null; cooperative canvas returns hex).\n  - Renamed the pre-existing \"normalizeColor\" describe block to\n    \"normalizeColor (fallback path — no getImageData)\" so a filtered\n    run surfaces both the fallback block and the modern-canvas block.\n- Helper `installModernCanvas` auto-seeds probe colors in both the\n  serialization and raster rule maps so individual tests don't have\n  to remember.\n- Replaced the older \"tolerates rasterization failure when fillStyle\n  already downsampled to hex\" test with \"returns null when\n  getImageData throws during the integrity probe\" — the new semantic\n  (fail-closed when canvas can't rasterize) is strictly safer than\n  the old (trust legacy fillStyle serialization on a misbehaving\n  canvas).\n\nOther:\n- GraphCanvas.tsx — updated the `document.fonts.ready` comment block\n  to clarify the re-apply's primary purpose (DaisyUI stylesheet not\n  yet painted on Cytoscape init) is a lifecycle issue distinct from\n  normalization. Rasterization is deterministic per-input; the\n  re-apply still matters because CSS vars are initially unset.\n- CLAUDE.md + docs/CODEBASE_DOCUMENTATION.md — reflected the new\n  probe, the regex split, and the hardened sentinel coverage.\n- docs/USER_ACTIONS.md — first entry added: merge\n  `claude/review-claude-md-wuSD2` to `main` so Vercel deploys the\n  fix. Production still serves the pre-fix build; re-test on Chrome\n  147 Android after merge.\n\nTests: 342 -> 345 (3 new in cssColor). Lint clean, typecheck clean.\n\nTags: cssColor, fingerprint-protection, css-color-5, tripwire, risk-pass\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: alpha-debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01BWtvfymwxSnoGr13R5qc9a",
+  "tags": [
+    "enhancement",
+    "security",
+    "test-unit",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "alpha-debug-system",
+  "semver": "patch",
+  "scope": "cssColor",
+  "title": "fingerprint-protection probe, CSS Color 5 catch-all, non-tautological tripwire",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#0000"
+  ],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 319,
+    "deletions": 41
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/CODEBASE_DOCUMENTATION.md",
+    "docs/USER_ACTIONS.md",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/graph/cytoscapeStyles.safety.test.ts",
+    "src/utils/cssColor.test.ts",
+    "src/utils/cssColor.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}

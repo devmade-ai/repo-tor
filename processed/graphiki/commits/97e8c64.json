@@ -1,0 +1,50 @@
+{
+  "sha": "97e8c64",
+  "fullSha": "97e8c64a7702d0bcdcb268623c9ca40718ea0875",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-20T00:00:34Z",
+  "commitDate": "2026-04-20T00:00:34Z",
+  "subject": "chore(graph): cap rejectedLogged, extract useStylesReady, move getNodeColor",
+  "body": "Self-audit cleanup on top of the worker-console commit.\n\nrejectedLogged cap (#1)\n- The cssColor rejection-log dedupe Set had no upper bound, inconsistent\n  with the normalization cache I'd capped in the previous sweep. Same\n  pathological exposure: a future caller that passes unique bad strings\n  per call could balloon the Set. Same fix: FIFO eviction at\n  MAX_CACHE_ENTRIES (256). After eviction, a re-seen rejected value\n  re-logs once — acceptable tradeoff for bounded memory.\n- New test covers the re-log-after-eviction behavior.\n\nuseStylesReady extraction (#2)\n- GraphCanvas.tsx had crossed the 500-line \"pause and consider\"\n  threshold (546 lines). The document.fonts.ready race-guard is a\n  self-contained concern (cache invalidation + boolean flip +\n  cancellation), so it moves cleanly into src/hooks/useStylesReady.ts.\n- The lazy useState initializer (browsers without Font Loading API\n  start ready) replaces a sync setState inside the effect. This avoids\n  the `react-hooks/set-state-in-effect` lint rule that fires on\n  synchronous state mutation during effect execution.\n- GraphCanvas.tsx now at 501 lines (back at threshold, not above).\n\ngetNodeColor relocation (#2)\n- getNodeColor was inline in GraphCanvas despite being a pure function\n  that hashes to PALETTE with a DaisyUI fallback. Moved to\n  cytoscapeStyles.ts alongside the other 5 color resolvers\n  (getArcColor, getNodeShape, getCytoscapeStylesheet). Removes the\n  \"two-calls-live-here\" asymmetry doc comment from GraphCanvas — with\n  getNodeColor moved, only the arcFallbackColor single-line call\n  remains inline, which needs no commentary.\n\n326 tests pass (up from 325). Lint + build clean.\n\nTags: cleanup, graph, hooks, extraction, cache, css\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: alpha-debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_015rKh5k6MFgfyjNZDfGaWzV",
+  "tags": [
+    "refactor",
+    "caching"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "alpha-debug-system",
+  "semver": "patch",
+  "scope": "graph",
+  "title": "cap rejectedLogged, extract useStylesReady, move getNodeColor",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#1",
+    "#2"
+  ],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 106,
+    "deletions": 54
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/components/graph/cytoscapeStyles.ts",
+    "src/hooks/useStylesReady.ts",
+    "src/utils/cssColor.test.ts",
+    "src/utils/cssColor.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 1,
+  "impact": "internal"
+}

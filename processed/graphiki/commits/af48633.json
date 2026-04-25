@@ -1,0 +1,45 @@
+{
+  "sha": "af48633",
+  "fullSha": "af486333c17457c1d157181941653007c66678a3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T23:47:34Z",
+  "commitDate": "2026-04-22T23:47:34Z",
+  "subject": "fix(cssColor): rasterize via getImageData to survive CSS Color 4 fillStyle preservation",
+  "body": "Modern Chromium (Chrome 147 on Android, confirmed via production debug\nreport) implements CSS Color 4 serialization on canvas 2D fillStyle.\nSetting `ctx.fillStyle = 'oklch(...)'` and reading `String(ctx.fillStyle)`\nnow round-trips the oklch value unchanged instead of downsampling to\nlegacy hex/rgba. The previous normalizer's central assumption — \"the\nHTML spec guarantees fillStyle serializes any valid CSS color to\n#rrggbb / rgba(...) / #rrggbbaa\" — is no longer true. Every DaisyUI\noklch token leaked through getCSSColor to Cytoscape, which rejected\nthem silently, breaking node:selected borders, dual-query A/B/bridge\ncolors, analysis highlights, and arc fallbacks.\n\nThe previous mock-canvas test suite could not catch this because it\nreplaced real browser behavior with explicit input→output rules. Tests\nasserted \"oklch → #eab308\" because the mock was told to do that, not\nbecause real canvases do it.\n\nFix:\n- Replace fillStyle-serialization as the normalization primitive with\n  rasterization: paint a 1x1 pixel via fillRect, read the 8-bit sRGB\n  bytes via getImageData, serialize to #rrggbb (a=255) or rgba(...).\n  Pixel readback is guaranteed sRGB 8-bit regardless of how fillStyle\n  chooses to serialize, so CSS Color 4 preservation cannot leak.\n- Keep sentinel-based rejection detection as stage 1 — fillStyle still\n  ignores unparseable inputs, and catching that lets us return null so\n  getCSSColor routes to its hex fallback.\n- Add MODERN_SYNTAX_RE defense-in-depth: if getImageData throws\n  (tainted canvas, CSP, privacy mode), any serialized value starting\n  with oklch(/oklab(/color(/lab(/lch(/hwb( is treated as rejection\n  rather than fed to Cytoscape.\n- Update decision-doc header to reflect the real mechanism and add an\n  \"alternatives considered\" entry rejecting fillStyle-downsample\n  specifically so the assumption can't reappear silently.\n\nTests:\n- New describe block \"modern canvas fillStyle (CSS Color 4\n  serialization)\" with a raster-aware mock that simulates Chrome 147+\n  behavior (fillStyle getter preserves oklch; getImageData returns the\n  known sRGB tuple). Verifies normalizeColor returns hex, not oklch.\n- New TRIPWIRE test asserts normalizeColor never returns a string\n  starting with oklch(/oklab(/color(/lab(/lch(/hwb( for non-null\n  outputs — catches any future regression at the unit-test layer\n  instead of production.\n- New test for rasterization failure + modern-syntax guard path.\n- New test for rasterization failure + legacy hex path (older\n  Chromium / WebKit) still caches successfully.\n- All 21 existing tests pass unchanged — they exercise the fallback\n  path where the mock ctx has no fillRect/getImageData methods, the\n  try/catch catches the TypeError, and the serialized hex is returned.\n\nDocs:\n- Updated CLAUDE.md \"Cytoscape color normalization\" convention to\n  describe the two-stage mechanism (sentinel rejection + raster\n  normalize), note that modern Chromium preserves CSS Color 4 syntaxes\n  on fillStyle, and reference the new TRIPWIRE test by name.\n\nTags: bug, cytoscape, cssColor, color-normalization, css-color-4, canvas\nComplexity: 3\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: alpha-debug-system\nSemver: patch\n\nhttps://claude.ai/code/session_01BWtvfymwxSnoGr13R5qc9a",
+  "tags": [
+    "bugfix",
+    "test-unit",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "alpha-debug-system",
+  "semver": "patch",
+  "scope": "cssColor",
+  "title": "rasterize via getImageData to survive CSS Color 4 fillStyle preservation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 232,
+    "deletions": 16
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/utils/cssColor.test.ts",
+    "src/utils/cssColor.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 4,
+  "impact": "user-facing"
+}

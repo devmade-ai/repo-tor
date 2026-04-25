@@ -1,0 +1,54 @@
+{
+  "sha": "02e1620",
+  "fullSha": "02e16207c09114bf997e664c83ff171d79e2c528",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-19T23:10:31Z",
+  "commitDate": "2026-04-19T23:10:31Z",
+  "subject": "fix(graph): harden cssColor rejection path; restore wheelSensitivity via config; fonts.ready cache invalidation",
+  "body": "Follow-up sweep on 2932b79 covering 9 findings from the review pass:\n\ncssColor.ts\n- normalizeColor now returns string | null. null signals rejection so\n  getCSSColor can route a present-but-rejected CSS variable to its hex\n  fallback rather than re-feeding the unparseable value to Cytoscape\n  (which would silently drop the style again).\n- Sentinel comparison via regex (SENTINEL_RE) tolerates whitespace variants\n  — historical WebKit serializes rgba without inner spaces.\n- getCtx() no longer marks itself initialized on failure. A first call\n  before DOM-ready or in a hardened env no longer locks the module into\n  a null ctx for its lifetime.\n- try/catch around both fillStyle assignments. Trusted Types / sandbox\n  throw is treated as rejection instead of crashing the render path.\n- Each rejected raw value logs once via debugLog('canvas', 'warn', ...).\n  Set-based dedupe so repeated calls don't flood. clearCSSColorCache()\n  resets both the value cache and the dedupe set.\n\nconfig.ts + GraphCanvas.tsx\n- wheelSensitivity exposed as config.wheelSensitivity (default 0.3).\n  Cytoscape's library default (1.0) is widely regarded as too aggressive\n  on desktop mice; 0.3 is the common override. The one-time Cytoscape\n  info warning is documented and expected. Deployments that prefer\n  library default set window.__GRAPHIKI_CONFIG__ = { wheelSensitivity: 1.0 }.\n\nGraphCanvas.tsx\n- document.fonts.ready effect invalidates cssColor cache and bumps a\n  stylesReady flag so the style-apply effect re-runs with fresh CSS\n  reads. Fixes the \"Cytoscape inits before DaisyUI stylesheet paints\"\n  race where hex fallbacks got cached under the real variable names\n  and later theme-reapply effects hit stale cache.\n\ndebugLog.ts\n- MAX_ENTRIES 200 → 500. The original oklch flood emitted 28 warnings\n  on init alone, erasing boot/render context under the tight cap.\n  Memory cost ~100 KB.\n\npwaDiagnostics.ts\n- New \"Graph Style Rejections\" check scans the debug buffer for canvas-\n  normalizer rejections and intercepted Cytoscape \"style property is\n  invalid\" warns. Green when zero, red with count when non-zero —\n  surfaces the class of bug as a diagnostic instead of burying it in\n  console noise.\n\ncssColor.test.ts\n- 12 → 18 tests. Switched to vi.spyOn + vi.restoreAllMocks pattern so a\n  mid-test throw can't poison sibling files. New cases: null-on-rejection,\n  whitespace variants in sentinel serialization, fillStyle throw, log-\n  once dedupe, fallback-on-rejection regression guard, fallback-when-\n  both-reject defense, dedupe-set invalidation. Known-limitation test\n  documents that non-transparent zero-alpha forms are misclassified as\n  rejection (harmless — null routes to caller's hex fallback; DaisyUI\n  tokens are all opaque).\n\nDocs\n- CLAUDE.md: cssColor and wheelSensitivity bullets updated for new\n  behavior (null-on-rejection, fonts.ready invalidation, config gate).\n- docs/CODEBASE_DOCUMENTATION.md: Cytoscape Theme Awareness section\n  expanded with null-return semantics, fonts.ready race fix, test\n  infrastructure, known limitation.\n- docs/AI_MISTAKES.md: wheelSensitivity entry reframed — a library\n  warning doesn't always mean the default is correct; the right fix\n  was exposing the setting via config, not silencing by reverting.\n- docs/SESSION_NOTES.md: refreshed summary.\n- docs/TODO.md: worker-side debug logging + central error-logging layer\n  added as tech-debt items (deferred from this PR).\n\nDeferred out of this PR (tracked in TODO.md):\n- Worker-side console interception (embeddingWorker, tagSuggestionWorker\n  emit warns that never reach DebugPill).\n- Central error-logging layer wrapping the ~20 catch { showToast(...) }\n  blocks that swallow underlying errors.\n\nAll 308 tests pass (up from 302). Lint + build clean.\n\nTags: bugfix, cytoscape, daisyui, theme, css, oklch, graph, debug, pwa, config\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-and-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_015rKh5k6MFgfyjNZDfGaWzV",
+  "tags": [
+    "bugfix",
+    "ui",
+    "config",
+    "monitoring"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-and-dark-mode",
+  "semver": "patch",
+  "scope": "graph",
+  "title": "harden cssColor rejection path; restore wheelSensitivity via config; fonts.ready cache invalidation",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 331,
+    "deletions": 95
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/AI_MISTAKES.md",
+    "docs/CODEBASE_DOCUMENTATION.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "src/components/graph/GraphCanvas.tsx",
+    "src/config.ts",
+    "src/utils/cssColor.test.ts",
+    "src/utils/cssColor.ts",
+    "src/utils/debugLog.ts",
+    "src/utils/pwaDiagnostics.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}
