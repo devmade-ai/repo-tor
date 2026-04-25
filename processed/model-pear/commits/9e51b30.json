@@ -1,0 +1,49 @@
+{
+  "sha": "9e51b30",
+  "fullSha": "9e51b304fd85e5ca352b85118908ef3273656937",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-10T16:46:37Z",
+  "commitDate": "2026-04-10T16:46:37Z",
+  "subject": "fix(icons): quality cleanup — meta tags, error handling, docs, SVG hygiene",
+  "body": "- Add <meta name=\"theme-color\"> for mobile browser chrome colour\n- Add sizes=\"180x180\" to apple-touch-icon link\n- Add SVG source existence check with meaningful error in generation script\n- Remove redundant rx=\"0\" ry=\"0\" from SVG rect\n- Fix inaccurate SVG comment (was \"overlapping ellipses\", is cubic bezier)\n- Update CLAUDE.md file structure with assets/, scripts/, static/ dirs\n- Add pnpm generate-icons to CLAUDE.md build commands\n- Fix ARCHITECTURE.md: static/ was incorrectly nested under src/\n\nTags: icons, meta, docs, cleanup\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: app-icons\nSemver: patch\n\nhttps://claude.ai/code/session_01CAEv1WhXFsUQWnJwRk8p34",
+  "tags": [
+    "bugfix",
+    "docs",
+    "error-handling"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "app-icons",
+  "semver": "patch",
+  "scope": "icons",
+  "title": "quality cleanup — meta tags, error handling, docs, SVG hygiene",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 54,
+    "deletions": 16
+  },
+  "files": [
+    "CLAUDE.md",
+    "apps/web/src/app.html",
+    "assets/icon-source.svg",
+    "docs/ARCHITECTURE.md",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "scripts/generate-icons.mjs"
+  ],
+  "repo_id": "model-pear",
+  "urgency": 2,
+  "impact": "user-facing"
+}
