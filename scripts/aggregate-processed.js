@@ -71,6 +71,12 @@ function loadAuthorMap() {
  */
 function resolveAuthorId(authorId) {
   if (!authorId) return 'unknown';
+  // Idempotent: if the input is already a known canonical ID, return it
+  //   unchanged. Without this, double-resolution (e.g. generateAggregation
+  //   normalises commits, then calcContributorAggregations re-resolves) would
+  //   flag the canonical ID itself as unmapped because canonical IDs aren't
+  //   keys in emailToCanonical (which maps emails → canonical IDs).
+  if (authorMap?.authors?.[authorId]) return authorId;
   const canonical = emailToCanonical[authorId.toLowerCase()];
   if (!canonical && authorMap) {
     // Only track as unmapped if author-map.json was loaded (otherwise all are "unmapped")

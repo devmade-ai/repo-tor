@@ -641,7 +641,7 @@ Never:
 - **Claude Code mobile/web — accessing sibling repos:** Use `GITHUB_ALL_REPO_TOKEN` with the GitHub API (`api.github.com/repos/devmade-ai/{repo}/contents/{path}`) to read files from other devmade-ai repos. Use `$(printenv GITHUB_ALL_REPO_TOKEN)` not `$GITHUB_ALL_REPO_TOKEN` to avoid shell expansion issues. Never clone sibling repos — use the API instead.
 - **Check for existing patterns** in the codebase before creating new ones
 - **Clean up completed or obsolete docs/files** and remove references to them
-- **Discontinued repos — skip entirely:** `plant-fur` and `coin-zapp` are discontinued. Do not check, audit, align, or include them in cross-project operations.
+- **Discontinued repos — skip entirely:** `plant-fur`, `coin-zapp`, and `chatty-chart` are discontinued. Do not check, audit, align, or include them in cross-project operations. `chatty-chart` (illuminAI-select org) is also explicitly excluded from data aggregation by name in `scripts/aggregate-processed.js` `EXCLUDED_REPOS`.
 - **Trigger vs. repo-convention name collisions:** Several trigger names collide with repo concepts in this codebase — `docs` (folder), `config` (folder), `state` (`dashboard/js/state.js`), `api` (`scripts/extract-api.js`), `pwa` (`dashboard/js/pwa.js`), `patterns` (Implementation Patterns section). When a user message uses a bare word that matches both a trigger and a repo concept, interpret as the trigger ONLY when the message context is a review/audit request. Otherwise treat as the repo concept.
 
 ### REMINDER: READ AND FOLLOW THE AI NOTES EVERY TIME
