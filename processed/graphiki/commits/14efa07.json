@@ -1,0 +1,43 @@
+{
+  "sha": "14efa07",
+  "fullSha": "14efa07631a9c018f9784f814302d4a50f46474b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-06T00:07:58Z",
+  "commitDate": "2026-04-06T00:07:58Z",
+  "subject": "fix(ui): fix modals hidden by DaisyUI modal class + tab border/switching issues",
+  "body": "BaseModal's inner div used the 'modal' CSS class which collides with DaisyUI v5's\n.modal component (sets visibility:hidden, pointer-events:none by default). Removed\nthe class so modal content renders visibly above the backdrop overlay.\n\nViewSwitcher tabs: replaced border-l-0 approach with -ml-px negative margin overlap\nso the active tab's primary border shows on all sides. Added z-[1] to active tab so\nits border renders above adjacent inactive tabs. Added touch-manipulation to prevent\n300ms mobile tap delay that caused double-tap requirement.\n\nTags: ui, modals, tabs, daisyui, mobile\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: bug-fixes\nSemver: patch\n\nhttps://claude.ai/code/session_01TsXhmNKMKj2g5gSNAr8LXB",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "bug-fixes",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "fix modals hidden by DaisyUI modal class + tab border/switching issues",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 11,
+    "deletions": 9
+  },
+  "files": [
+    "src/components/ui/BaseModal.tsx",
+    "src/components/views/ViewSwitcher.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 4,
+  "impact": "user-facing"
+}

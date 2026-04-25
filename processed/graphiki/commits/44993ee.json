@@ -1,0 +1,42 @@
+{
+  "sha": "44993ee",
+  "fullSha": "44993eeadcd78ea1ba18e51ace0197bb62c0ee9e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-06T07:09:46Z",
+  "commitDate": "2026-04-06T07:09:46Z",
+  "subject": "fix(graph): move node labels inside nodes with white text for readability",
+  "body": "Labels were positioned below nodes with text outlines against the page\nbackground, making them hard to read and visually cluttered. Now labels\nare centered inside nodes with bold white text, which provides high\ncontrast against all palette colors without needing outlines.\n\nTags: graph, cytoscape, labels, ui\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: graph-styling\nSemver: patch\n\nhttps://claude.ai/code/session_01FxPa13YHRJXi91G3SYF3yj",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "graph-styling",
+  "semver": "patch",
+  "scope": "graph",
+  "title": "move node labels inside nodes with white text for readability",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 13,
+    "deletions": 22
+  },
+  "files": [
+    "src/components/graph/cytoscapeStyles.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 3,
+  "impact": "user-facing"
+}
