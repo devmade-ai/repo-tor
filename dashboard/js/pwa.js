@@ -133,6 +133,24 @@ let _isChecking = false;
 // Pattern from: synctone usePWAUpdate.ts, few-lap usePWAUpdate.ts
 let _userClickedUpdate = false;
 
+// HMR teardown wiring.
+// Requirement: Vite hot-reloads of this module must release every listener,
+//   timeout, and interval the previous instance attached. Without it, each
+//   hot-reload duplicates beforeinstallprompt / appinstalled / controllerchange /
+//   visibilitychange / display-mode listeners, and stale callbacks fire into
+//   the dead module's closure.
+// Approach: Single module-level AbortController routed through every
+//   addEventListener via { signal }. Long-lived setTimeout ids tracked in an
+//   array so dispose can drain them. The SW update polling interval has its
+//   own clearer (stopUpdatePolling) — dispose calls it.
+// Alternatives:
+//   - Named handlers + per-listener removeEventListener: Rejected — six
+//     listeners across two scopes (window, document, navigator.serviceWorker,
+//     a MediaQueryList) each needing a named handler with closure access to
+//     module state. AbortController collapses all of that to one abort call.
+const pwaAbortController = new AbortController();
+const pwaTimeouts = [];
+
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
     window.navigator.standalone === true;
 
@@ -164,7 +182,7 @@ if (earlyCaptured) {
     deferredInstallPrompt = earlyCaptured;
     _installReady = true;
     // Defer event dispatch so React listeners are attached by the time it fires
-    setTimeout(() => window.dispatchEvent(new CustomEvent('pwa-install-ready')), 0);
+    pwaTimeouts.push(setTimeout(() => window.dispatchEvent(new CustomEvent('pwa-install-ready')), 0));
 }
 
 // Fallback listener for first-visit case (SW registers after mount)
@@ -176,7 +194,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     deferredInstallPrompt = e;
     _installReady = true;
     window.dispatchEvent(new CustomEvent('pwa-install-ready'));
-});
+}, { signal: pwaAbortController.signal });
 
 // Requirement: Set diagnostic flag so hooks/debug can check if event was ever received
 // Pattern from: few-lap +html.tsx (__pwaPromptReceived)
@@ -184,7 +202,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 //       This listener covers events that fire after module load.
 window.addEventListener('beforeinstallprompt', () => {
     window.__pwaPromptReceived = true;
-});
+}, { signal: pwaAbortController.signal });
 
 window.addEventListener('appinstalled', () => {
     deferredInstallPrompt = null;
@@ -192,7 +210,7 @@ window.addEventListener('appinstalled', () => {
     safeStorageSet('pwaInstalled', 'true');
     trackInstallEvent('installed');
     window.dispatchEvent(new CustomEvent('pwa-installed'));
-});
+}, { signal: pwaAbortController.signal });
 
 // Requirement: Detect browser-menu installs (user installs via browser UI, not our prompt)
 // Approach: Watch display-mode: standalone media query changes. When it switches to true,
@@ -209,7 +227,7 @@ if (!isStandalone) {
             trackInstallEvent('installed-via-browser');
             window.dispatchEvent(new CustomEvent('pwa-installed'));
         }
-    });
+    }, { signal: pwaAbortController.signal });
 }
 
 // Requirement: Diagnostic timeout — warn if beforeinstallprompt hasn't fired after 5s on Chromium
@@ -217,13 +235,13 @@ if (!isStandalone) {
 //   to the debug pill. Helps debug "why isn't install showing?" without needing DevTools.
 // Pattern from: few-lap usePWAInstall.ts (5s diagnostic)
 if (supportsNativeInstall() && !earlyCaptured && !window.__pwaPromptReceived && !isStandalone) {
-    setTimeout(() => {
+    pwaTimeouts.push(setTimeout(() => {
         if (window.__pwaPromptReceived || deferredInstallPrompt) return;
         const hasManifest = !!document.querySelector('link[rel="manifest"]');
         const swControlled = !!navigator.serviceWorker?.controller;
         const msg = `No beforeinstallprompt after ${INSTALL_DIAGNOSTIC_TIMEOUT_MS / 1000}s`;
         debugAdd('pwa', 'warn', msg, { manifest: hasManifest, swControlled, standalone: isStandalone });
-    }, INSTALL_DIAGNOSTIC_TIMEOUT_MS);
+    }, INSTALL_DIAGNOSTIC_TIMEOUT_MS));
 }
 
 /**
@@ -367,9 +385,9 @@ updateSW = registerSW({
         window.dispatchEvent(new CustomEvent('pwa-offline-ready'));
         // Requirement: Auto-dismiss offline-ready after 3s — transient notification
         // Pattern from: few-lap usePWAUpdate.ts (offlineReady auto-dismiss)
-        setTimeout(() => {
+        pwaTimeouts.push(setTimeout(() => {
             window.dispatchEvent(new CustomEvent('pwa-offline-dismissed'));
-        }, OFFLINE_READY_DISMISS_MS);
+        }, OFFLINE_READY_DISMISS_MS));
     },
     onRegisteredSW(swUrl, registration) {
         if (registration) {
@@ -380,7 +398,7 @@ updateSW = registerSW({
             }, SW_UPDATE_CHECK_INTERVAL_MS);
         }
         // Initial version check on startup (deferred so it doesn't block rendering)
-        setTimeout(() => checkVersionJson(), VERSION_CHECK_STARTUP_DELAY_MS);
+        pwaTimeouts.push(setTimeout(() => checkVersionJson(), VERSION_CHECK_STARTUP_DELAY_MS));
     },
     onRegisterError(error) {
         debugAdd('pwa', 'error', 'Service worker registration failed: ' + error.message, {
@@ -407,7 +425,7 @@ if ('serviceWorker' in navigator) {
         if (!_userClickedUpdate) return;
         refreshing = true;
         window.location.reload();
-    });
+    }, { signal: pwaAbortController.signal });
 }
 
 // ── Visibility change ──
@@ -424,14 +442,28 @@ document.addEventListener('visibilitychange', () => {
         navigator.serviceWorker.getRegistration().then(reg => {
             if (!reg) return;
             reg.update();
-            setTimeout(() => {
+            pwaTimeouts.push(setTimeout(() => {
                 if (reg.waiting && !_updateAvailable) {
                     _updateAvailable = true;
                     window.dispatchEvent(new CustomEvent('pwa-update-available'));
                 }
-            }, UPDATE_SETTLE_DELAY_MS);
+            }, UPDATE_SETTLE_DELAY_MS));
         }).catch(err => {
             console.warn('Failed to check for SW updates:', err.message || err);
         });
     }
-});
+}, { signal: pwaAbortController.signal });
+
+// HMR teardown: abort all listeners, drain pending timeouts, stop the update
+// polling interval. The SW registration itself stays active across reloads —
+// vite-plugin-pwa exposes no clean tear-down for it, and re-registering on
+// every hot-reload would be wrong anyway. The new module instance picks up
+// where the old one left off via virtual:pwa-register's idempotent registerSW.
+if (import.meta.hot) {
+    import.meta.hot.dispose(() => {
+        pwaAbortController.abort();
+        pwaTimeouts.forEach(clearTimeout);
+        pwaTimeouts.length = 0;
+        stopUpdatePolling();
+    });
+}
