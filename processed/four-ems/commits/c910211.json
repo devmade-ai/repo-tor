@@ -1,0 +1,57 @@
+{
+  "sha": "c910211",
+  "fullSha": "c910211b9289722a25a3af2452ef7c85ce2688bb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-02T03:44:27Z",
+  "commitDate": "2026-04-02T03:44:27Z",
+  "subject": "feat(icons): unify all app icons with header four-squares design",
+  "body": "All icons now reflect the AppHeader brand icon — four white squares with\nopacity gradient on brand-blue background. Added Sharp-based icon generation\npipeline per glow-props spec: single SVG source at 400 DPI, outputs all\nneeded PNG sizes plus favicon.svg.\n\nTags: ui, pwa, branding\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: branding\nSemver: minor\n\nhttps://claude.ai/code/session_01JCXvnzbt3TDYtCQ9z4hJx3",
+  "tags": [
+    "ui",
+    "feature",
+    "dependency-add"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "branding",
+  "semver": "minor",
+  "scope": "icons",
+  "title": "unify all app icons with header four-squares design",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 15,
+    "additions": 662,
+    "deletions": 4
+  },
+  "files": [
+    "assets/icon-source.svg",
+    "assets/images/adaptive-icon.png",
+    "assets/images/favicon.png",
+    "assets/images/icon-192.png",
+    "assets/images/icon-512.png",
+    "assets/images/icon.png",
+    "assets/images/splash-icon.png",
+    "package-lock.json",
+    "package.json",
+    "public/favicon.svg",
+    "public/pwa-1024x1024.png",
+    "public/pwa-192x192.png",
+    "public/pwa-512x512.png",
+    "scripts/generate-icons.mjs",
+    "vite.config.ts"
+  ],
+  "repo_id": "four-ems",
+  "urgency": 2,
+  "impact": "user-facing"
+}
