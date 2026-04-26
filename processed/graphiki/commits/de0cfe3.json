@@ -1,0 +1,66 @@
+{
+  "sha": "de0cfe3",
+  "fullSha": "de0cfe3f0a778ff2a9bd8ba31d051e4aa518fe85",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T22:00:37Z",
+  "commitDate": "2026-04-05T22:00:37Z",
+  "subject": "refactor(theme): replace manual UI patterns with DaisyUI component classes",
+  "body": "Replace 57+ manually-styled UI elements with DaisyUI component classes:\n\n- Inputs/selects/textareas (23 instances): Manual bg-base-100 border\n  border-base-300 → DaisyUI input input-bordered / select select-bordered\n  / textarea textarea-bordered\n- Badges (8 instances): Manual rounded-full px py → DaisyUI badge\n  badge-primary badge-soft badge-sm. Deleted .label-badge from App.css\n- Progress bars (5 full-width instances): Manual div-in-div → DaisyUI\n  <progress> element. Kept small inline score bars as manual divs\n- Alerts (5 instances): Manual bg-error/10 border → DaisyUI alert\n  alert-error / alert-warning alert-soft\n- Checkboxes (1): accent-primary → checkbox checkbox-primary checkbox-sm\n- Range slider (1): accent-primary → range range-primary range-sm\n- Shared CSS: .modal-cancel → btn btn-ghost, .modal-actions → flex gap\n  mt-4, .app-alpha-badge → badge badge-warning badge-xs. Deleted from\n  App.css\n\nApp.css reduced from 298 to ~230 lines.\nTimelineView.css checkbox accent-color rule removed (DaisyUI handles).\n\nTags: theme, daisyui, components, forms, badges, progress, alerts\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: theme-dark-mode\nSemver: minor\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "replace manual UI patterns with DaisyUI component classes",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 24,
+    "additions": 100,
+    "deletions": 178
+  },
+  "files": [
+    "src/App.css",
+    "src/App.tsx",
+    "src/components/analysis/AnalysisModal.tsx",
+    "src/components/analysis/AnalysisPanel.tsx",
+    "src/components/conventions/ConventionsModal.tsx",
+    "src/components/duplicates/DuplicatePairCard.tsx",
+    "src/components/duplicates/DuplicateScannerModal.tsx",
+    "src/components/importExport/ExportModal.tsx",
+    "src/components/importExport/ImportModal.tsx",
+    "src/components/importExport/MergeReview.tsx",
+    "src/components/importExport/SmartMatchingStep.tsx",
+    "src/components/panels/ArcDetail.tsx",
+    "src/components/panels/DetailPanel.tsx",
+    "src/components/panels/NodeDetail.tsx",
+    "src/components/pwa/InstallInstructionsModal.tsx",
+    "src/components/query/ConnectModeContent.tsx",
+    "src/components/query/QueryFilterRow.tsx",
+    "src/components/query/SearchModeContent.tsx",
+    "src/components/ui/ConnectNodeModal.tsx",
+    "src/components/ui/CreateNodeModal.tsx",
+    "src/components/ui/LabelSuggestions.tsx",
+    "src/components/views/TimelineView.css",
+    "src/components/views/TimelineView.tsx",
+    "src/components/workspaces/WorkspaceManager.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "user-facing"
+}

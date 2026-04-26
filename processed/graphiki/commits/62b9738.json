@@ -1,0 +1,48 @@
+{
+  "sha": "62b9738",
+  "fullSha": "62b97382f43be87f40e2d44c10e778bb4f7d01a7",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T22:29:16Z",
+  "commitDate": "2026-04-05T22:29:16Z",
+  "subject": "feat(theme): add build script to auto-generate PWA meta theme-color hex",
+  "body": "Add scripts/generate-theme-meta.mjs that reads DaisyUI oklch theme\nvalues and converts them to hex for PWA meta theme-color tags. The\nscript updates daisyuiThemes.ts metaColor values, index.html meta\ntags, and the flash prevention script's metaColors object.\n\nLight themes use --color-primary, dark themes use --color-base-100.\nConversion: oklch → oklab → LMS → linear sRGB → gamma sRGB → hex.\nScript is idempotent — no writes when values are already correct.\n\nFixed incorrect pastel meta-color: #fdeef4 (wrong) → #e9d4ff (correct,\nderived from pastel's oklch primary value).\n\nRun: npm run generate:theme-meta (after DaisyUI updates or combo changes)\n\nTags: theme, build-script, pwa, meta-color, oklch\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: theme-dark-mode\nSemver: minor\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "feature",
+    "build",
+    "config"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "add build script to auto-generate PWA meta theme-color hex",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 195,
+    "deletions": 7
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/TODO.md",
+    "index.html",
+    "package.json",
+    "scripts/generate-theme-meta.mjs",
+    "src/config/daisyuiThemes.ts"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

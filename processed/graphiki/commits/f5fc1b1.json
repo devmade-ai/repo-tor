@@ -1,0 +1,48 @@
+{
+  "sha": "f5fc1b1",
+  "fullSha": "f5fc1b139fddf9acdc7e24e90ca66cd5b834319a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T10:27:11Z",
+  "commitDate": "2026-04-05T10:27:11Z",
+  "subject": "refactor(theme): migrate MergeReview and DuplicateScanner to Tailwind",
+  "body": "Convert MergeReview, MergeSection, DuplicateScannerModal, and\nDuplicatePairCard from custom CSS to Tailwind utility classes.\nDelete ~740 lines of CSS. Both CSS files reduced to single-line\ncomments.\n\nTags: theme, tailwind, migration, components\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: theme-dark-mode\nSemver: patch\n\nhttps://claude.ai/code/session_01NcW7n5hX7HxfFvaeMg5zkR",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-dark-mode",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "migrate MergeReview and DuplicateScanner to Tailwind",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 133,
+    "deletions": 743
+  },
+  "files": [
+    "src/components/duplicates/DuplicatePairCard.tsx",
+    "src/components/duplicates/DuplicateScannerModal.css",
+    "src/components/duplicates/DuplicateScannerModal.tsx",
+    "src/components/importExport/MergeReview.css",
+    "src/components/importExport/MergeReview.tsx",
+    "src/components/importExport/MergeSection.tsx"
+  ],
+  "repo_id": "graphiki",
+  "urgency": 2,
+  "impact": "internal"
+}
