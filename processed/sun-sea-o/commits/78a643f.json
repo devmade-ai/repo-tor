@@ -1,0 +1,42 @@
+{
+  "sha": "78a643f",
+  "fullSha": "78a643fa7e9aef0930dcb9875644693223e0624b",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-25T05:23:05Z",
+  "commitDate": "2026-04-25T05:23:05Z",
+  "subject": "docs: audit tool-till-tees backend, sharpen 404 diagnosis",
+  "body": "User asked \"did you check the backend repo's code?\" — earlier audit\nwas shallow.  Did a proper read of tool-till-tees@f7b2f29 via the\nGitHub API:\n\n- api/sancio/[...path].ts (full catch-all dispatcher)\n- lib/routes/sancio/{projects,agreements,notifications}.ts\n- lib/cors.ts, lib/auth.ts\n- tsconfig.json, package.json, vercel.json\n- recent commit log (last 15 commits, 2026-04-22 to 2026-04-23)\n\nFindings:\n\n- Code on `main` is correct.  Catch-all dispatches segments[0]\n  matches to the right handlers.  Named exports match imports.\n  ESM resolution is fine.  No recent commit touched the dispatch.\n- The string \"Not found\" (no prefix) emits in exactly one place:\n  the catch-all final fallthrough.  Every resource handler uses\n  prefixed messages (\"Project not found\", etc.).  The report's\n  log line therefore points unambiguously at the fallthrough.\n- Coverage gap: api/__tests__/sancio/*.test.ts imports handler\n  functions directly and bypasses the dispatcher entirely.  A bug\n  in the segment-matching cascade in [...path].ts would NOT be\n  caught by tool-till-tees' npm test.\n\nUpdates to docs:\n\n- USER_ACTIONS.md — root cause ranking expanded from 4 to 5 with\n  the audit's findings; added a one-line defensive fix proposal\n  for tool-till-tees that handles req.query.path being a string,\n  array, or undefined regardless of root cause.\n- SESSION_NOTES.md — captured what the backend audit covered + its\n  conclusion (deployment mismatch, not code bug) so the next\n  session doesn't re-walk the same ground.\n\nNo source changes.\n\nTags: documentation, session-notes, backend-audit, handoff\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: mobile-viewport\nSemver: patch\n\nhttps://claude.ai/code/session_01TVYXEU2QJcmBA17ZNWhcZP",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-viewport",
+  "semver": "patch",
+  "scope": null,
+  "title": "audit tool-till-tees backend, sharpen 404 diagnosis",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 44,
+    "deletions": 5
+  },
+  "files": [
+    "docs/SESSION_NOTES.md",
+    "docs/USER_ACTIONS.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "internal"
+}

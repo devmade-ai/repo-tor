@@ -1,0 +1,50 @@
+{
+  "sha": "e8a4412",
+  "fullSha": "e8a441280c6325fb4c6a1a24d742cd12b36c3cc8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T22:32:26Z",
+  "commitDate": "2026-04-24T22:32:26Z",
+  "subject": "feat(theme): dark-first default on first visit — flip from light-first",
+  "body": "First-visit users with no stored preference now land on dark mode\nregardless of OS prefers-color-scheme. Mirror image of the previous\nlight-first policy:\n\n- index.html bootstrap: storedDark === 'true' → storedDark !== 'false'.\n  Absent storage → dark. Only the literal string 'false' opts into light.\n- src/utils/theme.ts resolveInitial / setCombo / toggleDark / cleared-\n  storage branch: coalesce null → true.\n- meta name=\"theme-color\" content + PWA manifest theme_color +\n  background_color: #0082ce / #ffffff → #202020 / #202020 (business\n  base-100). Splash → app chrome stays consistent for the majority\n  who never toggle.\n- Inline boot-chrome fallback hex (boot-loader, noscript, error overlay\n  in index.html; failure overlay in main.tsx) flipped to the dark\n  palette so the fallback path remains coherent if the bootstrap script\n  is blocked (CSP, JS disabled).\n- src/index.css plugin comment + CLAUDE.md THEME_DARK_MODE section\n  rewritten to document the dark-first policy and the recovery paths\n  (light-first revert + OS-sync restore).\n\nExisting users: anyone who explicitly toggled (storage has darkMode=\ntrue|false) keeps their preference. Anyone who never toggled (no\nstorage key) flips to dark on next visit.\n\nTags: theme, ui, user-facing\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: dark-first-default\nSemver: minor\n\nhttps://claude.ai/code/session_01TVYXEU2QJcmBA17ZNWhcZP",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "dark-first-default",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "dark-first default on first visit — flip from light-first",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#0082",
+    "#202020"
+  ],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 70,
+    "deletions": 65
+  },
+  "files": [
+    "CLAUDE.md",
+    "index.html",
+    "src/index.css",
+    "src/main.tsx",
+    "src/utils/theme.ts",
+    "vite.config.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

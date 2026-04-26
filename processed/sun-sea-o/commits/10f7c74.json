@@ -1,0 +1,41 @@
+{
+  "sha": "10f7c74",
+  "fullSha": "10f7c74d760848f6b199de57a9ae01b1f474649a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-25T05:25:15Z",
+  "commitDate": "2026-04-25T05:25:15Z",
+  "subject": "docs(session): add sandbox-whitelist precondition for next session",
+  "body": "User is whitelisting *.vercel.app on the Claude Code sandbox so the\nnext session can curl the deployed backend directly.  Updated the\n\"Key context\" block of SESSION_NOTES.md so the next session:\n\n1. Probes the sandbox state first (curl google.com sanity check)\n   to determine whether egress is open or still blocked.\n2. Knows it can run the docs/USER_ACTIONS.md diagnostic curls\n   itself when the sandbox is open, vs needing to ask the user\n   to run them when it's still closed.\n3. Understands that whitelisting unlocks diagnosis only — Vercel\n   dashboard work, redeploys, and tool-till-tees changes still\n   require user action regardless of sandbox state.\n\nNo source changes.\n\nTags: documentation, session-notes, handoff\nComplexity: 1\nUrgency: 3\nImpact: internal\nRisk: low\nDebt: paid\nEpic: mobile-viewport\nSemver: patch\n\nhttps://claude.ai/code/session_01TVYXEU2QJcmBA17ZNWhcZP",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "mobile-viewport",
+  "semver": "patch",
+  "scope": "session",
+  "title": "add sandbox-whitelist precondition for next session",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 3,
+    "deletions": 1
+  },
+  "files": [
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 3,
+  "impact": "internal"
+}

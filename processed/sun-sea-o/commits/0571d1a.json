@@ -1,0 +1,51 @@
+{
+  "sha": "0571d1a",
+  "fullSha": "0571d1a00eeca1bdbde6ab7e0dd9611687938bb4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T20:41:02Z",
+  "commitDate": "2026-04-23T20:41:02Z",
+  "subject": "i18n: fix pluralization consistency + swap directional classes to logical",
+  "body": "Two of three audit findings applied. formatRelativeTime rewrite\nskipped — pushed back because Intl.RelativeTimeFormat changes visible\ntext (\"1 min ago\" → \"1 min. ago\" in short style, or \"1 minute ago\" in\nlong) and none of the styles match the current UX exactly. The audit\nitself said \"leave unless you want it\"; I followed that judgement.\n\nMEDIUM (1) — pluralization inconsistency / latent zero-count bug:\n\nSix sites in src/ use `!== 1 ? 's' : ''` (correct English — handles\n0, 1, 2+ properly). Two sites in AgreementDetailPage (line 228 +\nline 249) used `> 1 ? 's' : ''` which would render \"0 module\"\ninstead of \"0 modules\" if ever called with an empty count. In\npractice both upstream paths (SplitAgreementForm refuses 0\nselections at line 36, batchToggle only fires from non-empty\nmulti-select UI) validate 1+, so the bug couldn't fire. Still fixed\nfor consistency — same pattern everywhere, defence against future\nvalidation changes.\n\nLOW (1) — directional → logical classes:\n\n11 uses of `ml-*` / `mr-*` / `pl-*` / `pr-*` / `left-*` / `right-*`\nacross 10 files, all logical spacing/positioning (not icon-\ndirectionality). Swapped to Tailwind logical-property variants:\n\n- ml-* → ms- (margin-inline-start): NudgeExpiryConfig helper text\n  indent, SigningStatus timestamp, SequenceSignOff timestamp,\n  SplitAgreementForm \"Signed\" pill, ContractUploadPreview oversized\n  warning\n- mr-* → me- (margin-inline-end): GoogleLoginButton icon-before-text\n- pl-* → ps- (padding-inline-start): ContractUploadPreview action\n  button indentation\n- pr-* → pe- (padding-inline-end): ContractUploadPreview scroll\n  container\n- right-0 → end-0 (inset-inline-end): BurgerMenu dropdown anchor,\n  NotificationBell dropdown anchor (both should anchor to the\n  screen edge of the trigger in either LTR or RTL)\n- left-0 right-0 → inset-x-0: ModuleEditor sticky save bar (full-\n  width horizontal span)\n\nIdentical rendering in LTR; automatically mirrors under dir=\"rtl\" if\nthe app ever adopts an RTL locale. Final grep confirms zero\ndirectional classes remain.\n\nHardcoded English strings + RTL layout beyond what logical-class\nswaps cover + `<html lang=\"en-ZA\">` specificity: marked N/A per the\naudit (sun-sea-o is intentionally English-only; adding an i18n\nframework is an epic, not a trigger fix).\n\nTests 155/155, tsc -b clean, eslint clean.\n\nTags: i18n, pluralization, rtl-readiness, correctness\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: frontend-audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "bugfix",
+    "i18n"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "frontend-audit-sweep",
+  "semver": "patch",
+  "scope": null,
+  "title": "fix pluralization consistency + swap directional classes to logical",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 13,
+    "deletions": 13
+  },
+  "files": [
+    "src/components/agreements/SequenceSignOff.tsx",
+    "src/components/agreements/SplitAgreementForm.tsx",
+    "src/components/auth/GoogleLoginButton.tsx",
+    "src/components/common/BurgerMenu.tsx",
+    "src/components/common/NotificationBell.tsx",
+    "src/components/modules/ContractUploadPreview.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/components/modules/NudgeExpiryConfig.tsx",
+    "src/components/modules/SigningStatus.tsx",
+    "src/pages/AgreementDetailPage.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

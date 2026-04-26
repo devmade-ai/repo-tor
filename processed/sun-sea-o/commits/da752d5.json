@@ -1,0 +1,48 @@
+{
+  "sha": "da752d5",
+  "fullSha": "da752d5445470bac7151b9ed069d74ba8fea6376",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-24T22:06:01Z",
+  "commitDate": "2026-04-24T22:06:01Z",
+  "subject": "fix(api+mobile): Vercel rewrites for tool-till-tees + min-h-dvh on Loading",
+  "body": "The deployed app at sun-sea-o.vercel.app was 404'ing every /api/sancio/*\ncall because VITE_API_BASE_URL wasn't set in the build env, so requests\nresolved to the same origin where no functions exist. Replace the\nenv-var dependency with same-origin Vercel rewrites that proxy\n/api/sancio/* and /api/health to tool-till-tees, and mirror the same\nmapping in vite.config.ts server.proxy so `npm run dev` matches.\nVITE_API_BASE_URL stays as an optional override.\n\nLoading fallbacks in App.tsx used min-h-screen (100vh), which on Android\nChrome with the address bar visible (804 vs 674px) pushes content below\nthe fold. Switch to min-h-dvh to match body and AuthLayout.\n\nTags: bugfix, deployment, mobile, api\nComplexity: 2\nUrgency: 4\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: debug-mobile-viewport\nSemver: patch\n\nhttps://claude.ai/code/session_01TVYXEU2QJcmBA17ZNWhcZP",
+  "tags": [
+    "bugfix",
+    "ui",
+    "config"
+  ],
+  "complexity": 2,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "debug-mobile-viewport",
+  "semver": "patch",
+  "scope": "api+mobile",
+  "title": "Vercel rewrites for tool-till-tees + min-h-dvh on Loading",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 29,
+    "deletions": 11
+  },
+  "files": [
+    ".env.example",
+    "docs/TODO.md",
+    "src/App.tsx",
+    "src/api/client.ts",
+    "vercel.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 4,
+  "impact": "user-facing"
+}

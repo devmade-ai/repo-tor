@@ -1,0 +1,51 @@
+{
+  "sha": "f3801e9",
+  "fullSha": "f3801e982237232ec2b5ba11fb71f3e9d85244de",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T19:35:57Z",
+  "commitDate": "2026-04-23T19:35:57Z",
+  "subject": "forms: apply all 8 audit findings — error handling, a11y labels, autofill hints",
+  "body": "Forms-trigger pass. Every touched form now has proper async error\nsurfacing, screen-reader-announced live counters, and\naccessibility-hinted autofill behaviour.\n\nHIGH (3)\n- ProposeChangeForm: onSubmit prop widened to `void | Promise<void>`;\n  handleSubmit awaits it inside try/catch/finally. On failure: error\n  surfaces above the submit button (\"Failed to submit — try again in a\n  moment\"). `submitting` state gates the button + flips label to\n  \"Submitting…\" so double-clicks can't fire duplicate proposals.\n- AddNoteForm: same pattern. Label flips to \"Adding…\" during flight.\n- NudgeExpiryConfig: added `inputMode=\"numeric\"` so iOS/Android show\n  the numeric keypad instead of QWERTY for the 1-365 nudge-days field.\n\nMEDIUM (3)\n- Character counters on ProposeChangeForm, AddNoteForm, ModuleEditor,\n  ModuleSummaryEditor now carry `role=\"status\" aria-atomic=\"true\"`.\n  `role=\"status\"` implies polite aria-live; `aria-atomic=\"true\"`\n  forces the full \"N / MAX\" text to be announced on every update\n  rather than just the changed characters. Screen readers throttle\n  polite announcements so keystroke-level updates don't become\n  chatter — but users near the cap get the feedback they need.\n- SplitAgreementForm: the checkbox group is now a proper <fieldset>\n  with <legend>, and the error <p> gets `id=\"split-agreement-error\"`\n  + `role=\"alert\"`. The fieldset adds `aria-describedby` pointing at\n  the error id when an error is present. Assistive tech now associates\n  \"Please select at least one module\" with the group that failed.\n- ContractUploadPreview rename input: explicit\n  `aria-label={`Rename section (currently \"${mod.title}\")`}` on the\n  input itself. Previously users who reached the input via direct\n  keyboard focus (not through the preceding rename button) lost the\n  context the button's aria-label had provided.\n\nLOW (2)\n- InviteCounterpartyForm email field: `autoComplete=\"email\"`,\n  `inputMode=\"email\"`, `autoCapitalize=\"none\"`, `autoCorrect=\"off\"`,\n  `spellCheck={false}`. Mobile autofill + browser-level email\n  recognition now work; typing stops trying to sentence-case the\n  first letter.\n  Passphrase field: `autoComplete=\"off\"` (this is a side-channel\n  shared secret, not a real password — we don't want password\n  managers saving it), plus the same no-capitalize/no-correct/\n  no-spellcheck companions. Comment explains the intent so a future\n  reviewer doesn't add `autoComplete=\"current-password\"` by default.\n- ModuleEditor empty-content validation: left unvalidated per the\n  audit's intent question. Added a comment in handleSave explaining\n  why content emptiness is acceptable (skeleton modules / reverted\n  drafts) and naming the guards that do exist (title-required +\n  disabled-unless-hasChanges).\n\nTests 155/155 passing — vi.fn() in ProposeChangeForm + AddNoteForm\ntests awaits as undefined, so the async widening is backward-\ncompatible with existing mocks. tsc -b clean, eslint clean.\n\nTags: forms, a11y, error-handling, autofill\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: frontend-audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility",
+    "error-handling"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "frontend-audit-sweep",
+  "semver": "patch",
+  "scope": null,
+  "title": "apply all 8 audit findings — error handling, a11y labels, autofill hints",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 8,
+    "additions": 74,
+    "deletions": 19
+  },
+  "files": [
+    "src/components/agreements/SplitAgreementForm.tsx",
+    "src/components/modules/AddNoteForm.tsx",
+    "src/components/modules/ContractUploadPreview.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/components/modules/ModuleSummaryEditor.tsx",
+    "src/components/modules/NudgeExpiryConfig.tsx",
+    "src/components/modules/ProposeChangeForm.tsx",
+    "src/components/projects/InviteCounterpartyForm.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}
