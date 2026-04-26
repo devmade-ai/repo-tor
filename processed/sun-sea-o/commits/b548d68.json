@@ -1,0 +1,42 @@
+{
+  "sha": "b548d68",
+  "fullSha": "b548d68010cc9cc68aac02333503c95584652bd1",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T15:45:48Z",
+  "commitDate": "2026-04-21T15:45:48Z",
+  "subject": "docs: retire closed items, capture deferred-by-design decisions",
+  "body": "Follow-ups from the pattern-compliance pass:\n\n- docs/TODO.md: strike the \"scripts/generate-theme-meta.mjs\" item (shipped\n  last commit). Rewrite the \"add a second combo\" checklist to point at\n  `npm run check-theme-meta -- --write` for hex regeneration — no more\n  manual oklch → hex conversion. Add two explicit-decision items so a\n  future reader doesn't re-open them:\n    * \"Check for updates\" menu item — tracked with its blocker\n      (usePWAUpdate needs a manual checkForUpdates() export).\n    * \"Random theme on load\" toggle — marked deferred by design; it's\n      Approach-A-specific and we use Approach B combos.\n- CLAUDE.md BURGER_MENU section: enumerate the full MenuAction field\n  set (label/action/visible/disabled/separator/destructive/highlight/\n  highlightColor/selected/icon/iconClass/external/keepOpen/ariaLabel)\n  so the next reader doesn't have to cross-check against the pattern\n  doc. Tag which are ours (selected, keepOpen, ariaLabel) vs pattern\n  (all others). List the shared disclosure hooks in one place too.\n\nTags: docs, todo, pattern-compliance\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pattern-compliance\nSemver: patch",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pattern-compliance",
+  "semver": "patch",
+  "scope": null,
+  "title": "retire closed items, capture deferred-by-design decisions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 9,
+    "deletions": 4
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/TODO.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 1,
+  "impact": "internal"
+}

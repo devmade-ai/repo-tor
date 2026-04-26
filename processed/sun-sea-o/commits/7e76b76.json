@@ -1,0 +1,41 @@
+{
+  "sha": "7e76b76",
+  "fullSha": "7e76b76faa979e8e5d6addc684e65514b208fc84",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T15:40:47Z",
+  "commitDate": "2026-04-21T15:40:47Z",
+  "subject": "feat(burger-menu): add external / iconClass / highlightColor item fields",
+  "body": "Close the API gap vs the BURGER_MENU pattern's standard MenuItem interface.\nAll three fields were flagged in the post-picker audit as pattern features\nwe hadn't shipped.\n\n- `external?: boolean` — marks an item as pointing outside the app. Renders\n  a trailing ↗ icon after the label. ariaLabel gets \"(opens in new tab)\"\n  appended so screen readers announce the behavior even when the label\n  doesn't mention it. Use case (future): \"User Guide\", \"Docs\" items.\n- `iconClass?: string` — per-icon color-class override. Defaults to\n  `currentColor` via the item's state-derived text color. Use case\n  (future): a warning-colored icon on an otherwise-neutral item.\n- `highlightColor?: string` — alternative accent text-color class when\n  `highlight: true`. Defaults to `text-primary`. Use case (future): a\n  success-green \"new!\" highlight alongside the existing primary-tinted\n  \"Install app\" item.\n\nNo current consumer uses any of these — they're shipped for pattern\nconformance so a future reader comparing our impl against BURGER_MENU.md\nsees the full MenuAction surface. Each field defaults to the existing\nbehavior when omitted, so every existing menu-item spec in the app\ncontinues to work unchanged.\n\nTags: feature, burger-menu, api, pattern-compliance\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: pattern-compliance\nSemver: minor",
+  "tags": [
+    "feature"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pattern-compliance",
+  "semver": "minor",
+  "scope": "burger-menu",
+  "title": "add external / iconClass / highlightColor item fields",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 38,
+    "deletions": 3
+  },
+  "files": [
+    "src/components/common/BurgerMenu.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 1,
+  "impact": "internal"
+}

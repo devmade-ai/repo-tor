@@ -1,0 +1,48 @@
+{
+  "sha": "9030630",
+  "fullSha": "9030630fa22b0bde36c8d5fd53b64ffc1466cdc4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T14:20:28Z",
+  "commitDate": "2026-04-21T14:20:28Z",
+  "subject": "feat(hooks+version): shared disclosure hooks + Vite-injected app version",
+  "body": "Groundwork for the BurgerMenu component. Nothing visible yet — these are\nthe shared primitives the menu (and future disclosures) will consume.\n\n- src/hooks/useEscapeKey.ts: keydown listener bound only while `active`.\n  preventDefault() so the browser doesn't also eat Escape (e.g. exiting\n  fullscreen) when a menu consumes it.\n- src/hooks/useDisclosureFocus.ts: on open → focus first focusable in the\n  content (scheduled via rAF so content has painted); on close → return\n  focus to the trigger. `hasBeenOpenRef` guard prevents focus-stealing on\n  initial mount.\n- src/hooks/useDarkClass.ts: reactive .dark-on-<html> state via\n  MutationObserver. DebugPill used to define this locally; extracted so\n  BurgerMenu (main tree) and DebugPill (separate React root) share one\n  implementation. Both roots read DOM directly, so no React-context\n  coupling crosses the root boundary.\n- src/components/common/DebugPill.tsx: drop the inline useDarkClass,\n  import from the shared hook. Zero behavior change.\n\nApp version plumbing:\n- vite.config.ts: read package.json once at config-load, inject as\n  `__APP_VERSION__` via Vite `define`. No package metadata ships to the\n  client bundle beyond the version string.\n- src/vite-env.d.ts: ambient `declare const __APP_VERSION__: string`.\n- src/constants/app.ts: APP_NAME ('Sancio' — product name; package slug\n  is sun-sea-o) + APP_VERSION from the define (with a '0.0.0-dev'\n  fallback for non-Vite contexts like tests).\n\nTags: hooks, disclosure, a11y, version\nComplexity: 2\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: burger-menu\nSemver: patch",
+  "tags": [
+    "feature",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "burger-menu",
+  "semver": "patch",
+  "scope": "hooks+version",
+  "title": "shared disclosure hooks + Vite-injected app version",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 7,
+    "additions": 130,
+    "deletions": 18
+  },
+  "files": [
+    "src/components/common/DebugPill.tsx",
+    "src/constants/app.ts",
+    "src/hooks/useDarkClass.ts",
+    "src/hooks/useDisclosureFocus.ts",
+    "src/hooks/useEscapeKey.ts",
+    "src/vite-env.d.ts",
+    "vite.config.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

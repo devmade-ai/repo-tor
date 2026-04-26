@@ -1,0 +1,53 @@
+{
+  "sha": "21d1a6f",
+  "fullSha": "21d1a6f0e8e394e2ac05f0f9019058db1622ba99",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T02:09:20Z",
+  "commitDate": "2026-04-21T02:09:20Z",
+  "subject": "refactor(projects-agreements): migrate to DaisyUI card/alert/badge",
+  "body": "Projects:\n- ProjectCard: `card card-compact bg-base-100` + `card-body`; status pill\n  becomes `badge badge-success` / `badge badge-warning`. Hover lifts the\n  border to `base-content/30`.\n- HandshakeStatus: four state branches migrate to `alert alert-success`,\n  `alert bg-base-200 border-base-300` (neutral \"not invited\" state),\n  `alert alert-warning`, `alert alert-info`. Icons inherit `currentColor`\n  from the alert so color-drift across themes is impossible.\n- InviteCounterpartyForm: copy uses text-base-content tokens.\n\nAgreements:\n- AgreementCard: `card card-compact` + `card-body`; status map becomes\n  badge variants (info/success/warning/secondary/ghost). \"Accept request\"\n  footer moves into `card-actions` with a themed divider.\n- AgreementHeader: same badge migration; editing input becomes input-ghost\n  with a themed border-bottom. Delete hover is `text-error`.\n- SequenceSignOff: two branches migrate to `alert alert-success` (fully\n  agreed) and `alert alert-info` (pending). Per-party checkmarks extract\n  into a local PartyApproval component — the duplicated SVG+label pair\n  was only justifiable when the color strings differed, which they no\n  longer do.\n- AgreementModulesSection / AgreementNotesSection: section headings drop\n  slate; inline add-note form wraps in `card card-compact bg-base-200`.\n- SplitAgreementForm: checkbox list uses `divide-base-300`; `input\n  type=checkbox` becomes `checkbox checkbox-sm checkbox-primary`.\n- TitleDescriptionForm: help copy uses text-base-content/70.\n- PdfPreview: screen surfaces follow the theme via base-* tokens; print:\n  prefixes preserve the black-on-white PDF output. The 8 remaining\n  `print:text-gray-*` references are deliberate overrides, not drift.\n\nZero hardcoded status utilities remain in src/components/projects/ or\nsrc/components/agreements/ outside the print: context.\n\nTags: refactor, ui, daisyui, projects, agreements\nComplexity: 4\nUrgency: 2\nImpact: user-facing\nRisk: medium\nDebt: paid\nEpic: daisyui-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "ui",
+    "migration"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "scope": "projects-agreements",
+  "title": "migrate to DaisyUI card/alert/badge",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 189,
+    "deletions": 201
+  },
+  "files": [
+    "src/components/agreements/AgreementCard.tsx",
+    "src/components/agreements/AgreementHeader.tsx",
+    "src/components/agreements/AgreementModulesSection.tsx",
+    "src/components/agreements/AgreementNotesSection.tsx",
+    "src/components/agreements/PdfPreview.tsx",
+    "src/components/agreements/SequenceSignOff.tsx",
+    "src/components/agreements/SplitAgreementForm.tsx",
+    "src/components/agreements/TitleDescriptionForm.tsx",
+    "src/components/projects/HandshakeStatus.tsx",
+    "src/components/projects/InviteCounterpartyForm.tsx",
+    "src/components/projects/ProjectCard.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

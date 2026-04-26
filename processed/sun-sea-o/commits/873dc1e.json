@@ -1,0 +1,43 @@
+{
+  "sha": "873dc1e",
+  "fullSha": "873dc1e0e01d521f613264b5821ff36c7c9d5890",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T15:39:26Z",
+  "commitDate": "2026-04-21T15:39:26Z",
+  "subject": "refactor(modal): extract useFocusTrap hook, migrate Modal onto it",
+  "body": "Pattern item the burger-menu audit flagged as deferred. Ship the shared\nhook now so any future disclosure that needs Tab/Shift+Tab cycling (modals,\ndrawers, future picker panels) uses one implementation.\n\n- src/hooks/useFocusTrap.ts: exact pattern-doc implementation — document\n  keydown listener active only while `active`, snapshots prior focus on\n  activation, restores on cleanup. Wraps first↔last on Tab / Shift+Tab\n  boundary.\n- Modal.tsx: delete the inline 25-line trap logic (was copy-pasted from\n  pre-DaisyUI times), call useFocusTrap(dialogRef, open). onKeyDown\n  handler on <dialog> is removed since the document-level listener inside\n  the hook supersedes it. Zero behavior change: focus cycling works the\n  same; prior focus restoration is a small net a11y improvement (inline\n  version didn't restore on close — useFocusTrap does).\n\nTags: refactor, a11y, hooks, focus-trap\nComplexity: 1\nUrgency: 1\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pattern-compliance\nSemver: patch",
+  "tags": [
+    "refactor",
+    "accessibility"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pattern-compliance",
+  "semver": "patch",
+  "scope": "modal",
+  "title": "extract useFocusTrap hook, migrate Modal onto it",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 55,
+    "deletions": 30
+  },
+  "files": [
+    "src/components/common/Modal.tsx",
+    "src/hooks/useFocusTrap.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 1,
+  "impact": "user-facing"
+}

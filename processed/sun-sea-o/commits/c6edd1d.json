@@ -1,0 +1,43 @@
+{
+  "sha": "c6edd1d",
+  "fullSha": "c6edd1d30ee01116c1f3fcdb6f4d6c6fa07f5c24",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T09:30:11Z",
+  "commitDate": "2026-04-21T09:30:11Z",
+  "subject": "polish(debug-pill): move error/warn badge colors into Palette struct",
+  "body": "Two tiny residuals caught by the double-check audit:\n\n1. DebugPill.tsx had `#ef4444` and `#f59e0b` inlined in the JSX for the\n   error/warn count badges on the pill chip — escaped the Palette struct\n   for no reason. Add them to the Palette type as `errorBadge` /\n   `warnBadge`, define identical values in LIGHT + DARK (the pill is\n   always-dark by design so both themes render the same chip colors),\n   and consume via `palette.errorBadge` / `palette.warnBadge` at render\n   time. Zero behavior change; the palette struct is now the single\n   source of truth for every color on the pill.\n2. src/index.css print section had a stale \"during the DaisyUI migration\"\n   phrase in a comment — migration-in-progress language that no longer\n   describes the current state. Rephrased as \"defense-in-depth so any\n   surface (migrated or not) prints readably\".\n\nTags: polish, debug-pill, comments\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch",
+  "tags": [
+    "refactor",
+    "comments"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "scope": "debug-pill",
+  "title": "move error/warn badge colors into Palette struct",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 12,
+    "deletions": 6
+  },
+  "files": [
+    "src/components/common/DebugPill.tsx",
+    "src/index.css"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 1,
+  "impact": "internal"
+}

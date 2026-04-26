@@ -1,0 +1,46 @@
+{
+  "sha": "44d1b30",
+  "fullSha": "44d1b303989891f523f12f9ba4dd42c82fa1b109",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T02:17:50Z",
+  "commitDate": "2026-04-21T02:18:19Z",
+  "subject": "feat(debug-pill): theme-aware palette + document exceptions",
+  "body": "DebugPill lives in a separate React root so it can't consume theme context\nor DaisyUI classes. Per the DEBUG_SYSTEM pattern, swap palettes by reading\nthe `.dark` class from `<html>` directly via a MutationObserver.\n\n- LIGHT / DARK Palette constants: panel bg/border/header, muted tiers,\n  tab-active surface, severity bg/fg (error/warn/success/info), diagnostic\n  status colors (pass/fail/warn/running), and per-source accent colors.\n  Dark variants use slate-900/800 surfaces with slate-300/400 text and\n  deep-tinted severity backgrounds (#450a0a for error etc.) so contrast\n  stays above WCAG AA.\n- `createStyles(palette)` factory replaces the static `S` Record;\n  tabStyle/logRowStyle/logSourceStyle/diagStatusStyle take the palette\n  as an extra arg.\n- `useDarkClass()` hook: subscribes to <html>'s class attribute mutations.\n  applyTheme() changes `.dark` in a single mutation, so no storm.\n- Pill chip itself stays dark in both themes — it's a floating diagnostic\n  that needs to be visible against any page surface; themeing it to\n  base-100 would make it invisible on corporate pages.\n- Adds `theme` to the recognized sources map (the Chunk 7 debugLog emits\n  use it) with a DaisyUI-primary-ish purple accent.\n\nCLAUDE.md: new \"Hardcoded-color exceptions (documented)\" table in Adopted\nPatterns → THEME_DARK_MODE. Lists every file that legitimately keeps\nhardcoded hex/colors (tones palette, theme source of truth, inline\nbootstrap, print overrides, debug pill) with the reason each is preserved,\nplus a grep command for catching regressions.\n\nTags: refactor, ui, daisyui, debug-pill, theming, docs\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: daisyui-migration\nSemver: patch",
+  "tags": [
+    "feature",
+    "ui",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "daisyui-migration",
+  "semver": "patch",
+  "scope": "debug-pill",
+  "title": "theme-aware palette + document exceptions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#450"
+  ],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 193,
+    "deletions": 80
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/components/common/DebugPill.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,43 @@
+{
+  "sha": "d10cf7e",
+  "fullSha": "d10cf7e7e2a6531359373f578b77f33d56572092",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T14:24:46Z",
+  "commitDate": "2026-04-21T14:24:46Z",
+  "subject": "feat(layout): wire BurgerMenu into header, retire inline sign-out buttons",
+  "body": "- AppLayout: BurgerMenu mounts trailing-right in the header after\n  NotificationBell. Single nav entry point across all viewports —\n  replaces both the desktop \"Sign out\" text button and the mobile sign-out\n  icon button. APP_NAME pulled from constants/app.ts so the header label\n  is owned by one source (was hardcoded \"Sancio\").\n- Menu items (deviates from spec's \"placeholders in Chunk 8\" — wiring\n  real functionality since the dependencies exist and \"do the proper\n  solution\" is the session rule):\n    * Dark mode toggle — label flips between \"Dark mode\" / \"Light mode\"\n      with sun/moon icon. aria-label reads \"Switch to X mode\". Uses\n      keepOpen so users can toggle back and forth without re-opening.\n      Fires applyTheme() from the theme module.\n    * Install app — highlighted item, visible only when the app can be\n      installed (canInstallNative || needsManualInstructions) and not\n      already installed. Chromium → installNative() from usePWAInstall.\n      Safari / Firefox → opens the existing InstallInstructionsModal.\n    * Sign out — destructive (red), visible only when AUTH_BYPASS_ENABLED\n      is off. Fires logout().\n- InstallInstructionsModal now mounts at the layout level so the\n  BurgerMenu action and the PwaInstallPrompt banner share the same modal\n  component.\n- Items array is useMemo'd on its inputs (dark, install state, logout)\n  so BurgerMenu gets a stable reference across unrelated parent re-renders\n  (notifications, route changes).\n- CLAUDE.md → Adopted Patterns gains a BURGER_MENU — implemented entry\n  with rationale, file map, deviations from the generic pattern, and the\n  keepOpen design note.\n\nTags: feature, layout, burger-menu, theme, pwa\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: burger-menu\nSemver: minor",
+  "tags": [
+    "feature",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "burger-menu",
+  "semver": "minor",
+  "scope": "layout",
+  "title": "wire BurgerMenu into header, retire inline sign-out buttons",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 97,
+    "deletions": 21
+  },
+  "files": [
+    "CLAUDE.md",
+    "src/layouts/AppLayout.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

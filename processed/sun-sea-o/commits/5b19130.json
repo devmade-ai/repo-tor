@@ -1,0 +1,43 @@
+{
+  "sha": "5b19130",
+  "fullSha": "5b191300c9a90d3acdce02bba02b0ad11f495021",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T14:22:02Z",
+  "commitDate": "2026-04-21T14:22:02Z",
+  "subject": "feat(ui): add BurgerMenu disclosure component",
+  "body": "Accessible dropdown nav using the WAI-ARIA disclosure pattern (NOT\nrole=\"menu\" — that's for application menus like File/Edit/View and causes\nscreen readers to enter forms mode, suppress normal nav keys, and expect\narrow-key navigation from every item).\n\nSpec-level behavior:\n- Trigger `<button aria-expanded aria-controls aria-label>` with 44×44 min\n  touch target (btn-circle override for WCAG 2.5.5 + iOS HIG).\n- Panel `<nav id role=\"navigation\" aria-label>` positioned top-right of\n  the trigger with max-w-[calc(100vw-2rem)] so it can't overflow narrow\n  viewports.\n- Backdrop `<div class=\"fixed inset-0 cursor-pointer\">` at z-40. The\n  cursor-pointer is load-bearing: iOS Safari silently drops click events\n  on empty divs without it.\n- z-50 menu / z-40 backdrop (per Z_INDEX_SCALE). Debug pill at z-[80]\n  still renders above the menu.\n- Focus management via useDisclosureFocus: open → first item; close →\n  back to trigger.\n- Escape closes via useEscapeKey.\n- ArrowDown / ArrowUp cycle items with wrap. Home / End jump to\n  first / last. Tab / Shift+Tab work as browser-default.\n- Close-then-act pattern: after any item action, menu closes then runs\n  the action 150ms later so navigation / modal-opens happen on a clean\n  DOM. Pending timer cleaned up on unmount.\n\nMenuItem interface exposes: label, action, visible, disabled, separator,\ndestructive, highlight, icon (SVG path string), keepOpen (skip auto-close\nfor theme-toggle-style repeat-use actions), ariaLabel (screen-reader\noverride when label flips per state).\n\nAction-error routing: failures in item.action surface through debugLog\n('render','error',...) so they land in the DebugPill buffer rather than\nvanishing into a rejected Promise.\n\nTags: feature, ui, disclosure, a11y, daisyui, burger-menu\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: burger-menu\nSemver: minor",
+  "tags": [
+    "feature",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "burger-menu",
+  "semver": "minor",
+  "scope": "ui",
+  "title": "add BurgerMenu disclosure component",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 217,
+    "deletions": 0
+  },
+  "files": [
+    "src/components/common/BurgerMenu.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

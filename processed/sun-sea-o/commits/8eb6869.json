@@ -1,0 +1,46 @@
+{
+  "sha": "8eb6869",
+  "fullSha": "8eb68697fd5384cea17443e316ce2eb487d06e40",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T20:57:44Z",
+  "commitDate": "2026-04-21T20:57:44Z",
+  "subject": "feat(pwa): wire \"Check for updates\" burger-menu item to singleton",
+  "body": "Unblocks the tracked TODO now that usePWAUpdate exposes checkForUpdate().\n\n- BurgerMenu gains a \"Check for updates\" item (refresh icon, separator\n  above \"Install app\") gated on `'serviceWorker' in navigator`.\n- While checking, label flips to \"Checking for updates…\" and the item\n  is disabled so repeat clicks don't queue duplicate update() calls.\n- Typed result lands in a transient banner below the existing alerts:\n  - 'done' + new version → permanent hasUpdate banner already covers it\n  - 'done' + no new version → \"You're on the latest version\" (3s)\n  - 'error' → \"Couldn't check for updates\" (alert-warning, 3s)\n  - 'no-sw' → \"Service worker not ready yet\" (3s)\n- CLAUDE.md: adds a PWA_SYSTEM entry to Adopted Patterns documenting\n  the singleton architecture, suppression, visibility check,\n  controllerchange guard, typed check, and manifest/workbox config.\n- CLAUDE.md: updates BURGER_MENU deviation note (4 → 5 items).\n- docs/TODO.md: removes the closed \"Check for updates\" item.\n\nTags: pwa, ux, documentation, feature\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_01Qj2ueAEuobTogrBRFwAXvc",
+  "tags": [
+    "feature",
+    "ui",
+    "ux",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-hardening",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "wire \"Check for updates\" burger-menu item to singleton",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 88,
+    "deletions": 5
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/TODO.md",
+    "src/layouts/AppLayout.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

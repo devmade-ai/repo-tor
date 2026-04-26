@@ -1,0 +1,45 @@
+{
+  "sha": "7ccaf5a",
+  "fullSha": "7ccaf5a7b716bb1877f889c94cd0a0824e4d7d7d",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T14:59:03Z",
+  "commitDate": "2026-04-21T14:59:03Z",
+  "subject": "refactor(theme): migrate to combo-based storage (Approach B)",
+  "body": "Storage schema changes from Chunk 7's 1-key model to pattern-doc Approach B:\n\n  Before:  localStorage[\"theme\"]      = \"corporate\" | \"business\"\n  After:   localStorage[\"darkMode\"]   = \"true\" | \"false\"\n           localStorage[\"themeCombo\"] = combo id\n\nRationale: a combo catalog is on the roadmap (user direction: \"we might\nadd more combos later\"). With combos, the active DaisyUI theme is derived\nat runtime from combo + dark state, which needs both keys. The Chunk 7\nsingle-theme model stored the resolved theme name directly, which can't\nround-trip through a toggle (\"I picked the Luxe combo, then switched to\nlight\" needs to remember it was Luxe, not just the active theme name).\n\n- src/constants/themes.ts: ThemeCombo interface + THEME_COMBOS catalog\n  (1 entry today: 'default' pairing corporate/business) + helpers\n  (validComboId, getCombo, resolveTheme, resolveMetaColor). Each combo\n  carries metaColorLight/Dark hex for the <meta name=\"theme-color\"> tags;\n  convention follows the pattern doc — light=primary, dark=base-100.\n  Adding a combo requires (1) updating the DaisyUI plugin list in\n  index.css, (2) adding an entry here, (3) mirroring in index.html's\n  inline bootstrap COMBOS map (documented in both places).\n- src/utils/theme.ts:\n    * applyTheme() signature narrowed: (dark, themeName, metaColor). Pure\n      DOM mutation, no storage side-effects. Previous overloaded behavior\n      split into setCombo / toggleDark / initTheme.\n    * setCombo(comboId): switch combos while keeping current dark mode.\n    * toggleDark(): flip dark for the active combo.\n    * initTheme(): one-shot legacy migration of the old `theme` key,\n      then resolve state (storage > OS preference), apply, attach\n      cross-tab + OS-preference listeners. Cross-tab sync now watches\n      both darkMode and themeCombo keys.\n    * getActiveComboId(): live read for picker UI.\n    * THEME_COMBOS re-exported for convenience.\n- index.html inline bootstrap:\n    * Embeds the COMBOS map inline (unavoidable — inline scripts can't\n      import ES modules, documented).\n    * Runs the same legacy-key migration so first paint after upgrade\n      matches the migrated storage state.\n    * Resolves theme from combo + dark before applying.\n- AppLayout.tsx: dark-mode toggle now calls `toggleDark()` instead of\n  `applyTheme()` directly. Menu-item behavior unchanged.\n\nLegacy storage migration: one-shot. Reads `localStorage[\"theme\"]` once,\ntranslates to darkMode + themeCombo, removes the old key. Runs in both\nthe inline bootstrap (so the migrated state applies on first paint) and\ntheme.ts initTheme (so both code paths are defensive). Safe against\nrepeated runs because the old key is cleared.\n\nNo UI changes yet — picker lands in the next commit.\n\nTags: refactor, theme, storage, combos, migration\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: medium\nDebt: paid\nEpic: theme-picker\nSemver: minor",
+  "tags": [
+    "refactor",
+    "migration"
+  ],
+  "complexity": 3,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-picker",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "migrate to combo-based storage (Approach B)",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 267,
+    "deletions": 83
+  },
+  "files": [
+    "index.html",
+    "src/constants/themes.ts",
+    "src/layouts/AppLayout.tsx",
+    "src/utils/theme.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}
