@@ -1,0 +1,46 @@
+{
+  "sha": "e1677b0",
+  "fullSha": "e1677b0fb28cc882e28cf21a099efc182af8d6d8",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T19:15:01Z",
+  "commitDate": "2026-04-22T19:15:01Z",
+  "subject": "a11y(components): add missing aria-labels + swap data-testid for semantic query in test",
+  "body": "Three findings from the parallel a11y audit, all applied. Patterns and\nsimplify audits returned clean (\"No actionable findings\" and \"branch is\nas simple as it should be\").\n\n- ContractUploadPreview rename button now has aria-label=\"Rename\n  section <title>\" — screen readers previously heard only the module\n  title, losing the cue that it's clickable to edit.\n- ToneSelector Add button now has aria-label dynamically derived from\n  the component's label prop: \"Add custom tone\" in ToneSelector's\n  default usage, \"Add custom intent\" when IntentSelector wraps it. The\n  bare \"Add\" accessible name was ambiguous to screen readers.\n- Test query updated to match the new accessible name (getByRole\n  {name: /add custom tone/i}).\n- NotificationBell outside-click test: swapped the data-testid dummy\n  for a semantic <button>outside</button> + getByRole('button', {name:\n  'outside'}). Aligns the test with accessibility-first query\n  discipline and matches the rest of the suite.\n\nAuth-bypass banner noted by the audit as borderline (role=\"status\" +\npolite vs. the offline banner's explicit aria-live=\"assertive\")\nintentionally left alone — it's a dev-only visual reminder, not a\nuser-facing critical alert, so polite is the right tier.\n\nTests verified: 155/155 passing. tsc -b clean, eslint clean.\n\nTags: a11y, aria, tests\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: custom-code-reduction\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "bugfix",
+    "accessibility",
+    "test-fix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "custom-code-reduction",
+  "semver": "patch",
+  "scope": "components",
+  "title": "add missing aria-labels + swap data-testid for semantic query in test",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 4,
+    "additions": 11,
+    "deletions": 3
+  },
+  "files": [
+    "src/__tests__/NotificationBell.test.tsx",
+    "src/__tests__/ToneSelector.test.tsx",
+    "src/components/common/ToneSelector.tsx",
+    "src/components/modules/ContractUploadPreview.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

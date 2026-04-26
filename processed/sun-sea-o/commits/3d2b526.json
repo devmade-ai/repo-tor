@@ -1,0 +1,41 @@
+{
+  "sha": "3d2b526",
+  "fullSha": "3d2b5266f6888c48371bb8e59786d03c7df4d822",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T16:18:11Z",
+  "commitDate": "2026-04-23T16:18:11Z",
+  "subject": "docs(user-actions): record backend bypass coordination + Vercel env var step",
+  "body": "Backend commit tool-till-tees@5110d86 landed the two-gate sancio bypass\n(call-site opt-in + SANCIO_AUTH_BYPASS env var) with 25 sancio call\nsites opted in, 5 non-sancio call sites left JWT-only, and 8 passing\ntests covering the full matrix.\n\nThe Vercel env var setup is owner-only — Claude can't touch the Vercel\ndashboard. Added a new USER_ACTIONS.md entry at the top covering:\n\n- Why the bypass exists and why the env var is the \"second gate\"\n- Exact Vercel step (project → Settings → Environment Variables,\n  value SANCIO_AUTH_BYPASS=true scoped to all three environments)\n- Verification steps (DevTools network check + scoping validation\n  against a four-ems forms endpoint still returning 401)\n- Removal path for first real release — coordinated both-sides flip\n  (frontend AUTH_BYPASS_ENABLED=false, backend env var removal, and\n  optional follow-up PR to delete the backend bypass code entirely)\n\nAlso cross-referenced the pre-existing \"Re-enable authentication\"\nentry below with the coordinated-flip requirement so whoever picks\nthis up at release time can't miss the both-sides step.\n\nNo code change. Docs only.\n\nTags: docs, auth, coordination, user-actions\nComplexity: 1\nUrgency: 1\nImpact: internal\nRisk: low\nDebt: paid\nEpic: auth-bypass-coordination\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "docs"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "auth-bypass-coordination",
+  "semver": "patch",
+  "scope": "user-actions",
+  "title": "record backend bypass coordination + Vercel env var step",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 1,
+    "additions": 30,
+    "deletions": 2
+  },
+  "files": [
+    "docs/USER_ACTIONS.md"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 1,
+  "impact": "internal"
+}

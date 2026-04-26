@@ -1,0 +1,47 @@
+{
+  "sha": "8a27460",
+  "fullSha": "8a2746013487208d1aaedb8b76b60eb16e44215f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T22:57:08Z",
+  "commitDate": "2026-04-22T22:57:08Z",
+  "subject": "fix(patterns): APP_ICONS naming conformance + SafeStorage reclassification",
+  "body": "Pattern-audit findings applied. Two fixes, one skip.\n\n1. APP_ICONS — renamed icon-1024.png → icon.png to match the pattern\n   spec (glow-props docs/implementations/APP_ICONS.md prescribes the\n   1024-size asset as `icon.png`, not `icon-<size>.png`).\n   - scripts/generate-icons.mjs ICONS list updated.\n   - vite.config.ts ICON_PATHS + manifest maskable icon src updated.\n   - public/icon-1024.png renamed via git mv, then regenerated via\n     `npm run generate-icons` to confirm clean output.\n   - iconCacheBust test unchanged — it asserts manifest icons carry\n     versioned URLs, not specific file names. Still passes at both\n     source-level and dist-level after rebuild.\n\n   Added APP_ICONS section to CLAUDE.md \"Adopted Patterns\" documenting\n   what's generated, what's deliberately NOT generated (adaptive-icon\n   and splash-icon — see below), and the file-location deviation\n   (public/ flat instead of pattern's assets/images/).\n\n   Skipped from pattern's full file list with justification:\n   - adaptive-icon.png (1024): pattern expects a separate SVG with 80%\n     safe-zone padding for Android adaptive foreground. We have one\n     icon-source.svg; using it as purpose:maskable directly is the\n     closest viable conformance without designing a second SVG.\n     Revisit if native-Android builds ship.\n   - splash-icon.png (1024): only consumed by Expo/Metro native builds.\n     sun-sea-o is a Vite PWA — iOS Safari generates splash from\n     apple-touch-icon.png; Android splash comes from manifest\n     theme_color. No consumer, no file.\n\n2. SafeStorage — reclassified in CLAUDE.md \"Adopted Patterns\" as a\n   repo-local utility, not a glow-props pattern. Verified against\n   glow-props/docs/implementations/ — no SAFE_STORAGE.md exists there;\n   the concept appears only as an internal section in THEME_DARK_MODE.\n   Header wording updated to acknowledge the one non-pattern entry so\n   readers don't hunt for a phantom upstream pattern. The utility's\n   code and consumers are unchanged.\n\n3. Z_INDEX_SCALE constants-module extraction — not applied. The\n   pattern doesn't mandate a src/constants/zIndex.ts; it prescribes\n   the scale (which sun-sea-o already follows, values inline at call\n   sites, documented in CLAUDE.md Adopted Patterns). Extracting a\n   constants module would be premature abstraction per the\n   useCallback-omit-default rule's spirit.\n\nTest fix collateral: ContractUploadPreview's rename-button\ngetByRole({name: 'One'}) queries no longer match since the earlier\na11y pass added aria-label=\"Rename section <title>\". Queries updated\nto match by regex (/Rename section \"One\"/) so they stay robust to\nfuture label rephrasing.\n\nVerified: 155/155 tests pass, tsc -b clean, eslint clean, npm run\nbuild clean.\n\nTags: patterns, icons, docs, a11y\nComplexity: 2\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: custom-code-reduction\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "refactor",
+    "naming",
+    "docs"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "custom-code-reduction",
+  "semver": "patch",
+  "scope": "patterns",
+  "title": "APP_ICONS naming conformance + SafeStorage reclassification",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 5,
+    "additions": 46,
+    "deletions": 11
+  },
+  "files": [
+    "CLAUDE.md",
+    "public/icon.png",
+    "scripts/generate-icons.mjs",
+    "src/__tests__/ContractUploadPreview.test.tsx",
+    "vite.config.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

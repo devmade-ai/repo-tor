@@ -1,0 +1,52 @@
+{
+  "sha": "3ca7546",
+  "fullSha": "3ca7546cfe05325e7382864afd2b43c863e55dbb",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-21T21:45:36Z",
+  "commitDate": "2026-04-21T21:45:36Z",
+  "subject": "feat(pwa): content-hash icon URLs to bust browser / CDN / SW / WebAPK caches",
+  "body": "Implements PWA_ICON_CACHE_BUST pattern. Icons referenced by stable\nfilenames survive \"clear site data\" and PWA reinstall because every\ncache layer below the OS keys off URL. Adding `?v=<content-hash>` busts\n4 of 5 cache layers; the 5th (OS icon cache) is surfaced to the user.\n\nvite.config.ts:\n- `iconVersion(relPath)` — sha256-8 of each icon under /public/.\n  Warns (doesn't throw) on missing file so fresh clones can still\n  `vite dev` before running generate-icons.\n- `iconCacheBustHtml()` — Vite plugin rewrites exact-literal `href=\"/…\"`\n  on favicon.ico / favicon.png / apple-touch-icon.png to include the\n  version query. Throws on missing literal so reformatted tags surface\n  at build time instead of silently shipping un-versioned URLs.\n- Wired BEFORE VitePWA() in the plugins array — locks the contract in.\n- Manifest icons pass through `versioned()` so their src carries `?v=…`.\n- workbox: ignoreURLParametersMatching: [/^v$/] so precache lookups\n  still match the versioned URL (without it, offline breaks).\n\nsrc/__tests__/iconCacheBust.test.ts (vitest):\n- Source-level: iconCacheBustHtml wired before VitePWA; workbox has\n  /^v$/; index.html still contains the literal hrefs we match.\n- Dist-level (skipped when dist/ absent): manifest icons all versioned;\n  index.html icon links all versioned, no bare un-versioned leaks;\n  sw.js has cleanupOutdatedCaches() and /^v$/ ignore.\n\ntsconfig.test.json:\n- New config with node types, excluded from tsconfig.app.json so the\n  test file's `node:fs` imports type-check without widening node types\n  across the React app.\n\nInstall modal:\n- Collapsed <details> \"Already installed and the icon looks outdated?\"\n  with platform-tailored reinstall copy (iOS press-and-hold, macOS\n  Dock drag, Android launcher uninstall, desktop fallback). Plain\n  language; names the OS-cache limitation without jargon.\n\nCLAUDE.md:\n- Adds PWA_ICON_CACHE_BUST — implemented entry to Adopted Patterns.\n\nTags: pwa, infrastructure, testing, ux, documentation\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-hardening\nSemver: minor\n\nhttps://claude.ai/code/session_01Qj2ueAEuobTogrBRFwAXvc",
+  "tags": [
+    "feature",
+    "build",
+    "test-unit",
+    "ui"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-hardening",
+  "semver": "minor",
+  "scope": "pwa",
+  "title": "content-hash icon URLs to bust browser / CDN / SW / WebAPK caches",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 622,
+    "deletions": 10
+  },
+  "files": [
+    "CLAUDE.md",
+    "package-lock.json",
+    "package.json",
+    "src/__tests__/iconCacheBust.test.ts",
+    "src/components/common/InstallInstructionsModal.tsx",
+    "tsconfig.app.json",
+    "tsconfig.json",
+    "tsconfig.test.json",
+    "vite.config.ts"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

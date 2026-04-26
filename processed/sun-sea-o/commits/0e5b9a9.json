@@ -1,0 +1,55 @@
+{
+  "sha": "0e5b9a9",
+  "fullSha": "0e5b9a942a6cbb3cd0a96dfc1726d84e79ad4961",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T07:26:46Z",
+  "commitDate": "2026-04-22T07:26:46Z",
+  "subject": "refactor(ui): tier-3 wrap-up — strip overhead useCallback fleet-wide, collapse Loading helper, document ID + memo conventions",
+  "body": "Wrap-up of the earlier custom-code reduction session. Follows a systematic\n`useCallback` audit: the codebase has zero `React.memo` usage, so a\n`useCallback` is only load-bearing when paired with a custom hook whose\nuseEffect deps include it, or with a child component that lists the\nfunction in its own useEffect deps. Everywhere else it's dead weight.\n\n- App.tsx: three near-identical `min-h-* flex items-center justify-center`\n  + spinner blocks collapsed into one local `Loading({ minHeightClass })`\n  helper.\n- ToneSelector lazy-init: `useState(getRecentTones)` →\n  `useState(() => getRecentTones())` so it matches AppLayout's\n  `useState(() => !navigator.onLine)`. Arrow form is the codebase\n  convention now.\n- useCallback dropped where the handler binds to native `<button>` /\n  `<input>` or to a plain-array prop consumer:\n    ContractUploadPreview (8), TemplateSelector (8),\n    ProposeChangeForm.handleToggleTone, AddNoteForm.handleToggleTone,\n    IntentSelector.handleToggle, ModuleSummaryEditor.handleBlur,\n    BurgerMenu.handleItem + handleMenuKeyDown,\n    DebugPill.handleCopy + handleClear,\n    AppLayout.handleCheckForUpdate,\n    AgreementDetailPage.closeModal + handleUploadModules.\n- useCallback kept where a consumer's useEffect deps require identity\n  stability (documented in-file where non-obvious):\n    all src/hooks/* (data-layer pattern),\n    BurgerMenu.close (useEscapeKey's effect deps include onEscape),\n    page-level clearToast in 4 pages (Toast's effect deps include onDone).\n- CLAUDE.md architecture block refreshed: removed stale `generateId`,\n  added HeadingInput, formFieldId, icons.ts, safeStorage, debugLog,\n  theme, statusBadge, app, themes, UI hooks. Reflects the current tree.\n\nVerified: `tsc -b` clean, `npm run lint` clean, `npm test` → 22 passing.\n\nTags: refactor, cleanup, code-quality, react\nComplexity: 3\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: custom-code-reduction\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "refactor",
+    "simplify"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "custom-code-reduction",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "tier-3 wrap-up — strip overhead useCallback fleet-wide, collapse Loading helper, document ID + memo conventions",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 14,
+    "additions": 150,
+    "deletions": 132
+  },
+  "files": [
+    "CLAUDE.md",
+    "docs/SESSION_NOTES.md",
+    "src/App.tsx",
+    "src/components/common/BurgerMenu.tsx",
+    "src/components/common/DebugPill.tsx",
+    "src/components/common/ToneSelector.tsx",
+    "src/components/modules/AddNoteForm.tsx",
+    "src/components/modules/ContractUploadPreview.tsx",
+    "src/components/modules/IntentSelector.tsx",
+    "src/components/modules/ModuleSummaryEditor.tsx",
+    "src/components/modules/ProposeChangeForm.tsx",
+    "src/components/modules/TemplateSelector.tsx",
+    "src/layouts/AppLayout.tsx",
+    "src/pages/AgreementDetailPage.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}

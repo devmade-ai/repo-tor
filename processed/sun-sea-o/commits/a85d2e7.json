@@ -1,0 +1,52 @@
+{
+  "sha": "a85d2e7",
+  "fullSha": "a85d2e7ab4af9efb8261a95f1d426a7606f4764e",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-23T18:57:13Z",
+  "commitDate": "2026-04-23T18:57:13Z",
+  "subject": "ux: apply all 9 audit findings — affordances, lock-state visibility, copy polish",
+  "body": "Applies the ux-trigger findings from this session's frontend sweep. No\nHIGH issues remain; MEDIUM + LOW items landed as copy + small JSX\nadditions. Nothing changes behaviour — only what the user sees, when,\nand why.\n\nHIGH (2)\n- ModuleEditor save button: added `title=\"No unsaved changes\"` so the\n  disabled state explains itself on hover (screen-reader users still\n  rely on the button label — title is supplementary, not primary).\n- ContractUploadPreview Create button: dynamic title covering the two\n  disabled reasons (\"Split oversized sections first...\" vs \"Include at\n  least one section...\"). The post-flex warning text still renders\n  below; this adds the inline explanation next to the button instead\n  of just after it.\n\nMEDIUM (3)\n- ModuleEditorPage: when `isSigned`, render an `alert alert-info`\n  ABOVE the editor explaining that both signatures invalidate on\n  save. ModuleEditor's textarea always renders; without the banner\n  the disabled state was silent.\n- AgreementDetailPage partial-upload toast: extended copy to name\n  the recovery path — \"...failed — use Retry failed in the progress\n  panel\". The retry button was already shown; users just didn't know\n  to look for it.\n- AppLayout \"Check for updates\" aria-label: adds \"— this may take a\n  moment\" during the checking state so screen-reader users get\n  context for the disabled + relabelled button.\n\nLOW (4)\n- HandshakeStatus no-counterparty state: swapped neutral\n  `bg-base-200 border-base-300` styling for `alert alert-info` with\n  a user-plus icon. Matches the other three handshake states (all\n  use semantic alert variants) instead of blending with the page\n  background in dark mode.\n- ReadyToSignToggle: renamed \"Undo ready status\" →\n  \"Clear ready status\". \"Undo\" implies reversing a recent action;\n  this is a state toggle. Title copy updated to match.\n- ProjectDetailPage delete confirm: expanded the message from\n  generic \"all its agreements\" to explicit \"all agreements, modules,\n  notes, and proposals\". Names the full blast radius without\n  promising a recovery window that doesn't exist.\n- SequenceSignOff pending state: expanded the one-line \"approve to\n  complete\" into a sentence naming consequences — PDF locked with\n  verification code, no further reordering/edits/additions without\n  reopening the whole agreement. Users learn what they're about to\n  irreversibly trigger.\n\nTests: 155/155 still passing (none of the touched components have\ntests that lock the specific copy strings affected). tsc -b clean,\neslint clean.\n\nTags: ux, a11y, copy, affordance\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: frontend-audit-sweep\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "bugfix",
+    "ui",
+    "ux",
+    "accessibility"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "frontend-audit-sweep",
+  "semver": "patch",
+  "scope": null,
+  "title": "apply all 9 audit findings — affordances, lock-state visibility, copy polish",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 9,
+    "additions": 40,
+    "deletions": 9
+  },
+  "files": [
+    "src/components/agreements/SequenceSignOff.tsx",
+    "src/components/modules/ContractUploadPreview.tsx",
+    "src/components/modules/ModuleEditor.tsx",
+    "src/components/modules/ReadyToSignToggle.tsx",
+    "src/components/projects/HandshakeStatus.tsx",
+    "src/layouts/AppLayout.tsx",
+    "src/pages/AgreementDetailPage.tsx",
+    "src/pages/ModuleEditorPage.tsx",
+    "src/pages/ProjectDetailPage.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "user-facing"
+}

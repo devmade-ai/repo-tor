@@ -1,0 +1,42 @@
+{
+  "sha": "a6a6164",
+  "fullSha": "a6a61643298b5a10a720d10fc9c5208c4f48df07",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-22T14:54:11Z",
+  "commitDate": "2026-04-22T14:54:11Z",
+  "subject": "fix(template-selector): defensively guard against splitSubSections stale-closure race",
+  "body": "Per pushback: don't track a fixable bug as TODO when I'm in the file.\n\nThe race trigger flagged that handleFileSelect captures splitSubSections\nin its closure across the parseDocument await. In the current UI, the\ntoggle checkbox only renders inside ContractUploadPreview (preview\nstate), so no user-visible path exposes the staleness — the bug is\ntheoretical, not reachable. But the cost of guarding is 4 lines + a\nuseEffect, and if the toggle is ever surfaced in the upload tab itself\n(e.g. a power-user pre-toggle), the call site stays correct without\nhaving to be re-thought.\n\nMechanism: mirror splitSubSections into a ref, sync via useEffect, read\nthe ref's current value after the parseDocument await instead of the\nclosure's captured value.\n\nNo regression test: the race isn't reachable from current UI, so an\nRTL test can't drive it without exposing internals. The mechanism is\nvisible in code review and the in-file comment is honest about its\ndefensive nature.\n\nTODO.md: removed the \"Minor UX race\" item from Contract Upload\nEnhancements — closed by this commit.\n\nTags: defensive, fix, race\nComplexity: 1\nUrgency: 2\nImpact: internal\nRisk: low\nDebt: paid\nEpic: custom-code-reduction\nSemver: patch\n\nhttps://claude.ai/code/session_01DSZvMKdsQcJKo9vhDZzhxo",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "custom-code-reduction",
+  "semver": "patch",
+  "scope": "template-selector",
+  "title": "defensively guard against splitSubSections stale-closure race",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 17,
+    "deletions": 3
+  },
+  "files": [
+    "docs/TODO.md",
+    "src/components/modules/TemplateSelector.tsx"
+  ],
+  "repo_id": "sun-sea-o",
+  "urgency": 2,
+  "impact": "internal"
+}
