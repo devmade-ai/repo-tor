@@ -1,0 +1,43 @@
+{
+  "sha": "413675b",
+  "fullSha": "413675b5c98899ec150baafa0c5b8aa0ab4ca00f",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-06T05:41:14Z",
+  "commitDate": "2026-04-06T05:41:14Z",
+  "subject": "fix(pwa): trigger update check on refresh button press",
+  "body": "The refresh button only refetched chat data without checking for PWA\nupdates. Installed PWA users had no way to manually detect new deploys\nexcept waiting for the hourly automatic check or closing/reopening the\napp. Now the refresh button also calls checkForUpdates() which checks\nboth the service worker and version.json for new versions.\n\nAlso removed the standalone gate from the manual checkForUpdates() call\nsince the render condition (isInstalled && hasUpdate) already prevents\nshowing the update button to non-PWA browser users.\n\nTags: pwa, bugfix, update-detection\nComplexity: 2\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: pwa-updates\nSemver: patch\n\nhttps://claude.ai/code/session_016QQfA8as6sVMbmMa1JLhD2",
+  "tags": [
+    "bugfix"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "pwa-updates",
+  "semver": "patch",
+  "scope": "pwa",
+  "title": "trigger update check on refresh button press",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 3,
+    "additions": 21,
+    "deletions": 13
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "components/DesktopLayout.tsx",
+    "hooks/usePWAUpdate.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

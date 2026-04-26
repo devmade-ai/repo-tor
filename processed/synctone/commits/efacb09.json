@@ -1,0 +1,53 @@
+{
+  "sha": "efacb09",
+  "fullSha": "efacb09da73584121b5e39a0acfd50935d6ab2d4",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T23:59:27Z",
+  "commitDate": "2026-04-04T23:59:27Z",
+  "subject": "fix(ui): color audit — reduce primary overuse, natural overlays, fix text colors",
+  "body": "Redistribute primary color to accent for secondary UI elements, soften\ntone tag and reaction overlays with tinted backgrounds instead of solid\nfills, and fix Save button text contrast in ToneEditModal.\n\n- ALPHA badge, Install/Join buttons, avatar rings, settings toggles → accent\n- Tone tags: solid bg → withAlpha(toneColor, 0.15) + border + colored text\n- Own tone tags: primary tint → neutral baseContent tint\n- ReactionBar: solid bg-primary → withAlpha(primary, 0.15) + border\n- ToneEditModal Save: baseContent → primaryContent (contrast fix)\n- ToneSelector: unreliable hex suffix → withAlpha() utility\n\nTags: ui, color-audit, tones, reactions, accessibility\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: color-system\nSemver: patch\n\nhttps://claude.ai/code/session_01X6wPZewFJCA3cCx4kFNwcu",
+  "tags": [
+    "bugfix",
+    "ui",
+    "accessibility"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "color-system",
+  "semver": "patch",
+  "scope": "ui",
+  "title": "color audit — reduce primary overuse, natural overlays, fix text colors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 108,
+    "deletions": 74
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/home.tsx",
+    "components/BubbleContent.tsx",
+    "components/ChatListItem.tsx",
+    "components/DesktopLayout.tsx",
+    "components/ReactionBar.tsx",
+    "components/SettingsModal.tsx",
+    "components/ToneEditModal.tsx",
+    "components/ToneSelector.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

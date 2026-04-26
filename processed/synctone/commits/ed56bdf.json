@@ -1,0 +1,43 @@
+{
+  "sha": "ed56bdf",
+  "fullSha": "ed56bdf86a38f6cb4aed60e69c5de84f6f505ea3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-05T23:24:15Z",
+  "commitDate": "2026-04-05T23:24:15Z",
+  "subject": "fix(styling): use exact letter-spacing arbitrary values",
+  "body": "Replace tracking-tight/tracking-wider with exact pixel values\nto match original inline letterSpacing properties precisely:\n- tracking-tight → tracking-[-0.5px] (home.tsx SyncTone title)\n- tracking-wider → tracking-[0.5px] (ALPHA badges)\n\ntracking-tight is -0.02em (varies by font size) while the original\nwas a fixed -0.5px. tracking-wider is 0.05em which gives 0.45px\nat 9px font size, not 0.5px. Arbitrary values are pixel-exact.\n\nTags: styling, bugfix\nComplexity: 1\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: neutral\nEpic: theming\nSemver: patch\n\nhttps://claude.ai/code/session_012JvcWBL7DAWLeDbMpXjeg9",
+  "tags": [
+    "bugfix",
+    "ui"
+  ],
+  "complexity": 1,
+  "risk": "low",
+  "debt": "neutral",
+  "epic": "theming",
+  "semver": "patch",
+  "scope": "styling",
+  "title": "use exact letter-spacing arbitrary values",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 2,
+    "additions": 3,
+    "deletions": 3
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "components/DesktopLayout.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}
