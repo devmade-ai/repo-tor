@@ -1,0 +1,58 @@
+{
+  "sha": "579d4ef",
+  "fullSha": "579d4ef98c0e8f527982fdfa461ee28ee76b0702",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T06:51:05Z",
+  "commitDate": "2026-04-04T06:51:05Z",
+  "subject": "fix(theme): strengthen Uniwind migration — cleanup, correctness, docs",
+  "body": "Quality pass over the NativeWind → Uniwind migration:\n\nFixes:\n- useTheme.ts: Fix stale closure in toggleMode via functional setState\n- useTheme.ts: Add error handling on AsyncStorage operations\n- useTheme.ts: Extract applyTheme helper to avoid duplicated Uniwind calls\n- themeColors.ts: withAlpha returns rgba() instead of 8-digit hex for\n  broader React Native style context compatibility\n- global.css: Add backward-compat aliases to named fantasy/luxury variants\n  (not just default light/dark) so old class names work regardless of\n  which theme path Uniwind resolves\n\nCleanup:\n- Remove stale nativewind-env.d.ts and nativewind-end.d.ts type files\n- Update tsconfig.json to reference uniwind-types.d.ts\n- Update hardcoded old theme colors in app/+html.tsx (#0A0A0A → #09090b,\n  #C9A57B → #ffffff, etc.) to match luxury DaisyUI theme\n- Update public/manifest.json theme_color and background_color\n- Fix package.json description (NativeWind → Uniwind)\n\nDocumentation:\n- CLAUDE.md: Rewrite Tech Stack, Theme & Colors, Styling System sections\n  with DaisyUI architecture, Uniwind limitation notes, migration mapping\n- CLAUDE.md: Add useTheme.ts and themeColors.ts to Project Structure\n- SESSION_NOTES.md: Full session summary with decisions and next steps\n- HISTORY.md: Add migration entry\n- TODO.md: Add Phase 3 migration tasks and theme toggle\n\nTags: theme, daisyui, uniwind, cleanup, docs, code-quality\nComplexity: 3\nUrgency: 2\nImpact: infrastructure\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: patch\n\nhttps://claude.ai/code/session_01B19ShhBXLzVzbptkz9Tuew",
+  "tags": [
+    "bugfix",
+    "refactor",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "strengthen Uniwind migration — cleanup, correctness, docs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#0",
+    "#09090"
+  ],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 199,
+    "deletions": 115
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/+html.tsx",
+    "docs/HISTORY.md",
+    "docs/SESSION_NOTES.md",
+    "docs/TODO.md",
+    "global.css",
+    "hooks/useTheme.ts",
+    "lib/themeColors.ts",
+    "nativewind-end.d.ts",
+    "nativewind-env.d.ts",
+    "package.json",
+    "public/manifest.json",
+    "tsconfig.json"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,54 @@
+{
+  "sha": "8cc7ab0",
+  "fullSha": "8cc7ab0f9a1bae56874f24f79964eb0556120687",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T06:34:20Z",
+  "commitDate": "2026-04-04T06:34:20Z",
+  "subject": "feat(theme): migrate from NativeWind to Uniwind + DaisyUI v5",
+  "body": "Replace NativeWind v4 with Uniwind for Tailwind-in-React-Native, enabling\nDaisyUI v5 theme support with light/dark mode. Uses the Luxe combo pattern\n(fantasy light + luxury dark) matching canva-grid's implementation.\n\nInfrastructure changes:\n- metro.config.js: withNativeWind → withUniwindConfig\n- global.css: DaisyUI oklch @variant theme blocks replace custom HSL vars\n- babel.config.js: Remove nativewind presets\n- Remove tailwind.config.js (Tailwind v4 is config-free)\n- styles/theme.js: Bridge file re-exporting DaisyUI luxury hex values\n\nNew files:\n- hooks/useTheme.ts: Dark/light toggle with persistence + cross-tab sync\n- lib/themeColors.ts: Auto-generated hex lookup for inline styles\n- scripts/generate-theme-colors.mjs: oklch → hex generation via culori\n- Backward-compat CSS aliases for old class names (bg-background, text-text, etc.)\n\nTags: theme, daisyui, uniwind, migration, infrastructure\nComplexity: 4\nUrgency: 2\nImpact: infrastructure\nRisk: medium\nDebt: paid\nEpic: theme-system\nSemver: major\n\nhttps://claude.ai/code/session_01B19ShhBXLzVzbptkz9Tuew",
+  "tags": [
+    "feature",
+    "migration",
+    "build",
+    "dependency-update"
+  ],
+  "complexity": 4,
+  "risk": "medium",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "major",
+  "scope": "theme",
+  "title": "migrate from NativeWind to Uniwind + DaisyUI v5",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 11,
+    "additions": 1167,
+    "deletions": 1219
+  },
+  "files": [
+    "babel.config.js",
+    "global.css",
+    "hooks/useTheme.ts",
+    "lib/themeColors.ts",
+    "metro.config.js",
+    "package-lock.json",
+    "package.json",
+    "scripts/generate-theme-colors.mjs",
+    "styles/theme.js",
+    "tailwind.config.js",
+    "uniwind-types.d.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "infrastructure"
+}

@@ -1,0 +1,58 @@
+{
+  "sha": "411e40d",
+  "fullSha": "411e40da00baca18e35e7f83b0d57f42de1ea68a",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T11:09:24Z",
+  "commitDate": "2026-04-04T11:09:24Z",
+  "subject": "fix(theme): deep audit fixes — light mode, purity, validation, docs",
+  "body": "Comprehensive quality pass from full code audit per CLAUDE.md standards.\n\nCritical fix:\n- useTheme.ts: Remove side effects from setState updater in toggleMode.\n  Use ref to track isDark, call applyTheme/persistTheme outside updater.\n  Prevents double-execution in React Strict Mode.\n\nLight mode fixes (5 files):\n- home.tsx, DesktopLayout.tsx, InstallInstructionsModal.tsx: Replace\n  hardcoded #0A0A0A with colors.primaryContent on primary buttons\n- ChatBackground.tsx: Use theme-aware gradient colors (withAlpha on\n  primary/accent/neutralContent) instead of hardcoded rose gold rgba.\n  Native bg now uses colors.base100 inline instead of THEME_HEX.luxury.\n- bubbleStyles.ts: Convert from module-level StyleSheet to\n  createBubbleStyles(colors) function for theme awareness\n- BubbleContent.tsx: getStatusColor now accepts colors param, returns\n  colors.primaryContent instead of hardcoded #FFFFFF\n\nValidation & error handling:\n- themeColors.ts: withAlpha validates hex format and clamps opacity 0-1\n- generate-theme-colors.mjs: try/catch on daisyui import with readable\n  error, warn on unparseable oklch colors with context\n\nDocumentation & compliance:\n- tutorial.ts: Add \"Dark & light theme in Settings\" to What's Different\n  step (CLAUDE.md CRITICAL requirement)\n- global.css: Clarify why light/dark variants duplicate fantasy/luxury\n- PWADebugBanner.tsx: Add TODO comment for hardcoded hex migration\n- TODO.md: Track PWADebugBanner migration and status color verification\n- useTheme.ts: Document AsyncStorage key format assumption for cross-tab\n\nTags: theme, bugfix, light-mode, code-quality, validation, tutorial\nComplexity: 3\nUrgency: 3\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: patch\n\nhttps://claude.ai/code/session_01B19ShhBXLzVzbptkz9Tuew",
+  "tags": [
+    "bugfix",
+    "ui",
+    "validation",
+    "docs"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "deep audit fixes — light mode, purity, validation, docs",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#0"
+  ],
+  "stats": {
+    "filesChanged": 13,
+    "additions": 104,
+    "deletions": 71
+  },
+  "files": [
+    "app/(app)/home.tsx",
+    "components/BubbleContent.tsx",
+    "components/ChatBackground.tsx",
+    "components/DesktopLayout.tsx",
+    "components/InstallInstructionsModal.tsx",
+    "components/PWADebugBanner.tsx",
+    "components/bubbleStyles.ts",
+    "constants/tutorial.ts",
+    "docs/TODO.md",
+    "global.css",
+    "hooks/useTheme.ts",
+    "lib/themeColors.ts",
+    "scripts/generate-theme-colors.mjs"
+  ],
+  "repo_id": "synctone",
+  "urgency": 3,
+  "impact": "user-facing"
+}

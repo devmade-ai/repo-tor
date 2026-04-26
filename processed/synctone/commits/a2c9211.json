@@ -1,0 +1,52 @@
+{
+  "sha": "a2c9211",
+  "fullSha": "a2c921155824ba92d063792f0ea53050085d50ca",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T16:28:38Z",
+  "commitDate": "2026-04-04T16:28:38Z",
+  "subject": "feat(theme): add DaisyUI design tokens (radius, border) and replace hardcoded values",
+  "body": "Add non-color DaisyUI design tokens that vary per theme (cupcake has\npill-shaped inputs with 2rem radius + 2px borders, others use 0.5rem\nradius + 1px borders).\n\nInfrastructure:\n- global.css: Add --radius-selector, --radius-field, --radius-box,\n  --border to all 6 @variant blocks\n- lib/themeColors.ts: Add ThemeTokens interface and THEME_TOKENS lookup\n  with px values for RN inline styles\n- hooks/useTheme.ts: Expose tokens in hook return value\n\nComponent updates (hardcoded → token):\n- BubbleContent.tsx: borderRadius: 20 → tokens.radiusBox + 4\n- ComposeBar.tsx: borderRadius: 24 → tokens.radiusField\n- ToneSelector.tsx: borderRadius: 12 → tokens.radiusField (2 places)\n- ChatListItem.tsx: borderRadius: 16 → tokens.radiusBox (via createCardStyles)\n- home.tsx: borderRadius: 12/16 → tokens.radiusField/tokens.radiusBox\n- DesktopLayout.tsx: borderRadius values → tokens\n- app/(app)/_layout.tsx: borderRadius: 16 → tokens.radiusBox\n\nTags: theme, design-tokens, daisyui, cleanup\nComplexity: 3\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: minor\n\nhttps://claude.ai/code/session_01B19ShhBXLzVzbptkz9Tuew",
+  "tags": [
+    "feature",
+    "ui",
+    "refactor"
+  ],
+  "complexity": 3,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "minor",
+  "scope": "theme",
+  "title": "add DaisyUI design tokens (radius, border) and replace hardcoded values",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [],
+  "stats": {
+    "filesChanged": 10,
+    "additions": 82,
+    "deletions": 28
+  },
+  "files": [
+    "app/(app)/_layout.tsx",
+    "app/(app)/home.tsx",
+    "components/BubbleContent.tsx",
+    "components/ChatListItem.tsx",
+    "components/ComposeBar.tsx",
+    "components/DesktopLayout.tsx",
+    "components/ToneSelector.tsx",
+    "global.css",
+    "hooks/useTheme.ts",
+    "lib/themeColors.ts"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}

@@ -1,0 +1,50 @@
+{
+  "sha": "8783300",
+  "fullSha": "8783300dc2da5adcc75b9549ce4aed52eeeadcc3",
+  "author_id": "devmade.ai@gmail.com",
+  "author": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "committer": {
+    "name": "devmade-ai",
+    "email": "devmade.ai@gmail.com"
+  },
+  "timestamp": "2026-04-04T14:03:30Z",
+  "commitDate": "2026-04-04T14:03:30Z",
+  "subject": "fix(theme): eliminate all hardcoded text-white, rgba overlays, and debug colors",
+  "body": "Replace every remaining hardcoded color with theme-aware equivalents.\n\nBubbleContent.tsx (own message bubble):\n- text-white → colors.neutralContent (adapts to all theme combos)\n- text-white/70, text-white/60 → withAlpha(colors.neutralContent, 0.7/0.6)\n- rgba(0, 0, 0, 0.3) tone tag bg → withAlpha(colors.neutral, 0.4)\n- text-white on received tone labels → colors.neutralContent\n\nComposeBar.tsx:\n- text-white on send button → colors.neutralContent\n\nChatPanel.tsx, chat/[id].tsx:\n- text-white on avatar initials → text-neutral-content\n\nPWADebugBanner.tsx:\n- Hardcoded #ff6b6b/#ffd93d/#51cf66 → colors.error/warning/success\n- Hardcoded source colors → colors.info/secondary/warning/success/accent\n- Action button colors (Re-run/Clear/Copy/Close) → theme tokens\n\nCLAUDE.md:\n- Updated tone tag styling docs to reflect neutralContent + withAlpha(neutral)\n\nTags: theme, cleanup, code-quality, consistency\nComplexity: 2\nUrgency: 2\nImpact: user-facing\nRisk: low\nDebt: paid\nEpic: theme-system\nSemver: patch\n\nhttps://claude.ai/code/session_01B19ShhBXLzVzbptkz9Tuew",
+  "tags": [
+    "bugfix",
+    "ui",
+    "refactor"
+  ],
+  "complexity": 2,
+  "risk": "low",
+  "debt": "paid",
+  "epic": "theme-system",
+  "semver": "patch",
+  "scope": "theme",
+  "title": "eliminate all hardcoded text-white, rgba overlays, and debug colors",
+  "is_conventional": true,
+  "has_breaking_change": false,
+  "references": [
+    "#51"
+  ],
+  "stats": {
+    "filesChanged": 6,
+    "additions": 23,
+    "deletions": 24
+  },
+  "files": [
+    "CLAUDE.md",
+    "app/(app)/chat/[id].tsx",
+    "components/BubbleContent.tsx",
+    "components/ChatPanel.tsx",
+    "components/ComposeBar.tsx",
+    "components/PWADebugBanner.tsx"
+  ],
+  "repo_id": "synctone",
+  "urgency": 2,
+  "impact": "user-facing"
+}
